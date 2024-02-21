@@ -35,12 +35,20 @@ export const useMultiBodiedExtensionActions = ({
           sendMBEAnalyticsEvent(ACTION.CHANGE_ACTIVE, node, eventDispatcher);
         }
         // On selection of a childFrame, we need to change the focus/selection to the end of the target child Frame
-        const mbeNode = state.doc.nodeAt(state.tr.selection.from);
+        const possiblyMbeNode = state.doc.nodeAt(state.tr.selection.from);
         let desiredPos = state.tr.selection.from || 0;
 
-        if (mbeNode && mbeNode?.content) {
-          for (let i = 0; i <= index && i < mbeNode?.content?.childCount; i++) {
-            desiredPos += mbeNode?.content?.child(i)?.nodeSize || 0;
+        if (
+          possiblyMbeNode &&
+          possiblyMbeNode?.type?.name === 'multiBodiedExtension' &&
+          possiblyMbeNode?.content
+        ) {
+          for (
+            let i = 0;
+            i <= index && i < possiblyMbeNode?.content?.childCount;
+            i++
+          ) {
+            desiredPos += possiblyMbeNode?.content?.child(i)?.nodeSize || 0;
           }
           /* desiredPos gives the cursor at the end of last child of the current frame, in case of paragraph nodes, this will be the end of the paragraph
            * Performing -1 brings the cursor inside the paragraph, similar to a user click, so any pasted text will be inside the last paragraph rather than a new line

@@ -1,5 +1,11 @@
 # @atlaskit/media-file-preview
 
+## 0.5.0
+
+### Minor Changes
+
+- [#73279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73279) [`cdad00f21119`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdad00f21119) - Create useMediaImage hook
+
 ## 0.4.2
 
 ### Patch Changes

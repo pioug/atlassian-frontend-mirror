@@ -720,6 +720,7 @@ export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
         height: 4px;
         width: 4px;
         border-radius: 50%;
+        pointer-events: none;
       }
     }
 

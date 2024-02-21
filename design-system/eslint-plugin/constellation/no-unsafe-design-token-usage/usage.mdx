@@ -1,0 +1,49 @@
+# no-unsafe-design-token-usage
+
+Using design tokens in an unsafe way risks the health of the system and will effect how fast your codebase can migrate between versions.
+
+## Examples
+
+This rule will mark design token usage that is not statically and locally analyzable,
+as well as design tokens that are considered deleted.
+
+## Incorrect
+
+```js
+const textColor = 'red';
+
+css({ color: textColor });
+             ^^^^^^^^^ must be a string literal
+```
+
+```js
+css({ boxShadow: '0px 1px 1px var(--ds-accent-subtleBlue)' });
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^ must use the token() function
+```
+
+## Correct
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ boxShadow: token('elevation.shadow.card') });
+
+css`
+  color: ${(token('color.text.highemphasis'), N20)};
+`;
+```
+
+## Options
+
+This rule comes with options to aid in migrating to design tokens.
+
+### fallbackUsage
+
+- `forced`: Fallback values must always be provided
+- `none`: Fallback values must never be provided. (Fixer will remove is provided)
+- `optional`: Fallbacks are optional
+
+### shouldEnforceFallbacks (deprecated)
+
+When `true` the rule will mark token function usage as violations when fallbacks aren't defined.
+When `false` the rule will mark token function usage as violations when fallbacks are defined.

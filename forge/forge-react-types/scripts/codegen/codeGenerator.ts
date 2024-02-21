@@ -125,23 +125,36 @@ class ImportDeclarationProxy {
   }
 
   public getText() {
+    const code = this.base.getText();
+    const match = code.match(
+      /^(import |import type ){(.+)} from ['"](.+)['"];$/,
+    );
+    if (!match) {
+      return this.base.getText();
+    }
+    let [_, importStatement, importedNames, packageName] = match;
+    importedNames = importedNames.trim();
+
+    if (isSharedUIKit2TypesImport(this.base)) {
+      packageName = './types.codegen';
+    }
     if (this.removedNamedImports.size > 0) {
-      const code = this.base.getText();
-      const matches = code.match(
-        /^(import |import type ){(.+)} from \'(.+)\';$/,
-      )!;
-      const importedNames = matches[2]!
+      importedNames = importedNames!
         .split(',')
         .map((text) => text.trim())
-        .filter((text) => !this.removedNamedImports.has(text));
-
-      return `${matches[1]}{ ${importedNames.join(', ')} } from '${
-        matches[3]
-      }';`;
+        .filter((text) => !this.removedNamedImports.has(text))
+        .join(', ');
     }
-    return this.base.getText();
+    return `${importStatement}{ ${importedNames} } from '${packageName}';`;
   }
 }
+
+const isSharedUIKit2TypesImport = (importDeclaration: ImportDeclaration) => {
+  return (
+    importDeclaration.isTypeOnly() &&
+    importDeclaration.getModuleSpecifierValue() === '../../types'
+  );
+};
 
 const extractImportDeclarations = (
   sourceFile: SourceFile,
@@ -161,9 +174,14 @@ const extractImportDeclarations = (
     .getImportDeclarations()
     .filter((declaration) => {
       const moduleSpecifier = declaration.getModuleSpecifierValue();
-      // only keep dependencies from @atlaskit and react
+      // only keep dependencies from
+      // - @atlaskit
+      // - react
+      // - or '../../types'
       return (
-        moduleSpecifier.startsWith('@atlaskit/') || moduleSpecifier === 'react'
+        moduleSpecifier.startsWith('@atlaskit/') ||
+        moduleSpecifier === 'react' ||
+        isSharedUIKit2TypesImport(declaration)
       );
     })
     .reduce<ImportDeclarationProxy[]>((declarations, declaration) => {

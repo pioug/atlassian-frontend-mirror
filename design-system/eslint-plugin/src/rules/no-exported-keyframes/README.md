@@ -28,7 +28,7 @@ const animation = keyframes({});
 
 By default, this rule will check `keyframes` usages from `@compiled/react`. To check `keyframes` usages from other CSS-in-JS libraries, you can add the library's package name to `importSources`.
 
-`importSources` accepts an array of package names (strings). `keyframes` usages from `@compiled/react` will always be checked, regardless of the value of `importSources`.
+`importSources` accepts an array of package names as strings. Note that `keyframes` usages from `@compiled/react` will always be checked, regardless of the value of `importSources`.
 
 ```tsx
 // [{ importSources: ['@emotion/css'] }]

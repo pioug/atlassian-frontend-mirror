@@ -4,13 +4,15 @@ import { jsx } from '@emotion/react';
 import { CardActionButtonOwnProps, cardActionButtonStyles } from './styles';
 
 export const CardActionButton = forwardRef<
-  HTMLDivElement,
+  HTMLButtonElement,
   CardActionButtonOwnProps
 >((props, ref) => {
   return (
-    <div
+    <button
+      {...props}
       id="cardActionButton"
       data-testid="media-card-primary-action"
+      aria-label={props.label}
       css={cardActionButtonStyles(props)}
       style={props.style}
       onClick={props.onClick}
@@ -18,6 +20,6 @@ export const CardActionButton = forwardRef<
       ref={ref}
     >
       {props.children}
-    </div>
+    </button>
   );
 });

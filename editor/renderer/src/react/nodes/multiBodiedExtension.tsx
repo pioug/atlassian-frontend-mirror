@@ -5,9 +5,8 @@
 import { jsx } from '@emotion/react';
 // eslint-disable-next-line @typescript-eslint/no-duplicate-imports
 import { css } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
-import { N30, N40 } from '@atlaskit/theme/colors';
 
+import { N40 } from '@atlaskit/theme/colors';
 import React, { useState } from 'react';
 import { renderExtension } from './extension';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
@@ -23,9 +22,13 @@ import type {
   MultiBodiedExtensionActions,
 } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
+import {
+  WidthConsumer,
+  sharedMultiBodiedExtensionStyles,
+} from '@atlaskit/editor-common/ui';
 import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import { token } from '@atlaskit/tokens';
 
 export interface Props {
   serializer: Serializer<any>;
@@ -77,13 +80,10 @@ const useMultiBodiedExtensionActions = ({
   return actions;
 };
 
-const navigationCSS = css`
-  // make sure the user can't see a range selection inside the navigation
-  // This is really important to keep the navigation working properly
-  user-select: none;
-  -webkit-user-modify: read-only;
-  border: 1px solid ${token('color.border', N40)};
-  border-bottom: none;
+const navigationCssExtended = css`
+  ${sharedMultiBodiedExtensionStyles.mbeNavigation};
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   .mbe-add-tab-button,
   .mbe-remove-tab {
     display: none;
@@ -94,6 +94,16 @@ const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
   const { children, layout = 'default', path = [] } = props;
   const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 
+  const removeOverflow = React.Children.toArray(children)
+    .map((child) =>
+      React.isValidElement<any>(child)
+        ? child.props.nodeType === 'table'
+        : false,
+    )
+    .every(Boolean);
+  const overflowContainerClass = !removeOverflow
+    ? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
+    : '';
   const updateActiveChild = React.useCallback(
     (index: number) => {
       if (typeof index !== 'number') {
@@ -112,36 +122,24 @@ const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
     updateActiveChild,
     children,
   });
-  const containerCSS = css`
-    padding: 0;
-    border-radius: ${token('border.radius', '3px')};
-    position: relative;
-    vertical-align: middle;
-    min-height: 100px;
+  const containerCssExtended = css`
+    ${sharedMultiBodiedExtensionStyles.mbeExtensionContainer};
     .ak-renderer-extension {
       margin-top: 0 !important;
     }
 
-    .multiBodiedExtension--frames > [data-extension-frame='true'] {
-      display: none;
+    [data-layout='full-width'],
+    [data-layout='wide'] {
+      .multiBodiedExtension-navigation {
+        border-right: 3px solid ${token('color.border', N40)} !important;
+      }
     }
 
     .multiBodiedExtension--frames
       > [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
-      padding: ${token('space.100', '8px')} !important;
-      border: 1px solid ${token('color.border', N30)};
-      display: block;
-      min-height: 100px;
-      background: ${token('elevation.surface', 'white')};
-      padding-left: ${token('space.100', '8px')};
-      padding-right: ${token('space.100', '8px')};
-
-      .bodiedExtensionView-content-wrap {
-        margin-top: ${token('space.150', '12px')} !important;
-      }
-      .extensionView-content-wrap {
-        margin-top: ${token('space.150', '12px')} !important;
-      }
+      ${sharedMultiBodiedExtensionStyles.extensionFrameContent}
+      margin-left: 0;
+      margin-right: 0;
     }
   `;
   const isTopLevel = path.length < 1;
@@ -153,7 +151,7 @@ const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
   function renderMbeContent(width: number): React.ReactNode {
     return (
       <div
-        className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
+        className={`${RendererCssClassName.EXTENSION} ${centerAlignClass} ${overflowContainerClass}`}
         style={{
           width: isTopLevel ? calcBreakoutWidth(layout, width) : '100%',
         }}
@@ -161,7 +159,7 @@ const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
       >
         <nav
           className="multiBodiedExtension-navigation"
-          css={navigationCSS}
+          css={navigationCssExtended}
           data-testid="multiBodiedExtension-navigation"
         >
           <ExtensionRenderer
@@ -189,22 +187,23 @@ const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
             }}
           </ExtensionRenderer>
         </nav>
-
         <article
-          className="multiBodiedExtension--frames"
           data-testid="multiBodiedExtension--frames"
+          className={`multiBodiedExtension--frames`}
         >
           {children}
         </article>
       </div>
     );
   }
+
   return (
     <section
       className="multiBodiedExtension--container"
-      css={containerCSS}
+      css={containerCssExtended}
       data-testid="multiBodiedExtension--container"
       data-active-child-index={activeChildIndex}
+      data-layout={layout}
     >
       <WidthConsumer>{({ width }) => renderMbeContent(width)}</WidthConsumer>
     </section>

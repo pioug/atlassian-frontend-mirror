@@ -8,6 +8,11 @@ import type {
   Selection,
 } from '@atlaskit/editor-prosemirror/state';
 import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  findParentNode,
   findParentNodeOfType,
   findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
@@ -74,4 +79,57 @@ export const panelAttrsToDom = (
   } else {
     return ['div', panelAttrs, contentDiv];
   }
+};
+
+export const handleCut = (newState: EditorState, oldState: EditorState) => {
+  const newTr = newState.tr;
+  const { schema } = newState.doc.type;
+  if (panelContentCheck(newState, oldState)) {
+    // Create a panel using oldState with an empty paragraph node
+    // and insert it in the same location when panel previously existed
+    const emptyParagraph = schema.nodes.paragraph.create();
+    const oldPanelNode = findParentNode(node => node.type.name === 'panel')(
+      oldState.tr.selection,
+    );
+    const clonedPanelNode = oldPanelNode?.node.copy();
+    const newPanelNode = schema.nodes.panel.create(
+      { ...clonedPanelNode?.attrs },
+      emptyParagraph,
+    );
+    const endPos = oldState.tr.selection.$from.pos;
+
+    if (oldPanelNode) {
+      newTr
+        .insert(oldPanelNode.pos, newPanelNode)
+        .setSelection(new TextSelection(newTr.doc.resolve(endPos)));
+      return newTr;
+    }
+  }
+};
+
+export const panelContentCheck = (
+  newState: EditorState,
+  oldState: EditorState,
+) => {
+  // The following fuctions checks if *
+  //  a. old selection is a NodeSelection.
+  //  b. parent element a panel and does it have only one child
+  //  c. parent node has a decision list and that decision list only has one decision item
+  //     OR old selection is a codeblock OR old selection is a rule
+  const isNodeSelection = oldState.tr.selection instanceof NodeSelection;
+  const isNodeTypeRuleOrCodeBlock =
+    isNodeSelection &&
+    ['codeBlock', 'rule'].includes(oldState.tr.selection.node.type.name);
+  const isParentTypePanel = findParentNodeOfType(newState.schema.nodes.panel)(
+    oldState.tr.selection,
+  );
+  const isparentTypeDecision = findParentNodeOfType(
+    newState.schema.nodes.decisionList,
+  )(oldState.tr.selection);
+  return Boolean(
+    isNodeSelection &&
+      isParentTypePanel?.node.childCount === 1 &&
+      (isparentTypeDecision?.node.childCount === 1 ||
+        isNodeTypeRuleOrCodeBlock),
+  );
 };

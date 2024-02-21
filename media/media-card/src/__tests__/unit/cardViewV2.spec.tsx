@@ -30,6 +30,7 @@ import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
 
 const cardPreview = {
   dataURI: 'some-data',
@@ -694,5 +695,31 @@ describe('CardView', () => {
         expect(screen.queryByRole('presentation')).not.toBeInTheDocument();
       });
     });
+  });
+
+  it('should render actions with accessible labels', async () => {
+    const user = userEvent.setup();
+    const downloadAction = {
+      label: 'Download',
+      handler: jest.fn(),
+      icon: <DownloadIcon size="small" label="annotate" />,
+    };
+
+    const screen = render(
+      <CardViewV2
+        status="complete"
+        mediaItemType="file"
+        cardPreview={cardPreview}
+        metadata={file}
+        resizeMode="stretchy-fit"
+        dimensions={{ width: 100, height: 100 }}
+        actions={[downloadAction]}
+      />,
+    );
+
+    const downloadButton = await screen.findByLabelText('my-file — Download');
+    await user.click(downloadButton);
+
+    expect(downloadAction.handler).toHaveBeenCalledTimes(1);
   });
 });

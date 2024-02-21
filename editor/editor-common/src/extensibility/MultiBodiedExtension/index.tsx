@@ -19,17 +19,13 @@ import type { MultiBodiedExtensionActions } from '../../extensions';
 import { useSharedPluginState } from '../../hooks';
 import type { EditorAppearance, EditorContainerWidth } from '../../types';
 import type { OverflowShadowProps } from '../../ui';
+import { sharedMultiBodiedExtensionStyles } from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import { WithPluginState } from '../../with-plugin-state';
 import type { ExtensionsPluginInjectionAPI } from '../types';
 
 import { useMultiBodiedExtensionActions } from './action-api';
-import {
-  extensionFrameContentCSS,
-  mbeExtensionContainerCSS,
-  mbeExtensionWrapperCSS,
-  mbeNavigationCSS,
-} from './styles';
+import { mbeExtensionWrapperCSS } from './styles';
 
 export type TryExtensionHandlerType = (
   actions: MultiBodiedExtensionActions | undefined,
@@ -139,10 +135,10 @@ const MultiBodiedExtensionWithWidth = ({
   );
 
   const containerCssExtended = css`
-    ${mbeExtensionContainerCSS};
+    ${sharedMultiBodiedExtensionStyles.mbeExtensionContainer};
     .multiBodiedExtension-content-dom-wrapper
       > [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
-      ${extensionFrameContentCSS}
+      ${sharedMultiBodiedExtensionStyles.extensionFrameContent}
     }
   `;
 
@@ -184,7 +180,7 @@ const MultiBodiedExtensionWithWidth = ({
       >
         <nav
           className="multiBodiedExtension-navigation"
-          css={mbeNavigationCSS}
+          css={sharedMultiBodiedExtensionStyles.mbeNavigation}
           data-testid="multiBodiedExtension-navigation"
         >
           {extensionHandlerResult}

@@ -32,16 +32,17 @@ export enum CardActionIconButtonVariant {
 
 export type CardActionButtonOwnProps = {
   variant?: CardActionIconButtonVariant;
+  label?: string;
   style?: { color: string | undefined };
   onClick?: (
-    event: React.MouseEvent<HTMLDivElement>,
+    event: React.MouseEvent<HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
-  onMouseDown?: (event: MouseEvent<HTMLDivElement>) => void;
+  onMouseDown?: (event: MouseEvent<HTMLButtonElement>) => void;
   children?: React.ReactNode;
 };
 export type CardActionButtonProps = CardActionButtonOwnProps &
-  HTMLAttributes<HTMLDivElement>;
+  HTMLAttributes<HTMLButtonElement>;
 
 const getVariantStyles = (variant?: 'default' | 'filled'): string => {
   return variant === 'filled'
@@ -73,6 +74,8 @@ const getVariantStyles = (variant?: 'default' | 'filled'): string => {
 export const cardActionButtonStyles = ({
   variant,
 }: CardActionButtonProps) => css`
+  appearance: none;
+  border: none;
   ${center}
   ${borderRadius}
     ${size(26)}

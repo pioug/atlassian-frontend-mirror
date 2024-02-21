@@ -193,11 +193,14 @@ export const resizerStyles = css`
   }
 
   .${resizerHoverZoneClassName} {
-    padding: 0 ${token('space.150', '12px')};
     position: relative;
     display: inline-block;
     width: 100%;
-    left: ${token('space.negative.150', '-12px')};
+
+    &.is-extended {
+      padding: 0 ${token('space.150', '12px')};
+      left: ${token('space.negative.150', '-12px')};
+    }
   }
 
   // This below style is here to make sure the image width is correct when nested in a table

@@ -3,6 +3,7 @@ import { CardAction } from '../../actions';
 
 export interface ActionsBarProps {
   actions: Array<CardAction>;
+  filename?: string;
   isFixed?: boolean;
 }
 

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 1.1.0
+
+### Minor Changes
+
+- [#73123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73123) [`9fd7b5a5e323`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fd7b5a5e323) - ECA11Y-206: added role group and aria labels
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

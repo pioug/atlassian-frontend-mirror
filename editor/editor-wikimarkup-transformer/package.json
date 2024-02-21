@@ -42,7 +42,7 @@
     "@atlaskit/activity": "^1.0.1",
     "@atlaskit/editor-core": "^192.2.0",
     "@atlaskit/editor-test-helpers": "^18.18.0",
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",

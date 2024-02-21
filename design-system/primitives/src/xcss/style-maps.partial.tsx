@@ -1121,7 +1121,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::648d0ff5e17d3a6a835c1119d0d5dc99>>
+ * @codegen <<SignedSource::aa70005b608c537f3d255a4a7f631198>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1155,7 +1155,14 @@ export const fontFamilyMap = {
     'font.family.body',
     'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
-  'font.family.brand': token('font.family.brand', 'Charlie Sans'),
+  'font.family.brand.body': token(
+    'font.family.brand.body',
+    '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  'font.family.brand.heading': token(
+    'font.family.brand.heading',
+    '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   'font.family.code': token(
     'font.family.code',
     'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',

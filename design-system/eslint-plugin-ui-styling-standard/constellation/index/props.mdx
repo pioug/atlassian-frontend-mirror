@@ -1,0 +1,33 @@
+You must use the recommended config to follow the styling standards at Atlassian,
+which will ensure compatability and performance with the design system.
+
+```diff
+module.exports = {
+  extends: [
++    'plugin:@atlaskit/ui-styling-standard/recommended',
+  ],
+};
+```
+
+We don't recommended maintaining your own configuration.
+If you do not use our config you will need to specify individual rules and configuration.
+Add the plugin to your `.eslintrc.js` file.
+
+```diff
+module.exports = {
+  plugins: [
++    '@atlaskit/ui-styling-standard',
+  ],
+};
+```
+
+Enable individual rules as that you're ready to adopt.
+
+```diff
+module.exports = {
+  rules: [
++    '@atlaskit/design-system/consistent-css-prop-usage': 'error',
++    '@atlaskit/design-system/local-cx-xcss': 'error',
+  ],
+};
+```

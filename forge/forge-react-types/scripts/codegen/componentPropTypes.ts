@@ -228,6 +228,32 @@ const updatePackageJsonWithADSComponentDependencies = (
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 };
 
+/**
+ * This copies types file from the types file in UIKit2-codegen
+ * to __generated__ folder.
+ */
+const generateSharedTypesFile = (componentOutputDir: string) => {
+  // eslint-disable-next-line no-console
+  console.log('Generating shared types file');
+
+  const uiKit2TypesFile = require.resolve(
+    '@atlassian/forge-ui/src/components/UIKit2-codegen/types',
+  );
+
+  const signedSourceCode = createSignedArtifact(
+    fs.readFileSync(uiKit2TypesFile, 'utf8'),
+    'yarn workspace @atlaskit/forge-react-types codegen',
+    {
+      description: 'Shared types file from UIKit 2',
+      dependencies: [uiKit2TypesFile],
+      outputFolder: componentOutputDir,
+    },
+  );
+
+  const typesFilePath = resolve(componentOutputDir, 'types.codegen.ts');
+  fs.writeFileSync(typesFilePath, signedSourceCode);
+};
+
 const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
   const componentOutputDir = resolve(
     __dirname,
@@ -247,6 +273,9 @@ const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
         symbol.getName().endsWith(componentPropTypeFilter ?? 'Props'),
       )
       .sort((a, b) => a.getName().localeCompare(b.getName()));
+
+    // generate share types file first
+    generateSharedTypesFile(componentOutputDir);
 
     generateComponentPropTypeSourceFiles(
       componentOutputDir,

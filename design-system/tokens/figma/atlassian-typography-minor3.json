@@ -1,6 +1,24 @@
 {
   "name": "Typography minor3",
   "tokens": {
+    "Typography minor3/font.family.brand.body": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "Use for branded body text."
+      },
+      "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    },
+    "Typography minor3/font.family.brand.heading": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "Use for branded headings."
+      },
+      "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif"
+    },
     "Typography minor3/font.weight.bold": {
       "attributes": {
         "group": "fontWeight",

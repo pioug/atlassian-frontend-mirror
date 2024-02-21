@@ -101,6 +101,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   defaultValue?: DefaultValue;
   /** Placeholder text to be shown when there is no value in the field. */
   placeholder?: React.ReactNode;
+  /** Placeholder avatar style - defaults to person */
+  placeholderAvatar?: 'person' | 'team';
   /** Message to encourage the user to add more items to user picker. */
   addMoreMessage?: string;
   /** Message to be shown when the menu is open but no options are provided.

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::70af860fac3168f1ea8797320fe6b8a5>>
+ * @codegen <<SignedSource::e0b081d4b59c6ae9cc61761ac8f3674f>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -774,31 +774,58 @@ const tokens = [
   {
     "attributes": {
       "group": "fontFamily",
-      "state": "deprecated",
+      "state": "active",
       "introduced": "1.14.0",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
+      "description": "Use for branded body text."
     },
-    "value": "Charlie Sans",
+    "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "fontFamily",
-        "state": "deprecated",
+        "state": "active",
         "introduced": "1.14.0",
-        "description": "Helpful guidance goes here",
-        "deprecated": "1.29.0"
+        "description": "Use for branded body text."
       },
-      "value": "FontFamilyCharlie"
+      "value": "FontFamilyCharlieText"
     },
-    "name": "font.family.brand",
+    "name": "font.family.brand.body",
     "path": [
       "font",
       "family",
-      "brand"
+      "brand",
+      "body"
     ],
-    "cleanName": "font.family.brand"
+    "cleanName": "font.family.brand.body"
+  },
+  {
+    "attributes": {
+      "group": "fontFamily",
+      "state": "active",
+      "introduced": "1.14.0",
+      "description": "Use for branded headings."
+    },
+    "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "filePath": "schema/themes/atlassian-typography-adg3/font-family.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "fontFamily",
+        "state": "active",
+        "introduced": "1.14.0",
+        "description": "Use for branded headings."
+      },
+      "value": "FontFamilyCharlieDisplay"
+    },
+    "name": "font.family.brand.heading",
+    "path": [
+      "font",
+      "family",
+      "brand",
+      "heading"
+    ],
+    "cleanName": "font.family.brand.heading"
   },
   {
     "attributes": {

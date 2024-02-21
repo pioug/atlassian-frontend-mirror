@@ -655,6 +655,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       header,
       required,
       UNSAFE_hasDraggableParentComponent,
+      placeholderAvatar,
     } = this.props;
 
     const {
@@ -731,6 +732,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         maxPickerHeight={maxPickerHeight}
         textFieldBackgroundColor={textFieldBackgroundColor}
         header={header}
+        placeholderAvatar={placeholderAvatar}
         {...this.ariaProps}
         {...pickerProps}
         {...(UNSAFE_hasDraggableParentComponent && {

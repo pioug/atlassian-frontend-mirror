@@ -1,4 +1,4 @@
-> Ensures consistency with CSS prop usage.
+Ensures consistency with css prop usage.
 
 ## Rationale
 
@@ -24,7 +24,7 @@ This rule has several options - see below.
 
 ## Examples
 
-👎 Example of **incorrect** code for this rule:
+### Incorrect
 
 **Calling a css/xcss function or direct objects inside the JSX attribute.**
 
@@ -77,7 +77,7 @@ function Button({ children }) {
 }
 ```
 
-👍 Example of **correct** code for this rule:
+### Correct
 
 **Using the css() function to create a style object that follows the naming convention (ends in Styles) and passing it as a variable into the css={...} JSX attribute.**
 

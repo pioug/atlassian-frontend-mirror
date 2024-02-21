@@ -121,14 +121,15 @@ export class FloatingInsertButton extends React.Component<
     ) {
       return null;
     }
-
-    const cellPosition = this.getCellPosition(type);
-    if (!cellPosition) {
+    const tablePos = findTable(tr.selection);
+    if (!tablePos) {
       return null;
     }
 
-    const tablePos = findTable(editorView.state.selection);
-    if (!tablePos) {
+    // the tableNode props is not always latest (when you type some text in a cell, it's not updated yet)
+    // we need to get the latest one by calling findTable(tr.selection)
+    const cellPosition = this.getCellPosition(type, tablePos?.node);
+    if (!cellPosition) {
       return null;
     }
 
@@ -230,9 +231,11 @@ export class FloatingInsertButton extends React.Component<
     );
   }
 
-  private getCellPosition(type: 'column' | 'row'): number | null {
-    const { tableNode, insertColumnButtonIndex, insertRowButtonIndex } =
-      this.props;
+  private getCellPosition(
+    type: 'column' | 'row',
+    tableNode: PmNode,
+  ): number | null {
+    const { insertColumnButtonIndex, insertRowButtonIndex } = this.props;
     const tableMap = TableMap.get(tableNode!);
 
     if (type === 'column') {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::f46c62b44101ed8ef04c2a9aa7e37742>>
+ * @codegen <<SignedSource::06f94349afb08cd21b7579d515928d0f>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -572,7 +572,8 @@ const tokens = {
   'font.family.heading': '--ds-font-family-heading',
   'font.family.monospace': '--ds-font-family-monospace',
   'font.family.sans': '--ds-font-family-sans',
-  'font.family.brand': '--ds-font-family-brand',
+  'font.family.brand.body': '--ds-font-family-brand-body',
+  'font.family.brand.heading': '--ds-font-family-brand-heading',
   'font.size.050': '--ds-font-size-050',
   'font.size.075': '--ds-font-size-075',
   'font.size.100': '--ds-font-size-100',
@@ -1041,7 +1042,8 @@ export type CSSTokenMap = {
   'font.family.heading': 'var(--ds-font-family-heading)';
   'font.family.monospace': 'var(--ds-font-family-monospace)';
   'font.family.sans': 'var(--ds-font-family-sans)';
-  'font.family.brand': 'var(--ds-font-family-brand)';
+  'font.family.brand.body': 'var(--ds-font-family-brand-body)';
+  'font.family.brand.heading': 'var(--ds-font-family-brand-heading)';
   'font.size.050': 'var(--ds-font-size-050)';
   'font.size.075': 'var(--ds-font-size-075)';
   'font.size.100': 'var(--ds-font-size-100)';

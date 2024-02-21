@@ -61,6 +61,7 @@ describe('Team Option', () => {
         appearance="big"
         src="https://avatars.atlassian.com/team-1.png"
         name="Team-1"
+        type="team"
       />,
     );
     expect(primaryText[0].key).toEqual('name');
@@ -86,6 +87,7 @@ describe('Team Option', () => {
         appearance="big"
         src="https://avatars.atlassian.com/team-1.png"
         name="Team-1"
+        type="team"
       />,
     );
 

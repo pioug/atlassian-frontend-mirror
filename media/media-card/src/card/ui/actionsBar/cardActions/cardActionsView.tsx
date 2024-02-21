@@ -24,6 +24,7 @@ const CardActionIconButtonWithProps = (
 
 export interface CardActionsViewProps {
   readonly actions: CardAction[];
+  readonly filename?: string;
 
   readonly onToggle?: (attrs: { isOpen: boolean }) => void;
   readonly triggerColor?: string;
@@ -57,7 +58,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
     action: CardAction,
     isPrimary?: boolean,
   ): JSX.Element {
-    const { triggerColor, variant } = this.props;
+    const { triggerColor, filename, variant } = this.props;
     const { icon, handler, label } = action;
     const actionSubjectId = isPrimary
       ? 'mediaCardPrimaryActionButton'
@@ -78,6 +79,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
     return (
       <CardActionIconButtonWithAnalytics
         icon={icon}
+        label={filename ? `${filename} — ${label}` : label}
         triggerColor={triggerColor}
         onClick={() => handler()}
         variant={variant}

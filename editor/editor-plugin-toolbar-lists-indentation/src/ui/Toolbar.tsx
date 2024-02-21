@@ -155,9 +155,9 @@ export function Toolbar(props: ToolbarProps) {
             }
           />
         )}
-        {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-        <span css={separatorStyles} />
       </div>
+      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+      <span css={separatorStyles} />
     </span>
   );
 }

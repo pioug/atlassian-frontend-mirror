@@ -6,7 +6,7 @@ import { ActionsBarProps } from './types';
 
 export class ActionsBar extends React.Component<ActionsBarProps> {
   render() {
-    const { isFixed, actions } = this.props;
+    const { isFixed, filename, actions } = this.props;
 
     if (actions.length === 0) {
       return null;
@@ -15,6 +15,7 @@ export class ActionsBar extends React.Component<ActionsBarProps> {
     return (
       <ActionsBarWrapper isFixed={isFixed}>
         <CardActionsView
+          filename={filename}
           actions={actions}
           variant={CardActionIconButtonVariant.filled}
         />

@@ -118,7 +118,7 @@ export const CardViewWrapper = React.forwardRef(
           {progressBar && progressBar()}
         </div>
         {!disableOverlay && actions && actions.length !== 0 && (
-          <ActionsBar actions={actionsWithDetails} />
+          <ActionsBar filename={name} actions={actionsWithDetails} />
         )}
       </React.Fragment>
     );

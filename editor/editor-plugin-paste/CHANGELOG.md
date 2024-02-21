@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.2
+
+### Patch Changes
+
+- [#74284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74284) [`c88cf104546f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c88cf104546f) - fix copy paste issue in excel and numbers that paste table results in screenshot of table pasted
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

@@ -22,13 +22,20 @@ export class SingleValueContainer extends React.Component<
   private renderAvatar = () => {
     const {
       hasValue,
-      selectProps: { appearance, isFocused, inputValue, value },
+      selectProps: {
+        appearance,
+        isFocused,
+        inputValue,
+        value,
+        placeholderAvatar,
+      },
     } = this.props;
 
     if (isFocused || !hasValue) {
       return (
         <SizeableAvatar
           appearance={appearance}
+          type={placeholderAvatar}
           src={
             showUserAvatar(inputValue, value as Option<User>)
               ? (value as Option<User>).data.avatarUrl

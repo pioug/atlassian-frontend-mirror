@@ -34,7 +34,7 @@
     "./styles": "./src/styles.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.2.0",
+    "@atlaskit/editor-common": "^78.3.0",
     "@atlaskit/editor-markdown-transformer": "^5.3.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-paste": "^1.0.0",
@@ -42,7 +42,7 @@
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"

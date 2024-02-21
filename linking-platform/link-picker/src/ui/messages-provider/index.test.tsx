@@ -5,7 +5,6 @@ import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { fetchMessagesForLocale } from './lazy-messages-provider/utils/fetch-messages-for-locale';
 
@@ -61,32 +60,19 @@ describe('MessagesProvider', () => {
     ),
   };
 
-  ffTest(
-    'platform.linking-platform.link-picker.lazy-intl-messages',
-    async () => {
-      jest.spyOn(console, 'error').mockImplementation(() => {});
-      const promise = new ManualPromise(translated);
-      asMock(fetchMessagesForLocale).mockReturnValue(promise);
+  it('should automatically load translations', async () => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    const promise = new ManualPromise(translated);
+    asMock(fetchMessagesForLocale).mockReturnValue(promise);
 
-      setup(props);
+    setup(props);
 
-      expect(screen.queryByText('Translated string')).not.toBeInTheDocument();
+    expect(screen.queryByText('Translated string')).not.toBeInTheDocument();
 
-      act(() => {
-        promise.resolve(translated);
-      });
+    act(() => {
+      promise.resolve(translated);
+    });
 
-      expect(await screen.findByText('Translated string')).toBeInTheDocument();
-    },
-    async () => {
-      jest.spyOn(console, 'error').mockImplementation(() => {});
-      const promise = new ManualPromise(translated);
-      asMock(fetchMessagesForLocale).mockReturnValue(promise);
-
-      setup(props);
-
-      expect(fetchMessagesForLocale).not.toHaveBeenCalled();
-      expect(screen.getByText('Default string')).toBeInTheDocument();
-    },
-  );
+    expect(await screen.findByText('Translated string')).toBeInTheDocument();
+  });
 });

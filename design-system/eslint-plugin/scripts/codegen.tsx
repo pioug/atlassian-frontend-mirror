@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import { extname, join, relative } from 'path';
 
 import camelCase from 'lodash/camelCase';
+import outdent from 'outdent';
 import { format, resolveConfig } from 'prettier';
 
 import { createSignedArtifact } from '@atlassian/codegen';
@@ -39,6 +40,9 @@ const rulesDir = join(srcDir, 'rules');
 const presetsDir = join(srcDir, 'presets');
 const generatedConfigs: GeneratedConfig[] = [];
 
+/**
+ * Get the path to, and file contents for, a rule's README.md file.
+ */
 async function ruleDocsPath(name: string) {
   const absolutePath = join(rulesDir, name, 'README.md');
   const relativePath = '.' + absolutePath.replace(process.cwd(), '');
@@ -53,8 +57,14 @@ async function ruleDocsPath(name: string) {
   }
 }
 
-async function generateConfig(name: string, rules: FoundRule[]) {
-  const code = `
+/**
+ * Generates the preset config, eg. `src/presets/all.codegen.tsx` and `src/presets/recommended.codegen.tsx`
+ */
+async function generatePresetConfig(
+  name: 'all' | 'recommended',
+  rules: FoundRule[],
+) {
+  const code = outdent`
     export default {
       plugins: ['@atlaskit/design-system'],
       rules: {
@@ -86,6 +96,9 @@ async function generateConfig(name: string, rules: FoundRule[]) {
   });
 }
 
+/**
+ * Write contents to a given file, creating a signed artifact if it's not a markdown file.
+ */
 async function writeFile(filepath: string, code: string) {
   const config = await resolveConfig(filepath);
   await fs.writeFile(
@@ -105,8 +118,11 @@ async function writeFile(filepath: string, code: string) {
   );
 }
 
+/**
+ * Generates the `src/rules/index.codegen.tsx` entrypoint, exporting all rules.
+ */
 async function generateRuleIndex(rules: FoundRule[]) {
-  const code = `
+  const code = outdent`
     ${rules
       .map(
         (rule) =>
@@ -125,8 +141,11 @@ async function generateRuleIndex(rules: FoundRule[]) {
   await writeFile(filepath, code);
 }
 
+/**
+ * Generates the `src/index.codegen.tsx` entrypoint, exporting all the preset configs.
+ */
 async function generatePluginIndex() {
-  const code = `
+  const code = outdent`
     ${generatedConfigs
       .map((config) => `import ${config.name} from '${config.path}'`)
       .join('\n')}
@@ -144,61 +163,41 @@ async function generatePluginIndex() {
 
 const conditional = (cond: string, content?: boolean | string) =>
   content ? cond : '';
-const link = (content: string, url?: string) =>
+const optionallyLinkTo = (content: string, url?: string) =>
   url ? `<a href="${url}">${content}</a>` : content;
 
-async function generateRulesPageContent(
-  destination: string,
-  rules: FoundRule[],
-) {
-  const file = await fs.readFile(destination, 'utf-8');
-  const ruleDocs: string[] = [];
+/**
+ * Generate each individual rules' documentation pages, eg. `constellation/icon-label/usage.mdx`
+ */
+async function generateRulePages(rules: FoundRule[]): Promise<void> {
+  const docsDir = join(srcDir, '../constellation');
 
-  for (const rule of rules) {
+  for await (const rule of rules) {
     const { file } = await ruleDocsPath(rule.moduleName);
+    const ruleDir = join(docsDir, rule.moduleName);
+    const destination = join(ruleDir, 'usage.mdx');
+
+    await fs.mkdir(ruleDir, { recursive: true });
 
     if (file.match(/^# /)) {
       throw new Error(
-        `invariant: ${rule.moduleName} README doc should not include a h1 heading as it is injected later.`,
+        `invariant: ${rule.moduleName} README doc should not include a h1 heading as it is injected automatically.`,
       );
     }
 
-    const ruleContent =
-      // Inject a second level heading for the rule
-      `## ${rule.ruleName}\n` +
-      // Increase all found headings by one
-      file
-        .replace(/(##+) /g, (match) => `#${match}`)
-        // Transform third level headings to a <h3> so it doesn't appear in the local nav
-        .replace(
-          /^### .+/gm,
-          (match) => `<h3>${match.replace('### ', '')}</h3>`,
-        );
+    const ruleContent = outdent`
+      # ${rule.ruleName}
+      ${file}
+    `;
 
-    ruleDocs.push(ruleContent);
+    await writeFile(destination, ruleContent);
   }
-
-  const found =
-    /<!-- START_RULE_CONTENT_CODEGEN -->(.|\n)*<!-- END_RULE_CONTENT_CODEGEN -->/.exec(
-      file,
-    );
-
-  if (!found) {
-    throw new Error('invariant: could not find the partial codegen section');
-  }
-
-  const updatedFile = file.replace(
-    found[0],
-    '<!-- START_RULE_CONTENT_CODEGEN -->' +
-      '\n<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->' +
-      '\n' +
-      ruleDocs.join('\n\n') +
-      '\n<!-- END_RULE_CONTENT_CODEGEN -->',
-  );
-
-  await writeFile(destination, updatedFile);
 }
 
+/**
+ * Generates the `RULE_TABLE_CODEGEN` in `constellation/index/usage.mdx` and `README.md`.
+ * This is the list of all rules and their metadata.
+ */
 async function generateRuleTable(
   filepath: string,
   linkTo: 'docs' | 'repo',
@@ -214,26 +213,26 @@ async function generateRuleTable(
       const result = await ruleDocsPath(rule.moduleName);
       docsPath = result.path;
     } else {
-      docsPath = `#${rule.moduleName}`;
+      // We want `<a href="consistent-css-prop-usage/usage">consistent-css-prop-usage</a>` for the link
+      // to resolve to `/components/eslint-plugin-design-system/consistent-css-prop-usage/usage`
+      docsPath = `${rule.moduleName}/usage`;
     }
 
-    const row = `| ${link(rule.ruleName, docsPath)} | ${
-      rule.module.meta?.docs?.description || ''
-    } | ${conditional(
-      'Yes',
-      rule.module.meta?.docs?.recommended,
-    )} | ${conditional('Yes', rule.module.meta?.fixable)} | ${conditional(
-      'Yes',
-      rule.module.meta?.hasSuggestions,
-    )} |`;
+    const link = optionallyLinkTo(rule.ruleName, docsPath);
+    const description = rule.module.meta?.docs?.description || '';
+    const recommended = conditional('Yes', rule.module.meta?.docs?.recommended);
+    const fixable = conditional('Yes', rule.module.meta?.fixable);
+    const suggestions = conditional('Yes', rule.module.meta?.hasSuggestions);
 
-    rows.push(row);
+    rows.push(outdent`
+      | ${link} | ${description} | ${recommended} | ${fixable} | ${suggestions} |
+    `);
   }
 
-  const code = `
-| Rule | Description | Recommended | Fixable | Suggestions |
-| ---- | -- | -- | -- | -- |
-${rows.join('\n')}
+  const code = outdent`
+    | Rule | Description | Recommended | Fixable | Suggestions |
+    | ---- | -- | -- | -- | -- |
+    ${rows.join('\n')}
   `;
 
   const found =
@@ -247,15 +246,20 @@ ${rows.join('\n')}
 
   const updatedFile = file.replace(
     found[0],
-    '<!-- START_RULE_TABLE_CODEGEN -->' +
-      '\n<!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->' +
-      code +
-      '\n<!-- END_RULE_TABLE_CODEGEN -->',
+    outdent`
+      <!-- START_RULE_TABLE_CODEGEN -->
+      <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
+      ${code}
+      <!-- END_RULE_TABLE_CODEGEN -->
+    `,
   );
 
   await writeFile(filepath, updatedFile);
 }
 
+/**
+ * Fetch all rules in `rules/*` and generate all associated contents.
+ */
 async function generate() {
   const rulePaths = await fs.readdir(rulesDir);
   const recommended: FoundRule[] = [];
@@ -310,18 +314,16 @@ async function generate() {
     }
   }
 
+  // NOTE: Some of these could be awaited in parallel, but it's not worth the complexity for <1s diff.
   await generateRuleIndex(rules);
-  await generateConfig('all', rules);
-  await generateConfig('recommended', recommended);
+  await generatePresetConfig('all', rules);
+  await generatePresetConfig('recommended', recommended);
   await generatePluginIndex();
+  await generateRulePages(rules);
   await generateRuleTable(join(srcDir, '../README.md'), 'repo', rules);
   await generateRuleTable(
     join(srcDir, '../constellation/index/usage.mdx'),
     'docs',
-    rules,
-  );
-  await generateRulesPageContent(
-    join(srcDir, '../constellation/index/usage.mdx'),
     rules,
   );
 }

@@ -29,7 +29,7 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

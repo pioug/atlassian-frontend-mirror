@@ -39,7 +39,8 @@ export type FontWeightScaleValues =
   | 'FontWeight700';
 
 export type FontFamilyPaletteValues =
-  | 'FontFamilyCharlie'
+  | 'FontFamilyCharlieDisplay'
+  | 'FontFamilyCharlieText'
   | 'FontFamilyWebSans'
   | 'LegacyFontFamilyWebSans'
   | 'FontFamilyiOSSans'
@@ -203,8 +204,16 @@ export type FontFamilyBaseToken =
 const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
   {
     fontFamily: {
-      FontFamilyCharlie: {
-        value: 'Charlie Sans',
+      FontFamilyCharlieDisplay: {
+        value:
+          '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+        attributes: {
+          group: 'fontFamily',
+        },
+      },
+      FontFamilyCharlieText: {
+        value:
+          '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
         attributes: {
           group: 'fontFamily',
         },

@@ -457,7 +457,11 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
           </StatusWrapper>
         )}
         {containerShouldBeImage ? (
-          <span id={`${uuid}-label`} hidden>
+          <span
+            data-testid={testId && `${testId}--label`}
+            id={`${uuid}-label`}
+            hidden
+          >
             {defaultLabel}
           </span>
         ) : undefined}

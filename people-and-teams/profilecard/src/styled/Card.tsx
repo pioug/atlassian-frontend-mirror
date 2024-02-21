@@ -31,12 +31,12 @@ interface FullNameLabelProps {
 
 const getFullNameMargin = (props: FullNameLabelProps) =>
   props.noMeta
-    ? `${gridSize() * 4.5}px 0 ${gridSize() * 1.5}px 0`
-    : `${gridSize() * 1.5}px 0 0 0`;
+    ? `${token('space.400', '32px')} 0 ${token('space.150', '12px')} 0`
+    : `${token('space.150', '12px')} 0 0 0`;
 
 export const CardWrapper = styled.div`
   background-color: ${bgColor};
-  border-radius: ${borderRadius}px;
+  border-radius: ${token('border.radius', '3px')};
   width: ${gridSize() * 45}px;
 `;
 
@@ -117,7 +117,7 @@ export const ActionButtonGroup = styled.div`
     margin-left: ${token('space.100', '8px')};
 
     &:first-child {
-      margin-left: 0;
+      margin-left: ${token('space.0', '0px')};
     }
   }
 
@@ -134,8 +134,8 @@ export const ActionButtonGroup = styled.div`
 
 export const OverflowActionButtonsWrapper = styled.div`
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: ${token('space.400', '32px')};
+  height: ${token('space.400', '32px')};
   margin-left: ${token('space.100', '8px')};
 
   button {
@@ -154,7 +154,6 @@ export const CardContent = styled.div`
   min-height: ${gridSize() * 17}px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const DetailsGroup = styled.div`
   display: flex;
   flex-direction: column;

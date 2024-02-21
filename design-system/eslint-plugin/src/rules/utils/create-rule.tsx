@@ -11,10 +11,7 @@ import type { Rule } from 'eslint';
  * @private
  * @deprecated
  */
-export const createRule = ESLintUtils.RuleCreator(
-  (name) =>
-    `https://atlassian.design/components/eslint-plugin-design-system/usage#${name}`,
-);
+export const createRule = ESLintUtils.RuleCreator((name) => getRuleUrl(name));
 
 export interface LintRule extends Omit<Rule.RuleModule, 'meta'> {
   /**
@@ -59,10 +56,12 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
  * as well as improving type support.
  */
 export const createLintRule = (rule: LintRule) => {
-  const ruleName = rule.meta.name.replace('/', ''); // If it's a nested rule, ensure the url is clean
-  const url = `https://atlassian.design/components/eslint-plugin-design-system/usage#${ruleName}`;
-
-  (rule.meta.docs as Record<string, unknown>).url = url;
+  (rule.meta.docs as Record<string, unknown>).url = getRuleUrl(rule.meta.name);
 
   return rule as Rule.RuleModule;
 };
+
+function getRuleUrl(ruleName: string) {
+  const name = ruleName.replace('/', '-'); // If it's a nested rule, ensure the url is clean and matches codegen/gatsby
+  return `https://atlassian.design/components/eslint-plugin-design-system/${name}/usage`;
+}

@@ -189,11 +189,11 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3bb126723afcc9864b7ce6a94f386f9a>>
+ * @codegen <<SignedSource::b4388d14310b7a04b2bbe7140abb8173>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3.tsx <<SignedSource::467924fcb40aae7e72632df80023532a>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3.tsx <<SignedSource::2618e5da582e150e8ae1ad541ba35f9d>>
  */
 const fontSizeMap = {
   'size.050': css({
@@ -248,8 +248,17 @@ const fontFamilyMap = {
       'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
-  brand: css({
-    fontFamily: token('font.family.brand', 'Charlie Sans'),
+  'brand.body': css({
+    fontFamily: token(
+      'font.family.brand.body',
+      '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
+  }),
+  'brand.heading': css({
+    fontFamily: token(
+      'font.family.brand.heading',
+      '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
   }),
   code: css({
     fontFamily: token(

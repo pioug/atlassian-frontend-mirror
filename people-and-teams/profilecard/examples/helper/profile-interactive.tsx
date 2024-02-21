@@ -19,7 +19,7 @@ import {
 const StoryWrapper = styled.div`
   label {
     color: ${token('color.text', N800)};
-    margin-right: 10px;
+    margin-right: ${token('space.100', '8px')};
     -webkit-user-select: none;
   }
 
@@ -339,7 +339,13 @@ export default class ProfilecardInteractive extends Component<Props, State> {
           />
         </ProfileCardWrapper>
 
-        <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
+        <div
+          style={{
+            marginTop: token('space.200', '16px'),
+            clear: 'both',
+            overflow: 'auto',
+          }}
+        >
           <ul>
             <li>{this.createCheckboxBooleanAttribute('hasAvatar')}</li>
             <li>{this.createCheckboxBooleanAttribute('hasAltActions')}</li>
@@ -382,7 +388,13 @@ export default class ProfilecardInteractive extends Component<Props, State> {
           </ul>
         </div>
 
-        <div style={{ marginTop: '16px', clear: 'both', overflow: 'auto' }}>
+        <div
+          style={{
+            marginTop: token('space.200', '16px'),
+            clear: 'both',
+            overflow: 'auto',
+          }}
+        >
           <ul>
             <li>{this.createRadioStatusAttribute('active')}</li>
             <li>{this.createRadioStatusAttribute('inactive')}</li>

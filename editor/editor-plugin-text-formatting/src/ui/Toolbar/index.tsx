@@ -216,10 +216,10 @@ const ToolbarFormatting = ({
               items={items}
             />
           )}
-          {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-          <span css={separatorStyles} />
         </span>
       </div>
+      {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
+      <span css={separatorStyles} />
     </span>
   );
 };

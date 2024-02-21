@@ -22,8 +22,8 @@ const positionsOrder: ProfilecardTriggerPosition[] = [
 
 const triggerStyles: React.CSSProperties = {
   display: 'flex',
-  width: '48px',
-  height: '48px',
+  width: token('space.600', '48px'),
+  height: token('space.600', '48px'),
   borderRadius: '48px',
   background: token('color.background.accent.red.subtle', '#FF5630'),
   color: token('color.text.inverse', '#fff'),
@@ -36,8 +36,8 @@ const triggerStyles: React.CSSProperties = {
 };
 
 const triggerWrapperStyles: React.CSSProperties = {
-  width: '48px',
-  height: '48px',
+  width: token('space.600', '48px'),
+  height: token('space.600', '48px'),
   position: 'absolute',
   top: '50%',
   left: '50%',

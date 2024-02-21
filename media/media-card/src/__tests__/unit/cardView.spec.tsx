@@ -37,6 +37,7 @@ import { MediaCardError } from '../../errors';
 import { Wrapper } from '../../card/ui/wrapper';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
+import DownloadIcon from '@atlaskit/icon/glyph/download';
 
 const cardPreview = {
   dataURI: 'some-data',
@@ -766,5 +767,29 @@ describe('CardView', () => {
       const componentA = shallowCardViewBase({ shouldHideTooltip: true });
       expect(componentA.find(Tooltip)).toHaveLength(0);
     });
+  });
+
+  it('should render actions with accessible labels', () => {
+    const downloadAction = {
+      label: 'Download',
+      handler: jest.fn(),
+      icon: <DownloadIcon size="small" label="annotate" />,
+    };
+
+    const card = mount(
+      <CardView
+        status="complete"
+        mediaItemType="file"
+        cardPreview={cardPreview}
+        metadata={file}
+        actions={[downloadAction]}
+        resizeMode="stretchy-fit"
+      />,
+    );
+
+    const actions = card.find(
+      'button[data-testid="media-card-primary-action"]',
+    );
+    expect(actions.getDOMNode()).toHaveAccessibleName('my-file — Download');
   });
 });

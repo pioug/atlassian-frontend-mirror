@@ -14,16 +14,16 @@ import { Team } from '../src/types';
 import ExampleWrapper from './helper/example-wrapper';
 
 const Table = styled.table`
-  border: 1px solid black;
+  border: ${token('border.width', '1px')} solid black;
   border-collapse: collapse;
 `;
 
 const Head = styled.th`
-  border: 1px solid black;
+  border: ${token('border.width', '1px')} solid black;
 `;
 
 const Cell = styled.td`
-  border: 1px solid black;
+  border: ${token('border.width', '1px')} solid black;
 `;
 
 const Text = styled.p`
@@ -31,7 +31,7 @@ const Text = styled.p`
 `;
 
 const TriggerText = styled.span`
-  border-radius: 3px;
+  border-radius: ${token('border.radius', '3px')};
   padding: ${token('space.050', '4px')};
 `;
 

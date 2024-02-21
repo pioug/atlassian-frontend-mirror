@@ -318,7 +318,9 @@ export class CardViewBase extends React.Component<
     if (disableOverlay || !actions || actions.length === 0) {
       return null;
     }
-    return <ActionsBar actions={actionsWithDetails} />;
+    return (
+      <ActionsBar filename={metadata?.name} actions={actionsWithDetails} />
+    );
   }
 
   render() {

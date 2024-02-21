@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 78.3.0
+
+### Minor Changes
+
+- [#68408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68408) [`ab8f885fd0a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab8f885fd0a5) - ECA11Y-180: Updated announce translates structure, added required attributes
+- [#73123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73123) [`7b46579bdbd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b46579bdbd6) - ECA11Y-206: updated unit tests
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.2.1
 
 ### Patch Changes

@@ -1,4 +1,5 @@
-import Avatar from '@atlaskit/avatar';
+import Avatar, { AvatarPropTypes } from '@atlaskit/avatar';
+import TeamAvatar from '@atlaskit/teams-avatar';
 import React from 'react';
 import { getAvatarSize } from './utils';
 
@@ -7,20 +8,21 @@ export type Props = {
   src?: string;
   name?: string;
   presence?: string;
+  type?: 'person' | 'team';
 };
 
 export class SizeableAvatar extends React.PureComponent<Props> {
   render() {
-    const { src, name, presence, appearance } = this.props;
+    const { src, name, presence, appearance, type = 'person' } = this.props;
 
-    return (
-      <Avatar
-        size={getAvatarSize(appearance)}
-        src={src}
-        name={name}
-        borderColor="transparent"
-        presence={presence}
-      />
-    );
+    const props: AvatarPropTypes = {
+      size: getAvatarSize(appearance),
+      src,
+      name,
+      borderColor: 'transparent',
+      presence,
+    };
+
+    return type === 'team' ? <TeamAvatar {...props} /> : <Avatar {...props} />;
   }
 }

@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },

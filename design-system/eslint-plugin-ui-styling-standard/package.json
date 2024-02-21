@@ -2,17 +2,21 @@
   "name": "@atlaskit/eslint-plugin-ui-styling-standard",
   "version": "0.2.1",
   "author": "Atlassian Pty Ltd",
-  "description": "The Atlassian UI Styling Standard Plugin Package - used to enforce Atlassian's styling standards within internal applications",
+  "description": "The eslint plugin to enforce and educate on Atlassian's UI Styling Standard",
   "license": "UNLICENSED",
   "atlassian": {
     "team": "Design System Team",
-    "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "inPublicMirror": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "UI Styling Standard",
+      "category": "Tooling"
+    }
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "homepage": "https://hello.atlassian.net/wiki/spaces/DST/pages/3183872207/UI+Styling+Standard+-+Support+from+external+teams",
+  "homepage": "https://atlassian.design/components/eslint-plugin-ui-styling-standard",
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

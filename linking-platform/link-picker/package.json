@@ -41,9 +41,6 @@
     "platform.linking-platform.link-picker.enable-empty-state": {
       "type": "boolean"
     },
-    "platform.linking-platform.link-picker.lazy-intl-messages": {
-      "type": "boolean"
-    },
     "platform.linking-platform.link-picker.fixed-height-search-results": {
       "type": "boolean"
     },
@@ -73,7 +70,7 @@
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/visually-hidden": "^1.2.0",

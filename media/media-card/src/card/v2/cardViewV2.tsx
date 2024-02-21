@@ -377,7 +377,7 @@ export const CardViewV2Base = ({
         {renderTickBox && <TickBox selected={selected} />}
       </div>
       {disableOverlay || !actions || actions.length === 0 ? null : (
-        <ActionsBar actions={actionsWithDetails} />
+        <ActionsBar filename={name} actions={actionsWithDetails} />
       )}
     </React.Fragment>
   );

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -145,7 +145,7 @@
     "@atlaskit/editor-plugin-date": "1.0.1",
     "@atlaskit/editor-plugin-decorations": "1.0.1",
     "@atlaskit/editor-plugin-editor-disabled": "1.0.1",
-    "@atlaskit/editor-plugin-editor-viewmode": "1.0.10",
+    "@atlaskit/editor-plugin-editor-viewmode": "1.0.11",
     "@atlaskit/editor-plugin-emoji": "1.1.5",
     "@atlaskit/editor-plugin-expand": "1.0.1",
     "@atlaskit/editor-plugin-extension": "1.0.2",
@@ -167,10 +167,10 @@
     "@atlaskit/editor-plugin-list": "3.1.10",
     "@atlaskit/editor-plugin-loom": "1.0.1",
     "@atlaskit/editor-plugin-max-content-size": "1.0.1",
-    "@atlaskit/editor-plugin-media": "1.2.1",
+    "@atlaskit/editor-plugin-media": "1.2.2",
     "@atlaskit/editor-plugin-mentions": "1.0.2",
     "@atlaskit/editor-plugin-panel": "1.0.1",
-    "@atlaskit/editor-plugin-paste": "1.0.1",
+    "@atlaskit/editor-plugin-paste": "1.0.2",
     "@atlaskit/editor-plugin-paste-options-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-placeholder": "1.0.1",
     "@atlaskit/editor-plugin-placeholder-text": "1.0.1",
@@ -185,8 +185,8 @@
     "@atlaskit/editor-plugin-table": "7.3.7",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.1",
     "@atlaskit/editor-plugin-text-color": "1.0.1",
-    "@atlaskit/editor-plugin-text-formatting": "1.0.1",
-    "@atlaskit/editor-plugin-toolbar-lists-indentation": "1.0.1",
+    "@atlaskit/editor-plugin-text-formatting": "1.1.0",
+    "@atlaskit/editor-plugin-toolbar-lists-indentation": "1.1.0",
     "@atlaskit/editor-plugin-type-ahead": "1.0.2",
     "@atlaskit/editor-plugin-undo-redo": "1.0.1",
     "@atlaskit/editor-plugin-unsupported-content": "1.0.1",
@@ -328,6 +328,10 @@
       "referenceOnly": true
     },
     "platform.editor.ordered-list-inserting-nodes_bh0vo": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.allow-custom-cut-for-panel": {
       "type": "boolean",
       "referenceOnly": true
     },

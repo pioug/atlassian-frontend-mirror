@@ -102,7 +102,14 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
     const {
       team: { avatarUrl, name },
     } = this.props;
-    return <SizeableAvatar appearance="big" src={avatarUrl} name={name} />;
+    return (
+      <SizeableAvatar
+        appearance="big"
+        src={avatarUrl}
+        name={name}
+        type="team"
+      />
+    );
   };
 
   private getLozengeProps = () =>

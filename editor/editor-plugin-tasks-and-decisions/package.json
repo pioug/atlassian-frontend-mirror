@@ -36,7 +36,7 @@
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/editor-common": "^78.2.0",
+    "@atlaskit/editor-common": "^78.3.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-context-identifier": "^1.0.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",

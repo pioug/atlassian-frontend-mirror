@@ -104,6 +104,11 @@ export type ResizerProps = {
    * The handle can display a tooltip when mouse hovers.
    */
   handleTooltipContent?: TooltipProps['content'];
+
+  /**
+   * control if extended resize zone is needed, by default we apply it to the resizer
+   */
+  needExtendedResizeZone?: boolean;
 };
 
 type forwardRefType = {
@@ -151,6 +156,7 @@ const ResizerNext: ForwardRefRenderFunction<
     isHandleVisible = false,
     handleHighlight = 'none',
     handleTooltipContent,
+    needExtendedResizeZone = true,
     ...otherProps
   } = props;
 
@@ -265,6 +271,10 @@ const ResizerNext: ForwardRefRenderFunction<
     [resizerDangerClassName]: appearance === 'danger',
   });
 
+  const resizerZoneClassName = classnames(resizerHoverZoneClassName, {
+    'is-extended': needExtendedResizeZone,
+  });
+
   const handleComponent = useMemo(() => {
     return SUPPORTED_HANDLES.reduce<HandleComponent>((result, position) => {
       const thumb = (
@@ -351,7 +361,7 @@ const ResizerNext: ForwardRefRenderFunction<
       handleComponent={handleComponent}
       {...otherProps}
     >
-      <span className={resizerHoverZoneClassName}>{children}</span>
+      <span className={resizerZoneClassName}>{children}</span>
     </Resizable>
   );
 };

@@ -36,6 +36,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
     },
     {

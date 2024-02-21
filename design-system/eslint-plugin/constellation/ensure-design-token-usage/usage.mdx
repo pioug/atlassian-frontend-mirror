@@ -1,0 +1,72 @@
+# ensure-design-token-usage
+
+Using design tokens results in a harmonious experience for end users whilst providing theming and consistency.
+All experiences must use color tokens otherwise when switching between themes, unexpected incidents can occur where not all of the UI is themed.
+Space, typography, and shape tokens are strongly recommended to further align our experiences and make future changes easier.
+
+## Examples
+
+Using anything other than design tokens such as hardcoded values or legacy theme colors will be considered violations.
+
+### Incorrect
+
+```js
+import { e100 } from '@atlaskit/theme/elevation';
+import { B100 } from '@atlaskit/theme/colors';
+
+css({ color: 'red' });
+              ^^^
+css({ boxShadow: '0px 1px 1px #161A1D32' });
+                              ^^^^^^^^^
+css`${e100};`;
+      ^^^^
+css({ color: B100 });
+             ^^^^
+```
+
+### Correct
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ color: token('color.text.danger') });
+
+css({ boxShadow: token('elevation.shadow.card') });
+```
+
+### Incorrect
+
+```js
+css({ padding: '16px' });
+                ^^^
+css({ margin: gridSize() });
+              ^^^^^^^^^^
+```
+
+### Correct
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ padding: token('space.100') });
+```
+
+## Options
+
+This rule comes with options to aid in migrating to design tokens.
+
+### domains
+
+An array specifiying which token domains to lint against (`color`, `spacing`, `typography`, `shape`). Defaults to [`'color'`] if not provided.
+
+### applyImport
+
+When `true`, the rule when automatically add imports to the `@atlaskit/tokens` package where tokens are auto-fixed. Defaults to `true` if not provided.
+
+### shouldEnforceFallbacks
+
+When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE. Defaults to `false` if not provided.
+
+### exceptions
+
+An array specifying strings to ingore when linting.

@@ -64,6 +64,9 @@
       "path": "../../design-system/spinner/tsconfig.app.json"
     },
     {
+      "path": "../../people-and-teams/teams-avatar/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/theme/tsconfig.app.json"
     },
     {

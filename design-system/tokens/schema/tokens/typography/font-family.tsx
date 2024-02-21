@@ -35,12 +35,21 @@ const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
         },
       },
       brand: {
-        attributes: {
-          group: 'fontFamily',
-          state: 'deprecated',
-          introduced: '1.14.0',
-          description: 'Helpful guidance goes here',
-          deprecated: '1.29.0',
+        heading: {
+          attributes: {
+            group: 'fontFamily',
+            state: 'active',
+            introduced: '1.14.0',
+            description: 'Use for branded headings.',
+          },
+        },
+        body: {
+          attributes: {
+            group: 'fontFamily',
+            state: 'active',
+            introduced: '1.14.0',
+            description: 'Use for branded body text.',
+          },
         },
       },
       heading: {

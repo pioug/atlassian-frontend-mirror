@@ -119,3 +119,5 @@ export { EDIT_AREA_ID } from './Toolbar';
 export { default as DropList } from './DropList';
 export type { UseStickyToolbarType } from './Toolbar';
 export type { OpenChangedEvent } from './DropList';
+
+export { sharedMultiBodiedExtensionStyles } from './MultiBodiedExtension';

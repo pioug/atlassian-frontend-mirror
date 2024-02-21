@@ -1240,7 +1240,10 @@ export interface FontFamilyTokenSchema<BaseToken> {
       monospace: DeprecatedTypographyToken<BaseToken>;
       body: DeprecatedTypographyToken<BaseToken>;
       heading: DeprecatedTypographyToken<BaseToken>;
-      brand: DeprecatedTypographyToken<BaseToken>;
+      brand: {
+        heading: DeprecatedTypographyToken<BaseToken>;
+        body: DeprecatedTypographyToken<BaseToken>;
+      };
       code: DeprecatedTypographyToken<BaseToken>;
     };
   };

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.38.0
+
+### Minor Changes
+
+- [#74836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74836) [`66062ea65d5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66062ea65d5b) - Added font family tokens for our brand font for headings and body text.
+
 ## 1.37.2
 
 ### Patch Changes

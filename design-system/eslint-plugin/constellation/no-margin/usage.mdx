@@ -1,0 +1,20 @@
+# no-margin
+
+Using margins to define spacing results in components that can't be readily reused in other contexts breaking the composition model.
+Instead defining spacing in parents with flex and grid using the `gap` property will result in more resilient experiences.
+
+## Examples
+
+This rule will mark all margin use as violations.
+
+### Incorrect
+
+```tsx
+css({ margin: '10px' });
+```
+
+### Correct
+
+```tsx
+css({ gap: token('spacing.100') });
+```

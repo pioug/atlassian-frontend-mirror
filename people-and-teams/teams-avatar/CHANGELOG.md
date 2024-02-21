@@ -1,0 +1,1 @@
+# @atlaskit/teams-avatar

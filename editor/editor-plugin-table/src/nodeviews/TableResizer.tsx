@@ -586,6 +586,7 @@ export const TableResizer = ({
         snap={guidelineSnaps}
         handlePositioning="adjacent"
         isHandleVisible={isTableSelected}
+        needExtendedResizeZone={!isTableSelected}
         appearance={
           isTableSelected && isWholeTableInDanger ? 'danger' : undefined
         }

@@ -46,7 +46,7 @@
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/portal": "^4.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.37.0",
+    "@atlaskit/tokens": "^1.38.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"

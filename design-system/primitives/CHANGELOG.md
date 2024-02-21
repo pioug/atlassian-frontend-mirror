@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 2.0.3
+
+### Patch Changes
+
+- [#74836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74836) [`3963062ac997`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3963062ac997) - Codegen to add in new font family tokens. Not exposed in any components.
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

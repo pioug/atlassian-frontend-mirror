@@ -43,7 +43,7 @@ describe('CardActions', () => {
   const menuActions = [openAction, closeAction, annotateAction, deleteAction];
 
   const openDropdownMenuIfExists = (card: RenderResult) => {
-    const moreButton = card.queryByLabelText('more')?.closest('div');
+    const moreButton = card.queryByLabelText('more')?.closest('button');
     moreButton && fireEvent.click(moreButton);
   };
 
@@ -53,7 +53,11 @@ describe('CardActions', () => {
     analyticsHandler?: UIAnalyticsEventHandler,
   ) => {
     const TheCardActionsView = () => (
-      <CardActionsView actions={actions} triggerColor={triggerColor} />
+      <CardActionsView
+        filename="test.jpg"
+        actions={actions}
+        triggerColor={triggerColor}
+      />
     );
     const card = render(
       analyticsHandler ? (
@@ -138,6 +142,14 @@ describe('CardActions', () => {
     expect(iconButtons).toHaveLength(2);
     expect(dropdownMenu).toBeNull();
     expect(dropdownItems).toHaveLength(0);
+  });
+
+  it('should add a label on the button of icon', () => {
+    const { iconButtons } = setup([annotateAction, deleteAction]);
+
+    expect(iconButtons).toHaveLength(2);
+    expect(iconButtons[0]).toHaveAccessibleName('test.jpg — Annotate');
+    expect(iconButtons[1]).toHaveAccessibleName('test.jpg — Delete');
   });
 
   /* Disabled because Dropdown now defers rendering children until layer is positioned. Integration test will replace these https://ecosystem.atlassian.net/browse/AK-5183

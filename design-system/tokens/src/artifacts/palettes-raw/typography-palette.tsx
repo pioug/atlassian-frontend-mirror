@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7e7682a077bd4735a11d99a880446147>>
+ * @codegen <<SignedSource::382dab56160255b1cf0190b5dc1f552b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -45,23 +45,43 @@ const tokens = [
     ]
   },
   {
-    "value": "Charlie Sans",
+    "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
     "attributes": {
       "group": "fontFamily"
     },
     "filePath": "schema/palettes/typography-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "Charlie Sans",
+      "value": "\"Charlie Display\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
       "attributes": {
         "group": "fontFamily"
       }
     },
-    "name": "typography.fontFamily.FontFamilyCharlie",
+    "name": "typography.fontFamily.FontFamilyCharlieDisplay",
     "path": [
       "typography",
       "fontFamily",
-      "FontFamilyCharlie"
+      "FontFamilyCharlieDisplay"
+    ]
+  },
+  {
+    "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+    "attributes": {
+      "group": "fontFamily"
+    },
+    "filePath": "schema/palettes/typography-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "\"Charlie Text\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+      "attributes": {
+        "group": "fontFamily"
+      }
+    },
+    "name": "typography.fontFamily.FontFamilyCharlieText",
+    "path": [
+      "typography",
+      "fontFamily",
+      "FontFamilyCharlieText"
     ]
   },
   {

@@ -32,6 +32,17 @@ test.describe('feature name: Mention', () => {
     },
   });
 
+  test('mention is selected with right class', async ({ editor }) => {
+    const mentionModel = EditorMentionModel.from(editor);
+    const nodes = EditorNodeContainerModel.from(editor);
+    await mentionModel.search('Carolyn');
+    await editor.keyboard.press('Enter');
+
+    const { mention } = nodes;
+    await mention.click();
+    await expect(mention).toHaveClass(/ak-editor-selected-node/);
+  });
+
   test('mention-1.ts: user can see mention inside blockquote', async ({
     editor,
   }) => {

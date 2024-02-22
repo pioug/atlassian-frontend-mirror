@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.3.0
+
+### Minor Changes
+
+- [#73940](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73940) [`4fcb78ece80f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fcb78ece80f) - [ux] add aria-required prop to select dropdown; remove conflicting aria-describedby from checkbox
+
 ## 13.2.7
 
 ### Patch Changes

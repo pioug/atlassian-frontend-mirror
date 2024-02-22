@@ -53,15 +53,23 @@ const Wrapper = styled.div({
 
 ### importSources
 
-By default, this rule will check `styled` usages from `@compiled/react`. To check `styled` usages from other CSS-in-JS libraries, you can add the library's package name to `importSources`.
+By default, this rule will check `styled` usages from:
 
-`importSources` accepts an array of package names (strings). `styled` usages from `@compiled/react` will always be checked, regardless of the value of `importSources`.
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
 
 ```tsx
-// [{ importSources: ['styled-components'] }]
+// [{ importSources: ['other-lib'] }]
 
-import styled from 'styled-components';
+import { styled } from 'other-lib';
 
 // Invalid!
-const styles = styled({});
+export const Component = styled.div({});
 ```

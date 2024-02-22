@@ -417,7 +417,7 @@ const createTestCases = (importSource: string) =>
     {
       // name: 'should not parse unrelated package imports when importSources not defined',
       code: `
-          import { keyframes } from '@emotion/react';
+          import { keyframes } from 'my-package';
 
           const animation = ${createKeyframe(level)};
 

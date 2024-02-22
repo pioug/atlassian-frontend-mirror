@@ -47,7 +47,9 @@ const CheckboxIcon = ({ checked }: { checked: boolean }) => {
                 )
           }
           strokeWidth={
-            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+            getBooleanFF(
+              'platform.design-system-team.update-input-border-wdith_5abwv',
+            )
               ? 1
               : 2
           }

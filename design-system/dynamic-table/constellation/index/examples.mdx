@@ -8,7 +8,6 @@ import Controlled from '../../examples/1-stateless';
 import LoadingStateFewRows from '../../examples/4-loading-state-few-rows';
 import Sorting from '../../examples/18-sorting';
 import EmptyView from '../../examples/6-empty-view-with-body';
-import Headless from '../../examples/9-headless';
 import Pagination from '../../examples/10-with-lots-of-pages';
 import PaginationDragAndDrop from '../../examples/12-with-lots-of-pages-rankable';
 import ColSpan from '../../examples/13-colspan';
@@ -59,7 +58,7 @@ import Overflow from '../../examples/19-overflow';
 ## Uncontrolled
 
 Dynamic table manages sorting, pagination, loading, and drag and drop state management by default.
-If this functionality is not needed, use the native HTML table element.
+If this functionality isn't needed, use the [native HTML table element](/components/css-reset/examples#tables).
 
 <Example Component={Uncontrolled} packageName="@atlaskit/dynamic-table" />
 
@@ -73,7 +72,7 @@ If you require this functionality, use the stateless dynamic table component.
 ## Sorting
 
 Sorting a dynamic table takes place using the `key` set on each cell. Note that the type of `key` will
-affect the sorted result. Numeric and string keys for example will result in different orderings. Avoid using objects or React nodes as keys.
+affect the sorted result. For example, numeric and string keys will result in different orderings. Avoid using objects or React nodes as keys.
 
 <Example Component={Sorting} packageName="@atlaskit/dynamic-table" />
 
@@ -92,28 +91,21 @@ Table content is set to 20% opacity in this loading state, using the `opacity.lo
 
 Use the `emptyView` prop to show an empty state in the dynamic table.
 Empty states communicate that the table has no content to show.
-If there is an action that a user must take to create or show table content,
-add this to the empty state. See [empty state](/components/empty-state/examples) guidelines for more guidance.
+If there's an action that people must take to create or show table content,
+add this to the empty state so they know how to proceed. See [empty state](/components/empty-state/examples) guidelines for more guidance.
 
 <Example Component={EmptyView} packageName="@atlaskit/dynamic-table" />
 
-## Headless
-
-Dynamic table can render without a table header if no `head` is supplied.
-
-<Example Component={Headless} packageName="@atlaskit/dynamic-table" />
-
 ## Pagination
 
-Pagination is enabled or disabled by setting or unsetting the `rowsPerPageprop`.
-If the `rowsPerPage` prop is set, and there is more than one page of content, the [pagination](/components/pagination/examples) component is added below the table.
+You can enable or disable pagination with the `rowsPerPage` prop.
+If the `rowsPerPage` prop is set and the number of rows exceed one page, the [pagination](/components/pagination/examples) component will show below the table.
 
 <Example Component={Pagination} packageName="@atlaskit/dynamic-table" />
 
 ## Drag and drop
 
-Drag and drop functionality is built into dynamic table and is enabled using the `isRankable` prop.
-This allows you to drag rows and rank them in different orders.
+Drag and drop functionality is built into the dynamic table. You can enable it using the `isRankable` prop. This lets people drag rows and rank them in different orders.
 
 <Example
   Component={PaginationDragAndDrop}
@@ -122,22 +114,25 @@ This allows you to drag rows and rank them in different orders.
 
 ## Overflow
 
-Larger tables or tables that cannot be constrained easily should make use of horizontal scroll.
+Larger tables or tables that cannot be constrained easily can use horizontal scroll.
 This isn't supported directly by dynamic table, but the component can be easily extended to support this.
-See the example for a basic implementation.
+
+Be mindful that horizontally scrolling tables can cause accessibility issues if there isn't enough visual affordance to indicate that the table has a scroll.
+For this reason, we recommend finding ways to simplify the table before opting for a horizontal scroll solution.
 
 <Example Component={Overflow} packageName="@atlaskit/dynamic-table" />
 
 ## Custom column span
 
-Individual cells can utilise `colSpan` to allow them to spill into other columns.
+Individual cells can use `colSpan` to make cells span across more than one column.
 
 <Example Component={ColSpan} packageName="@atlaskit/dynamic-table" />
 
 ## Highlighted row
 
-Rows can be highlighted to provide additional visual prominence to a row.
-For example, use highlighted rows when rows are added. This should not be used to reflect selection.
+You can highlight rows with `highlightedRowIndex`. Highlights provide additional visual prominence to a row. For example, you could use highlighted rows to show new rows that are added to a table.
+
+Keep in mind that people with visual disabilities may not notice when rows are highlighted, so don’t rely on highlights alone to convey information. Never use highlighted rows to indicate that a person has selected or focused on the row.
 
 <Example Component={HighlightedRow} packageName="@atlaskit/dynamic-table" />
 

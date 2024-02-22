@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 22.0.2
+
+### Patch Changes
+
+- [#64934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/64934) [`532734a858a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/532734a858a1) - Update to internal metadata order, following update of @atlaskit/icon-build-process
+
 ## 22.0.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -142,10 +142,10 @@
     "@atlaskit/editor-plugin-copy-button": "1.0.7",
     "@atlaskit/editor-plugin-custom-autoformat": "1.0.1",
     "@atlaskit/editor-plugin-data-consumer": "1.0.1",
-    "@atlaskit/editor-plugin-date": "1.0.1",
+    "@atlaskit/editor-plugin-date": "1.0.2",
     "@atlaskit/editor-plugin-decorations": "1.0.1",
     "@atlaskit/editor-plugin-editor-disabled": "1.0.1",
-    "@atlaskit/editor-plugin-editor-viewmode": "1.0.11",
+    "@atlaskit/editor-plugin-editor-viewmode": "1.0.12",
     "@atlaskit/editor-plugin-emoji": "1.1.5",
     "@atlaskit/editor-plugin-expand": "1.0.1",
     "@atlaskit/editor-plugin-extension": "1.0.2",
@@ -169,7 +169,7 @@
     "@atlaskit/editor-plugin-max-content-size": "1.0.1",
     "@atlaskit/editor-plugin-media": "1.2.2",
     "@atlaskit/editor-plugin-mentions": "1.0.2",
-    "@atlaskit/editor-plugin-panel": "1.0.1",
+    "@atlaskit/editor-plugin-panel": "1.0.2",
     "@atlaskit/editor-plugin-paste": "1.0.2",
     "@atlaskit/editor-plugin-paste-options-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-placeholder": "1.0.1",
@@ -182,11 +182,11 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-status": "1.0.1",
     "@atlaskit/editor-plugin-submit-editor": "1.0.1",
-    "@atlaskit/editor-plugin-table": "7.3.7",
+    "@atlaskit/editor-plugin-table": "7.3.8",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.1",
     "@atlaskit/editor-plugin-text-color": "1.0.1",
-    "@atlaskit/editor-plugin-text-formatting": "1.1.0",
-    "@atlaskit/editor-plugin-toolbar-lists-indentation": "1.1.0",
+    "@atlaskit/editor-plugin-text-formatting": "1.2.0",
+    "@atlaskit/editor-plugin-toolbar-lists-indentation": "1.2.0",
     "@atlaskit/editor-plugin-type-ahead": "1.0.2",
     "@atlaskit/editor-plugin-undo-redo": "1.0.1",
     "@atlaskit/editor-plugin-unsupported-content": "1.0.1",
@@ -348,6 +348,10 @@
       "referenceOnly": true
     },
     "platform.editor.table.column-controls-styles-updated": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.insert-last-column-btn-stays-in-place": {
       "type": "boolean",
       "referenceOnly": true
     },

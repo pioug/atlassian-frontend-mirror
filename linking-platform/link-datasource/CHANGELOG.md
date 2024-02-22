@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.22.6
+
+### Patch Changes
+
+- [#74943](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74943) [`3b4442a1af2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b4442a1af2b) - Fix extensionKey not included in analytics event after sucessfully authenticated
+- Updated dependencies
+
 ## 1.22.5
 
 ### Patch Changes

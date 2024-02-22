@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "12.5.1",
+  "version": "12.5.2",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -106,6 +106,9 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.update-input-border-wdith_5abwv": {
       "type": "boolean"
     }
   },

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugins
 
+## 1.4.10
+
+### Patch Changes
+
+- [#73853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73853) [`34a4ba976c08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34a4ba976c08) - Adds a FF for tables that ensures that insert button on the last column stays visible after click.
+- [#70470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70470) [`7d1629af0072`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d1629af0072) - ED-21607 Fix issue with cutting nodes leading to panel deletion
+- Updated dependencies
+
 ## 1.4.9
 
 ### Patch Changes

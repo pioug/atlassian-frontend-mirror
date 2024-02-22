@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.3.0
+
+### Minor Changes
+
+- [#74137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74137) [`7e2066b045f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e2066b045f7) - Update types for event handler
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.8
+
+### Patch Changes
+
+- [#73364](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73364) [`1c4d3e31c0e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c4d3e31c0e8) - fix last insert row button hard to select issue
+- [#73853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73853) [`34a4ba976c08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34a4ba976c08) - [ux] When insert column button clicked on the last column, it stays in place allowing to insert more columns without moving the mouse.
+
 ## 7.3.7
 
 ### Patch Changes

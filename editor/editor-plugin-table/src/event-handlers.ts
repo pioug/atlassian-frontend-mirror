@@ -251,6 +251,42 @@ export const handleMouseOver = (
   return false;
 };
 
+export const handleMouseUp = (view: EditorView, mouseEvent: Event): boolean => {
+  if (
+    !getBooleanFF('platform.editor.table.insert-last-column-btn-stays-in-place')
+  ) {
+    return false;
+  }
+
+  if (!(mouseEvent instanceof MouseEvent)) {
+    return false;
+  }
+  const { state, dispatch } = view;
+  const { insertColumnButtonIndex, tableNode, tableRef } =
+    getPluginState(state);
+
+  if (
+    insertColumnButtonIndex !== undefined &&
+    tableRef &&
+    tableRef.parentElement &&
+    tableNode
+  ) {
+    const { width } = TableMap.get(tableNode);
+    const newInsertColumnButtonIndex = insertColumnButtonIndex + 1;
+    if (width === newInsertColumnButtonIndex) {
+      const tableWidth = tableRef.clientWidth;
+      tableRef.parentElement.scrollTo(tableWidth, 0);
+
+      return showInsertColumnButton(newInsertColumnButtonIndex)(
+        state,
+        dispatch,
+      );
+    }
+  }
+
+  return false;
+};
+
 // Ignore any `mousedown` `event` from control and numbered column buttons
 // PM end up changing selection during shift selection if not prevented
 export const handleMouseDown = (_: EditorView, event: Event) => {

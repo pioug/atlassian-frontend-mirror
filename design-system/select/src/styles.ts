@@ -117,13 +117,13 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderStyle: 'solid',
         borderRadius: token('border.radius.100', '3px'),
         borderWidth: getBooleanFF(
-          'platform.design-system-team.border-checkbox_nyoiu',
+          'platform.design-system-team.update-input-border-wdith_5abwv',
         )
           ? token('border.width', '1px')
           : token('border.width.outline', '2px'),
         boxShadow: 'none',
         ...(getBooleanFF(
-          'platform.design-system-team.border-checkbox_nyoiu',
+          'platform.design-system-team.update-input-border-wdith_5abwv',
         ) && {
           '&:focus-within': {
             boxShadow: `inset 0 0 0 ${token(

@@ -243,13 +243,14 @@ export const useDatasourceTableState = ({
           shouldForceRequest,
         );
 
+        setExtensionKey(extensionKey);
+
         if (access === 'unauthorized' || access === 'forbidden') {
           setStatus(access);
           setAuthDetails(auth || initialEmptyArray);
           return;
         }
 
-        setExtensionKey(extensionKey);
         setDestinationObjectTypes(destinationObjectTypes);
         setTotalCount(totalCount);
         setNextCursor(nextPageCursor);

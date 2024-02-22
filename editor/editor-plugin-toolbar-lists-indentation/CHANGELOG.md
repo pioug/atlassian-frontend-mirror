@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 1.2.0
+
+### Minor Changes
+
+- [#75020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75020) [`56d9ebc6e467`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56d9ebc6e467) - [ux] ECA11Y-206: Separators fix
+
 ## 1.1.0
 
 ### Minor Changes

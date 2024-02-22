@@ -10,6 +10,7 @@ export const CSS_IN_JS_IMPORTS = {
   compiled: '@compiled/react',
   emotionReact: '@emotion/react',
   emotionCore: '@emotion/core',
+  emotionStyled: '@emotion/styled',
   styledComponents: 'styled-components',
   atlaskitCss: '@atlaskit/css',
   atlaskitPrimitives: '@atlaskit/primitives',
@@ -25,19 +26,15 @@ export type SupportedNameChecker = (
   importSources: ImportSource[],
 ) => boolean;
 
-// All ESLint rules originating from `@compiled/eslint-plugin` should apply to these libraries.
-export const DEFAULT_IMPORT_SOURCES: ImportSource[] = [
-  CSS_IN_JS_IMPORTS.compiled,
-  CSS_IN_JS_IMPORTS.atlaskitCss,
-];
+/**
+ * By default all known import sources are checked against.
+ */
+export const DEFAULT_IMPORT_SOURCES: ImportSource[] =
+  Object.values(CSS_IN_JS_IMPORTS);
 
 /**
  * Given the ESLint rule context, extract and parse the value of the importSources rule option.
- * The importSources option is used to define additional libraries for which an ESLint rule
- * should apply to.
- *
- * Note that `@compiled/react` and `@atlaskit/css` are always included in importSources, regardless
- * of what importSources is configured to by the user.
+ * The importSources option is used to override which libraries an ESLint rule applies to.
  *
  * @param context The rule context.
  * @returns An array of strings representing what CSS-in-JS packages that should be checked, based
@@ -50,7 +47,7 @@ export const getImportSources = (context: Rule.RuleContext): ImportSource[] => {
   }
 
   if (options[0].importSources && Array.isArray(options[0].importSources)) {
-    return [...DEFAULT_IMPORT_SOURCES, ...options[0].importSources];
+    return options[0].importSources;
   }
 
   return DEFAULT_IMPORT_SOURCES;

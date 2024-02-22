@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.28.0
+
+### Minor Changes
+
+- [#72983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72983) [`86e7b28c9c23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86e7b28c9c23) - Ported `no-keyframes-tagged-template-expression` and `no-styled-tagged-template-expression` rules from `@compiled/eslint-plugin`
+
 ## 8.27.0
 
 ### Minor Changes

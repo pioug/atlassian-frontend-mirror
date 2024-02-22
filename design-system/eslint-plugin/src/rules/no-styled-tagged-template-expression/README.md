@@ -1,0 +1,88 @@
+Disallows any `styled` tagged template expressions that originate from `@emotion/react`, `@emotion/core`, `compiled/react` or `styled-components`.
+
+Tagged template expressions are difficult to parse correctly (which can lead to more frequent build failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These problems can be avoided by using the preferred call expression syntax instead.
+
+---
+
+The `--fix` option on the command line automatically fixes problems reported by this rule.
+
+## Examples
+
+### Incorrect
+
+```js
+import { styled } from '@compiled/react';
+
+const InlinedStyles = styled.div`
+  color: blue;
+`;
+
+const MultilineStyles = styled.div`
+  color: blue;
+  font-weight: 500;
+`;
+
+const ComposedStyles = styled(InlinedStyles)`
+  font-weight: 500;
+`;
+
+const DynamicStyles = styled.div`
+  color: ${(props) => props.color};
+  ${(props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1')}
+`;
+```
+
+### Correct
+
+```js
+import { styled } from '@compiled/react';
+
+const InlinedStyles = styled.div({
+  color: 'blue',
+});
+
+const MultilineStyles = styled.div({
+  color: 'blue',
+  fontWeight: 500,
+});
+
+const ComposedStyles = styled(InlinedStyles)({
+  fontWeight: 500,
+});
+
+const DynamicStyles = styled.div(
+  {
+    color: (props) => props.color,
+  },
+  (props) => (props.disabled ? 'opacity: 0.8' : 'opacity: 1'),
+);
+```
+
+## Options
+
+### importSources
+
+By default, this rule will check `styled` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+
+```tsx
+// [{ importSources: ['other-lib'] }]
+
+import { styled } from 'other-lib';
+
+// Invalid!
+export const Component = styled.div``;
+```
+
+## Limitations
+
+- Comments are not fixable

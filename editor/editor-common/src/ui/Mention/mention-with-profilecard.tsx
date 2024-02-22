@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 
-import { MentionProvider, ResourcedMention } from '@atlaskit/mention';
+import type { MentionProvider } from '@atlaskit/mention';
+import { ResourcedMention } from '@atlaskit/mention';
 import ProfileCardTrigger from '@atlaskit/profilecard/user';
 
-import { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
-import { MentionEventHandler } from '../EventHandlers';
+import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
+import type { MentionEventHandler } from '../EventHandlers';
 
 export interface Props {
   id: string;
@@ -42,6 +43,8 @@ export default function MentionWithProfileCard({
       actions={actions}
       trigger="click"
       position="bottom-end"
+      testId="mention-with-profilecard-trigger"
+      ariaLabel={text.replace(/^@/, '')}
     >
       <ResourcedMention
         id={id}

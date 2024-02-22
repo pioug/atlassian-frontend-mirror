@@ -71,3 +71,23 @@ it('should call noOptionsMessageHandler if user input text return no match', asy
   await user.keyboard('zsd');
   expect(mockNoOptionsMessageHandler).toHaveBeenCalled();
 });
+
+it('should call onFocus if user focuses on the UserPicker', async () => {
+  const mockNoOptionsMessageHandler = jest.fn();
+  const mockOnFocus = jest.fn();
+  render(
+    renderUserPickerField({
+      allowEmail: false,
+      userPickerOptions: {
+        noOptionsMessageHandler: mockNoOptionsMessageHandler,
+        onFocus: mockOnFocus,
+      },
+    }),
+  );
+  await screen.findByText('placeholder');
+  const label = screen.getByText('Names, teams, groups, or emails');
+  expect(label).toBeDefined();
+  const user = userEvent.setup();
+  await user.click(screen.getByRole('combobox'));
+  expect(mockOnFocus).toHaveBeenCalled();
+});

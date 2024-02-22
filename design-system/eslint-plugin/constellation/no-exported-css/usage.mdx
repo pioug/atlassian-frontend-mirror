@@ -28,14 +28,22 @@ const styles = css({});
 
 ### importSources
 
-By default, this rule will check `css` usages from `@compiled/react` and `@atlaskit/css`. To check `css` usages from other CSS-in-JS libraries, you can add the library's package name to `importSources`.
+By default, this rule will check `css` usages from:
 
-`importSources` accepts an array of package names (strings). `css` usages from `@compiled/react` and `@atlaskit/css` will always be checked, regardless of the value of `importSources`.
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
 
 ```tsx
-// [{ importSources: ['@emotion/css'] }]
+// [{ importSources: ['other-lib'] }]
 
-import { css } from '@emotion/css';
+import { css } from 'other-lib';
 
 // Invalid!
 export const styles = css({});

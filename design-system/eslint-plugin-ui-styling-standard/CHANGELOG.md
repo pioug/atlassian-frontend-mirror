@@ -1,5 +1,27 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.3.0
+
+### Minor Changes
+
+- [#74981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74981) [`842300de03a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/842300de03a1) - Add the following rules:
+
+  - `consistent-css-prop-usage`: Ensures consistency with `css` and `xcss` prop usages
+  - `no-empty-styled-expression`: Forbids any styled expression to be used when passing empty arguments to styled.div() (or other JSX elements).
+  - `no-exported-css`: Forbid exporting `css` function calls.
+  - `no-exported-keyframes`: Forbid exporting `keyframes` function calls.
+  - `no-invalid-css-map`: Checks the validity of a CSS map created through cssMap.
+
+- [#72983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72983) [`878065bfc4c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/878065bfc4c0) - Adds the following rules to the recommended preset:
+
+  - `@atlaskit/design-system/no-css-tagged-template-expression`
+  - `@atlaskit/design-system/no-keyframes-tagged-template-expression`
+  - `@atlaskit/design-system/no-styled-tagged-template-expression`
+
+### Patch Changes
+
+- [#75152](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75152) [`c16a175d372b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c16a175d372b) - Change 'error' to 'warn' to unbreak AFM platform
+
 ## 0.2.1
 
 ### Patch Changes

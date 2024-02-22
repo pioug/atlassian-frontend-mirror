@@ -154,7 +154,7 @@ const baseIconStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& svg rect, & svg circle:first-of-type': {
     strokeWidth: getBooleanFF(
-      'platform.design-system-team.border-checkbox_nyoiu',
+      'platform.design-system-team.update-input-border-wdith_5abwv',
     )
       ? token('border.width', '1px')
       : token('border.width.outline', '2px'),

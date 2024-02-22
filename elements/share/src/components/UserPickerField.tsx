@@ -277,7 +277,8 @@ export class UserPickerFieldComponent extends React.Component<
       isBrowseUsersDisabled,
     );
 
-    const { header, noOptionsMessageHandler } = userPickerOptions ?? {};
+    const { header, noOptionsMessageHandler, onFocus } =
+      userPickerOptions ?? {};
 
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
@@ -295,6 +296,7 @@ export class UserPickerFieldComponent extends React.Component<
       maxPickerHeight: MAX_PICKER_HEIGHT,
       textFieldBackgroundColor: true,
       header,
+      onFocus,
     };
 
     const UserPickerComponent:

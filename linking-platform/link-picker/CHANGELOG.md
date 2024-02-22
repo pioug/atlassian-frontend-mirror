@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.34.0
+
+### Minor Changes
+
+- [#73644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73644) [`1826cabe2425`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1826cabe2425) - Cleans up platform.linking-platform.link-picker.lazy-intl-messages. Will now always attempt to lazy load translations.
+
 ## 1.33.1
 
 ### Patch Changes

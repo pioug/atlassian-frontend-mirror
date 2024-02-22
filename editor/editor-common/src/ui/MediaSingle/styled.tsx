@@ -155,6 +155,7 @@ export const MediaSingleDimensionHelper = ({
   tr &,
   [data-layout-column] &,
   [data-node-type='expand'] &,
+  [data-panel-type] &,
   li & {
     max-width: 100%;
   }

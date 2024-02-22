@@ -1,6 +1,5 @@
-export type UserPickerOptions = {
-  /* Header for User Picker Option List */
-  header?: React.ReactNode;
+import type { UserPickerProps } from '@atlaskit/user-picker';
+export type UserPickerOptions = Pick<UserPickerProps, 'onFocus' | 'header'> & {
   /** Message to be shown when the menu is open but no options are provided.
    * If message is null, no message will be displayed.
    * If message is undefined, default message will be displayed.

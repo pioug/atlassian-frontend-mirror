@@ -41,5 +41,5 @@ tidy(config16)
 
     console.log('@atlaskit-icon-object built');
 
-    return fs.outputFile(path.resolve(root!, 'src/metadata.ts'), iconDocs);
+    return fs.outputFile(path.resolve(root!, 'src/metadata.tsx'), iconDocs);
   });

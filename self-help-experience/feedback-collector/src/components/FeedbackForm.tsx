@@ -214,6 +214,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                     formatMessage(messages.selectionOptionDefaultLabel)
                   }
                   isRequired
+                  aria-required={true} // JCA11Y-1619
                 >
                   {({ fieldProps: { id, ...restProps } }) => (
                     <Select<OptionType>
@@ -269,6 +270,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                         {({ fieldProps }) => (
                           <Checkbox
                             {...fieldProps}
+                            aria-describedby={undefined} // JCA11Y-1988
                             label={
                               canBeContactedLabel || (
                                 <FormattedMessage
@@ -297,6 +299,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                         {({ fieldProps }) => (
                           <Checkbox
                             {...fieldProps}
+                            aria-describedby={undefined} // JCA11Y-1988
                             label={
                               enrolInResearchLabel ||
                               formatMessage(messages.enrolInResearchLabel)

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/user-picker",
-  "version": "10.18.0",
+  "version": "10.19.0",
   "description": "Fabric component for display a dropdown to select a user from",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/avatar": "^21.4.0",
+    "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/icon": "^22.0.0",
     "@atlaskit/logo": "^13.15.0",
     "@atlaskit/lozenge": "^11.6.0",
@@ -52,7 +52,7 @@
     "@atlaskit/primitives": "^2.0.0",
     "@atlaskit/select": "^17.1.0",
     "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/teams-avatar": "^0.0.0",
+    "@atlaskit/teams-avatar": "^1.0.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.38.0",
     "@atlaskit/tooltip": "^18.1.0",

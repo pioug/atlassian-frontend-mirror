@@ -1,5 +1,16 @@
 # @atlaskit/user-picker
 
+## 10.19.0
+
+### Minor Changes
+
+- [#69996](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69996) [`1b320a82df61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b320a82df61) - Add Team fallback avatar
+
+### Patch Changes
+
+- [#74949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74949) [`ba44973e5e90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba44973e5e90) - openMenuOnClick prop added to support userpicker to work as select
+- Updated dependencies
+
 ## 10.18.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 78.3.1
+
+### Patch Changes
+
+- [#74333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74333) [`600bcf196eab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/600bcf196eab) - [ux] ED-21950: CSS fixes related to MBE
+- [#75026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75026) [`7a7995739cfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a7995739cfa) - ED-22247 Set max-width to 100% when rendering media inside panel
+- [#73364](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73364) [`1c4d3e31c0e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c4d3e31c0e8) - fix last insert row button hard to select issue
+- Updated dependencies
+
 ## 78.3.0
 
 ### Minor Changes

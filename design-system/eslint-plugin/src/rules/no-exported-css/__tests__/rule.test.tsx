@@ -762,7 +762,7 @@ const createTestCases = (importSource: string) =>
     {
       // name: 'should not parse unrelated package imports when importSources not defined',
       code: `
-          import { css } from '@emotion/react';
+          import { css } from 'my-package';
 
           const animation = ${createStyle(level)};
 

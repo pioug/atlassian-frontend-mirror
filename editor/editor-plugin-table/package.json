@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.3.7",
+  "version": "7.3.8",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -106,6 +106,9 @@
       "type": "boolean"
     },
     "platform.editor.table.column-controls-styles-updated": {
+      "type": "boolean"
+    },
+    "platform.editor.table.insert-last-column-btn-stays-in-place": {
       "type": "boolean"
     },
     "platform.editor.resizing-table-height-improvement": {

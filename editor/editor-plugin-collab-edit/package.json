@@ -48,7 +48,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/editor-plugin-mentions": "^1.0.0",
-    "@atlaskit/editor-plugin-text-formatting": "^1.1.0",
+    "@atlaskit/editor-plugin-text-formatting": "^1.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/editor-plugin-unsupported-content": "^1.0.0",
     "@atlaskit/editor-test-helpers": "^18.18.0",

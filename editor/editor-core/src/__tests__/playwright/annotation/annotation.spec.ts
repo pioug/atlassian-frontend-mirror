@@ -7,7 +7,11 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { annotation, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { paragraphADF, paragraphEmojiADF } from './annotation.spec.ts-fixtures';
+import {
+  noAnnotationADF,
+  paragraphADF,
+  paragraphEmojiADF,
+} from './annotation.spec.ts-fixtures';
 
 test.describe('annotation', () => {
   test.use({
@@ -141,5 +145,47 @@ test.describe('annotation', () => {
       await expect(annotationToolbar.toolbar).toBeVisible();
       await expect(annotationToolbar.inlineCommentButton).toBeDisabled();
     });
+  });
+});
+
+test.describe('annotation: temporary highlight', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: true,
+    },
+    editorMountOptions: {
+      providers: {
+        annotation: true,
+      },
+    },
+    adf: noAnnotationADF,
+  });
+
+  test('temporary highlight shows up correctly with different content', async ({
+    editor,
+  }) => {
+    await editor.page.setViewportSize({
+      width: 600,
+      height: 1200,
+    });
+    await editor.waitForEditorStable();
+    const annotationToolbar = EditorAnnotationModel.from(editor);
+
+    const rectStart = await editor.selection.setCursor({ position: 1 });
+    const rectEnd = await editor.selection.setCursor({ position: 735 });
+
+    await editor.page.mouse.move(rectStart.x, rectStart.y);
+    await editor.page.mouse.down();
+    await editor.page.mouse.move(rectEnd.x, rectEnd.y);
+    await editor.page.mouse.up();
+
+    await expect(annotationToolbar.toolbar).toBeVisible();
+    await expect(annotationToolbar.inlineCommentButton).toBeEnabled();
+    await annotationToolbar.inlineCommentButton.click();
+    await expect(annotationToolbar.draft.first()).toBeVisible();
+
+    const AMOUNT_OF_TEXT_BLOCKS = 12;
+    await expect(annotationToolbar.draft).toHaveCount(AMOUNT_OF_TEXT_BLOCKS);
   });
 });

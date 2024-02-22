@@ -164,22 +164,6 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'select',
-      'appearance',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-
-    await loadPage(page, url);
-    await page.waitForSelector('.single-select');
-
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   ffTest(
     'platform.design-system-team.popup-select-render-perf_i0s6m',
     async () => {

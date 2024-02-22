@@ -65,6 +65,7 @@ import {
   handleMouseMove,
   handleMouseOut,
   handleMouseOver,
+  handleMouseUp,
   handleTripleClick,
   whenTableInFocus,
   withCellTracking,
@@ -420,6 +421,7 @@ export const createPlugin = (
         mouseout: whenTableInFocus(handleMouseOut),
         mousemove: whenTableInFocus(handleMouseMove, elementContentRects),
         mouseenter: handleMouseEnter,
+        mouseup: whenTableInFocus(handleMouseUp),
         click: withCellTracking(whenTableInFocus(handleClick)),
       },
 

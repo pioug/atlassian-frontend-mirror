@@ -271,5 +271,39 @@ describe('UserPicker', () => {
       fireEvent.mouseDown(selectValueContainer!);
       expect(onCloseMock).toHaveBeenCalledTimes(1);
     });
+
+    it('should open user picker when openMenuOnClick is false', async () => {
+      const onOpenMock = jest.fn();
+      const { getByText } = renderUserPickerWithPreventDefault({
+        options,
+        onOpen: onOpenMock,
+        openMenuOnClick: false,
+      });
+
+      const selectValueContainer = getByText(
+        'Enter people or teams...',
+      ).parentElement;
+
+      // Open user picker
+      fireEvent.mouseDown(selectValueContainer!);
+      expect(onOpenMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not open user picker when openMenuOnClick is true', async () => {
+      const onOpenMock = jest.fn();
+      const { getByText } = renderUserPickerWithPreventDefault({
+        options,
+        onOpen: onOpenMock,
+        openMenuOnClick: true,
+      });
+
+      const selectValueContainer = getByText(
+        'Enter people or teams...',
+      ).parentElement;
+
+      // Open user picker
+      fireEvent.mouseDown(selectValueContainer!);
+      expect(onOpenMock).toHaveBeenCalledTimes(0);
+    });
   });
 });

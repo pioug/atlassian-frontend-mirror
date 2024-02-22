@@ -90,4 +90,8 @@ export const codeBlockStyles = () => css`
       )};
     }
   }
+
+  .ak-editor-panel__content > .code-block {
+    margin: 0 0 0 0 !important;
+  }
 `;

@@ -113,7 +113,7 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
       backgroundColor: backgroundColorFocus[appearance],
       borderColor: borderColorFocus[appearance],
       boxShadow: getBooleanFF(
-        'platform.design-system-team.border-checkbox_nyoiu',
+        'platform.design-system-team.update-input-border-wdith_5abwv',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
             borderColorFocus[appearance]
@@ -129,7 +129,7 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
       backgroundColor: invalidRules.backgroundColorFocus,
       borderColor: invalidRules.borderColorFocus,
       boxShadow: getBooleanFF(
-        'platform.design-system-team.border-checkbox_nyoiu',
+        'platform.design-system-team.update-input-border-wdith_5abwv',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
             invalidRules.borderColorFocus
@@ -141,7 +141,7 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
       backgroundColor: invalidRules.backgroundColor,
       borderColor: invalidRules.borderColor,
       boxShadow: getBooleanFF(
-        'platform.design-system-team.border-checkbox_nyoiu',
+        'platform.design-system-team.update-input-border-wdith_5abwv',
       )
         ? `inset 0 0 0 ${token('border.width', '1px')} ${
             invalidRules.borderColor
@@ -187,7 +187,7 @@ const hoverBackgroundAndBorderStyles = (
         backgroundColor: invalidRules.backgroundColorHover,
         borderColor: invalidRules.borderColor,
         boxShadow: getBooleanFF(
-          'platform.design-system-team.border-checkbox_nyoiu',
+          'platform.design-system-team.update-input-border-wdith_5abwv',
         )
           ? `inset 0 0 0 ${token('border.width', '1px')} ${
               invalidRules.borderColor
@@ -222,8 +222,9 @@ const borderPaddingAndHeightStyles = (
   appearance: string | undefined,
 ) => {
   const borderWidth =
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu') &&
-    appearance !== 'none'
+    getBooleanFF(
+      'platform.design-system-team.update-input-border-wdith_5abwv',
+    ) && appearance !== 'none'
       ? 1
       : 2;
   const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
@@ -256,7 +257,9 @@ const staticStyles = css({
   flex: '1 1 100%',
   borderRadius: token('border.radius', '3px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  borderWidth: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+  borderWidth: getBooleanFF(
+    'platform.design-system-team.update-input-border-wdith_5abwv',
+  )
     ? 1
     : borderWidth,
   fontSize: fontSize,

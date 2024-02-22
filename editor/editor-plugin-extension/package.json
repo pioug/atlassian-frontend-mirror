@@ -27,7 +27,7 @@
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/avatar": "^21.4.0",
+    "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/button": "^17.4.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/datetime-picker": "^13.0.3",

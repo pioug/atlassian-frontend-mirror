@@ -1,7 +1,9 @@
+import {
+  createNoTaggedTemplateExpressionRule,
+  noTaggedTemplateExpressionRuleSchema,
+} from '../utils/create-no-tagged-template-expression-rule';
 import { createLintRule } from '../utils/create-rule';
 import { isCss } from '../utils/is-supported-import';
-
-import { createNoTaggedTemplateExpressionRule } from './create-no-tagged-template-expression-rule';
 
 const rule = createLintRule({
   meta: {
@@ -17,6 +19,7 @@ const rule = createLintRule({
     messages: {
       unexpectedTaggedTemplate: 'Unexpected `css` tagged template expression',
     },
+    schema: noTaggedTemplateExpressionRuleSchema,
   },
   create: createNoTaggedTemplateExpressionRule(
     isCss,

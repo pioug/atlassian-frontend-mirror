@@ -3,7 +3,6 @@ import {
   loadPage,
   waitForElementCount,
 } from '@atlaskit/visual-regression/helper';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const datePickerSelector = '#react-select-datepicker-1-input';
 const timePickerSelector = '[data-testid="timepicker-1--container"]';
@@ -105,21 +104,4 @@ describe('Snapshot Test', () => {
       expect(image).toMatchProdImageSnapshot();
     },
   );
-
-  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'datetime-picker',
-      'datetime-picker-states',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-
-    await page.setViewport({ width: 800, height: 1100 });
-
-    await loadPage(page, url);
-    await waitForElementCount(page, 'label', 6);
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
 });

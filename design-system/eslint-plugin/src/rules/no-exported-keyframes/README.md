@@ -26,15 +26,23 @@ const animation = keyframes({});
 
 ### importSources
 
-By default, this rule will check `keyframes` usages from `@compiled/react`. To check `keyframes` usages from other CSS-in-JS libraries, you can add the library's package name to `importSources`.
+By default, this rule will check `keyframes` usages from:
 
-`importSources` accepts an array of package names as strings. Note that `keyframes` usages from `@compiled/react` will always be checked, regardless of the value of `importSources`.
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
 
 ```tsx
-// [{ importSources: ['@emotion/css'] }]
+// [{ importSources: ['other-lib'] }]
 
-import { keyframes } from '@emotion/css';
+import { keyframes } from 'other-lib';
 
 // Invalid!
-export const styles = keyframes({});
+export const animation = keyframes({});
 ```

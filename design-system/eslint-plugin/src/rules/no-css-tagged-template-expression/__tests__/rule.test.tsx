@@ -43,7 +43,9 @@ const createInvalidTestCasesForImport = (importName: string) => [
     output: `
         import { css } from '${importName}';
 
-        css\`/* before */ color: /* inline */ blue /* after */\`;
+        css({
+          color: "blue"
+        });
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
@@ -189,42 +191,23 @@ const createInvalidTestCasesForImport = (importName: string) => [
     output: `
         import { css } from '${importName}';
 
-        css\`
-          /* before declaration 1 */
-          color: /* inline declaration 1 */ blue;
-          /* after declaration 1 */
-          /*
-           * before declaration 2
-           */
-          font-weight:
-            /*
-             * inline declaration 2
-             */
-             500;
-          /*
-           * after declaration 2
-           */
-          /* before declaration 3 */
-          opacity: /*
-           * inline declaration 3
-           */ 0.8;
-          /* after declaration 3 */
-          :hover { opacity: 1; text-decoration: underline; }
-          :visited { color: indigo; }
-          :focus {
-            /* before declaration 4 */
-            color: /* inline declaration 4 */ darkblue;
-            /* after declaration 4 */
-            /* before declaration 5 */
-            opacity: /* inline declaration 5 */ 1;
-            /*
-             * after declaration 5
-             */
-          }
-          /* before declaration 6 */
-          display: /* inline declaration 6 */ block;
-          /* after declaration 6 */
-        \`;
+        css({
+          color: "blue",
+          fontWeight: 500,
+          opacity: 0.8,
+          ":hover": {
+            opacity: 1,
+            textDecoration: "underline"
+          },
+          ":visited": {
+            color: "indigo"
+          },
+          ":focus": {
+            color: "darkblue",
+            opacity: 1
+          },
+          display: "block"
+        });
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
@@ -318,37 +301,25 @@ const createInvalidTestCasesForImport = (importName: string) => [
     output: `
         import { css } from '${importName}';
 
-        css\`
-          color: blue;
-          /* before selector 1 */
-          #foo {
-            /*
-             * before selector 2
-             */
-            .bar {
-              /* before selector 3 */
-              [data-testid="baz"] {
-                :hover {
-                  text-decoration: underline;
+        css({
+          color: "blue",
+          "#foo": {
+            ".bar": {
+              [\`[data-testid="baz"]\`]: {
+                ":hover": {
+                  textDecoration: "underline"
                 }
               }
-              /* after selector 3 */
             }
-            /*
-             * after selector 2
-             */
-          }
-          /* after selector 1 */
-          /* before media query */
-          @media screen and (max-width: 600px) {
-            #foo {
-              .bar {
-                opacity: 0;
+          },
+          "@media screen and (max-width: 600px)": {
+            "#foo": {
+              ".bar": {
+                opacity: 0
               }
             }
           }
-          /* after media query */
-        \`;
+        });
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
@@ -404,17 +375,10 @@ const createInvalidTestCasesForImport = (importName: string) => [
         const color = 'blue';
         const opacity = 1;
 
-        css\`
-          color: /* before interpolation 1 */ \${color} /* after interpolation 1 */;
-          opacity:
-            /*
-             * before interpolation 2
-             */
-             \${opacity};
-            /*
-             * after interpolation 2
-             */
-        \`;
+        css({
+          color: color,
+          opacity: opacity
+        });
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
@@ -549,22 +513,18 @@ const createInvalidTestCasesForImport = (importName: string) => [
         const primary = css({ color: 'blue' });
         const hover = css({ textDecoration: 'underline' });
 
-        css\`
-          /* before mixin 1 */
-          \${primary};
-          /* after mixin 1 */
-          opacity: 0.8;
-          :hover {
-            /*
-             * before mixin 2
-             */
-            \${hover};
-            /*
-             * after mixin 2
-             */
-            opacity: 1;
+        css(
+          primary,
+          {
+            opacity: 0.8,
+            ":hover": [
+              hover,
+              {
+                opacity: 1
+              }
+            ]
           }
-        \`;
+        );
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
@@ -580,6 +540,48 @@ const createInvalidTestCasesForImport = (importName: string) => [
         import { css } from '${importName}';
         css({
           backgroundImage: "url('https://some-url-b')"
+        });
+      `,
+    errors: ['Unexpected `css` tagged template expression'],
+  },
+  {
+    filename: 'single-line-comments.ts',
+    code: `
+        import { css } from '${importName}';
+        css\`
+          // color: orange;
+          // color: red;
+          color: blue; // color: green; // color: pink;
+          // color: purple;
+          // color: yellow;
+        \`;
+      `,
+    output: `
+        import { css } from '${importName}';
+        css({
+          color: "blue"
+        });
+      `,
+    errors: ['Unexpected `css` tagged template expression'],
+  },
+  {
+    filename: 'interpolations.ts',
+    code: `
+        import { css } from '${importName}';
+        css\`
+          color: \${color};
+          margin: \${margin}px 2px;
+          border: \${(props) => props.width}px solid \${(props) => props.color};
+          padding: \${(props) => props.paddingBlock} \${(props) => props.paddingInline};
+        \`;
+      `,
+    output: `
+        import { css } from '${importName}';
+        css({
+          color: color,
+          margin: \`\${margin}px 2px\`,
+          border: \`\${(props) => props.width}px solid \${(props) => props.color}\`,
+          padding: \`\${(props) => props.paddingBlock} \${(props) => props.paddingInline}\`
         });
       `,
     errors: ['Unexpected `css` tagged template expression'],

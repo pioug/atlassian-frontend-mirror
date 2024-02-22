@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.10.2
+
+### Patch Changes
+
+- [#74855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74855) [`60e3eb23093b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60e3eb23093b) - Fixed accessiblity issue where passing label was not adding an accessible aria-label tag
+
 ## 77.10.1
 
 ### Patch Changes

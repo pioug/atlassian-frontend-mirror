@@ -13,13 +13,9 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
-import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
-import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
-import { hyperlinkPlugin } from '@atlaskit/editor-plugins/hyperlink';
 import type { ListPlugin } from '@atlaskit/editor-plugins/list';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
-import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -35,10 +31,6 @@ const smartCardClient = new ConfluenceCardClient('stg');
 
 const createPreset = () =>
   createDefaultPreset({ featureFlags: {}, paste: {} })
-    .add(widthPlugin)
-    .add(decorationsPlugin)
-    .add(floatingToolbarPlugin)
-    .add(hyperlinkPlugin)
     .add(gridPlugin)
     .add([cardPlugin, { platform: 'web' }])
     .add(listPlugin);

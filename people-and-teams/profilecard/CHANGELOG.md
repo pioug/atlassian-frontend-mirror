@@ -1,5 +1,12 @@
 # @atlaskit/profilecard
 
+## 19.11.2
+
+### Patch Changes
+
+- [#74811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74811) [`c30aee2e855c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c30aee2e855c) - PTC-8751 enforce space token usage in profilecard
+- Updated dependencies
+
 ## 19.11.1
 
 ### Patch Changes

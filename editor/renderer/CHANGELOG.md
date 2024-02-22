@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.4.7
+
+### Patch Changes
+
+- [#74333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74333) [`600bcf196eab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/600bcf196eab) - [ux] ED-21950: CSS fixes related to MBE
+
 ## 109.4.6
 
 ### Patch Changes

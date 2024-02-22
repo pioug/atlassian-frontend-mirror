@@ -115,7 +115,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.21",
+    "@atlassian/search-provider": "2.4.22",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -166,6 +166,10 @@
     },
     "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"
+    },
+    "platform.editor.table.insert-last-column-btn-stays-in-place": {
+      "type": "boolean",
+      "referenceOnly": "true"
     },
     "platform.editor.media.extended-resize-experience": {
       "type": "boolean"

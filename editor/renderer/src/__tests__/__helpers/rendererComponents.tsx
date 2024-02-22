@@ -18,6 +18,7 @@ import inlineImageWideLayout from '../__fixtures__/media-inline-image-wide-layou
 import inlineImageWithLinksAndBorders from '../__fixtures__/media-inline-image-with-links-borders.adf.json';
 import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
 import listInBlockquote from '../__fixtures__/list-in-blockquote.adf.json';
+import panelWithMedia from '../__fixtures__/panel-with-media.json';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -152,6 +153,14 @@ export const ListInsideBlockquote = generateRendererComponent(
   {
     document: listInBlockquote,
     appearance: 'full-width',
+  },
+  true,
+);
+
+export const MediaInsidePanelFullPage = generateRendererComponent(
+  {
+    document: panelWithMedia,
+    appearance: 'full-page',
   },
   true,
 );

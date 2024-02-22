@@ -4,7 +4,6 @@ import {
   PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const docsText =
   'The default export of @atlaskit/textarea is a hybrid uncontrolled/controlled component; it is uncontrolled by default, but can be optionally controlled by setting the value prop. To set a default value for TextArea while leaving component uncontrolled, specify a defaultValue prop.';
@@ -12,20 +11,6 @@ const docsText =
 describe('TextArea', () => {
   let page: PuppeteerPage;
   let url: string;
-
-  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
-    page = global.page;
-    url = getExampleUrl(
-      'design-system',
-      'textarea',
-      'basic',
-      global.__BASEURL__,
-    );
-    await loadPage(page, url);
-    await page.waitForSelector('#smart textarea');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
 
   describe('Basic', () => {
     beforeAll(async () => {

@@ -52,7 +52,30 @@ const getArguments = (
   }
 
   const getValue = (): DeclarationValue => {
-    if (!value.trim().length && expressions.length) {
+    /**
+     * This branch is required for handling interpolated functions:
+     *
+     * css`
+     *   color: ${(props) => props.textColor}
+     * `
+     *
+     * But it also breaks interpolations of multiple tokens:
+     *
+     * css`
+     *   padding: ${token('space.100')} ${token('space.200')}
+     * `
+     *
+     * which becomes invalid syntax:
+     *
+     * css({
+     *   padding: token('space.100')token('space.200')
+     * })
+     *
+     * Limiting this branch to when `expressions.length === 1` seems
+     * to allow both cases to work. There may be other edge cases,
+     * but none were caught by the existing test suite.
+     */
+    if (!value.trim().length && expressions.length === 1) {
       return {
         type: 'expression',
         expression: expressions.map((e) => e.expression).join(''),
@@ -178,6 +201,10 @@ export const toArguments = (
   for (const [i, quasi] of template.quasis.entries()) {
     // Deal with selectors across multiple lines
     const styleTemplateElement = quasi.value.raw
+      .replace(/\/\*(.|\n|\r)*?\*\//g, '') // Removes multi-line comments
+      // Remove single line comments
+      // Negative lookbehind to handle URL-like double slashes
+      .replace(/(?<!https?:)\/\/.*$/gm, '')
       .replace(/(\r\n|\n|\r)/gm, ' ')
       .replace(/\s+/g, ' ');
 

@@ -80,6 +80,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     loadOptionsErrorMessage: () => (
       <FormattedMessage {...messages.errorMessage} />
     ),
+    openMenuOnClick: false,
   };
 
   static getDerivedStateFromProps(
@@ -314,6 +315,10 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   }, 200);
 
+  private get isMenuOpenOnClickForSingleSelect() {
+    return this.props.openMenuOnClick && !this.props.isMulti;
+  }
+
   abortOptionsShownUfoExperience = () => {
     if (
       this.optionsShownUfoExperienceInstance.state.id ===
@@ -540,17 +545,18 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   }
 
   private handleKeyDown = (event: React.KeyboardEvent) => {
-    // Escape
-    if (event.keyCode === 27) {
-      this.blur();
-    }
+    if (!this.isMenuOpenOnClickForSingleSelect) {
+      // Escape
+      if (event.keyCode === 27) {
+        this.blur();
+      }
 
-    // Space
-    if (event.keyCode === 32 && !this.state.inputValue) {
-      event.preventDefault();
-      !this.props.disableInput && this.setState({ inputValue: ' ' });
+      // Space
+      if (event.keyCode === 32 && !this.state.inputValue) {
+        event.preventDefault();
+        !this.props.disableInput && this.setState({ inputValue: ' ' });
+      }
     }
-
     if (this.session) {
       this.session.lastKey = event.keyCode;
       switch (event.keyCode) {
@@ -668,6 +674,15 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       showError,
     } = this.state;
     const appearance = this.getAppearance();
+    // these props override the default select menu open and close
+    const menuOpenDeciderProps = {
+      ...(!this.isMenuOpenOnClickForSingleSelect && {
+        menuIsOpen,
+        blurInputOnSelect: !isMulti,
+        openMenuOnFocus: true,
+        onFocus: this.handleFocus,
+      }),
+    };
 
     return (
       <SelectComponent
@@ -686,7 +701,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         enableAnimation={isMulti}
         components={components}
         inputValue={inputValue}
-        menuIsOpen={menuIsOpen}
         isLoading={count > 0 || resolving || isLoading}
         loadingMessage={loadingMessage}
         menuPlacement="auto"
@@ -700,7 +714,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         isClearable={isClearable}
         noBorder={noBorder}
         subtle={subtle}
-        blurInputOnSelect={!isMulti}
         closeMenuOnSelect={!isMulti}
         noOptionsMessage={
           showError
@@ -710,7 +723,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
             : () => noOptionsMessage
         }
         footer={footer}
-        openMenuOnFocus
         isDisabled={isDisabled}
         isFocused={menuIsOpen}
         backspaceRemovesValue={isMulti}
@@ -723,7 +735,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         inputId={inputId}
         onChange={this.handleChange}
         onMenuOpen={this.handleOpen}
-        onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onMenuClose={this.handleClose}
         onInputChange={this.handleInputChange}
@@ -738,6 +749,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         {...(UNSAFE_hasDraggableParentComponent && {
           onValueContainerClick: this.handleClickDraggableParentComponent,
         })}
+        {...menuOpenDeciderProps}
       />
     );
   }

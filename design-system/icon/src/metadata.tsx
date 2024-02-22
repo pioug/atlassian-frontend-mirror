@@ -20,6 +20,11 @@ const metaData: Record<string, Data> = {
     componentName: 'ActivityIcon',
     package: '@atlaskit/icon/glyph/activity',
   },
+  add: {
+    keywords: ['add', 'plus', 'create', 'new', 'icon', 'core'],
+    componentName: 'AddIcon',
+    package: '@atlaskit/icon/glyph/add',
+  },
   'add-circle': {
     keywords: [
       'add-circle',
@@ -37,11 +42,6 @@ const metaData: Record<string, Data> = {
     keywords: ['add-item', 'additem', 'plus', 'create', 'new', 'icon', 'core'],
     componentName: 'AddItemIcon',
     package: '@atlaskit/icon/glyph/add-item',
-  },
-  add: {
-    keywords: ['add', 'plus', 'create', 'new', 'icon', 'core'],
-    componentName: 'AddIcon',
-    package: '@atlaskit/icon/glyph/add',
   },
   addon: {
     keywords: ['addon', 'icon', 'core'],
@@ -63,15 +63,20 @@ const metaData: Record<string, Data> = {
     componentName: 'ArchiveIcon',
     package: '@atlaskit/icon/glyph/archive',
   },
+  'arrow-down': {
+    keywords: ['arrow-down', 'arrowdown', 'icon', 'core'],
+    componentName: 'ArrowDownIcon',
+    package: '@atlaskit/icon/glyph/arrow-down',
+  },
   'arrow-down-circle': {
     keywords: ['arrow-down-circle', 'arrowdowncircle', 'icon', 'core'],
     componentName: 'ArrowDownCircleIcon',
     package: '@atlaskit/icon/glyph/arrow-down-circle',
   },
-  'arrow-down': {
-    keywords: ['arrow-down', 'arrowdown', 'icon', 'core'],
-    componentName: 'ArrowDownIcon',
-    package: '@atlaskit/icon/glyph/arrow-down',
+  'arrow-left': {
+    keywords: ['arrow-left', 'arrowleft', 'back', 'previous', 'icon', 'core'],
+    componentName: 'ArrowLeftIcon',
+    package: '@atlaskit/icon/glyph/arrow-left',
   },
   'arrow-left-circle': {
     keywords: [
@@ -85,10 +90,10 @@ const metaData: Record<string, Data> = {
     componentName: 'ArrowLeftCircleIcon',
     package: '@atlaskit/icon/glyph/arrow-left-circle',
   },
-  'arrow-left': {
-    keywords: ['arrow-left', 'arrowleft', 'back', 'previous', 'icon', 'core'],
-    componentName: 'ArrowLeftIcon',
-    package: '@atlaskit/icon/glyph/arrow-left',
+  'arrow-right': {
+    keywords: ['arrow-right', 'arrowright', 'forward', 'next', 'icon', 'core'],
+    componentName: 'ArrowRightIcon',
+    package: '@atlaskit/icon/glyph/arrow-right',
   },
   'arrow-right-circle': {
     keywords: [
@@ -102,25 +107,25 @@ const metaData: Record<string, Data> = {
     componentName: 'ArrowRightCircleIcon',
     package: '@atlaskit/icon/glyph/arrow-right-circle',
   },
-  'arrow-right': {
-    keywords: ['arrow-right', 'arrowright', 'forward', 'next', 'icon', 'core'],
-    componentName: 'ArrowRightIcon',
-    package: '@atlaskit/icon/glyph/arrow-right',
+  'arrow-up': {
+    keywords: ['arrow-up', 'arrowup', 'icon', 'core'],
+    componentName: 'ArrowUpIcon',
+    package: '@atlaskit/icon/glyph/arrow-up',
   },
   'arrow-up-circle': {
     keywords: ['arrow-up-circle', 'arrowupcircle', 'icon', 'core'],
     componentName: 'ArrowUpCircleIcon',
     package: '@atlaskit/icon/glyph/arrow-up-circle',
   },
-  'arrow-up': {
-    keywords: ['arrow-up', 'arrowup', 'icon', 'core'],
-    componentName: 'ArrowUpIcon',
-    package: '@atlaskit/icon/glyph/arrow-up',
-  },
   attachment: {
     keywords: ['attachment', 'paperclip', 'icon', 'core'],
     componentName: 'AttachmentIcon',
     package: '@atlaskit/icon/glyph/attachment',
+  },
+  audio: {
+    keywords: ['audio', 'music', 'note', 'sound', 'icon', 'core'],
+    componentName: 'AudioIcon',
+    package: '@atlaskit/icon/glyph/audio',
   },
   'audio-circle': {
     keywords: [
@@ -135,15 +140,15 @@ const metaData: Record<string, Data> = {
     componentName: 'AudioCircleIcon',
     package: '@atlaskit/icon/glyph/audio-circle',
   },
-  audio: {
-    keywords: ['audio', 'music', 'note', 'sound', 'icon', 'core'],
-    componentName: 'AudioIcon',
-    package: '@atlaskit/icon/glyph/audio',
-  },
   backlog: {
     keywords: ['backlog', 'icon', 'core'],
     componentName: 'BacklogIcon',
     package: '@atlaskit/icon/glyph/backlog',
+  },
+  billing: {
+    keywords: ['billing', 'invoice', 'receipt', 'icon', 'core'],
+    componentName: 'BillingIcon',
+    package: '@atlaskit/icon/glyph/billing',
   },
   'billing-filled': {
     keywords: [
@@ -156,11 +161,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'BillingFilledIcon',
     package: '@atlaskit/icon/glyph/billing-filled',
-  },
-  billing: {
-    keywords: ['billing', 'invoice', 'receipt', 'icon', 'core'],
-    componentName: 'BillingIcon',
-    package: '@atlaskit/icon/glyph/billing',
   },
   'bitbucket/branches': {
     keywords: ['bitbucket/branches', 'bitbucketbranches', 'icon', 'core'],
@@ -248,15 +248,20 @@ const metaData: Record<string, Data> = {
     componentName: 'BulletListIcon',
     package: '@atlaskit/icon/glyph/bullet-list',
   },
+  calendar: {
+    keywords: ['calendar', 'date', 'icon', 'core'],
+    componentName: 'CalendarIcon',
+    package: '@atlaskit/icon/glyph/calendar',
+  },
   'calendar-filled': {
     keywords: ['calendar-filled', 'calendarfilled', 'date', 'icon', 'core'],
     componentName: 'CalendarFilledIcon',
     package: '@atlaskit/icon/glyph/calendar-filled',
   },
-  calendar: {
-    keywords: ['calendar', 'date', 'icon', 'core'],
-    componentName: 'CalendarIcon',
-    package: '@atlaskit/icon/glyph/calendar',
+  camera: {
+    keywords: ['camera', 'photo', 'icon', 'core'],
+    componentName: 'CameraIcon',
+    package: '@atlaskit/icon/glyph/camera',
   },
   'camera-filled': {
     keywords: ['camera-filled', 'camerafilled', 'photo', 'icon', 'core'],
@@ -279,15 +284,20 @@ const metaData: Record<string, Data> = {
     componentName: 'CameraTakePictureIcon',
     package: '@atlaskit/icon/glyph/camera-take-picture',
   },
-  camera: {
-    keywords: ['camera', 'photo', 'icon', 'core'],
-    componentName: 'CameraIcon',
-    package: '@atlaskit/icon/glyph/camera',
-  },
   canvas: {
     keywords: ['canvas', 'easel', 'icon', 'core'],
     componentName: 'CanvasIcon',
     package: '@atlaskit/icon/glyph/canvas',
+  },
+  check: {
+    keywords: ['check', 'tick', 'confirm', 'icon', 'core'],
+    componentName: 'CheckIcon',
+    package: '@atlaskit/icon/glyph/check',
+  },
+  'check-circle': {
+    keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'core'],
+    componentName: 'CheckCircleIcon',
+    package: '@atlaskit/icon/glyph/check-circle',
   },
   'check-circle-outline': {
     keywords: [
@@ -300,15 +310,10 @@ const metaData: Record<string, Data> = {
     componentName: 'CheckCircleOutlineIcon',
     package: '@atlaskit/icon/glyph/check-circle-outline',
   },
-  'check-circle': {
-    keywords: ['check-circle', 'checkcircle', 'tick', 'icon', 'core'],
-    componentName: 'CheckCircleIcon',
-    package: '@atlaskit/icon/glyph/check-circle',
-  },
-  check: {
-    keywords: ['check', 'tick', 'confirm', 'icon', 'core'],
-    componentName: 'CheckIcon',
-    package: '@atlaskit/icon/glyph/check',
+  checkbox: {
+    keywords: ['checkbox', 'tick', 'icon', 'core'],
+    componentName: 'CheckboxIcon',
+    package: '@atlaskit/icon/glyph/checkbox',
   },
   'checkbox-indeterminate': {
     keywords: [
@@ -320,10 +325,17 @@ const metaData: Record<string, Data> = {
     componentName: 'CheckboxIndeterminateIcon',
     package: '@atlaskit/icon/glyph/checkbox-indeterminate',
   },
-  checkbox: {
-    keywords: ['checkbox', 'tick', 'icon', 'core'],
-    componentName: 'CheckboxIcon',
-    package: '@atlaskit/icon/glyph/checkbox',
+  'chevron-down': {
+    keywords: [
+      'chevron-down',
+      'chevrondown',
+      'expand',
+      'collapse',
+      'icon',
+      'core',
+    ],
+    componentName: 'ChevronDownIcon',
+    package: '@atlaskit/icon/glyph/chevron-down',
   },
   'chevron-down-circle': {
     keywords: [
@@ -337,17 +349,17 @@ const metaData: Record<string, Data> = {
     componentName: 'ChevronDownCircleIcon',
     package: '@atlaskit/icon/glyph/chevron-down-circle',
   },
-  'chevron-down': {
+  'chevron-left': {
     keywords: [
-      'chevron-down',
-      'chevrondown',
-      'expand',
-      'collapse',
+      'chevron-left',
+      'chevronleft',
+      'back',
+      'previous',
       'icon',
       'core',
     ],
-    componentName: 'ChevronDownIcon',
-    package: '@atlaskit/icon/glyph/chevron-down',
+    componentName: 'ChevronLeftIcon',
+    package: '@atlaskit/icon/glyph/chevron-left',
   },
   'chevron-left-circle': {
     keywords: [
@@ -366,17 +378,17 @@ const metaData: Record<string, Data> = {
     componentName: 'ChevronLeftLargeIcon',
     package: '@atlaskit/icon/glyph/chevron-left-large',
   },
-  'chevron-left': {
+  'chevron-right': {
     keywords: [
-      'chevron-left',
-      'chevronleft',
-      'back',
-      'previous',
+      'chevron-right',
+      'chevronright',
+      'forward',
+      'next',
       'icon',
       'core',
     ],
-    componentName: 'ChevronLeftIcon',
-    package: '@atlaskit/icon/glyph/chevron-left',
+    componentName: 'ChevronRightIcon',
+    package: '@atlaskit/icon/glyph/chevron-right',
   },
   'chevron-right-circle': {
     keywords: [
@@ -395,17 +407,10 @@ const metaData: Record<string, Data> = {
     componentName: 'ChevronRightLargeIcon',
     package: '@atlaskit/icon/glyph/chevron-right-large',
   },
-  'chevron-right': {
-    keywords: [
-      'chevron-right',
-      'chevronright',
-      'forward',
-      'next',
-      'icon',
-      'core',
-    ],
-    componentName: 'ChevronRightIcon',
-    package: '@atlaskit/icon/glyph/chevron-right',
+  'chevron-up': {
+    keywords: ['chevron-up', 'chevronup', 'expand', 'collapse', 'icon', 'core'],
+    componentName: 'ChevronUpIcon',
+    package: '@atlaskit/icon/glyph/chevron-up',
   },
   'chevron-up-circle': {
     keywords: [
@@ -418,11 +423,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'ChevronUpCircleIcon',
     package: '@atlaskit/icon/glyph/chevron-up-circle',
-  },
-  'chevron-up': {
-    keywords: ['chevron-up', 'chevronup', 'expand', 'collapse', 'icon', 'core'],
-    componentName: 'ChevronUpIcon',
-    package: '@atlaskit/icon/glyph/chevron-up',
   },
   'child-issues': {
     keywords: ['child-issues', 'childissues', 'icon', 'core'],
@@ -449,6 +449,11 @@ const metaData: Record<string, Data> = {
     componentName: 'CopyIcon',
     package: '@atlaskit/icon/glyph/copy',
   },
+  creditcard: {
+    keywords: ['creditcard', 'buy', 'pay', 'purchase', 'icon', 'core'],
+    componentName: 'CreditcardIcon',
+    package: '@atlaskit/icon/glyph/creditcard',
+  },
   'creditcard-filled': {
     keywords: [
       'creditcard-filled',
@@ -462,10 +467,10 @@ const metaData: Record<string, Data> = {
     componentName: 'CreditcardFilledIcon',
     package: '@atlaskit/icon/glyph/creditcard-filled',
   },
-  creditcard: {
-    keywords: ['creditcard', 'buy', 'pay', 'purchase', 'icon', 'core'],
-    componentName: 'CreditcardIcon',
-    package: '@atlaskit/icon/glyph/creditcard',
+  cross: {
+    keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'core'],
+    componentName: 'CrossIcon',
+    package: '@atlaskit/icon/glyph/cross',
   },
   'cross-circle': {
     keywords: [
@@ -479,11 +484,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'CrossCircleIcon',
     package: '@atlaskit/icon/glyph/cross-circle',
-  },
-  cross: {
-    keywords: ['cross', 'close', 'x', 'cancel', 'icon', 'core'],
-    componentName: 'CrossIcon',
-    package: '@atlaskit/icon/glyph/cross',
   },
   dashboard: {
     keywords: ['dashboard', 'window', 'grid', 'icon', 'core'],
@@ -505,6 +505,11 @@ const metaData: Record<string, Data> = {
     componentName: 'DetailViewIcon',
     package: '@atlaskit/icon/glyph/detail-view',
   },
+  discover: {
+    keywords: ['discover', 'compass', 'navigate', 'icon', 'core'],
+    componentName: 'DiscoverIcon',
+    package: '@atlaskit/icon/glyph/discover',
+  },
   'discover-filled': {
     keywords: [
       'discover-filled',
@@ -517,10 +522,10 @@ const metaData: Record<string, Data> = {
     componentName: 'DiscoverFilledIcon',
     package: '@atlaskit/icon/glyph/discover-filled',
   },
-  discover: {
-    keywords: ['discover', 'compass', 'navigate', 'icon', 'core'],
-    componentName: 'DiscoverIcon',
-    package: '@atlaskit/icon/glyph/discover',
+  document: {
+    keywords: ['document', 'page', 'paper', 'sheet', 'file', 'icon', 'core'],
+    componentName: 'DocumentIcon',
+    package: '@atlaskit/icon/glyph/document',
   },
   'document-filled': {
     keywords: [
@@ -535,11 +540,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'DocumentFilledIcon',
     package: '@atlaskit/icon/glyph/document-filled',
-  },
-  document: {
-    keywords: ['document', 'page', 'paper', 'sheet', 'file', 'icon', 'core'],
-    componentName: 'DocumentIcon',
-    package: '@atlaskit/icon/glyph/document',
   },
   documents: {
     keywords: ['documents', 'page', 'paper', 'sheet', 'file', 'icon', 'core'],
@@ -561,15 +561,15 @@ const metaData: Record<string, Data> = {
     componentName: 'DropboxIcon',
     package: '@atlaskit/icon/glyph/dropbox',
   },
-  'edit-filled': {
-    keywords: ['edit-filled', 'editfilled', 'pencil', 'write', 'icon', 'core'],
-    componentName: 'EditFilledIcon',
-    package: '@atlaskit/icon/glyph/edit-filled',
-  },
   edit: {
     keywords: ['edit', 'pencil', 'write', 'icon', 'core'],
     componentName: 'EditIcon',
     package: '@atlaskit/icon/glyph/edit',
+  },
+  'edit-filled': {
+    keywords: ['edit-filled', 'editfilled', 'pencil', 'write', 'icon', 'core'],
+    componentName: 'EditFilledIcon',
+    package: '@atlaskit/icon/glyph/edit-filled',
   },
   'editor/add': {
     keywords: [
@@ -770,11 +770,6 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorFeedbackIcon',
     package: '@atlaskit/icon/glyph/editor/feedback',
   },
-  'editor/file-preview': {
-    keywords: ['editor/file-preview', 'editorfilepreview', 'icon', 'core'],
-    componentName: 'EditorFilePreviewIcon',
-    package: '@atlaskit/icon/glyph/editor/file-preview',
-  },
   'editor/file': {
     keywords: [
       'editor/file',
@@ -788,6 +783,11 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'EditorFileIcon',
     package: '@atlaskit/icon/glyph/editor/file',
+  },
+  'editor/file-preview': {
+    keywords: ['editor/file-preview', 'editorfilepreview', 'icon', 'core'],
+    componentName: 'EditorFilePreviewIcon',
+    package: '@atlaskit/icon/glyph/editor/file-preview',
   },
   'editor/help': {
     keywords: ['editor/help', 'editorhelp', 'question', 'icon', 'core'],
@@ -811,6 +811,18 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorHorizontalRuleIcon',
     package: '@atlaskit/icon/glyph/editor/horizontal-rule',
   },
+  'editor/image': {
+    keywords: [
+      'editor/image',
+      'editorimage',
+      'photo',
+      'picture',
+      'icon',
+      'core',
+    ],
+    componentName: 'EditorImageIcon',
+    package: '@atlaskit/icon/glyph/editor/image',
+  },
   'editor/image-border': {
     keywords: [
       'editor/image-border',
@@ -833,18 +845,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'EditorImageResizeIcon',
     package: '@atlaskit/icon/glyph/editor/image-resize',
-  },
-  'editor/image': {
-    keywords: [
-      'editor/image',
-      'editorimage',
-      'photo',
-      'picture',
-      'icon',
-      'core',
-    ],
-    componentName: 'EditorImageIcon',
-    package: '@atlaskit/icon/glyph/editor/image',
   },
   'editor/indent': {
     keywords: [
@@ -1073,11 +1073,6 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorRedoIcon',
     package: '@atlaskit/icon/glyph/editor/redo',
   },
-  'editor/remove-emoji': {
-    keywords: ['editor/remove-emoji', 'editorremoveemoji', 'icon', 'core'],
-    componentName: 'EditorRemoveEmojiIcon',
-    package: '@atlaskit/icon/glyph/editor/remove-emoji',
-  },
   'editor/remove': {
     keywords: [
       'editor/remove',
@@ -1091,6 +1086,11 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'EditorRemoveIcon',
     package: '@atlaskit/icon/glyph/editor/remove',
+  },
+  'editor/remove-emoji': {
+    keywords: ['editor/remove-emoji', 'editorremoveemoji', 'icon', 'core'],
+    componentName: 'EditorRemoveEmojiIcon',
+    package: '@atlaskit/icon/glyph/editor/remove-emoji',
   },
   'editor/search': {
     keywords: [
@@ -1143,6 +1143,11 @@ const metaData: Record<string, Data> = {
     componentName: 'EditorSuccessIcon',
     package: '@atlaskit/icon/glyph/editor/success',
   },
+  'editor/table': {
+    keywords: ['editor/table', 'editortable', 'grid', 'icon', 'core'],
+    componentName: 'EditorTableIcon',
+    package: '@atlaskit/icon/glyph/editor/table',
+  },
   'editor/table-display-options': {
     keywords: [
       'editor/table-display-options',
@@ -1154,11 +1159,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'EditorTableDisplayOptionsIcon',
     package: '@atlaskit/icon/glyph/editor/table-display-options',
-  },
-  'editor/table': {
-    keywords: ['editor/table', 'editortable', 'grid', 'icon', 'core'],
-    componentName: 'EditorTableIcon',
-    package: '@atlaskit/icon/glyph/editor/table',
   },
   'editor/task': {
     keywords: ['editor/task', 'editortask', 'checkbox', 'tick', 'icon', 'core'],
@@ -1222,15 +1222,15 @@ const metaData: Record<string, Data> = {
     componentName: 'EmailIcon',
     package: '@atlaskit/icon/glyph/email',
   },
-  'emoji-add': {
-    keywords: ['emoji-add', 'emojiadd', 'icon', 'core'],
-    componentName: 'EmojiAddIcon',
-    package: '@atlaskit/icon/glyph/emoji-add',
-  },
   emoji: {
     keywords: ['emoji', 'emoticon', 'smiley', 'icon', 'core'],
     componentName: 'EmojiIcon',
     package: '@atlaskit/icon/glyph/emoji',
+  },
+  'emoji-add': {
+    keywords: ['emoji-add', 'emojiadd', 'icon', 'core'],
+    componentName: 'EmojiAddIcon',
+    package: '@atlaskit/icon/glyph/emoji-add',
   },
   'emoji/activity': {
     keywords: [
@@ -1376,15 +1376,15 @@ const metaData: Record<string, Data> = {
     componentName: 'FlagFilledIcon',
     package: '@atlaskit/icon/glyph/flag-filled',
   },
-  'folder-filled': {
-    keywords: ['folder-filled', 'folderfilled', 'directory', 'icon', 'core'],
-    componentName: 'FolderFilledIcon',
-    package: '@atlaskit/icon/glyph/folder-filled',
-  },
   folder: {
     keywords: ['folder', 'directory', 'icon', 'core'],
     componentName: 'FolderIcon',
     package: '@atlaskit/icon/glyph/folder',
+  },
+  'folder-filled': {
+    keywords: ['folder-filled', 'folderfilled', 'directory', 'icon', 'core'],
+    componentName: 'FolderFilledIcon',
+    package: '@atlaskit/icon/glyph/folder-filled',
   },
   followers: {
     keywords: ['followers', 'person', 'user', 'icon', 'core'],
@@ -1533,15 +1533,20 @@ const metaData: Record<string, Data> = {
     componentName: 'HipchatSdVideoIcon',
     package: '@atlaskit/icon/glyph/hipchat/sd-video',
   },
+  home: {
+    keywords: ['home', 'icon', 'core'],
+    componentName: 'HomeIcon',
+    package: '@atlaskit/icon/glyph/home',
+  },
   'home-circle': {
     keywords: ['home-circle', 'homecircle', 'icon', 'core'],
     componentName: 'HomeCircleIcon',
     package: '@atlaskit/icon/glyph/home-circle',
   },
-  home: {
-    keywords: ['home', 'icon', 'core'],
-    componentName: 'HomeIcon',
-    package: '@atlaskit/icon/glyph/home',
+  image: {
+    keywords: ['image', 'picture', 'photo', 'icon', 'core'],
+    componentName: 'ImageIcon',
+    package: '@atlaskit/icon/glyph/image',
   },
   'image-border': {
     keywords: ['image-border', 'imageborder', 'marquee', 'box', 'icon', 'core'],
@@ -1552,11 +1557,6 @@ const metaData: Record<string, Data> = {
     keywords: ['image-resize', 'imageresize', 'expand', 'icon', 'core'],
     componentName: 'ImageResizeIcon',
     package: '@atlaskit/icon/glyph/image-resize',
-  },
-  image: {
-    keywords: ['image', 'picture', 'photo', 'icon', 'core'],
-    componentName: 'ImageIcon',
-    package: '@atlaskit/icon/glyph/image',
   },
   info: {
     keywords: ['info', 'icon', 'core'],
@@ -1576,6 +1576,11 @@ const metaData: Record<string, Data> = {
     componentName: 'InviteTeamIcon',
     package: '@atlaskit/icon/glyph/invite-team',
   },
+  issue: {
+    keywords: ['issue', 'tick', 'check', 'confirm', 'task', 'icon', 'core'],
+    componentName: 'IssueIcon',
+    package: '@atlaskit/icon/glyph/issue',
+  },
   'issue-raise': {
     keywords: [
       'issue-raise',
@@ -1589,11 +1594,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'IssueRaiseIcon',
     package: '@atlaskit/icon/glyph/issue-raise',
-  },
-  issue: {
-    keywords: ['issue', 'tick', 'check', 'confirm', 'task', 'icon', 'core'],
-    componentName: 'IssueIcon',
-    package: '@atlaskit/icon/glyph/issue',
   },
   issues: {
     keywords: ['issues', 'tick', 'check', 'confirm', 'task', 'icon', 'core'],
@@ -1630,6 +1630,11 @@ const metaData: Record<string, Data> = {
     componentName: 'LabelIcon',
     package: '@atlaskit/icon/glyph/label',
   },
+  lightbulb: {
+    keywords: ['lightbulb', 'idea', 'hint', 'icon', 'core'],
+    componentName: 'LightbulbIcon',
+    package: '@atlaskit/icon/glyph/lightbulb',
+  },
   'lightbulb-filled': {
     keywords: [
       'lightbulb-filled',
@@ -1642,25 +1647,20 @@ const metaData: Record<string, Data> = {
     componentName: 'LightbulbFilledIcon',
     package: '@atlaskit/icon/glyph/lightbulb-filled',
   },
-  lightbulb: {
-    keywords: ['lightbulb', 'idea', 'hint', 'icon', 'core'],
-    componentName: 'LightbulbIcon',
-    package: '@atlaskit/icon/glyph/lightbulb',
-  },
   like: {
     keywords: ['like', 'icon', 'core'],
     componentName: 'LikeIcon',
     package: '@atlaskit/icon/glyph/like',
   },
-  'link-filled': {
-    keywords: ['link-filled', 'linkfilled', 'icon', 'core'],
-    componentName: 'LinkFilledIcon',
-    package: '@atlaskit/icon/glyph/link-filled',
-  },
   link: {
     keywords: ['link', 'icon', 'core'],
     componentName: 'LinkIcon',
     package: '@atlaskit/icon/glyph/link',
+  },
+  'link-filled': {
+    keywords: ['link-filled', 'linkfilled', 'icon', 'core'],
+    componentName: 'LinkFilledIcon',
+    package: '@atlaskit/icon/glyph/link-filled',
   },
   list: {
     keywords: ['list', 'justify', 'ul', 'icon', 'core'],
@@ -1671,6 +1671,20 @@ const metaData: Record<string, Data> = {
     keywords: ['location', 'pin', 'gps', 'map', 'icon', 'core'],
     componentName: 'LocationIcon',
     package: '@atlaskit/icon/glyph/location',
+  },
+  lock: {
+    keywords: [
+      'lock',
+      'closed',
+      'permissions',
+      'privacy',
+      'restrict',
+      'secure',
+      'icon',
+      'core',
+    ],
+    componentName: 'LockIcon',
+    package: '@atlaskit/icon/glyph/lock',
   },
   'lock-circle': {
     keywords: [
@@ -1701,20 +1715,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'LockFilledIcon',
     package: '@atlaskit/icon/glyph/lock-filled',
-  },
-  lock: {
-    keywords: [
-      'lock',
-      'closed',
-      'permissions',
-      'privacy',
-      'restrict',
-      'secure',
-      'icon',
-      'core',
-    ],
-    componentName: 'LockIcon',
-    package: '@atlaskit/icon/glyph/lock',
   },
   marketplace: {
     keywords: ['marketplace', 'store', 'shop', 'icon', 'core'],
@@ -1874,6 +1874,11 @@ const metaData: Record<string, Data> = {
     componentName: 'MediaServicesImageIcon',
     package: '@atlaskit/icon/glyph/media-services/image',
   },
+  'media-services/line': {
+    keywords: ['media-services/line', 'mediaservicesline', 'icon', 'core'],
+    componentName: 'MediaServicesLineIcon',
+    package: '@atlaskit/icon/glyph/media-services/line',
+  },
   'media-services/line-thickness': {
     keywords: [
       'media-services/line-thickness',
@@ -1883,11 +1888,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'MediaServicesLineThicknessIcon',
     package: '@atlaskit/icon/glyph/media-services/line-thickness',
-  },
-  'media-services/line': {
-    keywords: ['media-services/line', 'mediaservicesline', 'icon', 'core'],
-    componentName: 'MediaServicesLineIcon',
-    package: '@atlaskit/icon/glyph/media-services/line',
   },
   'media-services/no-image': {
     keywords: [
@@ -2080,11 +2080,6 @@ const metaData: Record<string, Data> = {
     componentName: 'MentionIcon',
     package: '@atlaskit/icon/glyph/mention',
   },
-  'menu-expand': {
-    keywords: ['menu-expand', 'menuexpand', 'icon', 'core'],
-    componentName: 'MenuExpandIcon',
-    package: '@atlaskit/icon/glyph/menu-expand',
-  },
   menu: {
     keywords: [
       'menu',
@@ -2098,20 +2093,30 @@ const metaData: Record<string, Data> = {
     componentName: 'MenuIcon',
     package: '@atlaskit/icon/glyph/menu',
   },
+  'menu-expand': {
+    keywords: ['menu-expand', 'menuexpand', 'icon', 'core'],
+    componentName: 'MenuExpandIcon',
+    package: '@atlaskit/icon/glyph/menu-expand',
+  },
   mobile: {
     keywords: ['mobile', 'icon', 'core'],
     componentName: 'MobileIcon',
     package: '@atlaskit/icon/glyph/mobile',
+  },
+  more: {
+    keywords: ['more', 'dots', 'ellipses', 'icon', 'core'],
+    componentName: 'MoreIcon',
+    package: '@atlaskit/icon/glyph/more',
   },
   'more-vertical': {
     keywords: ['more-vertical', 'morevertical', 'dots', 'icon', 'core'],
     componentName: 'MoreVerticalIcon',
     package: '@atlaskit/icon/glyph/more-vertical',
   },
-  more: {
-    keywords: ['more', 'dots', 'ellipses', 'icon', 'core'],
-    componentName: 'MoreIcon',
-    package: '@atlaskit/icon/glyph/more',
+  notification: {
+    keywords: ['notification', 'bell', 'alarm', 'icon', 'core'],
+    componentName: 'NotificationIcon',
+    package: '@atlaskit/icon/glyph/notification',
   },
   'notification-all': {
     keywords: [
@@ -2137,10 +2142,10 @@ const metaData: Record<string, Data> = {
     componentName: 'NotificationDirectIcon',
     package: '@atlaskit/icon/glyph/notification-direct',
   },
-  notification: {
-    keywords: ['notification', 'bell', 'alarm', 'icon', 'core'],
-    componentName: 'NotificationIcon',
-    package: '@atlaskit/icon/glyph/notification',
+  'office-building': {
+    keywords: ['office-building', 'officebuilding', 'icon', 'core'],
+    componentName: 'OfficeBuildingIcon',
+    package: '@atlaskit/icon/glyph/office-building',
   },
   'office-building-filled': {
     keywords: [
@@ -2152,11 +2157,6 @@ const metaData: Record<string, Data> = {
     componentName: 'OfficeBuildingFilledIcon',
     package: '@atlaskit/icon/glyph/office-building-filled',
   },
-  'office-building': {
-    keywords: ['office-building', 'officebuilding', 'icon', 'core'],
-    componentName: 'OfficeBuildingIcon',
-    package: '@atlaskit/icon/glyph/office-building',
-  },
   open: {
     keywords: ['open', 'icon', 'core'],
     componentName: 'OpenIcon',
@@ -2167,20 +2167,25 @@ const metaData: Record<string, Data> = {
     componentName: 'OverviewIcon',
     package: '@atlaskit/icon/glyph/overview',
   },
-  'page-filled': {
-    keywords: ['page-filled', 'pagefilled', 'file', 'document', 'icon', 'core'],
-    componentName: 'PageFilledIcon',
-    package: '@atlaskit/icon/glyph/page-filled',
-  },
   page: {
     keywords: ['page', 'file', 'document', 'icon', 'core'],
     componentName: 'PageIcon',
     package: '@atlaskit/icon/glyph/page',
   },
+  'page-filled': {
+    keywords: ['page-filled', 'pagefilled', 'file', 'document', 'icon', 'core'],
+    componentName: 'PageFilledIcon',
+    package: '@atlaskit/icon/glyph/page-filled',
+  },
   pdf: {
     keywords: ['pdf', 'document', 'file', 'icon', 'core'],
     componentName: 'PdfIcon',
     package: '@atlaskit/icon/glyph/pdf',
+  },
+  people: {
+    keywords: ['people', 'person', 'user', 'group', 'icon', 'core'],
+    componentName: 'PeopleIcon',
+    package: '@atlaskit/icon/glyph/people',
   },
   'people-group': {
     keywords: [
@@ -2195,10 +2200,10 @@ const metaData: Record<string, Data> = {
     componentName: 'PeopleGroupIcon',
     package: '@atlaskit/icon/glyph/people-group',
   },
-  people: {
-    keywords: ['people', 'person', 'user', 'group', 'icon', 'core'],
-    componentName: 'PeopleIcon',
-    package: '@atlaskit/icon/glyph/people',
+  person: {
+    keywords: ['person', 'person', 'user', 'avatar', 'icon', 'core'],
+    componentName: 'PersonIcon',
+    package: '@atlaskit/icon/glyph/person',
   },
   'person-circle': {
     keywords: ['person-circle', 'personcircle', 'icon', 'core'],
@@ -2219,11 +2224,6 @@ const metaData: Record<string, Data> = {
     keywords: ['person-with-tick', 'personwithtick', 'icon', 'core'],
     componentName: 'PersonWithTickIcon',
     package: '@atlaskit/icon/glyph/person-with-tick',
-  },
-  person: {
-    keywords: ['person', 'person', 'user', 'avatar', 'icon', 'core'],
-    componentName: 'PersonIcon',
-    package: '@atlaskit/icon/glyph/person',
   },
   portfolio: {
     keywords: ['portfolio', 'icon', 'core'],
@@ -2269,15 +2269,15 @@ const metaData: Record<string, Data> = {
     componentName: 'PresenceUnavailableIcon',
     package: '@atlaskit/icon/glyph/presence-unavailable',
   },
-  'question-circle': {
-    keywords: ['question-circle', 'questioncircle', 'help', 'icon', 'core'],
-    componentName: 'QuestionCircleIcon',
-    package: '@atlaskit/icon/glyph/question-circle',
-  },
   question: {
     keywords: ['question', 'help', 'icon', 'core'],
     componentName: 'QuestionIcon',
     package: '@atlaskit/icon/glyph/question',
+  },
+  'question-circle': {
+    keywords: ['question-circle', 'questioncircle', 'help', 'icon', 'core'],
+    componentName: 'QuestionCircleIcon',
+    package: '@atlaskit/icon/glyph/question-circle',
   },
   questions: {
     keywords: ['questions', 'icon', 'core'],
@@ -2329,15 +2329,15 @@ const metaData: Record<string, Data> = {
     componentName: 'RoomMenuIcon',
     package: '@atlaskit/icon/glyph/room-menu',
   },
-  'schedule-filled': {
-    keywords: ['schedule-filled', 'schedulefilled', 'icon', 'core'],
-    componentName: 'ScheduleFilledIcon',
-    package: '@atlaskit/icon/glyph/schedule-filled',
-  },
   schedule: {
     keywords: ['schedule', 'calendar', 'date', 'new', 'icon', 'core'],
     componentName: 'ScheduleIcon',
     package: '@atlaskit/icon/glyph/schedule',
+  },
+  'schedule-filled': {
+    keywords: ['schedule-filled', 'schedulefilled', 'icon', 'core'],
+    componentName: 'ScheduleFilledIcon',
+    package: '@atlaskit/icon/glyph/schedule-filled',
   },
   screen: {
     keywords: ['screen', 'desktop', 'computer', 'monitor', 'icon', 'core'],
@@ -2394,6 +2394,11 @@ const metaData: Record<string, Data> = {
     componentName: 'SprintIcon',
     package: '@atlaskit/icon/glyph/sprint',
   },
+  star: {
+    keywords: ['star', 'icon', 'core'],
+    componentName: 'StarIcon',
+    package: '@atlaskit/icon/glyph/star',
+  },
   'star-filled': {
     keywords: ['star-filled', 'starfilled', 'icon', 'core'],
     componentName: 'StarFilledIcon',
@@ -2403,11 +2408,6 @@ const metaData: Record<string, Data> = {
     keywords: ['star-large', 'starlarge', 'icon', 'core'],
     componentName: 'StarLargeIcon',
     package: '@atlaskit/icon/glyph/star-large',
-  },
-  star: {
-    keywords: ['star', 'icon', 'core'],
-    componentName: 'StarIcon',
-    package: '@atlaskit/icon/glyph/star',
   },
   status: {
     keywords: ['status', 'icon', 'core'],
@@ -2464,6 +2464,20 @@ const metaData: Record<string, Data> = {
     componentName: 'UnlinkIcon',
     package: '@atlaskit/icon/glyph/unlink',
   },
+  unlock: {
+    keywords: [
+      'unlock',
+      'open',
+      'permissions',
+      'privacy',
+      'restrict',
+      'insecure',
+      'icon',
+      'core',
+    ],
+    componentName: 'UnlockIcon',
+    package: '@atlaskit/icon/glyph/unlock',
+  },
   'unlock-circle': {
     keywords: [
       'unlock-circle',
@@ -2493,20 +2507,6 @@ const metaData: Record<string, Data> = {
     ],
     componentName: 'UnlockFilledIcon',
     package: '@atlaskit/icon/glyph/unlock-filled',
-  },
-  unlock: {
-    keywords: [
-      'unlock',
-      'open',
-      'permissions',
-      'privacy',
-      'restrict',
-      'insecure',
-      'icon',
-      'core',
-    ],
-    componentName: 'UnlockIcon',
-    package: '@atlaskit/icon/glyph/unlock',
   },
   upload: {
     keywords: ['upload', 'cloud', 'icon', 'core'],
@@ -2706,6 +2706,11 @@ const metaData: Record<string, Data> = {
     componentName: 'WarningIcon',
     package: '@atlaskit/icon/glyph/warning',
   },
+  watch: {
+    keywords: ['watch', 'visible', 'visibility', 'eye', 'icon', 'core'],
+    componentName: 'WatchIcon',
+    package: '@atlaskit/icon/glyph/watch',
+  },
   'watch-filled': {
     keywords: [
       'watch-filled',
@@ -2719,20 +2724,15 @@ const metaData: Record<string, Data> = {
     componentName: 'WatchFilledIcon',
     package: '@atlaskit/icon/glyph/watch-filled',
   },
-  watch: {
-    keywords: ['watch', 'visible', 'visibility', 'eye', 'icon', 'core'],
-    componentName: 'WatchIcon',
-    package: '@atlaskit/icon/glyph/watch',
+  world: {
+    keywords: ['world', 'globe', 'earth', 'icon', 'core'],
+    componentName: 'WorldIcon',
+    package: '@atlaskit/icon/glyph/world',
   },
   'world-small': {
     keywords: ['world-small', 'worldsmall', 'icon', 'core'],
     componentName: 'WorldSmallIcon',
     package: '@atlaskit/icon/glyph/world-small',
-  },
-  world: {
-    keywords: ['world', 'globe', 'earth', 'icon', 'core'],
-    componentName: 'WorldIcon',
-    package: '@atlaskit/icon/glyph/world',
   },
 };
 

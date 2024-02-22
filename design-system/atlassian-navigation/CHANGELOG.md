@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 3.2.1
+
+### Patch Changes
+
+- [#74756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74756) [`8e66f751df96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e66f751df96) - Use feature flag to roll out border width update from 2px to 1px
+
 ## 3.2.0
 
 ### Minor Changes

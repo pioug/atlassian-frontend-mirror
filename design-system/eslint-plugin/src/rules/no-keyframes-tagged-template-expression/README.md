@@ -1,0 +1,74 @@
+Disallows any `keyframes` tagged template expressions that originate from `@emotion/react`, `@emotion/core`, `compiled/react` or `styled-components`.
+
+Tagged template expressions are difficult to parse correctly (which can lead to more frequent build failures or invalid CSS generation), have limited type safety, and lack syntax highlighting. These problems can be avoided by using the preferred call expression syntax instead.
+
+Thank you to the [Compiled team for their rule](https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-keyframes-tagged-template-expression) from which this was ported.
+
+---
+
+The `--fix` option on the command line automatically fixes problems reported by this rule.
+
+## Examples
+
+### Incorrect
+
+```js
+import { keyframes } from '@compiled/react';
+
+keyframes`to { opacity: 0 }`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+`;
+```
+
+### Correct
+
+```js
+import { keyframes } from '@compiled/react';
+
+keyframes({ to: { opacity: 0 } });
+
+const fadeOut = keyframes({
+  from: {
+    opacity: 1,
+  },
+  to: {
+    opacity: 0,
+  },
+});
+```
+
+## Options
+
+### importSources
+
+By default, this rule will check `keyframes` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+
+```tsx
+// [{ importSources: ['other-lib'] }]
+
+import { keyframes } from 'other-lib';
+
+// Invalid!
+export const animation = keyframes``;
+```
+
+## Limitations
+
+- Comments are not fixable

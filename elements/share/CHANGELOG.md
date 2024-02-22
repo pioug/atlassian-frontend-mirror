@@ -1,5 +1,15 @@
 # @atlaskit/share
 
+## 4.15.0
+
+### Minor Changes
+
+- [#74889](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74889) [`517e7e939fd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/517e7e939fd6) - [ux] Added `onFocus` UserPicker Option
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.14.1
 
 ### Patch Changes

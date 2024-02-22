@@ -84,6 +84,12 @@
       "path": "../../elements/mention/tsconfig.app.json"
     },
     {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../people-and-teams/profilecard/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/spinner/tsconfig.app.json"
     },
     {

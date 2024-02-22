@@ -31,3 +31,7 @@ export type DeclarationBlock = {
 };
 
 export type Argument = Expression | DeclarationBlock;
+
+export type RuleConfig = {
+  importSources?: string[];
+};

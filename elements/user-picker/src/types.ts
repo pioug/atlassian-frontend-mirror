@@ -167,6 +167,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    * Context: https://hello.atlassian.net/wiki/spaces/~989411314/pages/2861097485/Investigation+Notes+for+atlaskit+select+react-beautiful-dnd#Temporary-Solution
    */
   UNSAFE_hasDraggableParentComponent?: boolean;
+  /** Override the internal behaviour of default menu open on focus and applicable for single value select  */
+  openMenuOnClick?: boolean;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

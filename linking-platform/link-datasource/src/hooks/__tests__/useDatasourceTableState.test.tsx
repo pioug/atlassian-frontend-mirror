@@ -828,6 +828,24 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toEqual('unauthorized');
     });
 
+    it('should always return extensionKey on auth errors', async () => {
+      asMock(getDatasourceData).mockResolvedValue({
+        ...mockDatasourceDataResponseWithSchema,
+        meta: {
+          ...mockDatasourceDataResponseWithSchema.meta,
+          access: 'unauthorized',
+        },
+      });
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.loadDatasourceDetails();
+      });
+
+      expect(result.current.extensionKey).toEqual('jira-object-provider');
+    });
+
     it('should update authDetails when the details request is unauthorized', async () => {
       asMock(getDatasourceData).mockResolvedValue(
         mockDatasourceDataResponseWithSchema,

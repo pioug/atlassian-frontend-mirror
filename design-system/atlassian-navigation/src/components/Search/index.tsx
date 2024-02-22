@@ -49,7 +49,7 @@ const searchInputStyles = css({
   padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
   backgroundColor: `var(${varSearchBackgroundColor})`,
   border: `${
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+    getBooleanFF('platform.design-system-team.update-input-border-wdith_5abwv')
       ? token('border.width', '1px')
       : '2px'
   } solid`,
@@ -63,7 +63,9 @@ const searchInputStyles = css({
   },
   '&:focus': {
     borderColor: `var(${varSearchFocusBorderColor})`,
-    boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+    boxShadow: getBooleanFF(
+      'platform.design-system-team.update-input-border-wdith_5abwv',
+    )
       ? `inset 0 0 0 ${token(
           'border.width',
           '1px',

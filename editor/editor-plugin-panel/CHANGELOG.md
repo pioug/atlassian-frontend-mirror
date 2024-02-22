@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-panel
 
+## 1.0.2
+
+### Patch Changes
+
+- [#70470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70470) [`7d1629af0072`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d1629af0072) - ED-21607 Fix issue with cutting nodes leading to panel deletion
+
 ## 1.0.1
 
 ### Patch Changes

@@ -36,6 +36,7 @@ export type {
   ProfileCardTriggerState,
   ProfileClientOptions,
   ProfilecardProps,
+  PrepopulatedData,
   Team,
 } from './types';
 

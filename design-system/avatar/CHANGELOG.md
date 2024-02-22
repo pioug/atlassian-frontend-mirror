@@ -1,5 +1,12 @@
 # @atlaskit/avatar
 
+## 21.5.0
+
+### Minor Changes
+
+- [#69996](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69996) [`1b320a82df61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b320a82df61) - Add Team fallback avatar
+- [#73763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73763) [`20bb01a34fcd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20bb01a34fcd) - test id selector added to Avatar label
+
 ## 21.4.6
 
 ### Patch Changes

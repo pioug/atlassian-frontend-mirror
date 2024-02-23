@@ -6,7 +6,7 @@ import {
   Droppable,
   OnDragEndResponder,
 } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import { initialData } from '../data';
 import { Subtask, SubtaskProps } from '../primitives/subtask';

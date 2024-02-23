@@ -5,11 +5,11 @@ import { Fragment, ReactElement, useEffect, useRef, useState } from 'react';
 import { css, Global, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import {

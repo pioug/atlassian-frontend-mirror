@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.20.0
+
+### Minor Changes
+
+- [#70616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70616) [`533c86673290`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/533c86673290) - Adding a new pattern for upgrading Pragmatic drag and drop consumers to `1.0`
+
+  Pattern name: `"upgrade-pragmatic-drag-and-drop-to-stable"`
+
 ## 0.19.0
 
 ### Minor Changes

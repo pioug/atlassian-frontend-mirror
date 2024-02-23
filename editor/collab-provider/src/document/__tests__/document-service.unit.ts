@@ -786,6 +786,7 @@ describe('document-service', () => {
           onStepsAdded: service.onStepsAdded,
           onErrorHandled: onErrorHandledMock,
           analyticsHelper: analyticsHelperMock,
+          __livePage: false,
         });
       });
     });

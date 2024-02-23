@@ -33,7 +33,16 @@
   },
   "references": [
     {
+      "path": "../../analytics/analytics-next/tsconfig.app.json"
+    },
+    {
       "path": "../app-provider/tsconfig.app.json"
+    },
+    {
+      "path": "../ds-lib/tsconfig.app.json"
+    },
+    {
+      "path": "../../observability/interaction-context/tsconfig.app.json"
     },
     {
       "path": "../tokens/tsconfig.app.json"

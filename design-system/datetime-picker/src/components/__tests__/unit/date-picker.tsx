@@ -7,8 +7,8 @@ import cases from 'jest-in-case';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { convertTokens } from '../../../internal/parse-tokens';
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
-import { convertTokens } from '../../utils';
 
 const getAllDays = () =>
   screen.getAllByRole(

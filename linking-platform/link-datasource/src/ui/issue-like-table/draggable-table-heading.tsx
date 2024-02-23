@@ -9,18 +9,18 @@ import {
   attachClosestEdge,
   Edge,
   extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box-without-terminal';
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box-without-terminal';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
-import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 
 import { TableHeading } from './styled';
@@ -133,7 +133,7 @@ export const DraggableTableHeading = ({
         },
         onGenerateDragPreview({ nativeSetDragImage }) {
           setCustomNativeDragPreview({
-            getOffset: offsetFromPointer({
+            getOffset: pointerOutsideOfPreview({
               x: '18px',
               y: '18px',
             }),
@@ -239,7 +239,7 @@ export const DraggableTableHeading = ({
         // We don't show any preview, since column separator (handle) is moving with the cursor
         disableNativeDragPreview({ nativeSetDragImage });
         // Block drag operations outside `@atlaskit/pragmatic-drag-and-drop`
-        cancelUnhandled.start();
+        preventUnhandled.start();
 
         setState({
           type: 'resizing',
@@ -260,7 +260,7 @@ export const DraggableTableHeading = ({
         mainHeaderCell.style.setProperty('width', `${proposedWidth}px`);
       },
       onDrop() {
-        cancelUnhandled.stop();
+        preventUnhandled.stop();
         setState(idleState);
         if (onWidthChange) {
           let cssWidth = +mainHeaderCell.style

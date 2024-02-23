@@ -5,7 +5,7 @@ import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { CellHoverMeta, DraggableSourceData } from '../../types';

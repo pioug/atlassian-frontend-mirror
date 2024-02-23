@@ -5,7 +5,10 @@ import { isNodeOfType, SimpleCallExpression } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 import { RuleConfig } from '../config';
-import { supportedStylesMap } from '../transformers/css-to-xcss';
+import {
+  supportedDimensionAttributesMap,
+  supportedStylesMap,
+} from '../transformers/css-to-xcss';
 
 import { convertASTObjectExpressionToJSObject } from './convert-ast-object-expression-to-js-object';
 
@@ -54,6 +57,16 @@ export const isValidCssPropertiesToTransform = (
     !config.patterns.includes('css-property-with-tokens') &&
     Object.values(cssObject).some(
       (value) => typeof value === 'object' && value.tokenName,
+    )
+  ) {
+    return false;
+  }
+
+  // Short-circuit when dimension properties found but pattern is not enabled in config
+  if (
+    !config.patterns.includes('dimension-properties') &&
+    Object.keys(cssObject).some(
+      (attribute) => supportedDimensionAttributesMap[attribute],
     )
   ) {
     return false;

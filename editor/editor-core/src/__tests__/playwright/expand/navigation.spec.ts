@@ -53,7 +53,7 @@ test.describe('expand: navigation', () => {
     editor,
   }) => {
     const { expand } = EditorNodeContainerModel.from(editor);
-    const expandModel = EditorExpandModel.from(expand);
+    const expandModel = EditorExpandModel.from(editor, expand);
 
     await expandModel.titleInput.click();
 
@@ -66,7 +66,7 @@ test.describe('expand: navigation', () => {
     editor,
   }) => {
     const { expand: node } = EditorNodeContainerModel.from(editor);
-    const expandModel = EditorExpandModel.from(node);
+    const expandModel = EditorExpandModel.from(editor, node);
 
     await expandModel.titleInput.click();
 
@@ -86,7 +86,7 @@ test.describe('expand: navigation', () => {
       editor,
     }) => {
       const { expand: node } = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(node);
+      const expandModel = EditorExpandModel.from(editor, node);
 
       await expandModel.titleInput.click();
       await editor.keyboard.press('ArrowDown');
@@ -108,7 +108,7 @@ test.describe('expand: navigation', () => {
       editor,
     }) => {
       const { expand: node } = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(node.nth(1));
+      const expandModel = EditorExpandModel.from(editor, node.nth(1));
 
       await expandModel.titleInput.click();
       await editor.keyboard.press('ArrowDown');
@@ -450,7 +450,7 @@ test.describe('expand: navigation', () => {
         editor,
       }) => {
         const { expand } = EditorNodeContainerModel.from(editor);
-        const expandModel = EditorExpandModel.from(expand);
+        const expandModel = EditorExpandModel.from(editor, expand);
 
         await expand.click({
           position: {
@@ -472,7 +472,7 @@ test.describe('expand: navigation', () => {
         editor,
       }) => {
         const { expand } = EditorNodeContainerModel.from(editor);
-        const expandModel = EditorExpandModel.from(expand);
+        const expandModel = EditorExpandModel.from(editor, expand);
 
         await expand.click({
           position: {
@@ -496,7 +496,7 @@ test.describe('expand: navigation', () => {
         editor,
       }) => {
         const { expand } = EditorNodeContainerModel.from(editor);
-        const expandModel = EditorExpandModel.from(expand);
+        const expandModel = EditorExpandModel.from(editor, expand);
 
         await expand.click({
           position: {
@@ -518,7 +518,7 @@ test.describe('expand: navigation', () => {
         editor,
       }) => {
         const { expand } = EditorNodeContainerModel.from(editor);
-        const expandModel = EditorExpandModel.from(expand);
+        const expandModel = EditorExpandModel.from(editor, expand);
 
         await expand.click({
           position: {
@@ -545,7 +545,7 @@ test.describe('expand: navigation', () => {
       editor,
     }) => {
       const { expand } = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(expand);
+      const expandModel = EditorExpandModel.from(editor, expand);
 
       await expandModel.titleInput.click();
       await editor.keyboard.press('ArrowDown');
@@ -644,7 +644,7 @@ test.describe('expand: navigation', () => {
       editor,
     }) => {
       const { expand } = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(expand);
+      const expandModel = EditorExpandModel.from(editor, expand);
 
       await expandModel.titleInput.click();
       await editor.keyboard.press('ArrowDown');
@@ -660,7 +660,7 @@ test.describe('expand: navigation', () => {
       editor,
     }) => {
       const { expand } = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(expand);
+      const expandModel = EditorExpandModel.from(editor, expand);
 
       await expandModel.titleInput.click();
       await editor.keyboard.press('ArrowUp');

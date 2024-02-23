@@ -68,7 +68,7 @@ interface InlineMessageProps {
    */
   testId?: string;
   /**
-   * Text to be used as label for the button icon. Can be used to provide useful information for users with screen readers when there is no title and/or secondaryText
+   * Text to be used as the label for the button icon. You must use this to provide information for people who use assistive technology when there is no title and/or secondaryText.
    */
   iconLabel?: string;
 }

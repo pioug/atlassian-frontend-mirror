@@ -13,14 +13,12 @@ beforeEach(reset);
 
 it('should share a single monitor binding between imports', () => {
   jest.isolateModules(() => {
-    jest.mock('@atlaskit/pragmatic-drag-and-drop/adapter/element');
+    jest.mock('@atlaskit/pragmatic-drag-and-drop/element/adapter');
 
     const {
       monitorForElements,
-    } = require('@atlaskit/pragmatic-drag-and-drop/adapter/element');
-    const {
-      combine,
-    } = require('@atlaskit/pragmatic-drag-and-drop/util/combine');
+    } = require('@atlaskit/pragmatic-drag-and-drop/element/adapter');
+    const { combine } = require('@atlaskit/pragmatic-drag-and-drop/combine');
 
     const [_, parent, grandParent] = setupNestedScrollContainers([
       { width: 10000, height: 10000 },
@@ -58,14 +56,12 @@ it('should share a single monitor binding between imports', () => {
 
 it('should share a monitor binding between standard and overflow scrolling', () => {
   jest.isolateModules(() => {
-    jest.mock('@atlaskit/pragmatic-drag-and-drop/adapter/element');
+    jest.mock('@atlaskit/pragmatic-drag-and-drop/element/adapter');
 
     const {
       monitorForElements,
-    } = require('@atlaskit/pragmatic-drag-and-drop/adapter/element');
-    const {
-      combine,
-    } = require('@atlaskit/pragmatic-drag-and-drop/util/combine');
+    } = require('@atlaskit/pragmatic-drag-and-drop/element/adapter');
+    const { combine } = require('@atlaskit/pragmatic-drag-and-drop/combine');
 
     const [_, parent, grandParent] = setupNestedScrollContainers([
       { width: 10000, height: 10000 },

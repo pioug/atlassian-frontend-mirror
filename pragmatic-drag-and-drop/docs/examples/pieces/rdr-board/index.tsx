@@ -8,13 +8,13 @@ import React, {
 
 import invariant from 'tiny-invariant';
 
-import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import Board from './board';
 import { BoardContext, BoardContextProps } from './board-context';

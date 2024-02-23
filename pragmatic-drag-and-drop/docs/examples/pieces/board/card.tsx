@@ -28,15 +28,16 @@ import {
   attachClosestEdge,
   Edge,
   extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { dropTargetForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/element/preserve-offset-on-source';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { ColumnType, Person } from '../../data/people';
@@ -220,29 +221,22 @@ export const Card = memo(function Card({ item }: { item: Person }) {
   }, [registerCard, userId]);
 
   useEffect(() => {
-    invariant(ref.current);
+    const element = ref.current;
+    invariant(element);
     console.log('recreating draggable');
     return combine(
       draggable({
-        element: ref.current,
+        element: element,
         getInitialData: () => ({ type: 'card', itemId: userId, instanceId }),
         onGenerateDragPreview: ({ location, source, nativeSetDragImage }) => {
           const rect = source.element.getBoundingClientRect();
 
           setCustomNativeDragPreview({
             nativeSetDragImage,
-            getOffset() {
-              /**
-               * This offset ensures that the preview is positioned relative to
-               * the cursor based on where you drag from.
-               *
-               * This creates the effect of it being picked up.
-               */
-              return {
-                x: location.current.input.clientX - rect.x,
-                y: location.current.input.clientY - rect.y,
-              };
-            },
+            getOffset: preserveOffsetOnSource({
+              element,
+              input: location.current.input,
+            }),
             render({ container }) {
               setState({ type: 'preview', container, rect });
               return () => setState(draggingState);
@@ -253,11 +247,11 @@ export const Card = memo(function Card({ item }: { item: Person }) {
         onDragStart: () => setState(draggingState),
         onDrop: () => setState(idleState),
       }),
-      dropTargetForFiles({
-        element: ref.current,
+      dropTargetForExternal({
+        element: element,
       }),
       dropTargetForElements({
-        element: ref.current,
+        element: element,
         canDrop: ({ source }) => {
           return (
             source.data.instanceId === instanceId && source.data.type === 'card'

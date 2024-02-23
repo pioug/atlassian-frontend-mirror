@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-floating-toolbar",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Floating toolbar plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -27,7 +27,7 @@
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/button": "^17.4.0",
     "@atlaskit/checkbox": "^13.0.0",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-palette": "1.5.2",
     "@atlaskit/editor-plugin-context-panel": "^1.0.0",
     "@atlaskit/editor-plugin-copy-button": "^1.0.0",
@@ -38,9 +38,10 @@
     "@atlaskit/editor-plugin-table": "^7.3.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/modal-dialog": "^12.10.0",
+    "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/select": "^17.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.38.0",
@@ -106,5 +107,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
+  "platform-feature-flags": {
+    "platform.editor.a11y-floating-toolbar-markup_vexmo": {
+      "type": "boolean"
+    }
+  }
 }

@@ -1,15 +1,16 @@
 import { AllDragTypes, CleanupFn } from '../internal-types';
 
-type Entry<TypeKey extends AllDragTypes['key']> = {
+type Entry<TypeKey extends AllDragTypes['type']> = {
   typeKey: TypeKey;
   unmount: () => void;
   usageCount: number;
 };
 
 // Extending `Map` to allow us to link Key and Values together
-interface Ledger extends Map<AllDragTypes['key'], Entry<AllDragTypes['key']>> {
-  get<Key extends AllDragTypes['key']>(key: Key): Entry<Key> | undefined;
-  set<Key extends AllDragTypes['key'], Value extends Entry<Key>>(
+interface Ledger
+  extends Map<AllDragTypes['type'], Entry<AllDragTypes['type']>> {
+  get<Key extends AllDragTypes['type']>(key: Key): Entry<Key> | undefined;
+  set<Key extends AllDragTypes['type'], Value extends Entry<Key>>(
     key: Key,
     value: Value,
   ): this;
@@ -17,7 +18,7 @@ interface Ledger extends Map<AllDragTypes['key'], Entry<AllDragTypes['key']>> {
 
 const ledger: Ledger = new Map();
 
-function registerUsage<TypeKey extends AllDragTypes['key']>({
+function registerUsage<TypeKey extends AllDragTypes['type']>({
   typeKey,
   mount,
 }: {
@@ -41,7 +42,7 @@ function registerUsage<TypeKey extends AllDragTypes['key']>({
   return initial;
 }
 
-export function register<TypeKey extends AllDragTypes['key']>(args: {
+export function register<TypeKey extends AllDragTypes['type']>(args: {
   typeKey: TypeKey;
   mount: () => CleanupFn;
 }): CleanupFn {

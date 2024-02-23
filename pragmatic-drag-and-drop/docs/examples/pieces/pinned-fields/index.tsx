@@ -4,7 +4,7 @@ import { forwardRef, HTMLAttributes, ReactNode, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({

@@ -1,4 +1,4 @@
-import { once } from '../../../src/entry-point/util/once';
+import { once } from '../../../src/entry-point/once';
 
 it('should only call an underlying function once', () => {
   const add = jest.fn(function add(a: number, b: number): number {

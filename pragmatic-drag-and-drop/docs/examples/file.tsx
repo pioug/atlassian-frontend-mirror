@@ -9,18 +9,23 @@ import {
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { bind } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
 import Button from '@atlaskit/button';
 import ImageIcon from '@atlaskit/icon/glyph/image';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { largeDurationMs, mediumDurationMs } from '@atlaskit/motion/durations';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
-  dropTargetForFiles,
-  monitorForFiles,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+  dropTargetForExternal,
+  monitorForExternal,
+} from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
+import {
+  containsFiles,
+  getFiles,
+} from '@atlaskit/pragmatic-drag-and-drop/external/file';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 
 import { GlobalStyles } from './util/global-styles';
@@ -237,28 +242,55 @@ function Uploader() {
     const el = ref.current;
     invariant(el);
     return combine(
-      dropTargetForFiles({
+      dropTargetForExternal({
         element: el,
+        canDrop: containsFiles,
         onDragEnter: () => setState('over'),
         onDragLeave: () => setState('potential'),
-        onDrop: ({ source }) => {
-          if (!source.items) {
-            return;
-          }
-          [...source.items]
-            .filter(item => item.kind === 'file')
-            .map(item => item.getAsFile())
-            .forEach(addUpload);
+        onDrop: async ({ source }) => {
+          const files = await getFiles({ source });
+
+          files.forEach(file => {
+            if (file == null) {
+              return;
+            }
+            if (!file.type.startsWith('image/')) {
+              return;
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            // for simplicity:
+            // - not handling errors
+            // - not aborting the
+            // - not unbinding the event listener when the effect is removed
+            bind(reader, {
+              type: 'load',
+              listener(event) {
+                const result = reader.result;
+                if (typeof result === 'string') {
+                  const upload: UserUpload = {
+                    type: 'image',
+                    dataUrl: result,
+                    name: file.name,
+                    size: file.size,
+                  };
+                  setUploads(current => [...current, upload]);
+                }
+              },
+            });
+          });
         },
       }),
-      monitorForFiles({
+      monitorForExternal({
+        canMonitor: containsFiles,
         onDragStart: () => {
           setState('potential');
-          cancelUnhandled.start();
+          preventUnhandled.start();
         },
         onDrop: () => {
           setState('idle');
-          cancelUnhandled.stop();
+          preventUnhandled.stop();
         },
       }),
     );

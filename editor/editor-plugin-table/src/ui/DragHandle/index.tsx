@@ -9,8 +9,8 @@ import { injectIntl } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';

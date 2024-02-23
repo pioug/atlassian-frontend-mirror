@@ -110,6 +110,7 @@ export const useMemoEditorProps = (
       codeBlock: passedProps.codeBlock,
       textFormatting: passedProps.textFormatting,
       dangerouslyAppendPlugins: passedProps.dangerouslyAppendPlugins,
+      __livePage: passedProps.__livePage,
     };
 
     const defaultProps: Partial<EditorNextProps> = {
@@ -220,6 +221,7 @@ export const useMemoEditorProps = (
     passedProps.codeBlock,
     passedProps.textFormatting,
     passedProps.dangerouslyAppendPlugins,
+    passedProps.__livePage,
   ]);
 
   return memodProps;

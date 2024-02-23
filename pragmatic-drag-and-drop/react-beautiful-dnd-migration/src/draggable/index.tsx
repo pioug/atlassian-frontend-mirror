@@ -16,12 +16,12 @@ import type {
 } from 'react-beautiful-dnd';
 import invariant from 'tiny-invariant';
 
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
 
 import { getHiddenTextElementId } from '../drag-drop-context/hooks/use-hidden-text-element';
 import { useDragDropContext } from '../drag-drop-context/internal-context';

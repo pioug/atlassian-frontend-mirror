@@ -1,6 +1,6 @@
-import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import type { ElementEventBasePayload } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import type { ElementEventBasePayload } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type {
   DraggableData,

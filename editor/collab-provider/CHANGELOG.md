@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 9.25.0
+
+### Minor Changes
+
+- [#75042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75042) [`ce823f018248`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce823f018248) - [ux] ED-21987 Diverge expands in live pages so that they are not multiplayer, and are closed by default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.24.1
 
 ### Patch Changes

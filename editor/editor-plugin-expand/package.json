@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-expand",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Expand plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,14 +35,14 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/button": "^17.4.0",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
-    "@atlaskit/editor-plugin-selection": "^1.0.0",
+    "@atlaskit/editor-plugin-selection": "^1.1.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/editor-tables": "^2.5.0",
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
@@ -105,6 +105,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.allow-extended-nested-expand": {
+      "type": "boolean"
+    },
+    "platform.editor.live-pages-expand-divergence": {
       "type": "boolean"
     }
   }

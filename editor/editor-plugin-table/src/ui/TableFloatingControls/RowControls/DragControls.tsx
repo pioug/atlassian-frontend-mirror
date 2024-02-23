@@ -16,7 +16,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
 import { clearHoverSelection } from '../../../commands';

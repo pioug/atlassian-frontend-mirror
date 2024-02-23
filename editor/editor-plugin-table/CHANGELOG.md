@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.9
+
+### Patch Changes
+
+- [#70616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70616) [`76068b6be8dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76068b6be8dc) - Upgrading to Pragmatic drag and drop 1.0
+- Updated dependencies
+
 ## 7.3.8
 
 ### Patch Changes

@@ -39,7 +39,7 @@ test.describe('when copy and paste expands in the same cell', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const expandModel = EditorExpandModel.from(nodes.expand);
+    const expandModel = EditorExpandModel.from(editor, nodes.expand);
     const floatingToolbarModel = EditorFloatingToolbarModel.from(
       editor,
       expandModel,

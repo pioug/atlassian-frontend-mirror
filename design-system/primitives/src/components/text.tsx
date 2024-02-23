@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createContext, FC, Fragment, ReactNode, useContext } from 'react';
+import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -115,22 +115,19 @@ const wordBreakMap = {
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
  */
-const useColor = (colorProp: TextColor): TextColor => {
+const useColor = (colorProp: TextColor | undefined): TextColor | undefined => {
   const surface = useSurface();
-  const inverseTextColor =
-    inverseColorMap[surface as keyof typeof inverseColorMap];
 
   /**
    * Where the color of the surface is inverted we override the user choice
    * as there is no valid choice that is not covered by the override.
    */
-  const color = inverseTextColor ?? colorProp;
+  const color = inverseColorMap.hasOwnProperty(surface)
+    ? inverseColorMap[surface as keyof typeof inverseColorMap]
+    : colorProp;
 
   return color;
 };
-
-const HasTextAncestorContext = createContext(false);
-const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 
 /**
  * __Text__
@@ -144,7 +141,7 @@ const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 const Text: FC<TextProps> = ({ children, ...props }) => {
   const {
     as: asElement,
-    color: colorProp = 'color.text',
+    color: colorProp,
     textAlign,
     testId,
     id,
@@ -168,17 +165,8 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
   }
 
   const color = useColor(colorProp);
-  const isWrapped = useHasTextAncestor();
 
-  /**
-   * If the text is already wrapped and applies no props we can just
-   * render the children directly as a fragment.
-   */
-  if (isWrapped && Object.keys(props).length === 0) {
-    return <Fragment>{children}</Fragment>;
-  }
-
-  const component = (
+  return (
     <Component
       css={[
         resetStyles,
@@ -199,15 +187,6 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     >
       {children}
     </Component>
-  );
-
-  return isWrapped ? (
-    // no need to re-apply context if the text is already wrapped
-    component
-  ) : (
-    <HasTextAncestorContext.Provider value={true}>
-      {component}
-    </HasTextAncestorContext.Provider>
   );
 };
 

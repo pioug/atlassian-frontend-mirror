@@ -32,6 +32,7 @@ export const createPlugin = (
   useLongPressSelection: boolean = false,
   api: ExtractInjectionAPI<ExpandPlugin> | undefined,
   allowInteractiveExpand: boolean = true,
+  __livePage: boolean = false,
 ) => {
   const state = createPluginState(dispatch, {});
   const isMobile = appearance === 'mobile';
@@ -46,12 +47,14 @@ export const createPlugin = (
           isMobile,
           api,
           allowInteractiveExpand,
+          __livePage,
         }),
         nestedExpand: ExpandNodeView({
           getIntl,
           isMobile,
           api,
           allowInteractiveExpand,
+          __livePage,
         }),
       },
       handleKeyDown(_view, event) {

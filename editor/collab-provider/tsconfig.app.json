@@ -46,6 +46,9 @@
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
       "path": "../prosemirror-collab/tsconfig.app.json"
     },
     {

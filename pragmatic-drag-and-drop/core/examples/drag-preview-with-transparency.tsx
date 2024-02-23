@@ -7,11 +7,11 @@ import invariant from 'tiny-invariant';
 
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
-import { draggable } from '../src/entry-point/adapter/element';
-import { centerUnderPointer } from '../src/entry-point/util/center-under-pointer';
-import { offsetFromPointer } from '../src/entry-point/util/offset-from-pointer';
-import { preserveOffsetOnSource } from '../src/entry-point/util/preserve-offset-on-source';
-import { setCustomNativeDragPreview } from '../src/entry-point/util/set-custom-native-drag-preview';
+import { draggable } from '../src/entry-point/element/adapter';
+import { centerUnderPointer } from '../src/entry-point/element/center-under-pointer';
+import { pointerOutsideOfPreview } from '../src/entry-point/element/pointer-outside-of-preview';
+import { preserveOffsetOnSource } from '../src/entry-point/element/preserve-offset-on-source';
+import { setCustomNativeDragPreview } from '../src/entry-point/element/set-custom-native-drag-preview';
 
 function FakeText() {
   return (
@@ -91,7 +91,7 @@ function ItemOffsetFromPointer() {
       onGenerateDragPreview({ nativeSetDragImage }) {
         setCustomNativeDragPreview({
           nativeSetDragImage,
-          getOffset: offsetFromPointer({ x: '20px', y: '20px' }),
+          getOffset: pointerOutsideOfPreview({ x: '20px', y: '20px' }),
           render({ container }) {
             setState({ type: 'preview', container });
             return () => setState({ type: 'dragging' });

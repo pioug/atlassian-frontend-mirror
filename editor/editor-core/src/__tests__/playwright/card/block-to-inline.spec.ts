@@ -20,6 +20,9 @@ test.use({
       allowBlockCards: true,
     },
   },
+  platformFeatureFlags: {
+    'platform.linking-platform.enable-datasource-appearance-toolbar': true,
+  },
 });
 
 test.describe('blockCard', () => {

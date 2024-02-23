@@ -16,7 +16,7 @@ import {
   draggable,
   dropTargetForElements,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 const teamAreaStyles = xcss({

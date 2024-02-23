@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
 import { ItemData } from './data';
 

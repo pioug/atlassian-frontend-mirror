@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import { Coord } from './chessboard-draggable';
 

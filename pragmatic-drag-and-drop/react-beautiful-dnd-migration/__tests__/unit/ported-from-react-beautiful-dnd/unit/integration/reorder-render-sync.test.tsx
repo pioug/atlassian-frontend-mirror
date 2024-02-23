@@ -10,8 +10,8 @@ import type {
   DropResult,
 } from 'react-beautiful-dnd';
 
-import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import { DragDropContext, Draggable, Droppable } from '../../../../../src';
 import { setElementFromPoint } from '../../../_util';

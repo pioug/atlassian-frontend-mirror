@@ -34,10 +34,10 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/prosemirror-input-rules": "^2.4.0",
     "@babel/runtime": "^7.0.0",
     "uuid": "^3.1.0"

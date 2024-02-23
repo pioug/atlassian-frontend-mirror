@@ -1,8 +1,8 @@
 import { useCallback, useEffect } from 'react';
 
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 
 import { isDraggableData } from '../../draggable/data';
@@ -65,10 +65,10 @@ export function usePointerControls({
         autoScroller.start({ input: location.current.input });
 
         /**
-         * We use `cancelUnhandled` because we are rendering a custom drag
+         * We use `preventUnhandled` because we are rendering a custom drag
          * preview.
          */
-        cancelUnhandled.start();
+        preventUnhandled.start();
 
         const { data } = source;
         rbdInvariant(isDraggableData(data));
@@ -99,7 +99,7 @@ export function usePointerControls({
 
       onDrop() {
         autoScroller.stop();
-        cancelUnhandled.stop();
+        preventUnhandled.stop();
 
         dragController.stopDrag({ reason: 'DROP' });
       },

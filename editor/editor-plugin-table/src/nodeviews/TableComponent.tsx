@@ -31,8 +31,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';

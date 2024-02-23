@@ -1,6 +1,6 @@
 import type { DropResult } from 'react-beautiful-dnd';
 
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 export type Item = {
   itemId: string;

@@ -97,6 +97,7 @@ export type State = {
   collabUrlInput?: HTMLInputElement;
   hasError?: boolean;
   title?: string;
+  __livePage: boolean;
 };
 
 const getQueryParam = (param: string) => {
@@ -114,6 +115,7 @@ export default class Example extends React.Component<Props, State> {
     collabUrlInput: undefined,
     hasError: false,
     title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
+    __livePage: getQueryParam('__livePage') || false,
   };
 
   componentDidCatch() {
@@ -153,6 +155,25 @@ export default class Example extends React.Component<Props, State> {
         <div>
           <strong>CollabUrl:</strong> {this.state.collabUrl}
         </div>
+        <div>
+          <strong>
+            Live Page: {this.state.__livePage ? 'enabled' : 'disabled'}
+          </strong>{' '}
+          <button
+            onClick={() => {
+              this.setState({ __livePage: !this.state.__livePage });
+              const win = window.parent || window;
+              const url = new URL(win.location.href);
+              url.searchParams.set(
+                '__livePage',
+                String(!this.state.__livePage),
+              );
+              win.history.pushState({}, '', url.toString());
+            }}
+          >
+            Toggle
+          </button>
+        </div>
       </div>
     );
   }
@@ -176,6 +197,7 @@ export default class Example extends React.Component<Props, State> {
         subProduct: 'collab provider example',
       },
       featureFlags: { testFF: false, testAF: true },
+      __livePage: this.state.__livePage,
     });
 
     // Example POST method implementation:
@@ -246,16 +268,23 @@ export default class Example extends React.Component<Props, State> {
     });
 
     return (
-      <div>
+      <div
+        key={this.state.__livePage ? 'enabled-livePage' : 'disabled-livePage'}
+      >
         {this.renderErrorFlag()}
         {this.renderDocumentId()}
         <DropzoneEditorWrapper>
           {(parentContainer) => (
             <EditorContext>
               <Editor
+                __livePage={this.state.__livePage}
                 appearance="full-page"
                 allowStatus={true}
                 allowAnalyticsGASV3={true}
+                allowExpand={{
+                  allowInsertion: true,
+                  allowInteractiveExpand: true,
+                }}
                 allowLayouts={true}
                 allowTextColor={true}
                 allowTables={{

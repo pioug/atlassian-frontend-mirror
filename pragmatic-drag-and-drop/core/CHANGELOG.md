@@ -1,5 +1,13 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 1.0.0
+
+### Major Changes
+
+- [#70616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70616) [`42e57ea65fee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42e57ea65fee) - This is our first `major` release (`1.0`) for all Pragmatic drag and drop packages.
+
+  For a detailed explanation of these changes, and how to upgrade (automatically) to `1.0` please see our [1.0 upgrade guide](http://atlassian.design/components/pragmatic-drag-and-drop/core-package/upgrade-guides/upgrade-guide-for-1.0)
+
 ## 0.25.0
 
 ### Minor Changes

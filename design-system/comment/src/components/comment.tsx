@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 
-import Stack from '@atlaskit/primitives/stack';
-import Box from '@atlaskit/primitives/text';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import type { CommentProps } from '../types';
 

@@ -5,11 +5,11 @@ import { memo, ReactNode, useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   dropTargetForElements,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import {
   canMove,

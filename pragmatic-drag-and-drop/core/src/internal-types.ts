@@ -32,66 +32,118 @@ export type Position = { x: number; y: number };
 export type Serializable = {
   [key: string]: number | string | Serializable | Serializable[];
 };
+export type StartedFrom = 'internal' | 'external';
 
-export type InternalDragType<
-  Key extends string,
-  DefaultDropEffect extends DataTransfer['dropEffect'],
-  Payload extends Record<string, unknown>,
-> = {
-  key: Key;
-  defaultDropEffect: DefaultDropEffect;
+export type ElementDragPayload = {
+  element: HTMLElement;
+  dragHandle: Element | null;
+  data: Record<string, unknown>;
+};
+
+export type ElementDragType = {
+  type: 'element';
   startedFrom: 'internal';
-  payload: Payload;
+  payload: ElementDragPayload;
 };
 
-export type ExternalDragType<
-  Key extends string,
-  DefaultDropEffect extends DataTransfer['dropEffect'],
-  Payload extends Record<string, unknown>,
-> = {
-  key: Key;
+/**
+ * A convenance type to provide auto complete for common
+ * media types. This type will accept any `string`.
+ *
+ * For more information on media types, see:
+ *
+ * - {@link https://atlassian.design/components/pragmatic-drag-and-drop/core-package/adapters/external/custom-media}
+ * - {@link https://en.wikipedia.org/wiki/Media_type}
+ */
+export type NativeMediaType =
+  | 'text/uri-list'
+  | 'text/plain'
+  | 'text/html'
+  | 'Files'
+  // A TS trick that allows this type to be any string,
+  // but will populate auto complete for the provided strings
+  // https://github.com/microsoft/TypeScript/issues/51717
+  | (string & {});
+
+export type ExternalDragPayload = {
+  /**
+   * The media types that are being dragged during a drag.
+   *
+   * @example
+   *
+   * console.log(source.types);
+   * // → ["text/plain", "text/html"]
+   */
+  types: NativeMediaType[];
+  /**
+   * The entities that are being dragged.
+   * Usually you will not be using these directly, but
+   * our helper functions can leverage them to extract
+   * particular kinds of data (eg files) that are being dragged
+   */
+  items: DataTransferItem[];
+  /**
+   * returns the data for a given media type.
+   *
+   * - `getStringData(mediaType)` will return `null` if there is no data for that media type
+   * - `getStringData(mediaType)` will return the empty string (`""`) if the empty string (`""`)
+   *      was explicitly set as the data for a media type.
+   * - `getStringData(mediaType)` will return null if requesting files (ie `getStringData('Files')`).
+   *      To access files, use `source.items`, or better still, `getFiles({source})`
+   *
+   * Generally we recommend folks use our helpers to read native data rather than `getStringData(mediaType)`
+   *
+   * @example
+   *
+   * ```ts
+   * // Using getStringData()
+   * const text: string | null = source.getStringData("text/plain");
+   *
+   * // Using our text helper
+   * const text: string | null = getText({source});
+   * ```
+   * */
+  getStringData: (mediaType: string) => string | null;
+};
+
+export type ExternalDragType = {
+  type: 'external';
   startedFrom: 'external';
-  defaultDropEffect: DefaultDropEffect;
-  payload: Payload;
+  payload: ExternalDragPayload;
+  getDropPayload: (event: DragEvent) => ExternalDragType['payload'];
 };
 
-export type DragInterface<DragType extends AllDragTypes> =
-  DragType extends ExternalDragType<
-    string,
-    DataTransfer['dropEffect'],
-    Record<string, unknown>
-  >
-    ? // External drag types might need to refresh their source
-      // during the `"drop"` event
-      // `event.dataTransfer?.items` is only available in `"drop"`
-      Omit<DragType, 'defaultDropEffect'> & {
-        getDropPayload?: (event: DragEvent) => DragType['payload'];
-      }
-    : Omit<DragType, 'defaultDropEffect'>;
+export type TextSelectionDragPayload = {
+  /**
+   * The `Text` node that is the user started the drag from.
+   * Note: the `Text` node does not include all text being dragged.
+   * Use the `plain` or `html` properties to get the full selection
+   */
+  target: Text;
+  /** The plain text of the selection */
+  plain: string;
+  /** the HTML of the selection */
+  HTML: string;
+  /**
+   * Not sure whether to include `window.getSelection()`, but it would be easy to include. I didn't include it for now as I am not sure what we should do if the selection changed during a drag (eg by unrelated updates)
+   */
+  // selection: Selection | null
+};
+
+export type TextSelectionDragType = {
+  type: 'text-selection';
+  startedFrom: 'internal';
+  payload: TextSelectionDragPayload;
+};
 
 export type AllDragTypes =
-  | InternalDragType<
-      string,
-      DataTransfer['dropEffect'],
-      Record<string, unknown>
-    >
-  | ExternalDragType<
-      string,
-      DataTransfer['dropEffect'],
-      Record<string, unknown>
-    >;
-
-export type SourceCanStartArgs = {
-  event: DragEvent;
-  input: Input;
-};
+  | ElementDragType
+  | ExternalDragType
+  | TextSelectionDragType;
 
 export type AdapterAPI<DragType extends AllDragTypes> = {
   canStart: (event: DragEvent) => boolean;
-  start: (args: {
-    event: DragEvent;
-    dragInterface: DragInterface<DragType>;
-  }) => void;
+  start: (args: { event: DragEvent; dragType: DragType }) => void;
 };
 
 export type Input = {
@@ -207,7 +259,7 @@ export type AllEvents<DragType extends AllDragTypes> = {
   ) => void;
 };
 
-export type MonitorCanMonitorArgs<DragType extends AllDragTypes> = {
+export type MonitorGetFeedbackArgs<DragType extends AllDragTypes> = {
   /**
    * The users `initial` drag location
    */
@@ -221,7 +273,7 @@ export type MonitorCanMonitorArgs<DragType extends AllDragTypes> = {
 export type MonitorArgs<DragType extends AllDragTypes> = Partial<
   AllEvents<DragType>
 > & {
-  canMonitor?: (args: MonitorCanMonitorArgs<DragType>) => boolean;
+  canMonitor?: (args: MonitorGetFeedbackArgs<DragType>) => boolean;
 };
 
 export type DropTargetGetFeedbackArgs<DragType extends AllDragTypes> = {
@@ -246,6 +298,9 @@ export type DropTargetLocalizedData = {
   self: DropTargetRecord;
 };
 
+// Not directly used internally, but might be helpful for consumers
+export type DropTargetEventBasePayload<DragType extends AllDragTypes> =
+  BaseEventPayload<DragType> & DropTargetLocalizedData;
 /**
  * Mapping event names to the payloads for those events
  */

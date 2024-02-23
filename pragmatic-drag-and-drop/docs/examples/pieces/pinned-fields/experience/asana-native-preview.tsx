@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import ReactDOM from 'react-dom';
 
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 
 import { useSortableField } from '../../hooks/use-sortable-field';
 import { DropIndicator } from '../primitives/asana/drop-indicator';

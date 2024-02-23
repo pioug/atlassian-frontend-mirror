@@ -4,11 +4,11 @@ import invariant from 'tiny-invariant';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
+import { combine } from '../src/entry-point/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '../src/entry-point/adapter/element';
-import { combine } from '../src/entry-point/util/combine';
+} from '../src/entry-point/element/adapter';
 
 type ItemData = {
   id: string;

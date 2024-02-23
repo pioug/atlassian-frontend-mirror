@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - GridProps
  *
- * @codegen <<SignedSource::60e56f4ba271fccb01ee83e02659eb52>>
+ * @codegen <<SignedSource::4f326921dc60e223cfd0ba05be93a9eb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/grid/__generated__/index.partial.tsx <<SignedSource::7f93ba0404d4e15e02f70341e423b955>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/grid/__generated__/index.partial.tsx <<SignedSource::82ef52184f696a17dcca4c8a84e23441>>
  */
 import React from 'react';
 import { Grid as PlatformGrid } from '@atlaskit/primitives';

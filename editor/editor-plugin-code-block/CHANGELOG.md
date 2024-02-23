@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-code-block
 
+## 1.1.0
+
+### Minor Changes
+
+- [#75114](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75114) [`393ee487af1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/393ee487af1e) - Plugin configuration for code-block plugin is now optional.
+
 ## 1.0.2
 
 ### Patch Changes

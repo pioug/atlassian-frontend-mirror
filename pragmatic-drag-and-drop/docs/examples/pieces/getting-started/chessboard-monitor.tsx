@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import { King, Pawn } from './draggable-piece-with-data';
 import Square from './square-with-data';

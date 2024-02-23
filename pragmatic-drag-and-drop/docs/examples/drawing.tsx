@@ -9,10 +9,10 @@ import Button from '@atlaskit/button';
 import FocusRing from '@atlaskit/focus-ring';
 import CheckIcon from '@atlaskit/icon/glyph/check';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -205,7 +205,7 @@ export default function DrawingExample() {
           disableNativeDragPreview({ nativeSetDragImage });
         },
         onDragStart() {
-          cancelUnhandled.start();
+          preventUnhandled.start();
         },
         onDrag({ location }) {
           const { clientX, clientY } = location.current.input;
@@ -222,7 +222,7 @@ export default function DrawingExample() {
           prevPoint = { x: clientX, y: clientY };
         },
         onDrop() {
-          cancelUnhandled.stop();
+          preventUnhandled.stop();
 
           ctx.closePath();
         },

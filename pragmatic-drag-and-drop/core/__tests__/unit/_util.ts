@@ -1,4 +1,5 @@
 import { fireEvent } from '@testing-library/dom';
+import invariant from 'tiny-invariant';
 
 import {
   CleanupFn,
@@ -7,7 +8,7 @@ import {
   DropTargetRecord,
   Input,
 } from '../../src/entry-point/types';
-// import { fireEvent } from '@testing-library/dom';
+import { NativeMediaType } from '../../src/internal-types';
 
 export function getDefaultInput(overrides: Partial<Input> = {}): Input {
   const defaults: Input = {
@@ -122,10 +123,13 @@ export function setElementFromPoint(el: Element | null): CleanupFn {
     document.elementFromPoint = original;
   };
 }
-// usage: const [A, B, C, D, F] = getElements();
-export function getElements(
-  tagName: keyof HTMLElementTagNameMap = 'div',
-): Iterable<HTMLElement> {
+/**
+ *
+ * @example const [A, B, C, D, E] = getElements('div');
+ */
+export function getElements<TagName extends keyof HTMLElementTagNameMap>(
+  tagName: TagName,
+): Iterable<HTMLElementTagNameMap[TagName]> {
   const iterator = {
     next() {
       return {
@@ -142,7 +146,8 @@ export function getElements(
 
 /**
  * Returns a connected tree of elements
- * `[grandChild, parent, grandParent]`
+ *
+ * @example const [grandChild, parent, grandParent] = getBubbleOrderedTree();
  */
 export function getBubbleOrderedTree(
   tagName: keyof HTMLElementTagNameMap = 'div',
@@ -169,6 +174,108 @@ export function getBubbleOrderedTree(
   return iterator;
 }
 
+type SimpleItem = { data: string; type: NativeMediaType } | File;
+export function addItemsToEvent({
+  event,
+  items,
+}: {
+  event: DragEvent;
+  items: SimpleItem[];
+}): void {
+  for (const item of items) {
+    if (item instanceof File) {
+      event.dataTransfer?.items.add(item);
+      continue;
+    }
+    event.dataTransfer?.items.add(item.data, item.type);
+  }
+}
+
+export const nativeDrag = {
+  startExternal({
+    items,
+    target = document.body,
+  }: {
+    items: SimpleItem[];
+    target?: Element;
+  }) {
+    const event = new DragEvent('dragenter', {
+      cancelable: true,
+      bubbles: true,
+    });
+    addItemsToEvent({ event, items });
+    target.dispatchEvent(event);
+    // @ts-expect-error
+    requestAnimationFrame.step();
+  },
+  // making items and target required as they are needed for internal drags
+  startInternal({ items, target }: { items: SimpleItem[]; target: Element }) {
+    const event = new DragEvent('dragstart', {
+      cancelable: true,
+      bubbles: true,
+    });
+    addItemsToEvent({ event, items });
+    target.dispatchEvent(event);
+    // @ts-expect-error
+    requestAnimationFrame.step();
+  },
+  startTextSelectionDrag({ element = document.body }: { element: Element }) {
+    const text = getTextNode(element);
+
+    const event = new DragEvent('dragstart', {
+      cancelable: true,
+      bubbles: true,
+    });
+
+    addItemsToEvent({
+      event,
+      items: [
+        { type: 'text/plain', data: element.textContent ?? '' },
+        // TODO: should this be inner our outer HTML?
+        { type: 'text/html', data: element.innerHTML ?? '' },
+      ],
+    });
+
+    text.dispatchEvent(event);
+    // @ts-expect-error
+    requestAnimationFrame.step();
+  },
+  drop({
+    items = [],
+    target = document.body,
+  }: {
+    items?: SimpleItem[];
+    target?: Element;
+  }) {
+    const event = new DragEvent('drop', { cancelable: true, bubbles: true });
+    addItemsToEvent({ event, items });
+    target.dispatchEvent(event);
+  },
+};
+
+export function getTextNode(element: Element): Text {
+  const text: Text | undefined = Array.from(element.childNodes).find(
+    (node: Node): node is Text => node.nodeType === Node.TEXT_NODE,
+  );
+  invariant(text, `Could not find text element`);
+  return text;
+}
+
+export const assortedNativeMediaTypes: NativeMediaType[] = [
+  // common
+  'text/html',
+  'text/plain',
+  'text/uri-list',
+
+  // Internally, the type is stored as "files",
+  // But the DataTransfer.types array value will be "Files"
+  'files',
+
+  // uncommon
+  'text/css',
+  'text/csv',
+];
+
 export const userEvent = {
   lift(target: HTMLElement, input?: Input) {
     // will fire `onGenerateDragPreview`
@@ -189,25 +296,6 @@ export const userEvent = {
   },
   leaveWindow() {
     fireEvent.dragLeave(document.documentElement, { relatedTarget: null });
-  },
-  startExternalDrag({
-    types,
-    target = document.body,
-  }: {
-    types: string[];
-    target?: Element;
-  }) {
-    const event = new DragEvent('dragenter', {
-      cancelable: true,
-      bubbles: true,
-    });
-    for (const type of types) {
-      // @ts-expect-error
-      event.dataTransfer?.types.push(type);
-    }
-    target.dispatchEvent(event);
-    // @ts-expect-error
-    requestAnimationFrame.step();
   },
   rougePointerMoves() {
     // first 20 are ignored due to firefox issue

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TextAreaProps
  *
- * @codegen <<SignedSource::b8642225dd7fb8f95958aedb90aa5753>>
+ * @codegen <<SignedSource::57ac3475df0ec3a8015a85ab681b0bec>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/textarea/__generated__/index.partial.tsx <<SignedSource::93a565327cd9ef8ff96aee7b16324589>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/textarea/__generated__/index.partial.tsx <<SignedSource::bebce724d5e7ad41e8a3cd3c50b5ea6f>>
  */
 import React from 'react';
 import PlatformTextarea from '@atlaskit/textarea';

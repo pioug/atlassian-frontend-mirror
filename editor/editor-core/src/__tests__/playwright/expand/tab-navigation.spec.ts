@@ -29,7 +29,7 @@ test.describe('expand', () => {
         browsers: [BROWSERS.webkit],
       });
       const nodes = EditorNodeContainerModel.from(editor);
-      const expandModel = EditorExpandModel.from(nodes.expand);
+      const expandModel = EditorExpandModel.from(editor, nodes.expand);
 
       //make sure the cursor is before the expand
       await editor.keyboard.press('ArrowLeft');

@@ -6,9 +6,9 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
+import { autoScrollForExternal } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/external';
 import { unsafeOverflowAutoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { token } from '@atlaskit/tokens';
 
 import { columnGap, gridSize } from '../../util/constants';
@@ -72,7 +72,7 @@ function Board({ children }: { children: ReactNode }) {
           },
         }),
       }),
-      autoScrollForFiles({
+      autoScrollForExternal({
         element: ref.current,
       }),
     );

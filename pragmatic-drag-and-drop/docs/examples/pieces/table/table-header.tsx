@@ -9,17 +9,17 @@ import {
   attachClosestEdge,
   Edge,
   extractClosestEdge,
-} from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box-without-terminal';
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box-without-terminal';
 import {
   draggable,
   dropTargetForElements,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
-import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -330,7 +330,7 @@ export function TableHeader({
       },
       onGenerateDragPreview({ nativeSetDragImage }) {
         setCustomNativeDragPreview({
-          getOffset: offsetFromPointer({
+          getOffset: pointerOutsideOfPreview({
             x: '18px',
             y: '18px',
           }),
@@ -379,7 +379,7 @@ export function TableHeader({
       },
       onGenerateDragPreview({ nativeSetDragImage }) {
         disableNativeDragPreview({ nativeSetDragImage });
-        cancelUnhandled.start();
+        preventUnhandled.start();
 
         const initialWidth = header.getBoundingClientRect().width;
 
@@ -435,7 +435,7 @@ export function TableHeader({
         );
       },
       onDrop() {
-        cancelUnhandled.stop();
+        preventUnhandled.stop();
         setState(idleState);
       },
     });

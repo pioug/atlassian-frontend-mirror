@@ -16,11 +16,14 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
  * when a collapsed exxpand is the next node in the common depth.
  * If that is true, we create a new TextSelection and stop the event bubble
  */
-const isCollpasedExpand = (node: PMNode | null | undefined): boolean => {
+const isCollpasedExpand = (
+  node: PMNode | null | undefined,
+  { __livePage }: { __livePage: boolean },
+): boolean => {
   return Boolean(
     node &&
       ['expand', 'nestedExpand'].includes(node.type.name) &&
-      !node.attrs.__expanded,
+      (__livePage ? node.attrs.__expanded : !node.attrs.__expanded),
   );
 };
 
@@ -43,14 +46,22 @@ const isTable = (node: PMNode | null | undefined): boolean => {
   return Boolean(node && ['table'].includes(node.type.name));
 };
 
-const isProblematicNode = (node: PMNode | null | undefined): boolean => {
-  return isCollpasedExpand(node) || isBodiedExtension(node) || isTable(node);
+const isProblematicNode = (
+  node: PMNode | null | undefined,
+  { __livePage }: { __livePage: boolean },
+): boolean => {
+  return (
+    isCollpasedExpand(node, { __livePage }) ||
+    isBodiedExtension(node) ||
+    isTable(node)
+  );
 };
 
 const findFixedProblematicNodePosition = (
   doc: PMNode,
   $head: ResolvedPos,
   direction: 'down' | 'up',
+  { __livePage }: { __livePage: boolean },
 ): ResolvedPos | null => {
   if ($head.pos === 0 || $head.depth === 0) {
     return null;
@@ -61,7 +72,10 @@ const findFixedProblematicNodePosition = (
     const $posResolved = $head.doc.resolve(pos);
     const maybeProblematicNode = $posResolved.nodeBefore;
 
-    if (maybeProblematicNode && isProblematicNode(maybeProblematicNode)) {
+    if (
+      maybeProblematicNode &&
+      isProblematicNode(maybeProblematicNode, { __livePage })
+    ) {
       const nodeSize = maybeProblematicNode.nodeSize;
       const nodeStartPosition = pos - nodeSize;
 
@@ -84,7 +98,7 @@ const findFixedProblematicNodePosition = (
 
     if (
       maybeProblematicNode &&
-      isProblematicNode(maybeProblematicNode) &&
+      isProblematicNode(maybeProblematicNode, { __livePage }) &&
       $head.pos + 1 === pos
     ) {
       const nodeSize = maybeProblematicNode.nodeSize;
@@ -151,83 +165,92 @@ const isNavigatingVerticallyWhenCursorIsInsideInlineNode = (
   return isNavigatingInlineNodeDownward;
 };
 
-export const onKeydown = (view: EditorView, event: Event): boolean => {
-  /*
-   * This workaround is needed for some specific situations.
-   * - expand collapse
-   * - bodied extension
-   */
-  if (!(event instanceof KeyboardEvent)) {
-    return false;
-  }
+export function createOnKeydown({
+  __livePage = false,
+}: {
+  __livePage?: boolean;
+}) {
+  function onKeydown(view: EditorView, event: Event): boolean {
+    /*
+     * This workaround is needed for some specific situations.
+     * - expand collapse
+     * - bodied extension
+     */
+    if (!(event instanceof KeyboardEvent)) {
+      return false;
+    }
 
-  if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
-    return true;
-  }
+    if (isSelectionLineShortcutWhenCursorIsInsideInlineNode(view, event)) {
+      return true;
+    }
 
-  if (isNavigatingVerticallyWhenCursorIsInsideInlineNode(view, event)) {
-    return true;
-  }
+    if (isNavigatingVerticallyWhenCursorIsInsideInlineNode(view, event)) {
+      return true;
+    }
 
-  if (!event.shiftKey || event.ctrlKey || event.metaKey) {
-    return false;
-  }
+    if (!event.shiftKey || event.ctrlKey || event.metaKey) {
+      return false;
+    }
 
-  if (
-    ![
-      'ArrowUp',
-      'ArrowDown',
-      'ArrowRight',
-      'ArrowLeft',
-      'Home',
-      'End',
-    ].includes(event.key)
-  ) {
-    return false;
-  }
+    if (
+      ![
+        'ArrowUp',
+        'ArrowDown',
+        'ArrowRight',
+        'ArrowLeft',
+        'Home',
+        'End',
+      ].includes(event.key)
+    ) {
+      return false;
+    }
 
-  const {
-    doc,
-    selection: { $head, $anchor },
-  } = view.state;
+    const {
+      doc,
+      selection: { $head, $anchor },
+    } = view.state;
 
-  if (
-    (event.key === 'ArrowRight' && $head.nodeAfter) ||
-    (event.key === 'ArrowLeft' && $head.nodeBefore)
-  ) {
-    return false;
-  }
+    if (
+      (event.key === 'ArrowRight' && $head.nodeAfter) ||
+      (event.key === 'ArrowLeft' && $head.nodeBefore)
+    ) {
+      return false;
+    }
 
-  const direction = ['ArrowLeft', 'ArrowUp', 'Home'].includes(event.key)
-    ? 'up'
-    : 'down';
-  const $fixedProblematicNodePosition = findFixedProblematicNodePosition(
-    doc,
-    $head,
-    direction,
-  );
-
-  if ($fixedProblematicNodePosition) {
-    // an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
-    const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
-    const head = $fixedProblematicNodePosition.pos + headOffset;
-
-    const forcedTextSelection = TextSelection.create(
-      view.state.doc,
-      $anchor.pos,
-      head,
+    const direction = ['ArrowLeft', 'ArrowUp', 'Home'].includes(event.key)
+      ? 'up'
+      : 'down';
+    const $fixedProblematicNodePosition = findFixedProblematicNodePosition(
+      doc,
+      $head,
+      direction,
+      { __livePage },
     );
 
-    const tr = view.state.tr;
+    if ($fixedProblematicNodePosition) {
+      // an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
+      const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
+      const head = $fixedProblematicNodePosition.pos + headOffset;
 
-    tr.setSelection(forcedTextSelection);
+      const forcedTextSelection = TextSelection.create(
+        view.state.doc,
+        $anchor.pos,
+        head,
+      );
 
-    view.dispatch(tr);
+      const tr = view.state.tr;
 
-    event.preventDefault();
+      tr.setSelection(forcedTextSelection);
 
-    return true;
+      view.dispatch(tr);
+
+      event.preventDefault();
+
+      return true;
+    }
+
+    return false;
   }
 
-  return false;
-};
+  return onKeydown;
+}

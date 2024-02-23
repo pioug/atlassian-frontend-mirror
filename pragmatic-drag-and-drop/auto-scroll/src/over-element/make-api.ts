@@ -1,10 +1,10 @@
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type {
   AllDragTypes,
   BaseEventPayload,
   CleanupFn,
   MonitorArgs,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import type {
   ElementAutoScrollArgs,

@@ -27,15 +27,15 @@ const PopupWithListeners = withOuterListeners(Popup);
 import DatePickerInput from './date-picker-input';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const popupContentWrapper = css`
-  padding: ${token('space.025', '2px')};
-  border-radius: ${borderRadius()}px;
-  box-shadow: ${token(
+const popupContentWrapper = css({
+  padding: token('space.025', '2px'),
+  borderRadius: `${borderRadius()}px`,
+  boxShadow: token(
     'elevation.shadow.overlay',
     `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
-  )};
-  background-color: ${token('elevation.surface.overlay', N0)};
-`;
+  ),
+  backgroundColor: token('elevation.surface.overlay', N0),
+});
 
 export interface Props {
   element: HTMLElement | null;
@@ -75,6 +75,7 @@ type CalendarOnChange = {
 class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
   constructor(props: Props & WrappedComponentProps) {
     super(props);
+
     const timestamp = props.element!.getAttribute('timestamp');
     if (timestamp) {
       // Warning: The 'Date' return type of timestampToUTCDate() is not a JS date, it's more similar

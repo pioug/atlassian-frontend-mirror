@@ -30,7 +30,15 @@ type Pattern =
   //   padding: '8px',
   //   margin: '8px',
   // })
-  | 'multiple-properties';
+  | 'multiple-properties'
+  // This enables the rule to look for supported dimension properties set as 100% like:
+  // ```
+  // const styles = css({ // or `styled.div({`
+  //   padding: '8px',
+  //   margin: '8px',
+  //   width: '100%',
+  // })
+  | 'dimension-properties';
 
 export interface RuleConfig {
   patterns: Pattern[];

@@ -3,7 +3,7 @@ import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
 import invariant from 'tiny-invariant';
 
-import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 
 import Board from '../../examples/01-board';

@@ -1,4 +1,4 @@
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import { getReorderDestinationIndex } from './get-reorder-destination-index';
 import type { Edge } from './types';

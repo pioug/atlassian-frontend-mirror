@@ -1,4 +1,5 @@
 import countBy from 'lodash/countBy';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type {
   AddStepAcknowledgementPayload,
@@ -32,6 +33,7 @@ export const commitStepQueue = ({
   onErrorHandled,
   analyticsHelper,
   emit,
+  __livePage,
 }: {
   broadcast: <K extends keyof ChannelEvent>(
     type: K,
@@ -46,6 +48,7 @@ export const commitStepQueue = ({
   onErrorHandled: (error: InternalError) => void;
   analyticsHelper?: AnalyticsHelper;
   emit: (evt: keyof CollabEvents, data: CollabCommitStatusEventPayload) => void;
+  __livePage: boolean;
 }) => {
   if (!readyToCommit) {
     logger('Not ready to commit, skip');
@@ -59,11 +62,37 @@ export const commitStepQueue = ({
     logger('reset readyToCommit by timer');
   }, RESET_READYTOCOMMIT_INTERVAL_MS);
 
-  const stepsWithClientAndUserId = steps.map((step) => ({
+  let stepsWithClientAndUserId = steps.map((step) => ({
     ...step.toJSON(),
     clientId,
     userId,
   })) as StepJson[];
+
+  // Mutate steps to ignore expand expand/collapse changes in live pages
+  // This is expected to be a temporary divergence from standard editor behaviour
+  // and will be removed in Q4 when editor and live view pages align on a single
+  // behaviour for expands.
+  // While not recommended by the Editor content services team, this has been discussed
+  // as being low risk as the expand change via a setAttrs step;
+  // - doesn't impact any indexes,
+  // - is setup for last write wins,
+  // - and is just a boolean -- so no real risk of data loss.
+  if (
+    getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+    __livePage
+  ) {
+    // @atlaskit/platform-feature-flags
+    stepsWithClientAndUserId = stepsWithClientAndUserId.map(
+      (step: StepJson) => {
+        if (isExpandChangeStep(step)) {
+          // The title is also updated via this step, which we do want to send to the server.
+          // so we strip out the __expanded attribute from the step.
+          return { ...step, attrs: { title: step.attrs.title } };
+        }
+        return step;
+      },
+    );
+  }
 
   const start = new Date().getTime();
   emit('commit-status', { status: 'attempt', version });
@@ -158,3 +187,12 @@ export const commitStepQueue = ({
     emit('commit-status', { status: 'failure', version });
   }
 };
+
+function isExpandChangeStep(
+  step: StepJson,
+): step is StepJson & { attrs: { title: string } } {
+  if (step.stepType === 'setAttrs' && '__expanded' in (step as any).attrs) {
+    return true;
+  }
+  return false;
+}

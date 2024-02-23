@@ -2,17 +2,17 @@ import { useCallback, useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 type UseToplevelWiringArgs<DataItem> = {
   initialData: DataItem[];
   type: string;
 
-  shouldCancelUnhandled?: boolean;
+  shouldPreventUnhandled?: boolean;
 };
 
 export type ReorderItem = (args: { id: string; action: 'up' | 'down' }) => void;
@@ -38,7 +38,7 @@ function dispatchAfterDropEvent(detail: { id: string; type: string }) {
 export function useTopLevelWiring<DataItem extends { id: string }>({
   initialData,
   type,
-  shouldCancelUnhandled = true,
+  shouldPreventUnhandled = true,
 }: UseToplevelWiringArgs<DataItem>): {
   data: DataItem[];
   reorderItem: ReorderItem;
@@ -52,8 +52,8 @@ export function useTopLevelWiring<DataItem extends { id: string }>({
           return;
         }
 
-        if (shouldCancelUnhandled) {
-          cancelUnhandled.start();
+        if (shouldPreventUnhandled) {
+          preventUnhandled.start();
         }
       },
       onDrop: ({ location, source }) => {
@@ -61,8 +61,8 @@ export function useTopLevelWiring<DataItem extends { id: string }>({
           return;
         }
 
-        if (shouldCancelUnhandled) {
-          cancelUnhandled.stop();
+        if (shouldPreventUnhandled) {
+          preventUnhandled.stop();
         }
 
         const destination = location.current.dropTargets[0];
@@ -93,7 +93,7 @@ export function useTopLevelWiring<DataItem extends { id: string }>({
         dispatchAfterDropEvent({ id: source.data.id as string, type });
       },
     });
-  }, [shouldCancelUnhandled, type]);
+  }, [shouldPreventUnhandled, type]);
 
   const reorderItem: ReorderItem = useCallback(
     ({ id, action }) => {

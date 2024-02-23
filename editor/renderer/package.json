@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.4.7",
+  "version": "109.5.0",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,6 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
     "releaseModel": "continuous",
     "website": {
@@ -32,13 +31,13 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.4.0",
     "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-palette": "1.5.2",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/emoji": "^67.6.0",
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/link-datasource": "^1.22.0",
     "@atlaskit/media-card": "^77.10.0",
     "@atlaskit/media-client": "^26.2.0",
@@ -129,5 +128,17 @@
     "platform.editor.show-embed-card-frame-renderer": {
       "type": "boolean"
     }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./actions": "./src/actions.ts",
+    "./consts": "./src/consts.ts",
+    "./messages": "./src/messages.ts",
+    "./render-document": "./src/render-document.ts",
+    "./renderer-context": "./src/renderer-context.tsx",
+    "./serializer": "./src/serializer.ts",
+    "./text-serializer": "./src/text-serializer.ts",
+    "./use-feature-flags": "./src/use-feature-flags.ts",
+    "./utils": "./src/utils.ts"
   }
 }

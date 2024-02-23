@@ -3,6 +3,8 @@ import { ruleTester } from '@atlassian/eslint-utils';
 
 import rule from '../index';
 
+import { dimensionPropertiesTests } from './_dimension-properties';
+
 ruleTester.run('use-primitives', rule, {
   valid: [
     // ignores div when style has more than 1 usage
@@ -94,12 +96,10 @@ ruleTester.run('use-primitives', rule, {
       const flexStyles = css({ display: 'flex' });
       <div css={flexStyles}></div>
     `,
-
     // ignores divs with imported styles
     `
       import { css } from '@emotion/react';
       import { flexStyles } from './styles';
-
       <div css={flexStyles}></div>
     `,
     // this won't trigger an error unless the config 'compiled-styled-object' is set to true
@@ -237,6 +237,7 @@ ruleTester.run('use-primitives', rule, {
         `<MyContainer>Hello, World!</MyContainer>`,
       ].join('\n'),
     },
+    ...dimensionPropertiesTests.valid,
   ],
   invalid: [
     // it suggests Box for div elements with one style
@@ -565,5 +566,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
+    ...dimensionPropertiesTests.invalid,
   ],
 });

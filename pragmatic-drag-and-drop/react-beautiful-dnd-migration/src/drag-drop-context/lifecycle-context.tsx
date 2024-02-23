@@ -23,7 +23,7 @@ import type {
   DragUpdate,
 } from 'react-beautiful-dnd';
 
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 
 import type { CleanupFn } from '../internal-types';
 import { batchUpdatesForReact16 } from '../utils/batch-updates-for-react-16';

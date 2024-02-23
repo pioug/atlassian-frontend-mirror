@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-  "version": "0.8.1",
+  "version": "1.0.0",
   "description": "An optional package for Pragmatic drag and drop that enables ergonomic automatic scrolling during a drag operation",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -25,7 +25,7 @@
       }
     }
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "repository": "https://github.com/atlassian/pragmatic-drag-and-drop",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
@@ -43,12 +43,13 @@
   "af:exports": {
     ".": "./src/index.ts",
     "./element": "./src/entry-point/element.ts",
-    "./file": "./src/entry-point/file.ts",
+    "./external": "./src/entry-point/external.ts",
+    "./text-selection": "./src/entry-point/text-selection.ts",
     "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
-    "./unsafe-overflow/file": "./src/entry-point/unsafe-overflow/file.ts"
+    "./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^0.25.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

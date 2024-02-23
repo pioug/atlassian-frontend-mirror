@@ -35,7 +35,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/media-card": "^77.10.0",
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-common": "^11.0.0",

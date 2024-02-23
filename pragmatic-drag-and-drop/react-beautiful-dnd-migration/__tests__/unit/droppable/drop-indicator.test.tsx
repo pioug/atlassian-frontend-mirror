@@ -14,7 +14,7 @@ import type {
 } from 'react-beautiful-dnd';
 import invariant from 'tiny-invariant';
 
-import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
 import { DragDropContext, Draggable, Droppable } from '../../../src';
 import { attributes, customAttributes } from '../../../src/utils/attributes';

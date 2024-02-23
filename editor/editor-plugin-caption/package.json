@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
@@ -43,13 +43,13 @@
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^1.1.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^1.2.0",
     "@atlaskit/editor-plugin-focus": "^1.0.0",
     "@atlaskit/editor-plugin-grid": "^1.0.0",
     "@atlaskit/editor-plugin-guideline": "^1.0.0",
-    "@atlaskit/editor-plugin-selection": "^1.0.0",
+    "@atlaskit/editor-plugin-selection": "^1.1.0",
     "@atlaskit/editor-plugin-width": "^1.0.0",
-    "@atlaskit/renderer": "^109.4.0",
+    "@atlaskit/renderer": "^109.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "peerDependencies": {

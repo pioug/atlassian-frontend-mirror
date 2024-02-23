@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-explorations": "^3.2.0",
-    "@atlaskit/primitives": "^2.0.0",
+    "@atlaskit/primitives": "^2.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.38.0",
     "@babel/runtime": "^7.0.0",

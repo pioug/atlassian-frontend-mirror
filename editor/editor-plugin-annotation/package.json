@@ -33,11 +33,11 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
-    "@atlaskit/editor-common": "^78.3.0",
+    "@atlaskit/editor-common": "^78.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/icon": "^22.0.0",
+    "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0"
   },

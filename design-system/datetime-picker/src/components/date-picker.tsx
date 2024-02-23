@@ -9,7 +9,6 @@ import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import Calendar, { CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
@@ -26,7 +25,6 @@ import Select, {
   MenuProps,
   mergeStyles,
   OptionType,
-  SelectProps,
   ValueType,
 } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
@@ -40,162 +38,17 @@ import {
   placeholderDatetime,
 } from '../internal';
 import FixedLayer from '../internal/fixed-layer';
+import {
+  getSafeCalendarValue,
+  getShortISOString,
+  getValidDate,
+} from '../internal/parse-date';
+import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
-import { Appearance, Spacing } from '../types';
-
-import { convertTokens } from './utils';
+import { Appearance, DatePickerBaseProps, Spacing } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
-  /**
-   * Set the appearance of the picker.
-   *
-   * `subtle` will remove the borders, background, and icon.
-   *
-   *NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
-   */
-  appearance?: Appearance;
-  /**
-   * Set the picker to autofocus on mount.
-   */
-  autoFocus?: boolean;
-  /**
-   * The default for `isOpen`. Will be `false` if not provided.
-   */
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  defaultIsOpen?: boolean;
-  /**
-   * The default for `value`.
-   */
-  defaultValue?: string;
-  /**
-   * An array of ISO dates that should be disabled on the calendar. This does not affect what users can type into the picker.
-   */
-  disabled?: string[];
-  /**
-   * A filter function for disabling dates on the calendar. This does not affect what users can type into the picker.
-   *
-   * The function is called with a date string in the format `YYYY-MM-DD` and should return `true` if the date should be disabled.
-   */
-  disabledDateFilter?: (date: string) => boolean;
-  /**
-   * The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.
-   */
-  maxDate?: string;
-  /**
-   * The earliest enabled date. Dates before this are disabled on the calendar. This does not affect what users can type into the picker.
-   */
-  minDate?: string;
-  /**
-   * The icon shown in the picker.
-   */
-  icon?: React.ComponentType<DropdownIndicatorProps<OptionType>>;
-  /**
-   * Set the id of the field.
-   * Associates a `<label></label>` with the field.
-   */
-  id?: string;
-  /**
-   * Props to apply to the container.
-   */
-  innerProps?: React.AllHTMLAttributes<HTMLElement>;
-  /**
-   * Set if the picker is disabled.
-   */
-  isDisabled?: boolean;
-  /**
-   * Set if the picker is open.
-   */
-  isOpen?: boolean;
-  /**
-   * The name of the field.
-   */
-  name?: string;
-  /**
-   * The aria-label attribute associated with the next-month arrow.
-   */
-  nextMonthLabel?: string;
-  /**
-   * Called when the field is blurred.
-   */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  /**
-   * Called when the value changes. The only argument is an ISO time or empty string.
-   */
-  onChange?: (value: string) => void;
-  /**
-   * Called when the field is focused.
-   */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  /**
-   * A function for parsing input characters and transforming them into a Date object.
-   * By default parses the date string based off the locale.
-   */
-  parseInputValue?: (date: string, dateFormat: string) => Date;
-  /**
-   * A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.
-   */
-  formatDisplayLabel?: (value: string, dateFormat: string) => string;
-  /**
-   * The aria-label attribute associated with the previous-month arrow.
-   */
-  previousMonthLabel?: string;
-  /**
-   * Props to apply to the select. This can be used to set options such as placeholder text.
-   *  See [the `Select` documentation for further information](/components/select).
-   */
-  selectProps?: SelectProps<any>;
-  /**
-   * The spacing for the select control.
-   *
-   * Compact is `gridSize() * 4`, default is `gridSize * 5`.
-   */
-  spacing?: Spacing;
-  /**
-   * The ISO time used as the input value.
-   */
-  value?: string;
-  /**
-   * Set if the picker has an invalid value.
-   */
-  isInvalid?: boolean;
-  /**
-   * Hides icon for dropdown indicator.
-   */
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  hideIcon?: boolean;
-  /**
-   * Format the date with a string that is accepted by [date-fn's format function](https://date-fns.org/v1.29.0/docs/format).
-   */
-  dateFormat?: string;
-  /**
-   * Placeholder text displayed in input.
-   */
-  placeholder?: string;
-  /**
-   * Locale used to format the date and calendar. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).
-   */
-  locale?: string;
-  /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
-   *  - `{testId}--container` wrapping element of date-picker
-   *  - `{testId}--calendar--container` nested calendar component
-   */
-  testId?: string;
-  /**
-   * Start day of the week for the calendar.
-   * - `0` sunday (default value)
-   * - `1` monday
-   * - `2` tuesday
-   * - `3` wednesday
-   * - `4` thursday
-   * - `5` friday
-   * - `6` saturday
-   */
-  weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-}
 
 type DatePickerProps = typeof datePickerDefaultProps & DatePickerBaseProps;
 
@@ -213,21 +66,6 @@ interface State {
   selectInputValue: string;
   l10n: LocalizationProvider;
   locale: string;
-}
-
-function getValidDate(iso: string) {
-  const date = parseISO(iso);
-  return isValid(date)
-    ? {
-        day: date.getDate(),
-        month: date.getMonth() + 1,
-        year: date.getFullYear(),
-      }
-    : {};
-}
-
-function getShortISOString(date: Date) {
-  return format(date, convertTokens('YYYY-MM-DD'));
 }
 
 const menuStyles = css({
@@ -453,16 +291,6 @@ class DatePicker extends Component<DatePickerProps, State> {
     this.setState({ isOpen: true });
   };
 
-  getSafeCalendarValue = (calendarValue: string): string => {
-    // If `calendarValue` has a year that is greater than 9999, default to
-    // today's date
-    const yearIsOverLimit = calendarValue.match(/^\d{5,}/);
-    if (yearIsOverLimit) {
-      return getShortISOString(new Date());
-    }
-    return calendarValue;
-  };
-
   onInputKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     const { value, calendarValue } = this.getSafeState();
 
@@ -507,10 +335,9 @@ class DatePicker extends Component<DatePickerProps, State> {
         // for more details.
         event.preventDefault();
         if (!this.isDateDisabled(calendarValue)) {
-          const { value } = this.getSafeState();
           // Get a safe `calendarValue` in case the value exceeds the maximum
           // allowed by ISO 8601
-          const safeCalendarValue = this.getSafeCalendarValue(calendarValue);
+          const safeCalendarValue = getSafeCalendarValue(calendarValue);
           const valueChanged = safeCalendarValue !== value;
           this.setState({
             selectInputValue: '',

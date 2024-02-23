@@ -33,7 +33,7 @@ test('importing all entry points on the server should not cause any exceptions',
 });
 
 test('`combine` should work on the server', () => {
-  const { combine } = require('../../src/entry-point/util/combine');
+  const { combine } = require('../../src/entry-point/combine');
   const fn1 = jest.fn();
   const fn2 = jest.fn();
   const combined = combine(fn1, fn2);
@@ -48,7 +48,7 @@ test('`combine` should work on the server', () => {
 });
 
 test('`once` should work on the server', () => {
-  const { once } = require('../../src/entry-point/util/once');
+  const { once } = require('../../src/entry-point/once');
   const fn1 = jest.fn();
 
   const onced = once(fn1);
@@ -61,7 +61,7 @@ test('`once` should work on the server', () => {
 });
 
 test('`reorder` should work on the server', () => {
-  const { reorder } = require('../../src/entry-point/util/reorder');
+  const { reorder } = require('../../src/entry-point/reorder');
 
   expect(
     reorder({

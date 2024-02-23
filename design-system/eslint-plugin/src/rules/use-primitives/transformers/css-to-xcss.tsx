@@ -133,6 +133,21 @@ export const spaceTokenMap: { [key: string]: string } = {
   '80px': 'space.1000',
 };
 
+export const dimensionsMap: { [key: string]: string } = {
+  '100%': '100%',
+};
+
+export const supportedDimensionAttributesMap: {
+  [key: string]: typeof spaceTokenMap;
+} = {
+  width: dimensionsMap,
+  height: dimensionsMap,
+  minWidth: dimensionsMap,
+  minHeight: dimensionsMap,
+  maxWidth: dimensionsMap,
+  maxHeight: dimensionsMap,
+};
+
 export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {
   padding: spaceTokenMap,
   paddingBlock: spaceTokenMap,
@@ -156,4 +171,5 @@ export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {
   marginLeft: spaceTokenMap,
   marginRight: spaceTokenMap,
   marginTop: spaceTokenMap,
+  ...supportedDimensionAttributesMap,
 };

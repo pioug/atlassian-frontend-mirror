@@ -1,11 +1,25 @@
-import React, { forwardRef, type ReactNode, type Ref } from 'react';
+import React, {
+  forwardRef,
+  type ReactNode,
+  type Ref,
+  useCallback,
+  useContext,
+} from 'react';
 
 import invariant from 'tiny-invariant';
 
 import {
+  UIAnalyticsEvent,
+  usePlatformLeafEventHandler,
+} from '@atlaskit/analytics-next';
+import {
   type RouterLinkComponentProps,
   useRouterLink,
 } from '@atlaskit/app-provider';
+import noop from '@atlaskit/ds-lib/noop';
+import InteractionContext, {
+  type InteractionContextType,
+} from '@atlaskit/interaction-context';
 
 import { type XCSS, xcss } from '../xcss/xcss';
 
@@ -20,11 +34,34 @@ export type LinkProps<RouterLinkConfig extends Record<string, any> = never> =
       | 'as'
       | 'children'
       | 'style'
+      | 'onClick'
     > & {
       /**
        * `children` should be defined to ensure links have text.
        */
       children: ReactNode;
+      /**
+       * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+       */
+      onClick?: (
+        e: React.MouseEvent<HTMLAnchorElement>,
+        // TODO: Make analyticsEvent required once `@atlaskit/button` is bumped to use the latest version of primitives
+        analyticsEvent?: UIAnalyticsEvent,
+      ) => void;
+      /**
+       * An optional name used to identify the interaction type to press listeners. For example, interaction tracing. For more information,
+       * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+       */
+      interactionName?: string;
+      /**
+       * An optional component name used to identify this component to press listeners. This can be used if a parent component's name is preferred. For example, interaction tracing. For more information,
+       * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+       */
+      componentName?: string;
+      /**
+       * Additional information to be included in the `context` of analytics events that come from anchor.
+       */
+      analyticsContext?: Record<string, any>;
     };
 
 // TODO: Duplicated FocusRing styles due to lack of `xcss` support
@@ -70,10 +107,39 @@ const Link = <RouterLinkConfig extends Record<string, any> = never>(
     xcss: xcssStyles,
     target,
     rel,
+    onClick: providedOnClick = noop,
+    interactionName,
+    componentName,
+    analyticsContext,
     ...htmlAttributes
   }: LinkProps<RouterLinkConfig>,
   ref: Ref<HTMLAnchorElement>,
 ) => {
+  const interactionContext = useContext<InteractionContextType | null>(
+    InteractionContext,
+  );
+  const handleClick = useCallback(
+    (
+      e: React.MouseEvent<HTMLAnchorElement>,
+      analyticsEvent: UIAnalyticsEvent,
+    ) => {
+      interactionContext &&
+        interactionContext.tracePress(interactionName, e.timeStamp);
+      providedOnClick(e, analyticsEvent);
+    },
+    [providedOnClick, interactionContext, interactionName],
+  );
+
+  const onClick = usePlatformLeafEventHandler({
+    fn: handleClick,
+    action: 'clicked',
+    componentName: componentName || 'Anchor',
+    packageName: process.env._PACKAGE_NAME_ as string,
+    packageVersion: process.env._PACKAGE_VERSION_ as string,
+    analyticsData: analyticsContext,
+    actionSubject: 'link',
+  });
+
   const RouterLink = useRouterLink();
 
   // Combine default styles with supplied styles. XCSS does not support deep nested arrays
@@ -127,6 +193,10 @@ const Link = <RouterLinkConfig extends Record<string, any> = never>(
       paddingInline={paddingInline}
       paddingInlineStart={paddingInlineStart}
       paddingInlineEnd={paddingInlineEnd}
+      // TODO: This only tracks events if componentName is supplied, which makes tracking opt-in during
+      // the transition period. This will be removed once `@atlaskit/button` is bumped to use the latest
+      // version of primitives
+      onClick={componentName ? onClick : providedOnClick}
       // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       xcss={styles}
     >
@@ -141,8 +211,9 @@ const Link = <RouterLinkConfig extends Record<string, any> = never>(
  *
  * @internal Still under development. Do not use.
  *
- * A Link is a primitive component that renders an `<a>` anchor. It utilizes
- * the configured router link component in the AppProvider if set.
+ * Link is a primitive for building custom anchor links. It's a wrapper around the HTML `<a>` element that provides a consistent API for handling client-side routing and Atlassian Design System styling.
+ *
+ * This component is mostly used by other design system components, such as the [link component](/components/link/usage).
  *
  * - [Examples](https://atlassian.design/components/primitives/link/examples)
  * - [Code](https://atlassian.design/components/primitives/link/code)

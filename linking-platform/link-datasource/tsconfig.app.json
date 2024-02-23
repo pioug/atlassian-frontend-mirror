@@ -115,7 +115,7 @@
       "path": "../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/tsconfig.app.json"
     },
     {
-      "path": "../../pragmatic-drag-and-drop/react-indicator/tsconfig.app.json"
+      "path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
     },
     {
       "path": "../../design-system/primitives/tsconfig.app.json"

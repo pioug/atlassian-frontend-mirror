@@ -19,8 +19,8 @@ import {
   ItemMode,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
 import {

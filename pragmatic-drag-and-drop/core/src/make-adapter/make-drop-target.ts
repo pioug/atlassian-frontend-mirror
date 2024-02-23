@@ -8,8 +8,8 @@ import {
   EventPayloadMap,
   Input,
 } from '../internal-types';
+import { combine } from '../public-utils/combine';
 import { addAttribute } from '../util/add-attribute';
-import { combine } from '../util/combine';
 
 function copyReverse<Value>(array: Value[]): Value[] {
   return array.slice(0).reverse();
@@ -19,7 +19,7 @@ export function makeDropTarget<DragType extends AllDragTypes>({
   typeKey,
   defaultDropEffect,
 }: {
-  typeKey: DragType['key'];
+  typeKey: DragType['type'];
   defaultDropEffect: DataTransfer['dropEffect'];
 }): DropTargetAPI<DragType> {
   const registry = new WeakMap<Element, DropTargetArgs<DragType>>();
@@ -39,8 +39,21 @@ export function makeDropTarget<DragType extends AllDragTypes>({
       if (existing) {
         // eslint-disable-next-line no-console
         console.warn(
-          'You have already registered a `droppable` on the same element',
+          `You have already registered a [${typeKey}] dropTarget on the same element`,
           { existing, proposed: args },
+        );
+      }
+
+      if (args.element instanceof HTMLIFrameElement) {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `
+            We recommend not registering <iframe> elements as drop targets
+            as it can result in some strange browser event ordering.
+          `
+            // Removing newlines and excessive whitespace
+            .replace(/\s{2,}/g, ' ')
+            .trim(),
         );
       }
     }
@@ -65,7 +78,25 @@ export function makeDropTarget<DragType extends AllDragTypes>({
     input: Input;
     result?: DropTargetRecord[];
   }): DropTargetRecord[] {
+    if (target == null) {
+      return result;
+    }
+
     if (!(target instanceof Element)) {
+      // For "text-selection" drags, the original `target`
+      // is not an `Element`, so we need to start looking from
+      // the parent element
+      if (target instanceof Node) {
+        return getActualDropTargets({
+          source,
+          target: target.parentElement,
+          input,
+          result,
+        });
+      }
+
+      // not sure what we are working with,
+      // so we can exit.
       return result;
     }
 

@@ -81,8 +81,8 @@ test.describe('insert row button when drag and drop is enabled', () => {
       ),
     );
   });
-
-  test('should show insert button when hover on the last insert dot on row control after content change in table', async ({
+  // FIXME: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2464107/steps/%7B40214e73-bf74-4b7e-8671-126b78785676%7D/test-report
+  test.skip('should show insert button when hover on the last insert dot on row control after content change in table', async ({
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);

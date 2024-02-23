@@ -1,11 +1,11 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-live-region",
-  "version": "0.5.3",
-  "description": "An accompanying utility for `@atlaskit/pragmatic-drag-and-drop` which enables screen reader messaging for alternative flows",
+  "version": "1.0.0",
+  "description": "An optional package for Pragmatic drag and drop that enables screen reader messaging for alternative flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "repository": "https://github.com/atlassian/pragmatic-drag-and-drop",
   "author": "Atlassian Pty Ltd",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

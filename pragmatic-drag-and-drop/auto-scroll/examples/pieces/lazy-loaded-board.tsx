@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import invariant from 'tiny-invariant';
 
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import { Card } from './card';

@@ -251,3 +251,41 @@ test.describe('Inserting codeblock inside a panel with other contents above', ()
     });
   });
 });
+
+test.describe('coping action from inside a panel and pasting into an empty panel', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowPanel: true,
+    },
+    platformFeatureFlags: {
+      'platform.editor.allow-extended-panel': true,
+      'platform.editor.handle-paste-for-action-in-panel': true,
+    },
+    adf: infoPanelADF,
+  });
+
+  test('should not replace the panel', async ({ editor }) => {
+    await editor.selection.set({ anchor: 2, head: 2 });
+    await editor.simulatePasteEvent({
+      pasteAs: 'text/html',
+      html: `<meta charset='utf-8'><div data-node-type="actionList" data-task-list-local-id="test-id-1" style="list-style: none; padding-left: 0" data-pm-slice="2 2 [&quot;panel&quot;,{&quot;panelType&quot;:&quot;info&quot;,&quot;panelIcon&quot;:null,&quot;panelIconId&quot;:null,&quot;panelIconText&quot;:null,&quot;panelColor&quot;:null}]"><div data-task-local-id="test-id-2" data-task-state="TODO">a</div><div data-task-local-id="test-id-3" data-task-state="TODO">b</div></div>`,
+    });
+
+    await expect(editor).toMatchDocument(
+      doc(
+        panel()(
+          taskList({ localId: 'test-id-1' })(
+            taskItem({ localId: 'test-id-2' })('a'),
+            taskItem({ localId: 'test-id-3' })('b'),
+          ),
+        ),
+      ),
+    );
+    await expect(editor).toHaveSelection({
+      type: 'text',
+      anchor: 7,
+      head: 7,
+    });
+  });
+});

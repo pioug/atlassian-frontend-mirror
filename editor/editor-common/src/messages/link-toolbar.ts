@@ -56,4 +56,9 @@ export const linkToolbarMessages = defineMessages({
     defaultMessage: 'Edit search query',
     description: 'Datasource toolbar edit button',
   },
+  searchInput: {
+    id: 'fabric.editor.edit.searchInput',
+    defaultMessage: 'Add a link',
+    description: 'Label for the search media input',
+  },
 });

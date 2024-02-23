@@ -1,9 +1,19 @@
 import React, {
   type ComponentPropsWithRef,
   forwardRef,
-  type ReactElement,
   type ReactNode,
+  useCallback,
+  useContext,
 } from 'react';
+
+import {
+  UIAnalyticsEvent,
+  usePlatformLeafEventHandler,
+} from '@atlaskit/analytics-next';
+import noop from '@atlaskit/ds-lib/noop';
+import InteractionContext, {
+  type InteractionContextType,
+} from '@atlaskit/interaction-context';
 
 import { type XCSS, xcss } from '../xcss/xcss';
 
@@ -20,6 +30,7 @@ export type PressableProps = Omit<
   // be overwritten.
   | 'role'
   | 'style'
+  | 'onClick'
 > & {
   /**
    * `children` should be defined to ensure buttons are not empty,
@@ -27,12 +38,29 @@ export type PressableProps = Omit<
    */
   children: ReactNode;
   isDisabled?: boolean;
+  /**
+   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+   */
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    // TODO: Make analyticsEvent required once `@atlaskit/button` is bumped to use the latest version of primitives
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  /**
+   * An optional name used to identify the interaction type to press listeners. For example, interaction tracing. For more information,
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+   */
+  interactionName?: string;
+  /**
+   * An optional component name used to identify this component to press listeners. This can be used if a parent component's name is preferred. For example, interaction tracing. For more information,
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+   */
+  componentName?: string;
+  /**
+   * Additional information to be included in the `context` of analytics events that come from pressable.
+   */
+  analyticsContext?: Record<string, any>;
 };
-
-type PressableComponent = (
-  props: PressableProps,
-  displayName: string,
-) => ReactElement | null;
 
 // TODO: Duplicated FocusRing styles due to lack of `xcss` support
 // and to prevent additional dependency
@@ -69,7 +97,7 @@ const focusRingStyles = xcss({
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
+const UNSAFE_PRESSABLE = forwardRef(
   (
     {
       children,
@@ -85,10 +113,39 @@ const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
       type = 'button',
       testId,
       xcss: xcssStyles,
+      onClick: providedOnClick = noop,
+      interactionName,
+      componentName,
+      analyticsContext,
       ...htmlAttributes
     }: PressableProps,
     ref?: ComponentPropsWithRef<'button'>['ref'],
   ) => {
+    const interactionContext = useContext<InteractionContextType | null>(
+      InteractionContext,
+    );
+    const handleClick = useCallback(
+      (
+        e: React.MouseEvent<HTMLButtonElement>,
+        analyticsEvent: UIAnalyticsEvent,
+      ) => {
+        interactionContext &&
+          interactionContext.tracePress(interactionName, e.timeStamp);
+        providedOnClick(e, analyticsEvent);
+      },
+      [providedOnClick, interactionContext, interactionName],
+    );
+
+    const onClick = usePlatformLeafEventHandler({
+      fn: handleClick,
+      action: 'clicked',
+      componentName: componentName || 'Pressable',
+      packageName: process.env._PACKAGE_NAME_ as string,
+      packageVersion: process.env._PACKAGE_VERSION_ as string,
+      analyticsData: analyticsContext,
+      actionSubject: 'button',
+    });
+
     // Combine default styles with supplied styles. XCSS does not support deep nested arrays
     let styles: XCSS | Array<XCSS | false | undefined> = [
       xcss({ cursor: isDisabled ? 'not-allowed' : 'pointer' }),
@@ -105,6 +162,10 @@ const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
         ref={ref}
         testId={testId}
         type={type}
+        // TODO: This only tracks events if componentName is supplied, which makes tracking opt-in during
+        // the transition period. This will be removed once `@atlaskit/button` is bumped to use the latest
+        // version of primitives
+        onClick={componentName ? onClick : providedOnClick}
         backgroundColor={backgroundColor}
         padding={padding}
         paddingBlock={paddingBlock}

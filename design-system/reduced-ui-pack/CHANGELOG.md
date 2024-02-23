@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 18.2.0
+
+### Minor Changes
+
+- [#74631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74631) [`3e6dcb8e92d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e6dcb8e92d6) - Adds new `teams` icon
+
 ## 18.1.0
 
 ### Minor Changes

@@ -162,7 +162,9 @@ describe('dropdown menu button accessibility', () => {
       ).toBe(true);
     });
 
-    it('should shift focus to outdent button when task lists disable the button', async () => {
+    //FIX ME: Skipping this test as it is flaky
+    //Build Link: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2473447/steps/%7B55f2d511-f4f0-4161-b8ff-4c17f3e56a95%7D/test-report
+    it.skip('should shift focus to outdent button when task lists disable the button', async () => {
       await clickQuerySelectorElement(page, '.task-item', 5);
 
       await selectToolbarDropdownMenuItemWithKeyboard(

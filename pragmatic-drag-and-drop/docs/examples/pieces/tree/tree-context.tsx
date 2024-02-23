@@ -4,7 +4,7 @@ import {
   attachInstruction,
   extractInstruction,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/tree-item';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/tree-item';
 
 import type { TreeAction, TreeItem } from '../../data/tree';
 

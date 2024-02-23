@@ -4,13 +4,13 @@ import { Fragment, useEffect, useRef, useState } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import ReactDOM from 'react-dom';
 
+import { combine } from '../src/entry-point/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '../src/entry-point/adapter/element';
-import { combine } from '../src/entry-point/util/combine';
-import { setCustomNativeDragPreview } from '../src/entry-point/util/set-custom-native-drag-preview';
-import { preserveOffsetOnSource } from '../src/util/custom-native-drag-preview/preserve-offset-on-source';
+} from '../src/entry-point/element/adapter';
+import { setCustomNativeDragPreview } from '../src/entry-point/element/set-custom-native-drag-preview';
+import { preserveOffsetOnSource } from '../src/public-utils/element/custom-native-drag-preview/preserve-offset-on-source';
 
 type CardDragState = 'idle' | 'preview' | 'dragging';
 

@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.29.1
+
+### Patch Changes
+
+- [#70616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70616) [`e80736fccc77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80736fccc77) - Moving "no-unsupported-drag-and-drop-libraries" check to pdnd 1.0 API
+- [#75662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75662) [`70585b558ebd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70585b558ebd) - Adding "@formkit/drag-and-drop" to exclusion list for drag and drop library usage
+
+## 8.29.0
+
+### Minor Changes
+
+- [#74069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74069) [`9bdcd6529453`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9bdcd6529453) - Allow use-primitives linting rule to lint style declarations with dimension properties.
+
 ## 8.28.0
 
 ### Minor Changes

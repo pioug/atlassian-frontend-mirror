@@ -379,27 +379,19 @@ export const changeSelectedCardToLink =
     editorAnalyticsApi?: EditorAnalyticsAPI,
   ): Command =>
   (state, dispatch) => {
+    const selectedNode =
+      state.selection instanceof NodeSelection
+        ? state.selection.node
+        : undefined;
+
     let tr;
     if (node && pos) {
       tr = cardNodeToLinkWithTransaction(state, text, href, node, pos);
     } else {
       tr = cardToLinkWithTransaction(state, text, href);
     }
-    const selectedNode =
-      state.selection instanceof NodeSelection && state.selection.node;
 
-    if (
-      getBooleanFF(
-        'platform.linking-platform.enable-datasource-appearance-toolbar',
-      ) &&
-      selectedNode &&
-      !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
-    ) {
-      setDatasourceStash(tr, {
-        url: selectedNode.attrs.url,
-        views: selectedNode.attrs.datasource.views,
-      });
-    }
+    updateDatasourceStash(tr, selectedNode);
 
     if (sendAnalytics) {
       if (selectedNode) {
@@ -551,7 +543,7 @@ export const setSelectedCardAppearance: (
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => Command = (appearance, editorAnalyticsApi) => (state, dispatch) => {
   const selectedNode =
-    state.selection instanceof NodeSelection && state.selection.node;
+    state.selection instanceof NodeSelection ? state.selection.node : undefined;
 
   if (!selectedNode) {
     // When there is no selected node, we insert a new one
@@ -603,18 +595,7 @@ export const setSelectedCardAppearance: (
   const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
 
-  if (
-    getBooleanFF(
-      'platform.linking-platform.enable-datasource-appearance-toolbar',
-    ) &&
-    selectedNode &&
-    !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
-  ) {
-    setDatasourceStash(tr, {
-      url: selectedNode.attrs.url,
-      views: selectedNode.attrs.datasource.views,
-    });
-  }
+  updateDatasourceStash(tr, selectedNode);
 
   // When the selected card is the last element in the doc we add a new paragraph after it for consistent replacement
   if (tr.doc.nodeSize - 2 === to) {
@@ -776,4 +757,19 @@ export const getAttrsForAppearance = (
   }
 
   return selectedNode.attrs;
+};
+
+const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
+  if (
+    getBooleanFF(
+      'platform.linking-platform.enable-datasource-appearance-toolbar',
+    ) &&
+    selectedNode?.attrs?.datasource &&
+    !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
+  ) {
+    setDatasourceStash(tr, {
+      url: selectedNode.attrs.url,
+      views: selectedNode.attrs.datasource.views,
+    });
+  }
 };

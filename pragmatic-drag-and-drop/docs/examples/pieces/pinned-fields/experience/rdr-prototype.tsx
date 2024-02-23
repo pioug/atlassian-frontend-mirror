@@ -12,9 +12,9 @@ import DropdownMenu, {
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
-import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { useFlashOnDrop } from '../../hooks/use-flash-on-drop';
@@ -69,7 +69,7 @@ function DraggableField({
     onGenerateDragPreview({ nativeSetDragImage }) {
       return setCustomNativeDragPreview({
         nativeSetDragImage,
-        getOffset: offsetFromPointer({
+        getOffset: pointerOutsideOfPreview({
           x: '16px',
           y: '8px',
         }),

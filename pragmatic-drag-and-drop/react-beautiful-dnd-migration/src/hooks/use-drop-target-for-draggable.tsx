@@ -3,8 +3,8 @@ import { RefObject, useEffect } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Direction } from 'react-beautiful-dnd';
 
-import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import { rbdInvariant } from '../drag-drop-context/rbd-invariant';
 import { DraggableData, isDraggableData } from '../draggable/data';

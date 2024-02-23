@@ -22,7 +22,7 @@ import {
 } from '../utils';
 
 import { onCreateSelectionBetween } from './events/create-selection-between';
-import { onKeydown } from './events/keydown';
+import { createOnKeydown } from './events/keydown';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
   decorationSet: getDecorations(state.tr),
@@ -115,7 +115,7 @@ export const createPlugin = (
       },
 
       handleDOMEvents: {
-        keydown: onKeydown,
+        keydown: createOnKeydown({ __livePage: options.__livePage }),
         // We only want to fire analytics for a click and drag range/cell selection when
         // the user has finished, otherwise we will get an event almost every time they move
         // their mouse which is too much

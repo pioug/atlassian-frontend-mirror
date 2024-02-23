@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-indicator/box';
+import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { token } from '@atlaskit/tokens';
 
 import { useSortableField } from '../../hooks/use-sortable-field';

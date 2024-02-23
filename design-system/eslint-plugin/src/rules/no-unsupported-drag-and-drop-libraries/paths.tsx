@@ -32,4 +32,8 @@ export const restrictedPaths = [
     path: '@dnd-kit',
     message: '',
   },
+  {
+    path: '@formkit/drag-and-drop',
+    message: '',
+  },
 ];

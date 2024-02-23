@@ -34,6 +34,7 @@ import {
   findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../commands';
 import {
@@ -404,6 +405,44 @@ const createPlugin = (
           extensionNodeViewOptions,
           pluginInjectionApi,
         ),
+      },
+      createSelectionBetween: function (view, anchor, head) {
+        if (!getBooleanFF('platform.editor.multi-bodied-extension_0rygg')) {
+          return null;
+        }
+        const { schema, doc } = view.state;
+        const { multiBodiedExtension } = schema.nodes;
+        const isAnchorInMBE = findParentNodeOfTypeClosestToPos(
+          anchor,
+          multiBodiedExtension,
+        );
+        const isHeadInMBE = findParentNodeOfTypeClosestToPos(
+          head,
+          multiBodiedExtension,
+        );
+        if (isAnchorInMBE !== undefined && isHeadInMBE === undefined) {
+          // Anchor is in MBE, where user started selecting within MBE and then moved outside
+          const newSelection = TextSelection.create(
+            doc,
+            isAnchorInMBE.pos < head.pos
+              ? isAnchorInMBE.pos
+              : isAnchorInMBE.pos + isAnchorInMBE.node.nodeSize, // isAnchorInMBE.pos < head.pos represents downwards selection
+            head.pos,
+          );
+          return newSelection;
+        }
+        if (isAnchorInMBE === undefined && isHeadInMBE !== undefined) {
+          // Head is in MBE, where user started selecting outside MBE and then moved inside
+          const newSelection = TextSelection.create(
+            doc,
+            anchor.pos,
+            isHeadInMBE.pos < anchor.pos
+              ? isHeadInMBE.pos
+              : isHeadInMBE.pos + isHeadInMBE.node.nodeSize, // isHeadInMBE.pos < anchor.pos represents upwards selection
+          );
+          return newSelection;
+        }
+        return null;
       },
       handleClickOn: createSelectionClickHandler(
         ['extension', 'bodiedExtension', 'multiBodiedExtension'],

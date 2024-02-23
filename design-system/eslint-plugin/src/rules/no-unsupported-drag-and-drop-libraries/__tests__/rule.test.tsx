@@ -5,10 +5,10 @@ import { restrictedPaths } from '../paths';
 tester.run('no-unsupported-drag-and-drop-libraries', rule, {
   valid: [
     {
-      code: `import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';`,
+      code: `import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';`,
     },
     {
-      code: `import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';`,
+      code: `import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';`,
     },
   ],
   invalid: [

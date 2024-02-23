@@ -26,5 +26,7 @@ export { default as Bleed } from './components/bleed';
 export type { BleedProps } from './components/bleed';
 export { default as Text } from './components/text';
 export type { TextProps } from './components/text';
+export { default as UNSAFE_Pressable } from './components/pressable';
+export type { PressableProps as UNSAFE_PressableProps } from './components/pressable';
 export { media, UNSAFE_media, UNSAFE_BREAKPOINTS_CONFIG } from './responsive';
 export type { Breakpoint, MediaQuery } from './responsive';

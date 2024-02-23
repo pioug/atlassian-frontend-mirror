@@ -36,7 +36,7 @@ import type { CodeBlockOptions } from './types';
 export type CodeBlockPlugin = NextEditorPlugin<
   'codeBlock',
   {
-    pluginConfiguration: CodeBlockOptions;
+    pluginConfiguration: CodeBlockOptions | undefined;
     dependencies: [
       DecorationsPlugin,
       CompositionPlugin,

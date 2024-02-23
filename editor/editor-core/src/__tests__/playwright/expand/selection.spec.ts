@@ -25,7 +25,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand);
+      const expand = EditorExpandModel.from(editor, nodes.expand);
 
       // test with selection starting above the expand
       await editor.selection.set({ anchor: 1, head: 1 });
@@ -41,7 +41,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand);
+      const expand = EditorExpandModel.from(editor, nodes.expand);
 
       // test with selection starting below the expand
       await editor.selection.set({ anchor: 19, head: 19 });
@@ -128,7 +128,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand);
+      const expand = EditorExpandModel.from(editor, nodes.expand);
 
       // test with selection starting above the expand
       await editor.selection.set({ anchor: 1, head: 1 });
@@ -144,7 +144,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand);
+      const expand = EditorExpandModel.from(editor, nodes.expand);
 
       // test with selection starting below the expand
       await editor.selection.set({ anchor: 16, head: 16 });
@@ -170,7 +170,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand.first());
+      const expand = EditorExpandModel.from(editor, nodes.expand.first());
 
       // test with selection starting above the expand
       await editor.selection.set({ anchor: 1, head: 1 });
@@ -186,7 +186,7 @@ test.describe('Selection', () => {
       editor,
     }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const expand = EditorExpandModel.from(nodes.expand.first());
+      const expand = EditorExpandModel.from(editor, nodes.expand.first());
 
       // test with selection starting below the expand
       await editor.selection.set({ anchor: 594, head: 594 });

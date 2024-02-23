@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 1.0.4
+
+### Patch Changes
+
+- [#75549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75549) [`cdb2d5721cce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdb2d5721cce) - Fix an issue where view switching from toolbar was causing js error.
+- Updated dependencies
+
 ## 1.0.3
 
 ### Patch Changes

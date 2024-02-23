@@ -40,7 +40,7 @@ Registering unsafe overflow scrolling will only enable scrolling when outside of
 import { unsafeOverflowForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
 import { unsafeOverflowForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/file';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
+import { autoScrollForNative } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
 
 const cleanup = combine(
   // Enabling scrolling when over an element
@@ -61,10 +61,10 @@ A slightly fuller example of a `react` list that is a drop target, and has auto 
 
 ```tsx
 import { useRef, ReactElement } from 'react';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { unsafeOverflowForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import invariant from 'tiny-invariant';
 
 function ScrollableList({ children }: { children: ReactElement }) {

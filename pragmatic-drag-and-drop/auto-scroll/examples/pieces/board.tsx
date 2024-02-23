@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { Box, Flex, Stack, xcss } from '@atlaskit/primitives';
 
 import { autoScrollWindowForElements } from '../../src/entry-point/element';

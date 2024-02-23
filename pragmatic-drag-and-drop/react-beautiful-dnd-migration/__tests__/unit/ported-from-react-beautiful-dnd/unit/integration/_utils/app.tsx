@@ -13,7 +13,7 @@ import type {
   Sensor,
 } from 'react-beautiful-dnd';
 
-import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import { DragDropContext, Draggable, Droppable } from '../../../../../../src';
 

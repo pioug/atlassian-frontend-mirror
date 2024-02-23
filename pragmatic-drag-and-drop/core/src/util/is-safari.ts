@@ -1,16 +1,16 @@
-// Once we know we are in Safari or not, we don't need to do the check again
-let cache: boolean | null = null;
+import { cacheFirst } from './cache-first';
+
+// using `cache` as our `isSafari()` result will not change in a browser
 
 /**
  * Returns `true` if a `Safari` browser.
  * Returns `true` if the browser is running on iOS (they are all Safari).
  * */
-export function isSafari(): boolean {
-  if (typeof cache === 'boolean') {
-    return cache;
+export const isSafari = cacheFirst(function isSafari(): boolean {
+  if (process.env.NODE_ENV === 'test') {
+    return false;
   }
 
   const { userAgent } = navigator;
-  cache = userAgent.includes('AppleWebKit') && !userAgent.includes('Chrome');
-  return cache;
-}
+  return userAgent.includes('AppleWebKit') && !userAgent.includes('Chrome');
+});

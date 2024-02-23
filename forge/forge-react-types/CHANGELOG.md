@@ -1,5 +1,15 @@
 # @atlaskit/forge-react-types
 
+## 0.4.0
+
+### Minor Changes
+
+- [#75522](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75522) [`202e7032a684`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/202e7032a684) - Reduce XCSS support scope on border-radius and border-width props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

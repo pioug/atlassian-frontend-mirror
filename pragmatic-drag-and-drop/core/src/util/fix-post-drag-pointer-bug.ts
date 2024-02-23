@@ -106,8 +106,16 @@ export function fixPostDragPointerBug({ current }: { current: DragLocation }) {
         { type: 'pointermove', listener: cleanup },
         { type: 'focusin', listener: cleanup },
         { type: 'focusout', listener: cleanup },
+
         // a 'pointerdown' should happen before 'dragstart', but just being super safe
         { type: 'dragstart', listener: cleanup },
+
+        // if the user has dragged something out of the window
+        // and then is dragging something back into the window
+        // the first events we will see are "dragenter" (and then "dragover").
+        // So if we see any of these we need to clear the post drag fix.
+        { type: 'dragenter', listener: cleanup },
+        { type: 'dragover', listener: cleanup },
       ],
       {
         // Using `capture` is more likely to not be impacted by consumers stopping events

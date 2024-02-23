@@ -19,7 +19,16 @@
     ],
     "references": [
         {
+            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../app-provider/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../ds-lib/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../observability/interaction-context/afm-cc/tsconfig.json"
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"

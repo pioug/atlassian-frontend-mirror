@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.5.0
+
+### Minor Changes
+
+- [#74783](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74783) [`84e3254e4558`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84e3254e4558) - migration to declarative entry points for renderer
+
 ## 109.4.7
 
 ### Patch Changes

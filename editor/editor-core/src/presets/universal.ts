@@ -98,6 +98,7 @@ export default function createUniversalPreset(
       lpLinkPicker: featureFlags.lpLinkPicker ?? false,
       ...props.hyperlinkOptions,
     },
+    __livePage: props.__livePage,
   });
 
   const statusMenuDisabled = !props.allowStatus
@@ -143,6 +144,7 @@ export default function createUniversalPreset(
                   props.allowExpand &&
                     props.allowExpand.allowInteractiveExpand !== false,
                 ),
+          __livePage: props.__livePage,
         },
       ],
       Boolean(props.allowExpand),

@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 192.3.0
+
+### Minor Changes
+
+- [#75042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75042) [`ce823f018248`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce823f018248) - [ux] ED-21987 Diverge expands in live pages so that they are not multiplayer, and are closed by default.
+
+### Patch Changes
+
+- [#70153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70153) [`3a34e7545f18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a34e7545f18) - ECA11Y-36: Flaoting toolbar group buttons into radiogroup buttons structure
+- Updated dependencies
+
+## 192.2.8
+
+### Patch Changes
+
+- [#75022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75022) [`fb8de5ebea59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb8de5ebea59) - Removed the margin above the code block inside the panel
+
 ## 192.2.6
 
 ### Patch Changes

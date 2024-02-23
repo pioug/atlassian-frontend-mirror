@@ -1,5 +1,12 @@
 # @atlaskit/comment
 
+## 10.9.2
+
+### Patch Changes
+
+- [#75221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75221) [`77ad8ff5584f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77ad8ff5584f) - Fix text auto-collapse behaviour for comment
+- Updated dependencies
+
 ## 10.9.1
 
 ### Patch Changes

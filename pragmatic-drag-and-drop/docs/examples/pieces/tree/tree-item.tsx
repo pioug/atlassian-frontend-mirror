@@ -30,15 +30,15 @@ import {
   Instruction,
   ItemMode,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/tree-item';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
   monitorForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { pointerOutsideOfPreview } from '@atlaskit/pragmatic-drag-and-drop/element/pointer-outside-of-preview';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { TreeItem as TreeItemType } from '../../data/tree';
@@ -278,7 +278,7 @@ const TreeItem = memo(function TreeItem({
         }),
         onGenerateDragPreview: ({ nativeSetDragImage }) => {
           setCustomNativeDragPreview({
-            getOffset: offsetFromPointer({ x: '16px', y: '8px' }),
+            getOffset: pointerOutsideOfPreview({ x: '16px', y: '8px' }),
             render: ({ container }) => {
               ReactDOM.render(<Preview item={item} />, container);
               return () => ReactDOM.unmountComponentAtNode(container);

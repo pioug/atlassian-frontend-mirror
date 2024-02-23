@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::8309292dff495dc1e8e24268d3958b56>>
+ * @codegen <<SignedSource::d3c324dbe7016205a18cc6190b57ad19>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/box/__generated__/index.partial.tsx <<SignedSource::391296376275f3173652baee432184f1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/box/__generated__/index.partial.tsx <<SignedSource::851605328aa816df414378c18c7104fe>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -17,22 +17,26 @@ import type * as CSS from 'csstype';
 import type { MediaQuery } from '@atlaskit/primitives';
 import { tokensMap } from '@atlaskit/primitives';
 type TokensMap = typeof tokensMap;
-type TokenisedProps = {
-    [K in keyof TokensMap]?: keyof TokensMap[K];
+type TokensMapPropKey = keyof TokensMap;
+type TokenizedProps = {
+    [K in TokensMapPropKey]?: keyof TokensMap[K];
 };
-type RelaxedTokenisedProps = {
-    [K in keyof TokensMap]?: keyof TokensMap[K] | CSSProperties[K];
+type RawCSSValue = string & {};
+type RelaxedTokenizedProps = {
+    [K in TokensMapPropKey]?: keyof TokensMap[K] | RawCSSValue;
 };
 type AllMedia = MediaQuery | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)' | '@media (prefers-color-scheme: dark)' | '@media (prefers-color-scheme: light)' | '@media (prefers-reduced-motion: reduce)';
-type StandardCSSProps = Omit<CSSProperties, keyof TokenisedProps>;
-type SafeCSSObject<T extends keyof CSSProperties = keyof CSSProperties, R extends T = T, M extends StandardCSSProps = StandardCSSProps> = {
-    [MQ in AllMedia]?: Omit<SafeCSSObject<T, R>, AllMedia>;
+type StandardCSSProps = Omit<CSSProperties, TokensMapPropKey>;
+type RestrictedPropsSpec = RelaxedTokenizedProps & StandardCSSProps;
+type SafeCSSObject<SupportedPropKeys extends keyof CSSProperties = keyof CSSProperties, RawCSSPropKeys extends SupportedPropKeys = SupportedPropKeys, RestrictedProps extends RestrictedPropsSpec = RestrictedPropsSpec> = {
+    [MQ in AllMedia]?: Omit<SafeCSSObject<SupportedPropKeys, RawCSSPropKeys, RestrictedPropsSpec>, AllMedia>;
 } & {
-    [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject<T, R>, CSS.Pseudos | AllMedia>;
-} & Pick<TokenisedProps, Exclude<Extract<T, keyof TokenisedProps>, R>> & Pick<RelaxedTokenisedProps, Extract<R, keyof TokenisedProps>> & Pick<StandardCSSProps, Exclude<Extract<T, keyof StandardCSSProps>, keyof M>> & M;
+    [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject<SupportedPropKeys, RawCSSPropKeys, RestrictedPropsSpec>, CSS.Pseudos | AllMedia>;
+} & Pick<TokenizedProps, Exclude<Extract<SupportedPropKeys, TokensMapPropKey>, RawCSSPropKeys | keyof RestrictedProps>> & Pick<StandardCSSProps, Exclude<Extract<SupportedPropKeys, keyof StandardCSSProps>, RawCSSPropKeys | keyof RestrictedProps>> & // force standard css prop values for allowCSS: true
+Pick<CSSProperties, Extract<RawCSSPropKeys, keyof CSSProperties>> & RestrictedProps;
 type XCSSValidatorParam = {
     [key in keyof CSSProperties]: true | {
-        supportedValues: Array<CSSProperties[key]>;
+        supportedValues: Array<RestrictedPropsSpec[key]>;
     } | {
         allowCSS: true;
     };
@@ -47,16 +51,16 @@ type XCSSValidatorParam = {
  *    as specified in the supportedXCSSProps list. The props that are not supported will be removed from the
  *    returned style object and a warning will be logged in the console.
  */
-declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSProps: U) => (styleObj: SafeCSSObject<keyof CSSProperties, keyof CSSProperties, StandardCSSProps> | SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
+declare const makeXCSSValidator: <U extends XCSSValidatorParam>(supportedXCSSProps: U) => (styleObj: SafeCSSObject<keyof CSSProperties, keyof CSSProperties, RestrictedPropsSpec> | SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
     allowCSS: true;
 } ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
-    supportedValues: CSSProperties[K_1][];
+    supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
 } ? Exclude<V[keyof V], number | Function> : never) | undefined; }>) => SafeCSSObject<Extract<keyof U, keyof CSSProperties>, Extract<{ [K in Extract<keyof U, keyof CSSProperties>]: U[K] extends {
     allowCSS: true;
 } ? K : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>, { [K_2 in Extract<{ [K_1 in Extract<keyof U, keyof CSSProperties>]: U[K_1] extends {
-    supportedValues: CSSProperties[K_1][];
+    supportedValues: RestrictedPropsSpec[K_1][];
 } ? K_1 : never; }[Extract<keyof U, keyof CSSProperties>], Extract<keyof U, keyof CSSProperties>>]?: (U[K_2] extends {
     supportedValues: infer V;
 } ? Exclude<V[keyof V], number | Function> : never) | undefined; }>;
@@ -124,26 +128,26 @@ const xcssValidator = makeXCSSValidator({
   paddingTop: true,
 
   // other box related props
-  borderRadius: true,
-  borderBottomLeftRadius: true,
-  borderBottomRightRadius: true,
-  borderTopLeftRadius: true,
-  borderTopRightRadius: true,
-  borderEndEndRadius: true,
-  borderEndStartRadius: true,
-  borderStartEndRadius: true,
-  borderStartStartRadius: true,
-  borderWidth: true,
-  borderBlockWidth: true,
-  borderBlockEndWidth: true,
-  borderBlockStartWidth: true,
-  borderBottomWidth: true,
-  borderInlineWidth: true,
-  borderInlineEndWidth: true,
-  borderInlineStartWidth: true,
-  borderLeftWidth: true,
-  borderRightWidth: true,
-  borderTopWidth: true,
+  borderRadius: { supportedValues: ['border.radius'] },
+  borderBottomLeftRadius: { supportedValues: ['border.radius'] },
+  borderBottomRightRadius: { supportedValues: ['border.radius'] },
+  borderTopLeftRadius: { supportedValues: ['border.radius'] },
+  borderTopRightRadius: { supportedValues: ['border.radius'] },
+  borderEndEndRadius: { supportedValues: ['border.radius'] },
+  borderEndStartRadius: { supportedValues: ['border.radius'] },
+  borderStartEndRadius: { supportedValues: ['border.radius'] },
+  borderStartStartRadius: { supportedValues: ['border.radius'] },
+  borderWidth: { supportedValues: ['border.width'] },
+  borderBlockWidth: { supportedValues: ['border.width'] },
+  borderBlockEndWidth: { supportedValues: ['border.width'] },
+  borderBlockStartWidth: { supportedValues: ['border.width'] },
+  borderBottomWidth: { supportedValues: ['border.width'] },
+  borderInlineWidth: { supportedValues: ['border.width'] },
+  borderInlineEndWidth: { supportedValues: ['border.width'] },
+  borderInlineStartWidth: { supportedValues: ['border.width'] },
+  borderLeftWidth: { supportedValues: ['border.width'] },
+  borderRightWidth: { supportedValues: ['border.width'] },
+  borderTopWidth: { supportedValues: ['border.width'] },
 
   // other props not in tokens based props
   borderTopStyle: {

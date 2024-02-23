@@ -100,6 +100,7 @@ export class DocumentService {
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
     private reconcileOnRecovery: boolean = false,
+    private options: { __livePage: boolean } = { __livePage: false },
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -791,6 +792,7 @@ export class DocumentService {
       onErrorHandled: this.onErrorHandled,
       analyticsHelper: this.analyticsHelper,
       emit: this.providerEmitCallback,
+      __livePage: this.options.__livePage,
     });
   }
 }

@@ -32,6 +32,7 @@ import type {
   EditorView,
   NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   deleteExpandAtPos,
@@ -48,11 +49,21 @@ function buildExpandClassName(type: string, expanded: boolean) {
   }`;
 }
 
-const toDOM = (node: PmNode, intl?: IntlShape): DOMOutputSpec => [
+const toDOM = (
+  node: PmNode,
+  __livePage: boolean,
+  intl?: IntlShape,
+): DOMOutputSpec => [
   'div',
   {
     // prettier-ignore
-    'class': buildExpandClassName(node.type.name, node.attrs.__expanded),
+    'class': buildExpandClassName(
+      node.type.name,
+      getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        __livePage
+        ? !node.attrs.__expanded
+        : node.attrs.__expanded,
+    ),
     'data-node-type': node.type.name,
     'data-title': node.attrs.title,
   },
@@ -117,11 +128,12 @@ export class ExpandNodeView implements NodeView {
     private selectNearNode: SetSelectionRelativeToNode | undefined,
     api: ExtractInjectionAPI<ExpandPlugin> | undefined,
     allowInteractiveExpand: boolean = true,
+    private __livePage = false,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
       document,
-      toDOM(node, this.intl),
+      toDOM(node, this.__livePage, this.intl),
     );
     this.allowInteractiveExpand = allowInteractiveExpand;
     this.getPos = getPos;
@@ -210,12 +222,18 @@ export class ExpandNodeView implements NodeView {
       return;
     }
 
-    const { __expanded } = (node && node.attrs) || this.node.attrs;
+    let { __expanded } = (node && node.attrs) || this.node.attrs;
+
     ReactDOM.render(
       <ExpandIconButton
         intl={intl}
         allowInteractiveExpand={this.allowInteractiveExpand}
-        expanded={__expanded}
+        expanded={
+          getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+          this.__livePage
+            ? !__expanded
+            : __expanded
+        }
       ></ExpandIconButton>,
       this.icon,
     );
@@ -242,10 +260,12 @@ export class ExpandNodeView implements NodeView {
         this.view.dom.blur();
       }
 
-      toggleExpandExpanded(this.api?.analytics?.actions)(pos, this.node.type)(
-        state,
-        dispatch,
-      );
+      toggleExpandExpanded({
+        editorAnalyticsAPI: this.api?.analytics?.actions,
+        pos,
+        nodeType: this.node.type,
+        __livePage: this.__livePage,
+      })(state, dispatch);
       return;
     }
 
@@ -266,7 +286,12 @@ export class ExpandNodeView implements NodeView {
     if (target === this.input) {
       event.stopPropagation();
       const { state, dispatch } = this.view;
-      updateExpandTitle(target.value, pos, this.node.type)(state, dispatch);
+      updateExpandTitle({
+        title: target.value,
+        pos,
+        nodeType: this.node.type,
+        __livePage: this.__livePage,
+      })(state, dispatch);
     }
   };
 
@@ -330,10 +355,12 @@ export class ExpandNodeView implements NodeView {
 
     if (this.allowInteractiveExpand) {
       const { state, dispatch } = this.view;
-      toggleExpandExpanded(this.api?.analytics?.actions)(pos, this.node.type)(
-        state,
-        dispatch,
-      );
+      toggleExpandExpanded({
+        editorAnalyticsAPI: this.api?.analytics?.actions,
+        pos,
+        nodeType: this.node.type,
+        __livePage: this.__livePage,
+      })(state, dispatch);
     }
   };
 
@@ -372,6 +399,12 @@ export class ExpandNodeView implements NodeView {
   };
 
   private isCollapsed = () => {
+    if (
+      getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+      this.__livePage
+    ) {
+      return this.node.attrs.__expanded;
+    }
     return !this.node.attrs.__expanded;
   };
 
@@ -520,7 +553,13 @@ export class ExpandNodeView implements NodeView {
 
         if (this.content) {
           // Disallow interaction/selection inside when collapsed.
-          this.content.setAttribute('contenteditable', node.attrs.__expanded);
+          this.content.setAttribute(
+            'contenteditable',
+            getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+              this.__livePage
+              ? !node.attrs.__expanded
+              : node.attrs.__expanded,
+          );
         }
       }
 
@@ -577,11 +616,13 @@ export default function ({
   isMobile,
   api,
   allowInteractiveExpand = true,
+  __livePage,
 }: {
   getIntl: () => IntlShape;
   isMobile: boolean;
   api: ExtractInjectionAPI<ExpandPlugin> | undefined;
   allowInteractiveExpand: boolean;
+  __livePage: boolean;
 }) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView =>
     new ExpandNodeView(
@@ -593,5 +634,6 @@ export default function ({
       api?.selection?.actions?.selectNearNode,
       api,
       allowInteractiveExpand,
+      __livePage,
     );
 }

@@ -9,11 +9,10 @@ import {
   createAndFireEvent,
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { mergeStyles, SelectProps, StylesConfig } from '@atlaskit/select';
+import { mergeStyles, StylesConfig } from '@atlaskit/select';
 import {
   B100,
   N0,
@@ -27,129 +26,14 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
-import { Appearance, Spacing } from '../types';
+import { convertTokens } from '../internal/parse-tokens';
+import { DateTimePickerBaseProps } from '../types';
 
-import DatePicker, {
-  DatePickerBaseProps as DatePickerProps,
-} from './date-picker';
-import TimePicker, {
-  TimePickerBaseProps as TimePickerProps,
-} from './time-picker';
-import { convertTokens } from './utils';
+import DatePicker from './date-picker';
+import TimePicker from './time-picker';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-export interface DateTimePickerBaseProps extends WithAnalyticsEventsProps {
-  /**
-   * Set the appearance of the picker.
-   *
-   * `subtle` will remove the borders and background.
-   */
-  appearance?: Appearance;
-  /**
-   * Set the picker to autofocus on mount.
-   */
-  autoFocus?: boolean;
-  /**
-   * The default for `value`.
-   */
-  defaultValue?: string;
-  /**
-   * Set the id of the field.
-   */
-  id?: string;
-  /**
-   * Props to apply to the container. *
-   */
-  innerProps?: React.AllHTMLAttributes<HTMLElement>;
-  /**
-   * Set if the field is disabled.
-   */
-  isDisabled?: boolean;
-  /**
-   * The name of the field.
-   */
-  name?: string;
-  /**
-   * Called when the field is blurred.
-   */
-  onBlur?: React.FocusEventHandler<HTMLInputElement>;
-  /**
-   * Called when the value changes and the date / time is a complete value, or empty. The only value is an ISO string or empty string.
-   */
-  onChange?: (value: string) => void;
-  /**
-   * Called when the field is focused.
-   */
-  onFocus?: React.FocusEventHandler<HTMLInputElement>;
-  /**
-   * The ISO time that should be used as the input value.
-   */
-  value?: string;
-  /**
-   * Set if users can edit the input, allowing them to add custom times.
-   */
-  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-  timeIsEditable?: boolean;
-  /**
-   * Set if the picker has an invalid value.
-   */
-  isInvalid?: boolean;
-  /**
-   * Format the date with a string that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format).
-   */
-  dateFormat?: string;
-  /**
-   * Props applied to the `DatePicker`.
-   */
-  datePickerProps?: DatePickerProps;
-  /**
-   * Props applied to the `TimePicker`.
-   */
-  timePickerProps?: TimePickerProps;
-  /**
-   * Function used to parse datetime values into their date, time and timezone sub-values. *
-   */
-  parseValue?: (
-    dateTimeValue: string,
-    date: string,
-    time: string,
-    timezone: string,
-  ) => { dateValue: string; timeValue: string; zoneValue: string };
-  /**
-   * [Select props](/components/select) to pass onto the `DatePicker` component's `Select`. This can be used to set options such as placeholder text.
-   */
-  datePickerSelectProps?: SelectProps<any>;
-  /**
-   * [Select props](/components/select) to pass onto the `TimePicker` component's `Select`. This can be used to set options such as placeholder text.
-   */
-  timePickerSelectProps?: SelectProps<any>;
-  /**
-   * The times shown by the `TimePicker`.
-   */
-  times?: Array<string>;
-  /**
-   * The format that times are displayed in. Values should be those accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format).
-   */
-  timeFormat?: string;
-  /**
-   * The spacing for the select control.
-   *
-   * Compact is `gridSize() * 4`, default is `gridSize() * 5`.
-   */
-  spacing?: Spacing;
-  /**
-   * Locale used for formatting dates and times. See [DateTimeFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DateTimeFormat).
-   */
-  locale?: string;
-  /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
-   *  - `{testId}--datepicker--container` wrapping element of date-picker
-   *  - `{testId}--timepicker--container` wrapping element of time-picker
-   */
-  testId?: string;
-}
 
 type DateTimePickerProps = typeof dateTimePickerDefaultProps &
   DateTimePickerBaseProps;

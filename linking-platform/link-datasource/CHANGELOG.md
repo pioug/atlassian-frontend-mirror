@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.22.7
+
+### Patch Changes
+
+- [#70616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70616) [`76068b6be8dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76068b6be8dc) - Upgrading to Pragmatic drag and drop 1.0
+- Updated dependencies
+
 ## 1.22.6
 
 ### Patch Changes

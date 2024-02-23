@@ -14,7 +14,7 @@ import InlineMessageConnectivity from '../../examples/constellation/inline-messa
 
 ## Default
 
-By default, inline messages contain an icon. A `title` and `secondaryText` can be added depending on the use case.
+By default, inline messages contain an icon. Adding a `title` is recommended. You can also include `secondaryText` depending on the use case.
 
 <Example
   Component={InlineMessageDefault}
@@ -23,7 +23,7 @@ By default, inline messages contain an icon. A `title` and `secondaryText` can b
 
 ## Title
 
-Text to display first, in bold for emphasis.
+This is the text to display first. It's bolded for emphasis.
 
 <Example
   Component={InlineMessageTitle}
@@ -32,7 +32,7 @@ Text to display first, in bold for emphasis.
 
 ## Secondary text
 
-Text to display second.
+Use secondary text if the title alone isn't enough to convey what the inline message is about. It appears after the title.
 
 <Example
   Component={InlineMessageSecondaryText}
@@ -41,7 +41,7 @@ Text to display second.
 
 ## Placement
 
-By default, the inline dialog is placed at the bottom at the beginning of the text. This `placement` can be specified, for example, to the right of the text.
+By default, the inline dialog opens at the bottom at the beginning of the text. Use `placement` to open the dialog from a different place in relation to the text.
 
 <Example
   Component={InlineMessagePlacement}
@@ -52,7 +52,7 @@ By default, the inline dialog is placed at the bottom at the beginning of the te
 
 ### Warning
 
-Warning messages appear before we request the user to take action. This is usually in anticipation of a significant change. Warnings should also be used for authentication issues.
+Warning messages appear before we ask people to take action. This is usually in anticipation of a significant change. Warnings should also be used for authentication issues.
 
 <Example
   Component={InlineMessageWarning}
@@ -61,7 +61,7 @@ Warning messages appear before we request the user to take action. This is usual
 
 ### Error
 
-Error messages let the user know that something has gone wrong after they've tried to do something. They also advise the user of connectivity issues.
+Error messages let people know that something has gone wrong after they've tried to do something. You can also use them to advise people of connectivity issues.
 
 <Example
   Component={InlineMessageError}
@@ -70,7 +70,7 @@ Error messages let the user know that something has gone wrong after they've tri
 
 ### Confirmation
 
-Confirmation messages let the user know that they have completed an action.
+Confirmation messages let people know that they have completed an action.
 
 <Example
   Component={InlineMessageConfirmation}
@@ -79,13 +79,13 @@ Confirmation messages let the user know that they have completed an action.
 
 ### Info
 
-Info messages alert the user to additional information without requiring an action.
+Info messages give people additional information without requiring an action.
 
 <Example Component={InlineMessageInfo} packageName="@atlaskit/inline-message" />
 
 ### Connectivity
 
-Connectivity messages let the user know that they will need to log in to get more information. Only to be used when warning and error are not appropriate.
+Connectivity messages let people know that they will need to log in to get more information. Only use this when warning and error are not appropriate.
 
 <Example
   Component={InlineMessageConnectivity}

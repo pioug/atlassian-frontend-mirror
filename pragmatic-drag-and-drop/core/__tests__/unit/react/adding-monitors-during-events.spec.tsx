@@ -3,17 +3,17 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { fireEvent } from '@testing-library/dom';
 import ReactDOM from 'react-dom';
 
+import { combine } from '../../../src/entry-point/combine';
 import {
   draggable,
   monitorForElements,
-} from '../../../src/entry-point/adapter/element';
-import { combine } from '../../../src/entry-point/util/combine';
+} from '../../../src/entry-point/element/adapter';
 import { appendToBody, getElements, reset } from '../_util';
 
 afterEach(reset);
 
 test('no double calls for created in effects', () => {
-  const [container] = getElements();
+  const [container] = getElements('div');
   const cleanup = appendToBody(container);
   const ordered: string[] = [];
 
@@ -95,7 +95,7 @@ test('no double calls for created in effects', () => {
 });
 
 test('no double calls for created in flushed effects', () => {
-  const [container] = getElements();
+  const [container] = getElements('div');
   const cleanup = appendToBody(container);
   const ordered: string[] = [];
 

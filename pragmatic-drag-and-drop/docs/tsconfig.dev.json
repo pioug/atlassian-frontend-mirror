@@ -114,7 +114,7 @@
       "path": "../react-beautiful-dnd-migration/tsconfig.app.json"
     },
     {
-      "path": "../react-indicator/tsconfig.app.json"
+      "path": "../react-drop-indicator/tsconfig.app.json"
     },
     {
       "path": "../../design-system/primitives/tsconfig.app.json"

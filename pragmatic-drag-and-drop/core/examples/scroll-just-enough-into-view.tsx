@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Fragment, ReactNode, useEffect, useRef } from 'react';
+import { Fragment, ReactNode, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -9,8 +9,8 @@ import { token } from '@atlaskit/tokens';
 import {
   draggable,
   dropTargetForElements,
-} from '../src/entry-point/adapter/element';
-import { scrollJustEnoughIntoView } from '../src/util/scroll-just-enough-into-view';
+} from '../src/entry-point/element/adapter';
+import { scrollJustEnoughIntoView } from '../src/public-utils/element/scroll-just-enough-into-view';
 
 import { fallbackColor } from './_util/fallback';
 import { GlobalStyles } from './_util/global-styles';
@@ -48,6 +48,7 @@ const containerStyles = css({
 
 function Draggable({ testId }: { testId: string }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState<'idle' | 'dragging'>('idle');
 
   useEffect(() => {
     const element = ref.current;
@@ -57,12 +58,16 @@ function Draggable({ testId }: { testId: string }) {
       element,
       onGenerateDragPreview() {
         scrollJustEnoughIntoView({ element });
+        setState('dragging');
+      },
+      onDrop() {
+        setState('idle');
       },
     });
   }, []);
 
   return (
-    <div ref={ref} css={cardStyles} data-testid={testId}>
+    <div ref={ref} css={cardStyles} data-testid={testId} data-state={state}>
       {testId}
     </div>
   );

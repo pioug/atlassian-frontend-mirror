@@ -1,5 +1,12 @@
 # @atlaskit/emoji
 
+## 67.6.11
+
+### Patch Changes
+
+- [#75387](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75387) [`a1d427c64ec5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1d427c64ec5) - [ux] ED-22014 Emojis now use SHA256 for media uploads
+- Updated dependencies
+
 ## 67.6.10
 
 ### Patch Changes

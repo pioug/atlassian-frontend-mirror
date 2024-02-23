@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 2.1.0
+
+### Minor Changes
+
+- [#74930](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74930) [`707a8fee2aee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/707a8fee2aee) - Both the Pressable and Anchor primitives (in Alpha) now support analytics tracking in the same fashion as `@atlaskit/button`. An additional prop `componentName` allows analytics to be configured if a parent component name is desired to be tracked rather than the primitive names. For the time being this tracking is opt-in via use of the `componentName` prop. This will be made default behavior in an upcoming release once tracking is removed in the new Buttons, and `@atlaskit/button` is bumped to use the latest version of `@atlaskit/primitives`
+- [#75221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75221) [`c15d58bff276`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c15d58bff276) - `Text` inherits color by default if `color` prop is not provided.
+  Removed auto-collapsing behaviour of `Text`
+
 ## 2.0.3
 
 ### Patch Changes

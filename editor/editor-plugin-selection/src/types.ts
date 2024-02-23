@@ -27,4 +27,15 @@ export type EditorSelectionAPI = {
 };
 
 export interface SelectionPluginOptions
-  extends LongPressSelectionPluginOptions {}
+  extends LongPressSelectionPluginOptions {
+  /**
+   * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
+   *
+   * This is expected to be removed in Q4 as Editor and Live Page teams align on a singular behaviour.
+   *
+   * It is only supported for use by Confluence.
+   *
+   * @default false
+   */
+  __livePage?: boolean;
+}

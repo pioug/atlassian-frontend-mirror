@@ -10,6 +10,8 @@ import {
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
@@ -44,6 +46,7 @@ const createTestHelpers = () => {
     version = 1,
     userId = 'user1',
     clientId = 'client1',
+    options: { __livePage: boolean } = { __livePage: false },
   ) => {
     commitStepQueue({
       broadcast: provider['channel'].broadcast,
@@ -55,6 +58,7 @@ const createTestHelpers = () => {
       onErrorHandled: provider['documentService']['onErrorHandled'],
       analyticsHelper: provider['analyticsHelper'],
       emit: emitMock,
+      __livePage: options.__livePage,
     });
   };
 
@@ -102,6 +106,38 @@ describe('commitStepQueue', () => {
     expect(readyToCommit).toBe(false);
     jest.advanceTimersByTime(RESET_READYTOCOMMIT_INTERVAL_MS);
     expect(readyToCommit).toBe(true);
+  });
+
+  describe('Handles expand state steps for __livePages', () => {
+    const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
+    ffTest(
+      'platform.editor.live-pages-expand-divergence',
+      () => {
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+          __livePage: true,
+        });
+        expect(broadcastSpy).toBeCalledTimes(1);
+        // When feature flag on and __livePages on -- we strip out the __expanded attribute from the step.
+        expect(
+          (broadcastSpy.mock.calls[0][1] as any).steps[0].attrs,
+        ).toStrictEqual({
+          title: 'any',
+        });
+      },
+      () => {
+        presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+          __livePage: true,
+        });
+        expect(broadcastSpy).toBeCalledTimes(1);
+        // When feature flag is off and __livePages on -- we don't change the __expanded attribute on the step.
+        expect(
+          (broadcastSpy.mock.calls[0][1] as any).steps[0].attrs,
+        ).toStrictEqual({
+          title: 'any',
+          __expanded: true,
+        });
+      },
+    );
   });
 
   it('Adds cliendIds and userIds to steps before broadcast', () => {

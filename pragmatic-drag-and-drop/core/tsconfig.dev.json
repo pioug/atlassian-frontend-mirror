@@ -39,6 +39,9 @@
       "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/lozenge/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {

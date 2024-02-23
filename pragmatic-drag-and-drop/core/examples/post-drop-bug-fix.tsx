@@ -12,10 +12,10 @@ import {
   draggable,
   dropTargetForElements,
   monitorForElements,
-} from '../src/entry-point/adapter/element';
-import { dropTargetForFiles } from '../src/entry-point/adapter/file';
-import { combine } from '../src/util/combine';
-import { reorder } from '../src/util/reorder';
+} from '../src/entry-point/element/adapter';
+import { dropTargetForExternal } from '../src/entry-point/external/adapter';
+import { combine } from '../src/public-utils/combine';
+import { reorder } from '../src/public-utils/reorder';
 
 import { fallbackColor } from './_util/fallback';
 import { GlobalStyles } from './_util/global-styles';
@@ -131,7 +131,7 @@ function Card({ cardId, isSticky }: { cardId: string; isSticky: boolean }) {
         onDragLeave: () => setState('idle'),
         onDrop: () => setState('idle'),
       }),
-      dropTargetForFiles({
+      dropTargetForExternal({
         element,
         getData: () => ({ cardId }),
         getIsSticky: () => isSticky,

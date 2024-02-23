@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import type { ButtonAppearance } from '../../types';
@@ -39,6 +40,7 @@ export interface Props {
   hideTooltipOnClick?: boolean;
   tabIndex?: number | null | undefined;
   areaControls?: string;
+  isRadioButton?: boolean;
 }
 
 export default ({
@@ -65,10 +67,25 @@ export default ({
   tabIndex,
   areaControls,
   ariaLabel,
+  isRadioButton,
 }: Props) => {
   // Check if there's only an icon and add additional styles
   const iconOnly = (icon || iconAfter) && !children;
   const customSpacing = iconOnly ? iconOnlySpacing : {};
+  const isButtonPressed = ariaHasPopup ? undefined : selected;
+  const ariaChecked = isRadioButton ? isButtonPressed : undefined;
+  const ariaCheckedWithFF = getBooleanFF(
+    'platform.editor.a11y-floating-toolbar-markup_vexmo',
+  )
+    ? ariaChecked
+    : undefined;
+  const ariaPressed = isRadioButton ? undefined : isButtonPressed;
+  const ariaPressedWithFF = getBooleanFF(
+    'platform.editor.a11y-floating-toolbar-markup_vexmo',
+  )
+    ? ariaPressed
+    : isButtonPressed;
+
   return (
     <Tooltip
       content={tooltipContent || title}
@@ -95,7 +112,9 @@ export default ({
             };
           }}
           aria-label={ariaLabel || title}
-          aria-pressed={!ariaHasPopup ? selected : undefined}
+          aria-pressed={ariaPressedWithFF}
+          aria-checked={ariaCheckedWithFF}
+          role={isRadioButton ? 'radio' : undefined}
           aria-expanded={ariaHasPopup ? selected : undefined}
           aria-controls={ariaHasPopup ? areaControls : undefined}
           spacing={'compact'}

@@ -109,6 +109,7 @@ export type FloatingToolbarCopyButton = {
 export type FloatingToolbarButton<T extends {}> = {
   id?: string;
   type: 'button';
+  isRadioButton?: boolean;
   title: string;
   onClick: T;
   showTitle?: boolean;

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.0.3
+
+### Patch Changes
+
+- [#74716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74716) [`e4dcc12c4f8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4dcc12c4f8d) - ED-22048 Disable MBE partial selection to fix unwanted extensionFrame deletion.
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

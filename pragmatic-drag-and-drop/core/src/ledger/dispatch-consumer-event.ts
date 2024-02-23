@@ -119,13 +119,13 @@ export function makeDispatch<DragType extends AllDragTypes>({
     },
     drop({
       current,
-      updatedExternalPayload: updatedSourcePayload,
+      updatedSourcePayload,
     }: {
       current: DragLocation;
       /** When dragging from an external source, we need to collect the
           drag source information again as it is often only available during
           the "drop" event */
-      updatedExternalPayload: DragType['payload'] | null;
+      updatedSourcePayload: DragType['payload'] | null;
     }) {
       dragStart.flush();
       scheduleOnDrag.cancel();

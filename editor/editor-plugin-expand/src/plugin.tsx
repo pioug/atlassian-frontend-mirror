@@ -55,12 +55,13 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
               options.useLongPressSelection,
               api,
               options.allowInteractiveExpand ?? true,
+              options.__livePage,
             );
           },
         },
         {
           name: 'expandKeymap',
-          plugin: () => expandKeymap(api),
+          plugin: () => expandKeymap(api, { __livePage: options.__livePage }),
         },
       ];
     },

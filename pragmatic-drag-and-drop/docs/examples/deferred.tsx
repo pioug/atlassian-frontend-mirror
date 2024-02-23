@@ -13,10 +13,6 @@ import {
 import { fallbackColor } from './util/fallback';
 import { GlobalStyles } from './util/global-styles';
 
-type FileUpload = {
-  name: string;
-};
-
 const fileStyles = css({
   display: 'flex',
   padding: 'calc(var(--grid) * 6) calc(var(--grid) * 4)',
@@ -45,7 +41,7 @@ const appStyles = css({
   flexDirection: 'column',
 });
 
-function FileList({ uploads }: { uploads: FileUpload[] }) {
+function FileList({ uploads }: { uploads: File[] }) {
   if (!uploads.length) {
     return null;
   }
@@ -63,7 +59,7 @@ function Uploader() {
   const [state, setState] = useState<'loading' | 'idle' | 'potential' | 'over'>(
     'loading',
   );
-  const [uploads, setUploads] = useState<FileUpload[]>([]);
+  const [uploads, setUploads] = useState<File[]>([]);
 
   useEffect(() => {
     let cleanupDragAndDrop: null | (() => void) = null;
@@ -71,35 +67,45 @@ function Uploader() {
       importForInteraction(
         () =>
           import(
-            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/util/combine" */ '@atlaskit/pragmatic-drag-and-drop/util/combine'
+            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/combine" */ '@atlaskit/pragmatic-drag-and-drop/combine'
           ),
         {
-          moduleId: '@atlaskit/pragmatic-drag-and-drop/util/combine',
+          moduleId: '@atlaskit/pragmatic-drag-and-drop/combine',
         },
       ),
       importForInteraction(
         () =>
           import(
-            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/adapter/file" */ '@atlaskit/pragmatic-drag-and-drop/adapter/file'
+            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/external/adapter" */ '@atlaskit/pragmatic-drag-and-drop/external/adapter'
           ),
         {
-          moduleId: '@atlaskit/pragmatic-drag-and-drop/adapter/file',
+          moduleId: '@atlaskit/pragmatic-drag-and-drop/external/adapter',
         },
       ),
       importForInteraction(
         () =>
           import(
-            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled" */ '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled'
+            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/external/file" */ '@atlaskit/pragmatic-drag-and-drop/external/file'
           ),
         {
-          moduleId: '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled',
+          moduleId: '@atlaskit/pragmatic-drag-and-drop/external/file',
+        },
+      ),
+      importForInteraction(
+        () =>
+          import(
+            /* webpackChunkName: "@atlaskit/pragmatic-drag-and-drop/prevent-unhandled" */ '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled'
+          ),
+        {
+          moduleId: '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled',
         },
       ),
     ]).onComplete(
       ([
         { combine },
-        { dropTargetForFiles, monitorForFiles },
-        { cancelUnhandled },
+        { dropTargetForExternal, monitorForExternal },
+        { containsFiles, getFiles },
+        { preventUnhandled },
       ]) => {
         const el = ref.current;
         if (!el) {
@@ -108,29 +114,24 @@ function Uploader() {
         setState('idle');
 
         cleanupDragAndDrop = combine(
-          dropTargetForFiles({
+          dropTargetForExternal({
             element: el,
+            canDrop: containsFiles,
             onDragEnter: () => setState('over'),
             onDragLeave: () => setState('potential'),
             onDrop: ({ source }) => {
-              if (!source.items) {
-                return;
-              }
-              const files: FileUpload[] = [...source.items]
-                .filter(item => item.kind === 'file')
-                .map(item => item.getAsFile())
-                .filter((file: File | null): file is File => file != null)
-                .map(file => ({ name: file.name }));
+              const files: File[] = getFiles({ source });
               setUploads(current => [...files, ...current]);
             },
           }),
-          monitorForFiles({
+          monitorForExternal({
+            canMonitor: containsFiles,
             onDragStart: () => {
               setState('potential');
-              cancelUnhandled.start();
+              preventUnhandled.start();
             },
             onDrop: () => {
-              cancelUnhandled.stop();
+              preventUnhandled.stop();
               setState('idle');
             },
           }),

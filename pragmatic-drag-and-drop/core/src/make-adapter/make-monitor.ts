@@ -3,11 +3,11 @@ import {
   CleanupFn,
   EventPayloadMap,
   MonitorArgs,
-  MonitorCanMonitorArgs,
+  MonitorGetFeedbackArgs,
 } from '../internal-types';
 
 type DraggingState<DragType extends AllDragTypes> = {
-  canMonitorArgs: MonitorCanMonitorArgs<DragType>;
+  canMonitorArgs: MonitorGetFeedbackArgs<DragType>;
   active: Set<MonitorArgs<DragType>>;
 };
 

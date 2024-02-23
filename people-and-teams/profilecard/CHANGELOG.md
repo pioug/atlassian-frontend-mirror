@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.11.3
+
+### Patch Changes
+
+- [#74684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74684) [`077c9034fc89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/077c9034fc89) - Pass fullName as ariaLabel to ProfileCardTrigger props'
+
 ## 19.11.2
 
 ### Patch Changes

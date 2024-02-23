@@ -88,6 +88,18 @@
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../pragmatic-drag-and-drop/core/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../pragmatic-drag-and-drop/hitbox/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../pragmatic-drag-and-drop/react-beautiful-dnd-autoscroll/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../pragmatic-drag-and-drop/react-drop-indicator/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {

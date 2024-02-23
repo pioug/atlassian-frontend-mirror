@@ -236,7 +236,10 @@ const editorProps = ({
   smartLinks: {
     provider: Promise.resolve(cardProviderStaging),
   },
-  allowExpand: true,
+  allowExpand: {
+    allowInsertion: true,
+    allowInteractiveExpand: true,
+  },
   allowTemplatePlaceholders: { allowInserting: true },
   media: {
     provider: mediaProvider,

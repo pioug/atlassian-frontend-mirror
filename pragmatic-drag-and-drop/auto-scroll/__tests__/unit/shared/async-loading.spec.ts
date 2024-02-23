@@ -1,11 +1,11 @@
 import { fireEvent } from '@testing-library/dom';
 import { bind } from 'bind-event-listener';
 
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import {
   advanceTimersToNextFrame,

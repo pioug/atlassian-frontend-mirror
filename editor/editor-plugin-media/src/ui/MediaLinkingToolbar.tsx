@@ -173,6 +173,7 @@ export class LinkAddToolbar extends React.PureComponent<
               />
             </span>
             <PanelTextInput
+              inputId="media-link-search-input"
               testId="media-link-input"
               placeholder={getPlaceholder(!!activityProvider)}
               autoFocus={true}
@@ -194,6 +195,9 @@ export class LinkAddToolbar extends React.PureComponent<
               }}
               onKeyDown={onKeyDown}
             />
+            <label className="assistive" htmlFor="media-link-search-input">
+              {formatMessage(linkToolbarMessages.searchInput)}
+            </label>
             {normalizeUrl(displayUrl) && (
               <Fragment>
                 <Separator />

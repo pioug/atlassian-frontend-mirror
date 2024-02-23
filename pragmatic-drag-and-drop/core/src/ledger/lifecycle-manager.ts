@@ -2,14 +2,14 @@ import { bindAll } from 'bind-event-listener';
 
 import {
   AllDragTypes,
-  DragInterface,
   DragLocation,
   DropTargetAPI,
   DropTargetRecord,
   EventPayloadMap,
   Input,
 } from '../internal-types';
-import { isLeavingWindow } from '../util/entering-and-leaving-the-window';
+import { isLeavingWindow } from '../util/changing-window/is-leaving-window';
+import { getBindingsForBrokenDrags } from '../util/detect-broken-drag';
 import { fixPostDragPointerBug } from '../util/fix-post-drag-pointer-bug';
 import { getInput } from '../util/get-input';
 
@@ -21,7 +21,9 @@ function canStart(): boolean {
   return !isActive;
 }
 
-function getNativeSetDragImage(event: DragEvent) {
+function getNativeSetDragImage(
+  event: DragEvent,
+): DataTransfer['setDragImage'] | null {
   if (event.dataTransfer) {
     // need to use `.bind` as `setDragImage` is required
     // to be run with `event.dataTransfer` as the "this" context
@@ -52,12 +54,12 @@ function hasHierarchyChanged({
 
 function start<DragType extends AllDragTypes>({
   event,
-  dragInterface,
+  dragType,
   getDropTargetsOver,
   dispatchEvent,
 }: {
   event: DragEvent;
-  dragInterface: DragInterface<DragType>;
+  dragType: DragType;
   getDropTargetsOver: DropTargetAPI<DragType>['getIsOver'];
   dispatchEvent: <EventName extends keyof EventPayloadMap<DragType>>(args: {
     eventName: EventName;
@@ -71,7 +73,7 @@ function start<DragType extends AllDragTypes>({
 
   const initial: DragLocation = getStartLocation({
     event,
-    dragInterface,
+    dragType,
     getDropTargetsOver,
   });
   let current: DragLocation = initial;
@@ -79,7 +81,7 @@ function start<DragType extends AllDragTypes>({
   setDropEffect({ event, current: initial.dropTargets });
 
   const dispatch = makeDispatch<DragType>({
-    source: dragInterface.payload,
+    source: dragType.payload,
     dispatchEvent,
     initial,
   });
@@ -109,7 +111,7 @@ function start<DragType extends AllDragTypes>({
     const nextDropTargets = getDropTargetsOver({
       target: event.target,
       input,
-      source: dragInterface.payload,
+      source: dragType.payload,
       current: current.dropTargets,
     });
 
@@ -123,14 +125,22 @@ function start<DragType extends AllDragTypes>({
     updateDropTargets({ dropTargets: nextDropTargets, input });
   }
 
-  function onDrop({
-    updatedExternalPayload,
-  }: {
-    updatedExternalPayload: Record<string, unknown> | null;
-  }) {
+  function onDrop(
+    args: { type: 'success'; event: DragEvent } | { type: 'cancel' },
+  ) {
+    // When dropping something native, we need to extract the latest
+    // `.items` from the "drop" event as it is now accessible
+    if (args.type === 'success' && dragType.type === 'external') {
+      dispatch.drop({
+        current,
+        updatedSourcePayload: dragType.getDropPayload(args.event),
+      });
+      return;
+    }
+
     dispatch.drop({
       current,
-      updatedExternalPayload,
+      updatedSourcePayload: null,
     });
   }
 
@@ -146,7 +156,7 @@ function start<DragType extends AllDragTypes>({
     if (current.dropTargets.length) {
       updateDropTargets({ dropTargets: [], input: current.input });
     }
-    onDrop({ updatedExternalPayload: null });
+    onDrop({ type: 'cancel' });
 
     finish();
   }
@@ -203,6 +213,7 @@ function start<DragType extends AllDragTypes>({
           if (!isLeavingWindow({ dragLeave: event })) {
             return;
           }
+
           // When a drag is ending without a drop target (or when the drag is cancelled),
           // All browsers fire:
           // 1. "drag"
@@ -217,7 +228,9 @@ function start<DragType extends AllDragTypes>({
           // - [Conversation](https://twitter.com/alexandereardon/status/1642697633864241152)
           // - [Bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937)
           updateDropTargets({ input: current.input, dropTargets: [] });
-          if (dragInterface.startedFrom === 'external') {
+
+          // End the drag operation if a native drag is leaving the window
+          if (dragType.startedFrom === 'external') {
             cancel();
           }
         },
@@ -233,18 +246,13 @@ function start<DragType extends AllDragTypes>({
           // applying the latest drop effect to the event
           setDropEffect({ event, current: current.dropTargets });
 
-          onDrop({
-            updatedExternalPayload:
-              dragInterface.startedFrom === 'external'
-                ? dragInterface.getDropPayload?.(event) || null
-                : null,
-          });
+          onDrop({ type: 'success', event });
 
           finish();
 
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
-          if (dragInterface.startedFrom === 'internal') {
+          if (dragType.startedFrom === 'internal') {
             fixPostDragPointerBug({ current });
           }
         },
@@ -261,55 +269,12 @@ function start<DragType extends AllDragTypes>({
 
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
-          if (dragInterface.startedFrom === 'internal') {
+          if (dragType.startedFrom === 'internal') {
             fixPostDragPointerBug({ current });
           }
         },
       },
-      // ## Detecting drag ending for removed draggables
-      //
-      // If a draggable element is removed during a drag and the user drops:
-      // 1. if over a valid drop target: we get a "drop" event to know the drag is finished
-      // 2. if not over a valid drop target (or cancelled): we get nothing
-      // The "dragend" event will not fire on the source draggable if it has been
-      // removed from the DOM.
-      // So we need to figure out if a drag operation has finished by looking at other events
-      // We can do this by looking at other events
-
-      // ### First detection: "pointermove" events
-
-      // 1. "pointermove" events cannot fire during a drag and drop operation
-      // according to the spec. So if we get a "pointermove" it means that
-      // the drag and drop operations has finished. So if we get a "pointermove"
-      // we know that the drag is over
-      // 2. 🦊😤 Drag and drop operations are _supposed_ to suppress
-      // other pointer events. However, firefox will allow a few
-      // pointer event to get through after a drag starts.
-      // The most I've seen is 3
-      {
-        type: 'pointermove',
-        listener: (() => {
-          let callCount: number = 0;
-          return function listener() {
-            // Using 20 as it is far bigger than the most observed (3)
-            if (callCount < 20) {
-              callCount++;
-              return;
-            }
-            cancel();
-          };
-        })(),
-      },
-
-      // ### Second detection: "pointerdown" events
-
-      // If we receive this event then we know that a drag operation has finished
-      // and potentially another one is about to start.
-      // Note: `pointerdown` fires on all browsers / platforms before "dragstart"
-      {
-        type: 'pointerdown',
-        listener: cancel,
-      },
+      ...getBindingsForBrokenDrags({ onDragEnd: cancel }),
     ],
     // Once we have started a managed drag operation it is important that we see / own all drag events
     // We got one adoption bug pop up where some code was stopping (`event.stopPropagation()`)
@@ -339,17 +304,18 @@ function setDropEffect({
 
 function getStartLocation<DragType extends AllDragTypes>({
   event,
-  dragInterface,
+  dragType,
   getDropTargetsOver,
 }: {
   event: DragEvent;
-  dragInterface: DragInterface<DragType>;
+  dragType: DragType;
   getDropTargetsOver: DropTargetAPI<DragType>['getIsOver'];
 }): DragLocation {
   const input: Input = getInput(event);
 
-  // When dragging from outside of the browser, we don't have any starting drop targets
-  if (dragInterface.startedFrom === 'external') {
+  // When dragging from outside of the browser,
+  // the drag is not being sourced from any local drop targets
+  if (dragType.startedFrom === 'external') {
     return {
       input,
       dropTargets: [],
@@ -358,7 +324,7 @@ function getStartLocation<DragType extends AllDragTypes>({
 
   const dropTargets: DropTargetRecord[] = getDropTargetsOver({
     input,
-    source: dragInterface.payload,
+    source: dragType.payload,
     target: event.target,
     current: [],
   });

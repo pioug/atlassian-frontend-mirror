@@ -1,6 +1,7 @@
 import {
   EditorBreakoutModel,
   EditorCodeBlockFloatingToolbarModel,
+  EditorTitleFocusModel,
   expect,
   editorTestCase as test,
 } from '@af/editor-libra';
@@ -14,6 +15,8 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import { layoutAndBigParagraphs } from './breakout.spec.ts-fixtures';
+
 test.describe('breakout', () => {
   test.use({
     editorProps: {
@@ -21,6 +24,61 @@ test.describe('breakout', () => {
       allowBreakout: true,
       allowLayouts: true,
     },
+  });
+
+  test.describe('when scrolling', () => {
+    test.use({
+      adf: layoutAndBigParagraphs,
+    });
+
+    test('should place breakout at the start/end of the scroll', async ({
+      editor,
+    }) => {
+      const breakoutModel = EditorBreakoutModel.from(editor);
+      const rect = await editor.selection.setCursor({ position: 3 });
+
+      await expect(breakoutModel.wideButton).toBeVisible();
+      await editor.page.mouse.move(rect.x, rect.y);
+      await editor.page.mouse.click(rect.x, rect.y);
+      await editor.page.mouse.wheel(0, 2000);
+
+      await editor.waitForEditorStable();
+
+      await expect(breakoutModel.wideButton).toBeVisible();
+    });
+  });
+
+  test.describe('when editor is toggling between enabled and disabled', () => {
+    test.use({
+      adf: layoutAndBigParagraphs,
+      editorMountOptions: {
+        withTitleFocusHandler: true,
+      },
+    });
+
+    test('should place breakout button in correct position after visually hiding', async ({
+      editor,
+    }) => {
+      const titleModel = EditorTitleFocusModel.from(editor);
+      const breakoutModel = EditorBreakoutModel.from(editor);
+      const rect = await editor.selection.setCursor({ position: 3 });
+
+      await expect(breakoutModel.wideButton).toBeVisible();
+
+      await expect(titleModel.editorLocator).toBeFocused();
+
+      await titleModel.title.click();
+
+      await expect(titleModel.editorLocator).not.toBeFocused();
+      await expect(titleModel.editorLocator).toHaveAttribute(
+        'contenteditable',
+        'false',
+      );
+
+      await editor.page.mouse.move(rect.x, rect.y);
+      await editor.page.mouse.click(rect.x, rect.y);
+      await expect(breakoutModel.wideButton).toBeVisible();
+    });
   });
 
   test('breakout: should be able to switch to wide mode', async ({

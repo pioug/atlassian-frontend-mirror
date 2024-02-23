@@ -13,10 +13,10 @@ import invariant from 'tiny-invariant';
 
 import { CodeBlock } from '@atlaskit/code';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { cancelUnhandled } from '@atlaskit/pragmatic-drag-and-drop/addon/cancel-unhandled';
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/disable-native-drag-preview';
+import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/disable-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import battery from './icons/battery.png';
@@ -184,7 +184,7 @@ function Sidebar() {
         disableNativeDragPreview({ nativeSetDragImage });
         // we don't want any native drop animation for when the user
         // does not drop on a drop target. we want the drag to finish immediately
-        cancelUnhandled.start();
+        preventUnhandled.start();
       },
       onDragStart() {
         setState({ type: 'dragging' });
@@ -196,7 +196,7 @@ function Sidebar() {
         );
       },
       onDrop({ location }) {
-        cancelUnhandled.stop();
+        preventUnhandled.stop();
         setState({ type: 'idle' });
 
         setInitialWidth(getProposedWidth({ initialWidth, location }));

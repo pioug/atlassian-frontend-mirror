@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.2.0
+
+### Minor Changes
+
+- [#70153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70153) [`3a34e7545f18`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a34e7545f18) - ECA11Y-36: Flaoting toolbar group buttons into radiogroup buttons structure
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.1
 
 ### Patch Changes

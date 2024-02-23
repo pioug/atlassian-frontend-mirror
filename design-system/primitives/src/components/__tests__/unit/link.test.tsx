@@ -2,6 +2,7 @@ import React, { forwardRef, type Ref } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import AppProvider, {
   type RouterLinkComponentProps,
 } from '@atlaskit/app-provider';
@@ -434,6 +435,153 @@ describe('Link', () => {
         'data-custom-attribute',
         'bar',
       );
+    });
+  });
+
+  describe('analytics', () => {
+    const packageName = process.env._PACKAGE_NAME_ as string;
+    const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+    it('should fire an event on the public channel and the internal channel', () => {
+      const onPublicEvent = jest.fn();
+      const onAtlaskitEvent = jest.fn();
+      function WithBoth() {
+        return (
+          <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+            <AnalyticsListener onEvent={onPublicEvent}>
+              <UNSAFE_LINK
+                href="https://atlassian.com"
+                testId={testId}
+                onClick={(event, analyticsEvent) => {
+                  // TODO: Remove optional chaining
+                  analyticsEvent?.fire();
+                }}
+                componentName="CustomComponent"
+              >
+                Anchor
+              </UNSAFE_LINK>
+            </AnalyticsListener>
+          </AnalyticsListener>
+        );
+      }
+      render(<WithBoth />);
+
+      const anchor = screen.getByTestId(testId);
+
+      fireEvent.click(anchor);
+
+      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'link',
+          attributes: {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        },
+        context: [
+          {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        ],
+      });
+
+      function assert(eventMock: jest.Mock<any, any>) {
+        expect(eventMock).toHaveBeenCalledTimes(1);
+        expect(eventMock.mock.calls[0][0].payload).toEqual(expected.payload);
+        expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
+      }
+      assert(onPublicEvent);
+      assert(onAtlaskitEvent);
+    });
+
+    it('should allow the addition of additional context', () => {
+      function App({
+        onEvent,
+        channel,
+        analyticsContext,
+      }: {
+        onEvent: (...args: any[]) => void;
+        channel: string | undefined;
+        analyticsContext?: Record<string, any>;
+      }) {
+        return (
+          <AnalyticsListener onEvent={onEvent} channel={channel}>
+            <UNSAFE_LINK
+              href="https://atlassian.com"
+              testId={testId}
+              analyticsContext={analyticsContext}
+              onClick={(event, analyticsEvent) => {
+                // TODO: Remove optional chaining
+                analyticsEvent?.fire();
+              }}
+              componentName="CustomComponent"
+            >
+              Anchor
+            </UNSAFE_LINK>
+          </AnalyticsListener>
+        );
+      }
+
+      const onEvent = jest.fn();
+      const extraContext = { hello: 'world' };
+      render(
+        <App
+          onEvent={onEvent}
+          channel="atlaskit"
+          analyticsContext={extraContext}
+        />,
+      );
+      const anchor = screen.getByTestId(testId);
+
+      fireEvent.click(anchor);
+
+      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'link',
+          attributes: {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        },
+        context: [
+          {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+            ...extraContext,
+          },
+        ],
+      });
+      expect(onEvent).toHaveBeenCalledTimes(1);
+      expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+      expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
+    });
+
+    it('should not error if there is no analytics provider', () => {
+      const error = jest.spyOn(console, 'error');
+      const onClick = jest.fn();
+      render(
+        <UNSAFE_LINK
+          href="https://atlassian.com"
+          testId={testId}
+          onClick={onClick}
+          componentName="CustomComponent"
+        >
+          Anchor
+        </UNSAFE_LINK>,
+      );
+
+      const button = screen.getByTestId(testId);
+      fireEvent.click(button);
+
+      expect(error).not.toHaveBeenCalled();
+      error.mockRestore();
     });
   });
 });

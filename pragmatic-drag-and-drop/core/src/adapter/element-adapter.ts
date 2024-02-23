@@ -5,29 +5,26 @@ import {
   AllEvents,
   BaseEventPayload,
   CleanupFn,
-  DragInterface,
+  DropTargetEventBasePayload,
   DropTargetEventPayloadMap,
+  DropTargetGetFeedbackArgs,
+  ElementDragType,
   EventPayloadMap,
   Input,
-  InternalDragType,
-  MonitorCanMonitorArgs,
+  MonitorGetFeedbackArgs,
+  NativeMediaType,
 } from '../internal-types';
 import { makeAdapter } from '../make-adapter/make-adapter';
+import { combine } from '../public-utils/combine';
 import { addAttribute } from '../util/add-attribute';
-import { combine } from '../util/combine';
+import { androidFallbackText, isAndroid } from '../util/android';
 import { getInput } from '../util/get-input';
+import { textMediaType } from '../util/media-types/text-media-type';
+import { urlMediaType } from '../util/media-types/url-media-type';
 
-type ElementDragType = InternalDragType<
-  'element',
-  'move',
-  {
-    element: HTMLElement;
-    dragHandle: Element | null;
-    data: Record<string, unknown>;
-  }
->;
+import { elementAdapterNativeDataKey } from './element-adapter-native-data-key';
 
-type GetFeedbackArgs = {
+type DraggableGetFeedbackArgs = {
   /**
    * The user input as a drag is trying to start (the `initial` input)
    */
@@ -52,9 +49,21 @@ type DraggableArgs = {
   /** The part of a draggable `element` that you want to use to control the dragging of the whole `element` */
   dragHandle?: Element;
   /** Conditionally allow a drag to occur */
-  canDrag?: (args: GetFeedbackArgs) => boolean;
+  canDrag?: (args: DraggableGetFeedbackArgs) => boolean;
   /** Used to attach data to a drag operation. Called once just before the drag starts */
-  getInitialData?: (args: GetFeedbackArgs) => Record<string, unknown>;
+  getInitialData?: (args: DraggableGetFeedbackArgs) => Record<string, unknown>;
+  /** Attach data to the native drag data store.
+   * This function is useful to attach native data that can be extracted by other web pages
+   * or web applications
+   * Attaching native data in this way will _not_ cause the native adapter on this page to start
+   * Although it can cause a native adapter in other applications to start
+   * @example getInitialDataForExternal(() => ({'text/plain': item.description}))
+   * */
+  getInitialDataForExternal?: (args: DraggableGetFeedbackArgs) => {
+    // Ideally we would exclude `typeof elementAdapterNativeDataKey` from this
+    // However, "deny listing" a string from a union doesn't work well with TS
+    [Key in NativeMediaType]?: string;
+  };
 } & Partial<AllEvents<ElementDragType>>;
 
 const draggableRegistry = new WeakMap<HTMLElement, DraggableArgs>();
@@ -71,12 +80,32 @@ const adapter = makeAdapter<ElementDragType>({
   typeKey: 'element',
   defaultDropEffect: 'move',
   mount(api: AdapterAPI<ElementDragType>): CleanupFn {
-    return bind(window, {
+    /**  Binding event listeners the `document` rather than `window` so that
+     * this adapter always gets preference over the text adapter.
+     * `document` is the first `EventTarget` under `window`
+     * https://twitter.com/alexandereardon/status/1604658588311465985
+     */
+    return bind(document, {
       type: 'dragstart',
       listener(event: DragEvent) {
         if (!api.canStart(event)) {
           return;
         }
+
+        // If the "dragstart" event is cancelled, then a drag won't start
+        // There will be no further drag operation events (eg no "dragend" event)
+        if (event.defaultPrevented) {
+          return;
+        }
+
+        // Technically `dataTransfer` can be `null` according to the types
+        // But that behaviour does not seem to appear in the spec.
+        // If there is not `dataTransfer`, we can assume something is wrong and not
+        // start a drag
+        if (!event.dataTransfer) {
+          return;
+        }
+
         // the closest parent that is a draggable element will be marked as
         // the `event.target` for the event
         const target: EventTarget | null = event.target;
@@ -98,7 +127,7 @@ const adapter = makeAdapter<ElementDragType>({
 
         const input: Input = getInput(event);
 
-        const feedback: GetFeedbackArgs = {
+        const feedback: DraggableGetFeedbackArgs = {
           element: entry.element,
           dragHandle: entry.dragHandle ?? null,
           input,
@@ -123,12 +152,73 @@ const adapter = makeAdapter<ElementDragType>({
           }
         }
 
-        // Must set any media type for iOS15 to work
-        // Doing this will fail in firefox though, so we
-        // wrap the operation in a try/catch
-        try {
-          event.dataTransfer?.setData('application/vnd.pdnd', '');
-        } catch (e) {}
+        /**
+         *  **Goal**
+         *  Pass information to other applications
+         *
+         * **Approach**
+         *  Put data into the native data store
+         *
+         *  **What about the native adapter?**
+         *  When the element adapter puts native data into the native data store
+         *  the native adapter is not triggered in the current window,
+         *  but a native adapter in an external window _can_ be triggered
+         *
+         *  **Why bake this into core?**
+         *  This functionality could be pulled out and exposed inside of
+         *  `onGenerateDragPreview`. But decided to make it a part of the
+         *  base API as it felt like a common enough use case and ended
+         *  up being a similar amount of code to include this function as
+         *  it was to expose the hook for it
+         */
+        const nativeData = entry.getInitialDataForExternal?.(feedback) ?? null;
+
+        if (nativeData) {
+          for (const [key, data] of Object.entries(nativeData)) {
+            event.dataTransfer.setData(key, data ?? '');
+          }
+        }
+
+        /**
+         *  📱 For Android devices, a drag operation will not start unless
+         * "text/plain" or "text/uri-list" data exists in the native data store
+         * https://twitter.com/alexandereardon/status/1732189803754713424
+         *
+         * Tested on:
+         * Device: Google Pixel 5
+         * Android version: 14 (November 5, 2023)
+         * Chrome version: 120.0
+         */
+        const { types } = event.dataTransfer;
+        if (
+          isAndroid() &&
+          !types.includes(textMediaType) &&
+          !types.includes(urlMediaType)
+        ) {
+          event.dataTransfer.setData(textMediaType, androidFallbackText);
+        }
+
+        /**
+         * 1. Must set any media type for `iOS15` to work
+         * 2. We are also doing adding data so that the native adapter
+         * can know that the element adapter has handled this drag
+         *
+         * We used to wrap this `setData()` in a `try/catch` for Firefox,
+         * but it looks like that was not needed.
+         *
+         * Tested using: https://codesandbox.io/s/checking-firefox-throw-behaviour-on-dragstart-qt8h4f
+         *
+         * - ✅ Firefox@70.0 (Oct 2019) on macOS Sonoma
+         * - ✅ Firefox@70.0 (Oct 2019) on macOS Big Sur
+         * - ✅ Firefox@70.0 (Oct 2019) on Windows 10
+         *
+         * // just checking a few more combinations to be super safe
+         *
+         * - ✅ Chrome@78 (Oct 2019) on macOS Big Sur
+         * - ✅ Chrome@78 (Oct 2019) on Windows 10
+         * - ✅ Safari@14.1 on macOS Big Sur
+         */
+        event.dataTransfer.setData(elementAdapterNativeDataKey, '');
 
         const payload: ElementDragType['payload'] = {
           element: entry.element,
@@ -136,12 +226,12 @@ const adapter = makeAdapter<ElementDragType>({
           data: entry.getInitialData?.(feedback) ?? {},
         };
 
-        const makeDragType: DragInterface<ElementDragType> = {
-          key: 'element',
-          startedFrom: 'internal',
+        const dragType: ElementDragType = {
+          type: 'element',
           payload,
+          startedFrom: 'internal',
         };
-        api.start({ event, dragInterface: makeDragType });
+        api.start({ event, dragType });
       },
     });
   },
@@ -206,10 +296,27 @@ export function draggable(args: DraggableArgs): CleanupFn {
   );
 }
 
+/** Common event payload for all events */
 export type ElementEventBasePayload = BaseEventPayload<ElementDragType>;
+
+/** A map containing payloads for all events */
 export type ElementEventPayloadMap = EventPayloadMap<ElementDragType>;
 
+/** Common event payload for all drop target events */
+export type ElementDropTargetEventBasePayload =
+  DropTargetEventBasePayload<ElementDragType>;
+
+/** A map containing payloads for all events on drop targets */
 export type ElementDropTargetEventPayloadMap =
   DropTargetEventPayloadMap<ElementDragType>;
-export type ElementMonitorCanMonitorArgs =
-  MonitorCanMonitorArgs<ElementDragType>;
+
+/** Arguments given to all feedback functions (eg `canDrag()`) on for a `draggable()` */
+export type ElementGetFeedbackArgs = DraggableGetFeedbackArgs;
+
+/** Arguments given to all feedback functions (eg `canDrop()`) on a `dropTargetForElements()` */
+export type ElementDropTargetGetFeedbackArgs =
+  DropTargetGetFeedbackArgs<ElementDragType>;
+
+/** Arguments given to all monitor feedback functions (eg `canMonitor()`) for a `monitorForElements` */
+export type ElementMonitorGetFeedbackArgs =
+  MonitorGetFeedbackArgs<ElementDragType>;

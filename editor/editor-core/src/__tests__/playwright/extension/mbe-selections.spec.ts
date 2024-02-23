@@ -34,7 +34,7 @@ test.describe('MultiBodiedExtensions: selection', () => {
   test.use({ adf: adfMBEWithTextBeforeAndAfter });
 
   test.describe('when creating a range selection from below MBE to up', () => {
-    test.skip('should select the MBE node', async ({ editor }) => {
+    test('should select the MBE node', async ({ editor }) => {
       fixTest({
         jiraIssueId: 'TBD',
         reason: 'Firefox does not work well with shift selection',
@@ -43,19 +43,20 @@ test.describe('MultiBodiedExtensions: selection', () => {
       // set selection after the last paragraph
       await editor.selection.set({ anchor: 52, head: 52 });
 
-      // Range selection until inside the MBE
+      // Range selection until MBE is selected
       await editor.keyboard.press('Shift+ArrowUp');
       await expect(editor).toHaveSelection({
         type: 'text',
-        head: 13,
+        head: 8,
         anchor: 52,
       });
 
-      // Range selection until all text in MBE text frame selected
+      // Range selection until all content is selected
+      await editor.keyboard.press('Shift+ArrowUp');
       await editor.keyboard.press('Shift+ArrowUp');
       await expect(editor).toHaveSelection({
         type: 'text',
-        head: 11,
+        head: 1,
         anchor: 52,
       });
     });
@@ -75,15 +76,55 @@ test.describe('MultiBodiedExtensions: selection', () => {
       await expect(editor).toHaveSelection({
         type: 'text',
         anchor: 1,
-        head: 7,
+        head: 46,
       });
 
-      // Range selection should not expand to MBE node
+      // Range selection should expand to MBE node
       await editor.keyboard.press('Shift+ArrowDown');
       await expect(editor).toHaveSelection({
         type: 'text',
         anchor: 1,
-        head: 7,
+        head: 52,
+      });
+    });
+  });
+
+  test.describe('when creating a range selection from inside MBE', () => {
+    test('should select the MBE node', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'TBD',
+        reason: 'Firefox does not work well with shift selection',
+        browsers: [BROWSERS.firefox],
+      });
+      await editor.selection.set({ anchor: 13, head: 13 });
+
+      await editor.keyboard.press('Shift+ArrowDown');
+      await expect(editor).toHaveSelection({
+        type: 'text',
+        anchor: 8,
+        head: 52,
+      });
+    });
+
+    test('should not select the MBE node when selection inside MBE', async ({
+      editor,
+    }) => {
+      fixTest({
+        jiraIssueId: 'TBD',
+        reason: 'Firefox does not work well with shift selection',
+        browsers: [BROWSERS.firefox],
+      });
+      await editor.selection.set({ anchor: 13, head: 13 });
+      await editor.keyboard.press('Enter');
+      await editor.keyboard.type('new text');
+      await editor.keyboard.press('Enter');
+      await editor.selection.set({ anchor: 11, head: 11 });
+      await editor.keyboard.press('Shift+ArrowDown');
+      await editor.keyboard.press('Shift+ArrowDown');
+      await expect(editor).toHaveSelection({
+        type: 'text',
+        anchor: 11,
+        head: 25,
       });
     });
   });

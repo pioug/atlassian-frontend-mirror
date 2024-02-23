@@ -17,7 +17,8 @@ Elements that are _registered_ for auto scrolling will be scrolled as a user dra
 
 ```ts
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { autoScrollForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
+import { autoScrollForExternal } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/external';
+import { autoScrollForInternalUncontrolled } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/internal-uncontrolled';
 
 // enable better auto scrolling
 const cleanup = autoScrollForElements({
@@ -32,9 +33,9 @@ A slightly fuller example of a `react` list that is a _drop target_, and has aut
 
 ```tsx
 import { useRef, ReactElement } from 'react';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import invariant from 'tiny-invariant';
 
 function ScrollableList({ children }: { children: ReactElement }) {
@@ -72,7 +73,7 @@ function ScrollableList({ children }: { children: ReactElement }) {
 - Your scroll containers can have as many levels of nesting as you like.
 - You have to register an element (eg with `autoScrollForElements`) to enable auto scrolling (otherwise the default auto scrolling will apply).
 - A _registered_ scrollable element does not need to be drop target.
-- Auto scrolling is registered for particular entity types. For example, `autoScrollForElements` is a drop target for elements, and `autoScrollForFiles` is a drop target for files.
+- Auto scrolling is registered for particular entity types. For example, `autoScrollForElements` is a drop target for elements, and `autoScrollForExternal` is for native drags.
 - During a drag operation, you can:
   - Register new scrollable elements
   - Unregister scrollable elements
@@ -127,7 +128,8 @@ We are intentionally only exposing a limited amount of configuration in order to
 
 ```ts
 import { autoScrollWindowForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-import { autoScrollWindowForFiles } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/file';
+import { autoScrollWindowForExternal } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/external';
+import { autoScrollWindowForInternalUncontrolled } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/internal-uncontrolled';
 
 // enable better auto scrolling on the window during drag operations
 const cleanup = autoScrollWindowForElements();
@@ -155,7 +157,7 @@ function Board({ children }: { children: ReactElement }) {
 ### Window auto scrolling rules and behaviour
 
 - You have to register window auto scrolling (eg with `autoScrollWindowForElements`) to enable auto scrolling (otherwise the default auto scrolling will apply).
-- Auto scrolling is registered for particular entity types. For example, `autoScrollWindowForElements` will do auto scrolling when an element is being dragged, and `autoScrollWindowForFiles` will do auto scrolling when a file is being dragged.
+- Auto scrolling is registered for particular entity types. For example, `autoScrollWindowForElements` will do auto scrolling when an element is being dragged, and `autoScrollWindowForExternal` will do auto scrolling when something from outside the `window` is being dragged over the `window`
 - You can have multiple registrations for `window` auto scrolling, but only one registration will be needed for `window` auto scrolling to occur.
 - If there are no active registrations for `window` auto scrolling, then no `window` auto scrolling will occur (except for the built in one).
 - During a drag operation:

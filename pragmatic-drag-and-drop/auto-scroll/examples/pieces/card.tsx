@@ -4,13 +4,13 @@ import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import { easeInOut, mediumDurationMs } from '@atlaskit/motion';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import {
   draggable,
   dropTargetForElements,
-} from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
-import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/util/preserve-offset-on-source';
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/element/preserve-offset-on-source';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { Box, xcss } from '@atlaskit/primitives';
 
 const cardStyles = xcss({

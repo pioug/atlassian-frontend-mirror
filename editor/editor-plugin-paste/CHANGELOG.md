@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.4
+
+### Patch Changes
+
+- [#74662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74662) [`03889d5b1256`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03889d5b1256) - ED-22244 Allow copy paste of action within a panel into a panel
+- Updated dependencies
+
+## 1.0.3
+
+### Patch Changes
+
+- [#75368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75368) [`0a0d45e03ecf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a0d45e03ecf) - ED-22245: Fixing the bug to paste links inside nested codeblock
+
 ## 1.0.2
 
 ### Patch Changes

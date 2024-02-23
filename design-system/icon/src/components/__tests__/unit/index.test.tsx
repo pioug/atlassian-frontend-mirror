@@ -320,6 +320,7 @@ describe('@atlaskit/icon', () => {
         'switcher',
         'table',
         'task',
+        'teams',
         'trash',
         'tray',
         'undo',

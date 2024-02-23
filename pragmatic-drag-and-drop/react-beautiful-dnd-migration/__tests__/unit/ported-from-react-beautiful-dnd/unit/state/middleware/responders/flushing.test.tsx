@@ -6,7 +6,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import type { DragDropContextProps, DropResult } from 'react-beautiful-dnd';
 
-import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import * as closestEdge from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
 import {
   DragDropContext,

@@ -320,6 +320,7 @@ const iconIds = [
   'switcher',
   'table',
   'task',
+  'teams',
   'trash',
   'tray',
   'undo',

@@ -35,6 +35,7 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugin-extension';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -81,6 +82,55 @@ export interface Props {
   mediaAssistiveMessage?: string;
 }
 
+type GroupedItems = (Item | Item[])[];
+
+export function groupItems(items: Item[]): GroupedItems {
+  const groupItems = items.reduce(
+    (
+      accumulator: {
+        buttonGroup: Item[];
+        finalOutput: GroupedItems;
+      },
+      item,
+      i,
+    ) => {
+      let { finalOutput, buttonGroup } = accumulator;
+
+      if (item.type === 'button') {
+        const notLastItem = i < items.length - 1;
+        const nextItemIsButton = items[i + 1] && items[i + 1].type === 'button';
+        const wasPreviousButton =
+          items[i - 1] && items[i - 1].type === 'button';
+
+        const isRadioButton =
+          (notLastItem && nextItemIsButton) || wasPreviousButton;
+
+        if (isRadioButton) {
+          item.isRadioButton = true;
+          buttonGroup.push(item);
+
+          if (!nextItemIsButton && wasPreviousButton) {
+            finalOutput.push(buttonGroup);
+            accumulator.buttonGroup = [];
+          }
+        } else {
+          finalOutput.push(item);
+        }
+      } else {
+        finalOutput.push(item);
+      }
+
+      return accumulator;
+    },
+    {
+      buttonGroup: [],
+      finalOutput: [],
+    },
+  );
+
+  return groupItems.finalOutput;
+}
+
 const ToolbarItems = React.memo(
   ({
     items,
@@ -109,203 +159,222 @@ const ToolbarItems = React.memo(
         undefined
       : popupsMountPoint;
 
-    return (
-      <ButtonGroup>
-        {items
-          .filter(item => !item.hidden)
-          .map((item, idx) => {
-            switch (item.type) {
-              case 'button':
-                const ButtonIcon = item.icon as React.ComponentClass<any>;
+    const renderItem = (item: Item, idx: number) => {
+      switch (item.type) {
+        case 'button':
+          const ButtonIcon = item.icon as React.ComponentClass<any>;
 
-                const onClickHandler = () => {
-                  if (item.confirmDialog) {
-                    dispatchCommand(showConfirmDialog(idx));
-                  } else {
-                    dispatchCommand(item.onClick);
-                    if (item.focusEditoronEnter && !editorView?.hasFocus()) {
-                      editorView?.focus();
-                    }
-                  }
-                };
-
-                return (
-                  <Button
-                    className={item.className}
-                    key={idx}
-                    title={item.title}
-                    href={item.href}
-                    icon={
-                      item.icon ? <ButtonIcon label={item.title} /> : undefined
-                    }
-                    appearance={item.appearance}
-                    target={item.target}
-                    onClick={onClickHandler}
-                    onMouseEnter={() => dispatchCommand(item.onMouseEnter)}
-                    onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
-                    onFocus={() => dispatchCommand(item.onFocus)}
-                    onBlur={() => dispatchCommand(item.onBlur)}
-                    selected={item.selected}
-                    disabled={item.disabled}
-                    tooltipContent={item.tooltipContent}
-                    testId={item.testId}
-                    hideTooltipOnClick={item.hideTooltipOnClick}
-                    ariaHasPopup={item.ariaHasPopup}
-                    tabIndex={item.tabIndex}
-                  >
-                    {item.showTitle && item.title}
-                  </Button>
-                );
-
-              case 'input':
-                return (
-                  <Input
-                    key={idx}
-                    mountPoint={popupsMountPoint}
-                    boundariesElement={popupsBoundariesElement}
-                    defaultValue={item.defaultValue}
-                    placeholder={item.placeholder}
-                    onSubmit={value => dispatchCommand(item.onSubmit(value))}
-                    onBlur={value => dispatchCommand(item.onBlur(value))}
-                  />
-                );
-
-              case 'custom': {
-                return item.render(editorView, idx, dispatchAnalyticsEvent);
+          const onClickHandler = () => {
+            if (item.confirmDialog) {
+              dispatchCommand(showConfirmDialog(idx));
+            } else {
+              dispatchCommand(item.onClick);
+              if (item.focusEditoronEnter && !editorView?.hasFocus()) {
+                editorView?.focus();
               }
+            }
+          };
 
-              case 'dropdown':
-                const DropdownIcon = item.icon;
-                return (
-                  <Dropdown
-                    key={idx}
-                    title={item.title}
-                    icon={DropdownIcon && <DropdownIcon label={item.title} />}
-                    dispatchCommand={dispatchCommand}
-                    options={item.options}
-                    disabled={item.disabled}
-                    tooltip={item.tooltip}
-                    hideExpandIcon={item.hideExpandIcon}
-                    mountPoint={popupsMountPoint}
-                    boundariesElement={popupsBoundariesElement}
-                    scrollableElement={popupsScrollableElement}
-                    dropdownWidth={item.dropdownWidth}
-                    showSelected={item.showSelected}
-                    buttonTestId={item.testId}
-                    editorView={editorView}
-                    setDisableParentScroll={
-                      scrollable ? setDisableScroll : undefined
-                    }
-                    dropdownListId={item?.id && `${item.id}-dropdownList`}
-                    alignDropdownWithToolbar={items.length === 1}
-                    onToggle={item.onToggle}
-                  />
-                );
+          return (
+            <Button
+              className={item.className}
+              key={idx}
+              title={item.title}
+              href={item.href}
+              icon={item.icon ? <ButtonIcon label={item.title} /> : undefined}
+              appearance={item.appearance}
+              target={item.target}
+              onClick={onClickHandler}
+              onMouseEnter={() => dispatchCommand(item.onMouseEnter)}
+              onMouseLeave={() => dispatchCommand(item.onMouseLeave)}
+              onFocus={() => dispatchCommand(item.onFocus)}
+              onBlur={() => dispatchCommand(item.onBlur)}
+              selected={item.selected}
+              disabled={item.disabled}
+              tooltipContent={item.tooltipContent}
+              testId={item.testId}
+              hideTooltipOnClick={item.hideTooltipOnClick}
+              ariaHasPopup={item.ariaHasPopup}
+              tabIndex={item.tabIndex}
+              isRadioButton={item.isRadioButton}
+            >
+              {item.showTitle && item.title}
+            </Button>
+          );
 
-              case 'select':
-                if (item.selectType === 'list') {
-                  const ariaLabel = item.title || item.placeholder;
-                  return (
-                    <Select
-                      key={idx}
-                      dispatchCommand={dispatchCommand}
-                      options={item.options}
-                      hideExpandIcon={item.hideExpandIcon}
-                      mountPoint={scrollable ? mountRef.current! : undefined}
-                      boundariesElement={popupsBoundariesElement}
-                      scrollableElement={popupsScrollableElement}
-                      defaultValue={item.defaultValue}
-                      placeholder={item.placeholder}
-                      onChange={selected =>
-                        dispatchCommand(item.onChange(selected as SelectOption))
-                      }
-                      ariaLabel={ariaLabel}
-                      filterOption={item.filterOption}
-                      setDisableParentScroll={
-                        scrollable ? setDisableScroll : undefined
-                      }
-                      classNamePrefix={'floating-toolbar-select'}
-                    />
-                  );
-                }
-                if (item.selectType === 'color') {
-                  return (
-                    <ColorPickerButton
-                      skipFocusButtonAfterPick
-                      key={idx}
-                      isAriaExpanded={item.isAriaExpanded}
-                      title={item.title}
-                      onChange={selected => {
-                        dispatchCommand(item.onChange(selected));
-                      }}
-                      colorPalette={item.options as PaletteColor[]}
-                      currentColor={
-                        item.defaultValue ? item.defaultValue.value : undefined
-                      }
-                      placement="Panels"
-                      mountPoint={emojiAndColourPickerMountPoint}
-                      setDisableParentScroll={
-                        scrollable ? setDisableScroll : undefined
-                      }
-                      // Currently in floating toolbar, color picker is only
-                      //  used in panel and table cell background color.
-                      // Both uses same color palette.
-                      // That's why hard-coding hexToEditorBackgroundPaletteColor
-                      //  and paletteColorTooltipMessages.
-                      // When we need to support different color palette
-                      //  in floating toolbar, we need to set hexToPaletteColor
-                      //  and paletteColorTooltipMessages in item options.
-                      hexToPaletteColor={hexToEditorBackgroundPaletteColor}
-                      paletteColorTooltipMessages={
-                        backgroundPaletteTooltipMessages
-                      }
-                    />
-                  );
-                }
-                if (item.selectType === 'emoji') {
-                  return (
-                    <EmojiPickerButton
-                      key={idx}
-                      editorView={editorView}
-                      title={item.title}
-                      providerFactory={providerFactory}
-                      isSelected={item.selected}
-                      onChange={selected =>
-                        dispatchCommand(item.onChange(selected))
-                      }
-                      mountPoint={emojiAndColourPickerMountPoint}
-                      setDisableParentScroll={
-                        scrollable ? setDisableScroll : undefined
-                      }
-                    />
-                  );
-                }
-                return null;
+        case 'input':
+          return (
+            <Input
+              key={idx}
+              mountPoint={popupsMountPoint}
+              boundariesElement={popupsBoundariesElement}
+              defaultValue={item.defaultValue}
+              placeholder={item.placeholder}
+              onSubmit={value => dispatchCommand(item.onSubmit(value))}
+              onBlur={value => dispatchCommand(item.onBlur(value))}
+            />
+          );
 
-              case 'extensions-placeholder':
-                if (!editorView || !extensionsProvider) {
-                  return null;
-                }
+        case 'custom': {
+          return item.render(editorView, idx, dispatchAnalyticsEvent);
+        }
 
-                return (
-                  <ExtensionsPlaceholder
-                    key={idx}
-                    node={node}
-                    editorView={editorView}
-                    extensionProvider={extensionsProvider}
-                    separator={item.separator}
-                    applyChangeToContextPanel={
-                      api?.contextPanel?.actions.applyChange
-                    }
-                    extensionApi={api?.extension?.actions.api()}
-                  />
-                );
-              case 'separator':
-                return <Separator key={idx} />;
+        case 'dropdown':
+          const DropdownIcon = item.icon;
+          return (
+            <Dropdown
+              key={idx}
+              title={item.title}
+              icon={DropdownIcon && <DropdownIcon label={item.title} />}
+              dispatchCommand={dispatchCommand}
+              options={item.options}
+              disabled={item.disabled}
+              tooltip={item.tooltip}
+              hideExpandIcon={item.hideExpandIcon}
+              mountPoint={popupsMountPoint}
+              boundariesElement={popupsBoundariesElement}
+              scrollableElement={popupsScrollableElement}
+              dropdownWidth={item.dropdownWidth}
+              showSelected={item.showSelected}
+              buttonTestId={item.testId}
+              editorView={editorView}
+              setDisableParentScroll={scrollable ? setDisableScroll : undefined}
+              dropdownListId={item?.id && `${item.id}-dropdownList`}
+              alignDropdownWithToolbar={items.length === 1}
+              onToggle={item.onToggle}
+            />
+          );
+
+        case 'select':
+          if (item.selectType === 'list') {
+            const ariaLabel = item.title || item.placeholder;
+            return (
+              <Select
+                key={idx}
+                dispatchCommand={dispatchCommand}
+                options={item.options}
+                hideExpandIcon={item.hideExpandIcon}
+                mountPoint={scrollable ? mountRef.current! : undefined}
+                boundariesElement={popupsBoundariesElement}
+                scrollableElement={popupsScrollableElement}
+                defaultValue={item.defaultValue}
+                placeholder={item.placeholder}
+                onChange={selected =>
+                  dispatchCommand(item.onChange(selected as SelectOption))
+                }
+                ariaLabel={ariaLabel}
+                filterOption={item.filterOption}
+                setDisableParentScroll={
+                  scrollable ? setDisableScroll : undefined
+                }
+                classNamePrefix={'floating-toolbar-select'}
+              />
+            );
+          }
+          if (item.selectType === 'color') {
+            return (
+              <ColorPickerButton
+                skipFocusButtonAfterPick
+                key={idx}
+                isAriaExpanded={item.isAriaExpanded}
+                title={item.title}
+                onChange={selected => {
+                  dispatchCommand(item.onChange(selected));
+                }}
+                colorPalette={item.options as PaletteColor[]}
+                currentColor={
+                  item.defaultValue ? item.defaultValue.value : undefined
+                }
+                placement="Panels"
+                mountPoint={emojiAndColourPickerMountPoint}
+                setDisableParentScroll={
+                  scrollable ? setDisableScroll : undefined
+                }
+                // Currently in floating toolbar, color picker is only
+                //  used in panel and table cell background color.
+                // Both uses same color palette.
+                // That's why hard-coding hexToEditorBackgroundPaletteColor
+                //  and paletteColorTooltipMessages.
+                // When we need to support different color palette
+                //  in floating toolbar, we need to set hexToPaletteColor
+                //  and paletteColorTooltipMessages in item options.
+                hexToPaletteColor={hexToEditorBackgroundPaletteColor}
+                paletteColorTooltipMessages={backgroundPaletteTooltipMessages}
+              />
+            );
+          }
+          if (item.selectType === 'emoji') {
+            return (
+              <EmojiPickerButton
+                key={idx}
+                editorView={editorView}
+                title={item.title}
+                providerFactory={providerFactory}
+                isSelected={item.selected}
+                onChange={selected => dispatchCommand(item.onChange(selected))}
+                mountPoint={emojiAndColourPickerMountPoint}
+                setDisableParentScroll={
+                  scrollable ? setDisableScroll : undefined
+                }
+              />
+            );
+          }
+          return null;
+
+        case 'extensions-placeholder':
+          if (!editorView || !extensionsProvider) {
+            return null;
+          }
+
+          return (
+            <ExtensionsPlaceholder
+              key={idx}
+              node={node}
+              editorView={editorView}
+              extensionProvider={extensionsProvider}
+              separator={item.separator}
+              applyChangeToContextPanel={api?.contextPanel?.actions.applyChange}
+              extensionApi={api?.extension?.actions.api()}
+            />
+          );
+        case 'separator':
+          return <Separator key={idx} />;
+      }
+    };
+
+    if (getBooleanFF('platform.editor.a11y-floating-toolbar-markup_vexmo')) {
+      const groupedItems = groupItems(items.filter(item => !item.hidden));
+
+      return (
+        <ButtonGroup>
+          {groupedItems.map((element, index) => {
+            const isGroup = Array.isArray(element);
+
+            if (isGroup) {
+              return (
+                <div key={index} css={buttonGroupStyles} role="radiogroup">
+                  {element.map((item, idx) => {
+                    return renderItem(item, idx);
+                  })}
+                </div>
+              );
+            } else {
+              return renderItem(element, index);
             }
           })}
-      </ButtonGroup>
-    );
+        </ButtonGroup>
+      );
+    } else {
+      return (
+        <ButtonGroup>
+          {items
+            .filter(item => !item.hidden)
+            .map((item, index) => {
+              return renderItem(item, index);
+            })}
+        </ButtonGroup>
+      );
+    }
   },
   (prevProps, nextProps) => {
     if (!nextProps.node) {
@@ -321,6 +390,11 @@ const ToolbarItems = React.memo(
     );
   },
 );
+
+const buttonGroupStyles = css({
+  display: 'flex',
+  gap: token('space.050', '4px'),
+});
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarContainer = (

@@ -78,11 +78,14 @@ import {
   insertSliceForListsInsideBlockquote,
   insertSliceForTaskInsideList,
 } from './edge-cases';
+import { insertSliceInsideOfPanelNodeSelected } from './edge-cases/lists';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
 import {
   addReplaceSelectedTableAnalytics,
   applyTextMarksToSlice,
   hasOnlyNodesOfType,
+  isEmptyNode,
+  isSelectionInsidePanel,
 } from './util';
 
 /** Helper type for single arg function */
@@ -157,6 +160,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
         listItem,
         expand,
         heading,
+        codeBlock,
       },
     } = schema;
 
@@ -170,11 +174,23 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
       taskItem,
       panel,
     ])(state.selection);
-    const selectionIsPanel = hasParentNodeOfType([panel])(state.selection);
+    const selectionIsCodeBlock = hasParentNodeOfType([codeBlock])(
+      state.selection,
+    );
+    const panelNode = isSelectionInsidePanel(selection);
+    const selectionIsPanel = Boolean(panelNode);
+
+    // we avoid handling codeBlock-in-panel use case in this function
+    // returning false will allow code to flow into `handleCodeBlock` function
+    if (selectionIsPanel && selectionIsCodeBlock) {
+      return false;
+    }
 
     // Some types of content should be handled by the default handler, not this function.
     // Check through slice content to see if it contains an invalid node.
     let sliceIsInvalid = false;
+    let sliceHasTask = false;
+
     slice.content.nodesBetween(0, slice.content.size, node => {
       if (
         node.type === bulletList ||
@@ -185,12 +201,10 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
       ) {
         sliceIsInvalid = true;
       }
-
       if (selectionIsPanel && node.type === taskList) {
-        sliceIsInvalid = true;
+        sliceHasTask = true;
       }
     });
-
     // If the selection is a panel,
     // and the slice's first node is a paragraph
     // and it is not from a depth that would indicate it being from inside from another node (e.g. text from a decision)
@@ -229,7 +243,18 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
       transformedSlice.content.firstChild.type === taskItem;
 
     const tr = closeHistory(state.tr);
-
+    if (
+      panelNode &&
+      sliceHasTask &&
+      slice.content.firstChild?.type === panel &&
+      getBooleanFF('platform.editor.handle-paste-for-action-in-panel') &&
+      isEmptyNode(panelNode) &&
+      selection.$from.node() === selection.$to.node()
+    ) {
+      return Boolean(
+        insertSliceInsideOfPanelNodeSelected(panelNode)({ tr, slice }),
+      );
+    }
     const transformedSliceIsValidNode =
       (transformedSlice.content.firstChild.type.inlineContent ||
         [

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
+import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
-import { monitorForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
-import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { monitorForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
 
 import { ColumnMap, ColumnType, getData, Person } from './data/people';
 import Board from './pieces/board-with-overflow-scroll/board';
@@ -22,7 +22,7 @@ export default function BoardExample() {
 
   useEffect(() => {
     return combine(
-      monitorForFiles({
+      monitorForExternal({
         onDragStart: args => console.log('start:file', args.source.items),
         onDrop: args => console.log('drop:file', args.source.items),
       }),

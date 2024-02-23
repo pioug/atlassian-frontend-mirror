@@ -1,3 +1,4 @@
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import type {
   AnalyticsEventPayload,
   EditorAnalyticsAPI,
@@ -22,6 +23,7 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { createCommand } from './pm-plugins/plugin-factory';
 import { findExpand } from './utils';
@@ -80,47 +82,97 @@ export const deleteExpand =
   };
 
 export const updateExpandTitle =
-  (title: string, pos: number, nodeType: NodeType): Command =>
+  ({
+    title,
+    nodeType,
+    pos,
+    __livePage,
+  }: {
+    title: string;
+    pos: number;
+    nodeType: NodeType;
+    __livePage: boolean;
+  }): Command =>
   (state, dispatch) => {
     const node = state.doc.nodeAt(pos);
     if (node && node.type === nodeType && dispatch) {
       const { tr } = state;
-      tr.setNodeMarkup(
-        pos,
-        node.type,
-        {
-          ...node.attrs,
-          title,
-        },
-        node.marks,
-      );
+
+      if (
+        getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        __livePage
+      ) {
+        tr.step(
+          new SetAttrsStep(pos, {
+            ...node.attrs,
+            title,
+          }),
+        );
+      } else {
+        tr.setNodeMarkup(
+          pos,
+          node.type,
+          {
+            ...node.attrs,
+            title,
+          },
+          node.marks,
+        );
+      }
       dispatch(tr);
     }
     return true;
   };
 
 export const toggleExpandExpanded =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  (pos: number, nodeType: NodeType): Command =>
+  ({
+    editorAnalyticsAPI,
+    pos,
+    nodeType,
+    __livePage,
+  }: {
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+    pos: number;
+    nodeType: NodeType;
+    __livePage: boolean;
+  }): Command =>
   (state, dispatch) => {
     const node = state.doc.nodeAt(pos);
     if (node && node.type === nodeType && dispatch) {
       const { tr } = state;
       const isExpandedNext = !node.attrs.__expanded;
-      tr.setNodeMarkup(
-        pos,
-        node.type,
-        {
-          ...node.attrs,
-          __expanded: isExpandedNext,
-        },
-        node.marks,
-      );
+
+      if (
+        getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        __livePage
+      ) {
+        tr.step(
+          new SetAttrsStep(pos, {
+            ...node.attrs,
+            __expanded: isExpandedNext,
+          }),
+        );
+      } else {
+        tr.setNodeMarkup(
+          pos,
+          node.type,
+          {
+            ...node.attrs,
+            __expanded: isExpandedNext,
+          },
+          node.marks,
+        );
+      }
 
       // If we're going to collapse the expand and our cursor is currently inside
       // Move to a right gap cursor, if the toolbar is interacted (or an API),
       // it will insert below rather than inside (which will be invisible).
-      if (isExpandedNext === false && findExpand(state)) {
+      if (
+        getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        __livePage
+          ? isExpandedNext === true
+          : isExpandedNext === false && findExpand(state)
+      ) {
         tr.setSelection(
           new GapCursorSelection(
             tr.doc.resolve(pos + node.nodeSize),
@@ -140,13 +192,17 @@ export const toggleExpandExpanded =
         attributes: {
           platform: PLATFORMS.WEB,
           mode: MODE.EDITOR,
-          expanded: isExpandedNext,
+          expanded:
+            getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+            __livePage
+              ? !isExpandedNext
+              : isExpandedNext,
         },
         eventType: EVENT_TYPE.TRACK,
       };
 
       // `isRemote` meta prevents this step from being
-      // sync'd between sessions in collab edit
+      // sync'd between sessions in synchrony collab edit
       tr.setMeta('isRemote', true);
       editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
       dispatch(tr);

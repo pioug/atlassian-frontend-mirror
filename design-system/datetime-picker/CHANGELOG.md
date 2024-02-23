@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 13.0.11
+
+### Patch Changes
+
+- [#74787](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74787) [`c19c3790e6f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c19c3790e6f1) - Cleaning up date picker component by exporting internal utilities.
+
+## 13.0.10
+
+### Patch Changes
+
+- [#74796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74796) [`47a2a39b4033`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47a2a39b4033) - Move types for all the pickers to the appropriate `types` file.
+
 ## 13.0.9
 
 ### Patch Changes

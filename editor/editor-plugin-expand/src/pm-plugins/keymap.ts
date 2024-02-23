@@ -25,6 +25,7 @@ import {
   Selection,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { deleteExpand, focusTitle } from '../commands';
 import type { ExpandPlugin } from '../types';
@@ -38,6 +39,9 @@ const isExpandSelected = (selection: Selection) =>
 
 export function expandKeymap(
   api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+  options: {
+    __livePage?: boolean;
+  },
 ): SafePlugin {
   const list = {};
 
@@ -139,7 +143,10 @@ export function expandKeymap(
         nodeBefore &&
         (nodeBefore.type === schema.nodes.expand ||
           nodeBefore.type === schema.nodes.nestedExpand) &&
-        !nodeBefore.attrs.__expanded
+        (getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        options.__livePage
+          ? nodeBefore.attrs.__expanded
+          : !nodeBefore.attrs.__expanded)
       ) {
         const { $from } = selection;
         return focusTitle(Math.max($from.pos - 1, 0))(
@@ -172,7 +179,12 @@ export function expandKeymap(
         const expandBefore = findExpand(state, sel);
         if (sel && expandBefore) {
           // moving cursor from outside of an expand to the title when it is collapsed
-          if (!expandBefore.node.attrs.__expanded) {
+          if (
+            getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+            options.__livePage
+              ? expandBefore.node.attrs.__expanded
+              : !expandBefore.node.attrs.__expanded
+          ) {
             return focusTitle(expandBefore.start)(state, dispatch, editorView);
           }
           // moving cursor from outside of an expand to the content when it is expanded
@@ -203,7 +215,10 @@ export function expandKeymap(
         selection.side === Side.LEFT &&
         nodeAfter &&
         (nodeAfter.type === expand || nodeAfter.type === nestedExpand) &&
-        !nodeAfter.attrs.__expanded
+        (getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+        options.__livePage
+          ? nodeAfter.attrs.__expanded
+          : !nodeAfter.attrs.__expanded)
       ) {
         const { $from } = selection;
         return focusTitle($from.pos + 1)(state, dispatch, editorView);
@@ -250,7 +265,10 @@ export function expandKeymap(
           expandBefore &&
           (expandBefore.node.type === expand ||
             expandBefore.node.type === nestedExpand) &&
-          !expandBefore.node.attrs.__expanded
+          (getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+          options.__livePage
+            ? expandBefore.node.attrs.__expanded
+            : !expandBefore.node.attrs.__expanded)
         ) {
           return focusTitle(expandBefore.start)(state, dispatch, editorView);
         }

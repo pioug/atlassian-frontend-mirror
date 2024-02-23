@@ -1,5 +1,31 @@
 # @atlaskit/editor-mobile-bridge
 
+## 192.3.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.2.9
+
+### Patch Changes
+
+- [#74783](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74783) [`84e3254e4558`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84e3254e4558) - migration to declarative entry points for renderer
+- Updated dependencies
+
+## 192.2.8
+
+### Patch Changes
+
+- [#75217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75217) [`521df3496680`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/521df3496680) - Removed explicit dev dependency @types/sharp as the package has been deprecated and no longer requried.
+- Updated dependencies
+
 ## 192.2.7
 
 ### Patch Changes

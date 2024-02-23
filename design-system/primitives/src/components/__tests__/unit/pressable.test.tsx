@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import { xcss } from '../../../xcss/xcss';
 import Pressable from '../../pressable';
 
@@ -159,6 +161,150 @@ describe('Pressable', () => {
       paddingInline: 'var(--ds-space-100, 8px)',
       paddingInlineStart: 'var(--ds-space-100, 8px)',
       paddingInlineEnd: 'var(--ds-space-100, 8px)',
+    });
+  });
+
+  describe('analytics', () => {
+    const packageName = process.env._PACKAGE_NAME_ as string;
+    const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+    it('should fire an event on the public channel and the internal channel', () => {
+      const onPublicEvent = jest.fn();
+      const onAtlaskitEvent = jest.fn();
+      function WithBoth() {
+        return (
+          <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+            <AnalyticsListener onEvent={onPublicEvent}>
+              <Pressable
+                testId={testId}
+                onClick={(event, analyticsEvent) => {
+                  // TODO: Remove optional chaining
+                  analyticsEvent?.fire();
+                }}
+                componentName="CustomComponent"
+              >
+                Pressable
+              </Pressable>
+            </AnalyticsListener>
+          </AnalyticsListener>
+        );
+      }
+      render(<WithBoth />);
+
+      const pressable = screen.getByTestId(testId);
+
+      fireEvent.click(pressable);
+
+      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'button',
+          attributes: {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        },
+        context: [
+          {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        ],
+      });
+
+      function assert(eventMock: jest.Mock<any, any>) {
+        expect(eventMock).toHaveBeenCalledTimes(1);
+        expect(eventMock.mock.calls[0][0].payload).toEqual(expected.payload);
+        expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
+      }
+      assert(onPublicEvent);
+      assert(onAtlaskitEvent);
+    });
+
+    it('should allow the addition of additional context', () => {
+      function App({
+        onEvent,
+        channel,
+        analyticsContext,
+      }: {
+        onEvent: (...args: any[]) => void;
+        channel: string | undefined;
+        analyticsContext?: Record<string, any>;
+      }) {
+        return (
+          <AnalyticsListener onEvent={onEvent} channel={channel}>
+            <Pressable
+              testId={testId}
+              analyticsContext={analyticsContext}
+              onClick={(event, analyticsEvent) => {
+                // TODO: Remove optional chaining
+                analyticsEvent?.fire();
+              }}
+              componentName="CustomComponent"
+            >
+              Pressable
+            </Pressable>
+          </AnalyticsListener>
+        );
+      }
+
+      const onEvent = jest.fn();
+      const extraContext = { hello: 'world' };
+      render(
+        <App
+          onEvent={onEvent}
+          channel="atlaskit"
+          analyticsContext={extraContext}
+        />,
+      );
+      const pressable = screen.getByTestId(testId);
+
+      fireEvent.click(pressable);
+
+      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'button',
+          attributes: {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+          },
+        },
+        context: [
+          {
+            componentName: 'CustomComponent',
+            packageName,
+            packageVersion,
+            ...extraContext,
+          },
+        ],
+      });
+      expect(onEvent).toHaveBeenCalledTimes(1);
+      expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+      expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
+    });
+
+    it('should not error if there is no analytics provider', () => {
+      const error = jest.spyOn(console, 'error');
+      const onClick = jest.fn();
+      render(
+        <Pressable
+          testId={testId}
+          onClick={onClick}
+          componentName="CustomComponent"
+        >
+          Pressable
+        </Pressable>,
+      );
+
+      const button = screen.getByTestId(testId);
+      fireEvent.click(button);
+
+      expect(error).not.toHaveBeenCalled();
+      error.mockRestore();
     });
   });
 });

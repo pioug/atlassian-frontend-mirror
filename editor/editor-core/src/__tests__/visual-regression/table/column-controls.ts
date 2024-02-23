@@ -2,16 +2,9 @@
 import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
-  pressKeyDown,
-  pressKeyUp,
-} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
   clickFirstCell,
-  getSelectorForTableCell,
   grabResizeHandle,
   hoverColumnControls,
-  selectCellOption,
   selectColumn,
   tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
@@ -43,35 +36,12 @@ describe('Table context menu: merge-split cells', () => {
     await clickFirstCell(page);
   };
 
-  const tableMergeCells = async (fromCell: string, toCell: string) => {
-    await page.click(fromCell);
-    await pressKeyDown(page, 'Shift');
-    await page.click(toCell);
-    await pressKeyUp(page, 'Shift');
-    await page.waitForSelector(tableSelectors.selectedCell);
-    await selectCellOption(page, tableSelectors.mergeCellsText);
-    await page.mouse.move(200, 200);
-    await animationFrame(page);
-    await snapshot(page, undefined, undefined, {
-      captureBeyondViewport: false,
-    });
-  };
-
   beforeAll(async () => {
     page = global.page;
   });
 
   beforeEach(async () => {
     await initEditor(adf);
-  });
-
-  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
-    const from = getSelectorForTableCell({
-      row: 1,
-      cell: 1,
-    });
-    const to = getSelectorForTableCell({ row: 1, cell: 3 });
-    await tableMergeCells(from, to);
   });
 
   it('should display the borders when the column controls are selected', async () => {

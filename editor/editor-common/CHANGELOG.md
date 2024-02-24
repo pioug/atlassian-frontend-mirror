@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 78.4.1
+
+### Patch Changes
+
+- [#75400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75400) [`6b582c433397`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b582c433397) - Fixed the margin for the action item inside the panel
+  Moved the panel test-cases from editor-plugin-context-panel-tests to editor-plugin-panel-tests
+
 ## 78.4.0
 
 ### Minor Changes

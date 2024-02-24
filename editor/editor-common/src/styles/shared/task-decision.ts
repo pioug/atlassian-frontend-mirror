@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
 import { css } from '@emotion/react';
 
 import {
@@ -59,5 +60,12 @@ export const tasksAndDecisionsStyles = css`
   div[data-task-list-local-id] div[data-task-list-local-id] {
     margin-top: ${token('space.050', '4px')};
     margin-left: ${token('space.300', '24px')};
+  }
+
+  /* When action list is inside panel */
+  .ak-editor-panel__content {
+    > div[data-task-list-local-id]:first-child {
+      margin: 0 0 0 0 !important;
+    }
   }
 `;

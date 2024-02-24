@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.11.13
+
+### Patch Changes
+
+- [#75794](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75794) [`ad85a4f7830d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad85a4f7830d) - Add accessibility unit tests for grid
+
 ## 0.11.12
 
 ### Patch Changes

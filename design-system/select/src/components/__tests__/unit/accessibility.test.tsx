@@ -19,8 +19,8 @@ describe('Select', () => {
   // TODO re-enable this test once we fix accessibility issue on select
   it.skip('Basic select should pass basic axe audit', async () => {
     const { container } = render(
-      <AtlaskitSelect options={OPTIONS} menuIsOpen />
+      <AtlaskitSelect options={OPTIONS} menuIsOpen />,
     );
     await axe(container);
   });
-})
+});

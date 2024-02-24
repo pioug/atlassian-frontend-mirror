@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
 import { css } from '@emotion/react';
 
 import {
@@ -91,7 +92,10 @@ export const codeBlockStyles = () => css`
     }
   }
 
-  .ak-editor-panel__content > .code-block {
-    margin: 0 0 0 0 !important;
+  /* When code-block is inside the panel  */
+  .ak-editor-panel__content {
+    > .code-block:first-child {
+      margin: 0 0 0 0 !important;
+    }
   }
 `;

@@ -275,6 +275,18 @@ describe('useDatasourceTableState', () => {
       expect(result.current.extensionKey).toEqual(expectedExtensionKey);
     });
 
+    it('should populate providerName with the value received in meta after getDatasourceData call', async () => {
+      asMock(getDatasourceData).mockResolvedValue(
+        mockDatasourceDataResponseWithSchema,
+      );
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      const expectedProviderName =
+        mockDatasourceDataResponseWithSchema.meta.providerName;
+      expect(result.current.providerName).toEqual(expectedProviderName);
+    });
+
     it('should populate destinationObjectTypes with the value received in meta after getDatasourceData call', async () => {
       asMock(getDatasourceData).mockResolvedValue(
         mockDatasourceDataResponseWithSchema,
@@ -711,6 +723,7 @@ describe('useDatasourceTableState', () => {
           ...mockDatasourceDataResponseWithSchema,
           meta: {
             access: 'unauthorized',
+            providerName: 'Amplitude',
             auth: [
               {
                 key: 'amplitude',
@@ -731,6 +744,37 @@ describe('useDatasourceTableState', () => {
             url: 'https://id.atlassian.com/login',
           },
         ]);
+      });
+
+      it('should update providerName when the data request is unauthorized', async () => {
+        asMock(getDatasourceData).mockResolvedValue({
+          ...mockDatasourceDataResponseWithSchema,
+          meta: {
+            access: 'unauthorized',
+            providerName: 'Amplitude',
+            auth: [
+              {
+                key: 'amplitude',
+                displayName: 'Atlassian Links - Amplitude',
+                url: 'https://id.atlassian.com/login',
+              },
+            ],
+          },
+        });
+
+        const { waitForNextUpdate, result } = setup();
+        await waitForNextUpdate();
+
+        expect(result.current.providerName).toEqual('Amplitude');
+      });
+
+      it('should not update providerName if the data request fails', async () => {
+        asMock(getDatasourceData).mockRejectedValue(new Error('error'));
+
+        const { waitForNextUpdate, result } = setup();
+        await waitForNextUpdate();
+
+        expect(result.current.providerName).toBeUndefined();
       });
     });
 
@@ -855,6 +899,7 @@ describe('useDatasourceTableState', () => {
         ...mockDatasourceDetailsResponse,
         meta: {
           access: 'unauthorized',
+          providerName: 'Amplitude',
           auth: [
             {
               key: 'amplitude',
@@ -1081,6 +1126,7 @@ describe('useDatasourceTableState', () => {
         ...mockDatasourceDataResponseWithSchema,
         meta: {
           access: 'unauthorized',
+          providerName: 'Amplitude',
           auth: [
             {
               key: 'amplitude',

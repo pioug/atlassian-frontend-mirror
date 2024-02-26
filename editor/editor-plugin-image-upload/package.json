@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-image-upload",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Image upload plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,9 +32,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.4.0",
+    "@atlaskit/editor-common": "^78.5.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/prosemirror-input-rules": "^2.4.0",
+    "@atlaskit/prosemirror-input-rules": "^3.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

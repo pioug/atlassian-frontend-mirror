@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.30.0
+
+### Minor Changes
+
+- [#75603](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75603) [`51cf4796aa02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/51cf4796aa02) - Use primitives text component rule
+
 ## 8.29.1
 
 ### Patch Changes

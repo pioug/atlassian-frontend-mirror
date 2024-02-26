@@ -70,13 +70,13 @@ export const loadingErrorMessages = defineMessages({
   },
   authScreenHeaderText: {
     id: 'linkDataSource.datasource.table.authScreenHeaderText',
-    defaultMessage: 'Connect your account',
+    defaultMessage: 'Connect your {providerName} account',
     description: 'Header text to be displayed in the auth screen UI.',
   },
   authScreenDescriptionText: {
     id: 'linkDataSource.datasource.table.authScreenDescriptionText',
     defaultMessage:
-      'Connect your account to collaborate on work across Atlassian products.',
+      'Connect your {providerName} account to collaborate on work across Atlassian products.',
     description: 'Description text to be displayed in the auth screen UI.',
   },
   learnMoreAboutSmartLinks: {

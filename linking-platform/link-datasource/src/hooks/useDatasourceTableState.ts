@@ -58,6 +58,8 @@ export interface DatasourceTableState {
   destinationObjectTypes: string[];
   /** Used as an indicated of which provider type is being used - originates from ORS */
   extensionKey?: string;
+  /** Indicates which provider name is being used - originates from ORS */
+  providerName?: string;
   /** Auth info used to connect to the provider account. */
   authDetails?: DatasourceMeta['auth'];
 }
@@ -111,6 +113,8 @@ export const useDatasourceTableState = ({
   >([]);
   const [extensionKey, setExtensionKey] =
     useState<DatasourceTableState['extensionKey']>();
+  const [providerName, setProviderName] =
+    useState<DatasourceTableState['providerName']>(undefined);
 
   const { getDatasourceData, getDatasourceDetails } =
     useDatasourceClientExtension();
@@ -235,7 +239,13 @@ export const useDatasourceTableState = ({
 
       try {
         const {
-          meta: { access, destinationObjectTypes, extensionKey, auth },
+          meta: {
+            access,
+            destinationObjectTypes,
+            extensionKey,
+            auth,
+            providerName,
+          },
           data: { items, nextPageCursor, totalCount, schema },
         } = await getDatasourceData(
           datasourceId,
@@ -244,13 +254,13 @@ export const useDatasourceTableState = ({
         );
 
         setExtensionKey(extensionKey);
+        setProviderName(providerName);
 
         if (access === 'unauthorized' || access === 'forbidden') {
           setStatus(access);
           setAuthDetails(auth || initialEmptyArray);
           return;
         }
-
         setDestinationObjectTypes(destinationObjectTypes);
         setTotalCount(totalCount);
         setNextCursor(nextPageCursor);
@@ -410,6 +420,7 @@ export const useDatasourceTableState = ({
     defaultVisibleColumnKeys,
     totalCount,
     extensionKey,
+    providerName,
     destinationObjectTypes,
     authDetails,
   };

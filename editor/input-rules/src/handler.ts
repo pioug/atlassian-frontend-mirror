@@ -1,4 +1,3 @@
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type {
   EditorState,
   PluginKey,
@@ -10,6 +9,7 @@ import {
   MAX_REGEX_MATCH,
   TEXT_INPUT_RULE_TRANSACTION_KEY,
 } from './constants';
+import { isGapCursorSelection } from './editor-common';
 import type {
   HandleInputEvent,
   InputRulePluginState,
@@ -116,10 +116,9 @@ function findMatchOnRules({
     // and `textBefore` contains the text in the previous block before the gap cursor.
     // Here is a workaround: if we inside a gap cursor, match the input rule only against the last typed character
     // (which may be a typeahead trigger) and ignore the rest.
-    const matchString: string =
-      state.selection instanceof GapCursorSelection
-        ? textBefore.at(-1) ?? ''
-        : textBefore;
+    const matchString: string = isGapCursorSelection(state.selection)
+      ? textBefore.at(-1) ?? ''
+      : textBefore;
 
     const match = rule.match.exec(matchString);
     if (!match) {

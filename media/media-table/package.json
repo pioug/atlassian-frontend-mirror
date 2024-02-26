@@ -76,6 +76,5 @@
       ]
     }
   },
-  "resolutions": {},
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

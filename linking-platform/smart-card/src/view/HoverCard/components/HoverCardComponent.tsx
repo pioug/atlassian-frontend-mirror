@@ -45,6 +45,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const renderers = useSmartLinkRenderers();
   const linkState = useLinkState(url);
+
   const analytics = useSmartLinkAnalytics(url, undefined, id);
   const { loadMetadata } = useSmartCardActions(id, url, analytics);
 

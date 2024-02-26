@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.5.2
+
+### Patch Changes
+
+- [#75775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75775) [`d0cee3285a1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0cee3285a1a) - ED-22287: Adding 16px right padding to panel for all elements. Also using 12px for the no-icon usecase.
+- Updated dependencies
+
+## 109.5.1
+
+### Patch Changes
+
+- [#74946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74946) [`6a1fca4dee65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1fca4dee65) - [ux] Media Inline Images now support previewer when clicked in renderer
+
 ## 109.5.0
 
 ### Minor Changes

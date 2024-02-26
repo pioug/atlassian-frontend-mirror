@@ -129,6 +129,7 @@ export const RenderMediaInline: FC<RenderMediaInlineProps> = ({
       eventHandlers?.media?.onClick(result);
     }
   };
+
   const shouldOpenMediaViewer = rendererAppearance !== 'mobile';
   const shouldDisplayToolTip = rendererAppearance !== 'mobile';
   const { id, collection } = clipboardAttrs;
@@ -187,6 +188,7 @@ const MediaInline: FC<
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
   if (fileType === 'image') {
+    const hasLinkMark = marks?.find((mark) => mark.type.name === 'link');
     const borderMark = marks?.find((mark) => mark?.type.name === 'border');
     const borderColor = borderMark?.attrs.color ?? '';
     const borderSize = borderMark?.attrs.size ?? 0;
@@ -206,6 +208,7 @@ const MediaInline: FC<
           ssr={ssr}
           border={{ borderSize, borderColor }}
           serializeDataAttrs
+          shouldOpenMediaViewer={!hasLinkMark}
         />
       </ErrorBoundary>
     );

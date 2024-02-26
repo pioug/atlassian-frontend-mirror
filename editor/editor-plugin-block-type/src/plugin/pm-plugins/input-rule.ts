@@ -7,17 +7,19 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { insertBlock } from '@atlaskit/editor-common/commands';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   FeatureFlags,
   HeadingLevelsAndNormalText,
+  InputRuleWrapper,
 } from '@atlaskit/editor-common/types';
-import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import {
+  createRule,
+  inputRuleWithAnalytics,
+} from '@atlaskit/editor-common/utils';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -143,9 +145,11 @@ function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('block-type', rules, {
-      isBlockNodeRule: true,
-    });
+    return new SafePlugin(
+      createPlugin('block-type', rules, {
+        isBlockNodeRule: true,
+      }),
+    );
   }
 
   return;

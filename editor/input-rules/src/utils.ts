@@ -1,14 +1,14 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
-import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  SafePluginSpec,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
+import { isGapCursorSelection } from './editor-common';
 import { createInputRulePlugin } from './plugin';
-import type { OnInputEvent } from './types';
-
-export { createRule } from '@atlaskit/editor-common/utils';
+import type { InputRuleWrapper, OnInputEvent } from './types';
 
 const hasUnsupportedMarks = (
   state: EditorState,
@@ -50,7 +50,7 @@ export const createPlugin = (
   pluginName: string,
   rules: Array<InputRuleWrapper>,
   options: Options = {},
-): SafePlugin => {
+): SafePluginSpec => {
   const { isBlockNodeRule = false, allowInsertTextOnDocument = true } = options;
 
   const onInputEvent: OnInputEvent = ({ state, from, to }) => {
@@ -63,7 +63,7 @@ export const createPlugin = (
     if (
       $from.parent.type.spec.code ||
       (!(state.selection instanceof TextSelection) &&
-        !(state.selection instanceof GapCursorSelection)) ||
+        !isGapCursorSelection(state.selection)) ||
       hasUnsupportedMarks(state, from, to, unsupportedMarks) ||
       (isBlockNodeRule &&
         isCursorInsideUnsupportedMarks(state, unsupportedMarks))

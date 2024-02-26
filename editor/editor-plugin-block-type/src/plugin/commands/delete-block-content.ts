@@ -27,6 +27,14 @@ const isSelectedNodeSoleDecisionItem = (state: EditorState): boolean => {
   return decisionList?.childCount === 1;
 };
 
+const isSelectedNodeMediaGroup = (state: EditorState): boolean => {
+  return Boolean(
+    state.selection instanceof NodeSelection &&
+      state.selection.node.type.name === 'media' &&
+      state.selection.$head.parent.type.name === 'mediaGroup',
+  );
+};
+
 /**
  * Prevent removing the block when deleting block content
  *
@@ -63,13 +71,17 @@ export function deleteBlockContent(
       return false;
     }
 
-    const decisionIsInsidePanel = hasParentNodeOfType([
+    const isParentNodeOfTypePanel = hasParentNodeOfType([
       state.schema.nodes.panel,
     ])(state.selection);
 
     // If decision is inside panel and the decision list have only one decision item which is selected,
     // delete the whole decision list.
-    if (decisionIsInsidePanel && isSelectedNodeSoleDecisionItem(state)) {
+    // Also, checks if selection is a mediaGroup node within a panel
+    if (
+      isParentNodeOfTypePanel &&
+      (isSelectedNodeSoleDecisionItem(state) || isSelectedNodeMediaGroup(state))
+    ) {
       tr.setSelection(new TextSelection(tr.doc.resolve($from.before()))).delete(
         $from.before(),
         $from.after(),

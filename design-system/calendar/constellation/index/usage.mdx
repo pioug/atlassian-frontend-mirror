@@ -1,0 +1,35 @@
+---
+title: Calendar
+description: An interactive calendar for date selection experiences.
+order: 2
+---
+
+## Usage
+
+Use the calendar for experiences where you need to visually present dates across the span of a month. Calendars can be interactive and selectable.
+
+## Accessibility
+
+For most situations, use the [date picker](/components/datetime-picker/date-picker/examples) or [date time picker](/components/datetime-picker/examples) components instead of the calendar. These components give people the option to enter a date as text instead of relying on selection, and provides more helpful validation and error messaging options.
+
+Assistive technology will announce the calendar component as a table. When a date receives focus, the full date (day, month and year) will be announced. The order and phrasing of the date announcement changes depending on [locale](/components/calendar/examples#localization).
+
+## Behavior
+
+### Disabled dates
+
+You can use the `disabled`, `disabledDateFilter`, `maxDate` or `minDate` props to disable dates. These dates won't be focusable or selectable. This can be used to help people save time when trying to select valid dates, but make sure that the reason for disabling the dates is made clear in the preceding text.
+
+For example, for a calendar that has appointment dates, you could include information like “You can select from dates within the next three months that have appointments available”.
+
+### Keyboard navigation
+
+People can navigate the entire calendar (including disabled dates) using the arrow keys. Disabled dates appear in the focus order, but can’t be selected.
+
+### Localization
+
+Ensure that the [locale](/components/calendar/examples#localization) is appropriately set so that people see dates and times in a familiar format.
+
+## Related
+
+For most use cases, use the [date picker](/components/datetime-picker/date-picker/examples) or [date time picker](/components/datetime-picker/examples) components instead of the calendar.

@@ -8,12 +8,48 @@ module.exports = {
 };
 ```
 
-To add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has the ability to modify the DOM of your stories.
+## Storybook v6 and below
+
+Add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has the ability to modify the DOM of your stories.
 
 ```diff
-+import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
++ import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
 
 const { addDecorator } = require('@storybook/react');
 
-+addDecorator(withDesignTokens);
++ addDecorator(withDesignTokens);
+```
+
+## Storybook v7 and above
+
+For Storybook version 7, the following changes are necessary:
+
+1. Initialising the `globalTypes.adsTheme` property in the global context
+2. Disable the [built in `backgrounds` add on](https://storybook.js.org/docs/essentials/backgrounds#disable-backgrounds), as it conflicts with the ADS theming
+
+Both of these can be done in [the `preview` file](https://storybook.js.org/docs/configure#configure-story-rendering):
+
+```diff
++ import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
+
+const preview = {
+  globalTypes: {
++     adsTheme: {
++       description: 'Atlassian Design System theming options',
++       defaultValue: 'light',
+    },
+  },
+  decorators: [
++     withDesignTokens
+  ],
+  parameters: {
++     /**
++      * Disabling the builtin backgrounds addon so it doesn't override the ADS theming
++      * See: https://storybook.js.org/docs/essentials/backgrounds#disable-backgrounds
++      */
++     backgrounds: { disable: true },
+  },
+};
+
+export default preview;
 ```

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.3.11
+
+### Patch Changes
+
+- [#76016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76016) [`a93d86a19f91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a93d86a19f91) - improve drag and drop cursor active and disabled states
+- [#76115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76115) [`3e3eb7cf04e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e3eb7cf04e1) - ED-21718 Transform slice to remove nestedExpand from slice before pasting
+- Updated dependencies
+
+## 7.3.10
+
+### Patch Changes
+
+- [#75205](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75205) [`add1e7b7f424`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/add1e7b7f424) - Reduce NCS spam when holding the move column/row keyboard shortcut
+
 ## 7.3.9
 
 ### Patch Changes

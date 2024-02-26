@@ -8,7 +8,10 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { getCellsInRow } from '@atlaskit/editor-tables/utils';
+import {
+  getCellsInRow,
+  getSelectedCellInfo,
+} from '@atlaskit/editor-tables/utils';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -313,17 +316,49 @@ export const createPlugin = (
         return decorationSet;
       },
       handleKeyDown: (view, event) => {
-        const isDragHandleFocused = [
-          'drag-handle-button-row',
-          'drag-handle-button-column',
-        ].includes(((event.target as HTMLElement) || null)?.id);
-        const keysToTrap = ['Enter', ' '];
+        const {
+          state: { tr },
+        } = view;
+
         const keysToTrapWhen = [
           'ArrowUp',
           'ArrowDown',
           'ArrowLeft',
           'ArrowRight',
         ];
+
+        /** fix for NCS spam update where the user is holding down the move column / row keyboard shortcut
+         * if the user is holding down shortcut (ctrl + shift + alt + arrowKey), we want to move the selection only once
+         * See ticket ED-22154 https://product-fabric.atlassian.net/browse/ED-22154
+         */
+
+        // Do early check for the keys we want to trap here so we can abort early
+        if (event.ctrlKey && event.shiftKey && event.altKey) {
+          const {
+            verticalCells,
+            horizontalCells,
+            totalRowCount,
+            totalColumnCount,
+          } = getSelectedCellInfo(tr.selection);
+
+          const isRowOrColumnSelected =
+            horizontalCells === totalColumnCount ||
+            verticalCells === totalRowCount;
+          if (
+            isRowOrColumnSelected &&
+            keysToTrapWhen.includes(event.key) &&
+            event.repeat
+          ) {
+            return true;
+          }
+        }
+
+        const isDragHandleFocused = [
+          'drag-handle-button-row',
+          'drag-handle-button-column',
+        ].includes(((event.target as HTMLElement) || null)?.id);
+        const keysToTrap = ['Enter', ' '];
+
         const { isDragMenuOpen } = getPluginState(view.state);
 
         // drag handle is focused, and user presses any key return them back to editing

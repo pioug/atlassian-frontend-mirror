@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-list
 
+## 3.1.11
+
+### Patch Changes
+
+- [#75482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75482) [`18b5a6fb910a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18b5a6fb910a) - # MAJOR CHANGE to `@atlaskit/prosemirror-input-rules` package.
+
+  ## WHY?
+
+  Removing editor-common dependencies from prosemirror-input-rules package.
+
+  This makes it easier for editor updates because it simplifies our dependency graph.
+
+  ## WHAT and HOW?
+
+  These are no longer available via `@atlaskit/prosemirror-input-rules` but are available from `@atlaskit/editor-common/types`:
+
+  - InputRuleWrapper
+  - InputRuleHandler
+  - OnHandlerApply
+  - createRule
+
+  These have changed from a `SafePlugin` to a `SafePluginSpec`. In order to update your code you need to instantiate a `SafePlugin` (ie. `new SafePlugin(createPlugin( ... ))`).
+
+  `SafePlugin` exists in `@atlaskit/editor-common/safe-plugin`.
+
+  - createPlugin
+  - createInputRulePlugin
+
+- Updated dependencies
+
 ## 3.1.10
 
 ### Patch Changes

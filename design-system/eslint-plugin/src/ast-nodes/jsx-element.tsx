@@ -7,6 +7,8 @@ import {
   JSXSpreadAttribute,
 } from 'eslint-codemod-utils';
 
+import { JSXAttribute as HelperJSXAttribute } from './jsx-attribute';
+
 export const JSXElementHelper = {
   /**
    * Names of JSXElements can be any of:
@@ -14,8 +16,8 @@ export const JSXElementHelper = {
    * `<MyComponents.Component></MyComponents.Component>` - `MyComponents` is a namespace (JSXNamespacedName)
    * `<MyComponents.Component></MyComponents.Component>` - `MyComponents` is an object (JSXMemberExpression)
    *
-   * Getting the name of a JSXMemberExpression is difficult, because object can contain objects, which is recursively defined in the AST.
-   * e.g. getting the name of `<MyComponents.PresentationLayer.LeftSideBar.Header />` would require `getName` to recursively resolve all parts of the name.
+   * getting the name of a JSXMemberExpression is difficult, because object can contain objects, which is recursively defined in the AST.
+   * e.g. Getting the name of `<MyComponents.PresentationLayer.LeftSideBar.Header />` would require `getName` to recursively resolve all parts of the name.
    * `getName` does not currently have this functionality. Add it if you need it.
    */
   getName(node: JSXElement): string {
@@ -77,6 +79,49 @@ export const JSXElementHelper = {
         return isNodeOfType(attr, 'JSXSpreadAttribute');
       },
     );
+  },
+
+  addAttribute(
+    node: JSXElement,
+    name: string,
+    value: string,
+    fixer: Rule.RuleFixer,
+  ): Rule.Fix {
+    const attributeString = ` ${name}='${value}'`;
+    const isSelfClosing = JSXElementHelper.isSelfClosing(node);
+    const start = node.openingElement.range ? node.openingElement.range[0] : 0;
+    const end = node.openingElement.range
+      ? node.openingElement.range[1] - (isSelfClosing ? 3 : 1)
+      : 0;
+    const range: [number, number] = [start, end];
+    const fix = fixer.insertTextAfterRange(range, attributeString);
+    return fix;
+  },
+
+  getChildren(node: JSXElement): JSXElement['children'] {
+    // Filter out text children with whitespace characters only as JSX removes whitespace used for intendation
+    const filteredChildren = node.children.filter((child) => {
+      if (isNodeOfType(child, 'JSXText')) {
+        const whiteSpaceChars = new RegExp('\\s', 'g');
+        return !whiteSpaceChars.test(child.value);
+      }
+      return true;
+    });
+    return filteredChildren;
+  },
+
+  hasAllowedAttrsOnly(node: JSXElement, allowedProps: string[]): boolean {
+    const attrs = JSXElementHelper.getAttributes(node);
+
+    return attrs.every((attr: JSXAttribute | JSXSpreadAttribute) => {
+      if (!isNodeOfType(attr, 'JSXAttribute')) {
+        return false;
+      }
+
+      const name = HelperJSXAttribute.getName(attr);
+
+      return allowedProps.includes(name);
+    });
   },
 };
 

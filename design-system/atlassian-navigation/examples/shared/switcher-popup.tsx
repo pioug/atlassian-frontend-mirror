@@ -65,7 +65,6 @@ const SwitcherData = ({ update }: SwitcherDataProps) => {
       <div style={{ padding: `0 ${token('space.200', '16px')}` }}>
         <AtlassianSwitcher
           product="jira"
-          disableCustomLinks
           cloudId="some-cloud-id"
           appearance="standalone"
         />

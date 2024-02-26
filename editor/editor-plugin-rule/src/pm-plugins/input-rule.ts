@@ -7,7 +7,9 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { safeInsert } from '@atlaskit/editor-common/insert';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -17,10 +19,8 @@ import type {
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 
 export const createHorizontalRule = (
   state: EditorState,
@@ -124,9 +124,11 @@ export function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('rule', rules, {
-      isBlockNodeRule: true,
-    });
+    return new SafePlugin(
+      createPlugin('rule', rules, {
+        isBlockNodeRule: true,
+      }),
+    );
   }
 
   return;

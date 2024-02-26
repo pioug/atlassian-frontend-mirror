@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression */
+
 import { css } from '@emotion/react';
 
 import {
@@ -789,6 +791,7 @@ export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
       }
 
       &.${ClassName.DRAG_HANDLE_DISABLED} {
+        cursor: pointer;
         & svg {
           & > rect.${ClassName.DRAG_HANDLE_MINIMISED} {
             fill: ${token('color.background.accent.gray.subtler', '#DCDFE4')};
@@ -823,10 +826,18 @@ export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
           }
         }
 
+        &:active {
+          cursor: grabbing;
+        }
+
         &.selected {
           :focus {
             outline: 2px solid ${token('color.border.focused', '#2684FF')};
             outline-offset: 1px;
+          }
+
+          &:active {
+            outline: none;
           }
 
           svg {

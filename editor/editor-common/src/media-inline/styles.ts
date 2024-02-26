@@ -88,6 +88,10 @@ export const selectedStyle = css({
   outline: 'none',
 });
 
+export const interactiveStyle = css({
+  cursor: 'pointer',
+});
+
 export const borderStyle = css({
   borderColor: `var(${INLINE_IMAGE_BORDER_COLOR_CSS_VAR_KEY})`,
   borderStyle: 'solid',

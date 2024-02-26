@@ -1,9 +1,3 @@
-import type {
-  InputRuleHandler,
-  InputRuleWrapper,
-  OnHandlerApply,
-} from '@atlaskit/editor-common/types';
-
 import type { OnInputEvent } from './types';
 
 export {
@@ -12,20 +6,6 @@ export {
   MAX_REGEX_MATCH,
 } from './constants';
 export { createInputRulePlugin } from './plugin';
-export type {
-  /**
-   * @deprecated Please import this type from @atlaskit/editor-commmon/types
-   */
-  InputRuleWrapper,
-  /**
-   * @deprecated Please import this type from @atlaskit/editor-commmon/types
-   */
-  InputRuleHandler,
-  OnInputEvent,
-  /**
-   * @deprecated Please import this type from @atlaskit/editor-commmon/types
-   */
-  OnHandlerApply,
-};
+export type { OnInputEvent };
 
-export { createRule, createPlugin } from './utils';
+export { createPlugin } from './utils';

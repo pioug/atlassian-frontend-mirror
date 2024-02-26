@@ -50,6 +50,7 @@ const DatasourceTableViewWithoutAnalytics = ({
     totalCount,
     loadDatasourceDetails,
     extensionKey = null,
+    providerName,
     destinationObjectTypes,
     authDetails,
   } = useDatasourceTableState({
@@ -170,6 +171,7 @@ const DatasourceTableViewWithoutAnalytics = ({
       <ProviderAuthRequired
         auth={authDetails}
         extensionKey={extensionKey}
+        providerName={providerName}
         onAuthSuccess={forcedReset}
         onAuthError={forcedReset}
       />

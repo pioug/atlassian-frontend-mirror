@@ -1,14 +1,16 @@
-import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
+import type {
+  InputRuleHandler,
+  InputRuleWrapper,
+} from '@atlaskit/editor-common/types';
+import {
+  createRule,
+  createWrappingJoinRule,
+} from '@atlaskit/editor-common/utils';
 import type {
   NodeType,
   Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type {
-  InputRuleHandler,
-  InputRuleWrapper,
-} from '@atlaskit/prosemirror-input-rules';
-import { createRule } from '@atlaskit/prosemirror-input-rules';
 
 import { WRAPPER_BLOCK_TYPES } from './block-types';
 

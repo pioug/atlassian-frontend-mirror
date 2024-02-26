@@ -16,7 +16,6 @@ import {
 } from '../../utils';
 import { cssToXcssTransformer } from '../css-to-xcss';
 
-import { containsOnlySupportedAttrs } from './contains-only-supported-attrs';
 import * as supported from './supported';
 import { upsertImportDeclaration } from './upsert-import-declaration';
 
@@ -70,7 +69,7 @@ export const EmotionCSS = {
     }
 
     // Ignore elements that contain dangerous attributes like `id`.
-    if (!containsOnlySupportedAttrs(node)) {
+    if (!ast.JSXElement.hasAllowedAttrsOnly(node, supported.attributes)) {
       return false;
     }
 

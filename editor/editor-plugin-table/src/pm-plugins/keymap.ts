@@ -129,6 +129,13 @@ export function keymapPlugin(
 
   if (dragAndDropEnabled) {
     // Move row/column shortcuts
+    /**
+     * NOTE: If the keyboard shortcut for moving rows or columns is changed, we need to update the handleKeyDown function
+     * in packages/editor/editor-plugin-table/src/pm-plugins/drag-and-drop/plugin.ts
+     * to make sure the logic for holding the shortcut keys is valid
+     * See ticket ED-22154 https://product-fabric.atlassian.net/browse/ED-22154
+     */
+
     bindKeymapWithCommand(
       moveRowDown.common!,
       moveSourceWithAnalyticsViaShortcut(editorAnalyticsAPI)('table-row', 1),

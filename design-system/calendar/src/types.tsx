@@ -22,32 +22,31 @@ export type SelectEvent = {
 
 export interface CalendarProps extends WithAnalyticsEventsProps {
   /**
-   * The number of the day currently focused. Places border around the date. 0 highlights no date.
+   * The number of the day currently focused. Places border around the date. Enter `0` to highlight no date.
    */
   day?: number;
   /**
-   * Default for `day`.
+   * Sets the default value for `day`.
    */
   defaultDay?: number;
   /**
-   * Default for `month`.
+   * Sets the default value for `month`.
    */
   defaultMonth?: number;
   /**
-   * Default for `previouslySelected`.
+   * Sets the default value for `previouslySelected`.
    */
   defaultPreviouslySelected?: Array<string>;
   /**
-   * Default for `selected`.
+   * Sets the default value for `selected`.
    */
   defaultSelected?: Array<string>;
   /**
-   * Default for `year`.
+   * Sets the default value for `year`.
    */
   defaultYear?: number;
   /**
-   * Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out.
-   * This does not prevent these dates being selected.
+   * Takes an array of dates as string in the format 'YYYY-MM-DD'. All dates provided are greyed out and not selectable.
    */
   disabled?: Array<string>;
   /**
@@ -55,11 +54,11 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   disabledDateFilter?: (date: string) => boolean;
   /**
-   * The latest enabled date
+   * The latest enabled date. All dates in the future after this date will be disabled.
    */
   maxDate?: string;
   /**
-   * The earliest enabled date
+   * The earliest enabled date. All dates in the past before this date will be disabled.
    */
   minDate?: string;
   /**
@@ -67,7 +66,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   month?: number;
   /**
-   * The aria-label attribute associated with the next-month arrow.
+   * The aria-label attribute associated with the next month arrow, to describe it to assistive technology.
    */
   nextMonthLabel?: string;
   /**
@@ -80,7 +79,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   onChange?: (event: ChangeEvent, analyticsEvent: UIAnalyticsEvent) => void;
   /**
-   * Called when the calendar receives focus. This could be from a mouse event on the container by tabbing into it.
+   * Called when the calendar receives focus. This could be called from a mouse event on the container, or by tabbing into it.
    */
   onFocus?: React.FocusEventHandler;
   /**
@@ -96,7 +95,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   previouslySelected?: Array<string>;
   /**
-   * The aria-label attribute associated with the previous-month arrow.
+   * The aria-label attribute associated with the previous month arrow, to describe it to assistive technology.
    */
   previousMonthLabel?: string;
   /**
@@ -113,7 +112,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   year?: number;
   /**
-   * BCP 47 language tag (e.g. ja-JP) that ensures dates are in the official format for the locale.
+   * BCP 47 language tag (e.g. `ja-JP`) that ensures dates are in the official format for the locale.
    */
   locale?: string;
   /**
@@ -121,14 +120,14 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   analyticsContext?: Record<string, any>;
   /**
-   * Start day of the week for the calendar.
-   * - `0` sunday (default value)
-   * - `1` monday
-   * - `2` tuesday
-   * - `3` wednesday
-   * - `4` thursday
-   * - `5` friday
-   * - `6` saturday
+   * Start day of the week for the calendar. The mapping between numbers and days of the week is as follows:
+   * - `0` Sunday (default value)
+   * - `1` Monday
+   * - `2` Tuesday
+   * - `3` Wednesday
+   * - `4` Thursday
+   * - `5` Friday
+   * - `6` Saturday
    */
   weekStartDay?: WeekDay;
   /**
@@ -143,11 +142,11 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   testId?: string;
   /**
-   * Class name to apply to the calendar
+   * Class name to apply to the calendar.
    */
   className?: string;
   /**
-   * Style customization to apply to the calendar
+   * Style customization to apply to the calendar.
    */
   style?: CSSProperties;
   /**

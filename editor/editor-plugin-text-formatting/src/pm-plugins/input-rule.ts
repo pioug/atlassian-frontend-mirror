@@ -7,16 +7,18 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { transformSmartCharsMentionsAndEmojis } from '@atlaskit/editor-common/mark';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   InputRuleHandler,
   InputRuleWrapper,
 } from '@atlaskit/editor-common/types';
-import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import {
+  createRule,
+  inputRuleWithAnalytics,
+} from '@atlaskit/editor-common/utils';
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -360,7 +362,7 @@ export function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('text-formatting', rules);
+    return new SafePlugin(createPlugin('text-formatting', rules));
   }
   return;
 }

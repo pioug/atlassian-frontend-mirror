@@ -125,16 +125,16 @@ if (isMediaMockOptedIn()) {
  *                                    80px - 48px (Outside of iframe)
  *
  */
-export const wrapper: any = css`
-  box-sizing: border-box;
-  height: 100%;
-`;
+export const wrapper: any = css({
+  boxSizing: 'border-box',
+  height: '100%',
+});
 
-export const content: any = css`
-  padding: 0;
-  height: 100%;
-  box-sizing: border-box;
-`;
+export const content: any = css({
+  padding: 0,
+  height: '100%',
+  boxSizing: 'border-box',
+});
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
@@ -537,6 +537,7 @@ export class ExampleEditorComponent extends React.Component<
                   ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
+                  'table-drag-and-drop': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}

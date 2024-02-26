@@ -7,8 +7,9 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
@@ -19,7 +20,6 @@ import type { EmojiProvider } from '@atlaskit/emoji/resource';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -38,7 +38,7 @@ export function inputRulePlugin(
       inputRuleHandler(editorAnalyticsAPI),
     );
 
-    return createPlugin('emoji', [asciiEmojiRule]);
+    return new SafePlugin(createPlugin('emoji', [asciiEmojiRule]));
   }
   return;
 }

@@ -237,6 +237,17 @@ interface EditorBaseProps {
    * ```
    */
   featureFlags?: { [featureFlag: string]: string | boolean };
+
+  /**
+   * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
+   *
+   * This is expected to be removed in Q4 as Editor and Live Page teams align on a singular behaviour.
+   *
+   * It is only supported for use by Confluence.
+   *
+   * @default false
+   */
+  __livePage?: boolean;
 }
 
 // These are props that are shared between the editor and the plugin components.
@@ -288,16 +299,6 @@ export interface EditorProps
      */
     __plugins: EditorPlugin[];
   };
-  /**
-   * There is expected to be temporary divergence between Live Page editor expand behaviour and the standard expand behaviour.
-   *
-   * This is expected to be removed in Q4 as Editor and Live Page teams align on a singular behaviour.
-   *
-   * It is only supported for use by Confluence.
-   *
-   * @default false
-   */
-  __livePage?: boolean;
 }
 
 export interface EditorNextProps

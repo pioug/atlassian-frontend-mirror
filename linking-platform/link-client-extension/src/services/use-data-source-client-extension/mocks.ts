@@ -12,6 +12,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
     product: 'jira',
     visibility: 'restricted',
     extensionKey: 'jira-object-provider',
+    providerName: 'Jira',
     destinationObjectTypes: ['issue'],
   },
   data: {
@@ -98,6 +99,7 @@ export const mockDatasourceDetailsResponse: DatasourceDetailsResponse = {
     product: 'jira',
     visibility: 'restricted',
     extensionKey: 'jira-object-provider',
+    providerName: 'Jira',
     destinationObjectTypes: ['issue'],
   },
   data: {

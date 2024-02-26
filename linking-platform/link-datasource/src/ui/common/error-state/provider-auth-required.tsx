@@ -31,6 +31,7 @@ interface ProviderAuthRequiredProps {
   onAuthSuccess: () => void;
   onAuthError: () => void;
   extensionKey: string | null;
+  providerName: DatasourceMeta['providerName'];
 }
 
 export const ProviderAuthRequired = ({
@@ -38,10 +39,12 @@ export const ProviderAuthRequired = ({
   onAuthSuccess,
   onAuthError,
   extensionKey,
+  providerName,
 }: ProviderAuthRequiredProps) => {
   const { formatMessage } = useIntl();
   const { captureError } = useErrorLogger();
   const { fireEvent } = useDatasourceAnalyticsEvents();
+  const [authInfo] = auth;
 
   useEffect(() => {
     fireEvent('ui.error.shown', {
@@ -50,8 +53,6 @@ export const ProviderAuthRequired = ({
   }, [fireEvent]);
 
   const onAuthRequest = async () => {
-    const [authInfo] = auth;
-
     try {
       await outboundAuth(authInfo.url);
       fireEvent('operational.provider.authSuccess', {
@@ -72,7 +73,9 @@ export const ProviderAuthRequired = ({
 
   const renderAuthDescription = () => (
     <React.Fragment>
-      {formatMessage(loadingErrorMessages.authScreenDescriptionText)}{' '}
+      {formatMessage(loadingErrorMessages.authScreenDescriptionText, {
+        providerName,
+      })}{' '}
       <a
         href={learnMoreAboutSmartLinksUrl}
         target="_blank"
@@ -92,7 +95,9 @@ export const ProviderAuthRequired = ({
   return (
     <EmptyState
       testId="datasource--access-required-with-auth"
-      header={formatMessage(loadingErrorMessages.authScreenHeaderText)}
+      header={formatMessage(loadingErrorMessages.authScreenHeaderText, {
+        providerName,
+      })}
       description={renderAuthDescription()}
       renderImage={ProviderAuthRequiredSVG}
       primaryAction={renderAuthConnectButton()}

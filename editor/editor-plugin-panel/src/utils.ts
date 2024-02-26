@@ -46,7 +46,7 @@ export const panelAttrsToDom = (
         ? `background-color: ${panelBackgroundColor};`
         : ''
     }`,
-    `${hasIcon ? '' : 'padding-left: 12px;'}`,
+    `${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}`,
   ].join('');
 
   let panelAttrs: DomPanelAtrrs = {

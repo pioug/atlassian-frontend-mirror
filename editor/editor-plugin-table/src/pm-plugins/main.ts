@@ -22,6 +22,7 @@ import {
   transformSliceToRemoveOpenExpand,
   transformSliceToRemoveOpenLayoutNodes,
   transformSliceToRemoveOpenMultiBodiedExtension,
+  transformSliceToRemoveOpenNestedExpand,
 } from '@atlaskit/editor-common/transforms';
 import type {
   GetEditorContainerWidth,
@@ -333,6 +334,11 @@ export const createPlugin = (
         // from the paste slice
         if (!pluginConfig.allowBackgroundColor) {
           slice = transformSliceRemoveCellBackgroundColor(slice, schema);
+        }
+
+        //  If a partial paste of nested expand, paste only nested-expand's content */
+        if (getBooleanFF('platform.editor.transform-slice-for-nested-expand')) {
+          slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
         }
 
         return slice;

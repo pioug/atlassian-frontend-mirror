@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.48.0
+
+### Minor Changes
+
+- [#74155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74155) [`fd4404dd5e70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd4404dd5e70) - AI Summary Service, AI Summary Store and useAISummary hook added.
+
 ## 26.47.1
 
 ### Patch Changes

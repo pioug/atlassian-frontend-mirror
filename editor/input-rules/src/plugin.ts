@@ -1,4 +1,4 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from './constants';
@@ -20,7 +20,7 @@ export function createInputRulePlugin(
   pluginName: string,
   rules: InputRuleWrapper[],
   options: Options = {},
-): SafePlugin {
+): SafePluginSpec {
   const onInputEvent = options?.onInputEvent;
   const onBeforeRegexMatch = options?.onBeforeRegexMatch;
   const allowInsertTextOnDocument = Boolean(options?.allowInsertTextOnDocument);
@@ -34,7 +34,7 @@ export function createInputRulePlugin(
     onBeforeRegexMatch,
   });
 
-  const plugin = new SafePlugin<InputRulePluginState>({
+  return {
     key: pluginKey,
     state: {
       init() {
@@ -118,7 +118,5 @@ export function createInputRulePlugin(
     // @ts-ignore This is used by prosemirror-view to apply input rules on text input event.
     // However, there is no typing ffor this, yet.
     isInputRules: true,
-  });
-
-  return plugin;
+  };
 }

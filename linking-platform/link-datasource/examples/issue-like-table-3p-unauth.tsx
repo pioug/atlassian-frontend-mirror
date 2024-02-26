@@ -16,6 +16,7 @@ fetchMock.once(
       resolve({
         meta: {
           access: 'unauthorized',
+          providerName: 'Amplitude',
           auth: [
             {
               key: 'amplitude',

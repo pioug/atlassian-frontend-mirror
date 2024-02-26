@@ -22,7 +22,9 @@ const params =
     ? new URLSearchParams(location.search.slice(1))
     : null;
 const param = params ? params.get('url') : null;
-const defaultURL = param ? param : 'https://spitz.jira-dev.com/browse/PAW-11';
+const defaultURL = param
+  ? param
+  : 'https://pug.jira-dev.com/wiki/spaces/~6360339afe5ff375235b4167/pages/452478435635/Sample+Pages';
 
 const codeStyles = css`
   display: inline-grid;

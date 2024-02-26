@@ -7,6 +7,7 @@ export {
 export {
   findExpand,
   transformSliceToRemoveOpenExpand,
+  transformSliceToRemoveOpenNestedExpand,
   transformSliceNestedExpandToExpand,
 } from './expand';
 export {

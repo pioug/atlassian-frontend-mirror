@@ -111,6 +111,9 @@
       "path": "../../media/media-ui/tsconfig.app.json"
     },
     {
+      "path": "../../media/media-viewer/tsconfig.app.json"
+    },
+    {
       "path": "../../elements/mention/tsconfig.app.json"
     },
     {

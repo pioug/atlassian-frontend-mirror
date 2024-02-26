@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.5
+
+### Patch Changes
+
+- [#75378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75378) [`caf4a7eff92d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/caf4a7eff92d) - ED-22246 Fix pasting text into action/decision inside panel
+
 ## 1.0.4
 
 ### Patch Changes

@@ -1,7 +1,7 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { createRuleForListType } from './create-list-input-rule';
@@ -41,7 +41,7 @@ export default function inputRulePlugin(
   }
 
   if (rules.length !== 0) {
-    return createPlugin('lists', rules);
+    return new SafePlugin(createPlugin('lists', rules));
   }
 
   return;

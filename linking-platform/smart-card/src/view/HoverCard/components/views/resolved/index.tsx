@@ -90,7 +90,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   url,
 }) => {
   const canBeDatasource = getCanBeDatasource(cardState.details);
-
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,
     // there is no need to check for statuses.

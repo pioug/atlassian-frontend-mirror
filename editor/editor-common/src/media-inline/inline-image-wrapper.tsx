@@ -11,6 +11,7 @@ import {
   INLINE_IMAGE_BORDER_COLOR_CSS_VAR_KEY,
   INLINE_IMAGE_BORDER_SIZE_CSS_VAR_KEY,
   INLINE_IMAGE_WRAPPER_CLASS_NAME,
+  interactiveStyle,
   selectedStyle,
   wrapperStyle,
 } from './styles';
@@ -28,19 +29,23 @@ const sizeWrapperStyle = css({
 type Props = {
   children: ReactElement;
   isSelected?: boolean;
+  isInteractive?: boolean;
   aspectRatio?: number | string;
   borderSize?: number;
   borderColor?: string;
   htmlAttrs?: { [key: string]: string | number | undefined };
+  onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };
 
 export const InlineImageWrapper: FC<Props> = ({
   children,
   isSelected,
+  isInteractive,
   aspectRatio,
   borderSize,
   borderColor,
   htmlAttrs = {},
+  onClick,
 }) => {
   const borderStyleVars =
     borderSize && borderColor
@@ -66,8 +71,10 @@ export const InlineImageWrapper: FC<Props> = ({
         wrapperStyle,
         borderSize && borderColor && borderStyle,
         isSelected && selectedStyle,
+        isInteractive && interactiveStyle,
       ]}
       data-testid="inline-image-wrapper"
+      onClick={onClick}
       {...htmlAttrs}
     >
       <span css={sizeWrapperStyle}>{children}</span>

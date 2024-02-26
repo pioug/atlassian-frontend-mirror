@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import type { FC } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import ReactDOM from 'react-dom';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { createIntl, injectIntl } from 'react-intl-next';
 
@@ -19,6 +20,8 @@ import type {
 } from '@atlaskit/media-client';
 import { FileFetcherError } from '@atlaskit/media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react';
+import { MediaViewer } from '@atlaskit/media-viewer';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../messages/media-inline-card';
 
@@ -40,6 +43,7 @@ export interface MediaInlineImageCardProps {
     borderColor?: string;
   };
   ssr?: MediaSSR;
+  shouldOpenMediaViewer?: boolean;
 }
 
 export const MediaInlineImageCardInternal: FC<
@@ -56,11 +60,13 @@ export const MediaInlineImageCardInternal: FC<
   border,
   ssr,
   serializeDataAttrs,
+  shouldOpenMediaViewer,
 }) => {
   const [fileState, setFileState] = useState<FileState | undefined>();
   const [subscribeError, setSubscribeError] = useState<Error>();
   const [isFailedEventSent, setIsFailedEventSent] = useState(false);
   const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
+  const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
   const { formatMessage } = intl || createIntl({ locale: 'en' });
   const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -234,16 +240,61 @@ export const MediaInlineImageCardInternal: FC<
     return {};
   }, [alt, fileState, height, identifier, width, serializeDataAttrs]);
 
+  const onMediaInlineImageClick = useCallback(() => {
+    if (
+      shouldOpenMediaViewer &&
+      getBooleanFF(
+        'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
+      )
+    ) {
+      setMediaViewerVisible(true);
+    }
+  }, [shouldOpenMediaViewer]);
+
+  const onMediaInlinePreviewClose = useCallback(() => {
+    setMediaViewerVisible(false);
+  }, []);
+
+  const mediaViewer = useMemo(() => {
+    if (isMediaViewerVisible && mediaClient?.mediaClientConfig) {
+      return ReactDOM.createPortal(
+        <MediaViewer
+          collectionName={identifier.collectionName || ''}
+          items={[identifier]}
+          mediaClientConfig={mediaClient?.mediaClientConfig}
+          selectedItem={identifier}
+          onClose={onMediaInlinePreviewClose}
+        />,
+        document.body,
+      );
+    }
+    return null;
+  }, [
+    identifier,
+    isMediaViewerVisible,
+    mediaClient?.mediaClientConfig,
+    onMediaInlinePreviewClose,
+  ]);
+
   return (
-    <InlineImageWrapper
-      isSelected={isSelected}
-      aspectRatio={aspectRatio}
-      borderColor={border?.borderColor}
-      borderSize={border?.borderSize}
-      htmlAttrs={htmlAttributes}
-    >
-      {content(scaledDimension)}
-    </InlineImageWrapper>
+    <Fragment>
+      <InlineImageWrapper
+        isSelected={isSelected}
+        isInteractive={
+          getBooleanFF(
+            'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
+          ) && shouldOpenMediaViewer
+        }
+        aspectRatio={aspectRatio}
+        borderColor={border?.borderColor}
+        borderSize={border?.borderSize}
+        htmlAttrs={htmlAttributes}
+        onClick={onMediaInlineImageClick}
+      >
+        {content(scaledDimension)}
+      </InlineImageWrapper>
+      {mediaViewer}
+    </Fragment>
   );
 };
 

@@ -2,8 +2,10 @@ import type { Match } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import {
+  createRule,
   findFilepaths,
   getLinkCreationAnalyticsEvent,
   isLinkInMatches,
@@ -12,8 +14,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import { createPlugin, createRule } from '@atlaskit/prosemirror-input-rules';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { toolbarKey } from './toolbar-buttons';
 
@@ -119,7 +120,9 @@ export function createInputRulePlugin(
     },
   );
 
-  return createPlugin('hyperlink', [urlWithASpaceRule, markdownLinkRule]);
+  return new SafePlugin(
+    createPlugin('hyperlink', [urlWithASpaceRule, markdownLinkRule]),
+  );
 }
 
 export default createInputRulePlugin;

@@ -56,6 +56,7 @@ import {
   contains,
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
+  hasParentNode,
   hasParentNodeOfType,
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
@@ -209,8 +210,13 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
     // and the slice's first node is a paragraph
     // and it is not from a depth that would indicate it being from inside from another node (e.g. text from a decision)
     // then we can rely on the default behaviour.
+    const selectionIsTaskOrDecision = hasParentNode(
+      node => node.type === taskItem || node.type === decisionItem,
+    )(selection);
+
     const sliceIsAPanelReceivingLowDepthText =
       selectionIsPanel &&
+      !selectionIsTaskOrDecision &&
       slice.content.firstChild?.type === paragraph &&
       slice.openEnd < 2;
 

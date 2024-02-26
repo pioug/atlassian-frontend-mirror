@@ -1,5 +1,4 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import type { Transformer } from '@atlaskit/editor-common/types';
 import MarkdownIt from 'markdown-it';
 import { markdownItTable } from 'markdown-it-table';
 import { MarkdownParser } from '@atlaskit/editor-prosemirror/markdown';
@@ -130,7 +129,7 @@ md.enable([
 
 export type Markdown = string;
 
-export class MarkdownTransformer implements Transformer<Markdown> {
+export class MarkdownTransformer {
   private markdownParser: MarkdownParser;
   constructor(schema: Schema = defaultSchema, tokenizer: MarkdownIt = md) {
     // Enable markdown plugins based on schema

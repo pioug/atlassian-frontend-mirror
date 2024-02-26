@@ -243,7 +243,10 @@ const mainDynamicStyles = (panelType: Exclude<PanelType, PanelType.CUSTOM>) => {
 export const panelSharedStylesWithoutPrefix = () => css`
   border-radius: ${token('border.radius', '3px')};
   margin: ${blockNodesVerticalMargin} 0 0;
-  padding: ${token('space.100', '8px')};
+  padding-top: ${token('space.100', '8px')};
+  padding-right: ${token('space.200', '16px')};
+  padding-bottom: ${token('space.100', '8px')};
+  padding-left: ${token('space.100', '8px')};
   min-width: ${akEditorTableCellMinWidth}px;
   display: flex;
   position: relative;

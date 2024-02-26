@@ -739,6 +739,7 @@ const defaultDetailsResponse: DatasourceDetailsResponse = {
     definitionId: 'object-resolver-service',
     destinationObjectTypes: ['issue'],
     extensionKey: 'jira-object-provider',
+    providerName: 'Jira',
     product: 'jira',
     visibility: 'restricted',
   },
@@ -830,6 +831,7 @@ const generateDataResponse = ({
   return {
     meta: {
       access: isUnauthorized ? 'unauthorized' : 'granted',
+      providerName: 'Amplitude',
       auth: includeAuthInfo
         ? [
             {

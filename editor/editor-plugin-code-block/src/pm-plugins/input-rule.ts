@@ -7,13 +7,14 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { insertBlock } from '@atlaskit/editor-common/commands';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -30,9 +31,11 @@ export function createCodeBlockInputRule(
     editorAnalyticsAPI,
     schema,
   );
-  return createPlugin('code-block-input-rule', rules, {
-    isBlockNodeRule: true,
-  });
+  return new SafePlugin(
+    createPlugin('code-block-input-rule', rules, {
+      isBlockNodeRule: true,
+    }),
+  );
 }
 
 /**

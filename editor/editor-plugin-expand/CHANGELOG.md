@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.2.0
+
+### Minor Changes
+
+- [#76115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76115) [`3e3eb7cf04e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e3eb7cf04e1) - ED-21718 Transform slice to remove nestedExpand from slice before pasting
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

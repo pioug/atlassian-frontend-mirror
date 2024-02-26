@@ -54,8 +54,7 @@
   },
   "peerDependenciesMeta": {
     "enzyme": {
-      "optional": true,
-      "dev": true
+      "optional": true
     }
   },
   "devDependencies": {

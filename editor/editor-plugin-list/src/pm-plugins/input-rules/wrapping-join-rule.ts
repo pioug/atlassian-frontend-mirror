@@ -4,6 +4,7 @@ import type {
   InputRuleWrapper,
 } from '@atlaskit/editor-common/types';
 import {
+  createRule,
   isOrderedList,
   isOrderedListContinuous,
 } from '@atlaskit/editor-common/utils';
@@ -15,7 +16,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { createRule } from '@atlaskit/prosemirror-input-rules';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Attrs = Record<string, any>;

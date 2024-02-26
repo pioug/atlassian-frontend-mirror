@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 78.5.0
+
+### Minor Changes
+
+- [#76115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76115) [`3e3eb7cf04e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e3eb7cf04e1) - ED-21718 Transform slice to remove nestedExpand from slice before pasting
+
+### Patch Changes
+
+- [#75775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75775) [`d0cee3285a1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0cee3285a1a) - ED-22287: Adding 16px right padding to panel for all elements. Also using 12px for the no-icon usecase.
+
+## 78.4.2
+
+### Patch Changes
+
+- [#74946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74946) [`6a1fca4dee65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1fca4dee65) - [ux] Media Inline Images now support previewer when clicked in renderer
+
 ## 78.4.1
 
 ### Patch Changes

@@ -368,6 +368,7 @@ describe('DatasourceTableView', () => {
     it('should display the access error ui with auth connection info when auth details is available', () => {
       const { getByTestId, getByRole } = setup({
         status: 'unauthorized',
+        providerName: 'Amplitude',
         authDetails: [
           {
             key: 'amplitude',
@@ -380,12 +381,33 @@ describe('DatasourceTableView', () => {
       const authUI = getByTestId('datasource--access-required-with-auth');
       expect(authUI).toBeInTheDocument();
       expect(getByRole('button')).toHaveTextContent('Connect');
-      expect(getByRole('heading')).toHaveTextContent('Connect your account');
+      expect(getByRole('heading')).toHaveTextContent(
+        'Connect your Amplitude account',
+      );
       expect(getByRole('link')).toHaveTextContent(
         'Learn more about Smart Links.',
       );
       expect(authUI).toHaveTextContent(
-        `Connect your account to collaborate on work across Atlassian products.`,
+        `Connect your Amplitude account to collaborate on work across Atlassian products.`,
+      );
+    });
+
+    it('should display default access error ui text when providerName is undefined', () => {
+      const { getByTestId, getByRole } = setup({
+        status: 'unauthorized',
+        authDetails: [
+          {
+            key: 'amplitude',
+            displayName: 'Atlassian Links - Amplitude',
+            url: 'https://id.atlassian.com/login',
+          },
+        ],
+      });
+      expect(getByRole('heading')).toHaveTextContent('Connect your account');
+      expect(
+        getByTestId('datasource--access-required-with-auth'),
+      ).toHaveTextContent(
+        'Connect your account to collaborate on work across Atlassian products.',
       );
     });
 

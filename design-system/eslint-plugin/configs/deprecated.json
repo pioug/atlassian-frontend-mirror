@@ -43,11 +43,6 @@
             {
                 "moduleSpecifier": "@atlaskit/logo"
             }
-        ],
-        "enableRemoteAdminLinks": [
-            {
-                "moduleSpecifier": "@atlassian/switcher"
-            }
         ]
     },
     "imports": {

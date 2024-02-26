@@ -7,14 +7,18 @@ import {
   PUNC,
   SYMBOL,
 } from '@atlaskit/editor-common/analytics';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   InputRuleHandler,
   InputRuleWrapper,
 } from '@atlaskit/editor-common/types';
-import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import {
+  createRule,
+  inputRuleWithAnalytics,
+} from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { createPlugin, createRule } from '@atlaskit/prosemirror-input-rules';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 /**
  * Creates an InputRuleHandler that will match on a regular expression of the
@@ -240,8 +244,10 @@ function getPunctuationRules(
 }
 
 export default (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-  createPlugin('text-formatting:smart-input', [
-    ...getProductRules(editorAnalyticsAPI),
-    ...getSymbolRules(editorAnalyticsAPI),
-    ...getPunctuationRules(editorAnalyticsAPI),
-  ]);
+  new SafePlugin(
+    createPlugin('text-formatting:smart-input', [
+      ...getProductRules(editorAnalyticsAPI),
+      ...getSymbolRules(editorAnalyticsAPI),
+      ...getPunctuationRules(editorAnalyticsAPI),
+    ]),
+  );

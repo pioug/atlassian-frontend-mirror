@@ -7,6 +7,7 @@ import {
   ActionName,
   SmartLinkSize,
   SmartLinkWidth,
+  SmartLinkDirection,
 } from '../../../../../../constants';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
@@ -18,6 +19,9 @@ import type { AISummaryBlockProps } from '../types';
 import type { AIState } from '../types';
 import { messages } from '../../../../../../messages';
 import AiIcon from '../../../../../common/ai-icon';
+import AISummary from '../../../../../common/ai-summary';
+import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 
 const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const {
@@ -31,6 +35,12 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const [aiState, setAIState] = useState<AIState>('ready');
 
   const metadataElements = renderElementItems(metadata);
+
+  const context = useFlexibleUiContext();
+  const url = context?.url || '';
+
+  const aiSummary = useAISummary({ url });
+  const { content } = aiSummary.state;
 
   const onAIActionClick = useCallback(() => {
     setAIState('loading');
@@ -64,7 +74,12 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   );
 
   return (
-    <Block {...props} testId={`${testId}-resolved-view`}>
+    <Block
+      {...props}
+      direction={SmartLinkDirection.Vertical}
+      testId={`${testId}-resolved-view`}
+    >
+      <AISummary content={content} />
       <Inline
         alignBlock="center"
         alignInline="end"

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 192.3.2
+
+### Patch Changes
+
+- [#74946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74946) [`9afaeced79fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9afaeced79fb) - Update kitchen sink to include feature flag for renderer previewer for inline images
+
 ## 192.3.1
 
 ### Patch Changes

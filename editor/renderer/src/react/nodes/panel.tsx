@@ -33,7 +33,7 @@ const PanelStyled: React.FC<
       ${panelSharedStylesWithoutPrefix()}
 
       &[data-panel-type=${PanelType.CUSTOM}] {
-        ${hasIcon ? '' : 'padding-left: 12px;'}
+        ${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}
       }
     }
   `;
@@ -48,7 +48,7 @@ const PanelStyled: React.FC<
         background-color: ${hexToEditorBackgroundPaletteColor(
           backgroundColor,
         ) || backgroundColor};
-        ${hasIcon ? '' : 'padding-left: 12px;'}
+        ${hasIcon ? '' : 'padding-left: 12px;padding-right: 12px;'}
       }
     `;
   }

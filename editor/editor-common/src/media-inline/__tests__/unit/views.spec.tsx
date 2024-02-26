@@ -26,6 +26,7 @@ import {
   fakeIntl,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { MediaInlineImageCardInternal as MediaInlineImageCard } from '../../media-inline-image-card';
 
@@ -270,6 +271,108 @@ describe('<MediaInlineImageCard />', () => {
     });
   });
 
+  describe('media inline image card should open media previewer when shouldOpenMediaViewer is true', () => {
+    ffTest(
+      'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
+      async () => {
+        const identifier: FileIdentifier = {
+          id: 'a4d851f3-a9b7-40c7-8bd9-3df41b6481cd',
+          mediaItemType: 'file',
+          collectionName: 'MediaServicesSample',
+        };
+
+        const mediaClient = getMockMediaClient();
+
+        const { getByTestId } = render(
+          <MediaInlineImageCard
+            identifier={identifier}
+            mediaClient={mediaClient}
+            intl={fakeIntl}
+            shouldOpenMediaViewer
+          />,
+        );
+
+        await userEvent.click(getByTestId('inline-image-wrapper'));
+
+        expect(getByTestId('media-viewer-popup')).toBeDefined();
+      },
+      async () => {
+        const identifier: FileIdentifier = {
+          id: 'a4d851f3-a9b7-40c7-8bd9-3df41b6481cd',
+          mediaItemType: 'file',
+          collectionName: 'MediaServicesSample',
+        };
+
+        const mediaClient = getMockMediaClient();
+
+        const { getByTestId, queryByTestId } = render(
+          <MediaInlineImageCard
+            identifier={identifier}
+            mediaClient={mediaClient}
+            intl={fakeIntl}
+            shouldOpenMediaViewer
+          />,
+        );
+
+        await userEvent.click(getByTestId('inline-image-wrapper'));
+
+        expect(queryByTestId('media-viewer-popup')).toBeNull();
+      },
+    );
+  });
+
+  describe('media inline image card should not open media previewer when shouldOpenMediaViewer is undefined', () => {
+    ffTest(
+      'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
+      async () => {
+        const identifier: FileIdentifier = {
+          id: 'a4d851f3-a9b7-40c7-8bd9-3df41b6481cd',
+          mediaItemType: 'file',
+          collectionName: 'MediaServicesSample',
+        };
+
+        const mediaClient = getMockMediaClient();
+
+        const { getByTestId, queryByTestId } = render(
+          <MediaInlineImageCard
+            identifier={identifier}
+            mediaClient={mediaClient}
+            intl={fakeIntl}
+          />,
+        );
+
+        await userEvent.click(getByTestId('inline-image-wrapper'));
+
+        expect(queryByTestId('media-viewer-popup')).toBeNull();
+      },
+    );
+  });
+
+  describe('media inline image card should not open media previewer when shouldOpenMediaViewer is true but mediaClient is undefined', () => {
+    ffTest(
+      'platform.editor.media.inline-image.renderer-preview-support_3w1ju',
+      async () => {
+        const identifier: FileIdentifier = {
+          id: 'a4d851f3-a9b7-40c7-8bd9-3df41b6481cd',
+          mediaItemType: 'file',
+          collectionName: 'MediaServicesSample',
+        };
+
+        const { getByTestId, queryByTestId } = render(
+          <MediaInlineImageCard
+            identifier={identifier}
+            intl={fakeIntl}
+            shouldOpenMediaViewer
+          />,
+        );
+
+        await userEvent.click(getByTestId('inline-image-wrapper'));
+
+        expect(queryByTestId('media-viewer-popup')).toBeNull();
+      },
+    );
+  });
+
   it('MediaInlineImageCard with SSR support', async () => {
     const ssrMediaClient = getMockMediaClient();
 
@@ -300,7 +403,7 @@ describe('<MediaInlineImageCard />', () => {
     [undefined, 200, ''],
     [undefined, undefined, ''],
   ])(
-    'should render correct aspect ratio according to the width and heigh provided',
+    'should render correct aspect ratio according to the width and height provided',
     async (width, height, ratio) => {
       const { findByTestId } = render(
         <MediaInlineImageCard

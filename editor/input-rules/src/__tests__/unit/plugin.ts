@@ -1,4 +1,4 @@
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -41,17 +41,19 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
       });
 
       const INLINE_CODE_REGEX = /(\S*)(`[^\s][^`]*`)$/;
-      const myCustomInputRule = createInputRulePlugin(
-        'lol',
-        [
+      const myCustomInputRule = new SafePlugin(
+        createInputRulePlugin(
+          'lol',
+          [
+            {
+              match: INLINE_CODE_REGEX,
+              handler: handlerMock,
+            },
+          ],
           {
-            match: INLINE_CODE_REGEX,
-            handler: handlerMock,
+            allowInsertTextOnDocument: true,
           },
-        ],
-        {
-          allowInsertTextOnDocument: true,
-        },
+        ),
       );
 
       editorView = createEditorView(
@@ -112,17 +114,19 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
       });
 
       const CODE_BLOCK_REGEX = /(?!\s)(`{3,})/;
-      const myCustomInputRule = createInputRulePlugin(
-        'lol',
-        [
+      const myCustomInputRule = new SafePlugin(
+        createInputRulePlugin(
+          'lol',
+          [
+            {
+              match: CODE_BLOCK_REGEX,
+              handler: handlerMock,
+            },
+          ],
           {
-            match: CODE_BLOCK_REGEX,
-            handler: handlerMock,
+            allowInsertTextOnDocument: true,
           },
-        ],
-        {
-          allowInsertTextOnDocument: true,
-        },
+        ),
       );
 
       editorView = createEditorView(doc(p('here {<>}')), myCustomInputRule);

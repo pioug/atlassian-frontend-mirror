@@ -1,7 +1,11 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  FeatureFlags,
+  InputRuleWrapper,
+} from '@atlaskit/editor-common/types';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type {
   Fragment,
   Node,
@@ -18,10 +22,8 @@ import {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -216,9 +218,11 @@ export const inputRulePlugin =
       );
     }
 
-    return createPlugin('tasks-and-decisions', rules, {
-      isBlockNodeRule: true,
-    });
+    return new SafePlugin(
+      createPlugin('tasks-and-decisions', rules, {
+        isBlockNodeRule: true,
+      }),
+    );
   };
 
 export default inputRulePlugin;

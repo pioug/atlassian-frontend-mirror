@@ -1,7 +1,8 @@
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { createPlugin, createRule } from '@atlaskit/prosemirror-input-rules';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { createExternalMediaNode } from '../utils';
 
@@ -32,7 +33,7 @@ export function inputRulePlugin(
     },
   );
 
-  return createPlugin('image-upload', [imageRule]);
+  return new SafePlugin(createPlugin('image-upload', [imageRule]));
 }
 
 export default inputRulePlugin;

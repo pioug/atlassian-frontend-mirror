@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.22.8
+
+### Patch Changes
+
+- [#74134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74134) [`c765c111415e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c765c111415e) - Adds providerName in unauthed view
+
 ## 1.22.7
 
 ### Patch Changes

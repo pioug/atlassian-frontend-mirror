@@ -1,11 +1,13 @@
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  FeatureFlags,
+  InputRuleWrapper,
+} from '@atlaskit/editor-common/types';
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import {
   createPlugin,
-  createRule,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
 
@@ -42,9 +44,11 @@ export function inputRulePlugin(
     return acc;
   }, []);
 
-  const plugin = createPlugin('type-ahead', rules, {
-    allowInsertTextOnDocument: false,
-  });
+  const plugin = new SafePlugin(
+    createPlugin('type-ahead', rules, {
+      allowInsertTextOnDocument: false,
+    }),
+  );
 
   return plugin;
 }

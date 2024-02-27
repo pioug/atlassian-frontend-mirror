@@ -1,4 +1,4 @@
-Disallows any `css` tagged template expressions that originate from `@emotion/react`, `@emotion/core`, `compiled/react` or `styled-components`.
+Disallows any `css` tagged template expressions that originate from a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
 Tagged template expressions cannot be type safe and are difficult to parse correctly. Will auto fix ` css`` ` to the preferred `css({})` call expression syntax.
 

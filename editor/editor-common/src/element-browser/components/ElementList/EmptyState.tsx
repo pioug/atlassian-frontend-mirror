@@ -15,7 +15,7 @@ export default function EmptyState({
   onExternalLinkClick,
 }: Props): JSX.Element {
   return (
-    <div css={emptyStateWrapper}>
+    <div css={emptyStateWrapper} data-testid="empty-state-wrapper">
       <NotFoundIllustration />
       <div css={emptyStateHeading}>
         <FormattedMessage
@@ -51,29 +51,29 @@ export default function EmptyState({
   );
 }
 
-const emptyStateHeading = css`
-  font-size: 1.42857em;
-  line-height: 1.2;
-  color: ${token('color.text', 'rgb(23, 43, 77)')};
-  font-weight: 500;
-  letter-spacing: -0.008em;
-  margin-top: 28px;
-`;
+const emptyStateHeading = css({
+  fontSize: '1.42857em',
+  lineHeight: 1.2,
+  color: token('color.text', 'rgb(23, 43, 77)'),
+  fontWeight: 500,
+  letterSpacing: '-0.008em',
+  marginTop: '28px',
+});
 
-const emptyStateSubHeading = css`
-  margin-top: ${token('space.200', '16px')};
-  max-width: 400px;
-  text-align: center;
-`;
+const emptyStateSubHeading = css({
+  marginTop: token('space.200', '16px'),
+  maxWidth: '400px',
+  textAlign: 'center',
+});
 
-const emptyStateWrapper = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
+const emptyStateWrapper = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+});
 
-const externalLinkWrapper = css`
-  margin-top: 14px;
-`;
+const externalLinkWrapper = css({
+  marginTop: '14px',
+});

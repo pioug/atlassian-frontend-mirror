@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 3.2.0
+
+### Minor Changes
+
+- [#74458](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74458) [`c40e977de5da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c40e977de5da) - [ux] List view links will be converted into smart link embed by default
+
 ## 3.1.17
 
 ### Patch Changes

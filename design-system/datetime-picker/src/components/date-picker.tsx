@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { Component, CSSProperties } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
 import pick from 'lodash/pick';
 
@@ -10,9 +10,8 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import Calendar, { CalendarRef } from '@atlaskit/calendar';
+import { CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
-import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import {
   createLocalizationProvider,
   LocalizationProvider,
@@ -22,13 +21,10 @@ import Select, {
   ActionMeta,
   DropdownIndicatorProps,
   InputActionMeta,
-  MenuProps,
   mergeStyles,
   OptionType,
   ValueType,
 } from '@atlaskit/select';
-import { N0, N50A, N60A } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -37,11 +33,10 @@ import {
   padToTwo,
   placeholderDatetime,
 } from '../internal';
-import FixedLayer from '../internal/fixed-layer';
+import { Menu } from '../internal/menu';
 import {
   getSafeCalendarValue,
   getShortISOString,
-  getValidDate,
 } from '../internal/parse-date';
 import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
@@ -67,52 +62,6 @@ interface State {
   l10n: LocalizationProvider;
   locale: string;
 }
-
-const menuStyles = css({
-  zIndex: layers.dialog(),
-  backgroundColor: token('elevation.surface.overlay', N0),
-  borderRadius: token('border.radius', '3px'),
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-  ),
-  overflow: 'hidden',
-});
-
-const Menu = ({ selectProps, innerProps }: MenuProps<any>) => (
-  <UNSAFE_LAYERING
-    isDisabled={
-      getBooleanFF('platform.design-system-team.layering_qmiw3') ? false : true
-    }
-  >
-    <FixedLayer
-      inputValue={selectProps.inputValue}
-      containerRef={selectProps.calendarContainerRef}
-      content={
-        <div css={menuStyles} {...innerProps}>
-          <Calendar
-            {...getValidDate(selectProps.calendarValue)}
-            {...getValidDate(selectProps.calendarView)}
-            disabled={selectProps.calendarDisabled}
-            disabledDateFilter={selectProps.calendarDisabledDateFilter}
-            minDate={selectProps.calendarMinDate}
-            maxDate={selectProps.calendarMaxDate}
-            nextMonthLabel={selectProps.nextMonthLabel}
-            onChange={selectProps.onCalendarChange}
-            onSelect={selectProps.onCalendarSelect}
-            previousMonthLabel={selectProps.previousMonthLabel}
-            calendarRef={selectProps.calendarRef}
-            selected={[selectProps.calendarValue]}
-            locale={selectProps.calendarLocale}
-            testId={selectProps.testId && `${selectProps.testId}--calendar`}
-            weekStartDay={selectProps.calendarWeekStartDay}
-          />
-        </div>
-      }
-      testId={selectProps.testId}
-    />
-  </UNSAFE_LAYERING>
-);
 
 const datePickerDefaultProps = {
   appearance: 'default' as Appearance,

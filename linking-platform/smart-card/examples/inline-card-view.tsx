@@ -27,6 +27,7 @@ const lozenge: Lozenge = {
 const onClick = () => window.open(url);
 
 class Example extends React.Component {
+  context: any;
   state = {
     isSelected: false,
   };

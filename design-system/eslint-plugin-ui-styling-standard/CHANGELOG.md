@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.4.0
+
+### Minor Changes
+
+- [#75600](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75600) [`8875d9de2e5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8875d9de2e5d) - Migrates the ESLint rule from `@atlaskit/design-system/local-cx-xcss` to `@atlaskit/ui-styling-standard/local-cx-xcss` and overhauls the codegen to enable better documentation and rule distribution.
+
 ## 0.3.0
 
 ### Minor Changes

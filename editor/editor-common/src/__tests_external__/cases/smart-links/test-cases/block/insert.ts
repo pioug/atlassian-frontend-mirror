@@ -3,7 +3,7 @@ import { blockSmartLinkRendersTestCase } from '@atlaskit/smart-card/in-product';
 
 import { EditorPageObject } from '../../../../page-objects/Editor';
 import { EditorSmartLinkPageObject } from '../../../../page-objects/EditorSmartLink';
-import { SmartLinkTestCaseOpts } from '../types';
+import type { SmartLinkTestCaseOpts } from '../types';
 
 export const switchToBlockSmartLinkTestCase = ({
   ui,

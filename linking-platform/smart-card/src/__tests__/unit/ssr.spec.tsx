@@ -6,13 +6,13 @@ import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { CardSSR, CardSSRProps } from '../../ssr';
-import { Provider, Client } from '../../';
+import { Provider, Client } from '../..';
 import * as CardWithUrlContent from '../../view/CardWithUrl/component';
 import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';
 
 const cardMock = jest.spyOn(CardWithUrlContent, 'CardWithUrlContent');
 
-describe('<SSRCard />', () => {
+describe('<CardSSR />', () => {
   const cardProps: CardSSRProps = {
     appearance: 'inline',
     url,

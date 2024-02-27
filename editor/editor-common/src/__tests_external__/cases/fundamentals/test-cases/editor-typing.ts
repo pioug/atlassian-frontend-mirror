@@ -2,7 +2,7 @@ import { InProductTestCase } from '@atlaskit/in-product-testing';
 
 import { EditorPageObject } from '../../../page-objects/Editor';
 import { RendererPageObject } from '../../../page-objects/Renderer';
-import { EditorTestCaseOpts } from '../../types';
+import type { EditorTestCaseOpts } from '../../types';
 
 export const editorTypingTestCase = (opts?: EditorTestCaseOpts) =>
   new InProductTestCase({

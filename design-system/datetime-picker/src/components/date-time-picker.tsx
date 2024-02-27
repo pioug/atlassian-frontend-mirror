@@ -11,21 +11,12 @@ import {
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { mergeStyles, StylesConfig } from '@atlaskit/select';
-import {
-  B100,
-  N0,
-  N100,
-  N20,
-  N30,
-  N500,
-  N70,
-  R400,
-} from '@atlaskit/theme/colors';
+import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
+import { DateTimePickerContainer } from '../internal/date-time-picker-container';
 import { convertTokens } from '../internal/parse-tokens';
 import { DateTimePickerBaseProps } from '../types';
 
@@ -45,80 +36,6 @@ interface State {
   value: string;
   zoneValue: string;
 }
-
-const isInvalidBorderStyles = css({
-  borderColor: token('color.border.danger', R400),
-});
-const isFocusedBorderStyles = css({
-  borderColor: token('color.border.focused', B100),
-});
-
-const isFocusedStyles = css({
-  backgroundColor: token('color.background.input.pressed', N0),
-});
-
-const subtleBgStyles = css({
-  backgroundColor: 'transparent',
-  borderColor: 'transparent',
-});
-
-const subtleFocusedBgStyles = css({
-  backgroundColor: token('color.background.input.pressed', 'transparent'),
-  borderColor: 'transparent',
-});
-
-const noBgStyles = css({
-  backgroundColor: 'transparent',
-  borderColor: 'transparent',
-  '&:hover': {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-  },
-});
-
-const hoverStyles = css({
-  '&:hover': {
-    backgroundColor: token('color.background.input.hovered', N30),
-    borderColor: token(
-      'color.border.input',
-      getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-        ? N100
-        : N30,
-    ),
-  },
-});
-
-const isInvalidHoverStyles = css({
-  '&:hover': {
-    backgroundColor: token('color.background.input.hovered', N0),
-    borderColor: token('color.border.danger', R400),
-  },
-});
-
-const isDisabledStyles = css({
-  '&:hover': {
-    cursor: 'default',
-  },
-});
-
-const baseContainerStyles = css({
-  display: 'flex',
-  backgroundColor: token('color.background.input', N20),
-  border: getBooleanFF(
-    'platform.design-system-team.update-input-border-wdith_5abwv',
-  )
-    ? `${token('border.width', '1px')} solid ${token(
-        'color.border.input',
-        N100,
-      )}`
-    : `2px solid ${token('color.border.input', N20)}`,
-  borderRadius: token('border.radius', '3px'),
-  transition:
-    'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
-  '&:hover': {
-    cursor: 'pointer',
-  },
-});
 
 // Make DatePicker 50% the width of DateTimePicker
 // If rendering an icon container, shrink the TimePicker
@@ -353,24 +270,15 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     // Render DateTimePicker's IconContainer when a value has been filled
     // Don't use Date or TimePicker's because they can't be customised
     const isClearable = Boolean(dateValue || timeValue);
-    const notFocusedOrIsDisabled = !(isFocused || isDisabled);
 
     return (
-      <div
-        css={[
-          baseContainerStyles,
-          isDisabled && isDisabledStyles,
-          isFocused && isFocusedStyles,
-          bothProps.appearance === 'subtle' &&
-            (isFocused ? subtleFocusedBgStyles : subtleBgStyles),
-          isFocused && isFocusedBorderStyles,
-          bothProps.isInvalid && isInvalidBorderStyles,
-          notFocusedOrIsDisabled &&
-            (bothProps.isInvalid ? isInvalidHoverStyles : hoverStyles),
-          bothProps.appearance === 'none' && noBgStyles,
-        ]}
-        {...innerProps}
-        data-testid={testId}
+      <DateTimePickerContainer
+        appearance={bothProps.appearance}
+        isDisabled={isDisabled}
+        isFocused={isFocused}
+        isInvalid={bothProps.isInvalid}
+        testId={testId}
+        innerProps={innerProps}
       >
         <input
           name={name}
@@ -423,7 +331,7 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
             />
           </button>
         ) : null}
-      </div>
+      </DateTimePickerContainer>
     );
   }
 }

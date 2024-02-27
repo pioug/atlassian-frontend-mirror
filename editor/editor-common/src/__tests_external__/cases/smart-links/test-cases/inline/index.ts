@@ -1,6 +1,6 @@
 import { InProductTestCollection } from '@atlaskit/in-product-testing';
 
-import { SmartLinkTestCaseOpts } from '../types';
+import type { SmartLinkTestCaseOpts } from '../types';
 
 import { deleteInlineSmartLinkTestCase } from './delete';
 import {

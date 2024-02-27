@@ -23,7 +23,7 @@ interface PluginInjectionAPIProps extends SharedStateAPIProps {
   getEditorView: () => EditorView | undefined;
 }
 
-type EditorStateDiff = {
+export type EditorStateDiff = {
   readonly newEditorState: EditorState;
   readonly oldEditorState: EditorState | undefined;
 };
@@ -356,7 +356,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     // To follow-up in ED-19611
     if (plugin.name === 'core' && this.plugins.has(plugin.name)) {
       throw new Error(
-        `Plugin ${plugin.name} has already been initialised in the Editor API! 
+        `Plugin ${plugin.name} has already been initialised in the Editor API!
         There cannot be duplicate plugins or you will have unexpected behaviour`,
       );
     }

@@ -36,79 +36,10 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
-    },
-    {
-      "path": "../adf-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
     },
     {
-      "path": "../editor-json-transformer/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-shared-styles/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../elements/emoji/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/icon/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-datasource/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-picker/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-client/tsconfig.app.json"
-    },
-    {
       "path": "../../media/media-core/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-file-preview/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../elements/mention/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
-      "path": "../../people-and-teams/profilecard/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/spinner/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/theme/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/tooltip/tsconfig.app.json"
-    },
-    {
-      "path": "../../data/ufo-external/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
     }
   ]
 }

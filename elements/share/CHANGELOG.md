@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.16.0
+
+### Minor Changes
+
+- [#75188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75188) [`4887bdaf0d92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4887bdaf0d92) - [ux] Introducing includeNonLicensedUsers to the Share component. Enabling this feature would include Non-licensed user in the Smart User Picker search result. Non-licensed users are users who don't have a license to the product specified in the product prop.
+
 ## 4.15.0
 
 ### Minor Changes

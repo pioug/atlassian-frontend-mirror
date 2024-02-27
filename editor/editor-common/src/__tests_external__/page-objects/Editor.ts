@@ -1,6 +1,6 @@
 import { InProductTestPageObject } from '@atlaskit/in-product-testing';
 
-import { EditorTestCaseOpts } from '../cases/types';
+import type { EditorTestCaseOpts } from '../cases/types';
 
 import { RendererPageObject } from './Renderer';
 

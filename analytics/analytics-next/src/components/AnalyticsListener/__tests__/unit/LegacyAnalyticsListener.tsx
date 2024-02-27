@@ -32,6 +32,7 @@ const FakeModernConsumerButton = memo<FakeConsumerButtonProps>(
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FakeLegacyConsumerButton extends PureComponent<FakeConsumerButtonProps> {
+  context: any;
   renderCounter: number;
 
   static contextTypes = {

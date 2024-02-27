@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.1.3
+
+### Patch Changes
+
+- [#75946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75946) [`cc843d47d71e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc843d47d71e) - Reverted the feature flag which reduced re-renders in `<PopupSelect>` as it had other unintended side-effects.
+
 ## 17.1.2
 
 ### Patch Changes

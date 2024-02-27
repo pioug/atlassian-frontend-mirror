@@ -245,7 +245,7 @@ export class ContextualMenu extends Component<
                 <ColorPalette
                   cols={7}
                   onClick={this.setColor}
-                  selectedColor={background}
+                  selectedColor={node?.attrs?.background || '#ffffff'}
                   paletteOptions={{
                     palette: cellBackgroundColorPalette,
                     paletteColorTooltipMessages:

@@ -30,6 +30,7 @@ const noop = () => [];
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class AnalyticsListener extends Component<Props> {
+  context: any;
   static contextTypes = ContextTypes;
   static childContextTypes = ContextTypes;
 

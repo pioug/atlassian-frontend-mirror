@@ -102,17 +102,18 @@ interface NativeReactSelectProps<
   getOptionValue?: GetOptionValue<Option>;
   /** Hide the selected option from the menu. */
   hideSelectedOptions?: boolean;
-  /** The id to set on the SelectContainer component. */
+  /** The ID to set on the SelectContainer component. */
   id?: string;
   /** The value of the search input. */
   inputValue?: string;
-  /** The id of the search input. */
+  /** The ID of the search input. */
   inputId?: string;
-  /** Define an id prefix for the select components. For example, `{your-id}-value`. */
+  /** Define an ID prefix for the select components. For example, `{your-id}-value`. */
   instanceId?: number | string;
   /** Sets whether the select value is clearable. */
   isClearable?: boolean;
-  /** Sets whether the select is disabled. */
+  /** Sets whether the select is disabled. People won't be able to interact with the select and it won't appear in the focus order.
+   * Wherever possible, prefer using validation and error messaging over disabled fields for a more accessible experience. */
   isDisabled?: boolean;
   /** Sets whether the select is in a state of loading (async). */
   isLoading?: boolean;
@@ -173,9 +174,9 @@ interface NativeReactSelectProps<
   onMenuOpen?: () => void;
   /** Handle the menu closing. */
   onMenuClose?: () => void;
-  /** Fired when the user scrolls to the top of the menu. */
+  /** Sent when the user scrolls to the top of the menu. */
   onMenuScrollToTop?: (event?: WheelEvent | TouchEvent) => void;
-  /** Fired when the user scrolls to the bottom of the menu. */
+  /** Sent when the user scrolls to the bottom of the menu. */
   onMenuScrollToBottom?: (event?: WheelEvent | TouchEvent) => void;
   /** Allows control of whether the menu is opened when the select is focused. */
   openMenuOnFocus?: boolean;

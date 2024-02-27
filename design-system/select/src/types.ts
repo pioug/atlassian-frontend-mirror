@@ -60,7 +60,7 @@ export interface OptionProps<
 interface CustomSelectProps extends WithAnalyticsEventsProps {
   /** This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5  */
   spacing?: 'compact' | 'default';
-  /** This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' removes them completely */
+  /** This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions. */
   appearance?: 'default' | 'subtle' | 'none';
   /** Prop for testing */
   testId?: string;

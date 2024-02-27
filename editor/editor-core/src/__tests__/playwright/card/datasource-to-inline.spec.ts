@@ -90,7 +90,10 @@ test.describe('blockCard:datasource', () => {
 });
 
 test.describe('datasource config persistence', () => {
-  test('should preserve datasource config when switching between datasource and inline', async ({
+  // FIXME: Flaky on master
+  // Build url: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2488636/steps/%7Bd4d5807f-ada1-41df-b4fc-ebdb6789ecd2%7D
+  // Report url: https://statlas.prod.atl-paas.net/integration-tests/atlassian-frontend:2488636:5/index.html#?q=s:failed
+  test.skip('should preserve datasource config when switching between datasource and inline', async ({
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);

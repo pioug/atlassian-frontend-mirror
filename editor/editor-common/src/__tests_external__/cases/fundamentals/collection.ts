@@ -1,6 +1,6 @@
 import { InProductTestCollection } from '@atlaskit/in-product-testing';
 
-import { EditorTestCaseOpts } from '../types';
+import type { EditorTestCaseOpts } from '../types';
 
 import { editorIsPresentTestCase } from './test-cases/editor-is-present';
 import { editorTypingTestCase } from './test-cases/editor-typing';

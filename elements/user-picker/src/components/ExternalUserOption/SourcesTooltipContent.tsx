@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { Box, xcss } from '@atlaskit/primitives';
 import React, { ReactNode } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
@@ -15,9 +16,9 @@ import { UserSource } from '../../types';
 import { ExternalUserSourcesData } from '../ExternalUserSourcesContainer';
 import { imageContainer } from './main';
 
-export const sourcesTooltipContainer = css({
-  paddingBottom: token('space.050', '4px'),
-  paddingRight: token('space.050', '4px'),
+const sourcesTooltipContainer = xcss({
+  paddingBottom: 'space.050',
+  paddingRight: 'space.050',
 });
 
 export const sourceWrapper = css({
@@ -84,7 +85,7 @@ export const SourcesTooltipContent: React.FC<ExternalUserSourcesData> = ({
           <span>
             <FormattedMessage {...messages.externalUserSourcesHeading} />
           </span>
-          <div css={sourcesTooltipContainer}>
+          <Box xcss={sourcesTooltipContainer}>
             {sourcesLoading && <Spinner size="small" appearance="invert" />}
             {!sourcesLoading &&
               sourcesToRender.map(({ sourceType, icon, label }) => (
@@ -95,7 +96,7 @@ export const SourcesTooltipContent: React.FC<ExternalUserSourcesData> = ({
                   </span>
                 </div>
               ))}
-          </div>
+          </Box>
         </React.Fragment>
       )}
     </React.Fragment>

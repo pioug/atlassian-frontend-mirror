@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.48.0",
+  "version": "26.48.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -77,11 +77,13 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/css-reset": "^6.6.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
+    "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
@@ -152,6 +154,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.hover-card-ai-summaries": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.fix-intersection-observer": {
       "type": "boolean"
     }
   },

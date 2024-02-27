@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-docs
 
+## 1.0.1
+
+### Patch Changes
+
+- [#76341](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76341) [`d30dab1f35c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d30dab1f35c4) - Minor internal refactor to reduce duplication
+
 ## 1.0.0
 
 ### Major Changes

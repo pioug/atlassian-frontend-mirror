@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 78.6.1
+
+### Patch Changes
+
+- [#74886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74886) [`5b79ded33f58`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b79ded33f58) - [EDF-324] Element Browser now has a separate categories for ai config items
+
+## 78.6.0
+
+### Minor Changes
+
+- [#76262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76262) [`19f46b47a53f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19f46b47a53f) - Adding new AnnotationUpdateEvent to deselect all annotations
+
 ## 78.5.0
 
 ### Minor Changes

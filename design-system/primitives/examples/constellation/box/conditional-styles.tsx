@@ -9,24 +9,24 @@ const baseStyles = xcss({
   borderRadius: 'border.radius',
 });
 
-const theseStyles = xcss({
-  backgroundColor: 'color.background.accent.blue.bolder',
-});
-
-const thoseStyles = xcss({
+const enabledStyles = xcss({
   backgroundColor: 'color.background.accent.green.bolder',
 });
 
+const disabledStyles = xcss({
+  backgroundColor: 'color.background.accent.gray.bolder',
+});
+
 export default function ConditionalStyles() {
-  const [theseOrThose, setTheseOrThoseStyles] = useState(false);
+  const [isEnabled, setEnabled] = useState(false);
 
   return (
     <Box testId="example" padding="space.200">
       <Inline alignBlock="center">
         <p>Toggle background color:</p>
-        <Toggle onChange={() => setTheseOrThoseStyles(!theseOrThose)} />
+        <Toggle onChange={() => setEnabled(current => !current)} />
       </Inline>
-      <Box xcss={[baseStyles, theseOrThose ? theseStyles : thoseStyles]} />
+      <Box xcss={[baseStyles, isEnabled ? enabledStyles : disabledStyles]} />
     </Box>
   );
 }

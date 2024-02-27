@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.48.1
+
+### Patch Changes
+
+- [#75710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75710) [`48a473f02139`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48a473f02139) - Fixes intersection observer not being disconnected when component not intersecting, behind ff platform.linking-platform.smart-card.fix-intersection-observer
+
 ## 26.48.0
 
 ### Minor Changes

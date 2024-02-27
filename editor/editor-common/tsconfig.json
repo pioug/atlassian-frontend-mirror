@@ -1058,6 +1058,6 @@
   "exclude": [
     "node_modules",
     "src/json-schema",
-    "src/__tests_external__"
+    "../editor-common-tests/src/__tests_external__"
   ]
 }

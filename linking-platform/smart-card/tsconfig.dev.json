@@ -41,6 +41,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
@@ -63,9 +66,6 @@
     },
     {
       "path": "../../design-system/code/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/css-reset/tsconfig.app.json"
     },
     {
       "path": "../../../build/website/docs/tsconfig.app.json"
@@ -135,6 +135,9 @@
     },
     {
       "path": "../../design-system/spinner/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
     },
     {
       "path": "../../design-system/table-tree/tsconfig.app.json"

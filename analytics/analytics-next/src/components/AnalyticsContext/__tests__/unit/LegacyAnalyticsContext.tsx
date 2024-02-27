@@ -14,6 +14,7 @@ class FakeLegacyListener extends Component<{
   callback: (context: Record<string, any>) => void;
   children: React.ReactElement;
 }> {
+  context: any;
   static childContextTypes = {
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
   };
@@ -34,6 +35,7 @@ class FakeLegacyListener extends Component<{
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FakeLegacyConsumerButton extends PureComponent<{}> {
+  context: any;
   renderCounter: number;
 
   static contextTypes = {

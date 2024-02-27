@@ -437,6 +437,23 @@ describe('Annotations: Hooks/useEvents', () => {
       );
     });
 
+    it('should listen for DESELECT_ANNOTATIONS', () => {
+      expect(updateSubscriberFake.on).toHaveBeenCalledTimes(0);
+
+      if (process.env.IS_REACT_18 === 'true') {
+        act(() => {
+          root.render(<CustomComp />);
+        });
+      } else {
+        render(<CustomComp />, container);
+      }
+
+      expect(updateSubscriberFake.on).toHaveBeenCalledWith(
+        AnnotationUpdateEvent.DESELECT_ANNOTATIONS,
+        expect.any(Function),
+      );
+    });
+
     describe('when the component is unmounted', () => {
       it('should stop listen for ON_ANNOTATION_CLICK', () => {
         expect(updateSubscriberFake.off).toHaveBeenCalledTimes(0);
@@ -459,6 +476,31 @@ describe('Annotations: Hooks/useEvents', () => {
 
         expect(updateSubscriberFake.off).toHaveBeenCalledWith(
           AnnotationUpdateEvent.ON_ANNOTATION_CLICK,
+          expect.any(Function),
+        );
+      });
+
+      it('should stop listen for DESELECT_ANNOTATIONS', () => {
+        expect(updateSubscriberFake.off).toHaveBeenCalledTimes(0);
+
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
+
+        act(() => {
+          if (process.env.IS_REACT_18 === 'true') {
+            root.unmount();
+          } else {
+            unmountComponentAtNode(container!);
+          }
+        });
+
+        expect(updateSubscriberFake.off).toHaveBeenCalledWith(
+          AnnotationUpdateEvent.DESELECT_ANNOTATIONS,
           expect.any(Function),
         );
       });
@@ -492,6 +534,33 @@ describe('Annotations: Hooks/useEvents', () => {
             type: AnnotationTypes.INLINE_COMMENT,
           })),
           clickElementTarget: container!,
+        };
+
+        expect(fakeFunction).toHaveBeenCalledWith(expected);
+      });
+    });
+
+    describe('when DESELECT_ANNOTATIONS is emitted', () => {
+      it('should remove all annotations', () => {
+        expect(fakeFunction).toHaveBeenCalledTimes(0);
+
+        if (process.env.IS_REACT_18 === 'true') {
+          act(() => {
+            root.render(<CustomComp />);
+          });
+        } else {
+          render(<CustomComp />, container);
+        }
+
+        expect(fakeFunction).toHaveBeenCalledWith(null);
+
+        act(() => {
+          updateSubscriberFake.emit(AnnotationUpdateEvent.DESELECT_ANNOTATIONS);
+        });
+
+        const expected = {
+          annotations: [],
+          clickElementTarget: undefined,
         };
 
         expect(fakeFunction).toHaveBeenCalledWith(expected);

@@ -23,16 +23,16 @@ Use `description` to add supplementary text under the main action.
 
 ## Multiline
 
-Use `shouldTitleWrap` to allow the primary content to wrap over multiple lines.
-Defaults to `true`.
+Use `shouldTitleWrap` to let the dropdown item's visible label wrap over multiple lines.
+The default is `true`. We recommend content wrapping over truncation, because truncation isn't usable or accessible.
 
 <Example
   Component={DropdownItemMultiline}
   packageName="@atlaskit/dropdown-menu"
 />
 
-Use `shouldDescriptionWrap` to allow the description to wrap over multiple lines.
-Defaults to `true`.
+Use `shouldDescriptionWrap` to let the description wrap over multiple lines.
+Defaults to `true`. We recommend content wrapping over truncation, because truncation isn't usable or accessible.
 
 <Example
   Component={DropdownItemDescriptionMultiline}
@@ -44,7 +44,7 @@ Defaults to `true`.
 ### Disabled
 
 Use `isDisabled` to make the element appear disabled.
-This will remove interactivity and hide it from screen readers.
+This will remove interactivity and hide it from people who use assistive technology, so use this state with caution.
 
 <Example
   Component={DropdownItemDisabled}
@@ -56,7 +56,7 @@ This will remove interactivity and hide it from screen readers.
 ### Elem before
 
 Use `elemBefore` to show an element before the dropdown item text.
-Generally this should be an [icon](/components/icon).
+Generally this is an [icon](/components/icon).
 
 <Example
   Component={DropdownItemElementBefore}
@@ -66,7 +66,7 @@ Generally this should be an [icon](/components/icon).
 ### Elem after
 
 Use `elemAfter` to show an element after the dropdown item text.
-Generally this should be an [icon](/components/icon).
+Generally this is an [icon](/components/icon).
 
 <Example
   Component={DropdownItemElementAfter}

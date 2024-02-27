@@ -44,6 +44,8 @@ class FormErrorBoundaryInner extends React.Component<
   Props & WithAnalyticsEventsProps & WrappedComponentProps,
   State
 > {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
   state: State = { error: undefined };
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {

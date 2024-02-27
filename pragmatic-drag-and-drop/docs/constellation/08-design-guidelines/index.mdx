@@ -9,16 +9,16 @@ import ListExample from '../../examples/list';
 import BoardExample from '../../examples/board';
 import TreeExample from '../../examples/tree';
 
-These guidelines provide an opinionated way to implement drag and drop experiences with Pragmatic drag and drop for Atlassian interfaces. Non-Atlassian consumers are welcome to use these guidelines, or create their own visual language for drag and drop. The [core package](./core-package) does not have any baked in design opinions, but some of the [optional packages](./optional-packages) embody these design choices.
+These guidelines provide an opinionated way to implement drag and drop experiences with Pragmatic drag and drop for Atlassian interfaces. These guidelines work within [web platform design constraints](./web-platform-design-constraints) and aim to optimise clarity and performance. Non-Atlassian consumers are welcome to use these guidelines, or create their own visual language for drag and drop. The [core package](./core-package) does not have any baked in design opinions, but some of the [optional packages](./optional-packages) embody these design choices.
 
 Cards, lists, and other UI can often be dragged and reordered. Design clear and consistent drag and drop experiences in Atlassian products following these principles:
 
-- [Show what is draggable](/components/pragmatic-drag-and-drop/design-guidelines#show-what-is-draggable)
-- [Use previews and drop indicators during dragging](/components/pragmatic-drag-and-drop/design-guidelines#use-clear-previews-and-drop-indicators-during-dragging)
-  - [Multiple item drag previews](/components/pragmatic-drag-and-drop/design-guidelines#multiple-item-drag-previews)
-- [Show the item in its new location](/components/pragmatic-drag-and-drop/design-guidelines#show-the-item-in-its-new-position)
-- [Provide keyboard-accessible ways to move items](/components/pragmatic-drag-and-drop/design-guidelines#provide-accessible-controls)
-- [Follow examples and specs for cards, lists, and trees](/components/pragmatic-drag-and-drop/design-guidelines#examples-of-multi-item-select-drag-and-drop)
+- [Show what is draggable](#show-what-is-draggable)
+- [Use previews and drop indicators during dragging](#use-clear-previews-and-drop-indicators-during-dragging)
+  - [Multiple item drag previews](#multiple-item-drag-previews)
+- [Show the item in its new location](#show-the-item-in-its-new-position)
+- [Provide keyboard-accessible ways to move items](#provide-accessible-controls)
+- [Follow examples and specs for cards, lists, and trees](#examples-of-multi-item-select-drag-and-drop)
 
 ## Show what is draggable
 
@@ -32,7 +32,7 @@ Combine hover background color changes with a change to the grab cursor to show 
 
 ![A board of cards that can be dragged between columns. The cursor shows a hand grabbing a card where the background-color changes on hover.](/images/design-cards-draggable.png)
 
-Implement with [design tokens](/components/tokens/) and [cursors](../how-it-works/drop-targets/cursors) in code, or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-2098&mode=design>) for designs.
+Implement with [design tokens](/components/tokens/) and [cursors](./design-guidelines) in code, or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-2098&mode=design>) for designs.
 
 ### Drag handle icons
 
@@ -44,7 +44,7 @@ Drag icons help users understand what is draggable. Lists, editable table items,
 
 In general, make the whole item draggable wherever possible. If the item has lots of interactive parts, such as buttons or links on top of the item, you can also make the drag handle itself the only part that allows grab and drag interactions.
 
-Use the [drag handle component](/components/pragmatic-drag-and-drop/packages/react-accessibility/drag-handle-button/examples) in code or [drag handles in Figma (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38%3A5623&mode=design&t=LsTwhMGxMe6t08K3-1>) for designs.
+Use the [drag handle component](./optional-packages/react-accessibility) in code or [drag handles in Figma (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38%3A5623&mode=design&t=LsTwhMGxMe6t08K3-1>) for designs.
 
 ## Use clear previews and drop indicators during dragging
 
@@ -52,13 +52,13 @@ While an item is being dragged, A drag preview should move along with the cursor
 
 ### Drag previews
 
-Try to keep previews under`280px`. Some Windows versions add transparency to previews larger than `280px` to avoid blocking other objects on screen.
+Try to keep previews under `280px`. Some Windows versions add transparency to previews larger than `280px` to avoid blocking other objects on screen.
 
 List items and smaller elements offset the preview from the cursor by `space.200` horizontally and `space.100` vertically. Cards and larger elements are dragged from the point they’re grabbed (no offset).
 
 ![A small list of items being dragged across a screen. The items appear near the cursor, slightly offset to the right](/images/design-multi-preview-small-list.png)
 
-For best performance, implement with [native drag previews](../how-it-works/adapters/element-adapter#drag-previews), or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) in designs.
+For best performance, implement with [native drag previews](./adapters/element-adapter/drag-previews), or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) in designs.
 
 ### Multiple-item drag previews
 
@@ -69,7 +69,7 @@ For multi-item drag previews, use a stacked appearance with a badge indicating t
 
 ![A stack of multiple cards being dragged across a board, with a badge indicating there are two cards being moved.](/images/design-multi-card-drag.png)
 
-Implement with [native drag previews](../how-it-works/adapters/element-adapter#drag-previews), or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) in designs.
+Implement with [native drag previews](./adapters/element/drag-previews), or use the [Figma kit (Atlassian only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) in designs.
 
 ### Drop placement indicators
 
@@ -77,9 +77,9 @@ To show where the item being dragged will land, use a drop line indicator with a
 
 ![A list of items where one is being dragged over a new location. The location where the item would drop if released is marked with a blue line and dot. ](/images/design-list-drop-indicator.png)
 
-[Edge detection](/components/pragmatic-drag-and-drop/packages/react-indicator/about#edge) determines when and where the drop indicator shows based on the location of the dragged item.
+[Edge detection](./optional-packages/hitbox) determines when and where the drop indicator shows based on the location of the dragged item.
 
-To achieve this, use the [react indicator](/components/pragmatic-drag-and-drop/packages/react-indicator/about) in code or the [Figma kit indicator](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=desig>) in designs.
+To achieve this, use the [react drop indicator](./optional-packages/react-drop-indicator) in code or the [Figma kit indicator](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=desig>) in designs.
 
 ## Show the item in its new position
 
@@ -87,11 +87,13 @@ After drop, the preview disappears and the original item moves to the new locati
 
 ![A series of actions shown in four slides. Hover state is grey, the drag indicator appears once drag begins, upon drop the color of the item flashes blue, then returns to its normal color.](/images/design-drop-flash.png)
 
-Implement this using [flourish](/components/pragmatic-drag-and-drop/packages/flourish/code) in code or show the color in the [Figma kit](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) for designs.
+Implement this using [flourish](./optional-packages/flourish) in code or show the color in the [Figma kit](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-5065&mode=design>) for designs.
 
 ## Provide accessible controls
 
 When making accessible controls for drag and drop experiences, add visible drag handle icons to all draggable items (where possible).
+
+For more details, view [the full accessibility guide and examples](/pragmatic-drag-and-drop/accessibility/).
 
 ### Action menus for move actions
 
@@ -105,7 +107,7 @@ If the entity does not have any more actions (…), make the drag handle icon in
 
 ![An issue details view in Jira. A drag handle icon appears at the left of the assignee field. It is focussable, and opens a menu with options to move the field up or down in the view.](/images/design-drag-handle-menu.png)
 
-Use the [drag handle menu component](/components/pragmatic-drag-and-drop/packages/react-accessibility/drag-handle-dropdown-menu/examples) in code or the [Figma kit drag handle menu](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-2098&mode=design>) in designs.
+Use the [drag handle menu component](./optional-packages/react-accessibility) in code or the [Figma kit drag handle menu](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=38-2098&mode=design>) in designs.
 
 ### Other alternative controls
 
@@ -154,20 +156,21 @@ For more than three or four items, show a badge indicating the number and an imp
 
 ## Spec
 
-| Visual treatment               | Token or value                                                                                 | Implementation                                                                                                                                                                                      | Figma (Atlassian)                                                                                                                                                   |
-| ------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Hover background color         | `color.background.neutral.hovered` (or other hover color)                                      | [Design token](/components/tokens/all-tokens)                                                                                                                                                       | Variable                                                                                                                                                            |
-| Hover border color             | `color.border.selected`                                                                        | [Design token](/components/tokens/all-tokens)                                                                                                                                                       | Variable                                                                                                                                                            |
-| Hover cursor                   | `cursor:grab`                                                                                  | [Cursor:grab](../how-it-works/drop-targets/cursors)                                                                                                                                                 | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drag cursors                   | Reverts to pointer (browser limitation)                                                        | [Cursor](../how-it-works/drop-targets/cursors)                                                                                                                                                      | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drag handle icon               | `color.icon.default` (or other icon token with typical hover interaction colors on background) | [Drag handle](/packages/react-accessibility/drag-handle-button/examples) or [Drag handle menu](/components/pragmatic-drag-and-drop/packages/react-accessibility/drag-handle-dropdown-menu/examples) | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drag preview                   | >`280px` to avoid transparency issue                                                           | [Native drag preview](../how-it-works/adapters/element-adapter#drag-previews)                                                                                                                       | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drop indicator stroke          | `2px`                                                                                          | [React indicator](/components/pragmatic-drag-and-drop/packages/react-indicator/about)                                                                                                               | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drop indicator color           | `color.border.selected` or `#0c66e4`                                                           | [React indicator](/components/pragmatic-drag-and-drop/packages/react-indicator/about)                                                                                                               | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drop indicator terminal circle | `8px diameter`                                                                                 | [React indicator](/components/pragmatic-drag-and-drop/packages/react-indicator/about)                                                                                                               | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
-| Drop flourish color change     | `color.background.selected`                                                                    | [Flourish](/components/pragmatic-drag-and-drop/packages/flourish/code)                                                                                                                              | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Visual treatment               | Token or value                                                                                 | Implementation                                                                                                                                                                    | Figma (Atlassian)                                                                                                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hover background color         | `color.background.neutral.hovered` (or other hover color)                                      | [Design token](/components/tokens/all-tokens)                                                                                                                                     | Variable                                                                                                                                                            |
+| Hover border color             | `color.border.selected`                                                                        | [Design token](/components/tokens/all-tokens)                                                                                                                                     | Variable                                                                                                                                                            |
+| Hover cursor                   | `cursor:grab`                                                                                  | [Cursor:grab](./design-guidelines)                                                                                                                                                | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drag cursors                   | Reverts to pointer (browser limitation)                                                        | [Cursor](./design-guidelines)                                                                                                                                                     | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drag handle icon               | `color.icon.default` (or other icon token with typical hover interaction colors on background) | [Drag handle](./optional-packages/react-accessibility) or [Drag handle menu](/components/pragmatic-drag-and-drop/packages/react-accessibility/drag-handle-dropdown-menu/examples) | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drag preview                   | >`280px` to avoid transparency issue                                                           | [Native drag preview](./adapters/element/drag-previews)                                                                                                                           | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drop indicator stroke          | `2px`                                                                                          | [React drop indicator](./optional-packages/react-drop-indicator)                                                                                                                  | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drop indicator color           | `color.border.selected` or `#0c66e4`                                                           | [React drop indicator](./optional-packages/react-drop-indicator)                                                                                                                  | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drop indicator terminal circle | `8px diameter`                                                                                 | [React drop indicator](./optional-packages/react-drop-indicator)                                                                                                                  | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
+| Drop flourish color change     | `color.background.selected`                                                                    | [Flourish](./optional-packages/flourish)                                                                                                                                          | [DND library](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>) |
 
 ## Related
 
 - [More examples](/components/pragmatic-drag-and-drop/examples)
 - [Drag and drop figma kit (Atlassian access only)](<https://www.figma.com/file/3E3rGPX4YHlVUP3cNyRykB/Pragmatic-Drag-%26-Drop-UI-Kit-(PDND)?type=design&node-id=0%3A1&mode=design&t=4UwHqNt2ffApWviO-1>)
+- [Drag and drop accessibility guide](/pragmatic-drag-and-drop/accessibility/)]

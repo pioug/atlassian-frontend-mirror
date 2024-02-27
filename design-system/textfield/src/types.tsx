@@ -4,7 +4,9 @@ import React, { AllHTMLAttributes, FormEventHandler } from 'react';
 export interface TextfieldProps
   extends Omit<AllHTMLAttributes<HTMLInputElement>, 'disabled'> {
   /**
-   * Affects the visual style of the text field.
+   * Controls the appearance of the field.
+   * Subtle shows styling on hover.
+   * None prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions.
    */
   appearance?: Appearance;
 
@@ -15,7 +17,8 @@ export interface TextfieldProps
 
   /**
    * Sets the field as to appear disabled,
-   * users will not be able to interact with the text field.
+   * people will not be able to interact with the text field and it won't appear in the focus order.
+   * Wherever possible, prefer using validation and error messaging over disabled fields for a more accessible experience.
    */
   isDisabled?: boolean;
 

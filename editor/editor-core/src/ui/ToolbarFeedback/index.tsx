@@ -118,6 +118,7 @@ class ToolbarFeedbackInternal extends PureComponent<
   ToolbarFeedbackInternalProps,
   State
 > {
+  context: any;
   static contextTypes = {
     editorActions: PropTypes.object.isRequired,
   };

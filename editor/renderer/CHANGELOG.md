@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.6.0
+
+### Minor Changes
+
+- [#76262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76262) [`19f46b47a53f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19f46b47a53f) - Adding new AnnotationUpdateEvent to deselect all annotations
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.5.2
 
 ### Patch Changes

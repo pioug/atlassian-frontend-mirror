@@ -8,6 +8,7 @@ export function getCategories(intl: IntlShape) {
       title: intl.formatMessage(messages.all),
       name: 'all',
     },
+    { title: intl.formatMessage(messages.AI), name: 'AI' },
     { title: intl.formatMessage(messages.formatting), name: 'formatting' },
     {
       title: intl.formatMessage(messages['confluence-content']),

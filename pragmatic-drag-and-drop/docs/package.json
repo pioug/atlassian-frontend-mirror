@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-docs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Internal package containing all Pragmatic drag and drop documentation. Not intended for external consumption",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -16,7 +16,7 @@ import SmartUserPicker, {
   UserPickerProps,
   Value,
 } from '@atlaskit/smart-user-picker';
-import UserPicker from '@atlaskit/user-picker';
+import UserPicker, { ExternalUser, Team, User } from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
 import {
@@ -237,6 +237,55 @@ export class UserPickerFieldComponent extends React.Component<
     return event as Value;
   };
 
+  private getSmartUserPickerProps = () => {
+    const {
+      product,
+      intl,
+      loggedInAccountId,
+      cloudId,
+      orgId,
+      enableSmartUserPicker,
+      isBrowseUsersDisabled,
+      userPickerOptions,
+    } = this.props;
+    if (!enableSmartUserPicker || isBrowseUsersDisabled) {
+      return {};
+    }
+
+    const baseProps = {
+      productKey: product,
+      principalId: loggedInAccountId,
+      siteId: cloudId || '',
+      includeTeams: true,
+      includeGroups: true,
+      debounceTime: DEBOUNCE_MS,
+      orgId,
+    };
+
+    const externalUserBylineByProduct = {
+      confluence: intl.formatMessage(messages.inviteToConfluence),
+      jira: intl.formatMessage(messages.inviteToJira),
+    };
+
+    if (userPickerOptions?.includeNonLicensedUsers) {
+      const externalUserByline = externalUserBylineByProduct[product] || '';
+
+      const overrideByline =
+        product === 'confluence' || product === 'jira'
+          ? (item: User | ExternalUser | Team) =>
+              (item as ExternalUser).isExternal ? externalUserByline : ''
+          : undefined;
+
+      return {
+        ...baseProps,
+        includeNonLicensedUsers: true,
+        overrideByline,
+      };
+    }
+
+    return baseProps;
+  };
+
   render() {
     const {
       defaultValue,
@@ -246,28 +295,15 @@ export class UserPickerFieldComponent extends React.Component<
       isLoading,
       product,
       onInputChange,
-      loggedInAccountId,
-      cloudId,
       selectPortalRef,
       isPublicLink,
-      orgId,
       isBrowseUsersDisabled,
       shareError,
       userPickerOptions,
     } = this.props;
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> =
-      enableSmartUserPicker && !isBrowseUsersDisabled
-        ? {
-            productKey: product,
-            principalId: loggedInAccountId,
-            siteId: cloudId || '',
-            includeTeams: true,
-            includeGroups: true,
-            debounceTime: DEBOUNCE_MS,
-            orgId,
-          }
-        : {};
+      this.getSmartUserPickerProps();
 
     const allowEmail = allowEmails(config);
 

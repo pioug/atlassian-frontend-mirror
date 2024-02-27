@@ -97,7 +97,7 @@ export interface DropdownMenuProps<
   /**
    * Controls the appearance of the menu.
    * The default menu will scroll after its height exceeds the pre-defined amount.
-   * The tall menu will not scroll until the height exceeds the height of the viewport.
+   * The tall menu won't scroll until the height exceeds the height of the viewport.
    */
   appearance?: 'default' | 'tall';
   /**
@@ -110,12 +110,12 @@ export interface DropdownMenuProps<
 
   /**
    * Content that will be rendered inside the layer element. Should typically be
-   * `DropdownItemGroup` or `DropdownItem`, or checkbox / radio variants of those.
+   * `DropdownItemGroup` or `DropdownItem`, or the checkbox and radio variants of those.
    */
   children?: ReactNode;
 
   /**
-   * If true, a Spinner is rendered instead of the items.
+   * If true, a spinner is rendered instead of the items.
    */
   isLoading?: boolean;
 
@@ -194,7 +194,7 @@ export interface DropdownMenuProps<
    */
   zIndex?: number;
   /**
-   * Provide an accessible label via aria-label, used by assistive technologies.
+   * Provide an accessible label via `aria-label` for assistive technology.
    */
   label?: string;
 }
@@ -219,17 +219,17 @@ export interface DropdownItemProps {
   description?: string | JSX.Element;
 
   /**
-   * Makes the element appear disabled as well as removing interactivity.
+   * Makes the element appear disabled. This will remove interactivity and the item won't appear in the focus order.
    */
   isDisabled?: boolean;
 
   /**
-   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   * When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu.
    */
   shouldTitleWrap?: boolean;
 
   /**
-   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   * When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu.
    */
   shouldDescriptionWrap?: boolean;
 
@@ -387,7 +387,7 @@ export interface DropdownItemRadioProps {
   defaultSelected?: boolean;
 
   /**
-   * Unique id of a checkbox.
+   * Unique ID of the checkbox.
    */
   id: string;
 

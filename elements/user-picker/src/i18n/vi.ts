@@ -25,7 +25,7 @@ export default {
   'fabric.elements.user-picker.microsoft.provider': 'Microsoft',
   'fabric.elements.user-picker.multi.remove-item': 'Xóa',
   'fabric.elements.user-picker.placeholder': 'Nhập người hoặc nhóm...',
-  'fabric.elements.user-picker.placeholder.add-more': 'thêm nhiều người hơn...',
+  'fabric.elements.user-picker.placeholder.add-more': 'thêm người khác...',
   'fabric.elements.user-picker.single.clear': 'Xóa',
   'fabric.elements.user-picker.slack.provider': 'Slack',
   'fabric.elements.user-picker.source.confluence': 'Confluence',

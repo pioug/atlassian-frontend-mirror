@@ -9,16 +9,16 @@ import {
 } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
-export const visuallyHiddenStyles = css`
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  position: fixed;
-  border: 0;
-  clip: rect(1px, 1px, 1px, 1px);
-  overflow: hidden;
-  white-space: nowrap;
-`;
+export const visuallyHiddenStyles = css({
+  width: '1px',
+  height: '1px',
+  padding: 0,
+  position: 'absolute',
+  border: 0,
+  clip: 'rect(1px, 1px, 1px, 1px)',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+});
 
 type OpenMediaViewerButtonProps = {
   fileName: string;

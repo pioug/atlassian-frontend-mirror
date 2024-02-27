@@ -1,21 +1,16 @@
 import { useLayoutEffect, useState } from 'react';
-import {
-  AnnotationUpdateEvent,
-  AnnotationUpdateEmitter,
-} from '@atlaskit/editor-common/types';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 
 import type {
   AnnotationUpdateEventPayloads,
   InlineCommentViewComponentProps,
   OnAnnotationClickPayload,
+  AnnotationUpdateEmitter,
 } from '@atlaskit/editor-common/types';
 
-import {
-  AnnotationMarkStates,
-  AnnotationId,
-  AnnotationTypes,
-} from '@atlaskit/adf-schema';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { AnnotationMarkStates, AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -139,7 +134,10 @@ export const useAnnotationClickEvent = (
       return;
     }
 
-    const cb = ({ annotationIds, eventTarget }: OnAnnotationClickPayload) => {
+    const clickCb = ({
+      annotationIds,
+      eventTarget,
+    }: OnAnnotationClickPayload) => {
       const annotationsByType = annotationIds
         .filter((id) => !!id)
         .map((id) => ({
@@ -165,10 +163,22 @@ export const useAnnotationClickEvent = (
       });
     };
 
-    updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, cb);
+    const deselectCb = () => {
+      setAnnotationClickEvent({
+        annotations: [],
+        clickElementTarget: undefined,
+      });
+    };
+
+    updateSubscriber.on(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
+    updateSubscriber.on(AnnotationUpdateEvent.DESELECT_ANNOTATIONS, deselectCb);
 
     return () => {
-      updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, cb);
+      updateSubscriber.off(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, clickCb);
+      updateSubscriber.off(
+        AnnotationUpdateEvent.DESELECT_ANNOTATIONS,
+        deselectCb,
+      );
     };
   }, [updateSubscriber, createAnalyticsEvent]);
 

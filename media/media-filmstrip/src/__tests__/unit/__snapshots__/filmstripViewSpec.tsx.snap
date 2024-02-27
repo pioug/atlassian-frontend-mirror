@@ -23,6 +23,7 @@ exports[`FilmstripView .render() styles 1`] = `
 
 .emotion-3 {
   margin: 0;
+  margin-left: -3px;
   padding: 0;
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);

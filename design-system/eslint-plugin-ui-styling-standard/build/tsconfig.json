@@ -2,11 +2,9 @@
   "extends": "../tsconfig",
   "compilerOptions": {
     "target": "es5",
-    "outDir": "../dist",
-    "rootDir": "../",
-    "baseUrl": "../",
+    "lib": ["ES2021.String"],
     "paths": {}
-    },
+  },
   "include": [
     "../src/**/*.ts",
     "../src/**/*.tsx"

@@ -15,9 +15,7 @@ import {
 } from '@atlaskit/locale';
 import Select, {
   ActionMeta,
-  components,
   CreatableSelect,
-  MenuProps,
   mergeStyles,
   OptionType,
   SelectComponentsConfig,
@@ -32,7 +30,7 @@ import {
   EmptyComponent,
   placeholderDatetime,
 } from '../internal';
-import FixedLayer from '../internal/fixed-layer';
+import { FixedLayerMenu } from '../internal/fixed-layer-menu';
 import parseTime from '../internal/parse-time';
 import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
@@ -68,20 +66,6 @@ const menuStyles: CSSProperties = {
   /* React-Popper has already offset the menu so we need to reset the margin, otherwise the offset value is doubled */
   margin: 0,
 };
-
-const FixedLayerMenu = ({ selectProps, ...rest }: { selectProps: any }) => (
-  <FixedLayer
-    inputValue={selectProps.inputValue}
-    containerRef={selectProps.fixedLayerRef}
-    content={
-      <components.Menu
-        {...(rest as MenuProps<OptionType>)}
-        menuShouldScrollIntoView={false}
-      />
-    }
-    testId={selectProps.testId}
-  />
-);
 
 const timePickerDefaultProps = {
   appearance: 'default' as Appearance,

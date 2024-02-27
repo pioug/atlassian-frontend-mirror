@@ -92,6 +92,7 @@ const FakeModernConsumer = memo<{}>(() => {
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class FakeLegacyConsumer extends PureComponent<{}> {
+  context: any;
   renderCounter: number;
 
   static contextTypes = {

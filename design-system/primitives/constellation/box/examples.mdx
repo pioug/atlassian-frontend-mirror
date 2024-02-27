@@ -53,13 +53,15 @@ For more information on XCSS, see the dedicated [XCSS documentation](/components
 
 ## Conditional styles
 
-To achieve conditional styles, it is usually simpler to apply conditional behavior at the `xcss` object level, rather than applying conditional behavior to individual properties.
+To achieve conditional styles, we suggest composing conditional styles via the `props.xcss` API rather than applying conditional behaviour to individual props.
 
 <Example Component={BoxConditional} packageName="@atlaskit/primitives/box" />
 
-## Practical use case
+## Practical card example
 
-Box is designed to be used in conjunction with the inline and stack components to create layouts. This example demonstrates how these can be used to create familiar components and patterns.
+Box is designed to be composed with inline, stack, and other components to create layouts.
+
+Atlassian uses dozens of distinct card-like components across products. Therefore, rather than providing a strict component, the Atlassian Design System empowers and supports you to build your own card components in ways that are consistent and will scale over time.
 
 <Example
   Component={BoxPracticalUseCase}

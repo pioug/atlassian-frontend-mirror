@@ -23,7 +23,8 @@
     "./__mocks__/**/*",
     "**/mock.*",
     "**/codemods/**/*.ts",
-    "**/codemods/**/*.tsx"
+    "**/codemods/**/*.tsx",
+    "./**/__fixtures__/**/*.json"
   ],
   "exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
   "compilerOptions": {
@@ -35,6 +36,9 @@
   "references": [
     {
       "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../ds-lib/tsconfig.app.json"
     }
   ],
   "files": []

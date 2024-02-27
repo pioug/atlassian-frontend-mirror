@@ -12,7 +12,8 @@ export interface OwnProps extends WithAnalyticsEventsProps {
    */
   isCompact?: boolean;
   /**
-   * Sets the field as uneditable, with a changed hover state.
+   * Sets the field as uneditable, with a changed hover state, and prevents it from showing in the focus order.
+   * Wherever possible, prefer using validation and error messaging over disabled fields for a more accessible experience.
    */
   isDisabled?: boolean;
   /**
@@ -48,7 +49,7 @@ export interface OwnProps extends WithAnalyticsEventsProps {
    */
   name?: string;
   /**
-   * The placeholder within the text area.
+   * The placeholder text within the text area. Don't use placeholder text to provide instructions as it disappears on data entry.
    */
   placeholder?: string;
   /**

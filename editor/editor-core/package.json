@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "192.3.2",
+  "version": "192.3.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.4.0",
-    "@atlaskit/editor-common": "^78.5.0",
+    "@atlaskit/editor-common": "^78.6.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^1.4.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -105,7 +105,7 @@
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/primitives": "^2.1.0",
-    "@atlaskit/renderer": "^109.5.0",
+    "@atlaskit/renderer": "^109.6.0",
     "@atlaskit/select": "^17.1.0",
     "@atlaskit/smart-card": "^26.48.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
@@ -115,7 +115,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.24",
+    "@atlassian/search-provider": "2.4.26",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",

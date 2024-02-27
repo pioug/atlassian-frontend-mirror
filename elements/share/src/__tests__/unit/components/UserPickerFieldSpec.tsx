@@ -11,7 +11,7 @@ import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import SmartUserPicker, { OptionData } from '@atlaskit/smart-user-picker';
-import UserPicker from '@atlaskit/user-picker';
+import UserPicker, { ExternalUser, Team, User } from '@atlaskit/user-picker';
 
 import {
   Props,
@@ -20,7 +20,7 @@ import {
 } from '../../../components/UserPickerField';
 import { getMenuPortalTargetCurrentHTML } from '../../../components/utils';
 import { messages } from '../../../i18n';
-import { ConfigResponse } from '../../../types';
+import { ConfigResponse, UserPickerOptions } from '../../../types';
 import { ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';
 
@@ -98,6 +98,15 @@ const REGULAR_CONFLUENCE: [string, Scenario] = [
     disableSharingToEmails: false,
   },
 ];
+
+const user: User = { id: '1', name: 'user', isExternal: false };
+const externalUser: ExternalUser = {
+  id: '2',
+  name: 'externalUser',
+  isExternal: true,
+  sources: [],
+};
+const team: Team = { id: '3', name: 'team', type: 'team' };
 
 describe('UserPickerField', () => {
   const render = (userPickerFieldProps: Props, ...args: any[]) => {
@@ -576,6 +585,46 @@ describe('UserPickerField', () => {
       );
       const smartUserPicker = field.find(SmartUserPicker);
       expect(smartUserPicker.prop('allowEmail')).toBe(false);
+    });
+  });
+
+  describe('includeNonLicensedUsers prop', () => {
+    describe.each([
+      ['jira', 'Invite to Jira'],
+      ['confluence', 'Invite to Confluence'],
+    ])('Test for product: %s', (product, expectedByline) => {
+      it('should override byline for external users', () => {
+        const cloudId = 'cloud-id';
+        const orgId = 'org-id';
+
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [],
+        };
+        const loadOptions = jest.fn();
+        const userPickerOptions: UserPickerOptions = {
+          includeNonLicensedUsers: true,
+        };
+        const field = renderUserPicker(
+          {
+            loadOptions,
+            product: product as ProductName,
+            enableSmartUserPicker: true,
+            userPickerOptions,
+            cloudId,
+            orgId,
+          },
+          { fieldProps, meta: { valid: true } },
+        );
+
+        const smartUserPicker = field.find(SmartUserPicker);
+        expect(smartUserPicker.prop('includeNonLicensedUsers')).toBe(true);
+
+        const overrideByline = smartUserPicker.prop('overrideByline');
+        expect(overrideByline(user)).toBe('');
+        expect(overrideByline(externalUser)).toBe(expectedByline);
+        expect(overrideByline(team)).toBe('');
+      });
     });
   });
 });

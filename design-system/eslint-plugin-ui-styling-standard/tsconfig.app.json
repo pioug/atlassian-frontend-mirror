@@ -32,6 +32,10 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/app"
   },
-  "references": [],
+  "references": [
+    {
+      "path": "../codegen/tsconfig.app.json"
+    }
+  ],
   "files": []
 }

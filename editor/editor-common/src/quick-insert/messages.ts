@@ -61,4 +61,9 @@ export const messages = defineMessages({
     defaultMessage: 'Development',
     description: 'development',
   },
+  AI: {
+    id: 'fabric.editor.elementbrowser.categorylist.category-ai',
+    defaultMessage: 'Atlassian Intelligence',
+    description: 'AI',
+  },
 });

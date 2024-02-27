@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.4.0
+
+### Minor Changes
+
+- [#75678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75678) [`fdcbedeb3cab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdcbedeb3cab) - [ux] Fix cell solour menu button to display selected state colour
+
 ## 7.3.11
 
 ### Patch Changes

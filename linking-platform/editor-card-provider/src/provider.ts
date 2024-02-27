@@ -45,6 +45,11 @@ const isJwmView = (url: string) =>
     /^https:\/\/.*?\/jira\/core\/projects\/[^\/]+?\/(timeline|calendar|list|board|summary|(form\/[^\/]+?))\/?/,
   );
 
+const isJiraList = (url: string) =>
+  url.match(
+    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(list)\/?/,
+  );
+
 const isGiphyMedia = (url: string) =>
   url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);
 
@@ -218,6 +223,7 @@ export class EditorCardProvider implements CardProvider {
       isJiraRoadmapOrTimeline(url) ||
       isPolarisView(url) ||
       isJwmView(url) ||
+      isJiraList(url) ||
       isGiphyMedia(url) ||
       isProformaView(url) ||
       isConfluenceWhiteboard(url) ||

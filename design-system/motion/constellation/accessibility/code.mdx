@@ -14,14 +14,14 @@ Motion comes with reduced motion support.
 
 Use the `isReducedMotion()` function when performing motion at runtime and outside the context of a React render.
 
-```
+```ts
 import { isReducedMotion } from '@atlaskit/motion';
 
 const onClick = () => {
   if (!isReducedMotion()) {
     // do the motion
   }
-}
+};
 ```
 
 ### Use reduced motion (React)

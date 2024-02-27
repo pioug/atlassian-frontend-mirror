@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 192.3.5
+
+### Patch Changes
+
+- [#76194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76194) [`4c6528951d4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c6528951d4a) - Removing platform.editor.transform-slice-for-nested-expand from platform feature flag section
+
 ## 192.3.2
 
 ### Patch Changes

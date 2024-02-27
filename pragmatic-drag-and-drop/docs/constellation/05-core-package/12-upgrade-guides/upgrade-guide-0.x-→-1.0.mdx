@@ -68,6 +68,7 @@ Here is an optional `bash` script that will upgrade all your installed Pragmatic
 
 PACKAGES=(
   "@atlaskit/pragmatic-drag-and-drop"
+  "@atlaskit/pragmatic-drag-and-drop-auto-scroll"
   "@atlaskit/pragmatic-drag-and-drop-hitbox"
   "@atlaskit/pragmatic-drag-and-drop-live-region"
   "@atlaskit/pragmatic-drag-and-drop-flourish"
@@ -82,6 +83,8 @@ do
   if grep -q "\"${PACKAGE}\"" ./package.json; then
     echo "${PACKAGE} is installed, upgrading to ${VERSION}..."
     yarn upgrade ${PACKAGE}@${VERSION}
+    # for yarn@3, use:
+    # yarn up ${PACKAGE}@${VERSION}
   else
     echo "${PACKAGE} is not installed, skipping upgrade."
   fi
@@ -190,7 +193,7 @@ The `@atlaskit/pragmatic-drag-and-drop-auto-scroll` named exports have been upda
 + import {unsafeOverflowAutoScrollForExternal} from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/external';
 ```
 
-Our _file adapter_ has been replaced by a new [_external adapter_](../adapters/external) (and [_internal uncontrolled adapter_](../adapters/internal-uncontrolled)) which can be used for files, as well as any other native data (eg `"text/plain"`).
+Our _file adapter_ has been replaced by a new [_external adapter_](./adapters/external) (and [_internal uncontrolled adapter_](./adapters/internal-uncontrolled)) which can be used for files, as well as any other native data (eg `"text/plain"`).
 
 ```ts
 /** 0.x API **/
@@ -240,8 +243,8 @@ dropTargetForExternal({
 
 While we are talking about changes, we encourage all consumers to move off our legacy auto scroller packages, and onto our new, faster, more flexible and more delightful auto scroller package:
 
-**Old:** [`@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll`](../../optional-packages/react-beautiful-dnd-autoscroll)
+**Old:** [`@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll`](../optional-packages/react-beautiful-dnd-autoscroll)
 
 (previously called `@atlaskit/pragmatic-drag-and-drop-autoscroll`)
 
-**New:** [`@atlaskit/pragmatic-drag-and-drop-auto-scroll`](../../optional-packages/auto-scroll)
+**New:** [`@atlaskit/pragmatic-drag-and-drop-auto-scroll`](../optional-packages/auto-scroll)

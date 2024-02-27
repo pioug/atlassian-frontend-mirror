@@ -46,7 +46,7 @@ const getMockProvidersResponse = ({
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/(timeline|roadmap)\\/?',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/(timeline|roadmap|list)\\/?',
         },
         {
           source:
@@ -567,6 +567,10 @@ describe('providers > editor', () => {
     [
       'ProForma issue forms direct view with query parameter',
       'https://jdog.jira-dev.com/jira/servicedesk/projects/PROFORMA/forms/form/direct/10/10048?requestTypeId=509',
+    ],
+    [
+      'Jira list embed',
+      'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/boards/3186/list',
     ],
   ])(
     'returns embedCard when %s link inserted, calling /providers endpoint',

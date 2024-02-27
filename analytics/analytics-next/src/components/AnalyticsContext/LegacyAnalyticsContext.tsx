@@ -27,6 +27,7 @@ class AnalyticsContext extends Component<
   Props,
   AnalyticsReactContextInterface
 > {
+  context: any;
   static contextTypes = ContextTypes;
   static childContextTypes = ContextTypes;
 

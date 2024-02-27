@@ -35,7 +35,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",
     "@atlaskit/button": "^17.4.0",
-    "@atlaskit/editor-common": "^78.5.0",
+    "@atlaskit/editor-common": "^78.6.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-selection": "^1.1.0",
@@ -59,7 +59,7 @@
     "@atlaskit/editor-plugin-content-insertion": "^1.0.0",
     "@atlaskit/editor-plugin-guideline": "^1.0.0",
     "@atlaskit/editor-plugin-quick-insert": "^1.0.0",
-    "@atlaskit/editor-plugin-table": "^7.3.0",
+    "@atlaskit/editor-plugin-table": "^7.4.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/editor-plugin-width": "^1.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

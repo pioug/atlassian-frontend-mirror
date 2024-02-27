@@ -7,16 +7,16 @@ const DropdownItemMultilineExample = () => {
     <DropdownMenu trigger="Page actions">
       <DropdownItemGroup>
         <DropdownItem
-          description="Lorem ipsum: In quis ligula ut massa scelerisque cursus. Nulla et
-          dolor felis. Mauris euismod neque at venenatis tempor. Lorem ipsum: In quis ligula ut massa scelerisque cursus. Nulla et
-          dolor felis. Mauris euismod neque at venenatis tempor."
+          description="This is a really long description that is associated with the Edit menu item.
+          If shouldDescriptionWrap is true, then this description will wrap multiple lines.
+          If it's false, the description will be truncated."
         >
           Edit
         </DropdownItem>
         <DropdownItem
-          description="Lorem ipsum: In quis ligula ut massa scelerisque cursus. Nulla et
-          dolor felis. Mauris euismod neque at venenatis tempor. Lorem ipsum: In quis ligula ut massa scelerisque cursus. Nulla et
-          dolor felis. Mauris euismod neque at venenatis tempor."
+          description="This is a really long description that is associated with the Move menu item.
+          If shouldDescriptionWrap is true, then this description will wrap multiple lines.
+          If it's false, the description will be truncated."
           shouldDescriptionWrap={false}
         >
           Move

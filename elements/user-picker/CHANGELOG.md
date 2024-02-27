@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.19.1
+
+### Patch Changes
+
+- [#74482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74482) [`b10803d85d88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b10803d85d88) - The internal composition of this component has changed. There is no expected change in behaviour.
+
 ## 10.19.0
 
 ### Minor Changes

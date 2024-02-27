@@ -3,8 +3,6 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { PopupSelect, OptionsType } from '../../..';
 
 const user = userEvent.setup();
@@ -198,50 +196,6 @@ describe('Popup Select', () => {
 
     expect(removedListeners().length).toBe(1);
   });
-
-  ffTest(
-    'platform.design-system-team.popup-select-render-perf_i0s6m',
-    async () => {
-      const { unmount } = render(
-        <PopupSelect
-          options={OPTIONS}
-          value={OPTIONS[0]}
-          isClearable
-          target={({ ref }) => <button ref={ref}>Target</button>}
-        />,
-      );
-
-      const selectTrigger = screen.getByText('Target');
-
-      await user.click(selectTrigger);
-
-      expect(addedListeners().length).toBe(6);
-
-      unmount();
-
-      expect(removedListeners().length).toBe(6);
-    },
-    async () => {
-      const { unmount } = render(
-        <PopupSelect
-          options={OPTIONS}
-          value={OPTIONS[0]}
-          isClearable
-          target={({ ref }) => <button ref={ref}>Target</button>}
-        />,
-      );
-
-      const selectTrigger = screen.getByText('Target');
-
-      await user.click(selectTrigger);
-
-      expect(addedListeners().length).toBe(9);
-
-      unmount();
-
-      expect(removedListeners().length).toBe(9);
-    },
-  );
 
   it('should trigger onMenuClose method when closed', async () => {
     const onMenuCloseMock = jest.fn();

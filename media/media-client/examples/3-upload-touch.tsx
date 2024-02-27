@@ -16,6 +16,7 @@ export interface State {
 }
 
 class Example extends React.Component<{}, State> {
+  context: any;
   private store: MediaStore;
   private lastFileId: string = '';
 

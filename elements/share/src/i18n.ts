@@ -278,4 +278,14 @@ export const messages = defineMessages({
     defaultMessage: 'Share page',
     description: 'Text for the main share tab for confluence',
   },
+  inviteToConfluence: {
+    id: 'fabric.elements.share.invite.to.confluence',
+    defaultMessage: 'Invite to Confluence',
+    description: 'Text for the byline of the non-licensed users',
+  },
+  inviteToJira: {
+    id: 'fabric.elements.share.invite.to.jira',
+    defaultMessage: 'Invite to Jira',
+    description: 'Text for the byline of the non-licensed users',
+  },
 });

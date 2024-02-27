@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.0.2
+
+### Patch Changes
+
+- [#74886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74886) [`5b79ded33f58`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b79ded33f58) - [EDF-324] Element Browser now has a separate categories for ai config items
+
 ## 1.0.1
 
 ### Patch Changes

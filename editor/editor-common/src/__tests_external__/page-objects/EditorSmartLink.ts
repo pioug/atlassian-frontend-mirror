@@ -1,7 +1,6 @@
 import type { CypressType } from '@atlaskit/in-product-testing';
 import { InProductTestPageObject } from '@atlaskit/in-product-testing';
 import type { CardAppearance } from '@atlaskit/smart-card';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   BlockCardPageObject,
   EmbedCardPageObject,

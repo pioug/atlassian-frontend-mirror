@@ -19,6 +19,7 @@ export interface ExampleState {
 const context = createStorybookMediaClient();
 
 class Example extends Component<{}, ExampleState> {
+  context: any;
   state: ExampleState = {
     fileStates: {},
   };

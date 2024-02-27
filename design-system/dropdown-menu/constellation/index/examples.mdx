@@ -80,7 +80,11 @@ Use `defaultOpen` to make the menu open by default.
   packageName="@atlaskit/dropdown-menu"
 />
 
-## Nested Dropdown menu
+## Nested dropdown menu
+
+You can nest dropdown menus inside other dropdown menus.
+
+However, be mindful that nested menus quickly become confusing, inaccessible, and difficult to navigate. We recommend limiting nesting to two layers only.
 
 <Example Component={DropdownMenuNested} packageName="@atlaskit/dropdown-menu" />
 
@@ -136,7 +140,7 @@ Use `zIndex` to resolve clashes with other layered components with competing z-i
 
 <Example Component={DropdownMenuZIndex} packageName="@atlaskit/dropdown-menu" />
 
-## Content wrapping
+## Content without portal
 
 By default, the dropdown menu content is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the content directly after the trigger element.
 
@@ -147,7 +151,8 @@ By default, the dropdown menu content is rendered inside `React.Portal`. Use `sh
 
 ## Accessible labels
 
-Sometimes multiple instances of a Dropdown menu with the same visible label are required. In order to provide more context to asssistive technologies, you can specify a unique `aria-label` that provides more context.
-When providing the `aria-label` along with a visible label, make sure that the first few words of the `aria-label` match the visible. This is to support Voice Input users that use the visible label to interact with controls.
+Sometimes multiple instances of a dropdown menu with the same visible label are required. In order to provide more context to assistive technologies, you can specify a unique `aria-label` for each unique menu.
+
+When providing the `aria-label` along with a visible label, make sure that the first few words of the `aria-label` match the visible label. This is to support Voice Input users that use the visible label to interact with controls.
 
 <Example Component={DropdownMenuLabel} packageName="@atlaskit/dropdown-menu" />

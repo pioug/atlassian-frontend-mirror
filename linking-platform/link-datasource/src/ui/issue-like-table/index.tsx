@@ -14,7 +14,6 @@ import styled from '@emotion/styled';
 import { useIntl } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
-import Heading from '@atlaskit/heading';
 import { Skeleton } from '@atlaskit/linking-common';
 import {
   DatasourceResponseSchemaProperty,
@@ -25,7 +24,6 @@ import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/r
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { Flex } from '@atlaskit/primitives';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -42,6 +40,7 @@ import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
 import { fallbackRenderType, stringifyType } from './render-type';
 import {
+  fieldTextFontSize,
   Table,
   TableHeading,
   withTablePluginBodyPrefix,
@@ -69,59 +68,54 @@ const truncateTextStyles = css({
   whiteSpace: 'nowrap',
 });
 
-const ColumnPickerHeader = styled.th`
-  ${withTablePluginHeaderPrefix()} {
-    box-sizing: content-box;
-    border: 0;
+const ColumnPickerHeader = styled.th({
+  [`${withTablePluginHeaderPrefix()}`]: {
+    boxSizing: 'content-box',
+    border: 0,
+    width: '56px',
+    zIndex: 10,
+    position: 'sticky',
+    right: `calc(-1 * ${tableSidePadding})`,
+    backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+    borderBottom: `2px solid ${token('color.border', N40)}`,
+    paddingRight: token('space.100', '4px'),
+    background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token(
+      'utility.elevation.surface.current',
+      '#FFF',
+    )} 10% )`,
+    verticalAlign: 'middle',
+    textAlign: 'right',
+  },
+  [`${withTablePluginHeaderPrefix('&:last-of-type')}`]: {
+    paddingRight: tableSidePadding,
+  },
+});
 
-    width: 56px;
-    z-index: 10;
-    position: sticky;
-    right: calc(-1 * ${tableSidePadding});
-    background-color: ${token('utility.elevation.surface.current', '#FFF')};
-    border-bottom: 2px solid ${token('color.border', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business below */
+const truncateStyles = css({
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+});
 
-    padding-right: ${token('space.100', '4px')};
-
-    background: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0) 0%,
-      ${token('utility.elevation.surface.current', '#FFF')} 10%
-    );
-    vertical-align: middle; /* Keeps dropdown button in the middle */
-    text-align: right; /* In case when TH itself is bigger we want to keep picker at the right side */
-  }
-
-  ${withTablePluginHeaderPrefix('&:last-of-type')} {
-    padding-right: ${tableSidePadding};
-  }
-`;
-
-const TableCell = styled.td`
-  ${withTablePluginBodyPrefix()} {
-    /* First section here is to override things editor table plugin css defines */
-    padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-    border: 0;
-    min-width: auto;
-    vertical-align: inherit;
-    box-sizing: border-box;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    border-right: 0.5px solid ${token('color.border', N40)};
-    border-bottom: 0.5px solid ${token('color.border', N40)};
-  }
-
-  ${withTablePluginBodyPrefix('&:first-child')} {
-    padding-left: ${token('space.100', '8px')};
-  }
-
-  ${withTablePluginBodyPrefix('&:last-child')} {
-    border-right: 0;
-    padding-right: ${token('space.100', '8px')};
-  }
-`;
+const TableCell = styled.td({
+  [`${withTablePluginBodyPrefix()}`]: {
+    fontSize: fieldTextFontSize,
+    padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+    border: 0,
+    minWidth: 'auto',
+    verticalAlign: 'inherit',
+    boxSizing: 'border-box',
+    borderRight: `0.5px solid ${token('color.border', N40)}`,
+    borderBottom: `0.5px solid ${token('color.border', N40)}`,
+    overflow: 'hidden',
+  },
+  [`${withTablePluginBodyPrefix('&:first-child')}`]: {
+    paddingLeft: token('space.100', '8px'),
+  },
+  [`${withTablePluginBodyPrefix('&:last-child')}`]: {
+    borderRight: 0,
+    paddingRight: token('space.100', '8px'),
+  },
+});
 
 const tableContainerStyles = css({
   borderRadius: 'inherit',
@@ -300,6 +294,21 @@ const noDefaultBorderStyles = css({
   borderBottom: 0,
 });
 
+const headerStyles = css({
+  fontSize: token('font.size.075', '12px'),
+  fontWeight: token('font.weight.medium', '500'),
+});
+
+const headingHoverEffectStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+  '&:hover': {
+    background: token('color.background.input.hovered', '#F7F8F9'),
+    borderRadius: token('border.radius.200', '3px'),
+  },
+});
+
 export interface RowType {
   cells: Array<RowCellType>;
   key?: string;
@@ -397,6 +406,8 @@ export const IssueLikeDataTableView = ({
   onVisibleColumnKeysChange,
   columnCustomSizes,
   onColumnResize,
+  wrappedColumnKeys,
+  onWrappedColumnChange,
   status,
   hasNextPage,
   scrollableContainerHeight,
@@ -611,17 +622,18 @@ export const IssueLikeDataTableView = ({
             )
             .filter(value => value !== '')
             .join(', ');
-          const contentComponent = stringifiedContent ? (
-            <Tooltip
-              tag={TruncateTextTag}
-              content={stringifiedContent}
-              testId="issues-table-cell-tooltip"
-            >
-              {renderedValues}
-            </Tooltip>
-          ) : (
-            renderedValues
-          );
+          const contentComponent =
+            stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
+              <Tooltip
+                tag={TruncateTextTag}
+                content={stringifiedContent}
+                testId="issues-table-cell-tooltip"
+              >
+                {renderedValues}
+              </Tooltip>
+            ) : (
+              renderedValues
+            );
 
           return {
             key,
@@ -634,7 +646,15 @@ export const IssueLikeDataTableView = ({
             ? el => setLastRowElement(el)
             : undefined,
       })),
-    [items, visibleSortedColumns, getColumnWidth, renderItem, intl],
+    [
+      items,
+      visibleSortedColumns,
+      renderItem,
+      wrappedColumnKeys,
+      getColumnWidth,
+      intl.formatMessage,
+      intl.formatDate,
+    ],
   );
 
   const rows = useMemo(() => {
@@ -728,17 +748,22 @@ export const IssueLikeDataTableView = ({
         >
           <tr ref={tableHeaderRowRef}>
             {headerColumns.map(({ key, content, width }, cellIndex) => {
-              const heading = (
+              let heading = (
                 <Tooltip
                   content={content}
                   tag="span"
+                  position="bottom-start"
                   testId={'datasource-header-content'}
                 >
-                  <Heading level="h200" as={'span'}>
-                    {content}
-                  </Heading>
+                  <span css={headerStyles}>{content}</span>
                 </Tooltip>
               );
+
+              const isHeadingOutsideButton =
+                !isEditable || !onWrappedColumnChange;
+              if (isHeadingOutsideButton) {
+                heading = <div css={headingHoverEffectStyles}>{heading}</div>;
+              }
 
               if (isEditable) {
                 const previewRows = tableRows
@@ -766,6 +791,8 @@ export const IssueLikeDataTableView = ({
                     onWidthChange={onColumnResize?.bind(null, key)}
                     dndPreviewHeight={containerRef.current?.offsetHeight || 0}
                     dragPreview={dragPreview}
+                    isWrapped={wrappedColumnKeys?.includes(key)}
+                    onIsWrappedChange={onWrappedColumnChange?.bind(null, key)}
                   >
                     {heading}
                   </DraggableTableHeading>
@@ -777,7 +804,7 @@ export const IssueLikeDataTableView = ({
                     data-testid={`${key}-column-heading`}
                     style={getWidthCss({ shouldUseWidth, width })}
                   >
-                    <Flex>{heading}</Flex>
+                    {heading}
                   </TableHeading>
                 );
               }
@@ -826,6 +853,11 @@ export const IssueLikeDataTableView = ({
                     data-testid={testId && `${testId}--cell-${cellIndex}`}
                     colSpan={isEditable && isLastCell ? 2 : undefined}
                     style={loadingRowStyle}
+                    css={[
+                      wrappedColumnKeys?.includes(cellKey)
+                        ? null
+                        : truncateStyles,
+                    ]}
                   >
                     {content}
                   </TableCell>

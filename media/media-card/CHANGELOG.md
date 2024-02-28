@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 77.10.3
+
+### Patch Changes
+
+- [#69454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69454) [`41f49439d5da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41f49439d5da) - [ux] ECA11Y-198: Add Shift + F10 shortcut to focus play/pause button when video is selected
+- Updated dependencies
+
 ## 77.10.2
 
 ### Patch Changes

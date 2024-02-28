@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.4.1
+
+### Patch Changes
+
+- [#76885](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76885) [`06030bc18dd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06030bc18dd4) - Disable `styled-components` handling for `no-styled-tagged-template-expression` rule, due to edge case where props are converted to output that fails typechecking.
+
 ## 0.4.0
 
 ### Minor Changes

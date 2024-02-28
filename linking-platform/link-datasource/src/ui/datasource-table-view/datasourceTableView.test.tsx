@@ -18,9 +18,12 @@ import {
   DatasourceTableState,
   useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
+import * as issueLikeModule from '../issue-like-table';
+import { IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
 
 import { DatasourceTableView } from './datasourceTableView';
+import { DatasourceTableViewProps } from './types';
 
 jest.mock('../../hooks/useDatasourceTableState');
 jest.mock('../issue-like-table/useIsOnScreen');
@@ -72,14 +75,15 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => ({
 const onAnalyticFireEvent = jest.fn();
 
 const setup = (
-  overrides: Partial<DatasourceTableState> & {
+  stateOverride: Partial<DatasourceTableState> & {
     visibleColumnKeys?: string[] | null;
     onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
     responseItems?: DatasourceDataResponseItem[];
   } = {},
+  propsOverride: Partial<DatasourceTableViewProps> = {},
 ) => {
   const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } =
-    overrides;
+    stateOverride;
 
   const mockReset = jest.fn();
   asMock(useDatasourceTableState).mockReturnValue({
@@ -106,7 +110,7 @@ const setup = (
     defaultVisibleColumnKeys: ['myColumn'],
     extensionKey: 'jira-object-provider',
     destinationObjectTypes: ['issue'],
-    ...(overrides || {}),
+    ...(stateOverride || {}),
   } as DatasourceTableState);
 
   const renderResult = render(
@@ -128,6 +132,7 @@ const setup = (
               ? undefined
               : onVisibleColumnKeysChange || jest.fn()
           }
+          {...propsOverride}
         />
       </IntlProvider>
     </AnalyticsListener>,
@@ -151,9 +156,27 @@ describe('DatasourceTableView', () => {
   });
 
   it('should call IssueLikeDataTableView with right props', () => {
-    const { getByTestId } = setup({
-      visibleColumnKeys: ['myColumn'],
-    });
+    // Not exactly "correct" way of testing with React Testing Library,
+    // But in this case 4 props we want to check are just passed through and
+    // the only way to test them would be to test how they affect UI
+    // which is already tested in IssueLikeDataTableView unit tests
+    const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+      issueLikeModule,
+      'IssueLikeDataTableView',
+    );
+    const mockOnColumnResize = jest.fn();
+    const mockOnWrappedColumnChange = jest.fn();
+    const { getByTestId } = setup(
+      {
+        visibleColumnKeys: ['myColumn'],
+      },
+      {
+        columnCustomSizes: { myColumn: 67 },
+        wrappedColumnKeys: ['myColumn'],
+        onColumnResize: mockOnColumnResize,
+        onWrappedColumnChange: mockOnWrappedColumnChange,
+      },
+    );
 
     expect(getByTestId('myColumn-column-heading')).toHaveTextContent(
       'My Column',
@@ -161,6 +184,19 @@ describe('DatasourceTableView', () => {
     expect(
       getByTestId('datasource-table-view--row-some-id1'),
     ).toHaveTextContent('some-value');
+
+    expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+    const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy
+      .mock.calls[0][0] as IssueLikeDataTableViewProps;
+
+    expect(issueLikeDataTableViewProps).toEqual(
+      expect.objectContaining({
+        columnCustomSizes: { myColumn: 67 },
+        wrappedColumnKeys: ['myColumn'],
+        onColumnResize: mockOnColumnResize,
+        onWrappedColumnChange: mockOnWrappedColumnChange,
+      }),
+    );
   });
 
   it('should call onVisibleColumnKeysChange with defaultVisibleColumnKeys if no visibleColumnKeys are received from props', () => {

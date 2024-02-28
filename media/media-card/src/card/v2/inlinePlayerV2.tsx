@@ -178,6 +178,7 @@ export const InlinePlayerBaseV2 = ({
             fileId={id}
             isAutoPlay={autoplay}
             isHDAvailable={false}
+            isVideoSelected={selected}
             onDownloadClick={() => {
               mediaClient.file.downloadBinary(id, undefined, collectionName);
             }}

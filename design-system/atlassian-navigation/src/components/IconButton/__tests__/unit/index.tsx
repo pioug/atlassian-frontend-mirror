@@ -6,7 +6,10 @@ import { IconButton } from '../../index';
 
 describe('<IconButton />', () => {
   it('should pass down test id', () => {
-    render(<IconButton tooltip="test" icon={<div />} testId="icon" />);
+    const label = 'label';
+    render(
+      <IconButton tooltip="test" label={label} icon={<div />} testId="icon" />,
+    );
 
     expect(screen.getByTestId('icon')).toBeInTheDocument();
   });
@@ -35,6 +38,7 @@ describe('<IconButton />', () => {
         tooltip="test"
         icon={<div />}
         testId="icon"
+        label="Home"
         component={MyComponent}
         href={href}
       />,

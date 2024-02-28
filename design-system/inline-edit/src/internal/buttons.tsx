@@ -70,7 +70,6 @@ const Buttons = ({
     <div css={buttonsContainerStyles}>
       <div css={buttonWrapperBaseStyles}>
         <IconButton
-          aria-label={confirmButtonLabel}
           type="submit"
           icon={ConfirmIcon}
           UNSAFE_size="small"
@@ -80,7 +79,6 @@ const Buttons = ({
       </div>
       <div css={buttonWrapperBaseStyles}>
         <IconButton
-          aria-label={cancelButtonLabel}
           icon={CancelIcon}
           UNSAFE_size="small"
           label={cancelButtonLabel}

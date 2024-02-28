@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import { StringType } from '@atlaskit/linking-types';
 
-import { FieldTextFontSize } from '../../styled';
+import { fieldTextFontSize } from '../../styled';
 
 interface TextProps {
   testId?: string;
@@ -13,9 +13,9 @@ interface TextProps {
 
 export const TEXT_TYPE_TEST_ID = 'link-datasource-render-type--text';
 
-const TextWrapper = styled.span`
-  font-size: ${FieldTextFontSize};
-`;
+const TextWrapper = styled.span({
+  fontSize: fieldTextFontSize,
+});
 
 const TextRenderType = ({ text, testId = TEXT_TYPE_TEST_ID }: TextProps) => {
   if (!(text && typeof text === 'string')) {

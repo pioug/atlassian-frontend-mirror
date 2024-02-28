@@ -1,28 +1,26 @@
 /** @jsx jsx */
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import {
-  defaultInitialVisibleColumnKeys,
-  mockDatasourceFetchRequests,
-} from '@atlaskit/link-test-helpers/datasource';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
-import { ColumnSizesMap } from '../src/ui/issue-like-table/types';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
+import { useCommonTableProps } from './useCommonTableProps';
 
 mockDatasourceFetchRequests();
 
 interface Props {
   isReadonly?: boolean;
   canResizeColumns?: boolean;
+  canControlWrapping?: boolean;
 }
 
 const TableViewWrapper = styled.div`
@@ -33,7 +31,11 @@ const TableViewWrapper = styled.div`
   height: 100%;
 `;
 
-const ExampleBody = ({ isReadonly, canResizeColumns = true }: Props) => {
+const ExampleBody = ({
+  isReadonly,
+  canResizeColumns = true,
+  canControlWrapping = true,
+}: Props) => {
   const parameters = useMemo<JiraIssueDatasourceParameters>(
     () => ({
       cloudId: 'some-cloud-id',
@@ -55,26 +57,20 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true }: Props) => {
     parameters,
   });
 
-  const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
-    defaultInitialVisibleColumnKeys,
-  );
-
-  const [columnCustomSizes, setColumnCustomSizes] = useState<
-    ColumnSizesMap | undefined
-  >();
-
-  const onColumnResize = useCallback(
-    (key: string, width: number) => {
-      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
-    },
-    [columnCustomSizes],
-  );
+  const {
+    visibleColumnKeys,
+    onVisibleColumnKeysChange,
+    columnCustomSizes,
+    onColumnResize,
+    wrappedColumnKeys,
+    onWrappedColumnChange,
+  } = useCommonTableProps();
 
   useEffect(() => {
     if (visibleColumnKeys.length === 0 && defaultVisibleColumnKeys.length > 0) {
-      setVisibleColumnKeys(defaultVisibleColumnKeys);
+      onVisibleColumnKeysChange(defaultVisibleColumnKeys);
     }
-  }, [visibleColumnKeys, defaultVisibleColumnKeys, setVisibleColumnKeys]);
+  }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
 
   return (
     <TableViewWrapper>
@@ -89,12 +85,16 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true }: Props) => {
           columns={columns}
           visibleColumnKeys={visibleColumnKeys}
           onVisibleColumnKeysChange={
-            isReadonly ? undefined : setVisibleColumnKeys
+            isReadonly ? undefined : onVisibleColumnKeysChange
           }
           onColumnResize={
             isReadonly || !canResizeColumns ? undefined : onColumnResize
           }
           columnCustomSizes={columnCustomSizes}
+          onWrappedColumnChange={
+            canControlWrapping ? onWrappedColumnChange : undefined
+          }
+          wrappedColumnKeys={wrappedColumnKeys}
         />
       ) : (
         <span>Loading ...</span>
@@ -106,6 +106,7 @@ const ExampleBody = ({ isReadonly, canResizeColumns = true }: Props) => {
 export const ExampleIssueLikeTable = ({
   isReadonly,
   canResizeColumns,
+  canControlWrapping,
 }: Props) => {
   return (
     <IntlProvider locale="en">
@@ -113,6 +114,7 @@ export const ExampleIssueLikeTable = ({
         <ExampleBody
           isReadonly={isReadonly}
           canResizeColumns={canResizeColumns}
+          canControlWrapping={canControlWrapping}
         />
       </SmartCardProvider>
     </IntlProvider>

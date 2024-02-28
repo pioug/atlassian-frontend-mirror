@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.5.0
+
+### Minor Changes
+
+- [#75714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75714) [`ba18e89df3d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba18e89df3d9) - Icon buttons no longer accept `aria-label` attributes to prevent possible duplicate labels being applied (the dedicated `label` prop handles this)
+
 ## 17.4.0
 
 ### Minor Changes

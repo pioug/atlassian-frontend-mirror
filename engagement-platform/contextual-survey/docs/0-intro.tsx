@@ -8,16 +8,17 @@ import {
   md,
   Props,
 } from '@atlaskit/docs';
+import { token } from '@atlaskit/tokens';
 
 const BasicExample = require('../examples/00-usage').default;
 
 export default md`
   ${(
     <>
-      <div style={{ marginBottom: '0.5rem' }}>
+      <div style={{ marginBottom: token('space.100', '0.5rem') }}>
         <AtlassianInternalWarning />
       </div>
-      <div style={{ marginTop: '0.5rem' }}>
+      <div style={{ marginTop: token('space.100', '0.5rem') }}>
         <DevPreviewWarning />
       </div>
     </>

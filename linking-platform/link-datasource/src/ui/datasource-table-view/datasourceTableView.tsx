@@ -38,6 +38,8 @@ const DatasourceTableViewWithoutAnalytics = ({
   url,
   columnCustomSizes,
   onColumnResize,
+  wrappedColumnKeys,
+  onWrappedColumnChange,
 }: DatasourceTableViewProps) => {
   const {
     reset,
@@ -204,6 +206,8 @@ const DatasourceTableViewWithoutAnalytics = ({
             onVisibleColumnKeysChange={onVisibleColumnKeysChange}
             columnCustomSizes={columnCustomSizes}
             onColumnResize={onColumnResize}
+            wrappedColumnKeys={wrappedColumnKeys}
+            onWrappedColumnChange={onWrappedColumnChange}
             scrollableContainerHeight={ScrollableContainerHeight}
             parentContainerRenderInstanceId={tableRenderInstanceId}
             extensionKey={extensionKey}

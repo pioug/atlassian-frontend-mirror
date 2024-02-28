@@ -9,9 +9,6 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { RichText } from '@atlaskit/linking-types';
 
 const rootStyles = css({
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis',
-  overflow: 'hidden',
   position: 'relative',
   display: 'block',
 });

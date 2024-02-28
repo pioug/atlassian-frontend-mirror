@@ -49,6 +49,9 @@
   "references": [
     {
       "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
     }
   ]
 }

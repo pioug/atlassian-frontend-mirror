@@ -3,17 +3,24 @@
  *
  * Extract component prop types from UIKit 2 components - ProgressTrackerProps
  *
- * @codegen <<SignedSource::0a2bf5eca7d9abfb126dc2616f730a4d>>
+ * @codegen <<SignedSource::3623e2eda57eeb86ee53ff2487ca88f1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/progresstracker/__generated__/index.partial.tsx <<SignedSource::a7e0b4cbec7b46d448729fbbe260ae77>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/progresstracker/__generated__/index.partial.tsx <<SignedSource::9dbcc84fd9ca61ad39569c4430f205a9>>
  */
-import type { ProgressTrackerProps as PlatformProgressTrackerProps, Stage as PlatformStage } from '@atlaskit/progress-tracker';
+import type {
+  ProgressTrackerProps as PlatformProgressTrackerProps,
+  Stage as PlatformStage,
+} from '@atlaskit/progress-tracker';
 
-type Stage = Pick<PlatformStage, 'id' | 'label' | 'percentageComplete' | 'status' | 'onClick'>
+type Stage = Pick<
+  PlatformStage,
+  'id' | 'label' | 'percentageComplete' | 'status' | 'onClick'
+>;
 
 export type ProgressTrackerProps = Pick<
   PlatformProgressTrackerProps,
-  'animated' | 'label' | 'spacing' | 'testId'
-  > & {
-  items: Array<Stage>
-};
+  'label' | 'testId'
+> &
+  Partial<Pick<PlatformProgressTrackerProps, 'animated' | 'spacing'>> & {
+    items: Array<Stage>;
+  };

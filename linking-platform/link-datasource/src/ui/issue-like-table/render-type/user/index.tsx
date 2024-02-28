@@ -11,14 +11,14 @@ import { User } from '@atlaskit/linking-types';
 import { Box, xcss } from '@atlaskit/primitives';
 import { WidthObserver } from '@atlaskit/width-detector';
 
-import { FieldTextFontSize } from '../../styled';
+import { fieldTextFontSize } from '../../styled';
 
 import { userTypeMessages } from './messages';
 
 const userWrapperStyles = xcss({
   display: 'flex',
   alignItems: 'center',
-  fontSize: `${FieldTextFontSize}px`,
+  fontSize: `${fieldTextFontSize}px`,
 });
 
 const avatarWrapperStyles = xcss({
@@ -29,11 +29,11 @@ const widthObserverWrapperStyles = xcss({
   position: 'relative',
 });
 
-const AvatarGroupWrapperStyles = styled.div`
-  ul {
-    padding-left: 0px !important;
-  }
-`;
+const AvatarGroupWrapperStyles = styled.div({
+  ul: {
+    paddingLeft: '0px !important',
+  },
+});
 
 export interface UserProps extends User {
   children?: React.ReactElement;

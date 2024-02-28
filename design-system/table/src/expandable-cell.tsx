@@ -30,7 +30,6 @@ const ExpandableCell = memo(() => {
         appearance="subtle"
         icon={isExpanded ? ChevronUpIcon : ChevronDownIcon}
         label="Expand row"
-        aria-label="Expand row"
         UNSAFE_size="small"
         onClick={handleClick}
         aria-pressed={isExpanded}

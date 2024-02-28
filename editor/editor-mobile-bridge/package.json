@@ -37,7 +37,7 @@
     "@atlaskit/analytics-listeners": "8.9.1",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/collab-provider": "^9.25.0",
-    "@atlaskit/editor-card-provider": "^3.2.0",
+    "@atlaskit/editor-card-provider": "^3.3.0",
     "@atlaskit/editor-common": "78.6.1",
     "@atlaskit/editor-core": "192.3.5",
     "@atlaskit/editor-json-transformer": "8.10.24",
@@ -88,7 +88,7 @@
   },
   "devDependencies": {
     "@af/integration-testing": "*",
-    "@atlaskit/button": "^17.4.0",
+    "@atlaskit/button": "^17.5.0",
     "@atlaskit/editor-plugin-content-insertion": "*",
     "@atlaskit/editor-plugin-copy-button": "*",
     "@atlaskit/editor-plugin-decorations": "*",

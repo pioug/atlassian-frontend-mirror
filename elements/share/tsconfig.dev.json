@@ -52,6 +52,9 @@
       "path": "../../editor/editor-test-helpers/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/flag/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/form/tsconfig.app.json"
     },
     {

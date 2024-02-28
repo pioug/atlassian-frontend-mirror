@@ -45,35 +45,35 @@ import {
 } from '../analytics/ufoExperiences';
 import { FileStateFlags } from '../components/types';
 
-const ImageViewer = Loadable({
+const ImageViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_imageViewer" */ '../viewers/image'
     ).then((mod) => mod.ImageViewer),
   loading: () => <Spinner />,
 });
-const VideoViewer = Loadable({
+const VideoViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<VideoViewerProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_videoViewer" */ '../viewers/video'
     ).then((mod) => mod.VideoViewer),
   loading: () => <Spinner />,
 });
-const AudioViewer = Loadable({
+const AudioViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<AudioViewerProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_audioViewer" */ '../viewers/audio'
     ).then((mod) => mod.AudioViewer),
   loading: () => <Spinner />,
 });
-const DocViewer = Loadable({
+const DocViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<DocViewerProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_docViewer" */ '../viewers/doc'
     ).then((mod) => mod.DocViewer),
   loading: () => <Spinner />,
 });
-const CodeViewer = Loadable({
+const CodeViewerV2 = Loadable({
   loader: (): Promise<React.ComponentType<CodeViewerProps>> =>
     import(
       /* webpackChunkName: "@atlaskit-internal_codeViewer" */ '../viewers/codeViewer'
@@ -321,7 +321,7 @@ export const ItemViewerV2Base = ({
               }
 
               return (
-                <CodeViewer
+                <CodeViewerV2
                   onSuccess={onSuccess}
                   onError={onLoadFail}
                   {...viewerProps}
@@ -333,7 +333,7 @@ export const ItemViewerV2Base = ({
             switch (mediaType) {
               case 'image':
                 return (
-                  <ImageViewer
+                  <ImageViewerV2
                     onLoad={onSuccess}
                     onError={onLoadFail}
                     contextId={contextId}
@@ -343,7 +343,7 @@ export const ItemViewerV2Base = ({
                 );
               case 'audio':
                 return (
-                  <AudioViewer
+                  <AudioViewerV2
                     showControls={showControls}
                     onCanPlay={onSuccess}
                     onError={onLoadFail}
@@ -352,7 +352,7 @@ export const ItemViewerV2Base = ({
                 );
               case 'video':
                 return (
-                  <VideoViewer
+                  <VideoViewerV2
                     showControls={showControls}
                     onCanPlay={onSuccess}
                     onError={onLoadFail}
@@ -361,7 +361,7 @@ export const ItemViewerV2Base = ({
                 );
               case 'doc':
                 return (
-                  <DocViewer
+                  <DocViewerV2
                     onSuccess={onSuccess}
                     onError={onLoadFail}
                     {...viewerProps}

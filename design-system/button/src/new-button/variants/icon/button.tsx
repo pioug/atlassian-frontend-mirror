@@ -45,6 +45,8 @@ const IconButton = React.memo(
       type = 'button',
       testId,
       UNSAFE_size,
+      // Prevent duplicate labels being added.
+      'aria-label': preventedAriaLabel,
       ...rest
     }: IconButtonProps,
     ref: React.Ref<HTMLButtonElement>,

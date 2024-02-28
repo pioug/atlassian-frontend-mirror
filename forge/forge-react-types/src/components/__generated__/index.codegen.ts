@@ -3,7 +3,7 @@
  *
  * Index file for component prop types
  *
- * @codegen <<SignedSource::0af01b1102b6d9b9f668cbed2fe0b27b>>
+ * @codegen <<SignedSource::f2afaf37dd569959e362e50c0c4d4ffa>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency BadgeProps.codegen.tsx <<SignedSource::4759a95fede44eb7af89a4ada26252e9>>
  * @codegenDependency BleedProps.codegen.tsx <<SignedSource::376f3f60ae6c1912e80b568958802fb5>>
@@ -37,7 +37,7 @@
  * @codegenDependency ModalTitleProps.codegen.tsx <<SignedSource::7c78fd55d30aa60dd9335eb29c5e10d8>>
  * @codegenDependency ModalTransitionProps.codegen.tsx <<SignedSource::eae5bf2abf85a1a39c377b0da0f7a1ed>>
  * @codegenDependency ProgressBarProps.codegen.tsx <<SignedSource::b27527e77286c102eac2a4aa3ed6585a>>
- * @codegenDependency ProgressTrackerProps.codegen.tsx <<SignedSource::75a7d6d27ff905f2e1ed85668749aec0>>
+ * @codegenDependency ProgressTrackerProps.codegen.tsx <<SignedSource::fcbb79f6e3992728fcb2ad16c1efdda6>>
  * @codegenDependency RadioGroupProps.codegen.tsx <<SignedSource::1ad039c8add4a5cbbbfcb0297330f608>>
  * @codegenDependency RadioProps.codegen.tsx <<SignedSource::96e4c026daaf1aec3bf68aea545556d7>>
  * @codegenDependency RangeProps.codegen.tsx <<SignedSource::4cb6e9003e3ad70a198b218708b324a4>>

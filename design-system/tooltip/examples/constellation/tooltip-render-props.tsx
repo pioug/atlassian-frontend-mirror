@@ -20,16 +20,16 @@ const shortMessage = "I'm a short tooltip";
 const longMessage =
   'I am a longer tooltip with a decent amount of content inside';
 
-const InlineDialog = styled(TooltipPrimitive)`
-  background: white;
-  border-radius: ${token('border.radius', '4px')};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
-  color: #333;
-  max-height: 300px;
-  max-width: 300px;
-  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
-`;
+const InlineDialog = styled(TooltipPrimitive)({
+  background: 'white',
+  borderRadius: token('border.radius', '4px'),
+  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
+  boxSizing: 'content-box',
+  color: '#333',
+  maxHeight: '300px',
+  maxWidth: '300px',
+  padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+});
 
 export default () => {
   const [message, setMessage] = React.useState(shortMessage);
@@ -56,9 +56,8 @@ export default () => {
       <Tooltip content="Add content">
         {(tooltipProps) => (
           <IconButton
-            aria-label="Add"
             icon={AddIcon}
-            label=""
+            label="Add"
             testId="add"
             {...tooltipProps}
           />

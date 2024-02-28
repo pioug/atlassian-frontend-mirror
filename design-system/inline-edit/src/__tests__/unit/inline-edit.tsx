@@ -42,7 +42,7 @@ describe('InlineEdit component', () => {
       const onConfirm = jest.fn();
       const onEdit = jest.fn();
 
-      const { container, queryByTestId } = render(
+      const { container, queryByTestId, queryByText } = render(
         <InlineEdit
           defaultValue={defaultValue}
           label="Inline edit"
@@ -71,8 +71,8 @@ describe('InlineEdit component', () => {
       expect(onEdit).toHaveBeenCalledTimes(1);
 
       const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = container.querySelector('[aria-label="Confirm"]');
-      const cancel = container.querySelector('[aria-label="Cancel"]');
+      const confirm = queryByText('Confirm');
+      const cancel = queryByText('Cancel');
 
       expect(textField).toBeInTheDocument();
       expect(confirm).toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('InlineEdit component', () => {
       const defaultValue = 'Some text';
       const onConfirm = jest.fn();
 
-      const { container, queryByTestId } = render(
+      const { container, queryByTestId, queryByText } = render(
         <InlineEdit
           defaultValue={defaultValue}
           label="Inline edit"
@@ -109,7 +109,7 @@ describe('InlineEdit component', () => {
       fireEvent.click(read!);
 
       const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = container.querySelector('[aria-label="Confirm"]');
+      const confirm = queryByText('Confirm');
 
       fireEvent.change(textField!, { target: { value: 'New content' } });
       fireEvent.click(confirm!);
@@ -141,7 +141,9 @@ describe('InlineEdit component', () => {
         );
       };
 
-      const { container, queryByTestId } = render(<InlineEditExample />);
+      const { container, queryByTestId, queryByText } = render(
+        <InlineEditExample />,
+      );
 
       const read = queryByTestId('read-view');
       expect(read).toBeInTheDocument();
@@ -151,7 +153,7 @@ describe('InlineEdit component', () => {
       fireEvent.click(read!);
 
       const textField = container.querySelector('[data-testid="edit-view"]');
-      const confirm = container.querySelector('[aria-label="Confirm"]');
+      const confirm = queryByText('Confirm');
 
       fireEvent.change(textField!, { target: { value: 'New content' } });
       fireEvent.click(confirm!);

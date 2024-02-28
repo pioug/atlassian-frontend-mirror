@@ -1,8 +1,8 @@
 # no-exported-keyframes
 
-Disallows `keyframes` export declarations that originate from `@compiled/react`, as well as any other CSS-in-JS library defined through the `importSources` option.
+Disallows `keyframes` export declarations that originate from a CSS-in-JS library, including `@atlaskit/css`, `@compiled/react`, Emotion, and `styled-components`.
 
-In Compiled, exporting keyframes declarations may result in unexpected errors when imported, because its value will be `null` at runtime. Additionally, co-locating keyframes definitions with their usage is considered best practice in order to improve code readability and build performance.
+In Compiled (`@atlaskit/css` and `@compiled/react`), exporting `keyframes` declarations may result in unexpected errors when imported, because its value will be `null` at runtime. Additionally, co-locating `keyframes` definitions with their usage is considered best practice in order to improve code readability and build performance.
 
 ## Examples
 

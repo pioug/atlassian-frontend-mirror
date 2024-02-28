@@ -119,6 +119,7 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
   const onLoadDatasourceDetails = jest.fn(() => {});
   const onVisibleColumnKeysChange = jest.fn(() => {});
   const onColumnResize = jest.fn(() => {});
+  const onWrappedColumnChange = jest.fn(() => {});
   const smartLinkClient = new SmartLinkClient();
 
   const renderResult = render(
@@ -132,6 +133,7 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
           hasNextPage={false}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
           onColumnResize={onColumnResize}
+          onWrappedColumnChange={onWrappedColumnChange}
           items={[]}
           columns={[]}
           visibleColumnKeys={['id']}
@@ -186,6 +188,7 @@ const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
     onLoadDatasourceDetails,
     onVisibleColumnKeysChange,
     onColumnResize,
+    onWrappedColumnChange,
     openColumnPicker,
   };
 };
@@ -454,7 +457,7 @@ describe('IssueLikeDataTableView', () => {
 
     const usersListWrapper = await screen.findByRole('tooltip');
     expect(usersListWrapper).toBeInTheDocument();
-    expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom');
+    expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom-start');
 
     expect(usersListWrapper.textContent).toEqual('Some Id');
   });
@@ -1479,6 +1482,104 @@ describe('IssueLikeDataTableView', () => {
       const tableCell = queryByTestId('sometable--cell-0');
       const styles = getComputedStyle(tableCell!);
       expect(styles.textOverflow).toBe('ellipsis');
+    });
+  });
+
+  describe('header dropdown', () => {
+    it('should have an item with "wrap text" title', async () => {
+      const { getByTestId } = setup({
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      expect(
+        screen.queryByTestId(
+          'someOtherKey-column-dropdown-item-toggle-wrapping',
+        ),
+      ).toBeNull();
+
+      getByTestId('someOtherKey-column-dropdown').click();
+      expect(
+        (
+          await screen.findByTestId(
+            'someOtherKey-column-dropdown-item-toggle-wrapping',
+          )
+        ).textContent,
+      ).toBe('Wrap text');
+    });
+
+    it('should call onWrappedColumnChange when "Wrap text" is clicked', async () => {
+      const { onWrappedColumnChange, getByTestId } = setup({
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      getByTestId('someOtherKey-column-dropdown').click();
+      screen
+        .getByTestId('someOtherKey-column-dropdown-item-toggle-wrapping')
+        .click();
+
+      expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', true);
+    });
+
+    it('should not have header dropdown when onWrappedColumnChange is not provided', () => {
+      const { queryByTestId } = setup({
+        onWrappedColumnChange: undefined,
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      expect(queryByTestId('someOtherKey-column-dropdown')).toBeNull();
+    });
+
+    it('should have readonly title when onWrappedColumnChange is not provided', () => {
+      const { getByTestId } = setup({
+        onWrappedColumnChange: undefined,
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      expect(getByTestId('someOtherKey-column-heading').textContent).toBe(
+        'Some Other key',
+      );
+    });
+
+    it('should display Unwrap Text item when column is wrapped', async () => {
+      const { getByTestId } = setup({
+        wrappedColumnKeys: ['someOtherKey'],
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      getByTestId('someOtherKey-column-dropdown').click();
+      expect(
+        (
+          await screen.findByTestId(
+            'someOtherKey-column-dropdown-item-toggle-wrapping',
+          )
+        ).textContent,
+      ).toBe('Unwrap text');
+    });
+
+    it('should call onWrappedColumnChange when "Unwrap text" is clicked', async () => {
+      const { onWrappedColumnChange, getByTestId } = setup({
+        wrappedColumnKeys: ['someOtherKey'],
+        items: getComplexItems(),
+        columns: getComplexColumns(),
+        visibleColumnKeys: ['id', 'someOtherKey'],
+      });
+
+      getByTestId('someOtherKey-column-dropdown').click();
+      screen
+        .getByTestId('someOtherKey-column-dropdown-item-toggle-wrapping')
+        .click();
+
+      expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', false);
     });
   });
 });

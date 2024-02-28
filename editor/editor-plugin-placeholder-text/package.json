@@ -19,7 +19,13 @@
     "singleton": true,
     "inPublicMirror": false,
     "releaseModel": "continuous",
-    "runReact18": false
+    "runReact18": false,
+    "integrationTests": {
+      "additionalBrowsers": [
+        "desktop-firefox",
+        "desktop-webkit"
+      ]
+    }
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.1",

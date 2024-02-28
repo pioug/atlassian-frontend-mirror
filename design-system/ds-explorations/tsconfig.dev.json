@@ -74,6 +74,9 @@
     },
     {
       "path": "../tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../codegen/tsconfig.app.json"
     }
   ]
 }

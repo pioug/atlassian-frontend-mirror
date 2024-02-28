@@ -8,7 +8,7 @@ import { N300 } from '@atlaskit/theme/colors';
 import { h300 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { FieldTextFontSize } from '../../styled';
+import { fieldTextFontSize } from '../../styled';
 
 interface LinkProps extends Link {
   testId?: string;
@@ -40,7 +40,7 @@ const LinkRenderType = ({
       <HoverCard url={url} showServerActions={true}>
         <LinkUrl
           href={url}
-          style={{ ...linkStyle, fontSize: FieldTextFontSize }}
+          style={{ ...linkStyle, fontSize: fieldTextFontSize }}
           data-testid={testId}
           target="_blank"
         >

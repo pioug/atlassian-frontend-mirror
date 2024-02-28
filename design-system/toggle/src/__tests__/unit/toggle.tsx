@@ -10,24 +10,26 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Toggle component', () => {
+  const label = 'label';
+
   it('should be able to switch', () => {
     const onChange = jest.fn();
     render(
       <Toggle
         size="large"
-        label="switch"
+        label={label}
         defaultChecked={false}
         onChange={onChange}
       />,
     );
-    const label = screen.getByLabelText('switch').parentElement as HTMLElement;
+    const labelElement = screen.getByLabelText(label).parentElement;
 
-    expect(label).not.toHaveAttribute('data-checked');
+    expect(labelElement).not.toHaveAttribute('data-checked');
 
-    fireEvent.click(label);
+    fireEvent.click(labelElement!);
     expect(onChange).toHaveBeenCalled();
 
-    expect(label).toHaveAttribute('data-checked', 'true');
+    expect(labelElement).toHaveAttribute('data-checked', 'true');
   });
 
   it('should be able to handle name/value', () => {
@@ -40,6 +42,7 @@ describe('Toggle component', () => {
         onChange={onChange}
         name="notification"
         value="off"
+        label={label}
       />,
     );
 
@@ -52,30 +55,31 @@ describe('Toggle component', () => {
   it('should not be able to switch when disabled', () => {
     const onChange = jest.fn();
     render(
-      <Toggle size="large" isDisabled label="toggle" defaultChecked={false} />,
+      <Toggle size="large" isDisabled label={label} defaultChecked={false} />,
     );
-    const label = screen.getByLabelText('toggle');
 
-    expect(label).not.toHaveAttribute('data-checked');
+    const labelElement = screen.getByLabelText(label);
 
-    fireEvent.click(label);
+    expect(labelElement).not.toHaveAttribute('data-checked');
+
+    fireEvent.click(labelElement);
     expect(onChange).not.toHaveBeenCalled();
 
-    expect(label).not.toHaveAttribute('data-checked');
+    expect(labelElement).not.toHaveAttribute('data-checked');
   });
 
   it('should set received label to input', () => {
-    render(<Toggle label="Allow pull request" />);
+    render(<Toggle label={label} />);
     const input = screen.getByRole('checkbox');
 
-    expect(input).toHaveAttribute('aria-label', 'Allow pull request');
+    expect(input).toHaveAttribute('aria-label', label);
   });
 
   it('should set received aria-describedby to input', () => {
     render(
       <>
         <p id="toggle-desc">Allow pull request</p>
-        <Toggle descriptionId="toggle-desc" />
+        <Toggle descriptionId="toggle-desc" label={label} />
       </>,
     );
     const input = screen.getByRole('checkbox');
@@ -83,7 +87,7 @@ describe('Toggle component', () => {
   });
 
   it('due to check and cross icons are decorative they should not have a label', () => {
-    render(<Toggle testId="Test" />);
+    render(<Toggle testId="Test" label={label} />);
 
     const crossIcon = screen.getByTestId('Test--toggle-check-icon');
     expect(crossIcon).toBeInTheDocument();
@@ -105,14 +109,14 @@ describe('Toggle component', () => {
           <Toggle
             size="large"
             defaultChecked={false}
-            label="analytics"
+            label={label}
             onChange={originOnChange}
           />
         </AnalyticsListener>,
       );
 
-      const label = screen.getByLabelText('analytics');
-      fireEvent.click(label);
+      const labelElement = screen.getByLabelText(label);
+      fireEvent.click(labelElement);
 
       expect(originOnChange).toHaveBeenCalled();
       expect(onAnalyticsEvent).toHaveBeenCalledTimes(1);
@@ -142,15 +146,14 @@ describe('Toggle component', () => {
             size="large"
             defaultChecked={false}
             isDisabled
-            label="disabled toggle"
+            label={label}
             onChange={originOnChange}
           />
         </AnalyticsListener>,
       );
 
-      const label = screen.getByLabelText('disabled toggle')
-        .parentElement as HTMLElement;
-      fireEvent.click(label);
+      const labelElement = screen.getByLabelText(label).parentElement;
+      fireEvent.click(labelElement!);
 
       expect(originOnChange).not.toHaveBeenCalled();
       expect(onAnalyticsEvent).not.toHaveBeenCalled();

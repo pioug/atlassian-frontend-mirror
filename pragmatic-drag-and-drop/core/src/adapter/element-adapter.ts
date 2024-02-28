@@ -103,6 +103,23 @@ const adapter = makeAdapter<ElementDragType>({
         // If there is not `dataTransfer`, we can assume something is wrong and not
         // start a drag
         if (!event.dataTransfer) {
+          // Including this code on "test" and "development" environments:
+          // - Browser tests commonly run against "development" builds
+          // - Unit tests commonly run in "test"
+          if (process.env.NODE_ENV !== 'production') {
+            // eslint-disable-next-line no-console
+            console.warn(
+              `
+              It appears as though you have are not testing DragEvents correctly.
+
+              - If you are unit testing, ensure you have pollyfilled DragEvent.
+              - If you are browser testing, ensure you are dispatching drag events correctly.
+
+              Please see our testing guides for more information:
+              https://atlassian.design/components/pragmatic-drag-and-drop/core-package/testing
+            `.replace(/ {2}/g, ''),
+            );
+          }
           return;
         }
 

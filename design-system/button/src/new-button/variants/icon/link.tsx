@@ -39,6 +39,8 @@ const LinkIconButtonBase = <
     testId,
     UNSAFE_size,
     href,
+    // Prevent duplicate labels being added.
+    'aria-label': preventedAriaLabel,
     ...rest
   }: LinkIconButtonProps<RouterLinkConfig>,
   ref: Ref<HTMLAnchorElement>,

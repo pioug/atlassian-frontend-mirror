@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.23.0
+
+### Minor Changes
+
+- [#74624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74624) [`0b777e6a934c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b777e6a934c) - [ux] New props added to `DatasourceTableView`: `wrappedColumnKeys` and `onWrappedColumnChange` that control wrapping behaviour of a column. When callback is defined, table headers become a dropdown with action that allows column content to start wrapping to a new line.
+
 ## 1.22.8
 
 ### Patch Changes

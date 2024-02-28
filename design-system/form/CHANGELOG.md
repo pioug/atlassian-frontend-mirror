@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 9.0.8
+
+### Patch Changes
+
+- [#76686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76686) [`8eba69714ea6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8eba69714ea6) - The internal composition of this component has changed. There is no expected change in behaviour.
+
 ## 9.0.7
 
 ### Patch Changes

@@ -172,6 +172,8 @@ export const copyLinkButtonClicked = ({
     contentId: shareContentId,
     isPublicLink,
     ari,
+    // this specific string is needed for marking a successful navigation session
+    navdexPointType: 'navigationSessionEnd',
     ...getOriginTracingAttributes(shareOrigin),
   });
 

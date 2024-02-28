@@ -259,6 +259,7 @@ export class InlinePlayerBase extends Component<
             <CustomMediaPlayer
               type="video"
               src={fileSrc}
+              isVideoSelected={selected}
               onFullscreenChange={onFullscreenChange}
               fileId={identifier.id}
               isAutoPlay={autoplay}

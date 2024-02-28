@@ -18,7 +18,11 @@ import {
 } from './types';
 import { Transformer } from './transformer';
 
-import { EnvironmentsKeys, getBaseUrl, getResolverUrl } from './environments';
+import {
+  EnvironmentsKeys,
+  getBaseUrl,
+  getResolverUrl,
+} from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
 import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';

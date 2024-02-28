@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Modal, {
   ModalBody,
@@ -15,9 +15,9 @@ import Modal, {
   ModalTransition,
 } from '../src';
 
-const containerStyles = css({
+const containerStyles = xcss({
   height: '100%',
-  padding: token('space.200', '16px'),
+  padding: 'space.200',
 });
 
 export default function Parent() {
@@ -36,7 +36,7 @@ function Child() {
   const close = () => setIsOpen(false);
 
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <p>
         This shows a use case where the parent of modal dialog rapidly
         re-renders, which is not always in sync with the duration of modal
@@ -76,6 +76,6 @@ function Child() {
           </Modal>
         )}
       </ModalTransition>
-    </div>
+    </Box>
   );
 }

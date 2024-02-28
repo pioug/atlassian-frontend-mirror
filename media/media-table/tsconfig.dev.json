@@ -64,6 +64,15 @@
       "path": "../media-viewer/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/range/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/theme/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/tooltip/tsconfig.app.json"
     }
   ]

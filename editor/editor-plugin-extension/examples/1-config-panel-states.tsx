@@ -7,6 +7,7 @@ import type {
   ExtensionManifest,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -23,8 +24,8 @@ const wrapperStyles = css({
   },
 });
 
-const contextPanelWrapperStyles = css({
-  margin: token('space.100', '8px'),
+const contextPanelWrapperStyles = xcss({
+  margin: 'space.100',
   height: '100%',
 });
 
@@ -42,7 +43,7 @@ const createFakeContextPanel =
   (extensionProvider: ExtensionProvider) =>
   (props: { title: string; nodeKey: string }) => {
     return (
-      <div css={contextPanelWrapperStyles}>
+      <Box xcss={contextPanelWrapperStyles}>
         <h3>{props.title}</h3>
         <div css={contextPanelStyles}>
           <ConfigPanel
@@ -56,7 +57,7 @@ const createFakeContextPanel =
             onCancel={noop}
           />
         </div>
-      </div>
+      </Box>
     );
   };
 

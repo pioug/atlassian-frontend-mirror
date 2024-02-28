@@ -1,10 +1,27 @@
 /** @jsx jsx */
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
+import styled from '@emotion/styled';
 import ReactDOM from 'react-dom';
+import { FormattedMessage } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
+import Button from '@atlaskit/button/new';
+import DropdownMenu, {
+  CustomTriggerProps,
+  DropdownItem,
+  DropdownMenuProps,
+} from '@atlaskit/dropdown-menu';
+import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
+import ChevronUp from '@atlaskit/icon/glyph/chevron-up';
 import {
   attachClosestEdge,
   Edge,
@@ -23,6 +40,8 @@ import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/el
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/prevent-unhandled';
 import { token } from '@atlaskit/tokens';
 
+import { GlyphPlaceholder, UnwrapTextIcon, WrapTextIcon } from './custom-icons';
+import { issueLikeTableMessages } from './messages';
 import { TableHeading } from './styled';
 import { COLUMN_MIN_WIDTH, getWidthCss } from './utils';
 
@@ -35,11 +54,17 @@ type DraggableState =
       initialWidth: number;
     };
 
-const verticallyAlignedStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  whiteSpace: 'nowrap',
-});
+const DropdownParent = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  & button {
+    text-align: left; /* By default button center in the middle without props to control it */
+    height: auto; /* By default button is not happy with tall (up to lines in our case) content */
+    padding-left: 0px; /* By default button's padding left and right is 8 + 4. We control that 8, so left with 4 that we need.  */
+    padding-right: 0px;
+  }
+`;
 
 const dropTargetStyles = css({
   position: 'absolute',
@@ -92,6 +117,19 @@ const resizingStyles = css({
 const idleState: DraggableState = { type: 'idle' };
 const draggingState: DraggableState = { type: 'dragging' };
 
+interface DraggableTableHeadingProps {
+  children: ReactNode;
+  id: string;
+  index: number;
+  tableId: Symbol;
+  dndPreviewHeight: number;
+  dragPreview: React.ReactNode;
+  width: number;
+  onWidthChange?: (width: number) => void;
+  isWrapped?: boolean;
+  onIsWrappedChange?: (shouldWrap: boolean) => void;
+}
+
 export const DraggableTableHeading = ({
   children,
   id,
@@ -101,16 +139,9 @@ export const DraggableTableHeading = ({
   dragPreview,
   width,
   onWidthChange,
-}: {
-  children: ReactNode;
-  id: string;
-  index: number;
-  tableId: Symbol;
-  dndPreviewHeight: number;
-  dragPreview: React.ReactNode;
-  width: number;
-  onWidthChange?: (width: number) => void;
-}) => {
+  isWrapped,
+  onIsWrappedChange,
+}: DraggableTableHeadingProps) => {
   const mainHeaderCellRef = useRef<HTMLTableCellElement>(null);
   const columnResizeHandleRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<DraggableState>(idleState);
@@ -276,6 +307,55 @@ export const DraggableTableHeading = ({
     });
   }, [id, index, onWidthChange, state, tableId, width]);
 
+  const [buttonHovered, setButtonHovered] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const isWideEnoughToHaveChevron = width > 76;
+
+  const shouldShowTriggerIcon =
+    (buttonHovered || isDropdownOpen) && isWideEnoughToHaveChevron;
+  const triggerIcon = useMemo(
+    () =>
+      shouldShowTriggerIcon
+        ? isDropdownOpen
+          ? ChevronUp
+          : ChevronDown
+        : isWideEnoughToHaveChevron
+        ? GlyphPlaceholder
+        : undefined,
+    [shouldShowTriggerIcon, isDropdownOpen, isWideEnoughToHaveChevron],
+  );
+
+  const getTriggerButton = useCallback(
+    ({ triggerRef, ...props }: CustomTriggerProps<HTMLButtonElement>) => {
+      return (
+        <Button
+          {...props}
+          testId={`${id}-column-dropdown`}
+          shouldFitContainer
+          iconAfter={triggerIcon}
+          ref={triggerRef}
+          appearance="subtle"
+          spacing="compact"
+          onMouseEnter={() => setButtonHovered(true)}
+          onMouseLeave={() => setButtonHovered(false)}
+        >
+          {children}
+        </Button>
+      );
+    },
+    [children, id, triggerIcon],
+  );
+
+  const onDropdownOpenChange: DropdownMenuProps['onOpenChange'] = useCallback(
+    ({ isOpen }) => setIsDropdownOpen(isOpen),
+    [],
+  );
+
+  const toggleWrap = useCallback(
+    () => onIsWrappedChange && onIsWrappedChange(!(isWrapped || false)),
+    [isWrapped, onIsWrappedChange],
+  );
+
   return (
     <TableHeading
       ref={mainHeaderCellRef}
@@ -295,6 +375,29 @@ export const DraggableTableHeading = ({
           data-testid="column-resize-handle"
         ></div>
       ) : null}
+      {onIsWrappedChange ? (
+        <DropdownParent>
+          <DropdownMenu<HTMLButtonElement>
+            trigger={getTriggerButton}
+            onOpenChange={onDropdownOpenChange}
+            placement={'bottom'}
+          >
+            <DropdownItem
+              elemBefore={isWrapped ? <UnwrapTextIcon /> : <WrapTextIcon />}
+              testId={`${id}-column-dropdown-item-toggle-wrapping`}
+              onClick={toggleWrap}
+            >
+              {isWrapped ? (
+                <FormattedMessage {...issueLikeTableMessages.unwrapText} />
+              ) : (
+                <FormattedMessage {...issueLikeTableMessages.wrapText} />
+              )}
+            </DropdownItem>
+          </DropdownMenu>
+        </DropdownParent>
+      ) : (
+        children
+      )}
       <div
         ref={dropTargetRef}
         css={[
@@ -308,7 +411,6 @@ export const DraggableTableHeading = ({
       >
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </div>
-      <div css={verticallyAlignedStyles}>{children}</div>
       {state.type === 'preview'
         ? ReactDOM.createPortal(dragPreview, state.container)
         : null}

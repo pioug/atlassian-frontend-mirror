@@ -2,22 +2,4 @@
 
 Disallows using xcss prop inside JavaScript files.
 
-Components that use xcss prop have explicitly declared what styles via the type system they should and should not accept, consumers must adhere to this API. Without TypeScript it's impossible to ensure this is met.
-
-## Incorrect
-
-Do not use xcss in a JavaScript file as type safety is required to ensure compatability and support
-
-```js
-// my-component.js
-<Button xcss={{ fill: 'var(--ds-text)' }} />
-```
-
-## Correct
-
-Using xcss in a TypeScript file is perfectly fine
-
-```tsx
-// my-component.tsx
-<Button xcss={{ color: 'var(--ds-text)' }} />
-```
+This rule is maintained by another package and configured here; refer to https://github.com/atlassian-labs/compiled/tree/master/packages/eslint-plugin/src/rules/no-js-xcss for more details.

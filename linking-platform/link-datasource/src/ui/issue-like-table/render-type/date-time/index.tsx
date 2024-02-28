@@ -5,7 +5,7 @@ import { FormatDateOptions, IntlShape, useIntl } from 'react-intl-next';
 
 import { DateTimeType, DateType, TimeType } from '@atlaskit/linking-types';
 
-import { FieldTextFontSize } from '../../styled';
+import { fieldTextFontSize } from '../../styled';
 
 export interface DateProps {
   testId?: string;
@@ -27,9 +27,9 @@ const timeOptions: FormatDateOptions = {
   minute: '2-digit',
 };
 
-const DateTimeWrapper = styled.span`
-  font-size: ${FieldTextFontSize};
-`;
+const DateTimeWrapper = styled.span({
+  fontSize: fieldTextFontSize,
+});
 
 export function getFormattedDate(
   value: string,

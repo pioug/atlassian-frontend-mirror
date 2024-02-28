@@ -50,7 +50,7 @@ const from = (init: ItemInit): MenuItem => ({
   content: init.content,
   tooltipDescription: init.tooltipDescription,
   value: { name: init.name },
-  elemBefore: <init.Icon label={init.content} />,
+  elemBefore: <init.Icon label="" />,
   elemAfter: init.shortcut ? (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <div css={shortcutStyle}>{init.shortcut}</div>

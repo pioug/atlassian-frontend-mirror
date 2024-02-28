@@ -4,6 +4,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { TableHeading } from './styled';
@@ -15,30 +16,36 @@ const firstLastChildOverride = `
     padding-right: ${token('space.100', '8px')};
   }
 `;
-const TablePreviewHeading = styled(TableHeading)`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: ${token('color.background.disabled', '#091E4224')};
-  color: ${token('color.text.disabled', '#091E424F')};
-  max-width: ${maxWidth};
-  ${firstLastChildOverride}
-`;
+const TablePreviewHeading = styled(TableHeading)(
+  {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    background: token('color.background.disabled', '#091E4224'),
+    maxWidth: maxWidth,
+  },
+  firstLastChildOverride,
+);
 
-const TablePreviewCell = styled.td`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: ${maxWidth};
-  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-  ${firstLastChildOverride}
-`;
+const TablePreviewCell = styled.td(
+  {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: maxWidth,
+    padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+    boxSizing: 'border-box',
+    borderBottom: `0.5px solid ${token('color.border', N40)}`,
+    height: '30px',
+  },
+  firstLastChildOverride,
+);
 
 const tableStyles = css({
   background: token('elevation.surface', '#FFF'),
   borderCollapse: 'separate',
   borderSpacing: 0,
-  fontSize: token('font.size.200', '16px'),
+  fontSize: token('font.size.100', '14px'),
   maxWidth,
 });
 

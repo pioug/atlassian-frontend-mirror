@@ -1,5 +1,11 @@
 # @atlaskit/tooltip
 
+## 18.1.2
+
+### Patch Changes
+
+- [#75714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75714) [`33f4a64132a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33f4a64132a3) - Remove duplicate accessible labels on Icon buttons, which were unnecessarily added through the `aria-label` attribute.
+
 ## 18.1.1
 
 ### Patch Changes

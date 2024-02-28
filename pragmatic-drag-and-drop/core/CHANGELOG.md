@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 1.0.1
+
+### Patch Changes
+
+- [#76476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76476) [`35148e092790`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35148e092790) - Adding warning for test environments to let people know if DragEvents have not been setup correctly.
+
 ## 1.0.0
 
 ### Major Changes

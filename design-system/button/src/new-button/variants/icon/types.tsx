@@ -17,6 +17,8 @@ export type CommonIconButtonProps = {
    * Provide an accessible label, often used by screen readers.
    */
   label: string;
+  // Prevent duplicate labels being added.
+  'aria-label'?: never;
   /**
    * Set the shape of the icon, defaults to square with rounded corners.
    */

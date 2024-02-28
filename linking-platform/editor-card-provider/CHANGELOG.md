@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 3.3.0
+
+### Minor Changes
+
+- [#75659](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75659) [`28d133564298`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28d133564298) - Removed duplicated version of environment.ts in editor-card-provider package and all usages were replaced with the corresponding type/function from linking-common.
+
 ## 3.2.0
 
 ### Minor Changes

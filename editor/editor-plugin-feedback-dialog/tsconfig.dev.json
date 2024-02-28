@@ -36,28 +36,10 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
-      "path": "../editor-common/tsconfig.app.json"
-    },
-    {
       "path": "../editor-core/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-analytics/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-quick-insert/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

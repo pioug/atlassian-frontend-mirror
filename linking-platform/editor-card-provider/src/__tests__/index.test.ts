@@ -1,8 +1,7 @@
-import { EnvironmentsKeys } from '../environments';
+import { Datasource, EnvironmentsKeys } from '@atlaskit/linking-common';
 import { EditorCardProvider } from '..';
 import { LinkAppearance, ProviderPattern, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
-import { Datasource } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 type PatternsProviderResponse = {
@@ -141,8 +140,7 @@ describe('providers > editor', () => {
 
     const IsolatedEditorCardProvider: typeof EditorCardProvider =
       require('..').EditorCardProvider;
-    const provider = new IsolatedEditorCardProvider(envKey, baseUrlOverride);
-    return provider;
+    return new IsolatedEditorCardProvider(envKey, baseUrlOverride);
   };
 
   beforeEach(() => {

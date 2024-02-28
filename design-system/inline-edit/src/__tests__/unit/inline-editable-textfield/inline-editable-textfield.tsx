@@ -40,7 +40,7 @@ describe('Simple render', () => {
       );
     };
 
-    const { container, queryByTestId } = render(
+    const { container, queryByTestId, queryByText } = render(
       <InlineEditableTextFieldExample />,
     );
 
@@ -53,7 +53,7 @@ describe('Simple render', () => {
     const textField = container.querySelector(
       '[data-testid="editable-textfield"]',
     );
-    const confirm = container.querySelector('[aria-label="Confirm"]');
+    const confirm = queryByText('Confirm');
 
     fireEvent.change(textField!, { target: { value: 'New content' } });
     fireEvent.click(confirm!);
@@ -82,7 +82,7 @@ describe('Simple render', () => {
       );
     };
 
-    const { container, queryByTestId } = render(
+    const { container, queryByTestId, queryByText } = render(
       <InlineEditableTextFieldExample />,
     );
 
@@ -96,7 +96,7 @@ describe('Simple render', () => {
       '[data-testid="editable-textfield"]',
     ) as HTMLInputElement;
     expect(textField).toBeInTheDocument();
-    const cancel = container.querySelector('[aria-label="Cancel"]');
+    const cancel = queryByText('Cancel');
 
     fireEvent.change(textField!, { target: { value: 'New content' } });
     expect(onCancel).not.toHaveBeenCalled();

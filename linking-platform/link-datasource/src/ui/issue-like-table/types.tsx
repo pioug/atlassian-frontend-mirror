@@ -61,8 +61,10 @@ export interface IssueLikeDataTableViewProps {
    */
   renderItem?: TableViewPropsRenderType;
   /**
-   * Callback that is called in either column re-order or columns being selected/unselected
-   * @param visibleColumnKeys
+   * Callback to be invoked whenever a user changes the visible columns in a datasource table
+   * either by selecting/unselecting or reordering (drag and drop)
+   *
+   * @param visibleColumnKeys the array of keys for all of the selected columns
    */
   onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
 
@@ -72,6 +74,22 @@ export interface IssueLikeDataTableViewProps {
    */
   scrollableContainerHeight?: number;
 
+  /**
+   * Map of column key to custom column width
+   */
   columnCustomSizes?: ColumnSizesMap;
   onColumnResize?: (key: string, width: number) => void;
+
+  /**
+   * List of column keys that needs to be shown without truncation (content will wrap to a new line)
+   */
+  wrappedColumnKeys?: string[];
+
+  /**
+   * Callback to be invoked whenever user changes wrap attribute of the column.
+   *
+   * @param key Column key
+   * @param shouldWrap  Whenever column should wrap
+   */
+  onWrappedColumnChange?: (key: string, shouldWrap: boolean) => void;
 }

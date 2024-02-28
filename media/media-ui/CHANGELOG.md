@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.2.0
+
+### Minor Changes
+
+- [#69454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/69454) [`41f49439d5da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41f49439d5da) - [ux] ECA11Y-198: Add Shift + F10 shortcut to focus play/pause button when video is selected
+
 ## 25.1.0
 
 ### Minor Changes

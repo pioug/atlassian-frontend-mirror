@@ -259,7 +259,7 @@ async function generateExternalRulePage(
 
       ${
         rule.module.meta?.docs?.externalUrl
-          ? `This rule is maintained by another package and configured here, refer to ${rule.module.meta.docs.externalUrl} for more details`
+          ? `This rule is maintained by another package and configured here; refer to ${rule.module.meta.docs.externalUrl} for more details.`
           : ''
       }
     `;

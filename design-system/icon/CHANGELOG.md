@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 22.1.1
+
+### Patch Changes
+
+- [#74633](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74633) [`fc09be1a0b9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc09be1a0b9e) - Fix bug where archive, arrow-left, mobile, editor/file-preview and editor/remove-emoji rendered with a 1% opacity white rectangle behind the glyph
+
 ## 22.1.0
 
 ### Minor Changes

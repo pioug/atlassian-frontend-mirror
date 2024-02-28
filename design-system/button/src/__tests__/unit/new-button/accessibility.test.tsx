@@ -1,6 +1,6 @@
 import React, { ComponentProps } from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
@@ -9,7 +9,7 @@ import ButtonGroup from '../../../containers/button-group';
 import { SplitButton } from '../../../new-button/containers/split-button';
 import Button from '../../../new-button/variants/default/button';
 import IconButton from '../../../new-button/variants/icon/button';
-import variants from '../../../utils/variants';
+import variants, { iconButtonVariants } from '../../../utils/variants';
 
 variants.forEach(({ name, Component, appearances }) =>
   appearances.map((appearance) => {
@@ -123,47 +123,65 @@ describe('SplitButton: Accessibility', () => {
   });
 });
 
-describe('IconButton: Accessibility', () => {
-  const appearances: ComponentProps<typeof IconButton>['appearance'][] = [
-    'default',
-    'primary',
-    'subtle',
-  ];
+describe('Icon button: Accessibility', () => {
+  iconButtonVariants.forEach(({ name, Component }) => {
+    const appearances: ComponentProps<typeof IconButton>['appearance'][] = [
+      'default',
+      'primary',
+      'subtle',
+    ];
 
-  appearances.forEach((appearance) => {
-    it(`should not fail an aXe audit with ${appearance} appearance`, async () => {
+    appearances.forEach((appearance) => {
+      it(`${name}: should not fail an aXe audit with ${appearance} appearance`, async () => {
+        const view = render(
+          <Component
+            appearance={appearance}
+            icon={SettingsIcon}
+            label="Settings"
+          />,
+        );
+
+        await axe(view.container);
+      });
+    });
+
+    const shapes: ComponentProps<typeof IconButton>['shape'][] = [
+      'default',
+      'circle',
+    ];
+
+    shapes.forEach((shape) => {
+      it(`${name}: should not fail an aXe audit with ${shape} shape`, async () => {
+        const view = render(
+          <Component icon={SettingsIcon} label="Settings" shape={shape} />,
+        );
+
+        await axe(view.container);
+      });
+    });
+
+    it(`${name}: should not fail an aXe audit when disabled`, async () => {
       const view = render(
-        <IconButton
-          appearance={appearance}
+        <Component isDisabled icon={SettingsIcon} label="Settings" />,
+      );
+
+      await axe(view.container);
+    });
+
+    it(`${name}: should not allow 'aria-label' to be passed in order to prevent duplicate labels`, async () => {
+      render(
+        // @ts-expect-error
+        <Component
+          testId="icon-button"
+          aria-label="Settings"
+          isDisabled
           icon={SettingsIcon}
           label="Settings"
         />,
       );
 
-      await axe(view.container);
+      const button = screen.getByTestId('icon-button');
+      expect(button).not.toHaveAttribute('aria-label');
     });
-  });
-
-  const shapes: ComponentProps<typeof IconButton>['shape'][] = [
-    'default',
-    'circle',
-  ];
-
-  shapes.forEach((shape) => {
-    it(`should not fail an aXe audit with ${shape} shape`, async () => {
-      const view = render(
-        <IconButton icon={SettingsIcon} label="Settings" shape={shape} />,
-      );
-
-      await axe(view.container);
-    });
-  });
-
-  it('should not fail an aXe audit when disabled', async () => {
-    const view = render(
-      <IconButton isDisabled icon={SettingsIcon} label="Settings" />,
-    );
-
-    await axe(view.container);
   });
 });

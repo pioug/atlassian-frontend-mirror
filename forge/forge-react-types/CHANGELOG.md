@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.5.0
+
+### Minor Changes
+
+- [#76719](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76719) [`938f20d0d68e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/938f20d0d68e) - Make spacing and animated properties optional in UIKit ProgressTracker component
+
 ## 0.4.0
 
 ### Minor Changes

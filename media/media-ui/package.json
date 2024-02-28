@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "25.1.0",
+  "version": "25.2.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,12 +24,13 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.4.0",
+    "@atlaskit/button": "^17.5.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/locale": "^2.6.0",
     "@atlaskit/media-common": "^11.0.0",
+    "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/select": "^17.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
@@ -110,5 +111,10 @@
     "./locales": "./src/locales.ts",
     ".": "./src/index.ts"
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.editor.a11y_video_controls_keyboard_support_yhcxh": {
+      "type": "boolean"
+    }
+  }
 }

@@ -134,6 +134,7 @@ describe('share analytics', () => {
           packageName: expect.any(String),
           shortUrl: undefined,
           isPublicLink: false,
+          navdexPointType: 'navigationSessionEnd',
         }),
       });
     });
@@ -165,6 +166,7 @@ describe('share analytics', () => {
           contentType: 'issue',
           contentSubType: 'embed',
           ari: 'ari',
+          navdexPointType: 'navigationSessionEnd',
         }),
       });
       expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);

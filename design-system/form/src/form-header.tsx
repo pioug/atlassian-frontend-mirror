@@ -25,9 +25,9 @@ export interface FormHeaderProps {
   children?: ReactNode;
 }
 
-const formHeaderContentStyles = css({
+const formHeaderContentStyles = xcss({
   minWidth: '100%',
-  marginBlockStart: token('space.100', '8px'),
+  marginBlockStart: 'space.100',
 });
 
 const formHeaderDescriptionStyles = xcss({
@@ -51,7 +51,7 @@ const formHeaderWrapperStyles = css({
 const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
 
 const FormHeaderContent = ({ children }: { children: ReactNode }) => {
-  return <div css={formHeaderContentStyles}>{children}</div>;
+  return <Box xcss={formHeaderContentStyles}>{children}</Box>;
 };
 
 const FormHeaderDescription = ({ children }: { children: ReactNode }) => {

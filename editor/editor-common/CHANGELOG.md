@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 78.8.2
+
+### Patch Changes
+
+- [#75915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75915) [`2d614b4e4dab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d614b4e4dab) - ED-22271 Adding cursor selections to MBE APIs
+
+## 78.8.1
+
+### Patch Changes
+
+- [#76112](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76112) [`1cd6cd3382d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cd6cd3382d9) - remove table performance experiment
+
+## 78.8.0
+
+### Minor Changes
+
+- [#75635](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75635) [`af4972f3a9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af4972f3a9bb) - [ux] Added comment button for media single floating toolbar
+
+## 78.7.0
+
+### Minor Changes
+
+- [#76370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76370) [`6e7d6bc06b91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e7d6bc06b91) - Passes Confluence experiment flag to extensions for new macro visual design project
+
 ## 78.6.1
 
 ### Patch Changes

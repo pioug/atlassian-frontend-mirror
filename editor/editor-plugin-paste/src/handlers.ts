@@ -1200,12 +1200,19 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
     return new Slice(slice.content, openStart, slice.openEnd);
   }
 
-  // If the paragraph contains marks forbidden by the parent node (e.g. alignment/indentation),
-  // drop those marks from the slice
+  // If the paragraph or heading contains marks forbidden by the parent node
+  // (e.g. alignment/indentation), drop those marks from the slice
   return mapSlice(slice, node => {
     if (node.type === schema.nodes.paragraph) {
       return schema.nodes.paragraph.createChecked(
         undefined,
+        node.content,
+        node.marks.filter(mark => !forbiddenMarkTypes.includes(mark.type)),
+      );
+    } else if (node.type === schema.nodes.heading) {
+      // Preserve heading attributes to keep formatting
+      return schema.nodes.heading.createChecked(
+        node.attrs,
         node.content,
         node.marks.filter(mark => !forbiddenMarkTypes.includes(mark.type)),
       );
@@ -1347,7 +1354,6 @@ export function handleRichText(
           return false;
         }
       });
-
       if (
         (insideTableCell(state) &&
           isInListItem(state) &&

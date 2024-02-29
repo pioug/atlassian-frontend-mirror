@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.9.0
+
+### Minor Changes
+
+- [#76695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76695) [`815a632ae2c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/815a632ae2c2) - export isExternalUser
+
 ## 6.8.0
 
 ### Minor Changes

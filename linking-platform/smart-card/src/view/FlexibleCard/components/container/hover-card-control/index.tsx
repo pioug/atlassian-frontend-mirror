@@ -35,7 +35,7 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
   }, []);
 
   const onMouseMove = useCallback(
-    (e) => {
+    (e: any) => {
       if (mouseStopTimer.current) {
         clearTimeout(mouseStopTimer.current);
       }

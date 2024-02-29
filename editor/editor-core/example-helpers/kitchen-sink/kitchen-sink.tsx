@@ -113,6 +113,7 @@ export type KitchenSinkState = {
 
   warning?: ADFUrl.Message;
   positionDebuggerEnabled?: boolean;
+  key: number;
 };
 
 function scrubAdfSafely(data: any): any {
@@ -192,29 +193,35 @@ export class KitchenSink extends React.Component<
   };
 
   private getDefaultFeatureFlagInput = () => {
-    const maybeFeatureFlagInput = FeatureFlagUrl.fromLocation<string>(
+    const addedFeatureFlags =
+      (localStorage && localStorage.getItem('featureFlagsInput')) || undefined;
+
+    const maybeFeatureFlagsFromURL = FeatureFlagUrl.fromLocation<string>(
       window.parent.location,
     );
-    const featureFlagInput =
-      maybeFeatureFlagInput instanceof window.Error
-        ? undefined
-        : maybeFeatureFlagInput;
 
-    if (maybeFeatureFlagInput instanceof window.Error) {
+    let featureFlagsFromURL = {};
+
+    if (maybeFeatureFlagsFromURL instanceof window.Error) {
       window.setTimeout(() => {
         this.setState({
           warning: {
             type: 'warn',
             title: "Couldn't load feature flags from URL",
-            message: maybeFeatureFlagInput.message,
+            message: maybeFeatureFlagsFromURL.message,
           },
         });
       }, 1000);
-
-      return '{}';
+    } else if (maybeFeatureFlagsFromURL) {
+      featureFlagsFromURL = JSON.parse(maybeFeatureFlagsFromURL);
     }
 
-    return featureFlagInput;
+    const featureFlags = {
+      ...featureFlagsFromURL,
+      ...(addedFeatureFlags ? JSON.parse(addedFeatureFlags) : {}),
+    };
+
+    return JSON.stringify(featureFlags, null, 2);
   };
 
   private getDefaultOrientation = () => {
@@ -256,6 +263,7 @@ export class KitchenSink extends React.Component<
     scrubContent: this.params.get('scrub') === 'true',
     sanitizePrivateContent: false,
     positionDebuggerEnabled: false,
+    key: 1,
   };
 
   private dataProviders = ProviderFactory.create({
@@ -429,6 +437,14 @@ export class KitchenSink extends React.Component<
     this.setState({ featureFlagInput: event.target.value });
   };
 
+  private onFeatureFlagsInputSubmit = () => {
+    const featureFlagsValue = this.state.featureFlagInput || '{}';
+    localStorage.setItem('featureFlagsInput', featureFlagsValue);
+
+    // force editor component to re-mount to use added FF
+    this.setState({ key: this.state.key + 1 });
+  };
+
   private onPositionDebuggerEnabled = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
@@ -485,6 +501,7 @@ export class KitchenSink extends React.Component<
               })}
             >
               <Comp
+                key={this.state.key}
                 actions={this.props.actions}
                 locale={this.props.locale}
                 popupMountPoint={this.popupMountPoint}
@@ -534,6 +551,8 @@ export class KitchenSink extends React.Component<
                       <KitchenSinkAdfInput
                         value={this.state.featureFlagInput}
                         onChange={this.onFeatureFlagChange}
+                        onSubmit={this.onFeatureFlagsInputSubmit}
+                        buttonLabel="Save"
                       />
                     </label>
                     <br />
@@ -543,6 +562,7 @@ export class KitchenSink extends React.Component<
                         value={this.state.adfInput}
                         onChange={this.onInputChange}
                         onSubmit={this.onInputSubmit}
+                        buttonLabel="Import ADF"
                       />
                     </label>
                     <br />

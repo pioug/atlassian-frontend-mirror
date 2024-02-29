@@ -1,5 +1,26 @@
 # @atlaskit/primitives
 
+## 3.1.0
+
+### Minor Changes
+
+- [#76431](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76431) [`c6819de73d02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6819de73d02) - Default text color + allow color inheritance if explicitly defined
+
+## 3.0.0
+
+### Major Changes
+
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`a45d2049a22c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a45d2049a22c) - The "Link" primitive has been renamed to "Anchor" to avoid confusion with the upcoming "Link" component. Since Link is still in Alpha this should not cause any upgrade friction.
+
+### Minor Changes
+
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`75b2ade8b254`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75b2ade8b254) - Both the Pressable and Anchor primitives now support analytics tracking by default.
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`39f3c929f0c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39f3c929f0c4) - Add Pressable and Anchor primitives (in Alpha) to root export as `UNSAFE_PRESSABLE` and `UNSAFE_LINK`.
+
+### Patch Changes
+
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`4951390bc0ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4951390bc0ae) - [ux] Adds a default underline style to the Anchor primitive (Alpha)
+
 ## 2.1.0
 
 ### Minor Changes

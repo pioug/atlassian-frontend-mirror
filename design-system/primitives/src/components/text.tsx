@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { createContext, FC, ReactNode, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -56,10 +56,10 @@ type TextPropsBase = {
   children: ReactNode;
   /**
    * Token representing text color with a built-in fallback value.
-   * Will apply inverse text color automatically if placed within a Box with backgroundColor.
-   *
+   * Will apply inverse text color automatically if placed within a Box with bold background color.
+   * Defaults to `text.color` if not nested in other Text components.
    */
-  color?: TextColor;
+  color?: TextColor | 'inherit';
   /**
    * The [HTML `id` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id).
    */
@@ -112,21 +112,35 @@ const wordBreakMap = {
   breakAll: css({ wordBreak: 'break-all' }),
 };
 
+const HasTextAncestorContext = createContext(false);
+const useHasTextAncestor = () => useContext(HasTextAncestorContext);
+
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
  */
-const useColor = (colorProp: TextColor | undefined): TextColor | undefined => {
+const useColor = (
+  colorProp: TextColor | undefined | 'inherit',
+  hasTextAncestor: boolean,
+): TextColor | undefined => {
   const surface = useSurface();
 
   /**
-   * Where the color of the surface is inverted we override the user choice
+   * Where the color of the surface is inverted we always override the color
    * as there is no valid choice that is not covered by the override.
    */
-  const color = inverseColorMap.hasOwnProperty(surface)
-    ? inverseColorMap[surface as keyof typeof inverseColorMap]
-    : colorProp;
+  if (inverseColorMap.hasOwnProperty(surface)) {
+    return inverseColorMap[surface as keyof typeof inverseColorMap];
+  }
 
-  return color;
+  if (colorProp === 'inherit') {
+    return undefined;
+  }
+
+  if (!colorProp && hasTextAncestor) {
+    return undefined;
+  }
+
+  return colorProp || 'color.text';
 };
 
 /**
@@ -140,7 +154,7 @@ const useColor = (colorProp: TextColor | undefined): TextColor | undefined => {
  */
 const Text: FC<TextProps> = ({ children, ...props }) => {
   const {
-    as: asElement,
+    as: Component = 'span',
     color: colorProp,
     textAlign,
     testId,
@@ -148,10 +162,6 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     variant = 'body',
     weight,
   } = props;
-
-  // body variants -> p
-  // ui variants -> span
-  const Component = asElement || (variant.includes('body') ? 'p' : 'span');
 
   invariant(
     asAllowlist.includes(Component),
@@ -164,20 +174,21 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     maxLines = props.maxLines;
   }
 
-  const color = useColor(colorProp);
+  const hasTextAncestor = useHasTextAncestor();
+  const color = useColor(colorProp, hasTextAncestor);
 
-  return (
+  const component = (
     <Component
       css={[
         resetStyles,
-        variant && variantStyles[variant],
+        variantStyles[variant],
         color && textColorStylesMap[color],
         maxLines && truncationStyles,
         maxLines === 1 && wordBreakMap.breakAll,
         textAlign && textAlignMap[textAlign],
         weight && fontWeightStylesMap[weight],
-        asElement === 'em' && emStyles,
-        asElement === 'strong' && strongStyles,
+        Component === 'em' && emStyles,
+        Component === 'strong' && strongStyles,
       ]}
       style={{
         WebkitLineClamp: maxLines,
@@ -187,6 +198,15 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     >
       {children}
     </Component>
+  );
+
+  return hasTextAncestor ? (
+    // no need to re-apply context if the text is already wrapped
+    component
+  ) : (
+    <HasTextAncestorContext.Provider value={true}>
+      {component}
+    </HasTextAncestorContext.Provider>
   );
 };
 

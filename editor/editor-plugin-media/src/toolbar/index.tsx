@@ -35,7 +35,6 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarDropdown,
   FloatingToolbarItem,
-  GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
@@ -83,6 +82,7 @@ import {
   toggleBorderMark,
   updateMediaSingleWidth,
 } from './commands';
+import { commentButton } from './comments';
 import { FilePreviewItem } from './filePreviewItem';
 import { shouldShowImageBorder } from './imageBorder';
 import { LayoutGroup } from './layout-group';
@@ -259,7 +259,6 @@ const generateMediaSingleFloatingToolbar = (
   pluginInjectionApi:
     | ExtractInjectionAPI<MediaNextEditorPluginType>
     | undefined,
-  getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   const { mediaSingle } = state.schema.nodes;
   const {
@@ -270,7 +269,11 @@ const generateMediaSingleFloatingToolbar = (
     allowAltTextOnImages,
     allowMediaInline,
     allowMediaInlineImages,
+    getEditorFeatureFlags,
   } = options;
+  const editorFeatureFlags = getEditorFeatureFlags
+    ? getEditorFeatureFlags()
+    : undefined;
 
   let toolbarButtons: FloatingToolbarItem<Command>[] = [];
   const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
@@ -583,6 +586,13 @@ const generateMediaSingleFloatingToolbar = (
       toolbarButtons.push({ type: 'separator' });
     }
 
+    if (editorFeatureFlags && editorFeatureFlags.commentsOnMedia) {
+      toolbarButtons.push(
+        commentButton(intl, state, pluginInjectionApi?.analytics?.actions),
+        { type: 'separator' },
+      );
+    }
+
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {
       toolbarButtons.push({
         type: 'custom',
@@ -698,7 +708,6 @@ export const floatingToolbar = (
     providerFactory,
     allowMediaInline,
     allowResizing,
-    getEditorFeatureFlags,
   } = options;
   const mediaPluginState: MediaPluginState | undefined =
     stateKey.getState(state);
@@ -803,7 +812,6 @@ export const floatingToolbar = (
       mediaPluginState,
       mediaLinkingState,
       pluginInjectionApi,
-      getEditorFeatureFlags,
     );
   }
 

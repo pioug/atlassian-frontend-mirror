@@ -1,6 +1,6 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
-import UNSAFE_LINK from '@atlaskit/primitives/link';
+import UNSAFE_ANCHOR from '@atlaskit/primitives/anchor';
 
 import {
   type AdditionalDefaultLinkVariantProps,
@@ -19,6 +19,7 @@ export type LinkButtonProps<
 const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
   {
     analyticsContext,
+    interactionName,
     autoFocus,
     appearance,
     spacing,
@@ -30,7 +31,6 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
     UNSAFE_iconAfter_size,
     children,
     shouldFitContainer,
-    interactionName,
     overlay,
     onClick,
     onMouseDownCapture,
@@ -78,7 +78,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
   });
 
   return (
-    <UNSAFE_LINK
+    <UNSAFE_ANCHOR
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
       ref={baseProps.ref}
@@ -102,9 +102,12 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
       href={baseProps.isDisabled ? undefined : href}
       role={baseProps.isDisabled ? 'link' : undefined}
       aria-disabled={baseProps.isDisabled === true ? true : undefined}
+      analyticsContext={analyticsContext}
+      interactionName={interactionName}
+      componentName="LinkButton"
     >
       {baseProps.children}
-    </UNSAFE_LINK>
+    </UNSAFE_ANCHOR>
   );
 };
 

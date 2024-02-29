@@ -14,7 +14,7 @@ const LozengeActionItem: FC<LozengeActionItemProps> = ({
   text,
 }) => {
   const handleClick = useCallback(
-    (e) => {
+    (e: any) => {
       // Prevent dropdown to close on select item.
       // We want to show loading screen.
       e.stopPropagation();
@@ -26,7 +26,7 @@ const LozengeActionItem: FC<LozengeActionItemProps> = ({
     [appearance, id, onClick, text],
   );
 
-  const handleMouseEnter = useCallback((e) => {
+  const handleMouseEnter = useCallback((e: any) => {
     e.currentTarget?.firstElementChild?.focus();
   }, []);
 

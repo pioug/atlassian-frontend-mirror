@@ -71,21 +71,23 @@ function ElementSearch({
 
   const getFormattedMessage = (itemsCount: number): string => {
     if (searchTerm === '') {
-      return `${formatMessage(commonMessages.assistiveTextSuggestionsDefault, {
+      return `${formatMessage(commonMessages.assistiveTextDefault, {
         count: itemsCount,
       })}`;
     }
     if (itemsCount > 1) {
-      return `${formatMessage(commonMessages.assistiveTextSuggestions, {
+      return `${formatMessage(commonMessages.assistiveTextResult, {
         count: itemsCount,
       })}`;
     }
     if (itemsCount === 1) {
-      return `${formatMessage(commonMessages.assistiveTextSuggestion, {
+      return `${formatMessage(commonMessages.assistiveTextResult, {
         count: itemsCount,
       })}`;
     }
-    return formatMessage(commonMessages.assistiveTextSuggestionNothing);
+    return formatMessage(commonMessages.assistiveTextResult, {
+      count: itemsCount,
+    });
   };
 
   const assistiveMessage = getFormattedMessage(items?.length);
@@ -149,51 +151,47 @@ function ElementSearch({
   );
 }
 
-const styledShortcut = css`
-  ${shortcutStyle}
-  padding: ${GRID_SIZE / 2}px ${GRID_SIZE}px;
-  width: ${GRID_SIZE * 6}px;
-`;
+const styledShortcut = css(shortcutStyle, {
+  padding: `${GRID_SIZE / 2}px ${GRID_SIZE}px`,
+  width: `${GRID_SIZE * 6}px`,
+});
 
-const wrapper = css`
-  & > [data-ds--text-field--container] {
-    height: ${GRID_SIZE * 6}px;
-    border-radius: ${GRID_SIZE}px;
-    flex: 1 1 100%;
-    overflow: visible;
-    & > [data-ds--text-field--input] {
-      margin-bottom: 3px;
-      font-size: ${relativeFontSizeToBase16(14)};
-      padding: ${GRID_SIZE}px ${token('space.075', '6px')} ${GRID_SIZE}px 0;
-    }
-  }
-`;
+const wrapper = css({
+  '& > [data-ds--text-field--container]': {
+    height: `${GRID_SIZE * 6}px`,
+    borderRadius: `${GRID_SIZE}px`,
+    flex: '1 1 100%',
+    overflow: 'visible',
+    '& > [data-ds--text-field--input]': {
+      marginBottom: '3px',
+      fontSize: relativeFontSizeToBase16(14),
+      padding: `${GRID_SIZE}px ${token('space.075', '6px')} ${GRID_SIZE}px 0`,
+    },
+  },
+});
 
-const wrapperInline = css`
-  & > [data-ds--text-field--container] {
-    height: ${GRID_SIZE * 5}px;
-    flex: none;
-    overflow: revert;
-  }
-`;
+const wrapperInline = css({
+  '& > [data-ds--text-field--container]': {
+    height: `${GRID_SIZE * 5}px`,
+    flex: 'none',
+    overflow: 'revert',
+  },
+});
 
-const elementBeforeInput = css`
-  margin: 1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')};
-  color: ${token('color.icon', N200)};
+const elementBeforeInput = css({
+  margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
+  color: token('color.icon', N200),
+  'span, svg': {
+    height: '20px',
+    width: '20px',
+  },
+});
 
-  // Custom SearchIcon style
-  span,
-  svg {
-    height: 20px;
-    width: 20px;
-  }
-`;
-
-const elementAfterInput = css`
-  margin: 0 ${token('space.100', '8px')};
-  height: ${SEARCH_ITEM_HEIGHT_WIDTH};
-  text-align: center;
-`;
+const elementAfterInput = css({
+  margin: `0 ${token('space.100', '8px')}`,
+  height: SEARCH_ITEM_HEIGHT_WIDTH,
+  textAlign: 'center',
+});
 
 const MemoizedElementSearchWithAnalytics = memo(
   withAnalyticsContext({

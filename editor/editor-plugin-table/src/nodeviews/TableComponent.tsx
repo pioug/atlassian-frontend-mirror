@@ -535,7 +535,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           shadowPadding +
           2;
 
-    const { stickyScrollbar, tableResizePerformance } = getEditorFeatureFlags();
+    const { stickyScrollbar } = getEditorFeatureFlags();
 
     return (
       <TableContainer
@@ -555,7 +555,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         pluginInjectionApi={pluginInjectionApi}
         isTableResizingEnabled={options?.isTableResizingEnabled}
         isResizing={isResizing}
-        tableResizePerformance={tableResizePerformance}
       >
         <div
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}

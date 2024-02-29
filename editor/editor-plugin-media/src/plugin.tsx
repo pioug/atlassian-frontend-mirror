@@ -357,6 +357,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
             altTextValidator: options && options.altTextValidator,
             fullWidthEnabled: options && options.fullWidthEnabled,
             allowMediaInlineImages: options && options.allowMediaInlineImages,
+            getEditorFeatureFlags: options && options.getEditorFeatureFlags,
           },
           api,
         ),

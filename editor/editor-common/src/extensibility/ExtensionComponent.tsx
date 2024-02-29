@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import memoizeOne from 'memoize-one';
 
@@ -39,6 +38,7 @@ export interface Props {
   editorAppearance?: EditorAppearance;
   pluginInjectionApi: ExtensionsPluginInjectionAPI;
   eventDispatcher?: EventDispatcher;
+  showMacroInteractionDesignUpdates?: boolean;
 }
 
 export interface State {
@@ -102,6 +102,7 @@ export class ExtensionComponent extends Component<Props, State> {
       pluginInjectionApi,
       getPos,
       eventDispatcher,
+      showMacroInteractionDesignUpdates,
     } = this.props;
 
     if (node.type.name === 'multiBodiedExtension') {
@@ -115,6 +116,7 @@ export class ExtensionComponent extends Component<Props, State> {
           eventDispatcher={eventDispatcher}
           pluginInjectionApi={pluginInjectionApi}
           editorAppearance={editorAppearance}
+          showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
         />
       );
     }
@@ -134,13 +136,21 @@ export class ExtensionComponent extends Component<Props, State> {
             editorAppearance={editorAppearance}
             hideFrame={this.state._privateProps?.__hideFrame}
             pluginInjectionApi={pluginInjectionApi}
+            showMacroInteractionDesignUpdates={
+              showMacroInteractionDesignUpdates
+            }
           >
             {extensionHandlerResult}
           </Extension>
         );
       case 'inlineExtension':
         return (
-          <InlineExtension node={node}>
+          <InlineExtension
+            node={node}
+            showMacroInteractionDesignUpdates={
+              showMacroInteractionDesignUpdates
+            }
+          >
             {extensionHandlerResult}
           </InlineExtension>
         );

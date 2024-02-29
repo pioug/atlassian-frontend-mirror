@@ -17,7 +17,7 @@ export default () => (
     type="author"
     edited={<CommentEdited>Edited {getCommentEditTime()}</CommentEdited>}
     content={
-      <Text>
+      <Text as="p">
         Content goes here. This can include <a href="/link">links</a> and other
         content.
       </Text>

@@ -7,3 +7,4 @@ export { captionMessages } from './messages/caption';
 export { dropPlaceholderMessages } from './messages/dropPlaceholder';
 export { altTextMessages } from './messages/altText';
 export { mediaResizeAnnouncerMessMessages } from './messages/mediaResizeAnnouncerMess';
+export { commentMessages } from './messages/comments';

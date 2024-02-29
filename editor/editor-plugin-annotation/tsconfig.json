@@ -9,8 +9,6 @@
     "examples/**/*.tsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "../editor-plugin-tests/__tests__/annotation/unit/edge-cases/utils.ts",
-    "../editor-plugin-tests/__tests__/annotation/unit/edge-cases/toolbar.ts"
   ],
   "compilerOptions": {
     "baseUrl": ""

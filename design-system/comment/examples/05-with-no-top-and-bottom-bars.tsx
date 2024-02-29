@@ -11,7 +11,7 @@ export default () => (
   <Comment
     avatar={<Avatar src={avatarImg} />}
     content={
-      <Text>
+      <Text as="p">
         Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes
         marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake
         fruitcake. Brownie oat cake sugar plum.

@@ -24,12 +24,24 @@ describe('Text component', () => {
   });
 
   describe('"as" prop behaviour', () => {
-    it('renders without errors when a valid "as" value is given', () => {
-      render(<Text as="span">Text</Text>);
-      expect(screen.getByText('Text')).toBeInTheDocument();
+    it('renders as the correct element with a valid "as" attribute', () => {
+      render(
+        <>
+          <Text>Default</Text>
+          <Text as="span">Span</Text>
+          <Text as="p">Paragraph</Text>
+          <Text as="strong">Strong</Text>
+          <Text as="em">Emphasis</Text>
+        </>,
+      );
+      expect(screen.getByText('Default').tagName.toLowerCase()).toBe('span');
+      expect(screen.getByText('Span').tagName.toLowerCase()).toBe('span');
+      expect(screen.getByText('Paragraph').tagName.toLowerCase()).toBe('p');
+      expect(screen.getByText('Strong').tagName.toLowerCase()).toBe('strong');
+      expect(screen.getByText('Emphasis').tagName.toLowerCase()).toBe('em');
     });
 
-    it('throws when an invalid "as" value is given', () => {
+    it('throws with an invalid "as" attribute', () => {
       // @ts-ignore purposefully providing an invalid value to test invariant behaviour
       expect(() => render(<Text as="address">Text</Text>)).toThrow(
         new Error(

@@ -1,20 +1,6 @@
-import React, {
-  Fragment,
-  useCallback,
-  useContext,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { Fragment, useCallback, useMemo, useRef } from 'react';
 
-import {
-  UIAnalyticsEvent,
-  usePlatformLeafEventHandler,
-} from '@atlaskit/analytics-next';
-import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
-import type { InteractionContextType } from '@atlaskit/interaction-context';
-// eslint-disable-next-line no-duplicate-imports
-import InteractionContext from '@atlaskit/interaction-context';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
@@ -34,13 +20,6 @@ export type ControlledEvents<TagName extends HTMLElement> = Pick<
   | 'onPointerDownCapture'
   | 'onPointerUpCapture'
   | 'onClickCapture'
-  | 'onClick'
->;
-
-// Include modified onClick with analytics
-export type ControlledEventsPassed<TagName extends HTMLElement> = Omit<
-  ControlledEvents<TagName>,
-  'onClick'
 > &
   Pick<CommonButtonProps<TagName>, 'onClick'>;
 
@@ -67,7 +46,7 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
   | 'overlay'
   | 'spacing'
 > &
-  ControlledEventsPassed<TagName>;
+  ControlledEvents<TagName>;
 
 export type UseButtonBaseReturn<TagName extends HTMLElement> = {
   xcss: ReturnType<typeof xcss>;
@@ -101,11 +80,9 @@ const overlayStyles = xcss({
  * @private
  */
 const useButtonBase = <TagName extends HTMLElement>({
-  analyticsContext,
   appearance: propAppearance = 'default',
   autoFocus = false,
   buttonType,
-  interactionName,
   isDisabled: propIsDisabled = false,
   isSelected = false,
   // TODO: Separate Icon Button styling from button base
@@ -115,7 +92,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   hasIconBefore = false,
   hasIconAfter = false,
   children,
-  onClick: providedOnClick = noop,
+  onClick,
   onMouseDownCapture,
   onMouseUpCapture,
   onKeyDownCapture,
@@ -164,28 +141,6 @@ const useButtonBase = <TagName extends HTMLElement>({
   );
 
   useAutoFocus(ourRef, autoFocus);
-
-  const interactionContext = useContext<InteractionContextType | null>(
-    InteractionContext,
-  );
-  const handleClick = useCallback(
-    (e: React.MouseEvent<TagName>, analyticsEvent: UIAnalyticsEvent) => {
-      interactionContext &&
-        interactionContext.tracePress(interactionName, e.timeStamp);
-      providedOnClick(e, analyticsEvent);
-    },
-    [providedOnClick, interactionContext, interactionName],
-  );
-
-  const onClick = usePlatformLeafEventHandler({
-    fn: handleClick,
-    action: 'clicked',
-    componentName: 'button',
-    packageName: process.env._PACKAGE_NAME_ as string,
-    packageVersion: process.env._PACKAGE_VERSION_ as string,
-    analyticsData: analyticsContext,
-    actionSubject: buttonType,
-  });
 
   const buttonXCSS: ReturnType<typeof xcss> = useMemo(
     () =>

@@ -19,7 +19,12 @@ const HoverCardWithErrorBoundary: FC<
   const analytics = useSmartLinkAnalytics(url, undefined, id);
 
   const onError = useCallback(
-    (error, info) => {
+    (
+      error: Error,
+      info: {
+        componentStack: string;
+      },
+    ) => {
       analytics.ui.renderFailedEvent({
         display: CardDisplay.HoverCardPreview,
         id,

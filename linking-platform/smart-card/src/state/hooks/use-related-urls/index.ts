@@ -12,7 +12,7 @@ const useRelatedUrls = () => {
   const clientExt = useSmartLinkClientExtension(connections.client);
 
   return useCallback(
-    async (url) => {
+    async (url: string) => {
       return await clientExt.relatedUrls<RelatedUrlsResponse>(url);
     },
     [clientExt],

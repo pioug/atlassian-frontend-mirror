@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.32.0
+
+### Minor Changes
+
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`39f3c929f0c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39f3c929f0c4) - Add new rule `no-html-button-element` to enforce usage of Pressable and Button
+
 ## 8.31.0
 
 ### Minor Changes

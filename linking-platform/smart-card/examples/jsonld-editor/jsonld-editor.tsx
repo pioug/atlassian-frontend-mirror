@@ -182,7 +182,7 @@ const JsonldEditor: React.FC<{
    * URL failed to resolved with 500 error code.
    */
   const onUrlError = useCallback(
-    (error) => {
+    (error: Error) => {
       setUrlError(
         `${error.message}. Revert to the last successful JSON-LD content.`,
       );

@@ -1,0 +1,33 @@
+---
+title: Anchor
+description: An anchor is a primitive for building custom links.
+order: 0
+---
+
+import AnchorDefault from '../../examples/constellation/anchor/default';
+import AnchorStyled from '../../examples/constellation/anchor/styled';
+
+import { CodeDocsHeader } from '@af/design-system-docs-ui';
+import SectionMessage from '@atlaskit/section-message';
+
+<CodeDocsHeader
+  name="@atlaskit/primitives"
+  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+  directoryName="primitives"
+/>
+
+Anchor is a primitive used for building custom anchor links, with support for client-side routing and Atlassian Design System styling. This component is used by other design system components, such as the [Link component](/components/link/examples).
+
+For most links, use the [Link component](/components/link/examples) wherever possible, and use [XCSS](/components/primitives/xcss/usage) for any necessary customization. Only use Anchor if you aren't able to use Link.
+
+## Default
+
+Anchor comes unstyled, ready for styles to be applied. Note if you are using the [CSS reset](/components/css-reset/examples), anchor will inherit some default styles.
+
+<Example Component={AnchorDefault} packageName="@atlaskit/primitives/anchor" />
+
+## Styling
+
+Anchor consumes the Box primitive to provide a consistent styling API that supports design tokens. See [Box](/components/primitives/box/examples) for complete styling documentation and examples.
+
+<Example Component={AnchorStyled} packageName="@atlaskit/primitives/anchor" />

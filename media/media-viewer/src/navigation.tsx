@@ -79,7 +79,11 @@ export class NavigationBase extends Component<NavigationProps, {}> {
         <LeftWrapper isArchiveSideBarVisible={!!isArchiveSideBarVisible}>
           {isLeftVisible ? (
             <Arrow className={hideControlsClassName}>
-              <Shortcut code={'ArrowLeft'} handler={prev('keyboard')} />
+              <Shortcut
+                code={'ArrowLeft'}
+                handler={prev('keyboard')}
+                eventType={'keyup'}
+              />
               <Button
                 testId={prevNavButtonId}
                 onClick={prev('mouse')}
@@ -101,7 +105,11 @@ export class NavigationBase extends Component<NavigationProps, {}> {
         <RightWrapper>
           {isRightVisible ? (
             <Arrow className={hideControlsClassName}>
-              <Shortcut code={'ArrowRight'} handler={next('keyboard')} />
+              <Shortcut
+                code={'ArrowRight'}
+                handler={next('keyboard')}
+                eventType={'keyup'}
+              />
               <Button
                 testId={nextNavButtonId}
                 onClick={next('mouse')}

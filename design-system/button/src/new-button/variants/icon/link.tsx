@@ -1,6 +1,6 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
-import UNSAFE_LINK from '@atlaskit/primitives/link';
+import UNSAFE_ANCHOR from '@atlaskit/primitives/anchor';
 
 import { type CommonLinkVariantProps } from '../types';
 
@@ -16,13 +16,13 @@ const LinkIconButtonBase = <
 >(
   {
     analyticsContext,
+    interactionName,
     autoFocus,
     appearance,
     spacing,
     isDisabled,
     isSelected,
     icon,
-    interactionName,
     label,
     overlay,
     onClick,
@@ -73,7 +73,7 @@ const LinkIconButtonBase = <
   });
 
   return (
-    <UNSAFE_LINK
+    <UNSAFE_ANCHOR
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}
       ref={baseProps.ref}
@@ -97,9 +97,12 @@ const LinkIconButtonBase = <
       href={baseProps.isDisabled ? undefined : href}
       role={baseProps.isDisabled ? 'link' : undefined}
       aria-disabled={baseProps.isDisabled === true ? true : undefined}
+      componentName="LinkIconButton"
+      analyticsContext={analyticsContext}
+      interactionName={interactionName}
     >
       {baseProps.children}
-    </UNSAFE_LINK>
+    </UNSAFE_ANCHOR>
   );
 };
 

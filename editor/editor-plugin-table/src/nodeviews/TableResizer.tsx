@@ -68,7 +68,6 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
-  tableResizePerformance?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -163,7 +162,6 @@ export const TableResizer = ({
   displayGuideline,
   attachAnalyticsEvent,
   displayGapCursor,
-  tableResizePerformance,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
@@ -356,9 +354,6 @@ export const TableResizer = ({
           docSize: state.doc.nodeSize,
           frameRateSamples,
           originalNode: node,
-          experiments: {
-            tableResizePerformance,
-          },
         });
         resizeFrameRatePayloads.forEach((payload) => {
           attachAnalyticsEvent(payload)?.(tr);
@@ -421,7 +416,6 @@ export const TableResizer = ({
       attachAnalyticsEvent,
       endMeasure,
       onResizeStop,
-      tableResizePerformance,
     ],
   );
 

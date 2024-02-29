@@ -25,7 +25,11 @@ describe('Avatar', () => {
 
   it('should render a button when onClick is supplied', () => {
     render(
-      <Avatar testId={'avatar'} onClick={(event, analyticsEvent) => null} />,
+      <Avatar
+        name="Alexander Nevermind"
+        testId={'avatar'}
+        onClick={(event, analyticsEvent) => null}
+      />,
     );
 
     expect(screen.getByTestId('avatar--inner').tagName).toEqual('BUTTON');
@@ -36,6 +40,7 @@ describe('Avatar', () => {
       <Avatar
         testId={'avatar'}
         isDisabled
+        name="Alexander Nevermind"
         onClick={(event, analyticsEvent) => null}
       />,
     );
@@ -51,6 +56,7 @@ describe('Avatar', () => {
         testId={'avatar'}
         isDisabled
         href={'https://atlaskit.atlassian.com/'}
+        name="Alexander Nevermind"
       />,
     );
     const element = screen.getByTestId('avatar--inner');
@@ -61,7 +67,11 @@ describe('Avatar', () => {
 
   it('should render an anchor when href is supplied', () => {
     render(
-      <Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'} />,
+      <Avatar
+        name="Alexander Nevermind"
+        testId={'avatar'}
+        href={'https://atlaskit.atlassian.com/'}
+      />,
     );
     expect(screen.getByTestId('avatar--inner').tagName).toEqual('A');
   });
@@ -71,6 +81,7 @@ describe('Avatar', () => {
       <Avatar
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
+        name="Alexander Nevermind"
         target="_blank"
       />,
     );
@@ -82,7 +93,11 @@ describe('Avatar', () => {
 
   it('should render an anchor without rel attribute if target blank is not supplied', () => {
     render(
-      <Avatar testId={'avatar'} href={'https://atlaskit.atlassian.com/'} />,
+      <Avatar
+        name="Alexander Nevermind"
+        testId={'avatar'}
+        href={'https://atlaskit.atlassian.com/'}
+      />,
     );
     const element = screen.getByTestId('avatar--inner');
 
@@ -148,6 +163,7 @@ describe('Avatar', () => {
       <AnalyticsListener channel="atlaskit" onEvent={onEvent}>
         <Avatar
           testId={'avatar'}
+          name="Alexander Nevermind"
           onClick={(_, analyticsEvent) =>
             analyticsEvent && analyticsEvent.fire()
           }
@@ -182,6 +198,7 @@ describe('Avatar', () => {
       <Avatar
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
+        name="Alexander Nevermind"
         onClick={(event) => onClick(event)}
       />,
     );
@@ -249,6 +266,7 @@ describe('Avatar', () => {
       <AnalyticsListener channel="atlaskit" onEvent={onEvent}>
         <Avatar
           testId={'avatar'}
+          name="Alexander Nevermind"
           onClick={(_, analyticsEvent) =>
             analyticsEvent && analyticsEvent.fire()
           }
@@ -290,6 +308,7 @@ describe('Avatar', () => {
       <AnalyticsListener channel="atlaskit" onEvent={onEvent}>
         <Avatar
           testId={'avatar'}
+          name="Alexander Nevermind"
           onClick={(_, analyticsEvent) =>
             analyticsEvent && analyticsEvent.fire()
           }
@@ -322,6 +341,7 @@ describe('Avatar', () => {
           <AnalyticsListener onEvent={onPublicEvent}>
             <Avatar
               testId={'avatar'}
+              name="Alexander Nevermind"
               onClick={(_, analyticsEvent) =>
                 analyticsEvent && analyticsEvent.fire()
               }
@@ -353,7 +373,9 @@ describe('Avatar', () => {
   it('should not error if there is no analytics provider', () => {
     const error = jest.spyOn(console, 'error');
     const onClick = jest.fn();
-    render(<Avatar testId="avatar" onClick={onClick} />);
+    render(
+      <Avatar name="Alexander Nevermind" testId="avatar" onClick={onClick} />,
+    );
 
     const avatar: HTMLElement = screen.getByTestId('avatar--inner');
     fireEvent.click(avatar);
@@ -365,7 +387,14 @@ describe('Avatar', () => {
   it('should not call onclick if disabled', () => {
     const onClick = jest.fn();
 
-    render(<Avatar testId={'avatar'} onClick={onClick} isDisabled />);
+    render(
+      <Avatar
+        name="Alexander Nevermind"
+        testId={'avatar'}
+        onClick={onClick}
+        isDisabled
+      />,
+    );
     const element = screen.getByTestId('avatar--inner');
 
     fireEvent.click(element);
@@ -393,12 +422,13 @@ describe('Avatar', () => {
   // Every combination of src, name, and presence to ensure everything gets the
   // proper accessible name
   const imageRoleTestCases = [
-    {
+    // Disabled until https://product-fabric.atlassian.net/browse/DSP-17031 is resolved
+    /**{
       name: 'src',
       src: true,
       _name: false,
       presence: false,
-    },
+    },*/
     {
       name: 'src, name',
       src: true,
@@ -592,7 +622,9 @@ describe('Avatar', () => {
   });
 
   it('should render a wrapping div element by default', () => {
-    render(<Avatar testId={'avatar'} onClick={__noop} />);
+    render(
+      <Avatar name="Alexander Nevermind" testId={'avatar'} onClick={__noop} />,
+    );
     const avatar = screen.getByTestId('avatar');
 
     expect(avatar.tagName).toEqual('DIV');

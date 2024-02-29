@@ -1,6 +1,7 @@
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
   isEmail,
+  isExternalUser,
   isTeam,
   isUser,
   OptionData,
@@ -195,6 +196,7 @@ export const formShareSubmitted = ({
   isPublicLink?: boolean;
 }) => {
   const users = extractIdsByType(data, isUser);
+  const externalUsers = extractIdsByType(data, isExternalUser);
   const teams = extractIdsByType(data, isTeam);
   const teamUserCounts = extractMemberCountsFromTeams(data, isTeam);
   const emails = extractIdsByType(data, isEmail);
@@ -213,6 +215,7 @@ export const formShareSubmitted = ({
       emailCount: emails.length,
       teamCount: teams.length,
       userCount: users.length,
+      externalUserCount: externalUsers.length,
       users,
       teams,
       teamUserCounts,

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 1.3.0
+
+### Minor Changes
+
+- [#75635](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75635) [`af4972f3a9bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af4972f3a9bb) - [ux] Added comment button for media single floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.2
 
 ### Patch Changes

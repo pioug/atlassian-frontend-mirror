@@ -138,7 +138,11 @@ export class MediaViewerComponent extends React.Component<
           data-testid="media-viewer-popup"
           className={mediaViewerPopupClass}
         >
-          <Shortcut code={'Escape'} handler={this.onShortcutClosed} />
+          <Shortcut
+            code={'Escape'}
+            handler={this.onShortcutClosed}
+            eventType={'keyup'}
+          />
           <Content
             isSidebarVisible={isSidebarVisible}
             onClose={this.onContentClose}

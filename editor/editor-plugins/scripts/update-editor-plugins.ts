@@ -28,7 +28,7 @@ interface DependenciesDiffResult {
   updated: DependencyDiff[];
 }
 
-const foldersToIgnore = ['editor-plugin-tests', 'editor-plugin-ai'];
+const foldersToIgnore = ['editor-plugin-ai'];
 
 // Locate the root directory of the project
 const rootPath = findRootSync(process.cwd());

@@ -20,6 +20,7 @@ export const validPrimitiveElements = new Set([
   'ol',
   'section',
   'ul',
+  'button',
 ]);
 
 type JSXChild =

@@ -35,8 +35,12 @@ export const useMultiBodiedExtensionActions = ({
           sendMBEAnalyticsEvent(ACTION.CHANGE_ACTIVE, node, eventDispatcher);
         }
         // On selection of a childFrame, we need to change the focus/selection to the end of the target child Frame
-        const possiblyMbeNode = state.doc.nodeAt(state.tr.selection.from);
-        let desiredPos = state.tr.selection.from || 0;
+        const pos = getPos();
+        if (typeof pos !== 'number') {
+          return updateActiveChildResult;
+        }
+        const possiblyMbeNode = state.doc.nodeAt(pos);
+        let desiredPos = pos;
 
         if (
           possiblyMbeNode &&
@@ -85,7 +89,9 @@ export const useMultiBodiedExtensionActions = ({
           state.doc.content.size,
         );
 
-        dispatch(state.tr.insert(insertAt, frame));
+        const tr = state.tr.insert(insertAt, frame);
+        tr.setSelection(new TextSelection(tr.doc.resolve(insertAt + 1)));
+        dispatch(tr);
 
         if (eventDispatcher) {
           sendMBEAnalyticsEvent(ACTION.ADD_CHILD, node, eventDispatcher);

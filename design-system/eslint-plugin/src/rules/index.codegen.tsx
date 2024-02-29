@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d840a5791dae4a9dfc4dda8ec00dcf9>>
+ * @codegen <<SignedSource::23062a8759ba919facf30a402e5546bd>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -15,6 +15,7 @@ import noDeprecatedImports from './no-deprecated-imports';
 import noEmptyStyledExpression from './no-empty-styled-expression';
 import noExportedCss from './no-exported-css';
 import noExportedKeyframes from './no-exported-keyframes';
+import noHtmlButtonElement from './no-html-button-element';
 import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
 import noMargin from './no-margin';
@@ -46,6 +47,7 @@ export default {
   'no-empty-styled-expression': noEmptyStyledExpression,
   'no-exported-css': noExportedCss,
   'no-exported-keyframes': noExportedKeyframes,
+  'no-html-button-element': noHtmlButtonElement,
   'no-invalid-css-map': noInvalidCssMap,
   'no-keyframes-tagged-template-expression':
     noKeyframesTaggedTemplateExpression,

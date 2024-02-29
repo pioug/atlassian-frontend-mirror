@@ -6,6 +6,7 @@ export {
   isEmail,
   isTeam,
   isUser,
+  isExternalUser,
   isValidEmail,
   // Constants
   EmailType,

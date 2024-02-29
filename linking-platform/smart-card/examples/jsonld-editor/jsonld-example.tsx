@@ -6,19 +6,19 @@ import Button from '@atlaskit/button';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { ResolveResponse } from '../../src';
 
-const jsonldExampleStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  margin: 0.75rem 0;
-`;
+const jsonldExampleStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '0.25rem',
+  margin: '0.75rem 0',
+});
 
 const JsonldExample: React.FC<{
   defaultValue: ResolveResponse;
   onSelect: (response: ResolveResponse) => void;
 }> = ({ defaultValue, onSelect }) => {
   const handleOnClick = useCallback(
-    ({ data, meta }) => {
+    ({ data, meta }: any) => {
       const response = getJsonLdResponse(data.url, meta, data);
       onSelect(response);
     },

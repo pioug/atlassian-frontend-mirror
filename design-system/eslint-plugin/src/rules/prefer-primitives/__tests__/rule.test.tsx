@@ -75,6 +75,12 @@ ruleTester.run('prefer-primitives', rule, {
       errors: [{ messageId: 'preferPrimitives' }],
     },
 
+    // it suggests for button elements
+    {
+      code: '<button></button>',
+      errors: [{ messageId: 'preferPrimitives' }],
+    },
+
     // it suggests for article elements
     {
       code: '<article></article>',

@@ -1,4 +1,4 @@
-import { Team } from '@atlaskit/smart-user-picker';
+import { ExternalUser, Team } from '@atlaskit/smart-user-picker';
 
 import {
   cancelShare,
@@ -210,6 +210,7 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 1,
           userCount: 1,
+          externalUserCount: 0,
           emailCount: 1,
           users: ['abc-123'],
           teams: ['123-abc'],
@@ -235,6 +236,7 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 1,
           userCount: 1,
+          externalUserCount: 0,
           emailCount: 1,
           users: ['abc-123'],
           teams: ['123-abc'],
@@ -265,6 +267,7 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 1,
           userCount: 1,
+          externalUserCount: 0,
           emailCount: 1,
           users: ['abc-123'],
           teams: ['123-abc'],
@@ -301,9 +304,70 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 1,
           userCount: 1,
+          externalUserCount: 0,
           emailCount: 1,
           users: ['abc-123'],
           teams: ['123-abc'],
+          packageVersion: expect.any(String),
+          packageName: expect.any(String),
+          isMessageEnabled: true,
+          messageLength: 12,
+          originIdGenerated: 'abc-123',
+          originProduct: 'jest',
+        }),
+      });
+      expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledTimes(1);
+      expect(shareOrigin.toAnalyticsAttributes).toHaveBeenCalledWith({
+        hasGeneratedId: true,
+      });
+    });
+    // external users analytics related
+    const externalUsers: ExternalUser[] = [
+      {
+        type: 'external_user',
+        isExternal: true,
+        sources: ['other-atlassian'],
+        id: 'abc-123',
+        name: 'external user 1',
+      },
+      {
+        type: 'external_user',
+        isExternal: true,
+        sources: ['other-atlassian'],
+        id: 'abc-1234',
+        name: 'external user 2',
+      },
+    ];
+    const dataWithExternalUsers: DialogContentState = {
+      users: externalUsers,
+      comment: {
+        format: 'plain_text',
+        value: 'Some comment',
+      },
+    };
+    it('should create event payload with external user counts', () => {
+      const shareOrigin: OriginTracing = mockShareOrigin();
+
+      expect(
+        formShareSubmitted({
+          start: 100,
+          data: dataWithExternalUsers,
+          shareContentType: 'issue',
+          shareOrigin,
+        }),
+      ).toMatchObject({
+        eventType: 'ui',
+        action: 'clicked',
+        actionSubject: 'button',
+        actionSubjectId: 'submitShare',
+        attributes: expect.objectContaining({
+          contentType: 'issue',
+          duration: expect.any(Number),
+          teamCount: 0,
+          userCount: 0,
+          externalUserCount: 2,
+          emailCount: 0,
+          teams: [],
           packageVersion: expect.any(String),
           packageName: expect.any(String),
           isMessageEnabled: true,
@@ -361,6 +425,7 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 2,
           userCount: 0,
+          externalUserCount: 0,
           emailCount: 0,
           teams: ['abc-123', 'abc-1234'],
           teamUserCounts: [2, 5],
@@ -403,6 +468,7 @@ describe('share analytics', () => {
           duration: expect.any(Number),
           teamCount: 3,
           userCount: 0,
+          externalUserCount: 0,
           emailCount: 0,
           teams: ['abc-123', 'abc-1234', 'abc-1235'],
           teamUserCounts: [2, 5, 0],

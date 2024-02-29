@@ -36,10 +36,19 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../adf-utils/tsconfig.app.json"
+    },
+    {
       "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
     },
     {
+      "path": "../editor-test-helpers/tsconfig.app.json"
+    },
+    {
       "path": "../../media/media-core/tsconfig.app.json"
+    },
+    {
+      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     }
   ]
 }

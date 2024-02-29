@@ -11,13 +11,13 @@ describe('Shortcut', () => {
 
   it('should de-register the key event listener on unmount', (done) => {
     document.removeEventListener = (name: string) => {
-      expect(name).toEqual('keydown');
+      expect(name).toEqual('keyup');
       done();
     };
 
     const el = mount(
       <div>
-        <Shortcut code={'ArrowLeft'} handler={() => {}} />
+        <Shortcut code={'ArrowLeft'} handler={() => {}} eventType={'keyup'} />
       </div>,
     );
 
@@ -27,11 +27,11 @@ describe('Shortcut', () => {
   it('should execute handler', (done) => {
     mount(
       <div>
-        <Shortcut code={'ArrowLeft'} handler={done} />
+        <Shortcut code={'ArrowLeft'} handler={done} eventType={'keyup'} />
       </div>,
     );
 
-    const e = new KeyboardEvent('keydown', {
+    const e = new KeyboardEvent('keyup', {
       bubbles: true,
       cancelable: true,
       code: 'ArrowLeft',

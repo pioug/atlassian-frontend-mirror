@@ -1,4 +1,5 @@
-import { defineMessages, IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { defineMessages } from 'react-intl-next';
 
 const messages = defineMessages({
   story: {
@@ -33,7 +34,7 @@ const messages = defineMessages({
   },
   defaultAltText: {
     id: 'fabric.editor.defaultAltText',
-    defaultMessage: 'List item',
+    defaultMessage: 'Document',
     description: 'Default alt text for ListItem image',
   },
 });

@@ -218,15 +218,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Enables the resizing performance optimisation for tables
-   *
-   * @see https://product-fabric.atlassian.net/browse/ED-21725
-   * @default false
-   */
-  tableResizePerformance?: boolean | undefined;
-
-  /**
-   * @description
    * Enables the drag and drop rows/columns for tables
    *
    * @see https://product-fabric.atlassian.net/browse/ED-21807

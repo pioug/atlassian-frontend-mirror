@@ -43,6 +43,7 @@ export interface Props {
   hideFrame?: boolean;
   editorAppearance?: EditorAppearance;
   pluginInjectionApi: ExtensionsPluginInjectionAPI;
+  showMacroInteractionDesignUpdates?: boolean;
 }
 
 type WidthStateProps = { widthState?: EditorContainerWidth };

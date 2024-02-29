@@ -1,11 +1,5 @@
-import React from 'react';
-
-import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
-
 import noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 declare var global: any;
 
 jest.spyOn(global.console, 'error').mockImplementation(noop);
@@ -15,24 +9,19 @@ afterEach(() => {
 });
 
 test('should ssr then hydrate tabs correctly', async () => {
-  const [example] = await getExamplesFor('tabs');
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
+  const tabExamplePath = require.resolve(
+    '../../../examples/00-default-tabs.tsx',
+  );
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
-  await ReactDOM.hydrate(<Example />, elem);
-  await waitForExpect(() => {
-    // ignore warnings caused by emotion's server-side rendering approach
-    // @ts-ignore
-    // eslint-disable-next-line no-console
-    const mockCalls = console.error.mock.calls.filter(
-      ([f, s]: [string, string]) =>
-        !(
-          f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-          s === 'style'
-        ),
-    );
-    expect(mockCalls.length).toBe(0);
-  });
+  const { html, styles } = await ssr(tabExamplePath);
+  elem.innerHTML = html;
+  hydrate(tabExamplePath, elem, styles);
+
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
+
+  cleanup();
+  consoleMock.mockRestore();
 });

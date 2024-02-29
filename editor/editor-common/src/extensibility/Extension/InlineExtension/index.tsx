@@ -14,6 +14,7 @@ import { wrapperStyle } from './styles';
 export interface Props {
   node: PmNode;
   children?: React.ReactNode;
+  showMacroInteractionDesignUpdates?: boolean;
 }
 
 export default class InlineExtension extends Component<Props, any> {

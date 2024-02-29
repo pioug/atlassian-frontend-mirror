@@ -4,7 +4,8 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N20, N300, N800 } from '@atlaskit/theme/colors';
@@ -13,47 +14,46 @@ import { token } from '@atlaskit/tokens';
 
 import { getCorrectAltByIconUrl } from './listItemAlts';
 import { transformTimeStamp } from './transformTimeStamp';
-import { LinkSearchListItemData } from './types';
+import type { LinkSearchListItemData } from './types';
 
-export const container = css`
-  background-color: transparent;
-  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
-  cursor: pointer;
-  display: flex;
-  margin-top: 0;
-`;
+export const container = css({
+  backgroundColor: 'transparent',
+  padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+  cursor: 'pointer',
+  display: 'flex',
+  marginTop: 0,
+});
 
-export const containerSelected = css`
-  background-color: ${token('color.background.neutral.subtle.hovered', N20)};
-`;
+export const containerSelected = css({
+  backgroundColor: token('color.background.neutral.subtle.hovered', N20),
+});
 
-const nameWrapper = css`
-  overflow: hidden;
-`;
+const nameWrapper = css({
+  overflow: 'hidden',
+});
 
-export const nameStyle = css`
-  color: ${token('color.text', N800)};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 20px;
-`;
+export const nameStyle = css({
+  color: token('color.text', N800),
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  lineHeight: '20px',
+});
 
-export const containerName = css`
-  color: ${token('color.text.subtlest', N300)};
-  line-height: 14px;
-  font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
-`;
+export const containerName = css({
+  color: token('color.text.subtlest', N300),
+  lineHeight: '14px',
+  fontSize: relativeFontSizeToBase16(fontSizeSmall()),
+});
 
-const iconStyle = css`
-  min-width: 16px;
-  margin-top: 3px;
-  margin-right: ${token('space.150', '12px')};
-
-  img {
-    max-width: 16px;
-  }
-`;
+const iconStyle = css({
+  minWidth: '16px',
+  marginTop: '3px',
+  marginRight: token('space.150', '12px'),
+  img: {
+    maxWidth: '16px',
+  },
+});
 
 export interface Props {
   item: LinkSearchListItemData;

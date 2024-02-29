@@ -15,7 +15,7 @@ const ExampleComment: FC<{ isHighlighted?: boolean; children?: ReactNode }> = ({
     highlighted={isHighlighted}
     avatar={<Avatar src={avatarImg} size="medium" />}
     author={<CommentAuthor href="/author">John Smith</CommentAuthor>}
-    content={<Text>This comment is so generic it can be repeated</Text>}
+    content={<Text as="p">This comment is so generic it can be repeated</Text>}
     actions={[
       <CommentAction>Edit</CommentAction>,
       <CommentAction>Delete</CommentAction>,

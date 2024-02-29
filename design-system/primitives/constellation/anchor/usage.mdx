@@ -1,0 +1,47 @@
+---
+title: Anchor
+description: An anchor is a primitive for building custom links.
+order: 2
+---
+
+## When not to use Anchor
+
+The [Link component](/components/link/usage) should be used whenever possible for links to maintain visual consistency. Only use Anchor when building custom links beyond the capabilities of the Link component. The decision to use Anchor should involve checking if the Link component can be customized to fit your needs using [XCSS](/components/primitives/XCSS/usage).
+
+Do not use Anchor for buttons that perform actions rather than navigation. Use the equivalent [Pressable primitive](/components/primitives/pressable/usage) instead.
+
+## Link types
+
+External links starting with `http://` or `https://` will automatically render with `target="_blank"` and `rel="noopener noreferrer"` attributes.
+
+### Router links
+
+Anchor supports automatic consumption of configured router link components through the [App Provider](/components/app-provider/examples#router-links). If an App Provider is not present or a router link component is not configured, the link will render as a standard anchor link.
+
+External links and non-HTTP-based links such as `tel:` and `mailto:` will not use router links and always render as standard anchor links.
+
+Anchor accepts a generic type object matching the router link configuration, allowing advanced usage of `href` prop. These values can be mapped to the underlying router link component in the App Provider.
+
+```jsx
+<Anchor<MyRouterLinkConfig>
+  href={{
+    to: '/home',
+    replace: true
+  }}
+>
+  Home
+</Anchor>
+```
+
+## Styling
+
+Display behavior follows the same patterns as [Box](/components/primitives/box/usage). Use available props or [XCSS](/components/primitives/xcss/usage) to customize padding options, background color, and other styles.
+
+## Related
+
+- [Configuring router link components with AppProvider](/components/app-provider/examples#router-links)
+- [The underlying box component](/components/primitives/box/usage)
+- [Counterpart pressable primitive for button tags](/components/primitives/button/usage)
+- [Manage horizontal layout using an inline component](/components/primitives/inline/usage)
+- [Manage vertical layout using a stack component](/components/primitives/stack/usage)
+- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)

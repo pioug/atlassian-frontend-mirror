@@ -22,13 +22,13 @@ const IconButton = React.memo(
   React.forwardRef(function Button(
     {
       analyticsContext,
+      interactionName,
       autoFocus,
       appearance,
       spacing,
       isDisabled,
       isSelected,
       icon,
-      interactionName,
       label,
       overlay,
       onClick,
@@ -100,6 +100,9 @@ const IconButton = React.memo(
         onClickCapture={baseProps.onClickCapture}
         type={type}
         testId={testId}
+        componentName="IconButton"
+        analyticsContext={analyticsContext}
+        interactionName={interactionName}
       >
         {baseProps.children}
       </UNSAFE_PRESSABLE>

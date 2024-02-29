@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 17.6.0
+
+### Minor Changes
+
+- [#58240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/58240) [`75b2ade8b254`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75b2ade8b254) - New buttons no longer directly emit analytics tracking events to prevent duplicate events, as the underlying primitive components already have tracking. Any analytics context set on new buttons are retained through forwarding to the primitives
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.5.0
 
 ### Minor Changes

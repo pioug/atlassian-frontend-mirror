@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 192.3.13
+
+### Patch Changes
+
+- [#77237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77237) [`fea8a5aa0ef5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fea8a5aa0ef5) - Fix issue in kitchen sink
+
 ## 192.3.5
 
 ### Patch Changes

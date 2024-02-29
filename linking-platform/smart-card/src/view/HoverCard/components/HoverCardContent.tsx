@@ -172,11 +172,17 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     analytics,
   };
 
-  const onClickStopPropagation = useCallback((e) => e.stopPropagation(), []);
+  const onClickStopPropagation = useCallback(
+    (e: any) => e.stopPropagation(),
+    [],
+  );
 
-  const onAIActionChange = useCallback((state) => {
-    setShowPrism(state === 'loading');
-  }, []);
+  const onAIActionChange = useCallback(
+    (state: 'ready' | 'loading' | 'error' | 'done') => {
+      setShowPrism(state === 'loading');
+    },
+    [],
+  );
 
   const getCardView = (cardState: CardState) => {
     if (cardState.metadataStatus === 'pending') {

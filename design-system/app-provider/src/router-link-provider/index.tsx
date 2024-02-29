@@ -11,8 +11,11 @@ export type RouterLinkComponentProps<
   RouterLinkConfig extends Record<string, any> = never,
 > = {
   /**
-   * A string which can be mapped to the underlying router link,
-   * or optionally a custom object defined in the generic type for advanced use.
+   * Standard links can be provided as a string, which should be mapped to the
+   * underlying router link component.
+   *
+   * Alternatively, you can provide an object for advanced link configurations
+   * by supplying the expected object type to the generic.
    *
    * @example
    * ```

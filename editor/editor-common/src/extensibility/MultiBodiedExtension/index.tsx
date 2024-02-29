@@ -40,6 +40,7 @@ type Props = {
   eventDispatcher?: EventDispatcher;
   pluginInjectionApi?: ExtensionsPluginInjectionAPI;
   editorAppearance?: EditorAppearance;
+  showMacroInteractionDesignUpdates?: boolean;
 };
 
 type PropsWithWidth = Props & {
@@ -60,10 +61,10 @@ const getWrapperTitleContent = (imageData: ImageData, title: string) => {
     return (
       <div className="extension-title">
         <img
-          css={css`
-            max-height: 24px;
-            max-width: 24px;
-          `}
+          css={css({
+            maxHeight: '24px',
+            maxWidth: '24px',
+          })}
           src={url}
           {...rest}
           alt={title}
@@ -134,13 +135,14 @@ const MultiBodiedExtensionWithWidth = ({
     [handleContentDOMRef],
   );
 
-  const containerCssExtended = css`
-    ${sharedMultiBodiedExtensionStyles.mbeExtensionContainer};
-    .multiBodiedExtension-content-dom-wrapper
-      > [data-extension-frame='true']:nth-of-type(${activeChildIndex + 1}) {
-      ${sharedMultiBodiedExtensionStyles.extensionFrameContent}
-    }
-  `;
+  const containerCssExtended = css(
+    sharedMultiBodiedExtensionStyles.mbeExtensionContainer,
+    {
+      [`.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
+        activeChildIndex + 1
+      })`]: sharedMultiBodiedExtensionStyles.extensionFrameContent,
+    },
+  );
 
   const shouldBreakout =
     // Extension should breakout when the layout is set to 'full-width' or 'wide'.

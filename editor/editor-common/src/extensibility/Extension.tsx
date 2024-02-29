@@ -24,6 +24,7 @@ export interface Props {
   editorAppearance?: EditorAppearance;
   pluginInjectionApi: ExtensionsPluginInjectionAPI;
   eventDispatcher?: EventDispatcher;
+  showMacroInteractionDesignUpdates?: boolean;
 }
 
 export class Extension extends Component<Props, any> {
@@ -55,6 +56,7 @@ export class Extension extends Component<Props, any> {
       editorAppearance,
       pluginInjectionApi,
       eventDispatcher,
+      showMacroInteractionDesignUpdates,
     } = this.props;
 
     return (
@@ -69,6 +71,7 @@ export class Extension extends Component<Props, any> {
         editorAppearance={editorAppearance}
         pluginInjectionApi={pluginInjectionApi}
         eventDispatcher={eventDispatcher}
+        showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
       />
     );
   };

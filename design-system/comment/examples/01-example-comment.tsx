@@ -22,7 +22,7 @@ export default () => (
       restrictedTo="Restricted to Admins Only"
       time={<CommentTime>30 August, 2016</CommentTime>}
       content={
-        <Text>
+        <Text as="p">
           Content goes here. This can include <a href="/link">links</a> and
           other content.
         </Text>

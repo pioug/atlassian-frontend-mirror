@@ -28,7 +28,7 @@ const FooterBlockResolvedView: React.FC<FooterBlockProps> = (props) => {
   );
 
   const onDropdownOpenChange = useCallback(
-    (isOpen) => {
+    (isOpen: boolean) => {
       if (onActionMenuOpenChange) {
         onActionMenuOpenChange({ isOpen });
       }

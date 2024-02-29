@@ -22,6 +22,7 @@ const Button = React.memo(
   React.forwardRef(function Button(
     {
       analyticsContext,
+      interactionName,
       autoFocus,
       appearance,
       spacing,
@@ -33,7 +34,6 @@ const Button = React.memo(
       UNSAFE_iconBefore_size,
       children,
       shouldFitContainer,
-      interactionName,
       overlay,
       onClick,
       onMouseDownCapture,
@@ -99,6 +99,9 @@ const Button = React.memo(
         onClickCapture={baseProps.onClickCapture}
         type={type}
         testId={testId}
+        analyticsContext={analyticsContext}
+        interactionName={interactionName}
+        componentName="Button"
       >
         {baseProps.children}
       </UNSAFE_PRESSABLE>

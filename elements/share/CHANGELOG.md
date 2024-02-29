@@ -1,5 +1,12 @@
 # @atlaskit/share
 
+## 4.16.1
+
+### Patch Changes
+
+- [#76695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76695) [`dcde4602dfb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dcde4602dfb8) - Track # of non licensed users when submitShare is fired
+- Updated dependencies
+
 ## 4.16.0
 
 ### Minor Changes

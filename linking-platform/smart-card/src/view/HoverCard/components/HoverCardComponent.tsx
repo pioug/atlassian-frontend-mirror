@@ -55,7 +55,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const setMousePosition = useCallback(
-    (event) => {
+    (event: any) => {
       if (isOpen && canOpen) {
         return;
       }
@@ -140,7 +140,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   }, [linkState.metadataStatus, linkState.status, loadMetadata]);
 
   const initShowCard = useCallback(
-    (event) => {
+    (event: any) => {
       // clearing out fadeOutTimeoutId in case it's already counting down to hide the card
       if (fadeOutTimeoutId.current) {
         clearTimeout(fadeOutTimeoutId.current);
@@ -181,7 +181,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   }, [hidePreviewButton, linkActions]);
 
   const onActionClick = useCallback(
-    (actionId) => {
+    (actionId: any) => {
       if (actionId === 'preview-content') {
         hideCard();
       }
@@ -191,7 +191,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   // Stop hover preview content to propagate event to parent.
   const handleChildClick = useCallback(
-    (e, closeOnClick) => {
+    (e: any, closeOnClick: boolean) => {
       if (!allowEventPropagation) {
         e.stopPropagation();
       }
@@ -204,17 +204,17 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const onContextMenuClick = useCallback(
-    (e) => handleChildClick(e, true),
+    (e: any) => handleChildClick(e, true),
     [handleChildClick],
   );
 
   const onChildClick = useCallback(
-    (e) => handleChildClick(e, closeOnChildClick),
+    (e: any) => handleChildClick(e, closeOnChildClick),
     [closeOnChildClick, handleChildClick],
   );
 
   const content = useCallback(
-    ({ update }) => {
+    ({ update }: { update: () => void }) => {
       const hoverCardContentProps: HoverCardContentProps = {
         onMouseEnter: initShowCard,
         onMouseLeave: initHideCard,
@@ -253,7 +253,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const trigger = useCallback(
-    (triggerProps) => (
+    (triggerProps: any) => (
       <span ref={parentSpan}>
         <span
           {...triggerProps}

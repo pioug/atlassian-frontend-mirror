@@ -9,6 +9,7 @@ import { inputForm, inputPadding, textareaStyle } from './kitchen-sink-styles';
 
 export interface KitchenSinkAdfInputProps {
   value: string;
+  buttonLabel?: string;
   onSubmit?(e: React.FormEvent): void;
   onChange?(e: React.ChangeEvent): void;
 }
@@ -27,7 +28,7 @@ export const KitchenSinkAdfInput: React.FunctionComponent<
         />
         {props.onSubmit && (
           <Button onClick={props.onSubmit} type="submit">
-            Import ADF
+            {props.buttonLabel}
           </Button>
         )}
       </div>

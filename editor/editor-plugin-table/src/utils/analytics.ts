@@ -144,7 +144,6 @@ export const generateResizeFrameRatePayloads = (props: {
   docSize: number;
   frameRateSamples: number[];
   originalNode: PMNode;
-  experiments?: Record<string, boolean | undefined>;
 }): TableEventPayload[] => {
   const reducedResizeFrameRateSamples = reduceResizeFrameRateSamples(
     props.frameRateSamples,
@@ -158,7 +157,6 @@ export const generateResizeFrameRatePayloads = (props: {
       nodeSize: props.originalNode.nodeSize,
       docSize: props.docSize,
       isInitialSample: index === 0,
-      experiments: props.experiments,
     },
   }));
 };

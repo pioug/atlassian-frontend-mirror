@@ -1,0 +1,23 @@
+---
+title: Pressable
+description: A pressable is a primitive used for building custom buttons.
+order: 2
+---
+
+## When not to use pressable
+
+The [Button component](/components/button/usage) should be used whenever possible for buttons to maintain visual consistency. Only use pressable when building custom buttons beyond the capabilities of the button component. The decision to use pressable should involve checking if the button component can be customized to fit your needs using [XCSS](/components/primitives/XCSS/usage).
+
+Do not use Pressable for links (anchor tags). Use the equivalent [Anchor primitive](/components/primitives/anchor/usage) instead.
+
+## Styling
+
+Display behavior follows the same patterns as [Box](/components/primitives/box/usage). Use available props or [XCSS](/components/primitives/xcss/usage) to customize padding options, background color, and other styles.
+
+## Related
+
+- [The underlying box component](/components/primitives/box/usage)
+- [Counterpart anchor primitive for anchor tags](/components/primitives/anchor/usage)
+- [Manage horizontal layout using an inline component](/components/primitives/inline/usage)
+- [Manage vertical layout using a stack component](/components/primitives/stack/usage)
+- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)

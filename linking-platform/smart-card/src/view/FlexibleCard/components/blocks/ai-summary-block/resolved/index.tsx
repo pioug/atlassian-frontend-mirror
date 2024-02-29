@@ -65,7 +65,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   }, [actions, aiState, onAIActionClick, testId]);
 
   const onDropdownOpenChange = useCallback(
-    (isOpen) => {
+    (isOpen: boolean) => {
       if (onActionMenuOpenChange) {
         onActionMenuOpenChange({ isOpen });
       }

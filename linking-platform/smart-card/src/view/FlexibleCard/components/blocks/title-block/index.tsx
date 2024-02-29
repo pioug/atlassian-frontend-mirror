@@ -15,16 +15,14 @@ const getActionStyles = (
   isOpen?: boolean,
 ): SerializedStyles | undefined => {
   if (showOnHover && !isOpen) {
-    return css`
-      .actions-button-group {
-        opacity: 0;
-      }
-
-      &:hover .actions-button-group,
-      .actions-button-group:focus-within {
-        opacity: 1;
-      }
-    `;
+    return css({
+      '.actions-button-group': {
+        opacity: 0,
+      },
+      '&:hover .actions-button-group, .actions-button-group:focus-within': {
+        opacity: 1,
+      },
+    });
   }
 };
 
@@ -81,7 +79,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
 
   const [actionDropdownOpen, setActionDropdownOpen] = useState(false);
   const onDropdownOpenChange = useCallback(
-    (isOpen) => {
+    (isOpen: boolean) => {
       setActionDropdownOpen(isOpen);
       if (onActionMenuOpenChange) {
         onActionMenuOpenChange({ isOpen });
@@ -97,9 +95,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
     />
   );
   const actionStyles = getActionStyles(showActionOnHover, actionDropdownOpen);
-  const combinedCss = css`
-    ${actionStyles} ${overrideCss}
-  `;
+  const combinedCss = css(actionStyles, overrideCss);
 
   const overrideText = !!text ? { text } : {};
 

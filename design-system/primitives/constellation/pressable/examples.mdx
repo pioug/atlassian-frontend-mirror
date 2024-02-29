@@ -1,0 +1,39 @@
+---
+title: Pressable
+description: A pressable is a primitive used for building custom buttons.
+order: 0
+---
+
+import PressableDefault from '../../examples/constellation/pressable/default';
+import PressableStyled from '../../examples/constellation/pressable/styled';
+
+import { CodeDocsHeader } from '@af/design-system-docs-ui';
+import SectionMessage from '@atlaskit/section-message';
+
+<CodeDocsHeader
+  name="@atlaskit/primitives"
+  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+  directoryName="primitives"
+/>
+
+Pressable is a primitive used for building custom buttons with Atlassian Design System styling. This component is used by other design system components, such as the [Button component](/components/button/examples).
+
+For most buttons, use the [Button component](/components/button/examples) wherever possible, and use [XCSS](/components/primitives/xcss/usage) for any necessary customization. Only use pressable if you aren't able to use the button component.
+
+## Default
+
+Pressable comes unstyled, ready for styles to be applied.
+
+<Example
+  Component={PressableDefault}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+## Styling
+
+Pressable consumes the Box primitive to provide a consistent styling API that supports design tokens. See [Box](/components/primitives/box/examples) for complete styling documentation and examples.
+
+<Example
+  Component={PressableStyled}
+  packageName="@atlaskit/primitives/pressable"
+/>

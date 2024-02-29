@@ -17,7 +17,7 @@ describe('Avatar', () => {
   it('should render a BUTTON when onClick is supplied', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         onClick={(event) => null}
       />,
@@ -29,7 +29,7 @@ describe('Avatar', () => {
   it('isDisabled - should render a BUTTON when using onClick', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         isDisabled
         onClick={(event) => null}
@@ -43,7 +43,7 @@ describe('Avatar', () => {
   it('isDisabled - should render a BUTTON when using href', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         isDisabled
         onClick={(event) => null}
@@ -57,7 +57,7 @@ describe('Avatar', () => {
   it('should render anchor when href is supplied', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
       />,
@@ -68,7 +68,7 @@ describe('Avatar', () => {
   it('should render an anchor with appropriate rel attribute if target blank is supplied', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
         target="_blank"
@@ -83,7 +83,7 @@ describe('Avatar', () => {
   it('should render an anchor without rel attribute if target blank is not supplied', () => {
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         href={'https://atlaskit.atlassian.com/'}
       />,
@@ -117,7 +117,7 @@ describe('Avatar', () => {
 
     render(
       <AvatarItem
-        avatar={<Avatar />}
+        avatar={<Avatar name="Alexander Nevermind" />}
         testId={'avatar'}
         onClick={onClick}
         isDisabled

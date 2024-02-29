@@ -178,10 +178,8 @@ describe('Pressable', () => {
               <Pressable
                 testId={testId}
                 onClick={(event, analyticsEvent) => {
-                  // TODO: Remove optional chaining
-                  analyticsEvent?.fire();
+                  analyticsEvent.fire();
                 }}
-                componentName="CustomComponent"
               >
                 Pressable
               </Pressable>
@@ -200,14 +198,14 @@ describe('Pressable', () => {
           action: 'clicked',
           actionSubject: 'button',
           attributes: {
-            componentName: 'CustomComponent',
+            componentName: 'Pressable',
             packageName,
             packageVersion,
           },
         },
         context: [
           {
-            componentName: 'CustomComponent',
+            componentName: 'Pressable',
             packageName,
             packageVersion,
           },
@@ -239,10 +237,8 @@ describe('Pressable', () => {
               testId={testId}
               analyticsContext={analyticsContext}
               onClick={(event, analyticsEvent) => {
-                // TODO: Remove optional chaining
-                analyticsEvent?.fire();
+                analyticsEvent.fire();
               }}
-              componentName="CustomComponent"
             >
               Pressable
             </Pressable>
@@ -268,6 +264,62 @@ describe('Pressable', () => {
           action: 'clicked',
           actionSubject: 'button',
           attributes: {
+            componentName: 'Pressable',
+            packageName,
+            packageVersion,
+          },
+        },
+        context: [
+          {
+            componentName: 'Pressable',
+            packageName,
+            packageVersion,
+            ...extraContext,
+          },
+        ],
+      });
+      expect(onEvent).toHaveBeenCalledTimes(1);
+      expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+      expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
+    });
+
+    it('should allow componentName to be overridden', () => {
+      function App({
+        onEvent,
+        channel,
+        analyticsContext,
+      }: {
+        onEvent: (...args: any[]) => void;
+        channel: string | undefined;
+        analyticsContext?: Record<string, any>;
+      }) {
+        return (
+          <AnalyticsListener onEvent={onEvent} channel={channel}>
+            <Pressable
+              testId={testId}
+              analyticsContext={analyticsContext}
+              onClick={(event, analyticsEvent) => {
+                analyticsEvent.fire();
+              }}
+              componentName="CustomComponent"
+            >
+              Pressable
+            </Pressable>
+          </AnalyticsListener>
+        );
+      }
+
+      const onEvent = jest.fn();
+      render(<App onEvent={onEvent} channel="atlaskit" />);
+      const pressable = screen.getByTestId(testId);
+
+      fireEvent.click(pressable);
+
+      const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'button',
+          attributes: {
             componentName: 'CustomComponent',
             packageName,
             packageVersion,
@@ -278,7 +330,6 @@ describe('Pressable', () => {
             componentName: 'CustomComponent',
             packageName,
             packageVersion,
-            ...extraContext,
           },
         ],
       });
@@ -291,11 +342,7 @@ describe('Pressable', () => {
       const error = jest.spyOn(console, 'error');
       const onClick = jest.fn();
       render(
-        <Pressable
-          testId={testId}
-          onClick={onClick}
-          componentName="CustomComponent"
-        >
+        <Pressable testId={testId} onClick={onClick}>
           Pressable
         </Pressable>,
       );

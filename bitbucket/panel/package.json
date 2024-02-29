@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.5.0",
+    "@atlaskit/button": "^17.6.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.38.0",

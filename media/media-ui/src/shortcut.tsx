@@ -13,9 +13,11 @@ type WithCode = {
 };
 export type ShortcutProps = {
   handler: () => void;
+  eventType?: 'keyup' | 'keydown';
 } & WithCode;
 
 export class Shortcut extends Component<ShortcutProps, {}> {
+  eventType: keyof DocumentEventMap = 'keydown';
   componentDidMount() {
     this.init();
   }
@@ -37,10 +39,15 @@ export class Shortcut extends Component<ShortcutProps, {}> {
   };
 
   private init = () => {
-    document.addEventListener('keydown', this.keyHandler);
+    const { eventType = 'keydown' } = this.props;
+    this.eventType = eventType;
+    document.addEventListener(this.eventType, this.keyHandler);
   };
 
   private release = () => {
-    document.removeEventListener('keydown', this.keyHandler);
+    document.removeEventListener(
+      this.eventType,
+      this.keyHandler as EventListener,
+    );
   };
 }

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.4.2
+
+### Patch Changes
+
+- [#76112](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76112) [`1cd6cd3382d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cd6cd3382d9) - remove table performance experiment
+
+## 7.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.4.0
 
 ### Minor Changes

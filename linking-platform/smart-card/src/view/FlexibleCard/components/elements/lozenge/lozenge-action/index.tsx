@@ -63,7 +63,7 @@ const LozengeAction: FC<LozengeActionProps> = ({
   const { url, id: linkId, previewData } = action?.update?.details || {};
 
   const handleOpenChange = useCallback(
-    async (args) => {
+    async (args: { isOpen: boolean }) => {
       setIsOpen(args.isOpen);
       if (args.isOpen) {
         analytics?.ui.smartLinkLozengeActionClickedEvent();

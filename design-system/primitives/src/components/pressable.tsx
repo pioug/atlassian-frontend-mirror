@@ -43,8 +43,7 @@ export type PressableProps = Omit<
    */
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement>,
-    // TODO: Make analyticsEvent required once `@atlaskit/button` is bumped to use the latest version of primitives
-    analyticsEvent?: UIAnalyticsEvent,
+    analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
    * An optional name used to identify the interaction type to press listeners. For example, interaction tracing. For more information,
@@ -162,10 +161,7 @@ const UNSAFE_PRESSABLE = forwardRef(
         ref={ref}
         testId={testId}
         type={type}
-        // TODO: This only tracks events if componentName is supplied, which makes tracking opt-in during
-        // the transition period. This will be removed once `@atlaskit/button` is bumped to use the latest
-        // version of primitives
-        onClick={componentName ? onClick : providedOnClick}
+        onClick={onClick}
         backgroundColor={backgroundColor}
         padding={padding}
         paddingBlock={paddingBlock}

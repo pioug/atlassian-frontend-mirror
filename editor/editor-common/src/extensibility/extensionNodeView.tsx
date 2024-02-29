@@ -60,6 +60,7 @@ export class ExtensionNode extends ReactNodeView {
       // referentiality plugin won't utilise appearance just yet
       extensionNodeViewOptions?: ExtensionNodeViewOptions;
       pluginInjectionApi: ExtensionsPluginInjectionAPI;
+      showMacroInteractionDesignUpdates: boolean;
     },
     forwardRef: ForwardRef,
   ) {
@@ -81,6 +82,9 @@ export class ExtensionNode extends ReactNodeView {
           extensionHandlers={props.extensionHandlers}
           editorAppearance={props.extensionNodeViewOptions?.appearance}
           pluginInjectionApi={props.pluginInjectionApi}
+          showMacroInteractionDesignUpdates={
+            props.showMacroInteractionDesignUpdates
+          }
         />
       </ExtensionNodeWrapper>
     );
@@ -94,6 +98,7 @@ export default function ExtensionNodeView(
   extensionHandlers: ExtensionHandlers,
   extensionNodeViewOptions: ExtensionNodeViewOptions,
   pluginInjectionApi: ExtensionsPluginInjectionAPI,
+  showMacroInteractionDesignUpdates?: boolean,
 ) {
   return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;
@@ -108,6 +113,7 @@ export default function ExtensionNodeView(
         extensionHandlers,
         extensionNodeViewOptions,
         pluginInjectionApi,
+        showMacroInteractionDesignUpdates,
       },
       undefined,
       undefined,

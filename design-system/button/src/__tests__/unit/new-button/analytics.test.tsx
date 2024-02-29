@@ -12,118 +12,122 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const buttonTestId = 'button';
 
-it('should fire an event on the public channel and the internal channel', () => {
-  const onPublicEvent = jest.fn();
-  const onAtlaskitEvent = jest.fn();
-  function WithBoth() {
-    return (
-      <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
-        <AnalyticsListener onEvent={onPublicEvent}>
-          <Button
+variants.forEach(({ name, Component, elementType }) => {
+  it(`${name}: should fire an event on the public channel and the internal channel`, () => {
+    const onPublicEvent = jest.fn();
+    const onAtlaskitEvent = jest.fn();
+    function WithBoth() {
+      return (
+        <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
+          <AnalyticsListener onEvent={onPublicEvent}>
+            <Component
+              testId={buttonTestId}
+              onClick={(event, analyticsEvent) => {
+                analyticsEvent.fire();
+              }}
+            >
+              Button
+            </Component>
+          </AnalyticsListener>
+        </AnalyticsListener>
+      );
+    }
+    render(<WithBoth />);
+    const button = screen.getByTestId(buttonTestId);
+
+    fireEvent.click(button);
+
+    const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+      payload: {
+        action: 'clicked',
+        actionSubject: elementType === HTMLButtonElement ? 'button' : 'link',
+        attributes: {
+          componentName: name,
+          packageName,
+          packageVersion,
+        },
+      },
+      context: [
+        {
+          componentName: name,
+          packageName,
+          packageVersion,
+        },
+      ],
+    });
+
+    function assert(eventMock: jest.Mock<any, any>) {
+      expect(eventMock).toHaveBeenCalledTimes(1);
+      expect(eventMock.mock.calls[0][0].payload).toEqual(expected.payload);
+      expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
+    }
+    assert(onPublicEvent);
+    assert(onAtlaskitEvent);
+  });
+});
+
+variants.forEach(({ name, Component, elementType }) => {
+  it(`${name}: should allow the addition of additional context`, () => {
+    function App({
+      onEvent,
+      channel,
+      analyticsContext,
+    }: {
+      onEvent: (...args: any[]) => void;
+      channel: string | undefined;
+      analyticsContext?: Record<string, any>;
+    }) {
+      return (
+        <AnalyticsListener onEvent={onEvent} channel={channel}>
+          <Component
             testId={buttonTestId}
+            analyticsContext={analyticsContext}
             onClick={(event, analyticsEvent) => {
               analyticsEvent.fire();
             }}
           >
             Button
-          </Button>
+          </Component>
         </AnalyticsListener>
-      </AnalyticsListener>
+      );
+    }
+
+    const onEvent = jest.fn();
+    const extraContext = { hello: 'world' };
+    render(
+      <App
+        onEvent={onEvent}
+        channel="atlaskit"
+        analyticsContext={extraContext}
+      />,
     );
-  }
-  render(<WithBoth />);
-  const button = screen.getByTestId(buttonTestId);
+    const button = screen.getByTestId(buttonTestId);
 
-  fireEvent.click(button);
+    fireEvent.click(button);
 
-  const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
-    payload: {
-      action: 'clicked',
-      actionSubject: 'button',
-      attributes: {
-        componentName: 'button',
-        packageName,
-        packageVersion,
+    const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
+      payload: {
+        action: 'clicked',
+        actionSubject: elementType === HTMLButtonElement ? 'button' : 'link',
+        attributes: {
+          componentName: name,
+          packageName,
+          packageVersion,
+        },
       },
-    },
-    context: [
-      {
-        componentName: 'button',
-        packageName,
-        packageVersion,
-      },
-    ],
+      context: [
+        {
+          componentName: name,
+          packageName,
+          packageVersion,
+          ...extraContext,
+        },
+      ],
+    });
+    expect(onEvent).toHaveBeenCalledTimes(1);
+    expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
+    expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
   });
-
-  function assert(eventMock: jest.Mock<any, any>) {
-    expect(eventMock).toHaveBeenCalledTimes(1);
-    expect(eventMock.mock.calls[0][0].payload).toEqual(expected.payload);
-    expect(eventMock.mock.calls[0][0].context).toEqual(expected.context);
-  }
-  assert(onPublicEvent);
-  assert(onAtlaskitEvent);
-});
-
-it('should allow the addition of additional context', () => {
-  function App({
-    onEvent,
-    channel,
-    analyticsContext,
-  }: {
-    onEvent: (...args: any[]) => void;
-    channel: string | undefined;
-    analyticsContext?: Record<string, any>;
-  }) {
-    return (
-      <AnalyticsListener onEvent={onEvent} channel={channel}>
-        <Button
-          testId={buttonTestId}
-          analyticsContext={analyticsContext}
-          onClick={(event, analyticsEvent) => {
-            analyticsEvent.fire();
-          }}
-        >
-          Button
-        </Button>
-      </AnalyticsListener>
-    );
-  }
-
-  const onEvent = jest.fn();
-  const extraContext = { hello: 'world' };
-  render(
-    <App
-      onEvent={onEvent}
-      channel="atlaskit"
-      analyticsContext={extraContext}
-    />,
-  );
-  const button = screen.getByTestId(buttonTestId);
-
-  fireEvent.click(button);
-
-  const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
-    payload: {
-      action: 'clicked',
-      actionSubject: 'button',
-      attributes: {
-        componentName: 'button',
-        packageName,
-        packageVersion,
-      },
-    },
-    context: [
-      {
-        componentName: 'button',
-        packageName,
-        packageVersion,
-        ...extraContext,
-      },
-    ],
-  });
-  expect(onEvent).toHaveBeenCalledTimes(1);
-  expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
-  expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 });
 
 it('should not error if there is no analytics provider', () => {

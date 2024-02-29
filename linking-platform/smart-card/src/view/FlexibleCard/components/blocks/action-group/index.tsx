@@ -23,22 +23,16 @@ import ActionGroupItem from './action-group-item';
 import { filterActionItems } from '../utils';
 import { di } from 'react-magnetic-di';
 
-const styles = css`
-  display: inline-flex;
-  line-height: 1rem;
-  > div {
-    align-items: center;
-    button:focus-visible {
-      // AK button removes the default browser outline on focus and apply
-      // box-shadow styling to create the outline appearance.
-      // Due to our container elements (Container/Block/ElementGroup) has
-      // overflow hidden to prevent the metadata element from leaking outside
-      // of its container, the box-shadow doesn't show properly.
-      // Invert the AK box-shadow styling.
-      outline-offset: -2px;
-    }
-  }
-`;
+const styles = css({
+  display: 'inline-flex',
+  lineHeight: '1rem',
+  '> div': {
+    alignItems: 'center',
+    'button:focus-visible': {
+      outlineOffset: '-2px',
+    },
+  },
+});
 
 const renderActionItems = (
   items: ActionItem[] = [],
@@ -86,7 +80,7 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   const isMoreThenTwoItems = renderableActionItems.length > visibleButtonsNum;
 
   const onOpenChange = useCallback(
-    (attrs) => {
+    (attrs: { isOpen: boolean }) => {
       setIsOpen(attrs.isOpen);
       if (onDropdownOpenChange) {
         onDropdownOpenChange(attrs.isOpen);

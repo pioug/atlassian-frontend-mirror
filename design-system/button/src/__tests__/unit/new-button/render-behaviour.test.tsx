@@ -13,7 +13,7 @@ defaultButtonVariants.forEach(({ name, Component }) => {
     }
 
     render(
-      <Component>
+      <Component aria-label="Save">
         <App />
       </Component>,
     );

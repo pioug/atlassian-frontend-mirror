@@ -17,7 +17,6 @@ import {
   getTruncateStyles,
   hasWhiteSpace,
 } from '../../utils';
-import { tokens } from '../../../../../utils/token';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { token } from '@atlaskit/tokens';
 
@@ -52,24 +51,24 @@ const getThemeStyles = (
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     case SmartLinkTheme.Black:
       return css`
-        color: ${tokens.blackLink};
+        color: ${token('color.text.subtle', '#44546F')};
         :active {
-          color: ${tokens.blackLinkPressed};
+          color: ${token('color.text', '#172B4D')};
         }
         :hover {
-          color: ${tokens.blackLink};
+          color: ${token('color.text.subtle', '#44546F')};
           text-decoration: underline;
         }
       `;
     case SmartLinkTheme.Link:
     default:
       return css`
-        color: ${tokens.blueLink};
+        color: ${token('color.link', '#0C66E4')};
         :active {
-          color: ${tokens.blueLinkPressed};
+          color: ${token('color.link.pressed', '#0055CC')};
         }
         :hover {
-          color: ${tokens.blueLink};
+          color: ${token('color.link', '#0C66E4')};
           text-decoration: underline;
         }
       `;

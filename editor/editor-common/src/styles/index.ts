@@ -89,3 +89,4 @@ export { expandIconWrapperStyle, expandClassNames } from './shared/expand';
 export { ClassNames as MediaSharedClassNames } from './shared/media';
 
 export { BreakoutCssClassName } from './shared/breakout';
+export { BODIED_EXT_MBE_MARGIN_TOP } from './shared/extension';

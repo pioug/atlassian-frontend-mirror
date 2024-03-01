@@ -22,7 +22,6 @@ export type EmbedCardProps = {
   handleInvoke: InvokeHandler;
   id?: string;
   isSelected?: boolean;
-  isFrameVisible?: boolean;
   frameStyle?: FrameStyle;
   platform?: CardPlatform;
   onResolve?: OnResolveCallback;

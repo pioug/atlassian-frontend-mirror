@@ -10,6 +10,7 @@ import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
 import ArrowLeft from '@atlaskit/icon/glyph/arrow-left';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -22,6 +23,8 @@ import { G300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import { fetchMessagesForLocale } from '../../common/utils/fetch-messages-for-locale';
+import i18nEN from '../../i18n/en';
 import messages from '../../messages';
 import {
   Flag,
@@ -388,47 +391,52 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   )}`;
 
   return (
-    <Portal zIndex={layers.modal()}>
-      <div data-testid={testId}>
-        <ModalTransition>
-          {isCloseConfirmModalOpen && (
-            <Modal onClose={closeWarningModal} width="small">
-              <ModalHeader>
-                <ModalTitle>
-                  <FormattedMessage {...messages.confirmCloseTitle} />
-                </ModalTitle>
-              </ModalHeader>
-              <ModalBody>
-                <FormattedMessage {...messages.unsavedKudosWarning} />
-              </ModalBody>
-              <ModalFooter>
-                <Button
-                  appearance="subtle"
-                  onClick={closeWarningModal}
-                  autoFocus
-                >
-                  <FormattedMessage
-                    {...messages.unsavedKudosWarningCancelButton}
-                  />
-                </Button>
-                <Button
-                  appearance="primary"
-                  onClick={() => {
-                    sendCancelAnalytic();
-                    closeDrawer();
-                  }}
-                >
-                  <FormattedMessage
-                    {...messages.unsavedKudosWarningCloseButton}
-                  />
-                </Button>
-              </ModalFooter>
-            </Modal>
-          )}
-        </ModalTransition>
-        {renderDrawer}
-      </div>
-    </Portal>
+    <IntlMessagesProvider
+      loaderFn={fetchMessagesForLocale}
+      defaultMessages={i18nEN}
+    >
+      <Portal zIndex={layers.modal()}>
+        <div data-testid={testId}>
+          <ModalTransition>
+            {isCloseConfirmModalOpen && (
+              <Modal onClose={closeWarningModal} width="small">
+                <ModalHeader>
+                  <ModalTitle>
+                    <FormattedMessage {...messages.confirmCloseTitle} />
+                  </ModalTitle>
+                </ModalHeader>
+                <ModalBody>
+                  <FormattedMessage {...messages.unsavedKudosWarning} />
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    appearance="subtle"
+                    onClick={closeWarningModal}
+                    autoFocus
+                  >
+                    <FormattedMessage
+                      {...messages.unsavedKudosWarningCancelButton}
+                    />
+                  </Button>
+                  <Button
+                    appearance="primary"
+                    onClick={() => {
+                      sendCancelAnalytic();
+                      closeDrawer();
+                    }}
+                  >
+                    <FormattedMessage
+                      {...messages.unsavedKudosWarningCloseButton}
+                    />
+                  </Button>
+                </ModalFooter>
+              </Modal>
+            )}
+          </ModalTransition>
+          {renderDrawer}
+        </div>
+      </Portal>
+    </IntlMessagesProvider>
   );
 };
 

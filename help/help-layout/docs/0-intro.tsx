@@ -1,30 +1,15 @@
 import React from 'react';
-import {
-  md,
-  code,
-  Props,
-  AtlassianInternalWarning,
-  DevPreviewWarning,
-} from '@atlaskit/docs';
+import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
 const helpPanelProps = require('!!extract-react-types-loader!../src/components/HelpLayout');
 
 export default md`
-  ${(
-    <>
-      <div style={{ marginBottom: '0.5rem' }}>
-        <AtlassianInternalWarning />
-      </div>
-      <div style={{ marginTop: '0.5rem' }}>
-        <DevPreviewWarning />
-      </div>
-    </>
-  )}
+  ${(<AtlassianInternalWarning />)}
 
   ## Usage
 
   ${code`
-  import React from 'react';
+import React from 'react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Page from '@atlaskit/page';
 

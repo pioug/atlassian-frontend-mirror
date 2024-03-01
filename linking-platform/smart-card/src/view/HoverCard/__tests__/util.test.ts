@@ -274,7 +274,7 @@ describe('getIsAISummaryEnabled', () => {
     } as JsonLd.Response);
 
   describe('returns false when AI is disabled', () => {
-    const response = getMockResponse({ supportedFeatures: ['AISummary'] });
+    const response = getMockResponse({ supportedFeature: ['AISummary'] });
 
     ffTest(
       'platform.linking-platform.smart-card.hover-card-ai-summaries',
@@ -291,7 +291,7 @@ describe('getIsAISummaryEnabled', () => {
 
   describe('when AI is enabled', () => {
     describe('returns true when AISummary is included in supportedFeatures', () => {
-      const response = getMockResponse({ supportedFeatures: ['AISummary'] });
+      const response = getMockResponse({ supportedFeature: ['AISummary'] });
 
       ffTest(
         'platform.linking-platform.smart-card.hover-card-ai-summaries',
@@ -307,7 +307,7 @@ describe('getIsAISummaryEnabled', () => {
     });
 
     describe('returns false when AISummary is not included in supportedFeatures', () => {
-      const response = getMockResponse({ supportedFeatures: [] });
+      const response = getMockResponse({ supportedFeature: [] });
 
       ffTest(
         'platform.linking-platform.smart-card.hover-card-ai-summaries',

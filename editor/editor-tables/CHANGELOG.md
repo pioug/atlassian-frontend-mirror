@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.5.5
+
+### Patch Changes
+
+- [#72037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72037) [`e59f0b7a9115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e59f0b7a9115) - [ux] add flexiable to make merged cells detection allow to detect edge merged cells
+
 ## 2.5.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.13.0
+
+### Minor Changes
+
+- [#70573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70573) [`c8fa9cdd08e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8fa9cdd08e4) - Accessibility changes. Add a new optional prop `shouldDisableFocusLock`. We are testing the ability to close the popup by pressing the Tab key when `shouldDisableFocusLock` is `true` and `shouldRenderToParent` is `true` behind a feature flag. This is necessary for the dropdown menu to work correctly. If this fix is successful it will be available in a later release.
+
 ## 1.12.0
 
 ### Minor Changes

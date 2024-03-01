@@ -217,6 +217,7 @@ export const ColumnControls = ({
           direction="column"
           tableLocalId={localId || ''}
           indexes={indexes}
+          hoveredCell={hoveredCell}
           previewWidth={previewWidth}
           forceDefaultHandle={!isHover}
           previewHeight={previewHeight}

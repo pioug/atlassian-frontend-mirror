@@ -27,7 +27,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
       analytics,
       handleInvoke,
       isSelected,
-      isFrameVisible,
       frameStyle,
       platform,
       onResolve,
@@ -78,7 +77,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             <EmbedCardResolvedView
               {...resolvedViewProps}
               isSelected={isSelected}
-              isFrameVisible={isFrameVisible}
               frameStyle={frameStyle}
               inheritDimensions={inheritDimensions}
               onClick={handleFrameClick}
@@ -126,6 +124,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             analytics={analytics}
             context={unauthorisedViewProps.context}
             extensionKey={extensionKey}
+            frameStyle={frameStyle}
             isProductIntegrationSupported={isProductIntegrationSupported}
             inheritDimensions={inheritDimensions}
             isSelected={isSelected}
@@ -147,8 +146,8 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
             <EmbedCardResolvedView
               {...forbiddenViewProps}
               title={forbiddenViewProps.link}
+              frameStyle={frameStyle}
               isSelected={isSelected}
-              isFrameVisible={isFrameVisible}
               inheritDimensions={inheritDimensions}
               onClick={handleFrameClick}
               ref={iframeRef}
@@ -166,6 +165,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         return (
           <ForbiddenView
             context={forbiddenViewProps.context}
+            frameStyle={frameStyle}
             inheritDimensions={inheritDimensions}
             isSelected={isSelected}
             onAuthorize={handleAuthorize}
@@ -192,6 +192,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
         return (
           <NotFoundView
             context={notFoundViewProps.context}
+            frameStyle={frameStyle}
             inheritDimensions={inheritDimensions}
             isSelected={isSelected}
             onClick={handleFrameClick}

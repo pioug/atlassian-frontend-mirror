@@ -1,10 +1,20 @@
 ---
 order: 0
 title: Hitbox
-description: An addon to extract collision information from a user's drag.
+description: Obtain collision information about a drag.
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 This package includes addons and utilities to extract additional information about the user's current drag.
+
+<SectionMessage>
+
+This package depends on [the core package](/components/drag-and-drop/core-package).
+
+This package has no dependency on any view library (eg `react`), or on the Atlassian Design System.
+
+</SectionMessage>
 
 - **[Closest edge](#closest-edge):** Detects the closest edge (`"top", "right", "bottom", "left"`) for a drop target being dragged over.
 - **[Tree item](#tree-item):** Determines the operation (`"reorder-above", "reorder-below", "make-child", "reparent"`) to be performed when when a tree item is dropped.

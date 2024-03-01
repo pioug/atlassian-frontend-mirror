@@ -5,6 +5,7 @@ import React from 'react';
 export type CardViewProps = {
   appearance: CardProps['appearance'];
   client: ProviderProps['client'];
+  frameStyle?: CardProps['frameStyle'];
   isSelected?: CardProps['isSelected'];
   url?: CardProps['url'];
   useLegacyBlockCard?: boolean;
@@ -13,6 +14,7 @@ export type CardViewProps = {
 const CardView: React.FC<CardViewProps> = ({
   appearance,
   client,
+  frameStyle,
   isSelected,
   url = 'https://some.url',
   useLegacyBlockCard = false,
@@ -26,7 +28,7 @@ const CardView: React.FC<CardViewProps> = ({
       showServerActions={true}
       url={url}
       /* Embed-specific props */
-      frameStyle="show"
+      frameStyle={frameStyle}
       isSelected={isSelected}
       useLegacyBlockCard={useLegacyBlockCard}
     />

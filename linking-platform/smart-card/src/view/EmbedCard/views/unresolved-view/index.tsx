@@ -17,6 +17,7 @@ import type { UnresolvedViewProps } from './types';
 const UnresolvedView: FC<UnresolvedViewProps> = ({
   button,
   description,
+  frameStyle,
   icon: iconUrlOrElement,
   image,
   inheritDimensions,
@@ -50,7 +51,13 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
   return (
     <ExpandedFrame
       allowScrollBar={true}
-      frameStyle="show"
+      // EDM-9259: Fix embed frame showing on unresolved views when frameStyle is set to hide.
+      // Set fallback to 'show' here to maintain the current behaviour when platform.editor.show-embed-card-frame-renderer is OFF.
+      // Remove 'show' on platform.editor.show-embed-card-frame-renderer cleanup as frameStyle will be set to 'show' both in renderer and editor.
+      // We want all views to be consistent and respect frameStyle instead of
+      // having resolved view default to showOnHover and unresolved view default to show.
+      // Default frameStyle is set inside <ExpandedFrame />
+      frameStyle={frameStyle ?? 'show'}
       href={url}
       icon={icon}
       inheritDimensions={inheritDimensions}

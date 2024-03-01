@@ -13,6 +13,7 @@ export const useCloseManager = ({
   popupRef,
   triggerRef,
   shouldUseCaptureOnOutsideClick: capture,
+  shouldCloseOnTab,
 }: CloseManagerHook): void => {
   const { isLayerDisabled } = UNSAFE_useLayering();
 
@@ -58,7 +59,11 @@ export const useCloseManager = ({
         return;
       }
       const { key } = event;
-      if (key === 'Escape' || key === 'Esc') {
+      if (
+        key === 'Escape' ||
+        key === 'Esc' ||
+        (shouldCloseOnTab && key === 'Tab')
+      ) {
         closePopup(event);
       }
     };
@@ -75,5 +80,13 @@ export const useCloseManager = ({
       },
     ]);
     return unbind;
-  }, [isOpen, onClose, popupRef, triggerRef, capture, isLayerDisabled]);
+  }, [
+    isOpen,
+    onClose,
+    popupRef,
+    triggerRef,
+    capture,
+    isLayerDisabled,
+    shouldCloseOnTab,
+  ]);
 };

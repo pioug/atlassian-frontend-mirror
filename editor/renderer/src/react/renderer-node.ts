@@ -20,3 +20,10 @@ export const insideBlockNode = (path: Node[], schema: Schema) => {
     path && path.some((n) => n.type && blockNodeNames.indexOf(n.type.name) > -1)
   );
 };
+
+export const insideMultiBodiedExtension = (path: Node[], schema: Schema) => {
+  const {
+    nodes: { multiBodiedExtension },
+  } = schema;
+  return path.some((n) => n.type === multiBodiedExtension);
+};

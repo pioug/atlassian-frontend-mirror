@@ -48,7 +48,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/logo": "*",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popup": "^1.12.0",
+    "@atlaskit/popup": "^1.13.0",
     "@atlaskit/primitives": "^3.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.38.0",
@@ -65,7 +65,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/dropdown-menu": "^12.5.0",
+    "@atlaskit/dropdown-menu": "^12.6.0",
     "@atlaskit/notification-indicator": "*",
     "@atlaskit/notification-log-client": "*",
     "@atlaskit/visual-regression": "*",

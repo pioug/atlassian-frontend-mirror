@@ -37,7 +37,11 @@ describe('@atlaskit comments', () => {
         });
 
         it('should render link with author styles', () => {
-          render(<CommentField href="#" hasAuthor />);
+          render(
+            <CommentField href="#" hasAuthor>
+              Comment
+            </CommentField>,
+          );
 
           expect(screen.getByRole('link')).toHaveStyleRule(
             'font-weight',
@@ -83,7 +87,7 @@ describe('@atlaskit comments', () => {
           onMouseOver: onHoverMock,
           href: '#',
         };
-        render(<CommentField {...props} />);
+        render(<CommentField {...props}>Reply</CommentField>);
 
         const link = screen.getByRole('link');
         const user = userEvent.setup();

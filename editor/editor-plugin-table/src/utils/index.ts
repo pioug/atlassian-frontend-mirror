@@ -82,4 +82,7 @@ export {
   hasMergedCellsInColumn,
   hasMergedCellsInRow,
   hasMergedCellsInBetween,
+  hasMergedCellsInSelection,
+  findDuplicatePosition,
+  checkEdgeHasMergedCells,
 } from './merged-cells';

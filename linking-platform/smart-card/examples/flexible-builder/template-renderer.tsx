@@ -21,56 +21,48 @@ const frontColor = token(
   'color.background.neutral.subtle.hovered',
   '#091E420F',
 );
-const backgroundStyles = css`
-  background-color: ${backColor};
-  opacity: 1;
-  background-image: repeating-linear-gradient(
-      45deg,
-      ${frontColor} 25%,
-      transparent 25%,
-      transparent 75%,
-      ${frontColor} 75%,
-      ${frontColor}
-    ),
-    repeating-linear-gradient(
-      45deg,
-      ${frontColor} 25%,
-      ${backColor} 25%,
-      ${backColor} 75%,
-      ${frontColor} 75%,
-      ${frontColor}
-    );
-  background-position: 0 0, 6px 6px;
-  background-size: 12px 12px;
-  border-radius: 0.125rem;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  position: relative;
-`;
+const backgroundStyles = css({
+  backgroundColor: backColor,
+  opacity: 1,
+  backgroundImage: `repeating-linear-gradient( 45deg, ${frontColor} 25%, transparent 25%, transparent 75%, ${frontColor} 75%, ${frontColor} ), repeating-linear-gradient( 45deg, ${frontColor} 25%, ${backColor} 25%, ${backColor} 75%, ${frontColor} 75%, ${frontColor} )`,
+  backgroundPosition: '0 0, 6px 6px',
+  backgroundSize: '12px 12px',
+  borderRadius: '0.125rem',
+  padding: '0.5rem',
+  marginBottom: '1rem',
+  position: 'relative',
+});
 
-const toggleStyles = (show: boolean) => css`
-  opacity: ${show ? 1 : 0};
-  display: ${show ? 'block' : 'none'};
-`;
+const toggleStyles = (show: boolean) =>
+  css({
+    opacity: show ? 1 : 0,
+    display: show ? 'block' : 'none',
+  });
 
-const cardContainerStyles = (width: number, show: boolean = true) => css`
-  margin: 0 auto;
-  min-width: 10rem;
-  width: ${width}%;
-  ${toggleStyles(show)}
-`;
+const cardContainerStyles = (width: number, show: boolean = true) =>
+  css(
+    {
+      margin: '0 auto',
+      minWidth: '10rem',
+      width: `${width}%`,
+    },
+    toggleStyles(show),
+  );
 
-const dataContainerStyles = (show: boolean) => css`
-  margin: 0 auto;
-  min-width: 25rem;
-  width: 60%;
-  ${toggleStyles(show)}
-`;
+const dataContainerStyles = (show: boolean) =>
+  css(
+    {
+      margin: '0 auto',
+      minWidth: '25rem',
+      width: '60%',
+    },
+    toggleStyles(show),
+  );
 
-const toggleContainerStyles = css`
-  position: absolute;
-  right: 0.5rem;
-`;
+const toggleContainerStyles = css({
+  position: 'absolute',
+  right: '0.5rem',
+});
 
 const renderBlock = ({ name, ...props }: BlockTemplate, key: string) => {
   const Block = Blocks[name];
@@ -82,7 +74,7 @@ const TemplateRenderer: React.FC<{
   url?: string;
 }> = ({ template, url }) => {
   const [width, setWidth] = useState(60);
-  const handleOnChange = useCallback((width) => setWidth(width), []);
+  const handleOnChange = useCallback((width: number) => setWidth(width), []);
 
   const [showDataView, setShowDataView] = useState(false);
   const handleViewChange = useCallback(

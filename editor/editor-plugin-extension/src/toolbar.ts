@@ -3,6 +3,7 @@ import type { IntlShape } from 'react-intl-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/editor-common/extensions';
 import commonMessages from '@atlaskit/editor-common/messages';
+import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles';
 import type {
   Command,
   ConfirmDialogOptions,
@@ -29,6 +30,7 @@ import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { editExtension } from './actions';
 import {
@@ -63,15 +65,24 @@ const isLayoutSupported = (
   if (!selectedExtNode) {
     return false;
   }
+  const isMultiBodiedExtension =
+    getBooleanFF('platform.editor.multi-bodied-extension_0rygg') &&
+    selectedExtNode.node.type === multiBodiedExtension;
+  const isNonEmbeddedBodiedExtension =
+    selectedExtNode.node.type === bodiedExtension &&
+    !hasParentNodeOfType([multiBodiedExtension].filter(Boolean))(selection);
+  const isNonEmbeddedExtension =
+    selectedExtNode.node.type === extension &&
+    !hasParentNodeOfType(
+      [bodiedExtension, table, expand, multiBodiedExtension].filter(Boolean),
+    )(selection);
 
+  // if selection belongs to layout supported extension category
+  // and not inside a layoutSection
   return !!(
-    ([bodiedExtension, multiBodiedExtension].includes(
-      selectedExtNode.node.type,
-    ) ||
-      (selectedExtNode.node.type === extension &&
-        !hasParentNodeOfType([bodiedExtension, table, expand].filter(Boolean))(
-          selection,
-        ))) &&
+    (isMultiBodiedExtension ||
+      isNonEmbeddedBodiedExtension ||
+      isNonEmbeddedExtension) &&
     !hasParentNodeOfType([layoutSection])(selection)
   );
 };
@@ -230,40 +241,33 @@ export const getToolbarConfig =
           const {
             state: { schema, selection },
           } = editorView;
-          const mbeNode = getSelectedExtension(state, true);
-          const mbeFrame = findParentNodeOfType(schema.nodes.extensionFrame)(
-            selection,
-          );
-          if (!mbeNode || !mbeFrame) {
+          const extensionNode = getSelectedExtension(state, true);
+          const possibleMbeParent = findParentNodeOfType(
+            schema.nodes.extensionFrame,
+          )(selection);
+          // We only want to use calculated position in case of a bodiedExtension present inside an MBE node
+          const isBodiedExtensionInsideMBE =
+            possibleMbeParent &&
+            extensionNode?.node.type.name === 'bodiedExtension';
+          if (!isBodiedExtensionInsideMBE) {
             return nextPos;
           }
-          const mbeDomElement = editorView.nodeDOM(mbeNode.pos) as HTMLElement;
-          const mbeFrameElement = editorView.nodeDOM(
-            mbeFrame.pos,
-          ) as HTMLElement;
-          const mbeNodeRect = mbeDomElement?.getBoundingClientRect();
-          const mbeFrameRect = mbeFrameElement.getBoundingClientRect();
           const scrollWrapper =
             editorView.dom.closest('.fabric-editor-popup-scroll-parent') ||
             document.body;
+          const nestedBodiedExtensionDomElement = editorView.nodeDOM(
+            extensionNode.pos,
+          ) as HTMLElement;
 
-          /**
-           * MbeNodeRect height will include mbeFrameRect height and the navigation toolbar of the MBE
-           * excluding nav toolbar height from the floaing extention toolbar position calculated.
-           * In case of new tabs, MBE does not update the frame to the new tab so height comes as 0,
-           * so we add the min height (100px) + borders (2px) as the default minimum frame height for toolbar to appear
-           *
-           */
-          const frameheight =
-            mbeFrameRect.height > 0 ? mbeFrameRect.height : 102;
-          // MBE wrapper header height includes, top margin 8px + bottom margin 8px + Line height of 16px + padding top 8px
-          // Ref: platform/packages/editor/editor-common/src/extensibility/MultiBodiedExtension/styles.ts
-          const wrapperHeaderHeight = 40;
+          const nestedBodiedExtensionRect =
+            nestedBodiedExtensionDomElement?.getBoundingClientRect();
+          const wrapperBounds = scrollWrapper.getBoundingClientRect();
           const toolbarTopPos =
-            mbeNodeRect.top +
-            frameheight +
-            wrapperHeaderHeight +
-            scrollWrapper.scrollTop;
+            nestedBodiedExtensionRect.bottom -
+            wrapperBounds.top +
+            scrollWrapper.scrollTop +
+            BODIED_EXT_MBE_MARGIN_TOP;
+
           return {
             top: toolbarTopPos,
             left: nextPos.left,

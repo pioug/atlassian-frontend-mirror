@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugins
 
+## 1.4.32
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.31
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.30
+
+### Patch Changes
+
+- [#76770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76770) [`7eb1d4032d40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7eb1d4032d40) - [ux] Select upladed image. In case there are mulitple image files being pasted or drag&dropped, select last image.
+- Updated dependencies
+
+## 1.4.29
+
+### Patch Changes
+
+- [#72037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72037) [`e59f0b7a9115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e59f0b7a9115) - [ux] add flexiable to make merged cells detection allow to detect edge merged cells
+- Updated dependencies
+
 ## 1.4.28
 
 ### Patch Changes

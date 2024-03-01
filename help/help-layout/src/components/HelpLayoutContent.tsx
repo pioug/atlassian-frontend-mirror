@@ -5,7 +5,7 @@ import Header from './Header';
 
 import { HelpLayout } from '../model/HelpLayout';
 import { messages } from '../messages';
-
+import { token } from '@atlaskit/tokens';
 import {
   Container,
   Section,
@@ -33,7 +33,10 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (
             aria-label={formatMessage(messages.help_loading)}
             role="img"
           >
-            <LoadingRectangle contentHeight="20px" marginTop="0" />
+            <LoadingRectangle
+              contentHeight={token('space.250', '20px')}
+              marginTop="0"
+            />
             <LoadingRectangle contentWidth="90%" />
             <LoadingRectangle contentWidth="80%" />
             <LoadingRectangle contentWidth="80%" />

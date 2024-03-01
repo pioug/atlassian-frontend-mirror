@@ -345,7 +345,10 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
   );
 
   const onCancelClick = useCallback(
-    (e, analyticEvent) => {
+    (
+      e: React.MouseEvent<HTMLElement, MouseEvent>,
+      analyticEvent: UIAnalyticsEvent,
+    ) => {
       analyticEvent
         .update({
           eventType: 'ui',

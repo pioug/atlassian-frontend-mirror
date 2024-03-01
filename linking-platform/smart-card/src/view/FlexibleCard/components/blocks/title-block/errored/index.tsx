@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
 import { LinkIcon } from '../../../elements';
 import { TitleBlockViewProps } from '../types';
 import Block from '../../block';
@@ -17,12 +18,11 @@ import {
   getTruncateStyles,
 } from '../../../utils';
 import ElementGroup from '../../element-group';
-import { tokens } from '../../../../../../utils/token';
 
 const actionStyles: SerializedStyles = css`
   cursor: pointer;
   :hover {
-    color: ${tokens.errorMessageHover};
+    color: ${token('color.text.subtle', '#8993A4')};
     text-decoration: underline;
   }
 `;
@@ -38,9 +38,9 @@ const getMessageStyles = (
     ${hasAction ? actionStyles : ''}
     ${sizeStyles}
     ${getTruncateStyles(1, getLinkLineHeight(size))}
-    color: ${tokens.errorMessage};
+    color: ${token('color.text.disabled', '#6B778C')};
     :focus {
-      outline: ${tokens.focus} solid 2px;
+      outline: ${token('color.border.focused', '#388BFF')} solid 2px;
     }
   `;
 };

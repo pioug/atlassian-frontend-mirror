@@ -32,9 +32,12 @@ export const FocusManagerContext = createContext<{
 });
 
 /**
- * Focus manager logic
+ * Focus manager logic.
  */
-const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
+const FocusManager: FC<{
+  children: ReactNode;
+  onClose: (e: KeyboardEvent) => void;
+}> = ({ children, onClose }) => {
   const menuItemRefs = useRef<FocusableElement[]>([]);
   const registerRef = useCallback((ref: FocusableElement) => {
     if (ref && !menuItemRefs.current.includes(ref)) {
@@ -47,7 +50,7 @@ const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     return bind(window, {
       type: 'keydown',
-      listener: handleFocus(menuItemRefs.current, isLayerDisabled),
+      listener: handleFocus(menuItemRefs.current, isLayerDisabled, onClose),
     });
   });
 

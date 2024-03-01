@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 77.10.4
+
+### Patch Changes
+
+- [#77619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77619) [`019721a3386a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/019721a3386a) - Fixed issue with keyboard focused card actions not being visible
+- Updated dependencies
+
 ## 77.10.3
 
 ### Patch Changes

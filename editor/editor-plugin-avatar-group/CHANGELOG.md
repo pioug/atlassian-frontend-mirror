@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 1.0.2
+
+### Patch Changes
+
+- [#77259](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77259) [`9086164a5b62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9086164a5b62) - Use spacing tokens instead of hardcoded values
+
 ## 1.0.1
 
 ### Patch Changes

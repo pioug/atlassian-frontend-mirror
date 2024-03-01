@@ -1,11 +1,8 @@
-import { RequestAccessContextProps } from '../../../types';
-import { ContextViewModel } from '../../types';
-import { UnresolvedViewProps } from '../unresolved-view/types';
+import type { RequestAccessContextProps } from '../../../types';
+import type { ContextViewModel } from '../../types';
+import type { UnresolvedViewCardProps } from '../unresolved-view/types';
 
-export type ForbiddenViewProps = Pick<
-  UnresolvedViewProps,
-  'inheritDimensions' | 'isSelected' | 'onClick' | 'testId' | 'url'
-> & {
+export type ForbiddenViewProps = UnresolvedViewCardProps & {
   context?: ContextViewModel;
   onAuthorize?: () => void;
   accessContext: RequestAccessContextProps;

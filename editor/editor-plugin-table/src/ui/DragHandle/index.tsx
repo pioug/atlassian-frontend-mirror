@@ -8,7 +8,9 @@ import { injectIntl } from 'react-intl-next';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { browser } from '@atlaskit/editor-common/utils';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { findTable, TableMap } from '@atlaskit/editor-tables';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
@@ -16,9 +18,9 @@ import { token } from '@atlaskit/tokens';
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import type { TriggerType } from '../../pm-plugins/drag-and-drop/types';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
-import type { TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { hasMergedCellsInColumn, hasMergedCellsInRow } from '../../utils';
+import type { CellHoverMeta, TableDirection } from '../../types';
+import { findDuplicatePosition, hasMergedCellsInSelection } from '../../utils';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 
@@ -37,6 +39,7 @@ type DragHandleProps = {
   forceDefaultHandle?: boolean;
   previewWidth?: number;
   previewHeight?: number;
+  hoveredCell?: CellHoverMeta;
   direction?: TableDirection;
   appearance?: DragHandleAppearance;
   onClick?: MouseEventHandler;
@@ -62,6 +65,7 @@ const DragHandleComponent = ({
   onMouseOver,
   onMouseOut,
   toggleDragMenu,
+  hoveredCell,
   onClick,
   editorView,
   intl: { formatMessage },
@@ -83,13 +87,64 @@ const DragHandleComponent = ({
   const isRowHandleHovered = isRow && hoveredRows.length > 0;
   const isColumnHandleHovered = isColumn && hoveredColumns.length > 0;
 
-  const hasMergedCells = useMemo(
-    () =>
-      isRow
-        ? hasMergedCellsInRow(indexes[0])(selection)
-        : hasMergedCellsInColumn(indexes[0])(selection),
-    [indexes, isRow, selection],
-  );
+  const hasMergedCells = useMemo(() => {
+    const table = findTable(selection);
+    if (!table) {
+      return false;
+    }
+
+    const map = TableMap.get(table?.node);
+
+    if (!map.hasMergedCells() || indexes.length < 1) {
+      return false;
+    }
+
+    const { mapByColumn, mapByRow } = map;
+
+    // this handle when hover to first column or row which has merged cells.
+    if (
+      hoveredCell &&
+      hoveredCell.rowIndex !== undefined &&
+      hoveredCell.colIndex !== undefined &&
+      selection instanceof TextSelection
+    ) {
+      const { rowIndex, colIndex } = hoveredCell;
+
+      const mergedPositionInRow = findDuplicatePosition(mapByRow[rowIndex]);
+      const mergedPositionInCol = findDuplicatePosition(mapByColumn[colIndex]);
+
+      const hasMergedCellsInFirstRowOrColumn =
+        direction === 'column'
+          ? mergedPositionInRow.includes(mapByRow[0][colIndex])
+          : mergedPositionInCol.includes(mapByColumn[0][rowIndex]);
+
+      const isHoveredOnFirstRowOrColumn =
+        direction === 'column'
+          ? hoveredCell.rowIndex === 0 && hasMergedCellsInFirstRowOrColumn
+          : hoveredCell.colIndex === 0 && hasMergedCellsInFirstRowOrColumn;
+
+      if (isHoveredOnFirstRowOrColumn) {
+        const mergedSizes =
+          direction === 'column'
+            ? mapByRow[0].filter((el: number) => el === mapByRow[0][colIndex])
+                .length
+            : mapByColumn[0].filter(
+                (el: number) => el === mapByColumn[0][rowIndex],
+              ).length;
+
+        const mergedSelection = hasMergedCellsInSelection(
+          direction === 'column'
+            ? [colIndex, colIndex + mergedSizes - 1]
+            : [rowIndex, rowIndex + mergedSizes - 1],
+          direction,
+        )(selection);
+
+        return mergedSelection;
+      }
+    }
+
+    return hasMergedCellsInSelection(indexes, direction)(selection);
+  }, [indexes, selection, direction, hoveredCell]);
 
   const handleIconProps = {
     forceDefaultHandle,

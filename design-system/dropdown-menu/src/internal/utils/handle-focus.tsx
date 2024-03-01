@@ -1,4 +1,11 @@
-import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
+import {
+  KEY_DOWN,
+  KEY_END,
+  KEY_HOME,
+  KEY_TAB,
+  KEY_UP,
+} from '@atlaskit/ds-lib/keycodes';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { Action, FocusableElement } from '../../types';
 
@@ -10,7 +17,7 @@ const actionMap: { [key: string]: Action } = {
 };
 
 /**
- * currentFocusedIdx + 1 will not work if the next focusable element
+ * `currentFocusedIdx + 1` will not work if the next focusable element
  * is disabled. So, we need to iterate through the following menu items
  * to find one that isn't disabled. If all following elements are disabled,
  * return undefined.
@@ -30,7 +37,7 @@ const getNextFocusableElement = (
 };
 
 /**
- * currentFocusedIdx - 1 will not work if the prev focusable element
+ * `currentFocusedIdx - 1` will not work if the prev focusable element
  * is disabled. So, we need to iterate through the previous menu items
  * to find one that isn't disabled. If all previous elements are disabled,
  * return undefined.
@@ -52,6 +59,7 @@ const getPrevFocusableElement = (
 export default function handleFocus(
   refs: Array<FocusableElement>,
   isLayerDisabled: () => boolean,
+  onClose: (e: KeyboardEvent) => void,
 ) {
   return (e: KeyboardEvent) => {
     const currentFocusedIdx = refs.findIndex(
@@ -59,6 +67,17 @@ export default function handleFocus(
         document.activeElement?.isSameNode(el),
     );
     if (isLayerDisabled()) {
+      if (
+        getBooleanFF(
+          'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
+        )
+      ) {
+        // if nested dropdown isOpen we need to close on Tab key press
+        if (e.key === KEY_TAB && !e.shiftKey) {
+          onClose(e);
+        }
+      }
+
       // if it is a nested dropdown and the level of the given dropdown is not the current level,
       // we don't need to have focus on it
       return;
@@ -75,6 +94,15 @@ export default function handleFocus(
             currentFocusedIdx,
           );
           nextFocusableElement?.focus();
+        } else {
+          if (
+            getBooleanFF(
+              'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
+            )
+          ) {
+            const firstFocusableElement = getNextFocusableElement(refs, -1);
+            firstFocusableElement?.focus();
+          }
         }
         break;
 
@@ -88,6 +116,18 @@ export default function handleFocus(
           );
 
           prevFocusableElement?.focus();
+        } else {
+          if (
+            getBooleanFF(
+              'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
+            )
+          ) {
+            const lastFocusableElement = getPrevFocusableElement(
+              refs,
+              refs.length,
+            );
+            lastFocusableElement?.focus();
+          }
         }
         break;
 

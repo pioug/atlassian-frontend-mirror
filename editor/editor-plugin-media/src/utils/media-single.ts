@@ -200,6 +200,7 @@ export const insertMediaSingleNode = (
   alignLeftOnInsert?: boolean,
   widthPluginState?: WidthPluginState | undefined,
   editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  onNodeInserted?: (id: string, selectionPosition: number) => void,
 ): boolean => {
   if (collection === undefined) {
     return false;
@@ -267,7 +268,12 @@ export const insertMediaSingleNode = (
     }
     dispatch(tr);
   }
-
+  if (
+    getBooleanFF('platform.editor.media.autoselect-inserted-image_oumto') &&
+    onNodeInserted
+  ) {
+    onNodeInserted(mediaState.id, view.state.selection.to);
+  }
   return true;
 };
 

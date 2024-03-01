@@ -1,10 +1,14 @@
 import React from 'react';
-import { Component, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import { Component } from 'react';
 import styled from 'styled-components';
-import { Actions, Context, Mode, State } from './context';
-import { getProvider, Provider, ProviderProps } from '../provider';
-import { Document } from '../model';
+import type { Actions, Mode, State } from './context';
+import { Context } from './context';
+import type { Provider, ProviderProps } from '../provider';
+import { getProvider } from '../provider';
+import type { Document } from '../model';
 import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const akEditorFullPageMaxWidth = 680;
 const Content = styled.div`
@@ -12,15 +16,15 @@ const Content = styled.div`
   height: 100%;
   width: 100%;
   max-width: ${akEditorFullPageMaxWidth + akEditorGutterPadding * 2}px;
-  padding-top: 50px;
+  padding-top: ${token('space.600', '48px')};
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  padding-bottom: 55px;
+  padding-bottom: ${token('space.600', '48px')};
 
   & > * {
-    padding: 0 32px;
+    padding: 0 ${token('space.400', '32px')};
   }
 `;
 

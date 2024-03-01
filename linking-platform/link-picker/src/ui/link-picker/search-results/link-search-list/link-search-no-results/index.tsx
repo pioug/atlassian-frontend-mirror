@@ -32,6 +32,7 @@ export const NoResults = () => {
       <EmptyState
         testId={testIds.emptyResultPage}
         header={intl.formatMessage(messages.noResults)}
+        headingLevel={3}
         description={intl.formatMessage(messages.noResultsDescription)}
         renderImage={() => <NoResultsSVG />}
       />

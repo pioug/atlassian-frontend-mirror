@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 1.4.0
+
+### Minor Changes
+
+- [#76770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76770) [`7eb1d4032d40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7eb1d4032d40) - [ux] Select upladed image. In case there are mulitple image files being pasted or drag&dropped, select last image.
+
 ## 1.3.0
 
 ### Minor Changes

@@ -21,6 +21,7 @@ export const Table = React.memo(
     tableNode,
     rendererAppearance,
     isInsideOfBlockNode,
+    isinsideMultiBodiedExtension,
   }: TableProps) => {
     const tableWidth = tableNode
       ? getTableContainerWidth(tableNode)
@@ -41,6 +42,7 @@ export const Table = React.memo(
           tableNode={tableNode}
           rendererAppearance={rendererAppearance}
           isInsideOfBlockNode={isInsideOfBlockNode}
+          isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
         />
         <tbody>{children}</tbody>
       </table>

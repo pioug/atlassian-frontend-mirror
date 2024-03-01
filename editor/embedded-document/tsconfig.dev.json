@@ -37,6 +37,9 @@
     },
     {
       "path": "../../design-system/button/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/tokens/tsconfig.app.json"
     }
   ]
 }

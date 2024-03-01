@@ -18,20 +18,19 @@ type ActionProp = {
   icon?: React.ReactNode;
 };
 
-const selectionStyles = css`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: space-between;
+const selectionStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  justifyContent: 'space-between',
+  '.action-select': {
+    flex: '1 1 auto',
+  },
+});
 
-  .action-select {
-    flex: 1 1 auto;
-  }
-`;
-
-const listStyles = css`
-  padding-left: 0.5rem;
-`;
+const listStyles = css({
+  paddingLeft: '0.5rem',
+});
 
 const options = Object.values(ActionName).map((name) => ({
   label: name,
@@ -50,7 +49,7 @@ const ActionOption: React.FC<{
 
   const actions = useMemo(() => template[propName] || [], [propName, template]);
 
-  const handleOnActionChange = useCallback((option) => {
+  const handleOnActionChange = useCallback((option: any) => {
     if (option) {
       setActionName(option.value);
     }

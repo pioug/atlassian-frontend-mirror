@@ -3,13 +3,15 @@
 import { useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
-import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { GiveKudosLauncher } from '../src';
+import { fetchMessagesForLocale } from '../src/common/utils/fetch-messages-for-locale';
+import i18nEN from '../src/i18n/en';
 
 const buttonWrapperStyles = xcss({
   margin: 'space.200',
@@ -39,7 +41,10 @@ export default function Example() {
   };
 
   return (
-    <IntlProvider key={'en'} locale={'en'}>
+    <IntlMessagesProvider
+      loaderFn={fetchMessagesForLocale}
+      defaultMessages={i18nEN}
+    >
       <Box xcss={buttonWrapperStyles}>
         <Button onClick={openGiveKudos}>Give Kudos</Button>
       </Box>
@@ -57,6 +62,6 @@ export default function Example() {
           <Flag {...flag} />
         ))}
       </FlagGroup>
-    </IntlProvider>
+    </IntlMessagesProvider>
   );
 }

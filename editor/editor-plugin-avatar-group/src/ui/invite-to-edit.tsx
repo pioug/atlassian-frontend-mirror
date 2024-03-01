@@ -7,7 +7,7 @@ import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab'
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
 
-import { inviteTeamWrapper } from './styles';
+import { inviteTeamWrapperStyles } from './styles';
 
 const ID: React.StatelessComponent = props => (
   <Fragment>{props.children}</Fragment>
@@ -36,7 +36,7 @@ export const InviteToEditButton: React.FC<InviteToEditButtonProps> = props => {
 
   return (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-    <div css={inviteTeamWrapper}>
+    <div css={inviteTeamWrapperStyles}>
       <Wrapper>
         <ToolbarButton
           className="invite-to-edit"

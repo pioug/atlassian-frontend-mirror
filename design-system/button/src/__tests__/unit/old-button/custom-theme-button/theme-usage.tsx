@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { CSSObject, jsx } from '@emotion/react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { CustomThemeButton, CustomThemeButtonProps } from '../../../../index';
 import { hasStyleRule } from '../../_util/style-rules';
@@ -31,17 +31,17 @@ const OurButton = (props: CustomThemeButtonProps) => (
 );
 
 it('should render button styles defined in custom theme', () => {
-  const { getByTestId } = render(<OurButton />);
+  render(<OurButton>Save</OurButton>);
 
-  const button = getByTestId('button');
+  const button = screen.getByTestId('button');
 
   expect(hasStyleRule(`.${button.className}`, additions)).toBe(true);
 });
 
 it('should render button styles defined in ADG theme if no custom theme passed in', () => {
-  const { getByTestId } = render(<CustomThemeButton testId="button" />);
+  render(<CustomThemeButton testId="button">Save</CustomThemeButton>);
 
-  const button = getByTestId('button');
+  const button = screen.getByTestId('button');
 
   expect(hasStyleRule(`.${button.className}`, { display: 'inline-flex' })).toBe(
     true,

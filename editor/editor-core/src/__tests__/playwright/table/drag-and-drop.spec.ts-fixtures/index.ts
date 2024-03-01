@@ -215,6 +215,7 @@ export const simpleTable = {
     },
   ],
 };
+
 export const simpleTableNestedInExpand = {
   version: 1,
   type: 'doc',
@@ -847,6 +848,627 @@ export const simpleTableWithMergedCell = {
     },
   ],
 };
+
+export const simpleTableWithMergedCells = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'abc-123',
+        width: null,
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'aa',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                rowspan: 2,
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ab',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ba',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ac',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#b3d4ff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'bb',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#b3d4ff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'bc',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ca',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'cb',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'cc',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
+export const simpleTableWithMergedCellsInExpand = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'expand',
+      attrs: {
+        title: 'Expand title',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'abc-123',
+            width: null,
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'aa',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    rowspan: 2,
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ab',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ba',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ac',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ca',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    },
+  ],
+};
+
+export const simpleTableWithMergedCellsInExtension = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'bodiedExtension',
+      attrs: {
+        extensionType: 'com.atlassian.confluence.macro.core',
+        extensionKey: 'excerpt',
+        parameters: {
+          macroParams: {
+            hidden: {
+              value: 'false',
+            },
+          },
+        },
+        layout: 'default',
+        localId: 'testId',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'abc-123',
+            width: null,
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'aa',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    rowspan: 2,
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ab',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ba',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ac',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ca',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    },
+  ],
+};
+
 export const simpleTableWithMergedCellInExpand = {
   version: 1,
   type: 'doc',
@@ -3428,103 +4050,6 @@ export const expectedDocSimpleTableForColumnInMacro = doc(
   })(expectedSimpleTableForColumn, p()),
 );
 
-const expectedSimpleTableWithMergedCellForRow = table({
-  isNumberColumnEnabled: false,
-  layout: 'default',
-  localId: '',
-  // @ts-ignore
-  width: null,
-})(
-  tr(
-    th({ rowspan: 2, background: '#deebff' })(p(strong('aa')), p('ba')),
-    th({ background: '#deebff' })(p(strong('ab'))),
-    th({ background: '#deebff' })(p(strong('ac'))),
-  ),
-  tr(
-    td({ background: '#b3d4ff' })(p('bb')),
-    td({ background: '#b3d4ff' })(p('bc')),
-  ),
-  tr(
-    td({ background: '#4c9aff' })(p('ca')),
-    td({ background: '#4c9aff' })(p('cb')),
-    td({ background: '#4c9aff' })(p('cc')),
-  ),
-);
-
-export const expectedDocSimpleTableWithMergedCellForRow = doc(
-  expectedSimpleTableWithMergedCellForRow,
-  p(),
-);
-export const expectedDocSimpleTableWithMergedCellForRowInExpand = doc(
-  expand({ title: 'Expand title' })(
-    expectedSimpleTableWithMergedCellForRow,
-    p(),
-  ),
-);
-export const expectedDocSimpleTableWithMergedCellForRowInMacro = doc(
-  bodiedExtension({
-    extensionType: 'com.atlassian.confluence.macro.core',
-    extensionKey: 'excerpt',
-    layout: 'default',
-    localId: 'testId',
-    parameters: {
-      macroParams: {
-        hidden: {
-          value: 'false',
-        },
-      },
-    },
-  })(expectedSimpleTableWithMergedCellForRow, p()),
-);
-
-const expectedSimpleTableWithMergedCellForColumn = table({
-  isNumberColumnEnabled: false,
-  layout: 'default',
-})(
-  tr(
-    th({ rowspan: 2, background: '#deebff' })(p(strong('aa')), p('ba')),
-    th({ background: '#deebff' })(p(strong('ab'))),
-    th({ background: '#deebff' })(p(strong('ac'))),
-  ),
-  tr(
-    td({ background: '#b3d4ff' })(p('bb')),
-    td({ background: '#b3d4ff' })(p('bc')),
-  ),
-  tr(
-    td({ background: '#4c9aff' })(p('ca')),
-    td({ background: '#4c9aff' })(p('cb')),
-    td({ background: '#4c9aff' })(p('cc')),
-  ),
-);
-
-export const expectedDocSimpleTableWithMergedCellForColumn = doc(
-  expectedSimpleTableWithMergedCellForColumn,
-  p(),
-);
-
-export const expectedDocSimpleTableWithMergedCellForColumnInExpand = doc(
-  expand({ title: 'Expand title' })(
-    expectedSimpleTableWithMergedCellForColumn,
-    p(),
-  ),
-);
-
-export const expectedDocSimpleTableWithMergedCellForColumnInMacro = doc(
-  bodiedExtension({
-    extensionType: 'com.atlassian.confluence.macro.core',
-    extensionKey: 'excerpt',
-    layout: 'default',
-    localId: 'testId',
-    parameters: {
-      macroParams: {
-        hidden: {
-          value: 'false',
-        },
-      },
-    },
-  })(expectedSimpleTableWithMergedCellForColumn, p()),
-);
-
 const expectedFourByFourTableForRow = table({
   isNumberColumnEnabled: false,
   layout: 'default',
@@ -3638,3 +4163,593 @@ export const expectedDocFourByFourTableForColumnInMacro = doc(
     },
   })(expectedFourByFourTableForColumn, p()),
 );
+
+export const simpleTableWithMergedCellNotInFirstRow = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: 'abc-123',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'aa',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ab',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {
+                background: '#deebff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ac',
+                      marks: [
+                        {
+                          type: 'strong',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                colspan: 2,
+                background: '#b3d4ff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ba',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#b3d4ff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'bc',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'ca',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'cb',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {
+                background: '#4c9aff',
+              },
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      type: 'text',
+                      text: 'cc',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
+export const simpleTableWithMergedCellNotInFirstRowInExpand = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'expand',
+      attrs: {
+        title: 'Expand title',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'abc-123',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'aa',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ab',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ac',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colspan: 2,
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ba',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ca',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    },
+  ],
+};
+
+export const simpleTableWithMergedCellNotInFirstRowInExtension = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'bodiedExtension',
+      attrs: {
+        extensionType: 'com.atlassian.confluence.macro.core',
+        extensionKey: 'excerpt',
+        parameters: {
+          macroParams: {
+            hidden: {
+              value: 'false',
+            },
+          },
+        },
+        layout: 'default',
+        localId: 'testId',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'abc-123',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'aa',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ab',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    background: '#deebff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ac',
+                          marks: [
+                            {
+                              type: 'strong',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colspan: 2,
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ba',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#b3d4ff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'bc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'ca',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cb',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    background: '#4c9aff',
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cc',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'paragraph',
+          content: [],
+        },
+      ],
+    },
+  ],
+};

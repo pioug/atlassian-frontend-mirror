@@ -331,7 +331,7 @@ export default {
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions‌؜؜⁫؜⁭⁫‍⁡⁭⁯‍⁯؜‌⁫‍⁬⁫⁯⁣⁤',
   'fabric.editor.panel.backgroundColor': '⁣⁢Background color⁯⁭‍⁪‌⁭⁠⁪⁠⁭‌⁪⁫‌⁮⁮‍⁬⁪‍⁮⁠⁫⁠⁣⁤',
   'fabric.editor.panel.emoji': '⁣⁢Add emoji⁠؜‍‍⁪⁯⁫‌⁠⁭؜⁠⁮⁭⁯؜⁪؜⁮⁭⁮⁯‍⁣⁤',
-  'fabric.editor.pasteOptions': '⁣⁢Paste options floating controls⁭‌⁠‌⁠⁡⁡⁮⁡⁫‍⁪؜⁫⁠؜⁬⁮⁬⁮⁫؜⁣⁤',
+  'fabric.editor.pasteOptions': 'Paste options⁠‌⁠⁡⁡⁮⁡⁫‍⁪؜⁫⁠؜⁬⁮⁬⁮⁫؜⁣⁤',
   'fabric.editor.pastePlainText': '⁣⁢Paste plain text؜⁬⁪؜‍⁮⁬⁯‌⁪‌⁫⁡‍‌⁠‌‍‌⁣⁤',
   'fabric.editor.placeholderAltText': '⁣⁢Describe this image with alt text⁬؜⁠‌‌⁯⁡‍‍‌⁫⁪⁠⁮⁬؜⁭⁬‍‌⁣⁤',
   'fabric.editor.placeholderText': '⁣⁢Placeholder text⁮⁬⁭⁯⁠؜‌؜⁯⁯⁫⁮‌⁬‌⁬‌⁮‌⁠⁪‍⁣⁤',

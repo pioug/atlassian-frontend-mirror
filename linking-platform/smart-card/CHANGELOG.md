@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.48.4
+
+### Patch Changes
+
+- [#76818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76818) [`0752383c4c98`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0752383c4c98) - Fix embed unresolved view not respecting frameStyle prop
+
+## 26.48.3
+
+### Patch Changes
+
+- [#76801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76801) [`22c2b23f0f4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22c2b23f0f4a) - Allow multiple subscribers to the same AI Summary Service.
+
 ## 26.48.2
 
 ### Patch Changes

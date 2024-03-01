@@ -181,6 +181,12 @@ interface BaseProps {
    * Defaults to `false`.
    */
   shouldRenderToParent?: boolean;
+
+  /**
+   * Allows the Popup disable focus lock. Will only work when shouldRenderToParent is true.
+   * Defaults to `false`.
+   */
+  shouldDisableFocusLock?: boolean;
 }
 
 export interface PopupProps extends BaseProps {
@@ -207,11 +213,13 @@ export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose'> & {
   popupRef: PopupRef;
   triggerRef: TriggerRef;
   shouldUseCaptureOnOutsideClick?: boolean;
+  shouldCloseOnTab?: boolean;
 };
 
 export type FocusManagerHook = {
   initialFocusRef: HTMLElement | null;
   popupRef: PopupRef;
+  shouldCloseOnTab?: boolean;
 };
 
 export type RepositionOnUpdateProps = {

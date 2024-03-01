@@ -45,7 +45,7 @@ export const Template = ({
   const [isSearching, setIsSearching] = useState(false);
 
   const onSearch = useCallback(
-    (...args) => {
+    (...args: any[]) => {
       action('search')(...args);
       setIsSearching(true);
       setTimeout(() => {
@@ -55,7 +55,7 @@ export const Template = ({
     [setIsSearching],
   );
 
-  const onUpdate = useCallback((...args) => {
+  const onUpdate = useCallback((...args: any[]) => {
     action('update')(...args);
   }, []);
 

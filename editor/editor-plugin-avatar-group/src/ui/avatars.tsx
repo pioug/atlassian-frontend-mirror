@@ -28,7 +28,7 @@ import type {
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { avatarContainer } from './styles';
+import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';
 
 export interface AvatarsProps {
@@ -85,7 +85,7 @@ export const Avatars = React.memo((props: AvatarsProps) => {
 
   return (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-    <div css={avatarContainer}>
+    <div css={avatarContainerStyles}>
       <AvatarGroup
         appearance="stack"
         size="medium"

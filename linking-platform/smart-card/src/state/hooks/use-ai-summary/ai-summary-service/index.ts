@@ -17,7 +17,7 @@ export class AISummaryService implements AISummaryServiceInt {
   };
   private config: AISummaryServiceConfig;
   private url: string;
-  private subscribedStateSetter: StateSetter = (state) => {};
+  private subscribedStateSetters = new Set<StateSetter>();
 
   constructor(props: AISummaryServiceProps) {
     const defaultConfig: AISummaryServiceConfig = {
@@ -67,7 +67,10 @@ export class AISummaryService implements AISummaryServiceInt {
       ...this.state,
       status: 'loading',
     };
-    this.subscribedStateSetter(this.state);
+
+    for (const subscriber of this.subscribedStateSetters) {
+      subscriber(this.state);
+    }
 
     const stream = await this.fetchStream<StreamMessage>(summaryStyle);
 
@@ -75,7 +78,10 @@ export class AISummaryService implements AISummaryServiceInt {
     for await (const chunk of stream) {
       if (chunk.type === 'ANSWER_PART') {
         bufferContent += chunk.message.content;
-        this.subscribedStateSetter({ ...this.state, content: bufferContent });
+
+        for (const subscriber of this.subscribedStateSetters) {
+          subscriber({ ...this.state, content: bufferContent });
+        }
       }
     }
 
@@ -83,10 +89,16 @@ export class AISummaryService implements AISummaryServiceInt {
       status: 'done',
       content: bufferContent,
     };
-    this.subscribedStateSetter(this.state);
+
+    for (const subscriber of this.subscribedStateSetters) {
+      subscriber(this.state);
+    }
   }
 
   public subscribe(stateSetter: StateSetter) {
-    this.subscribedStateSetter = stateSetter;
+    this.subscribedStateSetters.add(stateSetter);
+    return () => {
+      this.subscribedStateSetters.delete(stateSetter);
+    };
   }
 }

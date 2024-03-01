@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '../../../old-button/button';
 
@@ -12,23 +12,24 @@ types.forEach((tag: React.ElementType) => {
     it('should call event.prevent default on mouse down to prevent the button getting focus', () => {
       // create a random button that will have focus
       const el: HTMLElement = document.createElement('button');
+      el.innerText = 'Save';
       document.body.appendChild(el);
       el.focus();
-      expect(el).toBe(document.activeElement);
+      expect(el).toHaveFocus();
 
-      const { getByTestId } = render(
+      render(
         <Button testId="button" component={tag}>
           Hello
         </Button>,
       );
-      const button: HTMLElement = getByTestId('button');
+      const button: HTMLElement = screen.getByTestId('button');
 
       // event prevented
       const allowed: boolean = fireEvent.mouseDown(button);
       expect(allowed).toBe(false);
 
       // focus not lost from original element
-      expect(el).toBe(document.activeElement);
+      expect(el).toHaveFocus();
     });
   });
 });

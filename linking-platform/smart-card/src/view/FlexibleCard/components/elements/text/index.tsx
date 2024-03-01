@@ -4,10 +4,10 @@ import { css, jsx } from '@emotion/react';
 
 import { TextProps } from './types';
 import { getFormattedMessage, getTruncateStyles } from '../../utils';
-import { tokens } from '../../../../../utils/token';
+import { token } from '@atlaskit/tokens';
 
 const getStyles = (maxLines: number) => css`
-  color: ${tokens.text};
+  color: ${token('color.text.subtlest', '#626F86')};
   font-size: 0.75rem;
   line-height: 1rem;
   white-space: normal;

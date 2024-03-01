@@ -127,14 +127,21 @@ export class TableMap {
   height: number;
   map: number[];
   problems?: TableProblem[] | null;
+  mapByColumn: number[][] = [];
+  mapByRow: number[][] = [];
+
   constructor(
     width: number,
     height: number,
     map: number[],
     problems?: TableProblem[] | null,
+    mapByColumn?: number[][],
+    mapByRow?: number[][],
   ) {
     this.width = width;
     this.height = height;
+    this.mapByColumn = mapByColumn || [];
+    this.mapByRow = mapByRow || [];
     // :: [number] A width * height array with the start position of
     // the cell covering that part of the table in each slot
     this.map = map;
@@ -318,6 +325,11 @@ export class TableMap {
     }
   }
 
+  hasMergedCells() {
+    const uniquePositions = new Set(this.map);
+    return uniquePositions.size !== this.map.length;
+  }
+
   // :: (Node) → TableMap
   // Find the table map for the given table node.
   static get(table: PMNode) {
@@ -410,7 +422,29 @@ function computeMap(table: PMNode) {
     pos++;
   }
 
-  let tableMap = new TableMap(width, height, map, problems);
+  let mapByRow: number[][] = Array(height);
+  let mapByColumn: number[][] = Array(width);
+
+  for (let i = 0; i < map.length; i++) {
+    const columnIndex = i % width;
+
+    mapByColumn[columnIndex] = mapByColumn[columnIndex] ?? [];
+    mapByColumn[columnIndex].push(map[i]);
+
+    const rowIndex = Math.trunc(i / width);
+
+    mapByRow[rowIndex] = mapByRow[rowIndex] ?? [];
+    mapByRow[rowIndex].push(map[i]);
+  }
+
+  let tableMap = new TableMap(
+    width,
+    height,
+    map,
+    problems,
+    mapByColumn,
+    mapByRow,
+  );
   let badWidths = false;
 
   // For columns that have defined widths, but whose widths disagree

@@ -31,12 +31,6 @@ import {
   expectedDocSimpleTableForRow,
   expectedDocSimpleTableForRowInExpand,
   expectedDocSimpleTableForRowInMacro,
-  expectedDocSimpleTableWithMergedCellForColumn,
-  expectedDocSimpleTableWithMergedCellForColumnInExpand,
-  expectedDocSimpleTableWithMergedCellForColumnInMacro,
-  expectedDocSimpleTableWithMergedCellForRow,
-  expectedDocSimpleTableWithMergedCellForRowInExpand,
-  expectedDocSimpleTableWithMergedCellForRowInMacro,
   expectedDocTableWithVerticalScrollForColumn,
   expectedDocTableWithVerticalScrollForRow,
   fourByFourTable,
@@ -45,9 +39,6 @@ import {
   simpleTable,
   simpleTableNestedInExpand,
   simpleTableNestedInMacro,
-  simpleTableWithMergedCell,
-  simpleTableWithMergedCellInExpand,
-  simpleTableWithMergedCellInMacro,
   tableWithVerticalScroll,
 } from './drag-and-drop.spec.ts-fixtures';
 
@@ -70,97 +61,67 @@ test.use({
   },
 });
 
-const getFixturesForBasicScenarios: Record<
-  string,
-  {
-    adf: string | Record<string, unknown> | Node;
-    expected: { row: DocBuilder; column: DocBuilder };
-  }
-> = {
-  'standalone table': {
-    adf: simpleTable,
-    expected: {
-      row: expectedDocSimpleTableForRow,
-      column: expectedDocSimpleTableForColumn,
-    },
-  },
-  'table nested in expand': {
-    adf: simpleTableNestedInExpand,
-    expected: {
-      row: expectedDocSimpleTableForRowInExpand,
-      column: expectedDocSimpleTableForColumnInExpand,
-    },
-  },
-  'table nested in macro': {
-    adf: simpleTableNestedInMacro,
-    expected: {
-      row: expectedDocSimpleTableForRowInMacro,
-      column: expectedDocSimpleTableForColumnInMacro,
-    },
-  },
-};
-
-const getFixturesForMergedCellScenarios: Record<
-  string,
-  {
-    adf: string | Record<string, unknown> | Node;
-    expected: { row: DocBuilder; column: DocBuilder };
-  }
-> = {
-  'standalone table with merged cell': {
-    adf: simpleTableWithMergedCell,
-    expected: {
-      row: expectedDocSimpleTableWithMergedCellForRow,
-      column: expectedDocSimpleTableWithMergedCellForColumn,
-    },
-  },
-  'table with merged cell nested in expand': {
-    adf: simpleTableWithMergedCellInExpand,
-    expected: {
-      row: expectedDocSimpleTableWithMergedCellForRowInExpand,
-      column: expectedDocSimpleTableWithMergedCellForColumnInExpand,
-    },
-  },
-  'table with merged cell nested in macro': {
-    adf: simpleTableWithMergedCellInMacro,
-    expected: {
-      row: expectedDocSimpleTableWithMergedCellForRowInMacro,
-      column: expectedDocSimpleTableWithMergedCellForColumnInMacro,
-    },
-  },
-};
-
-const getFixturesForMultipleRowsScenarios: Record<
-  string,
-  {
-    adf: string | Record<string, unknown> | Node;
-    expected: { row: DocBuilder; column: DocBuilder };
-  }
-> = {
-  'standalone table': {
-    adf: fourByFourTable,
-    expected: {
-      row: expectedDocFourByFourTableForRow,
-      column: expectedDocFourByFourTableForColumn,
-    },
-  },
-  'table nested in expand': {
-    adf: fourByFourTableNestedInExpand,
-    expected: {
-      row: expectedDocFourByFourTableForRowInExpand,
-      column: expectedDocFourByFourTableForColumnInExpand,
-    },
-  },
-  'table nested in macro': {
-    adf: fourByFourTableNestedInMacro,
-    expected: {
-      row: expectedDocFourByFourTableForRowInMacro,
-      column: expectedDocFourByFourTableForColumnInMacro,
-    },
-  },
-};
-
 test.describe('drag and drop', () => {
+  const getFixturesForBasicScenarios: Record<
+    string,
+    {
+      adf: string | Record<string, unknown> | Node;
+      expected: { row: DocBuilder; column: DocBuilder };
+    }
+  > = {
+    'standalone table': {
+      adf: simpleTable,
+      expected: {
+        row: expectedDocSimpleTableForRow,
+        column: expectedDocSimpleTableForColumn,
+      },
+    },
+    'table nested in expand': {
+      adf: simpleTableNestedInExpand,
+      expected: {
+        row: expectedDocSimpleTableForRowInExpand,
+        column: expectedDocSimpleTableForColumnInExpand,
+      },
+    },
+    'table nested in macro': {
+      adf: simpleTableNestedInMacro,
+      expected: {
+        row: expectedDocSimpleTableForRowInMacro,
+        column: expectedDocSimpleTableForColumnInMacro,
+      },
+    },
+  };
+
+  const getFixturesForMultipleRowsScenarios: Record<
+    string,
+    {
+      adf: string | Record<string, unknown> | Node;
+      expected: { row: DocBuilder; column: DocBuilder };
+    }
+  > = {
+    'standalone table': {
+      adf: fourByFourTable,
+      expected: {
+        row: expectedDocFourByFourTableForRow,
+        column: expectedDocFourByFourTableForColumn,
+      },
+    },
+    'table nested in expand': {
+      adf: fourByFourTableNestedInExpand,
+      expected: {
+        row: expectedDocFourByFourTableForRowInExpand,
+        column: expectedDocFourByFourTableForColumnInExpand,
+      },
+    },
+    'table nested in macro': {
+      adf: fourByFourTableNestedInMacro,
+      expected: {
+        row: expectedDocFourByFourTableForRowInMacro,
+        column: expectedDocFourByFourTableForColumnInMacro,
+      },
+    },
+  };
+
   test.describe('row', () => {
     for (const [key, value] of Object.entries(getFixturesForBasicScenarios)) {
       test.describe('basic functionality', () => {
@@ -181,37 +142,6 @@ test.describe('drag and drop', () => {
           const tableModel = EditorTableModel.from(nodes.table);
           await editor.selection.set({ anchor: 5, head: 5 }); // make sure focus is within table
 
-          const firstRow = await tableModel.rowDragControls(0);
-          const cell = await tableModel.cell(0);
-
-          await cell.hover();
-          await firstRow.dragTo(1, editor);
-
-          await expect(editor).toMatchDocument(value.expected.row);
-        });
-      });
-    }
-
-    for (const [key, value] of Object.entries(
-      getFixturesForMergedCellScenarios,
-    )) {
-      test.describe('table with merged cells', () => {
-        test.use({
-          adf: value.adf,
-        });
-
-        test(`should not be able to drag first row when there are merged cells in ${key}`, async ({
-          editor,
-        }) => {
-          fixTest({
-            jiraIssueId: 'ED-22272',
-            reason:
-              'Locator.hover() flaky in webkit, also flaky to find editor.page, setting up tests in before hooks, etc.',
-            browsers: [BROWSERS.webkit],
-          });
-          const nodes = EditorNodeContainerModel.from(editor);
-          const tableModel = EditorTableModel.from(nodes.table);
-          await editor.selection.set({ anchor: 5, head: 5 }); // make sure focus is within table
           const firstRow = await tableModel.rowDragControls(0);
           const cell = await tableModel.cell(0);
 
@@ -335,37 +265,6 @@ test.describe('drag and drop', () => {
     }
 
     for (const [key, value] of Object.entries(
-      getFixturesForMergedCellScenarios,
-    )) {
-      test.describe('table with merged cells', () => {
-        test.use({
-          adf: value.adf,
-        });
-        test(`should not be able to drag first column when there are merged cells in ${key}`, async ({
-          editor,
-        }) => {
-          fixTest({
-            jiraIssueId: 'ED-22272',
-            reason:
-              'Locator.hover() flaky in webkit, also flaky to find editor.page, setting up tests in before hooks, etc.',
-            browsers: [BROWSERS.webkit],
-          });
-          const nodes = EditorNodeContainerModel.from(editor);
-          const tableModel = EditorTableModel.from(nodes.table);
-          await editor.selection.set({ anchor: 5, head: 5 }); // make sure focus is within table
-
-          const firstColumn = await tableModel.columnDragControls(0);
-          const cell = await tableModel.cell(0);
-
-          await cell.hover();
-          await firstColumn.dragTo(1, editor);
-
-          await expect(editor).toMatchDocument(value.expected.column);
-        });
-      });
-    }
-
-    for (const [key, value] of Object.entries(
       getFixturesForMultipleRowsScenarios,
     )) {
       test.describe('multiple columns', () => {
@@ -449,6 +348,7 @@ test.describe('drag and drop', () => {
     test.use({
       adf: simpleTable,
     });
+
     test('should be able to drag first row and drop on second row outside the table border', async ({
       editor,
     }) => {

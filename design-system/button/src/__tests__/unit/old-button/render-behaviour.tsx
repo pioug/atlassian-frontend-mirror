@@ -13,7 +13,7 @@ forEachType(({ name, Component }) => {
     }
 
     render(
-      <Component>
+      <Component aria-label="Save">
         <App />
       </Component>,
     );

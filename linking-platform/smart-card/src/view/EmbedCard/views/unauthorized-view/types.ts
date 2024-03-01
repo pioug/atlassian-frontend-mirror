@@ -1,11 +1,8 @@
 import type { AnalyticsFacade } from '../../../../state/analytics';
-import { ContextViewModel } from '../../types';
-import { UnresolvedViewProps } from '../unresolved-view/types';
+import type { ContextViewModel } from '../../types';
+import type { UnresolvedViewCardProps } from '../unresolved-view/types';
 
-export type UnauthorizedViewProps = Pick<
-  UnresolvedViewProps,
-  'inheritDimensions' | 'isSelected' | 'onClick' | 'testId' | 'url'
-> & {
+export type UnauthorizedViewProps = UnresolvedViewCardProps & {
   analytics: AnalyticsFacade;
   context?: ContextViewModel;
   extensionKey?: string;

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.6
+
+### Patch Changes
+
+- [#75436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75436) [`bfcf32bb4fa3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfcf32bb4fa3) - [ux] ED-21941 Disable resize/layout options for table, media and extension when added to MBE. Table rendering fixed for Confluence editor
+
 ## 1.0.5
 
 ### Patch Changes

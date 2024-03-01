@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -24,13 +24,15 @@ it('should fire an event on the public channel and the internal channel', () => 
             ) => {
               analyticsEvent.fire();
             }}
-          />
+          >
+            Save
+          </Button>
         </AnalyticsListener>
       </AnalyticsListener>
     );
   }
-  const { getByTestId } = render(<WithBoth />);
-  const button: HTMLElement = getByTestId('button');
+  render(<WithBoth />);
+  const button: HTMLElement = screen.getByTestId('button');
 
   fireEvent.click(button);
 
@@ -83,21 +85,23 @@ it('should allow the addition of additional context', () => {
           ) => {
             analyticsEvent.fire();
           }}
-        />
+        >
+          Save
+        </Button>
       </AnalyticsListener>
     );
   }
 
   const onEvent = jest.fn();
   const extraContext = { hello: 'world' };
-  const { getByTestId } = render(
+  render(
     <App
       onEvent={onEvent}
       channel="atlaskit"
       analyticsContext={extraContext}
     />,
   );
-  const button: HTMLElement = getByTestId('button');
+  const button: HTMLElement = screen.getByTestId('button');
 
   fireEvent.click(button);
 
@@ -128,9 +132,13 @@ it('should allow the addition of additional context', () => {
 it('should not error if there is no analytics provider', () => {
   const error = jest.spyOn(console, 'error');
   const onClick = jest.fn();
-  const { getByTestId } = render(<Button testId="button" onClick={onClick} />);
+  render(
+    <Button testId="button" onClick={onClick}>
+      Save
+    </Button>,
+  );
 
-  const button: HTMLElement = getByTestId('button');
+  const button: HTMLElement = screen.getByTestId('button');
   fireEvent.click(button);
 
   expect(error).not.toHaveBeenCalled();

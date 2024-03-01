@@ -5,12 +5,12 @@ import { css, jsx } from '@emotion/react';
 
 import { DateTimeProps, DateTimeType } from './types';
 import { getTruncateStyles } from '../../utils';
-import { tokens } from '../../../../../utils/token';
+import { token } from '@atlaskit/tokens';
 import { selectUnit } from '@formatjs/intl-utils';
 import { messages } from '../../../../../messages';
 
 const styles = css`
-  color: ${tokens.text};
+  color: ${token('color.text.subtlest', '#626F86')};
   font-size: 0.75rem;
   line-height: 1rem;
   ${getTruncateStyles(1)}

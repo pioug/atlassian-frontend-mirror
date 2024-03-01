@@ -12,6 +12,7 @@ import { Flex, xcss } from '@atlaskit/primitives';
 import {
   BasicFilterFieldType,
   SelectedOptionsMap,
+  SelectOption,
 } from '../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
 
@@ -37,7 +38,7 @@ export default () => {
   });
 
   const handleSelectionChange = useCallback(
-    (filter, options) => {
+    (filter: BasicFilterFieldType, options: SelectOption[]) => {
       const updatedSelection = {
         ...selection,
         [filter]: options,

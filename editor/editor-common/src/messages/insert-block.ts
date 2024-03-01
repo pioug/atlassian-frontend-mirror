@@ -85,8 +85,8 @@ export const toolbarInsertBlockMessages = defineMessages({
   },
   tableSizeSelectorButton: {
     id: 'fabric.editor.tableSizeSelectorButton',
-    defaultMessage: 'Create table of size',
-    description: 'Creates table popup grid of defined size',
+    defaultMessage: '{numberOfColumns} by {numberOfRows}',
+    description: 'Creates a table of custom size',
   },
   tableSizeSelectorPopup: {
     id: 'fabric.editor.tableSizeSelectorPopup',

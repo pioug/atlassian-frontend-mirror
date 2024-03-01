@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
+import { autoA11yCheck } from '@af/accessibility-testing';
 
 import SVG from '../../../entry-points/svg';
 import LikeIcon from '../../../../glyph/like';
@@ -10,13 +10,13 @@ import type { CustomGlyphProps, SVGProps } from '../../../types';
 import Icon from '../../../index';
 
 it('Basic icon with empty label string should not fail aXe audit', async () => {
-  const { container } = render(<LikeIcon label="" />);
-  await axe(container);
+  render(<LikeIcon label="" />);
+  await autoA11yCheck();
 });
 
 it('Basic icon with label string should not fail aXe audit', async () => {
-  const { container } = render(<LikeIcon label="Like" />);
-  await axe(container);
+  render(<LikeIcon label="Like" />);
+  await autoA11yCheck();
 });
 
 it('Custom icon should not fail aXe audit', async () => {
@@ -36,9 +36,9 @@ it('Custom icon should not fail aXe audit', async () => {
     </svg>
   );
 
-  const { container } = render(<Icon glyph={CustomGlyph} label="" />);
+  render(<Icon glyph={CustomGlyph} label="" />);
 
-  await axe(container);
+  await autoA11yCheck();
 });
 
 it('Custom SVG should not fail aXe audit', async () => {
@@ -54,7 +54,7 @@ it('Custom SVG should not fail aXe audit', async () => {
     );
   };
 
-  const { container } = render(
+  render(
     <div>
       <CustomSVGExample primaryColor={'#FFFFFF'} size="small" label="spinner" />
       <CustomSVGExample
@@ -73,5 +73,5 @@ it('Custom SVG should not fail aXe audit', async () => {
     </div>,
   );
 
-  await axe(container);
+  await autoA11yCheck();
 });

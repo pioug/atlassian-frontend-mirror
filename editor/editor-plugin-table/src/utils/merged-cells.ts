@@ -225,3 +225,107 @@ export const hasMergedCellsWithRowNextToRowIndex = (
 
   return false;
 };
+
+export const hasMergedCellsInSelection =
+  (indexes: number[], type: MergeType) =>
+  (selection: Selection): boolean => {
+    const table = findTable(selection);
+    if (!table) {
+      return false;
+    }
+
+    const map = TableMap.get(table.node);
+
+    if (!map.hasMergedCells()) {
+      return false;
+    }
+
+    return checkEdgeHasMergedCells(indexes, map, type);
+  };
+
+/**
+ * handle table map by preprocess table's map row or column.
+ *
+ * @param map TableMap
+ * @returns object including mapByRow and mapByColumn
+ */
+export const getTableMapByRowOrColumn = (map: TableMap) => {
+  let mapByRow = Array(map.height);
+  let mapByColumn = Array(map.width);
+
+  const mapCopy = [...map.map];
+
+  for (let i = 0; i < mapCopy.length; i++) {
+    const columnIndex = i % map.width;
+    mapByColumn[columnIndex] = [
+      ...(mapByColumn[columnIndex] ?? []),
+      mapCopy[i],
+    ];
+    const rowIndex = Math.trunc(i / map.width);
+    mapByRow[rowIndex] = [...(mapByRow[rowIndex] ?? []), mapCopy[i]];
+  }
+
+  return { mapByRow, mapByColumn };
+};
+
+/**
+ * this check the selection has merged cells with previous/next col or row.
+ *
+ * @param indexes - this get the indexes of the selection,e.g. [0,1] for selecting first two rows or columns.
+ * @param tableMap  - this return a TableMap object.
+ * @param direction - check selection is selected by row or column
+ * @returns boolean
+ */
+export const checkEdgeHasMergedCells = (
+  indexes: number[],
+  tableMap: TableMap,
+  direction: 'row' | 'column',
+): boolean => {
+  const { mapByRow, mapByColumn } = getTableMapByRowOrColumn(tableMap);
+  const map = 'row' === direction ? mapByRow : mapByColumn;
+  const lengthLimiter = direction === 'row' ? tableMap.width : tableMap.height;
+
+  let minIndex = Math.min(...indexes);
+  let maxIndex = Math.max(...indexes);
+  let isTopSideHaveMergedCells = false;
+  let isBottomSideHaveMergedCells = false;
+  let isOldMinIndex = !map[minIndex - 1] && !map[minIndex];
+  let isOldMaxIndex = !map[maxIndex + 1] && !map[maxIndex];
+
+  if (minIndex > 0 && !isOldMinIndex) {
+    const prevSelectionSet = map[minIndex - 1];
+    const minSelectionSet = map[minIndex];
+    for (let i = 0; i < lengthLimiter; i++) {
+      if (prevSelectionSet[i] === minSelectionSet[i]) {
+        isTopSideHaveMergedCells = true;
+        break;
+      }
+    }
+  }
+
+  if (maxIndex < map.length - 1 && !isOldMaxIndex) {
+    const afterSelectionSet = map[maxIndex + 1];
+    const maxSelectionSet = map[maxIndex];
+
+    for (let i = 0; i < lengthLimiter; i++) {
+      if (afterSelectionSet[i] === maxSelectionSet[i]) {
+        isBottomSideHaveMergedCells = true;
+        break;
+      }
+    }
+  }
+  return isTopSideHaveMergedCells || isBottomSideHaveMergedCells;
+};
+
+/**
+ * this function will find the duplicate position in the array(table map position array).
+ *
+ * @param array this usually be the array including positions of the table map.
+ * @returns []
+ */
+export const findDuplicatePosition = (array: number[]): number[] => {
+  if (!array) {
+    return [];
+  }
+  return array.filter((item, index) => array.indexOf(item) !== index);
+};

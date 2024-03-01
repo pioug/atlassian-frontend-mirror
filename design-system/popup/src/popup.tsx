@@ -40,6 +40,7 @@ export const Popup: FC<PopupProps> = memo(
     zIndex = defaultLayer,
     shouldUseCaptureOnOutsideClick = false,
     shouldRenderToParent = false,
+    shouldDisableFocusLock = false,
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
@@ -95,6 +96,7 @@ export const Popup: FC<PopupProps> = memo(
           autoFocus={autoFocus}
           shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
           shouldRenderToParent={shouldRenderToParent}
+          shouldDisableFocusLock={shouldDisableFocusLock}
           triggerRef={triggerRef}
         />
       </UNSAFE_LAYERING>

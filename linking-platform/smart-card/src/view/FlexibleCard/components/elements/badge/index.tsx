@@ -4,7 +4,7 @@ import { MessageDescriptor } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 
 import { BadgeProps } from './types';
-import { tokens } from '../../../../../utils/token';
+import { token } from '@atlaskit/tokens';
 import { getFormattedMessage, getIconSizeStyles } from '../../utils';
 import { IconType } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -18,7 +18,7 @@ const badgeStyles = css`
 `;
 
 const iconStyles = css`
-  color: ${tokens.badgeIcon};
+  color: ${token('color.icon.subtle', '#626F86')};
   line-height: 0;
   vertical-align: middle;
   ${getIconSizeStyles('1rem')}
@@ -31,7 +31,7 @@ const iconStyles = css`
 `;
 
 const labelStyles = css`
-  color: ${tokens.badgeText};
+  color: ${token('color.text.subtlest', '#626F86')};
   font-size: 0.75rem;
   line-height: 1rem;
   padding-left: 0.125rem;

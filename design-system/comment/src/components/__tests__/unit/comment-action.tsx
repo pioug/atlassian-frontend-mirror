@@ -24,7 +24,7 @@ describe('@atlaskit comments', () => {
       });
 
       it('should be able to create a component', async () => {
-        render(<CommentAction />);
+        render(<CommentAction>Reply</CommentAction>);
 
         const buttons = await screen.findAllByRole('button');
 
@@ -34,8 +34,9 @@ describe('@atlaskit comments', () => {
       it('should render a Button containing the children', () => {
         const children = <span>children</span>;
         render(<CommentAction>{children}</CommentAction>);
+        const button = screen.getByRole('button', { name: 'children' });
 
-        expect(screen.getByRole('button').textContent).toBe('children');
+        expect(button).toBeInTheDocument();
       });
 
       it('should pass onClick, onFocus, and onMouseOver functions to button via props', async () => {
@@ -48,7 +49,7 @@ describe('@atlaskit comments', () => {
           onFocus: onFocusMock,
           onMouseOver: onHoverMock,
         };
-        render(<CommentAction {...props} />);
+        render(<CommentAction {...props}>Reply</CommentAction>);
 
         const button = screen.getByRole('button');
 
@@ -62,13 +63,17 @@ describe('@atlaskit comments', () => {
 
       it('should disable button if isDisabled prop set to true', async () => {
         const onClickMock = jest.fn();
-        render(<CommentAction isDisabled={true} onClick={onClickMock} />);
+        render(
+          <CommentAction isDisabled={true} onClick={onClickMock}>
+            Reply
+          </CommentAction>,
+        );
 
         const button = screen.getByRole('button');
 
         await user.click(button);
         expect(onClickMock).not.toHaveBeenCalled();
-        expect(button).toHaveAttribute('disabled');
+        expect(button).toBeDisabled();
       });
     });
   });
@@ -87,7 +92,7 @@ describe('CommentActionWithAnalytics', () => {
   });
 
   it('should mount without errors', () => {
-    render(<CommentActionWithAnalytics />);
+    render(<CommentActionWithAnalytics>Reply</CommentActionWithAnalytics>);
     /* eslint-disable no-console */
     expect(console.warn).not.toHaveBeenCalled();
     expect(console.error).not.toHaveBeenCalled();

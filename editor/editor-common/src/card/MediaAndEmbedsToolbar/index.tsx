@@ -243,6 +243,7 @@ const shouldHideLayoutToolbar = (
   return hasParentNodeOfType(
     [
       nodes.bodiedExtension,
+      nodes.extensionFrame,
       nodes.listItem,
       nodes.expand,
       nodes.nestedExpand,

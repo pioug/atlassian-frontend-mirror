@@ -77,19 +77,29 @@ function PopperWrapper({
   triggerRef,
   shouldUseCaptureOnOutsideClick,
   shouldRenderToParent,
+  shouldDisableFocusLock,
 }: PopperWrapperProps) {
   const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
   const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(
     null,
   );
 
-  useFocusManager({ initialFocusRef, popupRef });
+  // We have cases when we need to prohibit focus locking
+  // e.g. in DropdownMenu
+  const shouldCloseOnTab = shouldRenderToParent && shouldDisableFocusLock;
+
+  useFocusManager({
+    initialFocusRef,
+    popupRef,
+    shouldCloseOnTab,
+  });
   useCloseManager({
     isOpen,
     onClose,
     popupRef,
     triggerRef,
     shouldUseCaptureOnOutsideClick,
+    shouldCloseOnTab,
   });
 
   const { currentLevel } = UNSAFE_useLayering();

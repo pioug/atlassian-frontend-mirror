@@ -1,26 +1,40 @@
 import React from 'react';
 
-import { Label } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
+import Toggle from '@atlaskit/toggle';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const emptyContainerStyles = xcss({
-  height: '100vh',
-});
+import NestedDropdownMenuExample from './12-nested-dropdown';
 
 export default () => (
-  <div>
-    <DropdownMenu trigger="Page actions" testId="dropdown">
-      <DropdownItemGroup>
-        <DropdownItem>Move</DropdownItem>
-        <DropdownItem>Clone</DropdownItem>
-        <DropdownItem>Delete</DropdownItem>
-      </DropdownItemGroup>
-    </DropdownMenu>
-    <Box xcss={emptyContainerStyles}></Box>
-    <Label htmlFor="basic-textfield">Field label</Label>
-    <Textfield name="basic" id="basic-textfield" />
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '25px',
+      margin: '25px',
+    }}
+  >
+    <div style={{ display: 'flex', gap: '25px' }}>
+      <Toggle id="toggle-default-1" />
+      <span>Non-interactive element</span>
+      <DropdownMenu
+        trigger="Page actions"
+        testId="dropdown"
+        shouldRenderToParent
+      >
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>
+      <span>Non-interactive element</span>
+      <Toggle id="toggle-default-2" />
+    </div>
+    <div>
+      <span>Nested dropdown Example</span>
+      <NestedDropdownMenuExample />
+    </div>
   </div>
 );

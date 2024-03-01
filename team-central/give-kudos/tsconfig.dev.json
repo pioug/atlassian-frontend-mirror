@@ -48,6 +48,9 @@
       "path": "../../design-system/flag/tsconfig.app.json"
     },
     {
+      "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {

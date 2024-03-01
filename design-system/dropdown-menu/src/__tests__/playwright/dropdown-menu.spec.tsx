@@ -32,3 +32,77 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({
     page.locator(`#cities button[aria-checked]`).nth(1),
   ).not.toBeChecked();
 });
+
+test.describe('Keyboard navigation', () => {
+  const triggerDataId = 'dropdown--trigger';
+  const contentDataId = 'dropdown--content';
+  const firstToggleId = 'toggle-1';
+
+  // TODO DSP-16638
+  // Enable this testcase after cleaning up the feature flag.
+  // Currently feature flag conditional flow is not supported for Playwright.
+  test.skip('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
+    page,
+  }) => {
+    await page.visitExample(
+      'design-system',
+      'dropdown-menu',
+      'testing-keyboard-navigation',
+    );
+
+    await page.getByTestId(triggerDataId).press('Enter');
+    await expect(page.getByTestId(contentDataId)).toBeVisible();
+
+    await page.getByTestId(contentDataId).press('Tab');
+    await expect(page.getByTestId(contentDataId)).toBeHidden();
+    await expect(page.locator(`#${firstToggleId}`)).toBeFocused();
+  });
+
+  // TODO DSP-16638
+  // Enable this testcase after cleaning up the feature flag.
+  // Currently feature flag conditional flow is not supported for Playwright.
+  test.skip('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
+    page,
+  }) => {
+    await page.visitExample(
+      'design-system',
+      'dropdown-menu',
+      'testing-keyboard-navigation',
+    );
+
+    await page.getByTestId(triggerDataId).press('Enter');
+    await page.getByTestId(contentDataId).press('Shift+Tab');
+
+    await expect(page.getByTestId(contentDataId)).toBeHidden();
+    await expect(page.getByTestId(triggerDataId)).toBeFocused();
+  });
+
+  // TODO DSP-16638
+  // Enable this testcase after cleaning up the feature flag.
+  // Currently feature flag conditional flow is not supported for Playwright.
+  test.skip('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
+    page,
+  }) => {
+    await page.visitExample(
+      'design-system',
+      'dropdown-menu',
+      'testing-keyboard-navigation',
+    );
+
+    await page.getByTestId(triggerDataId).press('Enter');
+    // Should set focus on the first element
+    await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
+
+    await page.getByRole('menuitem', { name: 'Move' }).press('ArrowDown');
+    // Should move focus to the second element
+    await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
+
+    await page.getByRole('menuitem', { name: 'Clone' }).press('ArrowDown');
+    // Should move focus to the first element
+    await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
+
+    await page.getByRole('menuitem', { name: 'Move' }).press('ArrowUp');
+    // Should move focus to the last element
+    await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
+  });
+});

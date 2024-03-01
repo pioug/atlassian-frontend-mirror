@@ -3,7 +3,13 @@ import { css, jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  OnDragEndResponder,
+  DropResult,
+} from 'react-beautiful-dnd';
 import BlockBuilderContainer from './block-builder-container';
 import { BlockTemplate } from '../types';
 import { BlockName } from '../constants';
@@ -16,9 +22,9 @@ import { SmartLinkSize } from '../../../src';
 import BlockOption from './inputs/block-option';
 import Fieldset from './fieldset';
 
-const listStyles = css`
-  margin-top: 1rem;
-`;
+const listStyles = css({
+  marginTop: '1rem',
+});
 
 const blockBuilderMapper = {
   [BlockName.FooterBlock]: FooterBlockBuilder,
@@ -89,8 +95,8 @@ const BlockBuilder: React.FC<{
     [blocks, onChange],
   );
 
-  const handleOnBlockDragEnd = useCallback(
-    (result) => {
+  const handleOnBlockDragEnd: OnDragEndResponder = useCallback(
+    (result: DropResult) => {
       // dropped outside the list
       if (!result.destination) {
         return;

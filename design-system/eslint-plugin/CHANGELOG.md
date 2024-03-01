@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.32.1
+
+### Patch Changes
+
+- [#77519](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77519) [`6507c28d3c88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6507c28d3c88) - Refactor implementation of `no-css-tagged-template-expression`. No change to functionality expected.
+
 ## 8.32.0
 
 ### Minor Changes

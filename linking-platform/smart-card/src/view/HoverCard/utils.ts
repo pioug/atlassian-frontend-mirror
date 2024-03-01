@@ -308,5 +308,5 @@ export const getIsAISummaryEnabled = (
       'platform.linking-platform.smart-card.hover-card-ai-summaries',
     ) &&
       isAdminHubAIEnabled &&
-      response?.meta?.supportedFeatures?.includes('AISummary'),
+      response?.meta?.supportedFeature?.includes('AISummary'),
   );

@@ -9,9 +9,10 @@ import { FocusManagerHook } from './types';
 export const useFocusManager = ({
   initialFocusRef,
   popupRef,
+  shouldCloseOnTab,
 }: FocusManagerHook): void => {
   useEffect(() => {
-    if (!popupRef) {
+    if (!popupRef || shouldCloseOnTab) {
       return noop;
     }
 
@@ -40,5 +41,5 @@ export const useFocusManager = ({
       }
       focusTrap.deactivate();
     };
-  }, [popupRef, initialFocusRef]);
+  }, [popupRef, initialFocusRef, shouldCloseOnTab]);
 };

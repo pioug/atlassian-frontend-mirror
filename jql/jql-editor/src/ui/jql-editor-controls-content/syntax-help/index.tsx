@@ -26,7 +26,7 @@ export const SyntaxHelp = () => {
   const [onSyntaxHelp, { createAndFireAnalyticsEvent }] = useOnSyntaxHelp();
 
   const onClick = useCallback(
-    e => {
+    (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
       createAndFireAnalyticsEvent({
         action: Action.CLICKED,
         actionSubject: ActionSubject.BUTTON,

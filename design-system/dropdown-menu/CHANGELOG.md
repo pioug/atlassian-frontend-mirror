@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 12.6.0
+
+### Minor Changes
+
+- [#70573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70573) [`ee7c6dd6b8b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee7c6dd6b8b2) - [ux] Accessibility changes. We are testing the ability to close the dropdown menu by pressing the Tab key when `shouldRenderToParent` is `true` behind a feature flag. If this fix is successful it will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.5.3
 
 ### Patch Changes

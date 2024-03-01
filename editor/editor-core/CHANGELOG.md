@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 192.3.18
+
+### Patch Changes
+
+- [#77599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77599) [`a7b1a6b762eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7b1a6b762eb) - [ux] Table picker popup displays text using column x rows pattern and table picker button uses label column by row.
+- [#75436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75436) [`bfcf32bb4fa3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfcf32bb4fa3) - [ux] ED-21941 Disable resize/layout options for table, media and extension when added to MBE. Table rendering fixed for Confluence editor
+
+## 192.3.17
+
+### Patch Changes
+
+- [#76770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76770) [`7eb1d4032d40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7eb1d4032d40) - [ux] Select upladed image. In case there are mulitple image files being pasted or drag&dropped, select last image.
+
+## 192.3.16
+
+### Patch Changes
+
+- [#72037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72037) [`e59f0b7a9115`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e59f0b7a9115) - [ux] add flexiable to make merged cells detection allow to detect edge merged cells
+
 ## 192.3.13
 
 ### Patch Changes

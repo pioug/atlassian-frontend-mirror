@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 78.8.4
+
+### Patch Changes
+
+- [#75087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75087) [`ede66b0fc1d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ede66b0fc1d5) - [ux] ED-22045 Removing custom logic for MBE floating toolbar.
+
+## 78.8.3
+
+### Patch Changes
+
+- [#77599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77599) [`a7b1a6b762eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7b1a6b762eb) - [ux] Table picker popup displays text using column x rows pattern and table picker button uses label column by row.
+- [#75436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75436) [`bfcf32bb4fa3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfcf32bb4fa3) - [ux] ED-21941 Disable resize/layout options for table, media and extension when added to MBE. Table rendering fixed for Confluence editor
+- [#77543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77543) [`5b4b40dddddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b4b40dddddf) - Updates default message of Background color option in table's menus
+
 ## 78.8.2
 
 ### Patch Changes

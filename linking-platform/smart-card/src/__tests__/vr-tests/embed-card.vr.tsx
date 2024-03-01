@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import EmbedCardErrorView from '../../../examples/vr-embed-card/vr-embed-card-error';
 import EmbedCardForbiddenView from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
 import EmbedCardForbiddenDefault from '../../../examples/vr-embed-card/vr-embed-card-forbidden';
+import EmbedCardForbiddenViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-forbidden-frame-hide';
 import EmbedCardForbiddenObjectRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-object-request-access';
 import EmbedCardForbiddenSiteDeniedAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-denied-access';
 import EmbedCardForbiddenSiteDirectAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-direct-access';
@@ -10,11 +11,13 @@ import EmbedCardForbiddenSiteForbiddenAccess from '../../../examples/vr-embed-ca
 import EmbedCardForbiddenSitePendingAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-pending-access';
 import EmbedCardForbiddenSiteRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-request-access';
 import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card-not-found';
+import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-not-found-frame-hide';
 import EmbedCardNotFoundDefault from '../../../examples/vr-embed-card/vr-embed-card-not-found';
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
 import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-card-unauthorised';
+import EmbedCardUnauthorisedViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-frame-hide';
 import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-with-provider-image';
 import EmbedCardUnauthorisedViewWithNoAuth from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-no-auth';
 
@@ -117,3 +120,6 @@ snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
     'platform.editor.show-embed-card-frame-renderer': [true, false],
   },
 });
+snapshot(EmbedCardForbiddenViewFrameHide);
+snapshot(EmbedCardNotFoundViewFrameHide);
+snapshot(EmbedCardUnauthorisedViewFrameHide);

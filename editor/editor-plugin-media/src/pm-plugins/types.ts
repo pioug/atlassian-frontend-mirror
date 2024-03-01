@@ -42,6 +42,7 @@ export interface MediaPluginState {
   resizingWidth: number;
   currentMaxWidth?: number;
   allowInlineImages?: boolean;
+  lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[];
   dispatch?: Dispatch;
   setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
   getMediaOptions: () => MediaPluginOptions;

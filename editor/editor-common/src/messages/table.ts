@@ -176,7 +176,7 @@ export const messages = defineMessages({
   },
   backgroundColor: {
     id: 'fabric.editor.backgroundColor',
-    defaultMessage: 'Background Color',
+    defaultMessage: 'Background color',
     description: 'Change the background color of a table cell.',
   },
   mergeCells: {

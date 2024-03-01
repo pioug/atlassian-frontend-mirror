@@ -382,6 +382,7 @@ export class TableContainer extends React.Component<
       tableNode,
       rendererAppearance,
       isInsideOfBlockNode,
+      isinsideMultiBodiedExtension,
     } = this.props;
 
     const { stickyMode } = this.state;
@@ -520,6 +521,7 @@ export class TableContainer extends React.Component<
               tableNode={tableNode}
               rendererAppearance={rendererAppearance}
               isInsideOfBlockNode={isInsideOfBlockNode}
+              isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
             >
               {this.grabFirstRowRef(children)}
             </Table>

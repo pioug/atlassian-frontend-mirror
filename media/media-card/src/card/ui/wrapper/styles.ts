@@ -56,7 +56,7 @@ export const wrapperStyles = ({
   &:hover .${blanketClassName} {
     ${fixedBlanketStyles}
   }
-  &:hover .${actionsBarClassName} {
+  &:hover .${actionsBarClassName}, &:focus-within .${actionsBarClassName} {
     ${fixedActionBarStyles}
   }
 

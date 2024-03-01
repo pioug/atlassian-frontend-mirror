@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/give-kudos",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Give Kudos experience ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -12,8 +12,9 @@
     "inPublicMirror": false,
     "releaseModel": "continuous",
     "website": {
-      "name": "GiveKudos"
-    }
+      "name": "Give Kudos"
+    },
+    "i18n": true
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
@@ -43,6 +44,7 @@
     "@atlaskit/button": "^17.6.0",
     "@atlaskit/drawer": "^7.6.0",
     "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/intl-messages-provider": "^1.0.2",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/portal": "^4.4.0",
     "@atlaskit/theme": "^12.6.0",
@@ -52,7 +54,8 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@af/integration-testing": "*",

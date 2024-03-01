@@ -65,12 +65,16 @@ export const checkIfNumberColumnEnabled = (selection: Selection): boolean =>
 
 export const isLayoutSupported = (state: EditorState): boolean => {
   const { permittedLayouts } = pluginKey.getState(state)?.pluginConfig || {};
-  const { bodiedExtension, layoutSection, expand } = state.schema.nodes;
+  const { bodiedExtension, layoutSection, expand, extensionFrame } =
+    state.schema.nodes;
 
   return (
-    !hasParentNodeOfType([expand, layoutSection, bodiedExtension])(
-      state.selection,
-    ) &&
+    !hasParentNodeOfType([
+      expand,
+      layoutSection,
+      bodiedExtension,
+      extensionFrame,
+    ])(state.selection) &&
     !!permittedLayouts &&
     (permittedLayouts === 'all' ||
       (permittedLayouts.indexOf('default') > -1 &&
@@ -150,7 +154,8 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
   return (
     parent.type === nodeTypes.layoutColumn ||
     parent.type === nodeTypes.expand ||
-    parent.type === nodeTypes.bodiedExtension
+    parent.type === nodeTypes.bodiedExtension ||
+    parent.type === nodeTypes.extensionFrame
   );
 };
 

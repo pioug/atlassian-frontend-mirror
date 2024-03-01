@@ -1,6 +1,9 @@
-import { TableLayout } from '@atlaskit/adf-schema';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { TableLayout } from '@atlaskit/adf-schema';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   akEditorDefaultLayoutWidth,
@@ -100,6 +103,9 @@ export const getParentNodeWidth = (
     case schema.nodes.bodiedExtension:
       parentWidth -= BODIED_EXT_PADDING * 2;
       break;
+    case schema.nodes.extensionFrame:
+      parentWidth -= BODIED_EXT_PADDING * 2;
+      break;
 
     // TODO: Migrate away from gridSize
     // Recommendation: Replace gridSize with 8
@@ -131,6 +137,7 @@ const getNestedParentNode = (
   const $pos = state.doc.resolve(tablePos);
   const parent = findParentNodeOfTypeClosestToPos($pos, [
     state.schema.nodes.bodiedExtension,
+    state.schema.nodes.extensionFrame,
     state.schema.nodes.layoutSection,
     state.schema.nodes.expand,
   ]);

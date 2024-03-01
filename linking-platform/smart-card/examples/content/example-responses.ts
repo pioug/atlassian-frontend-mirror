@@ -18,7 +18,7 @@ export const unicornResponse = {
     auth: [],
     definitionId: 'd1',
     key: 'object-provider',
-    supportedFeatures: ['AISummary'],
+    supportedFeature: ['AISummary'],
   },
   data: {
     '@context': {

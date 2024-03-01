@@ -77,7 +77,8 @@ const JQLEditorView = ({
   }, [expanded, editorViewNodeRef]);
 
   const onMainRef = useCallback(
-    element => portalActions.onRegisterPluginContainer('main', element),
+    (element: HTMLElement | null) =>
+      portalActions.onRegisterPluginContainer('main', element),
     [portalActions],
   );
 

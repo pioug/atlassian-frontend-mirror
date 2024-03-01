@@ -11,7 +11,7 @@ const CardExample: React.FC<{
   url?: string;
 }> = ({ isEmbedSupported = false, url }) => {
   const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
-  const onError = useCallback((err) => console.error(err.message), []);
+  const onError = useCallback((err: Error) => console.error(err.message), []);
 
   return (
     <div>

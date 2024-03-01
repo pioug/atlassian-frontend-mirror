@@ -54,8 +54,8 @@ describe('HelpContentButton', () => {
 
     expect(container.firstChild).toMatchSnapshot();
   });
-
-  it('Should display the notification icon with the number returned by the notificationLogProvider', async () => {
+  // FIXME: https://hello.jira.atlassian.cloud/browse/SELF-2047
+  it.skip('Should display the notification icon with the number returned by the notificationLogProvider', async () => {
     const notificationsClient = new MockNotificationLogClient(5);
     const notificationLogProvider = Promise.resolve(notificationsClient);
     const component = (

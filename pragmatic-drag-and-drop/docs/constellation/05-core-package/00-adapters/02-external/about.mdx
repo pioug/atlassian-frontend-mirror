@@ -125,6 +125,28 @@ monitorForExternal({
 });
 ```
 
+## Cross domain dragging and iframes
+
+The external adapter enables you to drag data from one `window`, other web `window`s, or native applications.
+
+Unfortunately, in `Chrome@122` and `Safari@14.3.1` it is not possible to drag something from a parent `window` to a child `<iframe>`, or from a child `<iframe>` to a parent `window` if they are on _different_ domains.
+
+For clarity, the following is permitted by all browsers:
+
+- dragging from one page to another browser tab on the same domain
+- dragging from one page to another browser tab on a different domain
+- dragging from one page native applications
+- dragging from one page to a child `<iframe>` on the same domain
+- dragging from a child `<iframe>` to a child `<iframe>` on the same domain
+- dragging from one page to an `<iframe>` (on any domain) on a different browser tab (on any domain)
+
+The following is not permitted on `Chrome@122` and `Safari@14.3.1`:
+
+- dragging from one page to a child `<iframe>` on a _different_ domain
+- dragging from a child `<iframe>` to a parent page on a _different_ domain
+
+→ [Open Chrome discussion about the behaviour](https://issues.chromium.org/issues/40077680#comment20)
+
 ### Extracting data
 
 Due to the web platform drag and drop security model, you can know what "types" are being dragging during a drag (eg `"text/plain"`), but you can only see what data is being dragged (exposed through `.items`) during a successful "drop" event (`onDrop()`).

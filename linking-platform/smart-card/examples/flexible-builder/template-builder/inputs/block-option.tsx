@@ -5,16 +5,15 @@ import { Field } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';
 import { BlockName } from '../../constants';
 
-const blockSelectStyles = css`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: space-between;
-
-  .block-select {
-    flex: 1 1 auto;
-  }
-`;
+const blockSelectStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.5rem',
+  justifyContent: 'space-between',
+  '.block-select': {
+    flex: '1 1 auto',
+  },
+});
 
 const blockOptions = Object.values(BlockName).map((value) => ({
   label: value,
@@ -25,7 +24,7 @@ const BlockOption: React.FC<{ onClick: (name: BlockName) => void }> = ({
   onClick,
 }) => {
   const handleOnChange = useCallback(
-    (option) => {
+    (option: any) => {
       onClick(option.value);
     },
     [onClick],

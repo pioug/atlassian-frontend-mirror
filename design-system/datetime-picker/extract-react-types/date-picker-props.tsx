@@ -1,4 +1,4 @@
-import { DatePickerBaseProps } from '../src/components/date-picker';
+import { DatePickerBaseProps } from '../src/types';
 
 export default function DatePickerProps(props: DatePickerBaseProps) {
   return null;

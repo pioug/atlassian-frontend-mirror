@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.2
+
+### Patch Changes
+
+- [#77599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77599) [`a7b1a6b762eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7b1a6b762eb) - [ux] Table picker popup displays text using column x rows pattern and table picker button uses label column by row.
+
 ## 1.1.1
 
 ### Patch Changes

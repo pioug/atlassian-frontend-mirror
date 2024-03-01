@@ -7,6 +7,7 @@ export default () => (
   <VRCardView
     appearance="embed"
     client={new ResolvedClient()}
+    frameStyle="show"
     isSelected={true}
   />
 );

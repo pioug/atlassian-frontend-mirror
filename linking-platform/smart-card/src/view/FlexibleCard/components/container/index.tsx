@@ -16,7 +16,6 @@ import {
   isFlexibleUiTitleBlock,
 } from '../../../../utils/flexible';
 import { RetryOptions } from '../../types';
-import { tokens } from '../../../../utils/token';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import LayeredLink from './layered-link';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
@@ -140,7 +139,9 @@ export const getContainerStyles = (
     min-width: 0;
     overflow-x: hidden;
     position: relative;
-    ${hideBackground ? '' : `background-color: ${tokens.background};`}
+    ${hideBackground
+      ? ''
+      : `background-color: ${token('elevation.surface.raised', '#FFFFFF')};`}
     ${paddingCss}
     ${hideElevation ? '' : elevationStyles}
     ${clickableContainer ? clickableContainerStyles : ''}

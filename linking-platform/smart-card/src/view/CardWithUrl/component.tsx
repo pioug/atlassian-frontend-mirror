@@ -4,7 +4,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { CardWithUrlContentProps } from './types';
-import { isSpecialEvent } from '../../utils';
+import { combineFrameStyle, isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
 import {
   getDefinitionId,
@@ -35,7 +35,7 @@ function Component({
   isSelected,
   isHovered,
   isFrameVisible,
-  frameStyle,
+  frameStyle: frameStyleProp,
   platform,
   onClick,
   appearance,
@@ -89,6 +89,8 @@ function Component({
     showActions,
     platform,
   );
+
+  const frameStyle = combineFrameStyle(frameStyleProp, isFrameVisible);
 
   // Setup UI handlers.
   const handleClickWrapper = useCallback(
@@ -357,7 +359,6 @@ function Component({
           handleInvoke={handleInvoke}
           analytics={analytics}
           isSelected={isSelected}
-          isFrameVisible={isFrameVisible}
           frameStyle={frameStyle}
           platform={platform}
           onResolve={onResolve}

@@ -2,8 +2,6 @@ import React from 'react';
 import { PreviewActionProps } from './types';
 import Action from '../index';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
-import { FormattedMessage } from 'react-intl-next';
-import { messages } from '../../../../../../messages';
 import { openEmbedModalWithFlexibleUiIcon } from '../../../utils';
 import useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import { ActionName } from '../../../../../../constants';
@@ -57,7 +55,6 @@ const PreviewAction: React.FC<PreviewActionProps> = (
           onClick();
         }
       },
-      content: <FormattedMessage {...messages.preview_improved} />,
     };
 
     return (

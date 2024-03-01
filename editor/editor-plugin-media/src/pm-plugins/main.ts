@@ -44,6 +44,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import * as helpers from '../commands/helpers';
 import { updateMediaNodeAttrs } from '../commands/helpers';
@@ -130,6 +131,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   resizingWidth: number = 0;
   currentMaxWidth?: number;
   allowInlineImages = false;
+
+  // this is only a temporary variable, which gets cleared after the last inserted node has been selected
+  lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[] = [];
 
   private view!: EditorView;
   private destroyed = false;
@@ -366,6 +370,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       ?.contextIdentifierProvider;
   }
 
+  // callback to flag that a node has been inserted
+  onNodeInserted = (id: string, selectionPosition: number) => {
+    this.lastAddedMediaSingleFileIds.unshift({ id, selectionPosition });
+  };
+
   /**
    * we insert a new file by inserting a initial state for that file.
    *
@@ -418,6 +427,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         // read width state right before inserting to get up-to-date and define values
         const widthPluginState: WidthPluginState | undefined =
           this.pluginInjectionApi?.width?.sharedState.currentState();
+
         insertMediaSingleNode(
           this.view,
           mediaStateWithContext,
@@ -426,6 +436,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
           this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
           widthPluginState,
           editorAnalyticsAPI,
+          this.onNodeInserted,
         );
         break;
       case 'group':
@@ -469,7 +480,40 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     if (!view.hasFocus()) {
       view.focus();
     }
+
+    if (getBooleanFF('platform.editor.media.autoselect-inserted-image_oumto')) {
+      this.selectLastAddedMediaNode();
+    }
   };
+
+  private selectLastAddedMediaNode() {
+    // if lastAddedMediaSingleFileIds is empty exit because there are no added media single nodes to be selected
+    if (this.lastAddedMediaSingleFileIds.length !== 0) {
+      this.waitForPendingTasks().then(() => {
+        const lastTrackedAddedNode = this.lastAddedMediaSingleFileIds[0];
+        // execute selection only if selection did not change after the node has been inserted
+        if (
+          lastTrackedAddedNode?.selectionPosition ===
+          this.view.state.selection.from
+        ) {
+          const lastAddedNode = this.mediaNodes.find(node => {
+            return node.node.attrs.id === lastTrackedAddedNode.id;
+          });
+          const lastAddedNodePos = lastAddedNode?.getPos();
+          if (lastAddedNodePos) {
+            const { dispatch, state } = this.view;
+            const tr = state.tr;
+            tr.setSelection(NodeSelection.create(tr.doc, lastAddedNodePos));
+            if (dispatch) {
+              dispatch(tr);
+            }
+          }
+        }
+        // reset temp constant after uploads finished
+        this.lastAddedMediaSingleFileIds = [];
+      });
+    }
+  }
 
   addPendingTask = (task: Promise<any>) => {
     this.taskManager.addPendingTask(task);

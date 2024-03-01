@@ -5,3 +5,4 @@ import { gridSize } from '@atlaskit/theme/constants';
 // Recommendation: Replace gridSize with 8
 export const EXTENSION_PADDING = gridSize();
 export const BODIED_EXT_PADDING = EXTENSION_PADDING * 2;
+export const BODIED_EXT_MBE_MARGIN_TOP = 12;

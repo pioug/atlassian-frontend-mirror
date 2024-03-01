@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 2.1.1
+
+### Patch Changes
+
+- [#75997](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75997) [`6d14ed2a344b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d14ed2a344b) - [ux] adding intl wrap
+
 ## 2.1.0
 
 ### Minor Changes

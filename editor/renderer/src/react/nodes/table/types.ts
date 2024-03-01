@@ -10,4 +10,5 @@ export type SharedTableProps = {
   tableNode?: PMNode;
   rendererAppearance: RendererAppearance;
   isInsideOfBlockNode?: boolean;
+  isinsideMultiBodiedExtension?: boolean;
 };

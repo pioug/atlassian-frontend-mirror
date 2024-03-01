@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useMemo } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import {
   className,
   LinkWrapper,
@@ -22,8 +22,6 @@ export interface ExpandedFrameProps {
   children?: React.ReactNode;
   /** A flag that determines whether the card is selected in edit mode. */
   isSelected?: boolean;
-  /** @deprecated use frameStyle prop */
-  isFrameVisible?: boolean;
   /** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
   frameStyle?: FrameStyle;
   /** The optional click handler */
@@ -43,8 +41,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   icon,
   text,
   isSelected,
-  isFrameVisible,
-  frameStyle,
+  frameStyle = 'showOnHover',
   href,
   minWidth,
   maxWidth,
@@ -56,15 +53,6 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
     !isPlaceholder && (Boolean(href) || Boolean(onClick));
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   const handleMouseDown = useMouseDownEvent();
-  const calculatedFrameStyle = useMemo(
-    () =>
-      frameStyle !== undefined
-        ? frameStyle
-        : isFrameVisible
-        ? 'show'
-        : 'showOnHover',
-    [frameStyle, isFrameVisible],
-  );
 
   const renderHeader = () => (
     <Header className="embed-header" frameStyle={frameStyle}>
@@ -98,7 +86,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         className={className}
         isInteractive={isInteractive()}
         isSelected={isSelected}
-        frameStyle={calculatedFrameStyle}
+        frameStyle={frameStyle}
         minWidth={minWidth}
         maxWidth={maxWidth}
         data-testid={testId}
@@ -118,7 +106,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         isInteractive={isInteractive()}
         isSelected={isSelected}
         minWidth={minWidth}
-        frameStyle={calculatedFrameStyle}
+        frameStyle={frameStyle}
         maxWidth={maxWidth}
         data-testid={testId}
         data-trello-do-not-use-override={testId}

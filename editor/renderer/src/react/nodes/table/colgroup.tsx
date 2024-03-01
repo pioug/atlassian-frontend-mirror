@@ -91,6 +91,7 @@ const renderScaleDownColgroup = (
     tableNode,
     rendererAppearance,
     isInsideOfBlockNode,
+    isinsideMultiBodiedExtension,
   } = props;
 
   if (!columnWidths) {
@@ -112,6 +113,7 @@ const renderScaleDownColgroup = (
   if (
     isTableResizingEnabled(rendererAppearance) &&
     !isInsideOfBlockNode &&
+    !isinsideMultiBodiedExtension &&
     !tableResized
   ) {
     // for tables with no column widths defined, assume that the real table width

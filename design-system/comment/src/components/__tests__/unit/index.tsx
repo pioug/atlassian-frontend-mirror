@@ -32,7 +32,7 @@ describe('@atlaskit comments', () => {
       describe('actions prop', () => {
         it('should render action items in the correct container', () => {
           const actions = [
-            <CommentAction />,
+            <CommentAction>reply</CommentAction>,
             <CommentAction>action content</CommentAction>,
             <CommentAction onClick={__noop}>action content</CommentAction>,
           ];

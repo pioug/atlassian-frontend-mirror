@@ -1,13 +1,22 @@
 ---
 order: 0
 title: Auto scroll
-description: An optional package enables ergonomic automatic scrolling during a drag operation for any experience
+description: Enables ergonomic automatic scrolling during a drag operation for any experience
 ---
 
+import SectionMessage from '@atlaskit/section-message';
 import OverElementExample from '../../examples/over-element';
 import LazyLoadedExample from '../../examples/lazy-loaded';
 
 This package improves the browsers built in automatic scrolling during drag operations.
+
+<SectionMessage>
+
+This package depends on [the core package](/components/drag-and-drop/core-package).
+
+This package has no dependency on any view library (eg `react`), or on the Atlassian Design System.
+
+</SectionMessage>
 
 <Example Component={OverElementExample} appearance="showcase-only" />
 

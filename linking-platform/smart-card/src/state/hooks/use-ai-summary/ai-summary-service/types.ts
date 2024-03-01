@@ -1,7 +1,7 @@
 export interface AISummaryServiceInt {
   summariseUrl: () => Promise<void>;
   state: AISummaryState;
-  subscribe: (stateSetter: StateSetter) => void;
+  subscribe: (stateSetter: StateSetter) => () => void;
 }
 
 export type AISummaryServiceProps = {

@@ -227,6 +227,7 @@ const DragControlsComponent = ({
           previewWidth={tableWidth}
           previewHeight={previewHeight}
           appearance={appearance}
+          hoveredCell={hoveredCell}
           onClick={handleClick}
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}

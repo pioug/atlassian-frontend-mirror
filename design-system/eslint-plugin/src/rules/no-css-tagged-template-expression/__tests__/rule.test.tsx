@@ -2,6 +2,8 @@ import { tester } from '../../__tests__/utils/_tester';
 import { CSS_IN_JS_IMPORTS } from '../../utils/is-supported-import';
 import rule from '../index';
 
+const errors = ['Unexpected `css` tagged template expression'];
+
 const createInvalidTestCasesForImport = (importName: string) => [
   {
     filename: 'single-line-empty.ts',
@@ -15,7 +17,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
 
         css({});
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'single-line-static-rule.ts',
@@ -31,7 +33,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           color: "blue"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'single-line-static-rule-comments.ts',
@@ -47,7 +49,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           color: "blue"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'multiline-empty.ts',
@@ -62,7 +64,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
 
         css({});
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'multiline-static-rules.ts',
@@ -103,7 +105,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'no-trailing-semicolon-multiline-static-rules.ts',
@@ -144,7 +146,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'multiline-static-rules-comments.ts',
@@ -209,7 +211,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           display: "block"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'nested-selectors.ts',
@@ -259,7 +261,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'nested-selectors-comments.ts',
@@ -321,7 +323,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'interpolated-declaration-values.ts',
@@ -347,7 +349,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           opacity: opacity
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'interpolated-declaration-values-comments.ts',
@@ -380,7 +382,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           opacity: opacity
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'affixed-declaration-values.ts',
@@ -404,7 +406,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: \`calc(\${size} * 2)\`
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'mixins.ts',
@@ -442,7 +444,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         );
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'no-trailing-semicolon-mixins.ts',
@@ -480,7 +482,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         );
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'mixins-comments.ts',
@@ -526,7 +528,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           }
         );
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'colon-in-value.ts',
@@ -542,7 +544,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           backgroundImage: "url('https://some-url-b')"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'single-line-comments.ts',
@@ -562,7 +564,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           color: "blue"
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
   {
     filename: 'interpolations.ts',
@@ -584,7 +586,7 @@ const createInvalidTestCasesForImport = (importName: string) => [
           padding: \`\${(props) => props.paddingBlock} \${(props) => props.paddingInline}\`
         });
       `,
-    errors: ['Unexpected `css` tagged template expression'],
+    errors,
   },
 ];
 

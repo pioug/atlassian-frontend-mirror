@@ -1,5 +1,6 @@
-import { importWithRetry, openUrl } from '../index';
+import { combineFrameStyle, importWithRetry, openUrl } from '../index';
 import * as utils from '../index';
+import type { FrameStyle } from '../../view/EmbedCard/types';
 
 export class ChunkLoadError extends Error {
   name = 'ChunkLoadError';
@@ -96,5 +97,38 @@ describe('openUrl', () => {
   it('does not open url', async () => {
     await openUrl();
     expect(openSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('combineFrameStyle', () => {
+  describe.each<[FrameStyle]>([['show'], ['hide'], ['showOnHover']])(
+    'when frameStyle is %s',
+    (frameStyle: FrameStyle) => {
+      it(`returns ${frameStyle}`, () => {
+        expect(combineFrameStyle(frameStyle)).toBe(frameStyle);
+      });
+
+      it(`returns ${frameStyle} when isFrameVisible is true`, () => {
+        expect(combineFrameStyle(frameStyle, true)).toBe(frameStyle);
+      });
+
+      it(`returns ${frameStyle} when isFrameVisible is false`, () => {
+        expect(combineFrameStyle(frameStyle, false)).toBe(frameStyle);
+      });
+    },
+  );
+
+  describe('when frameStyle is not provided', () => {
+    it('returns undefined by default', () => {
+      expect(combineFrameStyle()).toBeUndefined();
+    });
+
+    it('returns show when isFrameVisible is true', () => {
+      expect(combineFrameStyle(undefined, true)).toBe('show');
+    });
+
+    it('returns undefined when isFrameVisible is false', () => {
+      expect(combineFrameStyle(undefined, false)).toBeUndefined();
+    });
   });
 });

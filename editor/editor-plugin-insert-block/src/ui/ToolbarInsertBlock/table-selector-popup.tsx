@@ -170,9 +170,10 @@ const TableSelectorPopup = ({
               col={col}
               row={row}
               onClick={onSelection}
-              label={`${formatMessage(
-                messages.tableSizeSelectorButton,
-              )} ${row} x ${col}`}
+              label={`${formatMessage(messages.tableSizeSelectorButton, {
+                numberOfColumns: col,
+                numberOfRows: row,
+              })}`}
               onKeyDown={onKeyDown}
               isFocused={isCurrentFocused}
               handleInitialButtonFocus={handleInitialButtonFocus}
@@ -181,7 +182,7 @@ const TableSelectorPopup = ({
         })}
       </div>
       <span css={selectionSizeTextStyles} aria-hidden={true}>
-        {`${selectedRow} x ${selectedCol}`}
+        {`${selectedCol} x ${selectedRow}`}
       </span>
     </Stack>
   );

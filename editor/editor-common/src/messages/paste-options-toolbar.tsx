@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl-next';
 export const pasteOptionsToolbarMessages = defineMessages({
   pasteOptions: {
     id: 'fabric.editor.pasteOptions',
-    defaultMessage: 'Paste options floating controls',
+    defaultMessage: 'Paste options',
     description: 'Opens a menu with additional paste options',
   },
   plainText: {

@@ -48,6 +48,9 @@
       "path": "../renderer/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/tokens/tsconfig.app.json"
+    },
+    {
       "path": "../../elements/util-service-support/tsconfig.app.json"
     }
   ]

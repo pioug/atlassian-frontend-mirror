@@ -134,7 +134,7 @@ const AutocompleteOption = forwardRef<HTMLLIElement, Props>((props, ref) => {
   const [{ formatMessage }] = useIntl();
 
   const onNameRef = useCallback(
-    node => {
+    (node: HTMLElement | null) => {
       // This ref will be re-invoked after a tooltip is rendered, so we avoid recomputing the overflow in that instance
       // so we don't risk infinite re-renders (which we've observed through production logs).
       if (node != null && !overflows) {

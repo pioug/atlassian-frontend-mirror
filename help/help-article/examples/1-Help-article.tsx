@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@atlaskit/button/standard-button';
-
+import { token } from '@atlaskit/tokens';
 import HelpArticle from '../src';
 
 interface Props {}
@@ -26,7 +26,7 @@ export default class extends React.Component<Props, State> {
 
   render() {
     return (
-      <div style={{ padding: '10px' }}>
+      <div style={{ padding: token('space.100', '8px') }}>
         <HelpArticle title="Article Title" body={this.state.body} />
         <Button type="button" onClick={() => this.changeContent()}>
           Change content

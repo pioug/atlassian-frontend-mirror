@@ -1,16 +1,17 @@
 import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/custom-theme-button';
+import { token } from '@atlaskit/tokens';
 import styled from 'styled-components';
 import WithDocumentActions from '../consumers/with-document-actions';
-import { Mode } from '../context/context';
+import type { Mode } from '../context/context';
 
 const Toolbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 0 20px;
-  height: 80px;
+  padding: 0 ${token('space.250', '20px')};
+  height: ${token('space.1000', '80px')};
 `;
 
 export default (props: { mode: Mode; editorActions?: any }) => {

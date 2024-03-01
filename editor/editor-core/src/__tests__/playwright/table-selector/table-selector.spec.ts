@@ -73,7 +73,7 @@ test.describe('Toolbar TableSelector', () => {
 
     const tableSelector = EditorTableSelectorModel.from(popup);
     await tableSelector.toBeVisible();
-    await tableSelector.insertTableFromSelector(row, column);
+    await tableSelector.insertTableFromSelector(column, row);
     await expect(tableSelector.popup).toBeHidden();
     await expect(editor).toMatchDocument(
       doc(
@@ -101,7 +101,7 @@ test.describe('Toolbar TableSelector', () => {
 
     const tableSelector = EditorTableSelectorModel.from(popup);
     await tableSelector.toBeVisible();
-    await tableSelector.insertTableFromSelector(row, column);
+    await tableSelector.insertTableFromSelector(column, row);
     await editor.keyboard.type('a');
 
     await expect(editor).toMatchDocument(
@@ -130,8 +130,8 @@ test.describe('Toolbar TableSelector', () => {
 
     const tableSelector = EditorTableSelectorModel.from(popup);
     await tableSelector.toBeVisible();
-    await tableSelector.hoverTableSelectorButton(row, column);
-    await tableSelector.insertTableFromSelector(row + 1, column);
+    await tableSelector.hoverTableSelectorButton(column, row);
+    await tableSelector.insertTableFromSelector(column, row + 1);
 
     await expect(editor).toMatchDocument(
       doc(
@@ -162,10 +162,10 @@ test.describe('Toolbar TableSelector', () => {
 
     const tableSelector = EditorTableSelectorModel.from(popup);
     await tableSelector.toBeVisible();
-    await tableSelector.hoverTableSelectorButton(row, column);
+    await tableSelector.hoverTableSelectorButton(column, row);
 
     await expect(tableSelector.tableSelectorPopupText).toHaveText(
-      `${row} x ${column}`,
+      `${column} x ${row}`,
     );
   });
   test('table selector should insert table using keyboard', async ({
@@ -212,7 +212,7 @@ test.describe('Toolbar TableSelector', () => {
 
     const tableSelector = EditorTableSelectorModel.from(popup);
     await tableSelector.toBeVisible();
-    await tableSelector.hoverTableSelectorButton(row, column);
+    await tableSelector.hoverTableSelectorButton(column, row);
 
     await editor.keyboard.press('Tab');
     await editor.keyboard.press('Enter');
@@ -244,7 +244,7 @@ test.describe('Toolbar TableSelector', () => {
     await editor.keyboard.press('ArrowDown');
 
     await expect(tableSelector.tableSelectorPopupText).toHaveText(
-      `${row} x ${column}`,
+      `${column} x ${row}`,
     );
   });
 });

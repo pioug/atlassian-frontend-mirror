@@ -36,7 +36,11 @@ import type {
   MarkMeta,
   AnnotationMarkMeta,
 } from './types';
-import { insideBlockNode, insideBreakoutLayout } from './renderer-node';
+import {
+  insideBlockNode,
+  insideBreakoutLayout,
+  insideMultiBodiedExtension,
+} from './renderer-node';
 import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
@@ -451,6 +455,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       : undefined;
 
     const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
+    const isinsideMultiBodiedExtension = insideMultiBodiedExtension(
+      path,
+      node.type.schema,
+    );
 
     return {
       ...this.getProps(node),
@@ -459,6 +467,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       tableNode: node,
       stickyHeaders,
       isInsideOfBlockNode,
+      isinsideMultiBodiedExtension,
     };
   }
 

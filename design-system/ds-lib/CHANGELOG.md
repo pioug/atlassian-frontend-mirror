@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 2.2.4
+
+### Patch Changes
+
+- [#70573](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/70573) [`03bbd8a15b22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03bbd8a15b22) - Added keycodes for tab, enter and space keys.
+
 ## 2.2.3
 
 ### Patch Changes

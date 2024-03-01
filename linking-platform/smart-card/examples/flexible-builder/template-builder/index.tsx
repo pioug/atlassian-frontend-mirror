@@ -15,6 +15,7 @@ import FlexibleToggle from './flexible-toggle';
 
 import type { BlockTemplate, FlexibleTemplate } from '../types';
 import type { CardProps } from '../../../src';
+import { FlexibleUiOptions } from '../../../src/view/FlexibleCard/types';
 
 const TemplateBuilder: React.FC<{
   template: FlexibleTemplate;
@@ -67,7 +68,7 @@ const TemplateBuilder: React.FC<{
   );
 
   const handleOnUiChange = useCallback(
-    (ui) => {
+    (ui: FlexibleUiOptions) => {
       if (Object.entries(ui).length > 0) {
         onChange({ ...template, ui });
       } else {

@@ -8,13 +8,7 @@ import {
 } from '@atlaskit/docs';
 
 export default md`
-  ${(
-    <>
-      <div style={{ marginBottom: '0.5rem' }}>
-        <AtlassianInternalWarning />
-      </div>
-    </>
-  )}
+  ${(<AtlassianInternalWarning />)}
 
   ## Usage
 

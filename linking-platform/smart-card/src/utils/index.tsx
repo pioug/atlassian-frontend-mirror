@@ -1,7 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import { CardProps } from '../view/Card';
+import type { CardProps } from '../view/Card';
+import { FrameStyle } from '../view/EmbedCard/types';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
 
@@ -344,4 +345,21 @@ export const openUrl = async (url?: string) => {
     return;
   }
   window.open(url, '_blank', 'noopener=yes');
+};
+
+/**
+ * Migrate internal usages of the deprecated isFrameVisible to frameStyle
+ * This function is to be removed on deprecation of isFrameVisible.
+ */
+export const combineFrameStyle = (
+  frameStyle?: CardProps['frameStyle'],
+  isFrameVisible?: CardProps['isFrameVisible'],
+): FrameStyle | undefined => {
+  if (frameStyle !== undefined) {
+    return frameStyle;
+  }
+
+  if (isFrameVisible) {
+    return 'show';
+  }
 };

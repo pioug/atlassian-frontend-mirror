@@ -19,8 +19,6 @@ export interface EmbedCardResolvedViewProps {
   link: string;
   /** A flag that determines whether the card is selected in edit mode. */
   isSelected?: boolean;
-  /** will show the frame regardless of user interaction */
-  isFrameVisible?: boolean;
   /** A prop that determines the style of a frame: whether to show it, hide it or only show it when a user hovers over embed */
   frameStyle?: FrameStyle;
   /** The src to be used for the `iframe` */
@@ -50,7 +48,6 @@ export const EmbedCardResolvedView = React.forwardRef<
       context,
       onClick,
       isSelected,
-      isFrameVisible,
       frameStyle,
       preview,
       title,
@@ -96,7 +93,6 @@ export const EmbedCardResolvedView = React.forwardRef<
     return (
       <ExpandedFrame
         isSelected={isSelected}
-        isFrameVisible={isFrameVisible}
         frameStyle={frameStyle}
         href={link}
         testId={testId}

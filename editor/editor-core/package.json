@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "192.3.13",
+  "version": "192.3.18",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -90,7 +90,7 @@
     "@atlaskit/analytics-listeners": "^8.9.1",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/collab-provider": "9.25.0",
-    "@atlaskit/dropdown-menu": "^12.5.0",
+    "@atlaskit/dropdown-menu": "^12.6.0",
     "@atlaskit/editor-plugin-card": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.5",
@@ -115,7 +115,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.27",
+    "@atlassian/search-provider": "2.4.28",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -176,6 +176,10 @@
       "referenceOnly": "true"
     },
     "platform.editor.media.inline-image.renderer-preview-support_3w1ju": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.media.autoselect-inserted-image_oumto": {
       "type": "boolean",
       "referenceOnly": "true"
     },

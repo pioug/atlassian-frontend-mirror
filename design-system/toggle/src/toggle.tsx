@@ -2,6 +2,7 @@
 import { forwardRef, memo, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import { useUIDSeed } from 'react-uid';
 
 import {
   UIAnalyticsEvent,
@@ -96,8 +97,15 @@ const Toggle = memo(
 
     const toggleStyles = useMemo(() => getStyles(size), [size]);
 
+    const uuid = useUIDSeed()('toggle');
+
     return (
       <label {...controlProps} css={toggleStyles}>
+        {label ? (
+          <span id={`${uuid}-label`} hidden>
+            {label}
+          </span>
+        ) : null}
         <input
           ref={ref}
           checked={shouldChecked}
@@ -110,7 +118,7 @@ const Toggle = memo(
           type="checkbox"
           value={value}
           data-testid={testId && `${testId}--input`}
-          aria-label={label}
+          aria-labelledby={label ? `${uuid}-label` : undefined}
           aria-describedby={descriptionId}
         />
         <CheckIcon

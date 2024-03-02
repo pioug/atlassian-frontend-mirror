@@ -144,11 +144,13 @@ export const getStyles = (size: Size): SerializedStyles => {
       insetBlockStart: `${paddingUnitless}px`,
     },
 
-    '>span:first-of-type': {
+    // This is the first of the two on/off symbols. The first of type is a
+    // hidden text `span` for labeling
+    '> span:nth-last-of-type(2)': {
       insetInlineStart: `3px`,
     },
 
-    '>span:last-of-type': {
+    '> span:last-of-type': {
       insetInlineEnd: `3px`,
     },
 

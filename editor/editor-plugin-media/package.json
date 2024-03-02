@@ -37,7 +37,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.6.0",
-    "@atlaskit/editor-common": "^78.8.0",
+    "@atlaskit/editor-common": "^78.9.0",
     "@atlaskit/editor-palette": "1.5.2",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",

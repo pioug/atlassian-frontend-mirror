@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 13.0.3
+
+### Patch Changes
+
+- [#76716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76716) [`dc3f5a5cbfb3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc3f5a5cbfb3) - Improve labeling support for toggle's `label` prop.
+
 ## 13.0.2
 
 ### Patch Changes

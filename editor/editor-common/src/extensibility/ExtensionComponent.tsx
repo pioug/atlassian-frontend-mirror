@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import memoizeOne from 'memoize-one';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EventDispatcher } from '../event-dispatcher';
@@ -105,6 +106,10 @@ export class ExtensionComponent extends Component<Props, State> {
       showMacroInteractionDesignUpdates,
     } = this.props;
 
+    const { selection } = editorView.state;
+    const selectedNode =
+      selection instanceof NodeSelection && (selection as NodeSelection).node;
+
     if (node.type.name === 'multiBodiedExtension') {
       return (
         <MultiBodiedExtension
@@ -139,6 +144,7 @@ export class ExtensionComponent extends Component<Props, State> {
             showMacroInteractionDesignUpdates={
               showMacroInteractionDesignUpdates
             }
+            isNodeSelected={selectedNode === node}
           >
             {extensionHandlerResult}
           </Extension>
@@ -150,6 +156,7 @@ export class ExtensionComponent extends Component<Props, State> {
             showMacroInteractionDesignUpdates={
               showMacroInteractionDesignUpdates
             }
+            isNodeSelected={selectedNode === node}
           >
             {extensionHandlerResult}
           </InlineExtension>

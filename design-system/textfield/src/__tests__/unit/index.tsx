@@ -6,12 +6,23 @@ import __noop from '@atlaskit/ds-lib/noop';
 import * as themeConstants from '@atlaskit/theme/constants';
 
 import Textfield from '../../index';
+import { TextfieldProps } from '../../types';
 
 describe('Textfield', () => {
   const testId = 'test';
 
+  type TextfieldPropsWithRef = TextfieldProps & { ref?: any };
+
+  const createTextfield = (props: TextfieldPropsWithRef = {}) => (
+    <label htmlFor="name">
+      Name
+      {/* eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props */}
+      <Textfield id="name" testId={testId} {...props} />
+    </label>
+  );
+
   it('should show defaults', () => {
-    render(<Textfield testId={testId} />);
+    render(createTextfield());
     const input = screen.getByTestId(testId);
     expect(input).toBeInTheDocument();
     expect(input).toBeInstanceOf(HTMLInputElement);
@@ -36,7 +47,7 @@ describe('Textfield', () => {
       compactProps.forEach((compactProp) => {
         const { isCompact, height } = compactProp;
         it(`when isCompact is set to ${isCompact}`, () => {
-          render(<Textfield testId={testId} isCompact={isCompact} />);
+          render(createTextfield({ isCompact }));
           const input = screen.getByTestId(testId);
           expect(input).toHaveStyle(`height: ${height}`);
         });
@@ -49,36 +60,36 @@ describe('Textfield', () => {
 
       it('should render before element', () => {
         render(
-          <Textfield
-            elemBeforeInput={
+          createTextfield({
+            elemBeforeInput: (
               <span data-testid={beforeTestId}>Before Element</span>
-            }
-          />,
+            ),
+          }),
         );
         const before = screen.getByTestId(beforeTestId);
         expect(before).toHaveTextContent('Before Element');
       });
       it('should render after element', () => {
         render(
-          <Textfield
-            elemAfterInput={
+          createTextfield({
+            elemAfterInput: (
               <span data-testid={afterTestId}>After Element</span>
-            }
-          />,
+            ),
+          }),
         );
         const after = screen.getByTestId(afterTestId);
         expect(after).toHaveTextContent('After Element');
       });
       it('should render before & after element', () => {
         render(
-          <Textfield
-            elemBeforeInput={
+          createTextfield({
+            elemBeforeInput: (
               <span data-testid={beforeTestId}>Before Element</span>
-            }
-            elemAfterInput={
+            ),
+            elemAfterInput: (
               <span data-testid={afterTestId}>After Element</span>
-            }
-          />,
+            ),
+          }),
         );
 
         const before = screen.getByTestId(beforeTestId);
@@ -90,7 +101,7 @@ describe('Textfield', () => {
 
     describe('isDisabled', () => {
       it('should make input disabled', () => {
-        render(<Textfield isDisabled testId={testId} />);
+        render(createTextfield({ isDisabled: true }));
         const input = screen.getByTestId(testId);
         expect(input).toBeDisabled();
       });
@@ -98,7 +109,7 @@ describe('Textfield', () => {
 
     describe('isInvalid', () => {
       it('should give input invalid styling if invalid', () => {
-        render(<Textfield isInvalid testId={testId} />);
+        render(createTextfield({ isInvalid: true }));
         const container = screen.getByTestId('test-container');
         const input = screen.getByTestId(testId);
         expect(container).toHaveAttribute('data-invalid', 'true');
@@ -108,7 +119,7 @@ describe('Textfield', () => {
 
     describe('isReadOnly', () => {
       it('should make input readOnly', () => {
-        render(<Textfield isReadOnly testId={testId} />);
+        render(createTextfield({ isReadOnly: true }));
         const input = screen.getByTestId(testId);
         expect(input).toHaveAttribute('readonly');
       });
@@ -116,7 +127,7 @@ describe('Textfield', () => {
 
     describe('isRequired', () => {
       it('should make input required', () => {
-        render(<Textfield isRequired testId={testId} />);
+        render(createTextfield({ isRequired: true }));
         const input = screen.getByTestId(testId);
         expect(input).toBeRequired();
       });
@@ -124,20 +135,22 @@ describe('Textfield', () => {
 
     describe('name', () => {
       it('should set input name', () => {
-        render(<Textfield isRequired name="testName" testId={testId} />);
+        const name = 'testName';
+        render(createTextfield({ name }));
         const input = screen.getByTestId(testId);
-        expect(input).toHaveAttribute('name', 'testName');
+        expect(input).toHaveAttribute('name', name);
       });
     });
 
     describe('appearance', () => {
       it('should have a solid border when appearance is not none', () => {
-        render(<Textfield testId={testId} />);
+        render(createTextfield());
         const textFieldContainer = screen.getByTestId('test-container');
         expect(textFieldContainer).toHaveStyle(`border-style: solid`);
       });
+
       it('should have no border when appearance is none', () => {
-        render(<Textfield appearance="none" testId={testId} />);
+        render(createTextfield({ appearance: 'none' }));
         const textFieldContainer = screen.getByTestId('test-container');
         expect(textFieldContainer).toHaveStyle(`border-style: none`);
       });
@@ -146,13 +159,13 @@ describe('Textfield', () => {
     describe('isMonospaced', () => {
       it('should get codeFont when TextField is monospace', () => {
         const codeFontFamilyMock = jest.spyOn(themeConstants, 'codeFontFamily');
-        render(<Textfield isMonospaced testId={testId} />);
+        render(createTextfield({ isMonospaced: true }));
         expect(codeFontFamilyMock).toBeCalled();
       });
 
       it('should get fontFamily when TextField is not monospace', () => {
         const fontFamilyMock = jest.spyOn(themeConstants, 'fontFamily');
-        render(<Textfield testId={testId} />);
+        render(createTextfield());
         expect(fontFamilyMock).toBeCalled();
       });
     });
@@ -172,7 +185,7 @@ describe('Textfield', () => {
         it(`max-width should be ${maxWidth} when width prop is ${
           !width ? 'not passed' : width
         }`, () => {
-          render(<Textfield width={width} testId={testId} />);
+          render(createTextfield({ width }));
           const textFieldContainer = screen.getByTestId('test-container');
           expect(textFieldContainer).toHaveStyle(`max-width: ${maxWidth}`);
         });
@@ -192,7 +205,7 @@ describe('Textfield', () => {
           form: 'test-form',
           pattern: '/.+/',
         };
-        render(<Textfield {...nativeProps} testId={testId} />);
+        render(createTextfield(nativeProps));
         const textField = screen.getByTestId(testId);
         expect(textField).toHaveAttribute('type', nativeProps.type);
         expect(textField).toHaveAttribute('name', nativeProps.name);
@@ -237,7 +250,7 @@ describe('Textfield', () => {
       nativeEvents.forEach((event) => {
         it(`${event.prop}`, () => {
           const eventSpy = jest.fn();
-          render(<Textfield testId={testId} {...{ [event.prop]: eventSpy }} />);
+          render(createTextfield({ [event.prop]: eventSpy }));
           const input = screen.getByTestId(testId) as HTMLInputElement;
           expect(eventSpy).toHaveBeenCalledTimes(0);
           event.fireFunc(input, event.options);
@@ -248,7 +261,7 @@ describe('Textfield', () => {
 
     describe('defaultValue', () => {
       it('should pass defaultValue to value on render', () => {
-        render(<Textfield testId={testId} defaultValue="test default value" />);
+        render(createTextfield({ defaultValue: 'test default value' }));
         const input = screen.getByTestId(testId);
         expect(input).toHaveValue('test default value');
       });
@@ -256,9 +269,7 @@ describe('Textfield', () => {
 
     describe('value', () => {
       it('should have value="test value"', () => {
-        render(
-          <Textfield testId={testId} onChange={__noop} value="test value" />,
-        );
+        render(createTextfield({ onChange: __noop, value: 'test value' }));
         const input = screen.getByTestId(testId);
         expect(input).toHaveValue('test value');
       });
@@ -267,23 +278,22 @@ describe('Textfield', () => {
     describe('onChange', () => {
       it('should update input value when called', () => {
         const spy = jest.fn();
-        render(<Textfield testId={testId} onChange={spy} />);
+        render(createTextfield({ onChange: spy }));
         const input = screen.getByTestId(testId) as HTMLInputElement;
         fireEvent.change(input, { target: { value: 'foo' } });
         expect(input).toHaveValue('foo');
       });
     });
+
     describe('ref', () => {
       it('textfield ref should be an input', () => {
         let ref;
         render(
-          <div>
-            <Textfield
-              ref={(input: HTMLInputElement | null) => {
-                ref = input;
-              }}
-            />
-          </div>,
+          createTextfield({
+            ref: (input: HTMLInputElement | null) => {
+              ref = input;
+            },
+          }),
         );
         expect(ref).toBeInstanceOf(HTMLInputElement);
       });
@@ -292,8 +302,7 @@ describe('Textfield', () => {
 
   describe('data-attributes', () => {
     it('text-field container & input styles should have corresponding data-attributes', () => {
-      const testId = 'testOverride';
-      render(<Textfield testId={testId} />);
+      render(createTextfield({ isInvalid: true }));
       const container = screen.getByTestId(`${testId}-container`);
       expect(container).toHaveAttribute(
         'data-ds--text-field--container',

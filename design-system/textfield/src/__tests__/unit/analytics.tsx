@@ -24,7 +24,10 @@ describe('Textfield analytics', () => {
       render(
         <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
           <div>
-            <Textfield testId="test" onBlur={noop} onFocus={noop} />
+            <label htmlFor="name">
+              Name
+              <Textfield id="name" testId="test" onBlur={noop} onFocus={noop} />
+            </label>
           </div>
         </AnalyticsListener>,
       );

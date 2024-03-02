@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "192.3.19",
+  "version": "192.3.21",
   "description": "Mobile distribution of the Editor",
   "keywords": [
     "editor",
@@ -38,7 +38,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/collab-provider": "^9.25.0",
     "@atlaskit/editor-card-provider": "^3.3.0",
-    "@atlaskit/editor-common": "78.8.4",
+    "@atlaskit/editor-common": "78.9.0",
     "@atlaskit/editor-core": "192.3.18",
     "@atlaskit/editor-json-transformer": "8.10.24",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
@@ -67,7 +67,7 @@
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/emoji": "67.6.11",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/legacy-mobile-macros": "2.4.406",
+    "@atlaskit/legacy-mobile-macros": "2.4.408",
     "@atlaskit/link-provider": "^1.7.0",
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-picker": "^66.3.0",

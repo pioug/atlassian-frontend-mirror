@@ -47,6 +47,7 @@ export const placeholderFallback = css`
   & > img {
     margin: 0 ${token('space.050', '4px')};
   }
+
   /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
   /* stylelint-disable-next-line */
   label: placeholder-fallback;
@@ -68,4 +69,11 @@ export const styledImage = css`
   /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
   /* stylelint-disable-next-line */
   label: lozenge-image;
+`;
+
+export const lozengeWrapper = css`
+  display: flex;
+  justify-content: left;
+  width: 100%;
+  margin-left: ${token('space.050', '4px')};
 `;

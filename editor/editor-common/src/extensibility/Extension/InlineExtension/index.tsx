@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -15,11 +14,17 @@ export interface Props {
   node: PmNode;
   children?: React.ReactNode;
   showMacroInteractionDesignUpdates?: boolean;
+  isNodeSelected?: boolean;
 }
 
 export default class InlineExtension extends Component<Props, any> {
   render() {
-    const { node, children } = this.props;
+    const {
+      node,
+      children,
+      showMacroInteractionDesignUpdates,
+      isNodeSelected,
+    } = this.props;
 
     const hasChildren = !!children;
 
@@ -33,7 +38,17 @@ export default class InlineExtension extends Component<Props, any> {
         className={`extension-container inline ${className}`}
       >
         <div css={overlay} className="extension-overlay" />
-        {children ? children : <ExtensionLozenge node={node} />}
+        {children ? (
+          children
+        ) : (
+          <ExtensionLozenge
+            node={node}
+            isNodeSelected={isNodeSelected}
+            showMacroInteractionDesignUpdates={
+              showMacroInteractionDesignUpdates
+            }
+          />
+        )}
       </div>
     );
   }

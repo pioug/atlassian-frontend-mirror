@@ -72,7 +72,8 @@ describe('Toggle component', () => {
     render(<Toggle label={label} />);
     const input = screen.getByRole('checkbox');
 
-    expect(input).toHaveAttribute('aria-label', label);
+    expect(input).toHaveAttribute('aria-labelledby');
+    expect(input).toHaveAccessibleName(label);
   });
 
   it('should set received aria-describedby to input', () => {

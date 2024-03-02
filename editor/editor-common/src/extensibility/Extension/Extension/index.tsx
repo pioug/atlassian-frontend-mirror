@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import type { CSSProperties } from 'react';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
@@ -44,6 +44,7 @@ export interface Props {
   editorAppearance?: EditorAppearance;
   pluginInjectionApi: ExtensionsPluginInjectionAPI;
   showMacroInteractionDesignUpdates?: boolean;
+  isNodeSelected?: boolean;
 }
 
 type WidthStateProps = { widthState?: EditorContainerWidth };
@@ -61,6 +62,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     shadowClassNames,
     hideFrame,
     editorAppearance,
+    showMacroInteractionDesignUpdates,
+    isNodeSelected,
   } = props;
 
   const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(
@@ -69,7 +72,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
   const isMobile = editorAppearance === 'mobile';
   const hasChildren = !!children;
-  const removeBorder = (hideFrame && !isMobile && !hasBody) || false;
+  const removeBorder =
+    showMacroInteractionDesignUpdates || !!(hideFrame && !isMobile && !hasBody);
 
   const { getPos, view } = props;
   const isTopLevelNode = React.useMemo(() => {
@@ -133,32 +137,53 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
   };
 
   return (
-    <div
-      ref={handleRef}
-      data-layout={node.attrs.layout}
-      className={classNames}
-      css={wrapperStyle}
-      style={customContainerStyles}
-    >
+    <Fragment>
+      {showMacroInteractionDesignUpdates && (
+        <ExtensionLozenge
+          isNodeSelected={isNodeSelected}
+          node={node}
+          showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+        />
+      )}
       <div
-        className={`extension-overflow-wrapper ${hasBody ? 'with-body' : ''}`}
+        ref={handleRef}
+        data-layout={node.attrs.layout}
+        className={classNames}
+        css={wrapperStyle}
+        style={customContainerStyles}
       >
-        <div css={overlay} className="extension-overlay" />
-        <div css={header} contentEditable={false} className={headerClassNames}>
-          {!removeBorder && <ExtensionLozenge node={node} />}
-          {children}
-        </div>
-        {hasBody && (
-          <div css={newContentStyles}>
-            <div
-              css={content}
-              ref={handleContentDOMRef}
-              className="extension-content block"
-            />
+        <div
+          className={`extension-overflow-wrapper ${hasBody ? 'with-body' : ''}`}
+        >
+          <div css={overlay} className="extension-overlay" />
+          <div
+            css={header}
+            contentEditable={false}
+            className={headerClassNames}
+          >
+            {!removeBorder && (
+              <ExtensionLozenge
+                isNodeSelected={isNodeSelected}
+                node={node}
+                showMacroInteractionDesignUpdates={
+                  showMacroInteractionDesignUpdates
+                }
+              />
+            )}
+            {children}
           </div>
-        )}
+          {hasBody && (
+            <div css={newContentStyles}>
+              <div
+                css={content}
+                ref={handleContentDOMRef}
+                className="extension-content block"
+              />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 }
 

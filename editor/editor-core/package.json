@@ -46,7 +46,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.6.0",
-    "@atlaskit/editor-common": "^78.8.0",
+    "@atlaskit/editor-common": "^78.9.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^1.4.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 78.9.0
+
+### Minor Changes
+
+- [#77158](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77158) [`4a5f437bd464`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a5f437bd464) - [ux] Adds initial changes to extension lozenges for the macro visual design updates project in Confluence.
+
+## 78.8.5
+
+### Patch Changes
+
+- [#77651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77651) [`25b3713456e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25b3713456e7) - ED-22342 Updated tooltip for paste option toolbar
+
 ## 78.8.4
 
 ### Patch Changes

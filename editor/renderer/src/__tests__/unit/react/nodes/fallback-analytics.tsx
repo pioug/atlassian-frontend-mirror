@@ -2,13 +2,25 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
+import { captureException } from '@atlaskit/linking-common/sentry';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+jest.mock('@atlaskit/linking-common/sentry', () => {
+  const originalModule = jest.requireActual('@atlaskit/link-client-extension');
+  return {
+    ...originalModule,
+    captureException: jest.fn(),
+  };
+});
 
 const MockedUnsupportedInline = () => <div>UnsupportedInline</div>;
 const url =
   'https://extranet.atlassian.com/pages/viewpage.action?pageId=3088533424';
+const datasourceId = 'mock-datasource-id';
 
 describe('Renderer - Fallback analytics', () => {
   const EVENT_CHANNEL = 'media';
+  const mockError = new Error('Error');
 
   const renderFailedPayload = {
     payload: {
@@ -27,15 +39,21 @@ describe('Renderer - Fallback analytics', () => {
     ],
   };
 
-  const setup = async (renderComponent: React.ReactNode, url?: string) => {
+  const setup = async (
+    renderComponent: React.ReactNode,
+    args?: {
+      url?: string;
+      datasourceId?: string;
+    },
+  ) => {
     const onAnalyticFireEvent = jest.fn();
 
     render(
       <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
         <CardErrorBoundary
-          url={url}
           unsupportedComponent={MockedUnsupportedInline}
           isDatasource={true}
+          {...args}
         >
           {renderComponent}
         </CardErrorBoundary>
@@ -50,28 +68,124 @@ describe('Renderer - Fallback analytics', () => {
   };
 
   const ErrorChild = () => {
-    throw new Error('Error');
+    throw mockError;
   };
 
-  it('fires datasource renderFailed event when error is caught by boundary', async () => {
-    const onAnalyticFireEvent = await setup(<ErrorChild />, url);
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-    expect(onAnalyticFireEvent).toBeCalledWith(
-      expect.objectContaining(renderFailedPayload),
-      EVENT_CHANNEL,
+  describe('fires datasource renderFailed event when error is caught by boundary and log to Sentry conditionally based on FF', () => {
+    ffTest(
+      'platform.linking-platform.datasources.enable-sentry-client',
+      async () => {
+        const onAnalyticFireEvent = await setup(<ErrorChild />, {
+          url,
+          datasourceId,
+        });
+        await waitFor(() => {
+          expect(captureException).toHaveBeenCalled();
+        });
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).toHaveBeenCalledWith(
+          mockError,
+          'link-datasource',
+          { datasourceId },
+        );
+      },
+      async () => {
+        const onAnalyticFireEvent = await setup(<ErrorChild />, { url });
+
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).not.toHaveBeenCalled();
+      },
     );
   });
 
-  it('fires datasource renderFailed event when error is caught by boundary and unsafe URL provided', async () => {
-    const unsafeUrl = 'javascript:alert(1)';
+  describe('fires datasource renderFailed event when error is caught by boundary, unsafe URL provided and log to Sentry conditionally based on FF', () => {
+    ffTest(
+      'platform.linking-platform.datasources.enable-sentry-client',
+      async () => {
+        const unsafeUrl = 'javascript:alert(1)';
 
-    const onAnalyticFireEvent = await setup(<ErrorChild />, unsafeUrl);
+        const onAnalyticFireEvent = await setup(<ErrorChild />, {
+          url: unsafeUrl,
+          datasourceId,
+        });
+        await waitFor(() => {
+          expect(captureException).toHaveBeenCalled();
+        });
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).toHaveBeenCalledWith(
+          mockError,
+          'link-datasource',
+          { datasourceId },
+        );
+      },
+      async () => {
+        const unsafeUrl = 'javascript:alert(1)';
 
-    expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
-    expect(onAnalyticFireEvent).toBeCalledWith(
-      expect.objectContaining(renderFailedPayload),
-      EVENT_CHANNEL,
+        const onAnalyticFireEvent = await setup(<ErrorChild />, {
+          url: unsafeUrl,
+          datasourceId,
+        });
+
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).not.toHaveBeenCalled();
+      },
+    );
+  });
+  describe('fires datasource renderFailed event when non error type is caught by boundary and do not log to Sentry', () => {
+    ffTest(
+      'platform.linking-platform.datasources.enable-sentry-client',
+      async () => {
+        const NonErrorChild = () => {
+          // eslint-disable-next-line no-throw-literal
+          throw { error: 'fake error message' };
+        };
+        const onAnalyticFireEvent = await setup(<NonErrorChild />, {
+          url,
+          datasourceId,
+        });
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).not.toHaveBeenCalled();
+      },
+      async () => {
+        const NonErrorChild = () => {
+          // eslint-disable-next-line no-throw-literal
+          throw { error: 'fake error message' };
+        };
+        const onAnalyticFireEvent = await setup(<NonErrorChild />, {
+          url,
+          datasourceId,
+        });
+        expect(onAnalyticFireEvent).toHaveBeenCalledTimes(1);
+        expect(onAnalyticFireEvent).toBeCalledWith(
+          expect.objectContaining(renderFailedPayload),
+          EVENT_CHANNEL,
+        );
+        expect(captureException).not.toHaveBeenCalled();
+      },
     );
   });
 });

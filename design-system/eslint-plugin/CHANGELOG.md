@@ -1,5 +1,33 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.35.0
+
+### Minor Changes
+
+- [#77589](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77589) [`744ea21e3367`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/744ea21e3367) - Update use-primitives-text rule for new defaults in Text primitive component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.34.0
+
+### Minor Changes
+
+- [#75311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75311) [`96ca033f8748`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96ca033f8748) - Added new `use-tokens-typography` rule that handles converting fontSize and similar font properties to tokens. Removed typography functionality from `ensure-design-token-usage` rule.
+
+## 8.33.0
+
+### Minor Changes
+
+- [#77488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77488) [`babedf52898f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/babedf52898f) - Add support for inline `cx` func inside `xcss` prop for the `consistent-css-prop-usage` rule.
+
+## 8.32.2
+
+### Patch Changes
+
+- [#77485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77485) [`887b1a3193ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/887b1a3193ce) - For `no-styled-tagged-template-expression`, do not autofix component selectors for `styled-components` implementations
+
 ## 8.32.1
 
 ### Patch Changes

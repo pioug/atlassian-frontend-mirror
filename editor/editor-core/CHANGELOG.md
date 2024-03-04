@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 192.4.0
+
+### Minor Changes
+
+- [#76504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76504) [`35deb7a5d492`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35deb7a5d492) - [ux] Add Media preview feature for full page Editor under FF
+
+## 192.3.22
+
+### Patch Changes
+
+- [#77668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77668) [`c8a08df51a9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8a08df51a9f) - Add password protected pdf support for media viewer
+
 ## 192.3.18
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/media-viewer
 
+## 48.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 48.3.0
+
+### Minor Changes
+
+- [#77668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77668) [`c8a08df51a9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8a08df51a9f) - Add password protected pdf support for media viewer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.2.15
 
 ### Patch Changes

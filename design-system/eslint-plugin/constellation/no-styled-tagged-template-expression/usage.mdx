@@ -86,3 +86,45 @@ export const Component = styled.div``;
 ## Limitations
 
 - Comments are not fixable.
+- Component selectors are not fixable for `styled-components`.
+
+Do not migrate to this object syntax manually, it is invalid `styled-components`.
+
+```tsx
+const Button = styled.button``;
+const Wrapper = styled.div({
+  color: 'red',
+  [`${Button}`]: {
+    color: 'blue',
+  },
+});
+<Wrapper><Button /><Wrapper>
+```
+
+Instead, style the button directly—make it clear that you're styling that button.
+
+```tsx
+const buttonStyles = css({ color: 'blue' });
+const Wrapper = styled.div({
+  color: 'red',
+});
+
+<Wrapper>
+  <button css={buttonStyles} />
+</Wrapper>;
+```
+
+If that's not feasible, you can use data attributes, but these will result in failing the UI Styling Standard around nested styles, pushing the error down the road.
+
+```tsx
+const Wrapper = styled.div({
+  color: 'red',
+  '[data-component-selector="my.button"]': {
+    color: 'blue',
+  },
+});
+
+<Wrapper>
+  <button data-component-selector="my.button" />
+</Wrapper>;
+```

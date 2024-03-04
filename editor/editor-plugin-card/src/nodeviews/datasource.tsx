@@ -282,6 +282,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
         unsupportedComponent={UnsupportedInline}
         view={this.view}
         url={attrs.url}
+        datasourceId={attrs?.datasource?.id}
       >
         <div
           className={DATASOURCE_INNER_CONTAINER_CLASSNAME}

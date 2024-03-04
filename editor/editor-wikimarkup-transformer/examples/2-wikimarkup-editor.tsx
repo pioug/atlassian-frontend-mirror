@@ -8,30 +8,30 @@ import {
 } from '@atlaskit/editor-core';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { token } from '@atlaskit/tokens';
 
 import { WikiMarkupTransformer } from '../src';
 
-const container = css`
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  #source,
-  #output {
-    border: 2px solid;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    &:focus {
-      outline: none;
-    }
-    &:empty:not(:focus)::before {
-      content: attr(data-placeholder);
-      font-size: 14px;
-    }
-  }
-  #source {
-    font-size: xx-small;
-  }
-`;
+const container = css({
+  display: 'grid',
+  gridTemplateColumns: '33% 33% 33%',
+  '#source, #output': {
+    border: '2px solid',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    '&:focus': {
+      outline: 'none',
+    },
+    '&:empty:not(:focus)::before': {
+      content: 'attr(data-placeholder)',
+      fontSize: '14px',
+    },
+  },
+  '#source': {
+    fontSize: 'xx-small',
+  },
+});
 
 type Props = { actions: any };
 type State = { source: string; output: string };

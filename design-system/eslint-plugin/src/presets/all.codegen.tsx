@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bcb633b9d5c2def00d43b11139433c5c>>
+ * @codegen <<SignedSource::d90c2cf5e100daf98915f9467f2e5663>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
@@ -35,6 +35,7 @@ export default {
     '@atlaskit/design-system/use-href-in-link-item': 'warn',
     '@atlaskit/design-system/use-primitives': 'warn',
     '@atlaskit/design-system/use-primitives-text': 'warn',
+    '@atlaskit/design-system/use-tokens-typography': 'warn',
     '@atlaskit/design-system/use-visually-hidden': 'error',
   },
 };

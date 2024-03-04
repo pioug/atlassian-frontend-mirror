@@ -46,7 +46,7 @@
     "@atlaskit/editor-common": "^78.9.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/modal-dialog": "^12.10.0",
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

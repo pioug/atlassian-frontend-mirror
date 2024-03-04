@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.41
+
+### Patch Changes
+
+- [#77984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77984) [`eb7139b3ec21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb7139b3ec21) - Replace hardcoded values with spacing tokens
+
 ## 11.2.40
 
 ### Patch Changes

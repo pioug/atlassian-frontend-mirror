@@ -40,7 +40,7 @@ const ASTObjectExpression = {
   },
 
   /**
-   * Returns a key-value pair like: `padding: '8px'` from: `{ padding: '8px' }`.
+   * Returns the first Property node from an Object that matches the provided name.
    */
   getEntryByPropertyName(
     node: ObjectExpression,

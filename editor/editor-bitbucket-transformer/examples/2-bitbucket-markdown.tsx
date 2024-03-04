@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { token } from '@atlaskit/tokens';
 import ToolsDrawer from './helpers/ToolsDrawer';
 import { BitbucketTransformer } from '../src';
 
@@ -48,7 +49,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                 onChange,
                 disabled,
               }) => (
-                <div style={{ padding: '20px' }}>
+                <div style={{ padding: token('space.250', '20px') }}>
                   <CollapsedEditor
                     placeholder="What do you want to say?"
                     isExpanded={this.state.isExpanded}

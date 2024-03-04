@@ -13,9 +13,11 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 import type { CardPlatform } from '@atlaskit/smart-card';
 
+import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import { EditDatasourceButton } from './EditDatasourceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 
@@ -129,6 +131,17 @@ export class HyperlinkToolbarAppearance extends Component<
           editorAnalyticsApi={editorAnalyticsApi}
           cardActions={cardActions}
         />
+        {getBooleanFF(
+          'platform.linking-platform.enable-datasource-appearance-toolbar',
+        ) && (
+          <DatasourceAppearanceButton
+            intl={intl}
+            url={url}
+            editorState={editorState}
+            editorView={editorView}
+            editorAnalyticsApi={editorAnalyticsApi}
+          />
+        )}
       </Flex>
     );
   }

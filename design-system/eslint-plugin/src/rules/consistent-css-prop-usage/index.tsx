@@ -487,6 +487,17 @@ class JSXExpressionLinter {
       case 'CallExpression':
       case 'TaggedTemplateExpression':
       case 'TemplateLiteral':
+        if (
+          expression.type === 'CallExpression' &&
+          expression.callee.type === 'Identifier' &&
+          expression.callee.name === 'cx'
+        ) {
+          expression.arguments.forEach(
+            (exp) => exp && this.traverseExpression(exp),
+          );
+          return;
+        }
+
         // We've found elements that shouldn't be here! Report an error.
         this.context.report({
           node: expression,

@@ -1,3 +1,4 @@
+import type { XCSS } from '@atlaskit/primitives';
 import type { TooltipProps } from '@atlaskit/tooltip';
 import type { AIState } from '../types';
 
@@ -18,4 +19,5 @@ export type AIIndicatorContainerProps = {
 export type AIIndicatorTooltipProps = {
   content: TooltipProps['content'];
   trigger: React.ReactNode;
+  xcss?: XCSS;
 };

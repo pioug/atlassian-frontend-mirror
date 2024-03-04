@@ -25,9 +25,8 @@ ruleTester.run('use-primitives-text', rule, {
       <div>
         {Boolean(value) && <p>text</p>}
       </div>
-
     `,
-    // ignore text elements with potentially non-string children
+    // ignore span elements with potentially non-string children
     '<span>text<Image src="path/to/image.jpg" /></span>',
     '<span>{children}</span>',
     // ignores text elements with unallowed props
@@ -48,7 +47,7 @@ ruleTester.run('use-primitives-text', rule, {
     `,
   ],
   invalid: [
-    // it suggests Text of variant ui for span elements with no style
+    // it suggests Text for span elements with only text as children
     {
       code: [`<span>content</span>`].join('\n'),
       errors: [
@@ -59,7 +58,7 @@ ruleTester.run('use-primitives-text', rule, {
               desc: `Convert to Text`,
               output: [
                 `import { Text } from '@atlaskit/primitives';`,
-                `<Text variant='ui'>content</Text>`,
+                `<Text>content</Text>`,
               ].join('\n'),
             },
           ],
@@ -115,7 +114,7 @@ ruleTester.run('use-primitives-text', rule, {
               desc: `Convert to Text`,
               output: [
                 `import { Text } from '@atlaskit/primitives';`,
-                `<Text key='contentKey' id='contentId' testId='contentTestId' variant='ui'>content</Text>`,
+                `<Text key='contentKey' id='contentId' testId='contentTestId'>content</Text>`,
               ].join('\n'),
             },
           ],
@@ -134,7 +133,7 @@ ruleTester.run('use-primitives-text', rule, {
               output: [
                 `import { Text } from '@atlaskit/primitives';`,
                 `<div>`,
-                `  <Text>text</Text>`,
+                `  <Text as='p'>text</Text>`,
                 `</div>`,
               ].join('\n'),
             },
@@ -160,9 +159,112 @@ ruleTester.run('use-primitives-text', rule, {
               output: [
                 `import { Text, Stack } from '@atlaskit/primitives';`,
                 `<div><Stack space='space.150'>`,
-                `  <Text>text 1</Text>`,
-                `  <Text testId='contentTestId'>text 2</Text>`,
-                `  <Text>text 3</Text>`,
+                `  <Text as='p'>text 1</Text>`,
+                `  <Text testId='contentTestId' as='p'>text 2</Text>`,
+                `  <Text as='p'>text 3</Text>`,
+                `</Stack></div>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    // it suggests Text with color inherit for text elements when option is enabled
+    {
+      options: [{ inheritColor: true }],
+      code: [`<span>content</span>`].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesText',
+          suggestions: [
+            {
+              desc: `Convert to Text`,
+              output: [
+                `import { Text } from '@atlaskit/primitives';`,
+                `<Text color='inherit'>content</Text>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ inheritColor: true }],
+      code: [`<div>`, `  <p>text</p>`, `</div>`].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesText',
+          suggestions: [
+            {
+              desc: `Convert to Text`,
+              output: [
+                `import { Text } from '@atlaskit/primitives';`,
+                `<div>`,
+                `  <Text as='p' color='inherit'>text</Text>`,
+                `</div>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ inheritColor: true }],
+      code: [`<strong>content</strong>`].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesText',
+          suggestions: [
+            {
+              desc: `Convert to Text`,
+              output: [
+                `import { Text } from '@atlaskit/primitives';`,
+                `<Text as='strong' color='inherit'>content</Text>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ inheritColor: true }],
+      code: [`<em>content</em>`].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesText',
+          suggestions: [
+            {
+              desc: `Convert to Text`,
+              output: [
+                `import { Text } from '@atlaskit/primitives';`,
+                `<Text as='em' color='inherit'>content</Text>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      options: [{ inheritColor: true }],
+      code: [
+        `<div>`,
+        `  <p>text 1</p>`,
+        `  <p data-testid='contentTestId'>text 2</p>`,
+        `  <p>text 3</p>`,
+        `</div>`,
+      ].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesStackedText',
+          suggestions: [
+            {
+              desc: `Convert to Text and Stack`,
+              output: [
+                `import { Text, Stack } from '@atlaskit/primitives';`,
+                `<div><Stack space='space.150'>`,
+                `  <Text as='p' color='inherit'>text 1</Text>`,
+                `  <Text testId='contentTestId' as='p' color='inherit'>text 2</Text>`,
+                `  <Text as='p' color='inherit'>text 3</Text>`,
                 `</Stack></div>`,
               ].join('\n'),
             },

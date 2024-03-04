@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.23.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.23.2
+
+### Patch Changes
+
+- [#75568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75568) [`cf557c64b311`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf557c64b311) - Updated useErrorLogger to tag Sentry events with datasourceId
+  Updated DatasourceRenderFailedAnalyticsWrapper to also log events with tagging to Sentry
+
 ## 1.23.1
 
 ### Patch Changes

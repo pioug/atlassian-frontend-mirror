@@ -48,6 +48,11 @@ const iconTooltipDescStyles = xcss({
   lineHeight: '14px',
 });
 
+const iconTooltipTriggerStyles = xcss({
+  position: 'relative',
+  bottom: 'space.negative.050',
+});
+
 const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
   appearance,
   testId,
@@ -90,6 +95,7 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
             </Inline>
           }
           trigger={icon}
+          xcss={iconTooltipTriggerStyles}
         />
       );
     default:

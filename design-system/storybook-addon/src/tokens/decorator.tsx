@@ -45,6 +45,8 @@ const withDesignTokens = makeDecorator({
             await setGlobalTheme({
               colorMode: theme,
               spacing: 'spacing',
+              shape: 'shape',
+              typography: 'typography-minor3',
             });
             break;
           case 'split':
@@ -52,6 +54,8 @@ const withDesignTokens = makeDecorator({
             await setGlobalTheme({
               colorMode: 'light',
               spacing: 'spacing',
+              shape: 'shape',
+              typography: 'typography-minor3',
             });
 
             document.documentElement

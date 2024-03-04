@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.39.0
+
+### Minor Changes
+
+- [#77148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77148) [`20decda98a72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20decda98a72) - Deprecated `font.ui` tokens.
+
 ## 1.38.0
 
 ### Minor Changes

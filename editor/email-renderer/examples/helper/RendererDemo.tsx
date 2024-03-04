@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { token } from '@atlaskit/tokens';
 
 import { document as storyDataDocument } from './story-data';
 
-import EmailSerializer, { MetaDataContext } from '../../src';
+import type { MetaDataContext } from '../../src';
+import EmailSerializer from '../../src';
 
 export interface DemoRendererProps {
   serializer: 'email';
@@ -102,8 +104,8 @@ export default class RendererDemo extends React.Component<
 
   render() {
     return (
-      <div ref="root" style={{ padding: 20 }}>
-        <fieldset style={{ marginBottom: 20 }}>
+      <div ref="root" style={{ padding: token('space.250', '20px') }}>
+        <fieldset style={{ marginBottom: token('space.250', '20px') }}>
           <legend>Input</legend>
           <textarea
             id="renderer-value-input"
@@ -112,7 +114,7 @@ export default class RendererDemo extends React.Component<
               border: '1px solid lightgray',
               fontFamily: 'monospace',
               fontSize: 16,
-              padding: 10,
+              padding: token('space.150', '12px'),
               width: '100%',
               height: 320,
             }}

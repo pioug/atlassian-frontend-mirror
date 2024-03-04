@@ -4,20 +4,14 @@ import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 import { upsertImportDeclaration } from '../../use-primitives/transformers/emotion-css/upsert-import-declaration';
-import { RuleConfig } from '../config';
 
 import {
+  addColorInheritAttributeFix,
   allowedAttrs,
   hasTextChildrenOnly,
+  type MetaData,
   updateTestIdAttributeFix,
 } from './common';
-
-interface MetaData {
-  context: Rule.RuleContext;
-  config: RuleConfig;
-}
-
-type FixFunction = (fixer: Rule.RuleFixer) => Rule.Fix[];
 
 export const SpanElements = {
   lint(node: Rule.Node, { context, config }: MetaData) {
@@ -36,7 +30,7 @@ export const SpanElements = {
       suggest: [
         {
           desc: `Convert to Text`,
-          fix: SpanElements._fix(node, { context }),
+          fix: SpanElements._fix(node, { context, config }),
         },
       ],
     });
@@ -75,11 +69,8 @@ export const SpanElements = {
     return true;
   },
 
-  _fix(
-    node: JSXElement,
-    { context }: { context: Rule.RuleContext },
-  ): FixFunction {
-    return (fixer: Rule.RuleFixer) => {
+  _fix(node: JSXElement, { context, config }: MetaData): Rule.ReportFixer {
+    return (fixer) => {
       const importFix = upsertImportDeclaration(
         {
           module: '@atlaskit/primitives',
@@ -90,20 +81,17 @@ export const SpanElements = {
       );
 
       const elementNameFixes = ast.JSXElement.updateName(node, 'Text', fixer);
-
-      const variantAttributeFix = ast.JSXElement.addAttribute(
+      const colorAttributeFix = addColorInheritAttributeFix(
         node,
-        'variant',
-        'ui',
+        config,
         fixer,
       );
-
       const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 
       return [
         importFix,
         ...elementNameFixes,
-        variantAttributeFix,
+        colorAttributeFix,
         testAttributeFix,
       ].filter((fix): fix is Rule.Fix => Boolean(fix)); // Some of the transformers can return arrays with undefined, so filter them out
     };

@@ -79,7 +79,7 @@ export const useDatasourceTableState = ({
   fieldKeys = [],
 }: DatasourceTableStateProps): DatasourceTableState => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
-  const { captureError } = useErrorLogger();
+  const { captureError } = useErrorLogger({ datasourceId });
 
   const idFieldCount = 1;
   const keyFieldCount = 1;

@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import type { Node } from '@atlaskit/editor-prosemirror/dist/types/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
@@ -15,6 +16,7 @@ import {
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
   JiraIssuesConfigModal,
 } from '@atlaskit/link-datasource';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type {
   CardContext,
   DatasourceAdf,
@@ -42,11 +44,34 @@ export const DatasourceModal = ({
 }: DatasourceModalProps) => {
   const { dispatch, state } = view;
   const { selection } = state;
-  const existingNode =
-    selection instanceof NodeSelection ? selection.node : undefined;
+
+  let existingNode: Node | undefined;
+  if (
+    getBooleanFF(
+      'platform.linking-platform.enable-datasource-appearance-toolbar',
+    )
+  ) {
+    // Check if the selection contains a link mark
+    const $pos = state.doc.resolve(selection.from);
+    const isLinkMark = $pos
+      .marks()
+      .some(mark => mark.type === state.schema.marks.link);
+
+    // When selection is a TextNode and a link Mark is present return that node
+    if (selection instanceof NodeSelection) {
+      existingNode = selection.node;
+    } else if (isLinkMark) {
+      existingNode = state.doc.nodeAt(selection.from) ?? undefined;
+    }
+  } else {
+    existingNode =
+      selection instanceof NodeSelection ? selection.node : undefined;
+  }
+
   const isRegularCardNode = !!(
     existingNode && !existingNode?.attrs?.datasource
   );
+
   const { parameters, ready } = useFetchDatasourceInfo({
     isRegularCardNode,
     url: existingNode?.attrs.url,

@@ -8,6 +8,7 @@ import React, {
 
 import invariant from 'tiny-invariant';
 
+import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
 import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
@@ -18,10 +19,10 @@ import { reorder } from '@atlaskit/pragmatic-drag-and-drop/reorder';
 
 import { ColumnMap, ColumnType, getBasicData, Person } from './data/people';
 import Board from './pieces/board/board';
-import { BoardContext, BoardContextProps } from './pieces/board/board-context';
+import { BoardContext, BoardContextValue } from './pieces/board/board-context';
 import { Column } from './pieces/board/column';
 
-type KeyboardOperation =
+type Outcome =
   | {
       type: 'column-reorder';
       columnId: string;
@@ -41,11 +42,20 @@ type KeyboardOperation =
       itemIndexInFinishColumn: number;
     };
 
+type Trigger = 'pointer' | 'keyboard';
+
+type Operation = {
+  trigger: Trigger;
+  outcome: Outcome;
+};
+
 type BoardState = {
   columnMap: ColumnMap;
   orderedColumnIds: string[];
-  lastKeyboardOperation: KeyboardOperation | null;
+  lastOperation: Operation | null;
 };
+
+type CardEntry = { element: HTMLElement; actionMenuTrigger: HTMLElement };
 
 /**
  * Registering cards and their action menu trigger element,
@@ -53,17 +63,17 @@ type BoardState = {
  */
 function createRegistry() {
   const registry = {
-    cards: new Map<string, { actionMenuTrigger: HTMLElement }>(),
+    cards: new Map<string, CardEntry>(),
   };
 
   function registerCard({
     cardId,
-    actionMenuTrigger,
+    entry,
   }: {
     cardId: string;
-    actionMenuTrigger: HTMLElement;
+    entry: CardEntry;
   }) {
-    registry.cards.set(cardId, { actionMenuTrigger });
+    registry.cards.set(cardId, entry);
     return () => {
       registry.cards.delete(cardId);
     };
@@ -77,7 +87,7 @@ export default function BoardExample() {
     const base = getBasicData();
     return {
       ...base,
-      lastKeyboardOperation: null,
+      lastOperation: null,
     };
   });
 
@@ -88,22 +98,21 @@ export default function BoardExample() {
 
   const [{ registry, registerCard }] = useState(createRegistry);
 
-  const { lastKeyboardOperation } = data;
+  const { lastOperation } = data;
 
-  // In this effect we are performing two post accessible operation actions:
-  // 1. Tell the user what occurred with a screen reader announcement
-  // 2. Restore focus to the relevant control so that the user
-  //    can continue to quickly interact with the item
   useEffect(() => {
-    if (lastKeyboardOperation === null) {
+    if (lastOperation === null) {
       return;
     }
+    const { outcome, trigger } = lastOperation;
 
-    if (lastKeyboardOperation.type === 'column-reorder') {
-      const { startIndex, finishIndex } = lastKeyboardOperation;
+    if (outcome.type === 'column-reorder') {
+      const { startIndex, finishIndex } = outcome;
 
       const { columnMap, orderedColumnIds } = stableData.current;
       const sourceColumn = columnMap[orderedColumnIds[finishIndex]];
+
+      // TODO: flash for column
 
       liveRegion.announce(
         `You've moved ${sourceColumn.title} from position ${
@@ -114,12 +123,20 @@ export default function BoardExample() {
       return;
     }
 
-    if (lastKeyboardOperation.type === 'card-reorder') {
-      const { columnId, startIndex, finishIndex } = lastKeyboardOperation;
+    if (outcome.type === 'card-reorder') {
+      const { columnId, startIndex, finishIndex } = outcome;
 
       const { columnMap } = stableData.current;
       const column = columnMap[columnId];
-      const item = column.items[startIndex];
+      const item = column.items[finishIndex];
+
+      const entry = registry.cards.get(item.userId);
+      invariant(entry);
+      triggerPostMoveFlash(entry.element);
+
+      if (trigger !== 'keyboard') {
+        return;
+      }
 
       liveRegion.announce(
         `You've moved ${item.name} from position ${
@@ -132,12 +149,12 @@ export default function BoardExample() {
       return;
     }
 
-    if (lastKeyboardOperation.type === 'card-move') {
+    if (outcome.type === 'card-move') {
       const {
         finishColumnId,
         itemIndexInStartColumn,
         itemIndexInFinishColumn,
-      } = lastKeyboardOperation;
+      } = outcome;
 
       const data = stableData.current;
       const destinationColumn = data.columnMap[finishColumnId];
@@ -148,6 +165,14 @@ export default function BoardExample() {
           ? itemIndexInFinishColumn + 1
           : destinationColumn.items.length;
 
+      const entry = registry.cards.get(item.userId);
+      invariant(entry);
+      triggerPostMoveFlash(entry.element);
+
+      if (trigger !== 'keyboard') {
+        return;
+      }
+
       liveRegion.announce(
         `You've moved ${item.name} from position ${
           itemIndexInStartColumn + 1
@@ -156,17 +181,15 @@ export default function BoardExample() {
         } column.`,
       );
 
-      const cardEntry = registry.cards.get(item.userId);
-      invariant(cardEntry);
       /**
        * Because the card has moved column, it will have remounted.
        * This means we need to manually restore focus to it.
        */
-      cardEntry.actionMenuTrigger.focus();
+      entry.actionMenuTrigger.focus();
 
       return;
     }
-  }, [lastKeyboardOperation, registry]);
+  }, [lastOperation, registry]);
 
   useEffect(() => {
     return liveRegion.cleanup();
@@ -181,22 +204,19 @@ export default function BoardExample() {
     ({
       startIndex,
       finishIndex,
-      source = 'keyboard',
+      trigger = 'keyboard',
     }: {
       startIndex: number;
       finishIndex: number;
-      source?: 'keyboard' | 'pointer';
+      trigger?: Trigger;
     }) => {
       setData(data => {
-        const operation: KeyboardOperation | null =
-          source === 'keyboard'
-            ? {
-                type: 'column-reorder',
-                columnId: data.orderedColumnIds[startIndex],
-                startIndex,
-                finishIndex,
-              }
-            : null;
+        const outcome: Outcome = {
+          type: 'column-reorder',
+          columnId: data.orderedColumnIds[startIndex],
+          startIndex,
+          finishIndex,
+        };
 
         return {
           ...data,
@@ -205,7 +225,10 @@ export default function BoardExample() {
             startIndex,
             finishIndex,
           }),
-          lastKeyboardOperation: operation,
+          lastOperation: {
+            outcome,
+            trigger: trigger,
+          },
         };
       });
     },
@@ -217,12 +240,12 @@ export default function BoardExample() {
       columnId,
       startIndex,
       finishIndex,
-      source = 'keyboard',
+      trigger = 'keyboard',
     }: {
       columnId: string;
       startIndex: number;
       finishIndex: number;
-      source?: 'keyboard' | 'pointer';
+      trigger?: Trigger;
     }) => {
       setData(data => {
         const sourceColumn = data.columnMap[columnId];
@@ -242,20 +265,20 @@ export default function BoardExample() {
           [columnId]: updatedSourceColumn,
         };
 
-        const operation: KeyboardOperation | null =
-          source === 'keyboard'
-            ? {
-                type: 'card-reorder',
-                columnId,
-                startIndex,
-                finishIndex,
-              }
-            : null;
+        const outcome: Outcome | null = {
+          type: 'card-reorder',
+          columnId,
+          startIndex,
+          finishIndex,
+        };
 
         return {
           ...data,
           columnMap: updatedMap,
-          lastKeyboardOperation: operation,
+          lastOperation: {
+            trigger: trigger,
+            outcome,
+          },
         };
       });
     },
@@ -268,13 +291,13 @@ export default function BoardExample() {
       finishColumnId,
       itemIndexInStartColumn,
       itemIndexInFinishColumn,
-      source = 'keyboard',
+      trigger = 'keyboard',
     }: {
       startColumnId: string;
       finishColumnId: string;
       itemIndexInStartColumn: number;
       itemIndexInFinishColumn?: number;
-      source?: 'pointer' | 'keyboard';
+      trigger?: 'pointer' | 'keyboard';
     }) => {
       setData(data => {
         const sourceColumn = data.columnMap[startColumnId];
@@ -300,23 +323,23 @@ export default function BoardExample() {
           },
         };
 
-        const operation: KeyboardOperation | null =
-          source === 'keyboard'
-            ? {
-                type: 'card-move',
-                finishColumnId,
-                itemIndexInStartColumn,
-                itemIndexInFinishColumn:
-                  typeof itemIndexInFinishColumn === 'number'
-                    ? itemIndexInFinishColumn
-                    : destinationItems.length - 1,
-              }
-            : null;
+        const outcome: Outcome | null = {
+          type: 'card-move',
+          finishColumnId,
+          itemIndexInStartColumn,
+          itemIndexInFinishColumn:
+            typeof itemIndexInFinishColumn === 'number'
+              ? itemIndexInFinishColumn
+              : destinationItems.length - 1,
+        };
 
         return {
           ...data,
           columnMap: updatedMap,
-          lastKeyboardOperation: operation,
+          lastOperation: {
+            outcome,
+            trigger: trigger,
+          },
         };
       });
     },
@@ -362,7 +385,7 @@ export default function BoardExample() {
               axis: 'horizontal',
             });
 
-            reorderColumn({ startIndex, finishIndex, source: 'pointer' });
+            reorderColumn({ startIndex, finishIndex, trigger: 'pointer' });
           }
           // Dragging a card
           if (source.data.type === 'card') {
@@ -396,7 +419,7 @@ export default function BoardExample() {
                   columnId: sourceColumn.columnId,
                   startIndex: itemIndex,
                   finishIndex: destinationIndex,
-                  source: 'pointer',
+                  trigger: 'pointer',
                 });
                 return;
               }
@@ -406,7 +429,7 @@ export default function BoardExample() {
                 itemIndexInStartColumn: itemIndex,
                 startColumnId: sourceColumn.columnId,
                 finishColumnId: destinationColumn.columnId,
-                source: 'pointer',
+                trigger: 'pointer',
               });
               return;
             }
@@ -438,7 +461,7 @@ export default function BoardExample() {
                   columnId: sourceColumn.columnId,
                   startIndex: itemIndex,
                   finishIndex: destinationIndex,
-                  source: 'pointer',
+                  trigger: 'pointer',
                 });
                 return;
               }
@@ -455,7 +478,7 @@ export default function BoardExample() {
                 startColumnId: sourceColumn.columnId,
                 finishColumnId: destinationColumn.columnId,
                 itemIndexInFinishColumn: destinationIndex,
-                source: 'pointer',
+                trigger: 'pointer',
               });
             }
           }
@@ -464,7 +487,7 @@ export default function BoardExample() {
     );
   }, [data, instanceId, moveCard, reorderCard, reorderColumn]);
 
-  const contextValue: BoardContextProps = useMemo(() => {
+  const contextValue: BoardContextValue = useMemo(() => {
     return {
       getColumns,
       reorderColumn,

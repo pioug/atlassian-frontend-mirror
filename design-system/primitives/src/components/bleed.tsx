@@ -91,15 +91,17 @@ const inlineBleedMap = {
  */
 const Bleed = React.memo(
   ({ children, testId, inline, block, all, xcss }: BleedProps) => {
-    const xcssStyles = xcss && parseXcss(xcss);
+    const resolvedStyles = parseXcss(xcss);
+
     return (
       <div
+        className={resolvedStyles.static}
         css={[
           baseStyles,
           (inline || all) && inlineBleedMap[(inline || all) as Space],
           (block || all) && blockBleedMap[(block || all) as Space],
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-          xcssStyles,
+          resolvedStyles.emotion,
         ]}
         data-testid={testId}
       >

@@ -101,8 +101,9 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       small: {
         attributes: {
           group: 'typography',
-          state: 'active',
+          state: 'deprecated',
           introduced: '1.14.0',
+          deprecated: '1.39.0',
           description:
             'ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label.',
         },
@@ -110,8 +111,9 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
       '[default]': {
         attributes: {
           group: 'typography',
-          state: 'active',
+          state: 'deprecated',
           introduced: '1.14.0',
+          deprecated: '1.39.0',
           description:
             'ALPHA - Use with caution. Single-line non-wrapping text like that in a button.',
         },

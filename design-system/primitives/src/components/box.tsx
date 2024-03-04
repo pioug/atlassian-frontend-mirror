@@ -113,7 +113,7 @@ type BoxComponent = <T extends CustomElementType>(
 export const Box: BoxComponent = forwardRef(
   <T extends CustomElementType>(
     {
-      as = 'div' as T,
+      as: Component = 'div' as T,
       children,
       backgroundColor,
       padding,
@@ -130,11 +130,10 @@ export const Box: BoxComponent = forwardRef(
     }: BoxProps<T>,
     ref: BoxProps<T>['ref'],
   ) => {
-    const Component = as;
     // This is to remove className from safeHtmlAttributes
     // @ts-expect-error className doesn't exist in the prop definition but we want to ensure it cannot be applied even if types are bypassed
     const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
-    const className = xcss && parseXcss(xcss);
+    const resolvedStyles = parseXcss(xcss);
 
     const node = (
       // @ts-expect-error Expression produces a union type that is too complex to represent. I think this is unavoidable
@@ -142,6 +141,7 @@ export const Box: BoxComponent = forwardRef(
         style={style}
         // @ts-expect-error Expression produces a union type that is too complex to represent. We may be able to narrow the type here but unsure.
         ref={ref}
+        className={resolvedStyles.static}
         // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
         {...safeHtmlAttributes}
         css={[
@@ -160,7 +160,7 @@ export const Box: BoxComponent = forwardRef(
           paddingInlineEnd &&
             paddingStylesMap.paddingInlineEnd[paddingInlineEnd],
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-          className,
+          resolvedStyles.emotion,
         ]}
         data-testid={testId}
       >

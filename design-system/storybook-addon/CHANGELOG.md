@@ -1,5 +1,12 @@
 # @atlaskit/storybook-addon-design-system
 
+## 0.6.0
+
+### Minor Changes
+
+- [#77691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77691) [`14d18ea34852`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14d18ea34852) - - Enables new `typography` and `shape` themes
+  - Sets the color theme to `auto` by default
+
 ## 0.5.2
 
 ### Patch Changes

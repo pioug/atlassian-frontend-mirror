@@ -46,6 +46,15 @@ function createFixture(
         ),
     );
 
+  jest
+    .spyOn(mediaClient.file, 'getFileBinaryURL')
+    .mockReturnValue(
+      mockReturnGetArtifactURL ||
+        Promise.resolve(
+          'some-base-url/binary?client=some-client-id&token=some-token',
+        ),
+    );
+
   const el = mountWithIntlContext<Props, BaseState<Content>>(
     <DocViewer
       item={item}
@@ -158,6 +167,23 @@ describe.skip('DocViewer', () => {
     expect(
       (mediaClient.file.getArtifactURL as jest.Mock).mock.calls[0][2],
     ).toEqual(collectionName);
+  });
+
+  it('should call getFileBinaryURL when status is failed-processing', async () => {
+    const collectionName = 'some-collection';
+    const fetchPromise = Promise.resolve();
+    const { el, mediaClient } = createFixture(
+      fetchPromise,
+      { ...item, status: 'failed-processing' },
+      collectionName,
+    );
+    await (el as any).instance()['init']();
+    expect(
+      (mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0][1],
+    ).toEqual(collectionName);
+    expect(
+      (mediaClient.file.getFileBinaryURL as jest.Mock).mock.calls[0][2],
+    ).toEqual(2940);
   });
 
   it('should call onError when an error happens', async () => {

@@ -30,7 +30,7 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-uid": "^2.2.0"

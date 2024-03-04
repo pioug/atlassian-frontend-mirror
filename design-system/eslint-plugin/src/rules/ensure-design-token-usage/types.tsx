@@ -1,4 +1,4 @@
-export type Domains = ('color' | 'spacing' | 'typography' | 'shape')[];
+export type Domains = ('color' | 'spacing' | 'shape')[];
 
 export type RuleConfig = {
   domains: Domains;

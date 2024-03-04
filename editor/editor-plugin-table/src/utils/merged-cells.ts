@@ -244,31 +244,6 @@ export const hasMergedCellsInSelection =
   };
 
 /**
- * handle table map by preprocess table's map row or column.
- *
- * @param map TableMap
- * @returns object including mapByRow and mapByColumn
- */
-export const getTableMapByRowOrColumn = (map: TableMap) => {
-  let mapByRow = Array(map.height);
-  let mapByColumn = Array(map.width);
-
-  const mapCopy = [...map.map];
-
-  for (let i = 0; i < mapCopy.length; i++) {
-    const columnIndex = i % map.width;
-    mapByColumn[columnIndex] = [
-      ...(mapByColumn[columnIndex] ?? []),
-      mapCopy[i],
-    ];
-    const rowIndex = Math.trunc(i / map.width);
-    mapByRow[rowIndex] = [...(mapByRow[rowIndex] ?? []), mapCopy[i]];
-  }
-
-  return { mapByRow, mapByColumn };
-};
-
-/**
  * this check the selection has merged cells with previous/next col or row.
  *
  * @param indexes - this get the indexes of the selection,e.g. [0,1] for selecting first two rows or columns.
@@ -281,7 +256,7 @@ export const checkEdgeHasMergedCells = (
   tableMap: TableMap,
   direction: 'row' | 'column',
 ): boolean => {
-  const { mapByRow, mapByColumn } = getTableMapByRowOrColumn(tableMap);
+  const { mapByRow, mapByColumn } = tableMap;
   const map = 'row' === direction ? mapByRow : mapByColumn;
   const lengthLimiter = direction === 'row' ? tableMap.width : tableMap.height;
 

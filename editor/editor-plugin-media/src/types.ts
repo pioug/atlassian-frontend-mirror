@@ -29,6 +29,8 @@ export type MediaStateStatus =
   | 'error'
   | 'mobile-upload-end';
 
+export type CommentStatus = 'draft' | 'focus' | 'blur';
+
 export type MediaSingleWithType = 'pixel' | 'percentage';
 export interface MediaOptions {
   provider?: Providers['mediaProvider'];
@@ -51,6 +53,7 @@ export interface MediaOptions {
   allowRemoteDimensionsFetch?: boolean;
   allowDropzoneDropLine?: boolean;
   allowMarkingUploadsAsIncomplete?: boolean;
+  allowImagePreview?: boolean;
   fullWidthEnabled?: boolean;
   uploadErrorHandler?: (state: MediaState) => void;
   waitForMediaUpload?: boolean;
@@ -134,6 +137,7 @@ export type MediaFloatingToolbarOptions = {
   allowAdvancedToolBarOptions?: boolean;
   allowResizingInTables?: boolean;
   allowAltTextOnImages?: boolean;
+  allowImagePreview?: boolean;
   altTextValidator?: (value: string) => string[];
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   fullWidthEnabled?: boolean;

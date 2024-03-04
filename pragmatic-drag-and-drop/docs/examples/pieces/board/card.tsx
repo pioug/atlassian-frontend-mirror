@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import Avatar from '@atlaskit/avatar';
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
@@ -23,7 +23,9 @@ import DropdownMenu, {
 // eslint-disable-next-line @atlaskit/design-system/no-banned-imports
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Heading from '@atlaskit/heading';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+// This is the smaller MoreIcon soon to be more easily accessible with the
+// ongoing icon project
+import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 import {
   attachClosestEdge,
   Edge,
@@ -56,22 +58,36 @@ const draggingState: State = { type: 'dragging' };
 
 const noMarginStyles = css({ margin: 0 });
 const noPointerEventsStyles = css({ pointerEvents: 'none' });
-const containerStyles = xcss({
+const baseStyles = xcss({
   width: '100%',
   borderRadius: 'border.radius.200',
-  boxShadow: 'elevation.shadow.raised',
   position: 'relative',
   display: 'grid',
   gridTemplateColumns: 'auto 1fr auto',
   gap: 'space.100',
   alignItems: 'center',
-  cursor: 'grab',
   ':hover': {
     backgroundColor: 'elevation.surface.hovered',
   },
 });
-const draggingStyles = xcss({
-  opacity: 0.4,
+
+const stateStyles: {
+  [Key in State['type']]: ReturnType<typeof xcss> | undefined;
+} = {
+  idle: xcss({
+    cursor: 'grab',
+    boxShadow: 'elevation.shadow.raised',
+  }),
+  dragging: xcss({
+    opacity: 0.4,
+    boxShadow: 'elevation.shadow.raised',
+  }),
+  // no shadow for preview - the platform will add it's own drop shadow
+  preview: undefined,
+};
+
+const buttonColumnStyles = xcss({
+  alignSelf: 'start',
 });
 
 type CardPrimitiveProps = {
@@ -160,7 +176,7 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(
         testId={`item-${userId}`}
         backgroundColor="elevation.surface"
         padding="space.100"
-        xcss={[containerStyles, state === draggingState && draggingStyles]}
+        xcss={[baseStyles, stateStyles[state.type]]}
       >
         <Avatar size="large" src={avatarUrl}>
           {props => (
@@ -177,22 +193,27 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(
           </Heading>
           <small css={noMarginStyles}>{role}</small>
         </Stack>
-        <DropdownMenu
-          trigger={({ triggerRef, ...triggerProps }) => (
-            <Button
-              ref={
-                actionMenuTriggerRef
-                  ? mergeRefs([triggerRef, actionMenuTriggerRef])
-                  : triggerRef
-              }
-              iconBefore={<MoreIcon label={`Move ${name}`} />}
-              appearance="subtle"
-              {...triggerProps}
-            />
-          )}
-        >
-          <LazyDropdownItems userId={userId} />
-        </DropdownMenu>
+        <Box xcss={buttonColumnStyles}>
+          <DropdownMenu
+            trigger={({ triggerRef, ...triggerProps }) => (
+              <IconButton
+                ref={
+                  actionMenuTriggerRef
+                    ? mergeRefs([triggerRef, actionMenuTriggerRef])
+                    : // Workaround for IconButton typing issue
+                      mergeRefs([triggerRef])
+                }
+                icon={MoreIcon}
+                label={`Move ${name}`}
+                appearance="default"
+                spacing="compact"
+                {...triggerProps}
+              />
+            )}
+          >
+            <LazyDropdownItems userId={userId} />
+          </DropdownMenu>
+        </Box>
 
         {closestEdge && (
           <DropIndicator edge={closestEdge} gap={`${cardGap}px`} />
@@ -211,12 +232,14 @@ export const Card = memo(function Card({ item }: { item: Person }) {
   const actionMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const { instanceId, registerCard } = useBoardContext();
   useEffect(() => {
-    if (!actionMenuTriggerRef.current) {
-      return;
-    }
+    invariant(actionMenuTriggerRef.current);
+    invariant(ref.current);
     return registerCard({
       cardId: userId,
-      actionMenuTrigger: actionMenuTriggerRef.current,
+      entry: {
+        element: ref.current,
+        actionMenuTrigger: actionMenuTriggerRef.current,
+      },
     });
   }, [registerCard, userId]);
 

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 1.1.1
+
+### Patch Changes
+
+- [#76864](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76864) [`7ef524e422c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ef524e422c3) - Fixes switching card view from inline to Datasources
+- Updated dependencies
+
+## 1.1.0
+
+### Minor Changes
+
+- [#76379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76379) [`1550bb6f5bde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1550bb6f5bde) - Updating links for link-preferences to be dependent on staging environment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.0.6
+
+### Patch Changes
+
+- [#75568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75568) [`cf557c64b311`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf557c64b311) - Updated DatasourceErrorBoundary to pass error, datasourceId and datasourceModalType to LazyLoadedDatasourceRenderFailedAnalyticsWrapper
+
 ## 1.0.5
 
 ### Patch Changes

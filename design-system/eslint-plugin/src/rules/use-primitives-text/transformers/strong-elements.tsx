@@ -4,16 +4,13 @@ import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 import { upsertImportDeclaration } from '../../use-primitives/transformers/emotion-css/upsert-import-declaration';
-import { RuleConfig } from '../config';
 
-import { allowedAttrs, updateTestIdAttributeFix } from './common';
-
-interface MetaData {
-  context: Rule.RuleContext;
-  config: RuleConfig;
-}
-
-type FixFunction = (fixer: Rule.RuleFixer) => Rule.Fix[];
+import {
+  addColorInheritAttributeFix,
+  allowedAttrs,
+  type MetaData,
+  updateTestIdAttributeFix,
+} from './common';
 
 export const StrongElements = {
   lint(node: Rule.Node, { context, config }: MetaData) {
@@ -32,7 +29,7 @@ export const StrongElements = {
       suggest: [
         {
           desc: `Convert to Text`,
-          fix: StrongElements._fix(node, { context }),
+          fix: StrongElements._fix(node, { context, config }),
         },
       ],
     });
@@ -65,11 +62,8 @@ export const StrongElements = {
     return true;
   },
 
-  _fix(
-    node: JSXElement,
-    { context }: { context: Rule.RuleContext },
-  ): FixFunction {
-    return (fixer: Rule.RuleFixer) => {
+  _fix(node: JSXElement, { context, config }: MetaData): Rule.ReportFixer {
+    return (fixer) => {
       const importFix = upsertImportDeclaration(
         {
           module: '@atlaskit/primitives',
@@ -87,13 +81,18 @@ export const StrongElements = {
         'strong',
         fixer,
       );
-
+      const colorAttributeFix = addColorInheritAttributeFix(
+        node,
+        config,
+        fixer,
+      );
       const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 
       return [
         importFix,
         ...elementNameFixes,
         asAttributeFix,
+        colorAttributeFix,
         testAttributeFix,
       ].filter((fix): fix is Rule.Fix => Boolean(fix)); // Some of the transformers can return arrays with undefined, so filter them out
     };

@@ -8,6 +8,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/dist/types/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -15,6 +16,7 @@ import TableIcon from '@atlaskit/icon/glyph/table';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
 import { updateCardViaDatasource } from '../pm-plugins/doc';
@@ -71,8 +73,29 @@ const DatasourceAppearanceButtonWithCardContext = ({
     );
 
     const { selection } = editorState;
-    const existingNode =
-      selection instanceof NodeSelection ? selection.node : undefined;
+    let existingNode: Node | undefined;
+    if (
+      getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      )
+    ) {
+      // Check if the selection contains a link mark
+      const $pos = editorState.doc.resolve(selection.from);
+      const isLinkMark = $pos
+        .marks()
+        .some(mark => mark.type === editorState.schema.marks.link);
+
+      // When selection is a TextNode and a link Mark is present return that node
+      if (selection instanceof NodeSelection) {
+        existingNode = selection.node;
+      } else if (isLinkMark) {
+        existingNode = editorState.doc.nodeAt(selection.from) ?? undefined;
+      }
+    } else {
+      existingNode =
+        selection instanceof NodeSelection ? selection.node : undefined;
+    }
+
     if (existingNode) {
       updateCardViaDatasource(
         editorState,

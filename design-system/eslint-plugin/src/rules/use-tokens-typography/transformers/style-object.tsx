@@ -1,0 +1,339 @@
+/* eslint-disable @repo/internal/react/require-jsdoc */
+import type { Rule } from 'eslint';
+import {
+  ImportDeclaration,
+  isNodeOfType,
+  ObjectExpression,
+  Property,
+  StringableASTNode,
+} from 'eslint-codemod-utils';
+
+import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
+import {
+  getValueForPropertyNode,
+  insertTokensImport,
+  normaliseValue,
+} from '../../ensure-design-token-usage/utils';
+import {
+  isDecendantOfGlobalToken,
+  isDecendantOfStyleBlock,
+  isDecendantOfType,
+} from '../../utils/is-node';
+import {
+  convertPropertyNodeToStringableNode,
+  defaultFontWeight,
+  findFontFamilyValueForToken,
+  findFontWeightTokenForValue,
+  findTypographyTokenForValues,
+  fontWeightMap,
+  FontWeightMap,
+  getLiteralProperty,
+  getTokenProperty,
+  isValidPropertyNode,
+  notUndefined,
+  TokenValueMap,
+} from '../utils';
+
+interface MetaData {
+  context: Rule.RuleContext;
+}
+
+interface Refs {
+  fontSizeNode: Property;
+  fontSizeRaw: string | number;
+  tokensImportNode: ImportDeclaration | undefined;
+}
+
+type Check = {
+  success: boolean;
+  refs?: Refs;
+};
+
+interface FixerRefs {
+  matchingToken: TokenValueMap;
+  nodesToReplace: Property[];
+  tokensImportNode: ImportDeclaration | undefined;
+  fontWeightReplacement: StringableASTNode<Property> | undefined;
+  fontFamilyReplacement: StringableASTNode<Property> | undefined;
+  fontStyleReplacement: StringableASTNode<Property> | undefined;
+}
+
+export const StyleObject = {
+  lint(node: Rule.Node, { context }: MetaData) {
+    // To force the correct node type
+    if (!isNodeOfType(node, 'ObjectExpression')) {
+      return { success: false };
+    }
+
+    // Check whether all criteria needed to make a transformation are met
+    const { success, refs } = StyleObject._check(node, { context });
+    if (!success || !refs) {
+      return;
+    }
+    const { fontSizeNode, fontSizeRaw, tokensImportNode } = refs;
+
+    const fontSizeValue = normaliseValue('fontSize', fontSizeRaw);
+
+    // -- Font weight --
+    const fontWeightNode = ASTObject.getEntryByPropertyName(node, 'fontWeight');
+    const fontWeightRaw =
+      fontWeightNode && getValueForPropertyNode(fontWeightNode, context);
+
+    // If no fontWeight value exists, default to 400 to avoid matching with a bolder token resulting in a visual change
+    let fontWeightValue: string =
+      (fontWeightRaw && normaliseValue('fontWeight', fontWeightRaw)) ||
+      defaultFontWeight;
+    fontWeightValue =
+      fontWeightValue.length === 3
+        ? fontWeightValue
+        : fontWeightMap[fontWeightValue as keyof FontWeightMap] ||
+          defaultFontWeight;
+
+    // -- Line height --
+    const lineHeightNode = ASTObject.getEntryByPropertyName(node, 'lineHeight');
+    const lineHeightRaw =
+      lineHeightNode && getValueForPropertyNode(lineHeightNode, context);
+
+    let shouldAddFontWeight = false;
+    let lineHeightValue =
+      (lineHeightRaw && normaliseValue('lineHeight', lineHeightRaw)) ||
+      undefined;
+    if (lineHeightValue === fontSizeValue) {
+      lineHeightValue = '1';
+    }
+
+    // -- Match tokens --
+    let matchingTokens = findTypographyTokenForValues(
+      fontSizeValue,
+      lineHeightValue,
+    );
+
+    if (matchingTokens.length) {
+      // If we have multiple matching tokens, try matching fontWeight
+      let matchingTokensWithWeight = matchingTokens.filter((token) =>
+        fontWeightValue ? token.values.fontWeight === fontWeightValue : token,
+      );
+
+      if (matchingTokensWithWeight.length) {
+        // Possibly narrowed down tokens
+        matchingTokens = matchingTokensWithWeight;
+      } else {
+        // Ended up with 0 matches by matching fontWeight
+        // return body token and add fontWeight manually
+        matchingTokens = matchingTokens.filter((token) =>
+          token.tokenName.includes('.body'),
+        );
+        shouldAddFontWeight = true;
+      }
+    }
+
+    // Get other font-* nodes that we can replace/remove.
+    // These aren't needed for token matching.
+
+    // -- Font family --
+    const fontFamilyNode = ASTObject.getEntryByPropertyName(node, 'fontFamily');
+    const fontFamilyRaw =
+      fontFamilyNode && getValueForPropertyNode(fontFamilyNode, context);
+    const fontFamilyValue =
+      (fontFamilyRaw && normaliseValue('fontFamily', fontFamilyRaw)) ||
+      undefined;
+
+    let fontFamilyToAdd: 'heading' | 'body' | 'original' | undefined;
+    // If font family uses the Charlie font we can't replace; exit
+    if (fontFamilyValue) {
+      if (fontFamilyValue.toLowerCase().includes('charlie display')) {
+        fontFamilyToAdd = 'heading';
+      } else if (fontFamilyValue.toLowerCase().includes('charlie text')) {
+        fontFamilyToAdd = 'body';
+      }
+    } else {
+      // Font family node exists but we can't resolve its value
+      // Will need to re-add it below the font property to ensure it still applies
+      fontFamilyToAdd = fontFamilyNode ? 'original' : undefined;
+    }
+
+    // -- Font style --
+    const fontStyleNode = ASTObject.getEntryByPropertyName(node, 'fontStyle');
+    const fontStyleRaw =
+      fontStyleNode && getValueForPropertyNode(fontStyleNode, context);
+    const fontStyleValue =
+      (fontStyleRaw && normaliseValue('fontStyle', fontStyleRaw)) || undefined;
+
+    let fontStyleToAdd: 'italic' | undefined;
+    if (fontStyleValue === 'italic') {
+      fontStyleToAdd = 'italic';
+    }
+
+    // -- Letter spacing --
+    const letterSpacingNode = ASTObject.getEntryByPropertyName(
+      node,
+      'letterSpacing',
+    );
+
+    // A single matching token
+    // TOOD: Maybe suggest options if > 1 matching token
+    if (matchingTokens.length === 1) {
+      const matchingToken = matchingTokens[0];
+
+      // fontSize node is always first
+      const nodesToReplace = [
+        fontSizeNode,
+        fontWeightNode,
+        lineHeightNode,
+        fontFamilyNode,
+        fontStyleNode,
+        letterSpacingNode,
+      ].filter(notUndefined);
+
+      const fontFamilyTokenName = fontFamilyToAdd
+        ? `font.family.brand.${fontFamilyToAdd}`
+        : '';
+
+      const fontWeightReplacementToken = shouldAddFontWeight
+        ? findFontWeightTokenForValue(fontWeightValue)
+        : undefined;
+      const fontWeightReplacement =
+        fontWeightReplacementToken &&
+        getTokenProperty(
+          'fontWeight',
+          fontWeightReplacementToken.tokenName,
+          fontWeightValue,
+        );
+
+      const fontFamilyReplacement =
+        fontFamilyToAdd &&
+        (fontFamilyToAdd === 'original'
+          ? convertPropertyNodeToStringableNode(
+              // This will always exist if fontFamilyToAdd === 'original', TS can't figure that out.
+              fontFamilyNode!,
+            )
+          : getTokenProperty(
+              'fontFamily',
+              fontFamilyTokenName,
+              findFontFamilyValueForToken(fontFamilyTokenName),
+            ));
+
+      const fontStyleReplacement =
+        fontStyleToAdd && getLiteralProperty('fontStyle', fontStyleToAdd);
+
+      const fixerRefs = {
+        matchingToken,
+        nodesToReplace,
+        tokensImportNode,
+        fontWeightReplacement,
+        fontFamilyReplacement,
+        fontStyleReplacement,
+      };
+
+      context.report({
+        node: fontSizeNode,
+        messageId: 'noRawTypographyValues',
+        data: {
+          payload: `fontSize:${fontSizeRaw}`,
+        },
+        fix: StyleObject._fix(fixerRefs, context),
+      });
+    } else if (!matchingTokens.length) {
+      context.report({
+        node: fontSizeNode,
+        messageId: 'noRawTypographyValues',
+        data: {
+          payload: `fontSize:${fontSizeRaw}`,
+        },
+      });
+    }
+
+    return;
+  },
+
+  _check(
+    node: ObjectExpression & Rule.NodeParentExtension,
+    { context }: MetaData,
+  ): Check {
+    if (
+      !isDecendantOfStyleBlock(node) &&
+      !isDecendantOfType(node, 'JSXExpressionContainer')
+    ) {
+      return { success: false };
+    }
+
+    // -- Font size --
+    const fontSizeNode = ASTObject.getEntryByPropertyName(node, 'fontSize');
+    if (
+      !fontSizeNode ||
+      !isValidPropertyNode(fontSizeNode) ||
+      isDecendantOfGlobalToken(fontSizeNode.value)
+    ) {
+      return { success: false };
+    }
+    const fontSizeRaw = getValueForPropertyNode(fontSizeNode, context);
+
+    // Without a valid fontSize value we can't be certain what token should be used; exit
+    if (!fontSizeRaw) {
+      return { success: false };
+    }
+
+    const importDeclaration = Root.findImportsByModule(
+      context.getSourceCode().ast.body,
+      '@atlaskit/tokens',
+    );
+
+    // If there is more than one `@atlaskit/tokens` import, then it becomes difficult to determine which import to transform
+    if (importDeclaration.length > 1) {
+      return { success: false };
+    }
+
+    return {
+      success: true,
+      refs: {
+        fontSizeNode,
+        fontSizeRaw,
+        tokensImportNode: importDeclaration[0],
+      },
+    };
+  },
+
+  _fix(refs: FixerRefs, context: Rule.RuleContext) {
+    return (fixer: Rule.RuleFixer) => {
+      const {
+        matchingToken,
+        nodesToReplace,
+        tokensImportNode,
+        fontWeightReplacement,
+        fontFamilyReplacement,
+        fontStyleReplacement,
+      } = refs;
+      const fontSizeNode = nodesToReplace[0];
+
+      return (!tokensImportNode ? [insertTokensImport(fixer)] : []).concat(
+        nodesToReplace.map((node, index) => {
+          // Replace first node with token, delete remaining nodes. Guaranteed to be fontSize
+          if (index === 0) {
+            return fixer.replaceText(
+              node,
+              `${getTokenProperty(
+                'font',
+                matchingToken.tokenName,
+                matchingToken.tokenValue,
+              )}`,
+            );
+          }
+
+          // We don't replace fontWeight/fontFamily/fontStyle here in case it occurs before the font property.
+          // Instead delete the original property and add below
+          return ObjectEntry.deleteEntry(node, context, fixer);
+        }),
+        // Make sure font weight/family/style properties are added AFTER font property to ensure they override corectly
+        fontWeightReplacement
+          ? [fixer.insertTextAfter(fontSizeNode, `,\n${fontWeightReplacement}`)]
+          : [],
+        fontFamilyReplacement
+          ? [fixer.insertTextAfter(fontSizeNode, `,\n${fontFamilyReplacement}`)]
+          : [],
+        fontStyleReplacement
+          ? [fixer.insertTextAfter(fontSizeNode, `,\n${fontStyleReplacement}`)]
+          : [],
+      );
+    };
+  },
+};

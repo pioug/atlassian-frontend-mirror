@@ -37,7 +37,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

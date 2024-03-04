@@ -1196,6 +1196,7 @@ describe('useDatasourceTableState', () => {
           expect(captureException).toHaveBeenCalledWith(
             mockError,
             'link-datasource',
+            { datasourceId: mockDatasourceId },
           );
         },
         async () => {
@@ -1296,6 +1297,7 @@ describe('useDatasourceTableState', () => {
           expect(captureException).toHaveBeenCalledWith(
             mockError,
             'link-datasource',
+            { datasourceId: mockDatasourceId },
           );
         },
         async () => {

@@ -4,13 +4,7 @@ import Heading from '@atlaskit/heading';
 
 import { Stack, Text } from '../src';
 
-const variants = [
-  'ui.small',
-  'ui',
-  'body.small',
-  'body',
-  'body.large',
-] as const;
+const variants = ['body.small', 'body', 'body.large'] as const;
 
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 
@@ -53,10 +47,7 @@ export default () => {
             Text as em tag
           </Text>
           <Text variant="body">
-            Body is rendered as a {'<p>'} tag by default
-          </Text>
-          <Text variant="ui">
-            UI text is rendered as a {'<span>'} tag by default
+            Text is rendered as a {'<span>'} by default
           </Text>
         </Stack>
       </section>

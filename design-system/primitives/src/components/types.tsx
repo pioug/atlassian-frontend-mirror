@@ -1,5 +1,11 @@
 import type { CSSProperties } from 'react';
 
+import type {
+  StrictXCSSProp,
+  XCSSAllProperties,
+  XCSSAllPseudos,
+} from '@atlaskit/css';
+
 import type { XCSS } from '../xcss/xcss';
 
 export type BasePrimitiveProps = {
@@ -15,9 +21,12 @@ export type BasePrimitiveProps = {
   'data-testid'?: never;
 
   /**
-   * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
+   * Apply a subset of permitted styles powered by Atlassian Design System design tokens.
    */
-  xcss?: XCSS | Array<XCSS | false | undefined>;
+  xcss?:
+    | XCSS
+    | Array<XCSS | false | undefined>
+    | StrictXCSSProp<XCSSAllProperties, XCSSAllPseudos>;
 
   /**
    * Accessible role.

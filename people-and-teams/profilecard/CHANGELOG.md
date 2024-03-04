@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.11.4
+
+### Patch Changes
+
+- [#77847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77847) [`7caee7ccfcc8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7caee7ccfcc8) - updating these packages with the latest team-central dependencies
+
 ## 19.11.3
 
 ### Patch Changes

@@ -7,15 +7,16 @@ export type SuccessfulState<Data> = {
   data: Data;
 };
 
-export type FailedState<Err> = {
+export type FailedState<Err, Data> = {
   status: 'FAILED';
   err: Err;
+  data?: Data;
 };
 
 export type State<Data, Err> =
   | PendingState
   | SuccessfulState<Data>
-  | FailedState<Err>;
+  | FailedState<Err, Data>;
 
 export class Outcome<Data, Err = Error> {
   private constructor(private readonly state: State<Data, Err>) {}
@@ -28,8 +29,8 @@ export class Outcome<Data, Err = Error> {
     return new Outcome({ status: 'PENDING' });
   }
 
-  static failed<Data, Err>(err: Err): Outcome<Data, Err> {
-    return new Outcome({ status: 'FAILED', err });
+  static failed<Data, Err>(err: Err, data?: Data): Outcome<Data, Err> {
+    return new Outcome({ status: 'FAILED', err, data });
   }
 
   get status(): 'PENDING' | 'SUCCESSFUL' | 'FAILED' {
@@ -37,7 +38,7 @@ export class Outcome<Data, Err = Error> {
   }
 
   get data(): Data | undefined {
-    if (this.state.status === 'SUCCESSFUL') {
+    if (this.state.status === 'SUCCESSFUL' || this.state.status === 'FAILED') {
       return this.state.data;
     } else {
       return;
@@ -77,7 +78,7 @@ export class Outcome<Data, Err = Error> {
   }: {
     successful: (data: Data) => Result;
     pending: () => Result;
-    failed: (err: Err) => Result;
+    failed: (err: Err, data?: Data) => Result;
   }): Result {
     switch (this.state.status) {
       case 'SUCCESSFUL':
@@ -85,25 +86,7 @@ export class Outcome<Data, Err = Error> {
       case 'PENDING':
         return pending();
       case 'FAILED':
-        return failed(this.state.err);
-    }
-  }
-
-  mapSuccessful<MappedData>(
-    map: (data: Data) => MappedData,
-  ): Outcome<MappedData, Err> {
-    if (this.state.status === 'SUCCESSFUL') {
-      return Outcome.successful(map(this.state.data));
-    } else {
-      return new Outcome<MappedData, Err>(this.state);
-    }
-  }
-
-  mapFailed<MappedErr>(map: (err: Err) => MappedErr): Outcome<Data, MappedErr> {
-    if (this.state.status === 'FAILED') {
-      return Outcome.failed(map(this.state.err));
-    } else {
-      return new Outcome(this.state);
+        return failed(this.state.err, this.state.data);
     }
   }
 }

@@ -1,10 +1,10 @@
 import { Device, snapshot } from '@af/visual-regression';
 import {
-  MediaWithPixelWidth,
-  MediaWithPixelWidthFullWidth,
-} from '../__helpers/rendererComponents';
+  MediaWrappedLeftFullWidth,
+  MediaWrappedLeftFullPage,
+} from './media-pixel-width.fixtures';
 
-snapshot(MediaWithPixelWidth, {
+snapshot(MediaWrappedLeftFullWidth, {
   variants: [
     {
       name: 'desktop',
@@ -17,4 +17,4 @@ snapshot(MediaWithPixelWidth, {
   ],
 });
 
-snapshot(MediaWithPixelWidthFullWidth);
+snapshot(MediaWrappedLeftFullPage);

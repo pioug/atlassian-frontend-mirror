@@ -26,7 +26,7 @@
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-tables": "^2.5.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

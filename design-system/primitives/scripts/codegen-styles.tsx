@@ -117,7 +117,7 @@ const sourceFns = [
   // font*, lineheight
   () =>
     createPartialSignedArtifact(
-      options => options.map(createTypographyStylesFromTemplate).join('\n'),
+      createTypographyStylesFromTemplate,
       'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'typography',

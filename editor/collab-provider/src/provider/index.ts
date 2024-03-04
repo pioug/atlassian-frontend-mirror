@@ -93,7 +93,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private presenceUpdateTimeout?: number;
 
   private disconnectedAt?: number;
-  private sendStepsTimer?: NodeJS.Timer;
+  private sendStepsTimer?: ReturnType<typeof setInterval>;
 
   private readonly participantsService: ParticipantsService;
   private readonly metadataService: MetadataService;

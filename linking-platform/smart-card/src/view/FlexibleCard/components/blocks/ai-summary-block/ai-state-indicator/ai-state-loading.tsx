@@ -11,17 +11,19 @@ const AIStateLoading: React.FC<Partial<AIStateIndicatorProps>> = ({
   appearance,
   testId,
 }) => {
-  const icon = (
-    <AIIconLoading label="AI" size="small" testId={`${testId}-loading-icon`} />
-  );
-
   switch (appearance) {
     case 'icon-only':
-      return icon;
+      return null;
     default:
       return (
         <AIIndicatorContainer
-          icon={icon}
+          icon={
+            <AIIconLoading
+              label="AI"
+              size="small"
+              testId={`${testId}-loading-icon`}
+            />
+          }
           content={
             <Box testId={`${testId}-loading-message`}>
               <FormattedMessage {...messages.ai_summarizing} />

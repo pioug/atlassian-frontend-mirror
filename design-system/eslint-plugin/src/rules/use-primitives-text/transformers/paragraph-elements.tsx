@@ -4,21 +4,18 @@ import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 import { upsertImportDeclaration } from '../../use-primitives/transformers/emotion-css/upsert-import-declaration';
-import { RuleConfig } from '../config';
 
-import { allowedAttrs, updateTestIdAttributeFix } from './common';
-
-type MetaData = {
-  context: Rule.RuleContext;
-  config: RuleConfig;
-};
+import {
+  addColorInheritAttributeFix,
+  allowedAttrs,
+  type MetaData,
+  updateTestIdAttributeFix,
+} from './common';
 
 type CheckResult = {
   success: boolean;
   refs: { siblings: JSXElement['children'] };
 };
-
-type FixFunction = (fixer: Rule.RuleFixer) => Rule.Fix[];
 
 export const ParagraphElements = {
   lint(node: Rule.Node, { context, config }: MetaData) {
@@ -50,7 +47,11 @@ export const ParagraphElements = {
         suggest: [
           {
             desc: 'Convert to Text and Stack',
-            fix: ParagraphElements._fixMultiple(node, { context, refs }),
+            fix: ParagraphElements._fixMultiple(node, {
+              context,
+              config,
+              refs,
+            }),
           },
         ],
       });
@@ -61,7 +62,7 @@ export const ParagraphElements = {
         suggest: [
           {
             desc: 'Convert to Text',
-            fix: ParagraphElements._fixSingle(node, { context }),
+            fix: ParagraphElements._fixSingle(node, { context, config }),
           },
         ],
       });
@@ -126,9 +127,9 @@ export const ParagraphElements = {
 
   _fixSingle(
     node: JSXElement & { parent: Rule.Node },
-    { context }: { context: Rule.RuleContext },
-  ): FixFunction {
-    return (fixer: Rule.RuleFixer) => {
+    { context, config }: MetaData,
+  ): Rule.ReportFixer {
+    return (fixer) => {
       const importFix = upsertImportDeclaration(
         {
           module: '@atlaskit/primitives',
@@ -139,19 +140,34 @@ export const ParagraphElements = {
       );
 
       const elementNameFixes = ast.JSXElement.updateName(node, 'Text', fixer);
+      const asAttributeFix = ast.JSXElement.addAttribute(
+        node,
+        'as',
+        'p',
+        fixer,
+      );
+      const colorAttributeFix = addColorInheritAttributeFix(
+        node,
+        config,
+        fixer,
+      );
       const testAttributeFix = updateTestIdAttributeFix(node, fixer);
 
-      return [importFix, ...elementNameFixes, testAttributeFix].filter(
-        (fix): fix is Rule.Fix => Boolean(fix),
-      ); // Some of the transformers can return arrays with undefined, so filter them out
+      return [
+        importFix,
+        ...elementNameFixes,
+        asAttributeFix,
+        colorAttributeFix,
+        testAttributeFix,
+      ].filter((fix): fix is Rule.Fix => Boolean(fix)); // Some of the transformers can return arrays with undefined, so filter them out
     };
   },
 
   _fixMultiple(
     node: JSXElement & { parent: Rule.Node },
-    { context, refs }: { context: Rule.RuleContext; refs: CheckResult['refs'] },
-  ): FixFunction {
-    return (fixer: Rule.RuleFixer) => {
+    { context, config, refs }: MetaData & { refs: CheckResult['refs'] },
+  ): Rule.ReportFixer {
+    return (fixer) => {
       if (
         !isNodeOfType(node.parent, 'JSXElement') ||
         !node.parent.closingElement
@@ -177,9 +193,25 @@ export const ParagraphElements = {
               'Text',
               fixer,
             );
+            const asAttributeFix = ast.JSXElement.addAttribute(
+              sibling,
+              'as',
+              'p',
+              fixer,
+            );
+            const colorAttributeFix = addColorInheritAttributeFix(
+              sibling,
+              config,
+              fixer,
+            );
             const testAttributeFix = updateTestIdAttributeFix(sibling, fixer);
 
-            return [...elementNameFixes, testAttributeFix];
+            return [
+              ...elementNameFixes,
+              asAttributeFix,
+              colorAttributeFix,
+              testAttributeFix,
+            ];
           }
           return undefined;
         })

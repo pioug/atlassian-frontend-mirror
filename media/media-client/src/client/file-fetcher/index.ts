@@ -135,7 +135,11 @@ export interface FileFetcher {
     options?: CopyFileOptions,
     traceContext?: MediaTraceContext,
   ): Promise<MediaFile>;
-  getFileBinaryURL(id: string, collectionName?: string): Promise<string>;
+  getFileBinaryURL(
+    id: string,
+    collectionName?: string,
+    maxAge?: number,
+  ): Promise<string>;
 }
 
 export class FileFetcherImpl implements FileFetcher {
@@ -239,8 +243,12 @@ export class FileFetcherImpl implements FileFetcher {
     );
   }
 
-  getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
-    return this.mediaApi.getFileBinaryURL(id, collectionName);
+  getFileBinaryURL(
+    id: string,
+    collectionName?: string,
+    maxAge?: number,
+  ): Promise<string> {
+    return this.mediaApi.getFileBinaryURL(id, collectionName, maxAge);
   }
 
   // TODO: ----- ADD TICKET TO PASS TRACE ID to this.dataloader.load

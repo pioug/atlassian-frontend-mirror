@@ -29,5 +29,29 @@ describe('AI Summary', () => {
     );
   });
 
-  //TODO: Add tests for AI Icon with Popup content when it's ready
+  it('renders custom component', async () => {
+    const TestIcon = <span data-testid="test-icon">Icon</span>;
+    const { findByTestId } = render(
+      <AISummary content="test-content" showIcon iconComponent={TestIcon} />,
+    );
+
+    const icon = await findByTestId('test-icon');
+    expect(icon).toBeInTheDocument();
+  });
+
+  it('does not render icon by default', async () => {
+    const { queryByTestId } = render(<AISummary content="test-content" />);
+
+    const icon = await queryByTestId('ai-tooltip');
+    expect(icon).not.toBeInTheDocument();
+  });
+
+  it('does not render summary icon when showIcon is false', async () => {
+    const { queryByTestId } = render(
+      <AISummary content="test-content" showIcon={false} />,
+    );
+
+    const icon = await queryByTestId('ai-tooltip');
+    expect(icon).not.toBeInTheDocument();
+  });
 });

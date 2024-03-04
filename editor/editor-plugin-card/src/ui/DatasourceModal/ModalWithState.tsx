@@ -24,7 +24,10 @@ const ModalWithState = ({
   }
 
   return (
-    <DatasourceErrorBoundary view={editorView}>
+    <DatasourceErrorBoundary
+      view={editorView}
+      datasourceModalType={cardState?.datasourceModalType}
+    >
       <CardContextProvider>
         {({ cardContext }) => (
           <DatasourceModal

@@ -24,8 +24,6 @@ interface MetaData {
   config: RuleConfig;
 }
 
-type FixFunction = (fixer: Rule.RuleFixer) => Rule.Fix[];
-
 export const EmotionCSS = {
   lint(node: Rule.Node, { context, config }: MetaData) {
     if (!isNodeOfType(node, 'JSXElement')) {
@@ -127,8 +125,8 @@ export const EmotionCSS = {
   _fix(
     node: JSXElement,
     { context }: { context: Rule.RuleContext },
-  ): FixFunction {
-    return (fixer: Rule.RuleFixer) => {
+  ): Rule.ReportFixer {
+    return (fixer) => {
       const importFix = upsertImportDeclaration(
         {
           module: '@atlaskit/primitives',

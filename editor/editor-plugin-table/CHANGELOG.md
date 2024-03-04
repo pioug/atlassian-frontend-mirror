@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 7.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.4.5
+
+### Patch Changes
+
+- [#77616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77616) [`fbf65d3a22d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbf65d3a22d9) - clean up work for merged cell.
+- Updated dependencies
+
 ## 7.4.4
 
 ### Patch Changes

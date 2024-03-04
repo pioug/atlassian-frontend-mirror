@@ -13,10 +13,10 @@ export default () => {
   return (
     <Inline space="space.100">
       <Box xcss={boxStyles} backgroundColor="color.background.information">
-        <Text variant="ui">Text on information</Text>
+        <Text>Text on information</Text>
       </Box>
       <Box xcss={boxStyles} backgroundColor="color.background.brand.bold">
-        <Text variant="ui">Text color automatically inverted</Text>
+        <Text>Text color automatically inverted</Text>
       </Box>
     </Inline>
   );

@@ -7,6 +7,7 @@ import {
   SmartLinkStatus,
 } from '../../../../../../constants';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { render } from '@testing-library/react';
 import { AISummaryBlockProps } from '../types';
@@ -14,8 +15,13 @@ import { IntlProvider } from 'react-intl-next';
 import AISummaryBlock from '../index';
 import { ActionItem } from '../../types';
 
+jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
+  useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
+}));
+
 describe('AISummaryBlock', () => {
   const testIdBase = 'some-test-id';
+
   const renderAISummaryBlock = (props?: AISummaryBlockProps) => {
     return render(
       <IntlProvider locale="en">
@@ -57,7 +63,9 @@ describe('AISummaryBlock', () => {
       );
       await user.click(buttonBeforeClick);
 
-      const indicator = await findByTestId(`${testIdBase}-loading`);
+      const indicator = await findByTestId(
+        `${testIdBase}-state-indicator-loading`,
+      );
       expect(indicator).toBeInTheDocument();
 
       const buttonAfterClick = queryByTestId(`${testIdBase}-ai-summary-action`);
@@ -77,10 +85,24 @@ describe('AISummaryBlock', () => {
 
       const button = await findByTestId(`${testIdBase}-ai-summary-action`);
       await user.click(button);
-      await findByTestId(`${testIdBase}-loading`);
+      await findByTestId(`${testIdBase}-state-indicator-loading`);
 
       const providerAfterClick = queryByTestId(metadataTestId);
       expect(providerAfterClick).not.toBeInTheDocument();
+    });
+
+    it('shows error state indicator on error', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        isSummarisedOnMount: false,
+        state: { status: 'error', content: '' },
+        summariseUrl: jest.fn(),
+      });
+      const { findByTestId } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      const indicator = await findByTestId(`${testIdBase}-error`);
+      expect(indicator).toBeInTheDocument();
     });
   });
 
@@ -93,6 +115,7 @@ describe('AISummaryBlock', () => {
       });
       const provider = await findByTestId(`${testIdBase}-provider`);
       expect(provider).toBeDefined();
+
       const providerLabel = await findByTestId(`${testIdBase}-provider-label`);
       expect(providerLabel.textContent).toBe('Confluence');
     });
@@ -153,9 +176,9 @@ describe('AISummaryBlock', () => {
     });
 
     it('renders with override css', async () => {
-      const overrideCss = css`
-        background-color: blue;
-      `;
+      const overrideCss = css({
+        backgroundColor: 'blue',
+      });
       const { findByTestId } = renderAISummaryBlock({
         overrideCss,
         testId: testIdBase,

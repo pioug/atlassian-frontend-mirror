@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ff5d4f3be5c1195f4db1a2459042c7be>>
+ * @codegen <<SignedSource::14762a5ba57e6120d947434614283b12>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -436,8 +436,6 @@ export type InternalTokenIds =
   | 'font.body.large'
   | 'font.body.[default]'
   | 'font.body.small'
-  | 'font.ui.[default]'
-  | 'font.ui.small'
   | 'font.code.[default]'
   | 'font.family.brand.body'
   | 'font.family.brand.heading'

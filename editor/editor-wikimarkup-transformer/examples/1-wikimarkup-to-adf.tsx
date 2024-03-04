@@ -11,35 +11,32 @@ import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-p
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { MentionProvider } from '@atlaskit/mention/types';
-import { Context } from '../src/interfaces';
+import type { MentionProvider } from '@atlaskit/mention/types';
+import type { Context } from '../src/interfaces';
 import type { DocNode } from '@atlaskit/adf-schema';
+import { token } from '@atlaskit/tokens';
 
-const container = css`
-  display: grid;
-  grid-template-columns: 33% 34% 33%;
-
-  #source,
-  #output {
-    box-sizing: border-box;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    width: 100%;
-    &:focus {
-      outline: none;
-    }
-  }
-
-  #source {
-    height: 80px;
-  }
-
-  #output {
-    border: 1px solid;
-    min-height: 480px;
-  }
-`;
+const container = css({
+  display: 'grid',
+  gridTemplateColumns: '33% 34% 33%',
+  '#source, #output': {
+    boxSizing: 'border-box',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    width: '100%',
+    '&:focus': {
+      outline: 'none',
+    },
+  },
+  '#source': {
+    height: '80px',
+  },
+  '#output': {
+    border: '1px solid',
+    minHeight: '480px',
+  },
+});
 
 const MockProfileClient: any = simpleMockProfilecardClient();
 

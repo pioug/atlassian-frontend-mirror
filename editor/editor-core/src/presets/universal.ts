@@ -177,6 +177,9 @@ export default function createUniversalPreset(
           allowMediaSingleEditable: !isMobile,
           allowRemoteDimensionsFetch: !isMobile,
           allowMarkingUploadsAsIncomplete: isMobile,
+          allowImagePreview:
+            isFullPage &&
+            getBooleanFF('platform.editor.media.preview-in-full-page'),
           fullWidthEnabled: appearance === 'full-width',
           uploadErrorHandler: props.uploadErrorHandler,
           waitForMediaUpload: props.waitForMediaUpload,

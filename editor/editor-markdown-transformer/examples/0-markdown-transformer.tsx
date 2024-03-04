@@ -7,28 +7,28 @@ import {
   WithEditorActions,
 } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
+import { token } from '@atlaskit/tokens';
 import { MarkdownTransformer } from '../src';
 import exampleMarkdown from '../example-helpers/exampleMarkdown';
 
-const container = css`
-  display: grid;
-  grid-template-columns: 50% 50%;
-
-  #source {
-    border: 2px solid;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    font-size: xx-small;
-    &:focus {
-      outline: none;
-    }
-    &:empty:not(:focus)::before {
-      content: attr(data-placeholder);
-      font-size: 14px;
-    }
-  }
-`;
+const container = css({
+  display: 'grid',
+  gridTemplateColumns: '50% 50%',
+  '#source': {
+    border: '2px solid',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    fontSize: 'xx-small',
+    '&:focus': {
+      outline: 'none',
+    },
+    '&:empty:not(:focus)::before': {
+      content: 'attr(data-placeholder)',
+      fontSize: '14px',
+    },
+  },
+});
 
 type Props = { actions: any };
 type State = { source: string };

@@ -16,7 +16,7 @@ const AIIndicatorContainer: React.FC<AIIndicatorContainerProps> = ({
 }) => {
   return (
     <Inline
-      alignBlock="center"
+      alignBlock="start"
       alignInline="start"
       space="space.050"
       xcss={contentStyles}

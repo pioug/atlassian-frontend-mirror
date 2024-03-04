@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 26.48.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.48.6
+
+### Patch Changes
+
+- [#77644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77644) [`781a14e5ab00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/781a14e5ab00) - Add generic AI summary error message
+
+## 26.48.5
+
+### Patch Changes
+
+- [#77953](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77953) [`484ed33c13bd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/484ed33c13bd) - AI summary: Set generic error state
+- [#76006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76006) [`2798568fef46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2798568fef46) - AI Summary: Add AI icon after the summary
+
 ## 26.48.4
 
 ### Patch Changes

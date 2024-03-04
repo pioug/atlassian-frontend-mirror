@@ -2,7 +2,7 @@ import { LintRuleMeta } from '../utils/create-rule';
 
 import { Domains } from './types';
 
-const domainsToLint: Domains = ['color', 'spacing', 'typography', 'shape'];
+const domainsToLint: Domains = ['color', 'spacing', 'shape'];
 
 const ruleMeta: LintRuleMeta = {
   name: 'ensure-design-token-usage',

@@ -17,6 +17,10 @@ import type {
   LinkType,
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
+import {
+  productionLinkPreferencesUrl,
+  stagingLinkPreferencesUrl,
+} from '@atlaskit/editor-common/constants';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
 import type {
@@ -178,7 +182,10 @@ const getSettingsButtonGroup = (
     icon: CogIcon,
     title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
     onClick: openLinkSettings(editorAnalyticsApi),
-    href: 'https://id.atlassian.com/manage-profile/link-preferences',
+    href:
+      process.env.NODE_ENV === 'production'
+        ? productionLinkPreferencesUrl
+        : stagingLinkPreferencesUrl,
     target: '_blank',
   },
 ];

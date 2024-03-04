@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 109.6.2
+
+### Patch Changes
+
+- [#75568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75568) [`cf557c64b311`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf557c64b311) - Updated CardErrorBoundary to pass error and datasourceId to LazyLoadedDatasourceRenderFailedAnalyticsWrapper
+- Updated dependencies
+
 ## 109.6.1
 
 ### Patch Changes

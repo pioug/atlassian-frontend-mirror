@@ -6,29 +6,29 @@ import { css, jsx } from '@emotion/react';
 import { Editor } from '@atlaskit/editor-core';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { JSONTransformer } from '../src';
 
-const container = css`
-  display: grid;
-  grid-template-columns: 50% 50%;
-
-  #output {
-    border: 2px solid;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    font-size: xx-small;
-    &:focus {
-      outline: none;
-    }
-    &:empty:not(:focus)::before {
-      content: attr(data-placeholder);
-      font-size: 14px;
-    }
-  }
-`;
+const container = css({
+  display: 'grid',
+  gridTemplateColumns: '50% 50%',
+  '#output': {
+    border: '2px solid',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    fontSize: 'xx-small',
+    '&:focus': {
+      outline: 'none',
+    },
+    '&:empty:not(:focus)::before': {
+      content: 'attr(data-placeholder)',
+      fontSize: '14px',
+    },
+  },
+});
 
 export const mediaProvider = storyMediaProviderFactory();
 

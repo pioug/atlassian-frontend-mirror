@@ -2,14 +2,16 @@
 import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { ActivityProvider } from '@atlaskit/activity';
+import type { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import { MentionProvider, MentionResource } from '@atlaskit/editor-core';
-import { EmojiProvider } from '@atlaskit/emoji';
+import type { MentionProvider } from '@atlaskit/editor-core';
+import { MentionResource } from '@atlaskit/editor-core';
+import type { EmojiProvider } from '@atlaskit/emoji';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+import { token } from '@atlaskit/tokens';
 
 import { SlackTransformer } from '../src';
 
@@ -100,7 +102,9 @@ export default function ToolsDrawer({ renderEditor }: Props) {
 
   return (
     <div css={content}>
-      <div style={{ padding: '5px 0' }}>️️️Slack Editor</div>
+      <div style={{ padding: `${token('space.075', '6px')} 0` }}>
+        ️️️Slack Editor
+      </div>
       {reloadEditor
         ? ''
         : renderEditor({

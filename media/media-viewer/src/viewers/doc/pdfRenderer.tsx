@@ -11,7 +11,12 @@ import {
   getDocument,
   GlobalWorkerOptions,
   CMapCompressionType,
+  PasswordResponses,
 } from 'pdfjs-dist/legacy/build/pdf';
+import {
+  withAnalyticsEvents,
+  WithAnalyticsEventsProps,
+} from '@atlaskit/analytics-next';
 import { cmap } from './cmaps';
 import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
 import { css, Global } from '@emotion/react';
@@ -26,80 +31,72 @@ import { ZoomLevel } from '../../domain/zoomLevel';
 import { processError } from './processError';
 import { pdfJs } from './pdfJs';
 import { extractCompressedBase64 } from './extractCompressedBase64';
+import { PDFPasswordInput } from './pdfPasswordInput';
+import { fireAnalytics } from '../../analytics';
+import { createPdfPasswordInputScreenEvent } from '../../analytics/events/screen/pdfPasswordInput';
+import { createPasswordPdfScreenEvent } from '../../analytics/events/screen/passwordPdf';
 
 export const pdfViewerClassName = 'pdfViewer';
 
 // Styles are partially copied from https://github.com/mozilla/pdfjs-dist/blob/v2.9.359/web/pdf_viewer.css
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
-const globalStyles = css`
-  .${pdfViewerClassName} {
-    margin-top: ${token('space.800', '64px')};
-    margin-bottom: ${token('space.800', '64px')};
-
-    .page {
-      margin: 1px auto ${token('space.negative.100', '-8px')} auto;
-      border: 9px solid transparent;
-      position: relative;
-    }
-
-    .canvasWrapper {
-      overflow: hidden;
-    }
-
-    .textLayer {
-      position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      overflow: hidden;
-      opacity: 0.2;
-      line-height: 1;
-    }
-
-    .textLayer span,
-    .textLayer br {
-      color: transparent;
-      position: absolute;
-      white-space: pre;
-      cursor: text;
-      transform-origin: 0% 0%;
-    }
-
-    .textLayer ::-moz-selection {
-      background: rgba(0, 0, 255, 1);
-    }
-
-    .textLayer ::selection {
-      background: rgba(0, 0, 255, 1);
-    }
-
-    .annotationLayer section {
-      position: absolute;
-      text-align: initial;
-    }
-
-    .annotationLayer .linkAnnotation > a,
-    .annotationLayer .buttonWidgetAnnotation.pushButton > a {
-      position: absolute;
-      font-size: 1em;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .annotationLayer .linkAnnotation > a:hover,
-    .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover {
-      opacity: 0.2;
-      background: rgba(255, 255, 0, 1);
-      box-shadow: 0 2px 10px rgba(255, 255, 0, 1);
-    }
-  }
-`;
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage/preview */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+const globalStyles = css({
+  [`.${pdfViewerClassName}`]: {
+    marginTop: token('space.800', '64px'),
+    marginBottom: token('space.800', '64px'),
+    '.page': {
+      margin: `1px auto ${token('space.negative.100', '-8px')} auto`,
+      border: '9px solid transparent',
+      position: 'relative',
+    },
+    '.canvasWrapper': {
+      overflow: 'hidden',
+    },
+    '.textLayer': {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      overflow: 'hidden',
+      opacity: 0.2,
+      lineHeight: 1,
+    },
+    '.textLayer span, .textLayer br': {
+      color: 'transparent',
+      position: 'absolute',
+      whiteSpace: 'pre',
+      cursor: 'text',
+      transformOrigin: '0% 0%',
+    },
+    '.textLayer ::-moz-selection': {
+      background: 'rgba(0, 0, 255, 1)',
+    },
+    '.textLayer ::selection': {
+      background: 'rgba(0, 0, 255, 1)',
+    },
+    '.annotationLayer section': {
+      position: 'absolute',
+      textAlign: 'initial',
+    },
+    '.annotationLayer .linkAnnotation > a, .annotationLayer .buttonWidgetAnnotation.pushButton > a':
+      {
+        position: 'absolute',
+        fontSize: '1em',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+      },
+    '.annotationLayer .linkAnnotation > a:hover, .annotationLayer .buttonWidgetAnnotation.pushButton > a:hover':
+      {
+        opacity: 0.2,
+        background: 'rgba(255, 255, 0, 1)',
+        boxShadow: '0 2px 10px rgba(255, 255, 0, 1)',
+      },
+  },
+});
 
 export type Props = {
   item: FileState;
@@ -108,7 +105,7 @@ export type Props = {
   onClose?: () => void;
   onSuccess?: () => void;
   onError?: (error: MediaViewerError) => void;
-};
+} & WithAnalyticsEventsProps;
 
 class CmapFacotry {
   constructor() {}
@@ -121,23 +118,31 @@ class CmapFacotry {
 
 let defaultWorkerUrl = '';
 
-export const PDFRenderer = ({
+const PDFRendererBase = ({
   src,
   onClose,
   onSuccess,
   onError,
   workerUrl,
   item,
+  createAnalyticsEvent,
 }: Props) => {
   const [zoomLevel, setZoomLevel] = useState<ZoomLevel>(new ZoomLevel(1));
   const [docOutcome, setDocOutcome] = useState<Outcome<any, MediaViewerError>>(
     Outcome.pending(),
   );
+  const isPasswordPdfRef = useRef(false);
+  const [passwordProtected, setPasswordProtected] = useState(false);
+  const [hasPasswordError, setHasPasswordError] = useState(false);
+
   const pdfWrapperRef = useRef<HTMLDivElement>();
   const docRef = useRef<PDFDocumentProxy>();
   const pdfViewerRef = useRef<any>();
   const onSuccessRef = useRef<(() => void) | undefined>(onSuccess);
   onSuccessRef.current = onSuccess;
+  const updatePasswordRef = useRef<((password: string) => void) | undefined>(
+    undefined,
+  );
   const onErrorRef = useRef<((error: MediaViewerError) => void) | undefined>(
     onError,
   );
@@ -152,11 +157,25 @@ export const PDFRenderer = ({
           defaultWorkerUrl = URL.createObjectURL(blob);
         }
         GlobalWorkerOptions.workerSrc = workerUrl ?? defaultWorkerUrl;
-
-        docRef.current = await getDocument({
+        const getDocumentTask = getDocument({
           url: src,
           CMapReaderFactory: CmapFacotry,
-        }).promise;
+        });
+
+        getDocumentTask.onPassword = (
+          updatePassword: (password: string) => void,
+          e: number,
+        ) => {
+          updatePasswordRef.current = updatePassword;
+          if (e === PasswordResponses.NEED_PASSWORD) {
+            isPasswordPdfRef.current = true;
+            setPasswordProtected(true);
+          } else {
+            setHasPasswordError(true);
+          }
+        };
+
+        docRef.current = await getDocumentTask.promise;
         isSubscribed && setDocOutcome(Outcome.successful(docRef.current));
       } catch (error) {
         const pdfError = processError(error);
@@ -197,10 +216,13 @@ export const PDFRenderer = ({
     pdfLinkService.setDocument(docRef.current, null);
     pdfViewerRef.current.firstPagePromise.then(scaleToFit);
 
+    if (isPasswordPdfRef.current) {
+      fireAnalytics(createPasswordPdfScreenEvent(), createAnalyticsEvent);
+    }
     if (onSuccessRef.current) {
       onSuccessRef.current();
     }
-  }, [docOutcome]);
+  }, [createAnalyticsEvent, docOutcome]);
 
   const savePdfElement = (el: HTMLDivElement) => {
     pdfWrapperRef.current = el;
@@ -219,15 +241,36 @@ export const PDFRenderer = ({
   };
 
   return docOutcome.match({
-    pending: () => <Spinner />,
+    pending: () =>
+      passwordProtected ? (
+        <PDFPasswordInput
+          onRender={() =>
+            fireAnalytics(
+              createPdfPasswordInputScreenEvent(),
+              createAnalyticsEvent,
+            )
+          }
+          onSubmit={(data: { password: string }) => {
+            // Reset hasPasswordError on each submission
+            hasPasswordError && setHasPasswordError(false);
+            updatePasswordRef.current?.(data.password);
+          }}
+          hasPasswordError={hasPasswordError}
+        />
+      ) : (
+        <Spinner />
+      ),
     successful: () => (
       <>
         <Global styles={globalStyles} />
         <PDFWrapper data-testid="media-viewer-pdf-content" ref={savePdfElement}>
-          <div
-            className={pdfViewerClassName}
-            onClick={closeOnDirectClick(onClose)}
-          />
+          {
+            // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
+            <div
+              className={pdfViewerClassName}
+              onClick={closeOnDirectClick(onClose)}
+            />
+          }
           <ZoomControls zoomLevel={zoomLevel} onChange={handleZoom} />
         </PDFWrapper>
       </>
@@ -244,3 +287,5 @@ export const PDFRenderer = ({
     },
   });
 };
+
+export const PDFRenderer = withAnalyticsEvents()(PDFRendererBase);

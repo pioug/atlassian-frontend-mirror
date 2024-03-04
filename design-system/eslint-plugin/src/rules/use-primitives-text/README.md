@@ -7,13 +7,23 @@ This rule marks code as violations when it can be replaced 1:1 with one or multi
 ### Incorrect
 
 ```jsx
-<span>^^^^^^^^^^^^^^^^^^^^^^ // ...</span>
+<span>text</span>
+^^^^^^
+<p>text</p>
+^^^
+<strong>text</strong>
+^^^^^^^^
+<em>text</em>
+^^^^
 ```
 
 ### Correct
 
 ```jsx
-<Text variant="ui">// ...</Text>
+<Text>text</Text>
+<Text as="p">text</Text>
+<Text as="strong">text</Text>
+<Text as="em">text</Text>
 ```
 
-Currently, the rule is extremely defensive, only reporting on certain p, span, strong and em elements that don't have any props outside of `key`, `id` and `data-testid`.
+Currently, the rule is extremely defensive, only reporting on `span`, `p`, `strong` and `em` elements that don't have any props outside of `key`, `id` and `data-testid`. For `span` elements we're only targeting instances that almost certainly only have text as children.

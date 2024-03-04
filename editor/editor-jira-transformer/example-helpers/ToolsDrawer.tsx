@@ -8,6 +8,7 @@ import { JIRATransformer } from '../src';
 import { content } from './styles';
 
 import { MentionResource } from '@atlaskit/editor-core';
+import { token } from '@atlaskit/tokens';
 
 const rejectedPromise = Promise.reject(
   new Error('Simulated provider rejection'),
@@ -88,7 +89,7 @@ export default class ToolsDrawer extends React.Component<any, State> {
     } = this.state;
     return (
       <div css={content}>
-        <div style={{ padding: '5px 0' }}>Editor</div>
+        <div style={{ padding: `${token('space.075', '6px')} 0` }}>Editor</div>
         {reloadEditor
           ? ''
           : this.props.renderEditor({

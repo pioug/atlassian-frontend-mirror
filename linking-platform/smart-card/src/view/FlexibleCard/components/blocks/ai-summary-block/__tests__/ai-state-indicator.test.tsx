@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import AIStateIndicator from '../ai-state-indicator';
 import { AIStateIndicatorProps } from '../ai-state-indicator/types';
+import { CONTENT_URL_AI_TROUBLESHOOTING } from '../../../../../../constants';
 
 describe('AIStateIndicator', () => {
   const testId = 'indicator-test';
@@ -45,16 +46,12 @@ describe('AIStateIndicator', () => {
       expect(msg.textContent).toBe('Atlassian Intelligence is working...');
     });
 
-    it('renders icon-only appearance', async () => {
-      const { findByTestId, queryByTestId } = setup({
+    it('does not render icon-only appearance', async () => {
+      const { container } = setup({
         state,
         appearance: 'icon-only',
       });
-      const icon = await findByTestId(`${testId}-loading-icon`);
-      const msg = queryByTestId(`${testId}-loading-message`);
-
-      expect(icon).toBeInTheDocument();
-      expect(msg).not.toBeInTheDocument();
+      expect(container.firstChild).toBeNull();
     });
   });
 
@@ -98,6 +95,44 @@ describe('AIStateIndicator', () => {
 
       expect(icon).toBeInTheDocument();
       expect(msg).not.toBeInTheDocument();
+    });
+  });
+
+  describe('error state', () => {
+    const state = 'error';
+
+    it('renders default appearance by default', async () => {
+      const { findByTestId } = setup({ state });
+      const icon = await findByTestId(`${testId}-error-icon`);
+      const msg = await findByTestId(`${testId}-error-message`);
+
+      expect(icon).toBeInTheDocument();
+      expect(msg).toBeInTheDocument();
+    });
+
+    it('renders default appearance', async () => {
+      const { findByRole, findByTestId } = setup({
+        state,
+        appearance: 'default',
+      });
+      const icon = await findByTestId(`${testId}-error-icon`);
+      const msg = await findByTestId(`${testId}-error-message`);
+      const anchor = await findByRole('link');
+
+      expect(icon).toBeInTheDocument();
+      expect(msg).toBeInTheDocument();
+      expect(msg.textContent).toBe(
+        "Atlassian Intelligence can't provide a response right now. Read more in our support documentation.",
+      );
+      expect(anchor).toHaveAttribute('href', CONTENT_URL_AI_TROUBLESHOOTING);
+    });
+
+    it('does not render icon-only appearance', async () => {
+      const { container } = setup({
+        state,
+        appearance: 'icon-only',
+      });
+      expect(container.firstChild).toBeNull();
     });
   });
 });

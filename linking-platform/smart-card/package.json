@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.48.4",
+  "version": "26.48.7",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,10 +48,10 @@
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.13.0",
-    "@atlaskit/primitives": "^3.1.0",
+    "@atlaskit/primitives": "^4.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -102,6 +102,7 @@
     "fetch-mock": "^8.0.0",
     "jest-emotion": "^10.0.32",
     "jest-extended": "^0.11.2",
+    "jest-fetch-mock": "^3.0.3",
     "jsdom": "^17.0.0",
     "lorem-ipsum": "^1.0.6",
     "react": "^16.8.0",

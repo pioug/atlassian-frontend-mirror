@@ -11,7 +11,9 @@ import {
   isFileIdentifier,
   ExternalImageIdentifier,
   MediaSubscription,
+  ProcessingFailedState,
 } from '@atlaskit/media-client';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
@@ -161,9 +163,12 @@ export class ItemViewerBase extends React.Component<Props, State> {
     });
   };
 
-  private onLoadFail = (mediaViewerError: MediaViewerError) => {
+  private onLoadFail = (
+    mediaViewerError: MediaViewerError,
+    data?: FileItem,
+  ) => {
     this.safeSetState({
-      item: Outcome.failed(mediaViewerError),
+      item: Outcome.failed(mediaViewerError, data),
     });
   };
 
@@ -191,7 +196,11 @@ export class ItemViewerBase extends React.Component<Props, State> {
   };
 
   private renderItem(
-    fileState: ProcessedFileState | UploadingFileState | ProcessingFileState,
+    fileState:
+      | ProcessedFileState
+      | UploadingFileState
+      | ProcessingFileState
+      | ProcessingFailedState,
   ) {
     const {
       mediaClient,
@@ -264,7 +273,9 @@ export class ItemViewerBase extends React.Component<Props, State> {
         return (
           <DocViewer
             onSuccess={this.onSuccess}
-            onError={this.onLoadFail}
+            onError={(err) => {
+              this.onLoadFail(err, fileState);
+            }}
             {...viewerProps}
           />
         );
@@ -335,29 +346,35 @@ export class ItemViewerBase extends React.Component<Props, State> {
           );
         } else {
           // render a FileState fetched through media-client
-          const fileState = fileItem;
-          switch (fileState.status) {
+          switch (fileItem.status) {
             case 'processed':
             case 'uploading':
             case 'processing':
-              return this.renderItem(fileState);
+              return this.renderItem(fileItem);
             case 'failed-processing':
+              if (
+                getBooleanFF('platform.corex.password-protected-pdf_ht8re') &&
+                fileItem.mediaType === 'doc' &&
+                fileItem.mimeType === 'application/pdf'
+              ) {
+                return this.renderItem(fileItem);
+              }
               return this.renderError(
                 new MediaViewerError(
                   'itemviewer-file-failed-processing-status',
                 ),
-                fileState,
+                fileItem,
               );
             case 'error':
               return this.renderError(
                 new MediaViewerError('itemviewer-file-error-status'),
-                fileState,
+                fileItem,
               );
           }
         }
       },
       pending: () => <Spinner />,
-      failed: (error) => this.renderError(error, item.data),
+      failed: (error, data) => this.renderError(error, data),
     });
   }
 

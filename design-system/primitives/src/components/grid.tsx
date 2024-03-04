@@ -200,7 +200,7 @@ const Grid = memo(
       ref: Ref<any>,
     ) => {
       const Component = as || 'div';
-      const xcssClassName = xcss && parseXcss(xcss);
+      const resolvedStyles = parseXcss(xcss);
 
       /**
        * We use CSS variables to allow for dynamic grid templates instead of dynamically setting to `props.style`
@@ -227,6 +227,7 @@ const Grid = memo(
           id={id}
           role={role}
           style={style}
+          className={resolvedStyles.static}
           css={[
             baseStyles,
             gap && spaceStylesMap.gap[gap],
@@ -237,7 +238,7 @@ const Grid = memo(
             justifyContent && justifyContentMap[justifyContent],
             autoFlow && gridAutoFlowMap[autoFlow],
             // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            xcssClassName,
+            resolvedStyles.emotion,
           ]}
           data-testid={testId}
           ref={ref}

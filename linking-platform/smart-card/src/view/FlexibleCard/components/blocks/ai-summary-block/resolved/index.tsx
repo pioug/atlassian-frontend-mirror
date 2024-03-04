@@ -5,9 +5,9 @@ import { Box, Inline } from '@atlaskit/primitives';
 
 import {
   ActionName,
+  SmartLinkDirection,
   SmartLinkSize,
   SmartLinkWidth,
-  SmartLinkDirection,
 } from '../../../../../../constants';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
@@ -18,19 +18,19 @@ import type { ActionItem } from '../../types';
 import type { AISummaryBlockProps } from '../types';
 import type { AIState } from '../types';
 import { messages } from '../../../../../../messages';
-import AiIcon from '../../../../../common/ai-icon';
-import AISummary from '../../../../../common/ai-summary';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import AIIcon from '../../../../../common/ai-icon';
+import AISummary from '../../../../../common/ai-summary';
 
 const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const {
     actions = [],
     metadata,
-    testId,
     onActionMenuOpenChange,
     onAIActionChange,
     size = SmartLinkSize.Medium,
+    testId,
   } = props;
   const [aiState, setAIState] = useState<AIState>('ready');
 
@@ -40,7 +40,10 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const url = context?.url || '';
 
   const aiSummary = useAISummary({ url });
-  const { content } = aiSummary.state;
+  const {
+    state: { content, status },
+    isSummarisedOnMount,
+  } = aiSummary;
 
   const onAIActionClick = useCallback(() => {
     setAIState('loading');
@@ -56,7 +59,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
         name: ActionName.CustomAction,
         onClick: onAIActionClick,
         testId: `${testId}-ai-summary-action`,
-        icon: <AiIcon label="AiIcon" />,
+        icon: <AIIcon label="AIIcon" />,
       } as ActionItem;
 
       return [aiAction, ...actions];
@@ -79,7 +82,8 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       direction={SmartLinkDirection.Vertical}
       testId={`${testId}-resolved-view`}
     >
-      <AISummary content={content} />
+      <AISummary content={content} showIcon={isSummarisedOnMount} />
+
       <Inline
         alignBlock="center"
         alignInline="end"
@@ -87,10 +91,17 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
         spread="space-between"
       >
         <Box>
-          {aiState === 'loading' || aiState === 'done' ? (
-            <AIStateIndicator state={aiState} testId={testId} />
+          {!isSummarisedOnMount &&
+          (aiState === 'loading' || aiState === 'done') ? (
+            <AIStateIndicator
+              state={aiState}
+              testId={`${testId}-state-indicator`}
+            />
           ) : (
-            <ElementGroup width={SmartLinkWidth.FitToContent}>
+            <ElementGroup
+              width={SmartLinkWidth.FitToContent}
+              testId={`${testId}-metadata-group`}
+            >
               {metadataElements}
             </ElementGroup>
           )}
@@ -104,6 +115,11 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
           />
         </Box>
       </Inline>
+      {status === 'error' && (
+        <Inline grow="fill">
+          <AIStateIndicator state={status} testId={testId} />
+        </Inline>
+      )}
     </Block>
   );
 };

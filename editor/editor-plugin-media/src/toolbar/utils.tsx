@@ -32,6 +32,24 @@ export const getSelectedMediaContainerNodeAttrs = (
   return null;
 };
 
+export const getSelectedNearestMediaContainerNodeAttrs = (
+  mediaPluginState: MediaPluginState,
+): MediaBaseAttributes | null => {
+  const selectedNode = mediaPluginState.selectedMediaContainerNode();
+  if (selectedNode) {
+    switch (selectedNode.type.name) {
+      case 'mediaSingle': {
+        const childNode = selectedNode.firstChild;
+        return childNode?.attrs as MediaBaseAttributes;
+      }
+
+      default:
+        return selectedNode.attrs as MediaBaseAttributes;
+    }
+  }
+  return null;
+};
+
 export const downloadMedia = async (
   mediaPluginState: MediaPluginState,
 ): Promise<boolean> => {

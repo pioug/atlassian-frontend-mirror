@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 
 import type { ColumnType } from '../../data/people';
 
-export type BoardContextProps = {
+export type BoardContextValue = {
   getColumns: () => ColumnType[];
 
   reorderColumn: (args: { startIndex: number; finishIndex: number }) => void;
@@ -24,15 +24,18 @@ export type BoardContextProps = {
 
   registerCard: (args: {
     cardId: string;
-    actionMenuTrigger: HTMLElement;
+    entry: {
+      element: HTMLElement;
+      actionMenuTrigger: HTMLElement;
+    };
   }) => void;
 
   instanceId: symbol;
 };
 
-export const BoardContext = createContext<BoardContextProps | null>(null);
+export const BoardContext = createContext<BoardContextValue | null>(null);
 
-export function useBoardContext(): BoardContextProps {
+export function useBoardContext(): BoardContextValue {
   const value = useContext(BoardContext);
   invariant(value, 'cannot find BoardContext provider');
   return value;

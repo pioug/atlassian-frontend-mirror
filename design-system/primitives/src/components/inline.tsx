@@ -16,7 +16,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { type Space } from '../xcss/style-maps.partial';
-import { xcss } from '../xcss/xcss';
+import { XCSS, xcss } from '../xcss/xcss';
 
 import Flex from './flex';
 import type {
@@ -144,7 +144,6 @@ const Inline = memo(
         ) : (
           separator
         );
-
       const children = separatorComponent
         ? Children.toArray(rawChildren)
             .filter(Boolean)
@@ -157,8 +156,16 @@ const Inline = memo(
               );
             })
         : rawChildren;
-
       const justifyContent = spread || alignInline;
+
+      // We're type coercing this as Compiled styles in an array isn't supported by the types
+      // But the runtime accepts it none-the-wiser. We can remove this entire block and replace
+      // it with cx(defaultStyles, focusRingStyles, xcssStyles) when we've moved away from Emotion.
+      const styles = (
+        grow
+          ? [flexGrowMap[grow], ...(Array.isArray(xcss) ? xcss : [xcss])]
+          : xcss
+      ) as XCSS[];
 
       return (
         <Flex
@@ -170,12 +177,8 @@ const Inline = memo(
           gap={space}
           rowGap={rowSpace}
           wrap={shouldWrap ? 'wrap' : undefined}
-          xcss={
-            grow
-              ? [flexGrowMap[grow], ...(Array.isArray(xcss) ? xcss : [xcss])]
-              : // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-                xcss
-          }
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+          xcss={styles}
           testId={testId}
           ref={ref}
         >

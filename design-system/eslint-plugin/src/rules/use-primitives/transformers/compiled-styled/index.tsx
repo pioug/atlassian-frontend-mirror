@@ -108,8 +108,8 @@ export const CompiledStyled = {
    * All required validation steps have been taken care of before this
    * transformer is called, so it just goes ahead providing all necessary fixes
    */
-  _fix(refs: Refs, context: Rule.RuleContext) {
-    return (fixer: Rule.RuleFixer) => {
+  _fix(refs: Refs, context: Rule.RuleContext): Rule.ReportFixer {
+    return (fixer) => {
       // generates the new variable name: MyComponent -> myComponentStyles
       const calculatedStylesVariableName =
         isNodeOfType(refs.styles.id, 'Identifier') &&

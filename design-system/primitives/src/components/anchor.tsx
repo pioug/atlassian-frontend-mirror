@@ -145,12 +145,14 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
 
   const RouterLink = useRouterLink();
 
-  // Combine default styles with supplied styles. XCSS does not support deep nested arrays
-  const styles: XCSS | Array<XCSS | false | undefined> = Array.isArray(
-    xcssStyles,
-  )
-    ? [defaultStyles, focusRingStyles, ...xcssStyles]
-    : [defaultStyles, focusRingStyles, xcssStyles];
+  // We're type coercing this as Compiled styles in an array isn't supported by the types
+  // But the runtime accepts it none-the-wiser. We can remove this entire block and replace
+  // it with cx(defaultStyles, focusRingStyles, xcssStyles) when we've moved away from Emotion.
+  const styles = (
+    Array.isArray(xcssStyles)
+      ? [defaultStyles, focusRingStyles, ...xcssStyles]
+      : [defaultStyles, focusRingStyles, xcssStyles]
+  ) as XCSS[];
 
   const isExternal =
     typeof href === 'string' && IS_EXTERNAL_LINK_REGEX.test(href);

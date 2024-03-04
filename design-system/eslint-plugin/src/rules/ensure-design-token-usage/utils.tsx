@@ -10,6 +10,8 @@ import {
   isNodeOfType,
   literal,
   ObjectExpression,
+  Property,
+  SpreadElement,
   TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
@@ -29,14 +31,6 @@ import {
   radiusValueToToken,
 } from './shape';
 import { Domains } from './types';
-import {
-  isCodeFontFamily,
-  isFontFamily,
-  isFontSize,
-  isFontSizeSmall,
-  isTypographyProperty,
-  typographyValueToToken,
-} from './typography';
 
 const properties = [
   'padding',
@@ -113,10 +107,16 @@ export const splitShorthandValues = (str: string): string[] => {
     .filter(Boolean);
 };
 
-export const getValueFromShorthand = (str: unknown): any[] => {
+export const getValueFromShorthand = (str: unknown): (string | number)[] => {
   const valueString = String(str);
-  const fontFamily = /(sans-serif$)|(monospace$)/;
-  if (fontFamily.test(valueString)) {
+  const fontFamily = /(Charlie)|(sans-serif$)|(monospace$)/;
+  const fontWeightString = /(regular$)|(medium$)|(semibold$)|(bold$)/;
+  const fontStyleString = /(inherit$)|(normal$)|(italic$)/;
+  if (
+    fontFamily.test(valueString) ||
+    fontWeightString.test(valueString) ||
+    fontStyleString.test(valueString)
+  ) {
     return [valueString];
   }
   // If we want to filter out NaN just add .filter(Boolean)
@@ -158,6 +158,16 @@ const getRawExpressionForToken = (
   return call;
 };
 
+const isFontSize = (node: EslintNode): node is CallExpression =>
+  isNodeOfType(node, 'CallExpression') &&
+  isNodeOfType(node.callee, 'Identifier') &&
+  (node.callee.name === 'fontSize' || node.callee.name === 'getFontSize');
+
+const isFontSizeSmall = (node: EslintNode): node is CallExpression =>
+  isNodeOfType(node, 'CallExpression') &&
+  isNodeOfType(node.callee, 'Identifier') &&
+  node.callee.name === 'fontSizeSmall';
+
 const getValueFromCallExpression = (
   node: EslintNode,
   context: Rule.RuleContext,
@@ -182,14 +192,6 @@ const getValueFromCallExpression = (
     return 11;
   }
 
-  if (isFontFamily(node)) {
-    return `-apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif`;
-  }
-
-  if (isCodeFontFamily(node)) {
-    return `\'SFMono-Medium\', \'SF Mono\', \'Segoe UI Mono\', \'Roboto Mono\', \'Ubuntu Mono\', Menlo, Consolas, Courier, monospace`;
-  }
-
   if (isToken(node)) {
     return getRawExpressionForToken(node, context);
   }
@@ -200,7 +202,7 @@ const getValueFromCallExpression = (
 export const getValue = (
   node: EslintNode,
   context: Rule.RuleContext,
-): string | number | any[] | null | undefined => {
+): string | number | (string | number)[] | null | undefined => {
   if (isNodeOfType(node, 'Literal')) {
     return getValueFromShorthand(node.value);
   }
@@ -410,7 +412,7 @@ export const emToPixels = <T extends unknown>(
 
 const percentageOrEmOrAuto = /(%$)|(\d+em$)|(auto$)/;
 
-export const removePixelSuffix = (value: string | number) => {
+export const removePixelSuffix = (value: string | number): string | number => {
   if (
     typeof value === 'string' &&
     (percentageOrEmOrAuto.test(value) || isCalc(value))
@@ -493,7 +495,7 @@ export const convertHyphenatedNameToCamelCase = (prop: string) => {
 
 /**
  * @param node
- * @returns The furthest parent node that is on the same line as the input node
+ * @returns The furthest parent node that is on the same line as the input node.
  */
 export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
   if (!node.parent) {
@@ -507,14 +509,13 @@ export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
 };
 
 /**
- * Returns an array of domains that are relevant to the provided property based on the rule options
+ * Returns an array of domains that are relevant to the provided property based on the rule options.
  * @param propertyName camelCase CSS property
- * @param targetOptions Array containing the types of properties that should be included in the rule
+ * @param targetOptions Array containing the types of properties that should be included in the rule.
  * @example
  * ```
  * propertyName: padding, targetOptions: ['spacing'] -> returns ['spacing']
- * propertyName: fontWeight, targetOptions: ['spacing', 'typography'] -> returns ['typography']
- * propertyName: backgroundColor, targetOptions: ['spacing', 'typography'] -> returns []
+ * propertyName: backgroundColor, targetOptions: ['spacing'] -> returns []
  * propertyName: backgroundColor, targetOptions: ['color', 'spacing'] -> returns ['color']
  * ```
  */
@@ -539,18 +540,12 @@ export function getDomainsForProperty(
     domains.push('shape');
   }
 
-  if (
-    isTypographyProperty(propertyName) &&
-    targetOptions.includes('typography')
-  ) {
-    domains.push('typography');
-  }
   return domains;
 }
 
 /**
  * Function that removes JS comments from a string of code,
- * sometimes makers will have single or multiline comments in their tagged template literals styles, this can mess with our parsing logic
+ * sometimes makers will have single or multiline comments in their tagged template literals styles, this can mess with our parsing logic.
  */
 export function cleanComments(str: string): string {
   return str.replace(/\/\*([\s\S]*?)\*\//g, '').replace(/\/\/(.*)/g, '');
@@ -558,11 +553,11 @@ export function cleanComments(str: string): string {
 
 /**
  * Returns an array of tuples representing a processed css within `TaggedTemplateExpression` node.
- * each element of the array is a tuple `[string, string]`,
+ * Each element of the array is a tuple `[string, string]`,
  * where the first element is the processed css line with computed values
- * and the second element of the tuple is the original css line from source
- * @param node TaggedTemplateExpression node
- * @param context Rule.RuleContext
+ * and the second element of the tuple is the original css line from source.
+ * @param node TaggedTemplateExpression node.
+ * @param context Rule.RuleContext.
  * @example
  * ```
  * `[['padding: 8', 'padding: ${gridSize()}'], ['margin: 6', 'margin: 6px' ]]`
@@ -653,7 +648,7 @@ export function getFontSizeValueInScope(
 
 /**
  * Attempts to remove all non-essential words & characters from a style block.
- * Including selectors and queries
+ * Including selectors and queries.
  * @param styleString string of css properties
  */
 export function splitCssProperties(styleString: string): string[] {
@@ -677,8 +672,8 @@ export function splitCssProperties(styleString: string): string[] {
 }
 
 /**
- * returns whether the current string is a token value
- * @param originalVaue string representing a css property value e.g 1em, 12px
+ * Returns whether the current string is a token value.
+ * @param originalVaue string representing a css property value e.g 1em, 12px.
  */
 export function isTokenValueString(originalValue: string): boolean {
   return originalValue.startsWith('${token(') && originalValue.endsWith('}');
@@ -693,19 +688,30 @@ export function includesTokenString(originalValue: string): boolean {
  *
  * -> for pixels this '8px'
  * -> for weights     '400'
- * -> for family      'Arial'
+ * -> for family      'Arial'.
  *
  * @internal
  */
-export function normaliseValue(propertyName: string, value: string) {
-  const isFontWeightOrFamily = /fontWeight|fontFamily/.test(propertyName);
+export function normaliseValue(
+  propertyName: string,
+  value: string | number,
+): string {
+  const isFontStringProperty = /fontWeight|fontFamily|fontStyle/.test(
+    propertyName,
+  );
+  const isLineHeight = /lineHeight/.test(propertyName);
   const propertyValue = typeof value === 'string' ? value.trim() : value;
 
-  const lookupValue = isFontWeightOrFamily
-    ? propertyValue
-    : typeof propertyValue === 'string'
-    ? propertyValue
-    : `${propertyValue}px`;
+  let lookupValue;
+
+  if (isFontStringProperty) {
+    lookupValue = `${propertyValue}`;
+  } else if (isLineHeight) {
+    lookupValue = value === 1 ? `${propertyValue}` : `${propertyValue}px`;
+  } else {
+    lookupValue =
+      typeof propertyValue === 'string' ? propertyValue : `${propertyValue}px`;
+  }
 
   return lookupValue;
 }
@@ -719,8 +725,6 @@ export function findTokenNameByPropertyValue(
     ? isBorderSizeProperty(propertyName)
       ? borderWidthValueToToken[lookupValue]
       : radiusValueToToken[lookupValue]
-    : isTypographyProperty(propertyName)
-    ? typographyValueToToken[propertyName][lookupValue]
     : spacingValueToToken[lookupValue];
 
   if (!tokenName) {
@@ -732,9 +736,9 @@ export function findTokenNameByPropertyValue(
 
 /**
  * Returns a stringifiable node with the token expression corresponding to its matching token.
- * if no token found for the pair the function returns undefined
- * @param propertyName string camelCased css property
- * @param value the computed value e.g '8px' -> '8'
+ * If no token found for the pair the function returns undefined.
+ * @param propertyName string camelCased css property.
+ * @param value The computed value e.g '8px' -> '8'.
  */
 export function getTokenReplacement(propertyName: string, value: string) {
   const tokenName = findTokenNameByPropertyValue(propertyName, value);
@@ -748,11 +752,11 @@ export function getTokenReplacement(propertyName: string, value: string) {
   return getTokenNodeForValue(propertyName, fallbackValue);
 }
 
-export function getFontSizeFromNode(
+export function getPropertyNodeFromParent(
+  property: string,
   parentNode: ObjectExpression & Rule.NodeParentExtension,
-  context: Rule.RuleContext,
 ) {
-  const fontSizeNode = parentNode.properties.find((node) => {
+  const propertyNode = parentNode.properties.find((node) => {
     if (!isNodeOfType(node, 'Property')) {
       return;
     }
@@ -761,16 +765,23 @@ export function getFontSizeFromNode(
       return;
     }
 
-    return node.key.name === 'fontSize';
+    return node.key.name === property;
   });
 
-  const fontSizeValue = isNodeOfType(fontSizeNode!, 'Property')
-    ? getValue(fontSizeNode.value, context)
+  return propertyNode;
+}
+
+export function getValueForPropertyNode(
+  propertyNode: Property | SpreadElement,
+  context: Rule.RuleContext,
+): string | number | null | undefined {
+  const propertyValueRaw = isNodeOfType(propertyNode!, 'Property')
+    ? getValue(propertyNode.value, context)
     : null;
 
-  const fontSize = Array.isArray(fontSizeValue)
-    ? fontSizeValue[0]
-    : fontSizeValue;
+  const propertyValue = Array.isArray(propertyValueRaw)
+    ? propertyValueRaw[0]
+    : propertyValueRaw;
 
-  return fontSize;
+  return propertyValue;
 }

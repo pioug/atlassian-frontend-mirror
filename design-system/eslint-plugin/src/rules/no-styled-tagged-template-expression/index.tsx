@@ -3,8 +3,7 @@ import {
   noTaggedTemplateExpressionRuleSchema,
 } from '../utils/create-no-tagged-template-expression-rule';
 import { createLintRule } from '../utils/create-rule';
-
-import { isStyled } from './is-styled';
+import { isStyled } from '../utils/is-supported-import';
 
 const rule = createLintRule({
   meta: {

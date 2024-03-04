@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-media
 
+## 1.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.0
+
+### Minor Changes
+
+- [#76504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76504) [`35deb7a5d492`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35deb7a5d492) - [ux] Add Media preview feature for full page Editor under FF
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.1
+
+### Patch Changes
+
+- [#77601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77601) [`ee98d2aa7c8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee98d2aa7c8a) - [ED-22199] Update media card wrapper so that it applies comments styles according to comment status
+
 ## 1.4.0
 
 ### Minor Changes

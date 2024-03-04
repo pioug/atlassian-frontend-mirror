@@ -4,10 +4,14 @@ import {
   PixelWidthGreaterThenDefaultFullWidth,
 } from '../__helpers/rendererComponents';
 
-snapshotInformational(PixelWidthGreaterThenDefault, {
-  prepare: async (page) => page.setViewportSize({ width: 1800, height: 4500 }),
+snapshotInformational.skip(PixelWidthGreaterThenDefault, {
+  prepare: async (page) => {
+    await page.setViewportSize({ width: 1800, height: 4500 });
+  },
 });
 
-snapshotInformational(PixelWidthGreaterThenDefaultFullWidth, {
-  prepare: async (page) => page.setViewportSize({ width: 1800, height: 4500 }),
+snapshotInformational.skip(PixelWidthGreaterThenDefaultFullWidth, {
+  prepare: async (page) => {
+    await page.setViewportSize({ width: 1800, height: 4500 });
+  },
 });

@@ -10,6 +10,7 @@ type Pattern =
 
 export interface RuleConfig {
   patterns: Pattern[];
+  inheritColor: boolean;
 }
 
 const defaults: RuleConfig = {
@@ -19,6 +20,7 @@ const defaults: RuleConfig = {
     'strong-elements',
     'emphasis-elements',
   ],
+  inheritColor: false,
 };
 
 export const getConfig = (

@@ -1,5 +1,21 @@
 # @atlaskit/primitives
 
+## 4.0.0
+
+### Major Changes
+
+- [#77148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77148) [`473df43e816b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/473df43e816b) - Removed `ui` variant from Text component. The `body` variant should be used for all non-heading typography.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.2.0
+
+### Minor Changes
+
+- [#77488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77488) [`9e119dcbfd60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e119dcbfd60) - The `xcss` prop on select components have had its type expanded to support styles being passed from Compiled CSS-in-JS. This is still experimental and something we'll be iterating on.
+
 ## 3.1.0
 
 ### Minor Changes

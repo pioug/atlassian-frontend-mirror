@@ -987,69 +987,6 @@ typescriptEslintTester.run(
       `,
       },
       {
-        filename: 'single-variable-as-selector.ts',
-        code: `
-        import { styled } from '@compiled/react';
-
-        styled.div\`
-          \${Variable_Name} {
-            color: blue;
-          }
-        \`;
-      `,
-        output: `
-        import { styled } from '@compiled/react';
-
-        styled.div({
-          [\`\${Variable_Name}\`]: {
-            color: "blue"
-          }
-        });
-      `,
-      },
-      {
-        filename: 'multiple-variables-as-selector.ts',
-        code: `
-        import { styled } from '@compiled/react';
-
-        styled.div\`
-          \${Variable_Name_1} \${Variable_Name_2} {
-            color: blue;
-          }
-        \`;
-      `,
-        output: `
-        import { styled } from '@compiled/react';
-
-        styled.div({
-          [\`\${Variable_Name_1} \${Variable_Name_2}\`]: {
-            color: "blue"
-          }
-        });
-      `,
-      },
-      {
-        filename: 'variables-as-selector-have-surrounding-text.ts',
-        code: `
-        import { styled } from '@compiled/react';
-
-        styled.div\`
-          .foo \${Variable_Name_1} .bar \${Variable_Name_2} & {
-            color: blue;
-          }
-        \`;
-      `,
-        output: `
-        import { styled } from '@compiled/react';
-
-        styled.div({
-          [\`.foo \${Variable_Name_1} .bar \${Variable_Name_2} &\`]: {
-            color: "blue"
-          }
-        });
-      `,
-      },
-      {
         filename: 'space-wrapped-by-double-quotes-as-value',
         code: `
         import { styled } from '@compiled/react';
@@ -1372,6 +1309,107 @@ typescriptEslintTester.run(
           color: "red"
         });
       `,
+      },
+      {
+        filename: 'single-variable-as-selector.ts',
+        code: `
+        import { styled } from '@compiled/react';
+
+        styled.div\`
+          \${Variable_Name} {
+            color: blue;
+          }
+        \`;
+      `,
+        output: `
+        import { styled } from '@compiled/react';
+
+        styled.div({
+          [\`\${Variable_Name}\`]: {
+            color: "blue"
+          }
+        });
+      `,
+      },
+      {
+        filename: 'multiple-variables-as-selector.ts',
+        code: `
+        import { styled } from '@compiled/react';
+
+        styled.div\`
+          \${Variable_Name_1} \${Variable_Name_2} {
+            color: blue;
+          }
+        \`;
+      `,
+        output: `
+        import { styled } from '@compiled/react';
+
+        styled.div({
+          [\`\${Variable_Name_1} \${Variable_Name_2}\`]: {
+            color: "blue"
+          }
+        });
+      `,
+      },
+      {
+        filename: 'variables-as-selector-have-surrounding-text.ts',
+        code: `
+        import { styled } from '@compiled/react';
+
+        styled.div\`
+          .foo \${Variable_Name_1} .bar \${Variable_Name_2} & {
+            color: blue;
+          }
+        \`;
+      `,
+        output: `
+        import { styled } from '@compiled/react';
+
+        styled.div({
+          [\`.foo \${Variable_Name_1} .bar \${Variable_Name_2} &\`]: {
+            color: "blue"
+          }
+        });
+      `,
+      },
+      // NOTE: For `styled-components` we do not support the component selector syntax,
+      // so we don't support ANY interpolated selectors…
+      {
+        filename: 'single-variable-as-selector-sc.ts',
+        code: `
+          import { styled } from 'styled-components';
+
+          styled.div\`
+            \${Variable_Name} {
+              color: blue;
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'multiple-variables-as-selector-sc.ts',
+        code: `
+          import { styled } from 'styled-components';
+
+          styled.div\`
+            \${Variable_Name_1} \${Variable_Name_2} {
+              color: blue;
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'variables-as-selector-have-surrounding-text-sc.ts',
+        code: `
+          import { styled } from 'styled-components';
+
+          styled.div\`
+            .foo \${Variable_Name_1} .bar \${Variable_Name_2} & {
+              color: blue;
+            }
+          \`;
+        `,
       },
     ]),
   },

@@ -124,6 +124,26 @@ const handleRemoveMediaGroup: Command = (state, dispatch) => {
   return true;
 };
 
+const generateFilePreviewItem = (
+  mediaPluginState: MediaPluginState,
+  intl: IntlShape,
+  editorState?: EditorState,
+): FloatingToolbarItem<Command> => {
+  return {
+    type: 'custom',
+    fallback: [],
+    render: () => {
+      return (
+        <FilePreviewItem
+          key="editor.media.card.preview"
+          mediaPluginState={mediaPluginState}
+          intl={intl}
+        />
+      );
+    },
+  };
+};
+
 const generateMediaCardFloatingToolbar = (
   state: EditorState,
   intl: IntlShape,
@@ -134,22 +154,8 @@ const generateMediaCardFloatingToolbar = (
 ) => {
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
-    {
-      type: 'separator',
-    },
-    {
-      type: 'custom',
-      fallback: [],
-      render: () => {
-        return (
-          <FilePreviewItem
-            key="editor.media.card.preview"
-            mediaPluginState={mediaPluginState}
-            intl={intl}
-          />
-        );
-      },
-    },
+    { type: 'separator' },
+    generateFilePreviewItem(mediaPluginState, intl),
     { type: 'separator' },
     {
       id: 'editor.media.card.download',
@@ -269,6 +275,7 @@ const generateMediaSingleFloatingToolbar = (
     allowAltTextOnImages,
     allowMediaInline,
     allowMediaInlineImages,
+    allowImagePreview,
     getEditorFeatureFlags,
   } = options;
   const editorFeatureFlags = getEditorFeatureFlags
@@ -638,6 +645,19 @@ const generateMediaSingleFloatingToolbar = (
           return null;
         },
       });
+    }
+    // Preview Support
+    if (
+      allowImagePreview &&
+      getBooleanFF('platform.editor.media.preview-in-full-page')
+    ) {
+      const selectedMediaSingleNode = getSelectedMediaSingle(state);
+      const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
+      if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
+        toolbarButtons.push(generateFilePreviewItem(pluginState, intl, state), {
+          type: 'separator',
+        });
+      }
     }
   }
 

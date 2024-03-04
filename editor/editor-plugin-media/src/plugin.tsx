@@ -47,6 +47,7 @@ import type { CustomMediaPicker } from './types';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { insertMediaAsMediaSingle } from './utils/media-single';
+
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 
@@ -354,6 +355,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
             allowAdvancedToolBarOptions:
               options && options.allowAdvancedToolBarOptions,
             allowAltTextOnImages: options && options.allowAltTextOnImages,
+            allowImagePreview: options && options.allowImagePreview,
             altTextValidator: options && options.altTextValidator,
             fullWidthEnabled: options && options.fullWidthEnabled,
             allowMediaInlineImages: options && options.allowMediaInlineImages,

@@ -1,21 +1,27 @@
 /** @jsx jsx */
 import React from 'react';
-import Markdown from 'markdown-to-jsx';
+import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import { SerializedStyles, css, jsx } from '@emotion/react';
+import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-block/ai-state-indicator';
 
-const AISummaryCSS = css`
-  overflow-y: auto;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  word-wrap: break-word;
-  white-space: normal;
-`;
+const AITooltipIcon: MarkdownToJSX.Override = () => (
+  <AIStateIndicator appearance="icon-only" state="done" testId="ai-tooltip" />
+);
+
+const AISummaryCSS = css({
+  fontSize: '0.75rem',
+  lineHeight: '1rem',
+  wordWrap: 'break-word',
+  whiteSpace: 'normal',
+});
 
 type AISummaryProps = {
   /* Raw markdawn format text to display.*/
   content?: string;
-  /* Adds AI Icon at the end of the markdown text*/
-  showAIIcon?: boolean;
+  /* Should the summary icon be shown at the end of the content */
+  showIcon?: boolean;
+  /* Optional icon component to override icon at the end of content */
+  iconComponent?: MarkdownToJSX.Override;
   /* Additional CSS properties */
   overrideCss?: SerializedStyles;
   /**
@@ -33,6 +39,8 @@ type AISummaryProps = {
 
 const AISummary: React.FC<AISummaryProps> = ({
   content,
+  showIcon = false,
+  iconComponent,
   overrideCss,
   testId = 'ai-summary',
 }) => {
@@ -44,9 +52,10 @@ const AISummary: React.FC<AISummaryProps> = ({
     <Markdown
       data-testid={testId}
       css={[AISummaryCSS, overrideCss]}
-      children={content}
+      children={showIcon ? `${content} <Icon />` : content}
       options={{
         forceWrapper: true,
+        overrides: { Icon: iconComponent ?? AITooltipIcon },
       }}
     />
   );

@@ -311,3 +311,9 @@ export const nestedNumberedListDocument = {
     },
   ],
 };
+
+export const emptyAdf = {
+  version: 1,
+  type: 'doc',
+  content: [],
+};

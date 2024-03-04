@@ -67,6 +67,10 @@ export type MessageKey =
   | 'not_found_title'
   | 'not_found_description'
   | 'no_pdf_artifacts'
+  | 'password_protected_pdf'
+  | 'enter_password'
+  | 'incorrect_password'
+  | 'submit'
   | 'give_feedback'
   | 'try_downloading_file'
   | 'webgl_warning_description'
@@ -502,6 +506,27 @@ export const messages: Messages = defineMessages({
     id: 'fabric.media.no_pdf_artifacts',
     defaultMessage: 'No PDF artifacts found for this file.',
     description: 'Error case for when we cant preview a PDF file',
+  },
+  password_protected_pdf: {
+    id: 'fabric.media.password_protected_pdf',
+    defaultMessage: 'This file is password protected.',
+    description:
+      'Describing that a PDF cannot be viewed because it is protected by password',
+  },
+  enter_password: {
+    id: 'fabric.media.enter_password',
+    defaultMessage: 'Enter password',
+    description: 'Prompting user to enter the password.',
+  },
+  incorrect_password: {
+    id: 'fabric.media.incorrect_password',
+    defaultMessage: 'Incorrect password. Please try again.',
+    description: 'Error case for when a wrong password is inputted.',
+  },
+  submit: {
+    id: 'fabric.media.submit',
+    defaultMessage: 'Submit',
+    description: 'Description for a button to submit the form.',
   },
   give_feedback: {
     id: 'fabric.media.give_feedback',

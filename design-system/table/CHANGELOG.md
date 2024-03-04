@@ -1,5 +1,18 @@
 # @atlaskit/table
 
+## 0.4.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.4.23
+
+### Patch Changes
+
+- [#77488](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77488) [`27e6fdab53dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/27e6fdab53dc) - Cells now use logical property styles.
+- Updated dependencies
+
 ## 0.4.22
 
 ### Patch Changes

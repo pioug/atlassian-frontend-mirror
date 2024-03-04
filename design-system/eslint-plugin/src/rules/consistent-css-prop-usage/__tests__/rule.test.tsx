@@ -5,6 +5,13 @@ import rule from '../index';
 
 tester.run('react/consistent-css-prop-usage', rule, {
   valid: [
+    {
+      code: `
+      const styles = cssMap({ root: { color: 'red' } });
+
+      <Button xcss={cx(styles.root)} />
+    `,
+    },
     `
      <button css={asdasd} />
     `,

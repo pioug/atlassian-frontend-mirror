@@ -3,30 +3,28 @@ import { css, jsx } from '@emotion/react';
 import React from 'react';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { token } from '@atlaskit/tokens';
 import { JIRATransformer } from '../src';
 
-const container = css`
-  #source,
-  #output {
-    box-sizing: border-box;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    width: 100%;
-    &:focus {
-      outline: none;
-    }
-  }
-
-  #source {
-    height: 80px;
-  }
-
-  #output {
-    border: 1px solid;
-    min-height: 480px;
-  }
-`;
+const container = css({
+  '#source, #output': {
+    boxSizing: 'border-box',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    width: '100%',
+    '&:focus': {
+      outline: 'none',
+    },
+  },
+  '#source': {
+    height: '80px',
+  },
+  '#output': {
+    border: '1px solid',
+    minHeight: '480px',
+  },
+});
 
 const jiraTransformer = new JIRATransformer(defaultSchema);
 const adfTransformer = new JSONTransformer();

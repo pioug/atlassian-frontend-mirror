@@ -6,18 +6,9 @@ import {
 } from '@atlaskit/media-client';
 import { Outcome } from '../../domain';
 import { MediaViewerError } from '../../errors';
-import { Spinner } from '../../loading';
-import { Props as RendererProps } from './pdfRenderer';
+import { PDFRenderer } from './pdfRenderer';
 import { BaseViewer } from '../base-viewer';
 import { getObjectUrlFromFileState } from '../../utils/getObjectUrlFromFileState';
-
-const moduleLoader = () =>
-  import(
-    /* webpackChunkName: "@atlaskit-internal_media-pdf-viewer" */ './pdfRenderer'
-  );
-
-const componentLoader = () =>
-  moduleLoader().then((module) => module.PDFRenderer);
 
 export type Props = {
   mediaClient: MediaClient;
@@ -33,8 +24,6 @@ export type State = {
 };
 
 export class DocViewer extends BaseViewer<string, Props> {
-  static PDFComponent: (props: RendererProps) => JSX.Element;
-
   protected get initialState() {
     return {
       content: Outcome.pending<string, MediaViewerError>(),
@@ -42,9 +31,6 @@ export class DocViewer extends BaseViewer<string, Props> {
   }
 
   protected async init() {
-    if (!DocViewer.PDFComponent) {
-      await this.loadDocViewer();
-    }
     const { item, mediaClient, collectionName, onError } = this.props;
 
     if (isPreviewableFileState(item)) {
@@ -81,12 +67,30 @@ export class DocViewer extends BaseViewer<string, Props> {
           onError(docError);
         }
       }
+    } else if (item.status === 'failed-processing') {
+      try {
+        const src = await mediaClient.file.getFileBinaryURL(
+          item.id,
+          collectionName,
+          2940, // 2940 seconds ~= 50 mins
+        );
+        this.onMediaDisplayed();
+        this.setState({
+          content: Outcome.successful(src),
+        });
+      } catch (error) {
+        const docError = new MediaViewerError(
+          'docviewer-fetch-url',
+          error instanceof Error ? error : undefined,
+        );
+        this.setState({
+          content: Outcome.failed(docError),
+        });
+        if (onError) {
+          onError(docError);
+        }
+      }
     }
-  }
-
-  private async loadDocViewer() {
-    DocViewer.PDFComponent = await componentLoader();
-    this.forceUpdate();
   }
 
   protected release() {
@@ -100,13 +104,9 @@ export class DocViewer extends BaseViewer<string, Props> {
 
   protected renderSuccessful(content: string) {
     const { item, onClose, onSuccess, onError } = this.props;
-    const { PDFComponent } = DocViewer;
 
-    if (!PDFComponent) {
-      return <Spinner />;
-    }
     return (
-      <PDFComponent
+      <PDFRenderer
         item={item}
         src={content}
         onSuccess={onSuccess}

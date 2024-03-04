@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-media",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "description": "Media plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -59,13 +59,13 @@
     "@atlaskit/media-common": "^11.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
     "@atlaskit/media-picker": "^66.3.0",
-    "@atlaskit/media-ui": "^25.2.0",
-    "@atlaskit/media-viewer": "^48.2.0",
+    "@atlaskit/media-ui": "^25.3.0",
+    "@atlaskit/media-viewer": "^48.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^3.1.0",
+    "@atlaskit/primitives": "^4.0.0",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.38.0",
+    "@atlaskit/tokens": "^1.39.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -145,6 +145,9 @@
       "type": "boolean"
     },
     "platform.editor.media.autoselect-inserted-image_oumto": {
+      "type": "boolean"
+    },
+    "platform.editor.media.preview-in-full-page": {
       "type": "boolean"
     }
   },

@@ -18,30 +18,30 @@ import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
+import { token } from '@atlaskit/tokens';
 import { BitbucketTransformer } from '../src';
 import exampleBitbucketHTML from './helpers/exampleHTML';
 
-const container = css`
-  display: grid;
-  grid-template-columns: 33% 33% 33%;
-  #source,
-  #output {
-    border: 2px solid;
-    margin: 8px;
-    padding: 8px;
-    white-space: pre-wrap;
-    &:focus {
-      outline: none;
-    }
-    &:empty:not(:focus)::before {
-      content: attr(data-placeholder);
-      font-size: 14px;
-    }
-  }
-  #source {
-    font-size: xx-small;
-  }
-`;
+const container = css({
+  display: 'grid',
+  gridTemplateColumns: '33% 33% 33%',
+  '#source, #output': {
+    border: '2px solid',
+    margin: token('space.100', '8px'),
+    padding: token('space.100', '8px'),
+    whiteSpace: 'pre-wrap',
+    '&:focus': {
+      outline: 'none',
+    },
+    '&:empty:not(:focus)::before': {
+      content: 'attr(data-placeholder)',
+      fontSize: '14px',
+    },
+  },
+  '#source': {
+    fontSize: 'xx-small',
+  },
+});
 
 type Props = { actions: any };
 type State = { source: string; output: string };

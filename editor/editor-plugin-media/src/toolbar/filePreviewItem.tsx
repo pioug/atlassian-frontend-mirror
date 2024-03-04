@@ -12,7 +12,7 @@ import { MediaViewer } from '@atlaskit/media-viewer';
 
 import type { MediaPluginState } from '../pm-plugins/types';
 
-import { getSelectedMediaContainerNodeAttrs } from './utils';
+import { getSelectedNearestMediaContainerNodeAttrs } from './utils';
 
 interface FilePreviewProps {
   mediaPluginState: MediaPluginState;
@@ -34,7 +34,7 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
   const renderMediaViewer = () => {
     if (isMediaViewerVisible) {
       const selectedNodeAttrs =
-        getSelectedMediaContainerNodeAttrs(mediaPluginState);
+        getSelectedNearestMediaContainerNodeAttrs(mediaPluginState);
       if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
         const { id, collection = '' } = selectedNodeAttrs;
         const identifier: FileIdentifier = {
@@ -59,7 +59,7 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
   const mediaViewer = renderMediaViewer();
   const tooltipContent = intl.formatMessage(messages.preview);
   return (
-    <div>
+    <>
       <ToolbarButton
         testId="file-preview-toolbar-button"
         key="editor.media.card.preview"
@@ -68,6 +68,6 @@ export const FilePreviewItem: FC<FilePreviewProps> = ({
         tooltipContent={tooltipContent}
       />
       {mediaViewer}
-    </div>
+    </>
   );
 };

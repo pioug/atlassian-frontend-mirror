@@ -9,6 +9,12 @@ import type {
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type * as CSS from 'csstype';
 
+import type {
+  StrictXCSSProp,
+  XCSSAllProperties,
+  XCSSAllPseudos,
+} from '@atlaskit/css';
+
 import type { MediaQuery } from '../responsive/types';
 
 import {
@@ -199,32 +205,59 @@ const baseXcss = (style?: SafeCSSObject | SafeCSSObject[]) => {
 };
 
 /**
- * @internal used in primitives
- * @returns a collection of styles that can be applied to the respective primitive
+ * Picks out runtime XCSS objects and build-time XCSS strings. This is needed
+ * to supported both Emotion and Compiled styles until we've fully migrated
+ * to Compiled.
+ *
+ * @private
+ * @deprecated
  */
-type ParsedXcss =
-  | ReturnType<typeof cssEmotion>
-  | ReturnType<typeof cssEmotion>[];
 export const parseXcss = (
-  args: XCSS | (XCSS | false | undefined)[],
-): ParsedXcss => {
+  args:
+    | XCSS
+    | (XCSS | false | undefined)[]
+    | undefined
+    | StrictXCSSProp<XCSSAllProperties, XCSSAllPseudos>,
+): { emotion?: SerializedStyles[]; static?: string } => {
   if (Array.isArray(args)) {
-    return args.map(x => x && parseXcss(x)).filter(Boolean) as ParsedXcss;
+    const emotion: SerializedStyles[] = [];
+    const staticArr: string[] = [];
+
+    for (const arg of args) {
+      const result = parseXcss(arg);
+
+      if (result.emotion) {
+        emotion.push(...result.emotion);
+      }
+
+      if (result.static) {
+        staticArr.push(result.static);
+      }
+    }
+
+    return {
+      emotion,
+      static: staticArr.join(' '),
+    };
   }
 
-  const { [uniqueSymbol]: styles } = args;
+  const objArgs = args as XCSS | undefined;
+  const { [uniqueSymbol]: styles } = objArgs || {};
 
-  if (
-    typeof process &&
-    process.env.NODE_ENV === 'development' &&
-    typeof styles === 'undefined'
-  ) {
-    throw new Error(
-      'Styles generated from unsafe source, use the `xcss` export from `@atlaskit/primitives`.',
-    );
+  if (styles) {
+    return { emotion: [styles] };
   }
 
-  return styles;
+  if (args) {
+    // We use string interpolation here instead of .toString() just
+    // in case the resulting object doesn't have the method available.
+    const stringifiedArgs = `${args}`;
+    if (stringifiedArgs) {
+      return { static: stringifiedArgs };
+    }
+  }
+
+  return {};
 };
 
 type AllMedia =

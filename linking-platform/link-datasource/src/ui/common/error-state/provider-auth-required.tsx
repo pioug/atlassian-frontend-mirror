@@ -32,6 +32,7 @@ interface ProviderAuthRequiredProps {
   onAuthError: () => void;
   extensionKey: string | null;
   providerName: DatasourceMeta['providerName'];
+  datasourceId: string;
 }
 
 export const ProviderAuthRequired = ({
@@ -40,9 +41,10 @@ export const ProviderAuthRequired = ({
   onAuthError,
   extensionKey,
   providerName,
+  datasourceId,
 }: ProviderAuthRequiredProps) => {
   const { formatMessage } = useIntl();
-  const { captureError } = useErrorLogger();
+  const { captureError } = useErrorLogger({ datasourceId });
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const [authInfo] = auth;
 

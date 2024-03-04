@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::23062a8759ba919facf30a402e5546bd>>
+ * @codegen <<SignedSource::c283cd7ede5e813a9119cd707d339273>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -32,6 +32,7 @@ import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-car
 import useHrefInLinkItem from './use-href-in-link-item';
 import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
+import useTokensTypography from './use-tokens-typography';
 import useVisuallyHidden from './use-visually-hidden';
 
 export default {
@@ -65,5 +66,6 @@ export default {
   'use-href-in-link-item': useHrefInLinkItem,
   'use-primitives': usePrimitives,
   'use-primitives-text': usePrimitivesText,
+  'use-tokens-typography': useTokensTypography,
   'use-visually-hidden': useVisuallyHidden,
 };

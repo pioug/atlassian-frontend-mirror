@@ -32,6 +32,22 @@ export type SupportedNameChecker = (
 export const DEFAULT_IMPORT_SOURCES: ImportSource[] =
   Object.values(CSS_IN_JS_IMPORTS);
 
+const getIdentifierNode = (node: Callee) => {
+  let identifierNode = node.type === 'Identifier' ? node : undefined;
+  if (!identifierNode) {
+    // Handles styled.div`` case
+    if (node.type === 'MemberExpression' && node.object.type === 'Identifier') {
+      identifierNode = node.object;
+    }
+
+    // Handles styled(Component)`` case
+    if (node.type === 'CallExpression' && node.callee.type === 'Identifier') {
+      identifierNode = node.callee;
+    }
+  }
+  return identifierNode;
+};
+
 /**
  * Given the ESLint rule context, extract and parse the value of the importSources rule option.
  * The importSources option is used to override which libraries an ESLint rule applies to.
@@ -55,6 +71,7 @@ export const getImportSources = (context: Rule.RuleContext): ImportSource[] => {
 
 const isSupportedImportWrapper = (
   functionName: string,
+  defaultFromImportSources: ImportSource[] = [],
 ): SupportedNameChecker => {
   const checkDefinitionHasImport = (
     def: Definition,
@@ -71,13 +88,28 @@ const isSupportedImportWrapper = (
       return false;
     }
 
+    // Matches the imported name from a named import
+    // import { functionName, functioName as otherName } from 'import-source';
+    const isNamedImport =
+      def.node.type === 'ImportSpecifier' &&
+      def.node.imported.name === functionName;
+
+    // Must explicitly match the local name from a default import
+    // import functionName from 'import-source';
+    const isDefaultImportMatchingLocal =
+      def.node.type === 'ImportDefaultSpecifier' &&
+      def.node.local.name === functionName;
+
+    // Can match any local name from a default import
+    // import anything from 'import-source'
+    const isKnownDefaultImport =
+      def.node.type === 'ImportDefaultSpecifier' &&
+      defaultFromImportSources.includes(
+        def.parent.source.value as ImportSource,
+      );
+
     return (
-      // import { functionName } from 'import-source';
-      (def.node.type === 'ImportSpecifier' &&
-        def.node.imported.name === functionName) ||
-      // import functionName from 'import-source';
-      (def.node.type === 'ImportDefaultSpecifier' &&
-        def.node.local.name === functionName)
+      isNamedImport || isDefaultImportMatchingLocal || isKnownDefaultImport
     );
   };
 
@@ -102,11 +134,13 @@ const isSupportedImportWrapper = (
     referencesInScope: Reference[],
     importSources: ImportSource[],
   ): boolean => {
+    const identifierNode = getIdentifierNode(nodeToCheck);
+
     return (
-      nodeToCheck.type === 'Identifier' &&
+      identifierNode?.type === 'Identifier' &&
       referencesInScope.some(
         (reference) =>
-          reference.identifier === nodeToCheck &&
+          reference.identifier === identifierNode &&
           reference.resolved?.defs.some((def) =>
             checkDefinitionHasImport(def, importSources),
           ),
@@ -124,4 +158,51 @@ export const isCss = isSupportedImportWrapper('css');
 export const isCxFunction = isSupportedImportWrapper('cx');
 export const isCssMap = isSupportedImportWrapper('cssMap');
 export const isKeyframes = isSupportedImportWrapper('keyframes');
-export const isStyled = isSupportedImportWrapper('styled');
+// `styled` is also the explicit default of `styled-components` and `@emotion/styled`, so we also match on default imports generally
+export const isStyled = isSupportedImportWrapper('styled', [
+  'styled-components',
+  '@emotion/styled',
+]);
+
+export const isImportedFrom =
+  (moduleName: string, exactMatch = true) =>
+  (
+    nodeToCheck: Callee,
+    referencesInScope: Reference[],
+    importSources: ImportSource[],
+  ): boolean => {
+    if (!importSources.includes(moduleName)) {
+      // Don't go through the trouble of checking the import sources does not include this
+      // We'll assume this is skipped elsewhere.
+      return false;
+    }
+
+    const identifierNode = getIdentifierNode(nodeToCheck);
+
+    return (
+      identifierNode?.type === 'Identifier' &&
+      referencesInScope.some(
+        (reference) =>
+          reference.identifier === identifierNode &&
+          reference.resolved?.defs.some((def) => {
+            return (
+              def.type === 'ImportBinding' &&
+              (def.parent?.source.value === moduleName ||
+                (!exactMatch &&
+                  String(def.parent?.source.value)?.startsWith(moduleName)))
+            );
+          }),
+      )
+    );
+  };
+
+/**
+ * Determine if this node is specifically from a `'styled-components'` import.
+ * This is because `styled-components@3.4` APIs are not consistent with Emotion and Compiled,
+ * we need to handle them differently in a few scenarios.
+ *
+ * This can be cleaned up when `'styled-components'` is no longer a valid ImportSource.
+ */
+export const isStyledComponents = isImportedFrom('styled-components');
+export const isCompiled = isImportedFrom('@compiled/', false);
+export const isEmotion = isImportedFrom('@emotion/', false);

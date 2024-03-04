@@ -238,20 +238,16 @@ export const spacingTests: Tests = {
         fontSize: '20px',
         lineHeight: '24px',
       })`,
-      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       output: `const styles = css({
         padding: token('space.100', '8px'),
         margin: token('space.150', '12px'),
-        fontWeight: token('font.weight.regular', '400'),
-        fontFamily: token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`),
-        fontSize: token('font.size.300', '20px'),
-        lineHeight: token('font.lineHeight.300', '24px'),
+        fontWeight: 400,
+        fontFamily: \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`,
+        fontSize: '20px',
+        lineHeight: '24px',
       })`,
       errors: [
-        { messageId: 'noRawSpacingValues' },
-        { messageId: 'noRawSpacingValues' },
-        { messageId: 'noRawSpacingValues' },
-        { messageId: 'noRawSpacingValues' },
         { messageId: 'noRawSpacingValues' },
         { messageId: 'noRawSpacingValues' },
       ],
@@ -385,7 +381,7 @@ export const spacingTests: Tests = {
         margin: '12rem',
         lineHeight: '2%'
       })`,
-      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       errors: [
         {
           message:
@@ -394,10 +390,6 @@ export const spacingTests: Tests = {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:12rem>>',
-        },
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<lineHeight:2%>>',
         },
       ],
     },
@@ -411,33 +403,18 @@ export const spacingTests: Tests = {
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
-    // callExpression with fontSize
-    {
-      code: `const styles = css({
-        fontSize: fontSize(),
-      })`,
-      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
-      output: `const styles = css({
-        fontSize: token('font.size.100', '14px'),
-      })`,
-      errors: [{ messageId: 'noRawSpacingValues' }],
-    },
     // em
     {
       code: `const styles = css({
         fontSize: 8,
         padding: '1em', // should be 8
       })`,
-      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       output: `const styles = css({
         fontSize: 8,
         padding: token('space.100', '8px'), // should be 8
       })`,
       errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:8>>',
-        },
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
@@ -742,19 +719,6 @@ export const spacingTests: Tests = {
         },
       ],
     },
-    // unary expression with fontSizeSmall
-    {
-      options: [{ domains: ['typography'], applyImport: false }],
-      code: `const someValue = fontSizeSmall();\nconst styles = css({
-        fontSize: -someValue,
-      });`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:-11>>',
-        },
-      ],
-    },
     // tagged TemplateLiteral padding
     {
       options: [{ domains: ['spacing'], applyImport: false }],
@@ -768,59 +732,6 @@ export const spacingTests: Tests = {
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:24>>',
-        },
-        {
-          message:
-            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
-        },
-      ],
-    },
-    // tagged TemplateLiteral font-weight
-    {
-      code: 'const cssTemplateLiteral = css`width: 50%; font-weight: 400;`;',
-      options: [{ domains: ['typography'], applyImport: false }],
-      output: `const cssTemplateLiteral = css\`width: 50%; font-weight: \${token('font.weight.regular', '400')};\`;`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontWeight:400>>',
-        },
-        {
-          message:
-            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
-        },
-      ],
-    },
-    // tagged TemplateLiteral line-height
-    {
-      code: 'const cssTemplateLiteral = css`width: 50%; line-height: 24px;`;',
-      options: [{ domains: ['typography'], applyImport: false }],
-      output: `const cssTemplateLiteral = css\`width: 50%; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<lineHeight:24>>',
-        },
-        {
-          message:
-            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
-        },
-      ],
-    },
-    // tagged TemplateLiteral font-family
-    {
-      code: `
-    const cssTemplateLiteral = css\`
-      width: 50%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\``,
-      options: [{ domains: ['typography'], applyImport: false }],
-      output: `
-    const cssTemplateLiteral = css\`
-      width: 50%;
-      font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\``,
-      errors: [
-        {
-          message: `The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontFamily: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif>>`,
         },
         {
           message:
@@ -1119,29 +1030,6 @@ styled.div\`
         {
           message:
             'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:4>>',
-        },
-        {
-          message:
-            'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
-        },
-      ],
-    },
-    {
-      options: [{ domains: ['typography'], applyImport: false }],
-      code: `
-styled.div\`
-  display: flex;
-  font-size: \${fontSize()}px;
-\``,
-      output: `
-styled.div\`
-  display: flex;
-  font-size: \${token('font.size.100', '14px')};
-\``,
-      errors: [
-        {
-          message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<fontSize:14>>',
         },
         {
           message:

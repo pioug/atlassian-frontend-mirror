@@ -24,6 +24,10 @@ import type {
   CardOptions,
   CardPluginActions,
 } from '@atlaskit/editor-common/card';
+import {
+  productionLinkPreferencesUrl,
+  stagingLinkPreferencesUrl,
+} from '@atlaskit/editor-common/constants';
 import commonMessages, {
   linkMessages,
   linkToolbarMessages,
@@ -34,11 +38,11 @@ import {
   FLOATING_TOOLBAR_LINKPICKER_CLASSNAME,
   richMediaClassName,
 } from '@atlaskit/editor-common/styles';
-import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type {
   Command,
   ExtractInjectionAPI,
   FloatingToolbarHandler,
+  FloatingToolbarItem,
   LinkPickerOptions,
   PluginDependenciesAPI,
 } from '@atlaskit/editor-common/types';
@@ -156,7 +160,9 @@ export const openLinkSettings =
     if (!(state.selection instanceof NodeSelection)) {
       return false;
     }
-    window.open('https://id.atlassian.com/manage-profile/link-preferences');
+    process.env.NODE_ENV === 'production'
+      ? window.open(productionLinkPreferencesUrl)
+      : window.open(stagingLinkPreferencesUrl);
     if (dispatch) {
       const {
         tr,

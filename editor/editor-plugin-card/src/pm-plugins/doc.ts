@@ -659,7 +659,7 @@ export const updateCardViaDatasource = (
 ) => {
   const {
     tr,
-    selection: { from },
+    selection: { from, to },
     schema: { nodes: schemaNodes },
   } = state;
 
@@ -686,6 +686,38 @@ export const updateCardViaDatasource = (
           ...node.attrs,
           ...newAdf.attrs,
         });
+      }
+    } else if (
+      getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      ) &&
+      node.type.isText
+    ) {
+      // url to datasource
+      let link:
+        | { url: string; text: string | undefined; pos: number }
+        | undefined;
+      state.doc.nodesBetween(from, to, (node, pos) => {
+        // get the actual start position of a link within the node
+        const linkMark = node.marks.find(
+          mark => mark.type === state.schema.marks.link,
+        );
+        if (linkMark) {
+          link = {
+            url: linkMark.attrs.href,
+            text: node.text,
+            pos,
+          };
+          return false;
+        }
+        return true;
+      });
+
+      if (link) {
+        const newNode = schemaNodes.blockCard.createChecked(newAdf.attrs);
+        tr.replaceWith(link.pos, link.pos + (link.text || link.url).length, [
+          newNode,
+        ]);
       }
     } else {
       // inline or blockCard to datasource

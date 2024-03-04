@@ -11,8 +11,12 @@ function getItem(page: Page, itemId: string) {
   return page.locator(`[data-testid="item-${itemId}"]`);
 }
 
-function getColumnOrder(page: Page): Promise<string[]> {
-  return page.locator('[data-testid^="column-header-"]').allTextContents();
+async function getColumnOrder(page: Page): Promise<string[]> {
+  // Reaching into to the column title as the whole header (`column-header-`)
+  // also contains an `IconButton` which has visually hidden text
+  return page
+    .locator('[data-testid^="column-header-title-"]')
+    .allTextContents();
 }
 
 function getCardOrder(

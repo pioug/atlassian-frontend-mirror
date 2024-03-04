@@ -5,14 +5,18 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
-import Button from '@atlaskit/button';
+import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, {
   CustomTriggerProps,
   DropdownItem,
   DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
+// eslint-disable-next-line @atlaskit/design-system/no-banned-imports
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Heading from '@atlaskit/heading';
-import MoreIcon from '@atlaskit/icon/glyph/more';
+// This is the smaller MoreIcon soon to be more easily accessible with the
+// ongoing icon project
+import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
@@ -274,7 +278,11 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           ref={headerRef}
           data-testid={`column-header-${columnId}`}
         >
-          <Heading level="h300" as="span">
+          <Heading
+            level="h300"
+            as="span"
+            testId={`column-header-title-${columnId}`}
+          >
             {column.title}
           </Heading>
           <ActionMenu />
@@ -364,11 +372,13 @@ function DropdownMenuTrigger({
   ...triggerProps
 }: CustomTriggerProps) {
   return (
-    <Button
-      ref={triggerRef}
-      {...triggerProps}
+    <IconButton
+      ref={mergeRefs([triggerRef])}
       appearance="subtle"
-      iconBefore={<MoreIcon label="Actions" />}
+      label="Actions"
+      spacing="compact"
+      icon={MoreIcon}
+      {...triggerProps}
     />
   );
 }

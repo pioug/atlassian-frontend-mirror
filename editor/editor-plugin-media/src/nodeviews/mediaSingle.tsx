@@ -2,7 +2,7 @@
 import type { MouseEvent } from 'react';
 import React, { Component } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import type {
   ExtendedMediaAttributes,
@@ -61,9 +61,12 @@ import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 
 import { hasPrivateAttrsChanged } from './helpers';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { figureWrapper, MediaSingleNodeSelector } from './styles';
+import { MediaSingleNodeSelector } from './styles';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 
+const figureWrapperStyles = css({
+  margin: 0,
+});
 export interface MediaSingleNodeState {
   width?: number;
   height?: number;
@@ -404,7 +407,7 @@ export default class MediaSingleNode extends Component<
     const MediaChildren = (
       <figure
         ref={this.mediaSingleWrapperRef}
-        css={[figureWrapper]}
+        css={figureWrapperStyles}
         className={MediaSingleNodeSelector}
         onClick={this.onMediaSingleClicked}
       >

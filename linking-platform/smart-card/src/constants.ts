@@ -6,6 +6,10 @@ export const CONTENT_URL_3P_ACCOUNT_AUTH =
 
 export const CONTENT_URL_AI =
   'https://www.atlassian.com/trust/atlassian-intelligence';
+
+export const CONTENT_URL_AI_TROUBLESHOOTING =
+  'https://support.atlassian.com/organization-administration/docs/troubleshooting-for-atlassian-intelligence/';
+
 /**
  * The alignment of Flexible UI component.
  */

@@ -433,8 +433,6 @@ font.heading.xxsmall, "ALPHA - Use with caution. Smallest heading size available
 font.body.large, "ALPHA - Use with caution. Larger body font or default body font for text rich experiences."
 font.body, "ALPHA - Use with caution. The default body font."
 font.body.small, "ALPHA - Use with caution. Smaller body font."
-font.ui, "ALPHA - Use with caution. Single-line non-wrapping text like that in a button."
-font.ui.small, "ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label."
 font.code, "ALPHA - Use with caution. Used for monospace and code."
 font.family.brand.body, "Use for branded body text."
 font.family.brand.heading, "Use for branded headings."

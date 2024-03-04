@@ -72,23 +72,27 @@ export class AISummaryService implements AISummaryServiceInt {
       subscriber(this.state);
     }
 
-    const stream = await this.fetchStream<StreamMessage>(summaryStyle);
+    try {
+      const stream = await this.fetchStream<StreamMessage>(summaryStyle);
 
-    let bufferContent = '';
-    for await (const chunk of stream) {
-      if (chunk.type === 'ANSWER_PART') {
-        bufferContent += chunk.message.content;
+      let bufferContent = '';
+      for await (const chunk of stream) {
+        if (chunk.type === 'ANSWER_PART') {
+          bufferContent += chunk.message.content;
 
-        for (const subscriber of this.subscribedStateSetters) {
-          subscriber({ ...this.state, content: bufferContent });
+          for (const subscriber of this.subscribedStateSetters) {
+            subscriber({ ...this.state, content: bufferContent });
+          }
         }
       }
-    }
 
-    this.state = {
-      status: 'done',
-      content: bufferContent,
-    };
+      this.state = {
+        status: 'done',
+        content: bufferContent,
+      };
+    } catch {
+      this.state = { status: 'error', content: '' };
+    }
 
     for (const subscriber of this.subscribedStateSetters) {
       subscriber(this.state);

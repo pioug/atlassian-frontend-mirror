@@ -116,6 +116,7 @@ export default function BlockCard(props: {
         <AnalyticsContext data={analyticsData}>
           <CardErrorBoundary
             unsupportedComponent={UnsupportedInline}
+            datasourceId={props.datasource.id}
             {...cardProps}
           >
             <WidthConsumer>

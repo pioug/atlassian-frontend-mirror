@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 3.2.4
+
+### Patch Changes
+
+- [#77148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77148) [`d2c916f37431`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2c916f37431) - Codegen updates
+- Updated dependencies
+
 ## 3.2.3
 
 ### Patch Changes

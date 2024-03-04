@@ -38,7 +38,7 @@
   "dependencies": {
     "@atlaskit/editor-common": "^78.9.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-hyperlink": "^1.0.0",
+    "@atlaskit/editor-plugin-hyperlink": "^1.1.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@babel/runtime": "^7.0.0",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@atlaskit/editor-plugin-base": "^1.0.0",
-    "@atlaskit/editor-plugin-card": "^1.0.0",
+    "@atlaskit/editor-plugin-card": "^1.1.0",
     "@atlaskit/editor-plugin-copy-button": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",

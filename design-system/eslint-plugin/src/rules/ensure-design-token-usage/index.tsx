@@ -30,9 +30,10 @@ import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
   getDomainsForProperty,
-  getFontSizeFromNode,
   getFontSizeValueInScope,
+  getPropertyNodeFromParent,
   getTokenReplacement,
+  getValueForPropertyNode,
   getValueFromShorthand,
   getValueFromTemplateLiteralRaw,
   includesTokenString,
@@ -175,18 +176,17 @@ const createWithConfig: (
                 return lintObjectForColor(node, context, config);
               }
 
-              if (
-                domains.includes('spacing') ||
-                domains.includes('shape') ||
-                domains.includes('typography')
-              ) {
+              if (domains.includes('spacing') || domains.includes('shape')) {
                 /**
-                 * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
+                 * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration.
                  */
-                const fontSize = getFontSizeFromNode(
+                const fontSizeNode = getPropertyNodeFromParent(
+                  'fontSize',
                   parentNode as ObjectExpression & Rule.NodeParentExtension,
-                  context,
                 );
+                const fontSize =
+                  fontSizeNode &&
+                  getValueForPropertyNode(fontSizeNode, context);
 
                 return lintObjectForSpacing(
                   node,
@@ -258,7 +258,6 @@ const createWithConfig: (
 
                   if (
                     domains.includes('spacing') ||
-                    domains.includes('typography') ||
                     domains.includes('shape')
                   ) {
                     if (
@@ -304,7 +303,7 @@ const createWithConfig: (
                           return originalValue;
                         }
 
-                        if (isTokenValueString(originalValue)) {
+                        if (isTokenValueString(originalValue as string)) {
                           // if the value is already valid, nothing to report or replace
                           return originalValue;
                         }
@@ -314,7 +313,10 @@ const createWithConfig: (
                           return originalValue;
                         }
 
-                        if (isNaN(numericOrNanValue) && !isFontFamily) {
+                        if (
+                          isNaN(numericOrNanValue as number) &&
+                          !isFontFamily
+                        ) {
                           // do not report if we have nothing to replace with
                           return originalValue;
                         }
@@ -331,7 +333,7 @@ const createWithConfig: (
                         // from here on we know value is numeric or a font family, so it might or might not have a token equivalent
                         const replacementNode = getTokenReplacement(
                           propertyName,
-                          numericOrNanValue,
+                          numericOrNanValue as string,
                         );
 
                         if (!replacementNode) {
@@ -342,7 +344,9 @@ const createWithConfig: (
                           '${' + replacementNode.toString() + '}';
 
                         replacedValuesPerProperty.push(
-                          isFontFamily ? numericOrNanValue.trim() : pxValue,
+                          isFontFamily
+                            ? (numericOrNanValue as any).trim()
+                            : pxValue,
                         );
                         return replacementToken;
                       })

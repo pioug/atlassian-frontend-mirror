@@ -5,6 +5,8 @@ import { PreviewUnsupportedEventPayload } from './operational/previewUnsupported
 import { ZipEntryLoadFailedEventPayload } from './operational/zipEntryLoadFailed';
 import { ZipEntryLoadSucceededEventPayload } from './operational/zipEntryLoadSucceeded';
 import { ModalEventPayload } from './screen/modal';
+import { PdfPasswordInputScreenEventPayload } from './screen/pdfPasswordInput';
+import { PasswordPdfScreenEventPayload } from './screen/passwordPdf';
 import { ClosedEventPayload } from './ui/closed';
 import { DownloadButtonClickedEventPayload } from './ui/downloadButtonClicked';
 import { FailedPreviewDownloadButtonClickedEventPayload } from './ui/failedPreviewDownloadButtonClicked';
@@ -20,6 +22,8 @@ export type MediaViewerEventPayload =
   | ZipEntryLoadFailedEventPayload
   | ZipEntryLoadSucceededEventPayload
   | ModalEventPayload
+  | PdfPasswordInputScreenEventPayload
+  | PasswordPdfScreenEventPayload
   | ClosedEventPayload
   | DownloadButtonClickedEventPayload
   | FailedPreviewDownloadButtonClickedEventPayload

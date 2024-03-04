@@ -28,6 +28,8 @@ jest.mock('@atlaskit/linking-common/sentry', () => {
 
 const onAnalyticFireEvent = jest.fn();
 
+const [mockDatasourceId]: string = '12e74246-a3f1-46c1-9fd9-8d952aa9f12f';
+
 describe('useErrorLogger', () => {
   const wrapper: RenderHookOptions<{}>['wrapper'] = ({ children }) => (
     <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
@@ -37,7 +39,7 @@ describe('useErrorLogger', () => {
 
   const setup = (fields?: string[]) => {
     const { result, waitForNextUpdate, rerender } = renderHook(
-      () => useErrorLogger(),
+      () => useErrorLogger({ datasourceId: mockDatasourceId }),
       { wrapper },
     );
 
@@ -108,6 +110,7 @@ describe('useErrorLogger', () => {
       expect(captureException).toHaveBeenCalledWith(
         mockError,
         'link-datasource',
+        { datasourceId: mockDatasourceId },
       );
     },
     () => {

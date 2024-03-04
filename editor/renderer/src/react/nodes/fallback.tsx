@@ -13,10 +13,13 @@ export class CardErrorBoundary extends React.PureComponent<
     onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
     isDatasource?: boolean;
     children?: React.ReactNode;
+    // Only used in Sentry tagging
+    datasourceId?: string;
   } & CardErrorBoundaryProps
 > {
   state = {
     isError: false,
+    error: null,
   };
 
   onClickFallback = (e: React.MouseEvent<HTMLElement>) => {
@@ -28,8 +31,8 @@ export class CardErrorBoundary extends React.PureComponent<
     }
   };
 
-  static getDerivedStateFromError() {
-    return { isError: true };
+  static getDerivedStateFromError(error: Error) {
+    return { isError: true, error };
   }
 
   render() {
@@ -38,6 +41,7 @@ export class CardErrorBoundary extends React.PureComponent<
         url,
         isDatasource,
         unsupportedComponent: UnsupportedComponent,
+        datasourceId,
       } = this.props;
       if (url) {
         const fallback = (
@@ -49,13 +53,19 @@ export class CardErrorBoundary extends React.PureComponent<
         if (isDatasource) {
           if (isSafeUrl(url)) {
             return (
-              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
+              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper
+                datasourceId={datasourceId}
+                error={this.state.error}
+              >
                 <InlineCard {...this.props} />
               </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
             );
           } else {
             return (
-              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
+              <LazyLoadedDatasourceRenderFailedAnalyticsWrapper
+                datasourceId={datasourceId}
+                error={this.state.error}
+              >
                 {fallback}
               </LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
             );
@@ -72,6 +82,6 @@ export class CardErrorBoundary extends React.PureComponent<
   }
 
   componentDidCatch(_error: Error) {
-    this.setState({ isError: true });
+    this.setState({ isError: true, error: _error });
   }
 }

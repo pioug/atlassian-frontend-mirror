@@ -176,6 +176,7 @@ const DatasourceTableViewWithoutAnalytics = ({
         providerName={providerName}
         onAuthSuccess={forcedReset}
         onAuthError={forcedReset}
+        datasourceId={datasourceId}
       />
     ) : (
       <AccessRequired url={url} />

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.25.1
+
+### Patch Changes
+
+- [#77972](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77972) [`2d7c29863c8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d7c29863c8a) - Add FE FF catchupv2 for futher usages
+
 ## 9.25.0
 
 ### Minor Changes

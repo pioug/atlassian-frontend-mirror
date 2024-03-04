@@ -19,6 +19,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';
 import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
+import { token } from '@atlaskit/tokens';
 
 import {
   CODE_MACRO,
@@ -34,12 +35,12 @@ import {
 import { ConfluenceTransformer } from '../src';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
-export const content = css`
-  padding: 0 20px;
-  height: 100%;
-  background: #fff;
-  box-sizing: border-box;
-`;
+export const content = css({
+  padding: `0 ${token('space.250', '20px')}`,
+  height: '100%',
+  background: '#fff',
+  boxSizing: 'border-box',
+});
 
 const SaveAndCancelButtons = (props: any) => (
   <ButtonGroup>
@@ -101,14 +102,19 @@ class Example extends Component<ExampleProps, ExampleState> {
   render() {
     return (
       <div ref="root">
-        <fieldset style={{ marginTop: 20, marginBottom: 20 }}>
+        <fieldset
+          style={{
+            marginTop: token('space.250', '20px'),
+            marginBottom: token('space.250', '20px'),
+          }}
+        >
           <legend>Input</legend>
           <textarea
             style={{
               boxSizing: 'border-box',
               border: '1px solid lightgray',
               fontFamily: 'monospace',
-              padding: 10,
+              padding: token('space.150', '12px'),
               width: '100%',
               height: 100,
             }}
@@ -247,7 +253,7 @@ export default class ExampleWrapper extends Component<
       <div ref="root">
         <Example onChange={this.handleChange} />
 
-        <fieldset style={{ marginTop: 20 }}>
+        <fieldset style={{ marginTop: token('space.250', '20px') }}>
           <legend>
             CXHTML output (
             <input
@@ -266,7 +272,7 @@ export default class ExampleWrapper extends Component<
               {xml}
             </pre>
           ) : (
-            <div style={{ padding: 20 }}>
+            <div style={{ padding: token('space.250', '20px') }}>
               <Spinner size="large" />
             </div>
           )}

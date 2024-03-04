@@ -3,7 +3,11 @@
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { Rule } from 'eslint';
 
-import { getImportSources, SupportedNameChecker } from '../is-supported-import';
+import {
+  getImportSources,
+  isStyledComponents,
+  SupportedNameChecker,
+} from '../is-supported-import';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';
@@ -41,9 +45,12 @@ export const createNoTaggedTemplateExpressionRule =
     return {
       TaggedTemplateExpression(node) {
         const { references } = context.getScope();
+
         if (!isUsage(node.tag, references, importSources)) {
           return;
         }
+
+        const isSC = isStyledComponents(node.tag, references, importSources);
 
         context.report({
           messageId,
@@ -95,6 +102,30 @@ export const createNoTaggedTemplateExpressionRule =
               generate(args, getTaggedTemplateExpressionOffset(node));
 
             if (oldCode === newCode) {
+              return;
+            }
+
+            // TODO: We might want to similarly disallow `styled.div({ color: props => props.color })` for SC as it's broken too (both type and functionality)
+            // Alternatively, autofix it to `styled.div(props => ({ color: props.color }))`?
+            if (isSC && /\$\{.*:[\s]*\{/.test(newCode)) {
+              /**
+               * If we find a variable in a selector when migrating `styled-components` code, we skip it.
+               * This is because `styled-components@3.x` does not support the syntax.
+               *
+               * @example
+               * ```tsx
+               * const Component = styled.div`
+               *   & + ${Button} { color: red; }
+               * `;
+               * ```
+               * Becomes this code, which is not supported in `styled-components@3.x`:
+               * ```tsx
+               * const Component = styled.div({
+               *   [`& + ${Button}`]: {
+               *     color: 'red',
+               * });
+               * ```
+               */
               return;
             }
 

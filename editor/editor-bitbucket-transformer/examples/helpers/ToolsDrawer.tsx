@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { MentionResource, MentionProvider } from '@atlaskit/editor-core';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { MentionProvider } from '@atlaskit/editor-core';
+import { MentionResource } from '@atlaskit/editor-core';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { ActivityProvider } from '@atlaskit/activity';
+import type { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
-import { EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiProvider } from '@atlaskit/emoji';
+import { token } from '@atlaskit/tokens';
 import { BitbucketTransformer } from '../../src';
 import { content } from './styles';
 
@@ -97,7 +99,9 @@ export default class ToolsDrawer extends React.Component<Props, State> {
     } = this.state;
     return (
       <div css={content}>
-        <div style={{ padding: '5px 0' }}>️️️ Bitbucket Editor</div>
+        <div style={{ padding: `${token('space.075', '6px')} 0` }}>
+          ️️️ Bitbucket Editor
+        </div>
         {reloadEditor
           ? ''
           : this.props.renderEditor({

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e0b081d4b59c6ae9cc61761ac8f3674f>>
+ * @codegen <<SignedSource::832ef446f8c6f4e5b0699e669a284af0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -382,8 +382,9 @@ const tokens = [
   {
     "attributes": {
       "group": "typography",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "1.14.0",
+      "deprecated": "1.39.0",
       "description": "ALPHA - Use with caution. Single-line non-wrapping text like that in a button."
     },
     "value": "normal 500 14px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
@@ -392,8 +393,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "typography",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "1.14.0",
+        "deprecated": "1.39.0",
         "description": "ALPHA - Use with caution. Single-line non-wrapping text like that in a button."
       },
       "value": {
@@ -416,8 +418,9 @@ const tokens = [
   {
     "attributes": {
       "group": "typography",
-      "state": "active",
+      "state": "deprecated",
       "introduced": "1.14.0",
+      "deprecated": "1.39.0",
       "description": "ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label."
     },
     "value": "normal 400 11px/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
@@ -426,8 +429,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "typography",
-        "state": "active",
+        "state": "deprecated",
         "introduced": "1.14.0",
+        "deprecated": "1.39.0",
         "description": "ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label."
       },
       "value": {

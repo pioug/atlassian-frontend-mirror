@@ -10,58 +10,36 @@ type Token = {
   fallback: string;
 };
 
-const typographyProperties = {
-  heading: {
-    objectName: 'headingText',
-    prefix: 'font.heading',
+const activeTokens: Token[] = tokens
+  .filter(t => t.attributes.state === 'active')
+  .map(t => ({
+    name: t.name,
+    fallback: t.value,
+  }));
+
+const typographyProperties = [
+  {
+    objectName: 'bodyFont',
     cssProperty: 'font',
-    filterFn: <T extends Token>(t: T) => t.name.startsWith('font.heading'),
-  },
-  body: {
-    objectName: 'bodyText',
     prefix: 'font.body',
-    cssProperty: 'font',
     filterFn: <T extends Token>(t: T) => t.name.startsWith('font.body'),
   },
-  ui: {
-    objectName: 'uiText',
-    prefix: 'font.ui',
-    cssProperty: 'font',
-    filterFn: <T extends Token>(t: T) => t.name.startsWith('font.ui'),
-  },
-  fontSize: {
-    objectName: 'fontSize',
-    cssProperty: 'fontSize',
-    prefix: 'font.size',
-    filterFn: <T extends Token>(t: T) => t.name.startsWith('font.size'),
-  },
-  fontWeight: {
+  {
     objectName: 'fontWeight',
     cssProperty: 'fontWeight',
     prefix: 'font.weight.',
     filterFn: <T extends Token>(t: T) => t.name.startsWith('font.weight'),
   },
-  fontFamily: {
+  {
     objectName: 'fontFamily',
     cssProperty: 'fontFamily',
     prefix: 'font.family.',
     filterFn: <T extends Token>(t: T) => t.name.startsWith('font.family'),
   },
-  lineHeight: {
-    objectName: 'lineHeight',
-    cssProperty: 'lineHeight',
-    prefix: 'font.',
-    filterFn: <T extends Token>(t: T) => t.name.startsWith('font.lineHeight'),
-  },
-} as const;
-
-const activeTokens: Token[] = tokens.map(t => ({
-  name: t.name,
-  fallback: t.value,
-}));
+] as const;
 
 const removeVerbosity = (name: string): string => {
-  const partialRemove = ['font.heading', 'font.ui', 'font.body'];
+  const partialRemove = ['font.body'];
   if (partialRemove.some(s => name.includes(s))) {
     return name.replace('font.', '');
   }
@@ -75,18 +53,14 @@ const removeVerbosity = (name: string): string => {
   return name;
 };
 
-export const createTypographyStylesFromTemplate = (
-  typographyProperty: keyof typeof typographyProperties,
-) => {
-  if (!typographyProperties[typographyProperty]) {
-    throw new Error(`[codegen] Unknown option found "${typographyProperty}"`);
-  }
+export const createTypographyStylesFromTemplate = () => {
+  return typographyProperties
+    .map(typographyProperty => {
+      const { filterFn, objectName } = typographyProperty;
 
-  const { filterFn, objectName } = typographyProperties[typographyProperty];
-
-  return (
-    prettier.format(
-      `
+      return (
+        prettier.format(
+          `
 export const ${objectName}Map = {
 ${activeTokens
   .filter(filterFn)
@@ -102,13 +76,17 @@ ${activeTokens
   })
   .join(',\n\t')}
 };`,
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        parser: 'typescript',
-        plugins: [parserTypeScript],
-      },
-    ) +
-    `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
-  );
+          {
+            singleQuote: true,
+            trailingComma: 'all',
+            parser: 'typescript',
+            plugins: [parserTypeScript],
+          },
+        ) +
+        `\nexport type ${capitalize(
+          objectName,
+        )} = keyof typeof ${objectName}Map;\n`
+      );
+    })
+    .join('\n');
 };

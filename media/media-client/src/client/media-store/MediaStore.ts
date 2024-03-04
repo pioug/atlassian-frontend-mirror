@@ -273,14 +273,18 @@ export class MediaStore implements MediaApi {
     return createUrl(`${auth.baseUrl}/file/${id}/image`, options);
   }
 
-  async getFileBinaryURL(id: string, collectionName?: string): Promise<string> {
+  async getFileBinaryURL(
+    id: string,
+    collectionName?: string,
+    maxAge: number = FILE_CACHE_MAX_AGE,
+  ): Promise<string> {
     const auth = await this.resolveAuth({ collectionName });
 
     const options: CreateUrlOptions = {
       params: {
         dl: true,
         collection: collectionName,
-        'max-age': FILE_CACHE_MAX_AGE,
+        'max-age': maxAge,
       },
       auth,
     };

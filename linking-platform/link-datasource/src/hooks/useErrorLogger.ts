@@ -15,7 +15,32 @@ const getNetworkFields = (error: unknown) => {
     : { traceId: null, status: null };
 };
 
-const useErrorLogger = () => {
+type Tail<T extends any[]> = T extends [infer A, ...infer R] ? R : never;
+
+/**
+ * This function is just a wrapper around captureException that checks if the enable-sentry-client FF is enabled
+ * and error is instanceof Error. We have to override the type of error from captureException to unknown so we use
+ * a helper Tail type which removes the first element of the tuple
+ */
+export const logToSentry = (
+  error: unknown,
+  ...captureExceptionParams: Tail<Parameters<typeof captureException>>
+) => {
+  if (
+    getBooleanFF(
+      'platform.linking-platform.datasources.enable-sentry-client',
+    ) &&
+    error instanceof Error
+  ) {
+    captureException(error, ...captureExceptionParams);
+  }
+};
+
+interface UseErrorLoggerProps {
+  datasourceId: string;
+}
+
+const useErrorLogger = ({ datasourceId }: UseErrorLoggerProps) => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
   /**
@@ -33,16 +58,9 @@ const useErrorLogger = () => {
         traceId,
         status,
       });
-      if (
-        getBooleanFF(
-          'platform.linking-platform.datasources.enable-sentry-client',
-        ) &&
-        error instanceof Error
-      ) {
-        captureException(error, 'link-datasource');
-      }
+      logToSentry(error, 'link-datasource', { datasourceId });
     },
-    [fireEvent],
+    [fireEvent, datasourceId],
   );
 
   return { captureError };

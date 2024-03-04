@@ -29,6 +29,7 @@ import {
   nextTick,
   mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { ItemViewer, ItemViewerBase } from '../../../item-viewer';
 import { ErrorMessage } from '../../../errorMessage';
 import { MediaViewerError, MediaViewerErrorReason } from '../../../errors';
@@ -293,6 +294,29 @@ describe.skip('<ItemViewer />', () => {
     expect(el.find(DocViewer).prop('collectionName')).toEqual(
       identifier.collectionName,
     );
+  });
+
+  describe('should show the document viewer if mimeType type is pdf and status is failed-processing', () => {
+    ffTest('platform.corex.password-protected-pdf_ht8re', () => {
+      const state: FileState = {
+        id: identifier.id,
+        mediaType: 'doc',
+        status: 'failed-processing',
+        artifacts: {},
+        name: '',
+        size: 10,
+        mimeType: 'application/pdf',
+        representations: { image: {} },
+      };
+      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+      const { el } = mountComponent(mediaClient, identifier);
+      el.update();
+      expect(el.find(DocViewer)).toHaveLength(1);
+      // MSW:720 - passes the collectionName along
+      expect(el.find(DocViewer).prop('collectionName')).toEqual(
+        identifier.collectionName,
+      );
+    });
   });
 
   it('should load archiveViewerLoader if media type is archive', () => {

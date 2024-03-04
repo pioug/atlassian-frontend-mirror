@@ -99,7 +99,9 @@ export const lintObjectForSpacing = (
         payload: `${propertyName}:${pixelValue}`,
       },
       fix: (fixer) => {
-        const replacementNode = getTokenReplacement(propertyName, pixelValue);
+        // Casting due to possibility of pixelValue being string | number from emToPixels
+        const replacementNode =
+          pixelValue && getTokenReplacement(propertyName, pixelValue as string);
 
         if (!replacementNode) {
           return null;
@@ -160,8 +162,11 @@ export const lintObjectForSpacing = (
           return null;
         }
 
+        // Casting due to possibility of value being string | number
         const valuesWithTokenReplacement = valuesForProperty
-          .filter((value) => findTokenNameByPropertyValue(propertyName, value))
+          .filter((value) =>
+            findTokenNameByPropertyValue(propertyName, value as string),
+          )
           .filter((value) => value !== 0);
 
         if (valuesWithTokenReplacement.length === 0) {
@@ -204,7 +209,11 @@ export const lintObjectForSpacing = (
                 const pixelValueString = `${pixelValue}px`;
                 // if there is a token we take it, otherwise we go with the original value
 
-                return findTokenNameByPropertyValue(propertyName, value)
+                // Casting due to possibility of value being string | number
+                return findTokenNameByPropertyValue(
+                  propertyName,
+                  value as string,
+                )
                   ? `\${${getTokenNodeForValue(
                       propertyName,
                       pixelValueString,

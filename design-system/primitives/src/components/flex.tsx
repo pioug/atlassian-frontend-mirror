@@ -137,11 +137,12 @@ const Flex = memo(
       }: FlexProps<T>,
       ref: Ref<any>,
     ) => {
-      const xcssClassName = xcss && parseXcss(xcss);
+      const resolvedStyles = parseXcss(xcss);
 
       return (
         <Component
           role={role}
+          className={resolvedStyles.static}
           css={[
             baseStyles,
             gap && spaceStylesMap.gap[gap],
@@ -152,7 +153,7 @@ const Flex = memo(
             justifyContent && justifyContentMap[justifyContent],
             wrap && flexWrapMap[wrap],
             // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            xcssClassName && xcssClassName,
+            resolvedStyles.emotion,
           ]}
           data-testid={testId}
           ref={ref}

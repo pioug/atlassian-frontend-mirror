@@ -5,15 +5,13 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import {
-  BodyText,
-  bodyTextStylesMap,
+  BodyFont,
+  fontStylesMap,
   FontWeight,
   fontWeightStylesMap,
   inverseColorMap,
   TextColor,
   textColorStylesMap,
-  UiText,
-  uiTextStylesMap,
 } from '../xcss/style-maps.partial';
 
 import { useSurface } from './internal/surface-provider';
@@ -21,29 +19,6 @@ import type { BasePrimitiveProps } from './types';
 
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;
 type AsElement = (typeof asAllowlist)[number];
-
-type TextPropsBody = {
-  /**
-   * Text variant.
-   */
-  variant?: BodyText;
-  /**
-   * The number of lines to limit the provided text to. Text will be truncated with an ellipsis.
-   *
-   * When `maxLines={1}`, `wordBreak` defaults to `break-all` to match the behaviour of `text-overflow: ellipsis`.
-   *
-   * Only available for `body` text variants.
-   */
-  maxLines?: number;
-};
-
-type TextPropsUi = {
-  /**
-   * Text variant.
-   */
-  variant: UiText;
-  maxLines?: never;
-};
 
 type TextPropsBase = {
   /**
@@ -65,18 +40,26 @@ type TextPropsBase = {
    */
   id?: string;
   /**
+   * The number of lines to limit the provided text to. Text will be truncated with an ellipsis.
+   *
+   * When `maxLines={1}`, `wordBreak` defaults to `break-all` to match the behaviour of `text-overflow: ellipsis`.
+   */
+  maxLines?: number;
+  /**
    * The [HTML `text-align` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
    */
   textAlign?: TextAlign;
+  /**
+   * Text variant.
+   */
+  variant?: BodyFont;
   /**
    * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
    */
   weight?: FontWeight;
 };
 
-export type TextProps = TextPropsBase &
-  Omit<BasePrimitiveProps, 'xcss'> &
-  (TextPropsBody | TextPropsUi);
+export type TextProps = TextPropsBase & Omit<BasePrimitiveProps, 'xcss'>;
 
 // We're doing this because our CSS reset can add top margins to elements such as `p` which is totally insane.
 // Long term we should remove those instances from the reset - it should be a reset to 0.
@@ -84,8 +67,6 @@ export type TextProps = TextPropsBase &
 const resetStyles = css({
   margin: 0,
 });
-
-const variantStyles = { ...bodyTextStylesMap, ...uiTextStylesMap };
 
 const strongStyles = css({
   fontWeight: 'bold',
@@ -181,7 +162,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     <Component
       css={[
         resetStyles,
-        variantStyles[variant],
+        fontStylesMap[variant],
         color && textColorStylesMap[color],
         maxLines && truncationStyles,
         maxLines === 1 && wordBreakMap.breakAll,

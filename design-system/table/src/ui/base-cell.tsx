@@ -1,7 +1,6 @@
 import React, { forwardRef, ReactNode } from 'react';
 
-import { Box, BoxProps, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, BoxProps, type XCSS, xcss } from '@atlaskit/primitives';
 
 export type BaseCellProps = {
   /**
@@ -51,10 +50,10 @@ const baseResetStyles = xcss({
   display: 'table-cell',
   verticalAlign: 'middle',
   ':first-of-type': {
-    paddingLeft: token('space.100', '8px'),
+    paddingInlineStart: 'space.100',
   },
   ':last-of-type': {
-    paddingRight: token('space.100', '8px'),
+    paddingInlineEnd: 'space.100',
   },
 });
 
@@ -94,25 +93,28 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       colSpan,
     },
     ref,
-  ) => (
-    <Box
-      xcss={[
-        baseResetStyles,
-        alignMapStyles[align],
-        ...(Array.isArray(xcss) ? xcss : [xcss]),
-      ]}
-      ref={ref}
-      scope={scope}
-      backgroundColor={backgroundColor}
-      paddingBlock={paddingBlock}
-      paddingInline={paddingInline}
-      as={as}
-      testId={testId}
-      style={width ? { width } : undefined}
-      aria-sort={sortDirection}
-      colSpan={colSpan}
-    >
-      {children}
-    </Box>
-  ),
+  ) => {
+    // We're type coercing this as Compiled styles in an array isn't supported by the types
+    // But the runtime accepts it none-the-wiser. We can remove this entire block and replace
+    // it with cx(defaultStyles, focusRingStyles, xcssStyles) when we've moved away from Emotion.
+    const styles = (Array.isArray(xcss) ? xcss : [xcss]) as XCSS[];
+
+    return (
+      <Box
+        xcss={[baseResetStyles, alignMapStyles[align], ...styles]}
+        ref={ref}
+        scope={scope}
+        backgroundColor={backgroundColor}
+        paddingBlock={paddingBlock}
+        paddingInline={paddingInline}
+        as={as}
+        testId={testId}
+        style={width ? { width } : undefined}
+        aria-sort={sortDirection}
+        colSpan={colSpan}
+      >
+        {children}
+      </Box>
+    );
+  },
 );

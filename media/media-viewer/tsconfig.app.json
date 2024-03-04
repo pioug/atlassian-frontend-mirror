@@ -43,6 +43,12 @@
       "path": "../../design-system/code/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/heading/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
@@ -70,10 +76,16 @@
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/side-navigation/tsconfig.app.json"
     },
     {
       "path": "../../design-system/spinner/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
     },
     {
       "path": "../../design-system/theme/tsconfig.app.json"

@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugins
 
+## 1.4.38
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.37
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.35
+
+### Patch Changes
+
+- [#77601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77601) [`ee98d2aa7c8a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee98d2aa7c8a) - [ED-22199] Update media card wrapper so that it applies comments styles according to comment status
+- Updated dependencies
+
 ## 1.4.34
 
 ### Patch Changes

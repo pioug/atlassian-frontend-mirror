@@ -8,6 +8,7 @@ import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import type { RenderEditorProps } from '../example-helpers/ToolsDrawer';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { token } from '@atlaskit/tokens';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');
@@ -48,7 +49,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
         <div>
           <ToolsDrawer
             renderEditor={({ onChange, disabled }: RenderEditorProps) => (
-              <div style={{ padding: '20px' }}>
+              <div style={{ padding: token('space.250', '20px') }}>
                 <IntlProvider locale="en">
                   <CollapsedEditor
                     placeholder="What do you want to say?"

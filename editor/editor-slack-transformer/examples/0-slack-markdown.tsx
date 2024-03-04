@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { CollapsedEditor, Editor, EditorContext } from '@atlaskit/editor-core';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { SlackTransformer } from '../src';
@@ -70,7 +71,7 @@ export default function EditorWithFeedback(props: Props) {
             onChange,
             disabled,
           }) => (
-            <div style={{ padding: '20px' }}>
+            <div style={{ padding: token('space.250', '20px') }}>
               <CollapsedEditor
                 placeholder="What do you want to say?"
                 isExpanded={isExpanded}

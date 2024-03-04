@@ -24,6 +24,7 @@ export type MessageKey =
   | 'ai_summarized'
   | 'ai_summarized_info'
   | 'ai_summarizing'
+  | 'ai_summary_error_generic'
   | 'cannot_find_link'
   | 'connect_link_account_card'
   | 'connect_link_account_card_name'
@@ -149,6 +150,13 @@ export const messages: Messages = defineMessages({
   ai_summarizing: {
     id: 'fabric.linking.ai_summarizing',
     defaultMessage: 'Atlassian Intelligence is working...',
+    description:
+      'Shown when AI summary is summarising the link resource content.',
+  },
+  ai_summary_error_generic: {
+    id: 'fabric.linking.ai_summary_error_generic',
+    defaultMessage:
+      "Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.",
     description:
       'Shown when AI summary is summarising the link resource content.',
   },

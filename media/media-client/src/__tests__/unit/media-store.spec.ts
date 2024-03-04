@@ -1345,6 +1345,17 @@ describe('MediaStore', () => {
           collectionName: 'some-collection-name',
         });
       });
+
+      it('should return file url with custom max-age', async () => {
+        const url = await mediaStore.getFileBinaryURL(
+          '1234',
+          'some-collection-name',
+          123,
+        );
+        expect(url).toEqual(
+          `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=123&token=${token}`,
+        );
+      });
     });
 
     describe('getArtifactURL()', () => {

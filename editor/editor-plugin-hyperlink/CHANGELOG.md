@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.1.0
+
+### Minor Changes
+
+- [#76379](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76379) [`1550bb6f5bde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1550bb6f5bde) - Updating links for link-preferences to be dependent on staging environment
+
 ## 1.0.2
 
 ### Patch Changes

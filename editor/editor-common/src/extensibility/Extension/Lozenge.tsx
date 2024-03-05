@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { Component } from 'react';
+import type { CSSProperties } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -14,6 +15,7 @@ export interface Props {
   node: PmNode;
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
+  customContainerStyles?: CSSProperties;
 }
 
 export interface LozengeData {
@@ -42,7 +44,11 @@ export default class ExtensionLozenge extends Component<Props, any> {
   };
 
   private renderFallback = (lozengeData?: LozengeData) => {
-    const { showMacroInteractionDesignUpdates, isNodeSelected } = this.props;
+    const {
+      showMacroInteractionDesignUpdates,
+      isNodeSelected,
+      customContainerStyles,
+    } = this.props;
     const { parameters, extensionKey } = this.props.node.attrs;
     const { name } = this.props.node.type;
     const params = parameters && parameters.macroParams;
@@ -63,6 +69,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
         params={params}
         title={title}
         renderImage={this.renderImage}
+        customContainerStyles={customContainerStyles}
       />
     );
   };

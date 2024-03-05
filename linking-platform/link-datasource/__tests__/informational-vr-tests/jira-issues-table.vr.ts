@@ -3,7 +3,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import JiraIssuesTable from '../../examples/jira-issues-table';
+import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
 
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {

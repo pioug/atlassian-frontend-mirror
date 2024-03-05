@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-unsupported-content",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Unsupported Content plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,8 +33,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.5.1",
-    "@atlaskit/editor-common": "^78.9.0",
+    "@atlaskit/adf-schema": "^35.5.2",
+    "@atlaskit/editor-common": "^78.10.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.7
+
+### Patch Changes
+
+- [#78224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78224) [`6b4c9dd4ad34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b4c9dd4ad34) - ED-22219: adf-schema updated to 35.5.2
+- [#76560](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76560) [`ecab0d093882`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecab0d093882) - Fixed misplaced cursor positon when code block is pasted into extended nested expand
+- [#78176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78176) [`7482f69bb25f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7482f69bb25f) - ED-21833: Stop showing paste options toolbar for smart links
+- Updated dependencies
+
 ## 1.0.6
 
 ### Patch Changes

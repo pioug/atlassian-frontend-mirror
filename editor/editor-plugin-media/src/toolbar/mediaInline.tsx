@@ -50,6 +50,8 @@ import { shouldShowImageBorder } from './imageBorder';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { downloadMedia } from './utils';
 
+import { generateFilePreviewItem } from './index';
+
 export const generateMediaInlineFloatingToolbar = (
   state: EditorState,
   intl: IntlShape,
@@ -329,6 +331,13 @@ export const getMediaInlineImageToolbar = (
       return null;
     },
   });
+
+  //Image Preview
+  if (options.allowImagePreview) {
+    inlineImageItems.push(generateFilePreviewItem(mediaPluginState, intl), {
+      type: 'separator',
+    });
+  }
 
   if (options.allowAltTextOnImages) {
     inlineImageItems.push(

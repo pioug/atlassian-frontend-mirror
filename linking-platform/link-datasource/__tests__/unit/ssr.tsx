@@ -16,7 +16,7 @@ afterEach(() => {
 test('should ssr then hydrate example component correctly', async () => {
   const examples = await getExamplesFor('link-datasource');
   const filepath = examples.find(example =>
-    example.filePath.endsWith('examples/issue-like-table-couple-boxed.tsx'),
+    example.filePath.endsWith('examples/issue-like-table.tsx'),
   )!.filePath;
   const Example = require(filepath).default; // eslint-disable-line import/no-dynamic-require
   const elem = document.createElement('div');

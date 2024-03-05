@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
-
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { DatasourceParameters } from '@atlaskit/linking-types';
 
 import { DatasourceTableView } from '../src';
+import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 import SmartLinkClient from './smartLinkCustomClient';
@@ -66,10 +66,10 @@ export const ExampleJiraIssuesTableView = ({
   }, [mockDatasourceFetchRequest]);
 
   return (
-    <IntlProvider locale="en">
+    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
       <SmartCardProvider client={new SmartLinkClient()}>
         <JiraIssuesTableView parameters={parameters} />
       </SmartCardProvider>
-    </IntlProvider>
+    </IntlMessagesProvider>
   );
 };

@@ -409,6 +409,7 @@ describe('Provider', () => {
         {
           hasTitle: false,
           numUnconfirmedSteps: 2,
+          useReconcile: false,
         },
       );
       done();
@@ -457,6 +458,7 @@ describe('Provider', () => {
           'FAILURE',
           {
             numUnconfirmedSteps: 2,
+            useReconcile: false,
           },
         );
         expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);

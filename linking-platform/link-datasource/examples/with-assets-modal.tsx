@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
-
 import Button from '@atlaskit/button/standard-button';
 import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -16,8 +14,9 @@ import {
 } from '../src';
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
+mockAssetsClientFetchRequests();
+
 export default () => {
-  mockAssetsClientFetchRequests();
   const [generatedAdf, setGeneratedAdf] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(true);
   const [parameters, setParameters] = useState<AssetsDatasourceParameters>({
@@ -28,6 +27,7 @@ export default () => {
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
   >(undefined);
+
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
   const onInsert = (adf: InlineCardAdf | AssetsDatasourceAdf) => {
@@ -40,29 +40,28 @@ export default () => {
     setGeneratedAdf(JSON.stringify(adf, null, 2));
     closeModal();
   };
+
   return (
-    <IntlProvider locale="en">
-      <SmartCardProvider client={new SmartLinkClient()}>
-        <Button appearance="primary" onClick={toggleIsOpen}>
-          Toggle Modal
-        </Button>
-        {generatedAdf ? (
-          <CodeBlock
-            text={generatedAdf}
-            language={'JSON'}
-            testId={'generated-adf'}
-          />
-        ) : null}
-        {showModal && (
-          <JSMAssetsConfigModal
-            datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
-            visibleColumnKeys={visibleColumnKeys}
-            parameters={parameters}
-            onCancel={closeModal}
-            onInsert={onInsert}
-          />
-        )}
-      </SmartCardProvider>
-    </IntlProvider>
+    <SmartCardProvider client={new SmartLinkClient()}>
+      <Button appearance="primary" onClick={toggleIsOpen}>
+        Toggle Modal
+      </Button>
+      {generatedAdf ? (
+        <CodeBlock
+          text={generatedAdf}
+          language={'JSON'}
+          testId={'generated-adf'}
+        />
+      ) : null}
+      {showModal && (
+        <JSMAssetsConfigModal
+          datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+          visibleColumnKeys={visibleColumnKeys}
+          parameters={parameters}
+          onCancel={closeModal}
+          onInsert={onInsert}
+        />
+      )}
+    </SmartCardProvider>
   );
 };

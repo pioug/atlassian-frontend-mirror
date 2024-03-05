@@ -3,11 +3,12 @@ import { useEffect, useMemo } from 'react';
 
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { IntlProvider } from 'react-intl-next';
 
+import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
+import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
@@ -21,15 +22,16 @@ interface Props {
   isReadonly?: boolean;
   canResizeColumns?: boolean;
   canControlWrapping?: boolean;
+  skipIntl?: boolean;
 }
 
-const TableViewWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  width: 100%;
-  height: 100%;
-`;
+const TableViewWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'scroll',
+  width: '100%',
+  height: '100%',
+});
 
 const ExampleBody = ({
   isReadonly,
@@ -107,9 +109,10 @@ export const ExampleIssueLikeTable = ({
   isReadonly,
   canResizeColumns,
   canControlWrapping,
+  skipIntl,
 }: Props) => {
   return (
-    <IntlProvider locale="en">
+    <IntlMessagesProvider loaderFn={fetchMessagesForLocale}>
       <SmartCardProvider client={new SmartLinkClient()}>
         <ExampleBody
           isReadonly={isReadonly}
@@ -117,6 +120,6 @@ export const ExampleIssueLikeTable = ({
           canControlWrapping={canControlWrapping}
         />
       </SmartCardProvider>
-    </IntlProvider>
+    </IntlMessagesProvider>
   );
 };

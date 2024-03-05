@@ -79,14 +79,6 @@ export class Channel extends Emitter<ChannelEvent> {
   getSocket = () => this.socket;
   getToken = () => this.token;
 
-  private setToken = (value?: string) => {
-    if (this.config.cacheToken) {
-      this.token = value;
-    }
-  };
-  // sets the token as undefined
-  private unsetToken = () => this.setToken();
-
   // Used to retrieve the x-token for API requests
   getChannelToken = async () => {
     if (this.token) {
@@ -96,9 +88,6 @@ export class Channel extends Emitter<ChannelEvent> {
       return undefined;
     }
     const token = (await this.config.permissionTokenRefresh()) ?? undefined;
-    if (token) {
-      this.setToken(token);
-    }
     return token;
   };
 
@@ -117,8 +106,7 @@ export class Channel extends Emitter<ChannelEvent> {
       this.initExperience?.start();
     }
     const { documentAri, url } = this.config;
-    const { createSocket } = this.config;
-    const { permissionTokenRefresh, cacheToken } = this.config;
+    const { createSocket, permissionTokenRefresh } = this.config;
 
     let auth: AuthCallback;
     if (permissionTokenRefresh) {
@@ -130,40 +118,31 @@ export class Channel extends Emitter<ChannelEvent> {
           // ESS-1009 Allow to opt-in into 404 response
           need404: this.config.need404,
         };
-        // use the cached token if caching in enabled and token valid
-        if (cacheToken && this.token) {
-          authData.token = this.token;
-          cb(authData);
-        } else {
-          try {
-            const token = await permissionTokenRefresh();
+        try {
+          const token = await permissionTokenRefresh();
 
-            if (token) {
-              // save token locally
-              this.setToken(token);
-              authData.token = token;
-            } else {
-              this.unsetToken();
-              authData.token = undefined;
-            }
-
-            cb(authData);
-          } catch (error) {
-            // Pass the error back to the consumers so they can deal with exceptional cases themselves (eg. no permissions because the page was deleted)
-            const authenticationError: TokenPermissionError = {
-              message: 'Insufficient editing permissions',
-              data: {
-                status: 403,
-                code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR,
-                meta: {
-                  originalError: error,
-                  reason: (error as any)?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
-                  // https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/browse/next/packages/native-collab/src/fetchCollabPermissionToken.ts#37
-                },
-              },
-            };
-            this.emit('error', authenticationError);
+          if (token) {
+            authData.token = token;
+          } else {
+            authData.token = undefined;
           }
+
+          cb(authData);
+        } catch (error) {
+          // Pass the error back to the consumers so they can deal with exceptional cases themselves (eg. no permissions because the page was deleted)
+          const authenticationError: TokenPermissionError = {
+            message: 'Insufficient editing permissions',
+            data: {
+              status: 403,
+              code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR,
+              meta: {
+                originalError: error,
+                reason: (error as any)?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
+                // https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/browse/next/packages/native-collab/src/fetchCollabPermissionToken.ts#37
+              },
+            },
+          };
+          this.emit('error', authenticationError);
         }
       };
     } else {
@@ -377,7 +356,6 @@ export class Channel extends Emitter<ChannelEvent> {
         usedCachedToken: !!this.token,
       },
     );
-    this.unsetToken();
   };
 
   private onConnectError = (error: unknown) => {
@@ -406,12 +384,6 @@ export class Channel extends Emitter<ChannelEvent> {
     // `xhr polling error` needs to retry.
     const errorData = (error as InternalError).data;
     if (errorData) {
-      // We only want to refresh the token if only its invalid
-      // @ts-expect-error we should be more explicit about which type of errors we expect here, so they always have a status
-      if ([401, 403].includes(errorData.status)) {
-        //nullify token so it is forced to generate new token on reconnect
-        this.unsetToken();
-      }
       this.socket?.close();
     }
     const connectionError: ConnectionError = {
@@ -558,9 +530,6 @@ export class Channel extends Emitter<ChannelEvent> {
         return {};
       }
 
-      //nullify token so it is forced to generate new token on reconnect
-      this.unsetToken();
-
       logger("Can't fetch the catchup", error.message);
       const errorCatchup: CatchUpFailedError = {
         message: 'Cannot fetch catchup from collab service',
@@ -673,8 +642,6 @@ export class Channel extends Emitter<ChannelEvent> {
     this.unsubscribeAll();
     this.network?.destroy();
     this.network = null;
-    //nullify token so it is forced to generate new token on reconnect
-    this.unsetToken();
 
     if (this.socket) {
       this.socket.close();

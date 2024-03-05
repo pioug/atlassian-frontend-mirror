@@ -334,35 +334,42 @@ export function createPlugin(
               pluginInjectionApi?.betterTypeHistory?.actions.flagPasteEvent(tr);
           }
 
+          const isDocChanged = tr.docChanged;
+
           addLinkMetadata(view.state.selection, tr, {
             action: isPlainText ? ACTION.PASTED_AS_PLAIN : ACTION.PASTED,
             inputMethod: INPUT_METHOD.CLIPBOARD,
           });
 
-          const pasteStartPos = Math.min(
-            state.selection.anchor,
-            state.selection.head,
-          );
-          const pasteEndPos = tr.selection.to;
+          // handleMacroAutoConvert dispatches twice
+          // we make sure to call paste options toolbar
+          // only for a valid paste action
+          if (isDocChanged) {
+            const pasteStartPos = Math.min(
+              state.selection.anchor,
+              state.selection.head,
+            );
+            const pasteEndPos = tr.selection.to;
 
-          const contentPasted: LastContentPasted = {
-            pasteStartPos,
-            pasteEndPos,
-            text,
-            isShiftPressed: Boolean(
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (view as any).shiftKey || (view as any).input?.shiftKey,
-            ),
-            isPlainText: Boolean(isPlainText),
-            pastedSlice: tr.doc.slice(pasteStartPos, pasteEndPos),
-            pastedAt: Date.now(),
-            pasteSource: getPasteSource(event),
-          };
+            const contentPasted: LastContentPasted = {
+              pasteStartPos,
+              pasteEndPos,
+              text,
+              isShiftPressed: Boolean(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (view as any).shiftKey || (view as any).input?.shiftKey,
+              ),
+              isPlainText: Boolean(isPlainText),
+              pastedSlice: tr.doc.slice(pasteStartPos, pasteEndPos),
+              pastedAt: Date.now(),
+              pasteSource: getPasteSource(event),
+            };
 
-          tr.setMeta(stateKey, {
-            type: PastePluginActionTypes.ON_PASTE,
-            contentPasted,
-          });
+            tr.setMeta(stateKey, {
+              type: PastePluginActionTypes.ON_PASTE,
+              contentPasted,
+            });
+          }
 
           view.dispatch(tr);
         };

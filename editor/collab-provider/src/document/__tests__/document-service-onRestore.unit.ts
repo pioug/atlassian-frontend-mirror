@@ -82,7 +82,7 @@ describe('DocumentService onRestore', () => {
         expect(sendActionEventSpy).toBeCalledWith(
           'reinitialiseDocument',
           'SUCCESS',
-          { hasTitle: true, numUnconfirmedSteps: 0 },
+          { hasTitle: true, numUnconfirmedSteps: 0, useReconcile: false },
         );
       });
 
@@ -103,7 +103,7 @@ describe('DocumentService onRestore', () => {
         expect(sendActionEventSpy).toBeCalledWith(
           'reinitialiseDocument',
           'SUCCESS',
-          { hasTitle: true, numUnconfirmedSteps: 2 },
+          { hasTitle: true, numUnconfirmedSteps: 2, useReconcile: false },
         );
       });
 
@@ -145,7 +145,7 @@ describe('DocumentService onRestore', () => {
           expect(sendActionEventSpy).toBeCalledWith(
             'reinitialiseDocument',
             'SUCCESS',
-            { hasTitle: true, numUnconfirmedSteps: 2 },
+            { hasTitle: true, numUnconfirmedSteps: 2, useReconcile: true },
           );
         });
       });
@@ -182,7 +182,7 @@ describe('DocumentService onRestore', () => {
       expect(sendActionEventSpy).toBeCalledWith(
         'reinitialiseDocument',
         'FAILURE',
-        { numUnconfirmedSteps: 2 },
+        { numUnconfirmedSteps: 2, useReconcile: false },
       );
       expect(sendErrorEventSpy).toBeCalledTimes(2);
       expect(sendErrorEventSpy).toBeCalledWith(
@@ -227,7 +227,7 @@ describe('DocumentService onRestore', () => {
       expect(sendActionEventSpy).toBeCalledWith(
         'reinitialiseDocument',
         'FAILURE',
-        { numUnconfirmedSteps: 2 },
+        { numUnconfirmedSteps: 2, useReconcile: false },
       );
       expect(sendErrorEventSpy).toBeCalledTimes(2);
       expect(sendProviderErrorEventSpy).toBeCalledTimes(1);

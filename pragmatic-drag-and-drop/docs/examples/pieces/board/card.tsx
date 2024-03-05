@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import {
+import React, {
   forwardRef,
   Fragment,
   memo,
@@ -10,7 +9,6 @@ import {
   useState,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
@@ -40,10 +38,10 @@ import {
 import { preserveOffsetOnSource } from '@atlaskit/pragmatic-drag-and-drop/element/preserve-offset-on-source';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/external/adapter';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Grid, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { ColumnType, Person } from '../../data/people';
-import { cardGap } from '../../util/constants';
 
 import { useBoardContext } from './board-context';
 import { useColumnContext } from './column-context';
@@ -56,16 +54,13 @@ type State =
 const idleState: State = { type: 'idle' };
 const draggingState: State = { type: 'dragging' };
 
-const noMarginStyles = css({ margin: 0 });
-const noPointerEventsStyles = css({ pointerEvents: 'none' });
+const noMarginStyles = xcss({ margin: 'space.0' });
 const baseStyles = xcss({
   width: '100%',
+  padding: 'space.100',
+  backgroundColor: 'elevation.surface',
   borderRadius: 'border.radius.200',
   position: 'relative',
-  display: 'grid',
-  gridTemplateColumns: 'auto 1fr auto',
-  gap: 'space.100',
-  alignItems: 'center',
   ':hover': {
     backgroundColor: 'elevation.surface.hovered',
   },
@@ -171,19 +166,25 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(
     const { avatarUrl, name, role, userId } = item;
 
     return (
-      <Box
+      <Grid
         ref={ref}
         testId={`item-${userId}`}
-        backgroundColor="elevation.surface"
-        padding="space.100"
+        templateColumns="auto 1fr auto"
+        columnGap="space.100"
+        alignItems="center"
         xcss={[baseStyles, stateStyles[state.type]]}
       >
         <Avatar size="large" src={avatarUrl}>
           {props => (
+            // Note: using `div` rather than `Box`.
+            // `CustomAvatarProps` passes through a `className`
+            // but `Box` does not accept `className` as a prop.
             <div
               {...props}
-              ref={props.ref as React.Ref<HTMLDivElement>}
-              css={noPointerEventsStyles}
+              // Workaround to make `Avatar` not draggable.
+              // Ideally `Avatar` would have a `draggable` prop.
+              style={{ pointerEvents: 'none' }}
+              ref={props.ref as Ref<HTMLDivElement>}
             />
           )}
         </Avatar>
@@ -191,7 +192,9 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(
           <Heading level="h400" as="span">
             {name}
           </Heading>
-          <small css={noMarginStyles}>{role}</small>
+          <Box as="small" xcss={noMarginStyles}>
+            {role}
+          </Box>
         </Stack>
         <Box xcss={buttonColumnStyles}>
           <DropdownMenu
@@ -216,9 +219,9 @@ const CardPrimitive = forwardRef<HTMLDivElement, CardPrimitiveProps>(
         </Box>
 
         {closestEdge && (
-          <DropIndicator edge={closestEdge} gap={`${cardGap}px`} />
+          <DropIndicator edge={closestEdge} gap={token('space.100', '0')} />
         )}
-      </Box>
+      </Grid>
     );
   },
 );
@@ -246,7 +249,6 @@ export const Card = memo(function Card({ item }: { item: Person }) {
   useEffect(() => {
     const element = ref.current;
     invariant(element);
-    console.log('recreating draggable');
     return combine(
       draggable({
         element: element,
@@ -321,7 +323,7 @@ export const Card = memo(function Card({ item }: { item: Person }) {
       />
       {state.type === 'preview' &&
         ReactDOM.createPortal(
-          <div
+          <Box
             style={{
               /**
                * Ensuring the preview has the same dimensions as the original.
@@ -335,7 +337,7 @@ export const Card = memo(function Card({ item }: { item: Person }) {
             }}
           >
             <CardPrimitive item={item} state={state} closestEdge={null} />
-          </div>,
+          </Box>,
           state.container,
         )}
     </Fragment>

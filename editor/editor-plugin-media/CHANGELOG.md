@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.6.1
+
+### Patch Changes
+
+- [#78224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78224) [`6b4c9dd4ad34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b4c9dd4ad34) - ED-22219: adf-schema updated to 35.5.2
+- Updated dependencies
+
+## 1.6.0
+
+### Minor Changes
+
+- [#78166](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78166) [`8055c8ca1c32`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8055c8ca1c32) - [ux] Add support for preview button in floating toolbar to mediaInline nodes
+
+### Patch Changes
+
+- [#78326](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78326) [`4adb95539d29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4adb95539d29) - Added logic to allow media single to access annotation state
+
 ## 1.5.1
 
 ### Patch Changes

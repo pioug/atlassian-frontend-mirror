@@ -27,5 +27,10 @@ export default {
       ],
       minItems: 1,
     },
+    marks: {
+      type: 'array',
+      items: [['dataConsumer', 'fragment']],
+      optional: true,
+    },
   },
 };

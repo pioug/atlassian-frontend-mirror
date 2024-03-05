@@ -1,6 +1,7 @@
 import { jpgCat } from './jpgCat';
 import { jpgCatPreview } from './jpgCatPreview';
 import { mp3Sonata } from './mp3Sonata';
+import { passwordPdf } from './passwordPdf';
 import { pdfAnatomy } from './pdfAnatomy';
 import { pdfAnatomyPreview } from './pdfAnatomyPreview';
 import { jpgRotated } from './rotatedImages';
@@ -20,4 +21,5 @@ export const sampleBinaries = {
   pdfAnatomy,
   pdfAnatomyPreview,
   mp3Sonata,
+  passwordPdf,
 };

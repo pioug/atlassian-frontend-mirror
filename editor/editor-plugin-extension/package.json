@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-extension",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "editor-plugin-extension plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -24,14 +24,14 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/button": "^17.6.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/datetime-picker": "^13.0.3",
-    "@atlaskit/editor-common": "^78.9.0",
+    "@atlaskit/editor-common": "^78.10.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-context-identifier": "^1.0.0",

@@ -21,7 +21,7 @@ import type { HistoryItem } from '../../model/Help';
 
 // Animation
 const defaultStyle = {
-  left: `100%`,
+  left: '100%',
 };
 
 const enableTransition: { [id: string]: React.CSSProperties } = {
@@ -32,7 +32,7 @@ const enableTransition: { [id: string]: React.CSSProperties } = {
 
 const transitionStyles: { [id: string]: React.CSSProperties } = {
   entered: { left: 0 },
-  exited: { left: `100%` },
+  exited: { left: '100%' },
 };
 
 export const Article: React.FC = () => {

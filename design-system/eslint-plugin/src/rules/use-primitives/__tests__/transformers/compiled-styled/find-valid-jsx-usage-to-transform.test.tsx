@@ -34,6 +34,40 @@ describe('findValidJsxUsageToTransform', () => {
     expect(result).toBeDefined();
   });
 
+  it('handles basic use case when styled declaration comes after JSX', () => {
+    // ARRANGE
+    const root = j(`
+    import { styled } from '@compiled/react';
+    <MyContainer>Hello, World!</MyContainer>
+    const MyContainer = styled.div({ padding: '8px' });
+    `);
+    const jsxRef = root.find(j.JSXIdentifier).get().value;
+    jsxRef.parent = root.find(j.JSXOpeningElement).get().value;
+    const dummyScope = {
+      variables: [
+        {
+          name: 'MyContainer',
+          references: [
+            {
+              identifier: jsxRef,
+            },
+            undefined, // not used
+          ],
+        },
+      ],
+    } as Scope.Scope;
+
+    // ACT
+    const result = findValidJsxUsageToTransform(
+      'MyContainer',
+      dummyScope,
+      true,
+    );
+
+    // ASSERT
+    expect(result).toBeDefined();
+  });
+
   it('skips if more than two references are found', () => {
     // ARRANGE
     const root = j(`

@@ -38,7 +38,9 @@ type Pattern =
   //   margin: '8px',
   //   width: '100%',
   // })
-  | 'dimension-properties';
+  | 'dimension-properties'
+  // This enables the rule to look for JSX elements that are defined before the styles
+  | 'jsx-order-fix';
 
 export interface RuleConfig {
   patterns: Pattern[];

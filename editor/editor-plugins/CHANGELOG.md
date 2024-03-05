@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugins
 
+## 1.5.0
+
+### Minor Changes
+
+- [#76136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76136) [`a70e3bdbac29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a70e3bdbac29) - [ux] Introduces the selection marker plugin. This is used to highlight the text in the editor as the editor itself is blurred. This helps provide a visual queue of the selection while working elsewhere in the UI.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.4.40
+
+### Patch Changes
+
+- [#78326](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78326) [`4adb95539d29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4adb95539d29) - Added logic to allow media single to access annotation state
+- Updated dependencies
+
+## 1.4.39
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.38
 
 ### Patch Changes

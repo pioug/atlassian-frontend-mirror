@@ -1,7 +1,12 @@
-/** @jsx jsx */
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
-import { css, jsx, SerializedStyles } from '@emotion/react';
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
@@ -33,10 +38,10 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/element/center-under-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { ColumnType } from '../../data/people';
-import { cardGap, columnGap } from '../../util/constants';
 
 import { useBoardContext } from './board-context';
 import { Card } from './card';
@@ -46,15 +51,12 @@ import {
   useColumnContext,
 } from './column-context';
 
-const columnStyles = css({
-  display: 'flex',
-  width: 250,
-  flexDirection: 'column',
-  background: token('elevation.surface.sunken', '#F7F8F9'),
-  borderRadius: 'calc(var(--grid) * 2)',
+const columnStyles = xcss({
+  width: '250px',
+  backgroundColor: 'elevation.surface.sunken',
+  borderRadius: 'border.radius.300',
   transition: `background ${mediumDurationMs}ms ${easeInOut}`,
   position: 'relative',
-  cursor: 'grab',
   /**
    * TODO: figure out hover color.
    * There is no `elevation.surface.sunken.hovered` token,
@@ -62,50 +64,57 @@ const columnStyles = css({
    */
 });
 
-const scrollContainerStyles = css({
+const noMinHeightStyles = xcss({
+  // allow the container to be shrunk by a parent height
+  // https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/#the-minimum-size-gotcha-11
+  minHeight: '0',
+});
+
+const scrollContainerStyles = xcss({
   height: '100%',
   overflowY: 'auto',
 });
 
-const cardListStyles = css({
-  display: 'flex',
+const cardListStyles = xcss({
   boxSizing: 'border-box',
   minHeight: '100%',
-  padding: 'var(--grid)',
-  gap: cardGap,
-  flexDirection: 'column',
+  padding: 'space.100',
+  gap: 'space.100',
 });
 
-const columnHeaderStyles = css({
-  display: 'flex',
-  padding: 'var(--grid) calc(var(--grid) * 2) 0',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  flexDirection: 'row',
-  color: token('color.text.subtlest', '#626F86'),
+const columnHeaderStyles = xcss({
+  paddingInlineStart: 'space.200',
+  paddingInlineEnd: 'space.200',
+  paddingBlockStart: 'space.100',
+  color: 'color.text.subtlest',
   userSelect: 'none',
 });
 
+/**
+ * Note: not making `'is-dragging'` a `State` as it is
+ * a _parallel_ state to `'is-column-over'`.
+ *
+ * Our board allows you to be over the column that is currently dragging
+ */
 type State =
   | { type: 'idle' }
   | { type: 'is-card-over' }
   | { type: 'is-column-over'; closestEdge: Edge | null }
-  | { type: 'is-dragging' }
   | { type: 'generate-safari-column-preview'; container: HTMLElement }
   | { type: 'generate-column-preview' };
 
 // preventing re-renders with stable state objects
 const idle: State = { type: 'idle' };
 const isCardOver: State = { type: 'is-card-over' };
-const isDraggingState: State = { type: 'is-dragging' };
 
-const stateStyles: { [key in State['type']]: SerializedStyles | undefined } = {
-  idle: undefined,
-  'is-dragging': css({
-    opacity: 0.4,
+const stateStyles: {
+  [key in State['type']]: ReturnType<typeof xcss> | undefined;
+} = {
+  idle: xcss({
+    cursor: 'grab',
   }),
-  'is-card-over': css({
-    background: token('color.background.selected.hovered', '#CCE0FF'),
+  'is-card-over': xcss({
+    backgroundColor: 'color.background.selected.hovered',
   }),
   'is-column-over': undefined,
   /**
@@ -125,11 +134,15 @@ const stateStyles: { [key in State['type']]: SerializedStyles | undefined } = {
    * We have not found a great workaround yet. So for now we are just rendering
    * a custom drag preview
    */
-  'generate-column-preview': css({
+  'generate-column-preview': xcss({
     isolation: 'isolate',
   }),
   'generate-safari-column-preview': undefined,
 };
+
+const isDraggingStyles = xcss({
+  opacity: 0.4,
+});
 
 export const Column = memo(function Column({ column }: { column: ColumnType }) {
   const columnId = column.columnId;
@@ -138,8 +151,9 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
   const cardListRef = useRef<HTMLDivElement | null>(null);
   const scrollableRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<State>(idle);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  const { instanceId } = useBoardContext();
+  const { instanceId, registerColumn } = useBoardContext();
 
   useEffect(() => {
     invariant(columnRef.current);
@@ -147,6 +161,12 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
     invariant(cardListRef.current);
     invariant(scrollableRef.current);
     return combine(
+      registerColumn({
+        columnId,
+        entry: {
+          element: columnRef.current,
+        },
+      }),
       draggable({
         element: columnRef.current,
         dragHandle: headerRef.current,
@@ -173,10 +193,11 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           });
         },
         onDragStart: () => {
-          setState(isDraggingState);
+          setIsDragging(true);
         },
         onDrop() {
           setState(idle);
+          setIsDragging(false);
         },
       }),
       dropTargetForElements({
@@ -247,7 +268,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           source.data.instanceId === instanceId && source.data.type === 'card',
       }),
     );
-  }, [columnId, instanceId]);
+  }, [columnId, registerColumn, instanceId]);
 
   const stableItems = useRef(column.items);
   useEffect(() => {
@@ -268,36 +289,48 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
 
   return (
     <ColumnContext.Provider value={contextValue}>
-      <div
-        css={[columnStyles, stateStyles[state.type]]}
+      <Flex
+        testId={`column-${columnId}`}
         ref={columnRef}
-        data-testid={`column-${columnId}`}
+        direction="column"
+        xcss={[columnStyles, stateStyles[state.type]]}
       >
-        <div
-          css={columnHeaderStyles}
-          ref={headerRef}
-          data-testid={`column-header-${columnId}`}
+        {/* Applying dragging styles to a child of our column,
+            so that they will not impact the drop indicator */}
+        <Stack
+          xcss={[noMinHeightStyles, isDragging ? isDraggingStyles : undefined]}
         >
-          <Heading
-            level="h300"
-            as="span"
-            testId={`column-header-title-${columnId}`}
+          <Inline
+            xcss={columnHeaderStyles}
+            ref={headerRef}
+            testId={`column-header-${columnId}`}
+            spread="space-between"
+            alignBlock="center"
           >
-            {column.title}
-          </Heading>
-          <ActionMenu />
-        </div>
-        <div css={scrollContainerStyles} ref={scrollableRef}>
-          <div css={cardListStyles} ref={cardListRef}>
-            {column.items.map(item => (
-              <Card item={item} key={item.userId} />
-            ))}
-          </div>
-        </div>
+            <Heading
+              level="h300"
+              as="span"
+              testId={`column-header-title-${columnId}`}
+            >
+              {column.title}
+            </Heading>
+            <ActionMenu />
+          </Inline>
+          <Box xcss={scrollContainerStyles} ref={scrollableRef}>
+            <Stack xcss={cardListStyles} ref={cardListRef} space="space.100">
+              {column.items.map(item => (
+                <Card item={item} key={item.userId} />
+              ))}
+            </Stack>
+          </Box>
+        </Stack>
         {state.type === 'is-column-over' && state.closestEdge && (
-          <DropIndicator edge={state.closestEdge} gap={`${columnGap}px`} />
+          <DropIndicator
+            edge={state.closestEdge}
+            gap={token('space.200', '0')}
+          />
         )}
-      </div>
+      </Flex>
       {state.type === 'generate-safari-column-preview'
         ? createPortal(<SafariColumnPreview column={column} />, state.container)
         : null}
@@ -305,21 +338,20 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
   );
 });
 
-const previewStyles = css({
-  '--grid': '8px',
-  width: 250,
-  background: token('elevation.surface.sunken', '#F7F8F9'),
-  borderRadius: 'calc(var(--grid) * 2)',
-  padding: 'calc(var(--grid) * 2)',
+const safariPreviewStyles = xcss({
+  width: '250px',
+  backgroundColor: 'elevation.surface.sunken',
+  borderRadius: 'border.radius',
+  padding: 'space.200',
 });
 
 function SafariColumnPreview({ column }: { column: ColumnType }) {
   return (
-    <div css={[columnHeaderStyles, previewStyles]}>
+    <Box xcss={[columnHeaderStyles, safariPreviewStyles]}>
       <Heading level="h300" as="span">
         {column.title}
       </Heading>
-    </div>
+    </Box>
   );
 }
 

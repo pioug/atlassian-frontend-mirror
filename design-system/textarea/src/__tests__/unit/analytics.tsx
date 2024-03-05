@@ -27,7 +27,10 @@ describe('TextArea analytics', () => {
       const { getByTestId } = render(
         <AnalyticsListener onEvent={onAtlaskitEvent} channel="atlaskit">
           <div>
-            <TextArea testId="test" onBlur={noop} onFocus={noop} />
+            <label htmlFor="name">
+              Name
+              <TextArea id="name" testId="test" onBlur={noop} onFocus={noop} />
+            </label>
           </div>
         </AnalyticsListener>,
       );

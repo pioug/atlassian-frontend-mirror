@@ -68,6 +68,13 @@ const workingAudioWithoutRemotePreview = {
   ),
 };
 
+const passwordPdf = {
+  passwordPdf: createItemWithBinariesGenerator(
+    generateSampleFileItem.passwordPdf,
+    artifactSets.passwordPdf,
+  ),
+};
+
 const workingVideo = {
   videoTeacup: createItemWithBinariesGenerator(
     generateSampleFileItem.workingVideo,
@@ -96,6 +103,7 @@ export const generateItemWithBinaries = {
   workingPdfWithLocalPreview,
   workingVideo,
   workingAudioWithoutRemotePreview,
+  passwordPdf,
   // workingArchive,
   // workingUnknown,
   // workingGif,

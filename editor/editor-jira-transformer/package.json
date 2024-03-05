@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-jira-transformer",
-  "version": "8.3.32",
+  "version": "8.3.33",
   "description": "Editor JIRA transformer's",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,8 +41,8 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.5.1",
-    "@atlaskit/editor-common": "^78.9.0",
+    "@atlaskit/adf-schema": "^35.5.2",
+    "@atlaskit/editor-common": "^78.10.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6"

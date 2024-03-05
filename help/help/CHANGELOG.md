@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.2.21
+
+### Patch Changes
+
+- [#77778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77778) [`7fd2dabb944a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fd2dabb944a) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 7.2.20
 
 ### Patch Changes

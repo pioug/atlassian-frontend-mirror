@@ -1,5 +1,11 @@
 # @atlaskit/media-test-data
 
+## 1.2.1
+
+### Patch Changes
+
+- [#78016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78016) [`dc83676a7490`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc83676a7490) - add integration test for password protected pdf
+
 ## 1.2.0
 
 ### Minor Changes

@@ -2,8 +2,8 @@ import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import EmptyState from '../../examples/empty-state';
-import JiraIssuesTable from '../../examples/jira-issues-table';
+import EmptyState from '../../examples/vr/empty-state-vr';
+import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
 

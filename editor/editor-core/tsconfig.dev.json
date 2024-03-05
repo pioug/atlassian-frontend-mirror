@@ -98,6 +98,9 @@
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-annotation/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-card/tsconfig.app.json"
     },
     {

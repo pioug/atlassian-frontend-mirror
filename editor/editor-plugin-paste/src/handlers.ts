@@ -1340,7 +1340,17 @@ export function handleRichText(
           'decisionList',
           'codeBlock',
         ].includes(slice.content.lastChild?.type?.name || '');
-        if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
+        const lastChild = slice.content.lastChild;
+        const $nextPos = tr.doc.resolve(tr.mapping.map(selection.from));
+        const nextSelection = lastChild?.type.isTextblock
+          ? TextSelection.findFrom($nextPos, -1, true)
+          : new GapCursorSelection($nextPos, Side.RIGHT);
+        if (
+          getBooleanFF('platform.editor.place-cursor-inside-text-block') &&
+          nextSelection
+        ) {
+          tr.setSelection(nextSelection);
+        } else if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
           const nextPos = tr.doc.resolve(tr.mapping.map(selection.$from.pos));
           tr.setSelection(new GapCursorSelection(nextPos, Side.RIGHT));
         }

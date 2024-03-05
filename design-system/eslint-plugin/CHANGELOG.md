@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.36.0
+
+### Minor Changes
+
+- [#78346](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78346) [`d20b2626a3b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d20b2626a3b0) - Adds support for use-primitives linting rule matching JSX elements declared before styles.
+
+## 8.35.1
+
+### Patch Changes
+
+- [#78282](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78282) [`e19154833d5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e19154833d5f) - Missing allowed props check for single paragraph elements
+
 ## 8.35.0
 
 ### Minor Changes

@@ -97,6 +97,27 @@ const failedPdf = createGenerator({
   },
 });
 
+const passwordPdf = createGenerator({
+  type: 'file',
+  id: '7e5e5f68-a207-4b5b-a1a6-2ccb4bfe8bb5',
+  collection: 'MediaServicesSample',
+  details: {
+    mediaType: 'doc',
+    mimeType: 'application/pdf',
+    name: 'password protected.pdf',
+    size: 710485,
+    processingStatus: 'failed',
+    artifacts: {
+      'document.pdf': {
+        url: '/file/7e5e5f68-a207-4b5b-a1a6-2ccb4bfe8bb5/artifact/document.pdf/binary',
+        processingStatus: 'failed',
+      },
+    },
+    representations: {},
+    createdAt: 1709516133404,
+  },
+});
+
 const workingPdfWithRemotePreview = createGenerator({
   type: 'file',
   id: '4e72fab3-bc1d-4ab1-b0fd-8c3b9b3df73f',
@@ -452,4 +473,5 @@ export const generateSampleFileItem = {
   processingPdf,
   failedPdf,
   failedVideo,
+  passwordPdf,
 };

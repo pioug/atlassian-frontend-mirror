@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 192.4.6
+
+### Patch Changes
+
+- [#78224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78224) [`6b4c9dd4ad34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b4c9dd4ad34) - ED-22219: adf-schema updated to 35.5.2
+- Updated dependencies
+
+## 192.4.5
+
+### Patch Changes
+
+- [#77803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77803) [`fc99eb7f9637`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc99eb7f9637) - Include annotation provider in kitchen sink supporting comment replies
+
+## 192.4.4
+
+### Patch Changes
+
+- [#78326](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78326) [`4adb95539d29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4adb95539d29) - Added logic to allow media single to access annotation state
+- [#77516](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77516) [`d6e79c5637c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6e79c5637c7) - [ux] fix expand current selection by shift click
+
 ## 192.4.0
 
 ### Minor Changes

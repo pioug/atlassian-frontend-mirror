@@ -30,13 +30,15 @@ describe('Editable Issue Like Table', () => {
     await page.waitForSelector(firstCell);
   });
 
-  it('should match snapshot', async () => {
+  // Moved to vr-tests
+  it.skip('should match snapshot', async () => {
     const image = await page.screenshot();
 
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should have columns present in picker', async () => {
+  // Moved to informational-vr-tests
+  it.skip('should have columns present in picker', async () => {
     const pickerOpenButton = await page.$(
       '[data-testid="column-picker-trigger-button"]',
     );
@@ -53,9 +55,10 @@ describe('Editable Issue Like Table', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
+  // Moved to informational-vr-tests
   // FIXME: This test was skipped manually my @sasha because it is failing in CI, and only in CI
   // https://product-fabric.atlassian.net/browse/EDM-7035
-  it('should able to drag column', async () => {
+  it.skip('should able to drag column', async () => {
     // Allowing capturing of drag events
     // https://pub.dev/documentation/puppeteer/latest/puppeteer/Page/setDragInterception.html
     await page.setViewport({
@@ -91,7 +94,8 @@ describe('Editable Issue Like Table', () => {
   });
 });
 
-describe('Readonly Issue Like Table', () => {
+// Moved to vr-tests
+describe.skip('Readonly Issue Like Table', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;

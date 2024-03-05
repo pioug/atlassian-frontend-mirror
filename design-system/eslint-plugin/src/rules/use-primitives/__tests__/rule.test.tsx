@@ -4,6 +4,7 @@ import { ruleTester } from '@atlassian/eslint-utils';
 import rule from '../index';
 
 import { dimensionPropertiesTests } from './_dimension-properties';
+import { jsxOrderFixTests } from './_jsx-order';
 
 ruleTester.run('use-primitives', rule, {
   valid: [
@@ -238,6 +239,7 @@ ruleTester.run('use-primitives', rule, {
       ].join('\n'),
     },
     ...dimensionPropertiesTests.valid,
+    ...jsxOrderFixTests.valid,
   ],
   invalid: [
     // it suggests Box for div elements with one style
@@ -567,5 +569,6 @@ ruleTester.run('use-primitives', rule, {
       ],
     },
     ...dimensionPropertiesTests.invalid,
+    ...jsxOrderFixTests.invalid,
   ],
 });

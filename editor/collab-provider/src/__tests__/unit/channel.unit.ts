@@ -666,14 +666,12 @@ describe('Channel unit tests', () => {
     let permissionTokenRefresh: jest.Mock;
     let configuration: Config;
     let channel: Channel;
-    const BEFORE_EACH_ASSERTION_COUNT = 3 + GET_CHANNEL_ASSERTION_COUNT;
 
     beforeEach(async () => {
       permissionTokenRefresh = jest.fn().mockResolvedValue('token');
       configuration = {
         ...testChannelConfig,
         permissionTokenRefresh,
-        cacheToken: true,
       };
       channel = getChannel(configuration);
       // Before connected
@@ -685,146 +683,6 @@ describe('Channel unit tests', () => {
         need404: undefined,
         token: 'token',
       });
-      //making sure channel cached token sucessfully after connecting
-      expect(channel.getToken()).toEqual('token');
-    });
-
-    it('Token exists in channel and starts off as undefined', () => {
-      const analyticsHelper = new AnalyticsHelper(
-        testChannelConfig.documentAri,
-        testChannelConfig.analyticsClient,
-      );
-      //reinitialise channel as before each initialises token, this will not
-      channel = new Channel(testChannelConfig, analyticsHelper);
-      expect(channel).toBeDefined();
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Token is cached after successfully connecting', () => {
-      // Already being checked in the beforeEach hook. redundant?
-      expect(channel.getToken()).toBeDefined();
-    });
-
-    it('Expires token on permission:invalidateToken event', () => {
-      // After successful connection, invalidate token with the permission:invalidateToken
-      channel
-        .getSocket()!
-        .emit('permission:invalidateToken', { reason: 'test' });
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Expires token on 401 errors when connect fails', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
-
-      channel.on('error', (err) => {
-        expect(err).toEqual({
-          message: 'Connection error without message',
-          data: {
-            code: 'INSUFFICIENT_EDITING_PERMISSION',
-            meta: {
-              description:
-                'The user does not have permission for collaborative editing of this resource or the resource was deleted',
-            },
-            status: 401,
-          },
-        });
-      });
-      // Trigger error
-      channel.getSocket()!.emit('connect_error', {
-        data: {
-          status: 401,
-          code: 'INSUFFICIENT_EDITING_PERMISSION',
-          meta: {
-            description:
-              'The user does not have permission for collaborative editing of this resource or the resource was deleted',
-          },
-        },
-      });
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Expires token on 403 errors when connect fails', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
-
-      channel.on('error', (err) => {
-        expect(err).toEqual({
-          message: 'Auth denied message',
-          data: {
-            code: 'CONNECTION_ERROR',
-            status: 403,
-          },
-        });
-      });
-      // Trigger error
-      channel.getSocket()!.emit('connect_error', {
-        message: 'Auth denied message',
-        data: {
-          status: 403,
-        },
-      });
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Does not expire token on non-401 or 403 errors when connect fails, e.g. connection error', () => {
-      expect.assertions(2 + BEFORE_EACH_ASSERTION_COUNT);
-
-      channel.on('error', (err) => {
-        expect(err).toEqual({
-          message: 'Internal Server error',
-          data: {
-            code: 'CONNECTION_ERROR',
-            status: 500,
-          },
-        });
-      });
-      // Trigger connect
-      channel.getSocket()!.emit('connect_error', {
-        message: 'Internal Server error',
-        data: {
-          status: 500,
-        },
-      });
-      expect(channel.getToken()).not.toBeUndefined();
-    });
-
-    it('It expires token after the socket disconnects', () => {
-      channel.disconnect();
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Expires token on permissionTokenRefresh returning null, after a token has been emitted', async () => {
-      // Setup channel with cacheToken disabled, the channel in the before each has cacheToken enabled.
-      permissionTokenRefresh = jest.fn().mockResolvedValue('token');
-      configuration = {
-        ...testChannelConfig,
-        permissionTokenRefresh,
-        cacheToken: false, // Disable cacheToken
-      };
-      channel = getChannel(configuration);
-      expect(permissionTokenRefresh).toBeCalledTimes(1);
-      // wait for permissionTokenRefresh promise to resolve to set the token in channel
-      await new Promise(process.nextTick);
-      // making sure channel did not cache the token since cacheToken is disabled
-      expect(channel.getToken()).toBeUndefined();
-
-      (channel.getSocket() as any)?._authCb.mockClear();
-      permissionTokenRefresh.mockClear();
-      permissionTokenRefresh.mockResolvedValue(null);
-
-      // Force a reconnect
-      channel.getSocket()?.close();
-      channel.getSocket()?.connect();
-      // wait for permissionTokenRefresh promise to resolve to set the token in channel
-      await new Promise(process.nextTick);
-      expect(permissionTokenRefresh).toBeCalledTimes(1);
-      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
-        initialized: false,
-        need404: undefined,
-        token: undefined, // Token is not re-used from previous connect.
-      });
-
-      // When re-connecting, the token is cleared
-      expect(channel.getToken()).toBeUndefined();
     });
 
     it('Handles errors thrown from permissionTokenRefresh', (done) => {
@@ -869,31 +727,6 @@ describe('Channel unit tests', () => {
       channel.getSocket()?.connect();
     }, 2000);
 
-    it('Uses cached token on fetchup call', async () => {
-      const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
-        doc: 'doc',
-        version: 1,
-        stepMaps: 'step-map',
-        metadata: 'meta',
-      });
-
-      await channel.fetchCatchup(1, 'some-random-prosemirror-client-Id');
-      //making sure permissionTokenRefresh is not called a second time after it being called when setting up channel
-      expect(permissionTokenRefresh).toBeCalledTimes(1);
-      expect(spy).toBeCalledWith(
-        expect.anything(),
-        expect.objectContaining({
-          requestInit: {
-            headers: {
-              'x-token': 'token',
-              'x-product': 'unknown',
-              'x-subproduct': 'unknown',
-            },
-          },
-        }),
-      );
-    });
-
     it('Gets new token on fetchCatchup and passes it as x-token header if token not cached', async () => {
       const spy = jest.spyOn(utils, 'requestService').mockResolvedValue({
         doc: 'doc',
@@ -926,100 +759,6 @@ describe('Channel unit tests', () => {
           },
         }),
       );
-    });
-
-    it('Unset token on failed catchup call', async () => {
-      jest.spyOn(utils, 'requestService').mockRejectedValue({
-        status: 401,
-        code: 'err',
-      });
-
-      await expect(
-        channel.fetchCatchup(1, 'some-random-prosemirror-client-Id'),
-      ).rejects.toThrow();
-      //using cached token
-      expect(permissionTokenRefresh).toBeCalledTimes(1);
-      expect(channel.getToken()).toBeUndefined();
-    });
-
-    it('Use cached token to connect after non 401, 403 errors', async () => {
-      channel.on('error', (err) => {
-        expect(err).toEqual({
-          message: 'xhr poll error',
-          data: {
-            code: 'CONNECTION_ERROR',
-          },
-        });
-      });
-
-      // trigger disconnect
-      channel.getSocket()!.emit('connect_error', {
-        message: 'xhr poll error',
-      });
-      // Initially not expired, should stay that way
-      expect(channel.getToken()).toBeDefined();
-
-      //reconnect channel
-      channel.connect();
-      // wait for auth callback to finish on socket creation
-      await new Promise(process.nextTick);
-      // should not call permissionTokenRefresh as we have a valid token (already called in beforeEach)
-      expect(permissionTokenRefresh).toBeCalledTimes(1);
-    });
-
-    it('should send analytic events when invalidating tokens', () => {
-      const sendActionEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendActionEvent',
-      );
-
-      // trigger invalidating token
-      channel
-        .getSocket()!
-        .emit('permission:invalidateToken', { reason: 'test' });
-      expect(channel.getToken()).toBeUndefined();
-
-      expect(sendActionEventSpy).toBeCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledWith(
-        'invalidateToken',
-        'SUCCESS',
-        {
-          reason: 'test',
-          usedCachedToken: true,
-        },
-      );
-    });
-
-    it('Should send tokens usage flags to analytics in onConnect', async (done) => {
-      const sendActionEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendActionEvent',
-      );
-      const measureStopSpy = jest
-        .spyOn(Performance, 'stopMeasure')
-        .mockImplementation(() => ({ duration: 69, startTime: 420 }));
-
-      channel.on('connected', () => {
-        expect(measureStopSpy).toHaveBeenCalledTimes(1);
-        expect(measureStopSpy).toHaveBeenCalledWith(
-          'socketConnect',
-          expect.any(AnalyticsHelper),
-        );
-
-        expect(sendActionEventSpy).toBeCalledTimes(1);
-        expect(sendActionEventSpy).toHaveBeenCalledWith(
-          'connection',
-          'SUCCESS',
-          {
-            latency: 69,
-            usedCachedToken: true,
-          },
-        );
-        done();
-      });
-
-      // forcing onConnect to run which emits 'connected'
-      channel.getSocket()!.emit('connect');
     });
 
     it('Should update initialized field when tokens are used on reconnect', async () => {

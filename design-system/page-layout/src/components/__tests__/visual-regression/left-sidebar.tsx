@@ -198,14 +198,16 @@ describe('<LeftSidebar />', () => {
 
     // open flyout
     const grabAreaElement = await page.$(grabArea);
-    const boundingBox = await grabAreaElement!.boundingBox();
-    if (!boundingBox) {
-      throw new Error('Could not find bounding box');
+    if (grabAreaElement) {
+      const boundingBox = await grabAreaElement.boundingBox();
+      if (!boundingBox) {
+        throw new Error('Could not find bounding box');
+      }
+      const { x, y } = boundingBox;
+      await page.mouse.move(x + 1, y + 200);
     }
-    const { x, y } = boundingBox;
-    await page.mouse.move(x + 1, y + 200);
-    await page.waitForTimeout(500);
 
+    await page.waitForTimeout(500);
     const screenshot1 = await takeElementScreenShot(global.page, content);
     expect(screenshot1).toMatchProdImageSnapshot();
 

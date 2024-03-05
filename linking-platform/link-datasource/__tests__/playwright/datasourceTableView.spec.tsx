@@ -4,7 +4,7 @@ test.describe('DatasourceTableView', () => {
     await page.visitExample(
       'linking-platform',
       'link-datasource',
-      'jira-issues-table',
+      'basic-jira-issues-table',
     );
     await page.getByTestId('column-picker-trigger-button').click();
     await page.getByText('Due Date0').click();
@@ -16,7 +16,7 @@ test.describe('DatasourceTableView', () => {
     await page.visitExample(
       'linking-platform',
       'link-datasource',
-      'jira-issues-table',
+      'basic-jira-issues-table',
     );
     await page.getByTestId('column-picker-trigger-button').click();
     page.keyboard.type('Due');

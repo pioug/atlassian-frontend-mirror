@@ -3,8 +3,8 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import JiraIssuesTableNoWrapControl from '../../examples/issue-like-table-no-wrap-control';
-import JiraIssuesTableReadonly from '../../examples/issue-like-table-readonly';
+import JiraIssuesTableNoWrapControl from '../../examples/vr/issue-like-table-no-wrap-control';
+import JiraIssuesTableReadonly from '../../examples/vr/issue-like-table-readonly';
 
 snapshotInformational(JiraIssuesTableReadonly, {
   prepare: async (page: Page, _component: Locator) => {

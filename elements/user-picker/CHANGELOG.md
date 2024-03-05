@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.19.4
+
+### Patch Changes
+
+- [#78018](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78018) [`036a9f353a72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/036a9f353a72) - onFocus event added when openMenuOnClick is true
+
 ## 10.19.3
 
 ### Patch Changes

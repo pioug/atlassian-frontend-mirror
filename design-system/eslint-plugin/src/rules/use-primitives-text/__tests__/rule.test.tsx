@@ -33,7 +33,14 @@ ruleTester.run('use-primitives-text', rule, {
     `
       import { css } from '@emotion/react';
       const paddingStyles = css({ padding: '8px' });
-      <span css={paddingStyles}>content</span>
+      <div>
+        <span css={paddingStyles}>content</span>
+        <strong css={paddingStyles}>content</strong>
+        <em css={paddingStyles}>content</em>
+        <div>
+          <p css={paddingStyles}>content</p>
+        </div>
+      </div>
     `,
     `
       import { css } from '@emotion/react';

@@ -21,6 +21,7 @@ import { ColumnMap, ColumnType, getBasicData, Person } from './data/people';
 import Board from './pieces/board/board';
 import { BoardContext, BoardContextValue } from './pieces/board/board-context';
 import { Column } from './pieces/board/column';
+import { createRegistry } from './pieces/board/registry';
 
 type Outcome =
   | {
@@ -55,33 +56,6 @@ type BoardState = {
   lastOperation: Operation | null;
 };
 
-type CardEntry = { element: HTMLElement; actionMenuTrigger: HTMLElement };
-
-/**
- * Registering cards and their action menu trigger element,
- * so that we can restore focus to the trigger when a card moves between columns.
- */
-function createRegistry() {
-  const registry = {
-    cards: new Map<string, CardEntry>(),
-  };
-
-  function registerCard({
-    cardId,
-    entry,
-  }: {
-    cardId: string;
-    entry: CardEntry;
-  }) {
-    registry.cards.set(cardId, entry);
-    return () => {
-      registry.cards.delete(cardId);
-    };
-  }
-
-  return { registry, registerCard };
-}
-
 export default function BoardExample() {
   const [data, setData] = useState<BoardState>(() => {
     const base = getBasicData();
@@ -96,7 +70,7 @@ export default function BoardExample() {
     stableData.current = data;
   }, [data]);
 
-  const [{ registry, registerCard }] = useState(createRegistry);
+  const [registry] = useState(createRegistry);
 
   const { lastOperation } = data;
 
@@ -112,7 +86,8 @@ export default function BoardExample() {
       const { columnMap, orderedColumnIds } = stableData.current;
       const sourceColumn = columnMap[orderedColumnIds[finishIndex]];
 
-      // TODO: flash for column
+      const entry = registry.getColumn(sourceColumn.columnId);
+      triggerPostMoveFlash(entry.element);
 
       liveRegion.announce(
         `You've moved ${sourceColumn.title} from position ${
@@ -130,8 +105,7 @@ export default function BoardExample() {
       const column = columnMap[columnId];
       const item = column.items[finishIndex];
 
-      const entry = registry.cards.get(item.userId);
-      invariant(entry);
+      const entry = registry.getCard(item.userId);
       triggerPostMoveFlash(entry.element);
 
       if (trigger !== 'keyboard') {
@@ -165,8 +139,7 @@ export default function BoardExample() {
           ? itemIndexInFinishColumn + 1
           : destinationColumn.items.length;
 
-      const entry = registry.cards.get(item.userId);
-      invariant(entry);
+      const entry = registry.getCard(item.userId);
       triggerPostMoveFlash(entry.element);
 
       if (trigger !== 'keyboard') {
@@ -299,17 +272,19 @@ export default function BoardExample() {
       itemIndexInFinishColumn?: number;
       trigger?: 'pointer' | 'keyboard';
     }) => {
+      // invalid cross column movement
+      if (startColumnId === finishColumnId) {
+        return;
+      }
       setData(data => {
         const sourceColumn = data.columnMap[startColumnId];
         const destinationColumn = data.columnMap[finishColumnId];
         const item: Person = sourceColumn.items[itemIndexInStartColumn];
 
-        let destinationItems = Array.from(destinationColumn.items);
-        if (typeof itemIndexInFinishColumn === 'number') {
-          destinationItems.splice(itemIndexInFinishColumn, 0, item);
-        } else {
-          destinationItems.push(item);
-        }
+        const destinationItems = Array.from(destinationColumn.items);
+        // Going into the first position if no index is provided
+        const newIndexInDestination = itemIndexInFinishColumn ?? 0;
+        destinationItems.splice(newIndexInDestination, 0, item);
 
         const updatedMap = {
           ...data.columnMap,
@@ -327,10 +302,7 @@ export default function BoardExample() {
           type: 'card-move',
           finishColumnId,
           itemIndexInStartColumn,
-          itemIndexInFinishColumn:
-            typeof itemIndexInFinishColumn === 'number'
-              ? itemIndexInFinishColumn
-              : destinationItems.length - 1,
+          itemIndexInFinishColumn: newIndexInDestination,
         };
 
         return {
@@ -493,17 +465,11 @@ export default function BoardExample() {
       reorderColumn,
       reorderCard,
       moveCard,
-      registerCard,
+      registerCard: registry.registerCard,
+      registerColumn: registry.registerColumn,
       instanceId,
     };
-  }, [
-    getColumns,
-    reorderColumn,
-    reorderCard,
-    moveCard,
-    registerCard,
-    instanceId,
-  ]);
+  }, [getColumns, reorderColumn, reorderCard, registry, moveCard, instanceId]);
 
   return (
     <BoardContext.Provider value={contextValue}>

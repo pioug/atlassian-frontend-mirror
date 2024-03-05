@@ -34,11 +34,11 @@ describe('Text component', () => {
           <Text as="em">Emphasis</Text>
         </>,
       );
-      expect(screen.getByText('Default').tagName.toLowerCase()).toBe('span');
-      expect(screen.getByText('Span').tagName.toLowerCase()).toBe('span');
-      expect(screen.getByText('Paragraph').tagName.toLowerCase()).toBe('p');
-      expect(screen.getByText('Strong').tagName.toLowerCase()).toBe('strong');
-      expect(screen.getByText('Emphasis').tagName.toLowerCase()).toBe('em');
+      expect(screen.getByText('Default').tagName).toBe('SPAN');
+      expect(screen.getByText('Span').tagName).toBe('SPAN');
+      expect(screen.getByText('Paragraph').tagName).toBe('P');
+      expect(screen.getByText('Strong').tagName).toBe('STRONG');
+      expect(screen.getByText('Emphasis').tagName).toBe('EM');
     });
 
     it('throws with an invalid "as" attribute', () => {

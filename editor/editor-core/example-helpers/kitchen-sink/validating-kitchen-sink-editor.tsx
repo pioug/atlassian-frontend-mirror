@@ -6,6 +6,7 @@ import type {
   ErrorCallback,
   ValidationError,
 } from '@atlaskit/adf-utils/validatorTypes';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -37,6 +38,10 @@ import type {
   EditorProps,
 } from '../../src/types';
 import type { Error } from '../ErrorReport';
+import {
+  ExampleCreateInlineCommentWithRepliesComponent,
+  ExampleViewInlineCommentWithRepliesComponent,
+} from '../example-inline-comment-component';
 
 // import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
@@ -100,6 +105,8 @@ const EMPTY: EditorPlugin[] = [];
 //   moduleTablePlugin = tablePlugin;
 //   return [tablePlugin];
 // };
+
+const emitter = new AnnotationUpdateEmitter();
 
 export class ValidatingKitchenSinkEditor extends React.Component<
   ValidatingKitchenSinkEditorProps,
@@ -176,6 +183,17 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowExpand={{ allowInsertion: true }}
           allowStatus={true}
           allowNestedTasks
+          annotationProviders={{
+            inlineComment: {
+              createComponent: ExampleCreateInlineCommentWithRepliesComponent,
+              viewComponent: ExampleViewInlineCommentWithRepliesComponent,
+              updateSubscriber: emitter,
+              getState: async () => {
+                return [];
+              },
+              disallowOnWhitespace: true,
+            },
+          }}
           codeBlock={{ allowCopyToClipboard: true, appearance }}
           {...this.providers}
           mentionProvider={Promise.resolve(

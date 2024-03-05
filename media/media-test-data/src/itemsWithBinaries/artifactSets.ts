@@ -12,6 +12,12 @@ export const artifactSets = {
     // Any document* artifact
     document: sampleBinaries.pdfAnatomy,
   },
+  passwordPdf: {
+    binaryUri: sampleBinaries.passwordPdf,
+    image: sampleBinaries.pdfAnatomyPreview,
+    // Any document* artifact
+    document: sampleBinaries.passwordPdf,
+  },
   videoTeacup: {
     binaryUri: sampleBinaries.videoTeacup720p,
     image: sampleBinaries.videoTeacupPreview,

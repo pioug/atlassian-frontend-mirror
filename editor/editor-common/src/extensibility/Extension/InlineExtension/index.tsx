@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -33,14 +33,8 @@ export default class InlineExtension extends Component<Props, any> {
       : 'with-overlay';
 
     return (
-      <div
-        css={wrapperStyle}
-        className={`extension-container inline ${className}`}
-      >
-        <div css={overlay} className="extension-overlay" />
-        {children ? (
-          children
-        ) : (
+      <Fragment>
+        {showMacroInteractionDesignUpdates && (
           <ExtensionLozenge
             node={node}
             isNodeSelected={isNodeSelected}
@@ -49,7 +43,24 @@ export default class InlineExtension extends Component<Props, any> {
             }
           />
         )}
-      </div>
+        <div
+          css={wrapperStyle}
+          className={`extension-container inline ${className}`}
+        >
+          <div css={overlay} className="extension-overlay" />
+          {children ? (
+            children
+          ) : (
+            <ExtensionLozenge
+              node={node}
+              isNodeSelected={isNodeSelected}
+              showMacroInteractionDesignUpdates={
+                showMacroInteractionDesignUpdates
+              }
+            />
+          )}
+        </div>
+      </Fragment>
     );
   }
 }

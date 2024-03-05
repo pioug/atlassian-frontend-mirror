@@ -6,6 +6,7 @@ import type {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -30,6 +31,7 @@ export interface MediaSingleNodeProps {
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   fullWidthMode?: boolean;
   mediaPluginState: MediaPluginState;
+  annotationPluginState: InlineCommentPluginState;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   isCopyPasteEnabled?: boolean;
   forwardRef: ForwardRef;

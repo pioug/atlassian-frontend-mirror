@@ -124,10 +124,9 @@ const handleRemoveMediaGroup: Command = (state, dispatch) => {
   return true;
 };
 
-const generateFilePreviewItem = (
+export const generateFilePreviewItem = (
   mediaPluginState: MediaPluginState,
   intl: IntlShape,
-  editorState?: EditorState,
 ): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -647,14 +646,11 @@ const generateMediaSingleFloatingToolbar = (
       });
     }
     // Preview Support
-    if (
-      allowImagePreview &&
-      getBooleanFF('platform.editor.media.preview-in-full-page')
-    ) {
+    if (allowImagePreview) {
       const selectedMediaSingleNode = getSelectedMediaSingle(state);
       const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
       if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
-        toolbarButtons.push(generateFilePreviewItem(pluginState, intl, state), {
+        toolbarButtons.push(generateFilePreviewItem(pluginState, intl), {
           type: 'separator',
         });
       }

@@ -5,13 +5,17 @@ import {
   JSXOpeningElement,
 } from 'eslint-codemod-utils';
 
+const JSX_IDENTIFIER = 'JSXIdentifier';
 /**
  * Given a component name finds its JSX usages and performs some
  * additional validations to ensure transformation can be done correctly
+ *
+ * anyOrder: if true, the order of the references doesn't matter (JSX or style declaration)
  */
 export const findValidJsxUsageToTransform = (
   componentName: string,
   scope: Scope.Scope,
+  anyOrder: boolean = false,
 ): (JSXOpeningElement & Rule.NodeParentExtension) | undefined => {
   const variableDeclaration = scope.variables.find(
     (v) => v.name === componentName,
@@ -29,7 +33,27 @@ export const findValidJsxUsageToTransform = (
     return;
   }
 
-  const jsxUsage = variableDeclaration.references[1].identifier;
+  let jsxUsage = variableDeclaration.references[1]?.identifier;
+
+  if (anyOrder) {
+    const [firstIdentifier, secondIdentifier] =
+      variableDeclaration.references.map((ref) => ref?.identifier);
+    // Check if the first reference is a JSXOpeningElement and the second is not or vice versa
+    if (
+      isNodeOfType(firstIdentifier, JSX_IDENTIFIER) &&
+      !isNodeOfType(secondIdentifier, JSX_IDENTIFIER)
+    ) {
+      jsxUsage = firstIdentifier;
+    } else if (
+      isNodeOfType(secondIdentifier, JSX_IDENTIFIER) &&
+      !isNodeOfType(firstIdentifier, JSX_IDENTIFIER)
+    ) {
+      jsxUsage = secondIdentifier;
+    } else {
+      return;
+    }
+  }
+
   if (!isNodeOfType(jsxUsage, 'JSXIdentifier')) {
     return;
   }

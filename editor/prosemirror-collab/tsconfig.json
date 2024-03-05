@@ -5,11 +5,6 @@
     "src/**/*.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@atlaskit/prosemirror-collab": [
-        "./src"
-      ]
-    }
+    "baseUrl": "./"
   }
 }

@@ -1,7 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
-import EmptyState from '../../examples/empty-state';
-import EmptyStateCompact from '../../examples/empty-state-compact';
+import EmptyStateCompact from '../../examples/vr/empty-state-compact';
+import EmptyState from '../../examples/vr/empty-state-vr';
 
 snapshot(EmptyState, {
   description: 'Modals empty state',

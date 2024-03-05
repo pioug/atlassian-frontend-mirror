@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import type { CSSProperties } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
@@ -24,6 +26,7 @@ type LozengeComponentProps = {
   renderImage: (lozengeData: LozengeData) => void;
   isNodeSelected?: boolean;
   showMacroInteractionDesignUpdates?: boolean;
+  customContainerStyles?: CSSProperties;
 };
 
 export const LozengeComponent = ({
@@ -34,6 +37,7 @@ export const LozengeComponent = ({
   renderImage,
   isNodeSelected,
   showMacroInteractionDesignUpdates,
+  customContainerStyles,
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
   // TODO: only show on lozenge on hover: https://product-fabric.atlassian.net/browse/PGXT-4945
@@ -43,6 +47,7 @@ export const LozengeComponent = ({
         className="extension-title"
         css={lozengeWrapper}
         data-testid="new-lozenge"
+        style={customContainerStyles}
       >
         <Tag
           text={capitalizedTitle}

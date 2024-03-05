@@ -55,6 +55,9 @@
       "path": "../../design-system/form/tsconfig.app.json"
     },
     {
+      "path": "../../helpers/intl-messages-provider/tsconfig.app.json"
+    },
+    {
       "path": "../../jql/jql-editor/tsconfig.app.json"
     },
     {
@@ -74,9 +77,6 @@
     },
     {
       "path": "../linking-types/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/locale/tsconfig.app.json"
     },
     {
       "path": "../../teamwork-ecosystem/outbound-auth-flow-client/tsconfig.app.json"

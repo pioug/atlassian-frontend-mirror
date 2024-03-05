@@ -9,7 +9,7 @@ test.describe('JiraIssuesModal', () => {
     page: Page,
     groupIdSelection: string = 'linking-platform',
     packageIdSelection: string = 'link-datasource',
-    exampleIdSelection: string = 'with-modal',
+    exampleIdSelection: string = 'with-issues-modal',
   ) {
     await page.visitExample(
       groupIdSelection,
@@ -42,7 +42,7 @@ test.describe('JiraIssuesModal', () => {
       page,
       'linking-platform',
       'link-datasource',
-      'jira-issues-config-modal-no-results-vr',
+      'jira-issues-config-modal-no-results',
     );
 
     const jqlTextField = page.getByTestId('jql-editor-input');

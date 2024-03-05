@@ -1,25 +1,10 @@
 import React from 'react';
-import {
-  md,
-  code,
-  Props,
-  AtlassianInternalWarning,
-  DevPreviewWarning,
-} from '@atlaskit/docs';
+import { md, code, Props, AtlassianInternalWarning } from '@atlaskit/docs';
 
 const helpProps = require('!!extract-react-types-loader!../src/components/Help');
 
 export default md`
-  ${(
-    <>
-      <div style={{ marginBottom: '0.5rem' }}>
-        <AtlassianInternalWarning />
-      </div>
-      <div style={{ marginTop: '0.5rem' }}>
-        <DevPreviewWarning />
-      </div>
-    </>
-  )}
+  ${(<AtlassianInternalWarning />)}
 
   ## Usage
 

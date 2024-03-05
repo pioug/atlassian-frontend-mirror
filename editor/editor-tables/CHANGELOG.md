@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.5.6
+
+### Patch Changes
+
+- [#77516](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77516) [`d6e79c5637c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6e79c5637c7) - [ux] fix expand current selection by shift click
+
 ## 2.5.5
 
 ### Patch Changes

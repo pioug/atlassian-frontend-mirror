@@ -94,8 +94,6 @@ export interface Config {
    * If provided, permissionTokenRefresh is called whenever a new JWT token is required.
    */
   permissionTokenRefresh?: () => Promise<string | null>;
-  //flag to signal if the token should be cached locally
-  cacheToken?: boolean;
   productInfo?: ProductInformation;
   /**
    * Throws errors when trying to send data to collab but the client is not offline.

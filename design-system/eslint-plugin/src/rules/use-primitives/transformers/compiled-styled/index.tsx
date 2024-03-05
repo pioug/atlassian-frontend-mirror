@@ -73,10 +73,14 @@ export const CompiledStyled = {
       return { success: false };
     }
 
+    const anyOrder = config.patterns.includes('jsx-order-fix');
+
     const styledComponentJsxRef = findValidJsxUsageToTransform(
       styledComponentVariableRef.id.name,
       context.getScope(),
+      anyOrder,
     );
+
     if (!styledComponentJsxRef) {
       return { success: false };
     }

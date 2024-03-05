@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-expand",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Expand plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,9 +33,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.5.1",
+    "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/button": "^17.6.0",
-    "@atlaskit/editor-common": "^78.9.0",
+    "@atlaskit/editor-common": "^78.10.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-selection": "^1.1.0",

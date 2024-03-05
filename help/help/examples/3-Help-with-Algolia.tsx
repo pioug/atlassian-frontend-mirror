@@ -374,7 +374,7 @@ const Example: React.FC = () => {
               verticalAlign: 'top',
               width: 'Calc(100% - 400px)',
               boxSizing: 'border-box',
-              padding: '10px',
+              padding: token('space.150', '12px'),
               overflow: 'auto',
             }}
           >
@@ -432,7 +432,7 @@ const Example: React.FC = () => {
                   'space.200',
                   '16px',
                 )}`,
-                margin: '0',
+                margin: token('space.0', '0px'),
               }}
             >
               Help articles settings
@@ -545,7 +545,7 @@ const Example: React.FC = () => {
                   'space.200',
                   '16px',
                 )}`,
-                margin: '0px',
+                margin: token('space.0', '0px'),
               }}
             >
               Release Notes
@@ -575,7 +575,7 @@ const Example: React.FC = () => {
                   'space.200',
                   '16px',
                 )}`,
-                margin: '0',
+                margin: token('space.0', '0px'),
               }}
             >
               Help articles settings

@@ -470,11 +470,14 @@ const MediaSingleNodeWrapper = ({
   eventDispatcher,
   dispatchAnalyticsEvent,
   forwardRef,
-}: Omit<MediaSingleNodeProps, 'width' | 'lineLength' | 'mediaPluginState'>) => {
-  const { widthState, mediaState } = useSharedPluginState(pluginInjectionApi, [
-    'width',
-    'media',
-  ]);
+}: Omit<
+  MediaSingleNodeProps,
+  'width' | 'lineLength' | 'mediaPluginState' | 'annotationPluginState'
+>) => {
+  const { widthState, mediaState, annotationState } = useSharedPluginState(
+    pluginInjectionApi,
+    ['width', 'media', 'annotation'],
+  );
   return (
     <MediaSingleNode
       width={widthState!.width}
@@ -489,6 +492,7 @@ const MediaSingleNodeWrapper = ({
       selected={selected}
       eventDispatcher={eventDispatcher}
       mediaPluginState={mediaState ?? undefined}
+      annotationPluginState={annotationState ?? undefined}
       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       forwardRef={forwardRef}
       pluginInjectionApi={pluginInjectionApi}

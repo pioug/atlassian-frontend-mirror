@@ -1,5 +1,5 @@
 import { snapshot } from '@af/visual-regression';
 
-import JiraIssuesTable from '../../examples/jira-issues-table';
+import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
 
 snapshot(JiraIssuesTable, { description: 'Jira Issues Table' });

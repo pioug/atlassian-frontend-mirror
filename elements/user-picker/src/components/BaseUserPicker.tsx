@@ -351,14 +351,16 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
     this.startOptionsShownUfoExperience();
     callCallback(this.props.onFocus, this.getSessionId());
-    this.setState({ menuIsOpen: true });
-    if (!this.props.isMulti && isSingleValue(value)) {
-      const input = event.target;
-      this.setState({ inputValue: value.label }, () => {
-        if (input instanceof HTMLInputElement) {
-          input.select();
-        }
-      });
+    if (!this.isMenuOpenOnClickForSingleSelect) {
+      this.setState({ menuIsOpen: true });
+      if (!this.props.isMulti && isSingleValue(value)) {
+        const input = event.target;
+        this.setState({ inputValue: value.label }, () => {
+          if (input instanceof HTMLInputElement) {
+            input.select();
+          }
+        });
+      }
     }
   };
 
@@ -680,7 +682,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         menuIsOpen,
         blurInputOnSelect: !isMulti,
         openMenuOnFocus: true,
-        onFocus: this.handleFocus,
       }),
     };
 
@@ -735,6 +736,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         inputId={inputId}
         onChange={this.handleChange}
         onMenuOpen={this.handleOpen}
+        onFocus={this.handleFocus}
         onBlur={this.handleBlur}
         onMenuClose={this.handleClose}
         onInputChange={this.handleInputChange}

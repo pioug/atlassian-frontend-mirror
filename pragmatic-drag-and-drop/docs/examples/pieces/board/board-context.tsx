@@ -2,6 +2,8 @@ import { createContext, useContext } from 'react';
 
 import invariant from 'tiny-invariant';
 
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+
 import type { ColumnType } from '../../data/people';
 
 export type BoardContextValue = {
@@ -28,7 +30,14 @@ export type BoardContextValue = {
       element: HTMLElement;
       actionMenuTrigger: HTMLElement;
     };
-  }) => void;
+  }) => CleanupFn;
+
+  registerColumn: (args: {
+    columnId: string;
+    entry: {
+      element: HTMLElement;
+    };
+  }) => CleanupFn;
 
   instanceId: symbol;
 };

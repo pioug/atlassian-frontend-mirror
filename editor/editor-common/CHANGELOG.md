@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 78.10.0
+
+### Minor Changes
+
+- [#77821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77821) [`41dfb88ade75`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41dfb88ade75) - [ux] Adds lozenge design update to inline macros if macroInteractionDesignUpdate flag is true
+
+### Patch Changes
+
+- [#78224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78224) [`6b4c9dd4ad34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b4c9dd4ad34) - ED-22219: adf-schema updated to 35.5.2
+- Updated dependencies
+
+## 78.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.9.3
+
+### Patch Changes
+
+- [#77819](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77819) [`ac7c9369d377`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac7c9369d377) - [ux] Updates lozenges to match designs more closely in the macro visual design update project
+
 ## 78.9.2
 
 ### Patch Changes

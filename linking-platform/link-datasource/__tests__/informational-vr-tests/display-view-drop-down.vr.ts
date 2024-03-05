@@ -3,7 +3,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import WithModal from '../../examples/with-modal';
+import WithModal from '../../examples/with-issues-modal';
 
 async function openDropDown(page: Page) {
   await page

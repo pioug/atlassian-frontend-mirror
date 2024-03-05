@@ -180,9 +180,14 @@ export function handleMouseDown(
 
   const startDOMCell = domInCell(view, startEvent.target as HTMLElement);
   const $anchor = cellAround(view.state.selection.$anchor);
+  const targetElement = event.target instanceof HTMLElement && event.target;
+  const isDragHandleElement =
+    targetElement &&
+    targetElement.matches('button.pm-table-drag-handle-button-container');
+
   if (startEvent.shiftKey && view.state.selection instanceof CellSelection) {
     // Adding to an existing cell selection
-    if (dragAndDropEnabled) {
+    if (dragAndDropEnabled && isDragHandleElement) {
       return false;
     }
     setCellSelection(view.state.selection.$anchorCell, startEvent);

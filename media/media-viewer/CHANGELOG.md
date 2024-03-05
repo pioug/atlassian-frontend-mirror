@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.3.2
+
+### Patch Changes
+
+- [#78016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78016) [`dc83676a7490`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc83676a7490) - add integration test for password protected pdf
+
 ## 48.3.1
 
 ### Patch Changes

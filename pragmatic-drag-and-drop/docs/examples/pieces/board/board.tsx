@@ -1,12 +1,7 @@
-/** @jsx jsx */
-
-import { forwardRef, memo, ReactNode, useEffect } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, { forwardRef, memo, ReactNode, useEffect } from 'react';
 
 import { autoScrollWindowForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
-
-import { columnGap, gridSize } from '../../util/constants';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { useBoardContext } from './board-context';
 
@@ -14,13 +9,12 @@ type BoardProps = {
   children: ReactNode;
 };
 
-const boardStyles = css({
+const boardStyles = xcss({
   display: 'flex',
   justifyContent: 'center',
-  gap: columnGap,
+  gap: 'space.200',
   flexDirection: 'row',
-  '--grid': `${gridSize}px`,
-  height: 480,
+  height: '480px',
 });
 
 const Board = forwardRef<HTMLDivElement, BoardProps>(
@@ -34,9 +28,9 @@ const Board = forwardRef<HTMLDivElement, BoardProps>(
     }, [instanceId]);
 
     return (
-      <div css={boardStyles} ref={ref}>
+      <Box xcss={boardStyles} ref={ref}>
         {children}
-      </div>
+      </Box>
     );
   },
 );

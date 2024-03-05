@@ -364,6 +364,9 @@ export class DocumentService {
     if (this.reconcileOnRecovery) {
       currentState = await this.getCurrentState();
     }
+    const useReconcile = Boolean(
+      unconfirmedSteps?.length && this.reconcileOnRecovery && currentState,
+    );
 
     try {
       // Reset the editor,
@@ -381,11 +384,7 @@ export class DocumentService {
       this.metadataService.updateMetadata(metadata);
 
       // If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
-      if (
-        unconfirmedSteps?.length &&
-        this.reconcileOnRecovery &&
-        currentState
-      ) {
+      if (useReconcile && currentState) {
         await this.fetchReconcile(JSON.stringify(currentState.content));
       } else if (unconfirmedSteps?.length) {
         this.applyLocalSteps(unconfirmedSteps);
@@ -397,13 +396,14 @@ export class DocumentService {
         {
           numUnconfirmedSteps: unconfirmedSteps?.length,
           hasTitle: !!metadata?.title,
+          useReconcile,
         },
       );
     } catch (restoreError) {
       this.analyticsHelper?.sendActionEvent(
         EVENT_ACTION.REINITIALISE_DOCUMENT,
         EVENT_STATUS.FAILURE,
-        { numUnconfirmedSteps: unconfirmedSteps?.length },
+        { numUnconfirmedSteps: unconfirmedSteps?.length, useReconcile },
       );
       this.analyticsHelper?.sendErrorEvent(
         restoreError,

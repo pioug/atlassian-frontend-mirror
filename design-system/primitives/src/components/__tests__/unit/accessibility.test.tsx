@@ -118,7 +118,7 @@ describe('Primitives', () => {
     });
 
     it('should pass an aXe audit when using `as`', async () => {
-      const { container } = render(<Text as="span">Text</Text>);
+      const { container } = render(<Text as="p">Text</Text>);
       await axe(container);
     });
   });

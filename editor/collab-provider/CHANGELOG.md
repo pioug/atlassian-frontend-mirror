@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 9.25.3
+
+### Patch Changes
+
+- [#78224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78224) [`6b4c9dd4ad34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b4c9dd4ad34) - ED-22219: adf-schema updated to 35.5.2
+- Updated dependencies
+
+## 9.25.2
+
+### Patch Changes
+
+- [#77613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77613) [`ef8c5965e5a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef8c5965e5a9) - Add log for reconcile on recovery
+- [#78402](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78402) [`f55cf26552c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f55cf26552c0) - Remove old caching FF
+
 ## 9.25.1
 
 ### Patch Changes

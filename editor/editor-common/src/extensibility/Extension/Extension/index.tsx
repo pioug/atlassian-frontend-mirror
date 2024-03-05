@@ -143,6 +143,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
           isNodeSelected={isNodeSelected}
           node={node}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+          customContainerStyles={customContainerStyles}
         />
       )}
       <div

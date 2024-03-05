@@ -17,6 +17,9 @@ export class MediaViewerPageObject {
   readonly size: Locator;
   readonly icon: Locator;
   readonly wrapper: Locator;
+  readonly passwordInput: Locator;
+  readonly submitButton: Locator;
+  readonly zoomOut: Locator;
 
   constructor(readonly page: Page) {
     this.nextButton = page.locator(
@@ -41,6 +44,9 @@ export class MediaViewerPageObject {
     this.size = page.locator(`[data-testid="media-viewer-file-metadata-text"]`);
     this.icon = page.locator(`[data-testid="media-viewer-file-type-icon"]`);
     this.wrapper = page.locator('[data-testid="media-viewer-popup"]');
+    this.passwordInput = page.locator('input[type="password"]');
+    this.submitButton = page.locator('button[type="submit"]');
+    this.zoomOut = page.locator('span[aria-label="zoom out"]');
   }
 
   init = async (exampleId: string) => {

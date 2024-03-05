@@ -8,6 +8,7 @@ import type {
   DocBuilder,
   PublicPluginAPI,
 } from '@atlaskit/editor-common/types';
+import { annotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { captionPlugin } from '@atlaskit/editor-plugins/caption';
 import { codeBlockPlugin } from '@atlaskit/editor-plugins/code-block';
@@ -30,6 +31,7 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { inlineCommentProvider } from '@atlaskit/editor-test-helpers/annotation';
 import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
@@ -73,6 +75,10 @@ describe('@atlaskit/editor-core/utils insert', () => {
         .add(rulePlugin)
         .add([typeAheadPlugin, { createAnalyticsEvent }])
         .add(selectionPlugin)
+        .add([
+          annotationPlugin,
+          { inlineComment: { ...inlineCommentProvider } },
+        ])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(listPlugin)
         .add([quickInsertPlugin, {}])

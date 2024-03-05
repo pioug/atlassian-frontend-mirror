@@ -3,7 +3,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
-import JiraIssuesConfigModalNoInitialJql from '../../examples/jira-issues-config-modal-no-initial-jql-vr';
+import JiraIssuesConfigModalNoInitialJql from '../../examples/vr/jira-issues-config-modal-no-initial-jql-vr';
 
 snapshotInformational(JiraIssuesConfigModalNoInitialJql, {
   prepare: async (page: Page, _component: Locator) => {

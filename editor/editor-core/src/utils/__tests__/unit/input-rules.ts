@@ -1,5 +1,6 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
+import { annotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -17,6 +18,7 @@ import { listPlugin } from '@atlaskit/editor-plugins/list';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
+import { inlineCommentProvider } from '@atlaskit/editor-test-helpers/annotation';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -56,6 +58,10 @@ describe('createWrappingJoinRule()', () => {
         .add(focusPlugin)
         .add(captionPlugin)
         .add(selectionPlugin)
+        .add([
+          annotationPlugin,
+          { inlineComment: { ...inlineCommentProvider } },
+        ])
         .add([mediaPlugin, { allowMediaSingle: true }]),
     });
     return editorTemp;

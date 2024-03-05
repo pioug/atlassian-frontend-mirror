@@ -110,6 +110,8 @@ export const ParagraphElements = {
       if (!siblingsMatch) {
         return { success: false, refs: { siblings } };
       }
+    } else if (!ast.JSXElement.hasAllowedAttrsOnly(node, allowedAttrs)) {
+      return { success: false, refs: { siblings } };
     }
 
     const importDeclaration = ast.Root.findImportsByModule(

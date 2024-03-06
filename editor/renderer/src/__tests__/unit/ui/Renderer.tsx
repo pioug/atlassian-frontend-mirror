@@ -125,23 +125,12 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
   describe('react-intl-next', () => {
     describe('when IntlProvider is not in component ancestry', () => {
       it('should not throw an error', () => {
-        const renderer = initRenderer(intlRequiredDoc, {
-          useSpecBasedValidator: true,
-        });
-        expect(() => renderer).not.toThrow();
-        renderer.unmount();
-      });
-
-      it('should setup a default IntlProvider with locale "en"', () => {
-        const renderer = initRenderer(intlRequiredDoc, {
-          useSpecBasedValidator: true,
-        });
-        const intlProviderWrapper = renderer.find(IntlProvider);
-        expect(intlProviderWrapper.length).toEqual(1);
-        expect(intlProviderWrapper.props()).toEqual(
-          expect.objectContaining({ locale: 'en' }),
-        );
-        renderer.unmount();
+        expect(() => {
+          const renderer = initRenderer(intlRequiredDoc, {
+            useSpecBasedValidator: true,
+          });
+          renderer.unmount();
+        }).not.toThrow();
       });
     });
 

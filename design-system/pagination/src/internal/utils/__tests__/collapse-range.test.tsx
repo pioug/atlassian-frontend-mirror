@@ -44,6 +44,8 @@ describe('#collapseRange', () => {
     expect(ellipsis).toHaveBeenCalledWith({
       key: initialEllipsis,
       testId: 'pagination-ellipsis',
+      from: 2,
+      to: 3,
     });
   });
 
@@ -64,6 +66,8 @@ describe('#collapseRange', () => {
     expect(ellipsis).toHaveBeenCalledWith({
       key: endEllipsis,
       testId: 'pagination-ellipsis',
+      from: 6,
+      to: 7,
     });
   });
 
@@ -84,6 +88,8 @@ describe('#collapseRange', () => {
     expect(ellipsis).toHaveBeenCalledWith({
       key: startEllipsis,
       testId: 'pagination-ellipsis',
+      from: 2,
+      to: 3,
     });
   });
 
@@ -105,10 +111,14 @@ describe('#collapseRange', () => {
     expect(ellipsis).toHaveBeenNthCalledWith(1, {
       key: initialEllipsis,
       testId: 'pagination-ellipsis',
+      from: 2,
+      to: 3,
     });
     expect(ellipsis).toHaveBeenNthCalledWith(2, {
       key: endEllipsis,
       testId: 'pagination-ellipsis',
+      from: 7,
+      to: 9,
     });
   });
 });

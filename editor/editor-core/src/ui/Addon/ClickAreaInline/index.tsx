@@ -12,9 +12,10 @@ const clickArea = css`
 
 export interface Props {
   editorView?: EditorView;
+  children?: React.ReactNode;
 }
 
-export const ClickAreaInline: React.FC<Props> = ({ editorView, children }) => {
+export const ClickAreaInline = ({ editorView, children }: Props) => {
   const handleMouseDown = React.useCallback(
     (event) => {
       if (!editorView) {

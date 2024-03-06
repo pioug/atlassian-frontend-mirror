@@ -400,6 +400,7 @@ export default class ResizableMediaSingle extends React.Component<
           isResized: !!pctWidth,
           containerWidth: containerWidth || origWidth,
           fullWidthMode,
+          width: origWidth,
         })}
       >
         <Resizer

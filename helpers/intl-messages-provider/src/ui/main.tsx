@@ -1,33 +1,11 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
-import {
-  createIntl,
-  createIntlCache,
-  IntlContext,
-  IntlProvider,
-} from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
 
 import { useMessages } from '../services/use-messages';
+import { useSafeIntl } from '../services/use-safe-intl';
 
 import { IntlMessagesProviderProps } from './types';
-
-// Prevents memory leaks
-const cache = createIntlCache();
-
-// Required for VR testing
-const useSafeIntl = () => {
-  const context = useContext(IntlContext);
-  if (!context) {
-    return createIntl(
-      {
-        locale: 'en',
-        messages: {},
-      },
-      cache,
-    );
-  }
-  return context;
-};
 
 export default function IntlMessagesProvider({
   loaderFn,

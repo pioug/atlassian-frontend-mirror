@@ -5,6 +5,7 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { N40 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
@@ -12,10 +13,10 @@ import imageUploadHandler from '../example-helpers/imageUpload';
 import { content } from '../example-helpers/styles';
 import { Editor } from '../src';
 
-const boundary = css`
-  border: 2px solid ${N40};
-  padding: 130px 60px 10px 40px;
-`;
+const boundary = css({
+  border: `2px solid ${token('color.border', N40)}`,
+  padding: `130px 60px 10px ${token('space.500', '40px')}`,
+});
 
 class CustomBoundryExample extends PureComponent<any, any> {
   state = { boundary: undefined };
@@ -130,7 +131,7 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
           overflow: 'scroll',
           height: 200,
           position: 'relative',
-          border: `1px solid ${N40}`,
+          border: `1px solid ${token('color.border', N40)}`,
         }}
         ref={this.handleBoundryRef}
       >
@@ -223,7 +224,7 @@ export default function Example() {
     <div>
       <div css={content}>
         <h2>Intentionally Broken Example</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
         </p>
         <div style={{ width: 300, overflow: 'hidden' }}>
@@ -242,7 +243,7 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, no overflow.
         </p>
         <div style={{ width: 300 }}>
@@ -259,7 +260,7 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic with Custom Boundry</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 500px, no overflow.
         </p>
         <div style={{ width: 500 }}>
@@ -278,7 +279,7 @@ export default function Example() {
 
       <div css={content}>
         <h2>Basic Portal</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: document.body | Container: 300px, overflow: hidden.
         </p>
         <div style={{ width: 300 }}>
@@ -295,7 +296,7 @@ export default function Example() {
 
       <div css={content}>
         <h2>Portal with Custom Boundry</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 500px, overflow: hidden.
         </p>
         <div style={{ width: 500 }}>
@@ -311,7 +312,7 @@ export default function Example() {
 
       <div css={content}>
         <h2>Portal in Scroll Container</h2>
-        <p style={{ marginBottom: 14 }}>
+        <p style={{ marginBottom: token('space.150', '12px') }}>
           Boundries: custom | Container: 700px, overflow: hidden.
         </p>
         <div style={{ maxWidth: 700 }}>

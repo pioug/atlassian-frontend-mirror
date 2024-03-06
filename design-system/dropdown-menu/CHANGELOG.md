@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.7.0
+
+### Minor Changes
+
+- [#78803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78803) [`b633dc3ea927`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b633dc3ea927) - Fixes an issue with an incorrect dependency version (`@atlaskit/ds-lib`).
+
 ## 12.6.1
 
 ### Patch Changes

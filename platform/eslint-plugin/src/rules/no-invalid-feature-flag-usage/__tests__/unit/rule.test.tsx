@@ -55,6 +55,15 @@ describe('enforce-feature-flag-usage-structure tests', () => {
           { messageId: 'multipleFlagCheckInExpression' },
         ],
       },
+      {
+        code: `export default getBooleanFF('test-flag') ? "this is" : "not good";`,
+        errors: [{ messageId: 'noModuleScope' }],
+      },
+      {
+        only: true,
+        code: `export const foo = getBooleanFF('test-flag') ? "this is" : "not good";`,
+        errors: [{ messageId: 'noModuleScope' }],
+      },
     ],
   });
 });

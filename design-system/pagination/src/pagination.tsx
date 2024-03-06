@@ -8,7 +8,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import Navigator from './internal/components/navigator';
 import PageComponent from './internal/components/page';
@@ -27,6 +27,15 @@ interface OnChangeData {
   event: SyntheticEvent;
   selectedPageIndex: number;
 }
+
+const paginationMenuStyles = xcss({
+  padding: 'space.0',
+  margin: 'space.0',
+});
+
+const paginationMenuItemStyles = xcss({
+  marginBlockStart: 'space.0',
+});
 
 function InnerPagination<T>(
   {
@@ -75,30 +84,34 @@ function InnerPagination<T>(
     const pageIndexLabel = `${pageLabel} ${
       getPageLabel ? getPageLabel(page, currPageIndex) : page
     }`;
+    const isCurrentPage = page === selectedPage;
 
     return (
-      <PageComponent
+      <Inline
+        as="li"
+        xcss={paginationMenuItemStyles}
         key={`page-${
           getPageLabel ? getPageLabel(page, currPageIndex) : currPageIndex
         }`}
-        component={components!.Page}
-        onClick={(event) =>
-          onChangeWithAnalytics({ event, selectedPageIndex: currPageIndex })
-        }
-        aria-current={page === selectedPage ? 'page' : undefined}
-        aria-label={pageIndexLabel}
-        isSelected={page === selectedPage}
-        isDisabled={isDisabled}
-        page={page}
-        testId={
-          testId &&
-          `${testId}--${
-            page === selectedPage ? 'current-' : ''
-          }page-${currPageIndex}`
-        }
       >
-        {getPageLabel ? getPageLabel(page, currPageIndex) : page}
-      </PageComponent>
+        <PageComponent
+          component={components!.Page}
+          onClick={(event) =>
+            onChangeWithAnalytics({ event, selectedPageIndex: currPageIndex })
+          }
+          aria-current={isCurrentPage ? 'page' : undefined}
+          aria-label={pageIndexLabel}
+          isSelected={isCurrentPage}
+          isDisabled={isDisabled}
+          page={page}
+          testId={
+            testId &&
+            `${testId}--${isCurrentPage ? 'current-' : ''}page-${currPageIndex}`
+          }
+        >
+          {getPageLabel ? getPageLabel(page, currPageIndex) : page}
+        </PageComponent>
+      </Inline>
     );
   };
 
@@ -120,16 +133,23 @@ function InnerPagination<T>(
           pages={pages}
           testId={testId && `${testId}--left-navigator`}
         />
-        {collapseRange(
-          pages,
-          selectedIndexValue,
-          {
-            max: max!,
-            ellipsis: renderEllipsis!,
-            transform,
-          },
-          testId,
-        )}
+        <Inline
+          space="space.0"
+          alignBlock="baseline"
+          as="ul"
+          xcss={paginationMenuStyles}
+        >
+          {collapseRange(
+            pages,
+            selectedIndexValue,
+            {
+              max: max!,
+              ellipsis: renderEllipsis!,
+              transform,
+            },
+            testId,
+          )}
+        </Inline>
         <Navigator
           key="right-navigator"
           component={components!.Next}

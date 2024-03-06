@@ -18,11 +18,11 @@ export interface Props {
   editorDisabled?: boolean;
 }
 
-export const ClickAreaBlock: React.FC<Props> = ({
+export const ClickAreaBlock = ({
   editorView,
   editorDisabled,
   children,
-}) => {
+}: Props) => {
   const handleMouseDown = React.useCallback(
     (event) => {
       if (!editorView) {

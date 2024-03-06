@@ -68,6 +68,7 @@ export type MessageKey =
   | 'not_found_description'
   | 'no_pdf_artifacts'
   | 'password_protected_pdf'
+  | 'password'
   | 'enter_password'
   | 'incorrect_password'
   | 'submit'
@@ -512,6 +513,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'This file is password protected.',
     description:
       'Describing that a PDF cannot be viewed because it is protected by password',
+  },
+  password: {
+    id: 'fabric.media.password',
+    defaultMessage: 'Password',
+    description: 'Description of Password text field.',
   },
   enter_password: {
     id: 'fabric.media.enter_password',

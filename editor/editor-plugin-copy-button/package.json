@@ -8,7 +8,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "team": "Editor",
+    "team": "Editor: Lego",
     "singleton": true,
     "releaseModel": "continuous",
     "runReact18": false
@@ -32,7 +32,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.10.0",
+    "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

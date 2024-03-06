@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 78.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.11.0
+
+### Minor Changes
+
+- [#63691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63691) [`02293e70771b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02293e70771b) - add allowWidthDetector option to be used to skip width detector in renderer, to make media single works in inline extension like excerpt include
+
+### Patch Changes
+
+- [#78210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78210) [`cf7638b2d3e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf7638b2d3e9) - [ux] ED-22329: removed additional CSS added for decisionItem margin-top
+
+## 78.10.1
+
+### Patch Changes
+
+- [#77796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77796) [`eab996d08513`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eab996d08513) - Add new statsig experiement for preserve table width, add support for passing through width to create table. Allow tables to be inserted at full width
+
 ## 78.10.0
 
 ### Minor Changes

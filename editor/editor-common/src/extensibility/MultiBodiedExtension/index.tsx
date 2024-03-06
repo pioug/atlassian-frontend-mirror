@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
 /** @jsx jsx */
 
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
@@ -22,6 +22,7 @@ import type { OverflowShadowProps } from '../../ui';
 import { sharedMultiBodiedExtensionStyles } from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import { WithPluginState } from '../../with-plugin-state';
+import ExtensionLozenge from '../Extension/Lozenge';
 import type { ExtensionsPluginInjectionAPI } from '../types';
 
 import { useMultiBodiedExtensionActions } from './action-api';
@@ -41,6 +42,7 @@ type Props = {
   pluginInjectionApi?: ExtensionsPluginInjectionAPI;
   editorAppearance?: EditorAppearance;
   showMacroInteractionDesignUpdates?: boolean;
+  isNodeSelected?: boolean;
 };
 
 type PropsWithWidth = Props & {
@@ -55,7 +57,14 @@ interface CustomImageData {
 type ImageData = CustomImageData | undefined;
 
 // Similar to the one in platform/packages/editor/editor-common/src/extensibility/Extension/Lozenge.tsx
-const getWrapperTitleContent = (imageData: ImageData, title: string) => {
+const getWrapperTitleContent = (
+  imageData: ImageData,
+  title: string,
+  showMacroInteractionDesignUpdates?: boolean,
+) => {
+  if (showMacroInteractionDesignUpdates) {
+    return null;
+  }
   if (imageData) {
     const { url, ...rest } = imageData;
     return (
@@ -74,7 +83,10 @@ const getWrapperTitleContent = (imageData: ImageData, title: string) => {
     );
   }
   return (
-    <div className="extension-title">
+    <div
+      className="extension-title"
+      data-testid={'multiBodiedExtension-default-lozenge'}
+    >
       <EditorFileIcon label={title} />
       {title}
     </div>
@@ -90,6 +102,8 @@ const MultiBodiedExtensionWithWidth = ({
   eventDispatcher,
   widthState,
   editorAppearance,
+  showMacroInteractionDesignUpdates,
+  isNodeSelected,
 }: PropsWithWidth) => {
   const { parameters, extensionKey } = node.attrs;
   const title =
@@ -164,37 +178,52 @@ const MultiBodiedExtensionWithWidth = ({
     'multiBodiedExtension--wrapper',
     'extension-container',
     'block',
+    { 'remove-margin-top': showMacroInteractionDesignUpdates },
   );
 
   return (
-    <div
-      className={wrapperClassNames}
-      css={mbeExtensionWrapperCSS}
-      data-testid="multiBodiedExtension--wrapper"
-      style={mbeWrapperStyles}
-    >
-      {getWrapperTitleContent(imageData, title)}
-      <div
-        className="multiBodiedExtension--container"
-        css={containerCssExtended}
-        data-testid="multiBodiedExtension--container"
-        data-active-child-index={activeChildIndex}
-      >
-        <nav
-          className="multiBodiedExtension-navigation"
-          css={sharedMultiBodiedExtensionStyles.mbeNavigation}
-          data-testid="multiBodiedExtension-navigation"
-        >
-          {extensionHandlerResult}
-        </nav>
-
-        <article
-          className="multiBodiedExtension--frames"
-          data-testid="multiBodiedExtension--frames"
-          ref={articleRef}
+    <Fragment>
+      {showMacroInteractionDesignUpdates && (
+        <ExtensionLozenge
+          isNodeSelected={isNodeSelected}
+          node={node}
+          showMacroInteractionDesignUpdates={true}
+          customContainerStyles={mbeWrapperStyles}
         />
+      )}
+      <div
+        className={wrapperClassNames}
+        css={mbeExtensionWrapperCSS}
+        data-testid="multiBodiedExtension--wrapper"
+        style={mbeWrapperStyles}
+      >
+        {getWrapperTitleContent(
+          imageData,
+          title,
+          showMacroInteractionDesignUpdates,
+        )}
+        <div
+          className="multiBodiedExtension--container"
+          css={containerCssExtended}
+          data-testid="multiBodiedExtension--container"
+          data-active-child-index={activeChildIndex}
+        >
+          <nav
+            className="multiBodiedExtension-navigation"
+            css={sharedMultiBodiedExtensionStyles.mbeNavigation}
+            data-testid="multiBodiedExtension-navigation"
+          >
+            {extensionHandlerResult}
+          </nav>
+
+          <article
+            className="multiBodiedExtension--frames"
+            data-testid="multiBodiedExtension--frames"
+            ref={articleRef}
+          />
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,6 +1,5 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { addDraftDecoration } from '../utils';
 
@@ -41,17 +40,11 @@ export default (
         annotations: {},
       };
     case ACTIONS.CLOSE_COMPONENT:
-      return getBooleanFF(
-        'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-      )
-        ? {
-            ...pluginState,
-            isInlineCommentViewClosed: true,
-          }
-        : {
-            ...pluginState,
-            selectedAnnotations: [],
-          };
+      return {
+        ...pluginState,
+        isInlineCommentViewClosed: true,
+      };
+
     case ACTIONS.ADD_INLINE_COMMENT:
       const updatedPluginState = getNewDraftState(
         pluginState,
@@ -68,11 +61,7 @@ export default (
           ...pluginState.annotations,
           ...action.data.inlineComments,
         },
-        ...(getBooleanFF(
-          'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-        ) && {
-          isInlineCommentViewClosed: false,
-        }),
+        isInlineCommentViewClosed: false,
       };
     case ACTIONS.INLINE_COMMENT_SET_VISIBLE:
       const { isVisible } = action.data;
@@ -90,12 +79,7 @@ export default (
         ...pluginState,
         selectedAnnotations: [...action.data.selectedAnnotations],
         skipSelectionHandling: true,
-        ...(getBooleanFF(
-          'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-        ) && {
-          // if selecting annotation explicitly, reopen the comment view
-          isInlineCommentViewClosed: false,
-        }),
+        isInlineCommentViewClosed: false,
       };
     default:
       return pluginState;

@@ -40,7 +40,7 @@
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-client-react": "^2.0.0",
     "@atlaskit/media-common": "^11.0.0",
-    "@atlaskit/media-ui": "^25.3.0",
+    "@atlaskit/media-ui": "^25.4.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.39.0",
     "@atlaskit/ufo": "^0.2.0",

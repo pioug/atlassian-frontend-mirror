@@ -5,9 +5,10 @@ import styled from 'styled-components';
 import TextField from '@atlaskit/textfield';
 import { Label } from '@atlaskit/form';
 
-const Wrapper = styled.div`
-  margin-left: 20px;
-`;
+// eslint-disable-next-line @atlaskit/design-system/use-primitives -- Keeping this around as an example of `styled-components` object syntax; no reason for it to exist otherwise.
+const Wrapper = styled.div({
+  marginLeft: '20px',
+});
 
 const options = {
   year: 'numeric',

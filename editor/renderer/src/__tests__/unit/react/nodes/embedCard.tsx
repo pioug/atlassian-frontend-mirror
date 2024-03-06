@@ -63,11 +63,13 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
       rendererAppearance: RendererAppearance,
       layout: RichMediaLayout,
       expectedWidth: string,
+      isInsideOfInlineExtension = false,
     ) => {
       it(`should set container width to ${expectedWidth}`, () => {
         const { baseElement } = mountEmbedCard(documentWidth, {
           layout,
           rendererAppearance,
+          isInsideOfInlineExtension,
         });
 
         expect(
@@ -79,6 +81,7 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
     const runScenarios = (
       documentWidth: number,
       scenarios: { [key: string]: string },
+      isInsideOfInlineExtension?: boolean,
     ) => {
       describe(`when document width is ${documentWidth}`, () => {
         describe.each([['comment'], ['full-page'], ['full-width'], ['mobile']])(
@@ -92,6 +95,7 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
                   rendererAppearance as RendererAppearance,
                   layout as RichMediaLayout,
                   expectedWidth,
+                  isInsideOfInlineExtension,
                 );
               },
             );
@@ -104,6 +108,12 @@ describe('Renderer - React/Nodes/EmbedCard', () => {
     runScenarios(1000, { 'full-width': '904px', wide: '904px' });
     runScenarios(600, { 'full-width': '504px', wide: '100%' });
     runScenarios(200, { 'full-width': '104px', wide: '100%' });
+
+    // when embedcard is rendered inside of inline extension
+    runScenarios(2000, { 'full-width': '1800px', wide: '1011px' });
+    runScenarios(1000, { 'full-width': '904px', wide: '904px' });
+    runScenarios(600, { 'full-width': '504px', wide: '600px' }, true);
+    runScenarios(200, { 'full-width': '104px', wide: '200px' }, true);
 
     describe('with ssr', () => {
       const mountEmbedCardSSR = (

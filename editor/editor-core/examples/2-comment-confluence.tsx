@@ -9,6 +9,7 @@ import Button from '@atlaskit/button/standard-button';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
+import { token } from '@atlaskit/tokens';
 
 import { DevTools } from '../example-helpers/DevTools';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
@@ -113,7 +114,7 @@ export class CommentEditorConfluence extends React.Component<Props, State> {
                 disabled,
                 enabledFeatures,
               }: any) => (
-                <div style={{ padding: '20px' }}>
+                <div style={{ padding: token('space.250', '20px') }}>
                   <CollapsedEditor
                     placeholder="What do you want to say?"
                     isExpanded={this.state.isExpanded}

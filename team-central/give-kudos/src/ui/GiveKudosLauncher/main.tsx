@@ -391,53 +391,59 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   )}`;
 
   return (
+    <Portal zIndex={layers.modal()}>
+      <div data-testid={testId}>
+        <ModalTransition>
+          {isCloseConfirmModalOpen && (
+            <Modal onClose={closeWarningModal} width="small">
+              <ModalHeader>
+                <ModalTitle>
+                  <FormattedMessage {...messages.confirmCloseTitle} />
+                </ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <FormattedMessage {...messages.unsavedKudosWarning} />
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  appearance="subtle"
+                  onClick={closeWarningModal}
+                  autoFocus
+                >
+                  <FormattedMessage
+                    {...messages.unsavedKudosWarningCancelButton}
+                  />
+                </Button>
+                <Button
+                  appearance="primary"
+                  onClick={() => {
+                    sendCancelAnalytic();
+                    closeDrawer();
+                  }}
+                >
+                  <FormattedMessage
+                    {...messages.unsavedKudosWarningCloseButton}
+                  />
+                </Button>
+              </ModalFooter>
+            </Modal>
+          )}
+        </ModalTransition>
+        {renderDrawer}
+      </div>
+    </Portal>
+  );
+};
+
+const ComposedGiveKudosLauncher = (props: GiveKudosDrawerProps) => {
+  return (
     <IntlMessagesProvider
       loaderFn={fetchMessagesForLocale}
       defaultMessages={i18nEN}
     >
-      <Portal zIndex={layers.modal()}>
-        <div data-testid={testId}>
-          <ModalTransition>
-            {isCloseConfirmModalOpen && (
-              <Modal onClose={closeWarningModal} width="small">
-                <ModalHeader>
-                  <ModalTitle>
-                    <FormattedMessage {...messages.confirmCloseTitle} />
-                  </ModalTitle>
-                </ModalHeader>
-                <ModalBody>
-                  <FormattedMessage {...messages.unsavedKudosWarning} />
-                </ModalBody>
-                <ModalFooter>
-                  <Button
-                    appearance="subtle"
-                    onClick={closeWarningModal}
-                    autoFocus
-                  >
-                    <FormattedMessage
-                      {...messages.unsavedKudosWarningCancelButton}
-                    />
-                  </Button>
-                  <Button
-                    appearance="primary"
-                    onClick={() => {
-                      sendCancelAnalytic();
-                      closeDrawer();
-                    }}
-                  >
-                    <FormattedMessage
-                      {...messages.unsavedKudosWarningCloseButton}
-                    />
-                  </Button>
-                </ModalFooter>
-              </Modal>
-            )}
-          </ModalTransition>
-          {renderDrawer}
-        </div>
-      </Portal>
+      <GiveKudosLauncher {...props} />
     </IntlMessagesProvider>
   );
 };
 
-export default GiveKudosLauncher;
+export default ComposedGiveKudosLauncher;

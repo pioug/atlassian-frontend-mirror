@@ -308,26 +308,26 @@ const AnnotationCheckbox = (props: {
   );
 };
 
-const containerStyle = css`
-  display: flex;
-  height: 100%;
-`;
+const containerStyle = css({
+  display: 'flex',
+  height: '100%',
+});
 
-const optionsStyle = css`
-  flex: 20%;
-  padding: 16px;
-`;
+const optionsStyle = css({
+  flex: '20%',
+  padding: '16px',
+});
 
-const flagsStyle = css`
-  padding: 20px 0;
-`;
+const flagsStyle = css({
+  padding: '20px 0',
+});
 
-const mainStyle = css`
-  flex: 80%;
-`;
+const mainStyle = css({
+  flex: '80%',
+});
 
 const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
-  const { dispatch, state } = React.useContext(annotationsStore);
+  const { state } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
     (doc) => {
       setDocument(doc);
@@ -340,12 +340,9 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const annotationInlineCommentProvider = React.useMemo(
     () => ({
       getState: (annotationIds: AnnotationId[]) =>
-        getAnnotationState().then(() =>
-          annotationIds.map((id) => {
+        getAnnotationState().then(() => {
+          const statedAnnotations = annotationIds.map((id) => {
             const annotationState = state[id];
-            if (annotationState === 'active') {
-              dispatch({ type: 'add', id });
-            }
 
             return {
               id,
@@ -355,8 +352,10 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
                   ? AnnotationMarkStates.ACTIVE
                   : AnnotationMarkStates.RESOLVED,
             };
-          }),
-        ),
+          });
+
+          return statedAnnotations;
+        }),
       updateSubscriber: updateAnnotationSubscriber,
       allowDraftMode: true,
       selectionComponent: ExampleSelectionInlineComponent(
@@ -364,12 +363,7 @@ const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
       ),
       viewComponent: ExampleViewInlineCommentComponent,
     }),
-    [
-      createNewAnnotationAndReplaceDocument,
-      getAnnotationState,
-      state,
-      dispatch,
-    ],
+    [createNewAnnotationAndReplaceDocument, getAnnotationState, state],
   );
 
   return annotationInlineCommentProvider;

@@ -1,5 +1,13 @@
 # @atlaskit/intl-messages-provider
 
+## 1.0.4
+
+### Patch Changes
+
+- [#78714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78714) [`454e72b7bf53`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/454e72b7bf53) - [ux] using the intl wrap correctly
+
+  This changeset exists because a PR touches these packages in a way that doesn't require a release
+
 ## 1.0.3
 
 ### Patch Changes

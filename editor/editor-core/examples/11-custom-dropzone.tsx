@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
 
@@ -41,7 +42,7 @@ class DemoEditor extends React.PureComponent<any, State> {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'center',
-            margin: '10px',
+            margin: token('space.150', '12px'),
             borderRadius: '25px',
           }}
         >
@@ -58,7 +59,7 @@ class DemoEditor extends React.PureComponent<any, State> {
 export default function Example() {
   return (
     <div style={{ display: 'flex' }}>
-      <div style={{ marginRight: '10px' }}>
+      <div style={{ marginRight: token('space.150', '12px') }}>
         <DemoEditor />
       </div>
       <div style={{}}>

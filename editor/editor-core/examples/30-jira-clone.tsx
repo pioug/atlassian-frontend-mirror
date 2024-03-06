@@ -6,53 +6,56 @@ import { css, jsx } from '@emotion/react';
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { LeftSidebar, TopNavigation } from '@atlaskit/page-layout';
+import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 
-const stickyHeader = css`
-  position: sticky;
-  background: white none repeat scroll 0% 0%;
-  z-index: 99;
-  padding-left: 8px;
-  margin-left: -8px;
-  padding-top: 1px;
-  top: -1px;
-  box-shadow: rgb(235, 236, 240) 0px 2px;
-`;
+const stickyHeader = css({
+  position: 'sticky',
+  background: 'white none repeat scroll 0% 0%',
+  zIndex: 99,
+  paddingLeft: token('space.100', '8px'),
+  marginLeft: token('space.negative.100', '-8px'),
+  paddingTop: token('space.025', '2px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  top: '-1px',
+  boxShadow: 'rgb(235, 236, 240) 0px 2px',
+});
 
-const editorSide = css`
-  flex-grow: 1;
-  overflow: hidden auto;
-  padding: 0px 32px 32px;
-  width: calc(-12px + min(840px, 60%));
-  padding-left: max(50% - 700px, 0px);
-  height: calc(100vh - 100px);
-`;
+const editorSide = css({
+  flexGrow: 1,
+  overflow: 'hidden auto',
+  padding: `0px ${token('space.400', '32px')} ${token('space.400', '32px')}`,
+  width: 'calc(-12px + min(840px, 60%))',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  paddingLeft: 'max(50% - 700px, 0px)',
+  height: 'calc(100vh - 100px)',
+});
 
-const contentSection = css`
-  padding-top: 10px;
-  grid-area: content;
-  display: flex;
-  height: 100%;
-  position: relative;
-`;
-const portalContainer = css`
-  display: flex;
-`;
+const contentSection = css({
+  paddingTop: token('space.150', '12px'),
+  gridArea: 'content',
+  display: 'flex',
+  height: '100%',
+  position: 'relative',
+});
+const portalContainer = css({
+  display: 'flex',
+});
 
-const main = css`
-  outline: currentColor none medium;
-  display: grid;
-  height: 100%;
-  grid-template-columns: var(--leftPanelWidth, 0px) minmax(0, 1fr) var(
-      --rightPanelWidth,
-      0px
-    );
-  grid-template-rows: var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto;
-  grid-template-areas: 'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel';
-  overflow: hidden;
-`;
+const main = css({
+  outline: 'currentColor none medium',
+  display: 'grid',
+  height: '100%',
+  gridTemplateColumns:
+    'var(--leftPanelWidth, 0px) minmax(0, 1fr) var( --rightPanelWidth, 0px )',
+  gridTemplateRows:
+    'var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto',
+  gridTemplateAreas:
+    "'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel'",
+  overflow: 'hidden',
+});
 
 export default function CommentWithJiraCardsExample() {
   const jiraToolbarRef = useRef(null);

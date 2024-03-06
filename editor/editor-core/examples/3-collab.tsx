@@ -13,7 +13,6 @@ import type {
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import {
   akEditorCodeBackground,
-  akEditorCodeBlockPadding,
   akEditorCodeFontFamily,
 } from '@atlaskit/editor-shared-styles';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
@@ -28,6 +27,7 @@ import { ShareDialogContainer } from '@atlaskit/share';
 import type { OptionData, User } from '@atlaskit/smart-user-picker';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import {
   mentionResourceProviderWithResolver,
@@ -47,30 +47,29 @@ import EditorContext from '../src/ui/EditorContext';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
-export const content = css`
-  padding: 0 20px;
-  height: 100vh;
-  background: #fff;
-  box-sizing: border-box;
+export const content = css({
+  padding: `0 ${token('space.250', '20px')}`,
+  height: '100vh',
+  background: '#fff',
+  boxSizing: 'border-box',
+  '& .ProseMirror': {
+    '& pre': {
+      fontFamily: akEditorCodeFontFamily,
+      background: akEditorCodeBackground,
+      padding: token('space.150', '12px'),
+      borderRadius: `${borderRadius()}px`,
+    },
+  },
+});
 
-  & .ProseMirror {
-    & pre {
-      font-family: ${akEditorCodeFontFamily};
-      background: ${akEditorCodeBackground};
-      padding: ${akEditorCodeBlockPadding};
-      border-radius: ${borderRadius()}px;
-    }
-  }
-`;
+export const columns = css({
+  display: 'flex',
+  flexDirection: 'row',
+});
 
-export const columns = css`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const column = css`
-  flex: 1 1 0;
-`;
+export const column = css({
+  flex: '1 1 0',
+});
 
 const quickInsertProvider = quickInsertProviderFactory();
 

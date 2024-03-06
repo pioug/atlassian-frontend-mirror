@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.7.0
+
+### Minor Changes
+
+- [#78777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78777) [`c581b7545e6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c581b7545e6f) - Update DatasourceResponseParameter type to include isList
+
 ## 8.6.0
 
 ### Minor Changes

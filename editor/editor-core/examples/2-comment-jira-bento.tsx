@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 import {
   currentUser,
   getEmojiProvider,
@@ -75,7 +76,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
                 {...formProps}
                 style={{
                   display: 'flex',
-                  padding: '5px',
+                  padding: token('space.050', '4px'),
                   alignItems: 'center',
                 }}
               >

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.8
+
+### Patch Changes
+
+- [#78591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78591) [`578ff696d240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/578ff696d240) - ED-22330 Adapted paste logic for empty panels in MBE.
+- Updated dependencies
+
 ## 1.0.7
 
 ### Patch Changes

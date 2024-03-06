@@ -43,7 +43,6 @@ import { tableStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import {
   akEditorDeleteBackgroundWithOpacity,
   akEditorDeleteBorder,
-  akEditorLineHeight,
   akEditorSelectedBorderColor,
   akEditorSelectedBorderSize,
   akEditorSelectedNodeClassName,
@@ -86,7 +85,7 @@ const ruleStyles = () => css`
     hr {
       cursor: pointer;
       padding: ${token('space.050', '4px')} 0;
-      margin: calc(${akEditorLineHeight}em - 4px) 0;
+      margin: ${token('space.300', '24px')} 0;
       background-clip: content-box;
 
       &.${akEditorSelectedNodeClassName} {

@@ -9,7 +9,7 @@ export const content = css`
   & div.toolsDrawer {
     margin-top: ${token('space.200', '16px')};
     padding: ${token('space.100', '8px')} ${token('space.200', '16px')};
-    background: ${N800};
+    background: ${token('color.background.neutral.bold', N800)};
 
     & label {
       display: flex;

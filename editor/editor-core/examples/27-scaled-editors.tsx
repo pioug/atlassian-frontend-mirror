@@ -6,22 +6,23 @@ import { css, jsx } from '@emotion/react';
 import type { ButtonProps } from '@atlaskit/button/standard-button';
 import Button from '@atlaskit/button/standard-button';
 import { N40, N50A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { default as FullPageExample } from './5-full-page';
 
-const user = css`
-  width: 100%;
-  padding: 12px 0px;
-  display: flex;
-  align-items: center;
-`;
+const user = css({
+  width: '100%',
+  padding: `${token('space.150', '12px')} 0px`,
+  display: 'flex',
+  alignItems: 'center',
+});
 
-const avatar = css`
-  margin-right: 4px;
-  border-radius: 50%;
-  height: 24px;
-  width: 24px;
-`;
+const avatar = css({
+  marginRight: token('space.050', '4px'),
+  borderRadius: '50%',
+  height: '24px',
+  width: '24px',
+});
 const Author = () => (
   <div css={user}>
     <img css={avatar} src="https://i.imgur.com/zJi8dw9.jpg"></img>
@@ -29,41 +30,42 @@ const Author = () => (
   </div>
 );
 
-const frame = css`
-  display: flex;
-  flex-direction: column;
-  width: 280px;
-  max-width: 280px;
-  padding: 0px 18px;
-  border: 1px solid ${N40};
-  border-radius: 4px;
-  box-shadow: 0 8px 16px -4px ${N50A};
-`;
+const frame = css({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '280px',
+  maxWidth: '280px',
+  padding: `0px ${token('space.200', '16px')}`,
+  border: `1px solid ${token('color.border', N40)}`,
+  borderRadius: '4px',
+  boxShadow: token('elevation.shadow.overlay', `0 8px 16px -4px ${N50A}`),
+});
 
 function ButtonHack(props: ButtonProps) {
   return <Button {...props} />;
 }
-const paddedButton = css`
-  /* increase specificity to override default Button styles */
-  && {
-    margin: 10px 0px 10px auto;
-  }
-`;
+const paddedButton = css({
+  '&&': {
+    margin: `${token('space.150', '12px')} 0px ${token(
+      'space.150',
+      '12px',
+    )} auto`,
+  },
+});
 
 const PaddedButton = (props: ButtonProps) => (
   <ButtonHack {...props} css={paddedButton} />
 );
 
-const editorWrapper = css`
-  padding: 8px;
-  background-color: white;
-  border: 1px solid ${N40};
-  border-radius: 4px;
-
-  .ProseMirror {
-    min-height: 125px;
-  }
-`;
+const editorWrapper = css({
+  padding: token('space.100', '8px'),
+  backgroundColor: 'white',
+  border: `1px solid ${token('color.border', N40)}`,
+  borderRadius: '4px',
+  '.ProseMirror': {
+    minHeight: '125px',
+  },
+});
 
 const InlineCommentEditor = (props: { editor: React.ReactNode }) => (
   <div css={frame}>
@@ -85,7 +87,7 @@ const editor = (
 );
 
 const ScaledEditorsExample = () => (
-  <div style={{ padding: '20px' }}>
+  <div style={{ padding: token('space.250', '20px') }}>
     <InlineCommentEditor editor={editor} />
   </div>
 );

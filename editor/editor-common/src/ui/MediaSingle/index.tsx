@@ -36,6 +36,7 @@ export interface Props {
   fullWidthMode?: boolean;
   hasFallbackContainer?: boolean;
   handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
+  isInsideOfInlineExtension?: boolean;
 }
 
 export type { MediaSingleWidthType, MediaSingleSize };
@@ -55,6 +56,7 @@ export default function MediaSingle({
   lineLength: editorWidth,
   hasFallbackContainer = true,
   handleMediaSingleRef,
+  isInsideOfInlineExtension = false,
 }: Props) {
   const isPixelWidth = size?.widthType === 'pixel';
 
@@ -126,6 +128,7 @@ export default function MediaSingle({
         mediaSingleWidth,
         fullWidthMode,
         isExtendedResizeExperienceOn: isPixelWidth,
+        isInsideOfInlineExtension,
       })}
       data-layout={layout}
       data-width={mediaSingleWidth}

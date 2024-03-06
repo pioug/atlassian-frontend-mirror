@@ -80,6 +80,7 @@ export interface RendererProps {
   allowSelectAllTrap?: boolean;
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
   nodeComponents?: NodeComponentsProps;
+  isInsideOfInlineExtension?: boolean;
   /**
    * When enabled a trailing telepointer will be added to the rendered document
    * following content updates.

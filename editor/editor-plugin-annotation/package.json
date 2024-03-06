@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-annotation",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Annotation plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
-    "@atlaskit/editor-common": "^78.10.0",
+    "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -93,9 +93,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
-    "platform.editor.annotation.decouple-inline-comment-closed_flmox": {
-      "type": "boolean"
-    },
     "platform.editor.enable-selection-toolbar_ucdwd": {
       "type": "boolean"
     }

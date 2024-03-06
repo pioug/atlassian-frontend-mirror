@@ -70,7 +70,11 @@ export interface PaginationPropTypes<T = unknown> {
   /**
    * The react Node returned from the function is rendered instead of the default ellipsis node.
    */
-  renderEllipsis?: (arg: { key: string }) => ReactElement;
+  renderEllipsis?: (arg: {
+    key: string;
+    from: number;
+    to: number;
+  }) => ReactElement;
   /**
    * Additional information to be included in the `context` of analytics events.
    */

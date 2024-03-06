@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.3.3
+
+### Patch Changes
+
+- [#78097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78097) [`85166d42ab97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85166d42ab97) - Update PDF password form UI styling and messages
+- Updated dependencies
+
 ## 48.3.2
 
 ### Patch Changes

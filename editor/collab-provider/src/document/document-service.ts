@@ -772,13 +772,6 @@ export class DocumentService {
       return;
     }
 
-    // Only send 1% of events to avoid useless logging
-    if (Math.random() < 0.01) {
-      this.analyticsHelper?.sendActionEvent(
-        EVENT_ACTION.SEND_STEPS_QUEUE,
-        EVENT_STATUS.INFO,
-      );
-    }
     // Avoid reference issues using a
     // method outside of the provider
     // scope

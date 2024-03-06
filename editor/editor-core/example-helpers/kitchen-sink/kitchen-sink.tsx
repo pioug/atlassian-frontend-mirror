@@ -18,6 +18,7 @@ import {
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
+import { token } from '@atlaskit/tokens';
 
 import { getTranslations } from '../../example-helpers/get-translations';
 import {
@@ -592,7 +593,14 @@ export class KitchenSink extends React.Component<
           </div>
         </div>
         {this.state.warning && (
-          <div style={{ position: 'fixed', top: 125, right: 15, width: 400 }}>
+          <div
+            style={{
+              position: 'fixed',
+              top: token('space.1000', '80px'),
+              right: token('space.200', '16px'),
+              width: 400,
+            }}
+          >
             <Flag
               actions={[
                 {

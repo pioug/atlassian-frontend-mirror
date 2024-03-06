@@ -74,15 +74,13 @@ describe('Pagination Accessibility', () => {
   };
 
   const ellipsisButton = ({ key }: { key: string }) => {
+    const onClick = jest.fn();
     return (
-      <Button
-        onClick={() => jest.fn()}
-        appearance="subtle"
-        key={key}
-        aria-label="expand"
-      >
-        &hellip;
-      </Button>
+      <li key={key}>
+        <Button onClick={onClick} appearance="subtle" aria-label="expand">
+          &hellip;
+        </Button>
+      </li>
     );
   };
 

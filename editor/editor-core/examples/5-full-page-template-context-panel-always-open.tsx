@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { N10, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 import breakoutAdf from '../example-helpers/templates/breakout.adf.json';
@@ -41,16 +42,15 @@ templates[1] = {
   adf: breakoutAdf,
 };
 
-const templateCard = css`
-  border: 1px solid ${N30};
-  padding: 8px;
-  margin-bottom: 8px;
-  border-radius: 5px;
-
-  &:hover {
-    background: ${N10};
-  }
-`;
+const templateCard = css({
+  border: `1px solid ${token('color.border', N30)}`,
+  padding: token('space.100', '8px'),
+  marginBottom: token('space.100', '8px'),
+  borderRadius: '5px',
+  '&:hover': {
+    background: N10,
+  },
+});
 
 // when loading a document on a small viewport, the tables plugin resizes
 // the column widths. this causes the editor's ADF to diverge from the

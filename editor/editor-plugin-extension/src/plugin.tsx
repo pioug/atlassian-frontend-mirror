@@ -101,6 +101,7 @@ export const extensionPlugin: ExtensionPlugin = ({
               {
                 appearance: options.appearance,
               },
+              featureFlags,
             );
           },
         },

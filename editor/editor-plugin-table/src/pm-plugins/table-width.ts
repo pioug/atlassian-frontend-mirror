@@ -14,6 +14,7 @@ import {
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
@@ -22,6 +23,8 @@ import {
   akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
+
+import { TABLE_MAX_WIDTH } from './table-resizing/utils';
 
 type __ReplaceStep = ReplaceStep & {
   // Properties `to` and `from` are private attributes of ReplaceStep.
@@ -41,8 +44,9 @@ const createPlugin = (
   dispatch: Dispatch,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   fullWidthEnabled: boolean,
-) =>
-  new SafePlugin({
+  getEditorFeatureFlags?: GetEditorFeatureFlags,
+) => {
+  return new SafePlugin({
     key: pluginKey,
     state: {
       init() {
@@ -83,6 +87,7 @@ const createPlugin = (
           },
         });
       }
+
       // When document first load in Confluence, initially it is an empty document
       // and Collab service triggers a transaction to replace the empty document with the real document that should be rendered.
       // what we need to do is to add width attr to all tables in the real document
@@ -114,12 +119,24 @@ const createPlugin = (
         return hasStepReplacingEntireDocument;
       });
 
-      if (!isReplaceDocumentOperation) {
+      const referentialityTr = transactions.find((tr) =>
+        tr.getMeta('referentialityTableInserted'),
+      );
+
+      const shouldPatchTable =
+        fullWidthEnabled &&
+        getEditorFeatureFlags &&
+        getEditorFeatureFlags()['tablePreserveWidth'];
+
+      if (
+        !isReplaceDocumentOperation &&
+        (!shouldPatchTable || !referentialityTr)
+      ) {
         return null;
       }
 
-      const tr = newState.tr;
       const { table } = newState.schema.nodes;
+      const tr = newState.tr;
 
       /**
        * Select table event
@@ -138,47 +155,63 @@ const createPlugin = (
         });
       }
 
-      newState.doc.forEach((node, offset) => {
-        if (node.type === table) {
-          const width = node.attrs.width;
-          const layout = node.attrs.layout;
+      if (isReplaceDocumentOperation) {
+        newState.doc.forEach((node, offset) => {
+          if (node.type === table) {
+            const width = node.attrs.width;
+            const layout = node.attrs.layout;
 
-          if (!width && layout) {
-            let tableWidthCal;
+            if (!width && layout) {
+              let tableWidthCal;
 
-            if (fullWidthEnabled) {
-              tableWidthCal = akEditorFullWidthLayoutWidth;
-            } else {
-              switch (layout) {
-                case 'wide':
-                  tableWidthCal = akEditorWideLayoutWidth;
-                  break;
-                case 'full-width':
-                  tableWidthCal = akEditorFullWidthLayoutWidth;
-                  break;
-                // when in fix-width appearance, no need to assign value to table width attr
-                // as when table is created, width attr is null by default, table rendered using layout attr
-                default:
-                  tableWidthCal = akEditorDefaultLayoutWidth;
-                  break;
+              if (fullWidthEnabled) {
+                tableWidthCal = akEditorFullWidthLayoutWidth;
+              } else {
+                switch (layout) {
+                  case 'wide':
+                    tableWidthCal = akEditorWideLayoutWidth;
+                    break;
+                  case 'full-width':
+                    tableWidthCal = akEditorFullWidthLayoutWidth;
+                    break;
+                  // when in fix-width appearance, no need to assign value to table width attr
+                  // as when table is created, width attr is null by default, table rendered using layout attr
+                  default:
+                    tableWidthCal = akEditorDefaultLayoutWidth;
+                    break;
+                }
+              }
+
+              const { width, ...rest } = node.attrs;
+
+              if (tableWidthCal) {
+                tr.step(
+                  new SetAttrsStep(offset, {
+                    width: tableWidthCal,
+                    ...rest,
+                  }),
+                );
               }
             }
-
-            const { width, ...rest } = node.attrs;
-
-            if (tableWidthCal) {
-              tr.step(
-                new SetAttrsStep(offset, {
-                  width: tableWidthCal,
-                  ...rest,
-                }),
-              );
-            }
           }
-        }
-      });
+        });
+      }
+
+      if (referentialityTr) {
+        referentialityTr.steps.forEach((step) => {
+          step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+            newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
+              if (node.type === table && node.attrs.width !== TABLE_MAX_WIDTH) {
+                tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
+              }
+            });
+          });
+        });
+      }
+
       return tr;
     },
   });
+};
 
 export { createPlugin };

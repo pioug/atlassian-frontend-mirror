@@ -32,7 +32,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.10.0",
+    "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-plugin-analytics": "1.0.3",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -51,7 +51,7 @@
     "@atlaskit/editor-plugin-text-formatting": "^1.2.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/editor-plugin-unsupported-content": "^1.0.0",
-    "@atlaskit/editor-test-helpers": "^18.18.0",
+    "@atlaskit/editor-test-helpers": "^18.19.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
     "@atlaskit/util-data-test": "^17.9.0",

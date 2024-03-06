@@ -36,6 +36,7 @@ import {
   mediaMock,
 } from '@atlaskit/media-test-helpers/media-mock';
 import { ReactRenderer } from '@atlaskit/renderer';
+import { token } from '@atlaskit/tokens';
 import {
   currentUser,
   getEmojiProvider,
@@ -453,7 +454,7 @@ export class ExampleEditorComponent extends React.Component<
                           <Button
                             isDisabled={!actions}
                             onClick={this.onCopyLinkWithContent}
-                            style={{ marginRight: 5 }}
+                            style={{ marginRight: token('space.050', '4px') }}
                           >
                             Copy link
                           </Button>
@@ -558,8 +559,8 @@ export class ExampleEditorComponent extends React.Component<
             <div
               style={{
                 position: 'fixed',
-                top: 90,
-                right: 15,
+                top: token('space.1000', '80px'),
+                right: token('space.200', '16px'),
                 width: 400,
                 zIndex: 100,
               }}
@@ -675,7 +676,7 @@ const Renderer = (props: ExampleRendererProps) => {
   return (
     <div
       style={{
-        margin: '30px 0',
+        margin: `${token('space.400', '32px')} 0`,
       }}
     >
       <Button
@@ -684,7 +685,7 @@ const Renderer = (props: ExampleRendererProps) => {
         style={{
           position: 'absolute',
           right: '0',
-          margin: '0 20px',
+          margin: `0 ${token('space.250', '20px')}`,
           zIndex: 100,
         }}
         testId="edit-button"
@@ -789,7 +790,14 @@ export function FullPageExample(props: ExampleProps) {
             }
           />
         ) : (
-          <div style={{ padding: '16px 32px' }}>
+          <div
+            style={{
+              padding: `${token('space.200', '16px')} ${token(
+                'space.400',
+                '32px',
+              )}`,
+            }}
+          >
             <Renderer
               document={localDraft || doc}
               setMode={setMode}

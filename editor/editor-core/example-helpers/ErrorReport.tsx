@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { ValidationError } from '@atlaskit/adf-utils/validatorTypes';
 import { N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export type Error = {
   entity: ADFEntity;
@@ -26,7 +27,7 @@ const reportContainer = css`
 const styledReportEntry = css`
   flex: 1;
   padding: 1em;
-  border-right: 1px solid ${N30};
+  border-right: 1px solid ${token('color.border', N30)};
 `;
 
 const ReportEntry = ({ error }: { error: Error }) => (

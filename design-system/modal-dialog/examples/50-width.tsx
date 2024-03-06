@@ -45,13 +45,13 @@ export default function ModalDemo() {
 
   return (
     <Box xcss={containerStyles}>
-      <h4 id="sizes" css={titleStyles}>
+      <h2 id="sizes" css={titleStyles}>
         Sizes
-      </h4>
+      </h2>
       <ButtonGroup titleId="sizes">{sizes.map(btn)}</ButtonGroup>
-      <h4 id="units" css={titleStyles}>
+      <h2 id="units" css={titleStyles}>
         Units
-      </h4>
+      </h2>
       <ButtonGroup titleId="units">{units.map(btn)}</ButtonGroup>
 
       <ModalTransition>

@@ -18,7 +18,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   closeComponent,
@@ -181,13 +180,7 @@ export function InlineCommentView({
     dispatchAnalyticsEvent(payload);
   };
 
-  if (
-    (getBooleanFF(
-      'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-    ) &&
-      isInlineCommentViewClosed) ||
-    !selectedAnnotations
-  ) {
+  if (isInlineCommentViewClosed || !selectedAnnotations) {
     return null;
   }
 

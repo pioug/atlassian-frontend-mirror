@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { token } from '@atlaskit/tokens';
 
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
 import {
@@ -157,7 +158,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
 
     return (
       <div style={{ display: 'flex', height: '100%' }}>
-        <div style={{ flex: '20%', padding: '16px' }}>
+        <div style={{ flex: '20%', padding: token('space.200', '16px') }}>
           <h3>Annotations</h3>
           <button onClick={this.handleShowInlineComments}>
             Show inline comments
@@ -175,6 +176,7 @@ export default class ExampleAnnotationExperiment extends React.Component<
               id="enable-disallow-on-whitespace"
               checked={isDisallowOnWhiteSpaceEnabled}
               onChange={this.handleWhiteSpaceOnOffChange}
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
               type="Disallow on white space"
             />
           </div>

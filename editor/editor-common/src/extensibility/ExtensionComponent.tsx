@@ -122,6 +122,7 @@ export class ExtensionComponent extends Component<Props, State> {
           pluginInjectionApi={pluginInjectionApi}
           editorAppearance={editorAppearance}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+          isNodeSelected={selectedNode === node}
         />
       );
     }
@@ -157,6 +158,7 @@ export class ExtensionComponent extends Component<Props, State> {
               showMacroInteractionDesignUpdates
             }
             isNodeSelected={selectedNode === node}
+            pluginInjectionApi={pluginInjectionApi}
           >
             {extensionHandlerResult}
           </InlineExtension>

@@ -22,6 +22,7 @@ import {
 import type {
   EditorAppearance,
   ExtractInjectionAPI,
+  FeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import {
@@ -207,6 +208,7 @@ const createPlugin = (
   options: {
     appearance?: EditorAppearance;
   } = {},
+  featureFlags?: FeatureFlags,
 ) => {
   const state = createPluginState(dispatch, {
     showEditButton: false,
@@ -378,6 +380,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
           pluginInjectionApi,
+          featureFlags?.macroInteractionUpdates ?? false,
         ),
         // WARNING: referentiality-plugin also creates these nodeviews
         bodiedExtension: ExtensionNodeView(
@@ -387,6 +390,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
           pluginInjectionApi,
+          featureFlags?.macroInteractionUpdates ?? false,
         ),
         // WARNING: referentiality-plugin also creates these nodeviews
         inlineExtension: ExtensionNodeView(
@@ -396,6 +400,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
           pluginInjectionApi,
+          featureFlags?.macroInteractionUpdates ?? false,
         ),
         multiBodiedExtension: ExtensionNodeView(
           portalProviderAPI,
@@ -404,6 +409,7 @@ const createPlugin = (
           extensionHandlers,
           extensionNodeViewOptions,
           pluginInjectionApi,
+          featureFlags?.macroInteractionUpdates ?? false,
         ),
       },
       createSelectionBetween: function (view, anchor, head) {

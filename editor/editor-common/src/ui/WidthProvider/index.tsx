@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
@@ -42,45 +42,50 @@ export type WidthProviderState = {
 
 type WidthProviderProps = {
   className?: string;
+  shouldCheckExistingValue?: boolean;
+  children?: React.ReactNode;
 };
 
-export class WidthProvider extends React.Component<
-  WidthProviderProps,
-  WidthProviderState
-> {
-  state = { width: 0 };
+export const WidthProvider = ({
+  className,
+  shouldCheckExistingValue,
+  children,
+}: WidthProviderProps) => {
+  const existingContextValue: WidthConsumerContext =
+    React.useContext(WidthContext);
+  const [width, setWidth] = React.useState(
+    typeof document !== 'undefined' ? document.body.offsetWidth : 0,
+  );
+  const providerValue = React.useMemo(() => createWidthContext(width), [width]);
 
-  constructor(props: any) {
-    super(props);
-    if (typeof document !== 'undefined') {
-      this.state.width = document.body.offsetWidth;
-    }
-  }
-
-  render() {
-    return (
-      <div
-        css={css`
-          position: relative;
-          width: 100%;
-        `}
-        className={this.props.className}
-      >
-        <WidthObserver setWidth={this.setWidth} offscreen />
-        <Provider value={createWidthContext(this.state.width)}>
-          {this.props.children}
-        </Provider>
-      </div>
-    );
-  }
-
-  setWidth = rafSchedule((width: number) => {
+  const updateWidth = rafSchedule((nextWidth: number) => {
     // Ignore changes that are less than SCROLLBAR_WIDTH, otherwise it can cause infinite re-scaling
-    if (Math.abs(this.state.width - width) < SCROLLBAR_WIDTH) {
+    if (Math.abs(width - nextWidth) < SCROLLBAR_WIDTH) {
       return;
     }
-    this.setState({ width });
+    setWidth(nextWidth);
   });
-}
+
+  const skipWidthDetection =
+    shouldCheckExistingValue && existingContextValue.width > 0;
+
+  return (
+    <div
+      css={css`
+        position: relative;
+        width: 100%;
+      `}
+      className={className}
+    >
+      {!skipWidthDetection && (
+        <Fragment>
+          <WidthObserver setWidth={updateWidth} offscreen />
+          <Provider value={providerValue}>{children}</Provider>
+        </Fragment>
+      )}
+      {skipWidthDetection && children}
+    </div>
+  );
+};
 
 export { Consumer as WidthConsumer };

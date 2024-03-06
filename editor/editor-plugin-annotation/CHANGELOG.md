@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.1.0
+
+### Minor Changes
+
+- [#78363](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78363) [`3a8e207fbf7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a8e207fbf7c) - EDF-27 Cleaned up platform.editor.annotation.decouple-inline-comment-closed_flmox FF. This decouples selected annotation logic from logic to close the inline comment view by default. This fixed a bug where the inline comment view can be unexpectedly opened from doc changes (through remote editors or non-selection altering changes such as expanding / collapsing expand blocks)
+
 ## 1.0.2
 
 ### Patch Changes

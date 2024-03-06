@@ -112,16 +112,16 @@ export default function ModalDemo() {
 
   return (
     <Box xcss={containerStyles}>
-      <h4 id="default-header-footer" css={titleStyles}>
+      <h2 id="default-header-footer" css={titleStyles}>
         Default Header/Footer
-      </h4>
+      </h2>
       <ButtonGroup titleId="default-header-footer">
         {defaults.map(btn)}
       </ButtonGroup>
 
-      <h4 id="custom-components" css={titleStyles}>
+      <h2 id="custom-components" css={titleStyles}>
         Custom Components
-      </h4>
+      </h2>
       <ButtonGroup titleId="custom-components">{custom.map(btn)}</ButtonGroup>
 
       <ModalTransition>

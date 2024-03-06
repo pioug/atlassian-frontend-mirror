@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.4.0
+
+### Minor Changes
+
+- [#78097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78097) [`85166d42ab97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85166d42ab97) - Update PDF password form UI styling and messages
+
 ## 25.3.0
 
 ### Minor Changes

@@ -15,6 +15,7 @@ import type {
   Command,
   EditorCommand,
   GetEditorContainerWidth,
+  GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -24,7 +25,6 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   addColumnAt as addColumnAtPMUtils,
   addRowAt,
-  createTable as createTableNode,
   findTable,
   selectedRect,
 } from '@atlaskit/editor-tables/utils';
@@ -33,7 +33,11 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { updateRowOrColumnMovedTransform } from '../pm-plugins/analytics/commands';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import { rescaleColumns } from '../transforms/column-width';
-import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
+import {
+  checkIfHeaderRowEnabled,
+  copyPreviousRow,
+  createTableWithWidth,
+} from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
 
 function addColumnAtCustomStep(column: number) {
@@ -128,7 +132,6 @@ export const addColumnAfter =
     return true;
   };
 
-// #region Commands
 export const insertColumn =
   (getEditorContainerWidth: GetEditorContainerWidth) =>
   (column: number): Command =>
@@ -199,31 +202,44 @@ export const insertRow =
     return true;
   };
 
-export const createTable = (): Command => (state, dispatch) => {
-  const table = createTableNode({
-    schema: state.schema,
-  });
+export const createTable =
+  (
+    isFullWidthModeEnabled?: boolean,
+    getEditorFeatureFlags?: GetEditorFeatureFlags,
+  ): Command =>
+  (state, dispatch) => {
+    const table = createTableWithWidth(
+      isFullWidthModeEnabled,
+      getEditorFeatureFlags,
+    )(state.schema);
 
-  if (dispatch) {
-    dispatch(safeInsert(table)(state.tr).scrollIntoView());
-  }
-  return true;
-};
-// #endregion
+    if (dispatch) {
+      dispatch(safeInsert(table)(state.tr).scrollIntoView());
+    }
+    return true;
+  };
 
 export const insertTableWithSize =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    isFullWidthModeEnabled?: boolean,
+    getEditorFeatureFlags?: GetEditorFeatureFlags,
+    editorAnalyticsAPI?: EditorAnalyticsAPI,
+  ) =>
   (
     rowsCount: number,
     colsCount: number,
     inputMethod?: INPUT_METHOD.PICKER,
   ): EditorCommand => {
     return ({ tr }) => {
-      const tableNode = createTableNode({
-        schema: tr.doc.type.schema,
-        rowsCount: rowsCount,
-        colsCount: colsCount,
-      });
+      const tableNode = createTableWithWidth(
+        isFullWidthModeEnabled,
+        getEditorFeatureFlags,
+        {
+          rowsCount: rowsCount,
+          colsCount: colsCount,
+        },
+      )(tr.doc.type.schema);
+
       const newTr = safeInsert(tableNode)(tr).scrollIntoView();
       if (inputMethod) {
         editorAnalyticsAPI?.attachAnalyticsEvent({

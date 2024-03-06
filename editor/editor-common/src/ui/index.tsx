@@ -45,6 +45,7 @@ export {
   WidthContext,
   WidthConsumer,
   WidthProvider,
+  createWidthContext,
   getBreakpoint,
 } from './WidthProvider';
 export type { WidthConsumerContext, Breakpoints } from './WidthProvider';

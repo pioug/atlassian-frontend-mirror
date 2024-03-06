@@ -20,7 +20,6 @@ export enum EVENT_ACTION {
   PROVIDER_INITIALIZED = 'providerInitialized', // https://data-portal.internal.atlassian.com/analytics/registry/54714
   PROVIDER_SETUP = 'providerSetup', // https://data-portal.internal.atlassian.com/analytics/registry/54715
   HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
-  SEND_STEPS_QUEUE = 'sendStepsQueue', // Temporary, used to confirm feature flag
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -286,13 +285,6 @@ type ProviderHasUnconfirmedStepsAnalyticsEvent = {
   };
 };
 
-type SendStepsQueueAnalyticsEvent = {
-  eventAction: EVENT_ACTION.SEND_STEPS_QUEUE;
-  attributes: {
-    documentAri?: string;
-  };
-};
-
 type UpdateDocumentAnalyticsEvent = {
   eventAction: EVENT_ACTION.UPDATE_DOCUMENT;
   attributes: {
@@ -330,7 +322,6 @@ export type ActionAnalyticsEvent =
   | ProviderInitializedAnalyticsEvent
   | ProviderSetupAnalyticsEvent
   | ProviderHasUnconfirmedStepsAnalyticsEvent
-  | SendStepsQueueAnalyticsEvent
   | UpdateDocumentAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;

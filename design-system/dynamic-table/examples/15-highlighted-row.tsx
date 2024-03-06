@@ -35,9 +35,9 @@ export default class extends React.Component<{}, State> {
   render() {
     return (
       <>
-        <h4 id="row-highlight-control" style={paddingStyle}>
-          Click on the buttons to highlight the corresponding row
-        </h4>
+        <p id="row-highlight-control" style={paddingStyle}>
+          Select a button to highlight its' corresponding row
+        </p>
         <ButtonGroup titleId="row-highlight-control">
           {[0, 2, 5, 6, 8, 9].map((rowIndex) => (
             <Button

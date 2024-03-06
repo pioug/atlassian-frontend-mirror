@@ -50,7 +50,7 @@
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/range": "^7.1.0",
-    "@atlaskit/select": "^17.1.0",
+    "@atlaskit/select": "^17.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/visual-regression": "*",

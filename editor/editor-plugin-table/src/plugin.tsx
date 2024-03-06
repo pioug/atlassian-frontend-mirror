@@ -39,7 +39,6 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
-import { createTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { insertTableWithSize } from './commands/insert';
@@ -79,7 +78,7 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
-import { isLayoutSupported } from './utils';
+import { createTableWithWidth, isLayoutSupported } from './utils';
 
 export interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -105,6 +104,10 @@ export type TablePlugin = NextEditorPlugin<
     pluginConfiguration: TablePluginOptions | undefined;
     actions: {
       insertTable: InsertTableAction;
+    };
+    sharedState: {
+      isFullWidthModeEnabled: boolean;
+      wasFullWidthModeEnabled: boolean;
     };
     commands: {
       insertTableWithSize: (
@@ -140,13 +143,23 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
   return {
     name: 'table',
 
+    // Use getSharedState to store fullWidthEnabled and wasFullWidthModeEnabled to guarantee access
+    // to most up to date values - passing to createPluginState will not re-initialise the state
+    getSharedState: () => {
+      return {
+        isFullWidthModeEnabled: !!options?.fullWidthEnabled,
+        wasFullWidthModeEnabled: !!options?.wasFullWidthEnabled,
+      };
+    },
+
     actions: {
       insertTable:
         (analyticsPayload): Command =>
         (state, dispatch) => {
-          const node = createTable({
-            schema: state.schema,
-          });
+          const node = createTableWithWidth(
+            options?.fullWidthEnabled,
+            options?.getEditorFeatureFlags,
+          )(state.schema);
 
           return (
             api?.contentInsertion?.actions?.insert({
@@ -162,8 +175,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           );
         },
     },
+
     commands: {
-      insertTableWithSize: insertTableWithSize(api?.analytics?.actions),
+      insertTableWithSize: insertTableWithSize(
+        options?.fullWidthEnabled,
+        options?.getEditorFeatureFlags,
+        api?.analytics?.actions,
+      ),
     },
 
     nodes() {
@@ -321,6 +339,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                   dispatch,
                   dispatchAnalyticsEvent,
                   options?.fullWidthEnabled ?? false,
+                  options?.getEditorFeatureFlags,
                 )
               : undefined,
         },
@@ -558,10 +577,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           keyshortcut: tooltip(toggleTable),
           icon: () => <IconTable />,
           action(insert, state) {
+            // see comment on tablesPlugin.getSharedState on usage
+            const tableState = api?.table?.sharedState.currentState();
+
             const tr = insert(
-              createTable({
-                schema: state.schema,
-              }),
+              createTableWithWidth(
+                tableState?.isFullWidthModeEnabled,
+                options?.getEditorFeatureFlags,
+              )(state.schema),
             );
             editorAnalyticsAPI?.attachAnalyticsEvent({
               action: ACTION.INSERTED,

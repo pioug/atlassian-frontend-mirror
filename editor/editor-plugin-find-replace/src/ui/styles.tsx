@@ -15,6 +15,7 @@ import { token } from '@atlaskit/tokens';
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
+// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
 export const replaceSectionButtonStyles = getBooleanFF(
   'platform.editor.a11y-find-replace',
 )

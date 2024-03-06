@@ -47,7 +47,7 @@
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/primitives": "^4.0.0",
-    "@atlaskit/select": "^17.1.0",
+    "@atlaskit/select": "^17.2.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/textfield": "^6.0.0",
     "@atlaskit/tokens": "^1.39.0",

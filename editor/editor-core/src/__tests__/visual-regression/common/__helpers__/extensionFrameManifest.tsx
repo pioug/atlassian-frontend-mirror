@@ -2,6 +2,7 @@ import React from 'react';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { ExtensionManifest } from '@atlaskit/editor-common/extensions';
+import { token } from '@atlaskit/tokens';
 
 const icon = () =>
   import(
@@ -65,7 +66,10 @@ const manifest: ExtensionManifest = {
             const { parameters } = node;
             return (
               <div
-                style={{ border: '1px dashed purple', margin: '10px 0' }}
+                style={{
+                  border: '1px dashed purple',
+                  margin: `${token('space.150', '12px')} 0`,
+                }}
                 title="framelessList"
                 data-frameless-list-id="mochilist"
               >
@@ -91,7 +95,10 @@ const manifest: ExtensionManifest = {
             const { parameters } = node;
             return (
               <div
-                style={{ border: '1px dashed purple', margin: '10px 0' }}
+                style={{
+                  border: '1px dashed purple',
+                  margin: `${token('space.150', '12px')} 0`,
+                }}
                 title="framelessList"
                 data-frameless-list-id="mochilist"
               >
@@ -109,7 +116,10 @@ const manifest: ExtensionManifest = {
             const { parameters } = node;
             return (
               <div
-                style={{ border: '1px dashed green', margin: '10px 0' }}
+                style={{
+                  border: '1px dashed green',
+                  margin: `${token('space.150', '12px')} 0`,
+                }}
                 title="list"
                 data-list-id="mochilist"
               >

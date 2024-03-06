@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Text from '@atlaskit/ds-explorations/text';
+import { Inline, xcss } from '@atlaskit/primitives';
 import Stack from '@atlaskit/primitives/stack';
 import SectionMessage from '@atlaskit/section-message';
 
 import Pagination from '../src';
+
+const customEllipsisStyles = xcss({
+  margin: 'space.0',
+});
 
 export default function CustomEllipsisExample() {
   const [maxPageSize, setMaxPageSize] = useState(7);
@@ -22,14 +27,15 @@ export default function CustomEllipsisExample() {
       <Pagination
         testId="pagination"
         renderEllipsis={({ key }: { key: string }) => (
-          <Button
-            onClick={() => handleEllipsisCLick()}
-            appearance="subtle"
-            key={key}
-            aria-label="expand"
-          >
-            &hellip;
-          </Button>
+          <Inline key={key} as="li" xcss={customEllipsisStyles}>
+            <Button
+              onClick={handleEllipsisCLick}
+              appearance="subtle"
+              aria-label="Expand list"
+            >
+              &hellip;
+            </Button>
+          </Inline>
         )}
         max={maxPageSize}
         pages={[...Array(10)].map((_, i) => i + 1)}

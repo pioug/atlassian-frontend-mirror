@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import ToolsDrawer from '../example-helpers/ToolsDrawer';
 import { name, version } from '../package.json';
@@ -98,7 +99,7 @@ export default class EditorWithFeedback extends React.Component<Props, State> {
                 disabled,
                 contextIdentifierProvider,
               }: any) => (
-                <div style={{ padding: '20px' }}>
+                <div style={{ padding: token('space.250', '20px') }}>
                   <CollapsedEditor
                     placeholder="What do you want to say?"
                     isExpanded={this.state.isExpanded}

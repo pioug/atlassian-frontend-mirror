@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { resizerStyles } from '@atlaskit/editor-common/styles';
+import { token } from '@atlaskit/tokens';
 
 function Parent(props: {
   text?: string;
@@ -28,6 +29,7 @@ function Parent(props: {
 
   return (
     <ResizerNext
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       enable={{ left: true, right: true }}
       handleResizeStart={handleResizeStart}
       handleResize={handleResize}
@@ -56,40 +58,35 @@ function Parent(props: {
 export default function ExampleForResizerStickyScroll() {
   return (
     <div
-      css={css`
-        ${resizerStyles};
-
-        // NOTE: This is a tweak to make the resize handles visible in this example
-        .resizer-handle-right::after,
-        .resizer-handle-left::after {
-          background: red;
-        }
-
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 10px;
-        justify-items: center;
-      `}
+      css={css(resizerStyles, {
+        '.resizer-handle-right::after, .resizer-handle-left::after': {
+          background: 'red',
+        },
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr 1fr 1fr',
+        gridTemplateRows: '1fr 1fr',
+        gap: token('space.150', '12px'),
+        justifyItems: 'center',
+      })}
     >
       {[200, 500, 2000].map((height, i) => (
         <div
           key={i}
-          css={css`
-            display: block;
-            grid-row: 1;
-          `}
+          css={css({
+            display: 'block',
+            gridRow: 1,
+          })}
         >
           <Parent height={height} text={`${height}px`} />
         </div>
       ))}
 
       <div
-        css={css`
-          display: block;
-          grid-column: 4;
-          grid-row: 1 / 3;
-        `}
+        css={css({
+          display: 'block',
+          gridColumn: 4,
+          gridRow: '1 / 3',
+        })}
       >
         <Parent height={4010} />
       </div>
@@ -97,11 +94,11 @@ export default function ExampleForResizerStickyScroll() {
       {[200, 500, 2000].map((height, i) => (
         <div
           key={i}
-          css={css`
-            display: block;
-            grid-row: 2;
-            place-items: flex-end center;
-          `}
+          css={css({
+            display: 'block',
+            gridRow: 2,
+            placeItems: 'flex-end center',
+          })}
         >
           <Parent height={height} text={`${height}px`} />
         </div>

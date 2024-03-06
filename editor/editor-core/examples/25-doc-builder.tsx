@@ -6,6 +6,7 @@ import prettier from 'prettier/standalone';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import TextArea from '@atlaskit/textarea';
+import { token } from '@atlaskit/tokens';
 
 import { DevTools } from '../example-helpers/DevTools';
 import { evaluateDocBuilderExpression } from '../example-helpers/evaluate-doc-builder-expression';
@@ -291,7 +292,7 @@ export default class Example extends React.Component {
         <div
           style={{
             display: 'grid',
-            padding: '10px',
+            padding: token('space.150', '12px'),
             gridTemplateColumns: '1fr 1fr 1fr',
             gridTemplateRows: '1fr 1fr',
             gridGap: '6px 6px',

@@ -1,4 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import type { FC } from 'react';
+import React, { Fragment } from 'react';
 import memoizeOne from 'memoize-one';
 
 import type { RendererContext } from '../react/types';
@@ -13,6 +16,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
   type:
@@ -38,6 +42,12 @@ export interface Props {
 export interface State {
   extensionProvider?: ExtensionProvider | null;
 }
+
+const inlineExtensionStyle = css({
+  '& .rich-media-item': {
+    maxWidth: '100%',
+  },
+});
 
 export default class ExtensionRenderer extends React.Component<Props, State> {
   state = {
@@ -110,7 +120,11 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
         if (node.type === 'multiBodiedExtension') {
           result = <NodeRenderer node={node} actions={actions} />;
         } else {
-          result = <NodeRenderer node={node} />;
+          result = (
+            <InlineNodeRendererWrapper>
+              <NodeRenderer node={node} />
+            </InlineNodeRendererWrapper>
+          );
         }
       }
     } catch (e) {
@@ -149,3 +163,14 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
     );
   }
 }
+
+const InlineNodeRendererWrapper: FC = ({ children }) => {
+  if (getBooleanFF('platform.editor.inline_extension.extended_lcqdn')) {
+    return (
+      <div className="inline-extension-renderer" css={inlineExtensionStyle}>
+        {children}
+      </div>
+    );
+  }
+  return <Fragment>{children}</Fragment>;
+};

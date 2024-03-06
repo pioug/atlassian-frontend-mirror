@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 192.6.0
+
+### Minor Changes
+
+- [#63691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63691) [`02293e70771b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02293e70771b) - add allowWidthDetector option to be used to skip width detector in renderer, to make media single works in inline extension like excerpt include
+
+### Patch Changes
+
+- Updated dependencies
+
+## 192.5.0
+
+### Minor Changes
+
+- [#77861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77861) [`49524593045e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49524593045e) - [ux] Migrated to using tokens for colours and spacing in editor-core.
+
+  There are slight changes in spacing where there was a design token close to the current design such as:
+
+  - Comment padding (14px -> 12px)
+  - Layout margin (7px -> 8px)
+  - Toolbar margin (at certain widths) (15px -> 16px)
+
 ## 192.4.6
 
 ### Patch Changes

@@ -10,57 +10,57 @@ import Button from '@atlaskit/button/standard-button';
 import TextArea from '@atlaskit/textarea';
 import { G75, N10, N40, N900, R75 } from '@atlaskit/theme/colors';
 import { codeFontFamily } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
-const container = css`
-  display: flex;
-  flex-direction: column;
-  margin: 0.5em;
-  height: calc(100% - 30px);
+const container = css({
+  display: 'flex',
+  flexDirection: 'column',
+  margin: token('space.100', '8px'),
+  height: 'calc(100% - 30px)',
+  '> *': {
+    margin: `${token('space.100', '8px')} 0`,
+  },
+});
 
-  > * {
-    margin: 0.5em 0;
-  }
-`;
+const textContainer = css({
+  flex: '1 1 auto',
+  display: 'flex',
+});
 
-const textContainer = css`
-  flex: 1 1 auto;
-  display: flex;
-`;
+const diffContainer = css({
+  flex: '1 1 auto',
+  height: '100%',
+  whiteSpace: 'pre',
+  fontFamily: codeFontFamily(),
+  color: N900,
+  backgroundColor: N10,
+  border: `2px solid ${token('color.border', N40)}`,
+  borderRadius: '3px',
+  boxSizing: 'border-box',
+  fontSize: '14px',
+  lineHeight: '16px',
+  overflow: 'auto',
+  wordWrap: 'break-word',
+  padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
+});
 
-const diffContainer = css`
-  flex: 1 1 auto;
-  height: 100%;
-  white-space: pre;
-  font-family: ${codeFontFamily()};
-  color: ${N900};
-  background-color: ${N10};
-  border: 2px solid ${N40};
-  border-radius: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
-  line-height: 16px;
-  overflow: auto;
-  word-wrap: break-word;
-  padding: 6px 6px;
-`;
+const buttonContainer = css({
+  flex: '0 0 auto',
+  display: 'flex',
+  justifyContent: 'flex-end',
+});
 
-const buttonContainer = css`
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: flex-end;
-`;
+const lineStyle = css({
+  margin: 0,
+});
 
-const lineStyle = css`
-  margin: 0;
-`;
+const addedLineStyle = css({
+  backgroundColor: G75,
+});
 
-const addedLineStyle = css`
-  background-color: ${G75};
-`;
-
-const removedLineStyle = css`
-  background-color: ${R75};
-`;
+const removedLineStyle = css({
+  backgroundColor: R75,
+});
 
 type LineProps = {
   children: React.ReactNode;
@@ -74,13 +74,13 @@ const RemovedLine = ({ children }: LineProps) => (
   <p css={[lineStyle, removedLineStyle]}>{children}</p>
 );
 
-const label = css`
-  width: 100%;
-  text-align: center;
-  border-top: 1px solid ${N40};
-  font-size: 16px;
-  padding-top: 1em;
-`;
+const label = css({
+  width: '100%',
+  textAlign: 'center',
+  borderTop: `1px solid ${token('color.border', N40)}`,
+  fontSize: '16px',
+  paddingTop: token('space.200', '16px'),
+});
 
 type State = {
   editMode: boolean;

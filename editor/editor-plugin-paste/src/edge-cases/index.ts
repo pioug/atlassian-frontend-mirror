@@ -48,7 +48,11 @@ export function insertSliceForLists({
 
   // if inside an empty panel, try and insert content inside it rather than replace it
   if (panelNode && isEmptyNode(panelNode) && $from.node() === $to.node()) {
-    return insertSliceInsideOfPanelNodeSelected(panelNode)({ tr, slice });
+    return insertSliceInsideOfPanelNodeSelected(panelNode)({
+      tr,
+      slice,
+      schema,
+    });
   }
 
   if (!$cursor || selectionIsInsideList) {

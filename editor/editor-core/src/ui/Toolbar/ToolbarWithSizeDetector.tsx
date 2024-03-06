@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
 import { isFullPage } from '../../utils/is-full-page';
@@ -14,16 +15,16 @@ import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
 import { ToolbarSize } from './types';
 
-const toolbar = css`
-  width: 100%;
-  position: relative;
-  @media (max-width: ${akEditorMobileMaxWidth}px) {
-    grid-column: 1 / 2;
-    grid-row: 2;
-    width: calc(100% - 30px);
-    margin: 0 15px;
-  }
-`;
+const toolbar = css({
+  width: '100%',
+  position: 'relative',
+  [`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
+    gridColumn: '1 / 2',
+    gridRow: 2,
+    width: 'calc(100% - 30px)',
+    margin: `0 ${token('space.200', '16px')}`,
+  },
+});
 
 export const ToolbarWithSizeDetector: React.FunctionComponent<
   ToolbarWithSizeDetectorProps

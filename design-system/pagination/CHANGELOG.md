@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.6.0
+
+### Minor Changes
+
+- [#72645](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72645) [`10cdc9cadb00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10cdc9cadb00) - Accessibility fix. Fixed semantics for pagination buttons.
+
 ## 14.5.3
 
 ### Patch Changes

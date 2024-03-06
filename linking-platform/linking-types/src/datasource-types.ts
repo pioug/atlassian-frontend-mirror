@@ -151,6 +151,7 @@ export interface DatasourceResponseParameter {
   type: DatasourceType['type'];
   description: string;
   isRequired?: boolean;
+  isList?: boolean;
 }
 
 interface DatasourceResponse<TData> {

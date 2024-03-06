@@ -9,6 +9,7 @@ import type { HandleResize, HandleSize } from '@atlaskit/editor-common/resizer';
 import { resizerStyles } from '@atlaskit/editor-common/styles';
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
+import { token } from '@atlaskit/tokens';
 
 const options: OptionsPropType = [
   { name: 'small', value: 'small', label: 'Small handler' },
@@ -45,6 +46,7 @@ function Parent(props: {
 
   return (
     <ResizerNext
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       enable={{ left: true, right: true }}
       handleResizeStart={handleResizeStart}
       handleResize={handleResize}
@@ -93,13 +95,19 @@ export default function Example() {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '60px',
+        gap: token('space.800', '64px'),
         alignItems: 'center',
         height: '500px',
       }}
       css={resizerStyles}
     >
-      <div style={{ display: 'flex', flexDirection: 'row', gap: '60px' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          gap: token('space.800', '64px'),
+        }}
+      >
         <RadioGroup
           isDisabled={false}
           options={options}

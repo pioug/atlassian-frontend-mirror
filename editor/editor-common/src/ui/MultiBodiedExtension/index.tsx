@@ -9,9 +9,8 @@ import { BODIED_EXT_MBE_MARGIN_TOP } from '../../styles';
 
 // Wraps the navigation bar and extensionFrames
 const mbeExtensionContainer = css({
-  background: 'transpaent !important',
+  background: 'transparent !important',
   'padding:': {
-    bottom: `${token('space.100', '8px')} !important`,
     left: `${token('space.100', '8px')} !important`,
     right: `${token('space.100', '8px')} !important`,
   },
@@ -67,12 +66,6 @@ const extensionFrameContent = css({
   },
   '.extensionView-content-wrap': {
     marginTop: `${token('space.100', '8px')} !important`,
-  },
-  '.decisionItemView-content-wrap': {
-    marginTop: '0px !important',
-  },
-  '.decisionItemView-content-wrap > [data-decision-wrapper]': {
-    marginTop: '0px !important',
   },
 });
 

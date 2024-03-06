@@ -27,7 +27,6 @@
   ],
   "compilerOptions": {
     "baseUrl": "./",
-    "types": ["cypress"],
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-common/app"
   },

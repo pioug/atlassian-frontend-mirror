@@ -11,8 +11,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-export const TableControlsPadding = 20;
-
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
 const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
@@ -74,9 +72,10 @@ type StickyToolbarProps = {
   externalToolbarRef?: RefObject<HTMLElement>;
   offsetTop?: number;
   twoLineEditorToolbar?: boolean;
+  children?: React.ReactNode;
 };
 
-const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
+const StickyToolbar = (props: StickyToolbarProps) => {
   const [top, setTop] = useState(0);
 
   // ED-15802: if externalToolbarRef is passed in, set top to externalToolbarRef?.current?.clientHeight
@@ -109,9 +108,10 @@ const StickyToolbar: React.FC<StickyToolbarProps> = (props) => {
 
 type FixedToolbarProps = {
   twoLineEditorToolbar?: boolean;
+  children?: React.ReactNode;
 };
 
-const FixedToolbar: React.FC<FixedToolbarProps> = (props) => (
+const FixedToolbar = (props: FixedToolbarProps) => (
   <div
     css={mainToolbarWrapperStyle(props.twoLineEditorToolbar)}
     data-testid="ak-editor-main-toolbar"
@@ -149,13 +149,14 @@ const getStickyParameters = (configuration: UseStickyToolbarType) => {
 type MainToolbarProps = {
   useStickyToolbar?: UseStickyToolbarType;
   twoLineEditorToolbar?: boolean;
+  children?: React.ReactNode;
 };
 
-export const MainToolbar: React.FC<MainToolbarProps> = ({
+export const MainToolbar = ({
   useStickyToolbar,
   twoLineEditorToolbar,
   children,
-}) => {
+}: MainToolbarProps) => {
   if (useStickyToolbar) {
     return (
       <StickyToolbar

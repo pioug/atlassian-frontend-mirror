@@ -4,30 +4,32 @@ import React, { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-const container: any = css`
-  width: 100%;
-  border-bottom: 1px solid #333;
-`;
+import { token } from '@atlaskit/tokens';
 
-const heading: any = css`
-  line-height: 1.7em;
-  text-align: center;
-  color: black;
-  font-size: 1.2em;
-  font-weight: bold;
-  user-select: none;
-  position: sticky;
-  top: 0;
-  background: #c00;
-  border-bottom: 1px solid #333;
-`;
+const container: any = css({
+  width: '100%',
+  borderBottom: '1px solid #333',
+});
 
-const errorStyle: any = css`
-  padding: 30px;
-  font-family: monospace;
-  white-space: pre-wrap;
-  background: red;
-`;
+const heading: any = css({
+  lineHeight: '1.7em',
+  textAlign: 'center',
+  color: 'black',
+  fontSize: '1.2em',
+  fontWeight: 'bold',
+  userSelect: 'none',
+  position: 'sticky',
+  top: 0,
+  background: '#c00',
+  borderBottom: '1px solid #333',
+});
+
+const errorStyle: any = css({
+  padding: token('space.400', '32px'),
+  fontFamily: 'monospace',
+  whiteSpace: 'pre-wrap',
+  background: 'red',
+});
 
 type ExamplesErrorBoundaryState = {
   error: { error: Error; stack: string } | undefined;

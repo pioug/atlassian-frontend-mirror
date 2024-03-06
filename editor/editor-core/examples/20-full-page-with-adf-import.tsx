@@ -4,6 +4,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { fromLocation } from '../example-helpers/adf-url';
 import { DevTools } from '../example-helpers/DevTools';
@@ -16,20 +17,20 @@ import {
   LOCALSTORAGE_defaultDocKey,
 } from './5-full-page';
 
-export const textareaStyle = css`
-  box-sizing: border-box;
-  border: 1px solid lightgray;
-  font-family: monospace;
-  padding: 10px;
-  width: 100%;
-  height: 250px;
-`;
+export const textareaStyle = css({
+  boxSizing: 'border-box',
+  border: '1px solid lightgray',
+  fontFamily: 'monospace',
+  padding: token('space.150', '12px'),
+  width: '100%',
+  height: '250px',
+});
 
 export interface State {
   inputValue?: string;
 }
 
-const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
+const FullPageWithAdfImport = function FullPageWithAdfImport() {
   const maybeDoc = fromLocation<object>(window.parent.location);
   const doc = maybeDoc instanceof window.Error ? undefined : maybeDoc;
 
@@ -85,7 +86,7 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
                         const value = await actions.getValue();
                         setAdfValue(value);
                       }}
-                      style={{ marginRight: 5 }}
+                      style={{ marginRight: token('space.050', '4px') }}
                     >
                       Export ADF
                     </Button>
@@ -95,11 +96,17 @@ const FullPageWithAdfImport: React.FC = function FullPageWithAdfImport() {
             />
           }
         />
-        <div style={{ position: 'fixed', top: 90, right: 15 }}>
+        <div
+          style={{
+            position: 'fixed',
+            top: token('space.1000', '80px'),
+            right: token('space.200', '16px'),
+          }}
+        >
           <Button
             id="toggle-adf-input"
             onClick={() => setPanelOpen(!panelOpen)}
-            style={{ marginRight: 5 }}
+            style={{ marginRight: token('space.050', '4px') }}
           >
             {panelOpen ? 'Close' : 'Open'} Panel
           </Button>
@@ -117,7 +124,7 @@ export interface AdfPanelProps {
   onInput(value: string): void;
 }
 
-const AdfPanel: React.FC<AdfPanelProps> = function AdfPanel(props) {
+const AdfPanel = function AdfPanel(props: AdfPanelProps) {
   const value =
     typeof props.value === 'string'
       ? props.value

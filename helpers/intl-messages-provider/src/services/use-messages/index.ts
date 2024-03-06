@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { DEFAULT_LOCALE_STATE } from '../../common/constants';
 import { I18NMessages } from '../../index';
 
 export type LocaleState = {
@@ -11,10 +12,8 @@ export const useMessages = (
   locale: string,
   loaderFn: (locale: string) => Promise<I18NMessages | undefined>,
 ): I18NMessages | undefined => {
-  const [localeState, setLocaleState] = useState<LocaleState>({
-    locale: 'en',
-    messages: {},
-  });
+  const [localeState, setLocaleState] =
+    useState<LocaleState>(DEFAULT_LOCALE_STATE);
 
   useEffect(() => {
     if (!localeState.messages || locale !== localeState.locale) {

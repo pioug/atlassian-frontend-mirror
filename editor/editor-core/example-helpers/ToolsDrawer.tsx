@@ -13,6 +13,7 @@ import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock'
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { EmojiResource } from '@atlaskit/emoji/resource';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import {
   currentUser,
@@ -241,7 +242,7 @@ export default class ToolsDrawer extends React.Component<Props & any, State> {
             onEvent={(e: any) => console.log(e)}
           >
             <div css={content}>
-              <div style={{ padding: '5px 0' }}>
+              <div style={{ padding: `${token('space.150', '4px')} 0` }}>
                 ️️️⚠️ Atlassians, for Media integration to work in non-mocked
                 state, make sure you're logged into{' '}
                 <a href="https://id.stg.internal.atlassian.com" target="_blank">

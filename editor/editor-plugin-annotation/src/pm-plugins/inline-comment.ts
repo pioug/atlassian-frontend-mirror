@@ -8,7 +8,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   clearDirtyMark,
@@ -263,18 +262,12 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           node.marks
             .filter(mark => mark.type === state.schema.marks.annotation)
             .forEach(mark => {
-              const isSelected = getBooleanFF(
-                'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-              )
-                ? !isInlineCommentViewClosed &&
-                  !!selectedAnnotations?.some(
-                    selectedAnnotation =>
-                      selectedAnnotation.id === mark.attrs.id,
-                  )
-                : !!selectedAnnotations?.some(
-                    selectedAnnotation =>
-                      selectedAnnotation.id === mark.attrs.id,
-                  );
+              const isSelected =
+                !isInlineCommentViewClosed &&
+                !!selectedAnnotations?.some(
+                  selectedAnnotation => selectedAnnotation.id === mark.attrs.id,
+                );
+
               const isUnresolved =
                 !!annotations && annotations[mark.attrs.id] === false;
 

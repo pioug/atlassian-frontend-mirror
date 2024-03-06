@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.4.1
+
+### Patch Changes
+
+- [#78702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78702) [`6b76dabb8255`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b76dabb8255) - Add rule to check for invalid flag usages in exports
+
 ## 0.4.0
 
 ### Minor Changes

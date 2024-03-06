@@ -12,82 +12,90 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 import ShareIcon from '@atlaskit/icon/glyph/share';
 import WatchFilledIcon from '@atlaskit/icon/glyph/watch-filled';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 
-const rightSideContainer = css`
-  overflow: hidden auto;
-  height: calc(100vh - 50px);
-`;
+const rightSideContainer = css({
+  overflow: 'hidden auto',
+  height: 'calc(100vh - 50px)',
+});
 
-const contentSection = css`
-  padding-top: 10px;
-  grid-area: content;
-  display: flex;
-  height: 100%;
-  position: relative;
-`;
+const contentSection = css({
+  paddingTop: token('space.150', '12px'),
+  gridArea: 'content',
+  display: 'flex',
+  height: '100%',
+  position: 'relative',
+});
 
-const portalContainer = css`
-  display: flex;
-`;
+const portalContainer = css({
+  display: 'flex',
+});
 
-const rightSidebarContainer = css`
-  padding-right: 20px;
-  padding-left: 20px;
-`;
+const rightSidebarContainer = xcss({
+  paddingRight: token('space.250', '20px'),
+  paddingLeft: token('space.250', '20px'),
+});
 
-const headerActionContainer = css`
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  padding-right: 8px;
-  position: sticky;
-  top: 0px;
-  background: white none repeat scroll 0% 0%;
-  z-index: 99;
-`;
+const headerActionContainer = css({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  gap: token('space.200', '16px'),
+  paddingRight: token('space.100', '8px'),
+  position: 'sticky',
+  top: '0px',
+  background: 'white none repeat scroll 0% 0%',
+  zIndex: 99,
+});
 
-const statusContainer = css`
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-start;
-  gap: 16px;
-  height: 52px;
-`;
+const statusContainer = css({
+  marginTop: token('space.150', '12px'),
+  display: 'flex',
+  justifyContent: 'flex-start',
+  gap: token('space.200', '16px'),
+  height: '52px',
+});
 
-const detailsHeaderContainer = css`
-  display: flex;
-  justify-content: space-between;
-  padding: 11px 12px 11px 12px;
-  border: solid 1px rgb(235, 236, 240);
-  border-radius: 4px 4px 0px 0px;
-  position: sticky;
-  top: 32px;
-  background: white none repeat scroll 0% 0%;
-  z-index: 99;
-`;
+const detailsHeaderContainer = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: `11px ${token('space.150', '12px')} 11px ${token(
+    'space.150',
+    '12px',
+  )}`,
+  border: 'solid 1px rgb(235, 236, 240)',
+  borderRadius: '4px 4px 0px 0px',
+  position: 'sticky',
+  top: token('space.400', '32px'),
+  background: 'white none repeat scroll 0% 0%',
+  zIndex: 99,
+});
 
-const detialsContentContainer = css`
-  padding: 11px 12px 11px 12px;
-  border: solid 1px rgb(235, 236, 240);
-  border-radius: 0px 0px 4px 4px;
-  border-top: 0px;
-`;
+const detialsContentContainer = css({
+  padding: `11px ${token('space.150', '12px')} 11px ${token(
+    'space.150',
+    '12px',
+  )}`,
+  border: 'solid 1px rgb(235, 236, 240)',
+  borderRadius: '0px 0px 4px 4px',
+  borderTop: '0px',
+});
 
-const main = css`
-  outline: currentColor none medium;
-  display: grid;
-  height: 100%;
-  grid-template-columns: var(--leftPanelWidth, 0px) minmax(0, 1fr) var(
-      --rightPanelWidth,
-      0px
-    );
-  grid-template-rows: var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto;
-  grid-template-areas: 'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel';
-  overflow: hidden;
-`;
+const main = css({
+  outline: 'currentColor none medium',
+  display: 'grid',
+  height: '100%',
+  gridTemplateColumns:
+    'var(--leftPanelWidth, 0px) minmax(0, 1fr) var( --rightPanelWidth, 0px )',
+  gridTemplateRows:
+    'var(--bannerHeight, 0px) var(--topNavigationHeight, 0px) auto',
+  gridTemplateAreas:
+    "'left-panel banner right-panel' 'left-panel top-navigation right-panel' 'left-panel content right-panel'",
+  overflow: 'hidden',
+});
 
 export default function CommentWithJiraCardsExample() {
   const [portalElement, setPortalElement] = useState<HTMLDivElement>();
@@ -109,7 +117,7 @@ export default function CommentWithJiraCardsExample() {
         <section css={contentSection}>
           <div css={rightSideContainer}>
             <RightSidebar width={600}>
-              <div css={rightSidebarContainer}>
+              <Box xcss={rightSidebarContainer}>
                 <div id="jira-issue-header-actions" css={headerActionContainer}>
                   <Button
                     appearance="subtle"
@@ -172,7 +180,7 @@ export default function CommentWithJiraCardsExample() {
                     </EditorContext>
                   </div>
                 )}
-              </div>
+              </Box>
             </RightSidebar>
           </div>
         </section>

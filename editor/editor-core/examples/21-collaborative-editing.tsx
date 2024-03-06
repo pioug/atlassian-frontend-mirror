@@ -13,6 +13,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -32,12 +33,12 @@ export const getRandomUser = () => {
 const defaultCollabUrl =
   'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
-export const content: any = css`
-  padding: 0 20px;
-  height: 50%;
-  background: #fff;
-  box-sizing: border-box;
-`;
+export const content: any = css({
+  padding: `0 ${token('space.250', '20px')}`,
+  height: '50%',
+  background: '#fff',
+  boxSizing: 'border-box',
+});
 
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
   const onClickPublish = () => {
@@ -129,7 +130,7 @@ export default class Example extends React.Component<Props, State> {
           style={{
             margin: 0,
             backgroundColor: '#FF5630',
-            padding: '10px',
+            padding: token('space.150', '12px'),
           }}
         >
           <strong>NOTE!</strong> Something went wrong in the editor. You may be
@@ -146,7 +147,7 @@ export default class Example extends React.Component<Props, State> {
         style={{
           margin: 0,
           backgroundColor: '#00B8D9',
-          padding: '10px',
+          padding: token('space.150', '12px'),
         }}
       >
         <div>

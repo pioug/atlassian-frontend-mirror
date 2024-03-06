@@ -68,9 +68,9 @@ const AvatarGroupExample: FC = () => {
       </Note>
       <div style={{ display: 'flex', marginTop: '1em' }}>
         <div style={{ flex: 1 }}>
-          <h5 id="avatar-size" style={{ marginBottom: '0.5em' }}>
+          <h2 id="avatar-size" style={{ marginBottom: '0.5em' }}>
             Avatar Size: {avatarSize}
-          </h5>
+          </h2>
           <ButtonGroup titleId="avatar-size">
             <Button
               isDisabled={avatarSize === 'small'}
@@ -91,9 +91,9 @@ const AvatarGroupExample: FC = () => {
           </ButtonGroup>
         </div>
         <div style={{ flex: 1 }}>
-          <h5 id="avatar-count" style={{ marginBottom: '0.5em' }}>
+          <h2 id="avatar-count" style={{ marginBottom: '0.5em' }}>
             Avatar Count: {avatarCount}
-          </h5>
+          </h2>
           <ButtonGroup titleId="avatar-count">
             <Button
               isDisabled={avatarCount <= 1}
@@ -114,9 +114,9 @@ const AvatarGroupExample: FC = () => {
           </ButtonGroup>
         </div>
         <div style={{ flex: 1 }}>
-          <h5 id="grid-max" style={{ marginBottom: '0.5em' }}>
+          <h2 id="grid-max" style={{ marginBottom: '0.5em' }}>
             Grid Max: {avatarCountMax}
-          </h5>
+          </h2>
           <ButtonGroup titleId="grid-max">
             <Button
               isDisabled={avatarCountMax <= 1}
@@ -137,7 +137,7 @@ const AvatarGroupExample: FC = () => {
           </ButtonGroup>
         </div>
       </div>
-      <h5>Grid</h5>
+      <h2>Grid</h2>
       <Note>
         Total {stackSourceURLs.length} / Max {avatarCountMax}
       </Note>
@@ -185,7 +185,7 @@ const AvatarGroupExample: FC = () => {
           {gridWidth}px
         </span>
       </div>
-      <h5>Stack</h5>
+      <h2>Stack</h2>
       <Note>Total {stackSourceURLs.length} / Max 5</Note>
       <AvatarGroup
         onAvatarClick={console.log}
@@ -199,7 +199,7 @@ const AvatarGroupExample: FC = () => {
         size={avatarSize}
       />
 
-      <h5>On {'"More"'} Click</h5>
+      <h2>On {'"More"'} Click</h2>
       <div style={{ maxWidth: 380 }}>
         <Note>
           Circumvent the default dropdown menu behaviour by passing{' '}
@@ -229,7 +229,7 @@ const AvatarGroupExample: FC = () => {
         ) : null}
       </div>
 
-      <h5>Removed from tab order</h5>
+      <h2>Removed from tab order</h2>
       <div style={{ maxWidth: 380 }}>
         <Note>
           Prevent tabbing to elements in the avatar group by passing{' '}
@@ -252,7 +252,7 @@ const AvatarGroupExample: FC = () => {
         />
       </div>
 
-      <h5>Constrained by the scroll parent</h5>
+      <h2>Constrained by the scroll parent</h2>
       <div>
         <p>Expand and scroll up to reposition the avatar group menu</p>
         <div
@@ -279,7 +279,7 @@ const AvatarGroupExample: FC = () => {
         </div>
       </div>
 
-      <h5>Non-interactive</h5>
+      <h2>Non-interactive</h2>
       <div>
         <Label htmlFor="tooltips">Enable tooltips</Label>
         <Toggle

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/react';
-import { Component, FC } from 'react';
+import { Component } from 'react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
@@ -247,6 +247,6 @@ export const CheckboxOption = <OptionT extends OptionType>(
   <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />
 );
 
-export const RadioOption: FC<OptionProps> = (props) => (
-  <ControlOption Icon={RadioIcon} {...props} />
-);
+export const RadioOption = <OptionT extends OptionType>(
+  props: OptionProps<OptionT, false>,
+) => <ControlOption Icon={RadioIcon} {...props} />;

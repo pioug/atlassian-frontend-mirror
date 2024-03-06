@@ -13,7 +13,12 @@ const collapseRange = <T,>(
     transform,
   }: {
     max: number;
-    ellipsis: (arg: { key: string; testId: string }) => ReactElement;
+    ellipsis: (arg: {
+      key: string;
+      testId: string;
+      from: number;
+      to: number;
+    }) => ReactElement;
     transform: (page: T, index: number, testId?: string) => ReactElement;
   },
   testId?: string,
@@ -41,7 +46,12 @@ const collapseRange = <T,>(
     const pageCount = max - 2;
     return [
       ...getPageComponents(0, 1),
-      ellipsis({ key: 'ellipsis-1', testId: `${testId}-ellipsis` }),
+      ellipsis({
+        key: 'ellipsis-1',
+        testId: `${testId}-ellipsis`,
+        from: 2,
+        to: total - pageCount,
+      }),
       ...getPageComponents(total - pageCount),
     ];
   }
@@ -49,7 +59,12 @@ const collapseRange = <T,>(
     const pageCount = max - 2;
     return [
       ...getPageComponents(0, pageCount),
-      ellipsis({ key: 'ellipsis-1', testId: `${testId}-ellipsis` }),
+      ellipsis({
+        key: 'ellipsis-1',
+        testId: `${testId}-ellipsis`,
+        from: pageCount + 1,
+        to: total - 1,
+      }),
       ...getPageComponents(total - 1),
     ];
   }
@@ -57,12 +72,22 @@ const collapseRange = <T,>(
   const pageCount = max - 4;
   return [
     ...getPageComponents(0, 1),
-    ellipsis({ key: 'ellipsis-1', testId: `${testId}-ellipsis` }),
+    ellipsis({
+      key: 'ellipsis-1',
+      testId: `${testId}-ellipsis`,
+      from: 2,
+      to: current - Math.floor(pageCount / 2),
+    }),
     ...getPageComponents(
       current - Math.floor(pageCount / 2),
       current + pageCount - 1,
     ),
-    ellipsis({ key: 'ellipsis-2', testId: `${testId}-ellipsis` }),
+    ellipsis({
+      key: 'ellipsis-2',
+      testId: `${testId}-ellipsis`,
+      from: current + 3,
+      to: total - 1,
+    }),
     ...getPageComponents(total - 1),
   ];
 };

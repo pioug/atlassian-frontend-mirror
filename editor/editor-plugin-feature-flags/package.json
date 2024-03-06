@@ -28,7 +28,7 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.10.0",
+    "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },

@@ -41,6 +41,7 @@ export interface Props {
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
   allowCaptions?: boolean;
+  isInsideOfInlineExtension?: boolean;
 }
 
 const DEFAULT_WIDTH = 250;
@@ -78,19 +79,18 @@ export const getMediaContainerWidth = (
   currentContainerWidth: number,
   layout: MediaSingleLayout,
 ): number => {
-  if (currentContainerWidth) {
-    return currentContainerWidth;
+  if (!currentContainerWidth) {
+    // SSR mode fallback to default layout width
+    switch (layout) {
+      case 'full-width':
+        return akEditorFullWidthLayoutWidth;
+      case 'wide':
+        return akEditorWideLayoutWidth;
+      default:
+        return akEditorDefaultLayoutWidth;
+    }
   }
-
-  // SSR mode fallback to default layout width
-  switch (layout) {
-    case 'full-width':
-      return akEditorFullWidthLayoutWidth;
-    case 'wide':
-      return akEditorWideLayoutWidth;
-    default:
-      return akEditorDefaultLayoutWidth;
-  }
+  return currentContainerWidth;
 };
 
 const MediaSingle = (props: Props & WrappedComponentProps) => {
@@ -103,6 +103,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     width: widthAttr,
     widthType,
     allowCaptions = false,
+    isInsideOfInlineExtension = false,
   } = props;
 
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
@@ -184,7 +185,6 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     return {
       cardDimensions,
       lineLength,
-      containerWidth,
     };
   };
 
@@ -194,8 +194,8 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
   };
 
   const renderMediaSingle = (renderWidth: number) => {
-    const { cardDimensions, lineLength, containerWidth } =
-      calcDimensions(renderWidth);
+    const containerWidth = getMediaContainerWidth(renderWidth, layout);
+    const { cardDimensions, lineLength } = calcDimensions(containerWidth);
 
     const mediaComponent = React.cloneElement(media, {
       resizeMode: 'stretchy-fit',
@@ -225,6 +225,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
           widthType,
         }}
         fullWidthMode={isFullWidth}
+        isInsideOfInlineExtension={isInsideOfInlineExtension}
       >
         <Fragment>{mediaComponent}</Fragment>
         {allowCaptions && caption}

@@ -29,6 +29,7 @@ type CreateTableProps = {
   colsCount?: number;
   withHeaderRow?: boolean;
   cellContent?: PMNode;
+  tableWidth?: number;
 };
 
 export const createTable = ({
@@ -37,6 +38,7 @@ export const createTable = ({
   colsCount = 3,
   withHeaderRow = true,
   cellContent,
+  tableWidth,
 }: CreateTableProps): PMNode => {
   const {
     cell: tableCell,
@@ -72,7 +74,10 @@ export const createTable = ({
     );
   }
   if (getBooleanFF('platform.editor.custom-table-width')) {
-    return table.createChecked({ localId: uuid.generate(), width: 760 }, rows);
+    return table.createChecked(
+      { localId: uuid.generate(), width: tableWidth ?? 760 },
+      rows,
+    );
   }
   return table.createChecked({ localId: uuid.generate() }, rows);
 };

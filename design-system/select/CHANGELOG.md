@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.2.0
+
+### Minor Changes
+
+- [#78814](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78814) [`bfe34a286ad8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bfe34a286ad8) - DSP-17230 Update RadioOption to accept generic type arg for OptionType
+
 ## 17.1.3
 
 ### Patch Changes

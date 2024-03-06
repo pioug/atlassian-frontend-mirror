@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
+  akEditorDefaultLayoutWidth,
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
@@ -24,12 +25,34 @@ function float(layout: MediaSingleLayout): string {
   }
 }
 
-function getWidthIfFullWidthMode(width: number): string {
-  return width > akEditorFullWidthLayoutWidth ? '100%' : `${width}px`;
+function getWidthIfFullWidthMode(
+  originalWidth: number,
+  containerWidth: number,
+  isInsideOfInlineExtension?: boolean,
+): string {
+  if (isInsideOfInlineExtension) {
+    return originalWidth > akEditorFullWidthLayoutWidth
+      ? `${Math.min(containerWidth, akEditorFullWidthLayoutWidth)}px`
+      : `${originalWidth}px`;
+  }
+  return originalWidth > akEditorFullWidthLayoutWidth
+    ? '100%'
+    : `${originalWidth}px`;
 }
 
-function getWidthIfDefaultMode(width: number): string {
-  return width > akEditorFullPageMaxWidth ? '100%' : `${width}px`;
+function getWidthIfDefaultMode(
+  originalWidth: number,
+  containerWidth: number,
+  isInsideOfInlineExtension?: boolean,
+): string {
+  if (isInsideOfInlineExtension) {
+    return originalWidth > akEditorFullPageMaxWidth
+      ? `${Math.min(containerWidth, akEditorDefaultLayoutWidth)}px`
+      : `${originalWidth}px`;
+  }
+  return originalWidth > akEditorFullPageMaxWidth
+    ? '100%'
+    : `${originalWidth}px`;
 }
 
 /**
@@ -45,6 +68,7 @@ export function calcLegacyWidth(
   containerWidth: number = 0,
   fullWidthMode?: boolean,
   isResized?: boolean,
+  isInsideOfInlineExtension?: boolean,
 ): string {
   switch (layout) {
     case 'align-start':
@@ -53,15 +77,58 @@ export function calcLegacyWidth(
     case 'wrap-left':
       return width > containerWidth / 2 ? 'calc(50% - 12px)' : `${width}px`;
     case 'wide':
-      return calcWideWidth(containerWidth);
+      return isInsideOfInlineExtension
+        ? calcWideWidth(containerWidth, Infinity, `${containerWidth}px`)
+        : calcWideWidth(containerWidth);
     case 'full-width':
       return calcBreakoutWidth(layout, containerWidth);
     default:
       return isResized
         ? `${width}px`
         : fullWidthMode
-        ? getWidthIfFullWidthMode(width)
-        : getWidthIfDefaultMode(width);
+        ? getWidthIfFullWidthMode(
+            width,
+            containerWidth,
+            isInsideOfInlineExtension,
+          )
+        : getWidthIfDefaultMode(
+            width,
+            containerWidth,
+            isInsideOfInlineExtension,
+          );
+  }
+}
+
+/**
+ * Calculates the image width for non-resized images.
+ *
+ * If an image has not been resized using the pctWidth attribute,
+ * then an image in wide or full-width can not be wider than the image's
+ * original width.
+ */
+export function calcLegacyWidthForInline(
+  layout: MediaSingleLayout,
+  width: number,
+  containerWidth: number = 0,
+  fullWidthMode?: boolean,
+  isResized?: boolean,
+): string {
+  switch (layout) {
+    case 'align-start':
+    case 'align-end':
+    case 'wrap-right':
+    case 'wrap-left':
+      return width > containerWidth / 2 ? 'calc(50% - 12px)' : `${width}px`;
+    case 'wide':
+      return calcWideWidth(containerWidth, Infinity, `${containerWidth}px`);
+    case 'full-width':
+      return calcBreakoutWidth(layout, containerWidth);
+    default:
+      return isResized
+        ? `${width}px`
+        : fullWidthMode
+        ? getWidthIfFullWidthMode(width, containerWidth)
+        : getWidthIfDefaultMode(width, containerWidth);
   }
 }
 
@@ -135,6 +202,7 @@ export interface MediaSingleWrapperProps {
   innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
   isExtendedResizeExperienceOn?: boolean;
   isNestedNode?: boolean;
+  isInsideOfInlineExtension?: boolean;
 }
 
 /**
@@ -150,6 +218,7 @@ export const MediaSingleDimensionHelper = ({
   width, // original media width
   isExtendedResizeExperienceOn,
   isNestedNode = false,
+  isInsideOfInlineExtension = false,
 }: MediaSingleWrapperProps) => css`
   /* For nested rich media items, set max-width to 100% */
   tr &,
@@ -170,6 +239,7 @@ export const MediaSingleDimensionHelper = ({
         containerWidth,
         fullWidthMode,
         isResized,
+        isInsideOfInlineExtension,
       )};
   ${layout === 'full-width' &&
   /* This causes issues for new experience where we don't strip layout attributes

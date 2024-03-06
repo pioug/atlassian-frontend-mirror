@@ -34,16 +34,11 @@ const AnimationDemo = () => {
 
   const startAnimating = useCallback(() => {
     setTimerId(
-      window.setInterval(() => setUpdateCount((count) => count + 1), 300),
+      window.setInterval(() => setUpdateCount((count) => count + 1), 3000),
     );
   }, [setTimerId, setUpdateCount]);
 
   useEffect(() => {
-    startAnimating();
-    if (checkboxRef && checkboxRef.current) {
-      checkboxRef.current.checked = true;
-    }
-
     return () => {
       clearInterval(timerId);
     };
@@ -67,7 +62,7 @@ const AnimationDemo = () => {
           onChange={toggleAnimation}
           ref={checkboxRef}
         />{' '}
-        Animate
+        Animate (every 3 seconds)
       </label>
       <hr />
       <div>

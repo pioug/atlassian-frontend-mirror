@@ -36,6 +36,7 @@ import {
   getDistortedDurationMonitor,
   browser,
 } from '@atlaskit/editor-common/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
@@ -294,6 +295,9 @@ export class Renderer extends PureComponent<RendererProps> {
       nodeComponents: props.nodeComponents,
       // does not currently support SSR, should not be enabled in environments where Renderer is SSR-ed
       allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
+      isInsideOfInlineExtension:
+        getBooleanFF('platform.editor.inline_extension.extended_lcqdn') &&
+        props.isInsideOfInlineExtension,
     };
   }
 
@@ -731,6 +735,9 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     <WidthProvider
       className={`ak-renderer-wrapper is-${appearance}`}
       data-appearance={appearance}
+      shouldCheckExistingValue={
+        getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false
+      }
     >
       <BaseTheme
         baseFontSize={

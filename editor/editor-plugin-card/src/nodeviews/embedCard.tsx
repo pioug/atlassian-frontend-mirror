@@ -35,6 +35,7 @@ import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   EmbedResizeMessageListener,
   Card as SmartCard,
@@ -499,9 +500,16 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     if (this.reactComponentProps.platform !== 'mobile') {
-      // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
-      // see also: https://github.com/ProseMirror/prosemirror/issues/884
-      domRef.contentEditable = 'true';
+      // This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
+      // It is a tradeoff for the bug mentioned below that occurs in Chrome.
+      // See: HOT-107830
+      if (getBooleanFF('platform.editor.card.fix-embed-card-select-all')) {
+        domRef.contentEditable = 'false';
+      } else {
+        // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
+        // see also: https://github.com/ProseMirror/prosemirror/issues/884
+        domRef.contentEditable = 'true';
+      }
       domRef.setAttribute('spellcheck', 'false');
     }
     return domRef;

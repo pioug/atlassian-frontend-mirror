@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 1.1.3
+
+### Patch Changes
+
+- [#78367](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78367) [`bc524e57ea86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc524e57ea86) - [ux] Fixes an issue where doing a select all inside an input field in an embed card would select the node.
+
 ## 1.1.2
 
 ### Patch Changes

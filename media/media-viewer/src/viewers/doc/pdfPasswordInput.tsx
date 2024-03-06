@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+/**@jsx jsx */
+import { useEffect, useRef, useState } from 'react';
 import LoadingButton from '@atlaskit/button/loading-button';
 import TextField from '@atlaskit/textfield';
 import LockIcon from '@atlaskit/icon/glyph/lock';
-import Form, { ErrorMessage, Field, OnSubmitHandler } from '@atlaskit/form';
-import { token } from '@atlaskit/tokens';
+import Form, { Field, OnSubmitHandler } from '@atlaskit/form';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import Heading from '@atlaskit/heading';
 import { xcss, Box, Flex } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+import { jsx, css } from '@emotion/react';
+import ErrorIcon from '@atlaskit/icon/glyph/error';
 
 interface PDFPasswordInputProps {
   onSubmit: OnSubmitHandler<{ password: string }>;
@@ -15,10 +17,31 @@ interface PDFPasswordInputProps {
   onRender?: () => void;
 }
 
+const COLOR_SHADE = '#b6c2cf';
+
+const headingStyle = css({
+  fontSize: '14px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: COLOR_SHADE,
+});
+
+const errorMessageWrapperStyle = css({
+  marginTop: token('space.050', '4px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: '#FD9891',
+  fontSize: '12px',
+  display: 'flex',
+});
+
+const errorMessageStyle = css({
+  marginTop: '0px',
+  marginLeft: token('space.050', '4px'),
+});
+
 const headerStyles = xcss({
   textAlign: 'center',
-  marginTop: 'space.300',
-  marginBottom: 'space.100',
+  marginTop: 'space.200',
+  marginBottom: 'space.200',
 });
 
 const inputStyle = xcss({
@@ -56,29 +79,21 @@ export const PDFPasswordInput = ({
     <Form<{ password: string }> onSubmit={onSubmit}>
       {({ formProps, submitting }) => (
         <form {...formProps}>
-          <Flex justifyContent="center" aria-hidden={true}>
-            <LockIcon
-              label="forbidden-lock-icon"
-              size="xlarge"
-              primaryColor={token('color.text', '#c7d1db')}
-            />
+          <Flex justifyContent="center">
+            <LockIcon label="" size="xlarge" primaryColor={COLOR_SHADE} />
           </Flex>
           <Box xcss={headerStyles}>
-            <Heading as="h1" level="h200">
+            <h1 css={headingStyle}>
               <FormattedMessage {...messages.password_protected_pdf} />
-            </Heading>
+            </h1>
           </Box>
-          <Field
-            aria-required={true}
-            name="password"
-            label="Password"
-            isRequired
-          >
+          <Field aria-required={true} name="password" isRequired>
             {({ fieldProps }) => (
               <Box xcss={inputStyle}>
                 <TextField
                   {...fieldProps}
                   type="password"
+                  aria-label={intl.formatMessage(messages.password)}
                   placeholder={intl.formatMessage(messages.enter_password)}
                   ref={passwordInputRef}
                   onChange={(value) => {
@@ -87,9 +102,16 @@ export const PDFPasswordInput = ({
                   }}
                 />
                 {formError && (
-                  <ErrorMessage>
-                    <FormattedMessage {...messages.incorrect_password} />
-                  </ErrorMessage>
+                  <div
+                    css={errorMessageWrapperStyle}
+                    id={`${fieldProps.id}-error`}
+                    aria-live="polite"
+                  >
+                    <ErrorIcon size="small" label="" />
+                    <p css={errorMessageStyle}>
+                      <FormattedMessage {...messages.incorrect_password} />
+                    </p>
+                  </div>
                 )}
               </Box>
             )}

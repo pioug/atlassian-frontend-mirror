@@ -63,6 +63,7 @@ const rule: Rule.RuleModule = {
       onlyStringLiteral:
         "Only get feature flags by string literal, don't use variables! See http://go/pff-eslint for more details",
       multipleFlagCheckInExpression: `Only check one flag per expression! See http://go/pff-eslint for more details`,
+      noModuleScope: `Don't use platform feature flags in module scope! See http://go/pff-eslint for more details`,
     },
   },
   create(context) {
@@ -83,7 +84,30 @@ const rule: Rule.RuleModule = {
 
           switch (node.parent?.type) {
             case 'IfStatement':
+              break;
             case 'ConditionalExpression':
+              switch (node.parent?.parent.type) {
+                case 'ExportDefaultDeclaration':
+                  // handles "export default getBooleanFF('test-flag') ? "this is" : "not good";"
+                  context.report({
+                    node,
+                    messageId: 'noModuleScope',
+                  });
+                  break;
+                case 'VariableDeclarator':
+                  // handles "export const foo = getBooleanFF('test-flag') ? 'this is' : 'not good';"
+                  if (
+                    node.parent.parent.parent.type === 'VariableDeclaration' &&
+                    node.parent.parent.parent.parent.type ===
+                      'ExportNamedDeclaration'
+                  ) {
+                    context.report({
+                      node,
+                      messageId: 'noModuleScope',
+                    });
+                  }
+                  break;
+              }
               break;
             case 'UnaryExpression':
             case 'LogicalExpression':

@@ -236,12 +236,30 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Enables table to scale in the same way as renderer
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-22364
+   * @default false
+   */
+  tablePreserveWidth?: boolean;
+
+  /**
+   * @description
    * Enables commenting on media
    *
    * @see https://product-fabric.atlassian.net/browse/ED-22102
    * @default false
    */
   commentsOnMedia?: boolean;
+
+  /**
+   * @description
+   * Enables macro interaction visual updates
+   *
+   * @see https://product-fabric.atlassian.net/browse/PGXT-4910
+   * @default false
+   */
+  macroInteractionUpdates?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

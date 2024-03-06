@@ -22,7 +22,7 @@ export const container = ({
 
 export const controls = css`
   user-select: none;
-  border-bottom: 1px dashed ${N50};
+  border-bottom: 1px dashed ${token('color.border.input', N50)};
   padding: 1em;
 
   h5 {
@@ -71,8 +71,14 @@ export const editorColumn = ({
   flex: 1;
   margin-right: ${narrow ? '360px' : '0'};
   ${!vertical
-    ? `border-right: 1px solid ${N30}; min-height: 85vh; resize: horizontal;`
-    : `border-bottom: 1px solid ${N30}; resize: vertical;`};
+    ? `border-right: 1px solid ${token(
+        'color.border',
+        N30,
+      )}; min-height: 85vh; resize: horizontal;`
+    : `border-bottom: 1px solid ${token(
+        'color.border',
+        N30,
+      )}; resize: vertical;`};
 `;
 
 export const popupWrapper = css`

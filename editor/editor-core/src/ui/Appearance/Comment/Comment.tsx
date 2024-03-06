@@ -38,11 +38,7 @@ import PluginSlot from '../../PluginSlot';
 import Toolbar from '../../Toolbar';
 import WithFlash from '../../WithFlash';
 
-import {
-  MainToolbar,
-  mainToolbarCustomComponentsSlotStyle,
-  TableControlsPadding,
-} from './Toolbar';
+import { MainToolbar, mainToolbarCustomComponentsSlotStyle } from './Toolbar';
 
 const CommentEditorMargin = 14;
 
@@ -79,8 +75,7 @@ const ContentArea = createEditorContentStyle(css`
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/
   /** Hack for table controls. Otherwise margin collapse and controls are misplaced. **/
   .ProseMirror {
-    margin: ${token('space.150', '12px')} ${CommentEditorMargin}px
-      ${CommentEditorMargin}px;
+    margin: ${token('space.150', '12px')};
   }
 
   .gridParent {
@@ -89,7 +84,7 @@ const ContentArea = createEditorContentStyle(css`
     width: calc(100% + ${CommentEditorMargin - GRID_GUTTER}px);
   }
 
-  padding: ${TableControlsPadding}px;
+  padding: ${token('space.250', '20px')};
 
   ${tableCommentEditorStyles};
 `);
@@ -100,7 +95,7 @@ const secondaryToolbarStyle = css`
   justify-content: flex-end;
   align-items: center;
   display: flex;
-  padding: ${token('space.150', '12px')} 1px;
+  padding: ${token('space.150', '12px')} ${token('space.025', '2px')};
 `;
 
 interface EditorAppearanceComponentState {}

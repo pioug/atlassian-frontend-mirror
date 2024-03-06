@@ -144,7 +144,6 @@ function createEditorExampleForTests() {
     }
 
     ReactDOM.unmountComponentAtNode(target);
-
     return { reactPerformanceData, editorOperationalEvents };
   };
 

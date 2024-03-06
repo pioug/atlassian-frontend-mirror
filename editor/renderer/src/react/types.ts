@@ -1,19 +1,19 @@
-import { PropsWithChildren } from 'react';
-import {
+import type { PropsWithChildren } from 'react';
+import type {
   Node as PMNode,
   NodeType,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
-import { AnalyticsEventPayload } from '../analytics/events';
-import { Serializer } from '../index';
-import {
+import type { AnalyticsEventPayload } from '../analytics/events';
+import type { Serializer } from '../index';
+import type {
   RendererAppearance,
   HeadingAnchorLinksProps,
 } from '../ui/Renderer/types';
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 
 export interface RendererContext {
   objectAri?: string;

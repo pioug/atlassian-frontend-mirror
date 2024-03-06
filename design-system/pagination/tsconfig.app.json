@@ -49,6 +49,9 @@
     },
     {
       "path": "../primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../visually-hidden/tsconfig.app.json"
     }
   ],
   "files": []

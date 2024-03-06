@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import Drawer from '@atlaskit/drawer';
+import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../src/actions';
 
@@ -84,58 +85,51 @@ const lag = (delay: number) => {
   }
 };
 
-const exampleWrapper = css`
-  display: flex;
-  height: 100%;
-`;
+const exampleWrapper = css({
+  display: 'flex',
+  height: '100%',
+});
 
-const latencyPanelContainer = css`
-  max-width: 250px;
-  padding: 1em;
+const latencyPanelContainer = css({
+  maxWidth: '250px',
+  padding: token('space.200', '16px'),
+  "input[type='number']": {
+    width: '230px',
+    padding: token('space.050', '4px'),
+    margin: token('space.050', '4px'),
+    '&:first-child': {
+      marginLeft: 0,
+    },
+    '&:last-child': {
+      marginRight: 0,
+    },
+  },
+  'div.range': {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    "input[type='number']": {
+      width: '75px',
+    },
+  },
+  'div.preset-buttons': {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    '> button': {
+      width: '33%',
+      fontSize: '0.9em',
+    },
+  },
+  'div.action-buttons': {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 
-  input[type='number'] {
-    width: 230px;
-    padding: 5px;
-    margin: 5px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  div.range {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    input[type='number'] {
-      width: 75px;
-    }
-  }
-
-  div.preset-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    > button {
-      width: 33%;
-      font-size: 0.9em;
-    }
-  }
-
-  div.action-buttons {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-
-const fullPageExampleWrapper = css`
-  flex-grow: 1;
-`;
+const fullPageExampleWrapper = css({
+  flexGrow: 1,
+});
 
 interface LatencyPanelProps {
   latencyMode: LatencyMode;

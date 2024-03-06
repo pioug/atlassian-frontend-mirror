@@ -30,25 +30,22 @@ import { FullPagePadding } from '../../ui/Renderer/style';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-const embedCardWrapperStyles = css`
-  width: 100%;
-  height: 100%;
+const embedCardWrapperStyles = css({
+  width: '100%',
+  height: '100%',
+  '> div': {
+    height: '100%',
+  },
+  '.loader-wrapper': {
+    height: '100%',
+  },
+  margin: '0 auto',
+});
 
-  > div {
-    height: 100%;
-  }
-
-  .loader-wrapper {
-    height: 100%;
-  }
-
-  margin: 0 auto;
-`;
-
-const uIMediaSingleLayoutStyles = css`
-  margin-left: 50%;
-  transform: translateX(-50%);
-`;
+const uIMediaSingleLayoutStyles = css({
+  marginLeft: '50%',
+  transform: 'translateX(-50%)',
+});
 
 export default function EmbedCard(props: {
   url?: string;
@@ -62,6 +59,7 @@ export default function EmbedCard(props: {
   rendererAppearance?: RendererAppearance;
   isInsideOfBlockNode?: boolean;
   smartLinks?: SmartLinksOptions;
+  isInsideOfInlineExtension?: boolean;
 }) {
   const {
     url,
@@ -73,6 +71,7 @@ export default function EmbedCard(props: {
     isInsideOfBlockNode,
     rendererAppearance,
     smartLinks,
+    isInsideOfInlineExtension,
   } = props;
   const embedIframeRef = useRef(null);
   const onClick = getCardClickHandler(eventHandlers, url);
@@ -162,7 +161,6 @@ export default function EmbedCard(props: {
       <WidthConsumer>
         {({ width: documentWidth }) => {
           const isFullWidth = rendererAppearance === 'full-width';
-
           let containerWidth = documentWidth;
           if (smartLinks?.ssr && !containerWidth) {
             // EDM-8114: When we are rendering on SSR, we have no idea what the width is.
@@ -218,6 +216,7 @@ export default function EmbedCard(props: {
                   nodeType="embedCard"
                   lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
                   hasFallbackContainer={hasPreview}
+                  isInsideOfInlineExtension={isInsideOfInlineExtension}
                 >
                   <div css={embedCardWrapperStyles}>
                     <div

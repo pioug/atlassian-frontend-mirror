@@ -39,9 +39,9 @@ export default function ModalDemo() {
 
   return (
     <Box xcss={containerStyles}>
-      <h4 id="units-title" css={titleStyles}>
+      <h2 id="units-title" css={titleStyles}>
         Units
-      </h4>
+      </h2>
       <ButtonGroup titleId="units-title">{units.map(btn)}</ButtonGroup>
 
       <ModalTransition>

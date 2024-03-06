@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 9.25.4
+
+### Patch Changes
+
+- [#78812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78812) [`fb7d12d1461c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb7d12d1461c) - ESS-4503: cleanup sendStepsQueue event action
+- Updated dependencies
+
 ## 9.25.3
 
 ### Patch Changes

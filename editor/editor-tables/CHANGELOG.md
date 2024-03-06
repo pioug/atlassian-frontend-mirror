@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.5.7
+
+### Patch Changes
+
+- [#77796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77796) [`eab996d08513`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eab996d08513) - Add new statsig experiement for preserve table width, add support for passing through width to create table. Allow tables to be inserted at full width
+
 ## 2.5.6
 
 ### Patch Changes

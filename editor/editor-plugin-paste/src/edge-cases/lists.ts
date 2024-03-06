@@ -1,5 +1,9 @@
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Node as PMNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -7,6 +11,8 @@ import {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export function insertSliceIntoEmptyNode({
   tr,
@@ -91,7 +97,15 @@ export function insertSliceIntoRangeSelectionInsideList({
 }
 
 export function insertSliceInsideOfPanelNodeSelected(panelNode: PMNode) {
-  return ({ tr, slice }: { tr: Transaction; slice: Slice }) => {
+  return ({
+    tr,
+    slice,
+    schema,
+  }: {
+    tr: Transaction;
+    slice: Slice;
+    schema?: Schema;
+  }) => {
     const {
       selection,
       selection: { $to, $from },
@@ -103,7 +117,27 @@ export function insertSliceInsideOfPanelNodeSelected(panelNode: PMNode) {
       panelNode &&
       !panelNode.type.validContent(Fragment.from(slice.content))
     ) {
-      const insertPosition = $to.pos + 1;
+      let insertPosition = $to.pos + 1;
+
+      /* Adapting above logic to handle MBE, as it currently assumes that slice can be safely inserted after the panel node, which is not the case for MBE
+         If insertPosition is in MBE and current slice contains invalid content for MBE, we need to insert the slice after the MBE node
+      */
+      if (
+        schema &&
+        getBooleanFF('platform.editor.multi-bodied-extension_0rygg')
+      ) {
+        const mbeParentOfPanel = findParentNodeOfType(
+          schema.nodes.multiBodiedExtension,
+        )(selection);
+        if (
+          mbeParentOfPanel &&
+          !mbeParentOfPanel.node.type.validContent(Fragment.from(slice.content))
+        ) {
+          insertPosition =
+            mbeParentOfPanel.start + mbeParentOfPanel.node.nodeSize - 1;
+        }
+      }
+
       tr.replaceRange(insertPosition, insertPosition, slice);
       // need to delete the empty paragraph at the top of the panel
       const parentNode = tr.doc.resolve($from.before()).node();

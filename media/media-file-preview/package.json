@@ -38,7 +38,7 @@
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-client-react": "^2.0.1",
     "@atlaskit/media-common": "^11.0.0",
-    "@atlaskit/media-ui": "^25.3.0",
+    "@atlaskit/media-ui": "^25.4.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",
     "lru_map": "^0.4.1"

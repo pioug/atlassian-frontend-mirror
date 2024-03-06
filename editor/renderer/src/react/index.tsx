@@ -73,6 +73,7 @@ export interface ReactSerializerInit {
   allowSelectAllTrap?: boolean;
   nodeComponents?: NodeComponentsProps;
   allowWindowedCodeBlock?: boolean;
+  isInsideOfInlineExtension?: boolean;
 }
 
 interface ParentInfo {
@@ -166,6 +167,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowSelectAllTrap?: boolean;
   private nodeComponents?: NodeComponentsProps;
   private allowWindowedCodeBlock?: boolean;
+  private isInsideOfInlineExtension?: boolean;
 
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
@@ -197,6 +199,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowSelectAllTrap = init.allowSelectAllTrap;
     this.nodeComponents = init.nodeComponents;
     this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
+    this.isInsideOfInlineExtension = init.isInsideOfInlineExtension;
   }
 
   private resetState() {
@@ -640,6 +643,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       nodeType: node.type.name,
       marks: node.marks,
       smartLinks: this.smartLinks,
+      isInsideOfInlineExtension: this.isInsideOfInlineExtension,
       dataAttributes: {
         // We need to account for depth (path.length gives up depth) here
         // but depth doesnt increment the pos, only accounted for.

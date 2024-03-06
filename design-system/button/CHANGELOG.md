@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.6.2
+
+### Patch Changes
+
+- [#77547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77547) [`cce378569da1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cce378569da1) - Migration documentation for changing from old to new button components. Documentation-only change.
+
 ## 17.6.1
 
 ### Patch Changes

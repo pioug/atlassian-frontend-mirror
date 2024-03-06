@@ -1,6 +1,5 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   findAnnotationsInSelection,
@@ -16,43 +15,10 @@ const handleDocChanged = (
   prevPluginState: InlineCommentPluginState,
 ): InlineCommentPluginState => {
   if (!tr.getMeta('replaceDocument')) {
-    return getBooleanFF(
-      'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-    )
-      ? getSelectionChangedHandler(false)(tr, prevPluginState)
-      : handleSelectionChanged(tr, prevPluginState);
+    return getSelectionChangedHandler(false)(tr, prevPluginState);
   }
 
   return { ...prevPluginState, dirtyAnnotations: true };
-};
-
-const handleSelectionChanged = (
-  tr: ReadonlyTransaction,
-  pluginState: InlineCommentPluginState,
-): InlineCommentPluginState => {
-  if (pluginState.skipSelectionHandling) {
-    return {
-      ...pluginState,
-      skipSelectionHandling: false,
-    };
-  }
-
-  const selectedAnnotations = findAnnotationsInSelection(tr.selection, tr.doc);
-  const changed =
-    selectedAnnotations.length !== pluginState.selectedAnnotations.length ||
-    selectedAnnotations.some(annotationInfo => {
-      return !pluginState.selectedAnnotations.some(
-        aInfo => aInfo.type === annotationInfo.id,
-      );
-    });
-
-  if (changed) {
-    return {
-      ...pluginState,
-      selectedAnnotations,
-    };
-  }
-  return pluginState;
 };
 
 const getSelectionChangedHandler =
@@ -61,22 +27,6 @@ const getSelectionChangedHandler =
     tr: ReadonlyTransaction,
     pluginState: InlineCommentPluginState,
   ): InlineCommentPluginState => {
-    /**
-     * If feature flag is **OFF** we want to keep the old behavior. Note that
-     * reopenCommentView is not relevant here when using old behaviour.
-     *
-     * Feature flag is evaluated here rather than directly in onSelectionChanged where it is assigned
-     * to prevent the plugin from setting up the handler before the feature flag is evaluated.
-     *
-     * This comment / logic can be cleaned up once the feature flag is removed.
-     */
-    if (
-      !getBooleanFF(
-        'platform.editor.annotation.decouple-inline-comment-closed_flmox',
-      )
-    ) {
-      return handleSelectionChanged(tr, pluginState);
-    }
     if (pluginState.skipSelectionHandling) {
       return {
         ...pluginState,

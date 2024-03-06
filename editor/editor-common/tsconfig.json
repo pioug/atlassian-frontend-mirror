@@ -2,9 +2,6 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "types": [
-      "cypress"
-    ]
   },
   "include": [
     "src/**/*.ts",

@@ -360,6 +360,7 @@ type WindowForTesting = Window & {
 
 const RawEditor = ({ defaultValue }: Pick<EditorNextProps, 'defaultValue'>) => {
   const props = editorProps;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onEditorReady = React.useCallback((editorActions: any) => {
     const view = editorActions._privateGetEditorView();
     (window as WindowForTesting).__editorView = view;
@@ -453,12 +454,17 @@ function createEditorExampleForTests() {
     const target = document.getElementById('editor-container');
 
     if (!target) {
-      return { reactPerformanceData: [], editorOperationalEvents: [] };
+      return {
+        reactPerformanceData: [],
+        editorOperationalEvents: [],
+      };
     }
 
     ReactDOM.unmountComponentAtNode(target);
-
-    return { reactPerformanceData, editorOperationalEvents };
+    return {
+      reactPerformanceData,
+      editorOperationalEvents,
+    };
   };
 
   win.__mountEditor = mountEditor;

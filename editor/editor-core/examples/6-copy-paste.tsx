@@ -39,6 +39,7 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { ReactRenderer } from '@atlaskit/renderer';
+import { token } from '@atlaskit/tokens';
 import {
   currentUser,
   getEmojiProvider,
@@ -56,40 +57,40 @@ import type { EditorAppearance, EditorProps } from '../src/editor';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-const wrapper = css`
-  box-sizing: border-box;
-  height: calc(100vh - 32px);
-  display: flex;
-`;
-const content = css`
-  padding: 0;
-  height: 100%;
-  width: 50%;
-  border: 2px solid #ccc;
-  box-sizing: border-box;
-`;
+const wrapper = css({
+  boxSizing: 'border-box',
+  height: 'calc(100vh - 32px)',
+  display: 'flex',
+});
+const content = css({
+  padding: 0,
+  height: '100%',
+  width: '50%',
+  border: '2px solid #ccc',
+  boxSizing: 'border-box',
+});
 
-const fullWidthEditorStyles = css`
-  padding: 0;
-  width: 100%;
-  border: 2px solid #ccc;
-  box-sizing: border-box;
-`;
+const fullWidthEditorStyles = css({
+  padding: 0,
+  width: '100%',
+  border: '2px solid #ccc',
+  boxSizing: 'border-box',
+});
 
-const rendererWrapper = css`
-  width: 500px;
-`;
+const rendererWrapper = css({
+  width: '500px',
+});
 
-const externalClipboardWrapper = css`
-  width: 500px;
-  padding: 10px;
-  border: 1px dashed #ccc;
-`;
+const externalClipboardWrapper = css({
+  width: '500px',
+  padding: token('space.150', '12px'),
+  border: '1px dashed #ccc',
+});
 
-const pastedImageStyles = css`
-  max-width: 200px;
-  height: auto;
-`;
+const pastedImageStyles = css({
+  maxWidth: '200px',
+  height: 'auto',
+});
 
 const getLocalStorageKey = (collectionName: string) =>
   `fabric.editor.example.copypaste-${collectionName}`;
@@ -525,7 +526,7 @@ class ExampleEditorComponent extends React.Component<
             <ExampleExternalClipboard />
             <ClipboardWidthPopup
               content={
-                <div style={{ padding: 20 }}>
+                <div style={{ padding: token('space.250', '24px') }}>
                   <h3>Clipboard in popup: </h3>
                   {this.renderEditor(
                     defaultCollectionName,
@@ -610,7 +611,7 @@ const ClipboardWidthPopup = ({ content }: { content: ReactNode }) => {
         appearance="primary"
         isSelected={isOpen}
         onClick={() => setIsOpen(!isOpen)}
-        style={{ marginTop: 16 }}
+        style={{ marginTop: token('space.200', '16px') }}
       >
         {isOpen ? 'Close' : 'Open'} pop with editor and clipboard{' '}
       </Button>

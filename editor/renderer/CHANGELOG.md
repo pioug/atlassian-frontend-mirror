@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.7.0
+
+### Minor Changes
+
+- [#63691](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/63691) [`02293e70771b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02293e70771b) - add allowWidthDetector option to be used to skip width detector in renderer, to make media single works in inline extension like excerpt include
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.6.3
 
 ### Patch Changes

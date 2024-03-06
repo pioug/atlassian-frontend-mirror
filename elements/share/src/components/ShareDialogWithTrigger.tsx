@@ -55,10 +55,10 @@ import ShareButton from './ShareButton';
 import SplitButton from './SplitButton';
 import { generateSelectZIndex, resolveShareFooter } from './utils';
 
-const shareButtonWrapperStyles = css`
-  display: inline-flex;
-  outline: none;
-`;
+const shareButtonWrapperStyles = css({
+  display: 'inline-flex',
+  outline: 'none',
+});
 
 export const defaultShareContentState: ShareData = {
   users: [],
@@ -119,6 +119,12 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       this.props.isAutoOpenDialog
     ) {
       this.handleDialogOpen();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.isAutoOpenDialog && this.props.onDialogClose) {
+      this.props.onDialogClose();
     }
   }
 
@@ -259,6 +265,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           }
 
           this.focus();
+        } else {
+          this.handleCloseDialog();
         }
       },
     );

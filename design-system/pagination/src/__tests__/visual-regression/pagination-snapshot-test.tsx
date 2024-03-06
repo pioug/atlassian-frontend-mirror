@@ -91,7 +91,7 @@ describe('Snapshot Test', () => {
     const initialImage = await takeElementScreenShot(page, paginationSelector);
     expect(initialImage).toMatchProdImageSnapshot();
 
-    const aboutPageSelector = 'button[aria-label="expand"]';
+    const aboutPageSelector = 'button[aria-label="Expand list"]';
     await page.click(aboutPageSelector);
     await page.click(paginationSelector);
     const imageAfterClickingCustomExpandEllipsis = await takeElementScreenShot(

@@ -5,18 +5,20 @@ import { token } from '@atlaskit/tokens';
 import { wrapperDefault } from '../Extension/styles';
 
 // Wrapper the extension title and extensionContainer
-export const mbeExtensionWrapperCSS = css`
-  ${wrapperDefault};
-  cursor: pointer;
-  margin-top: ${token('space.250', '24px')};
-  margin-bottom: ${token('space.200', '16px')};
-  .extension-title {
-    display: flex;
-    align-items: center;
-    line-height: 16px !important;
-    margin-bottom: ${token('space.100', '8px')};
-    margin-left: ${token('space.050', '4px')} !important;
-    margin-right: ${token('space.100', '8px')};
-    padding-top: ${token('space.100', '8px')} !important;
-  }
-`;
+export const mbeExtensionWrapperCSS = css(wrapperDefault, {
+  '&.remove-margin-top': {
+    marginTop: 0,
+  },
+  cursor: 'pointer',
+  marginTop: token('space.250', '24px'),
+  marginBottom: token('space.200', '16px'),
+  '.extension-title': {
+    display: 'flex',
+    alignItems: 'center',
+    lineHeight: '16px !important',
+    marginBottom: token('space.100', '8px'),
+    marginLeft: `${token('space.050', '4px')} !important`,
+    marginRight: token('space.100', '8px'),
+    paddingTop: `${token('space.100', '8px')} !important`,
+  },
+});

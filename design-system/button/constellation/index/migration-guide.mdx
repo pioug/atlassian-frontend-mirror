@@ -1,0 +1,145 @@
+---
+order: 3
+---
+
+import newButton from './images/new-button.png';
+import legacyButton from './images/legacy-button.png';
+
+import SectionMessage from '@atlaskit/section-message';
+
+## Migrate to use the new button components
+
+New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you can start migrating some default button usages to the [new button](/components/button/button-new), [icon button](/components/button/icon-button), and [link button](/components/button/link-button) today.
+
+## Use the codemod for automated migration assistance
+
+Run the following command in your terminal, replacing the path with a path to the file you'd like to migrate.
+
+```shell
+npx @atlaskit/codemod-cli -n migrate-to-new-buttons --extensions tsx --parser tsx <path-to-your-file-or-package>
+```
+
+This finds all eligible buttons and migrates them to use the new components, adding commented tasks for things you may want to review. (If this doesn't work, [make sure your environment is set up properly](/get-started/develop).)
+
+## What do migrations look like using the codemod?
+
+Here is what the codemod will do for all migratable buttons.
+
+### Code changes when migrating default buttons
+
+**Before**
+
+```TSX
+import Button from '@atlaskit/button';
+
+const App = () => (
+  <Button
+    appearance="primary"
+    onClick={onClick}
+  >
+    Default button
+  </Button >
+);
+```
+
+**After**
+
+```TSX
+import Button from '@atlaskit/button/new';
+
+const App = () => (
+  <Button
+    appearance="primary"
+    onClick={onClick}
+  >
+    Default button
+  </Button >
+);
+```
+
+### Code changes when migrating icon buttons
+
+**Before**
+
+```TSX
+import Button from '@atlaskit/button';
+import AddIcon from '@atlaskit/icon/glyph/add';
+
+const App = () => (
+  <Button
+    iconBefore={<AddIcon label="more" />}
+    onClick={onClick}
+  />
+);
+```
+
+**After**
+
+```TSX
+import { IconButton } from '@atlaskit/button/new';
+import AddIcon from '@atlaskit/icon/glyph/add';
+
+const App = () => (
+  <IconButton
+    icon={AddIcon}
+    label="more"
+    onClick={onClick}
+  />
+);
+```
+
+### Tasks
+
+Some buttons may require additional changes. The codemod will mark these for you with instructions on how to manually configure the new button. For example:
+
+```
+// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
+```
+
+For details on each type of button and what the codemod will do for each one, view the [Atlassian migration details (Atlassians only)](https://go.atlassian.com/button-migration-guide).
+
+### Visual changes
+
+Some of the new buttons have minor visual changes that can impact VR tests. In particular, some buttons with icons have slight visual changes that impact tests. These icon spacing changes were intentional to improve the look and feel of the icon buttons.
+
+Legacy button imported from `@atlaskit/button@17.2.1` or an earilier version has a wider padding around the icon:
+
+![legacy button](images/legacy-button.png)
+
+New button:
+![new button](images/new-button.png)
+
+### DOM element changes
+
+Buttons with only icons and no visible labels need accessible labels. The legacy Button component supports this through the button `atia-label` attribute or the `label` prop on the icon component.
+
+In new icon buttons, we have added a `label` prop which is required. This is rendered as content inside the icon button using [VisuallyHidden](/components/visually-hidden/examples). The text is visually hidden, but still functions in all ways as regular text on a page.
+This means it is translatable, and readable by screenreaders.
+
+## What buttons can't be migrated automatically yet?
+
+These buttons are still being developed and reviewed in the new designs, or they just can't be migrated automatically yet. Here's what to do in these situations:
+
+| Old button property                                 | What to do                                                                                                                                             |
+| --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `appearance` set to `link` or `subtle link`         | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead. |
+| `LoadingButton` or `isLoading`                      | Don't migrate yet. Wait for the new loading solution (coming soon).                                                                                    |
+| `primaryColor` and `secondaryColor` in button icons | Use the [icon component color](/components/icon/examples#primary-color) instead of button.                                                             |
+| `style` or `css` props                              | Don't migrate yet. Wait for the new style override solution (coming soon).                                                                             |
+| `component` property                                | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                   |
+
+<SectionMessage>
+  Not all old buttons have a 1:1 replacement in the new components. We're still
+  working to cover all valid uses in the new APIs. For now, we recommend
+  migrating the buttons you can and waiting for an update on the ones you can't
+  migrate yet.
+</SectionMessage>
+
+If you have a button that can't be migrated or changed, keep using legacy buttons from `@atlaskit/button` for now, and monitor this page or the [button changelogs](/components/button/changelog) for updates.
+
+## More information
+
+- [Atlassian migration details (Atlassians only)](https://go.atlassian.com/button-migration-guide)
+- [New button](/components/button/button-new)
+- [Icon button](/components/button/icon-button)
+- [Link button](/components/button/link-button)

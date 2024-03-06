@@ -86,3 +86,4 @@ export {
   findDuplicatePosition,
   checkEdgeHasMergedCells,
 } from './merged-cells';
+export { createTableWithWidth } from './create';

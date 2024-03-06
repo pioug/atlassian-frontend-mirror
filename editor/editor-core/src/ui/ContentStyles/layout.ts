@@ -28,7 +28,7 @@ export const layoutStyles = css`
     ${columnLayoutSharedStyle} [data-layout-section] {
       // TODO: Migrate away from gridSize
       // Recommendation: Replace directly with 7px
-      margin: ${8 - 1}px -${akLayoutGutterOffset}px 0;
+      margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
       transition: border-color 0.3s ${akEditorSwoopCubicBezier};
       cursor: pointer;
 

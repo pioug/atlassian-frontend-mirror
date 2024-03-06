@@ -61,6 +61,6 @@ test('A user will be able to see page buttons along with both ellipsis', async (
 
   const ellipsis = await page.locator(ellipsisSelector).all();
   expect(ellipsis.length).toBe(2);
-  await expect(ellipsis[0]).toHaveText('\u2026');
-  await expect(ellipsis[1]).toHaveText('\u2026');
+  await expect(ellipsis[0]).toHaveText('Skipped pages from 2 to 3\u2026');
+  await expect(ellipsis[1]).toHaveText('Skipped pages from 7 to 9\u2026');
 });

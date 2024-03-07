@@ -3,6 +3,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import {
   LOCALSTORAGE_defaultDocKey,
@@ -40,7 +41,7 @@ export default class ExampleRenderer extends React.Component {
                 Edit
               </Button>
             </div>
-            <h1 style={{ margin: '20px 0' }}>
+            <h1 style={{ margin: `${token('space.250', '20px')} 0` }}>
               {localStorage
                 ? localStorage.getItem(LOCALSTORAGE_defaultTitleKey)
                 : null}

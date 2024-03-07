@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
@@ -93,6 +93,9 @@
   },
   "homepage": "https://atlassian.design/components/table-tree/",
   "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

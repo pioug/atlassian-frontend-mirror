@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': '列を設定',
   'linkDataSource.datasource.table.authConnectButtonText': '接続',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'アカウントを接続する',
+    '{providerName} アカウントを接続すると、アトラシアン製品全体でコラボレーションできます。',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'ご使用の {providerName} アカウントを接続',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'スマート リンクの詳細',
   'linkDataSource.jira-issues.accessInstructions':
     'アクセス権をリクエストするには、サイト管理者にお問い合わせください。',

@@ -16,7 +16,7 @@ export const Wrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
     inlineCommentProvider && inlineCommentProvider.selectionComponent;
 
   const render = useCallback(
-    ({ applyAnnotationDraftAt, clearAnnotationDraft }) => {
+    ({ applyAnnotationDraftAt, clearAnnotationDraft }: any) => {
       return (
         <>
           {children}

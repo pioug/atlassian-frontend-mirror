@@ -17,9 +17,12 @@
   "af:exports": {
     ".": "./src/index.js"
   },
+  "exports": {
+    ".": "./src/index.js"
+  },
   "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/section-message": "^6.4.0",

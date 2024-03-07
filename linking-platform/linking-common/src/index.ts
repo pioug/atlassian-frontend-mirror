@@ -13,6 +13,7 @@ export type {
   Datasource,
   DatasourceAdfView,
   DatasourceAdfTableView,
+  ProductType,
 } from './types';
 
 export type {

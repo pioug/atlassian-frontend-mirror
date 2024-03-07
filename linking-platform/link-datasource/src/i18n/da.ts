@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Konfigurer kolonner',
   'linkDataSource.datasource.table.authConnectButtonText': 'Forbind',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Tilknyt din konto for at samarbejde om arbejde på tværs af Atlassian-produkter.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Forbind din konto',
+    'Tilknyt din {providerName}-konto for at samarbejde om arbejde på tværs af Atlassian-produkter.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Forbind din {providerName}-konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Få mere at vide om intelligente links.',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakt din sideadministrator for at anmode om adgang.',
   'linkDataSource.jira-issues.accessRequired': 'Du har ikke adgang til dette indhold',

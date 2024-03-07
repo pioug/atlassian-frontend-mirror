@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabPanelProps
  *
- * @codegen <<SignedSource::31e299ea25c752c96cd84f60f2726198>>
+ * @codegen <<SignedSource::7ad7e0f3e89d48d3bafa91c1bba0eb25>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/tabs/__generated__/tabpanel.partial.tsx <<SignedSource::b2c0452b669c3aaae80c0d37c4683bb6>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/tabs/__generated__/tabpanel.partial.tsx <<SignedSource::76baa39c69317c03c4db2e4d8b7940af>>
  */
 import React from 'react';
 import { TabPanel as PlatformTabPanel } from '@atlaskit/tabs';

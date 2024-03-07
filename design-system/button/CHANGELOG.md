@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 17.7.0
+
+### Minor Changes
+
+- [#73843](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73843) [`9a090e6e7733`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a090e6e7733) - The new icon button incorrectly supported `spacing="none"`. This release removes support for this, leaving `"default"` and `"compact"` as the only two options.
+
+  The icon button docs have also been updated to better reflect the intended use of the `label` prop instead of `aria-label`. The `label` prop is designed to abstract the technical implementation for accessibility requirements. The new icon button does not use the `aria-label` attribute under the hood, rather it relys on visually hidden text instead. This is done for accessibility reasons as `aria-label` is not always translated whereas visually hidden text will be.
+
 ## 17.6.2
 
 ### Patch Changes

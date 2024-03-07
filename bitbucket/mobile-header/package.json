@@ -25,6 +25,10 @@
     ".": "./src/index.ts",
     "./styled": "./src/styled.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./styled": "./src/styled.ts"
+  },
   "atlassian": {
     "team": "Bitbucket: CoreX",
     "releaseModel": "continuous",
@@ -33,7 +37,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.39.0",

@@ -38,8 +38,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Määritä sarakkeet',
   'linkDataSource.datasource.table.authConnectButtonText': 'Yhdistä',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Yhdistä tilisi ja tee yhteistyötä eri Atlassian-tuotteissa.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Yhdistä tilisi',
+    'Yhdistä palvelun {providerName} tilisi ja tee yhteistyötä eri Atlassian-tuotteissa.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Yhdistä {providerName}-tilisi',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Lue lisää Smart Link -linkeistä.',
   'linkDataSource.jira-issues.accessInstructions': 'Pyydä käyttöoikeutta ottamalla yhteyttä sivuston ylläpitäjään.',
   'linkDataSource.jira-issues.accessRequired': 'Sinulla ei ole oikeutta tähän sisältöön',

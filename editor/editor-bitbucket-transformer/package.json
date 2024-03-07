@@ -63,5 +63,11 @@
     "./serializer": "./src/serializer.ts",
     "./tableSerializer": "./src/tableSerializer.ts",
     "./util": "./src/util.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./serializer": "./src/serializer.ts",
+    "./tableSerializer": "./src/tableSerializer.ts",
+    "./util": "./src/util.ts"
   }
 }

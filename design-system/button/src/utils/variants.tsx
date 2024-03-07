@@ -18,30 +18,35 @@ import {
   iconButtonAppearances,
   linkButtonAppearances,
 } from './appearances';
+import { buttonSpacing, iconButtonSpacing } from './spacing';
 
 type DefaultButtonVariant = {
   name: 'Button';
   Component: typeof Button;
   elementType: typeof HTMLButtonElement;
   appearances: typeof buttonAppearances;
+  spacing: typeof buttonSpacing;
 };
 type LinkButtonVariant = {
   name: 'LinkButton';
   Component: typeof LinkButtonRender;
   elementType: typeof HTMLAnchorElement;
   appearances: typeof linkButtonAppearances;
+  spacing: typeof buttonSpacing;
 };
 type IconButtonVariant = {
   name: 'IconButton';
   Component: typeof IconButtonRender;
   elementType: typeof HTMLButtonElement;
   appearances: typeof iconButtonAppearances;
+  spacing: typeof iconButtonSpacing;
 };
 type LinkIconButtonVariant = {
   name: 'LinkIconButton';
   Component: typeof LinkIconButtonRender;
   elementType: typeof HTMLAnchorElement;
   appearances: typeof iconButtonAppearances;
+  spacing: typeof iconButtonSpacing;
 };
 
 type DefaultButtonVariants = DefaultButtonVariant | LinkButtonVariant;
@@ -110,24 +115,28 @@ const variants: Variant[] = [
     Component: Button,
     elementType: HTMLButtonElement,
     appearances: buttonAppearances,
+    spacing: buttonSpacing,
   },
   {
     name: 'LinkButton',
     Component: LinkButtonRender,
     elementType: HTMLAnchorElement,
     appearances: linkButtonAppearances,
+    spacing: buttonSpacing,
   },
   {
     name: 'IconButton',
     Component: IconButtonRender,
     elementType: HTMLButtonElement,
     appearances: iconButtonAppearances,
+    spacing: iconButtonSpacing,
   },
   {
     name: 'LinkIconButton',
     Component: LinkIconButtonRender,
     elementType: HTMLAnchorElement,
     appearances: iconButtonAppearances,
+    spacing: iconButtonSpacing,
   },
 ];
 

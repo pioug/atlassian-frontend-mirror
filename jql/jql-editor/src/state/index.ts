@@ -23,8 +23,6 @@ import {
   JQLParseError,
 } from '@atlaskit/jql-ast';
 import { JQLAutocomplete, JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 
 import {
   ActionSubject,
@@ -1068,8 +1066,7 @@ export const useAutocompletePosition = createHook<
     // situations where autocomplete dropdown greatly overflows editor view container, we clamp this position.
     // We also offset top position returned by ProseMirror to ensure autocomplete is positioned consistently at
     // a grid size distance from editor input bottom in all situations where autocomplete is outside of the editor.
-    const autocompleteTop = docTop + gridSize();
-
+    const autocompleteTop = docTop;
     const viewportTop =
       editorViewContainerRect !== undefined
         ? clamp(
@@ -1082,11 +1079,7 @@ export const useAutocompletePosition = createHook<
     const left = docLeft - (offsetParentRect?.left ?? 0);
     const top = viewportTop - (offsetParentRect?.top ?? 0);
 
-    return {
-      // Left position from ProseMirror - autocomplete option padding so texts are vertically aligned
-      left: left - (5 / 4) * gridSize(),
-      top: top + gridSize(),
-    };
+    return { left, top };
   },
 });
 

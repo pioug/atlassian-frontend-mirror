@@ -25,6 +25,9 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",

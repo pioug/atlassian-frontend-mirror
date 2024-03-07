@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import {
   CSSProperties,
   forwardRef,
@@ -8,49 +8,384 @@ import {
   useMemo,
 } from 'react';
 import { MediaType } from '@atlaskit/media-client';
-import {
-  arrowStyles,
-  arrowsWrapperStyles,
-  audioCoverStyles,
-  audioPlayerStyles,
-  audioStyles,
-  baselineExtendStyles,
-  blanketStyles,
-  closeButtonWrapperStyles,
-  contentWrapperStyles,
-  customAudioPlayerWrapperStyles,
-  customVideoPlayerWrapperStyles,
-  defaultCoverWrapperStyles,
-  downloadButtonWrapperStyles,
-  errorImageStyles,
-  errorMessageWrapperStyles,
-  formattedMessageWrapperStyles,
-  hdIconGroupWrapperStyles,
-  hdIconWrapperStyles,
-  headerStyles,
-  headerWrapperStyles,
-  imageWrapperStyles,
-  imgStyles,
-  leftHeaderStyles,
-  leftWrapperStyles,
-  listWrapperStyles,
-  medatadataTextWrapperStyles,
-  metadataFileNameStyles,
-  metadataIconWrapperStyles,
-  metadataSubTextStyles,
-  metadataWrapperStyles,
-  pdfWrapperStyles,
-  rightHeaderStyles,
-  rightWrapperStyles,
-  sidebarWrapperStyles,
-  spinnerWrapperStyles,
-  videoStyles,
-  zoomControlsWrapperStyles,
-  zoomLevelIndicatorStyles,
-  zoomWrapperStyles,
-} from './styles';
+import { blanketColor, overlayZindex } from './styles';
+import { ellipsis, hideControlsClassName } from '@atlaskit/media-ui';
 import { TouchScrollable } from 'react-scrolllock';
 import { useMergeRefs } from 'use-callback-ref';
+import { headerAndSidebarBackgroundColor } from './viewers/modalSpinner';
+import { ArchiveSideBarWidth } from './viewers/archiveSidebar/styles';
+import { token } from '@atlaskit/tokens';
+import { borderRadius } from '@atlaskit/theme/constants';
+import { Box, xcss } from '@atlaskit/primitives';
+
+const SIDEBAR_WIDTH = 416;
+
+const blanketStyles = css({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  backgroundColor: blanketColor,
+  zIndex: overlayZindex,
+  display: 'flex',
+});
+
+const headerWrapperStyles = ({ isArchiveSideBarVisible }: HeaderWrapperProps) =>
+  css({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '98px',
+    opacity: 0.85,
+    background: `linear-gradient( to bottom, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) ) no-repeat`,
+    backgroundPosition: isArchiveSideBarVisible
+      ? `${ArchiveSideBarWidth}px 0`
+      : '0',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    color: '#c7d1db',
+    fontWeight: 500,
+    padding: token('space.300', '24px'),
+    boxSizing: 'border-box',
+    pointerEvents: 'none',
+    zIndex: overlayZindex + 1,
+  });
+
+const listWrapperStyles = css({
+  width: '100%',
+  height: '100%',
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const closeButtonWrapperStyles = css({
+  position: 'absolute',
+  top: token('space.300', '24px'),
+  right: token('space.250', '20px'),
+  zIndex: overlayZindex + 2,
+});
+
+const contentWrapperStyles = ({
+  isSidebarVisible,
+}: {
+  isSidebarVisible?: boolean;
+}) =>
+  css({
+    width: isSidebarVisible ? `calc(100% - ${SIDEBAR_WIDTH}px)` : '100%',
+  });
+
+const zoomWrapperStyles = css({
+  width: '100%',
+  position: 'absolute',
+  bottom: '0px',
+  height: '98px',
+  backgroundImage: `linear-gradient( to top, ${headerAndSidebarBackgroundColor}, rgba(14, 22, 36, 0) )`,
+  opacity: 0.85,
+  pointerEvents: 'none',
+  boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'flex-end',
+  padding: `${token('space.100', '10px')} ${token('space.300', '24px')}`,
+});
+
+const zoomCenterControlsStyles = css({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  gap: token('space.100', '10px'),
+  '> *': {
+    pointerEvents: 'all',
+  },
+});
+
+const zoomRightControlsStyles = css({
+  position: 'absolute',
+  right: token('space.300', '24px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: '#c7d1db',
+  pointerEvents: 'all',
+  display: 'flex',
+  justifyContent: 'right',
+  gap: token('space.100', '10px'),
+});
+
+const zoomLevelIndicatorStyles = css({
+  height: '32px',
+  lineHeight: '32px',
+  verticalAlign: 'middle',
+});
+
+const hdIconGroupWrapperStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  gap: token('space.100', '10px'),
+  position: 'relative',
+  width: '24px',
+  '> *': {
+    position: 'absolute',
+  },
+});
+
+const errorMessageWrapperStyles = css({
+  textAlign: 'center',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  color: '#c7d1db',
+  p: {
+    lineHeight: '100%',
+  },
+});
+
+const errorImageStyles = css({
+  marginBottom: token('space.100', '10px'),
+  userSelect: 'none',
+});
+
+const videoStyles = css({
+  width: '100vw',
+  height: '100vh',
+});
+
+const pdfWrapperStyles = css({
+  overflow: 'auto',
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  [`.${hideControlsClassName}`]: {
+    position: 'fixed',
+  },
+});
+
+const arrowStyles = css({
+  cursor: 'pointer',
+  svg: {
+    filter:
+      'drop-shadow(0px 1px 1px rgb(9 30 66 / 25%)) drop-shadow(0px 0px 1px rgb(9 30 66 / 31%))',
+  },
+  '&& button': {
+    height: 'inherit',
+    background: 'none',
+    '&:hover': {
+      svg: {
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+        color: '#b6c2cf',
+      },
+    },
+    '&:active': {
+      svg: {
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+        color: '#c7d1db',
+      },
+    },
+  },
+});
+
+const arrowWrapperStyles = css({
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  padding: token('space.250', '20px'),
+});
+
+const arrowsWrapperStyles = css({
+  display: 'flex',
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  left: 0,
+  width: '100%',
+});
+
+const leftWrapperStyles = ({ isArchiveSideBarVisible }: LeftWrapperProps) =>
+  css(arrowWrapperStyles, {
+    textAlign: 'left',
+    left: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
+  });
+
+const rightWrapperStyles = css(arrowWrapperStyles, {
+  textAlign: 'right',
+  right: 0,
+});
+
+const headerStyles = ({ isArchiveSideBarVisible }: HeaderProps) =>
+  css({
+    display: 'flex',
+    paddingLeft: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px` : '0',
+  });
+
+const leftHeaderStyles = css({
+  flex: 1,
+  overflow: 'hidden',
+  '> *': {
+    pointerEvents: 'all',
+  },
+});
+
+const imageWrapperStyles = css({
+  width: '100vw',
+  height: '100vh',
+  overflow: 'auto',
+  textAlign: 'center',
+  verticalAlign: 'middle',
+  whiteSpace: 'nowrap',
+});
+
+const baselineExtendStyles = css({
+  height: '100%',
+  display: 'inline-block',
+  verticalAlign: 'middle',
+});
+
+type ImgStylesProps = {
+  cursor: string;
+  shouldPixelate: boolean;
+};
+
+const imgStyles = ({ cursor, shouldPixelate }: ImgStylesProps) =>
+  css(
+    {
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      position: 'relative',
+      cursor: cursor,
+    },
+    shouldPixelate
+      ? `/* Prevent images from being smoothed when scaled up */
+    image-rendering: optimizeSpeed; /* Legal fallback */
+    image-rendering: -moz-crisp-edges; /* Firefox        */
+    image-rendering: -o-crisp-edges; /* Opera          */
+    image-rendering: -webkit-optimize-contrast; /* Safari         */
+    image-rendering: optimize-contrast; /* CSS3 Proposed  */
+    image-rendering: crisp-edges; /* CSS4 Proposed  */
+    image-rendering: pixelated; /* CSS4 Proposed  */
+    -ms-interpolation-mode: nearest-neighbor; /* IE8+           */`
+      : ``,
+  );
+
+const medatadataTextWrapperStyles = css({
+  overflow: 'hidden',
+});
+
+const metadataWrapperStyles = css({
+  display: 'flex',
+});
+
+const metadataFileNameStyles = css(ellipsis());
+
+const metadataSubTextStyles = css(
+  {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+    color: '#c7d1db',
+  },
+  ellipsis(),
+);
+
+const metadataIconWrapperStyles = xcss({
+  paddingTop: token('space.050', '4px'),
+  paddingRight: token('space.150', '12px'),
+});
+
+export interface IconWrapperProps {
+  type: MediaType;
+}
+
+const rightHeaderStyles = css({
+  textAlign: 'right',
+  marginRight: token('space.500', '40px'),
+  minWidth: '200px',
+  '> *': {
+    pointerEvents: 'all',
+  },
+});
+
+const customAudioPlayerWrapperStyles = css({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  width: '100%',
+});
+
+const audioPlayerStyles = css({
+  backgroundColor: blanketColor,
+  borderRadius: borderRadius(),
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '400px',
+  height: '400px',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  position: 'relative',
+});
+
+const audioStyles = css({
+  width: '100%',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+});
+
+const audioCoverStyles = css({
+  width: '100%',
+  height: '100%',
+  objectFit: 'scale-down',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  backgroundColor: '#000',
+});
+
+const defaultCoverWrapperStyles = css({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  '> *': {
+    transform: 'scale(2)',
+  },
+});
+
+const downloadButtonWrapperStyles = css({
+  marginTop: token('space.300', '28px'),
+  textAlign: 'center',
+  button: {
+    '&:hover, &:active': {
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+      color: '#161a1d !important',
+    },
+  },
+});
+
+const customVideoPlayerWrapperStyles = css({
+  video: {
+    flex: 1,
+    width: '100vw',
+    height: '100vh',
+    maxHeight: '100vh',
+  },
+});
+
+const sidebarWrapperStyles = css({
+  top: 0,
+  right: 0,
+  width: `${SIDEBAR_WIDTH}px`,
+  height: '100vh',
+  overflow: 'hidden auto',
+  backgroundColor: token('elevation.surface', headerAndSidebarBackgroundColor),
+  color: token('color.text', '#c7d1db'),
+});
+
+const spinnerWrapperStyles = css({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+});
+
+const formattedMessageWrapperStyles = css({});
 
 type Children = {
   children: ReactNode;
@@ -102,7 +437,9 @@ export const ListWrapper = ({ children }: Children) => (
 ListWrapper.displayName = 'ListWrapper';
 
 export const ArrowsWrapper = ({ children }: Children) => (
-  <div css={arrowsWrapperStyles}>{children}</div>
+  <div id="media-viewer-navigation" css={arrowsWrapperStyles}>
+    {children}
+  </div>
 );
 
 export const CloseButtonWrapper = ({
@@ -131,8 +468,12 @@ export const ZoomWrapper = ({ className, children }: ClassName & Children) => (
   </div>
 );
 
-export const ZoomControlsWrapper = ({ children }: Children) => (
-  <div css={zoomControlsWrapperStyles}>{children}</div>
+export const ZoomCenterControls = ({ children }: Children) => (
+  <div css={zoomCenterControlsStyles}>{children}</div>
+);
+
+export const ZoomRightControls = ({ children }: Children) => (
+  <div css={zoomRightControlsStyles}>{children}</div>
 );
 
 export const ZoomLevelIndicator = ({ children }: Children) => (
@@ -146,10 +487,6 @@ export const HDIconGroupWrapper = ({
   <div css={hdIconGroupWrapperStyles} className={className}>
     {children}
   </div>
-);
-
-export const HDIconWrapper = ({ children }: Children) => (
-  <div css={hdIconWrapperStyles}>{children}</div>
 );
 
 type ErrorMessageWrapperProps = DataTestID & Children;
@@ -356,7 +693,7 @@ export const MetadataSubText = ({
 );
 
 export const MetadataIconWrapper = ({ children }: Children) => (
-  <div css={metadataIconWrapperStyles}>{children}</div>
+  <Box xcss={metadataIconWrapperStyles}>{children}</Box>
 );
 
 export interface IconWrapperProps {

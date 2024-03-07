@@ -44,7 +44,7 @@ const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
 export const generateRendererComponent = (
   props: RendererProps,
   mockDatasources = false,
-): ComponentType<any> => {
+): ComponentType<React.PropsWithChildren<any>> => {
   const renderProps = {
     ...defaultBaseRendererProps,
     ...props,

@@ -32,9 +32,12 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
@@ -59,7 +62,7 @@
     "@atlaskit/editor-plugin-content-insertion": "^1.0.0",
     "@atlaskit/editor-plugin-guideline": "^1.0.0",
     "@atlaskit/editor-plugin-quick-insert": "^1.0.0",
-    "@atlaskit/editor-plugin-table": "^7.4.0",
+    "@atlaskit/editor-plugin-table": "^7.5.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/editor-plugin-width": "^1.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - InlineProps
  *
- * @codegen <<SignedSource::807734fa360131f49ef4e7bb552bcb95>>
+ * @codegen <<SignedSource::d90fb1f3e0d865b0aa6d0c92536144ef>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/inline/__generated__/index.partial.tsx <<SignedSource::d8e43c17dbcecadc5f72802f65dc1eb4>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/inline/__generated__/index.partial.tsx <<SignedSource::b6a1937f9464fe0c62c63c39b349815b>>
  */
 import React from 'react';
 import { Inline as PlatformInline } from '@atlaskit/primitives';

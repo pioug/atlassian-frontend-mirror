@@ -51,6 +51,30 @@ describe('migrate-to-icon-buttons', () => {
     { default: transformer, parser: 'tsx' },
     {},
     `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
+    `,
+    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (<${variants.icon} icon={MoreIcon} label="label" />);
+    `,
+    'should replace default button with icon button, and remove the aria label attribute if exist',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon />} />);
+    `,
+    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (<${variants.icon} icon={MoreIcon} label="aria label" />);
+    `,
+    'should replace default button with icon button, and use the aria label value as label value if icon has no label prop',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import Button from '@atlaskit/button/standard-button';
     const App = () => (<Button iconBefore={<MoreIcon size="medium" />} />);
     `,
     `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
@@ -210,6 +234,18 @@ describe('migrate-to-link-icon-buttons', () => {
     const App = () => (<${variants.linkIcon} href='/#' icon={icon} />);
     `,
     'should replace default button with icon link button, and rename iconBefore prop to icon',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button href='/#' aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
+    `,
+    `import { ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (<${variants.linkIcon} href='/#' icon={MoreIcon} label="label" />);
+    `,
+    'should replace default button with icon link button, and rename iconBefore prop to icon, and remove the aria-label',
   );
 
   defineInlineTest(

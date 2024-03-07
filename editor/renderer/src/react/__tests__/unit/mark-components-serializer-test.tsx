@@ -17,7 +17,7 @@ describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
     jest.restoreAllMocks();
   });
 
-  const FakeComp: React.FC = ({ children }) => {
+  const FakeComp = ({ children }: React.PropsWithChildren<unknown>) => {
     return <>children</>;
   };
   describe('when surroundTextNodesWithTextWrapper is true', () => {

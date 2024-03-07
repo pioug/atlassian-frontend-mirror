@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.8.0
+
+### Minor Changes
+
+- [#77607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77607) [`78ab76808037`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78ab76808037) - Fixed bug where save button state was not updated correctly for when media upload is in progress or finish uploading
+
+### Patch Changes
+
+- [#78508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78508) [`3459ec92fed3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3459ec92fed3) - [ux] When comment button in media floating toolbar is click, setInlineCommentDraftState from annotation plugin is evoked to apply draft docration and display inline comment create popup
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

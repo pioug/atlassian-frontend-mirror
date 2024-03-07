@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.7.0",
+  "version": "109.7.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
@@ -62,7 +62,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.7.0",
+    "@atlaskit/link-provider": "^1.8.0",
     "@atlaskit/media-core": "^34.2.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0"
@@ -72,9 +72,9 @@
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/css-reset": "^6.6.0",
-    "@atlaskit/link-provider": "^1.7.0",
+    "@atlaskit/link-provider": "^1.8.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
@@ -144,5 +144,18 @@
     "./text-serializer": "./src/text-serializer.ts",
     "./use-feature-flags": "./src/use-feature-flags.ts",
     "./utils": "./src/utils.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./actions": "./src/actions.ts",
+    "./consts": "./src/consts.ts",
+    "./messages": "./src/messages.ts",
+    "./render-document": "./src/render-document.ts",
+    "./renderer-context": "./src/renderer-context.tsx",
+    "./serializer": "./src/serializer.ts",
+    "./text-serializer": "./src/text-serializer.ts",
+    "./use-feature-flags": "./src/use-feature-flags.ts",
+    "./utils": "./src/utils.ts",
+    "./package.json": "./package.json"
   }
 }

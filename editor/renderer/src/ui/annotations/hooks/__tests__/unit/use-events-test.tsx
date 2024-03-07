@@ -72,7 +72,9 @@ describe('Annotations: Hooks/useEvents', () => {
   });
 
   describe('#useHasFocusEvent', () => {
-    let CustomComp: React.FC;
+    let CustomComp: (
+      props: React.PropsWithChildren<unknown>,
+    ) => React.ReactElement | null;
     let fakeFunction: jest.Mock;
 
     beforeEach(() => {
@@ -228,7 +230,9 @@ describe('Annotations: Hooks/useEvents', () => {
   });
 
   describe('#useAnnotationStateByTypeEvent', () => {
-    let CustomComp: React.FC;
+    let CustomComp: (
+      props: React.PropsWithChildren<unknown>,
+    ) => React.ReactElement | null;
     let fakeFunction: jest.Mock;
 
     beforeEach(() => {
@@ -405,7 +409,9 @@ describe('Annotations: Hooks/useEvents', () => {
   });
 
   describe('#useAnnotationClickEvent', () => {
-    let CustomComp: React.FC;
+    let CustomComp: (
+      props: React.PropsWithChildren<unknown>,
+    ) => React.ReactElement | null;
     let fakeFunction: jest.Mock;
     beforeEach(() => {
       fakeFunction = jest.fn();

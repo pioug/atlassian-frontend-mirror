@@ -159,6 +159,7 @@ export const getDragMenuConfig = (
   selectionRect?: Rect,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   isHeaderRowRequired?: boolean,
+  tablePreserveWidth = false,
 ): DragMenuConfig[] => {
   const addOptions =
     direction === 'row'
@@ -296,6 +297,7 @@ export const getDragMenuConfig = (
           insertColumnWithAnalytics(
             getEditorContainerWidth,
             editorAnalyticsAPI,
+            tablePreserveWidth,
           )(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(
             state,
             dispatch,
@@ -319,6 +321,7 @@ export const getDragMenuConfig = (
                 state,
                 editorView.domAtPos.bind(editorView),
                 getEditorContainerWidth,
+                tablePreserveWidth,
               );
 
               if (newResizeState) {
@@ -359,7 +362,7 @@ export const getDragMenuConfig = (
             !!isHeaderRowRequired,
           )(state, dispatch);
         } else {
-          deleteColumnsWithAnalytics(editorAnalyticsAPI)(
+          deleteColumnsWithAnalytics(editorAnalyticsAPI, tablePreserveWidth)(
             INPUT_METHOD.TABLE_CONTEXT_MENU,
             selectionRect ?? defaultSelectionRect,
           )(state, dispatch, editorView);

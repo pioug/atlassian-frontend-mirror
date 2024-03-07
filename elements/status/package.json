@@ -77,5 +77,10 @@
     ".": "./src/index.ts",
     "./element": "./src/element.ts",
     "./picker": "./src/picker.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./element": "./src/element.ts",
+    "./picker": "./src/picker.ts"
   }
 }

@@ -96,6 +96,12 @@ type DragMenuProps = {
   pluginConfig?: PluginConfig;
   getEditorContainerWidth: GetEditorContainerWidth;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
+  fitWidth?: number;
+  fitHeight?: number;
+  mountPoint?: HTMLElement;
+  boundariesElement?: HTMLElement;
+  scrollableElement?: HTMLElement;
+  tablePreserveWidth?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -269,6 +275,12 @@ export const DragMenu = React.memo(
     editorAnalyticsAPI,
     pluginConfig,
     intl: { formatMessage },
+    fitHeight,
+    fitWidth,
+    mountPoint,
+    scrollableElement,
+    boundariesElement,
+    tablePreserveWidth,
   }: DragMenuProps & WrappedComponentProps) => {
     const { state, dispatch } = editorView;
     const { selection } = state;
@@ -301,6 +313,7 @@ export const DragMenu = React.memo(
       selectionRect,
       editorAnalyticsAPI,
       pluginConfig?.isHeaderRowRequired,
+      tablePreserveWidth,
     );
 
     const { menuItems, menuCallback } = convertToDropdownItems(
@@ -627,12 +640,17 @@ export const DragMenu = React.memo(
       <DropdownMenu
         disableKeyboardHandling={isSubmenuOpen}
         section={{ hasSeparator: true }}
-        target={target as HTMLElement | undefined}
         items={menuItems}
         onItemActivated={handleMenuItemActivated}
         onMouseEnter={handleItemMouseEnter}
         onMouseLeave={handleItemMouseLeave}
         handleClose={closeMenu}
+        fitHeight={fitHeight}
+        fitWidth={fitWidth}
+        direction={direction}
+        mountPoint={mountPoint}
+        boundariesElement={boundariesElement}
+        scrollableElement={scrollableElement}
       />
     );
   },

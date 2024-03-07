@@ -28,9 +28,9 @@ describe('Annotation view component', () => {
   let getStateFake: jest.Mock;
   let container: HTMLElement | null;
 
-  const DummyComponent: React.ComponentType<InlineCommentViewComponentProps> = (
-    props: InlineCommentViewComponentProps,
-  ) => {
+  const DummyComponent: React.ComponentType<
+    React.PropsWithChildren<InlineCommentViewComponentProps>
+  > = (_props) => {
     return <div></div>;
   };
 

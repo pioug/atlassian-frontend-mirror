@@ -27,7 +27,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/locale": "^2.6.0",
@@ -65,6 +65,22 @@
     "typescript": "~4.9.5"
   },
   "af:exports": {
+    "./renderWithIntl": "./src/renderWithIntl.tsx",
+    "./smart-card-state": "./src/smart-card-state.ts",
+    "./fakeMediaClient": "./src/fakeMediaClient.ts",
+    "./media-mock": "./src/mocks/media-mock.ts",
+    "./images": "./src/images.tsx",
+    "./jestHelpers": "./src/jestHelpers.ts",
+    "./collectionNames": "./src/collectionNames.ts",
+    "./exampleMediaItems": "./src/exampleMediaItems.ts",
+    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+    "./mockData": "./src/utils/mockData.ts",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./renderWithIntl": "./src/renderWithIntl.tsx",
     "./smart-card-state": "./src/smart-card-state.ts",
     "./fakeMediaClient": "./src/fakeMediaClient.ts",

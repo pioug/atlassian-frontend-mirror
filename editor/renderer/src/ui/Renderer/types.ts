@@ -27,7 +27,7 @@ export type HeadingAnchorLinksConfig = {
 };
 
 export type NodeComponentsProps = {
-  [key: string]: React.ComponentType<any>;
+  [key: string]: React.ComponentType<React.PropsWithChildren<any>>;
 };
 
 export type HeadingAnchorLinksProps = boolean | HeadingAnchorLinksConfig;

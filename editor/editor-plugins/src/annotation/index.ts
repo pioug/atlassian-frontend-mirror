@@ -10,6 +10,8 @@ export type {
   AnnotationState,
   AnnotationTypeProvider,
   InlineCommentState,
+  TargetType,
+  InlineCommentInputMethod,
   InlineCommentMap,
   InlineCommentPluginState,
   InlineCommentPluginOptions,

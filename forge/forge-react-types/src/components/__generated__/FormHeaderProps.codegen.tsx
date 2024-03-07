@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormHeaderProps
  *
- * @codegen <<SignedSource::d3f8f97b43022874e0e72b01cb3cde26>>
+ * @codegen <<SignedSource::8ed1fa7c1aeb0e666343bb3ef2353f7f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/__generated__/form-header.partial.tsx <<SignedSource::c36f5c7f449264ec064fa87a31c59aac>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/__generated__/form-header.partial.tsx <<SignedSource::a819d70cfd6efa6115889e0353f7ec5f>>
  */
 import React from 'react';
 import { FormHeader as PlatformFormHeader } from '@atlaskit/form';

@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Sütunları yapılandır',
   'linkDataSource.datasource.table.authConnectButtonText': 'Bağla',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için hesabınızı bağlayın.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Hesabınızı bağlayın',
+    'Atlassian ürünlerindeki çalışmalarda iş birliği yapmak için {providerName} hesabınızı bağlayın.',
+  'linkDataSource.datasource.table.authScreenHeaderText': '{providerName} hesabınızı bağlayın',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
   'linkDataSource.jira-issues.accessInstructions': 'Erişim talep etmek için site yöneticinizle iletişime geçin.',
   'linkDataSource.jira-issues.accessRequired': 'Bu içeriğe erişiminiz yok',

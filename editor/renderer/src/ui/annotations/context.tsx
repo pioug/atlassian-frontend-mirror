@@ -8,7 +8,9 @@ type ChildrenProps = {
   clearAnnotationDraft: () => void;
 };
 
-export type RenderCallbackType = React.FC<ChildrenProps>;
+export type RenderCallbackType = (
+  props: React.PropsWithChildren<ChildrenProps>,
+) => React.ReactNode;
 
 type Props = {
   children: RenderCallbackType;

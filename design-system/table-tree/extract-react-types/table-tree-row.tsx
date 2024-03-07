@@ -32,7 +32,6 @@ type RowProps = {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[] | null;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
    * Controls the expanded state of the row.
    */
@@ -42,11 +41,11 @@ type RowProps = {
    */
   isDefaultExpanded?: ReactNode;
   /**
-   * `aria-label` attached to the expand chevron button.
+   * Visually hidden text placed inside the expand chevron button.
    */
   expandLabel?: string;
   /**
-   * `aria-label` attached to the collapse chevron button.
+   * Visually hidden text placed inside the collapse chevron button.
    */
   collapseLabel?: string;
   /**
@@ -62,14 +61,12 @@ type RowProps = {
    * Normally set by parent Item component and does not need to be configured.
    */
   renderChildren?: () => React.ReactNode;
-  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
 
     If your cells contain interactive elements, this can cause unexpected expanding or collapsing.
    */
   shouldExpandOnClick?: boolean;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
    * Data to render. Passed down by Item and passed into onExpand and onCollapse callbacks.
    * Normally set by parent Item component and does not need to be configured.
@@ -81,7 +78,6 @@ type RowProps = {
    * Normally set by parent Item component and does not need to be configured.
    */
   depth?: number;
-  /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
     Adds detail to the expand and collapse row button's aria label by appending the value from the given column. If you don't set this prop, the aria label will read out "Expand `itemId` row".
 
@@ -90,7 +86,6 @@ type RowProps = {
     Should be a number  when we pass data via `<Rows />` component as children in `<TableTree />`.
    */
   mainColumnForExpandCollapseLabel?: string | number;
-  /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
 };
 
 const TableRow = function (props: RowProps) {

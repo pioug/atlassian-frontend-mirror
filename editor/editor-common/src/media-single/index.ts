@@ -21,4 +21,5 @@ export {
   calcMinWidth,
   getMaxWidthForNestedNode,
   getMaxWidthForNestedNodeNext,
+  currentMediaNodeWithPos,
 } from './utils';

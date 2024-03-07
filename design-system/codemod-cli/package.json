@@ -29,6 +29,16 @@
     "./types": "./src/types.ts",
     "./utils": "./src/utils.ts"
   },
+  "exports": {
+    ".": "./index.js",
+    "./cli": "./src/cli.ts",
+    "./filepath": "./src/filepath.ts",
+    "./main": "./src/main.ts",
+    "./sinceRef": "./src/sinceRef.ts",
+    "./transforms": "./src/transforms.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous"

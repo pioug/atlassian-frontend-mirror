@@ -28,6 +28,12 @@
     "./option": "./src/option.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./analytics": "./src/analytics.ts",
+    "./option": "./src/option.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Search Platform: Search Experience",
     "releaseModel": "continuous",

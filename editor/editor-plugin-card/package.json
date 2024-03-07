@@ -31,6 +31,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/analytics-next": "^9.2.0",
@@ -50,7 +53,7 @@
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/link-datasource": "^1.23.0",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^4.0.0",
@@ -64,7 +67,7 @@
     "raf-schd": "^4.0.3"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.2",
+    "@atlaskit/link-provider": "^1.8.0",
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

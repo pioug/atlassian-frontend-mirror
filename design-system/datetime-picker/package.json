@@ -26,6 +26,10 @@
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -61,7 +65,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^9.0.3",
     "@atlaskit/modal-dialog": "^12.10.0",

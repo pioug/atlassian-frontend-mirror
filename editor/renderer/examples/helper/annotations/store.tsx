@@ -36,7 +36,9 @@ const reducer: MyReducer = (state: MyData, action: MyAction): MyData => {
   }
 };
 
-const AnnotationsStoreProvider: React.FC = ({ children }) => {
+const AnnotationsStoreProvider = ({
+  children,
+}: React.PropsWithChildren<unknown>) => {
   const [state, dispatch] = useReducer(reducer, initialData);
 
   return <Provider value={{ state, dispatch }}>{children}</Provider>;

@@ -29,15 +29,15 @@ interface FixedProps {
 }
 
 const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
-  none: css`
-    display: none;
-  `,
-  stick: css`
-    position: fixed;
-  `,
-  'pin-bottom': css`
-    position: absolute;
-  `,
+  none: css({
+    display: 'none',
+  }),
+  stick: css({
+    position: 'fixed',
+  }),
+  'pin-bottom': css({
+    position: 'absolute',
+  }),
 };
 
 // TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4123
@@ -53,46 +53,41 @@ const fixedTableDivStaticStyles = (
     stickyHeaderZIndex = akEditorStickyHeaderZIndex;
   }
 
-  return css`
-    ${typeof top === 'number' && `top: ${top}px;`}
-    width: ${width}px;
-    z-index: ${stickyHeaderZIndex};
-    &
-      .${TableSharedCssClassName.TABLE_CONTAINER},
-      &
-      .${TableSharedCssClassName.TABLE_STICKY_WRAPPER}
-      > table {
-      margin-top: 0;
-      margin-bottom: 0;
-      tr {
-        background: ${token('elevation.surface', 'white')};
-      }
-    }
-
-    border-top: ${tableStickyPadding}px solid
-      ${token('elevation.surface', 'white')};
-    background: ${token('elevation.surface.overlay', 'white')};
-    box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
-
-    div[data-expanded='false'] & {
-      display: none;
-    }
-
-    &
-      .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after,
-      &
-      .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before {
-      top: 0px;
-      height: 100%;
-    }
-
-    &.fixed-table-div-custom-table-resizing[mode='stick'] {
-      z-index: ${stickyHeaderZIndex};
-    }
-  `;
+  return css(typeof top === 'number' && `top: ${top}px;`, {
+    width: `${width}px`,
+    zIndex: stickyHeaderZIndex,
+    [`& .${TableSharedCssClassName.TABLE_CONTAINER}, & .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
+      {
+        marginTop: 0,
+        marginBottom: 0,
+        tr: {
+          background: token('elevation.surface', 'white'),
+        },
+      },
+    borderTop: `${tableStickyPadding}px solid ${token(
+      'elevation.surface',
+      'white',
+    )}`,
+    background: token('elevation.surface.overlay', 'white'),
+    boxShadow: `0 6px 4px -4px ${token(
+      'elevation.shadow.overflow.perimeter',
+      N40A,
+    )}`,
+    "div[data-expanded='false'] &": {
+      display: 'none',
+    },
+    [`& .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after, & .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before`]:
+      {
+        top: '0px',
+        height: '100%',
+      },
+    "&.fixed-table-div-custom-table-resizing[mode='stick']": {
+      zIndex: stickyHeaderZIndex,
+    },
+  });
 };
 
-export const FixedTableDiv: React.FC<FixedProps> = (props) => {
+export const FixedTableDiv = (props: React.PropsWithChildren<FixedProps>) => {
   const { top, wrapperWidth, mode, rendererAppearance } = props;
   const fixedTableCss = [
     fixedTableDivStaticStyles(top, wrapperWidth, rendererAppearance),
@@ -156,12 +151,15 @@ export const StickyTable = ({
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   if (isTableResizingEnabled(rendererAppearance)) {
     styles = css({
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       top: mode === 'pin-bottom' ? top : undefined,
       position: 'absolute',
     });
   } else {
     styles = css({
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       left: left && left < 0 ? left : undefined,
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       top: mode === 'pin-bottom' ? top : undefined,
       position: 'relative',
     });

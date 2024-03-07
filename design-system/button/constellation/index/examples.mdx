@@ -18,6 +18,7 @@ import LegacyButtonPadding from '../../examples/constellation/legacy-button/butt
 import LegacyButtonFullWidth from '../../examples/constellation/legacy-button/button-full-width';
 import LegacyButtonWithIconBefore from '../../examples/constellation/legacy-button/button-with-icon-before';
 import LegacyButtonWithIconAfter from '../../examples/constellation/legacy-button/button-with-icon-after';
+import LegacyButtonWithIconOnly from '../../examples/constellation/legacy-button/button-with-icon-only';
 
 <SectionMessage>
   <p>
@@ -115,7 +116,7 @@ Buttons can be expanded to full width to fill its parent container.
 
 ## Button with icon
 
-Buttons may include an icon before or after the text.
+Buttons may include an icon before or after the text. Omit the text to use an icon button.
 
 ### Icon before
 
@@ -131,6 +132,12 @@ Display an icon before the text.
 Display an icon after the text.
 
 <Example Component={LegacyButtonWithIconAfter} packageName="@atlaskit/button" />
+
+### Icon only
+
+Display an icon-only button.
+
+<Example Component={LegacyButtonWithIconOnly} packageName="@atlaskit/button" />
 
 ## Routing
 

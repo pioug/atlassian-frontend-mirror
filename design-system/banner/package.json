@@ -36,6 +36,9 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/primitives": "^4.0.0",
     "@atlaskit/theme": "^12.6.0",

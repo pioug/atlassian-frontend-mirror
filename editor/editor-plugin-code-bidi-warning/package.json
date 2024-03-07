@@ -32,6 +32,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/editor-common": "^78.11.0",

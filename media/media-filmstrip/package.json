@@ -26,6 +26,10 @@
     "./filmstrip": "./src/filmstrip.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./filmstrip": "./src/filmstrip.tsx",
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,

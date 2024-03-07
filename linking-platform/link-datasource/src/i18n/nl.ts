@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Kolommen configureren',
   'linkDataSource.datasource.table.authConnectButtonText': 'Koppelen',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Koppel je account om samen te werken op verschillende Atlassian-producten.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Je account koppelen',
+    'Koppel je {providerName}-account om samen te werken op verschillende Atlassian-producten.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Koppel je {providerName}-account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Meer informatie over Smart Links.',
   'linkDataSource.jira-issues.accessInstructions': 'Neem contact op met je sitebeheerder om toegang aan te vragen.',
   'linkDataSource.jira-issues.accessRequired': 'Je hebt geen toegang tot deze inhoud',

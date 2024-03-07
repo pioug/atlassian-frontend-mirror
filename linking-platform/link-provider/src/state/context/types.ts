@@ -3,6 +3,7 @@ import {
   CardAppearance,
   CardStore,
   LinkingPlatformFeatureFlags,
+  ProductType,
 } from '@atlaskit/linking-common';
 import { LinkPreview, CardPlatform } from '@atlaskit/link-extractors';
 import CardClient from '../../client';
@@ -13,6 +14,7 @@ import { CardConnections } from '../store/types';
 export interface CardAuthFlowOpts {
   authFlow?: 'oauth2' | 'disabled';
 }
+
 export interface CardContext {
   store: Store<CardStore>;
   prefetchStore: Record<string, boolean>;
@@ -27,6 +29,7 @@ export interface CardContext {
   renderers?: CardProviderRenderers;
   featureFlags?: LinkingPlatformFeatureFlags;
   isAdminHubAIEnabled?: boolean;
+  product?: ProductType;
 }
 
 /** @deprecated Feature removed (EDM-2205) */
@@ -54,4 +57,5 @@ export type CardProviderProps = {
   // Needed to support passing flags from the product without having to bump this interface
   featureFlags?: LinkingPlatformFeatureFlags & { [flag: string]: unknown };
   isAdminHubAIEnabled?: boolean;
+  product?: ProductType;
 } & CardAuthFlowOpts;

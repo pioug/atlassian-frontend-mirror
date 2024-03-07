@@ -65,7 +65,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
   });
 
   describe('#useLoadAnnotations', () => {
-    const CustomComp: React.FC = () => {
+    const CustomComp = () => {
       useLoadAnnotations({ adfDocument });
       return null;
     };
@@ -101,9 +101,9 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 
     describe('when the document changes', () => {
       it('should call getState again', () => {
-        const CustomComp: React.FC<Record<'myAdfDocument', JSONDocNode>> = ({
+        const CustomComp = ({
           myAdfDocument,
-        }) => {
+        }: React.PropsWithChildren<Record<'myAdfDocument', JSONDocNode>>) => {
           useLoadAnnotations({ adfDocument: myAdfDocument });
           return null;
         };

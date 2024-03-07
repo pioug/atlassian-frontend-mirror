@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.2.1
+
+### Patch Changes
+
+- [#78577](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78577) [`207fbd3685dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/207fbd3685dc) - ED-22111 add supported nodes option to annotation plugin
+
+## 1.2.0
+
+### Minor Changes
+
+- [#78508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78508) [`1d2b9d7a0542`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1d2b9d7a0542) - Expose setInlineCommentDraftState as one of the annotation plugin actions, extend the action with the ability to apply comment highlight to node, and add optional plugin dependency, FeatureFlagsPlugin
+
 ## 1.1.0
 
 ### Minor Changes

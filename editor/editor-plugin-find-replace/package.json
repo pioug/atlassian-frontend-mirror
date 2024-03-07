@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-find-replace",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "find replace plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -33,8 +33,12 @@
     ".": "./src/index.ts",
     "./styles": "./src/styles.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles.ts"
+  },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

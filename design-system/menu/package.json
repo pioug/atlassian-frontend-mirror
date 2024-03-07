@@ -119,6 +119,19 @@
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./button-item": "./src/entry-points/menu-item/button-item.tsx",
+    "./link-item": "./src/entry-points/menu-item/link-item.tsx",
+    "./custom-item": "./src/entry-points/menu-item/custom-item.tsx",
+    "./heading-item": "./src/entry-points/menu-item/heading-item.tsx",
+    "./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
+    "./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.tsx",
+    "./section": "./src/entry-points/menu-section/section.tsx",
+    "./menu-group": "./src/entry-points/menu-section/menu-group.tsx",
+    "./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.tsx",
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
+  },
   "platform-feature-flags": {
     "platform.design-system-team.unsafe-overrides-killswitch_c8j9m": {
       "type": "boolean"

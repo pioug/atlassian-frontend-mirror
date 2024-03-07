@@ -538,6 +538,7 @@ export const handleCut = (
   newState: EditorState,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   editorView?: EditorView,
+  tablePreserveWidth = false,
 ): Transaction => {
   const oldSelection = oldState.tr.selection;
   let { tr } = newState;
@@ -594,6 +595,7 @@ export const handleCut = (
               rect,
               getAllowAddColumnCustomStep(oldState),
               editorView,
+              tablePreserveWidth,
             )(tr);
           }
         }

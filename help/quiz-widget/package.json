@@ -7,6 +7,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -33,7 +36,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/radio": "^6.0.0",
     "@atlaskit/spinner": "^16.0.0",

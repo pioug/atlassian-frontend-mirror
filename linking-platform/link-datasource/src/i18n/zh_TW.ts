@@ -38,8 +38,8 @@ export default {
   'linkDataSource.column-picker.tooltip': '設定欄',
   'linkDataSource.datasource.table.authConnectButtonText': '連結',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    '連接您的帳戶，以在各個 Atlassian 產品上的工作協同合作。',
-  'linkDataSource.datasource.table.authScreenHeaderText': '連接您的帳戶',
+    '連接您的 {providerName} 帳戶，以在各個 Atlassian 產品上的工作協同合作。',
+  'linkDataSource.datasource.table.authScreenHeaderText': '連結 {providerName} 帳戶',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': '深入了解智慧連結。',
   'linkDataSource.jira-issues.accessInstructions': '若要要求存取權，請連絡您的網站管理員。',
   'linkDataSource.jira-issues.accessRequired': '您無法存取此內容',

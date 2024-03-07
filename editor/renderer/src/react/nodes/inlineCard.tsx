@@ -19,9 +19,7 @@ export interface InlineCardProps {
   smartLinks?: SmartLinksOptions;
 }
 
-const InlineCard: React.FunctionComponent<
-  InlineCardProps & WithSmartCardStorageProps
-> = (props) => {
+const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
   const { url, data, eventHandlers, portal, smartLinks } = props;
   const onClick = getCardClickHandler(eventHandlers, url);
   const cardProps = { url, data, onClick, container: portal };

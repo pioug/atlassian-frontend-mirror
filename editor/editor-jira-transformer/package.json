@@ -31,6 +31,15 @@
     "./schema": "./src/schema.ts",
     "./utils": "./src/utils.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./collapse-whitespace": "./src/collapse-whitespace.ts",
+    "./emojiHelper": "./src/emojiHelper.ts",
+    "./fix-doc": "./src/fix-doc.ts",
+    "./parse-html": "./src/parse-html.ts",
+    "./schema": "./src/schema.ts",
+    "./utils": "./src/utils.ts"
+  },
   "atlassian": {
     "team": "Editor: ADF",
     "inPublicMirror": true,
@@ -52,11 +61,11 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^192.6.0",
+    "@atlaskit/editor-core": "^192.7.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-test-helpers": "^18.19.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "1.39.0",
+    "@atlaskit/tokens": "1.39.1",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",

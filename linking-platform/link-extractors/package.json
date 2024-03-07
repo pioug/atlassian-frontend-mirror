@@ -35,6 +35,10 @@
     "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/logo": "^13.15.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",

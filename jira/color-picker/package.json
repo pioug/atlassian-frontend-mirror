@@ -65,6 +65,10 @@
     "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./ColorPaletteMenu": "./src/components/ColorPaletteMenu.tsx",
+    ".": "./src/index.ts"
+  },
   "techstack": {
     "@repo/internal": {
       "design-tokens": [

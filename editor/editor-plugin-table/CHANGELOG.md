@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.0
+
+### Minor Changes
+
+- [#77531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77531) [`18e5d61eaec6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18e5d61eaec6) - add preserve table width logic
+
+## 7.4.9
+
+### Patch Changes
+
+- [#78202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78202) [`287432cbca17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/287432cbca17) - [ux] ED-22099: Fixed drag menu position when close to edge of view port.
+
 ## 7.4.8
 
 ### Patch Changes

@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "^3.11.0",
@@ -47,7 +47,7 @@
     "rusha": "^0.8.13"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.7.0",
+    "@atlaskit/link-provider": "^1.8.0",
     "react": "^16.8.0"
   },
   "devDependencies": {
@@ -63,6 +63,10 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "af:exports": {
+    ".": "./src/index.ts",
+    "./resolved-attributes": "./src/resolved-attributes.ts"
+  },
+  "exports": {
     ".": "./src/index.ts",
     "./resolved-attributes": "./src/resolved-attributes.ts"
   },

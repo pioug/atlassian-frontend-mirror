@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-client-react": "^2.0.0",
@@ -101,6 +101,16 @@
     "ui"
   ],
   "af:exports": {
+    ".": "./src/index.ts",
+    "./admin": "./src/admin.ts",
+    "./element": "./src/element.ts",
+    "./picker": "./src/picker.ts",
+    "./resource": "./src/resource.ts",
+    "./typeahead": "./src/typeahead.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
+  },
+  "exports": {
     ".": "./src/index.ts",
     "./admin": "./src/admin.ts",
     "./element": "./src/element.ts",

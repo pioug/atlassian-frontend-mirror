@@ -19,6 +19,11 @@
     "./constants": "./src/constants.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./constants": "./src/constants.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -31,7 +36,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/inline-dialog": "^14.0.0",
     "@atlaskit/theme": "^12.6.0",

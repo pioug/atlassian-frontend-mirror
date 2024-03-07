@@ -121,3 +121,14 @@ export {
   type AvailableSite,
   AvailableSitesProductType,
 } from './hooks/useAvailableSites/types';
+
+export type ProductType =
+  | 'CONFLUENCE'
+  | 'ATLAS'
+  | 'BITBUCKET'
+  | 'TRELLO'
+  | 'JSW'
+  | 'JWM'
+  | 'JSM'
+  | 'JPD'
+  | 'ELEVATE';

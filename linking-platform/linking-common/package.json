@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "5.3.2",
+  "version": "5.4.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0",
@@ -76,13 +75,16 @@
     "./sentry": "./src/sentry/index.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./types": "./src/types.ts",
+    "./url": "./src/url.ts",
+    "./user-agent": "./src/user-agent/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./mocks": "./src/common/mocks/index.ts",
+    "./sentry": "./src/sentry/index.ts",
+    ".": "./src/index.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
-  "platform-feature-flags": {
-    "platform.linking-platform.linking-common.isolated-sentry-hub": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.linking-common.sentry.disable-dedupe": {
-      "type": "boolean"
-    }
-  }
+  "platform-feature-flags": {}
 }

@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.39.1
+
+### Patch Changes
+
+- [#79306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79306) [`465924177c82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/465924177c82) - Moves dependency whitelist from hypermod.config to package.json
+
 ## 1.39.0
 
 ### Minor Changes

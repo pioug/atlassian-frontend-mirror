@@ -3,7 +3,7 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::e254ae748261935de2f8a7c0367be07f>>
+ * @codegen <<SignedSource::f58f8315435a79b1b371e0447b41ae5d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/icon/index.tsx <<SignedSource::cb2fcb68bfe27383995892c05cd46438>>
  */
@@ -329,6 +329,7 @@ export type Icon =
   | 'switcher'
   | 'table'
   | 'task'
+  | 'teams'
   | 'trash'
   | 'tray'
   | 'undo'

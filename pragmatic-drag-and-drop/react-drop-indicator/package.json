@@ -83,6 +83,13 @@
     "./types": "./src/types.ts",
     "./tree-item": "./src/tree-item.tsx"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./box": "./src/box.tsx",
+    "./box-without-terminal": "./src/box-without-terminal.tsx",
+    "./types": "./src/types.ts",
+    "./tree-item": "./src/tree-item.tsx"
+  },
   "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Konfigurer kolonner',
   'linkDataSource.datasource.table.authConnectButtonText': 'Koble til',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Koble til kontoen din for å samarbeide mellom flere Atlassian-produkter.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Koble til kontoen din',
+    'Koble til {providerName}-kontoen din for å samarbeide mellom flere Atlassian-produkter.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Koble til {providerName}-kontoen din',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Finn ut mer om smartkoblinger.',
   'linkDataSource.jira-issues.accessInstructions': 'Ta kontakt med nettstedsadministratoren din for å be om tilgang.',
   'linkDataSource.jira-issues.accessRequired': 'Du har ikke tilgang til dette innholdet',

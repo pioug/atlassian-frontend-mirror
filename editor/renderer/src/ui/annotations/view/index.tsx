@@ -14,7 +14,7 @@ type AnnotationInfo = {
   type: AnnotationTypes.INLINE_COMMENT;
 };
 
-const AnnotationView: React.FC<Props> = (props) => {
+const AnnotationView = (props: Props) => {
   const providers = useContext(ProvidersContext);
   const actionContext = useContext(RendererContext);
   const inlineCommentProvider = providers && providers.inlineComment;

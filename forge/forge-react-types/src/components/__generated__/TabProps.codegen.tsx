@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabProps
  *
- * @codegen <<SignedSource::82d9c5631f4bccc26d00d5e47fcd6e04>>
+ * @codegen <<SignedSource::c45db800dc7a3a981f57cb6ca6fdb39e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/tabs/__generated__/tab.partial.tsx <<SignedSource::7e40df4a64df1ddc15fc30b812e909f1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/tabs/__generated__/tab.partial.tsx <<SignedSource::2ead4cab9a2f95ec27b0dee4d57ed3bc>>
  */
 import React from 'react';
 import { Tab as PlatformTab } from '@atlaskit/tabs';

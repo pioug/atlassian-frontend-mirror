@@ -1,4 +1,4 @@
-import { type IconProp, type IconSize } from '../types';
+import { type ButtonSpacing, type IconProp, type IconSize } from '../types';
 
 export type CommonDefaultButtonProps = {
   /**
@@ -27,4 +27,8 @@ export type CommonDefaultButtonProps = {
    * Option to fit button width to its parent width.
    */
   shouldFitContainer?: boolean;
+  /**
+   * Controls the amount of padding in the button.
+   */
+  spacing?: ButtonSpacing;
 };

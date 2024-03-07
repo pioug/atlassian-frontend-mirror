@@ -8,7 +8,6 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { type Appearance, type Spacing } from '../src/new';
 import LegacyButton from '../src/old-button/button';
-import spacing from '../src/utils/spacing';
 import variants, { type Variant } from '../src/utils/variants';
 
 const overlay = (
@@ -52,6 +51,7 @@ const ExampleRow = ({
         <Component
           // @ts-ignore
           appearance={appearance}
+          // @ts-ignore
           spacing={spacing}
         >
           {isLegacyIconButton ? null : capitalize(appearance)}
@@ -64,6 +64,7 @@ const ExampleRow = ({
           <Component
             // @ts-ignore
             appearance={appearance}
+            // @ts-ignore
             spacing={spacing}
             // @ts-ignore
             iconBefore={
@@ -91,6 +92,7 @@ const ExampleRow = ({
           // @ts-ignore
           appearance={appearance}
           isDisabled
+          // @ts-ignore
           spacing={spacing}
         >
           {isIconOnly ? null : 'Hello'}
@@ -101,6 +103,7 @@ const ExampleRow = ({
           // @ts-ignore
           appearance={appearance}
           isSelected
+          // @ts-ignore
           spacing={spacing}
         >
           {isIconOnly ? null : 'Hello'}
@@ -110,52 +113,57 @@ const ExampleRow = ({
         <Component
           // @ts-ignore
           appearance={appearance}
-          isSelected
-          isDisabled
-          spacing={spacing}
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          spacing={spacing}
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          isDisabled
-          spacing={spacing}
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          isSelected
-          spacing={spacing}
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
           isSelected
           isDisabled
+          // @ts-ignore
+          spacing={spacing}
+        >
+          {isIconOnly ? null : 'Hello'}
+        </Component>
+      </td>
+      <td>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          overlay={overlay}
+          // @ts-ignore
+          spacing={spacing}
+        >
+          {isIconOnly ? null : 'Hello'}
+        </Component>
+      </td>
+      <td>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          overlay={overlay}
+          isDisabled
+          // @ts-ignore
+          spacing={spacing}
+        >
+          {isIconOnly ? null : 'Hello'}
+        </Component>
+      </td>
+      <td>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          overlay={overlay}
+          isSelected
+          // @ts-ignore
+          spacing={spacing}
+        >
+          {isIconOnly ? null : 'Hello'}
+        </Component>
+      </td>
+      <td>
+        <Component
+          // @ts-ignore
+          appearance={appearance}
+          overlay={overlay}
+          isSelected
+          isDisabled
+          // @ts-ignore
           spacing={spacing}
         >
           {isIconOnly ? null : 'Hello'}
@@ -167,6 +175,7 @@ const ExampleRow = ({
             // @ts-ignore
             appearance={appearance}
             shouldFitContainer
+            // @ts-ignore
             spacing={spacing}
           >
             {isIconOnly ? null : 'Hello'}
@@ -181,6 +190,7 @@ const ExampleRow = ({
             <Component
               // @ts-ignore
               appearance={appearance}
+              // @ts-ignore
               spacing={spacing}
             >
               {isIconOnly ? null : 'I have a long label'}
@@ -206,7 +216,7 @@ export default function AppearancesExample() {
       />
       <Stack space="space.200">
         {variants.map(
-          ({ name, Component: NewButtonComponent, appearances }) => {
+          ({ name, Component: NewButtonComponent, appearances, spacing }) => {
             const isIconOnly = ['IconButton', 'LinkIconButton'].includes(name);
             return (
               <Stack space="space.100" key={name}>

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.1.4
+
+### Patch Changes
+
+- [#78913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78913) [`b244d468a298`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b244d468a298) - fix incorrect usage of a platform ff in find and replace plugin
+
 ## 1.1.3
 
 ### Patch Changes

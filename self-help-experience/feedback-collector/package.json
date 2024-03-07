@@ -27,6 +27,11 @@
     "./messages": "./src/messages.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./messages": "./src/messages.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Self-Help Experiences",
     "releaseModel": "continuous",
@@ -41,7 +46,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/form": "^9.0.3",

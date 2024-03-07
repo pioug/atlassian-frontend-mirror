@@ -30,7 +30,7 @@
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
     "@atlaskit/badge": "^15.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/dropdown-menu": "^12.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
@@ -40,7 +40,7 @@
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/link-extractors": "^1.2.0",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@atlaskit/logo": "^13.15.0",
     "@atlaskit/lozenge": "^11.6.0",
@@ -71,7 +71,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.4",
+    "@atlaskit/link-provider": "^1.8.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -132,6 +132,16 @@
     }
   },
   "af:exports": {
+    "./ssr": "./src/ssr.tsx",
+    "./in-product": "./src/in-product.ts",
+    "./client": "./src/client/index.ts",
+    "./types": "./src/types.ts",
+    "./hooks": "./src/hooks.ts",
+    "./hover-card": "./src/hoverCard.ts",
+    "./link-url": "./src/linkUrl.ts",
+    ".": "./src/index.ts"
+  },
+  "exports": {
     "./ssr": "./src/ssr.tsx",
     "./in-product": "./src/in-product.ts",
     "./client": "./src/client/index.ts",

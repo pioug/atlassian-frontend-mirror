@@ -169,6 +169,7 @@ export const getToolbarCellOptionsConfig = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  tablePreserveWidth = false,
 ): FloatingToolbarDropdown<Command> => {
   const { top, bottom, right, left } = initialSelectionRect;
   const numberOfColumns = right - left;
@@ -190,6 +191,7 @@ export const getToolbarCellOptionsConfig = (
           insertColumnWithAnalytics(
             getEditorContainerWidth,
             editorAnalyticsAPI,
+            tablePreserveWidth,
           )(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
         }
         return true;
@@ -292,6 +294,7 @@ export const getToolbarCellOptionsConfig = (
           editorState,
           editorView.domAtPos.bind(editorView),
           getEditorContainerWidth,
+          tablePreserveWidth,
         )
       : undefined;
     const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -459,6 +462,8 @@ export const getToolbarConfig =
         editorAnalyticsAPI,
       );
 
+      const { tablePreserveWidth = false } = getEditorFeatureFlags();
+
       let cellItems: Array<FloatingToolbarItem<Command>>;
       cellItems = pluginState.isDragAndDropEnabled
         ? []
@@ -469,6 +474,7 @@ export const getToolbarConfig =
             intl,
             getEditorContainerWidth,
             editorAnalyticsAPI,
+            tablePreserveWidth,
           );
 
       let columnSettingsItems;
@@ -481,6 +487,7 @@ export const getToolbarConfig =
               intl,
               getEditorContainerWidth,
               editorAnalyticsAPI,
+              tablePreserveWidth,
             )
           : [];
       const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI);
@@ -606,6 +613,7 @@ const getCellItems = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  tablePreserveWidth = false,
 ): Array<FloatingToolbarItem<Command>> => {
   const initialSelectionRect = getClosestSelectionRect(state);
   if (initialSelectionRect) {
@@ -616,6 +624,7 @@ const getCellItems = (
       { formatMessage },
       getEditorContainerWidth,
       editorAnalyticsAPI,
+      tablePreserveWidth,
     );
     return [cellOptions, separator(cellOptions.hidden!)];
   }
@@ -626,6 +635,7 @@ export const getDistributeConfig =
   (
     getEditorContainerWidth: GetEditorContainerWidth,
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    tablePreserveWidth = false,
   ): Command =>
   (state, dispatch, editorView) => {
     const selectionOrTableRect = getClosestSelectionOrTableRect(state);
@@ -637,6 +647,7 @@ export const getDistributeConfig =
       state,
       editorView.domAtPos.bind(editorView),
       getEditorContainerWidth,
+      tablePreserveWidth,
     );
 
     if (newResizeStateWithAnalytics) {
@@ -657,6 +668,7 @@ const getColumnSettingItems = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+  tablePreserveWidth = false,
 ): Array<FloatingToolbarItem<Command>> => {
   const pluginState = getPluginState(editorState);
   const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
@@ -670,6 +682,7 @@ const getColumnSettingItems = (
     editorState,
     editorView.domAtPos.bind(editorView),
     getEditorContainerWidth,
+    tablePreserveWidth,
   );
 
   const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -685,11 +698,11 @@ const getColumnSettingItems = (
         title: formatMessage(messages.distributeColumns),
         icon: DistributeColumnIcon,
         onClick: (state, dispatch, view) =>
-          getDistributeConfig(getEditorContainerWidth, editorAnalyticsAPI)(
-            state,
-            dispatch,
-            view,
-          ),
+          getDistributeConfig(
+            getEditorContainerWidth,
+            editorAnalyticsAPI,
+            tablePreserveWidth,
+          )(state, dispatch, view),
         disabled: !wouldChange,
       },
       {

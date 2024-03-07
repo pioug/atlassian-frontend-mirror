@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import nestedHeadersAdf from '../src/__tests__/__fixtures__/nested-headings-adf.json';
 import RendererDemo from './helper/RendererDemo';
+import { token } from '@atlaskit/tokens';
 
 const getHeaderIdsAsRadioOptions = () =>
   Array.from(document.querySelectorAll('.heading-anchor-wrapper')).map(
@@ -20,16 +21,16 @@ const getHeaderIdsAsRadioOptions = () =>
     },
   );
 
-const headersIdListStyle = css`
-  display: flex;
-  flex-wrap: wrap;
-`;
+const headersIdListStyle = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+});
 
-const containerStyle = css`
-  display: inline-block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
+const containerStyle = css({
+  display: 'inline-block',
+  marginTop: token('space.150', '12px'),
+  marginBottom: token('space.150', '12px'),
+});
 
 export default function Example() {
   const [headings, setHeadings] = useState<OptionsPropType | undefined>();

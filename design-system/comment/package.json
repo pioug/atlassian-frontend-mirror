@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/primitives": "^4.0.0",
@@ -91,6 +91,10 @@
   },
   "homepage": "https://atlassian.design/components/comment",
   "af:exports": {
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },

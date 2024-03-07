@@ -48,6 +48,14 @@
     "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
     "./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./element": "./src/entry-point/element.ts",
+    "./external": "./src/entry-point/external.ts",
+    "./text-selection": "./src/entry-point/text-selection.ts",
+    "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
+    "./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
+  },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@babel/runtime": "^7.0.0"

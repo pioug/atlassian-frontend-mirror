@@ -5,6 +5,8 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { MAX_SCALING_PERCENT } from './consts';
+
 type Col = Array<string | { [name: string]: string }>;
 
 /**
@@ -16,7 +18,7 @@ type Col = Array<string | { [name: string]: string }>;
 export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
   colwidth - 1 / tableColumnCount;
 
-export const generateColgroup = (table: PmNode) => {
+export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
   const cols: Col[] = [];
 
   if (getBooleanFF('platform.editor.custom-table-width')) {
@@ -26,17 +28,37 @@ export const generateColgroup = (table: PmNode) => {
       if (Array.isArray(cell.attrs.colwidth)) {
         // We slice here to guard against our colwidth array having more entries
         // Than the we actually span. We'll patch the document at a later point.
-        cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-          cols.push([
-            'col',
-            {
-              style: `width: ${getColWidthFix(
-                width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth,
-                map.width,
-              )}px;`,
-            },
-          ]);
-        });
+        if (tableRef) {
+          const tableWidth = table.attrs && table.attrs.width;
+          let renderWidth = tableRef.parentElement?.clientWidth || 760;
+          let scalePercent = renderWidth / tableWidth;
+          scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+          cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
+            const fixedColWidth = getColWidthFix(width, map.width);
+            const scaledWidth = fixedColWidth * Math.min(scalePercent, 1);
+            const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
+            cols.push([
+              'col',
+              {
+                style: `width: ${finalWidth}px;`,
+              },
+            ]);
+          });
+        } else {
+          cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
+            cols.push([
+              'col',
+              {
+                style: `width: ${getColWidthFix(
+                  width
+                    ? Math.max(width, tableCellMinWidth)
+                    : tableCellMinWidth,
+                  map.width,
+                )}px;`,
+              },
+            ]);
+          });
+        }
       } else {
         // When we have merged cells on the first row (firstChild),
         // We want to ensure we're creating the appropriate amount of
@@ -73,14 +95,21 @@ export const generateColgroup = (table: PmNode) => {
 export const insertColgroupFromNode = (
   tableRef: HTMLTableElement,
   table: PmNode,
+  tablePreserveWidth = false,
+  shouldRemove = true,
 ): HTMLCollection => {
   let colgroup = tableRef.querySelector('colgroup') as HTMLElement;
-  if (colgroup) {
+  if (colgroup && shouldRemove) {
     tableRef.removeChild(colgroup);
   }
 
-  colgroup = renderColgroupFromNode(table);
-  tableRef.insertBefore(colgroup, tableRef.firstChild);
+  colgroup = renderColgroupFromNode(
+    table,
+    tablePreserveWidth ? tableRef : undefined,
+  );
+  if (shouldRemove) {
+    tableRef.insertBefore(colgroup, tableRef.firstChild);
+  }
 
   return colgroup.children;
 };
@@ -109,11 +138,14 @@ export const isMinCellWidthTable = (table: PmNode) => {
   return isTableMinCellWidth;
 };
 
-function renderColgroupFromNode(table: PmNode): HTMLElement {
+function renderColgroupFromNode(
+  table: PmNode,
+  maybeTableRef: HTMLElement | undefined,
+): HTMLElement {
   const rendered = DOMSerializer.renderSpec(document, [
     'colgroup',
     {},
-    ...generateColgroup(table),
+    ...generateColgroup(table, maybeTableRef),
   ]);
 
   return rendered.dom as HTMLElement;

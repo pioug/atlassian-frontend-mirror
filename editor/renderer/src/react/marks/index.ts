@@ -21,7 +21,9 @@ import Border from './border';
 // Stage0
 import ConfluenceInlineComment from './confluence-inline-comment';
 
-export const markToReact: { [key: string]: ComponentType<any> } = {
+export const markToReact: {
+  [key: string]: ComponentType<React.PropsWithChildren<any>>;
+} = {
   code: Code,
   em: Em,
   link: Link,
@@ -44,7 +46,9 @@ export const markToReact: { [key: string]: ComponentType<any> } = {
   fragment: FragmentMark,
 };
 
-export const toReact = (mark: Mark): ComponentType<any> => {
+export const toReact = (
+  mark: Mark,
+): ComponentType<React.PropsWithChildren<any>> => {
   return markToReact[mark.type.name];
 };
 

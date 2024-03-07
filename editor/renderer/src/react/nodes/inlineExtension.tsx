@@ -18,7 +18,7 @@ export interface Props {
   marks?: PMMark[];
 }
 
-const InlineExtension: React.FunctionComponent<Props> = (props) => {
+const InlineExtension = (props: Props) => {
   const { text } = props;
 
   return (

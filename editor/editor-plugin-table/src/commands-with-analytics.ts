@@ -255,6 +255,7 @@ export const insertColumnWithAnalytics =
   (
     getEditorContainerWidth: GetEditorContainerWidth,
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    tablePreserveWidth = false,
   ) =>
   (
     inputMethod:
@@ -281,7 +282,9 @@ export const insertColumnWithAnalytics =
         },
         eventType: EVENT_TYPE.TRACK,
       };
-    })(editorAnalyticsAPI)(insertColumn(getEditorContainerWidth)(position));
+    })(editorAnalyticsAPI)(
+      insertColumn(getEditorContainerWidth, tablePreserveWidth)(position),
+    );
 
 export const deleteRowsWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
@@ -320,7 +323,10 @@ export const deleteRowsWithAnalytics =
     });
 
 export const deleteColumnsWithAnalytics =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    tablePreserveWidth = false,
+  ) =>
   (
     inputMethod:
       | INPUT_METHOD.CONTEXT_MENU
@@ -347,7 +353,7 @@ export const deleteColumnsWithAnalytics =
         },
         eventType: EVENT_TYPE.TRACK,
       };
-    })(editorAnalyticsAPI)(deleteColumnsCommand(rect));
+    })(editorAnalyticsAPI)(deleteColumnsCommand(rect, tablePreserveWidth));
 
 export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null): Command =>

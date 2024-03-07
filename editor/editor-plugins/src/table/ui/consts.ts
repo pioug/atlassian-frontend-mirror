@@ -46,6 +46,7 @@ export {
   stickyHeaderBorderBottomWidth,
   tableOverflowShadowWidth,
   tableOverflowShadowWidthWide,
+  tablePopupMenuFitHeight,
   dropTargetsZIndex,
   TABLE_SNAP_GAP,
   TABLE_HIGHLIGHT_GAP,

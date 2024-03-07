@@ -1,4 +1,3 @@
-import { shallow } from 'enzyme';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
@@ -13,9 +12,10 @@ describe('Expand', () => {
         <Expand
           title={'Cool cheese'}
           nodeType={'expand'}
-          children={shallow(<HardBreak />)}
           fireAnalyticsEvent={fireAnalyticsEvent}
-        />,
+        >
+          <HardBreak />
+        </Expand>,
       );
 
       expand.find('button').simulate('click');

@@ -4,7 +4,11 @@ import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
-import { type Appearance, type CommonButtonProps } from '../types';
+import {
+  type Appearance,
+  type CommonButtonProps,
+  type Spacing,
+} from '../types';
 
 import blockEvents from './block-events';
 import { getXCSS } from './xcss';
@@ -36,6 +40,7 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
   shouldFitContainer?: boolean;
   appearance?: Appearance;
   children: React.ReactNode;
+  spacing?: Spacing;
 } & Pick<
   CommonButtonProps<TagName>,
   | 'analyticsContext'
@@ -44,7 +49,6 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
   | 'isDisabled'
   | 'isSelected'
   | 'overlay'
-  | 'spacing'
 > &
   ControlledEvents<TagName>;
 

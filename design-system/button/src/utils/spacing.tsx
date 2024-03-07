@@ -1,5 +1,6 @@
 import { type Spacing } from '../new-button/variants/types';
 
-const spacing: Spacing[] = ['default', 'compact', 'none'];
+const buttonSpacing: Spacing[] = ['default', 'compact', 'none'];
+const iconButtonSpacing: Spacing[] = ['default', 'compact'];
 
-export default spacing;
+export { buttonSpacing, iconButtonSpacing };

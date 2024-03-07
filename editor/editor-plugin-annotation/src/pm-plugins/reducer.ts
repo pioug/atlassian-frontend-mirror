@@ -1,6 +1,7 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import type { TargetType } from '../types';
 import { addDraftDecoration } from '../utils';
 
 import type { InlineCommentAction, InlineCommentPluginState } from './types';
@@ -32,6 +33,7 @@ export default (
         pluginState,
         action.data.drafting,
         action.data.editorState,
+        action.data.targetType,
       );
     case ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK:
       return {
@@ -90,6 +92,7 @@ function getNewDraftState(
   pluginState: InlineCommentPluginState,
   drafting: boolean,
   editorState?: EditorState,
+  targetType?: TargetType,
 ) {
   let { draftDecorationSet } = pluginState;
 
@@ -106,6 +109,7 @@ function getNewDraftState(
     const draftDecoration = addDraftDecoration(
       resolvedBookmark.from,
       resolvedBookmark.to,
+      targetType,
     );
     newState.draftDecorationSet = draftDecorationSet.add(editorState.doc, [
       draftDecoration,

@@ -23,7 +23,10 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import {
   backgroundPaletteTooltipMessages,
   cellBackgroundColorPalette,
@@ -99,6 +102,7 @@ export interface Props {
   offset?: Array<number>;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   getEditorContainerWidth: GetEditorContainerWidth;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export interface State {
@@ -464,11 +468,14 @@ export class ContextualMenu extends Component<
       (!isDragAndDropEnabled ||
         !getBooleanFF('platform.editor.table.new-cell-context-menu-styling'))
     ) {
+      const { tablePreserveWidth = false } =
+        this.props.getEditorFeatureFlags?.() || {};
       const newResizeState = getNewResizeStateFromSelectedColumns(
         selectionRect,
         editorView.state,
         editorView.domAtPos.bind(editorView),
         getEditorContainerWidth,
+        tablePreserveWidth,
       );
 
       const wouldChange = newResizeState?.changed ?? false;
@@ -583,10 +590,12 @@ export class ContextualMenu extends Component<
       selectionRect,
       editorAnalyticsAPI,
       getEditorContainerWidth,
+      getEditorFeatureFlags,
     } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { state, dispatch } = editorView;
     const { targetCellPosition } = getPluginState(state);
+    const { tablePreserveWidth = false } = getEditorFeatureFlags?.() || {};
 
     switch (item.value.name) {
       case 'sort_column_desc':
@@ -626,6 +635,7 @@ export class ContextualMenu extends Component<
             state,
             editorView.domAtPos.bind(editorView),
             getEditorContainerWidth,
+            tablePreserveWidth,
           );
 
         if (newResizeStateWithAnalytics) {
@@ -644,10 +654,15 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'insert_column':
-        insertColumnWithAnalytics(getEditorContainerWidth, editorAnalyticsAPI)(
-          INPUT_METHOD.CONTEXT_MENU,
-          selectionRect.right,
-        )(state, dispatch, editorView);
+        insertColumnWithAnalytics(
+          getEditorContainerWidth,
+          editorAnalyticsAPI,
+          tablePreserveWidth,
+        )(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(
+          state,
+          dispatch,
+          editorView,
+        );
         this.toggleOpen();
         break;
       case 'insert_row':

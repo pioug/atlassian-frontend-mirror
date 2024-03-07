@@ -195,7 +195,12 @@ export function InlineCommentView({
         annotationsList={annotationsList}
         annotations={activeAnnotations}
         dom={dom}
-        onDelete={id => removeInlineCommentNearSelection(id)(state, dispatch)}
+        onDelete={id =>
+          removeInlineCommentNearSelection(
+            id,
+            inlineCommentProvider.supportedBlockNodes,
+          )(state, dispatch)
+        }
         onResolve={id =>
           updateInlineCommentResolvedState(editorAnalyticsAPI)(
             { [id]: true },

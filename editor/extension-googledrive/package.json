@@ -24,6 +24,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/adf-utils": "^19.0.0",

@@ -95,6 +95,11 @@ export interface MediaPluginState {
   ): void;
 
   clone(): MediaPluginState;
+
+  subscribeToUploadInProgressState(fn: (isUploading: boolean) => void): void;
+  unsubscribeFromUploadInProgressState(
+    fn: (isUploading: boolean) => void,
+  ): void;
 }
 
 export type EventInput = 'keyboard' | 'mouse' | 'floatingToolBar';

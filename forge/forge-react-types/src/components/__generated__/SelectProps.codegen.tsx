@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SelectProps
  *
- * @codegen <<SignedSource::15d2ba46804ab0a683383a0ba9cae564>>
+ * @codegen <<SignedSource::727e28488596a9f6dd15015cf612d87b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/select/__generated__/index.partial.tsx <<SignedSource::a826a4f7af8f06890432c9274aad7332>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/select/__generated__/index.partial.tsx <<SignedSource::d942c0f7e12d127523ea750bac92a98a>>
  */
 import { SelectProps as PlatformSelectProps } from '@atlaskit/select';
 

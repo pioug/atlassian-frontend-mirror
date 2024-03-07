@@ -48,7 +48,7 @@ export default class Chevron extends Component<ChevronProps> {
         <IconButton
           appearance="subtle"
           onClick={this.handleClick}
-          spacing="none"
+          spacing="compact"
           icon={isExpanded ? ChevronDownIcon : ChevronRightIcon}
           aria-controls={ariaControls}
           label={isExpanded ? getLabel(collapseLabel) : getLabel(expandLabel)}

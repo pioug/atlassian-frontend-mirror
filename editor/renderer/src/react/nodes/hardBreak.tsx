@@ -4,9 +4,7 @@ interface Props {
   forceNewLine?: boolean;
 }
 
-const HardBreak: React.FunctionComponent<Props> = ({
-  forceNewLine = false,
-}) => {
+const HardBreak = ({ forceNewLine = false }: Props) => {
   // To display an empty line using Shift+Enter, ProseMirror inserts a
   // double <br>. The second <br> is not part of the document, it's just
   // there to make browsers behave properly. The forceNewLine prop in this

@@ -7,12 +7,14 @@ export interface WithSmartCardStorageProps {
 
 export const Context = React.createContext<Map<string, string>>(new Map());
 
-export const Provider: React.FunctionComponent = function ({ children }) {
+export const Provider = function ({
+  children,
+}: React.PropsWithChildren<unknown>) {
   return <Context.Provider value={new Map()}>{children}</Context.Provider>;
 };
 
 export const withSmartCardStorage = <Props extends WithSmartCardStorageProps>(
-  WrappedComponent: React.ComponentType<Props>,
+  WrappedComponent: React.ComponentType<React.PropsWithChildren<Props>>,
 ) => {
   return class extends React.Component<Diff<Props, WithSmartCardStorageProps>> {
     render() {

@@ -19,7 +19,6 @@ import { B75, B200, DN400, DN60, N0 } from '@atlaskit/theme/colors';
 import {
   BaselineExtend,
   HDIconGroupWrapper,
-  HDIconWrapper,
   ImageWrapper,
   Img,
 } from '../../styleWrappers';
@@ -122,14 +121,12 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
     return (
       <HDIconGroupWrapper className={hideControlsClassName}>
         {isHDActivating ? <Spinner appearance="invert" /> : undefined}
-        <HDIconWrapper>
-          <HDIcon
-            primaryColor={hdPrimaryColor}
-            secondaryColor={hdSecondaryColor}
-            label="hd"
-            testId={testId}
-          />
-        </HDIconWrapper>
+        <HDIcon
+          primaryColor={hdPrimaryColor}
+          secondaryColor={hdSecondaryColor}
+          label="hd"
+          testId={testId}
+        />
       </HDIconGroupWrapper>
     );
   }
@@ -190,8 +187,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
           vertical-align: middle on the image.
          */}
         <BaselineExtend />
-        <ZoomControls zoomLevel={zoomLevel} onChange={this.onZoomChange} />
-        {this.renderHDIndicator()}
+        <ZoomControls zoomLevel={zoomLevel} onChange={this.onZoomChange}>
+          {this.renderHDIndicator()}
+        </ZoomControls>
       </ImageWrapper>
     );
   }

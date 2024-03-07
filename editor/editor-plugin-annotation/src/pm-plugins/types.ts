@@ -10,7 +10,11 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { AnnotationInfo, InlineCommentAnnotationProvider } from '../types';
+import type {
+  AnnotationInfo,
+  InlineCommentAnnotationProvider,
+  TargetType,
+} from '../types';
 
 export enum ACTIONS {
   UPDATE_INLINE_COMMENT_STATE,
@@ -45,6 +49,7 @@ export type InlineCommentAction =
       data: {
         drafting: boolean;
         editorState: EditorState;
+        targetType?: TargetType;
       };
     }
   | {

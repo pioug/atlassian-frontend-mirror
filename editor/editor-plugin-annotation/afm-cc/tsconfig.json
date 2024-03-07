@@ -28,6 +28,9 @@
             "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {

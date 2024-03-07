@@ -131,6 +131,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   resizingWidth: number = 0;
   currentMaxWidth?: number;
   allowInlineImages = false;
+  uploadInProgressSubscriptions: { (isUploading: boolean): void }[] = [];
+  uploadInProgressSubscriptionsNotified: boolean = false;
 
   // this is only a temporary variable, which gets cleared after the last inserted node has been selected
   lastAddedMediaSingleFileIds: { id: string; selectionPosition: number }[] = [];
@@ -216,6 +218,17 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         return Reflect.get(target, prop, receiver);
       },
     });
+  }
+
+  subscribeToUploadInProgressState(fn: (isUploading: boolean) => void) {
+    this.uploadInProgressSubscriptions.push(fn);
+  }
+
+  unsubscribeFromUploadInProgressState(fn: (isUploading: boolean) => void) {
+    this.uploadInProgressSubscriptions =
+      this.uploadInProgressSubscriptions.filter(
+        subscribedFn => subscribedFn !== fn,
+      );
   }
 
   setMediaProvider = async (mediaProvider?: Promise<MediaProvider>) => {
@@ -407,6 +420,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       });
     }
 
+    if (
+      this.uploadInProgressSubscriptions.length > 0 &&
+      !this.uploadInProgressSubscriptionsNotified
+    ) {
+      this.uploadInProgressSubscriptions.forEach(fn => fn(true));
+      this.uploadInProgressSubscriptionsNotified = true;
+    }
+
     switch (
       getMediaNodeInsertionType(
         state,
@@ -480,6 +501,16 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     if (!view.hasFocus()) {
       view.focus();
     }
+
+    this.waitForPendingTasks().then(() => {
+      if (
+        this.uploadInProgressSubscriptions.length > 0 &&
+        this.uploadInProgressSubscriptionsNotified
+      ) {
+        this.uploadInProgressSubscriptions.forEach(fn => fn(false));
+        this.uploadInProgressSubscriptionsNotified = false;
+      }
+    });
 
     if (getBooleanFF('platform.editor.media.autoselect-inserted-image_oumto')) {
       this.selectLastAddedMediaNode();

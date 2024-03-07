@@ -55,9 +55,9 @@ To test whether an icon button will be clear, apply the five-second rule: if it 
 
 ## Accessibility
 
-### Always include a clear, accessible name as an aria label
+### Always include a clear, accessible name as a label
 
-Clearly describe the icon button action in an aria label for screen readers. Follow the [button label content guidance for clear and active labels](/components/button/icon-button/usage#content-guidelines).
+Clearly describe the icon button action in a [label](/components/button/icon-button/code#CommonProps-label) for screen readers. Follow the [button label content guidance for clear and active labels](/components/button/icon-button/usage#content-guidelines). The provided label will be rendered as visually hidden content in the button, rather than using aria-label which is not always translated into other languages by translation services.
 
 ### Avoid disabling buttons
 
@@ -75,19 +75,15 @@ Follow our [iconography guidance](/foundations/iconography/) and use the line ve
 
 ### Use sentence casing for labels
 
-Use sentence case for all button tooltips and aria labels. This creates consistency for assistive technologies.
+Use sentence case for all button tooltips and labels. This creates consistency for assistive technologies.
 
 Only capitalize the first letter of the button label and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
 
 ### Use specific labels wherever possible
 
-Where possible, specify the object being acted on in the tooltip and aria label. For example “Edit page” instead of just “Edit”.
-
-<!-- ## Mobile guidelines -->
+Where possible, specify the object being acted on in the tooltip and label. For example “Edit page” instead of just “Edit”.
 
 ## Related
 
 - [Icon buttons with text labels](/components/button/button-new/examples#button-with-icon)
 - [Icons](/components/icon)
-
-<!-- TODO fix all links throughout. Spell check :) -->

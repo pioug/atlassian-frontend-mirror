@@ -27,7 +27,7 @@ export interface Props {
   localId?: string;
 }
 
-const ExtensionFrame: React.FunctionComponent<Props> = (props) => {
+const ExtensionFrame = (props: React.PropsWithChildren<Props>) => {
   const containerCSS = css`
     border: 1px solid ${token('color.border', N30)};
     min-height: 100px;

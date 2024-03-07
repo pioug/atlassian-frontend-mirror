@@ -20,13 +20,16 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Forge UI",
     "releaseModel": "continuous"
   },
   "dependencies": {
     "@atlaskit/badge": "^15.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/dynamic-table": "^14.14.0",

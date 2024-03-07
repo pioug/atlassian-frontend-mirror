@@ -228,6 +228,7 @@ export const changeColumnWidthByStep =
   (
     stepSize: number,
     getEditorContainerWidth: GetEditorContainerWidth,
+    tablePreserveWidth = false,
   ): Command =>
   (state, dispatch, view) => {
     let customTr = state.tr;
@@ -289,6 +290,7 @@ export const changeColumnWidthByStep =
       tableRef: dom,
       start: tableStartPosition,
       domAtPos,
+      tablePreserveWidth,
     });
 
     updateControls()(state);
@@ -307,6 +309,7 @@ export const changeColumnWidthByStep =
       stepSize,
       dom,
       resizingSelectedColumns ? selectedColumns : undefined,
+      tablePreserveWidth,
     );
 
     customTr = updateColumnWidths(

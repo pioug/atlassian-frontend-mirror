@@ -4,7 +4,7 @@ import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
 
 export type CardErrorBoundaryProps = {
-  unsupportedComponent: React.ComponentType;
+  unsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>;
 };
 
 export class CardErrorBoundary extends React.PureComponent<

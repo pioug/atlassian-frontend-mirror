@@ -227,7 +227,9 @@ const Expand = Loadable({
   loading: () => null,
 });
 
-export const nodeToReact: { [key: string]: React.ComponentType<any> } = {
+export const nodeToReact: {
+  [key: string]: React.ComponentType<React.PropsWithChildren<any>>;
+} = {
   blockquote: Blockquote,
   bulletList: BulletList,
   blockCard: BlockCard,
@@ -282,7 +284,7 @@ export const toReact = (
   node: Node,
   flags?: ToReactFlags,
   nodeComponents?: NodeComponentsProps,
-): React.ComponentType<any> => {
+): React.ComponentType<React.PropsWithChildren<any>> => {
   if (node.type.name === 'doc' && flags?.allowSelectAllTrap === true) {
     return DocWithSelectAllTrap;
   }

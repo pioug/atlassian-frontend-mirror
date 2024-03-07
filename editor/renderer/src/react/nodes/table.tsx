@@ -482,7 +482,8 @@ export class TableContainer extends React.Component<
           ref={this.props.handleRef}
           style={{
             width: tableWidth,
-            left, // eslint-disable-line @atlaskit/design-system/ensure-design-token-usage
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
+            left,
           }}
         >
           {getBooleanFF('platform.editor.custom-table-width') &&
@@ -630,11 +631,13 @@ const TableWithShadows = overflowShadow(TableProcessor, {
   useShadowObserver: true,
 });
 
-const TableWithWidth: React.FunctionComponent<
-  {
-    renderWidth?: number;
-  } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
-> = (props) => (
+const TableWithWidth = (
+  props: React.PropsWithChildren<
+    {
+      renderWidth?: number;
+    } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
+  >,
+) => (
   // Remember, `width` will be 0 during SSR
   <WidthConsumer>
     {({ width }) => {

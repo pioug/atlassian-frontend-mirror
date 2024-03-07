@@ -20,6 +20,7 @@ export function SmartCardProvider({
   renderers,
   featureFlags,
   isAdminHubAIEnabled,
+  product,
 }: CardProviderProps) {
   const parentContext = useContext(SmartCardContext);
 
@@ -64,11 +65,13 @@ export function SmartCardProvider({
       },
       featureFlags,
       isAdminHubAIEnabled,
+      product,
     };
   }, [
     customClient,
     customAuthFlow,
     isAdminHubAIEnabled,
+    product,
     renderers,
     featureFlags,
     store,

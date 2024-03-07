@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalHeaderProps
  *
- * @codegen <<SignedSource::c525f5a19fc84a3e359d880a5d54fd41>>
+ * @codegen <<SignedSource::e8dfd9f77cfa6d58d63c2091f09e798a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/modal/__generated__/modal-header.partial.tsx <<SignedSource::38c36f8afdd928aa8cf4b306fd608f20>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/modal/__generated__/modal-header.partial.tsx <<SignedSource::c7406471b8da5362a6b844effff24ce4>>
  */
 import React from 'react';
 import { ModalHeader as PlatformModalHeader } from '@atlaskit/modal-dialog';

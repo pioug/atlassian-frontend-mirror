@@ -123,6 +123,17 @@
     "./modal-footer": "./src/modal-footer.tsx",
     "./modal-transition": "./src/modal-transition.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx",
+    "./hooks": "./src/hooks.tsx",
+    "./modal-dialog": "./src/modal-wrapper.tsx",
+    "./modal-header": "./src/modal-header.tsx",
+    "./modal-title": "./src/modal-title.tsx",
+    "./modal-body": "./src/modal-body.tsx",
+    "./modal-footer": "./src/modal-footer.tsx",
+    "./modal-transition": "./src/modal-transition.tsx"
+  },
   "platform-feature-flags": {
     "platform.design-system-team.layering_qmiw3": {
       "type": "boolean"

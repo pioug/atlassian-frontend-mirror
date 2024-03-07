@@ -9,6 +9,7 @@ import { PLATFORM } from '../../analytics/events';
 
 interface ErrorBoundaryProps {
   component: ComponentCrashErrorAEP['actionSubject'];
+  children: React.ReactNode;
   componentId?: ComponentCrashErrorAEP['actionSubjectId'];
   fallbackComponent?: React.ReactNode;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;

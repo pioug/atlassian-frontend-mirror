@@ -35,6 +35,11 @@
     "./datasource": "./src/datasource-types.ts",
     "./smart-link-actions": "./src/smart-link-action-types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./datasource": "./src/datasource-types.ts",
+    "./smart-link-actions": "./src/smart-link-action-types.ts"
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0"
   },

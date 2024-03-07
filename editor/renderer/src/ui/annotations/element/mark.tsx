@@ -34,7 +34,7 @@ type MarkComponentProps = {
   hasFocus: boolean;
   onClick: (props: OnAnnotationClickPayload) => void;
 };
-export const MarkComponent: React.FC<MarkComponentProps> = ({
+export const MarkComponent = ({
   annotationParentIds,
   children,
   dataAttributes,
@@ -42,7 +42,7 @@ export const MarkComponent: React.FC<MarkComponentProps> = ({
   state,
   hasFocus,
   onClick,
-}) => {
+}: React.PropsWithChildren<MarkComponentProps>) => {
   const annotationIds = useMemo(
     () => [...new Set([...annotationParentIds, id])],
     [id, annotationParentIds],

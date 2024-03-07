@@ -34,6 +34,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/tokens": "^1.39.0",
     "@babel/runtime": "^7.0.0"

@@ -27,6 +27,11 @@
     "./test-helpers": "./src/test-helpers/index.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./constants": "./src/constants.ts",
+    "./test-helpers": "./src/test-helpers/index.ts",
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,

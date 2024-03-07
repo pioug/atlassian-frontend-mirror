@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - HeadingProps
  *
- * @codegen <<SignedSource::ae49850092f52f5b01d116d164497400>>
+ * @codegen <<SignedSource::1306b0b1e9a60b010cca8208becbe8c4>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/heading/__generated__/index.partial.tsx <<SignedSource::c670f51a89bebb6eadb93329bbdb782e>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/heading/__generated__/index.partial.tsx <<SignedSource::677018b16c2e8351e870a8d303ad7b61>>
  */
 import type { HeadingProps as PlatformHeadingProps } from '@atlaskit/heading';
 

@@ -14,7 +14,7 @@ const layoutColumnClearMarginTopStyles = css`
 `;
 
 export default function LayoutSection(
-  props: { width?: number } & React.Props<any>,
+  props: React.PropsWithChildren<{ width?: number }>,
 ) {
   return (
     <div

@@ -1,9 +1,4 @@
-import type {
-  API,
-  JSXElement,
-  JSXAttribute,
-  JSXSpreadAttribute,
-} from 'jscodeshift';
+import { API, JSXElement, JSXAttribute, JSXSpreadAttribute } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import {
@@ -128,6 +123,25 @@ export const generateNewElement = (
 
     // rename iconBefore/iconAfter to icon
     iconAttrs[0].name.name = 'icon';
+
+    const ariaLabelAttr = j(element.openingElement)
+      .find(j.JSXAttribute)
+      .filter((attribute) => attribute.node.name.name === 'aria-label');
+    if (ariaLabelAttr.length) {
+      const hasNoLabelProp = !attributes?.find(
+        (attribute) =>
+          attribute.type === 'JSXAttribute' && attribute.name.name === 'label',
+      );
+      if (hasNoLabelProp && attributes) {
+        attributes.push(
+          j.jsxAttribute(
+            j.jsxIdentifier('label'),
+            ariaLabelAttr.get().node.value,
+          ),
+        );
+      }
+      ariaLabelAttr.remove();
+    }
   }
 
   return j.jsxElement(

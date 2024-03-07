@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 //import { exampleDocumentWithComments } from './helper/example-doc-with-comments';
@@ -315,11 +316,11 @@ const containerStyle = css({
 
 const optionsStyle = css({
   flex: '20%',
-  padding: '16px',
+  padding: token('space.200', '16px'),
 });
 
 const flagsStyle = css({
-  padding: '20px 0',
+  padding: `${token('space.250', '20px')} 0`,
 });
 
 const mainStyle = css({
@@ -329,7 +330,7 @@ const mainStyle = css({
 const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const { state } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
-    (doc) => {
+    (doc: any) => {
       setDocument(doc);
     },
     [setDocument],

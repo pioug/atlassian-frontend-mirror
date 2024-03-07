@@ -101,8 +101,8 @@ export default class TableView extends ReactNodeView<Props> {
   private table: HTMLElement | undefined;
   private resizeObserver?: ResizeObserver;
   eventDispatcher?: EventDispatcher;
-
   getPos: getPosHandlerNode;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
 
   constructor(props: Props) {
     super(
@@ -119,6 +119,7 @@ export default class TableView extends ReactNodeView<Props> {
     );
     this.getPos = props.getPos;
     this.eventDispatcher = props.eventDispatcher;
+    this.getEditorFeatureFlags = props.getEditorFeatureFlags;
   }
 
   getContentDOM() {
@@ -130,17 +131,20 @@ export default class TableView extends ReactNodeView<Props> {
       contentDOM?: HTMLElement;
     };
 
-    const tableInlineWidth = getInlineWidth(
-      this.node,
-      this.reactComponentProps.options,
-      this.reactComponentProps.view.state,
-      this.reactComponentProps.getPos(),
-    );
-
     if (rendered.dom) {
       this.table = rendered.dom;
-      if (tableInlineWidth) {
-        handleInlineTableWidth(this.table, tableInlineWidth);
+      const { tablePreserveWidth = false } = this.getEditorFeatureFlags();
+      // Preserve Table Width cannot have inline width set on the table
+      if (!tablePreserveWidth) {
+        const tableInlineWidth = getInlineWidth(
+          this.node,
+          this.reactComponentProps.options,
+          this.reactComponentProps.view.state,
+          this.reactComponentProps.getPos(),
+        );
+        if (tableInlineWidth) {
+          handleInlineTableWidth(this.table, tableInlineWidth);
+        }
       }
     }
 
@@ -260,6 +264,7 @@ export default class TableView extends ReactNodeView<Props> {
               getEditorFeatureFlags={props.getEditorFeatureFlags}
               dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
               pluginInjectionApi={props.pluginInjectionApi}
+              tableRef={this.table}
             />
           );
         }}

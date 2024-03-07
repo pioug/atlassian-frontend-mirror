@@ -1,7 +1,10 @@
 import React from 'react';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -13,7 +16,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { PluginConfig, TableDirection } from '../../types';
-import { dragMenuDropdownWidth } from '../consts';
+import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 
 import DragMenu from './DragMenu';
 
@@ -32,6 +35,7 @@ export interface Props {
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   stickyHeaders?: RowStickyState;
   pluginConfig?: PluginConfig;
+  getEditorFeatureFlags: GetEditorFeatureFlags;
 }
 
 const FloatingDragMenu = ({
@@ -48,6 +52,7 @@ const FloatingDragMenu = ({
   editorAnalyticsAPI,
   stickyHeaders,
   pluginConfig,
+  getEditorFeatureFlags,
 }: Props) => {
   if (
     !isOpen ||
@@ -63,7 +68,7 @@ const FloatingDragMenu = ({
       ? document.querySelector('#drag-handle-button-row')
       : document.querySelector('#drag-handle-button-column');
 
-  const offset = direction === 'row' ? [-9, 6] : [0, -7];
+  const offset = direction === 'row' ? [-9, 0] : [0, -7];
 
   if (
     !targetHandleRef ||
@@ -72,7 +77,8 @@ const FloatingDragMenu = ({
     return null;
   }
 
-  // TODO: we will need to adjust the alignment and offset values depending on whether this is a row or column menu.
+  const { tablePreserveWidth = false } = getEditorFeatureFlags();
+
   return (
     <Popup
       alignX={direction === 'row' ? 'right' : undefined}
@@ -82,6 +88,7 @@ const FloatingDragMenu = ({
       boundariesElement={boundariesElement}
       scrollableElement={scrollableElement}
       fitWidth={dragMenuDropdownWidth}
+      fitHeight={tablePopupMenuFitHeight}
       // z-index value below is to ensure that this menu is above other floating menu
       // in table, but below floating dialogs like typeaheads, pickers, etc.
       // In sticky mode, we want to show the menu above the sticky header
@@ -105,6 +112,12 @@ const FloatingDragMenu = ({
         getEditorContainerWidth={getEditorContainerWidth}
         editorAnalyticsAPI={editorAnalyticsAPI}
         pluginConfig={pluginConfig}
+        fitWidth={dragMenuDropdownWidth}
+        fitHeight={tablePopupMenuFitHeight}
+        mountPoint={mountPoint}
+        boundariesElement={boundariesElement}
+        scrollableElement={scrollableElement}
+        tablePreserveWidth={tablePreserveWidth}
       />
     </Popup>
   );

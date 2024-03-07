@@ -28,6 +28,13 @@
     "./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
+    "./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
+    "./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "UIP Frontend Observability",
     "releaseModel": "continuous",

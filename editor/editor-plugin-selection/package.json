@@ -73,6 +73,10 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "stricter": {
     "no-unused-dependencies": {

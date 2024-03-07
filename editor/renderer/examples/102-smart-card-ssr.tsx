@@ -6,9 +6,10 @@ import Loadable from 'react-loadable';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import ReactDOMServer from 'react-dom/server';
 import { url, cardState } from '@atlaskit/media-test-helpers/smart-card-state';
+import { token } from '@atlaskit/tokens';
 import { default as Renderer } from '../src/ui/Renderer';
 import smartCardAdf from './helper/ssr-smart-card.json';
-import { RendererProps } from '../src/ui/renderer-props';
+import type { RendererProps } from '../src/ui/renderer-props';
 
 type PageProps = {
   title: string;
@@ -26,7 +27,13 @@ const Page = ({ title }: PageProps) => {
     },
   };
   return (
-    <div style={{ width: 1200, border: '1px solid', margin: 10 }}>
+    <div
+      style={{
+        width: 1200,
+        border: '1px solid',
+        margin: token('space.150', '12px'),
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <h3>{title}</h3>
       </div>

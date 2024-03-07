@@ -29,6 +29,13 @@
     "./featureFlags": "./src/featureFlags.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./apiTypes": "./src/apiTypes.ts",
+    "./client": "./src/client.ts",
+    "./featureFlags": "./src/featureFlags.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Event Platform",
     "productPushConsumption": [

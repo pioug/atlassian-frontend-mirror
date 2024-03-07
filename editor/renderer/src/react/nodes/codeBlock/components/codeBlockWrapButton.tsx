@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
@@ -35,11 +34,11 @@ type Props = {
   wrapLongLines?: boolean;
 };
 
-const CodeBlockWrapButton: React.FC<Props & WrappedComponentProps> = ({
+const CodeBlockWrapButton = ({
   setWrapLongLines,
   wrapLongLines,
   intl,
-}) => {
+}: Props & WrappedComponentProps) => {
   const wrapMessage = intl.formatMessage(
     wrapLongLines
       ? codeBlockButtonMessages.unwrapCode

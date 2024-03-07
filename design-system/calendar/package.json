@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/ds-explorations": "^3.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/heading": "^1.6.0",
@@ -93,6 +93,10 @@
     }
   },
   "af:exports": {
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },

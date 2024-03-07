@@ -26,6 +26,10 @@
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "productPushConsumption": [
@@ -58,7 +62,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

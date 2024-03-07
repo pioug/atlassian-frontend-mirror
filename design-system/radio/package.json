@@ -39,6 +39,12 @@
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./Radio": "./src/radio.tsx",
+    "./RadioGroup": "./src/radio-group.tsx",
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",

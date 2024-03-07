@@ -13,11 +13,13 @@ type ChildrenProps = {
 };
 
 describe('Annotations: AnnotationsDraftContextWrapper', () => {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   let applyAnnotationDraftAt: Function;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   let clearAnnotationDraft: Function;
   const mockComponent = jest.fn();
   beforeEach(() => {
-    const MyFakeComponent: React.FC<ChildrenProps> = (props) => {
+    const MyFakeComponent = (props: React.PropsWithChildren<ChildrenProps>) => {
       applyAnnotationDraftAt = props.applyAnnotationDraftAt;
       clearAnnotationDraft = props.clearAnnotationDraft;
       return (

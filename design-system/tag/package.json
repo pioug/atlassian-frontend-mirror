@@ -39,6 +39,11 @@
     "./removable-tag": "./src/tag/removable-tag.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./simple-tag": "./src/tag/simple-tag.tsx",
+    "./removable-tag": "./src/tag/removable-tag.tsx",
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",

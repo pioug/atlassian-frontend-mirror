@@ -251,8 +251,11 @@ export default class RendererDemo extends React.Component<
 
   private renderExampleContent(additionalRendererProps: object) {
     return (
-      <div ref="root" style={{ position: 'relative', padding: 20 }}>
-        <fieldset style={{ marginBottom: 20 }}>
+      <div
+        ref="root"
+        style={{ position: 'relative', padding: token('space.250', '20px') }}
+      >
+        <fieldset style={{ marginBottom: token('space.250', '20px') }}>
           <legend>Input</legend>
           <textarea
             id="renderer-value-input"
@@ -261,7 +264,7 @@ export default class RendererDemo extends React.Component<
               border: `1px solid ${token('color.border.input', 'lightgray')}`,
               fontFamily: 'monospace',
               fontSize: 16,
-              padding: 10,
+              padding: token('space.150', '12px'),
               width: '100%',
               height: 320,
               resize: 'vertical',
@@ -403,7 +406,7 @@ export default class RendererDemo extends React.Component<
           <div
             style={{
               color: token('color.text.subtle', '#ccc'),
-              marginBottom: '8px',
+              marginBottom: token('space.100', '8px'),
             }}
           >
             &lt;Renderer&gt;
@@ -417,7 +420,7 @@ export default class RendererDemo extends React.Component<
           <div
             style={{
               color: token('color.text.subtle', '#ccc'),
-              marginTop: '8px',
+              marginTop: token('space.100', '8px'),
             }}
           >
             &lt;/Renderer&gt;

@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Oszlopok konfigurálása',
   'linkDataSource.datasource.table.authConnectButtonText': 'Csatlakoztatás',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Csatlakoztasd a fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Fiók csatlakoztatása',
+    'Csatlakoztasd a(z) {providerName}-fiókodat, hogy együtt dolgozhassatok több Atlassian-termékben is.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Kapcsold össze a fiókodat: {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'További információ az okoslinkekről.',
   'linkDataSource.jira-issues.accessInstructions': 'Hozzáférés igényléséhez fordulj a webhely-adminisztrátorodhoz.',
   'linkDataSource.jira-issues.accessRequired': 'Nincs hozzáférésed ehhez a tartalomhoz',

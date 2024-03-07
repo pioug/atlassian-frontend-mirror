@@ -113,6 +113,21 @@ describe('Provider', () => {
     );
   });
 
+  it('should expose product to consumers', () => {
+    const fn = jest.fn();
+    render(
+      <SmartCardProvider product="CONFLUENCE">
+        <Context.Consumer>{fn}</Context.Consumer>
+      </SmartCardProvider>,
+    );
+
+    expect(fn).toBeCalledWith(
+      expect.objectContaining({
+        product: 'CONFLUENCE',
+      }),
+    );
+  });
+
   const initialState = {};
   it.each<[string, Partial<CardProviderProps>, Partial<CardProviderProps>]>([
     ['feature flags are', {}, { featureFlags: { showHoverPreview: false } }],

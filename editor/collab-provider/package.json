@@ -36,6 +36,12 @@
     "./types": "./src/types.ts",
     "./version-wrapper": "./src/version-wrapper.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./socket-io-provider": "./src/socket-io-provider.ts",
+    "./types": "./src/types.ts",
+    "./version-wrapper": "./src/version-wrapper.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-listeners": "^8.9.0",

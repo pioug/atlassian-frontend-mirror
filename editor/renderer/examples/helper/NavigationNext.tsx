@@ -20,6 +20,7 @@ import Avatar from '@atlaskit/avatar';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import { token } from '@atlaskit/tokens';
 
 type ClassNameProps = { className: string };
 
@@ -53,7 +54,7 @@ const ContainerNavigation = () => (
         <div
           style={{
             ...css,
-            paddingBottom: '16px',
+            paddingBottom: token('space.200', '16px'),
           }}
         >
           <ContainerHeader
@@ -128,7 +129,7 @@ export function NavigationNext({ children }: { children: React.ReactNode }) {
         productNavigation={ProductNavigation}
         containerNavigation={ContainerNavigation}
       >
-        <div style={{ padding: 40 }}>{children}</div>
+        <div style={{ padding: token('space.500', '40px') }}>{children}</div>
       </LayoutManager>
     </NavigationProvider>
   );

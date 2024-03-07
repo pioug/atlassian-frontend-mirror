@@ -10,8 +10,8 @@ import type {
   AnalyticsEventPayload,
   AnalyticsEventPayloadCallback,
   AnnotationAEPAttributes,
-  INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import {
   canApplyAnnotationOnRange,
@@ -40,7 +40,11 @@ import {
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
 import type { InlineCommentPluginState } from './pm-plugins/types';
-import type { AnnotationInfo } from './types';
+import type {
+  AnnotationInfo,
+  InlineCommentInputMethod,
+  TargetType,
+} from './types';
 import { AnnotationSelectionType } from './types';
 
 export { hasAnnotationMark, containsAnyAnnotations };
@@ -147,7 +151,16 @@ const validateAnnotationMark = (annotationMark: Mark): boolean => {
  * add decoration for the comment selection in draft state
  * (when creating new comment)
  */
-export const addDraftDecoration = (start: number, end: number) => {
+export const addDraftDecoration = (
+  start: number,
+  end: number,
+  targetType: TargetType = 'inline',
+) => {
+  if (targetType === 'block') {
+    return Decoration.node(start, end, {
+      class: `${AnnotationSharedClassNames.draft}`,
+    });
+  }
   return Decoration.inline(start, end, {
     class: `${AnnotationSharedClassNames.draft}`,
   });
@@ -238,7 +251,7 @@ const getAnnotationsInSelectionCount = (state: EditorState): number => {
  */
 export const getDraftCommandAnalyticsPayload = (
   drafting: boolean,
-  inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+  inputMethod: InlineCommentInputMethod,
 ) => {
   const payload: AnalyticsEventPayloadCallback = (
     state: EditorState,
@@ -265,9 +278,16 @@ export const getDraftCommandAnalyticsPayload = (
 
 export const isSelectionValid = (
   state: EditorState,
+  isCommentOnMediaOn?: boolean,
+  _supportedNodes: string[] = [],
 ): AnnotationSelectionType => {
   const { selection } = state;
   const { disallowOnWhitespace } = getPluginState(state) || {};
+
+  // Allow media so that it can enter draft mode
+  if (isCommentOnMediaOn && currentMediaNodeWithPos(state)?.node) {
+    return AnnotationSelectionType.VALID;
+  }
 
   if (
     selection.empty ||

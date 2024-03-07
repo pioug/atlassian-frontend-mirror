@@ -5,7 +5,6 @@ import capitalize from 'lodash/capitalize';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Box, Stack } from '@atlaskit/primitives';
 
-import spacing from '../src/utils/spacing';
 import variants from '../src/utils/variants';
 
 /**
@@ -14,7 +13,7 @@ import variants from '../src/utils/variants';
 export default function ButtonAlignmentExample() {
   return (
     <Stack space="space.300">
-      {variants.map(({ name, Component }) => (
+      {variants.map(({ name, Component, spacing }) => (
         <Stack key={name} space="space.150">
           <h2>{name}</h2>
           {spacing.map((space) => (
@@ -23,19 +22,32 @@ export default function ButtonAlignmentExample() {
               <Stack key={space} space="space.100">
                 <Box>
                   <Box as="span">Text before</Box>
-                  <Component spacing={space}>Button</Component>
+                  <Component
+                    // @ts-ignore
+                    spacing={space}
+                  >
+                    Button
+                  </Component>
                   <Box as="span">Text after</Box>
                 </Box>
                 <Box>
                   <Box as="span">Text before with icon</Box>
-                  <Component iconBefore={ChevronDownIcon} spacing={space}>
+                  <Component
+                    iconBefore={ChevronDownIcon}
+                    // @ts-ignore
+                    spacing={space}
+                  >
                     Button
                   </Component>
                   <Box as="span">Text after with icon</Box>
                 </Box>
                 <Box>
                   <Box as="span">Text before with icon</Box>
-                  <Component iconAfter={ChevronDownIcon} spacing={space}>
+                  <Component
+                    iconAfter={ChevronDownIcon}
+                    // @ts-ignore
+                    spacing={space}
+                  >
                     Button
                   </Component>
                   <Box as="span">Text after with icon</Box>

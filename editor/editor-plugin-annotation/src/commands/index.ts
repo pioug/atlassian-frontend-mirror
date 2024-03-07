@@ -18,7 +18,11 @@ import type {
 } from '../pm-plugins/types';
 import { ACTIONS } from '../pm-plugins/types';
 import { AnnotationSelectionType } from '../types';
-import type { AnnotationPlugin } from '../types';
+import type {
+  AnnotationPlugin,
+  InlineCommentInputMethod,
+  TargetType,
+} from '../types';
 import { getPluginState, isSelectionValid } from '../utils';
 
 import transform from './transform';
@@ -57,7 +61,7 @@ export const clearDirtyMark = (): Command =>
   });
 
 export const removeInlineCommentNearSelection =
-  (id: string): Command =>
+  (id: string, _supportedNodes: string[] = []): Command =>
   (state, dispatch): boolean => {
     const {
       tr,
@@ -92,14 +96,19 @@ export const removeInlineCommentNearSelection =
 
 const getDraftCommandAction: (
   drafting: boolean,
+  targetType: TargetType,
+  isCommentOnMediaOn?: boolean,
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
   drafting: boolean,
+  targetType: TargetType,
+  isCommentOnMediaOn?: boolean,
 ) => {
   return (editorState: EditorState) => {
     // validate selection only when entering draft mode
     if (
       drafting &&
-      isSelectionValid(editorState) !== AnnotationSelectionType.VALID
+      isSelectionValid(editorState, isCommentOnMediaOn) !==
+        AnnotationSelectionType.VALID
     ) {
       return false;
     }
@@ -109,6 +118,7 @@ const getDraftCommandAction: (
       data: {
         drafting,
         editorState,
+        targetType,
       },
     };
   };
@@ -118,11 +128,15 @@ export const setInlineCommentDraftState =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     drafting: boolean,
-    inputMethod:
-      | INPUT_METHOD.TOOLBAR
-      | INPUT_METHOD.SHORTCUT = INPUT_METHOD.TOOLBAR,
+    inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
+    targetType: TargetType = 'inline',
+    isCommentOnMediaOn: boolean = false,
   ): Command => {
-    const commandAction = getDraftCommandAction(drafting);
+    const commandAction = getDraftCommandAction(
+      drafting,
+      targetType,
+      isCommentOnMediaOn,
+    );
     return createCommand(
       commandAction,
       transform.addOpenCloseAnalytics(editorAnalyticsAPI)(

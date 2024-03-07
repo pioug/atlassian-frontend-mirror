@@ -89,9 +89,9 @@ export class NavigationBase extends Component<NavigationProps, {}> {
                 onClick={prev('mouse')}
                 iconBefore={
                   <ArrowLeftCircleIcon
-                    // DN800
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     primaryColor="#9FADBC"
-                    // DN0
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     secondaryColor="#161A1D"
                     size="xlarge"
                     label="Previous"
@@ -115,9 +115,9 @@ export class NavigationBase extends Component<NavigationProps, {}> {
                 onClick={next('mouse')}
                 iconBefore={
                   <ArrowRightCircleIcon
-                    // DN800
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     primaryColor="#9FADBC"
-                    // DN0
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     secondaryColor="#161A1D"
                     size="xlarge"
                     label="Next"

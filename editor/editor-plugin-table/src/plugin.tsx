@@ -261,12 +261,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         {
           name: 'tableKeymap',
           plugin: () => {
-            const { dragAndDropEnabled } =
+            const { dragAndDropEnabled, getEditorFeatureFlags } =
               options || ({} as TablePluginOptions);
 
             return keymapPlugin(
               defaultGetEditorContainerWidth,
               editorAnalyticsAPI,
+              getEditorFeatureFlags,
               dragAndDropEnabled,
             );
           },
@@ -318,14 +319,17 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         },
         {
           name: 'tableDragAndDrop',
-          plugin: ({ dispatch, eventDispatcher, dispatchAnalyticsEvent }) =>
-            options?.dragAndDropEnabled
+          plugin: ({ dispatch }) => {
+            const { getEditorFeatureFlags } =
+              options || ({} as TablePluginOptions);
+            return options?.dragAndDropEnabled
               ? createDragAndDropPlugin(
                   dispatch,
-                  eventDispatcher,
+                  getEditorFeatureFlags,
                   editorAnalyticsAPI,
                 )
-              : undefined,
+              : undefined;
+          },
         },
         {
           name: 'tableLocalId',
@@ -507,6 +511,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       getEditorContainerWidth={defaultGetEditorContainerWidth}
+                      getEditorFeatureFlags={
+                        options?.getEditorFeatureFlags ||
+                        defaultGetEditorFeatureFlags
+                      }
                     />
                   )}
                   {options?.allowContextualMenu && (
@@ -540,6 +548,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       stickyHeaders={stickyHeader}
                       pluginConfig={pluginConfig}
+                      getEditorFeatureFlags={
+                        options?.getEditorFeatureFlags ||
+                        defaultGetEditorFeatureFlags
+                      }
                     />
                   )}
                   {allowControls && !isDragAndDropEnabled && !isResizing && (

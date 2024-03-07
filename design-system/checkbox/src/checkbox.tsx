@@ -15,6 +15,7 @@ import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
@@ -30,6 +31,9 @@ const checkboxStyles = css({
   gridArea: '1 / 1 / 2 / 2',
   opacity: 0,
   outline: 'none',
+  '&:focus': {
+    opacity: 1,
+  },
   '& + svg': {
     /**
      *  Change the variables --checkbox-background-color, --checkbox-border-color
@@ -56,7 +60,12 @@ const checkboxStyles = css({
     },
   },
   '&&:focus + svg, &&:checked:focus + svg': {
-    '--checkbox-border-color': 'var(--local-border-focus)',
+    borderRadius: token('border.radius', '0.25rem'),
+    outline: `${token('border.width.outline', '2px')} solid ${token(
+      'color.border.focused',
+      B200,
+    )}`,
+    outlineOffset: '-2px',
   },
   '&:hover + svg': {
     '--checkbox-background-color': 'var(--local-background-hover)',
@@ -199,6 +208,8 @@ const Checkbox = memo(
         testId={testId && `${testId}--checkbox-label`}
       >
         <input
+          // It is necessary only for Safari. It allows to render focus styles.
+          tabIndex={0}
           {...rest}
           type="checkbox"
           ref={mergedRefs}

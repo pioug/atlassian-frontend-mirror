@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ToggleProps
  *
- * @codegen <<SignedSource::9934170c1bfa2f8647584b8098d373e5>>
+ * @codegen <<SignedSource::fce3e0a5286a975a775512e181d64402>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/toggle/__generated__/index.partial.tsx <<SignedSource::15954687b51568b070d3d6687a80e7af>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/toggle/__generated__/index.partial.tsx <<SignedSource::3dde2148a204d806089d1f512ae6afdb>>
  */
 import React from 'react';
 import PlatformToggle from '@atlaskit/toggle';

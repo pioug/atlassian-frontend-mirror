@@ -3,6 +3,7 @@ import { Component } from 'react';
 
 import RendererDemo from './helper/RendererDemo';
 import Range from '@atlaskit/range';
+import { token } from '@atlaskit/tokens';
 
 interface State {
   fadeHeight: number;
@@ -33,7 +34,7 @@ export default class Example extends Component<{}, State> {
   render() {
     return (
       <div>
-        <div style={{ padding: 20, paddingBottom: 0 }}>
+        <div style={{ padding: token('space.250', '20px'), paddingBottom: 0 }}>
           <p>Max Height</p>
           <Range
             value={this.state.maxHeight}

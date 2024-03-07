@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.4",
     "@atlaskit/icon": "^22.1.0",
@@ -102,6 +102,10 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
+  "exports": {
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },

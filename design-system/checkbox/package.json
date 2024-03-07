@@ -36,6 +36,9 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TagGroupProps
  *
- * @codegen <<SignedSource::1b035d795821cac42d3806a0d13a3d40>>
+ * @codegen <<SignedSource::474d367aed2315ffca928e10e3cf5955>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/taggroup/__generated__/index.partial.tsx <<SignedSource::21d0046b626a221f53e0d3a822171c76>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/taggroup/__generated__/index.partial.tsx <<SignedSource::3fbcfe988f4bfc964c9581a446d396c1>>
  */
 import React from 'react';
 import PlatformTagGroup from '@atlaskit/tag-group';

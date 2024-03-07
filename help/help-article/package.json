@@ -25,6 +25,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Self-Help Experiences",
     "releaseModel": "continuous",

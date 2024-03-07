@@ -41,8 +41,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Налаштувати стовпці',
   'linkDataSource.datasource.table.authConnectButtonText': 'Підключити',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Підключіть свій обліковий запис, щоб співпрацювати з іншими в продуктах Atlassian.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Підключіть обліковий запис',
+    'Підключіть свій обліковий запис {providerName}, щоб співпрацювати з іншими в продуктах Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Підключіть обліковий запис {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Докладніше про смарт-посилання.',
   'linkDataSource.jira-issues.accessInstructions': 'Щоб надіслати запит на доступ, зверніться до адміністратора сайту.',
   'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього вмісту',

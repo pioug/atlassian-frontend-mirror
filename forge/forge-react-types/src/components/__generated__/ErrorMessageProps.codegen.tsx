@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ErrorMessageProps
  *
- * @codegen <<SignedSource::043c27c521e3eedabb164cf9d7988546>>
+ * @codegen <<SignedSource::4e04a95ec1d6531ceea5f968651471fb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/__generated__/error-message.partial.tsx <<SignedSource::cf5614f7258c1dbcd820f015a9939d4f>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/__generated__/error-message.partial.tsx <<SignedSource::94778992a6ed8c3225c72407310f2a82>>
  */
 import React from 'react';
 import { ErrorMessage as PlatformErrorMessage } from '@atlaskit/form';

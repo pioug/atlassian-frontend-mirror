@@ -37,8 +37,9 @@ export default {
   'linkDataSource.column-picker.search': '搜索字段',
   'linkDataSource.column-picker.tooltip': '配置列',
   'linkDataSource.datasource.table.authConnectButtonText': '连接',
-  'linkDataSource.datasource.table.authScreenDescriptionText': '关联您的帐户，以便跨 Atlassian 产品协作处理工作。',
-  'linkDataSource.datasource.table.authScreenHeaderText': '连接您的帐户',
+  'linkDataSource.datasource.table.authScreenDescriptionText':
+    '关联您的 {providerName} 帐户，以便跨 Atlassian 产品协作处理工作。',
+  'linkDataSource.datasource.table.authScreenHeaderText': '连接您的 {providerName} 帐户',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': '了解有关智能链接的更多信息。',
   'linkDataSource.jira-issues.accessInstructions': '要申请访问权限，请联系您的站点管理员。',
   'linkDataSource.jira-issues.accessRequired': '您无权访问此内容',

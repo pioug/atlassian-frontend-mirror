@@ -31,6 +31,7 @@ import {
 const datasourceContainerStyle = css({
   borderRadius: `${token('border.radius.200', '8px')}`,
   border: `1px solid ${token('color.border', N40)}`,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
   marginLeft: '50%',
   transform: 'translateX(-50%)',
 });

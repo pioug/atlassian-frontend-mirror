@@ -11,6 +11,7 @@ import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
+import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
 
 export const rules = {
   'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -24,6 +25,7 @@ export const rules = {
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
   'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
   'ensure-publish-valid': ensurePublishValid,
+  'ensure-native-and-af-exports-synced': ensureNativeAndAfExportsSynced,
 };
 
 export const configs = {

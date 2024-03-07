@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/dropdown-menu": "^12.7.0",
     "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.1.0",
@@ -113,6 +113,11 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts",
+    "./clients": "./src/clients/index.ts",
+    "./copy-link-button": "./src/components/CopyLinkButton.tsx"
+  },
+  "exports": {
     ".": "./src/index.ts",
     "./clients": "./src/clients/index.ts",
     "./copy-link-button": "./src/components/CopyLinkButton.tsx"

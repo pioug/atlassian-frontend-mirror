@@ -125,6 +125,7 @@ export const stickyRowOffsetTop = 8;
 export const stickyHeaderBorderBottomWidth = 1;
 export const tableOverflowShadowWidth = 8;
 export const tableOverflowShadowWidthWide = 32;
+export const tablePopupMenuFitHeight = 188;
 
 export const dropTargetsZIndex = 14;
 

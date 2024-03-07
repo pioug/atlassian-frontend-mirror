@@ -341,6 +341,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
                     label="cover"
                     size="xlarge"
                     primaryColor={blanketColor}
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     secondaryColor="#9FADBC"
                   />
                 </DefaultCoverWrapper>

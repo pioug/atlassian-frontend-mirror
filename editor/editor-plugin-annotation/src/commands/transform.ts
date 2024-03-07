@@ -19,7 +19,7 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { AnnotationPlugin } from '../types';
+import type { AnnotationPlugin, InlineCommentInputMethod } from '../types';
 import {
   getDraftCommandAnalyticsPayload,
   getPluginState,
@@ -67,7 +67,7 @@ const addOpenCloseAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (
     drafting: boolean,
-    method: INPUT_METHOD.SHORTCUT | INPUT_METHOD.TOOLBAR = INPUT_METHOD.TOOLBAR,
+    method: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
   ) =>
   (transaction: Transaction, state: EditorState) => {
     const draftingPayload = getDraftCommandAnalyticsPayload(

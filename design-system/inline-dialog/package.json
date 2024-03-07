@@ -18,6 +18,10 @@
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -57,7 +61,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/datetime-picker": "^13.0.3",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.10.0",

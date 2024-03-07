@@ -40,8 +40,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Configura le colonne',
   'linkDataSource.datasource.table.authConnectButtonText': 'Collega',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Connetti il tuo account per collaborare al lavoro con i prodotti Atlassian.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Connetti il tuo account',
+    'Connetti il tuo account {providerName} per collaborare al lavoro con i prodotti Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Connetti il tuo account {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Scopri di più sui Link intelligenti.',
   'linkDataSource.jira-issues.accessInstructions': "Per richiedere l'accesso, contatta l'amministratore del sito.",
   'linkDataSource.jira-issues.accessRequired': 'Non hai accesso a questo contenuto',

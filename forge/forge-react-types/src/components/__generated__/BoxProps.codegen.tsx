@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::d3c324dbe7016205a18cc6190b57ad19>>
+ * @codegen <<SignedSource::ab40887994d5e0d0b8bb3a7e7144bccf>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/box/__generated__/index.partial.tsx <<SignedSource::851605328aa816df414378c18c7104fe>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/box/__generated__/index.partial.tsx <<SignedSource::890eea4f597d519fa80c16c24d302cbe>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 

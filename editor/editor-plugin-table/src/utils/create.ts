@@ -14,9 +14,7 @@ export const createTableWithWidth =
     },
   ) =>
   (schema: Schema) => {
-    const { tablePreserveWidth = false } = getEditorFeatureFlags
-      ? getEditorFeatureFlags()
-      : {};
+    const { tablePreserveWidth = false } = getEditorFeatureFlags?.() || {};
 
     if (tablePreserveWidth && isFullWidthModeEnabled) {
       return createTable({

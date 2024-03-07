@@ -41,6 +41,14 @@
     "./types": "./src/types.tsx",
     "./utilities": "./src/utilities.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./Tooltip": "./src/Tooltip.tsx",
+    "./TooltipContainer": "./src/TooltipContainer.tsx",
+    "./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+    "./types": "./src/types.tsx",
+    "./utilities": "./src/utilities.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
@@ -60,7 +68,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

@@ -50,7 +50,10 @@ function addColumnAtCustomStep(column: number) {
   };
 }
 
-export function addColumnAt(getEditorContainerWidth: GetEditorContainerWidth) {
+export function addColumnAt(
+  getEditorContainerWidth: GetEditorContainerWidth,
+  tablePreserveWidth = false,
+) {
   return (
     column: number,
     allowAddColumnCustomStep: boolean = false,
@@ -66,7 +69,7 @@ export function addColumnAt(getEditorContainerWidth: GetEditorContainerWidth) {
       const table = findTable(updatedTr.selection);
       if (table) {
         // [ED-8288] Update colwidths manually to avoid multiple dispatch in TableComponent
-        updatedTr = rescaleColumns()(table, view)(updatedTr);
+        updatedTr = rescaleColumns(tablePreserveWidth)(table, view)(updatedTr);
       }
 
       if (
@@ -91,7 +94,10 @@ export function addColumnAt(getEditorContainerWidth: GetEditorContainerWidth) {
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column before the column with the selection.
 export const addColumnBefore =
-  (getEditorContainerWidth: GetEditorContainerWidth): Command =>
+  (
+    getEditorContainerWidth: GetEditorContainerWidth,
+    tablePreserveWidth = false,
+  ): Command =>
   (state, dispatch, view) => {
     const table = findTable(state.selection);
     if (!table) {
@@ -100,7 +106,7 @@ export const addColumnBefore =
     if (dispatch) {
       let rect = selectedRect(state);
       dispatch(
-        addColumnAt(getEditorContainerWidth)(
+        addColumnAt(getEditorContainerWidth, tablePreserveWidth)(
           rect.left,
           getAllowAddColumnCustomStep(state),
           view,
@@ -133,10 +139,13 @@ export const addColumnAfter =
   };
 
 export const insertColumn =
-  (getEditorContainerWidth: GetEditorContainerWidth) =>
+  (
+    getEditorContainerWidth: GetEditorContainerWidth,
+    tablePreserveWidth = false,
+  ) =>
   (column: number): Command =>
   (state, dispatch, view) => {
-    let tr = addColumnAt(getEditorContainerWidth)(
+    let tr = addColumnAt(getEditorContainerWidth, tablePreserveWidth)(
       column,
       getAllowAddColumnCustomStep(state),
       view,

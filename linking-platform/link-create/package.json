@@ -36,14 +36,17 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/intl-messages-provider": "^1.0.2",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/primitives": "^4.0.0",

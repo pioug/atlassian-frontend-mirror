@@ -39,9 +39,11 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Configure columns',
   'linkDataSource.datasource.table.authConnectButtonText': 'Connect',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Connect your account to collaborate on work across Atlassian products.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Connect your account',
+    'Connect your {providerName} account to collaborate on work across Atlassian products.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Connect your {providerName} account',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Learn more about Smart Links.',
+  'linkDataSource.issue-line-table.unwrap-text': 'Unwrap text',
+  'linkDataSource.issue-line-table.wrap-text': 'Wrap text',
   'linkDataSource.jira-issues.accessInstructions': 'To request access, contact your site administrator.',
   'linkDataSource.jira-issues.accessRequired': "You don't have access to this content",
   'linkDataSource.jira-issues.accessRequiredWithSite': "You don't have access to the following site:",

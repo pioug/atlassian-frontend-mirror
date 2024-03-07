@@ -38,8 +38,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'กำหนดค่าคอลัมน์',
   'linkDataSource.datasource.table.authConnectButtonText': 'เชื่อมต่อ',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'เชื่อมต่อบัญชีของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'เชื่อมต่อบัญชีของคุณ',
+    'เชื่อมต่อบัญชี {providerName} ของคุณเพื่อทำงานร่วมกันในผลิตภัณฑ์ต่าง ๆ ของ Atlassian',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'เชื่อมต่อบัญชี {providerName} ของคุณ',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
   'linkDataSource.jira-issues.accessInstructions': 'หากต้องการส่งคำขอการเข้าถึง โปรดติดต่อผู้ดูแลระบบเว็บไซต์ของคุณ',
   'linkDataSource.jira-issues.accessRequired': 'คุณไม่มีสิทธิ์การเข้าถึงเนื้อหานี้',

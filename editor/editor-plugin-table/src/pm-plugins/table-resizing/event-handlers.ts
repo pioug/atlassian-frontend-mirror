@@ -48,6 +48,7 @@ export const handleMouseDown = (
   const { state, dispatch } = view;
   const editorDisabled = !view.editable;
   const domAtPos = view.domAtPos.bind(view);
+  const { tablePreserveWidth = false } = getEditorFeatureFlags();
 
   if (
     editorDisabled ||
@@ -117,6 +118,7 @@ export const handleMouseDown = (
     tableRef: dom,
     start,
     domAtPos,
+    tablePreserveWidth,
   });
 
   if (
@@ -207,6 +209,7 @@ export const handleMouseDown = (
           clientX - startX,
           dom,
           resizingSelectedColumns ? selectedColumns : undefined,
+          tablePreserveWidth,
         );
         tr = updateColumnWidths(newResizeState, table, start)(tr);
         if (colIndex === map.width - 1) {
@@ -265,7 +268,14 @@ export const handleMouseDown = (
       $cell.nodeAfter!.attrs.colspan -
       1;
 
-    resizeColumn(resizeState, colIndex, clientX - dragging.startX, dom);
+    resizeColumn(
+      resizeState,
+      colIndex,
+      clientX - dragging.startX,
+      dom,
+      undefined,
+      tablePreserveWidth,
+    );
 
     updateControls()(state);
   }

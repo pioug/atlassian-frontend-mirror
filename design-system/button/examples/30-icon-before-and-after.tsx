@@ -14,7 +14,7 @@ import { Stack } from '@atlaskit/primitives';
 import { ButtonGroup } from '../src';
 import Button from '../src/new';
 import { type IconSize } from '../src/new-button/variants/types';
-import spacing from '../src/utils/spacing';
+import { buttonSpacing } from '../src/utils/spacing';
 
 const icons = [
   AddIcon,
@@ -31,7 +31,7 @@ const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];
 export default function ButtonsWithIconBeforeOrAfterExample() {
   return (
     <Stack space="space.200" alignInline="start">
-      {spacing.map((s) => (
+      {buttonSpacing.map((s) => (
         <Stack space="space.100" key={s}>
           <h2>{capitalize(s)}</h2>
           <Stack space="space.100" alignInline="start">

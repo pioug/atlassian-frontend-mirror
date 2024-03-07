@@ -34,6 +34,11 @@
     "./consts": "./src/consts.ts",
     "./styles": "./src/styles.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./consts": "./src/consts.ts",
+    "./styles": "./src/styles.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/editor-common": "^78.11.0",

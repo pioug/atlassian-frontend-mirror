@@ -37,6 +37,16 @@
     "./types": "./src/types/index.ts",
     "./validatorTypes": "./src/types/validatorTypes.ts"
   },
+  "exports": {
+    "./builders": "./src/builders.ts",
+    "./empty-adf": "./src/empty-adf.ts",
+    "./scrub": "./src/scrub.ts",
+    "./transforms": "./src/transforms.ts",
+    "./traverse": "./src/traverse.ts",
+    "./validator": "./src/validator.ts",
+    "./types": "./src/types/index.ts",
+    "./validatorTypes": "./src/types/validatorTypes.ts"
+  },
   "scripts": {
     "generate:spec": "rm -rf ./src/validator/specs/ && yarn json-schema-generator --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
   },

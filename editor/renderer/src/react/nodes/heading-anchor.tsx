@@ -15,7 +15,7 @@ import { token } from '@atlaskit/tokens';
 export const HeadingAnchorWrapperClassName = 'heading-anchor-wrapper';
 
 const CopyAnchorWrapperWithRef = React.forwardRef(
-  (props, ref: Ref<HTMLElement>) => {
+  (props: React.PropsWithChildren<unknown>, ref: Ref<HTMLElement>) => {
     const { children, ...rest } = props;
     return (
       <span {...rest} className={HeadingAnchorWrapperClassName} ref={ref}>
@@ -41,7 +41,9 @@ type Props = {
   level: number;
 };
 
-type HeadingAnchorProps = Props & React.Props<any> & WrappedComponentProps;
+type HeadingAnchorProps = Props &
+  React.PropsWithChildren<any> &
+  WrappedComponentProps;
 type HeadingAnchorState = { tooltipMessage?: string; isClicked: boolean };
 
 class HeadingAnchor extends React.PureComponent<

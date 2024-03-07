@@ -90,7 +90,7 @@ const navigationCssExtended = css`
   }
 `;
 
-const MultiBodiedExtension: React.FunctionComponent<Props> = (props) => {
+const MultiBodiedExtension = (props: React.PropsWithChildren<Props>) => {
   const { children, layout = 'default', path = [] } = props;
   const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 

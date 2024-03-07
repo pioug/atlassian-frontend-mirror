@@ -11,7 +11,12 @@ describe('custom table cell background colors inversion in dark mode', () => {
       <table>
         <tbody>
           <tr>
-            <TableCell background="#ff00cc">test</TableCell>
+            <TableCell
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+              background="#ff00cc"
+            >
+              test
+            </TableCell>
           </tr>
         </tbody>
       </table>,
@@ -27,7 +32,12 @@ describe('custom table cell background colors inversion in dark mode', () => {
       <table>
         <tbody>
           <tr>
-            <TableCell background="#ff00cc">test</TableCell>
+            <TableCell
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+              background="#ff00cc"
+            >
+              test
+            </TableCell>
           </tr>
         </tbody>
       </table>,

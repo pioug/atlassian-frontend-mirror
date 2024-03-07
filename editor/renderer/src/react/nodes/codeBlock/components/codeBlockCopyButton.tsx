@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -19,10 +19,7 @@ type Props = {
   content: string;
 };
 
-const CopyButton: React.FC<Props & WrappedComponentProps> = ({
-  content,
-  intl,
-}) => {
+const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
   const [tooltip, setTooltip] = useState<string>(
     intl.formatMessage(codeBlockButtonMessages.copyCodeToClipboard),
   );

@@ -593,10 +593,9 @@ const generateMediaSingleFloatingToolbar = (
     }
 
     if (editorFeatureFlags && editorFeatureFlags.commentsOnMedia) {
-      toolbarButtons.push(
-        commentButton(intl, state, pluginInjectionApi?.analytics?.actions),
-        { type: 'separator' },
-      );
+      toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
+        type: 'separator',
+      });
     }
 
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {

@@ -28,6 +28,12 @@
     "./type-helpers": "./src/type-helpers.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./type-helpers": "./src/type-helpers.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Editor: AI",
     "releaseModel": "continuous",

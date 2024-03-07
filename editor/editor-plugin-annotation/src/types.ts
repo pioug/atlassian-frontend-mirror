@@ -1,13 +1,16 @@
 import type React from 'react';
 
 import type { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import type {
+  Command,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
@@ -18,6 +21,29 @@ type StripNonExistingAnnotations = (
   state: EditorState,
 ) => boolean | undefined;
 
+/**
+ * type of target that annotation apply to.
+ * This is used to apply correct decoration to a draft comment
+ */
+export type TargetType = 'block' | 'inline';
+
+/**
+ * The source of draft comment being created
+ */
+export type InlineCommentInputMethod =
+  | INPUT_METHOD.TOOLBAR
+  | INPUT_METHOD.SHORTCUT
+  | INPUT_METHOD.FLOATING_TB;
+
+type SetInlineCommentDraftState = (
+  drafting: boolean,
+  inputMethod: InlineCommentInputMethod,
+  /** @default 'inline' */
+  targetType?: TargetType,
+  /** check for platform_editor_media_comments_base feature gate */
+  isCommentOnMediaOn?: boolean,
+) => Command;
+
 export type AnnotationPlugin = NextEditorPlugin<
   'annotation',
   {
@@ -26,9 +52,11 @@ export type AnnotationPlugin = NextEditorPlugin<
     dependencies: [
       OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<EditorViewModePlugin>,
+      OptionalPlugin<FeatureFlagsPlugin>,
     ];
     actions: {
       stripNonExistingAnnotations: StripNonExistingAnnotations;
+      setInlineCommentDraftState: SetInlineCommentDraftState;
     };
   }
 >;
@@ -107,6 +135,17 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
   viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
   // always position toolbar above the selection
   isToolbarAbove?: boolean;
+
+  /**
+   * @experimental Still under development. Do not use.
+   *
+   * A list of supported editor node names for inline comment,
+   * Note 1: value is the type name of the node, e.g. media, mediaInline
+   * Invalid node names, nodes does not support annotation
+   * or nodes not supported by current ADF schema will be ignored.
+   * Note 2: text is supported by default.
+   */
+  supportedBlockNodes?: string[];
 };
 
 export interface AnnotationProviders {

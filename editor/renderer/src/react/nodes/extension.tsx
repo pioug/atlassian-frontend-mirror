@@ -68,8 +68,8 @@ export const renderExtension = (
   );
 };
 
-const Extension: React.FunctionComponent<Props & OverflowShadowProps> = (
-  props,
+const Extension = (
+  props: React.PropsWithChildren<Props & OverflowShadowProps>,
 ) => {
   const {
     text,

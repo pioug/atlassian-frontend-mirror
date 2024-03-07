@@ -9,7 +9,11 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
-import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils';
+import {
+  getTableContainerElement,
+  getTableElementWidth,
+  hasTableBeenResized,
+} from '../pm-plugins/table-resizing/utils';
 import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
 import { getResizeState } from '../pm-plugins/table-resizing/utils/resize-state';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
@@ -104,7 +108,7 @@ export const updateColumnWidths =
  * @returns Updated transaction with rescaled columns for a given table
  */
 export const rescaleColumns =
-  () =>
+  (tablePreserveWidth = false) =>
   (table: ContentNodeWithPos, view: EditorView | undefined) =>
   (tr: Transaction): Transaction => {
     if (!view) {
@@ -121,17 +125,34 @@ export const rescaleColumns =
     }
 
     const isResized = hasTableBeenResized(table.node);
-    // get current table info
-    const previousTableInfo = {
-      // when table is resized the tableRef client width will be 1px larger than colGroup, which is used in calculations
-      width: isResized ? tableRef.clientWidth - 1 : tableRef.clientWidth,
-      /** the is the width the table can reach before overflowing */
-      possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
-        ? tableRef?.parentElement?.clientWidth || 0
-        : (tableRef?.parentElement?.clientWidth || 0) -
-          insertColumnButtonOffset,
+
+    let previousTableInfo = {
+      width: 0,
+      possibleMaxWidth: 0,
       isResized,
     };
+
+    if (tablePreserveWidth) {
+      previousTableInfo = {
+        // TODO - ensure correct width is returned when table doesn't have a width value
+        width: getTableElementWidth(table.node),
+        possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
+          ? getTableContainerElement(table.node)
+          : getTableContainerElement(table.node) - insertColumnButtonOffset,
+        isResized,
+      };
+    } else {
+      previousTableInfo = {
+        // when table is resized the tableRef client width will be 1px larger than colGroup, which is used in calculations
+        width: isResized ? tableRef.clientWidth - 1 : tableRef.clientWidth,
+        /** the is the width the table can reach before overflowing */
+        possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
+          ? tableRef?.parentElement?.clientWidth || 0
+          : (tableRef?.parentElement?.clientWidth || 0) -
+            insertColumnButtonOffset,
+        isResized,
+      };
+    }
 
     // determine the new table, based on new width
     const newTableInfo = {
@@ -195,6 +216,7 @@ export const rescaleColumns =
       tableRef,
       domAtPos,
       maxSize: previousTableInfo.possibleMaxWidth,
+      tablePreserveWidth,
     });
 
     // Two scenarios that require scaling:

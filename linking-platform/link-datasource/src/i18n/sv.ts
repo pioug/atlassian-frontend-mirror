@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Konfigurera kolumner',
   'linkDataSource.datasource.table.authConnectButtonText': 'Anslut',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Anslut ditt konto för att samarbeta kring projekt i flera Atlassian-produkter.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Anslut ditt konto',
+    'Anslut ditt {providerName}-konto för att samarbeta kring projekt i flera Atlassian-produkter.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Anslut ditt {providerName}-konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Läs mer om smarta länkar.',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakta din webbplatsadministratör för att begära tillgång:',
   'linkDataSource.jira-issues.accessRequired': 'Du har inte åtkomst till det här innehållet',

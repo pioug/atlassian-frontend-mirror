@@ -13,6 +13,7 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { setInlineCommentDraftState } from './commands';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { buildToolbar } from './toolbar';
@@ -34,6 +35,8 @@ export const annotationPlugin: AnnotationPlugin = ({
   config: annotationProviders,
   api,
 }) => {
+  const featureFlags = api?.featureFlags?.sharedState.currentState();
+
   return {
     name: 'annotation',
 
@@ -48,6 +51,9 @@ export const annotationPlugin: AnnotationPlugin = ({
 
     actions: {
       stripNonExistingAnnotations,
+      setInlineCommentDraftState: setInlineCommentDraftState(
+        api?.analytics?.actions,
+      ),
     },
 
     getSharedState(editorState) {
@@ -106,6 +112,7 @@ export const annotationPlugin: AnnotationPlugin = ({
             state,
             intl,
             isToolbarAbove,
+            featureFlags?.commentsOnMedia,
           );
         }
       },
@@ -129,6 +136,7 @@ export const annotationPlugin: AnnotationPlugin = ({
             state,
             intl,
             isToolbarAbove,
+            featureFlags?.commentsOnMedia,
           ) as SelectionToolbarGroup;
         }
       },

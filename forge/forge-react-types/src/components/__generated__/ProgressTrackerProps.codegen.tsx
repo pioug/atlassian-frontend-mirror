@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ProgressTrackerProps
  *
- * @codegen <<SignedSource::3623e2eda57eeb86ee53ff2487ca88f1>>
+ * @codegen <<SignedSource::0061c9a4cfd43ba30bf2cce1bcb9016e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/progresstracker/__generated__/index.partial.tsx <<SignedSource::9dbcc84fd9ca61ad39569c4430f205a9>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/progresstracker/__generated__/index.partial.tsx <<SignedSource::889025b24913a7379a30cc87547f6292>>
  */
 import type {
   ProgressTrackerProps as PlatformProgressTrackerProps,

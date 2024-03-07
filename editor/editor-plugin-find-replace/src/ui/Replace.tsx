@@ -29,7 +29,8 @@ import {
   orderOneStyles,
   orderZeroDeprecatedStyles,
   orderZeroStyles,
-  replaceSectionButtonStyles,
+  replaceSectionButtonNewStyles,
+  replaceSectionButtonOldStyles,
   sectionWrapperJustified,
   sectionWrapperStyles,
   sectionWrapperStylesAlternate,
@@ -273,6 +274,12 @@ class Replace extends React.PureComponent<
     const resultsReplace = formatMessage(messages.replaceSuccess, {
       numberOfMatches: replaceCount,
     });
+
+    const replaceSectionButtonStyles = getBooleanFF(
+      'platform.editor.a11y-find-replace',
+    )
+      ? replaceSectionButtonNewStyles
+      : replaceSectionButtonOldStyles;
 
     return getBooleanFF('platform.editor.a11y-find-replace') ? (
       <Fragment>

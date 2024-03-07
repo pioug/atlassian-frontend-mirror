@@ -68,6 +68,7 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
+  tablePreserveWidth?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -162,6 +163,7 @@ export const TableResizer = ({
   displayGuideline,
   attachAnalyticsEvent,
   displayGapCursor,
+  tablePreserveWidth,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
@@ -310,6 +312,7 @@ export const TableResizer = ({
           parentWidth: newWidth,
         },
         editorView.domAtPos.bind(editorView),
+        tablePreserveWidth,
       );
 
       updateActiveGuidelines(
@@ -334,6 +337,7 @@ export const TableResizer = ({
       updateWidth,
       updateActiveGuidelines,
       countFrames,
+      tablePreserveWidth,
     ],
   );
 
@@ -376,6 +380,7 @@ export const TableResizer = ({
             parentWidth: newWidth,
           },
           editorView.domAtPos.bind(editorView),
+          tablePreserveWidth,
         )(tr);
 
         const scaledNode = tr.doc.nodeAt(pos)!;
@@ -416,6 +421,7 @@ export const TableResizer = ({
       attachAnalyticsEvent,
       endMeasure,
       onResizeStop,
+      tablePreserveWidth,
     ],
   );
 

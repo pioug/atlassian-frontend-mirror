@@ -27,6 +27,11 @@
     ".": "./src/index.ts",
     "./classnames": "./src/classnames.ts"
   },
+  "exports": {
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts",
+    "./classnames": "./src/classnames.ts"
+  },
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,

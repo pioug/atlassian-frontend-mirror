@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 5.4.0
+
+### Minor Changes
+
+- [#78407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78407) [`33e1f2cec1fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33e1f2cec1fa) - Add product prop to smart link context
+
+## 5.3.3
+
+### Patch Changes
+
+- [#78708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78708) [`ae9ca3c95f80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae9ca3c95f80) - Cleans up Sentry related ffs: isolated-sentry-hub and sentry.disable-dedupe
+
 ## 5.3.2
 
 ### Patch Changes

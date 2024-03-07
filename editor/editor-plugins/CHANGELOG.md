@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugins
 
+## 1.5.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.6
+
+### Patch Changes
+
+- [#78202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78202) [`697401ab7d8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/697401ab7d8d) - ED-22099: Fixed drag menu position when close to view port edge.
+- Updated dependencies
+
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.4
 
 ### Patch Changes

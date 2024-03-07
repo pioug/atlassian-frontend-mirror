@@ -27,6 +27,11 @@
     "./constants": "./src/constants.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Personalization",
     "releaseModel": "continuous",
@@ -35,7 +40,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/checkbox": "^13.0.0",
     "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.1.0",

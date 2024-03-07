@@ -38,8 +38,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Đặt cấu hình cột',
   'linkDataSource.datasource.table.authConnectButtonText': 'Kết nối',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Kết nối tài khoản của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Kết nối tài khoản của bạn',
+    'Kết nối tài khoản {providerName} của bạn để cộng tác trong công việc trên khắp các sản phẩm Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Kết nối tài khoản {providerName} của bạn',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Tìm hiểu thêm về Liên kết Thông minh.',
   'linkDataSource.jira-issues.accessInstructions':
     'Để yêu cầu quyền truy cập, hãy liên hệ với quản trị viên trang web của bạn.',

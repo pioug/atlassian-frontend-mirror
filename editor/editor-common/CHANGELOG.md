@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 78.11.2
+
+### Patch Changes
+
+- [#78508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78508) [`0299ed52b4ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0299ed52b4ff) - Move currentMediaNodeWithPos util to editor common package
+- [#79350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79350) [`ba4e64dca012`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba4e64dca012) - Add FF to enable mapSelectionBackward to fix the cursor position
+- Updated dependencies
+
 ## 78.11.1
 
 ### Patch Changes

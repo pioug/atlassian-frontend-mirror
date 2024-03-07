@@ -9,6 +9,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
@@ -33,10 +34,7 @@ import {
   getChangeMediaAnalytics,
   getMediaInputResizeAnalyticsEvent,
 } from '../utils/analytics';
-import {
-  currentMediaInlineNodeWithPos,
-  currentMediaNodeWithPos,
-} from '../utils/current-media-node';
+import { currentMediaInlineNodeWithPos } from '../utils/current-media-node';
 import { isSelectionMediaSingleNode } from '../utils/media-common';
 import { changeFromMediaInlineToMediaSingleNode } from '../utils/media-single';
 

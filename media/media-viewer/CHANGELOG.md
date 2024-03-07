@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.3.4
+
+### Patch Changes
+
+- [#78896](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78896) [`4c3953077863`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c3953077863) - Updated styles to comply with spacing tokens policy
+
 ## 48.3.3
 
 ### Patch Changes

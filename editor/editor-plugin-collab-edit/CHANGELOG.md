@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.3
+
+### Patch Changes
+
+- [#79350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79350) [`ba4e64dca012`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba4e64dca012) - Add FF to enable mapSelectionBackward to fix the cursor position
+
 ## 1.1.2
 
 ### Patch Changes

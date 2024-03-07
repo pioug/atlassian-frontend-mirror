@@ -23,6 +23,8 @@ import { syncStickyRowToTable } from './dom';
 import { getTableMaxWidth } from './misc';
 import type { ResizeState, ResizeStateWithAnalytics } from './types';
 
+import { MAX_SCALING_PERCENT, TABLE_DEFAULT_WIDTH } from './index';
+
 export const getResizeState = ({
   minWidth,
   maxSize,
@@ -30,6 +32,7 @@ export const getResizeState = ({
   tableRef,
   start,
   domAtPos,
+  tablePreserveWidth = false,
 }: {
   minWidth: number;
   maxSize: number;
@@ -37,7 +40,9 @@ export const getResizeState = ({
   tableRef: HTMLTableElement;
   start: number;
   domAtPos: (pos: number) => { node: Node; offset: number };
+  tablePreserveWidth: boolean;
 }): ResizeState => {
+  // If the table has been resized, we can use the column widths from the table node
   if (hasTableBeenResized(table)) {
     const cols = calcTableColumnWidths(table).map((width, index) => ({
       width: width === 0 ? tableNewColumnMinWidth : width,
@@ -58,9 +63,25 @@ export const getResizeState = ({
     };
   }
 
+  const shouldReinsertColgroup = !tablePreserveWidth;
+
   // Getting the resize state from DOM
-  const colgroupChildren = insertColgroupFromNode(tableRef, table);
+  const colgroupChildren = insertColgroupFromNode(
+    tableRef,
+    table,
+    tablePreserveWidth,
+    shouldReinsertColgroup, // don't reinsert colgroup when preserving table width - this causes widths to jump
+  );
   const cols = Array.from(colgroupChildren).map((_, index) => {
+    // If the table hasn't been resized and we have a table width attribute, we can use it
+    // to calculate the widths of the columns
+    if (tablePreserveWidth && table.attrs.width) {
+      return {
+        index,
+        width: table.attrs.width / colgroupChildren.length,
+        minWidth: 48,
+      };
+    }
     const cellsRefs = getCellsRefsInColumn(index, table, start, domAtPos);
     return getColumnStateFromDOM(cellsRefs, index, minWidth);
   });
@@ -83,21 +104,43 @@ export const getResizeState = ({
 export const updateColgroup = (
   state: ResizeState,
   tableRef: HTMLElement,
+  tablePreserveWidth?: boolean,
 ): void => {
   const cols = tableRef.querySelectorAll('col');
 
   if (getBooleanFF('platform.editor.custom-table-width')) {
     const columnsCount = cols.length;
-    state.cols
-      .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
-      .forEach((column, i) => {
-        if (cols[i]) {
-          cols[i].style.width = `${getColWidthFix(
-            column.width,
-            columnsCount,
-          )}px`;
-        }
-      });
+    if (tablePreserveWidth) {
+      const tableWidth = parseInt(tableRef.dataset?.tableWidth || ''); // TODO - get this value from the table node, not the dom
+      if (tableWidth) {
+        let renderWidth =
+          tableRef.parentElement?.clientWidth || TABLE_DEFAULT_WIDTH;
+        let scalePercent = renderWidth / tableWidth;
+        scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+        state.cols
+          .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
+          .forEach((column, i) => {
+            const fixedColWidth = getColWidthFix(column.width, columnsCount);
+            const scaledWidth = fixedColWidth * Math.min(scalePercent, 1);
+            const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
+            // we aren't handling the remaining pixels here when the 48px min width is reached
+            if (cols[i]) {
+              cols[i].style.width = `${finalWidth}px`;
+            }
+          });
+      }
+    } else {
+      state.cols
+        .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
+        .forEach((column, i) => {
+          if (cols[i]) {
+            cols[i].style.width = `${getColWidthFix(
+              column.width,
+              columnsCount,
+            )}px`;
+          }
+        });
+    }
   } else {
     state.cols
       .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
@@ -306,6 +349,7 @@ export const getNewResizeStateFromSelectedColumns = (
   state: EditorState,
   domAtPos: (pos: number) => { node: Node; offset: number },
   getEditorContainerWidth: GetEditorContainerWidth,
+  tablePreserveWidth = false,
 ): ResizeStateWithAnalytics | undefined => {
   // Fail early so that we don't do complex calculations for no reason
   const numColumnsSelected = rect.right - rect.left;
@@ -350,6 +394,7 @@ export const getNewResizeStateFromSelectedColumns = (
     tableRef,
     start: table.start,
     domAtPos,
+    tablePreserveWidth,
   });
 
   const newResizeState = evenSelectedColumnsWidths(resizeState, rect);

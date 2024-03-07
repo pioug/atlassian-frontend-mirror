@@ -7,7 +7,7 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 import __noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
-  B100,
+  B200,
   B300,
   B400,
   B50,
@@ -128,7 +128,11 @@ const radioStyles = css({
     '--radio-background-color': token('color.background.input.pressed', N30),
   },
   '&:focus': {
-    '--radio-border-color': token('color.border.focused', B100),
+    outline: `${token('border.width.outline', '3px')} solid ${token(
+      'color.border.focused',
+      B200,
+    )}`,
+    outlineOffset: token('border.width.indicator', '3px'),
   },
 
   '&:checked': {
@@ -159,7 +163,11 @@ const radioStyles = css({
     '--radio-dot-color': token('color.icon.inverse', B400),
   },
   '&:checked:focus': {
-    '--radio-border-color': token('color.border.focused', B100),
+    outline: `${token('border.width.outline', '3px')} solid ${token(
+      'color.border.focused',
+      B200,
+    )}`,
+    outlineOffset: token('border.width.indicator', '3px'),
   },
 
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
@@ -213,6 +221,8 @@ const InnerRadio = forwardRef(function Radio(
     >
       <input
         {...rest}
+        // It is necessary only for Safari. It allows to render focus styles.
+        tabIndex={0}
         aria-label={ariaLabel}
         checked={isChecked}
         disabled={isDisabled}

@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 1.8.0
+
+### Minor Changes
+
+- [#78407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78407) [`33e1f2cec1fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33e1f2cec1fa) - Add product prop to smart link context
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

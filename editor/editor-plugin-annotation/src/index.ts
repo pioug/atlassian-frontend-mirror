@@ -9,6 +9,8 @@ export type {
   AnnotationState,
   AnnotationTypeProvider,
   InlineCommentState,
+  TargetType,
+  InlineCommentInputMethod,
 } from './types';
 export type {
   InlineCommentMap,

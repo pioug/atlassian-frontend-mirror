@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::67e22cda61419468c91e120179019751>>
+ * @codegen <<SignedSource::51f914c9ad125e6f01206fb113c93d4b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/range/__generated__/index.partial.tsx <<SignedSource::da47c96a98423bdcf0e9c79c7e31854f>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/range/__generated__/index.partial.tsx <<SignedSource::fe3a73ec4482a0c291418670ef7939ae>>
  */
 import React from 'react';
 import PlatformRange from '@atlaskit/range';

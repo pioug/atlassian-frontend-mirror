@@ -249,7 +249,12 @@ function fixRowSpans(table: PMNode): PMNode | null {
 }
 
 export const deleteColumns =
-  (rect: Rect, allowCustomStep: boolean, view?: EditorView) =>
+  (
+    rect: Rect,
+    allowCustomStep: boolean,
+    view?: EditorView,
+    tablePreserveWidth = false,
+  ) =>
   (tr: Transaction) => {
     let updatedTr = tr;
     updatedTr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
@@ -264,7 +269,7 @@ export const deleteColumns =
     const table = findTable(updatedTr.selection);
 
     if (table) {
-      updatedTr = rescaleColumns()(table, view)(updatedTr);
+      updatedTr = rescaleColumns(tablePreserveWidth)(table, view)(updatedTr);
     }
     return updatedTr;
   };

@@ -19,7 +19,9 @@ import { RendererContext as ActionsContext } from '../../RendererActionsContext'
 
 type Props = {
   range: Range;
-  component: React.ComponentType<InlineCommentSelectionComponentProps>;
+  component: React.ComponentType<
+    React.PropsWithChildren<InlineCommentSelectionComponentProps>
+  >;
   wrapperDOM: React.RefObject<HTMLDivElement>;
   documentPosition: Position | false;
   isAnnotationAllowed: boolean;
@@ -31,8 +33,8 @@ type Props = {
   generateIndexMatch?: (pos: Position) => false | AnnotationByMatches;
 };
 
-export const SelectionInlineCommentMounter: React.FC<Props> = React.memo(
-  (props) => {
+export const SelectionInlineCommentMounter = React.memo(
+  (props: React.PropsWithChildren<Props>) => {
     const {
       component: Component,
       range,

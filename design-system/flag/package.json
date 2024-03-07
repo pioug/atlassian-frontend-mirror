@@ -44,9 +44,20 @@
     "./theme": "./src/theme.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./auto-dismiss-flag": "./src/auto-dismiss-flag.tsx",
+    "./constants": "./src/constants.tsx",
+    "./flag-actions": "./src/flag-actions.tsx",
+    "./flag-group": "./src/flag-group.tsx",
+    "./flag-provider": "./src/flag-provider.tsx",
+    "./flag": "./src/flag.tsx",
+    "./theme": "./src/theme.tsx",
+    "./types": "./src/types.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/ds-explorations": "^3.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/focus-ring": "^1.3.0",

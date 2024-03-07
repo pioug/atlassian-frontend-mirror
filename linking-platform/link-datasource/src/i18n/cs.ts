@@ -39,8 +39,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Konfigurovat sloupce',
   'linkDataSource.datasource.table.authConnectButtonText': 'Připojit',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Připojte svůj účet a spolupracujte pomocí všech produktů Atlassian.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Připojte svůj účet',
+    'Připojte svůj účet {providerName} a spolupracujte pomocí všech produktů Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Připojte svůj účet {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Další informace o chytrých odkazech',
   'linkDataSource.jira-issues.accessInstructions': 'Chcete-li požádat o přístup, obraťte se na správce webu.',
   'linkDataSource.jira-issues.accessRequired': 'K tomuto obsahu nemáte přístup',

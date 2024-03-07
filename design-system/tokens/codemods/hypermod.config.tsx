@@ -6,5 +6,4 @@ export default {
     'theme-to-design-tokens': themeToDesignTokens,
     'css-to-design-tokens': cssToDesignTokens,
   },
-  dependencies: ['@hypermod/utils', 'postcss', 'postcss-less'],
 };

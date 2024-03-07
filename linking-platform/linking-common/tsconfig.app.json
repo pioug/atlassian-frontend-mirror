@@ -37,9 +37,6 @@
       "path": "../../analytics/analytics-next/tsconfig.app.json"
     },
     {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/theme/tsconfig.app.json"
     },
     {

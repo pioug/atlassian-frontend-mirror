@@ -36,7 +36,7 @@
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
     "@atlaskit/badge": "^15.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/dropdown-menu": "^12.7.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/empty-state": "^7.7.0",
@@ -50,7 +50,7 @@
     "@atlaskit/jql-editor": "^4.0.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/linking-common": "^5.3.0",
+    "@atlaskit/linking-common": "^5.4.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/modal-dialog": "^12.10.0",
@@ -88,7 +88,7 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/link-provider": "^1.7.0",
+    "@atlaskit/link-provider": "^1.8.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -137,6 +137,9 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "exports": {
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",

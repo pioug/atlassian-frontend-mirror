@@ -11,9 +11,11 @@ type MarkWrapperProps = {
   'data-align': AlignmentAttributes['align'];
 };
 
-const MarkWrapper: React.FC<
-  MarkWrapperProps & React.HTMLAttributes<HTMLDivElement>
-> = (props) => {
+const MarkWrapper = (
+  props: React.PropsWithChildren<
+    MarkWrapperProps & React.HTMLAttributes<HTMLDivElement>
+  >,
+) => {
   const styles = props['data-align']
     ? css`
         text-align: ${alignmentPositionMap[props['data-align']]};

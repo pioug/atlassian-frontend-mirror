@@ -9,6 +9,7 @@ export const resizeColumn = (
   amount: number,
   tableRef: HTMLElement,
   selectedColumns?: number[],
+  tablePreserveWidth = false,
 ): ResizeState => {
   const newState =
     amount > 0
@@ -17,7 +18,7 @@ export const resizeColumn = (
       ? shrinkColumn(resizeState, colIndex, amount, selectedColumns)
       : resizeState;
 
-  updateColgroup(newState, tableRef);
+  updateColgroup(newState, tableRef, tablePreserveWidth);
 
   return newState;
 };

@@ -26,7 +26,11 @@ export type Appearance =
   | LinkButtonAppearance
   | IconButtonAppearance;
 
-export type Spacing = 'compact' | 'default' | 'none';
+export type ButtonSpacing = 'compact' | 'default' | 'none';
+
+export type IconButtonSpacing = 'compact' | 'default';
+
+export type Spacing = ButtonSpacing | IconButtonSpacing;
 
 export type IconProp = React.ComponentType<IconProps>;
 
@@ -72,10 +76,6 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    * Handler to be called on focus.
    */
   onFocus?: React.FocusEventHandler<TagName>;
-  /**
-   * Controls the amount of padding in the button.
-   */
-  spacing?: Spacing;
   /**
    * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */

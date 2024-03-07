@@ -99,6 +99,16 @@
     "./types": "./src/types.tsx",
     "./typography": "./src/typography.tsx"
   },
+  "exports": {
+    "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
+    "./color-palettes": "./src/color-palettes.tsx",
+    "./colors": "./src/colors.tsx",
+    "./components": "./src/components.tsx",
+    "./constants": "./src/constants.tsx",
+    "./elevation": "./src/elevation.tsx",
+    "./types": "./src/types.tsx",
+    "./typography": "./src/typography.tsx"
+  },
   "homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

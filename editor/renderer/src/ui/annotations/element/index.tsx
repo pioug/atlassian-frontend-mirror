@@ -22,12 +22,12 @@ type MarkElementProps = {
   annotationType: AnnotationTypes;
 };
 
-const MarkElement: React.FC<MarkElementProps> = ({
+const MarkElement = ({
   annotationParentIds,
   children,
   dataAttributes,
   id,
-}) => {
+}: React.PropsWithChildren<MarkElementProps>) => {
   const updateSubscriber = useInlineCommentSubscriberContext();
   const states = useContext(InlineCommentsStateContext);
   const hasFocus = useHasFocusEvent({ id, updateSubscriber });

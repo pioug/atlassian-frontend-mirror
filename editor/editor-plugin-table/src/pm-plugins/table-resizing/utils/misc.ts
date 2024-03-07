@@ -1,6 +1,7 @@
 import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   getParentNodeWidth,
+  getTableContainerWidth,
   layoutToWidth,
 } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
@@ -9,7 +10,10 @@ import {
   getBreakpoint,
   mapBreakpointToLayoutMaxWidth,
 } from '@atlaskit/editor-common/ui';
-import { containsClassName } from '@atlaskit/editor-common/utils';
+import {
+  calcTableColumnWidths,
+  containsClassName,
+} from '@atlaskit/editor-common/utils';
 import type {
   NodeSpec,
   Node as PMNode,
@@ -25,6 +29,8 @@ import {
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { TableOptions } from '../../../nodeviews/types';
+
+import { hasTableBeenResized } from './colgroup';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
@@ -131,4 +137,22 @@ export const getTableMaxWidth = ({
   }
 
   return maxWidth as number;
+};
+
+/**
+ *
+ * @param table
+ * @returns calculated width of <table /> element derived from sum of colwidths on tableCell or tableHeader nodes or falls back to container width
+ */
+export const getTableElementWidth = (table: PMNode) => {
+  if (hasTableBeenResized(table)) {
+    // TODO: is there a scenario where ADF columns are SMALLER than container width?
+    return calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
+  }
+
+  return getTableContainerElement(table);
+};
+
+export const getTableContainerElement = (table: PMNode) => {
+  return getTableContainerWidth(table);
 };

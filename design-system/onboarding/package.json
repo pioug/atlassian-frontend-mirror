@@ -26,6 +26,10 @@
     ".": "./src/index.tsx",
     "./types": "./src/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx"
+  },
   "homepage": "https://atlassian.design/components/onboarding/",
   "atlassian": {
     "team": "Design System Team",
@@ -40,7 +44,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/heading": "^1.6.0",
     "@atlaskit/modal-dialog": "^12.10.0",

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ModalTransitionProps
  *
- * @codegen <<SignedSource::7b284be8ae7b757e3e215a58a2b34582>>
+ * @codegen <<SignedSource::9b09b41223e9e579242ca9c16c8ae602>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/modal/__generated__/modal-transition.partial.tsx <<SignedSource::491dc4270b549d5cb857f6c981aff128>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/modal/__generated__/modal-transition.partial.tsx <<SignedSource::910582b1aa75eb00197dd07ca5ae1d34>>
  */
 import React from 'react';
 import { ModalTransition as PlatformModalTransition } from '@atlaskit/modal-dialog';

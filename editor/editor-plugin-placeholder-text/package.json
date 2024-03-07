@@ -103,5 +103,9 @@
     ".": "./src/index.ts",
     "./styles": "./src/styles.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles": "./src/styles.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

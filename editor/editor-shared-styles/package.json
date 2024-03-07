@@ -34,6 +34,13 @@
     "./scrollbar": "./src/scrollbar-styles.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./consts": "./src/consts/index.ts",
+    "./selection": "./src/selection/index.ts",
+    "./shortcut": "./src/shortcut/index.ts",
+    "./scrollbar": "./src/scrollbar-styles.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.39.0",

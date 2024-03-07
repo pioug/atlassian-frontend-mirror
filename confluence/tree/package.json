@@ -38,6 +38,12 @@
     "./utils/mutateTree": "./src/utils/mutateTree.ts",
     "./utils/moveItemOnTree": "./src/utils/moveItemOnTree.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts",
+    "./utils/mutateTree": "./src/utils/mutateTree.ts",
+    "./utils/moveItemOnTree": "./src/utils/moveItemOnTree.ts"
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "css-box-model": "^1.2.0",

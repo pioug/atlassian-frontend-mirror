@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.7.1
+
+### Patch Changes
+
+- [#78877](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78877) [`e5ca78a1788d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5ca78a1788d) - Upgrade @atlaskit/renderer types to be React 18 compatible
+
 ## 109.7.0
 
 ### Minor Changes

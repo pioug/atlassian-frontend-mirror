@@ -40,8 +40,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Spalten konfigurieren',
   'linkDataSource.datasource.table.authConnectButtonText': 'Verbinden',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Verbinden Sie Ihr Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Konto verbinden',
+    'Verbinden Sie Ihr {providerName}-Konto, um an verschiedenen Atlassian-Produkten mitzuarbeiten.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Verbinden Sie Ihr {providerName}-Konto',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Mehr über intelligente Links erfahren',
   'linkDataSource.jira-issues.accessInstructions':
     'Wenden Sie sich an Ihren Site-Administrator, um Zugriff zu beantragen.',

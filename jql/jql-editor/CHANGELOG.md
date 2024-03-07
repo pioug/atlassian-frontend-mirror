@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 4.0.2
+
+### Patch Changes
+
+- [#77532](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77532) [`bc03b137ce3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc03b137ce3a) - Internal changes to use space tokens. There is no expected visual or behaviour change.
+
 ## 4.0.1
 
 ### Patch Changes

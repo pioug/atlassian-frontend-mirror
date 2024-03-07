@@ -20,10 +20,10 @@ const markStyles = () => css`
   ${AnnotationSharedCSSByState().focus};
 `;
 
-export const AnnotationDraft: React.FC<{ draftPosition: Position }> = ({
+export const AnnotationDraft = ({
   draftPosition,
   children,
-}) => {
+}: React.PropsWithChildren<{ draftPosition: Position }>) => {
   return (
     <mark
       data-renderer-mark={true}
@@ -95,7 +95,7 @@ type Props = {
   children: ReactNode;
 };
 
-export const TextWithAnnotationDraft: React.FC<Props> = ({
+export const TextWithAnnotationDraft = ({
   startPos,
   endPos,
   children,

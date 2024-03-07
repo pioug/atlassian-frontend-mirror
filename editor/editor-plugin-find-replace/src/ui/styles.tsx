@@ -4,7 +4,6 @@
 import { css } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N30A } from '@atlaskit/theme/colors';
 import {
   fontSize as getFontSize,
@@ -15,17 +14,15 @@ import { token } from '@atlaskit/tokens';
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
-// eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
-export const replaceSectionButtonStyles = getBooleanFF(
-  'platform.editor.a11y-find-replace',
-)
-  ? css({
-      marginLeft: token('space.050', '4px'),
-      marginRight: token('space.050', '2px'),
-    })
-  : css({
-      marginLeft: token('space.050', '4px'),
-    });
+
+export const replaceSectionButtonNewStyles = css({
+  marginLeft: token('space.050', '4px'),
+  marginRight: token('space.050', '2px'),
+});
+
+export const replaceSectionButtonOldStyles = css({
+  marginLeft: token('space.050', '4px'),
+});
 
 export const ruleStyles = css({
   width: '100%',

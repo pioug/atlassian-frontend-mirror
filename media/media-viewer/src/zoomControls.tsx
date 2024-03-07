@@ -6,7 +6,8 @@ import ZoomInIcon from '@atlaskit/icon/glyph/media-services/zoom-in';
 import { ZoomLevel } from './domain/zoomLevel';
 import {
   ZoomWrapper,
-  ZoomControlsWrapper,
+  ZoomCenterControls,
+  ZoomRightControls,
   ZoomLevelIndicator,
 } from './styleWrappers';
 import {
@@ -59,11 +60,12 @@ export class ZoomControlsBase extends Component<
     const {
       zoomLevel,
       intl: { formatMessage },
+      children,
     } = this.props;
 
     return (
       <ZoomWrapper className={hideControlsClassName}>
-        <ZoomControlsWrapper>
+        <ZoomCenterControls>
           <MediaButton
             isDisabled={!zoomLevel.canZoomOut}
             onClick={this.zoomOut}
@@ -76,8 +78,11 @@ export class ZoomControlsBase extends Component<
             onClick={this.zoomIn}
             iconBefore={<ZoomInIcon label={formatMessage(messages.zoom_in)} />}
           />
-        </ZoomControlsWrapper>
-        <ZoomLevelIndicator>{zoomLevel.asPercentage}</ZoomLevelIndicator>
+        </ZoomCenterControls>
+        <ZoomRightControls>
+          {children}
+          <ZoomLevelIndicator>{zoomLevel.asPercentage}</ZoomLevelIndicator>
+        </ZoomRightControls>
       </ZoomWrapper>
     );
   }

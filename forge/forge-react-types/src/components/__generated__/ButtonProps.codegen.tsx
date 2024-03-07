@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::f46cd7df1d740d87e0a23d2e44921e72>>
+ * @codegen <<SignedSource::9817f34df1db8276585906e785a1c0df>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/button/__generated__/index.partial.tsx <<SignedSource::628a1f3a3851bb39a0d280c0d69d46ea>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/button/__generated__/index.partial.tsx <<SignedSource::d7cad62745b29dd6ba61f46c9ca72786>>
  */
 import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
 
@@ -331,6 +331,7 @@ export type Icon =
   | 'switcher'
   | 'table'
   | 'task'
+  | 'teams'
   | 'trash'
   | 'tray'
   | 'undo'

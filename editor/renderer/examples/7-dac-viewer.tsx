@@ -10,7 +10,8 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import React from 'react';
-import { ChangeEvent, PureComponent } from 'react';
+import type { ChangeEvent } from 'react';
+import { PureComponent } from 'react';
 
 import Renderer from '../src/ui/Renderer';
 
@@ -118,7 +119,7 @@ export default class Example extends PureComponent<{}, State> {
             border: `1px solid ${token('color.border', 'lightgray')}`,
             fontFamily: 'monospace',
             fontSize: 16,
-            padding: 10,
+            padding: token('space.150', '12px'),
             width: '100%',
             height: 320,
           }}
@@ -126,7 +127,13 @@ export default class Example extends PureComponent<{}, State> {
           onChange={this.onChange}
           value={this.state.value}
         />
-        <div style={{ margin: '6px 0', maxHeight: '300px', overflow: 'auto' }}>
+        <div
+          style={{
+            margin: `${token('space.100', '8px')} 0`,
+            maxHeight: '300px',
+            overflow: 'auto',
+          }}
+        >
           {renderedContent}
         </div>
       </div>

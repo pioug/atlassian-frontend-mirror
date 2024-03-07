@@ -419,7 +419,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   }
 
   private renderNode(
-    NodeComponent: ComponentType<any>,
+    NodeComponent: ComponentType<React.PropsWithChildren<any>>,
     props: any,
     key: string,
     content: string | JSX.Element | any[] | null | undefined,
@@ -432,7 +432,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   }
 
   private renderMark(
-    MarkComponent: ComponentType<any>,
+    MarkComponent: ComponentType<React.PropsWithChildren<any>>,
     props: MarkMeta,
     key: string,
     content: any,

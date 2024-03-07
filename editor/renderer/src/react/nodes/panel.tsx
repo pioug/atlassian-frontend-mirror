@@ -25,9 +25,13 @@ interface PanelStyledProps {
   hasIcon?: boolean;
 }
 
-const PanelStyled: React.FC<
+const PanelStyled = ({
+  backgroundColor,
+  hasIcon,
+  ...props
+}: React.PropsWithChildren<
   PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
-> = ({ backgroundColor, hasIcon, ...props }) => {
+>) => {
   let styles = css`
     &.${PanelSharedCssClassName.prefix} {
       ${panelSharedStylesWithoutPrefix()}
@@ -74,7 +78,9 @@ export interface Props {
 }
 
 const panelIcons: {
-  [key in PanelType]: React.ComponentType<{ label: string }>;
+  [key in PanelType]: React.ComponentType<
+    React.PropsWithChildren<{ label: string }>
+  >;
 } = {
   info: PanelInfoIcon,
   success: PanelSuccessIcon,

@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 192.7.0
+
+### Minor Changes
+
+- [#77607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77607) [`78ab76808037`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78ab76808037) - Fixed bug where save button state was not updated correctly for when media upload is in progress or finish uploading
+
 ## 192.6.0
 
 ### Minor Changes

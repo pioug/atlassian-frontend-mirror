@@ -30,6 +30,14 @@
     "./skeleton-notification-button": "./src/skeleton-notification-button.tsx",
     "./skeleton-switcher-button": "./src/skeleton-switcher-button.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./skeleton": "./src/skeleton.tsx",
+    "./skeleton-help-button": "./src/skeleton-help-button.tsx",
+    "./skeleton-settings-button": "./src/skeleton-settings-button.tsx",
+    "./skeleton-notification-button": "./src/skeleton-notification-button.tsx",
+    "./skeleton-switcher-button": "./src/skeleton-switcher-button.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -43,7 +51,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/button": "^17.6.0",
+    "@atlaskit/button": "^17.7.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/logo": "*",

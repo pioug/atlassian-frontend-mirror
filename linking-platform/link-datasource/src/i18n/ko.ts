@@ -38,8 +38,8 @@ export default {
   'linkDataSource.column-picker.tooltip': '열 구성',
   'linkDataSource.datasource.table.authConnectButtonText': '연결',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    '계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
-  'linkDataSource.datasource.table.authScreenHeaderText': '계정을 연결하세요',
+    '{providerName} 계정을 연결하여 Atlassian 제품 전반에서 공동 작업하세요.',
+  'linkDataSource.datasource.table.authScreenHeaderText': '{providerName} 계정 연결',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': '스마트 링크에 대해 자세히 알아보세요.',
   'linkDataSource.jira-issues.accessInstructions': '액세스 권한을 요청하려면 사이트 관리자에게 문의하세요.',
   'linkDataSource.jira-issues.accessRequired': '이 콘텐츠에 대한 액세스 권한이 없습니다',

@@ -713,7 +713,9 @@ describe('Renderer - React/Nodes/Table', () => {
         attrs: { isNumberColumnEnabled: true },
       };
       const TableRowWithOriginalPos: React.FunctionComponent<
-        React.ComponentProps<typeof TableRow> & { originalIndex: number }
+        React.PropsWithChildren<
+          React.ComponentProps<typeof TableRow> & { originalIndex: number }
+        >
       > = ({ originalIndex, ...tableRowProps }) => {
         return <TableRow {...tableRowProps} />;
       };

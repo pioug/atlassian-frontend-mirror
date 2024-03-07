@@ -72,6 +72,7 @@ export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 const telepointerStyles = () => {
   const { colorMode } = getGlobalTheme();
 
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
   return css`
     #${TELEPOINTER_ID} {
       display: inline-block;
@@ -422,7 +423,8 @@ const breakoutWidthStyle = () => {
 
 const getShadowOverrides = () => {
   return getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-    ? css`
+    ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+      css`
         /** Shadow overrides */
         &.${shadowClassNames.RIGHT_SHADOW}::after,
           &.${shadowClassNames.LEFT_SHADOW}::before {
@@ -462,6 +464,7 @@ export const rendererStyles =
     const themeProps = { theme };
     const { useBlockRenderForCodeBlock } = wrapperProps;
 
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     return css`
       font-size: ${editorFontSize(themeProps)}px;
       line-height: 1.5rem;

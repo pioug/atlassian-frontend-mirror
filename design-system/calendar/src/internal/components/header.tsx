@@ -70,7 +70,7 @@ const Header = memo<HeaderProps>(function Header({
       <Inline space="space.0" alignBlock="center" spread="space-between">
         <IconButton
           appearance="subtle"
-          spacing="none"
+          spacing="compact"
           tabIndex={tabIndex}
           onClick={handlePrevMonthInteraction}
           testId={testId && `${testId}--previous-month`}
@@ -94,7 +94,7 @@ const Header = memo<HeaderProps>(function Header({
         </Box>
         <IconButton
           appearance="subtle"
-          spacing="none"
+          spacing="compact"
           tabIndex={tabIndex}
           onClick={handleNextMonthInteraction}
           testId={testId && `${testId}--next-month`}

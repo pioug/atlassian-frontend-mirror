@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
-import type { FC } from 'react';
 import {
   MediaClientContext,
   getMediaClient,
@@ -8,9 +7,12 @@ import type { MediaClientConfig } from '@atlaskit/media-core';
 import { useProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MediaSSR } from '../../types/mediaOptions';
 
-export const EditorMediaClientProvider: FC<{
+export const EditorMediaClientProvider = ({
+  children,
+  ssr,
+}: React.PropsWithChildren<{
   ssr?: MediaSSR;
-}> = ({ children, ssr }) => {
+}>) => {
   const [mediaClientConfig, setMediaClientConfig] = useState<
     MediaClientConfig | undefined
   >();

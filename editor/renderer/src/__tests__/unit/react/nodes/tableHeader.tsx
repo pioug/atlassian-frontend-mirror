@@ -65,7 +65,7 @@ describe('Renderer - React/Nodes/TableHeader', () => {
 
   describe('withSortableColumn', () => {
     let WithSortableColumn: React.ComponentType<
-      Omit<CellWithSortingProps, 'intl'>
+      React.PropsWithChildren<Omit<CellWithSortingProps, 'intl'>>
     >;
     const TestComp = ({ children }: CellWithSortingProps) => (
       <th>{children}</th>

@@ -41,8 +41,8 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Настроить столбцы',
   'linkDataSource.datasource.table.authConnectButtonText': 'Подключить',
   'linkDataSource.datasource.table.authScreenDescriptionText':
-    'Подключите свой аккаунт для совместной работы в продуктах Atlassian.',
-  'linkDataSource.datasource.table.authScreenHeaderText': 'Подключение аккаунта',
+    'Подключите свой аккаунт {providerName} для совместной работы в продуктах Atlassian.',
+  'linkDataSource.datasource.table.authScreenHeaderText': 'Подключите свой аккаунт {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Подробнее об интеллектуальных ссылках.',
   'linkDataSource.jira-issues.accessInstructions': 'Запросите доступ у администратора сайта.',
   'linkDataSource.jira-issues.accessRequired': 'У вас нет доступа к этому контенту',

@@ -13,6 +13,7 @@ import {
   addInlineComment,
   ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
+import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
 import { annotationMessages } from '@atlaskit/editor-common/messages';
 import type {
   Command,
@@ -37,10 +38,16 @@ export const buildToolbar =
     state: EditorState,
     intl: IntlShape,
     isToolbarAbove: boolean = false,
+    isCommentOnMediaOn?: boolean,
+    _supportedNodes: string[] = [],
   ): FloatingToolbarConfig | undefined => {
     const { schema } = state;
-    const selectionValid = isSelectionValid(state);
-    if (selectionValid === AnnotationSelectionType.INVALID) {
+    const selectionValid = isSelectionValid(state, isCommentOnMediaOn);
+    const isMediaSelected =
+      isCommentOnMediaOn && currentMediaNodeWithPos(state);
+
+    // comments on media can only be added via media floating toolbar
+    if (isMediaSelected || selectionValid === AnnotationSelectionType.INVALID) {
       return undefined;
     }
 

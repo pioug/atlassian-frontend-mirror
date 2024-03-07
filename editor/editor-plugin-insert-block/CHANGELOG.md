@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.4
+
+### Patch Changes
+
+- [#76323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76323) [`5beb55a40496`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5beb55a40496) - updated EXTRA_SPACE_EXCLUDING_ELEMENTLIST to fix single item scroll issue
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

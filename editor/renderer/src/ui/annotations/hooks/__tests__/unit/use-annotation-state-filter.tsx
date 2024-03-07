@@ -23,10 +23,10 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
     jest.clearAllMocks();
   });
 
-  const Wrapper: React.FC<{ states: any; children?: ReactNode }> = ({
+  const Wrapper = ({
     children,
     states,
-  }) => {
+  }: React.PropsWithChildren<{ states: any; children?: ReactNode }>) => {
     return (
       <InlineCommentsStateContext.Provider value={states}>
         {children}
@@ -40,7 +40,7 @@ describe('Annotations: Hooks/useInlineCommentsFilter', () => {
         const annotationIds: string[] = ['lol1', 'lol2'];
         const fakeFunction = jest.fn();
 
-        const CustomComp: React.FC<any> = ({ annotationIds, state }) => {
+        const CustomComp = ({ annotationIds, state }: any) => {
           const result = useInlineCommentsFilter({
             annotationIds,
             filter: {

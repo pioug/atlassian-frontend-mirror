@@ -162,7 +162,7 @@ const getSvgIconForItem = ({
 
 const getInsertMenuHeight = ({ itemCount }: { itemCount: number }) => {
   // Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.
-  const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 112;
+  const EXTRA_SPACE_EXCLUDING_ELEMENTLIST = 128;
   if (itemCount > 0 && itemCount < 6) {
     return itemCount * ELEMENT_ITEM_HEIGHT + EXTRA_SPACE_EXCLUDING_ELEMENTLIST;
   }

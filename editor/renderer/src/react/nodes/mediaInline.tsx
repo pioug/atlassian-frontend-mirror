@@ -15,7 +15,6 @@ import {
 } from '@atlaskit/media-client-react';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import type { FC } from 'react';
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -54,13 +53,13 @@ export type MediaInlineProps = {
   ssr?: MediaSSR;
 };
 
-export const RenderMediaInline: FC<RenderMediaInlineProps> = ({
+export const RenderMediaInline = ({
   rendererAppearance,
   clipboardAttrs,
   collection: collectionName,
   eventHandlers,
   identifier,
-}) => {
+}: RenderMediaInlineProps) => {
   const [contextIdentifier, setContextIdentifier] = useState<
     ContextIdentifierProvider | undefined
   >();
@@ -156,9 +155,9 @@ export const RenderMediaInline: FC<RenderMediaInlineProps> = ({
   );
 };
 
-const MediaInline: FC<
-  MediaInlineProps & WrappedComponentProps & MediaInlineAttrs
-> = (props) => {
+const MediaInline = (
+  props: MediaInlineProps & WrappedComponentProps & MediaInlineAttrs,
+) => {
   const {
     collection,
     id,

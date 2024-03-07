@@ -196,5 +196,15 @@
     "./anchor": "./src/components/anchor.tsx",
     "./responsive": "./src/responsive/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./box": "./src/components/box.tsx",
+    "./stack": "./src/components/stack.tsx",
+    "./inline": "./src/components/inline.tsx",
+    "./text": "./src/components/text.tsx",
+    "./pressable": "./src/components/pressable.tsx",
+    "./anchor": "./src/components/anchor.tsx",
+    "./responsive": "./src/responsive/index.tsx"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

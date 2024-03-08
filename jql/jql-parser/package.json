@@ -34,9 +34,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "antlr4ts": "0.5.0-alpha.4"

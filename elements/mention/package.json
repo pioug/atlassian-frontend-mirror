@@ -102,16 +102,5 @@
     "./team-resource": "./src/team-resource.ts",
     "./typeahead": "./src/typeahead.ts",
     "./types": "./src/types.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./element": "./src/element.ts",
-    "./i18n": "./src/i18n.ts",
-    "./item": "./src/item.ts",
-    "./resource": "./src/resource.ts",
-    "./shared-styles": "./src/shared-styles.ts",
-    "./team-resource": "./src/team-resource.ts",
-    "./typeahead": "./src/typeahead.ts",
-    "./types": "./src/types.ts"
   }
 }

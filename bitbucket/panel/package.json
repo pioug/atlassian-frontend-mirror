@@ -23,9 +23,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Bitbucket: CoreX",

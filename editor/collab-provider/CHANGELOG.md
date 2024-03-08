@@ -1,5 +1,23 @@
 # @atlaskit/collab-provider
 
+## 9.25.7
+
+### Patch Changes
+
+- [#79803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79803) [`05d755419b9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05d755419b9f) - NONE: remove isWebsocketFirst FF logic
+
+## 9.25.6
+
+### Patch Changes
+
+- [#79382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79382) [`e6312788d14d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6312788d14d) - Add CatchupV2 in collab-provider
+
+## 9.25.5
+
+### Patch Changes
+
+- [#79657](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79657) [`c6d2ac213900`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d2ac213900) - Add usereconcile to reinit errors
+
 ## 9.25.4
 
 ### Patch Changes

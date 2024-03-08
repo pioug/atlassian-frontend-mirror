@@ -27,12 +27,6 @@
     "./serviceUtils": "./src/serviceUtils.ts",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./serviceResources": "./src/serviceResources.ts",
-    "./serviceUtils": "./src/serviceUtils.ts",
-    "./types": "./src/types.ts"
-  },
   "atlassian": {
     "releaseModel": "continuous",
     "team": "UIP: Frontend Delivery"

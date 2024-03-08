@@ -26,10 +26,6 @@
     ".": "./src/index.ts",
     "./LocaleSelect": "./src/LocaleSelect.tsx"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./LocaleSelect": "./src/LocaleSelect.tsx"
-  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",

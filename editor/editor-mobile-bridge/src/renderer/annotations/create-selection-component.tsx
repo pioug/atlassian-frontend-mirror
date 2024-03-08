@@ -1,12 +1,13 @@
 import { memo, useCallback, useLayoutEffect, useState } from 'react';
-import { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
+import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { nativeBridgeAPI as webToNativeBridgeAPI } from '../web-to-native/implementation';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
-import RendererBridge from '../native-to-web/bridge';
+import type RendererBridge from '../native-to-web/bridge';
+import type { AnnotationPayload } from '../types';
 
 export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
   memo((props: InlineCommentSelectionComponentProps) => {
@@ -22,7 +23,8 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
     const [isDraftMode, setIsDraftMode] = useState(false);
 
     const onNativeSideCreatesAnnotation = useCallback(
-      ({ annotationId }) => {
+      (annotationPayload: AnnotationPayload | undefined) => {
+        const { annotationId } = annotationPayload!;
         onClose();
         setIsDraftMode(false);
         const result = onCreate(annotationId);

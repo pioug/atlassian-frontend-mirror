@@ -8,6 +8,7 @@ import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
 import type {
   CatchupResponse,
+  Catchupv2Response,
   ChannelEvent,
   ReconcileResponse,
   StepsPayload,
@@ -44,8 +45,8 @@ import {
 } from '../provider';
 import { commitStepQueue } from '../provider/commit-step';
 import { catchup } from './catchup';
+import { catchupv2 } from './catchupv2';
 import { StepQueueState } from './step-queue-state';
-
 import { CantSyncUpError, UpdateDocumentError } from '../errors/custom-errors';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
@@ -70,7 +71,8 @@ export class DocumentService {
    * @param participantsService - The participants service, used when users are detected active when making changes to the document
    * and to emit their telepointers from steps they add
    * @param analyticsHelper - Helper for analytics events
-   * @param fetchCatchup - Function to fetch "catchup" data, data required to rebase current steps to the latest version.
+   * @param fetchCatchup - StepMap based - Function to fetch "catchup" data, data required to rebase current steps to the latest version.
+   * @param fetchCatchupv2 - Step based - Function to fetch "catchupv2" data, data required to rebase current steps to the latest version.
    * @param fetchReconcile - Function to call "reconcile" from NCS backend
    * @param providerEmitCallback - Callback for emitting events to listeners on the provider
    * @param broadcast - Callback for broadcasting events to other clients
@@ -86,6 +88,10 @@ export class DocumentService {
       fromVersion: number,
       clientId: number | string | undefined,
     ) => Promise<CatchupResponse>,
+    private fetchCatchupv2: (
+      fromVersion: number,
+      clientId: number | string | undefined,
+    ) => Promise<Catchupv2Response>,
     private fetchReconcile: (
       currentStateDoc: string,
     ) => Promise<ReconcileResponse>,
@@ -101,6 +107,7 @@ export class DocumentService {
     private enableErrorOnFailedDocumentApply: boolean = false,
     private reconcileOnRecovery: boolean = false,
     private options: { __livePage: boolean } = { __livePage: false },
+    private enableCatchupv2: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -159,6 +166,61 @@ export class DocumentService {
       this.stepQueue.resumeQueue();
       this.processQueue();
       this.sendStepsFromCurrentState(); // this will eventually retry catchup as it calls commitStepQueue which will either catchup on onStepsAdded or onErrorHandled
+      this.stepRejectCounter = 0;
+    }
+  };
+
+  /**
+   * To prevent calling catchup to often, use lodash throttle to reduce the frequency
+   */
+  throttledCatchupv2 = throttle(() => this.catchupv2(), CATCHUP_THROTTLE, {
+    leading: false, // TODO: why shouldn't this be leading?
+    trailing: true,
+  });
+
+  /**
+   * Called when:
+   *   * session established(offline -> online)
+   *   * try to accept steps but version is behind.
+   */
+  private catchupv2 = async () => {
+    const start = new Date().getTime();
+    // if the queue is already paused, we are busy with something else, so don't proceed.
+    if (this.stepQueue.isPaused()) {
+      logger(`Queue is paused. Aborting.`);
+      return;
+    }
+    this.stepQueue.pauseQueue();
+    try {
+      await catchupv2({
+        getCurrentPmVersion: this.getCurrentPmVersion,
+        fetchCatchupv2: this.fetchCatchupv2,
+        updateMetadata: this.metadataService.updateMetadata,
+        analyticsHelper: this.analyticsHelper,
+        clientId: this.clientId,
+        onStepsAdded: this.onStepsAdded,
+      });
+      const latency = new Date().getTime() - start;
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.CATCHUP,
+        EVENT_STATUS.SUCCESS,
+        {
+          latency,
+        },
+      );
+    } catch (error) {
+      const latency = new Date().getTime() - start;
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.CATCHUP,
+        EVENT_STATUS.FAILURE,
+        {
+          latency,
+        },
+      );
+    } finally {
+      this.stepQueue.resumeQueue();
+      this.processQueue();
+      this.sendStepsFromCurrentState(); // this will eventually retry catchup as it calls throttledCommitStep which will either catchup on onStepsAdded or onErrorHandled
       this.stepRejectCounter = 0;
     }
   };
@@ -278,7 +340,12 @@ export class DocumentService {
           error,
           'Error while processing steps',
         );
-        this.throttledCatchup();
+
+        if (this.enableCatchupv2) {
+          this.throttledCatchupv2();
+        } else {
+          this.throttledCatchup();
+        }
       }
     }
   }
@@ -335,7 +402,12 @@ export class DocumentService {
           `Version too high. Expected "${expectedVersion}" but got "${data.version}. Current local version is ${currentVersion}.`,
         );
         this.stepQueue.queueSteps(data);
-        this.throttledCatchup();
+
+        if (this.enableCatchupv2) {
+          this.throttledCatchupv2();
+        } else {
+          this.throttledCatchup();
+        }
       }
       this.participantsService.updateLastActive(
         data.steps.map(({ userId }: StepJson) => userId),
@@ -407,7 +479,7 @@ export class DocumentService {
       );
       this.analyticsHelper?.sendErrorEvent(
         restoreError,
-        'Error while reinitialising document',
+        `Error while reinitialising document. Use Reconcile: ${useReconcile}`,
       );
       this.onErrorHandled({
         message: 'Caught error while trying to recover the document',
@@ -726,7 +798,12 @@ export class DocumentService {
         EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY,
         EVENT_STATUS.INFO,
       );
-      this.throttledCatchup();
+
+      if (this.enableCatchupv2) {
+        this.throttledCatchupv2();
+      } else {
+        this.throttledCatchup();
+      }
     } else {
       // If committing steps failed try again automatically in 1s
       // This makes it more likely that unconfirmed steps trigger a catch-up

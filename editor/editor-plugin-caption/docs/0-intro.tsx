@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use-only';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
 export default md`
@@ -22,7 +23,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Caption', [
   ## Usage
 ---
 
-The \`dependencies\` of the plugin are defined below:  
+The \`dependencies\` of the plugin are defined below:
 
 ${code`
 export type CaptionPlugin = NextEditorPlugin<

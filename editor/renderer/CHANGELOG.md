@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.7.3
+
+### Patch Changes
+
+- [#79344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79344) [`b6bc418abde3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6bc418abde3) - CXP-3050 Enforced design tokens and primitives on media-card
+
+## 109.7.2
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+
 ## 109.7.1
 
 ### Patch Changes

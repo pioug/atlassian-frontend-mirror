@@ -12,7 +12,7 @@ import SearchIcon from '@atlaskit/icon/glyph/editor/search';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
-import { N500 } from '@atlaskit/theme/colors';
+import { G300, N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -58,7 +58,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
     return (
       <CrossCircleIcon
         label="label"
-        primaryColor="red"
+        primaryColor={token('color.icon.danger', R400)}
         size="medium"
         testId="assets-datasource-modal--aql-invalid"
       />
@@ -68,7 +68,7 @@ const renderValidatorIcon = (lastValidationResult: AqlValidationResult) => {
     return (
       <CheckCircleIcon
         label="label"
-        primaryColor="green"
+        primaryColor={token('color.icon.success', G300)}
         size="medium"
         testId="assets-datasource-modal--aql-valid"
       />

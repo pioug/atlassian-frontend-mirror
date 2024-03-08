@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 78.11.3
+
+### Patch Changes
+
+- [#78517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78517) [`76013a9715c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76013a9715c3) - ED-22270: added valid range validation form MultiBodiedExtensionActions.changeActive
+- Updated dependencies
+
 ## 78.11.2
 
 ### Patch Changes

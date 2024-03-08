@@ -25,10 +25,6 @@
     ".": "./src/index.ts",
     "./option": "./src/option.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./option": "./src/option.ts"
-  },
   "atlassian": {
     "team": "Search Platform: Search Experience",
     "inPublicMirror": false,

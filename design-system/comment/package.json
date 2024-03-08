@@ -94,9 +94,5 @@
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

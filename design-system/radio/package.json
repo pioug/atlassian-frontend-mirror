@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,12 +34,6 @@
     }
   },
   "af:exports": {
-    "./Radio": "./src/radio.tsx",
-    "./RadioGroup": "./src/radio-group.tsx",
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx"
-  },
-  "exports": {
     "./Radio": "./src/radio.tsx",
     "./RadioGroup": "./src/radio-group.tsx",
     "./types": "./src/types.tsx",

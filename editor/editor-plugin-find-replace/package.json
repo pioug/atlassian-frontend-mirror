@@ -33,10 +33,6 @@
     ".": "./src/index.ts",
     "./styles": "./src/styles.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./styles": "./src/styles.ts"
-  },
   "dependencies": {
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/editor-common": "^78.11.0",

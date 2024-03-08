@@ -35,10 +35,6 @@
     ".": "./src/index.ts",
     "./i18n": "./src/i18n/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./i18n": "./src/i18n/index.ts"
-  },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-next": "^9.2.0",

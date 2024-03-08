@@ -26,10 +26,6 @@
     ".": "./src/index.tsx",
     "./theme": "./src/theme.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./theme": "./src/theme.tsx"
-  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",

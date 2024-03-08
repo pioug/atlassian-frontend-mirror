@@ -1,9 +1,9 @@
-import { StatelessComponent } from 'react';
+import { FunctionComponent } from 'react';
 import createNamespaceContext, { Props } from './helper/createNamespaceContext';
 
 export const NOTIFICATIONS_CONTEXT = 'NotificationsCtx';
 
-export const NotificationsAnalyticsContext: StatelessComponent<Props> =
+export const NotificationsAnalyticsContext: FunctionComponent<Props> =
   createNamespaceContext(
     NOTIFICATIONS_CONTEXT,
     'NotificationsAnalyticsContext',

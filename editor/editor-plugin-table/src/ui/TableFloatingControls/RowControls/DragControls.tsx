@@ -114,7 +114,10 @@ const DragControlsComponent = ({
   }, [editorView]);
 
   const toggleDragMenuHandler = useCallback(
-    (trigger: TriggerType, event) => {
+    (
+      trigger: TriggerType,
+      event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent> | undefined,
+    ) => {
       if (event?.shiftKey) {
         return;
       }

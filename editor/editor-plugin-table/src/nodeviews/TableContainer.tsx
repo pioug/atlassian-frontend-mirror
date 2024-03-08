@@ -177,7 +177,7 @@ export const ResizableTableContainer = React.memo(
     );
 
     const displayGapCursor = useCallback(
-      (toggle) => {
+      (toggle: boolean) => {
         return (
           pluginInjectionApi?.core?.actions.execute(
             pluginInjectionApi?.selection?.commands.displayGapCursor(toggle),

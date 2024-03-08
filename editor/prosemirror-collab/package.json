@@ -31,9 +31,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"

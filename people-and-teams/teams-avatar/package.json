@@ -36,9 +36,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/icon": "^22.1.0",

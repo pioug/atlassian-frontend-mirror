@@ -47,22 +47,6 @@
     "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
     "./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
   },
-  "exports": {
-    "./keycodes": "./src/utils/keycodes.tsx",
-    "./noop": "./src/utils/noop.tsx",
-    "./deprecation-warning": "./src/utils/deprecation-warning.tsx",
-    "./warn-once": "./src/utils/warn-once.tsx",
-    "./merge-refs": "./src/utils/merge-refs.tsx",
-    "./use-controlled": "./src/hooks/use-controlled.tsx",
-    "./use-lazy-ref": "./src/hooks/use-lazy-ref.tsx",
-    "./use-lazy-callback": "./src/hooks/use-lazy-callback.tsx",
-    "./use-state-ref": "./src/hooks/use-state-ref.tsx",
-    "./use-focus-event": "./src/hooks/use-focus-event.tsx",
-    "./use-scrollbar-width": "./src/hooks/use-scrollbar-width.tsx",
-    "./use-previous-value": "./src/hooks/use-previous-value.tsx",
-    "./use-close-on-escape-press": "./src/hooks/use-close-on-escape-press.tsx",
-    "./use-auto-focus": "./src/hooks/use-auto-focus.tsx"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "bind-event-listener": "^2.1.1"

@@ -102,7 +102,7 @@ const DropdownMenuItem = ({
   }, [item.onMouseOut, dispatchCommand]);
 
   const handleItemMouseDown = useCallback(
-    e => {
+    (e: React.MouseEvent<Element>) => {
       e.preventDefault(); // ED-16204 - This is needed for safari to get handleItemClick() to work
       if (item.onMouseDown) {
         dispatchCommand(item.onMouseDown);
@@ -119,7 +119,7 @@ const DropdownMenuItem = ({
   }, [item.tooltip, item.onMouseOver, dispatchCommand]);
 
   const handleItemMouseEnter = useCallback(
-    e => {
+    (e: React.MouseEvent | React.KeyboardEvent) => {
       if (item.onMouseEnter) {
         e.preventDefault();
         dispatchCommand(item.onMouseEnter);
@@ -129,7 +129,7 @@ const DropdownMenuItem = ({
   );
 
   const handleItemMouseLeave = useCallback(
-    e => {
+    (e: React.MouseEvent | React.KeyboardEvent) => {
       if (item.onMouseLeave) {
         e.preventDefault();
         dispatchCommand(item.onMouseLeave);
@@ -139,7 +139,7 @@ const DropdownMenuItem = ({
   );
 
   const handleItemOnFocus = useCallback(
-    e => {
+    (e: React.MouseEvent | React.KeyboardEvent) => {
       if (item.onFocus) {
         e.preventDefault();
         dispatchCommand(item.onFocus);
@@ -149,7 +149,7 @@ const DropdownMenuItem = ({
   );
 
   const handleItemOnBlur = useCallback(
-    e => {
+    (e: React.MouseEvent | React.KeyboardEvent) => {
       if (item.onBlur) {
         e.preventDefault();
         dispatchCommand(item.onBlur);
@@ -175,7 +175,7 @@ const DropdownMenuItem = ({
   /* ED-16704 - Native mouse event handler to overcome firefox issue on disabled <button> - https://github.com/whatwg/html/issues/5886 */
   const labelRef = createRef<HTMLDivElement>();
   const handleTitleWrapperMouseEvent = useCallback(
-    e => {
+    (e: any) => {
       if (item.disabled) {
         e.stopPropagation();
         e.preventDefault();

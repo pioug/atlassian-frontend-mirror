@@ -2,10 +2,12 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { token } from '@atlaskit/tokens';
+
 import { ExampleIssueLikeTable } from '../../examples-helpers/buildIssueLikeTable';
 
 const Container = styled.div({
-  margin: '50px',
+  margin: token('space.600', '48px'),
   height: '400px',
   width: '600px',
 });

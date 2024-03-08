@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/media-common';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { xcss, Box, Flex } from '@atlaskit/primitives';
 
 import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
@@ -31,17 +32,12 @@ import { TimeRange } from './timeRange';
 import { CustomMediaPlayerType } from './types';
 import {
   CurrentTime,
-  VideoWrapper,
-  CustomVideoWrapper,
-  TimebarWrapper,
   VolumeWrapper,
-  TimeWrapper,
   LeftControls,
   RightControls,
   ControlsWrapper,
   VolumeToggleWrapper,
   MutedIndicator,
-  SpinnerWrapper,
   VolumeTimeRangeWrapper,
 } from './styled';
 import {
@@ -107,6 +103,39 @@ const MEDIUM_VIDEO_MAX_WIDTH = 400;
 const SMALL_VIDEO_MAX_WIDTH = 160;
 const MINIMUM_DURATION_BEFORE_SAVING_TIME = 60;
 const VIEWED_TRACKING_SECS = 2;
+
+/* Styles */
+
+const timebarWrapperStyles = xcss({
+  position: 'absolute',
+  width: '100%',
+  bottom: 'space.100',
+});
+
+const customVideoWrapperStyles = xcss({
+  width: '100%',
+  height: '100%',
+  userSelect: 'none',
+});
+
+const videoWrapperStyles = xcss({
+  width: '100%',
+  height: '100%',
+});
+
+const timeWrapperStyles = xcss({
+  marginTop: 'space.0',
+  marginInline: 'space.250',
+  marginBottom: 'space.500',
+});
+
+const spinnerWrapperStyles = xcss({
+  position: 'absolute',
+  top: 'space.0',
+  left: 'space.0',
+  width: '100%',
+  height: '100%',
+});
 
 export class CustomMediaPlayerBase extends Component<
   CustomMediaPlayerProps & WrappedComponentProps & WithAnalyticsEventsProps,
@@ -594,9 +623,14 @@ export class CustomMediaPlayerBase extends Component<
   };
 
   private renderSpinner = () => (
-    <SpinnerWrapper>
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      xcss={spinnerWrapperStyles}
+    >
       <Spinner appearance="invert" size="large" />
-    </SpinnerWrapper>
+    </Flex>
   );
 
   private setActions(actions: VideoActions) {
@@ -801,9 +835,10 @@ export class CustomMediaPlayerBase extends Component<
     const { type, src, isAutoPlay, onCanPlay, onError, poster } = this.props;
 
     return (
-      <CustomVideoWrapper
+      <Box
+        xcss={customVideoWrapperStyles}
         ref={this.videoWrapperRef}
-        data-testid="custom-media-player"
+        testId="custom-media-player"
       >
         <MediaPlayer
           sourceType={type}
@@ -846,7 +881,7 @@ export class CustomMediaPlayerBase extends Component<
               skipForward,
             });
             return (
-              <VideoWrapper>
+              <Flex direction="column" xcss={videoWrapperStyles}>
                 <WidthObserver setWidth={this.onResize} />
                 {shortcuts}
                 {isLoading && this.renderSpinner()}
@@ -874,7 +909,7 @@ export class CustomMediaPlayerBase extends Component<
                       : getControlsWrapperClassName(this.wasPlayedOnce)
                   }
                 >
-                  <TimeWrapper>
+                  <Box xcss={timeWrapperStyles}>
                     <TimeRange
                       currentTime={currentTime}
                       bufferedTime={buffered}
@@ -882,8 +917,12 @@ export class CustomMediaPlayerBase extends Component<
                       onChange={actions.navigate}
                       onChanged={this.onTimeChanged}
                     />
-                  </TimeWrapper>
-                  <TimebarWrapper>
+                  </Box>
+                  <Flex
+                    alignItems="center"
+                    justifyContent="space-between"
+                    xcss={timebarWrapperStyles}
+                  >
                     <LeftControls>
                       {this.renderPlayPauseButton(isPlaying)}
                       {isLargePlayer &&
@@ -900,13 +939,13 @@ export class CustomMediaPlayerBase extends Component<
                       {this.renderFullScreenButton()}
                       {isLargePlayer && this.renderDownloadButton()}
                     </RightControls>
-                  </TimebarWrapper>
+                  </Flex>
                 </ControlsWrapper>
-              </VideoWrapper>
+              </Flex>
             );
           }}
         </MediaPlayer>
-      </CustomVideoWrapper>
+      </Box>
     );
   }
 }

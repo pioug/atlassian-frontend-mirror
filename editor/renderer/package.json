@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.7.1",
+  "version": "109.7.3",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -72,6 +72,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/css-reset": "^6.6.0",
+    "@atlaskit/editor-test-helpers": "^18.14.0",
     "@atlaskit/link-provider": "^1.8.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/linking-common": "^5.4.0",
@@ -144,18 +145,5 @@
     "./text-serializer": "./src/text-serializer.ts",
     "./use-feature-flags": "./src/use-feature-flags.ts",
     "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./actions": "./src/actions.ts",
-    "./consts": "./src/consts.ts",
-    "./messages": "./src/messages.ts",
-    "./render-document": "./src/render-document.ts",
-    "./renderer-context": "./src/renderer-context.tsx",
-    "./serializer": "./src/serializer.ts",
-    "./text-serializer": "./src/text-serializer.ts",
-    "./use-feature-flags": "./src/use-feature-flags.ts",
-    "./utils": "./src/utils.ts",
-    "./package.json": "./package.json"
   }
 }

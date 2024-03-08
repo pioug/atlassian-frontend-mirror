@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.23
+
+### Patch Changes
+
+- [#78361](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78361) [`195d62082a3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/195d62082a3a) - CXP-3050 Enforced design tokens and primitives
+
 ## 24.3.22
 
 ### Patch Changes

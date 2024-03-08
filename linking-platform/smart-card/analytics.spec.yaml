@@ -1,0 +1,95 @@
+common:
+  product: media
+
+context:
+  PackageMetaData: &PackageMetaDataContext
+    packageName:
+      type: string
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+
+  ResolvedAttributes: &ResolvedAttributes
+    status:
+      type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
+      description: The status of the link resolution at the time of the event.
+      required: false
+    statusDetails:
+      type: string
+      description: Provides further information of the resolved status. May be different for different status values
+      required: false
+    displayCategory:
+      type: ['smartLink', 'link']
+      description: |
+        The overarching category of what the link is shown as.
+        `smartLink` : we are able to resolve the link and is displayed as a smart link
+        `link` : we are unable to resolve the link and it is displayed as linked text or a linked URL
+    extensionKey:
+      type: string
+      required: false
+      description: The provider identifier of the resolver that was used to resolve the link
+    destinationProduct:
+      type: string
+      required: false
+      description: |
+        Which product the linked resource will navigate to when clicked.
+    destinationSubproduct:
+      type: string
+      required: false
+      description: |
+        Which subproduct will the link take you to when clicked.
+    destinationCategory:
+      type: string
+      required: false
+      description: |
+        The category of the linked object.
+        Typically value is either `object` or `comment`
+    destinationObjectId:
+      type: string
+      required: false
+      description: |
+        The `objectId` of the linked resource.
+    destinationObjectType:
+      type: string
+      required: false
+      description: |
+        The type of object of the linked resource.
+        Typically maps to `resourceType` as defined by resolvers.
+    destinationContainerId:
+      type: string
+      required: false
+      description: |
+        The `containerId` of the linked resource.
+        Eg. if the object is a Confluence page or blog post, then this value would be the ID of the "containing" space
+    destinationTenantId:
+      type: string
+      required: false
+      description: |
+        The `tenantId` of the linked resource if relevant.
+    canBeDatasource:
+      type: boolean
+      required: false
+      description: An indicator that a link can be converted to datasource view
+
+events:
+  - button clicked (aiSummary):
+      type: ui
+      description: fired when an ai summary is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - summary viewed:
+      type: ui
+      description: fired when a summary is viewed
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+        fromCache:
+          type: boolean
+          description: if the summary is from a cache
+
+  - error viewed (aiSummary):
+      type: ui
+      description: fired when a summary error is viewed
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]

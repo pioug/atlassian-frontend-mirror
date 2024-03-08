@@ -12,8 +12,6 @@ import type {
   TextFormattingOptions,
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
-import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
-import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { BasePluginOptions } from '@atlaskit/editor-plugins/base';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
@@ -59,7 +57,6 @@ export type DefaultPresetPluginOptions = {
   placeholder?: PlaceholderPluginOptions;
   textFormatting?: TextFormattingOptions;
   submitEditor?: (editorView: EditorView) => void;
-  annotationProviders?: AnnotationProviders;
   quickInsert?: QuickInsertPluginOptions;
   codeBlock?: CodeBlockOptions;
   selection?: SelectionPluginOptions;
@@ -128,10 +125,6 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
     )
     .add([blockTypePlugin, options.blockType])
     .add(clearMarksOnEmptyDocPlugin)
-    .maybeAdd(
-      [annotationPlugin, options.annotationProviders],
-      Boolean(options.annotationProviders),
-    )
     .maybeAdd(
       [
         selectionToolbarPlugin,

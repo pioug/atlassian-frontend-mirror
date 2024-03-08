@@ -11,6 +11,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import Flag from '@atlaskit/flag';
 import Warning from '@atlaskit/icon/glyph/warning';
 import {
@@ -36,7 +37,6 @@ import type { Error } from '../ErrorReport';
 import { ErrorReport } from '../ErrorReport';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
 import * as FeatureFlagUrl from '../feature-flag-url';
-import { getExampleExtensionProviders } from '../get-example-extension-providers';
 
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { KitchenSinkControls } from './kitchen-sink-controls';

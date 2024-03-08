@@ -10,7 +10,10 @@ import {
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import type {
+  Command,
+  TextFormattingState,
+} from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
@@ -32,7 +35,7 @@ export const useClearIcon = ({
     toolbarMessages.clearFormatting,
   );
 
-  const clearFormattingToolbar = useCallback(
+  const clearFormattingToolbar: Command = useCallback(
     (state, dispatch) =>
       clearFormattingWithAnalytics(INPUT_METHOD.TOOLBAR, editorAnalyticsAPI)(
         state,

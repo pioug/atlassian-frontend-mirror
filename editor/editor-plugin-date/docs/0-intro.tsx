@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use-only';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
 export default md`
@@ -20,7 +21,7 @@ This package includes the date plugin used by \`@atlaskit/editor-core\`.
 ---
 
 The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
-below:  
+below:
 
 ${code`
 type DatePlugin = NextEditorPlugin<

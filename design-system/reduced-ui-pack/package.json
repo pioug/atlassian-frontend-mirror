@@ -52,9 +52,6 @@
   "af:exports": {
     ".": "./src/bundle.css"
   },
-  "exports": {
-    ".": "./src/bundle.css"
-  },
   "homepage": "https://atlaskit.atlassian.com/packages/css-packs/reduced-ui-pack",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

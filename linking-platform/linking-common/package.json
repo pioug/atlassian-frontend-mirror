@@ -75,16 +75,6 @@
     "./sentry": "./src/sentry/index.ts",
     ".": "./src/index.ts"
   },
-  "exports": {
-    "./types": "./src/types.ts",
-    "./url": "./src/url.ts",
-    "./user-agent": "./src/user-agent/index.ts",
-    "./utils": "./src/utils/index.ts",
-    "./hooks": "./src/hooks/index.ts",
-    "./mocks": "./src/common/mocks/index.ts",
-    "./sentry": "./src/sentry/index.ts",
-    ".": "./src/index.ts"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {}
 }

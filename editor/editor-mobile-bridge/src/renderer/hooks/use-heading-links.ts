@@ -9,16 +9,19 @@ import {
   EmitterEvents,
   eventDispatcher as mobileBridgeEventDispatcher,
 } from '../dispatcher';
-import { HeadingAnchorLinksProps } from '@atlaskit/renderer';
+import type { HeadingAnchorLinksProps } from '@atlaskit/renderer';
 
 export function useHeadingLinks(
   allowHeadingAnchorLinks: boolean,
 ): HeadingAnchorLinksProps {
   const [activeHeadingId, setActiveHeadingId] = useState<undefined | string>();
 
-  const receiveNewActiveHeadingId = useCallback((headingId) => {
-    setActiveHeadingId(headingId);
-  }, []);
+  const receiveNewActiveHeadingId = useCallback(
+    (headingId: string | undefined) => {
+      setActiveHeadingId(headingId);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (activeHeadingId) {

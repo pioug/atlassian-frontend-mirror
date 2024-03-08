@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-jira-transformer",
-  "version": "8.3.33",
+  "version": "8.3.34",
   "description": "Editor JIRA transformer's",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,15 +31,6 @@
     "./schema": "./src/schema.ts",
     "./utils": "./src/utils.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./collapse-whitespace": "./src/collapse-whitespace.ts",
-    "./emojiHelper": "./src/emojiHelper.ts",
-    "./fix-doc": "./src/fix-doc.ts",
-    "./parse-html": "./src/parse-html.ts",
-    "./schema": "./src/schema.ts",
-    "./utils": "./src/utils.ts"
-  },
   "atlassian": {
     "team": "Editor: ADF",
     "inPublicMirror": true,
@@ -61,7 +52,7 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^192.7.0",
+    "@atlaskit/editor-core": "^193.0.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-test-helpers": "^18.19.0",
     "@atlaskit/theme": "^12.6.0",

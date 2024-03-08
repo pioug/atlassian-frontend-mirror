@@ -185,9 +185,10 @@ describe('DocumentService onRestore', () => {
         { numUnconfirmedSteps: 2, useReconcile: false },
       );
       expect(sendErrorEventSpy).toBeCalledTimes(2);
-      expect(sendErrorEventSpy).toBeCalledWith(
+      expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+        1,
         testError,
-        'Error while reinitialising document',
+        'Error while reinitialising document. Use Reconcile: false',
       );
       expect(sendProviderErrorEventSpy).toBeCalledTimes(1);
       expect(onErrorHandledSpy).toBeCalledTimes(1);
@@ -234,7 +235,7 @@ describe('DocumentService onRestore', () => {
       expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
         1,
         testError,
-        'Error while reinitialising document',
+        'Error while reinitialising document. Use Reconcile: false',
       );
       expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
         2,

@@ -7,10 +7,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clickAreaClickHandler } from '../click-area-helper';
 
-const clickWrapper = css`
-  flex-grow: 1;
-  height: 100%;
-`;
+const clickWrapper = css({
+  flexGrow: 1,
+  height: '100%',
+});
 
 export interface Props {
   editorView?: EditorView;
@@ -24,7 +24,7 @@ export const ClickAreaBlock = ({
   children,
 }: Props) => {
   const handleMouseDown = React.useCallback(
-    (event) => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (!editorView) {
         return;
       }

@@ -225,7 +225,8 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
   }, [enableKeyboardMode, setSize]);
 
   const handleKeyDown = useCallback(
-    event => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
       if (event.key === 'ArrowDown') {
         enableKeyboardMode();
 

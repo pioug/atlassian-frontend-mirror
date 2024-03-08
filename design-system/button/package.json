@@ -81,15 +81,6 @@
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./button-group": "./src/entry-points/button-group.tsx",
-    "./custom-theme-button": "./src/entry-points/custom-theme-button.tsx",
-    "./loading-button": "./src/entry-points/loading-button.tsx",
-    "./standard-button": "./src/entry-points/standard-button.tsx",
-    "./new": "./src/entry-points/new.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",

@@ -14,6 +14,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { getConfluenceMacrosExtensionProvider } from '@atlaskit/editor-test-helpers/example-helpers';
+import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+  getXProductExtensionProvider,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { APIError } from '@atlaskit/linking-common';
@@ -28,12 +34,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { createSearchProvider, Scope } from '@atlassian/search-provider';
 
 import { MockActivityResource } from '../example-helpers/activity-provider';
-import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
-import {
-  ExampleCreateInlineCommentComponent,
-  ExampleViewInlineCommentComponent,
-} from '../example-helpers/example-inline-comment-component';
-import { getXProductExtensionProvider } from '../example-helpers/fake-x-product-extensions';
 import type { EditorNextProps, EditorProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';
 

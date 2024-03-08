@@ -1,6 +1,10 @@
 import { getState } from '@atlaskit/editor-test-helpers/annotation';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '@atlaskit/editor-test-helpers/example-helpers';
+import {
   annotationSelectors,
   evaluateCoordinates,
   scrollToBottom,
@@ -21,11 +25,6 @@ import {
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
-import {
-  ExampleCreateInlineCommentComponent,
-  ExampleViewInlineCommentComponent,
-} from '../../../../example-helpers/example-inline-comment-component';
 
 import adfWithTable from './__fixtures__/toolbar-position-table.adf.json';
 import adf from './__fixtures__/toolbar-position.adf.json';

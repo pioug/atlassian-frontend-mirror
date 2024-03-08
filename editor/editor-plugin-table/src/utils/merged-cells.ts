@@ -259,13 +259,17 @@ export const checkEdgeHasMergedCells = (
   const { mapByRow, mapByColumn } = tableMap;
   const map = 'row' === direction ? mapByRow : mapByColumn;
   const lengthLimiter = direction === 'row' ? tableMap.width : tableMap.height;
-
   let minIndex = Math.min(...indexes);
   let maxIndex = Math.max(...indexes);
   let isTopSideHaveMergedCells = false;
   let isBottomSideHaveMergedCells = false;
-  let isOldMinIndex = !map[minIndex - 1] && !map[minIndex];
-  let isOldMaxIndex = !map[maxIndex + 1] && !map[maxIndex];
+
+  /**
+   * this is to check if the cell position from last focused table is overflow. since if you selection from a cell in 6th row and 7th column cell in a 7x8 table to 3x3 table, the cell position will be overflow because new table dont have this cell at all.
+   TODO: ED-22335 this should better called only when hover over the drag handle.
+  */
+  let isOldMinIndex = !map[minIndex - 1] || !map[minIndex];
+  let isOldMaxIndex = !map[maxIndex + 1] || !map[maxIndex];
 
   if (minIndex > 0 && !isOldMinIndex) {
     const prevSelectionSet = map[minIndex - 1];

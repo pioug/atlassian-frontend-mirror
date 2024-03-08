@@ -10,6 +10,7 @@ import Button from '@atlaskit/button/standard-button';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -20,7 +21,6 @@ import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { TitleInput } from '../example-helpers/PageElements';
 import type { EditorActions } from '../src';
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';

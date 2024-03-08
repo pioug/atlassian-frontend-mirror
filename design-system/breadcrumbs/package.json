@@ -38,11 +38,6 @@
     "./Breadcrumbs": "./src/entry-points/breadcrumbs.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./BreadcrumbsItem": "./src/entry-points/breadcrumbs-item.tsx",
-    "./Breadcrumbs": "./src/entry-points/breadcrumbs.tsx",
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.7.0",

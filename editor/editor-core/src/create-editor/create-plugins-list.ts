@@ -96,7 +96,6 @@ export function getDefaultPresetOptionsFromEditorProps(
           ? props.textFormatting.responsiveToolbarMenu
           : props.allowUndoRedoButtons,
     },
-    annotationProviders: props.annotationProviders,
     submitEditor: props.onSave,
     quickInsert: {
       enableElementBrowser:

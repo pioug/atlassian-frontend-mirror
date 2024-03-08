@@ -74,9 +74,6 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
   "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

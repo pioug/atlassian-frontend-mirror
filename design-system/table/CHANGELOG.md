@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.4.25
+
+### Patch Changes
+
+- [#78598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78598) [`cabae83473c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabae83473c3) - [ux] Focus styles for Checkbox and Radio components
+
 ## 0.4.24
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.4.1
+
+### Patch Changes
+
+- [#79378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79378) [`1292c9f03c9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1292c9f03c9f) - Apply spacing token to media-ui
+
 ## 25.4.0
 
 ### Minor Changes

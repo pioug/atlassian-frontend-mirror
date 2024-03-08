@@ -28,9 +28,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "@types/json5": "^0.0.30",

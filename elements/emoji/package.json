@@ -110,16 +110,6 @@
     "./types": "./src/types.ts",
     "./utils": "./src/utils.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./admin": "./src/admin.ts",
-    "./element": "./src/element.ts",
-    "./picker": "./src/picker.ts",
-    "./resource": "./src/resource.ts",
-    "./typeahead": "./src/typeahead.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {

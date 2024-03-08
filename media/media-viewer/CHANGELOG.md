@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.3.5
+
+### Patch Changes
+
+- [#79731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79731) [`f41d502dc466`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f41d502dc466) - fix missing password pdf support for media-viewer v2
+  fix a11y issue for password error message
+
 ## 48.3.4
 
 ### Patch Changes

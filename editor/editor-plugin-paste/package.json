@@ -32,9 +32,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/editor-common": "^78.11.0",
     "@atlaskit/editor-markdown-transformer": "^5.4.0",

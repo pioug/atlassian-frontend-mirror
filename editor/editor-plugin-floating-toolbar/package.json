@@ -23,9 +23,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/button": "^17.7.0",

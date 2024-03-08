@@ -116,11 +116,11 @@ const contentContainerStyles = css({
 
 const placeholderSmartLinkStyles = css({
   backgroundColor: token('elevation.surface.raised', N0),
-  borderRadius: '3px',
+  borderRadius: token('border.radius.200', '3px'),
   boxShadow:
     '0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
   color: token('color.text.brand', B400),
-  padding: `0px ${token('space.025', '2px')}`,
+  padding: `${token('space.0', '0px')} ${token('space.025', '2px')}`,
 });
 
 const issueCountStyles = css({
@@ -129,7 +129,7 @@ const issueCountStyles = css({
 });
 
 const smartLinkContainerStyles = css({
-  paddingLeft: '1px',
+  paddingLeft: token('space.025', '2px'),
 });
 
 const getDisplayValue = (

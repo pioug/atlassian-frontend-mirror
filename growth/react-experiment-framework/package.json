@@ -29,14 +29,6 @@
     "./asExperiment": "./src/asExperiment.tsx",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./CohortTracker": "./src/CohortTracker.ts",
-    "./ExperimentContext": "./src/ExperimentContext.ts",
-    "./ExperimentController": "./src/ExperimentController.tsx",
-    "./asExperiment": "./src/asExperiment.tsx",
-    "./types": "./src/types.ts"
-  },
   "atlassian": {
     "team": "Growth: Groot",
     "releaseModel": "continuous",

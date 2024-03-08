@@ -284,7 +284,7 @@ The full page examples in the storybook use the \`ExampleViewInlineCommentCompon
 
 ${code`
 import { Editor } from '@atlaskit/editor-core';
-import { ExampleViewInlineCommentComponent } from '@atlaskit/editor-core/examples-helpers/example-inline-comment-component';
+import { ExampleViewInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
 
 class MyEditor extends React.Component {
   render() {

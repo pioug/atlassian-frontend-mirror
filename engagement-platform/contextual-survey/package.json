@@ -27,11 +27,6 @@
     "./constants": "./src/constants.ts",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./constants": "./src/constants.ts",
-    "./types": "./src/types.ts"
-  },
   "atlassian": {
     "team": "Personalization",
     "releaseModel": "continuous",

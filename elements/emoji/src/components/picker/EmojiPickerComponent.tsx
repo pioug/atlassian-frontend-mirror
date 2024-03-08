@@ -469,7 +469,7 @@ const EmojiPickerComponent = ({
   }, [emojiProvider, fireAnalytics]);
 
   const scrollToUploadedEmoji = useCallback(
-    (emojiDescription) => {
+    (emojiDescription: EmojiDescription) => {
       if (emojiPickerList.current) {
         // Wait a tick to ensure repaint and updated height for picker list
         window.setTimeout(() => {

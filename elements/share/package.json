@@ -117,10 +117,5 @@
     "./clients": "./src/clients/index.ts",
     "./copy-link-button": "./src/components/CopyLinkButton.tsx"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./clients": "./src/clients/index.ts",
-    "./copy-link-button": "./src/components/CopyLinkButton.tsx"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

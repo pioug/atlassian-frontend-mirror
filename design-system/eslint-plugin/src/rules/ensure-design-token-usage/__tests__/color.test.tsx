@@ -343,6 +343,23 @@ const colorTests: Tests = {
           });
         `,
     },
+    {
+      code: `
+          import { Box } from '@atlaskit/primitives';
+          <>
+            <Box backgroundColor="color.background.accent.yellow.subtle"></Box>
+            <Box backgroundColor={ someConditional ? "color.background.accent.yellow.subtle" : "color.background.accent.blue.bolder"}></Box>
+            <Box backgroundColor="color.background.neutral.bold"></Box>
+            <Box backgroundColor="color.background.accent.blue.bolder"></Box>
+          </>
+        `,
+    },
+    {
+      code: `
+          import { Text } from '@atlaskit/primitives';
+          <Text color="color.text.accent.yellow"></Text>
+        `,
+    },
   ],
   invalid: [
     {

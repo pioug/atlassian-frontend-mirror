@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.48.8
+
+### Patch Changes
+
+- [#74079](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74079) [`22faab8a24e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22faab8a24e4) - Adds analytics for ai summary action and ai summary viewing.
+
 ## 26.48.7
 
 ### Patch Changes

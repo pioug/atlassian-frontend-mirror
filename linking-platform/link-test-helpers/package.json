@@ -34,13 +34,6 @@
     "./images": "./src/images/index.ts",
     ".": "./src/index.ts"
   },
-  "exports": {
-    "./jest": "./src/jest/index.ts",
-    "./datasource": "./src/datasource/index.ts",
-    "./assets": "./src/datasource/assets/index.ts",
-    "./images": "./src/images/index.ts",
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/linking-types": "^8.7.0",
     "@babel/runtime": "^7.0.0",

@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { ModeSwitcher } from '../../src/ui/jira-issues-modal/mode-switcher';
 
 const exampleModes = [
@@ -23,7 +25,7 @@ const containerStyles = css({
 });
 
 const lineStyles = css({
-  margin: '10px',
+  margin: token('space.150', '12px'),
 });
 
 export default () => {

@@ -1,5 +1,12 @@
 # @atlaskit/embedded-document
 
+## 0.9.22
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+- Updated dependencies
+
 ## 0.9.21
 
 ### Patch Changes

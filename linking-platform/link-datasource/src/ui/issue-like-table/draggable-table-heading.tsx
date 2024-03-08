@@ -54,17 +54,22 @@ type DraggableState =
       initialWidth: number;
     };
 
-const DropdownParent = styled.div`
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  & button {
-    text-align: left; /* By default button center in the middle without props to control it */
-    height: auto; /* By default button is not happy with tall (up to lines in our case) content */
-    padding-left: 0px; /* By default button's padding left and right is 8 + 4. We control that 8, so left with 4 that we need.  */
-    padding-right: 0px;
-  }
-`;
+const DropdownParent = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  whiteSpace: 'nowrap',
+  '& button': {
+    textAlign:
+      'left' /* By default button center in the middle without props to control it */,
+    height:
+      'auto' /* By default button is not happy with tall (up to lines in our case) content */,
+    paddingLeft: token(
+      'space.0',
+      '0px',
+    ) /* By default button's padding left and right is 8 + 4. We control that 8, so left with 4 that we need.  */,
+    paddingRight: token('space.0', '0px'),
+  },
+});
 
 const dropTargetStyles = css({
   position: 'absolute',

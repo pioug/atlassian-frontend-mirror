@@ -25,7 +25,7 @@ type SkeletonProps = {
 
 const SkeletonComponent = ({ width, itemName }: SkeletonProps) => (
   <Skeleton
-    borderRadius={8}
+    borderRadius={token('border.radius.100', '8px')}
     testId={`${itemName}-empty-state-skeleton`}
     height={14}
     width={width}
@@ -134,7 +134,7 @@ export default ({ isCompact, testId }: Props) => {
         // the IssueLikeDataTableView wraps the table in a container with the styling below while modal doesn't
         // this maxHeight comes from scrollableContainerHeight
         maxHeight: ScrollableContainerHeight,
-        padding: 0,
+        padding: token('space.0', '0px'),
         boxSizing: 'border-box',
       }}
     >

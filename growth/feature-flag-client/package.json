@@ -6,10 +6,6 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./types": "./src/types.ts"
-  },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

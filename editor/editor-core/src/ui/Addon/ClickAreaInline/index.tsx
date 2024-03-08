@@ -6,9 +6,9 @@ import { css, jsx } from '@emotion/react';
 import { createParagraphAtEnd } from '@atlaskit/editor-common/commands';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-const clickArea = css`
-  flex-grow: 1;
-`;
+const clickArea = css({
+  flexGrow: 1,
+});
 
 export interface Props {
   editorView?: EditorView;
@@ -17,7 +17,7 @@ export interface Props {
 
 export const ClickAreaInline = ({ editorView, children }: Props) => {
   const handleMouseDown = React.useCallback(
-    (event) => {
+    (event: React.MouseEvent<HTMLDivElement>) => {
       if (!editorView) {
         return;
       }

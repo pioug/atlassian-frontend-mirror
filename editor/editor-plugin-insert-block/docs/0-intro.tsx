@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
-import { createEditorUseOnlyNotice } from '@atlaskit/editor-core/docs/editor-use-only';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { token } from '@atlaskit/tokens';
 
 export default md`
@@ -23,7 +25,7 @@ ${createEditorUseOnlyNotice('Editor Plugin Insert Block', [
 ---
 
 The \`dependencies\`, \`configuration\`, \`state\`, \`actions\`, and \`commands\` of the plugin are defined
-below:  
+below:
 
 ${code`
 type InsertBlockPlugin = NextEditorPlugin<

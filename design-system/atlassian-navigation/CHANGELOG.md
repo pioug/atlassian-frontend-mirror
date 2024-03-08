@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 3.2.4
+
+### Patch Changes
+
+- [#77467](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77467) [`8d01fc556d89`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d01fc556d89) - Add prop `shouldRenderToParent` to `PrimaryItemsContainer` and `PrimaryItemsContainerV2`. It makes the content visible in nested menu.
+
 ## 3.2.3
 
 ### Patch Changes

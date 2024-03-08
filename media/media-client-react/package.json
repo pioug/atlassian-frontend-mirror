@@ -30,10 +30,6 @@
     ".": "./src/index.ts",
     "./test-helpers": "./src/test-helpers/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./test-helpers": "./src/test-helpers/index.ts"
-  },
   "dependencies": {
     "@atlaskit/media-client": "^26.2.0",
     "@babel/runtime": "^7.0.0",

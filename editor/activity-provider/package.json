@@ -26,10 +26,6 @@
     "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
-  "exports": {
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
   "atlassian": {
     "website": {
       "name": "@atlaskit/activity-provider",

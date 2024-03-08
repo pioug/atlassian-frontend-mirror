@@ -8,12 +8,11 @@ import type {
 import { find } from '@atlaskit/editor-common/quick-insert';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 
 import type EditorActions from '../src/actions';
 import { usePresetContext } from '../src/presets/context';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-
-import { getExampleExtensionProviders } from './get-example-extension-providers';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 

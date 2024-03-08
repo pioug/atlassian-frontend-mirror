@@ -95,9 +95,17 @@ const TypeAheadListComponent = React.memo(
       }),
     );
 
-    const onItemsRendered = useCallback(props => {
-      lastVisibleIndexes.current = props;
-    }, []);
+    const onItemsRendered = useCallback(
+      (props: {
+        overscanStartIndex: number;
+        overscanStopIndex: number;
+        startIndex: number;
+        stopIndex: number;
+      }) => {
+        lastVisibleIndexes.current = props;
+      },
+      [],
+    );
 
     const actions = useMemo(() => ({ onItemClick }), [onItemClick]);
 
@@ -135,7 +143,8 @@ const TypeAheadListComponent = React.memo(
     const lastVisibleStartIndex = lastVisibleIndexes.current.startIndex;
     const lastVisibleStopIndex = lastVisibleIndexes.current.stopIndex;
     const onScroll = useCallback(
-      ({ scrollUpdateWasRequested }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ({ scrollUpdateWasRequested }: any) => {
         if (!scrollUpdateWasRequested) {
           return;
         }
@@ -353,15 +362,17 @@ const TypeAheadListComponent = React.memo(
             overscanRowCount={3}
             containerRole="presentation"
             role="listbox"
-            css={css`
-              button {
-                padding: ${token('space.150', '12px')}
-                  ${token('space.150', '12px')} 11px;
-                span:last-child span:last-child {
-                  white-space: normal;
-                }
-              }
-            `}
+            css={css({
+              button: {
+                padding: `${token('space.150', '12px')} ${token(
+                  'space.150',
+                  '12px',
+                )} 11px`,
+                'span:last-child span:last-child': {
+                  whiteSpace: 'normal',
+                },
+              },
+            })}
           />
           <TypeaheadAssistiveTextPureComponent
             numberOfResults={items.length.toString()}

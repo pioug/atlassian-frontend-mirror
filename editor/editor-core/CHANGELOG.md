@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 193.0.0
+
+### Major Changes
+
+- [#78867](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78867) [`283c8a390db7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/283c8a390db7) - Move annotation plugin from default preset to universal preset
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+
 ## 192.7.0
 
 ### Minor Changes

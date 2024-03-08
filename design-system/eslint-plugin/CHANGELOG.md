@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.36.1
+
+### Patch Changes
+
+- [#79810](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79810) [`8c6e96aa3cf0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c6e96aa3cf0) - Fixed an issue with `ensure-design-token-usage` where color props on primitive components could report an error.
+
 ## 8.36.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "9.25.4",
+  "version": "9.25.7",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,12 +31,6 @@
     ]
   },
   "af:exports": {
-    ".": "./src/index.ts",
-    "./socket-io-provider": "./src/socket-io-provider.ts",
-    "./types": "./src/types.ts",
-    "./version-wrapper": "./src/version-wrapper.ts"
-  },
-  "exports": {
     ".": "./src/index.ts",
     "./socket-io-provider": "./src/socket-io-provider.ts",
     "./types": "./src/types.ts",

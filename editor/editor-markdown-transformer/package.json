@@ -26,10 +26,6 @@
     ".": "./src/index.ts",
     "./media": "./src/media.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./media": "./src/media.ts"
-  },
   "atlassian": {
     "team": "Editor: ADF",
     "inPublicMirror": true,

@@ -39,10 +39,6 @@
     "./drag-handle-button": "./src/drag-handle-button.tsx",
     "./drag-handle-button-small": "./src/drag-handle-button-small.tsx"
   },
-  "exports": {
-    "./drag-handle-button": "./src/drag-handle-button.tsx",
-    "./drag-handle-button-small": "./src/drag-handle-button-small.tsx"
-  },
   "dependencies": {
     "@atlaskit/focus-ring": "^1.3.4",
     "@atlaskit/icon": "^22.1.0",

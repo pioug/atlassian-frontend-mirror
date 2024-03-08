@@ -12,6 +12,7 @@ export default {
   'fabric.editor.addAltText': '⁣⁢Alt text‌⁭‍⁡⁫⁪⁡⁪⁪⁠⁫؜‍⁭⁪⁡‌⁪‍⁪‌⁯⁠‌⁭⁣⁤',
   'fabric.editor.addColumnLeft': '⁣⁢Add column left؜⁯⁪؜⁡؜⁫؜⁫‌⁭⁠؜⁫⁠⁠⁯⁠‍⁭⁣⁤',
   'fabric.editor.addColumnRight': '⁣⁢Add column right⁮⁠؜⁠⁬⁮⁮⁯‌⁠⁫⁬‍⁮‌⁪؜⁠‌‌⁡⁡⁣⁤',
+  'fabric.editor.addCommentOnMedia': '⁣⁢Add comment⁭‌⁠⁭⁯‍؜؜⁪‌⁪⁯⁪⁮⁪⁡‌؜⁫⁬⁮⁫⁡⁫⁡⁭⁣⁤',
   'fabric.editor.addImageBorder': '⁣⁢Add border⁬‍⁭⁪⁪⁯‌؜⁮⁬⁬⁡⁪‍؜⁮⁯⁯‌⁭⁪⁣⁤',
   'fabric.editor.addMediaFiles': '⁣⁢Add image, video, or file‌⁭‍؜؜⁪⁭⁯‍‍؜‍⁬؜⁮⁬⁬⁬⁯؜⁮‍⁣⁤',
   'fabric.editor.addRowAbove': '⁣⁢Add row above‌‍‍⁡⁠⁯⁭‌⁬⁬‍⁪⁡⁯⁯⁡⁭؜⁠⁯⁮‌⁠⁯⁬⁣⁤',
@@ -27,7 +28,7 @@ export default {
   'fabric.editor.alttext.validation': '⁣⁢Please remove any special characters in alt text.⁮؜؜⁯؜⁡⁫⁭⁪⁡⁠⁯⁡⁪⁪⁬⁠⁬⁣⁤',
   'fabric.editor.annotationToolbar': '⁣⁢Annotation toolbar⁯؜‌⁭⁫⁬⁠‍⁡⁬⁮⁭⁯⁠⁠⁡⁪‌⁫⁠‌⁫⁯⁣⁤',
   'fabric.editor.backLink': '⁣⁢Go back‍⁡⁮⁬⁭⁫⁭⁠⁠⁭⁬⁫‍⁠⁯⁡‌⁠⁠؜⁪⁭⁣⁤',
-  'fabric.editor.backgroundColor': '⁣⁢Background Color⁡⁪‌⁫⁡⁠⁪⁮⁠⁪⁭⁠⁮‌‌⁮؜⁪‍⁡⁡‍‍⁪⁫⁣⁤',
+  'fabric.editor.backgroundColor': '⁣⁢Background color⁪‍⁫⁬⁯⁬⁪⁯‍⁬⁭⁪؜⁭⁬⁪‍⁮⁫⁬⁯⁡⁣⁤',
   'fabric.editor.blockCardUnavailable':
     '⁣⁢The inline link is inside {node} and cannot have its view changed⁮⁬⁫⁮⁬⁮‌⁬⁭⁠⁯⁬⁫‌⁠⁯⁪‍⁠⁪⁮⁣⁤',
   'fabric.editor.blockDescription':
@@ -111,7 +112,7 @@ export default {
   'fabric.editor.decision.description': '⁣⁢Capture decisions so they’re easy to track‌‌⁮‌‍⁭‌؜⁪⁭⁭⁪⁪‌⁡⁮‌⁭‍⁯‌⁡⁠⁬⁭⁮⁪⁮⁣⁤',
   'fabric.editor.decisionPlaceholder': '⁣⁢Add a decision…⁯⁭⁠⁡‌⁮⁭⁫‍⁫⁫⁬؜⁬⁪‍⁠⁭‍⁮⁮⁣⁤',
   'fabric.editor.decreaseSize': '⁣⁢Decrease size⁫⁡⁭‍⁬⁬؜⁮‍‌⁮⁭⁭⁯⁮‍⁬⁬⁣⁤',
-  'fabric.editor.defaultAltText': '⁣⁢List item⁮⁯⁬⁭⁫‌‍⁮⁠‌⁪⁠⁬⁪⁯‍⁫⁬؜⁠⁣⁤',
+  'fabric.editor.defaultAltText': '⁣⁢Document⁠‌⁠⁬‍⁬⁠⁮⁯⁬⁡⁬‍⁮⁭‍⁮⁬⁣⁤',
   'fabric.editor.description': '⁣⁢Description⁫⁬‌⁪؜⁬⁭‍‌؜⁮⁫‌⁮⁭‌⁮؜⁫⁮⁬‌⁡⁡⁣⁤',
   'fabric.editor.displayBlock': '⁣⁢Display card⁡؜‍⁫‌⁪⁫⁫⁭‌؜‌⁪⁮⁡‍⁮‍⁣⁤',
   'fabric.editor.displayEmbed': '⁣⁢Display embed⁭⁫⁯⁪‍؜‌؜⁬؜‌⁬⁯⁪⁮⁬؜⁫⁬‌⁯⁣⁤',
@@ -125,6 +126,7 @@ export default {
   'fabric.editor.ecombedDescription': '⁣⁢Display an interactive preview of a link‍⁪⁡⁡‍؜⁮⁪⁮؜⁪؜⁪⁡⁯⁡⁯⁭⁪⁭⁣⁤',
   'fabric.editor.edit': '⁣⁢Edit⁫⁠⁭‌⁮؜⁯‍؜⁬⁯⁪⁮‌⁫⁫⁮⁠⁭⁭⁪⁠‍؜⁡⁣⁤',
   'fabric.editor.edit.datasource': '⁣⁢Edit search query⁪⁬⁠⁬⁬⁡⁬⁫⁡⁠؜⁯؜⁬‍؜⁡⁣⁤',
+  'fabric.editor.edit.searchInput': '⁣⁢Add a link⁠⁮⁯⁠⁫⁯⁯⁫⁮⁭⁭⁠‍⁡‍⁪⁣⁤',
   'fabric.editor.editAltText': '⁣⁢Edit alt text⁠⁪‍⁭⁫⁫⁯⁬؜⁭⁫⁮⁫؜⁡⁠‌⁯⁭⁭⁡⁯⁣⁤',
   'fabric.editor.editDateText': '⁣⁢Edit Date‍⁯⁫⁬⁬؜‍⁪؜‌⁭؜⁪⁠‌⁠⁭⁫⁮⁮⁫⁣⁤',
   'fabric.editor.editLink': '⁣⁢Edit link⁮⁪⁡‍؜‌‍‌⁫‍⁫⁯؜‍⁮⁡⁭⁪⁯⁣⁤',
@@ -136,6 +138,7 @@ export default {
   'fabric.editor.editors': '⁣⁢Editors⁠⁭‍⁫⁮⁡‌⁭⁪⁭‍؜⁡⁬⁡⁭⁬⁡⁠؜⁠⁮⁠⁣⁤',
   'fabric.editor.elementBrowser.help': '⁣⁢Help‌⁬⁠؜⁯؜⁫⁡؜⁫‍⁡⁡‍⁭⁡‌؜⁠⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-admin': '⁣⁢Administration⁮⁪؜‍⁡⁬؜⁫⁬⁠⁪⁮⁬⁭⁫⁮⁭⁡⁯؜؜⁯⁠⁮‍؜⁮⁣⁤',
+  'fabric.editor.elementbrowser.categorylist.category-ai': '⁣⁢Atlassian Intelligence⁭‌‌⁮⁬‍⁬⁪⁪⁪⁪‌⁪⁮⁭؜⁪⁭؜⁪⁯⁪⁯⁬⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-all': '⁣⁢All‍⁭⁠⁠⁠⁫‌⁫⁪⁡‌⁫‍⁬⁬⁬⁮‍⁮⁡⁪⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-communication': '⁣⁢Communication⁬⁮‍⁫‌⁫⁫⁫⁠⁮⁮‌⁬⁠⁭‍؜⁬⁣⁤',
   'fabric.editor.elementbrowser.categorylist.category-confluence-content': '⁣⁢Confluence content؜⁭‌⁯⁫⁯؜⁡⁪؜⁪⁬⁯⁫⁯⁠⁠⁬⁣⁤',
@@ -151,12 +154,10 @@ export default {
     '⁣⁢Try searching with a different term or discover new apps for Atlassian products.⁫⁬⁪⁭⁬⁯⁯⁯⁠‌‌⁭⁬؜⁬⁡⁪⁪⁡‍؜⁮⁭‌‌⁣⁤',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link':
     '⁣⁢Explore Atlassian Marketplace⁯؜⁮⁮⁡‌؜⁮⁭⁬؜‌⁪⁪‌⁮⁠⁫⁫⁪‌⁣⁤',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.nothing':
-    '⁣⁢Nothing matches your search‍⁡⁯⁫⁯⁯⁬‍⁮⁯⁭⁡؜⁪⁮⁠⁯‍⁯⁭⁣⁤',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.suggestion':
-    '⁣⁢suggestion available for typed text.⁪⁫؜⁡‌⁫⁭⁪‌‍‍⁪‌⁮⁠⁬‍؜؜⁯⁫⁭⁣⁤',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.suggestions':
-    '⁣⁢suggestions available for typed text.⁭⁭⁯⁭‍⁡⁭⁬‍⁬⁮‍⁭⁭⁮⁬⁯⁮⁡⁣⁤',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '⁣⁢{count} suggestions available by default.⁡⁪؜⁪⁡⁮⁮⁡⁬⁪⁮⁠⁪⁭‌‌‍⁡‌⁡⁣⁤',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {⁣⁢Nothing matches your search⁬‌⁫‍⁭؜⁬⁯⁮‍⁯⁠⁬‍⁪⁫⁯⁭⁪‌‌⁬⁠⁣⁤} one {⁣⁢{count} suggestion available for typed text.⁯؜⁭⁯‍⁬⁮⁫⁭⁮⁡‌⁡⁬⁬⁠⁫⁪⁫⁮⁠؜⁣⁤} other {⁣⁢{count} suggestions available for typed text.⁯؜⁭⁯‍⁬⁮⁫⁭⁮⁡‌⁡⁬⁬⁠⁫⁪⁫⁮⁠؜⁣⁤}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': '⁣⁢Enter⁮⁡؜⁯‌؜‌‌⁫⁮⁭‍⁡⁠⁯⁫⁯⁬؜⁪‌⁮؜⁣⁤',
   'fabric.editor.elementbrowser.searchbar.placeholder': '⁣⁢Search⁠⁫⁪⁫⁮⁮⁯‍⁡؜⁬⁭⁬⁡⁭؜⁬‌⁡؜‌⁮⁣⁤',
   'fabric.editor.elementbrowser.sidebar.heading': '⁣⁢Browse⁯‍⁪‌‍‍⁭⁭⁭⁪⁮‍‍‌‍⁭⁬‍⁮⁭⁯؜⁡⁣⁤',
@@ -273,13 +274,14 @@ export default {
   'fabric.editor.linkAddress': '⁣⁢Link address⁡⁪⁯⁯⁯⁫⁠⁠‌‍⁯‌⁪⁬‌⁡⁭؜‌⁫⁪⁯⁮⁫‌‌⁣⁤',
   'fabric.editor.linkPlaceholder': '⁣⁢Paste link؜⁯⁡⁪⁠‌⁪‍⁬⁡⁫⁫⁪⁠⁬⁭⁠‍⁪⁮⁫⁣⁤',
   'fabric.editor.lists': '⁣⁢Lists؜⁯⁡‍⁬⁬⁪‌⁪⁯⁫⁡؜‌؜⁭⁮⁪⁣⁤',
+  'fabric.editor.listsFormat': '⁣⁢List formating⁫⁬‌‍⁫‍⁬؜⁡⁯‍⁪⁮⁡⁭؜⁯⁪⁮⁣⁤',
   'fabric.editor.markdown': '⁣⁢Markdown⁫⁮⁡‌⁫؜؜⁯⁯⁪⁡⁬‍⁫⁠⁫⁭⁫‌⁭؜‍‌⁣⁤',
   'fabric.editor.matchCase': '⁣⁢Match case⁪⁫‌⁡⁡⁭‍⁭⁠⁠⁭⁪⁬‍⁬⁮⁡⁠⁬⁬⁣⁤',
-  'fabric.editor.media.DefaultMediaWidth':
-    '{newMediaWidth, plural, one {⁣⁢Media width {action} to {newMediaWidth,number} pixel.⁡⁠⁬‍‌⁠⁡⁮‍⁬⁬⁭‌⁯⁬⁪⁠⁬⁭⁬⁬⁮⁪⁣⁤} other {⁣⁢Media width {action} to {newMediaWidth,number} pixels.⁡⁠⁬‍‌⁠⁡⁮‍⁬⁬⁭‌⁯⁬⁪⁠⁬⁭⁬⁬⁮⁪⁣⁤}}',
+  'fabric.editor.media.DefaultMediaWidthDecreased':
+    '{newMediaWidth, plural, one {⁣⁢Media width decreased to {newMediaWidth,number} pixel.⁮‍⁡⁫‌⁬⁪‍⁫⁯⁮⁭⁮⁮⁬⁯⁭‍‌⁮‌⁣⁤} other {⁣⁢Media width decreased to {newMediaWidth,number} pixels.⁮‍⁡⁫‌⁬⁪‍⁫⁯⁮⁭⁮⁮⁬⁯⁭‍‌⁮‌⁣⁤}}',
+  'fabric.editor.media.DefaultMediaWidthIncreased':
+    '{newMediaWidth, plural, one {⁣⁢Media width increased to {newMediaWidth,number} pixel.⁡⁮؜⁯⁮⁠⁬؜‌⁭⁫⁮⁫⁡⁮⁠⁫⁭⁡⁫⁬؜⁮⁬⁣⁤} other {⁣⁢Media width increased to {newMediaWidth,number} pixels.⁡⁮؜⁯⁮⁠⁬؜‌⁭⁫⁮⁫⁡⁮⁠⁫⁭⁡⁫⁬؜⁮⁬⁣⁤}}',
   'fabric.editor.media.MediaWidthIsMin': '⁣⁢Media decreased to the minimum size⁡⁡؜⁪⁭⁮⁯⁬‌⁭⁬⁯‌⁡⁯⁯⁪‌⁭⁪؜⁪⁠⁮⁡‌⁣⁤',
-  'fabric.editor.media.decreased': '⁣⁢decreased؜⁯‌⁠‌‌⁫‍‍⁭‌⁭⁡؜⁭‍⁫⁫⁬⁠‌⁣⁤',
-  'fabric.editor.media.increased': '⁣⁢increased‌⁯⁯؜؜⁯⁮؜‍‍⁡‌⁯⁭⁫⁡⁭⁫⁮⁯⁯⁮⁠⁣⁤',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': '⁣⁢Media increased to the maximum size⁯⁡⁫؜⁬⁪؜⁠⁬‍⁯⁯‍⁪⁬‍⁮⁪‌⁮‌⁭‍⁡⁯⁠⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': '⁣⁢height input⁬⁭؜⁯⁭⁭⁠؜⁫⁫⁫⁭⁬⁯⁬⁮‍؜‌⁭؜⁪‍⁪⁣⁤',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': '⁣⁢Height⁫⁪⁫⁡⁯⁪⁪⁠⁮⁮⁭⁮⁪⁠⁡⁫⁠⁮⁮⁪؜⁠⁠⁫⁪⁪⁣⁤',
@@ -331,7 +333,7 @@ export default {
   'fabric.editor.pageActionsLabel': '⁣⁢Page actions‌؜؜⁫؜⁭⁫‍⁡⁭⁯‍⁯؜‌⁫‍⁬⁫⁯⁣⁤',
   'fabric.editor.panel.backgroundColor': '⁣⁢Background color⁯⁭‍⁪‌⁭⁠⁪⁠⁭‌⁪⁫‌⁮⁮‍⁬⁪‍⁮⁠⁫⁠⁣⁤',
   'fabric.editor.panel.emoji': '⁣⁢Add emoji⁠؜‍‍⁪⁯⁫‌⁠⁭؜⁠⁮⁭⁯؜⁪؜⁮⁭⁮⁯‍⁣⁤',
-  'fabric.editor.pasteOptions': 'Paste options⁠‌⁠⁡⁡⁮⁡⁫‍⁪؜⁫⁠؜⁬⁮⁬⁮⁫؜⁣⁤',
+  'fabric.editor.pasteOptions': '⁣⁢Paste options⁫⁪⁭؜‍⁯⁬؜‌⁬؜⁡⁭؜⁯⁠‍⁫⁫⁯⁯⁠⁣⁤',
   'fabric.editor.pastePlainText': '⁣⁢Paste plain text؜⁬⁪؜‍⁮⁬⁯‌⁪‌⁫⁡‍‌⁠‌‍‌⁣⁤',
   'fabric.editor.placeholderAltText': '⁣⁢Describe this image with alt text⁬؜⁠‌‌⁯⁡‍‍‌⁫⁪⁠⁮⁬؜⁭⁬‍‌⁣⁤',
   'fabric.editor.placeholderText': '⁣⁢Placeholder text⁮⁬⁭⁯⁠؜‌؜⁯⁯⁫⁮‌⁬‌⁬‌⁮‌⁠⁪‍⁣⁤',
@@ -398,7 +400,7 @@ export default {
   'fabric.editor.tableSelector': '⁣⁢Table size⁠⁭⁬⁯⁮؜⁬⁫⁪؜⁯⁫⁪؜⁯‍⁯⁮⁯⁬⁪⁫‍⁣⁤',
   'fabric.editor.tableSelector.description':
     '⁣⁢Add a table using popup to select a custom size⁬‌⁭⁪⁬⁠‌؜⁫‍⁠⁭‍⁬⁭‌؜⁪⁠⁬⁪⁯⁬⁣⁤',
-  'fabric.editor.tableSizeSelectorButton': '⁣⁢Create table of size⁡⁭⁫⁪‍⁡⁪⁪⁮⁪⁠⁡‌⁬⁯‌⁮⁪⁫‌⁠⁯؜⁠⁮‍⁣⁤',
+  'fabric.editor.tableSizeSelectorButton': '⁣⁢{numberOfColumns} by {numberOfRows}⁮⁠⁪⁫⁪⁡⁯⁫⁠⁪⁫⁮⁭⁭؜⁭⁮⁡⁠‌⁫⁭⁯⁫⁬⁬⁫⁯⁣⁤',
   'fabric.editor.tableSizeSelectorPopup': '⁣⁢Table size selector⁫⁫‌⁪⁫⁪⁡‌⁫⁫⁫⁠⁡⁮⁫⁭⁭⁪‍؜⁣⁤',
   'fabric.editor.tables.adjustColumn': '⁣⁢Adjust column؜⁪⁯⁡⁮⁬‌؜‍⁫⁪⁬⁠⁫؜‍‌‌⁪⁭⁯⁣⁤',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
@@ -409,6 +411,7 @@ export default {
   'fabric.editor.taskPlaceholder': "⁣⁢Type your action, use '@' to assign to someone.⁡⁭⁫⁠⁡‌⁫⁠⁯⁪⁫⁡⁭⁬⁡‍⁬⁯⁭⁫⁫⁪‍⁭⁣⁤",
   'fabric.editor.text.formatting.off': '⁣⁢Text formatting Off⁭⁯‍؜⁬‍⁬⁫⁫⁡⁭⁠⁬‍⁬⁭⁡؜⁠⁭؜؜⁣⁤',
   'fabric.editor.textColor': '⁣⁢Text color‌⁭‍⁭⁬⁯⁯⁬‌⁪‌⁠⁭⁪⁬؜⁫⁡‍‌⁣⁤',
+  'fabric.editor.textFormatting': '⁣⁢Text formatting‌⁪⁪⁯⁬⁫⁭‍؜‌⁮⁯⁫⁭؜⁪⁮؜‌⁬⁠⁠⁠؜⁯⁣⁤',
   'fabric.editor.textStyles': '⁣⁢Text styles⁭⁬⁠⁪⁠⁫‌‍؜⁫⁪⁬⁡⁭⁠⁠⁮‍؜⁣⁤',
   'fabric.editor.threeColumns': '⁣⁢Three columns‌⁯⁪⁭⁡⁬‍⁬⁭⁬؜⁡⁬⁮؜⁡⁯⁡‌⁭⁫⁮⁣⁤',
   'fabric.editor.threeColumnsWithSidebars': '⁣⁢Three columns with sidebars⁮⁪⁭⁯⁫⁬‍⁭⁡⁯⁬⁪⁫⁯⁡‌‍⁯⁪⁬⁫⁡؜⁮⁠⁯⁯⁣⁤',
@@ -511,4 +514,5 @@ export default {
   'fabric.theme.white': '⁣⁢White⁮⁡⁮⁫‌⁫‌؜⁭⁯⁮⁫⁫⁠⁡⁠‌⁬‌⁪؜⁫⁣⁤',
   'fabric.theme.yellow': '⁣⁢Yellow⁬⁪⁮⁫‌⁭⁡⁠‍؜⁡‌‌⁬⁠‌⁭‌‍⁡⁮⁠‍؜⁣⁤',
   'fabrid.editor.rowNumbers': '⁣⁢Row numbers‍⁮؜⁠⁭⁡‌‌⁡؜⁡‌‌⁯⁫؜⁯⁯⁪⁭⁮⁬⁭⁣⁤',
+  testMessage: '⁣⁢Default Message⁡⁮⁯⁭⁮⁯⁠⁠⁮⁡⁠⁯⁭‌‌؜⁯⁪⁮‍⁠⁪؜⁣⁤',
 };

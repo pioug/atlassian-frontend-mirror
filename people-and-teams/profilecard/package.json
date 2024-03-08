@@ -41,16 +41,6 @@
     "./mocks": "./src/mocks/index.ts",
     ".": "./src/index.ts"
   },
-  "exports": {
-    "./client": "./src/client/index.ts",
-    "./messages": "./src/messages.ts",
-    "./i18n": "./src/i18n/index.ts",
-    "./team": "./src/components/Team/index.ts",
-    "./types": "./src/types.ts",
-    "./user": "./src/components/User/index.ts",
-    "./mocks": "./src/mocks/index.ts",
-    ".": "./src/index.ts"
-  },
   "scripts": {
     "lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
     "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",

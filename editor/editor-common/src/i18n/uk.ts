@@ -12,6 +12,7 @@ export default {
   'fabric.editor.addAltText': 'Текст заміщення',
   'fabric.editor.addColumnLeft': 'Додати стовпець ліворуч',
   'fabric.editor.addColumnRight': 'Додати стовпець справа',
+  'fabric.editor.addCommentOnMedia': 'Додати коментар',
   'fabric.editor.addImageBorder': 'Додати рамку',
   'fabric.editor.addMediaFiles': 'Додати зображення, відео або файл',
   'fabric.editor.addRowAbove': 'Додати рядок угорі',
@@ -108,7 +109,7 @@ export default {
   'fabric.editor.decision.description': 'Зафіксувати рішення, щоб його було легко знайти',
   'fabric.editor.decisionPlaceholder': 'Додати рішення...',
   'fabric.editor.decreaseSize': 'Зменшити розмір',
-  'fabric.editor.defaultAltText': 'Елемент списку',
+  'fabric.editor.defaultAltText': 'Документ',
   'fabric.editor.description': 'Опис',
   'fabric.editor.displayBlock': 'Показати картку',
   'fabric.editor.displayEmbed': 'Показати вбудований об’єкт',
@@ -121,6 +122,7 @@ export default {
   'fabric.editor.ecombedDescription': 'Показати інтерактивний попередній перегляд посилання',
   'fabric.editor.edit': 'Редагувати',
   'fabric.editor.edit.datasource': 'Редагувати пошуковий запит',
+  'fabric.editor.edit.searchInput': 'Додати посилання',
   'fabric.editor.editAltText': 'Редагувати текст заміщення',
   'fabric.editor.editDateText': 'Змінення дати',
   'fabric.editor.editLink': 'Редагування посилання',
@@ -132,6 +134,7 @@ export default {
   'fabric.editor.editors': 'Редактори',
   'fabric.editor.elementBrowser.help': 'Допомога',
   'fabric.editor.elementbrowser.categorylist.category-admin': 'Адміністрування',
+  'fabric.editor.elementbrowser.categorylist.category-ai': 'Atlassian Intelligence',
   'fabric.editor.elementbrowser.categorylist.category-all': 'Усі',
   'fabric.editor.elementbrowser.categorylist.category-communication': 'Спілкування',
   'fabric.editor.elementbrowser.categorylist.category-confluence-content': 'Вміст Confluence',
@@ -146,11 +149,8 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Спробуйте змінити пошуковий запит або перегляньте нові додатки для продуктів Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Відкрийте для себе Atlassian Marketplace',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.nothing': 'За вашим запитом результатів не знайдено',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.suggestion':
-    'Це кількість доступних пропозицій для введеного тексту.',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.suggestions':
-    'Це кількість доступних пропозицій для введеного тексту.',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {За вашим запитом результатів не знайдено} one {{count} доступна пропозиція для введеного тексту.} few {{count} доступні пропозиції для введеного тексту.} many {{count} доступних пропозицій для введеного тексту.} other {{count} доступних пропозицій для введеного тексту.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Ввести',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Пошук',
   'fabric.editor.elementbrowser.sidebar.heading': 'Перегляд',
@@ -264,11 +264,14 @@ export default {
   'fabric.editor.linkAddress': 'Адреса посилання',
   'fabric.editor.linkPlaceholder': 'Вставити посилання',
   'fabric.editor.lists': 'Списки',
+  'fabric.editor.listsFormat': 'Форматування у вигляді списку',
   'fabric.editor.markdown': 'Markdown',
   'fabric.editor.matchCase': 'Враховувати регістр',
+  'fabric.editor.media.DefaultMediaWidthDecreased':
+    '{newMediaWidth, plural, one {Ширину мультимедіа зменшено до {newMediaWidth,number} пікселя.} few {Ширину мультимедіа зменшено до {newMediaWidth,number} пікселів.} many {Ширину мультимедіа зменшено до {newMediaWidth,number} пікселів.} other {Ширину мультимедіа зменшено до {newMediaWidth,number} пікселів.}}',
+  'fabric.editor.media.DefaultMediaWidthIncreased':
+    '{newMediaWidth, plural, one {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселя.} few {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.} many {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.} other {Ширину мультимедіа збільшено до {newMediaWidth,number} пікселів.}}',
   'fabric.editor.media.MediaWidthIsMin': 'Об’єкт зменшено до мінімального розміру',
-  'fabric.editor.media.decreased': 'зменшено',
-  'fabric.editor.media.increased': 'збільшено',
   'fabric.editor.media.pixelEntry.MediaWidthIsMax': 'Об’єкт збільшено до максимального розміру',
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'введення значення висоти',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Висота',
@@ -319,7 +322,7 @@ export default {
   'fabric.editor.pageActionsLabel': 'Дії на сторінці',
   'fabric.editor.panel.backgroundColor': 'Колір фону',
   'fabric.editor.panel.emoji': 'Додати емодзі',
-  'fabric.editor.pasteOptions': 'Рухомі елементи керування параметрами вставки',
+  'fabric.editor.pasteOptions': 'Параметри вставки',
   'fabric.editor.pastePlainText': 'Вставити текст без форматування',
   'fabric.editor.placeholderAltText': 'Опишіть це зображення за допомогою тексту заміщення',
   'fabric.editor.placeholderText': 'Текст-заміщення',
@@ -339,6 +342,8 @@ export default {
     '{0, plural, one {Видалити рядок} few {Видалити рядки} many {Видалити рядки} other {Видалити рядки}}',
   'fabric.editor.replace': 'Замінити',
   'fabric.editor.replaceAll': 'Замінити всі',
+  'fabric.editor.replaceSuccess':
+    '{numberOfMatches, plural, one {Замінено {numberOfMatches,number} збіг} few {Замінено {numberOfMatches,number} збіги} many {Замінено {numberOfMatches,number} збігів} other {Замінено {numberOfMatches,number} збігу}}',
   'fabric.editor.replaceWith': 'Замінити на',
   'fabric.editor.resultsCount': '{selectedMatchPosition} з {totalResultsCount}',
   'fabric.editor.richText': 'Застосувати форматований текст',
@@ -384,7 +389,7 @@ export default {
   'fabric.editor.tableSelector': 'Розмір таблиці',
   'fabric.editor.tableSelector.description':
     'Додайте таблицю за допомогою спливного списку, щоб вибрати потрібний розмір',
-  'fabric.editor.tableSizeSelectorButton': 'Створити таблицю вибраного розміру',
+  'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} × {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Засіб вибору розміру таблиці',
   'fabric.editor.tables.adjustColumn': 'Налаштувати стовпець',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
@@ -395,6 +400,7 @@ export default {
   'fabric.editor.taskPlaceholder': 'Вкажіть задачу. Призначте її комусь за допомогою символу «@».',
   'fabric.editor.text.formatting.off': 'Форматування тексту вимкнуто',
   'fabric.editor.textColor': 'Колір тексту',
+  'fabric.editor.textFormatting': 'Форматування у вигляді тексту',
   'fabric.editor.textStyles': 'Стилі тексту',
   'fabric.editor.threeColumns': 'Три стовпці',
   'fabric.editor.threeColumnsWithSidebars': 'Три стовпці з бічними панелями',

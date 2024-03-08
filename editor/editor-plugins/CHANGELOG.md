@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugins
 
+## 1.5.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.8
+
+### Patch Changes
+
+- [#79592](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79592) [`0bd0803a1507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0bd0803a1507) - check window.location before using to fix error in ssr
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+- Updated dependencies
+
 ## 1.5.7
 
 ### Patch Changes

@@ -163,6 +163,10 @@ export default function createUniversalPreset(
       Boolean(props.media),
     )
     .maybeAdd(
+      [annotationPlugin, props.annotationProviders],
+      Boolean(props.annotationProviders),
+    )
+    .maybeAdd(
       [
         mediaPlugin,
         {

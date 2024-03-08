@@ -2,9 +2,9 @@ import React from 'react';
 
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 
 import { exampleDocument } from '../example-helpers/example-doc-with-connected-extension';
-import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
 import type { EditorActions } from '../src';
 import { usePresetContext } from '../src/presets/context';
 import { default as EditorContext } from '../src/ui/EditorContext';

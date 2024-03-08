@@ -125,6 +125,9 @@
       "path": "../../people-and-teams/profilecard/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/section-message/tsconfig.app.json"
+    },
+    {
       "path": "../../linking-platform/smart-card/tsconfig.app.json"
     },
     {

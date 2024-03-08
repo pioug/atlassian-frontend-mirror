@@ -86,11 +86,6 @@
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./constants": "./src/constants.tsx",
-    "./types": "./src/types.tsx",
-    ".": "./src/index.tsx"
-  },
   "homepage": "https://atlassian.design/components/progress-tracker/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

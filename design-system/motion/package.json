@@ -34,19 +34,6 @@
     "./shrink-out": "./src/entry-points/shrink-out.tsx",
     "./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    "./curves": "./src/entry-points/curves.tsx",
-    "./durations": "./src/entry-points/durations.tsx",
-    "./accessibility": "./src/entry-points/accessibility.tsx",
-    "./exiting-persistence": "./src/entry-points/exiting-persistence.tsx",
-    "./fade-in": "./src/entry-points/fade-in.tsx",
-    "./slide-in": "./src/entry-points/slide-in.tsx",
-    "./zoom-in": "./src/entry-points/zoom-in.tsx",
-    "./shrink-out": "./src/entry-points/shrink-out.tsx",
-    "./staggered-entrance": "./src/entry-points/staggered-entrance.tsx"
-  },
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",

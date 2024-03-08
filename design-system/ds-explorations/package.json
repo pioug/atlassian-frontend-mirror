@@ -76,10 +76,6 @@
     ".": "./src/index.tsx",
     "./text": "./src/components/text.partial.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./text": "./src/components/text.partial.tsx"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "homepage": "https://atlaskit.atlassian.com"
 }

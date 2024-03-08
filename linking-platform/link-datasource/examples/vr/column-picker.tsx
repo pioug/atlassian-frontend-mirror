@@ -9,11 +9,12 @@ import uuid from 'uuid';
 import { Field } from '@atlaskit/form';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import { ColumnPicker } from '../../src/ui/issue-like-table/column-picker';
 
 const containerStyles = css({
-  padding: '20px',
+  padding: token('space.250', '20px'),
   width: '400px',
 });
 

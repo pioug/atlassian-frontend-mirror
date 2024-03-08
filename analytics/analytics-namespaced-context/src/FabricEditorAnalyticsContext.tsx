@@ -1,4 +1,4 @@
-import { StatelessComponent } from 'react';
+import { FunctionComponent } from 'react';
 import createNamespaceContext, { Props } from './helper/createNamespaceContext';
 
 export const EDITOR_CONTEXT = 'fabricEditorCtx';
@@ -21,7 +21,7 @@ type FabricEditorAnalyticsContextProps = Props & {
   };
 };
 
-export const FabricEditorAnalyticsContext: StatelessComponent<FabricEditorAnalyticsContextProps> =
+export const FabricEditorAnalyticsContext: FunctionComponent<FabricEditorAnalyticsContextProps> =
   createNamespaceContext<FabricEditorAnalyticsContextProps>(
     EDITOR_CONTEXT,
     'FabricEditorAnalyticsContext',

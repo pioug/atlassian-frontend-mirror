@@ -66,7 +66,7 @@ describe('Image cropper', () => {
       it('should have defined position', () => {
         const { img, imgContainer } = createComponent({ imageWidth });
 
-        expect(imgContainer.props().style).toMatchObject({
+        expect(getComputedStyle(imgContainer.getDOMNode())).toMatchObject({
           top: `${top}px`,
           left: `${left}px`,
         });
@@ -81,7 +81,7 @@ describe('Image cropper', () => {
       it('should have defined size', () => {
         const { container } = createComponent({ imageWidth });
 
-        expect(container.props().style).toEqual({
+        expect(getComputedStyle(container.getDOMNode())).toMatchObject({
           width: `${containerSize}px`,
           height: `${containerSize}px`,
         });

@@ -25,10 +25,6 @@
     ".": "./src/index.ts",
     "./styled": "./src/styled.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./styled": "./src/styled.ts"
-  },
   "atlassian": {
     "team": "Bitbucket: CoreX",
     "releaseModel": "continuous",

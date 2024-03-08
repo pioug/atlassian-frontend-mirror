@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.34
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+
 ## 8.1.33
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.48.7",
+  "version": "26.48.8",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,6 +23,9 @@
     "website": {
       "name": "Smart Card"
     }
+  },
+  "scripts": {
+    "analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card --output ./src/common/analytics/generated"
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
@@ -85,6 +88,7 @@
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
+    "@atlassian/analytics-tooling": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/dom": "^8.17.1",
@@ -132,16 +136,6 @@
     }
   },
   "af:exports": {
-    "./ssr": "./src/ssr.tsx",
-    "./in-product": "./src/in-product.ts",
-    "./client": "./src/client/index.ts",
-    "./types": "./src/types.ts",
-    "./hooks": "./src/hooks.ts",
-    "./hover-card": "./src/hoverCard.ts",
-    "./link-url": "./src/linkUrl.ts",
-    ".": "./src/index.ts"
-  },
-  "exports": {
     "./ssr": "./src/ssr.tsx",
     "./in-product": "./src/in-product.ts",
     "./client": "./src/client/index.ts",

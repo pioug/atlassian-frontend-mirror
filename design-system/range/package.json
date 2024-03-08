@@ -90,11 +90,5 @@
     "./styled": "./src/styled.tsx",
     "./theme": "./src/theme.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./range": "./src/range.tsx",
-    "./styled": "./src/styled.tsx",
-    "./theme": "./src/theme.tsx"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

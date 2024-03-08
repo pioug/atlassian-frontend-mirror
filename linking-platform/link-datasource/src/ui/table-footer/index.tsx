@@ -22,38 +22,38 @@ export type TableFooterProps = {
   url?: string;
 };
 
-const FooterWrapper = styled.div`
-  padding: 0 ${token('space.200', '16px')};
-  box-sizing: border-box;
-  border-radius: inherit;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  background: ${token('color.background.input', N0)};
-  border-top: 2px solid ${token('color.background.accent.gray.subtler', N40)};
-`;
+const FooterWrapper = styled.div({
+  padding: `${token('space.0', '0px')} ${token('space.200', '16px')}`,
+  boxSizing: 'border-box',
+  borderRadius: 'inherit',
+  borderTopLeftRadius: 0,
+  borderTopRightRadius: 0,
+  background: token('color.background.input', N0),
+  borderTop: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
+});
 
-const TopBorderWrapper = styled.div`
-  display: flex;
-  box-sizing: border-box;
-  justify-content: space-between;
-  padding: ${token('space.250', '20px')} 0;
-`;
+const TopBorderWrapper = styled.div({
+  display: 'flex',
+  boxSizing: 'border-box',
+  justifyContent: 'space-between',
+  padding: `${token('space.250', '20px')} ${token('space.0', '0px')}`,
+});
 
-const ItemCounterWrapper = styled.div`
-  display: flex;
-  align-self: center;
-`;
+const ItemCounterWrapper = styled.div({
+  display: 'flex',
+  alignSelf: 'center',
+});
 
-const SyncWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${token('color.text.accent.gray', N90)};
-`;
+const SyncWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  color: token('color.text.accent.gray', N90),
+});
 
-const SyncTextWrapper = styled.div`
-  margin-right: 5px;
-  font-size: 12px;
-`;
+const SyncTextWrapper = styled.div({
+  marginRight: token('space.075', '6px'),
+  fontSize: '12px',
+});
 
 export const TableFooter = ({
   itemCount,

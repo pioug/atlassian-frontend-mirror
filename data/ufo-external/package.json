@@ -37,13 +37,6 @@
     "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
-  "exports": {
-    "./global-stream-buffer": "./src/global-stream-buffer/index.ts",
-    "./logger": "./src/logger/index.ts",
-    "./platform-client": "./src/platform-client/index.ts",
-    "./types": "./src/types.ts",
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "uuid": "^3.1.0"

@@ -9,7 +9,7 @@ import uuid from 'uuid/v4';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
-import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-core/example-helpers/example-inline-comment-component';
+import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpers/example-helpers';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { token } from '@atlaskit/tokens';
 

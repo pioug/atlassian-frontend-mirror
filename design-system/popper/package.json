@@ -90,11 +90,6 @@
     "./Popper": "./src/popper.tsx",
     "./in-product": "./src/in-product.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./Popper": "./src/popper.tsx",
-    "./in-product": "./src/in-product.tsx"
-  },
   "homepage": "https://atlassian.design/components/popper",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

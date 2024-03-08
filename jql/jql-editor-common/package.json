@@ -34,9 +34,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/jql-autocomplete": "^2.0.0",

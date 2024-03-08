@@ -47,6 +47,14 @@ export const useMultiBodiedExtensionActions = ({
           possiblyMbeNode?.type?.name === 'multiBodiedExtension' &&
           possiblyMbeNode?.content
         ) {
+          if (index < 0 || index >= possiblyMbeNode?.content?.childCount) {
+            throw new Error(
+              `Index out of bounds: valid range is 0-${
+                possiblyMbeNode?.content?.childCount - 1
+              } inclusive`,
+            );
+          }
+
           for (
             let i = 0;
             i <= index && i < possiblyMbeNode?.content?.childCount;

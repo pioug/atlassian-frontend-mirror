@@ -37,9 +37,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "platform-feature-flags": {
     "platform.linking-platform.link-picker.enable-empty-state": {
       "type": "boolean"

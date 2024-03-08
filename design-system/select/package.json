@@ -40,13 +40,6 @@
     "./CreatableSelect": "./src/entry-points/creatable-select.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./AsyncSelect": "./src/entry-points/async-select.tsx",
-    "./Select": "./src/entry-points/select.tsx",
-    "./AsyncCreatableSelect": "./src/entry-points/async-creatable-select.tsx",
-    "./CreatableSelect": "./src/entry-points/creatable-select.tsx",
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.1.0",

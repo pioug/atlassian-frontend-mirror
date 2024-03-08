@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.2
+
+### Patch Changes
+
+- [#79502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79502) [`be5350055f7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be5350055f7a) - [ux] Fix switch focused table cause a crash
+
+## 7.5.1
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+
 ## 7.5.0
 
 ### Minor Changes

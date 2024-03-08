@@ -139,9 +139,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.linking-platform.datasource.show-jlol-basic-filters": {

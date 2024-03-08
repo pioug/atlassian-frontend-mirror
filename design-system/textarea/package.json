@@ -40,12 +40,6 @@
     "./styles": "./src/styles.tsx",
     "./text-area": "./src/text-area.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./component-tokens": "./src/component-tokens.tsx",
-    "./styles": "./src/styles.tsx",
-    "./text-area": "./src/text-area.tsx"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",

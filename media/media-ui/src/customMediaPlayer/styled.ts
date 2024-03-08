@@ -7,45 +7,21 @@ export interface MutedIndicatorProps {
   isMuted: boolean;
 }
 
-export const CustomVideoWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  user-select: none;
-`;
-
-export const VideoWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const TimebarWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  position: absolute;
-  width: 100%;
-  bottom: 10px;
-`;
-
 type VolumeWrapperProps = {
   showSlider: boolean;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const VolumeWrapper = styled.div<VolumeWrapperProps>`
-  display: flex;
-  width: 35px;
-  overflow: hidden;
-  transition: width 0.3s;
-  align-items: center;
-  bottom: 0px;
-  left: 43px;
-
-  ${(props) =>
+export const VolumeWrapper = styled.div<VolumeWrapperProps>(
+  {
+    display: 'flex',
+    width: '35px',
+    overflow: 'hidden',
+    transition: 'width 0.3s',
+    alignItems: 'center',
+    bottom: token('space.0', '0px'),
+    left: token('space.500', '40px'),
+  },
+  (props) =>
     props.showSlider
       ? `
     &:hover,
@@ -54,155 +30,142 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>`
       transition: width 0.3s ease-out;
     }
   `
-      : ''}
-`;
+      : '',
+);
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const TimeWrapper = styled.div`
-  margin: 0 ${token('space.250', '20px')} 10px ${token('space.250', '20px')};
-  margin-bottom: 44px;
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const CurrentTime = styled.div`
-  color: #c7d1db;
-  user-select: none;
-  margin-right: 10px;
-  white-space: nowrap;
-`;
+export const CurrentTime = styled.div({
+  color: '#c7d1db',
+  userSelect: 'none',
+  marginRight: token('space.100', '8px'),
+  whiteSpace: 'nowrap',
+});
 
 interface WithAsActiveProps {
   showAsActive: boolean;
 }
 
-export const TimeLine = styled.div`
-  width: 100%;
-  height: 2px;
-  transition-delay: 1s;
-  transition: all 0.1s;
-  background-color: #596773;
-  border-radius: 5px;
-  position: relative;
-`;
+export const TimeLine = styled.div({
+  width: '100%',
+  height: '2px',
+  transitionDelay: '1s',
+  transition: 'all 0.1s',
+  backgroundColor: '#596773',
+  borderRadius: '5px',
+  position: 'relative',
+});
 
-export const CurrentTimeLine = styled.div`
-  background-color: #05c;
-  border-radius: inherit;
-  height: inherit;
-  position: absolute;
-  top: 0;
-  max-width: 100%;
-`;
+export const CurrentTimeLine = styled.div({
+  backgroundColor: '#05c',
+  borderRadius: 'inherit',
+  height: 'inherit',
+  position: 'absolute',
+  top: token('space.0', '0px'),
+  maxWidth: '100%',
+  display: 'flex',
+  alignItems: 'center',
+});
 
-export const Thumb = styled.div`
-  pointer-events: none;
-  width: 14px;
-  height: 14px;
-  border-radius: 100%;
-  background-color: white;
-  border: 1px solid #666;
-  position: absolute;
-  right: 0;
-  top: 50%;
+export const Thumb = styled.div({
+  pointerEvents: 'none',
+  width: '14px',
+  height: '14px',
+  borderRadius: '100%',
+  backgroundColor: 'white',
+  border: '1px solid #666',
+  position: 'absolute',
+  right: 0,
+  transform: 'translate(7px, -50%) scale(0)',
+  transition: 'all 0.1s',
+  transitionDelay: '1s',
+  '&:hover .current-time-tooltip': {
+    opacity: 1,
+  },
+});
 
-  transform: translate(7px, -50%) scale(0);
-  transition: all 0.1s;
-  transition-delay: 1s;
+export const BufferedTime = styled.div({
+  backgroundColor: '#8696a7',
+  height: 'inherit',
+  borderRadius: 'inherit',
+  width: 0,
+});
 
-  &:hover .current-time-tooltip {
-    opacity: 1;
-  }
-`;
+export const LeftControls = styled.div({
+  display: 'flex',
+  marginLeft: token('space.150', '12px'),
+});
 
-export const BufferedTime = styled.div`
-  background-color: #8696a7;
-  height: inherit;
-  border-radius: inherit;
-  width: 0;
-`;
+export const RightControls = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  marginRight: token('space.150', '12px'),
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const LeftControls = styled.div`
-  display: flex;
-  margin-left: 10px;
-`;
+export const ControlsWrapper = styled.div({
+  bottom: 0,
+  left: 0,
+  width: '100%',
+  height: 'auto',
+  background: 'linear-gradient(to top, #101214, rgba(14, 22, 36, 0))',
+  position: 'absolute',
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const RightControls = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  color: '#c7d1db';
-`;
-
-export const ControlsWrapper = styled.div`
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  background: linear-gradient(to top, #101214, rgba(14, 22, 36, 0));
-  position: absolute;
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const VolumeToggleWrapper = styled.div`
+export const VolumeToggleWrapper = styled.div(
+  ({ isMuted }: MutedIndicatorProps) => `
   position: relative;
   margin-right: 13px;
-
   button {
     width: 36px !important;
-    color: ${({ isMuted }: MutedIndicatorProps) =>
-      isMuted ? `#EF5C48 !important;` : ''};
-  }
-`;
+    color: ${isMuted ? '#EF5C48 !important;' : ''}
+  }`,
+);
 
-export const VolumeTimeRangeWrapper = styled.div`
-  width: 100%;
-  margin-right: ${token('space.250', '20px')};
-`;
+export const VolumeTimeRangeWrapper = styled.div({
+  width: '100%',
+  marginRight: token('space.250', '20px'),
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const MutedIndicator = styled.div`
-  width: 29px;
-  height: 2px;
-  position: absolute;
-  top: 10px;
-  left: 9px;
-  z-index: 2;
-  background: ${R300};
-  transform: rotate(32deg) translateY(10px);
-  opacity: 0;
-  pointer-events: none;
-
-  ${(props: MutedIndicatorProps) =>
+export const MutedIndicator = styled.div(
+  {
+    width: '29px',
+    height: '2px',
+    position: 'absolute',
+    top: token('space.100', '8px'),
+    left: token('space.100', '8px'),
+    zIndex: 2,
+    background: R300,
+    transform: 'rotate(32deg) translateY(10px)',
+    opacity: 0,
+    pointerEvents: 'none',
+  },
+  (props: MutedIndicatorProps) =>
     props.isMuted
       ? `
     opacity: 1;
   `
-      : ''};
-`;
+      : '',
+);
 
 export interface CurrentTimeTooltipProps {
   isDragging: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const CurrentTimeTooltip = styled.div`
+export const CurrentTimeTooltip = styled.div(
+  ({ isDragging }: CurrentTimeTooltipProps) => `
   position: absolute;
   user-select: none;
-  top: -28px;
+  top: ${token('space.negative.400', '-32px')};
   background-color: #182c4c;
   color: #eff1f3;
-  font-size: 12px;
-  padding: 3px 7px;
-  border-radius: 3px;
+  font-size: ${token('space.150', '12px')};
+  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
+  border-radius: ${token('space.050', '4px')};
   left: 50%;
   transform: translateX(-50%);
-  opacity: ${(props: CurrentTimeTooltipProps) =>
-    props.isDragging ? '1' : '0'};
+  opacity: ${isDragging ? '1' : '0'};
   transition: opacity 0.3s;
   word-break: keep-all;
-`;
+`,
+);
 
 export const TimeRangeWrapper = styled.div(
   ({ showAsActive }: WithAsActiveProps) => `
@@ -232,15 +195,3 @@ export const TimeRangeWrapper = styled.div(
   }
 `,
 );
-
-export const SpinnerWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;

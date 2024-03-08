@@ -4,12 +4,12 @@ import { PureComponent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import imageUploadHandler from '../example-helpers/imageUpload';
 import { content } from '../example-helpers/styles';
 import { Editor } from '../src';
 

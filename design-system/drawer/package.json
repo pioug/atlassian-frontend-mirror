@@ -26,10 +26,6 @@
     ".": "./src/index.tsx",
     "./constants": "./src/constants.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./constants": "./src/constants.tsx"
-  },
   "homepage": "https://atlassian.design/components/drawer",
   "atlassian": {
     "team": "Design System Team",

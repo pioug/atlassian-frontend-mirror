@@ -40,12 +40,6 @@
     "./sanitize": "./src/sanitize.ts",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./markOverrideRules": "./src/markOverrideRules.ts",
-    "./sanitize": "./src/sanitize.ts",
-    "./types": "./src/types.ts"
-  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/adf-utils": "^19.0.0",

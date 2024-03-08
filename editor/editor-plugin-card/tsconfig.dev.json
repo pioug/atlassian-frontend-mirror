@@ -36,31 +36,10 @@
       "path": "tsconfig.app.json"
     },
     {
-      "path": "../../design-system/button/tsconfig.app.json"
-    },
-    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
       "path": "../editor-common/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-core/tsconfig.app.json"
-    },
-    {
-      "path": "../editor-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../../linking-platform/link-provider/tsconfig.app.json"
-    },
-    {
-      "path": "../../design-system/logo/tsconfig.app.json"
-    },
-    {
-      "path": "../../media/media-integration-test-helpers/tsconfig.app.json"
-    },
-    {
-      "path": "../synchrony-test-helpers/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table",
-  "version": "0.4.24",
+  "version": "0.4.25",
   "description": "A table is used to display data.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,10 +36,6 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
-    ".": "./src/index.tsx",
-    "./primitives": "./src/ui/index.tsx"
-  },
-  "exports": {
     ".": "./src/index.tsx",
     "./primitives": "./src/ui/index.tsx"
   },

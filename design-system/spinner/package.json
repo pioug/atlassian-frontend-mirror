@@ -84,12 +84,6 @@
     "./spinner": "./src/spinner.tsx",
     "./types": "./src/types.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./constants": "./src/constants.tsx",
-    "./spinner": "./src/spinner.tsx",
-    "./types": "./src/types.tsx"
-  },
   "homepage": "https://atlassian.design/components/spinner/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

@@ -11,11 +11,11 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '../example-helpers/example-inline-comment-component';
+} from '@atlaskit/editor-test-helpers/example-helpers';
+
 import type { EditorProps } from '../src/types/editor-props';
 
 type CollabProviderProps = {

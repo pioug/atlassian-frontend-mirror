@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.4
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+
 ## 1.1.3
 
 ### Patch Changes

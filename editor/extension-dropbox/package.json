@@ -31,15 +31,6 @@
     "./modal": "./src/modal.tsx",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./constants": "./src/constants.ts",
-    "./dropboxscript": "./src/dropboxscript.ts",
-    "./enable-dropbox": "./src/enable-dropbox.tsx",
-    "./manifest": "./src/manifest.tsx",
-    "./modal": "./src/modal.tsx",
-    "./types": "./src/types.ts"
-  },
   "atlassian": {
     "team": "Editor: Scarlet",
     "inPublicMirror": true,

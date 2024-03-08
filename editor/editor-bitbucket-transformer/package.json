@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-bitbucket-transformer",
-  "version": "8.1.33",
+  "version": "8.1.34",
   "description": "Editor Bitbucket transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -59,12 +59,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
-    ".": "./src/index.ts",
-    "./serializer": "./src/serializer.ts",
-    "./tableSerializer": "./src/tableSerializer.ts",
-    "./util": "./src/util.ts"
-  },
-  "exports": {
     ".": "./src/index.ts",
     "./serializer": "./src/serializer.ts",
     "./tableSerializer": "./src/tableSerializer.ts",

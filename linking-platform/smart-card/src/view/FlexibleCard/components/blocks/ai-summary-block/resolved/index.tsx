@@ -22,6 +22,9 @@ import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import AIIcon from '../../../../../common/ai-icon';
 import AISummary from '../../../../../common/ai-summary';
+import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
+import AIEventSummaryViewed from '../ai-event-summary-viewed';
+import AIEventErrorViewed from '../ai-event-error-viewed';
 
 const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const {
@@ -33,6 +36,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
     testId,
   } = props;
   const [aiState, setAIState] = useState<AIState>('ready');
+  const { fireEvent } = useAnalyticsEvents();
 
   const metadataElements = renderElementItems(metadata);
 
@@ -46,11 +50,12 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   } = aiSummary;
 
   const onAIActionClick = useCallback(() => {
+    fireEvent('ui.button.clicked.aiSummary', {});
     setAIState('loading');
     if (onAIActionChange) {
       onAIActionChange('loading');
     }
-  }, [onAIActionChange]);
+  }, [onAIActionChange, fireEvent]);
 
   const combinedActions = useMemo(() => {
     if (aiState === 'ready') {
@@ -82,8 +87,10 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       direction={SmartLinkDirection.Vertical}
       testId={`${testId}-resolved-view`}
     >
+      {status === 'done' && (
+        <AIEventSummaryViewed fromCache={isSummarisedOnMount} />
+      )}
       <AISummary content={content} showIcon={isSummarisedOnMount} />
-
       <Inline
         alignBlock="center"
         alignInline="end"
@@ -117,6 +124,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       </Inline>
       {status === 'error' && (
         <Inline grow="fill">
+          <AIEventErrorViewed />
           <AIStateIndicator state={status} testId={testId} />
         </Inline>
       )}

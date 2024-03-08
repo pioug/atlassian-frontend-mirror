@@ -1,15 +1,15 @@
 import React, { createContext } from 'react';
-import { Position } from './types';
+import type { Position } from './types';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
-import { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationMarkStates } from '@atlaskit/adf-schema';
 
-type ChildrenProps = {
+export type AnnotationsDraftContextWrapperChildrenProps = {
   applyAnnotationDraftAt: (position: Position) => void;
   clearAnnotationDraft: () => void;
 };
 
 export type RenderCallbackType = (
-  props: React.PropsWithChildren<ChildrenProps>,
+  props: React.PropsWithChildren<AnnotationsDraftContextWrapperChildrenProps>,
 ) => React.ReactNode;
 
 type Props = {

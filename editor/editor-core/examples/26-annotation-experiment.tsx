@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { token } from '@atlaskit/tokens';
-
-import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
-} from '../example-helpers/example-inline-comment-component';
+} from '@atlaskit/editor-test-helpers/example-helpers';
+import { token } from '@atlaskit/tokens';
+
+import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';
 import { AnnotationUpdateEmitter } from '../src';
 
 import { default as FullPageExample } from './5-full-page';

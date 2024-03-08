@@ -1,7 +1,8 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-import { light as tokens } from '@atlaskit/tokens/tokens-raw';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-light';
 
 import { compose, isAccent, not, pick } from './utils';
 

@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.0.0
+
+### Patch Changes
+
+- [#75947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/75947) [`43549c3789b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43549c3789b1) - Migrate @atlaskit/editor-core to use declarative entry points
+- Updated dependencies
+
 ## 192.7.0
 
 ### Patch Changes

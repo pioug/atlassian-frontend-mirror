@@ -1,7 +1,8 @@
 import React, { useCallback, useContext } from 'react';
+import type { AnnotationsDraftContextWrapperChildrenProps } from '../context';
 import { AnnotationsDraftContextWrapper, ProvidersContext } from '../context';
 import { SelectionRangeValidator } from './range-validator';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 type Props = {
   rendererRef: React.RefObject<HTMLDivElement>;
@@ -16,7 +17,10 @@ export const Wrapper = (props: React.PropsWithChildren<Props>): JSX.Element => {
     inlineCommentProvider && inlineCommentProvider.selectionComponent;
 
   const render = useCallback(
-    ({ applyAnnotationDraftAt, clearAnnotationDraft }: any) => {
+    ({
+      applyAnnotationDraftAt,
+      clearAnnotationDraft,
+    }: AnnotationsDraftContextWrapperChildrenProps) => {
       return (
         <>
           {children}

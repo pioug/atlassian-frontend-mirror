@@ -34,7 +34,7 @@ export function createSingletonNotice(componentName: string) {
           href="https://atlassian.slack.com/archives/C020CGJDJ3A"
           target="_blank"
         >
-          #help-media-experience
+          #help-media-platform
         </a>{' '}
         channel.
       </p>

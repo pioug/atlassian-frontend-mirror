@@ -49,7 +49,7 @@ export const ArrowRightWrapper = ({
   </div>
 );
 
-export const LeftArrow: React.SFC<OnClick> = ({ onClick }: OnClick) => (
+export const LeftArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
   <ShadowLeft>
     <ArrowLeftWrapper onClick={onClick}>
       <ArrowLeft label="left" />
@@ -57,7 +57,7 @@ export const LeftArrow: React.SFC<OnClick> = ({ onClick }: OnClick) => (
   </ShadowLeft>
 );
 
-export const RightArrow: React.SFC<OnClick> = ({ onClick }: OnClick) => (
+export const RightArrow: React.FC<OnClick> = ({ onClick }: OnClick) => (
   <ShadowRight>
     <ArrowRightWrapper onClick={onClick}>
       <ArrowRight label="right" />

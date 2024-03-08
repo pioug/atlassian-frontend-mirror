@@ -17,6 +17,7 @@ import {
   AnnotationsStoreProvider,
 } from './helper/annotations';
 import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 const exampleDocumentWithComments = {
   version: 1,
@@ -330,7 +331,7 @@ const mainStyle = css({
 const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const { state } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
-    (doc: any) => {
+    (doc: JSONDocNode) => {
       setDocument(doc);
     },
     [setDocument],

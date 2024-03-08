@@ -87,10 +87,6 @@
     ".": "./src/index.ts",
     "./MockReactionsClient": "./src/MockReactionsClient.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./MockReactionsClient": "./src/MockReactionsClient.ts"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
     "@repo/internal": {

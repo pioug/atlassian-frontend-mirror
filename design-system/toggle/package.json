@@ -93,9 +93,6 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
   "homepage": "https://atlassian.design/components/toggle/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

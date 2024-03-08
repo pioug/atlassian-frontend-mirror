@@ -66,9 +66,5 @@
     ".": "./src/index.ts",
     "./resolved-attributes": "./src/resolved-attributes.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./resolved-attributes": "./src/resolved-attributes.ts"
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

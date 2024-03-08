@@ -18,8 +18,8 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';
-import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
 import { token } from '@atlaskit/tokens';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 
 import {
   CODE_MACRO,

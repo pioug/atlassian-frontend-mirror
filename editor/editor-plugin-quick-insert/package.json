@@ -32,9 +32,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/editor-common": "^78.11.0",

@@ -41,9 +41,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./index.js"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0"
   },

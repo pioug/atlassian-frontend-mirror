@@ -15,6 +15,11 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  ExampleCreateInlineCommentWithRepliesComponent,
+  ExampleViewInlineCommentWithRepliesComponent,
+} from '@atlaskit/editor-test-helpers/example-helpers';
+// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -38,10 +43,6 @@ import type {
   EditorProps,
 } from '../../src/types';
 import type { Error } from '../ErrorReport';
-import {
-  ExampleCreateInlineCommentWithRepliesComponent,
-  ExampleViewInlineCommentWithRepliesComponent,
-} from '../example-inline-comment-component';
 
 // import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 

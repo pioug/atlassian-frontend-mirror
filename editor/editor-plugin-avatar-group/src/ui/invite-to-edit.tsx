@@ -9,7 +9,7 @@ import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
 
 import { inviteTeamWrapperStyles } from './styles';
 
-const ID: React.StatelessComponent = props => (
+const ID: React.FunctionComponent = props => (
   <Fragment>{props.children}</Fragment>
 );
 

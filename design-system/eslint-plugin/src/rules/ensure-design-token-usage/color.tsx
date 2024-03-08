@@ -13,6 +13,7 @@ import { isLegacyElevation } from '../utils/is-elevation';
 import {
   isChildOfType,
   isDecendantOfGlobalToken,
+  isDecendantOfPrimitive,
   isDecendantOfStyleBlock,
   isDecendantOfSvgElement,
 } from '../utils/is-node';
@@ -206,6 +207,11 @@ export const lintJSXLiteralForColor = (
   }
 
   if (isDecendantOfSvgElement(node.parent)) {
+    return;
+  }
+
+  // Box backgroundColor prop accepts token names directly - don't lint against this
+  if (isDecendantOfPrimitive(node.parent, context)) {
     return;
   }
 

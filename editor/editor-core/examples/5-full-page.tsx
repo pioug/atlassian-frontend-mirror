@@ -20,6 +20,8 @@ import type { PanelPluginConfig } from '@atlaskit/editor-plugins/panel';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -63,8 +65,6 @@ import type {
   ExampleProps,
   ExampleRendererProps,
 } from '../example-helpers/full-page/types';
-import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
-import { TitleInput } from '../example-helpers/PageElements';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import { Editor } from '../src';

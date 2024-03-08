@@ -9,6 +9,8 @@ import {
   TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
+import { Root } from '../../ast-nodes';
+
 export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
   if (
     isNodeOfType(node, 'CallExpression') &&
@@ -71,6 +73,32 @@ export const isDecendantOfSvgElement = (node: Rule.Node): boolean => {
 
   if (node.parent) {
     return isDecendantOfSvgElement(node.parent);
+  }
+
+  return false;
+};
+
+export const isDecendantOfPrimitive = (
+  node: Rule.Node,
+  context: Rule.RuleContext,
+): boolean => {
+  const primitivesToCheck = ['Box', 'Text'];
+
+  if (isNodeOfType(node, 'JSXElement')) {
+    // @ts-ignore
+    if (primitivesToCheck.includes(node.openingElement.name.name)) {
+      const importDeclaration = Root.findImportsByModule(
+        context.getSourceCode().ast.body,
+        '@atlaskit/primitives',
+      );
+      if (importDeclaration.length) {
+        return true;
+      }
+    }
+  }
+
+  if (node.parent) {
+    return isDecendantOfPrimitive(node.parent, context);
   }
 
   return false;

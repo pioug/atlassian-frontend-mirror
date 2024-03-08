@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 77.10.6
+
+### Patch Changes
+
+- [#79344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79344) [`b6bc418abde3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6bc418abde3) - CXP-3050 Enforced design tokens and primitives on media-card
+
+## 77.10.5
+
+### Patch Changes
+
+- [#79378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79378) [`1292c9f03c9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1292c9f03c9f) - Apply spacing token to media-ui
+
 ## 77.10.4
 
 ### Patch Changes

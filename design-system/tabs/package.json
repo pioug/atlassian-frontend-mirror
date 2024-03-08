@@ -89,11 +89,6 @@
     "./types": "./src/types.tsx",
     "./hooks": "./src/hooks.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/types.tsx",
-    "./hooks": "./src/hooks.tsx"
-  },
   "homepage": "https://atlassian.design/components/tabs/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

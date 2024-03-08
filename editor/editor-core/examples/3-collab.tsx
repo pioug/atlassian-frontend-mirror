@@ -17,6 +17,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
@@ -36,8 +38,6 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
-import { getExampleExtensionProviders } from '../example-helpers/get-example-extension-providers';
-import { TitleInput } from '../example-helpers/PageElements';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { MentionProvider } from '../src';
 import type { EditorProps } from '../src';

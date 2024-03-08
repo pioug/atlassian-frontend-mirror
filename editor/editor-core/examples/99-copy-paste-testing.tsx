@@ -11,6 +11,7 @@ import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
+import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -30,7 +31,6 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 
 import { MockActivityResource } from '../example-helpers/activity-provider';
 import BreadcrumbsMiscActions from '../example-helpers/breadcrumbs-misc-actions';
-import { TitleInput } from '../example-helpers/PageElements';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
 import type { EditorAppearance, EditorProps } from '../src/editor';

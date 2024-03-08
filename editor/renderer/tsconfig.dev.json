@@ -76,9 +76,6 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
-      "path": "../editor-core/tsconfig.app.json"
-    },
-    {
       "path": "../editor-json-transformer/tsconfig.app.json"
     },
     {

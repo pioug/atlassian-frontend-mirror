@@ -267,6 +267,11 @@ export interface CatchupResponse {
   metadata?: Metadata;
 }
 
+export interface Catchupv2Response {
+  steps?: Step[];
+  metadata?: Metadata;
+}
+
 export interface ReconcileResponse {
   document: string;
   version: number;
@@ -293,6 +298,19 @@ export interface CatchupOptions {
   updateMetadata: (metadata: Metadata | undefined) => void;
   analyticsHelper: AnalyticsHelper | undefined;
   clientId: number | string | undefined;
+}
+
+// CatchupV2
+export interface Catchupv2Options {
+  getCurrentPmVersion: () => number;
+  fetchCatchupv2: (
+    fromVersion: number,
+    clientId: number | string | undefined,
+  ) => Promise<Catchupv2Response>;
+  updateMetadata: (metadata: Metadata | undefined) => void;
+  analyticsHelper: AnalyticsHelper | undefined;
+  clientId: number | string | undefined;
+  onStepsAdded: (data: StepsPayload) => void;
 }
 
 export type ProductInformation = {

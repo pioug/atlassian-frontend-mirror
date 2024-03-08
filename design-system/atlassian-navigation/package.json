@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,14 +23,6 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
-    ".": "./src/index.tsx",
-    "./skeleton": "./src/skeleton.tsx",
-    "./skeleton-help-button": "./src/skeleton-help-button.tsx",
-    "./skeleton-settings-button": "./src/skeleton-settings-button.tsx",
-    "./skeleton-notification-button": "./src/skeleton-notification-button.tsx",
-    "./skeleton-switcher-button": "./src/skeleton-switcher-button.tsx"
-  },
-  "exports": {
     ".": "./src/index.tsx",
     "./skeleton": "./src/skeleton.tsx",
     "./skeleton-help-button": "./src/skeleton-help-button.tsx",

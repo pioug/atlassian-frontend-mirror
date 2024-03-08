@@ -466,7 +466,7 @@ describe('Provider', () => {
         expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
           1,
           restoreError,
-          'Error while reinitialising document',
+          'Error while reinitialising document. Use Reconcile: false',
         );
         expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
           2,

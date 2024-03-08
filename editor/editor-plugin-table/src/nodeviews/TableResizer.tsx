@@ -290,7 +290,7 @@ export const TableResizer = ({
   ]);
 
   const handleResize = useCallback(
-    (originalState, delta) => {
+    (originalState: any, delta: any) => {
       countFrames();
       const newWidth = originalState.width + delta.width;
       let pos: number | undefined;

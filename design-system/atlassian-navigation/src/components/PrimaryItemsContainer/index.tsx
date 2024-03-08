@@ -113,6 +113,7 @@ export const PrimaryItemsContainer = ({
 
       {overflowItems.length > 0 && (
         <Popup
+          shouldRenderToParent
           placement="bottom-start"
           content={content}
           isOpen={isMoreOpen}

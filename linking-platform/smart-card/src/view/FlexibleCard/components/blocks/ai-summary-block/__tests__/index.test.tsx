@@ -1,5 +1,9 @@
 import React from 'react';
+
+import '@atlaskit/link-test-helpers/jest';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { css } from '@emotion/react';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import {
   ActionName,
@@ -9,11 +13,11 @@ import {
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { render } from '@testing-library/react';
 import { AISummaryBlockProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
 import AISummaryBlock from '../index';
 import { ActionItem } from '../../types';
+import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -23,13 +27,22 @@ describe('AISummaryBlock', () => {
   const testIdBase = 'some-test-id';
 
   const renderAISummaryBlock = (props?: AISummaryBlockProps) => {
-    return render(
-      <IntlProvider locale="en">
-        <FlexibleUiContext.Provider value={context}>
-          <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
-        </FlexibleUiContext.Provider>
-      </IntlProvider>,
+    const spy = jest.fn();
+
+    const result = render(
+      <AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+        <IntlProvider locale="en">
+          <FlexibleUiContext.Provider value={context}>
+            <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
+          </FlexibleUiContext.Provider>
+        </IntlProvider>
+      </AnalyticsListener>,
     );
+
+    return {
+      ...result,
+      spy,
+    };
   };
 
   describe('status', () => {
@@ -72,6 +85,74 @@ describe('AISummaryBlock', () => {
       expect(buttonAfterClick).not.toBeInTheDocument();
     });
 
+    it('fires button clicked event when click on Summarize button', async () => {
+      const user = userEvent.setup();
+      const { spy, findByTestId } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      const button = await findByTestId(`${testIdBase}-ai-summary-action`);
+      await user.click(button);
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'clicked',
+            actionSubject: 'button',
+            actionSubjectId: 'aiSummary',
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+    });
+
+    it('fires a summary viewed event when the summary is done', async () => {
+      (useAISummary as jest.Mock).mockReturnValueOnce({
+        isSummarisedOnMount: false,
+        state: { status: 'done', content: 'ai content' },
+        summariseUrl: jest.fn(),
+      });
+      const { spy } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'viewed',
+            actionSubject: 'summary',
+            attributes: {
+              fromCache: false,
+            },
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+    });
+
+    it('fires a summary viewed event when the summary is from cache', async () => {
+      (useAISummary as jest.Mock).mockReturnValueOnce({
+        isSummarisedOnMount: true,
+        state: { status: 'done', content: 'ai content' },
+        summariseUrl: jest.fn(),
+      });
+      const { spy } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'viewed',
+            actionSubject: 'summary',
+            attributes: {
+              fromCache: true,
+            },
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+    });
+
     it('does not show metadata during summarizing', async () => {
       const metadataTestId = `${testIdBase}-provider`;
       const user = userEvent.setup();
@@ -92,7 +173,7 @@ describe('AISummaryBlock', () => {
     });
 
     it('shows error state indicator on error', async () => {
-      (useAISummary as jest.Mock).mockReturnValue({
+      (useAISummary as jest.Mock).mockReturnValueOnce({
         isSummarisedOnMount: false,
         state: { status: 'error', content: '' },
         summariseUrl: jest.fn(),
@@ -103,6 +184,28 @@ describe('AISummaryBlock', () => {
 
       const indicator = await findByTestId(`${testIdBase}-error`);
       expect(indicator).toBeInTheDocument();
+    });
+
+    it('fires a error viewed event on error', async () => {
+      (useAISummary as jest.Mock).mockReturnValueOnce({
+        isSummarisedOnMount: false,
+        state: { status: 'error', content: '' },
+        summariseUrl: jest.fn(),
+      });
+      const { spy } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'viewed',
+            actionSubject: 'error',
+            actionSubjectId: 'aiSummary',
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
     });
   });
 

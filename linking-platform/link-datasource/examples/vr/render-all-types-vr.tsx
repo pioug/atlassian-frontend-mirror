@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { DatasourceType } from '@atlaskit/linking-types';
+import { token } from '@atlaskit/tokens';
 
 import * as AdfTable from '../../examples-helpers/adfTable.json';
 import * as Image from '../../examples-helpers/images.json';
@@ -19,7 +20,7 @@ const ContainerWrapper = styled.div({
 });
 
 const RenderDiv = styled.div({
-  margin: '6px 0',
+  margin: `${token('space.075', '6px')} ${token('space.0', '0px')}`,
 });
 
 const tableHeaderStyles = css({

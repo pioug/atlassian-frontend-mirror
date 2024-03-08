@@ -34,18 +34,6 @@
     "./types": "./src/types.ts",
     "./utils": "./src/utils.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./collapse-whitespace": "./src/collapse-whitespace.ts",
-    "./content-wrapper": "./src/content-wrapper.ts",
-    "./encode": "./src/encode.ts",
-    "./encode-cxhtml": "./src/encode-cxhtml.ts",
-    "./languageMap": "./src/languageMap.ts",
-    "./parse": "./src/parse.ts",
-    "./parse-cxhtml": "./src/parse-cxhtml.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
-  },
   "atlassian": {
     "team": "Editor: ADF",
     "inPublicMirror": true,

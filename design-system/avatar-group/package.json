@@ -92,9 +92,6 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
-  "exports": {
-    ".": "./src/index.tsx"
-  },
   "homepage": "https://atlassian.design/components/avatar-group/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

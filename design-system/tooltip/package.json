@@ -41,14 +41,6 @@
     "./types": "./src/types.tsx",
     "./utilities": "./src/utilities.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./Tooltip": "./src/Tooltip.tsx",
-    "./TooltipContainer": "./src/TooltipContainer.tsx",
-    "./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
-    "./types": "./src/types.tsx",
-    "./utilities": "./src/utilities.ts"
-  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",

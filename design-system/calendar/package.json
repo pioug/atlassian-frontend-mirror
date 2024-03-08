@@ -96,10 +96,6 @@
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx"
-  },
   "homepage": "https://atlassian.design/components/calendar/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

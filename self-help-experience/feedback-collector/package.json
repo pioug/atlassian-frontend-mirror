@@ -27,11 +27,6 @@
     "./messages": "./src/messages.ts",
     "./types": "./src/types.ts"
   },
-  "exports": {
-    ".": "./src/index.ts",
-    "./messages": "./src/messages.ts",
-    "./types": "./src/types.ts"
-  },
   "atlassian": {
     "team": "Self-Help Experiences",
     "releaseModel": "continuous",

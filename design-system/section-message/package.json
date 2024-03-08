@@ -39,12 +39,6 @@
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
-  "exports": {
-    "./section-message": "./src/entry-points/section-message.tsx",
-    "./section-message-action": "./src/entry-points/section-message-action.tsx",
-    "./types": "./src/entry-points/types.tsx",
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/codemod-utils": "^4.2.0",

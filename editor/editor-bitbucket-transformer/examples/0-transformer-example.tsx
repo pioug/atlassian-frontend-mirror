@@ -17,8 +17,8 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
 import { token } from '@atlaskit/tokens';
+import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
 import { BitbucketTransformer } from '../src';
 import exampleBitbucketHTML from './helpers/exampleHTML';
 

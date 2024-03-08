@@ -25,8 +25,5 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
     ".": "./index.js"
-  },
-  "exports": {
-    ".": "./index.js"
   }
 }

@@ -3,6 +3,10 @@ import {
   selectorById,
 } from '@atlaskit/editor-test-helpers/annotation';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { AnnotationTestIds } from '@atlaskit/editor-test-helpers/page-objects/editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
@@ -12,11 +16,6 @@ import {
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-
-import {
-  ExampleCreateInlineCommentComponent,
-  ExampleViewInlineCommentComponent,
-} from '../../../../example-helpers/example-inline-comment-component';
 
 import * as highlightAdf from './__fixtures__/highlight.adf.json';
 

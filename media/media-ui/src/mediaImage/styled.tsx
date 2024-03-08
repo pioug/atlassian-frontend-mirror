@@ -1,4 +1,11 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 import React, { CSSProperties } from 'react';
+
+/*
+  TODO: https://product-fabric.atlassian.net/browse/CXP-3132
+
+  We need to revisit omitting percentage values for Design Token since the parent applies transform(-50%, -50%) on it (packages/media/media-ui/src/mediaImage/index.tsx). This styling is complex and may potentially cause a bug if not treaded carefully.
+*/
 
 const imgStyle: CSSProperties = {
   position: 'absolute',

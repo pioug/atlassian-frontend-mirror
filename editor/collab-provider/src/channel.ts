@@ -7,6 +7,7 @@ import type {
   InitAndAuthData,
   InitPayload,
   CatchupResponse,
+  Catchupv2Response,
   PresencePayload,
   NamespaceStatus,
   AuthCallback,
@@ -539,6 +540,61 @@ export class Channel extends Emitter<ChannelEvent> {
         },
       };
       this.emit('error', errorCatchup);
+      throw error;
+    }
+  };
+
+  fetchCatchupv2 = async (
+    fromVersion: number,
+    clientId: number | string | undefined,
+  ): Promise<Catchupv2Response> => {
+    try {
+      const { steps, metadata } = await utils.requestService<any>(this.config, {
+        path: `document/${encodeURIComponent(
+          this.config.documentAri,
+        )}/catchupv2`,
+        queryParams: {
+          version: fromVersion,
+          clientId: clientId,
+        },
+        requestInit: {
+          headers: {
+            ...(this.config.permissionTokenRefresh
+              ? {
+                  'x-token': await this.getChannelToken(),
+                }
+              : {}),
+            'x-product': getProduct(this.config.productInfo),
+            'x-subproduct': getSubProduct(this.config.productInfo),
+          },
+        },
+      });
+      return {
+        steps,
+        metadata,
+      };
+    } catch (error: any) {
+      if (error.code === 404) {
+        const errorNotFound: DocumentNotFoundError = {
+          message: 'The requested document is not found',
+          data: {
+            status: error.code,
+            code: INTERNAL_ERROR_CODE.DOCUMENT_NOT_FOUND,
+          },
+        };
+        this.emit('error', errorNotFound);
+        return {};
+      }
+
+      logger("Can't fetch the catchupv2", error.message);
+      const errorCatchupv2: CatchUpFailedError = {
+        message: 'Cannot fetch catchupv2 from collab service',
+        data: {
+          status: error.status,
+          code: INTERNAL_ERROR_CODE.CATCHUP_FAILED,
+        },
+      };
+      this.emit('error', errorCatchupv2);
       throw error;
     }
   };

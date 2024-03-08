@@ -5,8 +5,7 @@ import {
   lightModeStatusColorPalette,
   darkModeStatusColorPalette,
 } from '@atlaskit/editor-common/ui-color';
-import { statusMessages } from '@atlaskit/editor-core/src/messages';
-import messages from '@atlaskit/editor-common/messages';
+import messages, { statusMessages } from '@atlaskit/editor-common/messages';
 import type WebBridgeImpl from './native-to-web';
 
 import type {

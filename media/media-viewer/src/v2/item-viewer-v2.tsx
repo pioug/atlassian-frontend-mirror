@@ -6,10 +6,15 @@ import {
   isExternalImageIdentifier,
   isFileIdentifier,
   ExternalImageIdentifier,
+  ProcessedFileState,
+  UploadingFileState,
+  ProcessingFileState,
+  ProcessingFailedState,
 } from '@atlaskit/media-client';
 import { FormattedMessage } from 'react-intl-next';
 import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   useFileState,
   useMediaClient,
@@ -217,9 +222,103 @@ export const ItemViewerV2Base = ({
     });
   }, [item]);
 
-  const onLoadFail = useCallback((mediaViewerError: MediaViewerError) => {
-    setItem(Outcome.failed(mediaViewerError));
-  }, []);
+  const onLoadFail = useCallback(
+    (mediaViewerError: MediaViewerError, data?: FileItem) => {
+      setItem(Outcome.failed(mediaViewerError, data));
+    },
+    [],
+  );
+
+  const renderItem = (
+    fileItem:
+      | ProcessedFileState
+      | UploadingFileState
+      | ProcessingFileState
+      | ProcessingFailedState,
+  ) => {
+    const collectionName = isFileIdentifier(identifier)
+      ? identifier.collectionName
+      : undefined;
+    const viewerProps = {
+      mediaClient,
+      item: fileItem,
+      collectionName,
+      onClose,
+      previewCount,
+    };
+
+    // TODO: fix all of the item errors
+
+    if (isCodeViewerItem(fileItem.name, fileItem.mimeType)) {
+      //Render error message if code file has size over 10MB.
+      //Required by https://product-fabric.atlassian.net/browse/MEX-1788
+      if (fileItem.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
+        return renderError(
+          new MediaViewerError('codeviewer-file-size-exceeds'),
+          fileItem,
+        );
+      }
+
+      return (
+        <CodeViewerV2
+          onSuccess={onSuccess}
+          onError={onLoadFail}
+          {...viewerProps}
+        />
+      );
+    }
+    const { mediaType } = fileItem;
+
+    switch (mediaType) {
+      case 'image':
+        return (
+          <ImageViewerV2
+            onLoad={onSuccess}
+            onError={onLoadFail}
+            contextId={contextId}
+            traceContext={traceContext.current}
+            {...viewerProps}
+          />
+        );
+      case 'audio':
+        return (
+          <AudioViewerV2
+            showControls={showControls}
+            onCanPlay={onSuccess}
+            onError={onLoadFail}
+            {...viewerProps}
+          />
+        );
+      case 'video':
+        return (
+          <VideoViewerV2
+            showControls={showControls}
+            onCanPlay={onSuccess}
+            onError={onLoadFail}
+            {...viewerProps}
+          />
+        );
+      case 'doc':
+        return (
+          <DocViewerV2
+            onSuccess={onSuccess}
+            onError={(err) => {
+              onLoadFail(err, fileState);
+            }}
+            {...viewerProps}
+          />
+        );
+      case 'archive':
+        return (
+          <ArchiveViewerLoader
+            onSuccess={onSuccess}
+            onError={onLoadFail}
+            {...viewerProps}
+          />
+        );
+    }
+    return renderError(new MediaViewerError('unsupported'), fileItem);
+  };
 
   const renderError = useCallback(
     (error: MediaViewerError, fileItem?: FileItem) => {
@@ -296,88 +395,15 @@ export const ItemViewerV2Base = ({
           case 'processed':
           case 'uploading':
           case 'processing':
-            // TODO: renderItem
-            const collectionName = isFileIdentifier(identifier)
-              ? identifier.collectionName
-              : undefined;
-            const viewerProps = {
-              mediaClient,
-              item: fileItem,
-              collectionName,
-              onClose,
-              previewCount,
-            };
-
-            // TODO: fix all of the item errors
-
-            if (isCodeViewerItem(fileItem.name, fileItem.mimeType)) {
-              //Render error message if code file has size over 10MB.
-              //Required by https://product-fabric.atlassian.net/browse/MEX-1788
-              if (fileItem.size > MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER) {
-                return renderError(
-                  new MediaViewerError('codeviewer-file-size-exceeds'),
-                  fileItem,
-                );
-              }
-
-              return (
-                <CodeViewerV2
-                  onSuccess={onSuccess}
-                  onError={onLoadFail}
-                  {...viewerProps}
-                />
-              );
-            }
-            const { mediaType } = fileItem;
-
-            switch (mediaType) {
-              case 'image':
-                return (
-                  <ImageViewerV2
-                    onLoad={onSuccess}
-                    onError={onLoadFail}
-                    contextId={contextId}
-                    traceContext={traceContext.current}
-                    {...viewerProps}
-                  />
-                );
-              case 'audio':
-                return (
-                  <AudioViewerV2
-                    showControls={showControls}
-                    onCanPlay={onSuccess}
-                    onError={onLoadFail}
-                    {...viewerProps}
-                  />
-                );
-              case 'video':
-                return (
-                  <VideoViewerV2
-                    showControls={showControls}
-                    onCanPlay={onSuccess}
-                    onError={onLoadFail}
-                    {...viewerProps}
-                  />
-                );
-              case 'doc':
-                return (
-                  <DocViewerV2
-                    onSuccess={onSuccess}
-                    onError={onLoadFail}
-                    {...viewerProps}
-                  />
-                );
-              case 'archive':
-                return (
-                  <ArchiveViewerLoader
-                    onSuccess={onSuccess}
-                    onError={onLoadFail}
-                    {...viewerProps}
-                  />
-                );
-            }
-            return renderError(new MediaViewerError('unsupported'), fileItem);
+            return renderItem(fileItem);
           case 'failed-processing':
+            if (
+              getBooleanFF('platform.corex.password-protected-pdf_ht8re') &&
+              fileItem.mediaType === 'doc' &&
+              fileItem.mimeType === 'application/pdf'
+            ) {
+              return renderItem(fileItem);
+            }
             return renderError(
               new MediaViewerError('itemviewer-file-failed-processing-status'),
               fileItem,

@@ -112,6 +112,9 @@
             "path": "../../../people-and-teams/profilecard/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/section-message/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../linking-platform/smart-card/afm-cc/tsconfig.json"
         },
         {

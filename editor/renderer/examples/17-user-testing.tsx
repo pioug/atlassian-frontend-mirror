@@ -5,10 +5,8 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
-import {
-  LOCALSTORAGE_defaultDocKey,
-  LOCALSTORAGE_defaultTitleKey,
-} from '@atlaskit/editor-core/examples/5-full-page';
+const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
+const LOCALSTORAGE_defaultTitleKey = 'fabric.editor.example.full-page.title';
 
 import { default as Renderer } from '../src/ui/Renderer';
 import Sidebar from './helper/NavigationNext';

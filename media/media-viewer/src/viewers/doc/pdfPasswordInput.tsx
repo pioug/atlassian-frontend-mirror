@@ -96,6 +96,9 @@ export const PDFPasswordInput = ({
                   aria-label={intl.formatMessage(messages.password)}
                   placeholder={intl.formatMessage(messages.enter_password)}
                   ref={passwordInputRef}
+                  aria-describedby={
+                    formError ? `${fieldProps.id}-error` : undefined
+                  }
                   onChange={(value) => {
                     fieldProps.onChange(value);
                     setFormError(false);
@@ -105,7 +108,6 @@ export const PDFPasswordInput = ({
                   <div
                     css={errorMessageWrapperStyle}
                     id={`${fieldProps.id}-error`}
-                    aria-live="polite"
                   >
                     <ErrorIcon size="small" label="" />
                     <p css={errorMessageStyle}>

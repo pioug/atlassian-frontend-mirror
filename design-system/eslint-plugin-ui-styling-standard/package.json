@@ -35,9 +35,6 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
-  "exports": {
-    ".": "./index.js"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
     "@typescript-eslint/utils": "^5.48.1"

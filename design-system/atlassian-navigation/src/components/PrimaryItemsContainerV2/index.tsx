@@ -102,6 +102,7 @@ const MoreItemsPopup = ({
 
   return (
     <Popup
+      shouldRenderToParent
       placement="bottom-start"
       isOpen={isMoreOpen}
       onClose={onMoreClose}

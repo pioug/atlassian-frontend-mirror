@@ -52,12 +52,5 @@
     "./styles": "./src/styles.ts",
     "./types": "./src/types.ts",
     "./utils": "./src/utils.ts"
-  },
-  "exports": {
-    ".": "./src/index.ts",
-    "./Notifications": "./src/Notifications.tsx",
-    "./styles": "./src/styles.ts",
-    "./types": "./src/types.ts",
-    "./utils": "./src/utils.ts"
   }
 }

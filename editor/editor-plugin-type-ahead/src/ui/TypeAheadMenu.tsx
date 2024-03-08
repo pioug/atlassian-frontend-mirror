@@ -44,7 +44,7 @@ export const TypeAheadMenu = React.memo(
       items,
     );
     const setSelectedItem = React.useCallback(
-      ({ index: nextIndex }) => {
+      ({ index: nextIndex }: { index: number }) => {
         queueMicrotask(() => {
           updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
         });

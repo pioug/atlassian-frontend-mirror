@@ -159,7 +159,10 @@ export const ColumnControls = ({
   }, [editorView, tableActive]);
 
   const toggleDragMenuHandler = useCallback(
-    (trigger: TriggerType, event) => {
+    (
+      trigger: TriggerType,
+      event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent> | undefined,
+    ) => {
       const { state, dispatch } = editorView;
       if (event?.shiftKey) {
         return;

@@ -207,7 +207,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   );
 
   const messageListener = useCallback(
-    event => {
+    (event: any) => {
       if (!props.isOpen) {
         return;
       }

@@ -33,9 +33,6 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
-  "exports": {
-    ".": "./src/index.ts"
-  },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",

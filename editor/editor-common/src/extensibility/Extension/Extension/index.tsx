@@ -113,6 +113,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     'without-frame': removeBorder,
   });
 
+  const contentClassNames = classnames({
+    'remove-padding': showMacroInteractionDesignUpdates,
+  });
+
   let customContainerStyles: CSSProperties = {
     width: '100%',
   };
@@ -174,7 +178,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
             {children}
           </div>
           {hasBody && (
-            <div css={newContentStyles}>
+            <div css={newContentStyles} className={contentClassNames}>
               <div
                 css={content}
                 ref={handleContentDOMRef}

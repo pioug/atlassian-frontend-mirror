@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 13.1.0
+
+### Minor Changes
+
+- [#79261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79261) [`d679c084e0a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d679c084e0a9) - Add optional `label` prop to DatePicker and TimePicker to supply an accessible name via `aria-label`
+
 ## 13.0.12
 
 ### Patch Changes

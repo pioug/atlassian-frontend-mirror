@@ -78,6 +78,7 @@ const datePickerDefaultProps = {
   innerProps: {},
   isDisabled: false,
   isInvalid: false,
+  label: '',
   name: '',
   // These disables are here for proper typing when used as defaults. They
   // should *not* use the `noop` function.
@@ -417,6 +418,7 @@ class DatePicker extends Component<DatePickerProps, State> {
       maxDate,
       minDate,
       isInvalid,
+      label,
       name,
       nextMonthLabel,
       previousMonthLabel,
@@ -506,6 +508,7 @@ class DatePicker extends Component<DatePickerProps, State> {
           data-testid={testId && `${testId}--input`}
         />
         <Select
+          aria-label={label || undefined}
           appearance={this.props.appearance}
           enableAnimation={false}
           menuIsOpen={menuIsOpen}

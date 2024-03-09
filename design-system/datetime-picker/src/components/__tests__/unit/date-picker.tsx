@@ -8,7 +8,16 @@ import cases from 'jest-in-case';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { convertTokens } from '../../../internal/parse-tokens';
+import { DatePickerBaseProps } from '../../../types';
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
+
+const testId = 'dateTest';
+const testIdInput = `${testId}--input`;
+const testIdContainer = `${testId}--container`;
+
+const createDatePicker = (props: DatePickerBaseProps = {}) => (
+  <DatePicker label="Date" testId={testId} {...props} />
+);
 
 const getAllDays = () =>
   screen.getAllByRole(
@@ -22,10 +31,11 @@ describe('DatePicker', () => {
     ffTest(
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
       () => {
+        const testId = 'onchange';
         const onChangeSpy = jest.fn();
-        render(<DatePicker onChange={onChangeSpy} testId="test" />);
+        render(createDatePicker({ onChange: onChangeSpy, testId: testId }));
 
-        const input = screen.getByTestId('test--input');
+        const input = screen.getByTestId(`${testId}--input`);
         fireEvent.input(input, {
           target: {
             value: '06/08/2018',
@@ -52,16 +62,16 @@ describe('DatePicker', () => {
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
-        render(<DatePicker value={dateValue} testId="test" />);
+        render(createDatePicker({ value: dateValue }));
 
         const input = screen.getByRole('combobox');
         expect(input?.getAttribute('value')).toBe('6/8/2018');
       },
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
-        render(<DatePicker value={dateValue} testId="test" />);
+        render(createDatePicker({ value: dateValue }));
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
         expect(container).toHaveTextContent('6/8/2018');
       },
     );
@@ -73,11 +83,10 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={() => 'hello world'}
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: () => 'hello world',
+          }),
         );
 
         const input = screen.getByRole('combobox');
@@ -87,14 +96,13 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={() => 'hello world'}
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: () => 'hello world',
+          }),
         );
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
 
         expect(container).toHaveTextContent('hello world');
       },
@@ -107,13 +115,11 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={(date, dateFormat) =>
-              format(parseISO(date), convertTokens(dateFormat))
-            }
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: (date, dateFormat) =>
+              format(parseISO(date), convertTokens(dateFormat)),
+          }),
         );
 
         const input = screen.getByRole('combobox');
@@ -123,16 +129,14 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={(date, dateFormat) =>
-              format(parseISO(date), convertTokens(dateFormat))
-            }
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: (date, dateFormat) =>
+              format(parseISO(date), convertTokens(dateFormat)),
+          }),
         );
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
 
         expect(container).toHaveTextContent('2018/06/08');
       },
@@ -145,14 +149,12 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={(date, dateFormat) =>
-              format(parseISO(date), convertTokens(dateFormat))
-            }
-            dateFormat="MMMM/DD"
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: (date, dateFormat) =>
+              format(parseISO(date), convertTokens(dateFormat)),
+            dateFormat: 'MMMM/DD',
+          }),
         );
 
         const input = screen.getByRole('combobox');
@@ -162,17 +164,15 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            formatDisplayLabel={(date, dateFormat) =>
-              format(parseISO(date), convertTokens(dateFormat))
-            }
-            dateFormat="MMMM/DD"
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            formatDisplayLabel: (date, dateFormat) =>
+              format(parseISO(date), convertTokens(dateFormat)),
+            dateFormat: 'MMMM/DD',
+          }),
         );
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
 
         expect(container).toHaveTextContent('June/08');
       },
@@ -185,7 +185,10 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker dateFormat="MMMM/DD" value={dateValue} testId="test" />,
+          createDatePicker({
+            value: dateValue,
+            dateFormat: 'MMMM/DD',
+          }),
         );
 
         const input = screen.getByRole('combobox');
@@ -195,10 +198,13 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker dateFormat="MMMM/DD" value={dateValue} testId="test" />,
+          createDatePicker({
+            value: dateValue,
+            dateFormat: 'MMMM/DD',
+          }),
         );
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
 
         expect(container).toHaveTextContent('June/08');
       },
@@ -211,11 +217,10 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            dateFormat="DDDo---dddd---YYYY---hh:mm:ss"
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            dateFormat: 'DDDo---dddd---YYYY---hh:mm:ss',
+          }),
         );
 
         const input = screen.getByRole('combobox');
@@ -227,14 +232,13 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         render(
-          <DatePicker
-            dateFormat="DDDo---dddd---YYYY---hh:mm:ss"
-            value={dateValue}
-            testId="test"
-          />,
+          createDatePicker({
+            value: dateValue,
+            dateFormat: 'DDDo---dddd---YYYY---hh:mm:ss',
+          }),
         );
 
-        const container = screen.getByTestId('test--container');
+        const container = screen.getByTestId(testIdContainer);
 
         expect(container).toHaveTextContent('159th---Friday---2018---12:00:00');
       },
@@ -251,7 +255,12 @@ describe('DatePicker', () => {
     it('should apply `lang` attribute to inner input field', () => {
       const lang = 'en-US';
 
-      render(<DatePicker locale={lang} value={dateValue} testId="test" />);
+      render(
+        createDatePicker({
+          value: dateValue,
+          locale: lang,
+        }),
+      );
 
       const value = screen.getByText(`${month}/${day}/${year}`);
 
@@ -261,7 +270,12 @@ describe('DatePicker', () => {
     cases(
       'should format date using provided locale',
       ({ locale, result }: { locale: string; result: string }) => {
-        render(<DatePicker locale={locale} value={dateValue} />);
+        render(
+          createDatePicker({
+            value: dateValue,
+            locale: locale,
+          }),
+        );
 
         expect(screen.getByText(result)).toBeInTheDocument();
       },
@@ -278,16 +292,17 @@ describe('DatePicker', () => {
       () => {
         const onChangeSpy = jest.fn();
         render(
-          <DatePicker
-            value={'2018-08-06'}
-            onChange={onChangeSpy}
-            testId="test"
-          />,
+          createDatePicker({
+            value: '2018-08-06',
+            onChange: onChangeSpy,
+          }),
         );
-        fireEvent.click(screen.getByTestId('test--container'));
+        fireEvent.click(screen.getByTestId(testIdContainer));
 
         const days = getAllDays();
-        const selectedDay = screen.getByTestId('test--calendar--selected-day');
+        const selectedDay = screen.getByTestId(
+          `${testId}--calendar--selected-day`,
+        );
         const selectedIndex = days.findIndex((day) => day === selectedDay);
         const nextDay = days[selectedIndex + 1];
 
@@ -304,17 +319,18 @@ describe('DatePicker', () => {
       () => {
         const onChangeSpy = jest.fn();
         render(
-          <DatePicker
-            value={'2018-08-06'}
-            dateFormat="DDDo-dddd-YYYY"
-            onChange={onChangeSpy}
-            testId="test"
-          />,
+          createDatePicker({
+            value: '2018-08-06',
+            dateFormat: 'DDDo-dddd-YYYY',
+            onChange: onChangeSpy,
+          }),
         );
 
-        fireEvent.click(screen.getByTestId('test--container'));
+        fireEvent.click(screen.getByTestId(testIdContainer));
         const days = getAllDays();
-        const selectedDay = screen.getByTestId('test--calendar--selected-day');
+        const selectedDay = screen.getByTestId(
+          `${testId}--calendar--selected-day`,
+        );
         const selectedIndex = days.findIndex((day) => day === selectedDay);
         const nextDay = days[selectedIndex + 1];
 
@@ -331,15 +347,14 @@ describe('DatePicker', () => {
       () => {
         const onChangeSpy = jest.fn();
         render(
-          <DatePicker
-            value={'2018-08-06'}
-            disabled={['2018-08-16']}
-            onChange={onChangeSpy}
-            testId="test"
-          />,
+          createDatePicker({
+            value: '2018-08-06',
+            disabled: ['2018-08-16'],
+            onChange: onChangeSpy,
+          }),
         );
 
-        fireEvent.click(screen.getByTestId('test--container'));
+        fireEvent.click(screen.getByTestId(testIdContainer));
         fireEvent.click(screen.getByText('16'));
         expect(onChangeSpy).not.toHaveBeenCalled();
       },
@@ -354,15 +369,14 @@ describe('DatePicker', () => {
         const onChangeSpy = jest.fn();
         const expectedResult = '1970-01-01';
         render(
-          <DatePicker
-            id="customDatePicker-ParseInputValue"
-            onChange={onChangeSpy}
-            parseInputValue={parseInputValue}
-            testId="test"
-          />,
+          createDatePicker({
+            id: 'customDatePicker-ParseInputValue',
+            parseInputValue: parseInputValue,
+            onChange: onChangeSpy,
+          }),
         );
 
-        const input = screen.getByTestId('test--input');
+        const input = screen.getByTestId(testIdInput);
         fireEvent.input(input, {
           target: {
             value: 'asdf', // our custom parseInputValue ignores this
@@ -382,12 +396,13 @@ describe('DatePicker', () => {
     ffTest(
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
       () => {
-        const testId = 'test';
         const { rerender } = render(
-          <DatePicker value="1970-01-01" testId="test" />,
+          createDatePicker({
+            value: '1970-01-01',
+          }),
         );
 
-        fireEvent.click(screen.getByTestId(`${testId}--container`));
+        fireEvent.click(screen.getByTestId(testIdContainer));
         let selectedDay = screen.getByTestId(
           `${testId}--calendar--selected-day`,
         );
@@ -395,14 +410,18 @@ describe('DatePicker', () => {
           expect.stringContaining('1, Thursday January 1970'),
         );
 
-        rerender(<DatePicker value="1990-02-02" testId="test" />);
+        rerender(
+          createDatePicker({
+            value: '1990-02-02',
+          }),
+        );
 
         // date doesn't update without focus
         const select = screen.getByRole('combobox');
         fireEvent.focus(select);
 
         // date update after focus
-        fireEvent.click(screen.getByTestId(`${testId}--container`));
+        fireEvent.click(screen.getByTestId(testIdContainer));
         selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
         expect(selectedDay).toHaveAccessibleName(
           expect.stringContaining('2, Friday February 1990'),
@@ -418,14 +437,13 @@ describe('DatePicker', () => {
         const onChangeSpy = jest.fn();
         const expectedResult = '2018-01-02';
         render(
-          <DatePicker
-            id="defaultDatePicker-ParseInputValue"
-            onChange={onChangeSpy}
-            testId="test"
-          />,
+          createDatePicker({
+            id: 'defaultDatePicker-ParseInputValue',
+            onChange: onChangeSpy,
+          }),
         );
 
-        const input = screen.getByTestId('test--input');
+        const input = screen.getByTestId(testIdInput);
         fireEvent.input(input, {
           target: {
             value: '01/02/18',
@@ -450,14 +468,13 @@ describe('DatePicker', () => {
         const today = format(new Date(), 'yyyy-MM-dd');
 
         render(
-          <DatePicker
-            id="defaultDatePicker-ParseInputValue"
-            onChange={onChangeSpy}
-            testId="test"
-          />,
+          createDatePicker({
+            id: 'defaultDatePicker-ParseInputValue',
+            onChange: onChangeSpy,
+          }),
         );
 
-        const input = screen.getByTestId('test--input');
+        const input = screen.getByTestId(testIdInput);
         fireEvent.input(input, {
           target: {
             value: '01/01/10000',
@@ -481,7 +498,7 @@ describe('DatePicker', () => {
 
     it('should close the calendar when focused on the input and the escape key is pressed', async () => {
       const user = userEvent.setup();
-      render(<DatePicker testId={testId} />);
+      render(createDatePicker({ testId: testId }));
 
       const selectInput = screen.getByRole('combobox');
       expect(queryCalendar()).not.toBeInTheDocument();
@@ -499,7 +516,7 @@ describe('DatePicker', () => {
 
     it('should bring focus back to input and close calendar when focused on the calendar and the escape key is pressed', async () => {
       const user = userEvent.setup();
-      render(<DatePicker testId={testId} />);
+      render(createDatePicker({ testId: testId }));
 
       const selectInput = screen.getByRole('combobox');
       expect(queryCalendar()).not.toBeInTheDocument();
@@ -533,11 +550,11 @@ describe('DatePicker', () => {
         const onChangeSpy = jest.fn();
         const testId = 'clear--test';
         render(
-          <DatePicker
-            value={dateValue}
-            onChange={onChangeSpy}
-            testId={testId}
-          />,
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+            testId: testId,
+          }),
         );
 
         const selectInput = screen.getByRole('combobox');
@@ -550,11 +567,11 @@ describe('DatePicker', () => {
         const onChangeSpy = jest.fn();
         const testId = 'clear--test';
         render(
-          <DatePicker
-            value={dateValue}
-            onChange={onChangeSpy}
-            testId={testId}
-          />,
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+            testId: testId,
+          }),
         );
 
         const selectInput = screen.getByDisplayValue('');
@@ -571,7 +588,12 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         const onChangeSpy = jest.fn();
-        render(<DatePicker value={dateValue} onChange={onChangeSpy} />);
+        render(
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+          }),
+        );
 
         const selectInput = screen.getByRole('combobox');
         fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
@@ -581,7 +603,12 @@ describe('DatePicker', () => {
       () => {
         const dateValue = new Date('06/08/2018').toISOString();
         const onChangeSpy = jest.fn();
-        render(<DatePicker value={dateValue} onChange={onChangeSpy} />);
+        render(
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+          }),
+        );
 
         const selectInput = screen.getByDisplayValue('');
         fireEvent.keyDown(selectInput, { key: 'Delete', keyCode: 46 });
@@ -600,12 +627,12 @@ describe('DatePicker', () => {
         const testId = 'clear--test';
 
         render(
-          <DatePicker
-            value={dateValue}
-            onChange={onChangeSpy}
-            selectProps={{ testId: testId }}
-            testId={testId}
-          />,
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+            testId: testId,
+            selectProps: { testId: testId },
+          }),
         );
         const clearButton = screen.getByRole('button', { name: 'clear' });
 
@@ -630,13 +657,13 @@ describe('DatePicker', () => {
         const testId = 'clear--test';
 
         render(
-          <DatePicker
-            value={dateValue}
-            onChange={onChangeSpy}
-            testId={testId}
-            selectProps={{ testId: testId }}
-            defaultIsOpen
-          />,
+          createDatePicker({
+            value: dateValue,
+            onChange: onChangeSpy,
+            testId: testId,
+            selectProps: { testId: testId },
+            defaultIsOpen: true,
+          }),
         );
 
         const clearButton = screen.getByRole('button', { name: 'clear' });
@@ -658,17 +685,17 @@ describe('DatePicker', () => {
       'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
       () => {
         const id = 'test';
-        const testId = 'testId';
+        // const testId = 'testId';
         const allImplementations = [
-          <DatePicker testId={testId} />,
-          <DatePicker testId={testId} id={id} />,
-          <DatePicker testId={testId} selectProps={{ inputId: id }} />,
+          createDatePicker(),
+          createDatePicker({ id: id }),
+          createDatePicker({ selectProps: { inputId: id } }),
         ];
 
         allImplementations.forEach((jsx) => {
           const { unmount } = render(jsx);
 
-          const hiddenInput = screen.getByTestId(`${testId}--input`);
+          const hiddenInput = screen.getByTestId(testIdInput);
 
           expect(hiddenInput).toHaveAttribute('type', 'hidden');
           expect(hiddenInput).not.toHaveAttribute('id');
@@ -677,5 +704,12 @@ describe('DatePicker', () => {
         });
       },
     );
+  });
+
+  describe('should add aria-label when label prop is supplied', () => {
+    render(createDatePicker());
+
+    const input = screen.getByRole('combobox');
+    expect(input).toHaveAttribute('aria-label', 'Date');
   });
 });

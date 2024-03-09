@@ -256,14 +256,18 @@ class DateTimePicker extends React.Component<DateTimePickerProps, State> {
     const mergedDatePickerSelectProps = {
       ...datePickerSelectProps,
       'aria-label':
-        datePickerSelectProps['aria-label'] || datePickerDefaultAriaLabel,
+        datePickerProps['label'] ||
+        datePickerSelectProps['aria-label'] ||
+        datePickerDefaultAriaLabel,
       styles: mergeStyles(styles, datePickerStyles),
     };
 
     const mergedTimePickerSelectProps = {
       ...timePickerSelectProps,
       'aria-label':
-        timePickerSelectProps['aria-label'] || timePickerDefaultAriaLabel,
+        timePickerProps['label'] ||
+        timePickerSelectProps['aria-label'] ||
+        timePickerDefaultAriaLabel,
       styles: mergeStyles(styles, timePickerStyles),
     };
 

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -45,32 +45,21 @@ const InlineExtension = (props: Props) => {
     getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;
 
   const inlineExtensionInternal = (
-    <Fragment>
-      {showMacroInteractionDesignUpdates && (
+    <div
+      css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
+      className={`extension-container inline ${className}`}
+    >
+      <div css={overlay} className="extension-overlay" />
+      {children ? (
+        children
+      ) : (
         <ExtensionLozenge
           node={node}
           isNodeSelected={isNodeSelected}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
         />
       )}
-      <div
-        css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
-        className={`extension-container inline ${className}`}
-      >
-        <div css={overlay} className="extension-overlay" />
-        {children ? (
-          children
-        ) : (
-          <ExtensionLozenge
-            node={node}
-            isNodeSelected={isNodeSelected}
-            showMacroInteractionDesignUpdates={
-              showMacroInteractionDesignUpdates
-            }
-          />
-        )}
-      </div>
-    </Fragment>
+    </div>
   );
   if (extendedInlineExtension) {
     return (

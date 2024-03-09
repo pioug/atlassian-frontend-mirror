@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 78.11.4
+
+### Patch Changes
+
+- [#78796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78796) [`76cf1e2f8fd4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76cf1e2f8fd4) - [ux] Fixes macro backgrounds for macro interaction project
+- [#79721](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79721) [`8cff83fbb472`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cff83fbb472) - [ux] Removes changes for inline macros for macro interaction updates
+
 ## 78.11.3
 
 ### Patch Changes

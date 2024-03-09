@@ -277,11 +277,9 @@ describe('DateTimePicker', () => {
     const onChange = jest.fn();
     const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-    const { getByRole } = render(
-      <DateTimePicker value={dateTimeValue} onChange={onChange} />,
-    );
+    render(<DateTimePicker value={dateTimeValue} onChange={onChange} />);
 
-    const clearButton = getByRole('button');
+    const clearButton = screen.getByRole('button');
     fireEvent.click(clearButton);
 
     expect(onChange).toHaveBeenCalledWith('');
@@ -291,9 +289,9 @@ describe('DateTimePicker', () => {
   it('should have a clear button with a tabindex of -1', () => {
     const dateTimeValue = '2018-05-02T08:00:00.000+0800';
 
-    const { getByRole } = render(<DateTimePicker value={dateTimeValue} />);
+    render(<DateTimePicker value={dateTimeValue} />);
 
-    const button = getByRole('button');
+    const button = screen.getByRole('button');
 
     expect(button).toHaveProperty('tagName', 'BUTTON');
     expect(button).toHaveAttribute('tabindex', '-1');
@@ -321,9 +319,9 @@ describe('DateTimePicker', () => {
     ];
 
     allImplementations.forEach((jsx) => {
-      const { getByTestId, unmount } = render(jsx);
+      const { unmount } = render(jsx);
 
-      const hiddenInput = getByTestId(`${testId}--input`);
+      const hiddenInput = screen.getByTestId(`${testId}--input`);
 
       expect(hiddenInput).toHaveAttribute('type', 'hidden');
       expect(hiddenInput).not.toHaveAttribute('id');
@@ -339,10 +337,10 @@ describe('DateTimePicker', () => {
     const timePickerTestId = `${testId}--timepicker`;
 
     it('should have a default aria-label on the internal DatePicker and TimePicker', () => {
-      const { getByTestId } = render(<DateTimePicker testId={testId} />);
+      render(<DateTimePicker testId={testId} />);
 
-      const datePicker = getByTestId(datePickerTestId);
-      const timePicker = getByTestId(timePickerTestId);
+      const datePicker = screen.getByTestId(datePickerTestId);
+      const timePicker = screen.getByTestId(timePickerTestId);
 
       expect(datePicker).toHaveAttribute(
         'aria-label',
@@ -355,7 +353,7 @@ describe('DateTimePicker', () => {
     });
 
     it('should not use the default aria-label on the internal pickers if `aria-label` prop is provided to internal select props', () => {
-      const { getByTestId } = render(
+      render(
         <DateTimePicker
           datePickerSelectProps={{ 'aria-label': label }}
           timePickerSelectProps={{ 'aria-label': label }}
@@ -363,8 +361,46 @@ describe('DateTimePicker', () => {
         />,
       );
 
-      const datePicker = getByTestId(datePickerTestId);
-      const timePicker = getByTestId(timePickerTestId);
+      const datePicker = screen.getByTestId(datePickerTestId);
+      const timePicker = screen.getByTestId(timePickerTestId);
+
+      expect(datePicker).toHaveAttribute('aria-label', label);
+      expect(timePicker).toHaveAttribute('aria-label', label);
+    });
+
+    it('should not use the default aria-label on the internal date picker if `label` prop is provided by [date|time]PickerProps', () => {
+      render(
+        <DateTimePicker
+          datePickerProps={{ label: label }}
+          timePickerProps={{ label: label }}
+          testId={testId}
+        />,
+      );
+
+      const datePicker = screen.getByTestId(datePickerTestId);
+      const timePicker = screen.getByTestId(timePickerTestId);
+
+      expect(datePicker).toHaveAttribute('aria-label', label);
+      expect(timePicker).toHaveAttribute('aria-label', label);
+
+      // Make sure the default labels are not used anywhere
+      expect(screen.queryByLabelText('Date')).not.toBeInTheDocument();
+      expect(screen.queryByLabelText('Time')).not.toBeInTheDocument();
+    });
+
+    it('should prioritize `label` via [date|time]PickerProps over [date|time]PickerSelectProps', () => {
+      render(
+        <DateTimePicker
+          datePickerProps={{ label: label }}
+          timePickerProps={{ label: label }}
+          datePickerSelectProps={{ 'aria-label': `${label} - select` }}
+          timePickerSelectProps={{ 'aria-label': `${label} - select` }}
+          testId={testId}
+        />,
+      );
+
+      const datePicker = screen.getByTestId(datePickerTestId);
+      const timePicker = screen.getByTestId(timePickerTestId);
 
       expect(datePicker).toHaveAttribute('aria-label', label);
       expect(timePicker).toHaveAttribute('aria-label', label);

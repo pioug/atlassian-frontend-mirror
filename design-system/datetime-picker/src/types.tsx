@@ -41,6 +41,10 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    */
   disabledDateFilter?: (date: string) => boolean;
   /**
+   * Accessible name for the Date Picker Select, rendered as `aria-label`. This will override any other method of providing a label.
+   */
+  label?: string;
+  /**
    * The latest enabled date. Dates after this are disabled on the calendar. This does not affect what users can type into the picker.
    */
   maxDate?: string;
@@ -199,6 +203,10 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps {
    * Set if the dropdown is open. Will be `false` if not provided.
    */
   isOpen?: boolean;
+  /**
+   * Accessible name for the Time Picker Select, rendered as `aria-label`. This will override any other method of providing a label.
+   */
+  label?: string;
   /**
    * The name of the field.
    */

@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.7.4
+
+### Patch Changes
+
+- [#79608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79608) [`81ae5b4e3713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/81ae5b4e3713) - Fix inline rendering for inline extension nodes in View mode
+
 ## 109.7.3
 
 ### Patch Changes

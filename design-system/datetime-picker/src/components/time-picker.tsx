@@ -77,6 +77,7 @@ const timePickerDefaultProps = {
   innerProps: {},
   isDisabled: false,
   isInvalid: false,
+  label: '',
   name: '',
   // These disables are here for proper typing when used as defaults. They
   // should *not* use the `noop` function.
@@ -222,6 +223,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
       id,
       innerProps,
       isDisabled,
+      label,
       locale,
       name,
       placeholder,
@@ -328,6 +330,7 @@ class TimePicker extends React.Component<TimePickerProps, State> {
           onKeyDown={this.onSelectKeyDown}
         />
         <SelectComponent
+          aria-label={label || undefined}
           appearance={appearance}
           autoFocus={autoFocus}
           components={selectComponents}

@@ -15,6 +15,9 @@ const mbeExtensionContainer = css({
     right: `${token('space.100', '8px')} !important`,
   },
   paddingBottom: token('space.100', '8px'),
+  '&.remove-padding': {
+    paddingBottom: 0,
+  },
   position: 'relative',
   verticalAlign: 'middle',
   cursor: 'pointer',
@@ -44,6 +47,10 @@ const mbeNavigation = css({
   background: token('elevation.surface', 'white'),
   marginLeft: token('space.100', '8px'),
   marginRight: token('space.100', '8px'),
+  '&.remove-margins': {
+    marginLeft: 0,
+    marginRight: 0,
+  },
 });
 
 const extensionFrameContent = css({
@@ -67,6 +74,11 @@ const extensionFrameContent = css({
   '.extensionView-content-wrap': {
     marginTop: `${token('space.100', '8px')} !important`,
   },
+});
+
+export const removeMargins = css({
+  marginLeft: 0,
+  marginRight: 0,
 });
 
 export const sharedMultiBodiedExtensionStyles = {

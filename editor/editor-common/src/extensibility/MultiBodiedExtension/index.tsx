@@ -19,7 +19,10 @@ import type { MultiBodiedExtensionActions } from '../../extensions';
 import { useSharedPluginState } from '../../hooks';
 import type { EditorAppearance, EditorContainerWidth } from '../../types';
 import type { OverflowShadowProps } from '../../ui';
-import { sharedMultiBodiedExtensionStyles } from '../../ui/MultiBodiedExtension';
+import {
+  removeMargins,
+  sharedMultiBodiedExtensionStyles,
+} from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import { WithPluginState } from '../../with-plugin-state';
 import ExtensionLozenge from '../Extension/Lozenge';
@@ -154,7 +157,10 @@ const MultiBodiedExtensionWithWidth = ({
     {
       [`.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
         activeChildIndex + 1
-      })`]: sharedMultiBodiedExtensionStyles.extensionFrameContent,
+      })`]: css(
+        sharedMultiBodiedExtensionStyles.extensionFrameContent,
+        showMacroInteractionDesignUpdates && removeMargins,
+      ),
     },
   );
 
@@ -181,6 +187,14 @@ const MultiBodiedExtensionWithWidth = ({
     { 'remove-margin-top': showMacroInteractionDesignUpdates },
   );
 
+  const containerClassNames = classnames('multiBodiedExtension--container', {
+    'remove-padding': showMacroInteractionDesignUpdates,
+  });
+
+  const navigationClassNames = classnames('multiBodiedExtension--navigation', {
+    'remove-margins': showMacroInteractionDesignUpdates,
+  });
+
   return (
     <Fragment>
       {showMacroInteractionDesignUpdates && (
@@ -203,13 +217,13 @@ const MultiBodiedExtensionWithWidth = ({
           showMacroInteractionDesignUpdates,
         )}
         <div
-          className="multiBodiedExtension--container"
+          className={containerClassNames}
           css={containerCssExtended}
           data-testid="multiBodiedExtension--container"
           data-active-child-index={activeChildIndex}
         >
           <nav
-            className="multiBodiedExtension-navigation"
+            className={navigationClassNames}
             css={sharedMultiBodiedExtensionStyles.mbeNavigation}
             data-testid="multiBodiedExtension-navigation"
           >

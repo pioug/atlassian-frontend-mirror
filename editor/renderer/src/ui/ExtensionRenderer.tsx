@@ -17,6 +17,7 @@ import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 export interface Props {
   type:
@@ -44,6 +45,11 @@ export interface State {
 }
 
 const inlineExtensionStyle = css({
+  display: 'inline-block',
+  maxWidth: '100%',
+  verticalAlign: 'middle',
+  // es-lint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  margin: `1px 1px ${token('space.050', '4px')}`,
   '& .rich-media-item': {
     maxWidth: '100%',
   },
@@ -119,12 +125,14 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
         );
         if (node.type === 'multiBodiedExtension') {
           result = <NodeRenderer node={node} actions={actions} />;
-        } else {
+        } else if (node.type === 'inlineExtension') {
           result = (
             <InlineNodeRendererWrapper>
               <NodeRenderer node={node} />
             </InlineNodeRendererWrapper>
           );
+        } else {
+          result = <NodeRenderer node={node} />;
         }
       }
     } catch (e) {

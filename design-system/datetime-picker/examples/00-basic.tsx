@@ -192,6 +192,8 @@ export default () => {
       <DateTimePicker
         onChange={onChange}
         testId={'dateTimePicker'}
+        datePickerProps={{ label: 'Arrival date' }}
+        timePickerProps={{ label: 'Arrival time' }}
         id="react-select-datetimepicker-1--input"
       />
 

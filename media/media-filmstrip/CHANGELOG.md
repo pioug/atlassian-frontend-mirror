@@ -1,5 +1,11 @@
 # @atlaskit/media-filmstrip
 
+## 47.0.19
+
+### Patch Changes
+
+- [#79420](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79420) [`15343c445d11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15343c445d11) - CXP-3050 Enforced design tokens and primitives
+
 ## 47.0.18
 
 ### Patch Changes

@@ -232,6 +232,8 @@ const customMatchers = {
 
     return {
       pass: true,
+      // Playwright upgrade: `message` required in type MatcherReturnType
+      message: () => 'Matches document snapshot',
     };
   },
 };

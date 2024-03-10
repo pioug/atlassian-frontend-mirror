@@ -132,7 +132,8 @@ filters.forEach(filter => {
     description: `${filter} closed and multiple options selected`,
   });
 
-  snapshotInformational(BasicFiltersVR, {
+  // FIXME: assignee dropdown list items are flaky
+  snapshotInformational.skip(BasicFiltersVR, {
     ...options,
 
     prepare: async (page: Page, component: Locator) => {

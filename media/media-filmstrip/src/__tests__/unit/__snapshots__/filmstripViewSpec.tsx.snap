@@ -3,7 +3,7 @@
 exports[`FilmstripView .render() styles 1`] = `
 .emotion-8 {
   position: relative;
-  padding: 3px 0;
+  padding: var(--ds-space-025, 3px) 0;
   border-radius: 3px;
 }
 
@@ -18,12 +18,11 @@ exports[`FilmstripView .render() styles 1`] = `
 .emotion-4 {
   width: inherit;
   overflow: hidden;
-  padding: var(--ds-space-025, 2px) 0;
+  padding: var(--ds-space-025, 2px) var(--ds-space-025, 3px);
 }
 
 .emotion-3 {
   margin: 0;
-  margin-left: -3px;
   padding: 0;
   transition-property: transform;
   transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
@@ -38,6 +37,10 @@ exports[`FilmstripView .render() styles 1`] = `
   display: inline-block;
   vertical-align: middle;
   font-size: 0;
+}
+
+.emotion-0:first-child {
+  padding-left: 0;
 }
 
 .emotion-7 {
@@ -94,7 +97,7 @@ exports[`FilmstripView .render() styles 1`] = `
 }
 
 .emotion-6 svg {
-  padding-left: 1px;
+  padding-left: var(--ds-space-025, 2px);
 }
 
 .emotion-5 {

@@ -236,7 +236,7 @@ const toEqualProsemirrorDocument =
       pass,
       message: () => {
         return (
-          `${utils.matcherHint('.toEqualDocument')}\n\n` +
+          `${utils.matcherHint('.toEqualDocument', undefined, undefined)}\n\n` +
           `Expected JSON value of document to equal:\n${utils.printExpected(
             expected,
           )}\n` +
@@ -256,6 +256,8 @@ const customMatchers = {
 
     return {
       pass: true,
+      // Playwright upgrade: `message` required in type MatcherReturnType
+      message: () => 'Matches document snapshot',
     };
   },
 

@@ -27,9 +27,8 @@ test.describe('virtual lists', () => {
        */
       const card = page.locator(getDraggableSelector('A0'));
 
-      const cardParent: JSHandle<HTMLElement> = await card.evaluateHandle(
-        (el: HTMLElement) => el.parentElement,
-      );
+      const cardParent: JSHandle<HTMLElement | null> =
+        await card.evaluateHandle((el: HTMLElement) => el.parentElement);
 
       await expect(card).toHaveAttribute(customAttributes.draggable.index, '0');
 
@@ -62,7 +61,7 @@ test.describe('virtual lists', () => {
        * element is not always unmounted in time. It seems like there is an
        * async behaviour here, so we need to wait.
        */
-      await page.waitForFunction(el => !el.isConnected, cardParent);
+      await page.waitForFunction(el => !el?.isConnected, cardParent);
 
       // Move back to the top of the list
       // This ensures the Draggable associated with `card` will remount

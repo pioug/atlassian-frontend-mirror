@@ -1,27 +1,28 @@
 import { css } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   RECENT_SEARCH_WIDTH_IN_PX,
   RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX,
 } from '../../ui';
 
-export const inputWrapper = css`
-  display: flex;
-  line-height: 0;
-  padding: 5px 0;
-  align-items: center;
-`;
+export const inputWrapper = css({
+  display: 'flex',
+  lineHeight: 0,
+  padding: `${token('space.075', '6px')} 0`,
+  alignItems: 'center',
+});
 
-export const container = css`
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  padding: 0;
+export const container = css({
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'auto',
+  padding: 0,
+  width: `${RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX}px`,
+  lineHeight: 'initial',
+});
 
-  width: ${RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX}px;
-  line-height: initial;
-`;
-
-export const containerWithProvider = css`
-  width: ${RECENT_SEARCH_WIDTH_IN_PX}px;
-`;
+export const containerWithProvider = css({
+  width: `${RECENT_SEARCH_WIDTH_IN_PX}px`,
+});

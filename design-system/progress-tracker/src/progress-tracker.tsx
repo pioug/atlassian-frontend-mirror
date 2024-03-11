@@ -60,7 +60,7 @@ export interface ProgressTrackerProps {
    */
   testId?: string;
   /**
-   * Text to be used as both the visual label and aria-label of a step in the progress tracker.
+   * Use this to provide an aria-label for the overall progress tracker, so that people who use assistive technology get an overview of the tracker's purpose. For example, "Sign up progress".
    */
   label?: string;
 }

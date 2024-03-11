@@ -22,7 +22,7 @@ import {
   N90,
 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { fontSize, gridSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 export const messages = defineMessages({
@@ -178,9 +178,8 @@ const contentStyles = (styleProps: StyleProps) => () =>
       ? token('space.100', '8px')
       : token('space.0', '0px')};
     padding-right: ${token('space.100', '8px')};
-    // TODO: Migrate away from gridSize
-    // Recommendation: Replace gridSize with 8 if important to highlight 8*4 - 8/2, or directly replace with 28px
-    padding-left: ${gridSize() * 4 - gridSize() / 2}px;
+    padding-left: ${token('space.300', '24px')};
+    margin-left: ${token('space.050', '4px')};
     display: flow-root;
 
     // The follow rules inside @supports block are added as a part of ED-8893

@@ -51,7 +51,7 @@ export const placeholderFallback = css({
 export const placeholderFallbackParams = css({
   display: 'inline-block',
   maxWidth: '200px',
-  marginLeft: '5px',
+  marginLeft: token('space.050', '4px'),
   color: token('color.text.subtlest', N70),
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',

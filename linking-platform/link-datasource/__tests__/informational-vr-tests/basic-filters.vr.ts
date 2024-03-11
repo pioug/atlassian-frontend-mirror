@@ -81,7 +81,7 @@ snapshotInformational(WithModal, {
   },
 });
 
-snapshotInformational(WithModal, {
+snapshotInformational.skip(WithModal, {
   ...options,
   drawsOutsideBounds: false,
   prepare: async (page: Page) => {

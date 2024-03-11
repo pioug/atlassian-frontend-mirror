@@ -14,20 +14,20 @@ import {
 import Button from '@atlaskit/button/standard-button';
 import { Card } from '../src';
 import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
+import { token } from '@atlaskit/tokens';
 import { cardFlowHeaderStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
 const env = sessionStorage.getItem('env') === 'staging' ? 'staging' : 'dev';
 const mediaClientConfig = createUploadMediaClientConfig(undefined, env);
 const mediaClient = new MediaClient(mediaClientConfig);
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const cardWrapperStyles = css`
-  border: 1px solid;
-  padding: 10px;
-  margin: 5px;
-  overflow: auto;
-  display: inline-block;
-`;
+const cardWrapperStyles = css({
+  border: '1px solid',
+  padding: token('space.100', '8px'),
+  margin: token('space.050', '4px'),
+  overflow: 'auto',
+  display: 'inline-block',
+});
 
 const browseConfig: BrowserConfig = {
   multiple: true,

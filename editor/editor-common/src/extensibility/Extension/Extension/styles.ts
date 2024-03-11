@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { padding, wrapperDefault } from '../styles';
+import { wrapperDefault } from '../styles';
 
 export const widerLayoutClassName = 'wider-layout';
 
@@ -19,7 +19,7 @@ export const wrapperStyle = css(wrapperDefault, {
 });
 
 export const header = css({
-  padding: `${padding / 2}px ${padding / 2}px 0px`,
+  padding: `${token('space.050', '4px')} ${token('space.050', '4px')} 0px`,
   verticalAlign: 'middle',
   '&.with-children:not(.without-frame)': {
     padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
@@ -33,7 +33,7 @@ export const header = css({
 });
 
 export const content = css({
-  padding: `${padding}px`,
+  padding: token('space.100', '8px'),
   background: token('elevation.surface', 'white'),
   border: `1px solid ${token('color.border', N30)}`,
   borderRadius: token('border.radius', '3px'),
@@ -42,7 +42,7 @@ export const content = css({
 });
 
 export const contentWrapper = css({
-  padding: `0 ${padding}px ${padding}px`,
+  padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
   display: 'flex',
   justifyContent: 'center',
   '&.remove-padding': {

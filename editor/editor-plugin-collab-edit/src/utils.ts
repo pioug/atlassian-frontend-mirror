@@ -39,7 +39,7 @@ export const findPointers = (
 
 function style(options: { color: string }) {
   const color = (options && options.color) || 'black';
-  return `border-left: 1px solid ${color}; border-right: 1px solid ${color}; margin-right: -2px;`;
+  return `border-right: 2px solid ${color}; margin-right: -2px;`;
 }
 
 export function getAvatarColor(str: string) {

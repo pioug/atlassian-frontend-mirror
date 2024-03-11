@@ -13,16 +13,15 @@ import { IntlProvider } from 'react-intl-next';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const styledContainerStyles = css`
-  max-width: 800px;
-  margin: ${token('space.250', '20px')} auto;
-  h3 {
-    text-align: center;
-  }
-`;
+const styledContainerStyles = css({
+  maxWidth: '800px',
+  margin: `${token('space.250', '20px')} auto`,
+  h3: {
+    textAlign: 'center',
+  },
+});
 
 const mimeTypes: { media: MediaType; mime: string; name: string }[] = [
   { media: 'doc', mime: 'application/pdf', name: '.pdf' },
@@ -118,11 +117,7 @@ function renderCardImageView(
     : undefined;
 
   return (
-    <CardViewWrapper
-      wrapperDimensions={wrapperDimensionsSmall}
-      displayInline={true}
-      key={key}
-    >
+    <CardViewWrapper small={true} displayInline={true} key={key}>
       <LoadedCardView
         error={mediaCardErrorState(error)}
         disableOverlay={disableOverlay}

@@ -41,13 +41,13 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { createTable, goToNextCell, moveCursorBackward } from '../commands';
 import {
   addRowAroundSelection,
+  changeColumnWidthByStepWithAnalytics,
   deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut,
   deleteTableIfSelectedWithAnalytics,
   emptyMultipleCellsWithAnalytics,
 } from '../commands-with-analytics';
 import {
   activateNextResizeArea,
-  changeColumnWidthByStep,
   initiateKeyboardColumnResizing,
   stopKeyboardColumnResizing,
 } from '../commands/column-resize';
@@ -198,13 +198,23 @@ export function keymapPlugin(
 
     bindKeymapWithCommand(
       decreaseMediaSize.common!,
-      changeColumnWidthByStep(-10, getEditorContainerWidth, tablePreserveWidth),
+      changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+        -10,
+        getEditorContainerWidth,
+        tablePreserveWidth,
+        INPUT_METHOD.SHORTCUT,
+      ),
       list,
     );
 
     bindKeymapWithCommand(
       increaseMediaSize.common!,
-      changeColumnWidthByStep(10, getEditorContainerWidth, tablePreserveWidth),
+      changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
+        10,
+        getEditorContainerWidth,
+        tablePreserveWidth,
+        INPUT_METHOD.SHORTCUT,
+      ),
       list,
     );
     bindKeymapWithCommand(escape.common!, stopKeyboardColumnResizing(), list);

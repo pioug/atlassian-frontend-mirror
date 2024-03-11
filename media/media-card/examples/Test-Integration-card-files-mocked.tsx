@@ -9,6 +9,7 @@ import {
   MockFileInputParams,
 } from '@atlaskit/media-test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
+import { token } from '@atlaskit/tokens';
 import { Card } from '../src';
 import { DelayedRender } from '../example-helpers/DelayedRender';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -125,7 +126,12 @@ const hiddenCardWithCacheAvailable = [
     content: (
       <div
         data-testid="media-card-hidden-card-with-cache"
-        style={{ position: 'absolute', bottom: '-100000px' }}
+        style={{
+          position: 'absolute',
+          right: token('space.negative.400', '-32px'),
+          marginRight: token('space.negative.400', '-32px'),
+          width: token('space.600', '48px'),
+        }}
       >
         <DelayedRender
           timeout={2000}
@@ -147,7 +153,12 @@ const hiddenCardWithoutCacheAvailable = [
     content: (
       <div
         data-testid="media-card-hidden-card-without-cache"
-        style={{ position: 'absolute', bottom: '-100000px' }}
+        style={{
+          position: 'absolute',
+          right: token('space.negative.400', '-32px'),
+          marginRight: token('space.negative.400', '-32px'),
+          width: token('space.600', '48px'),
+        }}
       >
         <Card
           identifier={freshNewFile}
@@ -162,8 +173,18 @@ const hiddenCardWithoutCacheAvailable = [
 export default () => (
   <MainWrapper developmentOnly>
     <div>
-      <h1 style={{ margin: '10px 20px' }}>File cards</h1>
-      <div style={{ margin: '20px 40px' }}>
+      <h1
+        style={{
+          margin: `${token('space.150', '12px')} ${token('space.250', '20px')}`,
+        }}
+      >
+        File cards
+      </h1>
+      <div
+        style={{
+          margin: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
+        }}
+      >
         <h3>Standard</h3>
         <StoryList>{standardCards}</StoryList>
         <StoryList>{cardWithContextId}</StoryList>

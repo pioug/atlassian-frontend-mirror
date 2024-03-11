@@ -26,9 +26,9 @@ const blockNodeStyle = css`
   cursor: default;
   display: flex;
   font-size: ${relativeFontSizeToBase16(fontSize())};
-  margin: 10px 0;
+  margin: ${token('space.100', '8px')} 0;
   min-height: 24px;
-  padding: 10px;
+  padding: ${token('space.150', '12px')};
   text-align: center;
   vertical-align: text-bottom;
   min-width: 120px;

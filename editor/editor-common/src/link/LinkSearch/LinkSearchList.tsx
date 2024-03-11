@@ -10,22 +10,22 @@ import { token } from '@atlaskit/tokens';
 import LinkSearchListItem from './LinkSearchListItem';
 import type { LinkSearchListItemData } from './types';
 
-const listContainer = css`
-  padding-top: 0;
-  margin-top: ${token('space.150', '12px')};
-  border-top: 1px solid ${token('color.border', N30)};
-`;
+const listContainer = css({
+  paddingTop: 0,
+  marginTop: token('space.150', '12px'),
+  borderTop: `1px solid ${token('color.border', N30)}`,
+});
 
-const spinnerContainer = css`
-  text-align: center;
-  min-height: 80px;
-  margin-top: 30px;
-`;
+const spinnerContainer = css({
+  textAlign: 'center',
+  minHeight: '80px',
+  marginTop: token('space.400', '32px'),
+});
 
-export const linkSearchList = css`
-  padding: 0;
-  list-style: none;
-`;
+export const linkSearchList = css({
+  padding: 0,
+  listStyle: 'none',
+});
 
 export interface Props {
   items?: LinkSearchListItemData[];

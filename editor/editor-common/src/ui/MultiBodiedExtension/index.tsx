@@ -5,8 +5,6 @@ import { css } from '@emotion/react';
 import { N30, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { BODIED_EXT_MBE_MARGIN_TOP } from '../../styles';
-
 // Wraps the navigation bar and extensionFrames
 const mbeExtensionContainer = css({
   background: 'transparent !important',
@@ -69,7 +67,7 @@ const extensionFrameContent = css({
     paddingRight: `${token('space.150', '12px')} !important`,
   },
   '.bodiedExtensionView-content-wrap': {
-    marginTop: `${BODIED_EXT_MBE_MARGIN_TOP}px !important`,
+    marginTop: `${token('space.150', '12px')} !important`,
   },
   '.extensionView-content-wrap': {
     marginTop: `${token('space.100', '8px')} !important`,

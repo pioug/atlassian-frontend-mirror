@@ -23,40 +23,38 @@ import { Y75 } from '@atlaskit/theme/colors';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
-const wrapperDimensionsBig = { width: '600px', height: '450px' }; // Maximum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const checkboxesContainerStyles = css`
-  display: flex;
-  justify-content: center;
-  margin-top: ${token('space.250', '20px')};
-  align-items: center;
-`;
+const checkboxesContainerStyles = css({
+  display: 'flex',
+  justifyContent: 'center',
+  marginTop: token('space.250', '20px'),
+  alignItems: 'center',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const styledTableStyles = css`
-  margin: 30px auto 0 auto;
-  max-width: 1100px;
-  thead * {
-    text-align: center;
-  }
-  td,
-  th {
-    padding: 0;
-  }
-`;
+const styledTableStyles = css({
+  margin: `${token('space.400', '32px')} auto ${token('space.0', '0px')} auto`,
+  maxWidth: '1100px',
+  'thead *': {
+    textAlign: 'center',
+  },
+  'td, th': {
+    padding: token('space.0', '0px'),
+  },
+});
 
-const styledContainerStyles = css`
-  min-width: 1100px;
-`;
+const styledContainerStyles = css({
+  minWidth: '1100px',
+});
 
-const selectWrapperStyles = css`
-  * {
-    text-align: left !important;
-  }
-  font-weight: normal;
-`;
+// @ts-expect-error adding `!important` to style rules is currently a type error
+const selectWrapperStyles = css({
+  '*': {
+    textAlign: 'left !important',
+  },
+  fontWeight: 'normal',
+});
 
 interface State {
   disableOverlay: boolean;
@@ -354,12 +352,8 @@ class Example extends React.Component<{}, State> {
       }
     }
 
-    const wrapperDimensions = this.state.useBigCard
-      ? wrapperDimensionsBig
-      : wrapperDimensionsSmall;
-
     return (
-      <CardViewWrapper wrapperDimensions={wrapperDimensions}>
+      <CardViewWrapper small={!this.state.useBigCard}>
         <LoadedCardView
           status={status}
           mediaItemType="file"

@@ -23,6 +23,7 @@ import type { TooltipProps } from '@atlaskit/tooltip';
 import {
   handleWrapperClass,
   resizerDangerClassName,
+  resizerExtendedZone,
   resizerHandleClassName,
   resizerHandleThumbClassName,
   resizerHandleTrackClassName,
@@ -272,7 +273,7 @@ const ResizerNext: ForwardRefRenderFunction<
   });
 
   const resizerZoneClassName = classnames(resizerHoverZoneClassName, {
-    'is-extended': needExtendedResizeZone,
+    [resizerExtendedZone]: needExtendedResizeZone,
   });
 
   const handleComponent = useMemo(() => {

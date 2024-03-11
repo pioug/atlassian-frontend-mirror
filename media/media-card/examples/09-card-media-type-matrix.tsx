@@ -1,5 +1,6 @@
 import React from 'react';
 import { Matrix } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { MainWrapper } from '../example-helpers';
 import {
   videoFileCard,
@@ -11,7 +12,7 @@ import {
 
 export default () => (
   <MainWrapper>
-    <div style={{ margin: '40px' }}>
+    <div style={{ margin: token('space.500', '40px') }}>
       <h1>Media type matrix</h1>
       <Matrix>
         <thead>

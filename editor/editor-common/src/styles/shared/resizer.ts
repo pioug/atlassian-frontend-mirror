@@ -8,9 +8,10 @@ import { token } from '@atlaskit/tokens';
   Styles in this file are based on
   packages/editor/editor-core/src/plugins/media/styles.ts
 */
-
 export const resizerItemClassName = 'resizer-item';
 export const resizerHoverZoneClassName = 'resizer-hover-zone';
+export const resizerExtendedZone = 'resizer-is-extended';
+
 export const resizerHandleClassName = 'resizer-handle';
 export const resizerHandleTrackClassName = `${resizerHandleClassName}-track`;
 export const resizerHandleThumbClassName = `${resizerHandleClassName}-thumb`;
@@ -197,14 +198,17 @@ export const resizerStyles = css`
     display: inline-block;
     width: 100%;
 
-    &.is-extended {
+    &.${resizerExtendedZone} {
       padding: 0 ${token('space.150', '12px')};
       left: ${token('space.negative.150', '-12px')};
     }
   }
 
   // This below style is here to make sure the image width is correct when nested in a table
-  table .${resizerHoverZoneClassName} {
+  table
+    .${resizerHoverZoneClassName},
+    table
+    .${resizerHoverZoneClassName}.${resizerExtendedZone} {
     padding: unset;
     left: unset;
   }

@@ -1,26 +1,25 @@
 import { css } from '@emotion/react';
 
-export const embedCardStyles = css`
-  .ProseMirror {
-    .embedCardView-content-wrap[layout^='wrap-'] {
-      max-width: 100%;
-    }
+import { token } from '@atlaskit/tokens';
 
-    .embedCardView-content-wrap[layout='wrap-left'] {
-      float: left;
-    }
+export const embedCardStyles = css({
+  '.ProseMirror': {
+    ".embedCardView-content-wrap[layout^='wrap-']": {
+      maxWidth: '100%',
+    },
+    ".embedCardView-content-wrap[layout='wrap-left']": {
+      float: 'left',
+    },
+    ".embedCardView-content-wrap[layout='wrap-right']": {
+      float: 'right',
+    },
+    ".embedCardView-content-wrap[layout='wrap-right'] + .embedCardView-content-wrap[layout='wrap-left']":
+      {
+        clear: 'both',
+      },
+  },
+});
 
-    .embedCardView-content-wrap[layout='wrap-right'] {
-      float: right;
-    }
-
-    .embedCardView-content-wrap[layout='wrap-right']
-      + .embedCardView-content-wrap[layout='wrap-left'] {
-      clear: both;
-    }
-  }
-`;
-
-export const embedSpacingStyles = css`
-  margin: 0 10px;
-`;
+export const embedSpacingStyles = css({
+  margin: `0 ${token('space.150', '12px')}`,
+});

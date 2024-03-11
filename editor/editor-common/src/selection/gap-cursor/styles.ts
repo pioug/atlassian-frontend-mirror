@@ -1,5 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 const gapCursorBlink = keyframes`
   from, to {
     opacity: 0;
@@ -45,10 +47,10 @@ export const gapCursorStyles = css`
         height: 100%;
       }
       &.-left span::after {
-        left: -3px;
+        left: ${token('space.negative.050', '-4px')};
       }
       &.-right span::after {
-        right: -3px;
+        right: ${token('space.negative.050', '-4px')};
       }
       & span[layout='full-width'],
       & span[layout='wide'],

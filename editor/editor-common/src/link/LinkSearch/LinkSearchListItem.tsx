@@ -48,7 +48,7 @@ export const containerName = css({
 
 const iconStyle = css({
   minWidth: '16px',
-  marginTop: '3px',
+  marginTop: token('space.050', '4px'),
   marginRight: token('space.150', '12px'),
   img: {
     maxWidth: '16px',

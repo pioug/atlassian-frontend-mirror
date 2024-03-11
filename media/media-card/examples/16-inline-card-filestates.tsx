@@ -42,13 +42,13 @@ const createExample =
     return (
       <div
         style={{
-          margin: 20,
+          margin: token('space.250', '20px'),
           width: defaultDimensions.width * 1.2,
         }}
       >
         <h4>{title}</h4>
         {description && <p>{description}</p>}
-        <h5 style={{ marginBottom: 5 }}>
+        <h5 style={{ marginBottom: token('space.075', '6px') }}>
           File Status:{' '}
           <span style={{ color: token('color.text.danger', R500) }}>
             {fileState?.status || 'unknown'}
@@ -199,7 +199,7 @@ const createSection =
     const { key, SectionControls } = useSectionControls();
     return (
       <>
-        <h3 style={{ marginBottom: 10 }}>{title}</h3>
+        <h3 style={{ marginBottom: token('space.150', '12px') }}>{title}</h3>
         <SectionControls />
         <div key={key} style={{ display: 'flex', flexWrap: 'wrap' }}>
           {simulations.map((Simulation, index) => (

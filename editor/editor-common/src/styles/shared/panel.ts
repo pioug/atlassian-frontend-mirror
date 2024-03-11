@@ -291,7 +291,7 @@ export const panelSharedStylesWithoutPrefix = () => css`
   }
 
   .ak-editor-panel__content {
-    margin: 1px 0 1px;
+    margin: ${token('space.025', '2px')} 0 ${token('space.025', '2px')};
     flex: 1 0 0;
     /*
       https://ishadeed.com/article/min-max-css/#setting-min-width-to-zero-with-flexbox

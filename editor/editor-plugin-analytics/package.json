@@ -11,7 +11,7 @@
     "team": "Editor: Lego",
     "singleton": true,
     "releaseModel": "continuous",
-    "runReact18": false
+    "runReact18": true
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",

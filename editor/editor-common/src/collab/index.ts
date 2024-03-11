@@ -524,6 +524,8 @@ const telepointerColorStyle = (color: Color, index: number) => `
 
 export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 
+// Disable top: -14px since it is necessary to align to cursor
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 export const telepointerStyle = css`
   .ProseMirror .telepointer {
     position: relative;
@@ -543,7 +545,7 @@ export const telepointerStyle = css`
       font-size: ${relativeFontSizeToBase16(9)};
       padding: ${token('space.025', '2px')};
       color: ${token('color.text.inverse', 'white')};
-      left: -1px;
+      left: 0px;
       border-radius: 2px 2px 2px 0;
       line-height: initial;
     }

@@ -2,6 +2,7 @@ import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
+  INPUT_METHOD,
   TABLE_ACTION,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
@@ -211,6 +212,9 @@ export const handleMouseDown = (
           resizingSelectedColumns ? selectedColumns : undefined,
           tablePreserveWidth,
         );
+
+        const resizedDelta = clientX - startX;
+
         tr = updateColumnWidths(newResizeState, table, start)(tr);
         if (colIndex === map.width - 1) {
           const mouseUpTime = event.timeStamp;
@@ -223,11 +227,26 @@ export const handleMouseDown = (
               type: 'table-border',
               position: 'right',
               duration: mouseUpTime - mouseDownTime,
-              delta: Math.abs(clientX - dragging.startX),
+              delta: Math.abs(resizedDelta),
             },
             eventType: EVENT_TYPE.UI,
           })(tr);
         }
+
+        editorAnalyticsAPI?.attachAnalyticsEvent({
+          action: TABLE_ACTION.COLUMN_RESIZED,
+          actionSubject: ACTION_SUBJECT.TABLE,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            colIndex: colIndex,
+            resizedDelta,
+            isLastColumn: colIndex === map.width - 1,
+            tableWidth: table.attrs.width,
+            inputMethod: INPUT_METHOD.MOUSE,
+            totalRowCount: map.height,
+            totalColumnCount: map.width,
+          },
+        })(tr);
       }
       if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
         if (isKeyboardResize || !isTableHovered) {

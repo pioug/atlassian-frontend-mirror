@@ -45,23 +45,21 @@ import { getColumnCount, getScrollbarWidth } from './utils';
 export const ICON_HEIGHT = 40;
 export const ICON_WIDTH = 40;
 
-export const itemIcon = css`
-  width: ${ICON_WIDTH}px;
-  height: ${ICON_HEIGHT}px;
-  overflow: hidden;
-  border: 1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}; /* N60 at 50% */
-  border-radius: ${borderRadius()}px;
-  box-sizing: border-box;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  div {
-    width: ${ICON_WIDTH}px;
-    height: ${ICON_HEIGHT}px;
-  }
-`;
+export const itemIcon = css({
+  width: `${ICON_WIDTH}px`,
+  height: `${ICON_HEIGHT}px`,
+  overflow: 'hidden',
+  border: `1px solid ${token('color.border', 'rgba(223, 225, 229, 0.5)')}`,
+  borderRadius: `${borderRadius()}px`,
+  boxSizing: 'border-box',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  div: {
+    width: `${ICON_WIDTH}px`,
+    height: `${ICON_HEIGHT}px`,
+  },
+});
 
 export interface Props {
   items: QuickInsertItem[];
@@ -308,106 +306,97 @@ const ItemContent = memo(
   ),
 );
 
-const elementItemsWrapper = css`
-  flex: 1;
-  flex-flow: row wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow: hidden;
-  padding: ${ELEMENT_LIST_PADDING}px; // For Focus outline
+const elementItemsWrapper = css({
+  flex: 1,
+  flexFlow: 'row wrap',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  overflow: 'hidden',
+  padding: token('space.025', '2px'),
+  '.ReactVirtualized__Collection': {
+    borderRadius: '3px',
+    outline: 'none',
+    ':focus': {
+      boxShadow: `0 0 0 ${ELEMENT_LIST_PADDING}px ${token(
+        'color.border.focused',
+        B100,
+      )}`,
+    },
+  },
+  '.ReactVirtualized__Collection__innerScrollContainer': {
+    "div[class='element-item-wrapper']:last-child": {
+      paddingBottom: token('space.050', '4px'),
+    },
+  },
+});
 
-  .ReactVirtualized__Collection {
-    border-radius: 3px; // Standard border-radius across other components like Search or Item.
-    outline: none;
+const elementItemWrapper = css({
+  div: {
+    button: {
+      height: '75px',
+      alignItems: 'flex-start',
+      padding: token('space.150', '12px'),
+    },
+  },
+});
 
-    :focus {
-      box-shadow: 0 0 0 ${ELEMENT_LIST_PADDING}px
-        ${token('color.border.focused', B100)};
-    }
-  }
-  .ReactVirtualized__Collection__innerScrollContainer {
-    div[class='element-item-wrapper']:last-child {
-      padding-bottom: ${token('space.050', '4px')};
-    }
-  }
-`;
-
-const elementItemWrapper = css`
-  div {
-    button {
-      height: 75px;
-      align-items: flex-start;
-      padding: ${token('space.150', '12px')} ${token('space.150', '12px')} 11px;
-    }
-  }
-`;
-
-const itemBody = css`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  line-height: 1.4;
-  width: 100%;
-
-  margin-top: ${token(
-    'space.negative.025',
-    '-2px',
-  )}; // Fixes the Item Icon and text's alignment issue
-`;
+const itemBody = css({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'nowrap',
+  justifyContent: 'space-between',
+  lineHeight: 1.4,
+  width: '100%',
+  marginTop: token('space.negative.025', '-2px'),
+});
 
 /*
  * -webkit-line-clamp is also supported by firefox 🎉
  * https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/68#CSS
  */
-const multilineStyle = css`
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-`;
+const multilineStyle = css({
+  display: '-webkit-box',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+});
 
-const itemDescription = css`
-  ${multilineStyle};
+const itemDescription = css(multilineStyle, {
+  overflow: 'hidden',
+  fontSize: relativeFontSizeToBase16(11.67),
+  color: token('color.text.subtle', N200),
+  marginTop: token('space.025', '2px'),
+});
 
-  overflow: hidden;
-  font-size: ${relativeFontSizeToBase16(11.67)};
-  color: ${token('color.text.subtle', N200)};
-  margin-top: ${token('space.025', '2px')};
-`;
+const itemText = css({
+  width: 'inherit',
+  whiteSpace: 'initial',
+});
 
-const itemText = css`
-  width: inherit;
-  white-space: initial;
-`;
+const itemTitleWrapper = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
 
-const itemTitleWrapper = css`
-  display: flex;
-  justify-content: space-between; // Title and keyboardshortcut are rendered in the same block
-`;
+const itemTitle = css({
+  width: '100%',
+  overflow: 'hidden',
+  whiteSpace: 'nowrap',
+  textOverflow: 'ellipsis',
+});
 
-const itemTitle = css`
-  width: 100%;
-  overflow: hidden;
+const itemAfter = css({
+  flex: '0 0 auto',
+  paddingTop: token('space.025', '2px'),
+  marginBottom: token('space.negative.025', '-2px'),
+});
 
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-const itemAfter = css`
-  flex: 0 0 auto;
-
-  // Prevents item from being cut off due to negative margin
-  padding-top: ${token('space.025', '2px')};
-  margin-bottom: ${token('space.negative.025', '-2px')};
-`;
-
-const itemIconStyle = css`
-  img {
-    height: 40px;
-    width: 40px;
-    object-fit: cover;
-  }
-`;
+const itemIconStyle = css({
+  img: {
+    height: '40px',
+    width: '40px',
+    objectFit: 'cover',
+  },
+});
 
 const MemoizedElementListWithAnalytics = memo(
   withAnalyticsContext({ component: 'ElementList' })(ElementList),

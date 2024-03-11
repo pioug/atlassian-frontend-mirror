@@ -1,5 +1,6 @@
 import React from 'react';
 import { StoryList } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { MainWrapper } from '../example-helpers';
 import {
   apiCards,
@@ -17,8 +18,24 @@ export default () => {
   return (
     <MainWrapper>
       <div>
-        <h1 style={{ margin: '10px 20px' }}>File cards</h1>
-        <div style={{ margin: '20px 40px' }}>
+        <h1
+          style={{
+            margin: `${token('space.100', '8px')} ${token(
+              'space.250',
+              '20px',
+            )}`,
+          }}
+        >
+          File cards
+        </h1>
+        <div
+          style={{
+            margin: `${token('space.250', '20px')} ${token(
+              'space.500',
+              '40px',
+            )}`,
+          }}
+        >
           <h3>Standard</h3>
           <StoryList>{standardCards}</StoryList>
           <StoryList>{cardWithContextId}</StoryList>

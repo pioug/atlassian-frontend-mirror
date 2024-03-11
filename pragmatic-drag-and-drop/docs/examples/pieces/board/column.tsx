@@ -64,10 +64,14 @@ const columnStyles = xcss({
    */
 });
 
-const noMinHeightStyles = xcss({
+const stackStyles = xcss({
   // allow the container to be shrunk by a parent height
   // https://www.joshwcomeau.com/css/interactive-guide-to-flexbox/#the-minimum-size-gotcha-11
   minHeight: '0',
+
+  // ensure our card list grows to be all the available space
+  // so that users can easily drop on en empty list
+  flexGrow: 1,
 });
 
 const scrollContainerStyles = xcss({
@@ -297,9 +301,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       >
         {/* Applying dragging styles to a child of our column,
             so that they will not impact the drop indicator */}
-        <Stack
-          xcss={[noMinHeightStyles, isDragging ? isDraggingStyles : undefined]}
-        >
+        <Stack xcss={[stackStyles, isDragging ? isDraggingStyles : undefined]}>
           <Inline
             xcss={columnHeaderStyles}
             ref={headerRef}

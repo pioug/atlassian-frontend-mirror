@@ -39,7 +39,7 @@ export default () => {
           boxSizing: 'border-box',
           height: '100vh',
           display: 'flex',
-          justifyContent: 'flex-start',
+          justifyContent: 'center',
           flexWrap: 'wrap',
         }}
         id="wrapper"
@@ -49,11 +49,11 @@ export default () => {
           style={{
             position: 'absolute',
             zIndex: 200,
-            top: '50%',
-            left: '50%',
+            alignSelf: 'center',
+            justifySelf: 'center',
             fontSize: '3rem',
             backgroundColor: token('elevation.surface.overlay', 'white'),
-            padding: '3rem',
+            padding: token('space.600', '3rem'),
           }}
           onClick={() => setClickCount(clickCount + 1)}
         >

@@ -2,9 +2,10 @@
 import React, { useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';
@@ -14,25 +15,25 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { ACTION_SUBJECT_ID } from '../../analytics';
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
-import { UnsupportedContentTooltipPayload } from '../../utils';
+import type { UnsupportedContentTooltipPayload } from '../../utils';
 import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-unsupported-content';
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
-const inlineNodeStyle = css`
-  align-items: center;
-  background: ${token('color.background.disabled', N30)};
-  border: 1px dashed ${token('color.border.disabled', N50)};
-  border-radius: ${borderRadius()}px;
-  box-sizing: border-box;
-  cursor: default;
-  display: inline-flex;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
-  margin: 0 ${token('space.025', '2px')};
-  min-height: 24px;
-  padding: 0 10px;
-  vertical-align: middle;
-  white-space: nowrap;
-`;
+const inlineNodeStyle = css({
+  alignItems: 'center',
+  background: token('color.background.disabled', N30),
+  border: `1px dashed ${token('color.border.disabled', N50)}`,
+  borderRadius: `${borderRadius()}px`,
+  boxSizing: 'border-box',
+  cursor: 'default',
+  display: 'inline-flex',
+  fontSize: relativeFontSizeToBase16(fontSize()),
+  margin: `0 ${token('space.025', '2px')}`,
+  minHeight: '24px',
+  padding: `0 ${token('space.100', '8px')}`,
+  verticalAlign: 'middle',
+  whiteSpace: 'nowrap',
+});
 
 export interface Props {
   node?: PMNode;

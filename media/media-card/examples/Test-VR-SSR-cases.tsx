@@ -10,6 +10,7 @@ import { tallImage } from '@atlaskit/media-test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { MediaClient } from '@atlaskit/media-client';
 import { SSR } from '@atlaskit/media-common';
+import { token } from '@atlaskit/tokens';
 import { Card, CardBaseProps } from '../src/card/card';
 import ReactDOMServer from 'react-dom/server';
 import { imageFileId } from '@atlaskit/media-test-helpers';
@@ -181,7 +182,7 @@ const runScenarios = (scenarios: Scenarios) => {
 const rowStyle = {
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: 20,
+  marginBottom: token('space.250', '20px'),
 } as const;
 
 const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({
@@ -193,7 +194,11 @@ const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({
         <h2>{label}</h2>
         <div style={rowStyle}>
           {collection.map(([id]) => (
-            <div key={id} style={{ marginRight: 20 }} id={id}></div>
+            <div
+              key={id}
+              style={{ marginRight: token('space.250', '20px') }}
+              id={id}
+            ></div>
           ))}
         </div>
       </React.Fragment>
@@ -212,7 +217,7 @@ export default () => {
       style={{
         maxWidth: 1300,
         margin: 'auto',
-        marginTop: 20,
+        marginTop: token('space.250', '20px'),
       }}
     >
       <MainWrapper developmentOnly>

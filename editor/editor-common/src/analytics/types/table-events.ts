@@ -28,6 +28,7 @@ export enum TABLE_ACTION {
   FIXED = 'fixed',
   RESIZED = 'resized',
   RESIZE_PERF_SAMPLING = 'resizePerfSampling',
+  COLUMN_RESIZED = 'columnResized',
   OVERFLOW_CHANGED = 'overflowChanged',
   INITIAL_OVERFLOW_CAPTURED = 'initialOverflowCaptured',
   MOVED_ROW = 'movedRow',
@@ -97,6 +98,14 @@ type ResizedInfo = {
   newWidth: number;
   totalTableWidth: number | null;
   nodeSize: number;
+} & TotalRowAndColCount;
+
+type ColumnResizedInfo = {
+  colIndex?: number;
+  resizedDelta: number;
+  isLastColumn: boolean;
+  tableWidth: number | null;
+  inputMethod: INPUT_METHOD.MOUSE | INPUT_METHOD.SHORTCUT;
 } & TotalRowAndColCount;
 
 type ResizePreviewInfo = {
@@ -292,6 +301,12 @@ type TableResizePerfSamplingAEP = OperationalAEP<
   ResizePreviewInfo
 >;
 
+type TableColumnResizedAEP = TableAEP<
+  TABLE_ACTION.COLUMN_RESIZED,
+  ColumnResizedInfo,
+  undefined
+>;
+
 type TableRowOrColumnMovedAEP = TableAEP<
   TABLE_ACTION.ROW_OR_COLUMN_MOVED,
   {
@@ -339,4 +354,5 @@ export type TableEventPayload =
   | TableResizedAEP
   | TableResizePerfSamplingAEP
   | TableRowOrColumnMovedAEP
-  | TableMovedRowOrColumnAEP;
+  | TableMovedRowOrColumnAEP
+  | TableColumnResizedAEP;

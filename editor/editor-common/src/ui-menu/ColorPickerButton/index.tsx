@@ -35,23 +35,27 @@ import { ArrowKeyNavigationProvider } from '../ArrowKeyNavigationProvider';
 import { ArrowKeyNavigationType } from '../ArrowKeyNavigationProvider/types';
 
 // helps adjusts position of popup
-const colorPickerButtonWrapper = css`
-  position: relative;
-`;
+const colorPickerButtonWrapper = css({
+  position: 'relative',
+});
 
-const colorPickerExpandContainer = css`
-  margin: 0px ${token('space.negative.050', '-4px')};
-`;
+const colorPickerExpandContainer = css({
+  margin: `0px ${token('space.negative.050', '-4px')}`,
+});
 
 // Control the size of color picker buttons and preview
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4134
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const colorPickerWrapper = () => css`
-  border-radius: ${token('border.radius', '3px')};
-  background-color: ${token('elevation.surface.overlay', N0)};
-  box-shadow: 0 4px 8px -2px ${N60A}, 0 0 1px ${N60A};
-  padding: ${token('space.100', '8px')} 0px;
-`;
+const colorPickerWrapper = () =>
+  css({
+    borderRadius: token('border.radius', '3px'),
+    backgroundColor: token('elevation.surface.overlay', N0),
+    boxShadow: token(
+      'elevation.shadow.overlay',
+      `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
+    ),
+    padding: `${token('space.100', '8px')} 0px`,
+  });
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 type Props = WithAnalyticsEventsProps & {
@@ -229,35 +233,29 @@ const ColorPickerButton = (props: Props) => {
     props.currentColor && props.hexToPaletteColor
       ? props.hexToPaletteColor(props.currentColor)
       : props.currentColor;
-  const buttonStyle = () => css`
-    padding: ${token('space.075', '6px')} 10px;
-    background-color: ${token(
-      'color.background.neutral.subtle',
-      'transparent',
-    )};
-    ${
-      /* If custom props size height, override the button base height property */
-      !!props.size?.height && `height: inherit;`
-    }
-    &:before {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      align-self: center;
-      content: '';
-      border: 1px solid ${DEFAULT_BORDER_COLOR};
-      border-radius: ${token('border.radius', '3px')};
-      background-color: ${currentColor || 'transparent'};
-      width: ${props.size?.width || '14px'};
-      height: ${props.size?.height || '14px'};
-      padding: 0;
-      margin: 0px ${token('space.025', '2px')};
-    }
-    &:hover {
-      background: ${token('color.background.neutral.subtle.hovered', N30A)};
-    }
-  `;
-
+  const buttonStyle = () =>
+    css({
+      padding: `${token('space.075', '6px')} 10px`,
+      backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+      height: `${!!props.size?.height ? 'inherit' : ''}`,
+      '&:before': {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        content: "''",
+        border: `1px solid ${DEFAULT_BORDER_COLOR}`,
+        borderRadius: token('border.radius', '3px'),
+        backgroundColor: currentColor || 'transparent',
+        width: props.size?.width || '14px',
+        height: props.size?.height || '14px',
+        padding: 0,
+        margin: `0px ${token('space.025', '2px')}`,
+      },
+      '&:hover': {
+        background: token('color.background.neutral.subtle.hovered', N30A),
+      },
+    });
   return (
     <div css={colorPickerButtonWrapper}>
       <Tooltip content={title} position="top">

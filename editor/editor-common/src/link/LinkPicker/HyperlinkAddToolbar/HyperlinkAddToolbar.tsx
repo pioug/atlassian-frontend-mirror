@@ -68,7 +68,7 @@ export const visuallyHiddenStyles = css`
   clip-path: inset(50%);
   height: 1px;
   width: 1px;
-  margin: -1px;
+  margin: ${token('space.negative.025', '-2px')};
   overflow: hidden;
   padding: 0;
   position: absolute;

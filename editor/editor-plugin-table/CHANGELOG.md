@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.3
+
+### Patch Changes
+
+- [#78924](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78924) [`76ebbfb53b83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76ebbfb53b83) - Add analytics event when table column is resized
+
 ## 7.5.2
 
 ### Patch Changes

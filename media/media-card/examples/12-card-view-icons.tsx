@@ -11,16 +11,15 @@ import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
 
-const wrapperDimensionsSmall = { width: '156px', height: '108px' }; // Minimum supported dimensions
 const dimensions = { width: '100%', height: '100%' };
 
-const styledContainerStyles = css`
-  max-width: 800px;
-  margin: ${token('space.250', '20px')} auto;
-  h3 {
-    text-align: center;
-  }
-`;
+const styledContainerStyles = css({
+  maxWidth: '800px',
+  margin: `${token('space.250', '20px')} auto`,
+  h3: {
+    textAlign: 'center',
+  },
+});
 
 const mimeTypes: { mime: string; name: string }[] = [
   { mime: 'application/pdf', name: '.pdf' },
@@ -89,10 +88,7 @@ function renderCardImageView(
 
   return (
     <MainWrapper key={key}>
-      <CardViewWrapper
-        wrapperDimensions={wrapperDimensionsSmall}
-        displayInline={true}
-      >
+      <CardViewWrapper small={true} displayInline={true}>
         <LoadedCardView
           status={status}
           mediaItemType="file"

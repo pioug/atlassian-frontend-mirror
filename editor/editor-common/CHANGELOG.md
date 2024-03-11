@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 78.11.5
+
+### Patch Changes
+
+- [#79232](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79232) [`268ac252c6b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/268ac252c6b9) - [ux] Migrating editor-common to use spacing and colour tokens.
+- [#78924](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78924) [`76ebbfb53b83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76ebbfb53b83) - Add analytics event when table column is resized
+- [#79651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79651) [`a589ad765bb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a589ad765bb8) - [ux] Ensure any node that can be resized which is nested inside table displays correctly
+
 ## 78.11.4
 
 ### Patch Changes

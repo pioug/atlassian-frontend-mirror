@@ -27,6 +27,7 @@ import {
 
 import { clearMultipleCells } from './commands/clear';
 import { wrapTableInExpand } from './commands/collapse';
+import { changeColumnWidthByStep } from './commands/column-resize';
 import { deleteColumnsCommand } from './commands/delete';
 import { insertColumn, insertRow } from './commands/insert';
 import {
@@ -249,6 +250,44 @@ export const insertRowWithAnalytics =
       };
     })(editorAnalyticsAPI)(
       insertRow(options.index, options.moveCursorToInsertedRow),
+    );
+
+export const changeColumnWidthByStepWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    stepSize: number,
+    getEditorContainerWidth: GetEditorContainerWidth,
+    tablePreserveWidth: boolean,
+    inputMethod: INPUT_METHOD.SHORTCUT,
+  ) =>
+    withEditorAnalyticsAPI((state) => {
+      const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
+      );
+      const {
+        hoveredCell: { colIndex },
+      } = getPluginState(state);
+
+      return {
+        action: TABLE_ACTION.COLUMN_RESIZED,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          colIndex,
+          resizedDelta: stepSize,
+          isLastColumn: colIndex === totalColumnCount - 1,
+          tableWidth: table?.node.attrs.width,
+          inputMethod,
+          totalRowCount,
+          totalColumnCount,
+        },
+      };
+    })(editorAnalyticsAPI)(
+      changeColumnWidthByStep(
+        stepSize,
+        getEditorContainerWidth,
+        tablePreserveWidth,
+      ),
     );
 
 export const insertColumnWithAnalytics =

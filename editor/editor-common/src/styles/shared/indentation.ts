@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 export const indentationSharedStyles = css`
   .fabric-editor-indentation-mark {
     &[data-level='1'] {

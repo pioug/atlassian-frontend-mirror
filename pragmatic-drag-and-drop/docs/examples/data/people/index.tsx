@@ -95,27 +95,47 @@ const roles: string[] = [
   'Program Manager',
 ];
 
-let count: number = 0;
+let sharedLookupIndex: number = 0;
 
 /**
  * Note: this does not use randomness so that it is stable for VR tests
  */
 export function getPerson(): Person {
-  count++;
+  sharedLookupIndex++;
+  return getPersonFromPosition({ position: sharedLookupIndex });
+}
+
+export function getPersonFromPosition({
+  position,
+}: {
+  position: number;
+}): Person {
   // use the next name
-  const name = names[count % names.length];
+  const name = names[position % names.length];
   // use the next role
-  const role = roles[count % roles.length];
+  const role = roles[position % roles.length];
   return {
-    userId: `id:${count}`,
+    userId: `id:${position}`,
     name,
     role,
     avatarUrl: avatarMap[name],
   };
 }
 
+export function getPeopleFromPosition({
+  amount,
+  startIndex,
+}: {
+  amount: number;
+  startIndex: number;
+}): Person[] {
+  return Array.from({ length: amount }, () =>
+    getPersonFromPosition({ position: startIndex++ }),
+  );
+}
+
 export function getPeople({ amount }: { amount: number }): Person[] {
-  return Array.from({ length: amount }, getPerson);
+  return Array.from({ length: amount }, () => getPerson());
 }
 
 export type ColumnType = {

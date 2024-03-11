@@ -172,6 +172,7 @@ export enum INPUT_METHOD {
   TYPEAHEAD = 'typeAhead',
   DATASOURCE = 'datasource_config',
   TABLE_CONTEXT_MENU = 'tableContextMenu',
+  MOUSE = 'mouse',
 }
 
 export enum TRIGGER_METHOD {

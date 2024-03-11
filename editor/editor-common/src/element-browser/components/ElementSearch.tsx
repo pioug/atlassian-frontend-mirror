@@ -152,8 +152,8 @@ function ElementSearch({
 }
 
 const styledShortcut = css(shortcutStyle, {
-  padding: `${GRID_SIZE / 2}px ${GRID_SIZE}px`,
-  width: `${GRID_SIZE * 6}px`,
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+  width: token('space.600', '48px'),
 });
 
 const wrapper = css({
@@ -163,9 +163,11 @@ const wrapper = css({
     flex: '1 1 100%',
     overflow: 'visible',
     '& > [data-ds--text-field--input]': {
-      marginBottom: '3px',
       fontSize: relativeFontSizeToBase16(14),
-      padding: `${GRID_SIZE}px ${token('space.075', '6px')} ${GRID_SIZE}px 0`,
+      padding: `${token('space.100', '8px')} ${token(
+        'space.075',
+        '6px',
+      )} ${token('space.100', '8px')} 0`,
     },
   },
 });

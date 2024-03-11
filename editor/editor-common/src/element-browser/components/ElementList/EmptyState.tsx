@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import NotFoundIllustration from './NotFoundIllustration';
@@ -32,7 +33,7 @@ export default function EmptyState({
             description="Empty state sub-heading"
           />
         </p>
-        <div css={externalLinkWrapper}>
+        <Box xcss={externalLinkWrapper}>
           <Button
             appearance="primary"
             target="_blank"
@@ -45,7 +46,7 @@ export default function EmptyState({
               description="Empty state sub-heading external link"
             />
           </Button>
-        </div>
+        </Box>
       </div>
     </div>
   );
@@ -57,7 +58,7 @@ const emptyStateHeading = css({
   color: token('color.text', 'rgb(23, 43, 77)'),
   fontWeight: 500,
   letterSpacing: '-0.008em',
-  marginTop: '28px',
+  marginTop: token('space.300', '24px'),
 });
 
 const emptyStateSubHeading = css({
@@ -74,6 +75,6 @@ const emptyStateWrapper = css({
   width: '100%',
 });
 
-const externalLinkWrapper = css({
-  marginTop: '14px',
+const externalLinkWrapper = xcss({
+  marginTop: token('space.150', '12px'),
 });

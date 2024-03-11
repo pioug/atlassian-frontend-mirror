@@ -8,6 +8,7 @@ import {
   imageFileId,
   videoFileId,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { Card } from '../src/card';
 import ReactDOMServer from 'react-dom/server';
 
@@ -99,7 +100,7 @@ const runSSR = async (
 const rowStyle = {
   display: 'flex',
   flexDirection: 'row',
-  marginBottom: 20,
+  marginBottom: token('space.250', '20px'),
 } as const;
 
 export default () => {
@@ -125,26 +126,44 @@ export default () => {
       style={{
         maxWidth: 1300,
         margin: 'auto',
-        marginTop: 20,
+        marginTop: token('space.250', '20px'),
       }}
     >
       <MainWrapper developmentOnly>
         <h2>Media Single</h2>
         <div style={rowStyle}>
-          <div style={{ marginRight: 20 }} id={serverOnlySingleId}></div>
-          <div style={{ marginRight: 20 }} id={hydrationSingleId}></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={serverOnlySingleId}
+          ></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={hydrationSingleId}
+          ></div>
         </div>
         <hr />
         <h2>Media Video</h2>
         <div style={rowStyle}>
-          <div style={{ marginRight: 20 }} id={serverOnlyVideoId}></div>
-          <div style={{ marginRight: 20 }} id={hydrationVideoId}></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={serverOnlyVideoId}
+          ></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={hydrationVideoId}
+          ></div>
         </div>
         <hr />
         <h2>Media Group</h2>
         <div style={rowStyle}>
-          <div style={{ marginRight: 20 }} id={serverOnlyGroupId}></div>
-          <div style={{ marginRight: 20 }} id={hydrationGroupId}></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={serverOnlyGroupId}
+          ></div>
+          <div
+            style={{ marginRight: token('space.250', '20px') }}
+            id={hydrationGroupId}
+          ></div>
         </div>
       </MainWrapper>
     </div>

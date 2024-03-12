@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
-
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
@@ -15,11 +13,11 @@ type Props = {
   includeTooltip?: boolean;
 };
 
-export const ColumnResizeWidget: React.FC<Props> = ({
+export const ColumnResizeWidget = ({
   startIndex,
   endIndex,
   includeTooltip,
-}) => {
+}: Props) => {
   const { formatMessage } = useIntl();
 
   if (!includeTooltip) {

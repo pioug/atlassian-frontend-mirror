@@ -1,4 +1,4 @@
-import { ADFEntity, ADFEntityMark } from '../types';
+import type { ADFEntity, ADFEntityMark } from '../types';
 
 export interface MarkValidationResult {
   valid: boolean;

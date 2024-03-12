@@ -56,6 +56,7 @@ export const TableSharedCssClassName = {
   TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
 };
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Appears safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing
 const tableSharedStyle = () => css`
   ${tableCellBackgroundStyleOverride()}
   .${TableSharedCssClassName.TABLE_CONTAINER} {

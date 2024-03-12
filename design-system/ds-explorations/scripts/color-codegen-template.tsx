@@ -1,10 +1,10 @@
 import prettier from 'prettier';
 import parserTypeScript from 'prettier/parser-typescript';
 
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import legacyTokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-legacy-light';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import tokens from '@atlaskit/tokens/src/artifacts/tokens-raw/atlassian-light';
+import {
+  legacyLightTokens as legacyTokens,
+  light as tokens,
+} from '@atlaskit/tokens/tokens-raw';
 
 import {
   capitalize,

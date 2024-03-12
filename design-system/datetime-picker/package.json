@@ -48,7 +48,7 @@
     "@atlaskit/popper": "^5.5.0",
     "@atlaskit/select": "^17.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "date-fns": "^2.17.0",

@@ -6,7 +6,10 @@ import { css, jsx } from '@emotion/react';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button, {
+  type ThemeProps,
+  type ThemeTokens,
+} from '@atlaskit/button/custom-theme-button';
 import { B400, B50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -103,7 +106,10 @@ function CategoryListItem({
     }
   }, [focus, index, setFocusedCategoryIndex]);
   const getTheme = useCallback(
-    (currentTheme, themeProps) => {
+    (
+      currentTheme: (props: ThemeProps) => ThemeTokens,
+      themeProps: ThemeProps,
+    ): ThemeTokens => {
       const { buttonStyles, ...rest } = currentTheme(themeProps);
       return {
         buttonStyles: {

@@ -358,6 +358,17 @@ function isEmptyTextSelection(
   return !hasContent;
 }
 
+export const isSupportedBlockNode = (
+  node: Node,
+  supportedBlockNodes: string[] = [],
+) => {
+  return (
+    supportedBlockNodes.indexOf(node.type.name) >= 0 ||
+    (node.type.name === 'mediaSingle' &&
+      supportedBlockNodes.indexOf('media') >= 0)
+  );
+};
+
 /**
  * Checks if any of the nodes in a given selection are completely whitespace
  * This is to conform to Confluence annotation specifications

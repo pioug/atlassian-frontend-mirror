@@ -1,7 +1,5 @@
 /** @jsx jsx */
 
-import type { FC } from 'react';
-
 import { jsx } from '@emotion/react';
 
 import WarningIcon from '@atlaskit/icon/glyph/warning';
@@ -22,12 +20,12 @@ type Props = {
   height?: number;
 };
 
-export const InlineImageCardErrorView: FC<Props> = ({
+export const InlineImageCardErrorView = ({
   testId = 'media-inline-image-card-error-view',
   message,
   icon,
   height = ICON_SIZE_THRESOLD,
-}) => {
+}: Props) => {
   return (
     <Frame testId={testId}>
       <Tooltip content={message} position="top" tag="span" hideTooltipOnClick>

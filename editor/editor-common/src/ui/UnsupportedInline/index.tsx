@@ -41,11 +41,11 @@ export interface Props {
   dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 }
 
-const UnsupportedInlineNode: React.FC<Props & WrappedComponentProps> = ({
+const UnsupportedInlineNode = ({
   node,
   intl,
   dispatchAnalyticsEvent,
-}) => {
+}: Props & WrappedComponentProps) => {
   const message = getUnsupportedContent(
     unsupportedContentMessages.unsupportedInlineContent,
     'Unsupported',

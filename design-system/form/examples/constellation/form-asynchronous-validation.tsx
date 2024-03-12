@@ -48,12 +48,12 @@ export default () => (
                 <TextField autoComplete="off" {...fieldProps} />
                 {!error && (
                   <HelperMessage>
-                    You can use letters, numbers, and periods.
+                    You can use letters, numbers, and periods
                   </HelperMessage>
                 )}
                 {error && (
                   <ErrorMessage>
-                    This username is already in use, try another one.
+                    This username is already in use, try another one
                   </ErrorMessage>
                 )}
               </Fragment>
@@ -80,14 +80,14 @@ export default () => (
                   <TextField type="password" {...fieldProps} />
                   {error && (
                     <ErrorMessage>
-                      Please enter a password that's longer than 8 characters.
+                      Please enter a password that's longer than 8 characters
                     </ErrorMessage>
                   )}
                   {meta.validating && meta.dirty ? (
-                    <HelperMessage>Checking......</HelperMessage>
+                    <HelperMessage>Checking...</HelperMessage>
                   ) : null}
                   {!meta.validating && valid && meta.dirty ? (
-                    <ValidMessage>Awesome password!</ValidMessage>
+                    <ValidMessage>Valid password</ValidMessage>
                   ) : null}
                 </Fragment>
               );

@@ -70,38 +70,43 @@ export const tableButtonWrapper = ({
 }: {
   isTableSelectorOpen: boolean;
   isButtonDisabled: boolean | undefined;
-}) => css`
-  display: flex;
-  ${!isTableSelectorOpen &&
-  !isButtonDisabled &&
-  getHoverStyles('.table-selector-toolbar-btn')}
-  ${!isTableSelectorOpen &&
-  !isButtonDisabled &&
-  getHoverStyles('.table-toolbar-btn')}
+}) =>
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixins
+  css`
+    display: flex;
+    ${!isTableSelectorOpen &&
+    !isButtonDisabled &&
+    getHoverStyles('.table-selector-toolbar-btn')}
+    ${!isTableSelectorOpen &&
+    !isButtonDisabled &&
+    getHoverStyles('.table-toolbar-btn')}
 
   .table-toolbar-btn {
-    border-top-right-radius: ${token('border.radius.200', '0px')};
-    border-bottom-right-radius: ${token('border.radius.200', '0px')};
-    margin-right: ${token('space.025', '1px')};
-    padding: ${token('space.0', '0px')};
-    & > span {
-      min-width: 16px;
-      margin: ${token('space.0', '0px')};
+      border-top-right-radius: ${token('border.radius.200', '0px')};
+      border-bottom-right-radius: ${token('border.radius.200', '0px')};
+      margin-right: ${token('space.025', '1px')};
+      padding: ${token('space.0', '0px')};
+      & > span {
+        min-width: 16px;
+        margin: ${token('space.0', '0px')};
+      }
     }
-  }
-  .table-selector-toolbar-btn {
-    padding: ${token('space.0', '0px')};
-    & > span {
-      margin: ${token('space.0', '0px')};
-      width: 16px !important;
-      display: flex;
-      justify-content: center;
-    }
+    .table-selector-toolbar-btn {
+      padding: ${token('space.0', '0px')};
+      & > span {
+        margin: ${token('space.0', '0px')};
+        width: 16px !important;
+        display: flex;
+        justify-content: center;
+      }
 
-    border-top-left-radius: ${token('border.radius.200', '0px')} !important;
-    border-bottom-left-radius: ${token('border.radius.200', '0px')} !important;
-  }
-`;
+      border-top-left-radius: ${token('border.radius.200', '0px')} !important;
+      border-bottom-left-radius: ${token(
+        'border.radius.200',
+        '0px',
+      )} !important;
+    }
+  `;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInsertBlock extends React.PureComponent<

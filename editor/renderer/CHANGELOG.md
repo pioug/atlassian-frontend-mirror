@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 109.7.6
+
+### Patch Changes
+
+- [#80549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80549) [`8167ff5eb362`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8167ff5eb362) - [ux] Revert change to renderer embed card styling for margin.
+- Updated dependencies
+
+## 109.7.5
+
+### Patch Changes
+
+- [#80518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80518) [`e0d5e8fd9495`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0d5e8fd9495) - Migrates some style calls to a slightly different object syntax and other minor cleanup around eslint rules.
+- [#80170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80170) [`25cea639817f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25cea639817f) - [ux] Migrate to use tokens. The padding on the top of the editor in full-page has changed from 50px to 48px.
+- [#80427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80427) [`cc0e2b5dba10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc0e2b5dba10) - React 18 types for renderer (missed eslint issues)
+- Updated dependencies
+
 ## 109.7.4
 
 ### Patch Changes

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import type { FC } from 'react';
 import React, { Fragment } from 'react';
 import memoizeOne from 'memoize-one';
 
@@ -172,7 +171,9 @@ export default class ExtensionRenderer extends React.Component<Props, State> {
   }
 }
 
-const InlineNodeRendererWrapper: FC = ({ children }) => {
+const InlineNodeRendererWrapper = ({
+  children,
+}: React.PropsWithChildren<unknown>) => {
   if (getBooleanFF('platform.editor.inline_extension.extended_lcqdn')) {
     return (
       <div className="inline-extension-renderer" css={inlineExtensionStyle}>

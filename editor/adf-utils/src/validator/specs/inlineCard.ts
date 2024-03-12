@@ -1,3 +1,4 @@
+// PLEASE DO NOT ADD marks IN THIS FILE
 export default {
   props: {
     type: { type: 'enum', values: ['inlineCard'] },

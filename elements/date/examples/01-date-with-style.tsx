@@ -10,28 +10,27 @@ type Props = {
   selected?: boolean;
 } & DateProps;
 
-const SelectableDate = styled(Date)`
-  ${(props: Props) =>
-    props.selected
-      ? css`
-          display: 'relative';
-          &:before {
-            content: '';
-            border: 2px solid ${token('color.border.selected', B200)};
-            display: 'absolute';
-            background: transparent;
-            border-radius: ${borderRadius()}px;
-            box-sizing: border-box;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-          }
-        `
-      : null};
-` as React.ComponentType<Props>;
+const SelectableDate = styled(Date)((props: Props) =>
+  props.selected
+    ? css({
+        display: "'relative'",
+        '&:before': {
+          content: "''",
+          border: `2px solid ${token('color.border.selected', B200)}`,
+          display: "'absolute'",
+          background: 'transparent',
+          borderRadius: `${borderRadius()}px`,
+          boxSizing: 'border-box',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+        },
+      })
+    : null,
+) as React.ComponentType<React.PropsWithChildren<Props>>;
 
 export default () => (
   <div>

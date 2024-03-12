@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 1.1.4
+
+### Patch Changes
+
+- [#79373](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79373) [`8527099fbddf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8527099fbddf) - Fixed so that "creationMethod" is populated when clicking on a toolbar.
+- Updated dependencies
+
 ## 1.1.3
 
 ### Patch Changes

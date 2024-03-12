@@ -7,18 +7,20 @@ import {
   MediaInlineCardLoadingView,
 } from '../src';
 
+import { token } from '@atlaskit/tokens';
+
 export default () => (
   <div
     style={{
-      padding: '2rem',
+      padding: token('space.400', '2rem'),
       display: 'flex',
       flexDirection: 'column',
-      gap: '1rem',
+      gap: token('space.200', '1rem'),
     }}
   >
     <Container
       style={{
-        gap: '1rem',
+        gap: token('space.200', '1rem'),
       }}
     >
       isSelected = false
@@ -28,7 +30,7 @@ export default () => (
     </Container>
     <Container
       style={{
-        gap: '1rem',
+        gap: token('space.200', '1rem'),
       }}
     >
       isSelected = true

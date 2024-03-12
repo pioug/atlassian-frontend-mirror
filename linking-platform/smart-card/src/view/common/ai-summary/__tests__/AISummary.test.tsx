@@ -30,7 +30,7 @@ describe('AI Summary', () => {
   });
 
   it('renders custom component', async () => {
-    const TestIcon = <span data-testid="test-icon">Icon</span>;
+    const TestIcon = () => <span data-testid="test-icon" />;
     const { findByTestId } = render(
       <AISummary content="test-content" showIcon iconComponent={TestIcon} />,
     );

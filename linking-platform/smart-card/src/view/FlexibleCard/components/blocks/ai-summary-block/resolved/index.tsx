@@ -1,4 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { Box, Inline } from '@atlaskit/primitives';
@@ -16,7 +22,6 @@ import AIStateIndicator from '../ai-state-indicator';
 import { renderElementItems } from '../../utils';
 import type { ActionItem } from '../../types';
 import type { AISummaryBlockProps } from '../types';
-import type { AIState } from '../types';
 import { messages } from '../../../../../../messages';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
@@ -31,38 +36,49 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
     actions = [],
     metadata,
     onActionMenuOpenChange,
-    onAIActionChange,
     size = SmartLinkSize.Medium,
     testId,
+    aiSummaryMinHeight,
   } = props;
-  const [aiState, setAIState] = useState<AIState>('ready');
-  const { fireEvent } = useAnalyticsEvents();
 
   const metadataElements = renderElementItems(metadata);
-
+  const { fireEvent } = useAnalyticsEvents();
   const context = useFlexibleUiContext();
   const url = context?.url || '';
 
-  const aiSummary = useAISummary({ url });
   const {
+    summariseUrl,
     state: { content, status },
-    isSummarisedOnMount,
-  } = aiSummary;
+  } = useAISummary({ url });
 
-  const onAIActionClick = useCallback(() => {
-    fireEvent('ui.button.clicked.aiSummary', {});
-    setAIState('loading');
-    if (onAIActionChange) {
-      onAIActionChange('loading');
+  const showAISummary = status !== 'ready' && status !== 'error';
+
+  const isSummarisedOnMountRef = useRef(status === 'done');
+  let isErroredOnMountRef = useRef(status === 'error');
+
+  const [showAISummaryErrorMessage, setShowAISummaryErrorMessage] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    if (isErroredOnMountRef.current && status === 'loading') {
+      isErroredOnMountRef.current = false;
+      setShowAISummaryErrorMessage(true);
+    } else {
+      setShowAISummaryErrorMessage(
+        !isErroredOnMountRef.current && status === 'error',
+      );
     }
-  }, [onAIActionChange, fireEvent]);
+  }, [status]);
 
   const combinedActions = useMemo(() => {
-    if (aiState === 'ready') {
+    if (status === 'ready' || status === 'error') {
       const aiAction = {
         content: <FormattedMessage {...messages.ai_summarize} />,
         name: ActionName.CustomAction,
-        onClick: onAIActionClick,
+        onClick: () => {
+          fireEvent('ui.button.clicked.aiSummary', {});
+          summariseUrl();
+        },
         testId: `${testId}-ai-summary-action`,
         icon: <AIIcon label="AIIcon" />,
       } as ActionItem;
@@ -70,7 +86,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       return [aiAction, ...actions];
     }
     return actions;
-  }, [actions, aiState, onAIActionClick, testId]);
+  }, [actions, status, testId, summariseUrl, fireEvent]);
 
   const onDropdownOpenChange = useCallback(
     (isOpen: boolean) => {
@@ -88,9 +104,15 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       testId={`${testId}-resolved-view`}
     >
       {status === 'done' && (
-        <AIEventSummaryViewed fromCache={isSummarisedOnMount} />
+        <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />
       )}
-      <AISummary content={content} showIcon={isSummarisedOnMount} />
+      {showAISummary && (
+        <AISummary
+          minHeight={aiSummaryMinHeight}
+          content={content}
+          showIcon={isSummarisedOnMountRef.current}
+        />
+      )}
       <Inline
         alignBlock="center"
         alignInline="end"
@@ -98,10 +120,10 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
         spread="space-between"
       >
         <Box>
-          {!isSummarisedOnMount &&
-          (aiState === 'loading' || aiState === 'done') ? (
+          {!isSummarisedOnMountRef.current &&
+          (status === 'loading' || status === 'done') ? (
             <AIStateIndicator
-              state={aiState}
+              state={status}
               testId={`${testId}-state-indicator`}
             />
           ) : (
@@ -122,7 +144,8 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
           />
         </Box>
       </Inline>
-      {status === 'error' && (
+      {/* <AIStateIndicator state={'error'} testId={testId} /> */}
+      {showAISummaryErrorMessage && (
         <Inline grow="fill">
           <AIEventErrorViewed />
           <AIStateIndicator state={status} testId={testId} />

@@ -17,42 +17,38 @@ import { token } from '@atlaskit/tokens';
 const LONG = 80;
 const SHORT = 60;
 
-const StyledContainer = styled.div`
-  display: flex;
-  max-width: 600px;
-  margin: ${token('space.250', '20px')};
-  align-items: center;
-`;
+const StyledContainer = styled.div({
+  display: 'flex',
+  maxWidth: '600px',
+  margin: token('space.250', '20px'),
+  alignItems: 'center',
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const ItemWrapper = styled.div`
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-  position: relative;
+const ItemWrapper = styled.div({
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: token('space.100', '8px'),
+  position: 'relative',
+  label: {
+    zIndex: '1',
+  },
+  img: {
+    imageRendering: 'pixelated',
+    border: token('space.025', '2px'),
+  },
+});
 
-  label {
-    position: absolute;
-    top: 30%;
-  }
-
-  img {
-    image-rendering: pixelated;
-    border: 1px solid ${token('color.border.inverse', '#fff')};
-  }
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const OuterBorder = styled.div`
-  position: absolute;
-  background-color: ${token('color.border', '#ccc')};
-  left: -5px;
-  top: -5px;
-  width: calc(100% + 10px);
-  height: calc(100% + 10px);
-`;
+const OuterBorder = styled.div({
+  position: 'absolute',
+  backgroundColor: token('color.border', '#ccc'),
+  left: token('space.negative.050', '-4px'),
+  top: token('space.negative.050', '-4px'),
+  width: `calc(100% + ${token('space.100', '8px')})`,
+  height: `calc(100% + ${token('space.100', '8px')})`,
+});
 
 const mediaImage = (dataUri: string, orientation: number) => (
   <ItemWrapper

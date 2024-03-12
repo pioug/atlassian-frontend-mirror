@@ -48,8 +48,6 @@ type ItemPosition = 'first' | 'last' | 'middle' | 'only';
 type CleanupFn = () => void;
 
 type ListContextProps = {
-  getItemIndex: ({ id }: { id: string }) => number;
-  getItemPosition: (itemData: ItemData) => ItemPosition;
   registerItem: (args: { id: string; element: HTMLElement }) => CleanupFn;
   reorderItem: (args: {
     startIndex: number;
@@ -67,10 +65,61 @@ function useListContext() {
   return listContext;
 }
 
-type ItemData = {
+type Item = {
   id: string;
   label: string;
 };
+
+const itemKey = Symbol('item');
+type ItemData = {
+  [itemKey]: true;
+  item: Item;
+  index: number;
+  instanceId: symbol;
+};
+
+function getItemData({
+  item,
+  index,
+  instanceId,
+}: {
+  item: Item;
+  index: number;
+  instanceId: symbol;
+}): ItemData {
+  return {
+    [itemKey]: true,
+    item,
+    index,
+    instanceId,
+  };
+}
+
+function isItemData(data: Record<string | symbol, unknown>): data is ItemData {
+  return data[itemKey] === true;
+}
+
+function getItemPosition({
+  index,
+  items,
+}: {
+  index: number;
+  items: Item[];
+}): ItemPosition {
+  if (items.length === 1) {
+    return 'only';
+  }
+
+  if (index === 0) {
+    return 'first';
+  }
+
+  if (index === items.length - 1) {
+    return 'last';
+  }
+
+  return 'middle';
+}
 
 const listItemContainerStyles = xcss({
   position: 'relative',
@@ -117,8 +166,16 @@ const itemLabelStyles = xcss({
   overflow: 'hidden',
 });
 
-function ListItem({ itemData }: { itemData: ItemData }) {
-  const { getItemIndex, registerItem, instanceId } = useListContext();
+function ListItem({
+  item,
+  index,
+  position,
+}: {
+  item: Item;
+  index: number;
+  position: ItemPosition;
+}) {
+  const { registerItem, instanceId } = useListContext();
 
   const ref = useRef<HTMLDivElement>(null);
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
@@ -134,16 +191,14 @@ function ListItem({ itemData }: { itemData: ItemData }) {
 
     const element = ref.current;
 
-    const dragData = { id: itemData.id, instanceId };
+    const dragData = { id: item.id, instanceId };
 
     return combine(
-      registerItem({ id: itemData.id, element }),
+      registerItem({ id: item.id, element }),
       draggable({
         element,
         dragHandle: dragHandleRef.current,
-        getInitialData() {
-          return { ...dragData, index: getItemIndex(itemData) };
-        },
+        getInitialData: () => getItemData({ item, index, instanceId }),
         onGenerateDragPreview({ nativeSetDragImage }) {
           setCustomNativeDragPreview({
             nativeSetDragImage,
@@ -168,7 +223,9 @@ function ListItem({ itemData }: { itemData: ItemData }) {
       dropTargetForElements({
         element,
         canDrop({ source }) {
-          return source.data.instanceId === instanceId;
+          return (
+            isItemData(source.data) && source.data.instanceId === instanceId
+          );
         },
         getData({ input }) {
           return attachClosestEdge(dragData, {
@@ -189,10 +246,8 @@ function ListItem({ itemData }: { itemData: ItemData }) {
           const sourceIndex = source.data.index;
           invariant(typeof sourceIndex === 'number');
 
-          const selfIndex = getItemIndex({ id: itemData.id });
-
-          const isItemBeforeSource = selfIndex === sourceIndex - 1;
-          const isItemAfterSource = selfIndex === sourceIndex + 1;
+          const isItemBeforeSource = index === sourceIndex - 1;
+          const isItemAfterSource = index === sourceIndex + 1;
 
           const isDropIndicatorHidden =
             (isItemBeforeSource && closestEdge === 'bottom') ||
@@ -213,7 +268,7 @@ function ListItem({ itemData }: { itemData: ItemData }) {
         },
       }),
     );
-  }, [getItemIndex, instanceId, itemData, registerItem]);
+  }, [instanceId, item, index, registerItem]);
 
   return (
     <Fragment>
@@ -236,15 +291,15 @@ function ListItem({ itemData }: { itemData: ItemData }) {
               <DragHandleButton
                 ref={mergeRefs([dragHandleRef, triggerRef])}
                 {...triggerProps}
-                label={`Reorder ${itemData.label}`}
+                label={`Reorder ${item.label}`}
               />
             )}
           >
             <DropdownItemGroup>
-              <LazyDropdownContent itemData={itemData} />
+              <LazyDropdownContent position={position} index={index} />
             </DropdownItemGroup>
           </DropdownMenu>
-          <Box xcss={itemLabelStyles}>{itemData.label}</Box>
+          <Box xcss={itemLabelStyles}>{item.label}</Box>
           <Inline alignBlock="center" space="space.100">
             <Badge>{1}</Badge>
             <Avatar size="small" />
@@ -255,38 +310,40 @@ function ListItem({ itemData }: { itemData: ItemData }) {
       </Box>
       {draggableState.type === 'preview' &&
         ReactDOM.createPortal(
-          <Box xcss={listItemPreviewStyles}>{itemData.label}</Box>,
+          <Box xcss={listItemPreviewStyles}>{item.label}</Box>,
           draggableState.container,
         )}
     </Fragment>
   );
 }
 
-function LazyDropdownContent({ itemData }: { itemData: ItemData }) {
-  const { getItemIndex, getItemPosition, reorderItem } = useListContext();
-
-  const position = getItemPosition(itemData);
+function LazyDropdownContent({
+  position,
+  index,
+}: {
+  position: ItemPosition;
+  index: number;
+}) {
+  const { reorderItem } = useListContext();
 
   const isMoveUpDisabled = position === 'first' || position === 'only';
   const isMoveDownDisabled = position === 'last' || position === 'only';
 
   const moveUp = useCallback(() => {
-    const startIndex = getItemIndex(itemData);
     reorderItem({
-      startIndex,
-      indexOfTarget: startIndex - 1,
+      startIndex: index,
+      indexOfTarget: index - 1,
       closestEdgeOfTarget: null,
     });
-  }, [getItemIndex, itemData, reorderItem]);
+  }, [index, reorderItem]);
 
   const moveDown = useCallback(() => {
-    const startIndex = getItemIndex(itemData);
     reorderItem({
-      startIndex,
-      indexOfTarget: startIndex + 1,
+      startIndex: index,
+      indexOfTarget: index + 1,
       closestEdgeOfTarget: null,
     });
-  }, [getItemIndex, itemData, reorderItem]);
+  }, [index, reorderItem]);
 
   return (
     <DropdownItemGroup>
@@ -300,7 +357,7 @@ function LazyDropdownContent({ itemData }: { itemData: ItemData }) {
   );
 }
 
-const defaultItems: ItemData[] = [
+const defaultItems: Item[] = [
   {
     id: 'task-1',
     label: 'Organize a team-building event',
@@ -343,9 +400,9 @@ const containerStyles = xcss({
 });
 
 type ListState = {
-  items: ItemData[];
+  items: Item[];
   lastCardMoved: {
-    item: ItemData;
+    item: Item;
     previousIndex: number;
     currentIndex: number;
     numberOfItems: number;
@@ -375,21 +432,6 @@ export default function ListExample() {
   );
 
   useEffect(() => {
-    return () => {
-      liveRegion.cleanup();
-    };
-  }, []);
-
-  /**
-   * Creating a stable reference for the items, so that we can avoid
-   * rerenders.
-   */
-  const stableItemsRef = useRef<ItemData[]>(items);
-  useEffect(() => {
-    stableItemsRef.current = items;
-  }, [items]);
-
-  useEffect(() => {
     if (lastCardMoved === null) {
       return;
     }
@@ -406,6 +448,12 @@ export default function ListExample() {
       } to position ${currentIndex + 1} of ${numberOfItems}.`,
     );
   }, [lastCardMoved]);
+
+  useEffect(() => {
+    return () => {
+      liveRegion.cleanup();
+    };
+  }, []);
 
   const reorderItem = useCallback(
     ({
@@ -455,7 +503,7 @@ export default function ListExample() {
   useEffect(() => {
     return monitorForElements({
       canMonitor({ source }) {
-        return source.data.instanceId === instanceId;
+        return isItemData(source.data) && source.data.instanceId === instanceId;
       },
       onDrop({ location, source }) {
         const target = location.current.dropTargets[0];
@@ -463,10 +511,8 @@ export default function ListExample() {
           return;
         }
 
-        const items = stableItemsRef.current;
-
-        const startIndex = items.findIndex(item => item.id === source.data.id);
-        if (startIndex < 0) {
+        const data = source.data;
+        if (!isItemData(data)) {
           return;
         }
 
@@ -479,49 +525,40 @@ export default function ListExample() {
 
         const closestEdgeOfTarget = extractClosestEdge(target.data);
 
-        reorderItem({ startIndex, indexOfTarget, closestEdgeOfTarget });
+        reorderItem({
+          startIndex: data.index,
+          indexOfTarget,
+          closestEdgeOfTarget,
+        });
       },
     });
-  }, [instanceId, reorderItem]);
-
-  const getItemPosition = useCallback((itemData: ItemData) => {
-    const items = stableItemsRef.current;
-
-    if (items.length === 1) {
-      return 'only';
-    }
-
-    const index = items.indexOf(itemData);
-    if (index === 0) {
-      return 'first';
-    }
-
-    if (index === items.length - 1) {
-      return 'last';
-    }
-
-    return 'middle';
-  }, []);
-
-  const getItemIndex = useCallback(({ id }: { id: string }) => {
-    return stableItemsRef.current.findIndex(item => item.id === id);
-  }, []);
+  }, [instanceId, items, reorderItem]);
 
   const contextValue = useMemo(() => {
     return {
-      getItemIndex,
-      getItemPosition,
       registerItem,
       reorderItem,
       instanceId,
     };
-  }, [getItemIndex, getItemPosition, registerItem, reorderItem, instanceId]);
+  }, [registerItem, reorderItem, instanceId]);
 
   return (
     <ListContext.Provider value={contextValue}>
       <Stack xcss={containerStyles}>
-        {items.map(itemData => (
-          <ListItem key={itemData.id} itemData={itemData} />
+        {/*
+          It is not expensive for us to pass `index` to items for this example,
+          as when reordering, only two items index will ever change.
+
+          If insertion or removal where allowed, it would be worth making
+          `index` a getter (eg `getIndex()`) to avoid re-rendering many items
+        */}
+        {items.map((item, index) => (
+          <ListItem
+            key={item.id}
+            item={item}
+            index={index}
+            position={getItemPosition({ index, items })}
+          />
         ))}
       </Stack>
     </ListContext.Provider>

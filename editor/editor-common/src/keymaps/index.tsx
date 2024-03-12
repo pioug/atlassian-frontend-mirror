@@ -192,16 +192,13 @@ const arrowKeysMap: Record<string, string> = {
   ARROWDOWN: '\u2193',
 };
 
-const tooltipShortcutStyle = css`
-  border-radius: 2px;
-  background-color: ${token('color.background.inverse.subtle', N400)};
-  padding: 0 ${token('space.025', '2px')};
-
-  /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
-  /* stylelint-disable-next-line */
-  label: tooltip-shortcut;
-`;
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+const tooltipShortcutStyle = css({
+  borderRadius: '2px',
+  backgroundColor: token('color.background.inverse.subtle', N400),
+  padding: `0 ${token('space.025', '2px')}`,
+  // NOTE: This might not actually do anything: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E
+  label: 'tooltip-shortcut',
+});
 
 function formatShortcut(keymap: Keymap): string | undefined {
   let shortcut: string;

@@ -29,6 +29,10 @@ type AISummaryProps = {
    * serving as a hook for automated tests
    */
   testId?: string;
+  /**
+   * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
+   */
+  minHeight?: number;
 };
 
 /**
@@ -38,13 +42,14 @@ type AISummaryProps = {
  */
 
 const AISummary: React.FC<AISummaryProps> = ({
-  content,
+  content = '',
   showIcon = false,
   iconComponent,
   overrideCss,
   testId = 'ai-summary',
+  minHeight = 0,
 }) => {
-  if (!content) {
+  if (!content && minHeight === 0) {
     return null;
   }
 
@@ -57,6 +62,7 @@ const AISummary: React.FC<AISummaryProps> = ({
         forceWrapper: true,
         overrides: { Icon: iconComponent ?? AITooltipIcon },
       }}
+      style={{ minHeight: minHeight }}
     />
   );
 };

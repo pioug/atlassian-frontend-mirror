@@ -102,7 +102,7 @@ export default class TableView extends ReactNodeView<Props> {
   private resizeObserver?: ResizeObserver;
   eventDispatcher?: EventDispatcher;
   getPos: getPosHandlerNode;
-  getEditorFeatureFlags: GetEditorFeatureFlags;
+  options;
 
   constructor(props: Props) {
     super(
@@ -119,7 +119,7 @@ export default class TableView extends ReactNodeView<Props> {
     );
     this.getPos = props.getPos;
     this.eventDispatcher = props.eventDispatcher;
-    this.getEditorFeatureFlags = props.getEditorFeatureFlags;
+    this.options = props.options;
   }
 
   getContentDOM() {
@@ -133,9 +133,8 @@ export default class TableView extends ReactNodeView<Props> {
 
     if (rendered.dom) {
       this.table = rendered.dom;
-      const { tablePreserveWidth = false } = this.getEditorFeatureFlags();
       // Preserve Table Width cannot have inline width set on the table
-      if (!tablePreserveWidth) {
+      if (!this.options?.isTableScalingEnabled) {
         const tableInlineWidth = getInlineWidth(
           this.node,
           this.reactComponentProps.options,
@@ -255,6 +254,7 @@ export default class TableView extends ReactNodeView<Props> {
               isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
               isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
               isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
+              isTableScalingEnabled={pluginState!.isTableScalingEnabled}
               tableActive={tableActive}
               ordering={pluginState!.ordering as TableColumnOrdering}
               isResizing={isResizing}
@@ -264,7 +264,6 @@ export default class TableView extends ReactNodeView<Props> {
               getEditorFeatureFlags={props.getEditorFeatureFlags}
               dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
               pluginInjectionApi={props.pluginInjectionApi}
-              tableRef={this.table}
             />
           );
         }}
@@ -362,6 +361,7 @@ export const createTableView = (
     wasFullWidthModeEnabled,
     isTableResizingEnabled,
     isDragAndDropEnabled,
+    isTableScalingEnabled,
   } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
   const hasIntlContext = true;
@@ -379,6 +379,7 @@ export const createTableView = (
       wasFullWidthModeEnabled,
       isTableResizingEnabled,
       isDragAndDropEnabled,
+      isTableScalingEnabled,
     },
     getEditorContainerWidth,
     getEditorFeatureFlags,

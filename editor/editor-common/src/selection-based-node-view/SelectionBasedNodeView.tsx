@@ -50,7 +50,7 @@ export class SelectionBasedNodeView<
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     reactComponentProps: P,
-    reactComponent?: React.ComponentType<any>,
+    reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
     hasContext: boolean = false,
     viewShouldUpdate?: shouldUpdate,
     hasIntlContext: boolean = false,

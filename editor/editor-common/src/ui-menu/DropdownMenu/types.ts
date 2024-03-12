@@ -28,6 +28,7 @@ export interface Props {
   shouldFocusFirstItem?: () => boolean;
   arrowKeyNavigationProviderOptions: ArrowKeyNavigationProviderOptions;
   section?: SectionOptions;
+  children?: React.ReactNode;
 }
 
 export interface MenuItem {

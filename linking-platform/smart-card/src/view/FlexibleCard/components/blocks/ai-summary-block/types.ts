@@ -1,8 +1,6 @@
 import { ActionItem, BlockProps, ElementItem } from '../types';
 import { OnActionMenuOpenChangeOptions } from '../types';
 
-export type AIState = 'ready' | 'loading' | 'error' | 'done';
-
 export type AISummaryBlockProps = {
   /**
    * An array of actions to be displayed on the right
@@ -23,7 +21,7 @@ export type AISummaryBlockProps = {
   onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
 
   /**
-   * Function to be called when AI Summary state changed.
+   * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
    */
-  onAIActionChange?: (state: AIState) => void;
+  aiSummaryMinHeight?: number;
 } & BlockProps;

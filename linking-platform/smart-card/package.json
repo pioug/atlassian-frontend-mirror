@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.48.8",
+  "version": "26.49.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -54,7 +54,7 @@
     "@atlaskit/primitives": "^4.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -162,6 +162,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.fix-intersection-observer": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.embed-card-header-tooltip": {
       "type": "boolean"
     }
   },

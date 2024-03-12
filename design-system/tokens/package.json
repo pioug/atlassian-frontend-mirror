@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.39.1",
+  "version": "1.40.0",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -118,6 +118,21 @@
     "./token-default-values": "./src/entry-points/token-default-values.tsx",
     "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
     "./babel-plugin": "./src/entry-points/babel-plugin.tsx",
+    "./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
+  },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./custom-themes": "./src/entry-points/custom-themes.tsx",
+    "./figma/atlassian-light.json": "./figma/atlassian-light.json",
+    "./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
+    "./palettes-raw": "./src/entry-points/palettes-raw.tsx",
+    "./tokens-raw": "./src/entry-points/tokens-raw.tsx",
+    "./token-ids": "./src/entry-points/token-ids.tsx",
+    "./token-names": "./src/entry-points/token-names.tsx",
+    "./token-order": "./src/entry-points/token-order.tsx",
+    "./token-default-values": "./src/entry-points/token-default-values.tsx",
+    "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
+    "./babel-plugin": "./babel-plugin.js",
     "./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
   },
   "platform-feature-flags": {

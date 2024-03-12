@@ -47,7 +47,7 @@ export default class ReactNodeView<P = ReactComponentProps>
 {
   private domRef?: HTMLElement;
   private contentDOMWrapper?: Node;
-  private reactComponent?: React.ComponentType<any>;
+  private reactComponent?: React.ComponentType<React.PropsWithChildren<any>>;
   private portalProviderAPI: PortalProviderAPI;
   private hasAnalyticsContext: boolean;
   private _viewShouldUpdate?: shouldUpdate;
@@ -69,7 +69,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     reactComponentProps?: P,
-    reactComponent?: React.ComponentType<any>,
+    reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
     hasAnalyticsContext: boolean = false,
     viewShouldUpdate?: shouldUpdate,
     hasIntlContext: boolean = false,
@@ -282,7 +282,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   };
 
   static fromComponent(
-    component: React.ComponentType<any>,
+    component: React.ComponentType<React.PropsWithChildren<any>>,
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     props?: ReactComponentProps,

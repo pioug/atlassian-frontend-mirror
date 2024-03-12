@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.5.0
+
+### Minor Changes
+
+- [#80523](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80523) [`1fbc903e5b7b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1fbc903e5b7b) - Adds `no-important-styles` rule which prevents the use of `!important` flags in style declarations.
+
 ## 0.4.1
 
 ### Patch Changes

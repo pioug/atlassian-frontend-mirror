@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@atlaskit/editor-common": "^78.11.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 78.11.6
+
+### Patch Changes
+
+- [#80427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80427) [`cc0e2b5dba10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc0e2b5dba10) - React 18 Types for @atlaskit/editor-common
+- [#80391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80391) [`bf741c7ef44c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf741c7ef44c) - Make @atlaskit/editor-plugin-table, @atlaskit/date, @atlaskit/editor-plugin-date React 18 compatible.
+- [#80518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80518) [`e0d5e8fd9495`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0d5e8fd9495) - Migrates some style calls to a slightly different object syntax and other minor cleanup around eslint rules.
+- [#80170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80170) [`25cea639817f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25cea639817f) - [ux] Migrate to use tokens. The padding on the top of the editor in full-page has changed from 50px to 48px.
+- Updated dependencies
+
 ## 78.11.5
 
 ### Patch Changes

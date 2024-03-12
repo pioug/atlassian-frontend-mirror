@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.5
+
+### Patch Changes
+
+- [#79509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79509) [`111e580bb58a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/111e580bb58a) - update preserve table width changes to only appear on full width pages
+- Updated dependencies
+
+## 7.5.4
+
+### Patch Changes
+
+- [#80391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80391) [`bf741c7ef44c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf741c7ef44c) - Make @atlaskit/editor-plugin-table, @atlaskit/date, @atlaskit/editor-plugin-date React 18 compatible.
+- [#79483](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79483) [`b2a75ed4502b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2a75ed4502b) - add dynamic widest guideline for table resize
+
 ## 7.5.3
 
 ### Patch Changes

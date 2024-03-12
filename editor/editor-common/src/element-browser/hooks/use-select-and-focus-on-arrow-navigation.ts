@@ -289,25 +289,32 @@ function useSelectAndFocusOnArrowNavigation(
 
   const isMoving = useRef(false);
 
-  const move = useCallback((e, positions, actualStep?) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const move = useCallback(
+    (
+      e: React.KeyboardEvent<HTMLDivElement>,
+      positions: number,
+      actualStep?: number,
+    ) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    // avoid firing 2 moves at the same time when holding an arrow down as this can freeze the screen
-    if (!isMoving.current) {
-      isMoving.current = true;
-      requestAnimationFrame(() => {
-        isMoving.current = false;
-        dispatch({
-          type: ACTIONS.MOVE,
-          payload: {
-            positions,
-            step: actualStep,
-          },
+      // avoid firing 2 moves at the same time when holding an arrow down as this can freeze the screen
+      if (!isMoving.current) {
+        isMoving.current = true;
+        requestAnimationFrame(() => {
+          isMoving.current = false;
+          dispatch({
+            type: ACTIONS.MOVE,
+            payload: {
+              positions,
+              step: actualStep,
+            },
+          });
         });
-      });
-    }
-  }, []);
+      }
+    },
+    [],
+  );
 
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {

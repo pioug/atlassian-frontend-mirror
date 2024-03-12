@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   CardOptions,
   CardPluginActions,
@@ -140,6 +141,7 @@ export class HyperlinkToolbarAppearance extends Component<
             editorState={editorState}
             editorView={editorView}
             editorAnalyticsApi={editorAnalyticsApi}
+            inputMethod={INPUT_METHOD.FLOATING_TB}
           />
         )}
       </Flex>

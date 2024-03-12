@@ -169,7 +169,7 @@ export const getToolbarCellOptionsConfig = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ): FloatingToolbarDropdown<Command> => {
   const { top, bottom, right, left } = initialSelectionRect;
   const numberOfColumns = right - left;
@@ -188,11 +188,10 @@ export const getToolbarCellOptionsConfig = (
         const selectionRect = getClosestSelectionRect(state);
         const index = selectionRect?.right;
         if (index) {
-          insertColumnWithAnalytics(
-            getEditorContainerWidth,
-            editorAnalyticsAPI,
-            tablePreserveWidth,
-          )(INPUT_METHOD.FLOATING_TB, index)(state, dispatch, view);
+          insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
+            INPUT_METHOD.FLOATING_TB,
+            index,
+          )(state, dispatch, view);
         }
         return true;
       },
@@ -294,7 +293,7 @@ export const getToolbarCellOptionsConfig = (
           editorState,
           editorView.domAtPos.bind(editorView),
           getEditorContainerWidth,
-          tablePreserveWidth,
+          isTableScalingEnabled,
         )
       : undefined;
     const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -462,19 +461,18 @@ export const getToolbarConfig =
         editorAnalyticsAPI,
       );
 
-      const { tablePreserveWidth = false } = getEditorFeatureFlags();
+      const { isTableScalingEnabled = false } = getPluginState(state);
 
       let cellItems: Array<FloatingToolbarItem<Command>>;
       cellItems = pluginState.isDragAndDropEnabled
         ? []
         : getCellItems(
-            config,
             state,
             getEditorView(),
             intl,
             getEditorContainerWidth,
             editorAnalyticsAPI,
-            tablePreserveWidth,
+            isTableScalingEnabled,
           );
 
       let columnSettingsItems;
@@ -487,7 +485,7 @@ export const getToolbarConfig =
               intl,
               getEditorContainerWidth,
               editorAnalyticsAPI,
-              tablePreserveWidth,
+              isTableScalingEnabled,
             )
           : [];
       const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI);
@@ -607,13 +605,12 @@ const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
 };
 
 const getCellItems = (
-  pluginConfig: PluginConfig,
   state: EditorState,
   view: EditorView | null,
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ): Array<FloatingToolbarItem<Command>> => {
   const initialSelectionRect = getClosestSelectionRect(state);
   if (initialSelectionRect) {
@@ -624,7 +621,7 @@ const getCellItems = (
       { formatMessage },
       getEditorContainerWidth,
       editorAnalyticsAPI,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     );
     return [cellOptions, separator(cellOptions.hidden!)];
   }
@@ -635,7 +632,7 @@ export const getDistributeConfig =
   (
     getEditorContainerWidth: GetEditorContainerWidth,
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-    tablePreserveWidth = false,
+    isTableScalingEnabled = false,
   ): Command =>
   (state, dispatch, editorView) => {
     const selectionOrTableRect = getClosestSelectionOrTableRect(state);
@@ -647,7 +644,7 @@ export const getDistributeConfig =
       state,
       editorView.domAtPos.bind(editorView),
       getEditorContainerWidth,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     );
 
     if (newResizeStateWithAnalytics) {
@@ -668,7 +665,7 @@ const getColumnSettingItems = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ): Array<FloatingToolbarItem<Command>> => {
   const pluginState = getPluginState(editorState);
   const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
@@ -682,7 +679,7 @@ const getColumnSettingItems = (
     editorState,
     editorView.domAtPos.bind(editorView),
     getEditorContainerWidth,
-    tablePreserveWidth,
+    isTableScalingEnabled,
   );
 
   const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
@@ -701,7 +698,7 @@ const getColumnSettingItems = (
           getDistributeConfig(
             getEditorContainerWidth,
             editorAnalyticsAPI,
-            tablePreserveWidth,
+            isTableScalingEnabled,
           )(state, dispatch, view),
         disabled: !wouldChange,
       },

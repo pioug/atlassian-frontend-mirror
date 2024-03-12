@@ -47,7 +47,7 @@ const FormAllOptionsExample = () => (
         <form {...formProps}>
           <FormHeader title="Form header">
             <p aria-hidden="true">
-              Required fields are marked with an asterisk. <RequiredAsterisk />
+              Required fields are marked with an asterisk <RequiredAsterisk />
             </p>
           </FormHeader>
 
@@ -62,7 +62,7 @@ const FormAllOptionsExample = () => (
               {({ fieldProps }) => (
                 <Fragment>
                   <TextField autoComplete="off" {...fieldProps} />
-                  <HelperMessage>This is a helper message.</HelperMessage>
+                  <HelperMessage>This is a helper message</HelperMessage>
                 </Fragment>
               )}
             </Field>

@@ -141,7 +141,7 @@ export type DragMenuOptionIdType =
 
 export interface DragMenuConfig extends DropdownOptionT<Command> {
   id: DragMenuOptionIdType;
-  icon?: React.ComponentType<IconProps>;
+  icon?: React.ComponentType<React.PropsWithChildren<IconProps>>;
   keymap?: string;
 }
 
@@ -159,7 +159,7 @@ export const getDragMenuConfig = (
   selectionRect?: Rect,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   isHeaderRowRequired?: boolean,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ): DragMenuConfig[] => {
   const addOptions =
     direction === 'row'
@@ -294,15 +294,10 @@ export const getDragMenuConfig = (
             },
           )(state, dispatch);
         } else {
-          insertColumnWithAnalytics(
-            getEditorContainerWidth,
-            editorAnalyticsAPI,
-            tablePreserveWidth,
-          )(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(
-            state,
-            dispatch,
-            editorView,
-          );
+          insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
+            INPUT_METHOD.TABLE_CONTEXT_MENU,
+            (index ?? 0) + offset,
+          )(state, dispatch, editorView);
         }
         return true;
       },
@@ -321,7 +316,7 @@ export const getDragMenuConfig = (
                 state,
                 editorView.domAtPos.bind(editorView),
                 getEditorContainerWidth,
-                tablePreserveWidth,
+                isTableScalingEnabled,
               );
 
               if (newResizeState) {
@@ -362,7 +357,7 @@ export const getDragMenuConfig = (
             !!isHeaderRowRequired,
           )(state, dispatch);
         } else {
-          deleteColumnsWithAnalytics(editorAnalyticsAPI, tablePreserveWidth)(
+          deleteColumnsWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
             INPUT_METHOD.TABLE_CONTEXT_MENU,
             selectionRect ?? defaultSelectionRect,
           )(state, dispatch, editorView);

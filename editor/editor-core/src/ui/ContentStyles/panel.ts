@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixin usage
 export const panelStyles = () => css`
   .ProseMirror {
     .${PanelSharedCssClassName.prefix} {

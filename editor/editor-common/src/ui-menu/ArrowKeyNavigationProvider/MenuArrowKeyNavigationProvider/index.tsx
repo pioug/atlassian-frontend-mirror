@@ -15,9 +15,7 @@ const hasEnabledItems = (list: HTMLElement[]) =>
  * This component is a wrapper of vertical menus which listens to keydown events of children
  * and handles up/down arrow key navigation
  */
-export const MenuArrowKeyNavigationProvider: React.FC<
-  Omit<MenuArrowKeyNavigationProviderProps, 'type'>
-> = ({
+export const MenuArrowKeyNavigationProvider = ({
   children,
   handleClose,
   disableArrowKeyNavigation,
@@ -25,7 +23,9 @@ export const MenuArrowKeyNavigationProvider: React.FC<
   closeOnTab,
   onSelection,
   editorRef,
-}) => {
+}: React.PropsWithChildren<
+  Omit<MenuArrowKeyNavigationProviderProps, 'type'>
+>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [currentSelectedItemIndex, setCurrentSelectedItemIndex] = useState(-1);
   const [listenerTargetElement] = useState<HTMLElement | null>(

@@ -23,25 +23,32 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
 }));
 
+const TestComponent = (props: AISummaryBlockProps & { spy: jest.Mock }) => (
+  <AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
+    <IntlProvider locale="en">
+      <FlexibleUiContext.Provider value={context}>
+        <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
+      </FlexibleUiContext.Provider>
+    </IntlProvider>
+  </AnalyticsListener>
+);
+
 describe('AISummaryBlock', () => {
   const testIdBase = 'some-test-id';
 
   const renderAISummaryBlock = (props?: AISummaryBlockProps) => {
     const spy = jest.fn();
 
-    const result = render(
-      <AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
-        <IntlProvider locale="en">
-          <FlexibleUiContext.Provider value={context}>
-            <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
-          </FlexibleUiContext.Provider>
-        </IntlProvider>
-      </AnalyticsListener>,
+    const { rerender, ...result } = render(
+      <TestComponent spy={spy} {...props} />,
     );
+    const rerenderTestComponent = () =>
+      rerender(<TestComponent spy={spy} {...props} />);
 
     return {
       ...result,
       spy,
+      rerenderTestComponent,
     };
   };
 
@@ -66,15 +73,14 @@ describe('AISummaryBlock', () => {
 
   describe('ai summary', () => {
     it('shows summarizing indicator when click on Summarize button', async () => {
-      const user = userEvent.setup();
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
       const { findByTestId, queryByTestId } = renderAISummaryBlock({
         testId: testIdBase,
       });
-
-      const buttonBeforeClick = await findByTestId(
-        `${testIdBase}-ai-summary-action`,
-      );
-      await user.click(buttonBeforeClick);
 
       const indicator = await findByTestId(
         `${testIdBase}-state-indicator-loading`,
@@ -86,6 +92,10 @@ describe('AISummaryBlock', () => {
     });
 
     it('fires button clicked event when click on Summarize button', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'ready', content: '' },
+        summariseUrl: jest.fn(),
+      });
       const user = userEvent.setup();
       const { spy, findByTestId } = renderAISummaryBlock({
         testId: testIdBase,
@@ -106,14 +116,21 @@ describe('AISummaryBlock', () => {
     });
 
     it('fires a summary viewed event when the summary is done', async () => {
-      (useAISummary as jest.Mock).mockReturnValueOnce({
-        isSummarisedOnMount: false,
-        state: { status: 'done', content: 'ai content' },
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
         summariseUrl: jest.fn(),
       });
-      const { spy } = renderAISummaryBlock({
+
+      const { spy, rerenderTestComponent } = renderAISummaryBlock({
         testId: testIdBase,
       });
+
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'done', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      rerenderTestComponent();
 
       expect(spy).toBeFiredWithAnalyticEventOnce(
         {
@@ -129,16 +146,15 @@ describe('AISummaryBlock', () => {
       );
     });
 
-    it('fires a summary viewed event when the summary is from cache', async () => {
-      (useAISummary as jest.Mock).mockReturnValueOnce({
-        isSummarisedOnMount: true,
-        state: { status: 'done', content: 'ai content' },
+    it('fires a summary viewed event when the summary is cached', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'done', content: '' },
         summariseUrl: jest.fn(),
       });
+
       const { spy } = renderAISummaryBlock({
         testId: testIdBase,
       });
-
       expect(spy).toBeFiredWithAnalyticEventOnce(
         {
           payload: {
@@ -154,47 +170,61 @@ describe('AISummaryBlock', () => {
     });
 
     it('does not show metadata during summarizing', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
       const metadataTestId = `${testIdBase}-provider`;
-      const user = userEvent.setup();
-      const { findByTestId, queryByTestId } = renderAISummaryBlock({
+      const { queryByTestId } = renderAISummaryBlock({
         metadata: [{ name: ElementName.Provider, testId: metadataTestId }],
         testId: testIdBase,
       });
 
-      const providerBeforeClick = await findByTestId(metadataTestId);
-      expect(providerBeforeClick).toBeInTheDocument();
-
-      const button = await findByTestId(`${testIdBase}-ai-summary-action`);
-      await user.click(button);
-      await findByTestId(`${testIdBase}-state-indicator-loading`);
-
-      const providerAfterClick = queryByTestId(metadataTestId);
-      expect(providerAfterClick).not.toBeInTheDocument();
+      const provider = queryByTestId(metadataTestId);
+      expect(provider).not.toBeInTheDocument();
     });
 
     it('shows error state indicator on error', async () => {
-      (useAISummary as jest.Mock).mockReturnValueOnce({
-        isSummarisedOnMount: false,
-        state: { status: 'error', content: '' },
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
         summariseUrl: jest.fn(),
       });
-      const { findByTestId } = renderAISummaryBlock({
+
+      const { queryByTestId, rerenderTestComponent } = renderAISummaryBlock({
         testId: testIdBase,
       });
 
-      const indicator = await findByTestId(`${testIdBase}-error`);
-      expect(indicator).toBeInTheDocument();
+      const indicator = queryByTestId(`${testIdBase}-error`);
+      expect(indicator).not.toBeInTheDocument();
+
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'error', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      rerenderTestComponent();
+      const indicatorA = queryByTestId(`${testIdBase}-error`);
+
+      expect(indicatorA).toBeInTheDocument();
     });
 
     it('fires a error viewed event on error', async () => {
-      (useAISummary as jest.Mock).mockReturnValueOnce({
-        isSummarisedOnMount: false,
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      const { spy, rerenderTestComponent } = renderAISummaryBlock({
+        testId: testIdBase,
+      });
+
+      (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'error', content: '' },
         summariseUrl: jest.fn(),
       });
-      const { spy } = renderAISummaryBlock({
-        testId: testIdBase,
-      });
+
+      rerenderTestComponent();
 
       expect(spy).toBeFiredWithAnalyticEventOnce(
         {
@@ -211,6 +241,11 @@ describe('AISummaryBlock', () => {
 
   describe('metadata', () => {
     it('should render metadata', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'ready', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
       const { findByTestId } = renderAISummaryBlock({
         metadata: [
           { name: ElementName.Provider, testId: `${testIdBase}-provider` },
@@ -225,11 +260,12 @@ describe('AISummaryBlock', () => {
   });
 
   describe('actions', () => {
-    it('should render AI summary action button', async () => {
-      const user = userEvent.setup();
-      const onAIActionChange = jest.fn();
+    it('should define AI Summary Action', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'ready', content: '' },
+        summariseUrl: jest.fn(),
+      });
       const { findByTestId } = renderAISummaryBlock({
-        onAIActionChange,
         testId: testIdBase,
       });
 
@@ -237,9 +273,6 @@ describe('AISummaryBlock', () => {
         `${testIdBase}-ai-summary-action`,
       );
       expect(aiSummaryAction).toBeDefined();
-
-      await user.click(aiSummaryAction);
-      expect(onAIActionChange).toHaveBeenCalledWith('loading');
     });
 
     it('should render provided actions', async () => {

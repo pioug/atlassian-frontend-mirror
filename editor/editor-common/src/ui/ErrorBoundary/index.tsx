@@ -17,6 +17,7 @@ interface ErrorBoundaryProps {
   componentId?: ErrorCrashPayload['actionSubjectId'];
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   fallbackComponent?: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 interface ErrorBoundaryState {

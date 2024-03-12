@@ -138,6 +138,7 @@ export interface TablePluginState {
   isTableResizingEnabled?: boolean;
   isDragAndDropEnabled?: boolean;
   isTableHovered?: boolean;
+  isTableScalingEnabled?: boolean;
 }
 
 export type TablePluginAction =

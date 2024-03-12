@@ -49,7 +49,7 @@ export const handleMouseDown = (
   const { state, dispatch } = view;
   const editorDisabled = !view.editable;
   const domAtPos = view.domAtPos.bind(view);
-  const { tablePreserveWidth = false } = getEditorFeatureFlags();
+  const { isTableScalingEnabled = false } = getTablePluginState(state);
 
   if (
     editorDisabled ||
@@ -119,7 +119,7 @@ export const handleMouseDown = (
     tableRef: dom,
     start,
     domAtPos,
-    tablePreserveWidth,
+    isTableScalingEnabled: isTableScalingEnabled,
   });
 
   if (
@@ -209,8 +209,9 @@ export const handleMouseDown = (
           colIndex,
           clientX - startX,
           dom,
+          originalTable,
           resizingSelectedColumns ? selectedColumns : undefined,
-          tablePreserveWidth,
+          isTableScalingEnabled,
         );
 
         const resizedDelta = clientX - startX;
@@ -292,8 +293,9 @@ export const handleMouseDown = (
       colIndex,
       clientX - dragging.startX,
       dom,
+      table,
       undefined,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     );
 
     updateControls()(state);

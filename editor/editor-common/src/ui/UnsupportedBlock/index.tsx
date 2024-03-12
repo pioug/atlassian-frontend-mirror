@@ -42,11 +42,11 @@ export interface Props {
   dispatchAnalyticsEvent?: (payload: UnsupportedContentTooltipPayload) => void;
 }
 
-const UnsupportedBlockNode: React.FC<Props & WrappedComponentProps> = ({
+const UnsupportedBlockNode = ({
   node,
   intl,
   dispatchAnalyticsEvent,
-}) => {
+}: Props & WrappedComponentProps) => {
   const message = getUnsupportedContent(
     unsupportedContentMessages.unsupportedBlockContent,
     unsupportedContentMessages.unsupportedBlockContent.defaultMessage + ':',

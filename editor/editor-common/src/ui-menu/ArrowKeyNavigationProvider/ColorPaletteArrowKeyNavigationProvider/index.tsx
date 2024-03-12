@@ -5,9 +5,7 @@ import { ColorPaletteArrowKeyNavigationProps } from '../types';
  * This component is a wrapper for color picker which listens to keydown events of children
  * and handles arrow key navigation
  */
-export const ColorPaletteArrowKeyNavigationProvider: React.FC<
-  Omit<ColorPaletteArrowKeyNavigationProps, 'type'>
-> = ({
+export const ColorPaletteArrowKeyNavigationProvider = ({
   children,
   selectedRowIndex,
   selectedColumnIndex,
@@ -16,7 +14,9 @@ export const ColorPaletteArrowKeyNavigationProvider: React.FC<
   handleClose,
   closeOnTab,
   editorRef,
-}) => {
+}: React.PropsWithChildren<
+  Omit<ColorPaletteArrowKeyNavigationProps, 'type'>
+>) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const currentSelectedColumnIndex = useRef(
     selectedColumnIndex === -1 ? 0 : selectedColumnIndex,

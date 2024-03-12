@@ -468,14 +468,15 @@ export class ContextualMenu extends Component<
       (!isDragAndDropEnabled ||
         !getBooleanFF('platform.editor.table.new-cell-context-menu-styling'))
     ) {
-      const { tablePreserveWidth = false } =
-        this.props.getEditorFeatureFlags?.() || {};
+      const { isTableScalingEnabled = false } = getPluginState(
+        editorView.state,
+      );
       const newResizeState = getNewResizeStateFromSelectedColumns(
         selectionRect,
         editorView.state,
         editorView.domAtPos.bind(editorView),
         getEditorContainerWidth,
-        tablePreserveWidth,
+        isTableScalingEnabled,
       );
 
       const wouldChange = newResizeState?.changed ?? false;
@@ -590,12 +591,11 @@ export class ContextualMenu extends Component<
       selectionRect,
       editorAnalyticsAPI,
       getEditorContainerWidth,
-      getEditorFeatureFlags,
     } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { state, dispatch } = editorView;
-    const { targetCellPosition } = getPluginState(state);
-    const { tablePreserveWidth = false } = getEditorFeatureFlags?.() || {};
+    const { targetCellPosition, isTableScalingEnabled = false } =
+      getPluginState(state);
 
     switch (item.value.name) {
       case 'sort_column_desc':
@@ -635,7 +635,7 @@ export class ContextualMenu extends Component<
             state,
             editorView.domAtPos.bind(editorView),
             getEditorContainerWidth,
-            tablePreserveWidth,
+            isTableScalingEnabled,
           );
 
         if (newResizeStateWithAnalytics) {
@@ -654,15 +654,10 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'insert_column':
-        insertColumnWithAnalytics(
-          getEditorContainerWidth,
-          editorAnalyticsAPI,
-          tablePreserveWidth,
-        )(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(
-          state,
-          dispatch,
-          editorView,
-        );
+        insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
+          INPUT_METHOD.CONTEXT_MENU,
+          selectionRect.right,
+        )(state, dispatch, editorView);
         this.toggleOpen();
         break;
       case 'insert_row':

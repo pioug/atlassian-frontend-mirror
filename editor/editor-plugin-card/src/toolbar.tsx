@@ -515,6 +515,7 @@ const generateToolbarItems =
                       url={url}
                       editorView={editorView}
                       editorState={state}
+                      inputMethod={INPUT_METHOD.FLOATING_TB}
                     />
                   ),
                 } satisfies FloatingToolbarItem<never>,
@@ -668,6 +669,7 @@ const getDatasourceButtonGroup = (
             editorView={editorView}
             editorState={state}
             selected={true}
+            inputMethod={INPUT_METHOD.FLOATING_TB}
           />
         ),
       } satisfies FloatingToolbarItem<never>,

@@ -2,14 +2,14 @@ import { css, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-const gapCursorBlink = keyframes`
-  from, to {
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-`;
+const gapCursorBlink = keyframes({
+  'from, to': {
+    opacity: 0,
+  },
+  '50%': {
+    opacity: 1,
+  },
+});
 
 export const hideCaretModifier = 'ProseMirror-hide-gapcursor';
 const gapCursor = '.ProseMirror-gapcursor';
@@ -17,6 +17,7 @@ const prosemirrorwidget = '.ProseMirror-widget';
 const wrapLeft = '[layout="wrap-left"]';
 const wrapRight = '[layout="wrap-right"]';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- This needs manual remediation, it autofixes seemingly safely, but the code style and readability is destroyed.
 export const gapCursorStyles = css`
   /* =============== GAP CURSOR ================== */
   .ProseMirror {

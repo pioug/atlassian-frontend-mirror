@@ -5,8 +5,8 @@ export const DateSharedCssClassName = {
   DATE_CONTAINER: 'dateView-content-wrap',
 };
 
-export const dateSharedStyle = css`
-  .${DateSharedCssClassName.DATE_WRAPPER} span {
-    white-space: unset;
-  }
-`;
+export const dateSharedStyle = css({
+  [`.${DateSharedCssClassName.DATE_WRAPPER} span`]: {
+    whiteSpace: 'unset',
+  },
+});

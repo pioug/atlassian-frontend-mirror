@@ -12,6 +12,8 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorDefaultLayoutWidth,
+  akEditorGutterPadding,
+  akEditorMediaResizeHandlerPaddingWide,
   akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -75,7 +77,7 @@ type ResizableTableContainerProps = {
   tableRef: HTMLTableElement;
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
-  tablePreserveWidth?: boolean;
+  isTableScalingEnabled?: boolean;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -89,7 +91,7 @@ export const ResizableTableContainer = React.memo(
     tableRef,
     isResizing,
     pluginInjectionApi,
-    tablePreserveWidth,
+    isTableScalingEnabled,
   }: PropsWithChildren<ResizableTableContainerProps>) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
@@ -189,7 +191,14 @@ export const ResizableTableContainer = React.memo(
 
     const tableWidth = getTableContainerWidth(node);
     // 76 is currently an accepted padding value considering the spacing for resizer handle
-    const responsiveContainerWidth = containerWidth - 76;
+    const responsiveContainerWidth = isTableScalingEnabled
+      ? containerWidth -
+        akEditorGutterPadding * 2 -
+        akEditorMediaResizeHandlerPaddingWide / 2
+      : containerWidth -
+        akEditorGutterPadding * 2 -
+        akEditorMediaResizeHandlerPaddingWide;
+
     const width = Math.min(tableWidth, responsiveContainerWidth);
 
     if (!isResizing) {
@@ -209,7 +218,7 @@ export const ResizableTableContainer = React.memo(
       displayGuideline,
       attachAnalyticsEvent,
       displayGapCursor,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     };
 
     if (getBooleanFF('platform.editor.resizing-table-height-improvement')) {
@@ -257,7 +266,7 @@ type TableContainerProps = {
   isNested: boolean;
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
-  tablePreserveWidth?: boolean;
+  isTableScalingEnabled?: boolean;
 };
 
 export const TableContainer = ({
@@ -273,7 +282,7 @@ export const TableContainer = ({
   isNested,
   isResizing,
   pluginInjectionApi,
-  tablePreserveWidth,
+  isTableScalingEnabled,
 }: PropsWithChildren<TableContainerProps>) => {
   if (isTableResizingEnabled && !isNested) {
     return (
@@ -286,7 +295,7 @@ export const TableContainer = ({
         tableRef={tableRef}
         isResizing={isResizing}
         pluginInjectionApi={pluginInjectionApi}
-        tablePreserveWidth={tablePreserveWidth}
+        isTableScalingEnabled={isTableScalingEnabled}
       >
         {children}
       </ResizableTableContainer>

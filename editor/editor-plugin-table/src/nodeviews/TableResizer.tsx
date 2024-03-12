@@ -51,8 +51,15 @@ import {
   generateResizeFrameRatePayloads,
   useMeasureFramerate,
 } from '../utils/analytics';
-import { defaultGuidelines } from '../utils/guidelines';
-import { defaultSnappingWidths, findClosestSnap } from '../utils/snapping';
+import {
+  defaultGuidelines,
+  defaultGuidelinesForPreserveTable,
+} from '../utils/guidelines';
+import {
+  defaultSnappingWidths,
+  defaultTablePreserveSnappingWidths,
+  findClosestSnap,
+} from '../utils/snapping';
 
 interface TableResizerProps {
   width: number;
@@ -68,7 +75,7 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
-  tablePreserveWidth?: boolean;
+  isTableScalingEnabled?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -163,7 +170,7 @@ export const TableResizer = ({
   displayGuideline,
   attachAnalyticsEvent,
   displayGapCursor,
-  tablePreserveWidth,
+  isTableScalingEnabled,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
@@ -211,9 +218,12 @@ export const TableResizer = ({
       if (gap !== currentGap.current) {
         currentGap.current = gap;
         const visibleGuidelines = getVisibleGuidelines(
-          defaultGuidelines,
+          isTableScalingEnabled
+            ? defaultGuidelinesForPreserveTable(containerWidth)
+            : defaultGuidelines,
           containerWidth,
         );
+
         displayGuideline(
           getGuidelinesWithHighlights(
             gap,
@@ -224,17 +234,19 @@ export const TableResizer = ({
         );
       }
     },
-    [displayGuideline, containerWidth],
+    [isTableScalingEnabled, containerWidth, displayGuideline],
   );
 
   const guidelineSnaps = useMemo(
     () =>
       snappingEnabled
         ? {
-            x: defaultSnappingWidths,
+            x: isTableScalingEnabled
+              ? defaultTablePreserveSnappingWidths(containerWidth)
+              : defaultSnappingWidths,
           }
         : undefined,
-    [snappingEnabled],
+    [snappingEnabled, isTableScalingEnabled, containerWidth],
   );
 
   useEffect(() => {
@@ -270,9 +282,12 @@ export const TableResizer = ({
     dispatch(tr);
 
     const visibleGuidelines = getVisibleGuidelines(
-      defaultGuidelines,
+      isTableScalingEnabled
+        ? defaultGuidelinesForPreserveTable(containerWidth)
+        : defaultGuidelines,
       containerWidth,
     );
+
     setSnappingEnabled(displayGuideline(visibleGuidelines));
     if (
       getBooleanFF('platform.editor.resizing-table-height-improvement') &&
@@ -281,12 +296,13 @@ export const TableResizer = ({
       onResizeStart();
     }
   }, [
-    displayGapCursor,
-    displayGuideline,
-    editorView,
     startMeasure,
-    onResizeStart,
+    editorView,
+    displayGapCursor,
+    isTableScalingEnabled,
     containerWidth,
+    displayGuideline,
+    onResizeStart,
   ]);
 
   const handleResize = useCallback(
@@ -312,32 +328,36 @@ export const TableResizer = ({
           parentWidth: newWidth,
         },
         editorView.domAtPos.bind(editorView),
-        tablePreserveWidth,
+        isTableScalingEnabled,
       );
 
       updateActiveGuidelines(
         findClosestSnap(
           newWidth,
-          defaultSnappingWidths,
-          defaultGuidelines,
+          isTableScalingEnabled
+            ? defaultTablePreserveSnappingWidths(containerWidth)
+            : defaultSnappingWidths,
+          isTableScalingEnabled
+            ? defaultGuidelinesForPreserveTable(containerWidth)
+            : defaultGuidelines,
           TABLE_HIGHLIGHT_GAP,
           TABLE_HIGHLIGHT_TOLERANCE,
         ),
       );
-
       updateWidth(newWidth);
 
       return newWidth;
     },
     [
-      editorView,
-      getPos,
-      node,
-      tableRef,
-      updateWidth,
-      updateActiveGuidelines,
       countFrames,
-      tablePreserveWidth,
+      isTableScalingEnabled,
+      tableRef,
+      node,
+      editorView,
+      updateActiveGuidelines,
+      containerWidth,
+      updateWidth,
+      getPos,
     ],
   );
 
@@ -380,7 +400,7 @@ export const TableResizer = ({
             parentWidth: newWidth,
           },
           editorView.domAtPos.bind(editorView),
-          tablePreserveWidth,
+          isTableScalingEnabled,
         )(tr);
 
         const scaledNode = tr.doc.nodeAt(pos)!;
@@ -421,7 +441,7 @@ export const TableResizer = ({
       attachAnalyticsEvent,
       endMeasure,
       onResizeStop,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     ],
   );
 

@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
-
 import { css, jsx } from '@emotion/react';
 
 type Props = {
@@ -12,7 +10,7 @@ const wrapperStyle = css({
   'span > svg': { verticalAlign: 'top' },
 });
 
-export const IconWrapper: FC<Props> = ({ children }) => {
+export const IconWrapper = ({ children }: React.PropsWithChildren<Props>) => {
   return (
     <span css={wrapperStyle} data-testid="media-inline-image-card-icon">
       {children}

@@ -4,13 +4,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
   ActionName,
@@ -38,6 +32,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
+
 import HoverCardForbiddenView from './views/forbidden';
 import ContentContainer from './ContentContainer';
 
@@ -86,8 +81,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
 
   const statusRef = useRef(linkStatus);
   const analyticsRef = useRef(analytics);
-
-  const [showPrism, setShowPrism] = useState(false);
 
   useEffect(() => {
     /**
@@ -177,13 +170,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     [],
   );
 
-  const onAIActionChange = useCallback(
-    (state: 'ready' | 'loading' | 'error' | 'done') => {
-      setShowPrism(state === 'loading');
-    },
-    [],
-  );
-
   const getCardView = (cardState: CardState) => {
     if (cardState.metadataStatus === 'pending') {
       return (
@@ -222,7 +208,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
           flexibleCardProps={flexibleCardProps}
           isAISummaryEnabled={isAISummaryEnabled}
           onActionClick={onActionClick}
-          onAIActionChange={onAIActionChange}
           titleBlockProps={titleBlockProps}
         />
       );
@@ -236,7 +221,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       onMouseLeave={onMouseLeave}
       onClick={onClickStopPropagation}
       isAIEnabled={isAISummaryEnabled}
-      showPrism={showPrism}
+      url={url}
     >
       {cardView}
     </ContentContainer>

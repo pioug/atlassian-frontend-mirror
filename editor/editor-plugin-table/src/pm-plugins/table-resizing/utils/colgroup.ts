@@ -95,7 +95,7 @@ export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
 export const insertColgroupFromNode = (
   tableRef: HTMLTableElement,
   table: PmNode,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
   shouldRemove = true,
 ): HTMLCollection => {
   let colgroup = tableRef.querySelector('colgroup') as HTMLElement;
@@ -105,7 +105,7 @@ export const insertColgroupFromNode = (
 
   colgroup = renderColgroupFromNode(
     table,
-    tablePreserveWidth ? tableRef : undefined,
+    isTableScalingEnabled ? tableRef : undefined,
   );
   if (shouldRemove) {
     tableRef.insertBefore(colgroup, tableRef.firstChild);

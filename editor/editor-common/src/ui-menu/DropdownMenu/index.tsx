@@ -383,8 +383,8 @@ export function DropdownMenuItem({
   return dropListItem;
 }
 
-export const DropdownMenuWithKeyboardNavigation: React.FC<any> = React.memo(
-  ({ ...props }) => {
+export const DropdownMenuWithKeyboardNavigation = React.memo(
+  ({ ...props }: React.PropsWithChildren<any>) => {
     const keyDownHandlerContext = useContext(KeyDownHandlerContext);
 
     // This context is to handle the tab, Arrow Right/Left key events for dropdown.

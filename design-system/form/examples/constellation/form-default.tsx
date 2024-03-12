@@ -56,12 +56,12 @@ const FormDefaultExample = () => (
                   <TextField autoComplete="off" {...fieldProps} />
                   {!error && (
                     <HelperMessage>
-                      You can use letters, numbers, and periods.
+                      You can use letters, numbers, and periods
                     </HelperMessage>
                   )}
                   {error && (
                     <ErrorMessage>
-                      This username is already in use, try another one.
+                      This username is already in use, try another one
                     </ErrorMessage>
                   )}
                 </Fragment>
@@ -84,12 +84,12 @@ const FormDefaultExample = () => (
                     {error && !valid && (
                       <HelperMessage>
                         Use 8 or more characters with a mix of letters, numbers,
-                        and symbols.
+                        and symbols
                       </HelperMessage>
                     )}
                     {error && (
                       <ErrorMessage>
-                        Password needs to be more than 8 characters.
+                        Password needs to be more than 8 characters
                       </ErrorMessage>
                     )}
                     {valid && meta.dirty ? (

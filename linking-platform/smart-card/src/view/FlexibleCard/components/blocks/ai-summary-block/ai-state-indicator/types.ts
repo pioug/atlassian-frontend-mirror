@@ -1,12 +1,12 @@
 import type { XCSS } from '@atlaskit/primitives';
 import type { TooltipProps } from '@atlaskit/tooltip';
-import type { AIState } from '../types';
+import type { AISummaryStatus } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 
 export type AIStateAppearance = 'default' | 'icon-only';
 
 export type AIStateIndicatorProps = {
   appearance?: AIStateAppearance;
-  state: AIState;
+  state: AISummaryStatus;
   testId?: string;
 };
 

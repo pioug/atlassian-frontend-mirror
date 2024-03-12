@@ -34,6 +34,7 @@ export interface DatasourceAppearanceButtonProps {
   editorState: EditorState;
   cardContext?: CardContext;
   selected?: boolean;
+  inputMethod: string;
 }
 
 const buttonStyles = css({
@@ -47,6 +48,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
   editorView,
   editorState,
   selected,
+  inputMethod,
 }: DatasourceAppearanceButtonProps) => {
   const { datasourceId, parameters } = useFetchDatasourceInfo({
     isRegularCardNode: true,
@@ -97,16 +99,17 @@ const DatasourceAppearanceButtonWithCardContext = ({
     }
 
     if (existingNode) {
-      updateCardViaDatasource(
-        editorState,
-        existingNode,
+      updateCardViaDatasource({
+        state: editorState,
+        node: existingNode,
         newAdf,
-        editorView,
-        undefined,
-        true,
-      );
+        view: editorView,
+        sourceEvent: undefined,
+        isDeletingConfig: true,
+        inputMethod,
+      });
     }
-  }, [parameters, datasourceId, editorState, editorView, url]);
+  }, [parameters, datasourceId, inputMethod, editorState, editorView, url]);
 
   if (!parameters || !datasourceId || !canRenderDatasource(datasourceId)) {
     return null;
@@ -142,6 +145,7 @@ export const DatasourceAppearanceButton = ({
   editorView,
   editorState,
   selected,
+  inputMethod,
 }: DatasourceAppearanceButtonProps) => {
   return (
     <CardContextProvider>
@@ -154,6 +158,7 @@ export const DatasourceAppearanceButton = ({
           editorState={editorState}
           cardContext={cardContext}
           selected={selected}
+          inputMethod={inputMethod}
         />
       )}
     </CardContextProvider>

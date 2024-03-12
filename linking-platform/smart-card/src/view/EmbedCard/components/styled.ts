@@ -159,6 +159,7 @@ function visible({ frameStyle }: WrapperProps) {
   return frameStyle === 'show' ? visibleStyles : '';
 }
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
 export const LinkWrapper = styled.div`
   ${(props: WrapperProps) => wrapperStyles(props)} &:hover {
     text-decoration: none;
@@ -166,45 +167,48 @@ export const LinkWrapper = styled.div`
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const Wrapper = styled.div<WrapperProps>`
-  ${(props) => wrapperStyles(props)};
-  margin-top: 10px;
-`;
+export const Wrapper = styled.div<WrapperProps>(
+  (props) => wrapperStyles(props),
+  {
+    marginTop: '10px',
+  },
+);
 
 export interface HeaderProps {
   frameStyle?: FrameStyle;
 }
 
 export const embedHeaderHeight = 32;
-export const Header = styled.div`
-  height: ${embedHeaderHeight}px;
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  color: ${token('color.icon', colors.N300)};
-  opacity: 0;
-  transition: 300ms opacity cubic-bezier(0.15, 1, 0.3, 1);
-
-  ${({ frameStyle }: HeaderProps) =>
+export const Header = styled.div(
+  {
+    height: `${embedHeaderHeight}px`,
+    position: 'absolute',
+    zIndex: 1,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    color: token('color.icon', colors.N300),
+    opacity: 0,
+    transition: '300ms opacity cubic-bezier(0.15, 1, 0.3, 1)',
+  },
+  ({ frameStyle }: HeaderProps) =>
     getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
     frameStyle === 'show'
       ? `
         box-sizing: border-box;
         padding: 0 ${token('space.100', '8px')};
       `
-      : ''}
-`;
+      : '',
+);
 
 export interface PlaceholderProps {
   isPlaceholder: boolean;
 }
 
-export const IconWrapper = styled.div`
-  ${borderRadius}
-  ${csssize(16)}
-  ${({ isPlaceholder }: PlaceholderProps) => {
+export const IconWrapper = styled.div(
+  borderRadius,
+  csssize(16),
+  ({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
       return `
       background-color: ${token('color.skeleton', colors.N30)};
@@ -212,11 +216,14 @@ export const IconWrapper = styled.div`
     } else {
       return '';
     }
-  }} margin-right: 4px;
-`;
+  },
+  {
+    marginRight: token('space.050', '4px'),
+  },
+);
 
-export const TextWrapper = styled.div`
-  ${({ isPlaceholder }: PlaceholderProps) => {
+export const TextWrapper = styled.div(
+  ({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
       return `
         ${borderRadius}
@@ -227,11 +234,18 @@ export const TextWrapper = styled.div`
     } else {
       return '';
     }
-  }} color: ${token('color.text.subtlest', colors.N300)};
-  font-size: 12px;
-  line-height: 16px;
-  ${ellipsis('none')};
-`;
+  },
+  {
+    color: token('color.text.subtlest', colors.N300),
+    fontSize: '12px',
+    lineHeight: '16px',
+  },
+  ellipsis('none'),
+);
+
+export const TooltipWrapper = styled.div({
+  overflow: 'hidden',
+});
 
 export interface ContentProps {
   isInteractive: boolean;
@@ -242,6 +256,7 @@ export interface ContentProps {
 // NB: `overflow` is kept as `hidden` since
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
 export const Content = styled.div`
   ${contentBorderRadius};
   border: 1px solid ${token('color.border', N40)};
@@ -287,97 +302,98 @@ export interface ImageProps {
   size: number;
 }
 
-export const Image = styled.img`
-  ${({ size }: ImageProps) => csssize(size)}
-  ${borderRadius}
-
-  /* hide the alt text when the image cannot be found */
-  overflow: hidden;
-`;
+export const Image = styled.img(
+  ({ size }: ImageProps) => csssize(size),
+  borderRadius,
+  {
+    overflow: 'hidden',
+  },
+);
 
 export const maxAvatarCount = 6;
 
-export const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  padding: ${token('space.100', '8px')} ${token('space.150', '12px')}
-    ${token('space.150', '12px')} ${token('space.150', '12px')};
-`;
+export const ContentWrapper = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  boxSizing: 'border-box',
+  padding: `${token('space.100', '8px')} ${token('space.150', '12px')} ${token(
+    'space.150',
+    '12px',
+  )} ${token('space.150', '12px')}`,
+});
 
-export const Title = styled.div`
-  color: ${token('color.text', colors.N900)};
-  font-size: 16px;
-  font-weight: 500;
-  line-height: ${20 / 16};
-  max-height: ${20 * 4}px;
-  overflow: hidden;
-`;
+export const Title = styled.div({
+  color: token('color.text', colors.N900),
+  fontSize: '16px',
+  fontWeight: 500,
+  lineHeight: 20 / 16,
+  maxHeight: `${20 * 4}px`,
+  overflow: 'hidden',
+});
 
-export const Byline = styled.div`
-  margin-top: ${token('space.050', '4px')};
-  color: ${token('color.text.subtlest', colors.N300)};
-  font-size: 12px;
-  font-weight: normal;
-  line-height: ${16 / 12};
-  ${ellipsis('100%')};
-`;
+export const Byline = styled.div(
+  {
+    marginTop: token('space.050', '4px'),
+    color: token('color.text.subtlest', colors.N300),
+    fontSize: '12px',
+    fontWeight: 'normal',
+    lineHeight: 16 / 12,
+  },
+  ellipsis('100%'),
+);
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const Description = styled.div`
-  margin-top: 7px;
-  color: ${token('color.text', colors.N800)};
-  font-size: 12px;
-  font-weight: normal;
-  line-height: ${18 / 12};
-  max-height: ${18 * 3}px;
-  overflow: hidden;
-`;
+export const Description = styled.div({
+  marginTop: '7px',
+  color: token('color.text', colors.N800),
+  fontSize: '12px',
+  fontWeight: 'normal',
+  lineHeight: 18 / 12,
+  maxHeight: `${18 * 3}px`,
+  overflow: 'hidden',
+});
 
-export const ResolvedViewIconWrapper = styled.div`
-  margin-top: ${token('space.050', '4px')};
-`;
+export const ResolvedViewIconWrapper = styled.div({
+  marginTop: token('space.050', '4px'),
+});
 
 export interface ThumbnailProps {
   src: string;
 }
 
-export const Thumbnail = styled.div`
-  ${borderRadius}
-  ${csssize(48)}
-  float: right;
-  margin: ${token('space.050', '4px')} 0 ${token('space.150', '12px')}
-    ${token('space.150', '12px')};
-  background-color: ${token('color.skeleton', colors.N30)};
-  background-image: url(${({ src }: ThumbnailProps) => src});
-  background-size: cover;
-`;
+export const Thumbnail = styled.div(borderRadius, csssize(48), {
+  float: 'right',
+  margin: `${token('space.050', '4px')} 0 ${token('space.150', '12px')} ${token(
+    'space.150',
+    '12px',
+  )}`,
+  backgroundColor: token('color.skeleton', colors.N30),
+  backgroundImage: `url(${({ src }: ThumbnailProps) => src})`,
+  backgroundSize: 'cover',
+});
 
-export const UsersWrapper = styled.div`
-  margin-top: ${token('space.100', '8px')};
-`;
+export const UsersWrapper = styled.div({
+  marginTop: token('space.100', '8px'),
+});
 
-export const ActionsWrapper = styled.div`
-  margin-top: ${token('space.100', '8px')};
-  text-align: right;
+export const ActionsWrapper = styled.div({
+  marginTop: token('space.100', '8px'),
+  textAlign: 'right',
+  '> *': {
+    marginTop: token('space.050', '4px'),
+  },
+  '> * + *': {
+    marginLeft: token('space.050', '4px'),
+  },
+});
 
-  > * {
-    margin-top: ${token('space.050', '4px')};
-  }
-
-  > * + * {
-    margin-left: ${token('space.050', '4px')};
-  }
-`;
-
-export const AlertWrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-  pointer-events: none;
-  /* z-index has to be 1 higher than the number of avatars in the avatar stack */
-  z-index: ${maxAvatarCount + 1};
-`;
+export const AlertWrapper = styled.div({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  overflow: 'hidden',
+  pointerEvents: 'none',
+  zIndex: maxAvatarCount + 1,
+});

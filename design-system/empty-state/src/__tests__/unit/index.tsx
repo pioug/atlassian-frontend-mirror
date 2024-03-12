@@ -12,7 +12,7 @@ describe('Empty state', () => {
     render(
       <EmptyState
         header="Test header"
-        primaryAction={<Button testId="primary-action" />}
+        primaryAction={<Button testId="primary-action">Action Button</Button>}
       />,
     );
 
@@ -26,7 +26,9 @@ describe('Empty state', () => {
     render(
       <EmptyState
         header="Test header"
-        secondaryAction={<Button testId="secondary-action" />}
+        secondaryAction={
+          <Button testId="secondary-action">Action Button</Button>
+        }
       />,
     );
 
@@ -40,7 +42,7 @@ describe('Empty state', () => {
     render(
       <EmptyState
         header="Test header"
-        tertiaryAction={<Button testId="tertiary-action" />}
+        tertiaryAction={<Button testId="tertiary-action">Action Button</Button>}
       />,
     );
 
@@ -84,8 +86,10 @@ describe('Empty state', () => {
     render(
       <EmptyState
         header="Test header"
-        primaryAction={<Button testId="primary-action" />}
-        secondaryAction={<Button testId="secondary-action" />}
+        primaryAction={<Button testId="primary-action">Action Button</Button>}
+        secondaryAction={
+          <Button testId="secondary-action">Action Button</Button>
+        }
       />,
     );
 
@@ -213,8 +217,8 @@ describe('Empty state', () => {
     expect(screen.getByRole('heading', { level: 6 })).toBeInTheDocument();
   });
   it('button group should have default label value', async () => {
-    const primary = <Button testId="primary-action" />;
-    const secondary = <Button testId="secondary-action" />;
+    const primary = <Button testId="primary-action">Action Button</Button>;
+    const secondary = <Button testId="secondary-action">Action Button</Button>;
     const props = {
       header: 'Test header',
       primaryAction: primary,
@@ -230,8 +234,8 @@ describe('Empty state', () => {
     expect(buttonGroupContainer.getAttribute('aria-label')).toBeTruthy();
   });
   it('button group should receive dynamic label value', async () => {
-    const primary = <Button testId="primary-action" />;
-    const secondary = <Button testId="secondary-action" />;
+    const primary = <Button testId="primary-action">Action Button</Button>;
+    const secondary = <Button testId="secondary-action">Action Button</Button>;
     const props = {
       header: 'Test header',
       primaryAction: primary,

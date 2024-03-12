@@ -4,14 +4,20 @@ import { render } from '@testing-library/react';
 import ContentContainer from '../components/ContentContainer';
 import { hoverCardClassName } from '../components/HoverCardContent';
 import type { ContentContainerProps } from '../types';
+import { useAISummary } from '../../../state/hooks/use-ai-summary';
+
+jest.mock('../../../state/hooks/use-ai-summary', () => ({
+  useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
+}));
 
 describe('ContentContainer', () => {
   const content = 'test content';
   const testId = 'test-id';
+  const url = 'https://some.url';
 
   const setup = (props: Partial<ContentContainerProps> = {}) =>
     render(
-      <ContentContainer testId={testId} {...props}>
+      <ContentContainer testId={testId} url={url} {...props}>
         {content}
       </ContentContainer>,
     );
@@ -57,10 +63,15 @@ describe('ContentContainer', () => {
       ffTest(
         'platform.linking-platform.smart-card.hover-card-ai-summaries',
         async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'loading', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
           const { findByTestId } = setup({
             isAIEnabled: true,
-            showPrism: true,
           });
+
           const prism = await findByTestId(`${testId}-prism`);
           const svg = prism.querySelector('svg');
           expect(svg).toHaveStyleDeclaration('opacity', '1');

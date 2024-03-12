@@ -176,6 +176,12 @@ export const spacingTests: Tests = {
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
+      code: `const MockTab = ({ children }: React.PropsWithChildren<{}>) => (
+        <Inline xcss={xcss({ padding: 'space.100' })}>{children}</Inline>
+      );`,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
         const myPadding = token('space.200', '16px');
         const styles = css({

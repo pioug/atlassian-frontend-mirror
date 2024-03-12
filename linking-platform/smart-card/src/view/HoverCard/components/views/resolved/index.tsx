@@ -10,6 +10,7 @@ import {
   ElementName,
   SmartLinkPosition,
   SmartLinkSize,
+  SmartLinkDirection,
 } from '../../../../../constants';
 import {
   FooterBlock,
@@ -18,6 +19,7 @@ import {
   SnippetBlock,
   TitleBlock,
   AISummaryBlock,
+  CustomBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import {
   footerBlockCss,
@@ -27,7 +29,10 @@ import {
 import FlexibleCard from '../../../../FlexibleCard';
 import { getSimulatedBetterMetadata } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
-import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
+import {
+  CustomActionItem,
+  ElementItem,
+} from '../../../../FlexibleCard/components/blocks/types';
 import ImagePreview from '../../ImagePreview';
 import { elementNamesToItems } from '../../../../../extractors/hover/extractMetadata';
 import { HoverCardResolvedProps } from './types';
@@ -35,6 +40,8 @@ import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getCanBeDatasource } from '../../../../../state/helpers';
+import { useAISummary } from '../../../../../state/hooks/use-ai-summary';
+import { SmartLinkStatus } from '../../../../../constants';
 
 export const toFooterActions = (
   cardActions: LinkAction[],
@@ -77,6 +84,35 @@ export const toFooterActions = (
   return [followAction, ...actions];
 };
 
+//This component encapsulates useAISummary hook under the AI Summary FF 'platform.linking-platform.smart-card.hover-card-ai-summaries'
+const ConnectedAIBlock = ({
+  bottomPrimary,
+  url,
+  imagePreview,
+}: {
+  bottomPrimary: ElementItem[];
+  url: string;
+  imagePreview: boolean;
+}) => {
+  const aiSummary = useAISummary({ url });
+  const aiStatus = aiSummary.state.status;
+
+  const showData = aiStatus === 'ready' || aiStatus === 'error';
+
+  return showData ? (
+    <CustomBlock direction={SmartLinkDirection.Vertical}>
+      {!imagePreview && <SnippetBlock status={SmartLinkStatus.Resolved} />}
+      <MetadataBlock
+        primary={bottomPrimary}
+        size={SmartLinkSize.Large}
+        overrideCss={metadataBlockCss}
+        maxLines={1}
+        status={SmartLinkStatus.Resolved}
+      />
+    </CustomBlock>
+  ) : null;
+};
+
 const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   flexibleCardProps,
   titleBlockProps,
@@ -85,7 +121,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   cardActions = [],
   isAISummaryEnabled,
   onActionClick,
-  onAIActionChange,
   extensionKey,
   url,
 }) => {
@@ -126,6 +161,15 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
       snippetBlockRef.current?.getBoundingClientRect().height ?? 0;
   }, []);
 
+  // We want to maintain the height of the HoverCard while summarizing and pass this height to the AISummaryBlock.
+  // This approach will prevent any abrupt changes in the height of the HoverCard.
+  const connectedAIBlockHeight = React.useRef<number>(0);
+  const connectedAIBlockRef = useRef<HTMLDivElement>(null);
+  const onConnectedAIBlockRender = useCallback(() => {
+    connectedAIBlockHeight.current =
+      connectedAIBlockRef.current?.getBoundingClientRect().height ?? 0;
+  }, []);
+
   const imagePreview = ImagePreview({
     data: data,
     fallbackElementHeight: snippetHeight.current,
@@ -145,19 +189,41 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
         maxLines={1}
         size={SmartLinkSize.Medium}
       />
-      {!imagePreview && <SnippetBlock />}
+      {/* The isAISummaryEnabled setting depends on the status of the feature flag (FF) 'platform.linking-platform.smart-card.hover-card-ai-summaries'.
+      It will always be false if this FF is disabled. */}
+      {isAISummaryEnabled && (
+        // All custom elements should be contained within a CustomBlock.
+        // Flex Container components check whether the direct child is a flex blocks. It removes anything that isn't
+        <CustomBlock
+          direction={SmartLinkDirection.Vertical}
+          onRender={onConnectedAIBlockRender}
+          blockRef={connectedAIBlockRef}
+        >
+          <ConnectedAIBlock
+            imagePreview={!!imagePreview}
+            url={url}
+            bottomPrimary={bottomPrimary}
+          />
+        </CustomBlock>
+      )}
+      {!isAISummaryEnabled && !imagePreview && (
+        <SnippetBlock status={SmartLinkStatus.Resolved} />
+      )}
       <SnippetBlock
         testId={'hidden-snippet'}
         onRender={onSnippetRender}
         blockRef={snippetBlockRef}
         overrideCss={hiddenSnippetStyles}
       />
-      <MetadataBlock
-        primary={bottomPrimary}
-        size={SmartLinkSize.Large}
-        overrideCss={metadataBlockCss}
-        maxLines={1}
-      />
+      {!isAISummaryEnabled && (
+        <MetadataBlock
+          primary={bottomPrimary}
+          size={SmartLinkSize.Large}
+          overrideCss={metadataBlockCss}
+          maxLines={1}
+          status={SmartLinkStatus.Resolved}
+        />
+      )}
       {getBooleanFF(
         'platform.linking-platform.smart-card.enable-hover-card-related-urls',
       ) && <RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />}
@@ -165,7 +231,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
         <AISummaryBlock
           metadata={[{ name: ElementName.Provider }]}
           actions={footerActions}
-          onAIActionChange={onAIActionChange}
+          aiSummaryMinHeight={connectedAIBlockHeight.current}
         />
       ) : (
         <FooterBlock

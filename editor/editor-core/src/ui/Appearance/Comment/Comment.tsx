@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 import React, {
   Fragment,
@@ -80,8 +79,8 @@ const ContentArea = createEditorContentStyle(
         margin: token('space.150', '12px'),
       },
       '.gridParent': {
-        marginLeft: `${CommentEditorMargin - GRID_GUTTER}px`,
-        marginRight: `${CommentEditorMargin - GRID_GUTTER}px`,
+        marginLeft: token('space.025', '2px'),
+        marginRight: token('space.025', '2px'),
         width: `calc(100% + ${CommentEditorMargin - GRID_GUTTER}px)`,
       },
       padding: token('space.250', '20px'),

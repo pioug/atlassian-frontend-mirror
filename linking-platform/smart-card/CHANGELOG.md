@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.49.1
+
+### Patch Changes
+
+- [#78725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78725) [`9eec85250f70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9eec85250f70) - Hover Card: AI Summary UI controlled by aiSummary hook
+- Updated dependencies
+
+## 26.49.0
+
+### Minor Changes
+
+- [#80187](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80187) [`f38c769e5ede`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f38c769e5ede) - [ux] CAMPTASKS-438: Added a tooltip to the title of an embedded smart card.
+
 ## 26.48.8
 
 ### Patch Changes

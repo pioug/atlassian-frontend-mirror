@@ -556,6 +556,7 @@ const defaultConfig: RuleConfig = {
   xcssImportSource: CSS_IN_JS_IMPORTS.atlaskitPrimitives,
   excludeReactComponents: false,
   fixNamesOnly: false,
+  autoFixNames: true,
 };
 
 const rule = createLintRule({
@@ -603,6 +604,9 @@ const rule = createLintRule({
           excludeReactComponents: {
             type: 'boolean',
           },
+          autoFixNames: {
+            type: 'boolean',
+          },
           fixNamesOnly: {
             type: 'boolean',
           },
@@ -639,6 +643,10 @@ const rule = createLintRule({
             identifier.name === declarationSuffix.toLowerCase())
         ) {
           // Already prefixed! Nothing to do.
+          return;
+        }
+
+        if (!mergedConfig.autoFixNames) {
           return;
         }
 

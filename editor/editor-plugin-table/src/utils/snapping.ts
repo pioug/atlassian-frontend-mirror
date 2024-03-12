@@ -4,6 +4,8 @@ import {
   akEditorCalculatedWideLayoutWidth,
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorGutterPadding,
+  akEditorMediaResizeHandlerPaddingWide,
 } from '@atlaskit/editor-shared-styles';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
@@ -23,7 +25,41 @@ export const calculateDefaultSnappings = (lengthOffset: number = 0) => [
   akEditorFullWidthLayoutWidth + lengthOffset,
 ];
 
+// FF TablePreserve for calculateDefaultSnappings
+export const calculateDefaultTablePreserveSnappings = (
+  lengthOffset: number = 0,
+  editorContainerWith: number = akEditorFullWidthLayoutWidth,
+) => {
+  const dynamicFullWidthLine =
+    editorContainerWith - akEditorGutterPadding * 2 >=
+    akEditorFullWidthLayoutWidth
+      ? akEditorFullWidthLayoutWidth
+      : editorContainerWith -
+        akEditorGutterPadding * 2 -
+        akEditorMediaResizeHandlerPaddingWide;
+
+  return [
+    ...calculateSubSnappingWidths(
+      numberOfLanesInDefaultLayoutWidth,
+      akEditorDefaultLayoutWidth + lengthOffset,
+    ),
+    akEditorDefaultLayoutWidth + lengthOffset,
+    akEditorCalculatedWideLayoutWidth + lengthOffset,
+    dynamicFullWidthLine - lengthOffset,
+  ];
+};
+
 export const defaultSnappingWidths = calculateDefaultSnappings();
+
+// FF TablePreserve for defaultSnappingWidths
+export const defaultTablePreserveSnappingWidths = (
+  editorContainerWidth: number,
+) => {
+  return editorContainerWidth - akEditorGutterPadding * 2 >
+    akEditorFullWidthLayoutWidth
+    ? calculateDefaultSnappings()
+    : calculateDefaultTablePreserveSnappings(0, editorContainerWidth);
+};
 
 /**
  * Returns keys of guidelines that are closest to the table and withthin the snapGap

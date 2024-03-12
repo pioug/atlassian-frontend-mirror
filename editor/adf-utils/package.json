@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "19.0.21",
+  "version": "19.0.22",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,11 +43,13 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.5.2",
     "@atlaskit/codemod-utils": "^4.2.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlassian/adf-schema-json": "^1.0.7",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "jscodeshift": "^0.13.0",
     "react": "^16.8.0",
     "typescript": "~4.9.5",
@@ -66,5 +68,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.editor.allow-inline-comments-for-inline-nodes": {
+      "type": "boolean"
+    }
+  }
 }

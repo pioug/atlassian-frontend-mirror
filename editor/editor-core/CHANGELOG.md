@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 193.1.1
+
+### Patch Changes
+
+- [#79509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79509) [`111e580bb58a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/111e580bb58a) - update preserve table width changes to only appear on full width pages
+- Updated dependencies
+
+## 193.1.0
+
+### Minor Changes
+
+- [#80170](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80170) [`25cea639817f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25cea639817f) - [ux] Migrate to use tokens. The padding on the top of the editor in full-page has changed from 50px to 48px.
+
+### Patch Changes
+
+- [#80518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80518) [`e0d5e8fd9495`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0d5e8fd9495) - Migrates some style calls to a slightly different object syntax and other minor cleanup around eslint rules.
+
 ## 193.0.0
 
 ### Major Changes

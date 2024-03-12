@@ -2,7 +2,6 @@ import { INPUT_METHOD, TABLE_STATUS } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -34,11 +33,7 @@ import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import { getDraggableDataFromEvent } from './utils/monitor';
 
-const destroyFn = (
-  editorView: EditorView,
-  editorAnalyticsAPI: any,
-  getEditorFeatureFlags?: GetEditorFeatureFlags,
-) => {
+const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
   const editorPageScrollContainer = document.querySelector(
     '.fabric-editor-popup-scroll-parent',
   );
@@ -223,9 +218,14 @@ const destroyFn = (
               editorView.state,
             );
             if (tableRef && tableNode) {
-              const { tablePreserveWidth = false } =
-                getEditorFeatureFlags?.() || {};
-              insertColgroupFromNode(tableRef, tableNode, tablePreserveWidth);
+              const { isTableScalingEnabled = false } = getTablePluginState(
+                editorView.state,
+              );
+              insertColgroupFromNode(
+                tableRef,
+                tableNode,
+                isTableScalingEnabled,
+              );
             }
           }
 
@@ -238,7 +238,6 @@ const destroyFn = (
 
 export const createPlugin = (
   dispatch: Dispatch,
-  getEditorFeatureFlags?: GetEditorFeatureFlags,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
 ) => {
   return new SafePlugin({
@@ -311,11 +310,7 @@ export const createPlugin = (
     },
     view: (editorView: EditorView) => {
       return {
-        destroy: destroyFn(
-          editorView,
-          editorAnalyticsAPI,
-          getEditorFeatureFlags,
-        ),
+        destroy: destroyFn(editorView, editorAnalyticsAPI),
       };
     },
     props: {

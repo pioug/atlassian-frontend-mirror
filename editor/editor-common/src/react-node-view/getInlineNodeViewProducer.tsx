@@ -29,7 +29,7 @@ export type InlineNodeViewComponentProps = {
   node: PMNode;
 };
 type InlineNodeViewComponent<ExtraComponentProps> = React.ComponentType<
-  InlineNodeViewComponentProps & ExtraComponentProps
+  React.PropsWithChildren<InlineNodeViewComponentProps & ExtraComponentProps>
 >;
 
 type CreateNodeViewOptions<ExtraComponentProps> = {

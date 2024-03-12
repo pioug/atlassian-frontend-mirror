@@ -23,6 +23,5 @@ const mapBackgroundColors = () => {
   });
   return cssString;
 };
-export const tableCellBackgroundStyleOverride = () => css`
-  ${mapBackgroundColors()}
-`;
+export const tableCellBackgroundStyleOverride = () =>
+  css(mapBackgroundColors());

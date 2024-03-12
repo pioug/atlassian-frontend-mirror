@@ -6,9 +6,13 @@ import type {
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   Command,
+  CommandDispatch,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  type EditorState,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
 import type {
@@ -23,7 +27,11 @@ import type {
   InlineCommentInputMethod,
   TargetType,
 } from '../types';
-import { getPluginState, isSelectionValid } from '../utils';
+import {
+  getPluginState,
+  isSelectionValid,
+  isSupportedBlockNode,
+} from '../utils';
 
 import transform from './transform';
 
@@ -60,13 +68,70 @@ export const clearDirtyMark = (): Command =>
     type: ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK,
   });
 
+const removeInlineCommentFromNode = (
+  id: string,
+  supportedBlockNodes: string[] = [],
+  state: EditorState,
+  dispatch?: CommandDispatch,
+) => {
+  const { tr, selection } = state;
+
+  if (
+    selection instanceof NodeSelection &&
+    isSupportedBlockNode(selection.node, supportedBlockNodes)
+  ) {
+    const { $from } = selection;
+    let currNode = selection.node;
+    let from = $from.start();
+
+    // for media annotation, the selection is on media Single
+    if (
+      currNode.type === state.schema.nodes.mediaSingle &&
+      currNode.firstChild
+    ) {
+      currNode = currNode.firstChild;
+      from = from + 1;
+    }
+
+    const { annotation: annotationMarkType } = state.schema.marks;
+    const hasAnnotation = currNode.marks.some(
+      mark => mark.type === annotationMarkType,
+    );
+
+    if (!hasAnnotation) {
+      return false;
+    }
+
+    tr.removeNodeMark(
+      from,
+      annotationMarkType.create({
+        id,
+        type: AnnotationTypes.INLINE_COMMENT,
+      }),
+    );
+
+    if (dispatch) {
+      dispatch(tr);
+    }
+
+    return true;
+  }
+
+  return false;
+};
+
 export const removeInlineCommentNearSelection =
-  (id: string, _supportedNodes: string[] = []): Command =>
+  (id: string, supportedNodes: string[] = []): Command =>
   (state, dispatch): boolean => {
     const {
       tr,
       selection: { $from },
     } = state;
+
+    if (removeInlineCommentFromNode(id, supportedNodes, state, dispatch)) {
+      return true;
+    }
+
     const { annotation: annotationMarkType } = state.schema.marks;
 
     const hasAnnotation = $from

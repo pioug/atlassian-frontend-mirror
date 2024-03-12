@@ -1,5 +1,15 @@
 # @atlaskit/heading
 
+## 1.7.0
+
+### Minor Changes
+
+- [#79770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79770) [`32e4d951a5ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32e4d951a5ae) - Run the codegen and update heading.partial.tsx
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.0
 
 ### Minor Changes

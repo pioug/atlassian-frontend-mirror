@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
@@ -46,9 +45,7 @@ export interface MediaInlineImageCardProps {
   shouldOpenMediaViewer?: boolean;
 }
 
-export const MediaInlineImageCardInternal: FC<
-  MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs
-> = ({
+export const MediaInlineImageCardInternal = ({
   mediaClient,
   identifier,
   isSelected,
@@ -61,7 +58,7 @@ export const MediaInlineImageCardInternal: FC<
   ssr,
   serializeDataAttrs,
   shouldOpenMediaViewer,
-}) => {
+}: MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs) => {
   const [fileState, setFileState] = useState<FileState | undefined>();
   const [subscribeError, setSubscribeError] = useState<Error>();
   const [isFailedEventSent, setIsFailedEventSent] = useState(false);
@@ -298,6 +295,6 @@ export const MediaInlineImageCardInternal: FC<
   );
 };
 
-export const MediaInlineImageCard: FC<
-  MediaInlineImageCardProps & MediaInlineAttrs
+export const MediaInlineImageCard: React.ComponentType<
+  React.PropsWithChildren<MediaInlineImageCardProps & MediaInlineAttrs>
 > = injectIntl(MediaInlineImageCardInternal, { enforceContext: false });

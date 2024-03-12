@@ -114,6 +114,7 @@ export const createPlugin = (
   dragAndDropEnabled?: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   pluginInjectionApi?: PluginInjectionAPI,
+  isTableScalingEnabled?: boolean,
 ) => {
   const state = createPluginState(dispatch, {
     pluginConfig,
@@ -127,6 +128,7 @@ export const createPlugin = (
     isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
     isHeaderColumnEnabled: false,
     isDragAndDropEnabled: dragAndDropEnabled,
+    isTableScalingEnabled: isTableScalingEnabled,
     ...defaultHoveredCell,
     ...defaultTableSelection,
     getIntl,
@@ -188,8 +190,6 @@ export const createPlugin = (
         });
       }
 
-      const { tablePreserveWidth = false } = getEditorFeatureFlags();
-
       if (tr) {
         // "fixTables" removes empty rows as we don't allow that in schema
         const updatedTr = handleCut(
@@ -198,7 +198,7 @@ export const createPlugin = (
           newState,
           editorAnalyticsAPI,
           editorViewRef || undefined,
-          tablePreserveWidth,
+          isTableScalingEnabled,
         );
         return fixTables(updatedTr) || updatedTr;
       }

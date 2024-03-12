@@ -29,7 +29,7 @@ export type ExtensionComponentProps<T extends Parameters = Parameters> = {
 };
 
 export type ExtensionComponent<T extends Parameters> = ComponentType<
-  ExtensionComponentProps<T>
+  React.PropsWithChildren<ExtensionComponentProps<T>>
 >;
 export type ExtensionComponentModule<T extends Parameters> = Promise<
   MaybeESModule<ExtensionComponent<T>>

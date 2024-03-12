@@ -16,6 +16,7 @@ export type TableOptions = {
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
   isDragAndDropEnabled?: boolean;
+  isTableScalingEnabled?: boolean;
 };
 
 export interface Props {

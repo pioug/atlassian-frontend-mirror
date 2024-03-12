@@ -16,7 +16,9 @@ export interface WithActivityProviderProps {
 }
 
 export default function withActivityProvider<Props>(
-  WrappedComponent: React.ComponentType<Props & WithActivityProviderProps>,
+  WrappedComponent: React.ComponentType<
+    React.PropsWithChildren<Props & WithActivityProviderProps>
+  >,
 ) {
   return class WithActivityProvider extends React.Component<
     Diff<Props, WithActivityProviderProps> & ExpandedActivityProviderProps

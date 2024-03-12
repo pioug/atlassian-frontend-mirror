@@ -24,6 +24,7 @@ export const handleWrapperClass = 'resizer-handle-wrapper';
 
 export const resizerHandleZIndex = 1;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Seems perfectly safe to autofix, but comments would be lost…
 export const resizerStyles = css`
   .${resizerItemClassName} {
     will-change: width;

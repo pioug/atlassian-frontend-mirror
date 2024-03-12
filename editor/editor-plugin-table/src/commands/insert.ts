@@ -11,12 +11,7 @@ import {
   EVENT_TYPE,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
-import type {
-  Command,
-  EditorCommand,
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
@@ -50,10 +45,7 @@ function addColumnAtCustomStep(column: number) {
   };
 }
 
-export function addColumnAt(
-  getEditorContainerWidth: GetEditorContainerWidth,
-  tablePreserveWidth = false,
-) {
+export function addColumnAt(isTableScalingEnabled = false) {
   return (
     column: number,
     allowAddColumnCustomStep: boolean = false,
@@ -69,7 +61,9 @@ export function addColumnAt(
       const table = findTable(updatedTr.selection);
       if (table) {
         // [ED-8288] Update colwidths manually to avoid multiple dispatch in TableComponent
-        updatedTr = rescaleColumns(tablePreserveWidth)(table, view)(updatedTr);
+        updatedTr = rescaleColumns(isTableScalingEnabled)(table, view)(
+          updatedTr,
+        );
       }
 
       if (
@@ -94,10 +88,7 @@ export function addColumnAt(
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column before the column with the selection.
 export const addColumnBefore =
-  (
-    getEditorContainerWidth: GetEditorContainerWidth,
-    tablePreserveWidth = false,
-  ): Command =>
+  (isTableScalingEnabled = false): Command =>
   (state, dispatch, view) => {
     const table = findTable(state.selection);
     if (!table) {
@@ -106,7 +97,7 @@ export const addColumnBefore =
     if (dispatch) {
       let rect = selectedRect(state);
       dispatch(
-        addColumnAt(getEditorContainerWidth, tablePreserveWidth)(
+        addColumnAt(isTableScalingEnabled)(
           rect.left,
           getAllowAddColumnCustomStep(state),
           view,
@@ -119,7 +110,7 @@ export const addColumnBefore =
 // :: (EditorState, dispatch: ?(tr: Transaction)) → bool
 // Command to add a column after the column with the selection.
 export const addColumnAfter =
-  (getEditorContainerWidth: GetEditorContainerWidth): Command =>
+  (isTableScalingEnabled?: boolean): Command =>
   (state, dispatch, view) => {
     const table = findTable(state.selection);
     if (!table) {
@@ -128,7 +119,7 @@ export const addColumnAfter =
     if (dispatch) {
       let rect = selectedRect(state);
       dispatch(
-        addColumnAt(getEditorContainerWidth)(
+        addColumnAt(isTableScalingEnabled)(
           rect.right,
           getAllowAddColumnCustomStep(state),
           view,
@@ -139,13 +130,10 @@ export const addColumnAfter =
   };
 
 export const insertColumn =
-  (
-    getEditorContainerWidth: GetEditorContainerWidth,
-    tablePreserveWidth = false,
-  ) =>
+  (isTableScalingEnabled = false) =>
   (column: number): Command =>
   (state, dispatch, view) => {
-    let tr = addColumnAt(getEditorContainerWidth, tablePreserveWidth)(
+    let tr = addColumnAt(isTableScalingEnabled)(
       column,
       getAllowAddColumnCustomStep(state),
       view,
@@ -213,13 +201,13 @@ export const insertRow =
 
 export const createTable =
   (
+    isTableScalingEnabled?: boolean,
     isFullWidthModeEnabled?: boolean,
-    getEditorFeatureFlags?: GetEditorFeatureFlags,
   ): Command =>
   (state, dispatch) => {
     const table = createTableWithWidth(
+      isTableScalingEnabled,
       isFullWidthModeEnabled,
-      getEditorFeatureFlags,
     )(state.schema);
 
     if (dispatch) {
@@ -231,7 +219,7 @@ export const createTable =
 export const insertTableWithSize =
   (
     isFullWidthModeEnabled?: boolean,
-    getEditorFeatureFlags?: GetEditorFeatureFlags,
+    isTableScalingEnabled?: boolean,
     editorAnalyticsAPI?: EditorAnalyticsAPI,
   ) =>
   (
@@ -241,8 +229,8 @@ export const insertTableWithSize =
   ): EditorCommand => {
     return ({ tr }) => {
       const tableNode = createTableWithWidth(
+        isTableScalingEnabled,
         isFullWidthModeEnabled,
-        getEditorFeatureFlags,
         {
           rowsCount: rowsCount,
           colsCount: colsCount,

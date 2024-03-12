@@ -43,6 +43,7 @@ export interface Props {
   focusTrap?: boolean;
   preventOverflow?: boolean;
   absoluteOffset?: Position;
+  children?: React.ReactNode;
 }
 
 export interface State {

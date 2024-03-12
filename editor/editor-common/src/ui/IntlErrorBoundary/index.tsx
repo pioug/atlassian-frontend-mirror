@@ -2,7 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-interface ErrorBoundaryProps {}
+interface ErrorBoundaryProps {
+  children?: React.ReactNode;
+}
 
 interface ErrorBoundaryState {
   missingIntlProviderInAncestry: boolean;

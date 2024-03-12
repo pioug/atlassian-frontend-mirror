@@ -1,6 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import Page from '@atlaskit/page';
+import { token } from '@atlaskit/tokens';
 
 interface VRTestCaseOpts {
   title: string;
@@ -11,7 +12,7 @@ export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
   return (
     <IntlProvider locale={'en'}>
       <Page>
-        <div style={{ padding: '30px' }}>
+        <div style={{ padding: token('space.400', '32px') }}>
           <h6>{title}</h6>
           {children()}
         </div>

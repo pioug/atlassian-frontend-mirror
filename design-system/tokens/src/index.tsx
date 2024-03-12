@@ -20,6 +20,7 @@ export type { ActiveTokens } from './artifacts/types';
 export type {
   ThemeColorModes,
   Themes,
+  ThemeFileNames,
   ThemeIds,
   ThemeOptionsSchema,
   ThemeState,

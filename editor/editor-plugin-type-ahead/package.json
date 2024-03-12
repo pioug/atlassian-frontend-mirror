@@ -42,7 +42,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/prosemirror-input-rules": "^3.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "lodash": "^4.17.21",

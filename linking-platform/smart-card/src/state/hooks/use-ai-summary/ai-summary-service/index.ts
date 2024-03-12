@@ -59,13 +59,19 @@ export class AISummaryService implements AISummaryServiceInt {
     const requestUrl = addPath(this.config.baseUrl, path);
 
     const response = await fetch(requestUrl, options);
-    return readStream<T>(response);
+    if (!response.ok || response.status >= 400) {
+      throw new Error(
+        `Status: ${response.status}\n URL: ${this.url}\n StatusText ${response.statusText}`,
+      );
+    } else {
+      return readStream<T>(response);
+    }
   };
 
-  public async summariseUrl(summaryStyle: SummaryStyle = 'short') {
+  public async summariseUrl(summaryStyle: SummaryStyle = 'medium') {
     this.state = {
-      ...this.state,
       status: 'loading',
+      content: '',
     };
 
     for (const subscriber of this.subscribedStateSetters) {
@@ -84,13 +90,18 @@ export class AISummaryService implements AISummaryServiceInt {
             subscriber({ ...this.state, content: bufferContent });
           }
         }
+
+        //if AI Mate service returns cached summary we get the summary text in one piece as the last message
+        if (chunk.type === 'FINAL_RESPONSE') {
+          bufferContent = chunk.message.message.content;
+        }
       }
 
       this.state = {
         status: 'done',
         content: bufferContent,
       };
-    } catch {
+    } catch (err) {
       this.state = { status: 'error', content: '' };
     }
 

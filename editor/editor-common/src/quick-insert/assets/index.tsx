@@ -12,7 +12,7 @@ export const IconAction = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-action" */ './action'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -22,7 +22,7 @@ export const IconCode = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-code" */ './code'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -32,7 +32,7 @@ export const IconDate = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-date" */ './date'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -42,7 +42,7 @@ export const IconDecision = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-decision" */ './decision'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -52,7 +52,7 @@ export const IconDivider = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-divider" */ './divider'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -62,7 +62,7 @@ export const IconEmoji = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-emoji" */ './emoji'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -72,7 +72,7 @@ export const IconImages = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-images" */ './images'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -82,7 +82,7 @@ export const IconLayout = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-layout" */ './layout'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -92,7 +92,7 @@ export const IconLink = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-link" */ './link'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -102,7 +102,7 @@ export const IconListNumber = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-list-number" */ './list-number'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -112,7 +112,7 @@ export const IconList = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-list" */ './list'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -122,7 +122,7 @@ export const IconMention = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-mention" */ './mention'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -132,7 +132,7 @@ export const IconPanelError = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-panel-error" */ './panel-error'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -142,7 +142,7 @@ export const IconPanelNote = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-panel-note" */ './panel-note'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -152,7 +152,7 @@ export const IconPanelSuccess = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-panel-success" */ './panel-success'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -162,7 +162,7 @@ export const IconPanelWarning = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-panel-warning" */ './panel-warning'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -172,7 +172,7 @@ export const IconPanel = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-panel" */ './panel'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -182,7 +182,7 @@ export const IconQuote = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-quote" */ './quote'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -192,7 +192,7 @@ export const IconStatus = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-status" */ './status'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -235,7 +235,7 @@ export const IconHeading = ({ level, ...props }: HeadingProps) => {
   const Icon = Loadable({
     loader: () =>
       importHeading(level).then((module) => module.default) as Promise<
-        React.ComponentType<IconProps>
+        React.ComponentType<React.PropsWithChildren<IconProps>>
       >,
     loading: () => null,
   });
@@ -247,7 +247,7 @@ export const IconFeedback = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-feedback" */ './feedback'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -257,7 +257,7 @@ export const IconExpand = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-expand" */ './expand'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -267,7 +267,7 @@ export const IconDatasourceJiraIssue = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-datasource-jira-issue" */ './datasource-jira-issue'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -277,7 +277,7 @@ export const IconDatasourceAssetsObjects = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-datasource-assets-objects" */ './datasource-assets-objects'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });
@@ -287,7 +287,7 @@ export const IconLoom = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-loom" */ './loom'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });

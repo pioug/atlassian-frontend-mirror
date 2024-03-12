@@ -17,15 +17,17 @@ const EXPAND_SELECTED_BACKGROUND = token(
   'rgba(255, 255, 255, 0.6)',
 );
 
-const EXPAND_ICON_COLOR = () => css`
-  color: ${token('color.icon.subtle', N100A)};
-`;
+const EXPAND_ICON_COLOR = () =>
+  css({
+    color: token('color.icon.subtle', N100A),
+  });
 
 const DANGER_STATE_BACKGROUND_COLOR = token('color.background.danger', R50);
 
 const DANGER_STATE_BORDER_COLOR = token('color.border.danger', R300);
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const expandStyles = () => css`
   .${expandClassNames.icon} > div {
     display: flex;

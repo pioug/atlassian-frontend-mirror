@@ -1,7 +1,5 @@
 /** @jsx jsx */
 
-import type { FC } from 'react';
-
 import { jsx } from '@emotion/react';
 
 import Spinner from '@atlaskit/spinner';
@@ -16,10 +14,10 @@ type Props = {
   height?: number;
 };
 
-export const InlineImageCardLoadingView: FC<Props> = ({
+export const InlineImageCardLoadingView = ({
   testId = 'media-inline-image-card-loading-view',
   height = ICON_SIZE_THRESOLD,
-}) => {
+}: Props) => {
   return (
     <Frame testId={testId}>
       <Spinner size={height > ICON_SIZE_THRESOLD ? 'medium' : 'small'} />

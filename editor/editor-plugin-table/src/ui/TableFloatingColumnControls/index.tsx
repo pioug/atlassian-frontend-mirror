@@ -40,7 +40,7 @@ export interface Props {
   getScrollOffset?: () => number;
 }
 
-export const TableFloatingColumnControls: React.FC<Props> = ({
+export const TableFloatingColumnControls = ({
   editorView,
   tableRef,
   getNode,
@@ -55,7 +55,7 @@ export const TableFloatingColumnControls: React.FC<Props> = ({
   tableContainerWidth,
   isNumberColumnEnabled,
   getScrollOffset,
-}) => {
+}: Props) => {
   const [tableRect, setTableRect] = useState<{ width: number; height: number }>(
     { width: 0, height: 0 },
   );

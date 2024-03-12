@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Flex, xcss } from '@atlaskit/primitives';
+import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { components, MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
@@ -15,6 +15,11 @@ import CustomNoOptionsMessage from './noOptionsMessage';
 
 const inlineSpinnerStyles = xcss({
   paddingTop: token('space.075', '6px'),
+});
+
+const showMoreButtonBoxStyles = xcss({
+  paddingLeft: token('space.075', '6px'),
+  paddingTop: token('space.100', '8px'),
 });
 
 type CustomProps = {
@@ -70,7 +75,9 @@ const CustomMenuList = ({
         {children}
 
         {shouldDisplayShowMore && (
-          <ShowMoreButton onShowMore={handleShowMore} />
+          <Box xcss={showMoreButtonBoxStyles}>
+            <ShowMoreButton onShowMore={handleShowMore} />
+          </Box>
         )}
 
         {isLoadingMoreData && <InlineSpinner />}

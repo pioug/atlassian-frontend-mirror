@@ -15,10 +15,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -33,6 +30,7 @@ import {
   insertColumnWithAnalytics,
   insertRowWithAnalytics,
 } from '../../commands-with-analytics';
+import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { TableCssClassName as ClassName } from '../../types';
 import { checkIfNumberColumnEnabled } from '../../utils';
 
@@ -55,7 +53,6 @@ export interface Props {
   hasStickyHeaders?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
-  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export class FloatingInsertButton extends React.Component<
@@ -278,29 +275,21 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private insertColumn(event: React.SyntheticEvent) {
-    const {
-      editorView,
-      insertColumnButtonIndex,
-      editorAnalyticsAPI,
-      getEditorContainerWidth,
-    } = this.props;
+    const { editorView, insertColumnButtonIndex, editorAnalyticsAPI } =
+      this.props;
 
     if (typeof insertColumnButtonIndex !== 'undefined') {
       event.preventDefault();
 
-      const { tablePreserveWidth = false } =
-        this.props.getEditorFeatureFlags?.() || {};
+      const { isTableScalingEnabled = false } = getPluginState(
+        editorView.state,
+      );
 
       const { state, dispatch } = editorView;
-      insertColumnWithAnalytics(
-        getEditorContainerWidth,
-        editorAnalyticsAPI,
-        tablePreserveWidth,
-      )(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(
-        state,
-        dispatch,
-        editorView,
-      );
+      insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
+        INPUT_METHOD.BUTTON,
+        insertColumnButtonIndex,
+      )(state, dispatch, editorView);
     }
   }
 }

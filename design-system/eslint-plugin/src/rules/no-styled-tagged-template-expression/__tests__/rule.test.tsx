@@ -1373,6 +1373,32 @@ typescriptEslintTester.run(
         });
       `,
       },
+      // NOTE: We don't support any functional keys or selectors…
+      {
+        filename: 'props-in-selector.ts',
+        code: `
+          import { styled } from '@compiled/react';
+
+          styled.div\`
+            \${(props) => props.selector} {
+              color: blue;
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'function-call-in-selector.ts',
+        // NOTE: If `${mixin}` does not use `()` it be autofixed and could be problematic
+        code: `
+          import { styled } from '@compiled/react';
+
+          styled.div\`
+            \${mixin()} {
+              color: blue;
+            }
+          \`;
+        `,
+      },
       // NOTE: For `styled-components` we do not support the component selector syntax,
       // so we don't support ANY interpolated selectors…
       {

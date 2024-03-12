@@ -2,70 +2,66 @@ import { token } from '@atlaskit/tokens';
 import { N900 } from '@atlaskit/theme/colors';
 import styled from '@emotion/styled';
 
-export const InputWrapper = styled.div`
-  margin: ${token('space.250', '20px')} 0;
-`;
+export const InputWrapper = styled.div({
+  margin: `${token('space.250', '20px')} 0`,
+});
 
-export const PreviewList = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-`;
+export const PreviewList = styled.ul({
+  margin: 0,
+  padding: 0,
+  listStyleType: 'none',
+});
 
-export const PreviewInfo = styled.pre`
-  font-size: 80%;
-`;
+export const PreviewInfo = styled.pre({
+  fontSize: '80%',
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const PreviewItem = styled.li`
-  border-radius: 10px;
-  border: 1px solid ${token('color.border', '#ccc')};
-  padding: 10px;
-  overflow: auto;
-  max-height: 600px;
-  position: relative;
-  margin-bottom: 10px;
-`;
+export const PreviewItem = styled.li({
+  borderRadius: token('space.100', '8px'),
+  border: `1px solid ${token('color.border', '#ccc')}`,
+  padding: token('space.100', '8px'),
+  overflow: 'auto',
+  maxHeight: '600px',
+  position: 'relative',
+  marginBottom: token('space.100', '8px'),
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const Code = styled.code`
-  padding: 5px;
-  border-radius: 5px;
-  background-color: ${token('color.background.inverse.subtle', '#0002')};
-  color: ${token('color.text', N900)};
-  font-size: 80%;
-`;
+export const Code = styled.code({
+  padding: token('space.050', '4px'),
+  borderRadius: token('space.050', '4px'),
+  backgroundColor: token('color.background.inverse.subtle', '#0002'),
+  color: token('color.text', N900),
+  fontSize: '80%',
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const CloseButton = styled.button`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  cursor: pointer;
-`;
+export const CloseButton = styled.button({
+  position: 'absolute',
+  top: token('space.050', '4px'),
+  right: token('space.050', '4px'),
+  cursor: 'pointer',
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const PreviewImageContainer = styled.div`
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
+export const PreviewImageContainer = styled.div({
+  marginTop: token('space.100', '8px'),
+  marginBottom: token('space.100', '8px'),
+});
 
-export const OrientationSelectWrapper = styled.label`
-  margin-bottom: ${token('space.250', '20px')};
-  display: block;
-`;
+export const OrientationSelectWrapper = styled.label({
+  marginBottom: token('space.250', '20px'),
+  display: 'block',
+});
 
-export const TimeRangeWrapper = styled.div`
-  margin-top: ${token('space.500', '40px')};
-`;
+export const TimeRangeWrapper = styled.div({
+  marginTop: token('space.500', '40px'),
+});
 
-export const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-`;
+export const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+});
 
-export const Group = styled.div`
-  width: 250px;
-  padding: ${token('space.250', '20px')};
-`;
+export const Group = styled.div({
+  width: '250px',
+  padding: token('space.250', '20px'),
+});

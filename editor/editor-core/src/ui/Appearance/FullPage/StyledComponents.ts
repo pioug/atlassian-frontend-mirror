@@ -137,10 +137,8 @@ const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>
 const editorContentArea = css(
   {
     lineHeight: '24px',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    paddingTop: '50px',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    paddingBottom: '55px',
+    paddingTop: token('space.600', '48px'),
+    paddingBottom: token('space.600', '48px'),
     height: 'calc( 100% - 105px )',
     width: '100%',
     margin: 'auto',

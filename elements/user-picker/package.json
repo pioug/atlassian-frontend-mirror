@@ -54,7 +54,7 @@
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/teams-avatar": "^1.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -71,7 +71,7 @@
   "devDependencies": {
     "@atlaskit/analytics-viewer": "^0.5.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
-    "@atlaskit/heading": "^1.6.0",
+    "@atlaskit/heading": "^1.7.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",

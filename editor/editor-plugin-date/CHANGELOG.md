@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-date
 
+## 1.0.4
+
+### Patch Changes
+
+- [#80391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80391) [`bf741c7ef44c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf741c7ef44c) - Make @atlaskit/editor-plugin-table, @atlaskit/date, @atlaskit/editor-plugin-date React 18 compatible.
+
 ## 1.0.3
 
 ### Patch Changes

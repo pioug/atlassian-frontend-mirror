@@ -29,7 +29,7 @@
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.39.0",
+    "@atlaskit/tokens": "^1.40.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

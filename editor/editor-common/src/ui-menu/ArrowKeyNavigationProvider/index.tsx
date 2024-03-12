@@ -7,9 +7,9 @@ import { MenuArrowKeyNavigationProvider } from './MenuArrowKeyNavigationProvider
 import type { ArrowKeyNavigationProviderProps } from './types';
 import { ArrowKeyNavigationType } from './types';
 
-export const ArrowKeyNavigationProvider: React.FC<
-  ArrowKeyNavigationProviderProps
-> = (props) => {
+export const ArrowKeyNavigationProvider = (
+  props: React.PropsWithChildren<ArrowKeyNavigationProviderProps>,
+) => {
   const { children, type, ...restProps } = props;
 
   if (type === ArrowKeyNavigationType.COLOR) {

@@ -58,6 +58,7 @@ export function getOrderedListInlineStyles(
   return style;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- There is some "flow-root" hack that is not actually valid css.  Do note, this might not even work in Compiled (or Emotion) due to the way tagged template expressions are parsed…
 export const listsSharedStyles = css`
   /* =============== INDENTATION SPACING ========= */
 

@@ -1,5 +1,4 @@
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 
 import { jsx } from '@emotion/react';

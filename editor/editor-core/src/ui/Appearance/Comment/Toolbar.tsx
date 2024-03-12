@@ -13,6 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 490;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
   position: relative;
   align-items: center;
@@ -54,6 +55,7 @@ const mainToolbarWrapperStyle = (isTwoLineEditorToolbar = false) => css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 const stickyToolbarWrapperStyle = css`
   /* stylelint-disable declaration-block-no-duplicate-properties */
   position: relative;
@@ -94,10 +96,9 @@ const StickyToolbar = (props: StickyToolbarProps) => {
       css={[
         mainToolbarWrapperStyle(props.twoLineEditorToolbar),
         stickyToolbarWrapperStyle,
-        css`
-          top: ${top}px;
-        `,
       ]}
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+      style={{ top: `${top}px` }}
       data-testid="ak-editor-main-toolbar"
       className={'show-keyline'}
     >
@@ -176,22 +177,24 @@ export const MainToolbar = ({
 
 export const mainToolbarCustomComponentsSlotStyle = (
   isTwoLineEditorToolbar = false,
-) => css`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-grow: 1;
-  padding-right: ${token('space.250', '20px')};
-  ${isTwoLineEditorToolbar &&
-  `
+) =>
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+  css`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+    padding-right: ${token('space.250', '20px')};
+    > div {
+      display: flex;
+      flex-shrink: 0;
+    }
+    ${isTwoLineEditorToolbar &&
+    `
     @media (max-width: ${MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT}px) {
       {
         padding-right: 0;
       }
     }
   `}
-  > div {
-    display: flex;
-    flex-shrink: 0;
-  }
-`;
+  `;

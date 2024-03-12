@@ -219,42 +219,44 @@ export const MediaSingleDimensionHelper = ({
   isExtendedResizeExperienceOn,
   isNestedNode = false,
   isInsideOfInlineExtension = false,
-}: MediaSingleWrapperProps) => css`
-  /* For nested rich media items, set max-width to 100% */
-  tr &,
-  [data-layout-column] &,
-  [data-node-type='expand'] &,
-  [data-panel-type] &,
-  li & {
-    max-width: 100%;
-  }
+}: MediaSingleWrapperProps) =>
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+  css`
+    /* For nested rich media items, set max-width to 100% */
+    tr &,
+    [data-layout-column] &,
+    [data-node-type='expand'] &,
+    [data-panel-type] &,
+    li & {
+      max-width: 100%;
+    }
 
-  width: ${isExtendedResizeExperienceOn
-    ? `${mediaSingleWidth || width}px`
-    : mediaSingleWidth
-    ? calcResizedWidth(layout, width || 0, containerWidth)
-    : calcLegacyWidth(
-        layout,
-        width || 0,
-        containerWidth,
-        fullWidthMode,
-        isResized,
-        isInsideOfInlineExtension,
-      )};
-  ${layout === 'full-width' &&
-  /* This causes issues for new experience where we don't strip layout attributes
+    width: ${isExtendedResizeExperienceOn
+      ? `${mediaSingleWidth || width}px`
+      : mediaSingleWidth
+      ? calcResizedWidth(layout, width || 0, containerWidth)
+      : calcLegacyWidth(
+          layout,
+          width || 0,
+          containerWidth,
+          fullWidthMode,
+          isResized,
+          isInsideOfInlineExtension,
+        )};
+    ${layout === 'full-width' &&
+    /* This causes issues for new experience where we don't strip layout attributes
    when copying top-level node and pasting into a table/layout,
    because full-width layout will remain, causing node to be edge-to-edge */
-  !isExtendedResizeExperienceOn &&
-  css`
-    min-width: 100%;
-  `}
-  max-width: ${isExtendedResizeExperienceOn
-    ? `${containerWidth}px`
-    : calcMaxWidth(layout, containerWidth)};
+    !isExtendedResizeExperienceOn &&
+    css({
+      minWidth: '100%',
+    })}
+    max-width: ${isExtendedResizeExperienceOn
+      ? `${containerWidth}px`
+      : calcMaxWidth(layout, containerWidth)};
 
-  ${isExtendedResizeExperienceOn &&
-  `&[class*='is-resizing'] {
+    ${isExtendedResizeExperienceOn &&
+    `&[class*='is-resizing'] {
     .new-file-experience-wrapper {
       box-shadow: none !important;
     }
@@ -267,24 +269,24 @@ export const MediaSingleDimensionHelper = ({
     }
   }`}
 
-  &:not(.is-resizing) {
-    transition: width 100ms ease-in;
-  }
+    &:not(.is-resizing) {
+      transition: width 100ms ease-in;
+    }
 
-  float: ${float(layout)};
-  margin: ${calcMargin(layout)};
+    float: ${float(layout)};
+    margin: ${calcMargin(layout)};
 
-  &[class*='not-resizing'] {
-    ${isNestedNode
-      ? /* Make nested node appear responsive when resizing table cell */
-        `max-width: 100%;`
-      : nonWrappedLayouts.includes(layout) &&
-        `margin-left: 50%;
+    &[class*='not-resizing'] {
+      ${isNestedNode
+        ? /* Make nested node appear responsive when resizing table cell */
+          `max-width: 100%;`
+        : nonWrappedLayouts.includes(layout) &&
+          `margin-left: 50%;
         transform: translateX(-50%);`}
-  }
+    }
 
-  ${isImageAligned(layout)};
-`;
+    ${isImageAligned(layout)};
+  `;
 
 export interface MediaWrapperProps {
   paddingBottom?: string;
@@ -296,9 +298,11 @@ const RenderFallbackContainer = ({
   hasFallbackContainer,
   paddingBottom,
   height,
-}: MediaWrapperProps) => css`
-  ${hasFallbackContainer
-    ? `
+}: MediaWrapperProps) =>
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+  css`
+    ${hasFallbackContainer
+      ? `
   &::after {
     content: '';
     display: block;
@@ -315,9 +319,10 @@ const RenderFallbackContainer = ({
     line-height: 0;
   }
   `
-    : ''}
-`;
+      : ''}
+  `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
   position: relative;
 
@@ -371,9 +376,9 @@ type MediaBorderGapFillerProps = {
   borderColor: string;
 };
 
-export const MediaBorderGapFiller: React.FC<MediaBorderGapFillerProps> = ({
+export const MediaBorderGapFiller = ({
   borderColor,
-}) => {
+}: MediaBorderGapFillerProps) => {
   return (
     <div
       style={{

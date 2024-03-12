@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation*/
 import { css } from '@emotion/react';
 
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
@@ -116,7 +117,7 @@ const getHoverStyles = (selector: string) =>
 
     &:hover {
       background: ${token('color.background.neutral.hovered', colors.N30A)};
-    } 
+    }
   }`;
 
 export const toolbarButtonWrapper = ({

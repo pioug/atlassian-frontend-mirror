@@ -11,6 +11,7 @@ import type {
 } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState` is not object-safe
 const markStyles = () => css`
   color: inherit;
   background-color: unset;

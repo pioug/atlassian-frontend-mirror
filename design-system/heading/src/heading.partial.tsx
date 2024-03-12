@@ -81,7 +81,7 @@ const Heading = ({
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6c4d235cbada3951edcb53e36bd07b2b>>
+ * @codegen <<SignedSource::e846dd958c335ee435433cfe1a6ffe77>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/heading codegen
  */
@@ -89,43 +89,43 @@ const headingVariantStylesMap = {
   xxlarge: css({
     font: token(
       'font.heading.xxlarge',
-      'normal 500 35px/40px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xlarge: css({
     font: token(
       'font.heading.xlarge',
-      'normal 600 29px/32px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   large: css({
     font: token(
       'font.heading.large',
-      'normal 500 24px/28px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   medium: css({
     font: token(
       'font.heading.medium',
-      'normal 500 20px/24px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   small: css({
     font: token(
       'font.heading.small',
-      'normal 600 16px/20px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xsmall: css({
     font: token(
       'font.heading.xsmall',
-      'normal 600 14px/16px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
   xxsmall: css({
     font: token(
       'font.heading.xxsmall',
-      'normal 600 12px/16px ui-sans-serif, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+      'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
     ),
   }),
 };

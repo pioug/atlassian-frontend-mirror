@@ -10,7 +10,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
 import {
-  getTableContainerElement,
+  getTableContainerElementWidth,
   getTableElementWidth,
   hasTableBeenResized,
 } from '../pm-plugins/table-resizing/utils';
@@ -108,7 +108,7 @@ export const updateColumnWidths =
  * @returns Updated transaction with rescaled columns for a given table
  */
 export const rescaleColumns =
-  (tablePreserveWidth = false) =>
+  (isTableScalingEnabled = false) =>
   (table: ContentNodeWithPos, view: EditorView | undefined) =>
   (tr: Transaction): Transaction => {
     if (!view) {
@@ -132,13 +132,14 @@ export const rescaleColumns =
       isResized,
     };
 
-    if (tablePreserveWidth) {
+    if (isTableScalingEnabled) {
       previousTableInfo = {
         // TODO - ensure correct width is returned when table doesn't have a width value
         width: getTableElementWidth(table.node),
         possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
-          ? getTableContainerElement(table.node)
-          : getTableContainerElement(table.node) - insertColumnButtonOffset,
+          ? getTableContainerElementWidth(table.node)
+          : getTableContainerElementWidth(table.node) -
+            insertColumnButtonOffset,
         isResized,
       };
     } else {
@@ -216,7 +217,7 @@ export const rescaleColumns =
       tableRef,
       domAtPos,
       maxSize: previousTableInfo.possibleMaxWidth,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     });
 
     // Two scenarios that require scaling:

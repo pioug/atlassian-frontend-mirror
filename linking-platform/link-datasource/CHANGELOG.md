@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.23.5
+
+### Patch Changes
+
+- [#78825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78825) [`e9208822bf1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9208822bf1f) - Adds horizontal and vertical padding to ShowMoreButton within CustomMenuList to prevent the button outline from being cut off and overflowing into selection area.
+- Updated dependencies
+
 ## 1.23.4
 
 ### Patch Changes

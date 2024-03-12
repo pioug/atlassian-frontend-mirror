@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.36.2
+
+### Patch Changes
+
+- [#80471](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80471) [`bf21a3bfe85e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf21a3bfe85e) - Add `autoFixNames` option to `consistent-css-prop-usage`. When set to false, the autofix naming that enforces style variables ending in the word "Styles" will be turned off. True by default.
+- [#80469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80469) [`0b4b7268ef16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b4b7268ef16) - Fixed an issue with `ensure-design-token-usage` where styles inside xcss could be incorrectly linted against.
+- [#80518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80518) [`0f90b6e17490`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f90b6e17490) - Ignore function-like interpolations in selectors for `no-css-tagged-template-expression`, `no-styled-…`, and `no-keyframes-…`
+
 ## 8.36.1
 
 ### Patch Changes

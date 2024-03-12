@@ -5,13 +5,13 @@ import { deleteColumns } from '../transforms/delete-columns';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
 
 export const deleteColumnsCommand =
-  (rect: Rect, tablePreserveWidth = false): Command =>
+  (rect: Rect, isTableScalingEnabled = false): Command =>
   (state, dispatch, view) => {
     const tr = deleteColumns(
       rect,
       getAllowAddColumnCustomStep(state),
       view,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     )(state.tr);
     if (dispatch) {
       dispatch(tr);

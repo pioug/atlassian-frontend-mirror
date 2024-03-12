@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.2.2
+
+### Patch Changes
+
+- [#79658](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79658) [`4b195011d7c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b195011d7c1) - ED-22112 support remove annotation from supported nodes
+
 ## 1.2.1
 
 ### Patch Changes

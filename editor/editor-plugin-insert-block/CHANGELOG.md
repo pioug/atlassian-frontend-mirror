@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.5
+
+### Patch Changes
+
+- [#80518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80518) [`e0d5e8fd9495`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0d5e8fd9495) - Migrates some style calls to a slightly different object syntax and other minor cleanup around eslint rules.
+
 ## 1.1.4
 
 ### Patch Changes

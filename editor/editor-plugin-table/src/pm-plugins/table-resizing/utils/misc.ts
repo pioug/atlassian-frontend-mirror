@@ -150,9 +150,9 @@ export const getTableElementWidth = (table: PMNode) => {
     return calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
   }
 
-  return getTableContainerElement(table);
+  return getTableContainerElementWidth(table);
 };
 
-export const getTableContainerElement = (table: PMNode) => {
+export const getTableContainerElementWidth = (table: PMNode) => {
   return getTableContainerWidth(table);
 };

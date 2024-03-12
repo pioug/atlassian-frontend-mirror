@@ -15,7 +15,10 @@ export type Props = {
   format?: string;
   color?: Color;
   className?: string;
-  children?: React.FunctionComponent<Props> | string | React.ReactNode;
+  children?: // eslint-disable-next-line @typescript-eslint/ban-types
+  | React.FunctionComponent<React.PropsWithChildren<Props>>
+    | string
+    | React.ReactNode;
 };
 
 const isClickable = <
@@ -41,8 +44,10 @@ export class Date extends React.Component<Props> {
   renderContent = () => {
     if (this.props.children) {
       if (typeof this.props.children === 'function') {
-        return (this.props.children as React.FunctionComponent<Props>)(
-          this.props,
+        return (
+          // prettier-ignore
+          // eslint-disable-next-line @typescript-eslint/ban-types
+          (this.props.children as React.FunctionComponent<React.PropsWithChildren<Props>>)(this.props)
         );
       }
       return this.props.children;

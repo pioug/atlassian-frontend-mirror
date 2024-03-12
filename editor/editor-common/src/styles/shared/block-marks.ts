@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Perfectly safe to auto-fix, but leaving it up to the team to remediate as the readability only gets worse with autofixing */
 import { css } from '@emotion/react';
 
 export const blockMarksSharedStyles = css`

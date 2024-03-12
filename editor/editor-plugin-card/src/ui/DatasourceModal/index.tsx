@@ -99,13 +99,13 @@ export const DatasourceModal = ({
       }
 
       if (existingNode) {
-        updateCardViaDatasource(
-          view.state,
-          existingNode,
+        updateCardViaDatasource({
+          state: view.state,
+          node: existingNode,
           newAdf,
           view,
-          analyticEvent,
-        );
+          sourceEvent: analyticEvent,
+        });
       } else {
         insertDatasource(view.state, newAdf, view, analyticEvent);
       }

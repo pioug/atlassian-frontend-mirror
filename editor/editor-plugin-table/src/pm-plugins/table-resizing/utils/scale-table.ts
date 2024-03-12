@@ -39,7 +39,7 @@ export const scale = (
   tableRef: HTMLTableElement,
   options: ScaleOptions,
   domAtPos: DomAtPos,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ): ResizeState | undefined => {
   /**
    * isBreakoutEnabled === true -> default center aligned
@@ -98,7 +98,7 @@ export const scale = (
     tableRef,
     start,
     domAtPos,
-    tablePreserveWidth,
+    isTableScalingEnabled,
   });
 
   return scaleTableTo(resizeState, newWidth);
@@ -110,7 +110,7 @@ export const scaleWithParent = (
   table: PMNode,
   start: number,
   domAtPos: DomAtPos,
-  tablePreserveWidth = false,
+  isTableScalingEnabled = false,
 ) => {
   const resizeState = getResizeState({
     minWidth: tableCellMinWidth,
@@ -119,7 +119,7 @@ export const scaleWithParent = (
     tableRef,
     start,
     domAtPos,
-    tablePreserveWidth,
+    isTableScalingEnabled,
   });
 
   if (table.attrs.isNumberColumnEnabled) {
@@ -158,7 +158,7 @@ export const previewScaleTable = (
   tableRef: HTMLTableElement | null | undefined,
   options: ScaleOptions,
   domAtPos: DomAtPos,
-  tablePreserveWidth: boolean = false,
+  isTableScalingEnabled: boolean = false,
 ) => {
   const { node, start, parentWidth } = options;
 
@@ -175,8 +175,8 @@ export const previewScaleTable = (
   }
 
   // If the table hasn't been resize, the colgroup 48px width values will gracefully scale down.
-  // If we are scaling the table down with tablePreserveWidth, the colgroup widths may be scaled to a value that is not 48px.
-  if (!hasTableBeenResized(node) && !tablePreserveWidth) {
+  // If we are scaling the table down with isTableScalingEnabled, the colgroup widths may be scaled to a value that is not 48px.
+  if (!hasTableBeenResized(node) && !isTableScalingEnabled) {
     syncStickyRowToTable(tableRef);
     return;
   }
@@ -188,12 +188,12 @@ export const previewScaleTable = (
         node,
         start,
         domAtPos,
-        tablePreserveWidth,
+        isTableScalingEnabled,
       )
-    : scale(tableRef, options, domAtPos, tablePreserveWidth);
+    : scale(tableRef, options, domAtPos, isTableScalingEnabled);
 
   if (resizeState) {
-    updateColgroup(resizeState, tableRef, tablePreserveWidth);
+    updateColgroup(resizeState, tableRef, node, isTableScalingEnabled);
   }
 };
 
@@ -203,7 +203,7 @@ export const scaleTable =
     tableRef: HTMLTableElement | null | undefined,
     options: ScaleOptions,
     domAtPos: DomAtPos,
-    tablePreserveWidth = false,
+    isTableScalingEnabled = false,
   ) =>
   (tr: Transaction) => {
     if (!tableRef) {
@@ -215,7 +215,7 @@ export const scaleTable =
     if (hasTableBeenResized(node) === false) {
       // If its not a re-sized table, we still want to re-create cols
       // To force reflow of columns upon delete.
-      if (!tablePreserveWidth) {
+      if (!isTableScalingEnabled) {
         insertColgroupFromNode(tableRef, node);
       }
       tr.setMeta('scrollIntoView', false);
@@ -230,10 +230,10 @@ export const scaleTable =
         node,
         start,
         domAtPos,
-        tablePreserveWidth,
+        isTableScalingEnabled,
       );
     } else {
-      resizeState = scale(tableRef, options, domAtPos, tablePreserveWidth);
+      resizeState = scale(tableRef, options, domAtPos, isTableScalingEnabled);
     }
 
     if (resizeState) {

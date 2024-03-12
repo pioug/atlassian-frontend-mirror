@@ -21,7 +21,7 @@ const ElementBrowserLoader = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-element-browser" */ '../ElementBrowser'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<ElementBrowserProps>
+      React.ComponentType<React.PropsWithChildren<ElementBrowserProps>>
     >,
   loading: () => (
     <div css={spinnerContainer}>

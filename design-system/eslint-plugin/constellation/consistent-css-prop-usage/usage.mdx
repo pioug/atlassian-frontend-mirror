@@ -181,13 +181,23 @@ Whether to exclude `css` attributes of React components from being affected by t
 
 This is `false` by default.
 
-### fixNamesOnly
+### autoFixNames
 
-When enabled, this rule will only add `styles` at the end of existing style variables. All other autofixers will be disabled. For example:
+When set to `true`, this rule will _turn on_ an autofixer that adds `Styles` at the end of existing style variables.
 
 ```tsx
 //    vvvvv will be renamed to `myCssStyles`
 const myCss = { color: 'blue' };
 ```
 
+Note that when hoisting styles, the name of the newly created style variable follows its own naming scheme (`styles`, `styles_1`, `styles_2`, ...) and is not affected by the value of `autoFixNames`.
+
+This is `true` by default.
+
+### fixNamesOnly
+
+When set to `true`, this rule will _turn off_ all autofixers other than the autofixer adding `Styles` to the end of existing style variables (which is controlled by `autoFixNames`). In other words, styles will no longer be hoisted and styles will no longer be wrapped in a `css`/`xcss` function call.
+
 This is `false` by default.
+
+If `autoFixNames` is `false` and `fixNamesOnly` is `true`, all autofixers will be turned off.

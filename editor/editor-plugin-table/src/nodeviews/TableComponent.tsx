@@ -22,11 +22,7 @@ import type {
   EditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import {
-  browser,
-  calcTableColumnWidths,
-  isValidPosition,
-} from '@atlaskit/editor-common/utils';
+import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -59,6 +55,7 @@ import {
   updateColgroup,
 } from '../pm-plugins/table-resizing/utils';
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
+import { TABLE_EDITOR_MARGIN } from '../pm-plugins/table-resizing/utils/consts';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
@@ -102,13 +99,13 @@ export interface ComponentProps {
   isHeaderColumnEnabled: boolean;
   isMediaFullscreen?: boolean;
   isDragAndDropEnabled?: boolean;
+  isTableScalingEnabled?: boolean;
   tableActive: boolean;
   ordering: TableColumnOrdering;
   isResizing?: boolean;
   getEditorFeatureFlags: GetEditorFeatureFlags;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   pluginInjectionApi?: PluginInjectionAPI;
-  tableRef?: HTMLElement | undefined;
 }
 
 interface TableState {
@@ -141,8 +138,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
 
   private dragAndDropCleanupFn?: CleanupFn;
-
-  private tableColumnWidths?: number[];
 
   constructor(props: ComponentProps) {
     super(props);
@@ -182,7 +177,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isDragAndDropEnabled,
       getNode,
       getEditorFeatureFlags,
+      isTableScalingEnabled,
     } = this.props;
+
+    if (isTableScalingEnabled) {
+      this.handleColgroupUpdates(true);
+    }
 
     if (allowColumnResizing && this.wrapper && !isIE11) {
       this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
@@ -288,20 +288,17 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
   }
 
-  handleColgroupUpdates() {
-    const { getNode, containerWidth, isResizing, view, getPos, tableRef } =
-      this.props;
+  handleColgroupUpdates(force = false) {
+    const { getNode, containerWidth, isResizing, view, getPos } = this.props;
 
-    if (!tableRef) {
+    if (!this.table) {
       return;
     }
 
-    const TABLE_MARGIN = 76;
-
     // Remove any widths styles after resizing preview is completed
-    tableRef.style.width = '';
+    this.table.style.width = '';
 
-    const tableRenderWidth = containerWidth.width - TABLE_MARGIN;
+    const tableRenderWidth = containerWidth.width - TABLE_EDITOR_MARGIN;
     const tableNode = getNode();
     const start = getPos() || 0;
     const depth = view.state.doc.resolve(start).depth;
@@ -312,39 +309,25 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     const { width: tableNodeWidth } = tableNode.attrs;
-    const tableColumnWidths = calcTableColumnWidths(tableNode);
     const shouldTableScale = tableRenderWidth < tableNodeWidth;
-    let isTableColumnWidthsSame = false;
-    if (this.tableColumnWidths) {
-      isTableColumnWidthsSame = tableColumnWidths?.every(
-        (width, index) => width === this.tableColumnWidths![index],
-      );
-    }
+
     const { width: containerWidthValue } = containerWidth;
     const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
 
-    if (
-      shouldTableScale &&
-      !isResizing &&
-      (!isTableColumnWidthsSame || isWidthChanged)
-    ) {
+    if (force || (shouldTableScale && !isResizing && isWidthChanged)) {
       const resizeState = getResizeState({
         minWidth: COLUMN_MIN_WIDTH,
         maxSize: tableRenderWidth,
         table: tableNode,
-        tableRef: this.table as HTMLTableElement,
+        tableRef: this.table,
         start,
         domAtPos: view.domAtPos,
-        tablePreserveWidth: true,
+        isTableScalingEnabled: true,
       });
 
-      requestAnimationFrame(() => {
-        updateColgroup(resizeState, this.table!, true);
-      });
-
-      this.tableColumnWidths = tableColumnWidths;
-      this.containerWidth = containerWidth;
+      updateColgroup(resizeState, this.table!, tableNode, true);
     }
+    this.containerWidth = containerWidth;
   }
 
   componentDidUpdate(_: any, prevState: TableState) {
@@ -355,13 +338,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       allowColumnResizing,
       isResizing,
       options,
-      getEditorFeatureFlags,
+      isTableScalingEnabled,
     } = this.props;
     const { isInDanger } = getPluginState(view.state);
-    const { tablePreserveWidth = false } = getEditorFeatureFlags();
     const table = findTable(view.state.selection);
 
-    if (tablePreserveWidth) {
+    if (isTableScalingEnabled) {
       this.handleColgroupUpdates();
     }
 
@@ -424,7 +406,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             isResizing);
 
         if (shouldRecreateResizeCols) {
-          insertColgroupFromNode(this.table, currentTable, tablePreserveWidth);
+          insertColgroupFromNode(
+            this.table,
+            currentTable,
+            isTableScalingEnabled,
+          );
         }
 
         updateControls()(view.state);
@@ -517,6 +503,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       pluginInjectionApi,
       isDragAndDropEnabled,
       getEditorFeatureFlags,
+      isTableScalingEnabled,
     } = this.props;
 
     const { showBeforeShadow, showAfterShadow } = this.state;
@@ -610,7 +597,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           shadowPadding +
           2;
 
-    const { stickyScrollbar, tablePreserveWidth } = getEditorFeatureFlags();
+    const { stickyScrollbar } = getEditorFeatureFlags();
 
     return (
       <TableContainer
@@ -630,7 +617,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         pluginInjectionApi={pluginInjectionApi}
         isTableResizingEnabled={options?.isTableResizingEnabled}
         isResizing={isResizing}
-        tablePreserveWidth={tablePreserveWidth}
+        isTableScalingEnabled={isTableScalingEnabled}
       >
         <div
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}
@@ -860,7 +847,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       getPos,
       containerWidth,
       options,
-      getEditorFeatureFlags,
+      isTableScalingEnabled,
     } = this.props;
     const node = getNode();
     const { state, dispatch } = view;
@@ -874,8 +861,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     this.scaleTableDebounced.cancel();
 
-    const { tablePreserveWidth = false } = getEditorFeatureFlags();
-
     const tr = scaleTable(
       this.table,
       {
@@ -888,7 +873,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ...options,
       },
       domAtPos,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     )(state.tr);
 
     dispatch(tr);

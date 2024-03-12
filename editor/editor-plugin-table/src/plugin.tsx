@@ -52,6 +52,7 @@ import {
 } from './pm-plugins/drag-and-drop';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
+import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import {
@@ -92,6 +93,7 @@ export interface TablePluginOptions {
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
+  isTableScalingEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -157,8 +159,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         (analyticsPayload): Command =>
         (state, dispatch) => {
           const node = createTableWithWidth(
+            options?.isTableScalingEnabled,
             options?.fullWidthEnabled,
-            options?.getEditorFeatureFlags,
           )(state.schema);
 
           return (
@@ -179,7 +181,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
     commands: {
       insertTableWithSize: insertTableWithSize(
         options?.fullWidthEnabled,
-        options?.getEditorFeatureFlags,
+        options?.isTableScalingEnabled,
         api?.analytics?.actions,
       ),
     },
@@ -216,6 +218,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               tableOptions,
               getEditorFeatureFlags,
               dragAndDropEnabled,
+              isTableScalingEnabled,
             } = options || ({} as TablePluginOptions);
             return createPlugin(
               dispatchAnalyticsEvent,
@@ -233,6 +236,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               dragAndDropEnabled,
               editorAnalyticsAPI,
               api,
+              isTableScalingEnabled,
             );
           },
         },
@@ -261,14 +265,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         {
           name: 'tableKeymap',
           plugin: () => {
-            const { dragAndDropEnabled, getEditorFeatureFlags } =
+            const { dragAndDropEnabled, isTableScalingEnabled = false } =
               options || ({} as TablePluginOptions);
 
             return keymapPlugin(
               defaultGetEditorContainerWidth,
               editorAnalyticsAPI,
-              getEditorFeatureFlags,
               dragAndDropEnabled,
+              isTableScalingEnabled,
             );
           },
         },
@@ -308,26 +312,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           name: 'tableStickyHeaders',
           plugin: ({ dispatch, eventDispatcher }) =>
             options && options.tableOptions.stickyHeaders
-              ? createStickyHeadersPlugin(
-                  dispatch,
-                  eventDispatcher,
-                  () => [],
-                  options?.getEditorFeatureFlags ||
-                    defaultGetEditorFeatureFlags,
-                )
+              ? createStickyHeadersPlugin(dispatch, () => [])
               : undefined,
         },
         {
           name: 'tableDragAndDrop',
           plugin: ({ dispatch }) => {
-            const { getEditorFeatureFlags } =
-              options || ({} as TablePluginOptions);
             return options?.dragAndDropEnabled
-              ? createDragAndDropPlugin(
-                  dispatch,
-                  getEditorFeatureFlags,
-                  editorAnalyticsAPI,
-                )
+              ? createDragAndDropPlugin(dispatch, editorAnalyticsAPI)
               : undefined;
           },
         },
@@ -343,7 +335,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                   dispatch,
                   dispatchAnalyticsEvent,
                   options?.fullWidthEnabled ?? false,
-                  options?.getEditorFeatureFlags,
                 )
               : undefined,
         },
@@ -511,10 +502,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       getEditorContainerWidth={defaultGetEditorContainerWidth}
-                      getEditorFeatureFlags={
-                        options?.getEditorFeatureFlags ||
-                        defaultGetEditorFeatureFlags
-                      }
                     />
                   )}
                   {options?.allowContextualMenu && (
@@ -548,10 +535,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       stickyHeaders={stickyHeader}
                       pluginConfig={pluginConfig}
-                      getEditorFeatureFlags={
-                        options?.getEditorFeatureFlags ||
-                        defaultGetEditorFeatureFlags
-                      }
                     />
                   )}
                   {allowControls && !isDragAndDropEnabled && !isResizing && (
@@ -591,11 +574,12 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           action(insert, state) {
             // see comment on tablesPlugin.getSharedState on usage
             const tableState = api?.table?.sharedState.currentState();
+            const { isTableScalingEnabled = false } = getPluginState(state);
 
             const tr = insert(
               createTableWithWidth(
+                isTableScalingEnabled,
                 tableState?.isFullWidthModeEnabled,
-                options?.getEditorFeatureFlags,
               )(state.schema),
             );
             editorAnalyticsAPI?.attachAnalyticsEvent({

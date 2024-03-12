@@ -253,7 +253,7 @@ export const deleteColumns =
     rect: Rect,
     allowCustomStep: boolean,
     view?: EditorView,
-    tablePreserveWidth = false,
+    isTableScalingEnabled = false,
   ) =>
   (tr: Transaction) => {
     let updatedTr = tr;
@@ -269,7 +269,7 @@ export const deleteColumns =
     const table = findTable(updatedTr.selection);
 
     if (table) {
-      updatedTr = rescaleColumns(tablePreserveWidth)(table, view)(updatedTr);
+      updatedTr = rescaleColumns(isTableScalingEnabled)(table, view)(updatedTr);
     }
     return updatedTr;
   };

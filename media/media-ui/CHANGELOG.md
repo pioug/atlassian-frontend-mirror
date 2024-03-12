@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.4.2
+
+### Patch Changes
+
+- [#80067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80067) [`3ea4eada1951`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ea4eada1951) - [ux] Replaced standard spacing with space tokens
+
 ## 25.4.1
 
 ### Patch Changes

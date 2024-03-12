@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Requires manual remediation over time due to use of unsafe nested mixins */
 /** @jsx jsx */
 import React, { useMemo } from 'react';
 
@@ -182,21 +183,20 @@ const emojiStyles = css`
   }
 `;
 
-export const placeholderStyles = css`
-  .ProseMirror .placeholder-decoration {
-    color: ${token('color.text.subtlest', N200)};
-    width: 100%;
-    pointer-events: none;
-    user-select: none;
-
-    .placeholder-android {
-      pointer-events: none;
-      outline: none;
-      user-select: none;
-      position: absolute;
-    }
-  }
-`;
+export const placeholderStyles = css({
+  '.ProseMirror .placeholder-decoration': {
+    color: token('color.text.subtlest', N200),
+    width: '100%',
+    pointerEvents: 'none',
+    userSelect: 'none',
+    '.placeholder-android': {
+      pointerEvents: 'none',
+      outline: 'none',
+      userSelect: 'none',
+      position: 'absolute',
+    },
+  },
+});
 
 const contentStyles = (props: ContentStylesProps) => css`
   .ProseMirror {

@@ -107,23 +107,24 @@ export const createNoTaggedTemplateExpressionRule =
 
             // TODO: We might want to similarly disallow `styled.div({ color: props => props.color })` for SC as it's broken too (both type and functionality)
             // Alternatively, autofix it to `styled.div(props => ({ color: props.color }))`?
-            if (isSC && /\$\{.*:[\s]*\{/.test(newCode)) {
+            if (
+              (isSC && /\$\{.*:[\s]*\{/.test(newCode)) ||
+              /\$\{.*\(.*:[\s]*\{/.test(newCode)
+            ) {
               /**
                * If we find a variable in a selector when migrating `styled-components` code, we skip it.
                * This is because `styled-components@3.x` does not support the syntax.
                *
-               * @example
+               * @examples
                * ```tsx
                * const Component = styled.div`
                *   & + ${Button} { color: red; }
                * `;
                * ```
-               * Becomes this code, which is not supported in `styled-components@3.x`:
-               * ```tsx
-               * const Component = styled.div({
-               *   [`& + ${Button}`]: {
-               *     color: 'red',
-               * });
+               *```tsx
+               * const Component = styled.div`
+               *   ${mixin()} button { color: red; }
+               * `;
                * ```
                */
               return;

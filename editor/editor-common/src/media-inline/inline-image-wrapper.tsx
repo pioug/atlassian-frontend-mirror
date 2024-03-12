@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import type { CSSProperties, FC, ReactElement } from 'react';
+import type { CSSProperties, ReactElement } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -37,7 +37,7 @@ type Props = {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 };
 
-export const InlineImageWrapper: FC<Props> = ({
+export const InlineImageWrapper = ({
   children,
   isSelected,
   isInteractive,
@@ -46,7 +46,7 @@ export const InlineImageWrapper: FC<Props> = ({
   borderColor,
   htmlAttrs = {},
   onClick,
-}) => {
+}: React.PropsWithChildren<Props>) => {
   const borderStyleVars =
     borderSize && borderColor
       ? ({

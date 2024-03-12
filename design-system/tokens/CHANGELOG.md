@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.40.0
+
+### Minor Changes
+
+- [#79770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79770) [`42fb3733fe8b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/42fb3733fe8b) - Add exports and update entrypoint
+
 ## 1.39.1
 
 ### Patch Changes

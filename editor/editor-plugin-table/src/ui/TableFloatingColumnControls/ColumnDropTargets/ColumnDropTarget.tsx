@@ -13,13 +13,13 @@ export interface Props {
   marginTop?: number;
 }
 
-export const ColumnDropTarget: React.FC<Props> = ({
+export const ColumnDropTarget = ({
   index,
   localId,
   width,
   height,
   marginTop,
-}) => {
+}: Props) => {
   const dropTargetRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

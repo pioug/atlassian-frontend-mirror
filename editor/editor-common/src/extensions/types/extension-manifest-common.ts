@@ -5,5 +5,5 @@ export type ESModule<T> = {
   default: T;
 };
 export type MaybeESModule<T> = ESModule<T> | T;
-export type ExtensionIcon = ComponentType<any>;
+export type ExtensionIcon = ComponentType<React.PropsWithChildren<any>>;
 export type ExtensionIconModule = Promise<MaybeESModule<ExtensionIcon>>;

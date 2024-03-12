@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 19.0.22
+
+### Patch Changes
+
+- [#79538](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79538) [`d4d91668d3ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4d91668d3ac) - ED-22501 Update validator specs for inline-card based on feature flag
+
 ## 19.0.21
 
 ### Patch Changes

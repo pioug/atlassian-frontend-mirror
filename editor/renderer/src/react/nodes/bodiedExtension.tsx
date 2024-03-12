@@ -27,9 +27,7 @@ export interface Props {
   marks?: PMMark[];
 }
 
-const BodiedExtension: React.FunctionComponent<
-  React.PropsWithChildren<Props>
-> = (props) => {
+const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
   const { children, layout = 'default', path = [] } = props;
 
   const removeOverflow = React.Children.toArray(children)

@@ -18,6 +18,7 @@ export const DATASOURCE_INNER_CONTAINER_CLASSNAME =
 export const FLOATING_TOOLBAR_LINKPICKER_CLASSNAME =
   'card-floating-toolbar--link-picker';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Seems safe to autofix with a fix to `getSelectionStyles`
 export const smartCardStyles = css`
   .${SmartCardSharedCssClassName.INLINE_CARD_CONTAINER} {
     max-width: calc(100% - 20px);

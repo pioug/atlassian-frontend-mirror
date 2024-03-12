@@ -10,6 +10,7 @@ export type Props = {
   offset: string;
   position: string;
   onPositioned: () => void;
+  children?: React.ReactNode;
 };
 
 export type State = {

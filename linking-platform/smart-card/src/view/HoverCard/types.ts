@@ -119,8 +119,8 @@ export type HoverCardContentProps = {
 
 export type ContentContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   isAIEnabled?: boolean;
-  showPrism?: boolean;
   testId?: string;
+  url: string;
 };
 
 export type ImagePreviewProps = {

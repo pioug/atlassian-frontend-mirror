@@ -1,4 +1,3 @@
-import type { ComponentClass, FunctionComponent } from 'react';
 import React, { PureComponent, useEffect, useState } from 'react';
 
 import ReactDOM from 'react-dom';
@@ -23,6 +22,7 @@ class WithOutsideClick extends PureComponent<
     isActiveComponent: boolean;
     editorView?: EditorView;
     editorRef?: React.RefObject<HTMLDivElement>;
+    children?: React.ReactNode;
   },
   {}
 > {
@@ -111,8 +111,8 @@ function hasIsOpen(props: any): props is HasIsOpen {
 }
 
 export default function withReactEditorViewOuterListeners<P extends {}>(
-  Component: ComponentClass<P> | FunctionComponent<P>,
-): React.FC<P & WithOutsideClickProps> {
+  Component: React.ComponentType<React.PropsWithChildren<P>>,
+): React.ComponentType<React.PropsWithChildren<P & WithOutsideClickProps>> {
   return ({
     handleClickOutside,
     handleEnterKeydown,

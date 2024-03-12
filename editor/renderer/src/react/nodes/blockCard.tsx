@@ -27,13 +27,14 @@ import {
   canRenderDatasource,
 } from '@atlaskit/editor-common/utils';
 
-//  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
   borderRadius: `${token('border.radius.200', '8px')}`,
   border: `1px solid ${token('color.border', N40)}`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-  marginLeft: '50%',
-  transform: 'translateX(-50%)',
+});
+
+const parentContainerStyle = css({
+  display: 'flex',
+  justifyContent: 'center',
 });
 
 export default function BlockCard(props: {
@@ -122,22 +123,24 @@ export default function BlockCard(props: {
           >
             <WidthConsumer>
               {({ width }) => (
-                <div
-                  css={datasourceContainerStyle}
-                  data-testid="renderer-datasource-table"
-                  style={{
-                    width: isNodeNested
-                      ? '100%'
-                      : calcBreakoutWidth(layout, width),
-                  }}
-                >
-                  <DatasourceTableView
-                    datasourceId={datasource.id}
-                    parameters={datasource.parameters}
-                    visibleColumnKeys={visibleColumnKeys}
-                    columnCustomSizes={columnCustomSizes}
-                    url={url}
-                  />
+                <div css={parentContainerStyle}>
+                  <div
+                    css={datasourceContainerStyle}
+                    data-testid="renderer-datasource-table"
+                    style={{
+                      width: isNodeNested
+                        ? '100%'
+                        : calcBreakoutWidth(layout, width),
+                    }}
+                  >
+                    <DatasourceTableView
+                      datasourceId={datasource.id}
+                      parameters={datasource.parameters}
+                      visibleColumnKeys={visibleColumnKeys}
+                      columnCustomSizes={columnCustomSizes}
+                      url={url}
+                    />
+                  </div>
                 </div>
               )}
             </WidthConsumer>

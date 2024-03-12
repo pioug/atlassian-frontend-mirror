@@ -68,8 +68,7 @@ const shadowSharedStyle = css({
       'elevation.shadow.overflow.perimeter',
       'transparent',
     )} 0px, transparent 1px )`,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    left: `calc(100% - ${shadowWidth}px)`,
+    right: '0px',
     top: '0px',
     display: 'block',
   },

@@ -30,10 +30,7 @@ import {
   toggleTable,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -72,8 +69,8 @@ const createTableWithAnalytics = (
 export function keymapPlugin(
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  getEditorFeatureFlags?: GetEditorFeatureFlags,
   dragAndDropEnabled?: boolean,
+  isTableScalingEnabled = false,
 ): SafePlugin {
   const list = {};
 
@@ -121,13 +118,13 @@ export function keymapPlugin(
 
   bindKeymapWithCommand(
     addColumnBefore.common!,
-    addColumnBeforeCommand(getEditorContainerWidth),
+    addColumnBeforeCommand(isTableScalingEnabled),
     list,
   );
 
   bindKeymapWithCommand(
     addColumnAfter.common!,
-    addColumnAfterCommand(getEditorContainerWidth),
+    addColumnAfterCommand(isTableScalingEnabled),
     list,
   );
 
@@ -182,10 +179,6 @@ export function keymapPlugin(
   }
 
   if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-    const { tablePreserveWidth = false } = getEditorFeatureFlags
-      ? getEditorFeatureFlags()
-      : {};
-
     bindKeymapWithCommand(
       startColumnResizing.common!,
       initiateKeyboardColumnResizing,
@@ -201,7 +194,7 @@ export function keymapPlugin(
       changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
         -10,
         getEditorContainerWidth,
-        tablePreserveWidth,
+        isTableScalingEnabled,
         INPUT_METHOD.SHORTCUT,
       ),
       list,
@@ -212,7 +205,7 @@ export function keymapPlugin(
       changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI)(
         10,
         getEditorContainerWidth,
-        tablePreserveWidth,
+        isTableScalingEnabled,
         INPUT_METHOD.SHORTCUT,
       ),
       list,

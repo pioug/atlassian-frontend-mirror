@@ -14,7 +14,6 @@ import {
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
@@ -24,6 +23,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
+import { getPluginState } from './plugin-factory';
 import { TABLE_MAX_WIDTH } from './table-resizing/utils';
 
 type __ReplaceStep = ReplaceStep & {
@@ -44,7 +44,6 @@ const createPlugin = (
   dispatch: Dispatch,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   fullWidthEnabled: boolean,
-  getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   return new SafePlugin({
     key: pluginKey,
@@ -123,10 +122,9 @@ const createPlugin = (
         tr.getMeta('referentialityTableInserted'),
       );
 
-      const shouldPatchTable =
-        fullWidthEnabled &&
-        getEditorFeatureFlags &&
-        getEditorFeatureFlags()['tablePreserveWidth'];
+      const { isTableScalingEnabled = false } = getPluginState(newState);
+
+      const shouldPatchTable = fullWidthEnabled && isTableScalingEnabled;
 
       if (
         !isReplaceDocumentOperation &&

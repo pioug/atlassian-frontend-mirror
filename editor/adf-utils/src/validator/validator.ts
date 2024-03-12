@@ -1,5 +1,7 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import * as specs from './specs';
-import { ADFEntity, ADFEntityMark } from '../types';
+import { inlineCardWithAnnotation } from './custom-specs/inline-card-with-annotation';
+import type { ADFEntity, ADFEntityMark } from '../types';
 import {
   copy,
   isBoolean,
@@ -11,7 +13,7 @@ import {
   makeArray,
 } from './utils';
 
-import {
+import type {
   NodeValidationResult,
   ValidatorSpec,
   AttributesSpec,
@@ -29,6 +31,8 @@ import {
   ValidatorSpecAttrs,
 } from '../types/validatorTypes';
 import { validatorFnMap } from './rules';
+
+const INLINE_NODES_SUPPORTING_COMMENTS = ['inlineCard'];
 
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
   if (spec.props && spec.props.marks) {
@@ -78,8 +82,17 @@ const partitionObject = <T extends { [key: string]: any }>(
  * We denormalised the spec to save bundle size.
  */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {
+  const allowCommentsOnInlineNodes = !!getBooleanFF(
+    'platform.editor.allow-inline-comments-for-inline-nodes',
+  );
   return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
     const spec = { ...(specs as any)[k] };
+    if (
+      INLINE_NODES_SUPPORTING_COMMENTS.includes(k) &&
+      allowCommentsOnInlineNodes
+    ) {
+      spec.props = inlineCardWithAnnotation.props;
+    }
     if (spec.props) {
       spec.props = { ...spec.props };
       if (spec.props.content) {
@@ -167,7 +180,6 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           );
       }
     }
-
     newSpecs[k] = spec;
     return newSpecs;
   }, {});
@@ -377,7 +389,6 @@ export function validator(
 ) {
   const validatorSpecs = createSpec(nodes, marks);
   const { mode = 'strict', allowPrivateAttributes = false } = options || {};
-
   const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
     const validationResult = validateNode(
       entity,

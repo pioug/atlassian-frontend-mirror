@@ -167,6 +167,16 @@ const containerStyles = css({
       options: [{ excludeReactComponents: true }],
       code: outdent`const ComponentTwo = () => <Item.Before css={{ color: 'blue' }} />;`,
     },
+    {
+      options: [{ autoFixNames: false }],
+      code: outdent`
+        import { css } from '@compiled/react';
+
+        const myCss = css({ color: 'blue' });
+
+        <div css={myCss} />
+      `,
+    },
   ],
   invalid: [
     {

@@ -23,7 +23,7 @@ const dropOffset = '0, 8';
 
 interface Props extends WithAnalyticsEventsProps {
   isOpen?: boolean;
-  trigger?: typeof Component;
+  trigger?: React.ReactNode;
   position: string;
   onOpenChange?: (event: OpenChangedEvent) => void;
   onPositioned?: () => void;

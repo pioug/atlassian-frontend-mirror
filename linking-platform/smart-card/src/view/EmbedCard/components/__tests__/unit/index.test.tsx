@@ -1,7 +1,9 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { ExpandedFrame } from '../../../components/ExpandedFrame';
 import { expectElementWithText } from '../../../../../__tests__/__utils__/unit-helpers';
+import userEvent from '@testing-library/user-event';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('ExpandedFrame', () => {
   it('should not render an icon when isPlaceholder=true', async () => {
@@ -76,5 +78,65 @@ describe('ExpandedFrame', () => {
 
     const frameStyle = window.getComputedStyle(embedHeaderElements[0]);
     expect(frameStyle.opacity).toBe('0');
+  });
+
+  describe('No tooltip is rendered by default', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      // Test passes whether FF is on or off
+      () => {
+        render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('Tooltip is rendered when hovered', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      // FF is on
+      async () => {
+        render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+        const header = await screen.getByText('foobar');
+
+        await userEvent.hover(header);
+
+        const tooltip = await waitFor(
+          () =>
+            screen.findByRole('tooltip', {
+              name: 'foobar',
+            }),
+          { timeout: 2000 },
+        );
+
+        expect(tooltip).toBeVisible();
+      },
+      // FF is off
+      async () => {
+        render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+        const header = await screen.getByText('foobar');
+
+        await userEvent.hover(header);
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      },
+    );
+  });
+
+  describe('Tooltip is not rendered when not hovered', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      // Test passes whether FF is on or off
+      async () => {
+        render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
+        const header = await screen.getByText('foobar');
+
+        await userEvent.hover(header);
+        await userEvent.unhover(header);
+
+        expect(screen.queryByRole('tooltip')).not.toBeInTheDocument();
+      },
+    );
   });
 });

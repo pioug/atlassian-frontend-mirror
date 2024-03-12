@@ -134,6 +134,8 @@ export type DropdownPropsWithOutsideClickProps = Props & WithOutsideClickProps;
 
 const DropdownWithOuterListeners = withReactEditorViewOuterListeners(
   Dropdown,
-) as React.ComponentType<DropdownPropsWithOutsideClickProps>;
+) as React.ComponentType<
+  React.PropsWithChildren<DropdownPropsWithOutsideClickProps>
+>;
 
 export default DropdownWithOuterListeners;

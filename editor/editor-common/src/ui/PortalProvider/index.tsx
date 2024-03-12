@@ -263,7 +263,7 @@ const AnalyticsContextWrapper = class extends React.Component<any> {
   };
 
   render() {
-    const { value } = this.context.contextAdapter.analytics || {
+    const { value } = (this.context as any).contextAdapter.analytics || {
       value: dummyAnalyticsContext,
     };
     return (

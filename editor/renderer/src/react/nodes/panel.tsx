@@ -32,6 +32,7 @@ const PanelStyled = ({
 }: React.PropsWithChildren<
   PanelStyledProps & React.HTMLAttributes<HTMLDivElement>
 >) => {
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- nested css mixins are violations
   let styles = css`
     &.${PanelSharedCssClassName.prefix} {
       ${panelSharedStylesWithoutPrefix()}
@@ -43,6 +44,7 @@ const PanelStyled = ({
   `;
 
   if (props['data-panel-type'] === PanelType.CUSTOM && backgroundColor) {
+    // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- nested css mixins are violations
     styles = css`
       &.${PanelSharedCssClassName.prefix} {
         ${panelSharedStylesWithoutPrefix()}

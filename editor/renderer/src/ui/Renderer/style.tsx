@@ -423,8 +423,7 @@ const breakoutWidthStyle = () => {
 
 const getShadowOverrides = () => {
   return getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-    ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-      css`
+    ? css`
         /** Shadow overrides */
         &.${shadowClassNames.RIGHT_SHADOW}::after,
           &.${shadowClassNames.LEFT_SHADOW}::before {
@@ -452,7 +451,7 @@ const getShadowOverrides = () => {
               ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
               transparent 1px
             );
-          left: calc(100% - ${tableShadowWidth}px);
+          right: 0px;
         }
       `
     : '';
@@ -464,7 +463,7 @@ export const rendererStyles =
     const themeProps = { theme };
     const { useBlockRenderForCodeBlock } = wrapperProps;
 
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
     return css`
       font-size: ${editorFontSize(themeProps)}px;
       line-height: 1.5rem;

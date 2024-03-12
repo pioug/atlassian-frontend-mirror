@@ -1,5 +1,6 @@
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { validator } from '../../../validator';
-import { ADFEntityMark } from '../../../types';
+import type { ADFEntityMark } from '../../../types';
 
 describe('validate Mark', () => {
   const validate = validator(
@@ -16,6 +17,7 @@ describe('validate Mark', () => {
       'orderedList',
       'taskList',
       'taskItem',
+      'inlineCard',
     ],
     [
       'unsupportedMark',
@@ -1653,4 +1655,88 @@ describe('validate Mark', () => {
     expect(resultantEntity).toBeDefined();
     expect(resultantEntity).toEqual(expectedEntity);
   });
+});
+
+describe('adding inline comments on inlineCard', () => {
+  const annotationMark = {
+    type: 'annotation',
+    attrs: {
+      id: '123456',
+      annotationType: 'inlineComment',
+    },
+  };
+  const initialEntity = {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'paragraph',
+        content: [
+          {
+            type: 'text',
+            text: 'This is an inline-card with annotation ',
+          },
+          {
+            type: 'inlineCard',
+            attrs: {
+              url: 'https://www.atlassian.com',
+            },
+            marks: [annotationMark],
+          },
+        ],
+      },
+    ],
+  };
+  ffTest(
+    'platform.editor.allow-inline-comments-for-inline-nodes',
+    () => {
+      // should accept annotation as valid mark when FF is true
+      const validate = validator(
+        ['doc', 'paragraph', 'text', 'inlineCard'],
+        ['unsupportedMark', 'annotation'],
+      );
+      let errorCallbackMock = jest.fn();
+
+      validate(initialEntity, errorCallbackMock);
+
+      const result = validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(0);
+      let finalMarks = [] as Array<ADFEntityMark>;
+      if (
+        result.entity &&
+        result.entity.content &&
+        result.entity.content[0] &&
+        result.entity.content[0].content &&
+        result.entity.content[0].content[1]?.marks
+      ) {
+        finalMarks = result.entity.content[0].content[1].marks;
+      }
+      expect(finalMarks.length).toBe(1);
+      expect(finalMarks[0]).toMatchObject(annotationMark);
+    },
+    () => {
+      // should return unsupported mark for annotation when FF is false
+      const validate = validator(
+        ['doc', 'paragraph', 'text', 'inlineCard'],
+        ['unsupportedMark', 'annotation'],
+      );
+      let errorCallbackMock = jest.fn();
+      validate(initialEntity, errorCallbackMock);
+
+      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
+      expect(errorCallbackMock).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({
+          code: 'REDUNDANT_MARKS',
+          message: 'annotation: unsupported mark.',
+          meta: annotationMark,
+        }),
+        expect.objectContaining({
+          allowUnsupportedBlock: false,
+          allowUnsupportedInline: false,
+          isMark: true,
+        }),
+      );
+    },
+  );
 });

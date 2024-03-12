@@ -56,7 +56,9 @@ export type StreamMessage =
 
 export type StreamResponse = {
   type: 'FINAL_RESPONSE';
-  message: Message;
+  message: {
+    message: Message;
+  };
   millisOffset?: number;
   metadata?: {
     request_id?: string;

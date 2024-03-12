@@ -224,6 +224,7 @@ export default function createUniversalPreset(
             getBooleanFF('platform.editor.custom-table-width') &&
             ['full-page', 'full-width'].includes(appearance || ''),
           dragAndDropEnabled: featureFlags?.tableDragAndDrop && isFullPage,
+          isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
           breakoutEnabled: appearance === 'full-page',
           allowContextualMenu: !isMobile,
           fullWidthEnabled: appearance === 'full-width',

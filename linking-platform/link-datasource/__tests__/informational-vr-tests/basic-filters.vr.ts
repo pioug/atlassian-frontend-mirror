@@ -224,4 +224,16 @@ filters.forEach(filter => {
     },
     description: `${filter} open and view show more button`,
   });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+      await page.keyboard.press('Tab');
+    },
+    description: `${filter} open and focus show more button`,
+  });
 });

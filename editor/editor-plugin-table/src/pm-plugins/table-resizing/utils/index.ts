@@ -31,7 +31,7 @@ export {
   domCellAround,
   getTableMaxWidth,
   getTableElementWidth,
-  getTableContainerElement,
+  getTableContainerElementWidth,
 } from './misc';
 export { updateControls, isClickNear, getResizeCellPos } from './dom';
 export {

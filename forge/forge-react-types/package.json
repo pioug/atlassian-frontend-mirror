@@ -31,7 +31,7 @@
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/dynamic-table": "^14.14.0",
     "@atlaskit/form": "^9.0.3",
-    "@atlaskit/heading": "^1.6.0",
+    "@atlaskit/heading": "^1.7.0",
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/primitives": "^4.0.0",

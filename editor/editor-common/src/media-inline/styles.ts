@@ -21,6 +21,7 @@ export const INLINE_IMAGE_BORDER_COLOR_CSS_VAR_KEY =
   '--editor-media-inline-image-border-color';
 
 // We implemented such selectors to ensure specificity:
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Nested and dynamic css calls are violations, needs manual remediation
 const inlineImageHeight = (height: number | string, margin: number = 0) => css`
   /* Editor style */
   > .mediaInlineView-content-wrap > .${INLINE_IMAGE_WRAPPER_CLASS_NAME},
@@ -39,6 +40,7 @@ const inlineImageHeight = (height: number | string, margin: number = 0) => css`
  * shift in top and bottom and size adjustments to make up for lack of 1to1 size
  * mapping
  */
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Nested and dynamic css calls are violations, needs manual remediation
 export const mediaInlineImageStyles = css`
   // p, h3, and action items
   .${INLINE_IMAGE_WRAPPER_CLASS_NAME} {

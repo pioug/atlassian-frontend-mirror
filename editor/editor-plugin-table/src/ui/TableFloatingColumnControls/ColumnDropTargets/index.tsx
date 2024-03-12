@@ -13,14 +13,14 @@ export interface Props {
   getScrollOffset?: () => number;
 }
 
-export const ColumnDropTargets: React.FC<Props> = ({
+export const ColumnDropTargets = ({
   tableRef,
   tableHeight,
   localId,
   colWidths,
   isHeaderSticky,
   getScrollOffset,
-}) => {
+}: Props) => {
   const dropTargetRef = useRef<HTMLDivElement>(null);
 
   if (!tableRef) {

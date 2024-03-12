@@ -1,4 +1,4 @@
-import type { ComponentClass, FunctionComponent } from 'react';
+import type { ComponentClass } from 'react';
 import React, { PureComponent } from 'react';
 
 import ReactDOM from 'react-dom';
@@ -11,7 +11,7 @@ export interface WithOutsideClickProps {
 }
 
 export default function withOuterListeners<P>(
-  Component: ComponentClass<P> | FunctionComponent<P>,
+  Component: React.ComponentType<React.PropsWithChildren<P>>,
 ): ComponentClass<P & WithOutsideClickProps> {
   return class WithOutsideClick extends PureComponent<
     P & WithOutsideClickProps,

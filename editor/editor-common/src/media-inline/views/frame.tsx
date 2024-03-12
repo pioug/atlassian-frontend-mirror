@@ -1,7 +1,5 @@
 /** @jsx jsx */
 
-import type { FC } from 'react';
-
 import { jsx } from '@emotion/react';
 
 import { wrapperStyle } from './wrapper';
@@ -12,7 +10,10 @@ interface FrameViewProps {
   testId?: string;
 }
 
-export const Frame: FC<FrameViewProps> = ({ children, testId }) => (
+export const Frame = ({
+  children,
+  testId,
+}: React.PropsWithChildren<FrameViewProps>) => (
   <span css={wrapperStyle} data-testid={testId}>
     {children}
   </span>

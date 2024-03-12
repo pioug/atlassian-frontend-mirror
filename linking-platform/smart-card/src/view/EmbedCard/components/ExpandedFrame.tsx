@@ -6,11 +6,14 @@ import {
   Header,
   IconWrapper,
   TextWrapper,
+  TooltipWrapper,
   Content,
 } from './styled';
 import { handleClickCommon } from '../../BlockCard/utils/handlers';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { FrameStyle } from '../types';
+import Tooltip from '@atlaskit/tooltip';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface ExpandedFrameProps {
   isPlaceholder?: boolean;
@@ -54,7 +57,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   const handleMouseDown = useMouseDownEvent();
 
-  const renderHeader = () => (
+  const renderHeaderOld = () => (
     <Header className="embed-header" frameStyle={frameStyle}>
       <IconWrapper isPlaceholder={isPlaceholder}>
         {!isPlaceholder && icon}
@@ -69,6 +72,29 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
     </Header>
   );
 
+  const renderHeader = () => (
+    <Header className="embed-header" frameStyle={frameStyle}>
+      <IconWrapper isPlaceholder={isPlaceholder}>
+        {!isPlaceholder && icon}
+      </IconWrapper>
+      <TooltipWrapper>
+        <Tooltip content={text} hideTooltipOnMouseDown>
+          <TextWrapper isPlaceholder={isPlaceholder}>
+            {!isPlaceholder && (
+              <a
+                href={href}
+                onClick={handleClick}
+                onMouseDown={handleMouseDown}
+              >
+                {text}
+              </a>
+            )}
+          </TextWrapper>
+        </Tooltip>
+      </TooltipWrapper>
+    </Header>
+  );
+
   const renderContent = () => (
     <Content
       data-testid="embed-content-wrapper"
@@ -79,7 +105,6 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
       {children}
     </Content>
   );
-
   if (!isPlaceholder && href) {
     return (
       <LinkWrapper
@@ -95,7 +120,11 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         data-is-selected={isSelected}
         inheritDimensions={inheritDimensions}
       >
-        {renderHeader()}
+        {getBooleanFF(
+          'platform.linking-platform.smart-card.embed-card-header-tooltip',
+        )
+          ? renderHeader()
+          : renderHeaderOld()}
         {renderContent()}
       </LinkWrapper>
     );
@@ -114,7 +143,11 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         data-wrapper-type="default"
         data-is-interactive={isInteractive()}
       >
-        {renderHeader()}
+        {getBooleanFF(
+          'platform.linking-platform.smart-card.embed-card-header-tooltip',
+        )
+          ? renderHeader()
+          : renderHeaderOld()}
         {renderContent()}
       </Wrapper>
     );

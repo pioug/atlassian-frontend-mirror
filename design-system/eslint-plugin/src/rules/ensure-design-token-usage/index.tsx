@@ -13,6 +13,7 @@ import {
   isDecendantOfGlobalToken,
   isDecendantOfStyleBlock,
   isDecendantOfType,
+  isDecendantOfXcssBlock,
 } from '../utils/is-node';
 
 import {
@@ -108,6 +109,10 @@ const createWithConfig: (
 
             // Return for nested objects - these get handled automatically so without returning we'd be doubling up
             if (parentNode.parent.type === 'Property') {
+              return;
+            }
+
+            if (isDecendantOfXcssBlock(parentNode)) {
               return;
             }
 

@@ -32,6 +32,7 @@ interface AdfState {
   isValidAdf: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation because `display: 'flex'` is not valid CSS…
 const wrapper: any = css`
   display: 'flex';
   padding: '10px';

@@ -16,7 +16,7 @@ export const IconTable = Loadable({
     import(
       /* webpackChunkName: "@atlaskit-internal_editor-icon-table" */ '../icons/shared/table'
     ).then((module) => module.default) as Promise<
-      React.ComponentType<IconProps>
+      React.ComponentType<React.PropsWithChildren<IconProps>>
     >,
   loading: () => null,
 });

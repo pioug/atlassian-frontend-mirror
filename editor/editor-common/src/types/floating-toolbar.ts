@@ -56,7 +56,9 @@ export interface SelectOption<T extends {} = {}> {
 }
 
 export type ButtonAppearance = 'subtle' | 'danger';
-export type Icon = React.ComponentType<{ label: string }>;
+export type Icon = React.ComponentType<
+  React.PropsWithChildren<{ label: string }>
+>;
 export type RenderOptionsProps = RenderOptionsPropsT<Command>;
 
 export type AlignType = 'left' | 'center' | 'right';
@@ -175,7 +177,10 @@ export type FloatingToolbarCustom<T extends {}> = {
     view?: EditorView,
     idx?: number,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-  ) => React.ComponentClass | React.FC | React.ReactElement<any> | null;
+  ) =>
+    | React.ComponentType<React.PropsWithChildren<unknown>>
+    | React.ReactElement<any>
+    | null;
   hidden?: boolean;
 };
 

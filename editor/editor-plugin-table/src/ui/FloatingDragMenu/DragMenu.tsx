@@ -101,7 +101,7 @@ type DragMenuProps = {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
-  tablePreserveWidth?: boolean;
+  isTableScalingEnabled?: boolean;
 };
 
 type PluralOptionType = 'noOfCols' | 'noOfRows' | 'noOfCells' | null;
@@ -280,7 +280,7 @@ export const DragMenu = React.memo(
     mountPoint,
     scrollableElement,
     boundariesElement,
-    tablePreserveWidth,
+    isTableScalingEnabled,
   }: DragMenuProps & WrappedComponentProps) => {
     const { state, dispatch } = editorView;
     const { selection } = state;
@@ -313,7 +313,7 @@ export const DragMenu = React.memo(
       selectionRect,
       editorAnalyticsAPI,
       pluginConfig?.isHeaderRowRequired,
-      tablePreserveWidth,
+      isTableScalingEnabled,
     );
 
     const { menuItems, menuCallback } = convertToDropdownItems(

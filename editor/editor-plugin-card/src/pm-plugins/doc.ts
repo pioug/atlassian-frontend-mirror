@@ -648,15 +648,27 @@ export const getLinkNodeType = (
   }
 };
 
+type UpdateCardArgs = {
+  state: EditorState;
+  node: Node;
+  newAdf: DatasourceAdf | InlineCardAdf;
+  view: EditorView;
+  sourceEvent?: UIAnalyticsEvent;
+  isDeletingConfig?: boolean;
+  inputMethod?: string;
+};
+
 // Apply an update made from a datasource ui interaction
-export const updateCardViaDatasource = (
-  state: EditorState,
-  node: Node,
-  newAdf: DatasourceAdf | InlineCardAdf,
-  view: EditorView,
-  sourceEvent?: UIAnalyticsEvent,
-  isDeletingConfig?: boolean,
-) => {
+export const updateCardViaDatasource = (args: UpdateCardArgs) => {
+  const {
+    state,
+    node,
+    newAdf,
+    view,
+    sourceEvent,
+    isDeletingConfig,
+    inputMethod,
+  } = args;
   const {
     tr,
     selection: { from, to },
@@ -731,6 +743,7 @@ export const updateCardViaDatasource = (
   addLinkMetadata(state.selection, tr, {
     action: ACTION.UPDATED,
     sourceEvent,
+    inputMethod,
   });
 
   if (isDeletingConfig) {

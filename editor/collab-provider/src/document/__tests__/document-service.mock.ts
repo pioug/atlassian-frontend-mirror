@@ -6,10 +6,7 @@ import type { Config } from '../../types';
 
 jest.mock('../../analytics/analytics-helper');
 
-export const createMockService = (
-  config: Partial<Config> = {},
-  reconcileOnRecovery = false,
-) => {
+export const createMockService = (config: Partial<Config> = {}) => {
   let participantsServiceMock = {
     updateLastActive: jest.fn(),
     emitTelepointersFromSteps: jest.fn(),
@@ -40,7 +37,8 @@ export const createMockService = (
     onErrorHandledMock,
     metadataService,
     config.enableErrorOnFailedDocumentApply,
-    reconcileOnRecovery,
+    config.featureFlags?.reconcileOnRecovery,
+    config.featureFlags?.enableCatchupv2,
   );
 
   // @ts-expect-error - jest mock class
@@ -53,6 +51,7 @@ export const createMockService = (
     analyticsHelperMock,
     participantsServiceMock,
     fetchCatchupMock,
+    fetchCatchupv2Mock,
     fetchReconcileMock,
     providerEmitCallbackMock,
     sendMetadataMock,

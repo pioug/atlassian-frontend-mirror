@@ -9,7 +9,9 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
   addInlineComment,
   addLink,
+  alignCenter,
   alignLeft,
+  alignRight,
   clearFormatting,
   decreaseMediaSize,
   focusTableResizer,
@@ -344,10 +346,20 @@ export const formatting: (intl: IntlShape) => Format[] = ({
     type: 'alignment',
     keymap: () => alignLeft,
   },
-  {
-    name: formatMessage(alignmentMessages.alignRight),
-    type: 'alignment',
-  },
+  ...(getBooleanFF('platform.editor.text-alignment-keyboard-shortcuts')
+    ? [
+        {
+          name: formatMessage(alignmentMessages.alignCenter),
+          type: 'alignment',
+          keymap: () => alignCenter,
+        },
+        {
+          name: formatMessage(alignmentMessages.alignRight),
+          type: 'alignment',
+          keymap: () => alignRight,
+        },
+      ]
+    : []),
 ];
 const shortcutNamesWithoutKeymap: string[] = [
   'emoji',

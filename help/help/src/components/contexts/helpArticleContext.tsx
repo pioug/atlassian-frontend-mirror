@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Article, ArticleItem, ArticleFeedback } from '../../model/Article';
 import { articleId } from '../../model/Help';
@@ -32,16 +32,14 @@ export interface HelpArticleContextInterface {
 export const [useHelpArticleContext, CtxProvider] =
   createCtx<HelpArticleContextInterface>();
 
-export const HelpArticleContextProvider: React.FC<
-  HelpArticleContextInterface
-> = ({
+export const HelpArticleContextProvider = ({
   onGetHelpArticle,
   onHelpArticleLoadingFailTryAgainButtonClick,
   onWasHelpfulYesButtonClick,
   onWasHelpfulNoButtonClick,
   onWasHelpfulSubmit,
   children,
-}) => {
+}: PropsWithChildren<HelpArticleContextInterface>) => {
   return (
     <CtxProvider
       value={{

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import React, { Fragment, type PropsWithChildren } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -9,18 +9,18 @@ import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
 
 import { inviteTeamWrapperStyles } from './styles';
 
-const ID: React.FunctionComponent = props => (
+const ID = (props: PropsWithChildren<{}>) => (
   <Fragment>{props.children}</Fragment>
 );
 
-export interface InviteToEditButtonProps {
+export type InviteToEditButtonProps = PropsWithChildren<{
   onClick?: React.MouseEventHandler;
   selected?: boolean;
   Component?: React.ComponentType<InviteToEditComponentProps>;
   title: string;
-}
+}>;
 
-export const InviteToEditButton: React.FC<InviteToEditButtonProps> = props => {
+export const InviteToEditButton = (props: InviteToEditButtonProps) => {
   const { Component, onClick, selected, title } = props;
 
   const iconBefore = React.useMemo(

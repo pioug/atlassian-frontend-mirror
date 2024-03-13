@@ -26,7 +26,7 @@ import {
 var client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
 var index = client.initIndex('product_help_prod');
 
-const Example: React.FC = () => {
+const Example = () => {
   const onGetArticle = async (articleId: string): Promise<any> => {
     return new Promise((resolve, reject) => {
       index.search(

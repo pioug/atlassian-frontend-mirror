@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 78.12.1
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+- Updated dependencies
+
+## 78.12.0
+
+### Minor Changes
+
+- [#77222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77222) [`b924ab2b79f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b924ab2b79f3) - [ux] Add keyboard shortcuts for center and right text alignment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.11.7
+
+### Patch Changes
+
+- [#80237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80237) [`bdbdbabdf655`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdbdbabdf655) - Remove excess editor brower logging
+- [#80510](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80510) [`d1ef61df58a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1ef61df58a5) - [ux] Adds hover interaction for lozenges in extensions
+
 ## 78.11.6
 
 ### Patch Changes

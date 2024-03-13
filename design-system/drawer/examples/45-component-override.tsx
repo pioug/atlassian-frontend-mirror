@@ -12,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
-import { B50, N30A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
@@ -42,10 +41,10 @@ const iconButtonStyles = css({
   lineHeight: 1,
   marginBlockEnd: token('space.200', '16px'),
   '&:hover': {
-    backgroundColor: token('color.background.neutral.subtle.hovered', N30A),
+    backgroundColor: token('color.background.neutral.subtle.hovered'),
   },
   '&:active': {
-    backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+    backgroundColor: token('color.background.neutral.subtle.pressed'),
     outline: 0,
   },
 });
@@ -64,7 +63,7 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({
       style={{
         alignItems: 'center',
         boxSizing: 'border-box',
-        color: token('color.text.subtle', N500),
+        color: token('color.text.subtle'),
         display: 'flex',
         flexShrink: 0,
         flexDirection: 'column',

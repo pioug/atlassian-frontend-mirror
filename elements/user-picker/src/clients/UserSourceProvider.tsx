@@ -1,4 +1,5 @@
 import React, {
+  PropsWithChildren,
   createContext,
   useContext,
   useEffect,
@@ -13,10 +14,10 @@ export interface UserSourceContext {
 
 const ExusUserSourceContext = createContext<Partial<UserSourceContext>>({});
 
-export const ExusUserSourceProvider: React.FC<UserSourceContext> = ({
+export const ExusUserSourceProvider = ({
   fetchUserSource,
   children,
-}) => (
+}: PropsWithChildren<UserSourceContext>) => (
   <ExusUserSourceContext.Provider value={{ fetchUserSource }}>
     {children}
   </ExusUserSourceContext.Provider>

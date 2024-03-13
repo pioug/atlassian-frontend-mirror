@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import isEqual from 'lodash/isEqual';
 
@@ -15,6 +15,7 @@ import {
   DatasourceResponseSchemaProperty,
   DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 
@@ -115,6 +116,7 @@ export const useDatasourceTableState = ({
     useState<DatasourceTableState['extensionKey']>();
   const [providerName, setProviderName] =
     useState<DatasourceTableState['providerName']>(undefined);
+  const abortController = useRef(new AbortController());
 
   const { getDatasourceData, getDatasourceDetails } =
     useDatasourceClientExtension();
@@ -188,7 +190,7 @@ export const useDatasourceTableState = ({
 
       /*Jira adds identifier fields like id and key to all data responses
       Since defaultProperties already send back the keyField, we are accounting only
-      for the idField when we are using defaulProperties
+      for the idField when we are using defaultProperties
       */
       if (
         properties.length > fieldKeys.length + idFieldCount + keyFieldCount &&
@@ -217,6 +219,23 @@ export const useDatasourceTableState = ({
 
   const onNextPage = useCallback(
     async (requestInfo: onNextPageProps = {}) => {
+      let currentAbortController: AbortController | undefined;
+      if (
+        getBooleanFF(
+          'platform.linking-platform.datasource.enable-abort-controller',
+        )
+      ) {
+        /**
+         * Abort whichever request was made before this one.
+         */
+        abortController.current.abort();
+        /**
+         * Setup new abort controller for this request.
+         */
+        abortController.current = new AbortController();
+        currentAbortController = abortController.current;
+      }
+
       if (!parameters) {
         return;
       }
@@ -253,6 +272,19 @@ export const useDatasourceTableState = ({
           shouldForceRequest,
         );
 
+        if (
+          getBooleanFF(
+            'platform.linking-platform.datasource.enable-abort-controller',
+          )
+        ) {
+          /**
+           * Let the response finish and store in cache, but throw error if signal is aborted
+           */
+          if (currentAbortController?.signal.aborted) {
+            throw new Error('Aborted');
+          }
+        }
+
         setExtensionKey(extensionKey);
         setProviderName(providerName);
 
@@ -266,14 +298,21 @@ export const useDatasourceTableState = ({
         setNextCursor(nextPageCursor);
 
         setResponseItems(currentResponseItems => {
-          // FIXME EDM-8977 (https://product-fabric.atlassian.net/browse/EDM-8977)
-          // once the onNextPage and reset loop issue has been thoroughly investigated
-          // in the above card, remove this isEqual check, ensure onNextPage isn't called twice
-          const hasIdenticalResponseItems = isEqual(
-            currentResponseItems,
-            items,
-          );
-          if (hasIdenticalResponseItems || shouldRequestFirstPage) {
+          if (
+            !getBooleanFF(
+              'platform.linking-platform.datasource.enable-abort-controller',
+            )
+          ) {
+            const hasIdenticalResponseItems = isEqual(
+              currentResponseItems,
+              items,
+            );
+            if (hasIdenticalResponseItems || shouldRequestFirstPage) {
+              return items;
+            }
+            return [...currentResponseItems, ...items];
+          }
+          if (shouldRequestFirstPage) {
             return items;
           }
           return [...currentResponseItems, ...items];
@@ -306,6 +345,22 @@ export const useDatasourceTableState = ({
         }
         setStatus('resolved');
       } catch (e: any) {
+        if (
+          getBooleanFF(
+            'platform.linking-platform.datasource.enable-abort-controller',
+          )
+        ) {
+          if (e.message === 'Aborted') {
+            /**
+             * If the request was aborted, we don't want to change the status of the table
+             * as we are already loading the next request attempt
+             *
+             * Is not an exceptional state, do not need to captureError
+             */
+            return;
+          }
+        }
+
         captureError('onNextPage', e);
 
         if (e instanceof Response && e.status === 401) {
@@ -372,7 +427,6 @@ export const useDatasourceTableState = ({
     }
   }, [
     lastRequestedFieldKeys,
-    loadDatasourceDetails,
     onNextPage,
     parameters,
     shouldForceRequest,
@@ -408,6 +462,16 @@ export const useDatasourceTableState = ({
       }
     }
   }, [fieldKeys, lastRequestedFieldKeys, responseItems, reset, onNextPage]);
+
+  useEffect(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.enable-abort-controller',
+      )
+    ) {
+      return () => abortController.current.abort();
+    }
+  }, []);
 
   return {
     status,

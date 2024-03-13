@@ -1,4 +1,4 @@
-import React, { PureComponent, ContextType, FC, useContext } from 'react';
+import React, { PureComponent, ContextType, useContext } from 'react';
 import * as sinon from 'sinon';
 import { render } from '@testing-library/react';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
@@ -16,7 +16,7 @@ class ClassContextChild extends PureComponent {
   }
 }
 
-const FunctionContextChild: FC = ({ children }) => {
+const FunctionContextChild = () => {
   const emojiContext = useContext(EmojiContext);
   return (
     <span>{emojiContext?.emoji.emojiProvider.findByShortName('foo')}</span>

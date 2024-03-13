@@ -4,9 +4,6 @@ import {
 } from '@atlaskit/editor-common/utils';
 
 import { TableCssClassName as ClassName } from '../types';
-import type { ElementContentRects } from '../types';
-
-const SELECTOR_TABLE_LEAFS = `.${ClassName.TABLE_CELL}, .${ClassName.TABLE_HEADER_CELL}`;
 
 export const isCell = (node: HTMLElement | null): boolean => {
   return Boolean(
@@ -118,29 +115,25 @@ export const isDragCornerButton = (node: HTMLElement | null) =>
  *
  * the same is valid to the right side.
  */
-
+/**
+ * This can be used with mouse events to determine the left/right side of the target the pointer is closest too.
+ *
+ * WARNING: This metod reads properties which can trigger a reflow; use this wisely.
+ *
+ * @param mouseEvent
+ * @param gapInPixels
+ * @returns
+ */
 export const getMousePositionHorizontalRelativeByElement = (
   mouseEvent: MouseEvent,
-  elementContentRects?: ElementContentRects,
+  offsetX: number,
   gapInPixels?: number,
-  isDragAndDropEnabled?: boolean,
 ): 'left' | 'right' | null => {
   const element = mouseEvent.target;
 
   if (element instanceof HTMLElement) {
-    let width, x;
-
-    if (isDragAndDropEnabled) {
-      // mouse event fires for new overlapping column controls, so the cell can not get detected. Get width
-      // directly from element that will be .pm-table-drag-columns-floating-insert-dot-wrapper
-      width = element.clientWidth;
-    } else {
-      const closestCell = element.closest(SELECTOR_TABLE_LEAFS);
-
-      const id = closestCell?.id ?? '';
-      width = elementContentRects?.[id]?.width ?? 0;
-    }
-    x = mouseEvent.offsetX;
+    const width = element.clientWidth; // reflow
+    const x = !Number.isNaN(offsetX) ? offsetX : mouseEvent.offsetX; // reflow
 
     if (width <= 0) {
       return null;

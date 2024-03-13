@@ -1,5 +1,5 @@
 import { layers } from '@atlaskit/theme/constants';
-import React, { type FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { lorem, onClose, onOpen } from '../example-helpers';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -33,7 +33,9 @@ const loremContent = (
   </div>
 );
 
-export const EmojiTextInput: FC<TypeaheadProps> = (props) => {
+export const EmojiTextInput = (
+  props: React.PropsWithChildren<TypeaheadProps>,
+) => {
   const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
   const { onSelection, label, emojiProvider, position } = props;
   const target = position ? '#demo-input' : undefined;

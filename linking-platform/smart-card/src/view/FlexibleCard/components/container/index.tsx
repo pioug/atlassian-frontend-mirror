@@ -222,7 +222,7 @@ const getLayeredLink = (
  * @internal
  * @see Block
  */
-const Container: React.FC<ContainerProps> = ({
+const Container = ({
   children,
   clickableContainer = false,
   hideBackground = false,
@@ -238,7 +238,7 @@ const Container: React.FC<ContainerProps> = ({
   status,
   testId = 'smart-links-container',
   theme = SmartLinkTheme.Link,
-}) => {
+}: ContainerProps) => {
   di(HoverCardControl);
 
   const context = useContext(FlexibleUiContext);

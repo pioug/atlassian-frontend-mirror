@@ -9,7 +9,6 @@ import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import UnderlineIcon from '@atlaskit/icon/glyph/editor/underline';
-import { N20, N40 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -17,7 +16,7 @@ import Tooltip from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Toolbar = styled.div`
-  background-color: ${token('color.background.neutral', N20)};
+  background-color: ${token('color.background.neutral')};
   border-radius: ${borderRadius}px;
   display: flex;
   padding: 5px;
@@ -33,7 +32,7 @@ const Action = styled.button`
   width: 36px;
 
   &:hover {
-    background-color: ${token('color.background.neutral.hovered', N40)};
+    background-color: ${token('color.background.neutral.hovered')};
   }
 `;
 

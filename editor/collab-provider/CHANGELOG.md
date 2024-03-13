@@ -1,5 +1,18 @@
 # @atlaskit/collab-provider
 
+## 9.25.9
+
+### Patch Changes
+
+- [#80925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80925) [`40840421554a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40840421554a) - Refactor the way we mock FF values
+- Updated dependencies
+
+## 9.25.8
+
+### Patch Changes
+
+- [#80582](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80582) [`69142cccb20b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69142cccb20b) - Add test cases for catchupv2
+
 ## 9.25.7
 
 ### Patch Changes

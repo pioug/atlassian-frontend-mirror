@@ -1,4 +1,4 @@
-import React, { type FC, useRef, type ChangeEventHandler } from 'react';
+import React, { useRef, type ChangeEventHandler } from 'react';
 
 import AkButton from '@atlaskit/button/standard-button';
 
@@ -14,7 +14,7 @@ export interface Props {
 export const chooseFileButtonTestId = 'choose-file-button';
 export const fileUploadInputTestId = 'file-upload';
 
-const FileChooser: FC<Props> = (props) => {
+const FileChooser = (props: Props) => {
   const { accept, ariaDescribedBy, isDisabled, label, onChange, onClick } =
     props;
   const filePickerRef = useRef<HTMLInputElement>(null);

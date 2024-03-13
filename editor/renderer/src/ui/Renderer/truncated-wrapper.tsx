@@ -10,11 +10,11 @@ export interface TruncatedWrapperProps {
   children?: React.ReactNode;
 }
 
-interface FadeOutProps {
+type FadeOutProps = React.PropsWithChildren<{
   height: number;
   fadeHeight: number;
   backgroundColor: string;
-}
+}>;
 
 const fadeOutStyles = (
   maxHeight: number,
@@ -38,7 +38,7 @@ const fadeOutStyles = (
   }
 `;
 
-const FadeOut = (props: React.PropsWithChildren<FadeOutProps>) => {
+const FadeOut = (props: FadeOutProps) => {
   const { children, backgroundColor, fadeHeight, height } = props;
   const top = height - fadeHeight;
   const styles = fadeOutStyles(height, top, backgroundColor);

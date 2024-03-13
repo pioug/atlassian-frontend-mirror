@@ -1,4 +1,4 @@
-import React, { type FC, useState } from 'react';
+import React, { useState } from 'react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -16,7 +16,7 @@ import Form, { Field, FormFooter } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import Button from '@atlaskit/button';
 
-const EmojiPickerWithUpload: FC = () => {
+const EmojiPickerWithUpload = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState<EmojiId>();
   const [enablePopup, setEnablePopup] = useState(false);

@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useState } from 'react';
+import React, {
+  createContext,
+  PropsWithChildren,
+  useCallback,
+  useContext,
+  useState,
+} from 'react';
 
 import { LinkCreateProps } from '../../common/types';
 
@@ -18,9 +24,12 @@ export const FormContext = createContext<FormContextType>({
   enableEditView: undefined,
 });
 
-const FormContextProvider: React.FC<{
+const FormContextProvider = ({
+  enableEditView,
+  children,
+}: PropsWithChildren<{
   enableEditView?: (editButtonClicked: boolean) => void;
-}> = ({ enableEditView, children }) => {
+}>) => {
   const [error, setError] = useState<string | undefined>();
 
   // Sets the form footer error message

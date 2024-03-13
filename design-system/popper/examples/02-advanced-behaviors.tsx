@@ -3,7 +3,6 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { B500, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -31,14 +30,11 @@ const Popup = styled.div`
   text-overflow: 'ellipsis';
   transition: opacity 200ms ease-in-out;
   opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
-  box-shadow: ${token(
-    'elevation.shadow.overlay',
-    `0 8px 16px -4px ${N50A}, 0 0 1px ${N60A}`,
-  )};
+  box-shadow: ${token('elevation.shadow.overlay')};
 `;
 
 const ReferenceBox = styled.div`
-  background: ${B500};
+  background: ${token('color.background.brand.bold')};
   padding: ${token('space.100', '8px')};
   border-radius: ${borderRadius}px;
   color: white;

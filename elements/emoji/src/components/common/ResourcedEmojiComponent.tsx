@@ -1,10 +1,4 @@
-import React, {
-  type FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import type { EmojiProvider } from '../../api/EmojiResource';
 import { defaultEmojiHeight } from '../../util/constants';
 import {
@@ -81,7 +75,7 @@ enum ResourcedEmojiComponentRenderStatesEnum {
   EMOJI = 'EMOJI',
 }
 
-export const ResourcedEmojiComponent: FC<Props> = (props) => {
+export const ResourcedEmojiComponent = (props: Props) => {
   const {
     emojiProvider,
     emojiId,

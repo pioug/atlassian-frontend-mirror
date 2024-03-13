@@ -47,7 +47,7 @@ const EXPECTED_COMMON_ATTRIBUTES = {
   destinationObjectType: 'spaghetti-resource',
 };
 
-const ThrowError: React.FC = () => {
+const ThrowError = () => {
   useEffect(() => {
     throw Error('Something went wrong.');
   }, []);

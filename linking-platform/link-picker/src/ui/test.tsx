@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { screen } from '@testing-library/dom';
 import { waitForElementToBeRemoved } from '@testing-library/react';
@@ -84,9 +84,9 @@ describe('<ComposedLinkPicker />', () => {
     });
 
     it('should render a customized root component', async () => {
-      const CustomRootComponent: React.ComponentType<
-        Partial<LinkPickerProps>
-      > = ({ children }) => {
+      const CustomRootComponent = ({
+        children,
+      }: PropsWithChildren<Partial<LinkPickerProps>>) => {
         return <div data-testid="custom-test-id">{children}</div>;
       };
       setupLinkPicker({

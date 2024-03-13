@@ -31,7 +31,7 @@ interface StyledProps {
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Target = styled.button<StyledProps>`
   background-color: ${(p) =>
-    color[p.color] || token('color.background.brand.bold', colors.B400)};
+    color[p.color] || token('color.background.brand.bold')};
   border-radius: 3px;
   border: 0;
   box-sizing: initial;
@@ -48,7 +48,7 @@ export const Target = styled.button<StyledProps>`
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const BigTarget = styled.button<StyledProps>`
   background-color: ${(p) =>
-    color[p.color] || token('color.background.brand.bold', colors.B400)};
+    color[p.color] || token('color.background.brand.bold')};
   border-radius: 3px;
   border: 0;
   box-sizing: initial;

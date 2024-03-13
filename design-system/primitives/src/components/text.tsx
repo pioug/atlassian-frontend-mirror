@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import {
-  BodyFont,
+  FontSize,
   fontStylesMap,
   FontWeight,
   fontWeightStylesMap,
@@ -50,9 +50,13 @@ type TextPropsBase = {
    */
   textAlign?: TextAlign;
   /**
-   * Text variant.
+   * @deprecated. Use size instead.
    */
-  variant?: BodyFont;
+  variant?: 'body' | 'body.small' | 'body.large';
+  /**
+   * Text size.
+   */
+  size?: FontSize;
   /**
    * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
    */
@@ -92,6 +96,12 @@ const truncationStyles = css({
 const wordBreakMap = {
   breakAll: css({ wordBreak: 'break-all' }),
 };
+
+const tempVariantSizeMap = {
+  body: 'medium',
+  'body.small': 'small',
+  'body.large': 'large',
+} as const;
 
 const HasTextAncestorContext = createContext(false);
 const useHasTextAncestor = () => useContext(HasTextAncestorContext);
@@ -140,8 +150,10 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     textAlign,
     testId,
     id,
-    variant = 'body',
+    size = 'medium',
+    variant,
     weight,
+    maxLines,
   } = props;
 
   invariant(
@@ -149,11 +161,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
   );
 
-  // Remove the ability to bypass typescript errors for maxLines
-  let maxLines;
-  if ('maxLines' in props && variant.includes('body')) {
-    maxLines = props.maxLines;
-  }
+  const localSize = (variant && tempVariantSizeMap[variant]) || size;
 
   const hasTextAncestor = useHasTextAncestor();
   const color = useColor(colorProp, hasTextAncestor);
@@ -162,7 +170,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     <Component
       css={[
         resetStyles,
-        fontStylesMap[variant],
+        fontStylesMap[localSize],
         color && textColorStylesMap[color],
         maxLines && truncationStyles,
         maxLines === 1 && wordBreakMap.breakAll,

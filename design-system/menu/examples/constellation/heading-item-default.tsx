@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { N800, R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { HeadingItem, MenuGroup, Section } from '../../src';
@@ -8,7 +7,7 @@ import { HeadingItem, MenuGroup, Section } from '../../src';
 export default () => (
   <div
     style={{
-      color: token('color.text', N800),
+      color: token('color.text'),
       backgroundColor: token('elevation.surface.overlay', '#fff'),
       boxShadow: token(
         'elevation.shadow.overlay',
@@ -26,7 +25,7 @@ export default () => (
       <Section>
         <HeadingItem
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          cssFn={() => ({ color: token('color.text.danger', R300) })}
+          cssFn={() => ({ color: token('color.text.danger') })}
         >
           A custom Heading Item
         </HeadingItem>

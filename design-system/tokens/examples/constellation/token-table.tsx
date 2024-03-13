@@ -10,7 +10,6 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import DynamicTable from '@atlaskit/dynamic-table';
 import { Box, xcss } from '@atlaskit/primitives';
-import { N50A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
@@ -149,10 +148,7 @@ const overflowStyles = css({
 const shadowStyles = css({
   width: '10px',
   position: 'absolute',
-  boxShadow: token(
-    'elevation.shadow.overflow',
-    `2px 0px 8px ${N50A}, 1px 0px 0px ${N60A}`,
-  ),
+  boxShadow: token('elevation.shadow.overflow'),
   insetBlockEnd: '-10px',
   insetBlockStart: '-10px',
 });

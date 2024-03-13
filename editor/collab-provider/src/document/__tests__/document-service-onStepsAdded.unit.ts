@@ -84,6 +84,53 @@ describe('onStepsAdded', () => {
     expect(service.throttledCatchup).not.toBeCalled();
   });
 
+  describe('enableCatchupv2 = true', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+      const mocks = createMockService({
+        featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+      });
+      analyticsMock = mocks.analyticsHelperMock;
+      participantsServiceMock = mocks.participantsServiceMock;
+      service = mocks.service;
+      jest.spyOn(service, 'getCurrentPmVersion');
+      // @ts-ignore
+      processStepsMock = jest.spyOn(service, 'processSteps');
+      // @ts-ignore access private variable
+      queueStepsSpy = jest.spyOn(service.stepQueue, 'queueSteps');
+      jest.spyOn(service, 'throttledCatchupv2').mockImplementation();
+      service.getCurrentState = jest.fn().mockResolvedValue('mockState');
+      // @ts-ignore access private variable
+      onErrorHandledMock = service.onErrorHandled;
+    });
+    afterEach(() => jest.clearAllMocks());
+
+    it('Adds the steps to be processed later by calling queueSteps when the version is in the future (we have a step gap)', () => {
+      const stepAddData = {
+        steps: [{ step: 'fake' }],
+        version: 3,
+      } as unknown as StepsPayload;
+      (service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
+      service.onStepsAdded(stepAddData);
+      expect(queueStepsSpy).toBeCalledTimes(1);
+      expect(queueStepsSpy).toBeCalledWith(stepAddData);
+      expect(processStepsMock).not.toBeCalled();
+      expect(service.throttledCatchupv2).toBeCalledTimes(1);
+    });
+
+    it('Does nothing when the step received has already been received', () => {
+      const stepAddData = {
+        steps: [{ step: 'fake' }],
+        version: 3,
+      } as unknown as StepsPayload;
+      (service.getCurrentPmVersion as jest.Mock).mockReturnValue(5);
+      service.onStepsAdded(stepAddData);
+      expect(queueStepsSpy).not.toBeCalled();
+      expect(processStepsMock).not.toBeCalled();
+      expect(service.throttledCatchupv2).not.toBeCalled();
+    });
+  });
+
   describe('Handles errors', () => {
     it('handles errors thrown on getCurrentPmVersion', () => {
       const stepAddData = {

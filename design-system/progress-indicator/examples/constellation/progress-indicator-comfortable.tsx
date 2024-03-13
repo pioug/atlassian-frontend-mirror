@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -13,7 +13,7 @@ const containerStyles = css({
   justifyContent: 'space-between',
 });
 
-const ComfortableExample: FC<{}> = () => {
+const ComfortableExample = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [values] = useState(['first', 'second', 'third']);
 

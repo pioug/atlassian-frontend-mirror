@@ -26,7 +26,7 @@ export const createTypographyStylesFromTemplate = () => {
   return (
     prettier.format(
       `
-const headingVariantStylesMap = {
+const headingSizeStylesMap = {
   ${headingTokens
     .map(token => {
       return `
@@ -46,7 +46,7 @@ const headingVariantStylesMap = {
         parser: 'typescript',
         plugins: [parserTypeScript],
       },
-    ) + `\nexport type HeadingVariant = keyof typeof headingVariantStylesMap;\n`
+    ) + `\nexport type HeadingSize = keyof typeof headingSizeStylesMap;\n`
   );
 };
 

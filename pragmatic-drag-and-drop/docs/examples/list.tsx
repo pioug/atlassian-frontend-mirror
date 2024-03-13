@@ -47,8 +47,11 @@ type ItemPosition = 'first' | 'last' | 'middle' | 'only';
 
 type CleanupFn = () => void;
 
-type ListContextProps = {
-  registerItem: (args: { id: string; element: HTMLElement }) => CleanupFn;
+type ItemEntry = { itemId: string; element: HTMLElement };
+
+type ListContextValue = {
+  getListLength: () => number;
+  registerItem: (entry: ItemEntry) => CleanupFn;
   reorderItem: (args: {
     startIndex: number;
     indexOfTarget: number;
@@ -57,7 +60,7 @@ type ListContextProps = {
   instanceId: symbol;
 };
 
-const ListContext = createContext<ListContextProps | null>(null);
+const ListContext = createContext<ListContextValue | null>(null);
 
 function useListContext() {
   const listContext = useContext(ListContext);
@@ -166,6 +169,68 @@ const itemLabelStyles = xcss({
   overflow: 'hidden',
 });
 
+function DropDownContent({
+  position,
+  index,
+}: {
+  position: ItemPosition;
+  index: number;
+}) {
+  const { reorderItem, getListLength } = useListContext();
+
+  const isMoveUpDisabled = position === 'first' || position === 'only';
+  const isMoveDownDisabled = position === 'last' || position === 'only';
+
+  const moveToTop = useCallback(() => {
+    reorderItem({
+      startIndex: index,
+      indexOfTarget: 0,
+      closestEdgeOfTarget: null,
+    });
+  }, [index, reorderItem]);
+
+  const moveUp = useCallback(() => {
+    reorderItem({
+      startIndex: index,
+      indexOfTarget: index - 1,
+      closestEdgeOfTarget: null,
+    });
+  }, [index, reorderItem]);
+
+  const moveDown = useCallback(() => {
+    reorderItem({
+      startIndex: index,
+      indexOfTarget: index + 1,
+      closestEdgeOfTarget: null,
+    });
+  }, [index, reorderItem]);
+
+  const moveToBottom = useCallback(() => {
+    reorderItem({
+      startIndex: index,
+      indexOfTarget: getListLength() - 1,
+      closestEdgeOfTarget: null,
+    });
+  }, [index, getListLength, reorderItem]);
+
+  return (
+    <DropdownItemGroup>
+      <DropdownItem onClick={moveToTop} isDisabled={isMoveUpDisabled}>
+        Move to top
+      </DropdownItem>
+      <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
+        Move up
+      </DropdownItem>
+      <DropdownItem onClick={moveDown} isDisabled={isMoveDownDisabled}>
+        Move down
+      </DropdownItem>
+      <DropdownItem onClick={moveToBottom} isDisabled={isMoveDownDisabled}>
+        Move to bottom
+      </DropdownItem>
+    </DropdownItemGroup>
+  );
+}
+
 function ListItem({
   item,
   index,
@@ -191,14 +256,14 @@ function ListItem({
 
     const element = ref.current;
 
-    const dragData = { id: item.id, instanceId };
+    const data = getItemData({ item, index, instanceId });
 
     return combine(
-      registerItem({ id: item.id, element }),
+      registerItem({ itemId: item.id, element }),
       draggable({
         element,
         dragHandle: dragHandleRef.current,
-        getInitialData: () => getItemData({ item, index, instanceId }),
+        getInitialData: () => data,
         onGenerateDragPreview({ nativeSetDragImage }) {
           setCustomNativeDragPreview({
             nativeSetDragImage,
@@ -228,7 +293,7 @@ function ListItem({
           );
         },
         getData({ input }) {
-          return attachClosestEdge(dragData, {
+          return attachClosestEdge(data, {
             element,
             input,
             allowedEdges: ['top', 'bottom'],
@@ -296,7 +361,7 @@ function ListItem({
             )}
           >
             <DropdownItemGroup>
-              <LazyDropdownContent position={position} index={index} />
+              <DropDownContent position={position} index={index} />
             </DropdownItemGroup>
           </DropdownMenu>
           <Box xcss={itemLabelStyles}>{item.label}</Box>
@@ -314,46 +379,6 @@ function ListItem({
           draggableState.container,
         )}
     </Fragment>
-  );
-}
-
-function LazyDropdownContent({
-  position,
-  index,
-}: {
-  position: ItemPosition;
-  index: number;
-}) {
-  const { reorderItem } = useListContext();
-
-  const isMoveUpDisabled = position === 'first' || position === 'only';
-  const isMoveDownDisabled = position === 'last' || position === 'only';
-
-  const moveUp = useCallback(() => {
-    reorderItem({
-      startIndex: index,
-      indexOfTarget: index - 1,
-      closestEdgeOfTarget: null,
-    });
-  }, [index, reorderItem]);
-
-  const moveDown = useCallback(() => {
-    reorderItem({
-      startIndex: index,
-      indexOfTarget: index + 1,
-      closestEdgeOfTarget: null,
-    });
-  }, [index, reorderItem]);
-
-  return (
-    <DropdownItemGroup>
-      <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
-        Move up
-      </DropdownItem>
-      <DropdownItem onClick={moveDown} isDisabled={isMoveDownDisabled}>
-        Move down
-      </DropdownItem>
-    </DropdownItemGroup>
   );
 }
 
@@ -399,6 +424,24 @@ const containerStyles = xcss({
   borderColor: 'color.border',
 });
 
+function getItemRegistry() {
+  const registry = new Map<string, HTMLElement>();
+
+  function register({ itemId, element }: ItemEntry) {
+    registry.set(itemId, element);
+
+    return function unregister() {
+      registry.delete(itemId);
+    };
+  }
+
+  function getElement(itemId: string): HTMLElement | null {
+    return registry.get(itemId) ?? null;
+  }
+
+  return { register, getElement };
+}
+
 type ListState = {
   items: Item[];
   lastCardMoved: {
@@ -414,46 +457,10 @@ export default function ListExample() {
     items: defaultItems,
     lastCardMoved: null,
   });
+  const [registry] = useState(getItemRegistry);
 
-  const registryRef = useRef(new Map<string, HTMLElement>());
-  const registerItem = useCallback(
-    ({ id, element }: { id: string; element: HTMLElement }) => {
-      const registry = registryRef.current;
-      if (!registry) {
-        return () => {};
-      }
-      registry.set(id, element);
-
-      return function unregisterItem() {
-        registry.delete(id);
-      };
-    },
-    [],
-  );
-
-  useEffect(() => {
-    if (lastCardMoved === null) {
-      return;
-    }
-
-    const { item, previousIndex, currentIndex, numberOfItems } = lastCardMoved;
-    const element = registryRef.current.get(item.id);
-    if (element) {
-      triggerPostMoveFlash(element);
-    }
-
-    liveRegion.announce(
-      `You've moved ${item.label} from position ${
-        previousIndex + 1
-      } to position ${currentIndex + 1} of ${numberOfItems}.`,
-    );
-  }, [lastCardMoved]);
-
-  useEffect(() => {
-    return () => {
-      liveRegion.cleanup();
-    };
-  }, []);
+  // Isolated instances of this component from one another
+  const [instanceId] = useState(() => Symbol('instance-id'));
 
   const reorderItem = useCallback(
     ({
@@ -498,8 +505,6 @@ export default function ListExample() {
     [],
   );
 
-  const [instanceId] = useState(() => Symbol('instance-id'));
-
   useEffect(() => {
     return monitorForElements({
       canMonitor({ source }) {
@@ -511,22 +516,23 @@ export default function ListExample() {
           return;
         }
 
-        const data = source.data;
-        if (!isItemData(data)) {
+        const sourceData = source.data;
+        const targetData = target.data;
+        if (!isItemData(sourceData) || !isItemData(targetData)) {
           return;
         }
 
         const indexOfTarget = items.findIndex(
-          item => item.id === target.data.id,
+          item => item.id === targetData.item.id,
         );
         if (indexOfTarget < 0) {
           return;
         }
 
-        const closestEdgeOfTarget = extractClosestEdge(target.data);
+        const closestEdgeOfTarget = extractClosestEdge(targetData);
 
         reorderItem({
-          startIndex: data.index,
+          startIndex: sourceData.index,
           indexOfTarget,
           closestEdgeOfTarget,
         });
@@ -534,13 +540,42 @@ export default function ListExample() {
     });
   }, [instanceId, items, reorderItem]);
 
-  const contextValue = useMemo(() => {
+  // once a drag is finished, we have some post drop actions to take
+  useEffect(() => {
+    if (lastCardMoved === null) {
+      return;
+    }
+
+    const { item, previousIndex, currentIndex, numberOfItems } = lastCardMoved;
+    const element = registry.getElement(item.id);
+    if (element) {
+      triggerPostMoveFlash(element);
+    }
+
+    liveRegion.announce(
+      `You've moved ${item.label} from position ${
+        previousIndex + 1
+      } to position ${currentIndex + 1} of ${numberOfItems}.`,
+    );
+  }, [lastCardMoved, registry]);
+
+  // cleanup the live region when this component is finished
+  useEffect(() => {
+    return function cleanup() {
+      liveRegion.cleanup();
+    };
+  }, []);
+
+  const getListLength = useCallback(() => items.length, [items.length]);
+
+  const contextValue: ListContextValue = useMemo(() => {
     return {
-      registerItem,
+      registerItem: registry.register,
       reorderItem,
       instanceId,
+      getListLength,
     };
-  }, [registerItem, reorderItem, instanceId]);
+  }, [registry.register, reorderItem, instanceId, getListLength]);
 
   return (
     <ListContext.Provider value={contextValue}>

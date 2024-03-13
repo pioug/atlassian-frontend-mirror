@@ -5,13 +5,12 @@ import { css, jsx } from '@emotion/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Popup, { PopupComponentProps } from '../src';
 
 const containerStyles = css({
-  backgroundColor: N700,
+  backgroundColor: token('color.background.neutral.bold'),
   borderRadius: token('border.radius', '3px'),
   ':focus': {
     outline: 'none',

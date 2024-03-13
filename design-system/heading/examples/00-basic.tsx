@@ -20,12 +20,12 @@ export default () => {
       </Stack>
       <Stack testId="headings" space="space.100">
         <Heading variant="xxlarge">xxlarge</Heading>
-        <Heading variant="xlarge">xlarge</Heading>
-        <Heading variant="large">large</Heading>
-        <Heading variant="medium">medium</Heading>
-        <Heading variant="small">small</Heading>
-        <Heading variant="xsmall">xsmall</Heading>
-        <Heading variant="xxsmall">xxsmall</Heading>
+        <Heading size="xlarge">xlarge</Heading>
+        <Heading size="large">large</Heading>
+        <Heading size="medium">medium</Heading>
+        <Heading size="small">small</Heading>
+        <Heading size="xsmall">xsmall</Heading>
+        <Heading size="xxsmall">xxsmall</Heading>
       </Stack>
     </Grid>
   );

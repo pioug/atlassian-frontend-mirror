@@ -1,5 +1,28 @@
 # @atlaskit/editor-core
 
+## 193.2.1
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 193.2.0
+
+### Minor Changes
+
+- [#77222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77222) [`b924ab2b79f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b924ab2b79f3) - [ux] Add keyboard shortcuts for center and right text alignment
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.1.2
+
+### Patch Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) - [ux] update border with from 2px to 1px with darker color to meet 3:1 color contrast for accessibility improvement
+- Updated dependencies
+
 ## 193.1.1
 
 ### Patch Changes

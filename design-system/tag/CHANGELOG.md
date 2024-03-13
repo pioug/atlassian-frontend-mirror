@@ -1,5 +1,12 @@
 # @atlaskit/tag
 
+## 12.0.2
+
+### Patch Changes
+
+- [#80621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80621) [`d3fa752a0e8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3fa752a0e8e) - Updates background color of the YellowLight tag varian to use the appropriate yellow token
+- Updated dependencies
+
 ## 12.0.1
 
 ### Patch Changes

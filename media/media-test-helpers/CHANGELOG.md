@@ -1,5 +1,17 @@
 # @atlaskit/media-test-helpers
 
+## 33.0.29
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 33.0.28
+
+### Patch Changes
+
+- [#80150](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80150) [`0a733b205b48`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a733b205b48) - suppressed a console.warn in development, updated an import to not use media-test-helpers
+
 ## 33.0.27
 
 ### Patch Changes

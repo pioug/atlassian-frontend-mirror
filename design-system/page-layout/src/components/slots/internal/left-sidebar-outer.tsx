@@ -10,7 +10,6 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
@@ -133,15 +132,9 @@ const LeftSidebarOuter = (
         // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           css={[
-            // feature flagged mobile viewport styles
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) && mobileStyles,
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) &&
-              isFlyoutOpen &&
-              mobileFlyoutStyles,
+            // mobile viewport styles
+            mobileStyles,
+            isFlyoutOpen && mobileFlyoutStyles,
 
             // generic styles
             outerStyles,

@@ -2,16 +2,6 @@ import React, { useEffect, useState } from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import {
-  B200,
-  B300,
-  N100,
-  N200,
-  N40,
-  N500,
-  N800,
-} from '@atlaskit/theme/colors';
-
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
@@ -55,7 +45,7 @@ const TokenBarChart = () => {
       title: {
         text: 'Unit test coverage',
         textStyle: {
-          color: getTokenValue('color.text', N800),
+          color: getTokenValue('color.text'),
           fontSize: 16,
         },
       },
@@ -66,7 +56,7 @@ const TokenBarChart = () => {
           .concat(['Today']),
         axisLine: {
           lineStyle: {
-            color: getTokenValue('color.border', N40),
+            color: getTokenValue('color.border'),
           },
         },
         axisTick: {
@@ -78,12 +68,12 @@ const TokenBarChart = () => {
         interval: 50,
         splitLine: {
           lineStyle: {
-            color: getTokenValue('color.border', N40),
+            color: getTokenValue('color.border'),
           },
         },
       },
       textStyle: {
-        color: getTokenValue('color.text.subtle', N500),
+        color: getTokenValue('color.text.subtle'),
       },
       series: [
         {
@@ -92,13 +82,13 @@ const TokenBarChart = () => {
             itemStyle: {
               color:
                 index === data.length - 1
-                  ? getTokenValue('color.chart.brand', B200)
-                  : getTokenValue('color.chart.neutral', N100),
+                  ? getTokenValue('color.chart.brand')
+                  : getTokenValue('color.chart.neutral'),
               emphasis: {
                 color:
                   index === data.length - 1
-                    ? getTokenValue('color.chart.brand.hovered', B300)
-                    : getTokenValue('color.chart.neutral.hovered', N200),
+                    ? getTokenValue('color.chart.brand.hovered')
+                    : getTokenValue('color.chart.neutral.hovered'),
               },
             },
           })),

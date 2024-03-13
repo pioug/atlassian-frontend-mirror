@@ -109,14 +109,23 @@ const getArguments = (
 
   args.push({
     type: 'declaration',
-    // Make the property camelCase
-    property: property
-      .trim()
-      .replace(/-[a-z]/g, (match) => match[1].toUpperCase()),
+    property: getPropertyForDeclaration(property),
     value: getValue(),
   });
 
   return args;
+};
+
+/**
+ * Trims the property value. Converts it to camelCase if it isn't a variable.
+ */
+const getPropertyForDeclaration = (property: string): string => {
+  const trimmed = property.trim();
+  if (trimmed.startsWith('--')) {
+    return trimmed;
+  }
+  // Make the property camelCase if it isn't a CSS variable
+  return trimmed.replace(/-[a-z]/g, (match) => match[1].toUpperCase());
 };
 
 const getSelectorValue = (

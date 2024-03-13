@@ -1,4 +1,9 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  PropsWithChildren,
+} from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { createMockClient } from 'mock-apollo-client';
 import { OptionData } from '@atlaskit/user-picker';
@@ -11,10 +16,14 @@ import { getRecommendations } from '../example-helpers/get-recommendations';
 import { useEndpointMocks } from '../example-helpers/mock-endpoints';
 import '../example-helpers/mock-ufo';
 
-const ExampleCheckbox: React.FC<{
+const ExampleCheckbox = ({
+  isChecked,
+  setIsChecked,
+  children,
+}: PropsWithChildren<{
   isChecked: boolean;
   setIsChecked: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ isChecked, setIsChecked, children }) => (
+}>) => (
   <p>
     <label>
       <input
@@ -27,7 +36,7 @@ const ExampleCheckbox: React.FC<{
   </p>
 );
 
-const Example: React.FC = () => {
+const Example = () => {
   const [ursRequestsSucceed, setUrsRequestsSucceed] = useState(false);
   const [fallbackRequestsSucceed, setFallbackRequestsSucceed] = useState(true);
   useEndpointMocks({ failRecommendations: !ursRequestsSucceed });

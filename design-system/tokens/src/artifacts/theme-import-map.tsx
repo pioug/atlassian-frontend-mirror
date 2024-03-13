@@ -6,7 +6,7 @@
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::6c438d052bfcec2f42bfb917a01beef9>>
+ * @codegen <<SignedSource::63d467c8d0d48afd8fdc4e213175480c>>
  * @codegenCommand yarn build tokens
  */
 
@@ -67,16 +67,6 @@ const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ defau
     import(
       /* webpackChunkName: "@atlaskit-internal_atlassian-shape" */
       './themes/atlassian-shape'
-    ),
-  'light-new-input-border': () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_atlassian-light-new-input-border" */
-      './themes/atlassian-light-new-input-border'
-    ),
-  'dark-new-input-border': () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_atlassian-dark-new-input-border" */
-      './themes/atlassian-dark-new-input-border'
     ),
   'typography-minor3': () =>
     import(

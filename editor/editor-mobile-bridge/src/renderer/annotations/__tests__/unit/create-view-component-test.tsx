@@ -19,7 +19,9 @@ let container: HTMLElement | null;
 describe('Mobile Renderer: Annotations/create-view-component', () => {
   describe('#ViewComponent', () => {
     let deleteAnnotationMock: jest.Mock;
-    let ViewComponent: React.FC<InlineCommentViewComponentProps>;
+    let ViewComponent: React.ComponentType<
+      React.PropsWithChildren<InlineCommentViewComponentProps>
+    >;
     let root: any; // Change to Root once we go full React 18
 
     beforeEach(async () => {

@@ -1,7 +1,7 @@
 /**@jsx jsx */
 /**@jsxFrag */
 
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
@@ -59,7 +59,7 @@ type UserData = {
 
 ufologger.enable();
 
-const WrapperWithMarginTop: React.FC = ({ children }) => (
+const WrapperWithMarginTop = ({ children }: PropsWithChildren<{}>) => (
   <div css={{ marginTop: 10 }}>{children}</div>
 );
 
@@ -222,7 +222,7 @@ const renderCustomTriggerButton: RenderCustomTriggerButton = (
   </button>
 );
 
-const FooterWrapper: React.FC = ({ children }) => (
+const FooterWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div
     css={{
       marginTop: 8,
@@ -235,7 +235,7 @@ const FooterWrapper: React.FC = ({ children }) => (
   </div>
 );
 
-const FieldsFooterWrapper: React.FC = ({ children }) => (
+const FieldsFooterWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div
     css={{
       marginTop: 8,

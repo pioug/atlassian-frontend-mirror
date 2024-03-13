@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   withAnalyticsEvents,
@@ -12,11 +12,13 @@ import {
   fireMediaCardEvent,
   ErrorBoundaryErrorInfo,
 } from '../utils/analytics';
-export type MediaInlineAnalyticsErrorBoundaryProps = {
-  isSelected?: boolean;
-  data?: { [k: string]: any };
-  featureFlags?: MediaFeatureFlags;
-} & WithAnalyticsEventsProps;
+export type MediaInlineAnalyticsErrorBoundaryProps = PropsWithChildren<
+  {
+    isSelected?: boolean;
+    data?: { [k: string]: any };
+    featureFlags?: MediaFeatureFlags;
+  } & WithAnalyticsEventsProps
+>;
 
 type MediaInlineAnalyticsErrorBoundaryState = {
   hasError: boolean;

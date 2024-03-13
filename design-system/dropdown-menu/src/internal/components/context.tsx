@@ -1,7 +1,7 @@
 import React, {
   createContext,
-  FC,
   MutableRefObject,
+  PropsWithChildren,
   useMemo,
   useRef,
 } from 'react';
@@ -36,7 +36,7 @@ export const TrackMaxLevelContext = createContext<{
  * Context provider which maintains the maximun level of dropdown menu if it is nested
  *
  */
-export const TrackLevelProvider: FC = ({ children }) => {
+export const TrackLevelProvider = ({ children }: PropsWithChildren<{}>) => {
   const maxLevelRef = useRef(0);
 
   const value = useMemo(

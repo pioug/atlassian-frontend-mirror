@@ -5,7 +5,6 @@ import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { G300, G400, N500, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag from '../src';
@@ -43,33 +42,30 @@ const appearances: { [key: string]: { description: string; title: string } } = {
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
     normal: (
-      <Tick
-        label="Normal success"
-        primaryColor={token('color.icon.success', G300)}
-      />
+      <Tick label="Normal success" primaryColor={token('color.icon.success')} />
     ),
     info: (
       <Info
         label="Info"
-        secondaryColor={token('color.background.neutral.bold', N500)}
+        secondaryColor={token('color.background.neutral.bold')}
       />
     ),
     success: (
       <Tick
         label="Success"
-        secondaryColor={token('color.background.success.bold', G400)}
+        secondaryColor={token('color.background.success.bold')}
       />
     ),
     warning: (
       <Warning
         label="Warning"
-        secondaryColor={token('color.background.warning.bold', Y300)}
+        secondaryColor={token('color.background.warning.bold')}
       />
     ),
     error: (
       <Error
         label="Error"
-        secondaryColor={token('color.background.danger.bold', R300)}
+        secondaryColor={token('color.background.danger.bold')}
       />
     ),
   };

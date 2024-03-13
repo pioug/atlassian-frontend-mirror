@@ -1,5 +1,4 @@
-import { test as base } from '@af/integration-testing';
-import { expect } from '@af/integration-testing';
+import { test as base, expect as baseExpect } from '@af/integration-testing';
 
 import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { RendererProps } from '@atlaskit/renderer';
@@ -228,7 +227,7 @@ const customMatchers = {
     this: ReturnType<Expect['getState']>,
     doc: Record<string, unknown>,
   ) {
-    await expect(JSON.stringify(doc, null, 2)).toMatchSnapshot();
+    baseExpect(JSON.stringify(doc, null, 2)).toMatchSnapshot();
 
     return {
       pass: true,
@@ -238,6 +237,4 @@ const customMatchers = {
   },
 };
 
-expect.extend(customMatchers);
-
-export { expect };
+export const expect = baseExpect.extend(customMatchers);

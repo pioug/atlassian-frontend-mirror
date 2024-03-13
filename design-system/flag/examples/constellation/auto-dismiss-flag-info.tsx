@@ -2,7 +2,6 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import InfoIcon from '@atlaskit/icon/glyph/info';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives';
 
@@ -39,7 +38,7 @@ const AutoDismissFlagInfoExample = () => {
               icon={
                 <InfoIcon
                   label="Info"
-                  secondaryColor={token('color.background.neutral.bold', N500)}
+                  secondaryColor={token('color.background.neutral.bold')}
                 />
               }
               key={flagId}

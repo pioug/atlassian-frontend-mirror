@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { type FC, memo, useEffect, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import type {
   EmojiDescription,
   EmojiDescriptionWithVariations,
@@ -44,8 +44,8 @@ const extractAllTones = (
 };
 
 type PropsWithAnalyticsEventsPropsType = Props & WithAnalyticsEventsProps;
-export const ToneSelectorInternal: FC<PropsWithAnalyticsEventsPropsType> = (
-  props,
+export const ToneSelectorInternal = (
+  props: PropsWithAnalyticsEventsPropsType,
 ) => {
   const {
     createAnalyticsEvent,

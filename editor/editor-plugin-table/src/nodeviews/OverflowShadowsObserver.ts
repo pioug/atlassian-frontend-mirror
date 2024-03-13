@@ -1,3 +1,5 @@
+import rafSchedule from 'raf-schd';
+
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
@@ -82,11 +84,8 @@ export class OverflowShadowsObserver {
     if (!stickyCell) {
       return;
     }
-    const newStickyRowHeight = stickyCell.clientHeight + 1;
-    if (newStickyRowHeight! === this.stickyRowHeight) {
-      this.stickyRowHeight = newStickyRowHeight;
-      this.updateStickyShadows(this.stickyRowHeight);
-    }
+
+    this.updateStickyShadows();
   }
 
   private getStickyCell() {
@@ -96,8 +95,14 @@ export class OverflowShadowsObserver {
   }
 
   observeShadowSentinels = (isSticky?: boolean) => {
+    if (this.isSticky === isSticky) {
+      return;
+    }
+
     this.isSticky = !!isSticky;
 
+    // reset height
+    this.stickyRowHeight = 0;
     // update sticky shadows
     this.updateStickyShadowsHeightIfChanged();
 
@@ -126,7 +131,7 @@ export class OverflowShadowsObserver {
    * e.g. bounds on an IntersectionObserverEntry, otherwise proceed with
    * reading it from sticky cell
    */
-  updateStickyShadows = (stickyRowHeight?: number) => {
+  updateStickyShadows = rafSchedule((stickyRowHeight?: number) => {
     if (!this.isSticky) {
       return;
     }
@@ -134,21 +139,27 @@ export class OverflowShadowsObserver {
     if (!stickyCell || !this.wrapper?.parentElement) {
       return;
     }
-    const heightStyleOrCompute = `${
-      stickyRowHeight || stickyCell.clientHeight + 1
-    }px`;
-    // Use getElementsByClassName here for a live node list to capture
-    // sticky shadows
-    const liveRightShadows =
-      this.wrapper?.parentElement?.getElementsByClassName(
-        `${ClassName.TABLE_RIGHT_SHADOW}`,
-      );
-    const liveLeftShadows = this.wrapper?.parentElement?.getElementsByClassName(
-      `${ClassName.TABLE_LEFT_SHADOW}`,
-    );
-    updateShadowListForStickyStyles(heightStyleOrCompute, liveLeftShadows);
-    updateShadowListForStickyStyles(heightStyleOrCompute, liveRightShadows);
-  };
+
+    // Reflow Warning! - stickyCell.clientHeight
+    const newStickyRowHeight = stickyRowHeight || stickyCell.clientHeight + 1;
+
+    if (newStickyRowHeight !== this.stickyRowHeight) {
+      this.stickyRowHeight = newStickyRowHeight;
+      const heightStyleOrCompute = `${newStickyRowHeight}px`;
+      // Use getElementsByClassName here for a live node list to capture
+      // sticky shadows
+      const liveRightShadows =
+        this.wrapper?.parentElement?.getElementsByClassName(
+          `${ClassName.TABLE_RIGHT_SHADOW}`,
+        );
+      const liveLeftShadows =
+        this.wrapper?.parentElement?.getElementsByClassName(
+          `${ClassName.TABLE_LEFT_SHADOW}`,
+        );
+      updateShadowListForStickyStyles(heightStyleOrCompute, liveLeftShadows);
+      updateShadowListForStickyStyles(heightStyleOrCompute, liveRightShadows);
+    }
+  });
 
   dispose() {
     if (this.tableIntersectionObserver) {

@@ -14,7 +14,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    *
    * `subtle` will remove the borders, background, and icon.
    *
-   *NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
+   * **NOTE:** Appearance values will be ignored if styles are parsed through `selectProps`.
    */
   appearance?: Appearance;
   /**
@@ -99,7 +99,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps {
    */
   parseInputValue?: (date: string, dateFormat: string) => Date;
   /**
-   * A function for formatting the date displayed in the input. By default composes together [date-fn's parse method](https://date-fns.org/v1.29.0/docs/parse) and [date-fn's format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.
+   * A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.
    */
   formatDisplayLabel?: (value: string, dateFormat: string) => string;
   /**

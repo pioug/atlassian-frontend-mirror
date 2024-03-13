@@ -4,7 +4,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Info from '@atlaskit/icon/glyph/info';
-import { P300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { FlagsProvider, useFlags } from '../../src';
@@ -27,10 +26,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'Added from the context.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.icon.information', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.information')} />
       ),
       id: id,
       title: `${id}: Whoa a new flag!`,
@@ -42,10 +38,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'I was not given an id.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.icon.information', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.information')} />
       ),
       title: `${flagCount.current++}: Whoa a new flag!`,
     });
@@ -56,10 +49,7 @@ const FlagGroupExample = () => {
       actions,
       description: 'I will automatically dismiss after 8 seconds.',
       icon: (
-        <Info
-          label="Info"
-          primaryColor={token('color.icon.information', P300)}
-        />
+        <Info label="Info" primaryColor={token('color.icon.information')} />
       ),
       title: `${flagCount.current++}: Whoa a new flag!`,
       isAutoDismiss: true,

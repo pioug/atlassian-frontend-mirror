@@ -1,6 +1,6 @@
 // eslint-disable-line no-console
 
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { FileItem, Identifier } from '@atlaskit/media-client';
 import {
   createPollingMaxAttemptsError,
@@ -125,16 +125,16 @@ export const wrongMediaClientConfig = createStorybookMediaClientConfig({
 });
 export const wrongCollection = 'adfasdf';
 
-export type MainWrapperProps = {
+export type MainWrapperProps = PropsWithChildren<{
   developmentOnly?: boolean;
   disableFeatureFlagWrapper?: boolean;
-};
+}>;
 
-export const MainWrapper: React.FC<MainWrapperProps> = ({
+export const MainWrapper = ({
   children,
   developmentOnly,
   disableFeatureFlagWrapper = false,
-}) => {
+}: MainWrapperProps) => {
   enableMediaUfoLogger(payloadPublisher);
   return (
     <>
@@ -166,7 +166,7 @@ export const mediaCardErrorState = (
   }
 };
 
-export const SSRAnalyticsWrapper: React.FC = ({ children }) => {
+export const SSRAnalyticsWrapper = ({ children }: PropsWithChildren<{}>) => {
   const mockClient: AnalyticsWebClient = {
     sendUIEvent: (e) => console.debug('UI event', e),
     sendOperationalEvent: (e) => console.debug('Operational event', e),

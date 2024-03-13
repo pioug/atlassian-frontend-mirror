@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { PropsWithChildren, ReactElement } from 'react';
 import { render, RenderOptions, RenderResult } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-const IntlWrapper: React.FC<{ locale?: string }> = ({
+const IntlWrapper = ({
   children,
   locale = 'en',
-}) => {
+}: PropsWithChildren<{ locale?: string }>) => {
   return <IntlProvider locale={locale}>{children}</IntlProvider>;
 };
 

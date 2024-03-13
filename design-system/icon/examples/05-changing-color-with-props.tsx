@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { useState } from 'react';
-import { B500, N300 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/new';
@@ -42,7 +41,7 @@ export default () => {
       style={{
         backgroundColor: isColorFlipped
           ? 'white'
-          : token('color.background.brand.bold', B500),
+          : token('color.background.brand.bold'),
       }}
     >
       <p
@@ -57,7 +56,7 @@ export default () => {
         <Tooltip content={label} key={label}>
           <Icon
             primaryColor={
-              isColorFlipped ? token('color.text.subtlest', N300) : 'white'
+              isColorFlipped ? token('color.text.subtlest') : 'white'
             }
             size="xlarge"
             label={label}

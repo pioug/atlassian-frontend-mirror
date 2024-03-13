@@ -99,7 +99,7 @@ export const backgroundColors = {
   grey: token('color.background.accent.gray.subtle', colors.N500),
   blueLight: token('color.background.accent.blue.subtler', colors.B75),
   redLight: token('color.background.accent.red.subtler', colors.R75),
-  yellowLight: token('color.background.accent.orange.subtler', colors.Y100),
+  yellowLight: token('color.background.accent.yellow.subtler', colors.Y100),
   greenLight: token('color.background.accent.green.subtler', colors.G100),
   tealLight: token('color.background.accent.teal.subtler', colors.T100),
   purpleLight: token('color.background.accent.purple.subtler', colors.P75),

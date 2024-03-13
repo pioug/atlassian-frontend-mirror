@@ -23,7 +23,7 @@ function useContextMemoized<T>(reactContext: React.Context<T>) {
 // injects contexts via old context API to children
 // and gives access to the original Provider so that
 // the child can re-emit it
-export const ContextAdapter: React.FunctionComponent = ({ children }) => {
+export const ContextAdapter = ({ children }: React.PropsWithChildren<{}>) => {
   const card = useContextMemoized(SmartCardContext);
   const analytics = useContextMemoized(AnalyticsReactContext);
   return (

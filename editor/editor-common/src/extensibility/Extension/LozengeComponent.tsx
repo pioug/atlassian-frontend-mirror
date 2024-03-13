@@ -2,6 +2,7 @@
 import type { CSSProperties } from 'react';
 
 import { jsx } from '@emotion/react';
+import classnames from 'classnames';
 
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 import { SimpleTag as Tag } from '@atlaskit/tag';
@@ -27,6 +28,7 @@ type LozengeComponentProps = {
   isNodeSelected?: boolean;
   showMacroInteractionDesignUpdates?: boolean;
   customContainerStyles?: CSSProperties;
+  isNodeHovered?: boolean;
 };
 
 export const LozengeComponent = ({
@@ -38,13 +40,16 @@ export const LozengeComponent = ({
   isNodeSelected,
   showMacroInteractionDesignUpdates,
   customContainerStyles,
+  isNodeHovered,
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
-  // TODO: only show on lozenge on hover: https://product-fabric.atlassian.net/browse/PGXT-4945
   if (showMacroInteractionDesignUpdates) {
+    const lozengeClassNames = classnames('extension-title', {
+      'show-lozenge': isNodeHovered || isNodeSelected,
+    });
     return (
       <div
-        className="extension-title"
+        className={lozengeClassNames}
         css={lozengeWrapper}
         data-testid="new-lozenge"
         style={customContainerStyles}
@@ -55,27 +60,27 @@ export const LozengeComponent = ({
         />
       </div>
     );
+  } else {
+    return (
+      <div data-testid="lozenge-fallback" css={placeholderFallback}>
+        {lozengeData && !isBlockExtension ? (
+          renderImage({
+            height: ICON_SIZE,
+            width: ICON_SIZE,
+            ...lozengeData,
+          })
+        ) : (
+          <EditorFileIcon label={title} />
+        )}
+        <span className="extension-title">{capitalizedTitle}</span>
+        {params && !isBlockExtension && (
+          <span css={placeholderFallbackParams}>
+            {Object.keys(params).map(
+              (key) => key && ` | ${key} = ${params[key].value}`,
+            )}
+          </span>
+        )}
+      </div>
+    );
   }
-
-  return (
-    <div data-testid="lozenge-fallback" css={placeholderFallback}>
-      {lozengeData && !isBlockExtension ? (
-        renderImage({
-          height: ICON_SIZE,
-          width: ICON_SIZE,
-          ...lozengeData,
-        })
-      ) : (
-        <EditorFileIcon label={title} />
-      )}
-      <span className="extension-title">{capitalizedTitle}</span>
-      {params && !isBlockExtension && (
-        <span css={placeholderFallbackParams}>
-          {Object.keys(params).map(
-            (key) => key && ` | ${key} = ${params[key].value}`,
-          )}
-        </span>
-      )}
-    </div>
-  );
 };

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import { FormattedMessage } from 'react-intl-next';
@@ -18,7 +18,7 @@ import {
  */
 export const RENDER_REACTIONTOOLTIP_TESTID = 'render-reactionTooltip';
 
-export interface ReactionTooltipProps {
+export type ReactionTooltipProps = PropsWithChildren<{
   /**
    * Optional name for the reaction emoji
    */
@@ -43,9 +43,9 @@ export interface ReactionTooltipProps {
    * Optional flag for enabling tooltip (defaults to true)
    */
   isEnabled?: boolean;
-}
+}>;
 
-export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
+export const ReactionTooltip = ({
   children,
   emojiName,
   reaction: { users = [], emojiId = '' },
@@ -53,7 +53,7 @@ export const ReactionTooltip: React.FC<ReactionTooltipProps> = ({
   handleUserListClick,
   allowUserDialog = false,
   isEnabled = true,
-}) => {
+}: ReactionTooltipProps) => {
   /**
    * Render list of users in the tooltip box
    */

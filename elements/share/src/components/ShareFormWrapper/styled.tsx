@@ -1,12 +1,14 @@
 /** @jsx jsx */
 
-import React from 'react';
+import { PropsWithChildren } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-export const InlineDialogFormWrapper: React.FC = ({ children }) => (
+export const InlineDialogFormWrapper = ({
+  children,
+}: PropsWithChildren<{}>) => (
   <div
     css={{
       width: `${8 * 44}px`,
@@ -22,7 +24,9 @@ export const InlineDialogFormWrapper: React.FC = ({ children }) => (
  *
  * packages/design-system/inline-dialog/src/InlineDialog/styled.ts:20:3
  */
-export const InlineDialogContentWrapper: React.FC = ({ children }) => (
+export const InlineDialogContentWrapper = ({
+  children,
+}: PropsWithChildren<{}>) => (
   <div
     css={{
       padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,

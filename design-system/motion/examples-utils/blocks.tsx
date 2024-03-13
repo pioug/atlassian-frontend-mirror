@@ -5,7 +5,6 @@ import { forwardRef } from 'react';
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
-import { B400, N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 interface BlockProps extends React.HTMLProps<HTMLDivElement> {
@@ -42,15 +41,14 @@ export const Block = forwardRef<HTMLDivElement, BlockProps>(
           margin: token('space.200', '16px'),
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: N0,
+          backgroundColor: token('elevation.surface'),
           borderRadius: `${Math.floor(size / 7)}px`,
-          boxShadow: token(
-            'elevation.shadow.overlay',
-            `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-          ),
+          boxShadow: token('elevation.shadow.overlay'),
           cursor: onClick ? 'pointer' : 'default',
           ':hover': {
-            backgroundColor: onClick ? B400 : undefined,
+            backgroundColor: onClick
+              ? token('color.background.brand.bold')
+              : undefined,
           },
         })}
         {...props}

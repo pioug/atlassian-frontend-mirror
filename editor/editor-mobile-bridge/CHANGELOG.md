@@ -1,5 +1,31 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.2.1
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+- Updated dependencies
+
+## 193.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.1.3
+
+### Patch Changes
+
+- [#80592](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80592) [`9319cc77dba2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9319cc77dba2) - React 18 Types for Editor Mobile Bridge
+- Updated dependencies
+
+## 193.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.1.1
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import React, { type FC, useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { EmojiContext, type EmojiContextType } from './EmojiContext';
 import debug from '../util/logger';
 
@@ -6,10 +6,10 @@ type EmojiContextProviderType = {
   emojiContextValue: EmojiContextType;
 };
 
-export const EmojiContextProvider: FC<EmojiContextProviderType> = ({
+export const EmojiContextProvider = ({
   children,
   emojiContextValue,
-}) => {
+}: React.PropsWithChildren<EmojiContextProviderType>) => {
   const memoizedEmojiContextValue = useMemo(
     () => emojiContextValue,
     [emojiContextValue],

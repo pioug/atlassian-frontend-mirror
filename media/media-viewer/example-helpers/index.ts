@@ -27,7 +27,7 @@ import {
   codeFileId,
   emailFileId,
   emailUnsupportedFileId,
-} from '@atlaskit/media-test-helpers';
+} from '@atlaskit/media-client/test-helpers';
 import { FileIdentifier } from '@atlaskit/media-client';
 
 export const imageIdentifier: FileIdentifier = {

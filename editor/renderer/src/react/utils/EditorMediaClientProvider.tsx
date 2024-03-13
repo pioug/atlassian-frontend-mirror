@@ -10,9 +10,7 @@ import type { MediaSSR } from '../../types/mediaOptions';
 export const EditorMediaClientProvider = ({
   children,
   ssr,
-}: React.PropsWithChildren<{
-  ssr?: MediaSSR;
-}>) => {
+}: React.PropsWithChildren<{ ssr?: MediaSSR }>) => {
   const [mediaClientConfig, setMediaClientConfig] = useState<
     MediaClientConfig | undefined
   >();

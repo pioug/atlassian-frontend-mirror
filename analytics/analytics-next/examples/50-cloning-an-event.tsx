@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent, useCallback } from 'react';
+import React, { FC, MouseEvent, PropsWithChildren, useCallback } from 'react';
 
 import {
   AnalyticsListener,
@@ -26,14 +26,14 @@ const AtlaskitButton = withAnalyticsEvents({
   },
 })(Button);
 
-interface MediaProps {
+type MediaProps = PropsWithChildren<{
   onClick: (
     e: MouseEvent<HTMLButtonElement>,
     analyticsEvent: UIAnalyticsEvent | null,
   ) => void;
-}
+}>;
 
-const MediaComponent: FC<MediaProps> = (props) => {
+const MediaComponent = (props: MediaProps) => {
   const onClick = (
     e: MouseEvent<HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,

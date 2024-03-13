@@ -6,7 +6,6 @@ import { css, jsx } from '@emotion/react';
 
 import Badge from '@atlaskit/badge';
 import Button from '@atlaskit/button/new';
-import * as colors from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import Toggle from '@atlaskit/toggle';
@@ -14,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 const labelStyles = css({
   display: 'inline-block',
-  color: token('color.text.subtlest', colors.N200),
+  color: token('color.text.subtlest'),
   fontSize: `${headingSizes.h200.size / fontSize()}em`,
   fontStyle: 'inherit',
   fontWeight: token('font.weight.semibold', '600'),
@@ -28,11 +27,8 @@ const blanketStyles = css({
   boxSizing: 'border-box',
   maxWidth: '144px',
   flexDirection: 'column',
-  background: token('elevation.surface', colors.N0),
-  border: `2px dashed ${token(
-    'color.background.accent.blue.subtler',
-    colors.B75,
-  )}`,
+  background: token('elevation.surface'),
+  border: `2px dashed ${token('color.background.accent.blue.subtler')}`,
   pointerEvents: 'initial',
 });
 

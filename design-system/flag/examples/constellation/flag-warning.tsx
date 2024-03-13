@@ -2,7 +2,6 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag from '../../src';
@@ -14,7 +13,7 @@ const FlagWarningExample = () => {
       icon={
         <WarningIcon
           label="Warning"
-          secondaryColor={token('color.background.warning.bold', Y200)}
+          secondaryColor={token('color.background.warning.bold')}
         />
       }
       id="warning"

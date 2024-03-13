@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Tabs, { Tab, TabList, TabPanel } from '../src';
@@ -14,7 +13,7 @@ export default function noSpaceForTabs() {
         width: 400,
         height: 200,
         margin: `${token('space.200', '16px')} auto`,
-        border: `1px dashed ${N100}`,
+        border: `1px dashed ${token('color.border')}`,
         display: 'flex',
       }}
     >

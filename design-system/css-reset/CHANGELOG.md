@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.7.0
+
+### Minor Changes
+
+- [#78788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78788) [`f7801c9b84ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7801c9b84ac) - Add a new entrypoint ./bundle.css
+
 ## 6.6.2
 
 ### Patch Changes

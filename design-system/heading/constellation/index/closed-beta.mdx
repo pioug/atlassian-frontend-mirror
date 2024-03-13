@@ -4,7 +4,7 @@ import HeadingMigration from '../../examples/constellation/heading-migration';
 
 This is an experiment. We don't recommend using this without support from our team.
 
-As part of a project to uplift our typography system, we're trialling a new API and typescale through the `variant` prop.
+As part of a project to uplift our typography system, we're trialling a new API and typescale through the `size` prop.
 
 <Example Component={HeadingMigration} packageName="@atlaskit/heading" />
 
@@ -16,24 +16,24 @@ ADG4 is a significant evolution of the guidelines and is not backwards compatibl
 If you are migrating from ADG3 to ADG4, you will need to update your code to use the new ADG4 components and APIs.
 For now this migration is opt-in.
 
-### `level` renamed to `variant`
+### `level` renamed to `size`
 
-The `level` prop on the `Heading` component has been renamed to `variant` to better reflect its purpose.
+The `level` prop on the `Heading` component has been renamed to `size` to better reflect its purpose.
 The `level` prop is still supported but will be removed in a future major release.
 
-To migrate from `level` to `variant`, rename the `prop` in your code and update the value to match the new `variant` values.
+To migrate from `level` to `size`, rename the `prop` in your code and update the value to match the new `size` values.
 
 ```diff
 - <Heading level="h300">
-+ <Heading variant="xxs">
++ <Heading size="xxsmall">
 ```
 
-This migration isn't 1:1 as the `variant` prop has a different set of values to the `level` prop although there are
-rough equivalents. Apply this migration carefully. Certain headings (h100, h200) have no equivalanece in the ADG4 typography system.
+This migration isn't 1:1 as the `size` prop has a different set of values to the `level` prop although there are
+rough equivalents. Apply this migration carefully. Certain headings (h100, h200) have no equivalanece in the new typography system.
 
 Other props on the `Heading` component have not changed.
 
 ### `token` backed components
 
-The `variant` prop will only apply when a typography `theme` is on the page. Apply a typography theme via
-the `setGlobalTheme()` function to enable the `variant` prop.
+The `size` prop will only apply when a typography `theme` is on the page. Apply a typography theme via
+the `setGlobalTheme()` function provided by `@atlaskit/tokens` to enable the `size` prop.

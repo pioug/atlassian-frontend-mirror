@@ -2,7 +2,6 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { G400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { Box } from '@atlaskit/primitives';
 
@@ -39,7 +38,7 @@ const AutoDismissFlagSuccessExample = () => {
               icon={
                 <SuccessIcon
                   label="Success"
-                  secondaryColor={token('color.background.success.bold', G400)}
+                  secondaryColor={token('color.background.success.bold')}
                 />
               }
               key={flagId}

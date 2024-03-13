@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 
 import { BrowserRouter, Link } from 'react-router-dom';
 
-import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ProgressTracker, Stage, Stages } from '../src';
@@ -58,7 +57,7 @@ class CustomProgressTrackerLink extends PureComponent<CustomProgressTrackerLinkP
   render() {
     const { href = '', label } = this.props.item;
     return (
-      <Link style={{ color: token('color.text', N800) }} to={href}>
+      <Link style={{ color: token('color.text') }} to={href}>
         {label}
       </Link>
     );

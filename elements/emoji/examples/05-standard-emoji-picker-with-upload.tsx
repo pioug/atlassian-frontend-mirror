@@ -1,4 +1,4 @@
-import React, { type FC, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { EmojiPicker } from '../src/picker';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -11,7 +11,7 @@ import { onSelection } from '../example-helpers';
 import type { EmojiProvider } from '../src/resource';
 import { IntlProvider } from 'react-intl-next';
 
-const EmojiPickerWithUpload: FC = () => {
+const EmojiPickerWithUpload = () => {
   const [siteEmojiEnabled, setSiteEmojiEnabled] = useState(true);
 
   const emojiProvider = useMemo<Promise<EmojiProvider>>(() => {

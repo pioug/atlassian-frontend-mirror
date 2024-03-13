@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -16,7 +16,7 @@ const containerStyles = css({
   backgroundColor: token('color.text', '#1b2638'),
 });
 
-const InvertedExample: FC<{}> = () => {
+const InvertedExample = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [values] = useState(['first', 'second', 'third']);
 

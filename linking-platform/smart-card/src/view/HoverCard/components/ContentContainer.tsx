@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { HoverCardContainer, popupContainerStyles } from '../styled';
 import AIPrism from '../../common/ai-prism';
@@ -8,13 +8,13 @@ import { hoverCardClassName } from './HoverCardContent';
 import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 
-const ConnectedAIPrismContainer: React.FC<ContentContainerProps> = ({
+const ConnectedAIPrismContainer = ({
   children,
   isAIEnabled = false,
   testId,
   url,
   ...props
-}) => {
+}: ContentContainerProps) => {
   const {
     state: { status },
   } = useAISummary({ url });
@@ -48,13 +48,13 @@ const ConnectedAIPrismContainer: React.FC<ContentContainerProps> = ({
   );
 };
 
-const ContentContainer: React.FC<ContentContainerProps> = ({
+const ContentContainer = ({
   children,
   isAIEnabled = false,
   testId,
   url,
   ...props
-}) => {
+}: ContentContainerProps) => {
   if (
     getBooleanFF('platform.linking-platform.smart-card.hover-card-ai-summaries')
   ) {

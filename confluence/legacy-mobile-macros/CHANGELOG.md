@@ -1,5 +1,24 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.424
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+- Updated dependencies
+
+## 2.4.423
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.422
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.421
 
 ### Patch Changes

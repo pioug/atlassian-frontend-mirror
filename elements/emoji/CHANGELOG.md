@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 67.6.13
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 67.6.12
+
+### Patch Changes
+
+- [#80639](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80639) [`1e52617908c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e52617908c0) - React 18 types for @atlaskit/emoji
+
 ## 67.6.11
 
 ### Patch Changes

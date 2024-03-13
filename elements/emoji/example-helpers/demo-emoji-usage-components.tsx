@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { PureComponent } from 'react';
 import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
@@ -11,7 +11,7 @@ export interface EmojiUsageProps {
   emojiQueue: Array<string>;
 }
 
-const EmojiUsageList: FC<EmojiUsageProps> = (props) => {
+const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
   const { emojiList, emojiQueue, emojiProvider } = props;
 
   let emojiUsageList;

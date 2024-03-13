@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import {
   MediaFeatureFlags,
   withMediaAnalyticsContext,
@@ -15,12 +15,14 @@ import {
   ErrorBoundaryErrorInfo,
 } from '../utils/analytics';
 
-export type MediaCardAnalyticsErrorBoundaryProps = {
-  dimensions?: CardDimensions;
-  data?: { [k: string]: any };
-  onClick?: CardOnClickCallback; // it is required for inner component to trigger event from editor
-  featureFlags?: MediaFeatureFlags;
-} & WithAnalyticsEventsProps;
+export type MediaCardAnalyticsErrorBoundaryProps = PropsWithChildren<
+  {
+    dimensions?: CardDimensions;
+    data?: { [k: string]: any };
+    onClick?: CardOnClickCallback; // it is required for inner component to trigger event from editor
+    featureFlags?: MediaFeatureFlags;
+  } & WithAnalyticsEventsProps
+>;
 
 type MediaCardAnalyticsErrorBoundaryState = {
   hasError: boolean;

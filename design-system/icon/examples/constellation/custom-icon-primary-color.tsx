@@ -2,11 +2,10 @@
 import { css, jsx } from '@emotion/react';
 import type { CustomGlyphProps } from '../../src/types';
 import Icon from '../../src';
-import { B500, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const containerStyles = css({
-  color: token('color.icon.warning', Y500),
+  color: token('color.icon.warning'),
 });
 
 const CustomGlyph = (props: CustomGlyphProps) => (
@@ -32,7 +31,7 @@ const CustomIconExample = () => {
       <Icon
         glyph={CustomGlyph}
         label=""
-        primaryColor={token('color.icon.brand', B500)}
+        primaryColor={token('color.icon.brand')}
       />
       {/* inherited from the color prop of the parent element */}
       <Icon glyph={CustomGlyph} label="" />

@@ -1,12 +1,5 @@
 /** @jsx jsx */
-import {
-  Fragment,
-  useState,
-  type FC,
-  useRef,
-  memo,
-  useLayoutEffect,
-} from 'react';
+import { Fragment, useState, useRef, memo, useLayoutEffect } from 'react';
 import { jsx } from '@emotion/react';
 import {
   FormattedMessage,
@@ -76,7 +69,7 @@ export const uploadEmojiTestId = 'upload-emoji';
 type PropsWithWrappedComponentPropsType = Props & WrappedComponentProps;
 
 type AddOwnEmojiProps = PropsWithWrappedComponentPropsType;
-const AddOwnEmoji: FC<AddOwnEmojiProps> = (props) => {
+const AddOwnEmoji = (props: AddOwnEmojiProps) => {
   const { onOpenUpload, uploadEnabled } = props;
 
   return (
@@ -110,7 +103,7 @@ type TonesWrapperProps = PropsWithWrappedComponentPropsType & {
   onToneSelected: (toneValue: ToneValueType) => void;
   showToneSelector: boolean;
 };
-const TonesWrapper: FC<TonesWrapperProps> = (props) => {
+const TonesWrapper = (props: TonesWrapperProps) => {
   const {
     toneEmoji,
     selectedTone = DEFAULT_TONE,
@@ -182,7 +175,7 @@ const TonesWrapper: FC<TonesWrapperProps> = (props) => {
 };
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
-export const EmojiActions: FC<EmojiActionsProps> = (props) => {
+export const EmojiActions = (props: EmojiActionsProps) => {
   const {
     onToneSelected,
     onToneSelectorCancelled,

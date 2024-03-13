@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { createCtx } from '../../util/hooks/ctx';
@@ -17,11 +17,11 @@ interface HeaderSharedInterface {
 export const [useHeaderContext, CtxProvider] =
   createCtx<HeaderSharedInterface>();
 
-export const HeaderContextProvider: React.FC<HeaderSharedInterface> = ({
+export const HeaderContextProvider = ({
   onCloseButtonClick,
   onBackButtonClick,
   children,
-}) => {
+}: PropsWithChildren<HeaderSharedInterface>) => {
   return (
     <CtxProvider
       value={{

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 
-const AIEventErrorViewed: React.FC = () => {
+const AIEventErrorViewed = () => {
   const { fireEvent } = useAnalyticsEvents();
 
   useEffect(() => {

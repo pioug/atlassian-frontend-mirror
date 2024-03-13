@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
@@ -49,7 +49,7 @@ type UserData = {
 
 ufologger.enable();
 
-const WrapperWithMarginTop: React.FC = ({ children }) => (
+const WrapperWithMarginTop = ({ children }: PropsWithChildren<{}>) => (
   <div style={{ marginTop: 10 }}>{children}</div>
 );
 

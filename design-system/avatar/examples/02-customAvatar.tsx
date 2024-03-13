@@ -1,7 +1,6 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { CSSProperties } from 'react';
 
-import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -12,7 +11,7 @@ const customStyles: CSSProperties = {
   textAlign: 'center',
   fontWeight: 600,
   color: token('color.text.inverse', 'white'),
-  backgroundColor: token('color.background.brand.bold', B400),
+  backgroundColor: token('color.background.brand.bold'),
 };
 
 export default () => (

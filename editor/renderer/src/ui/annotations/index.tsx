@@ -1,9 +1,9 @@
 import React from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { AnnotationView } from './view';
 import { SelectionComponentWrapper } from './selection';
-import { AnnotationsWrapperProps } from './types';
+import { type AnnotationsWrapperProps } from './types';
 import { ProvidersContext, InlineCommentsStateContext } from './context';
 import { useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
@@ -17,9 +17,7 @@ const LoadAnnotations = React.memo(
   },
 );
 
-export const AnnotationsWrapper = (
-  props: React.PropsWithChildren<AnnotationsWrapperProps>,
-) => {
+export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
   const { children, annotationProvider, rendererRef, adfDocument } = props;
   const updateSubscriber =
     annotationProvider &&

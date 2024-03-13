@@ -17,7 +17,7 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
   console.log('Received event:', { payload, context });
 };
 
-const Example: React.FC = () => {
+const Example = () => {
   return (
     <ExampleWrapper>
       <Page>

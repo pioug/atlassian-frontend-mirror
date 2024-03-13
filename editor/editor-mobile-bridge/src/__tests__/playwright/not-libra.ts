@@ -1,6 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { defaultSchema as sampleSchema } from '@atlaskit/editor-test-helpers/schema';
-import { test as base, expect, fixTest } from '@af/integration-testing';
+import {
+  test as base,
+  expect as baseExpect,
+  fixTest,
+} from '@af/integration-testing';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import isEqual from 'lodash/isEqual';
 import diffDefault from 'jest-diff';
@@ -252,7 +256,7 @@ const customMatchers = {
     bridge: EditorBrigdeModelInterface,
   ) {
     const docJSON = await bridge.getProsemirrorDocument();
-    await expect(JSON.stringify(docJSON, null, 2)).toMatchSnapshot();
+    baseExpect(JSON.stringify(docJSON, null, 2)).toMatchSnapshot();
 
     return {
       pass: true,
@@ -272,6 +276,4 @@ const customMatchers = {
   },
 };
 
-expect.extend(customMatchers);
-
-export { expect };
+export const expect = baseExpect.extend(customMatchers);

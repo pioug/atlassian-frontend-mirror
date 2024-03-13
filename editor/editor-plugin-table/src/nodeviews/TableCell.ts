@@ -1,12 +1,8 @@
-import uuid from 'uuid';
-
 import type { CellDomAttrs } from '@atlaskit/adf-schema';
 import { getCellAttrs, getCellDomAttrs } from '@atlaskit/adf-schema';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-
-import { getPluginState } from '../pm-plugins/plugin-factory';
 
 import TableNodeView from './TableNodeViewBase';
 
@@ -22,25 +18,9 @@ export default class TableCell
     view: EditorView,
     getPos: () => number | undefined,
     eventDispatcher: EventDispatcher,
-    private readonly observer?: ResizeObserver,
   ) {
     super(node, view, getPos, eventDispatcher);
-
-    const { pluginConfig, isDragAndDropEnabled } = getPluginState(view.state);
-
-    this.isStickyHeaderEnabled = !!pluginConfig.stickyHeaders;
-    this.isDragAndDropEnabled = !!isDragAndDropEnabled;
-
-    if (observer) {
-      this.contentDOM.id = uuid();
-      observer.observe(this.contentDOM);
-    }
   }
-
-  // @ts-ignore
-  private isStickyHeaderEnabled: boolean;
-  // @ts-ignore
-  private isDragAndDropEnabled: boolean;
 
   update(node: PMNode) {
     const didUpdate = this.updateNodeView(node);
@@ -48,12 +28,6 @@ export default class TableCell
       this.node = node;
     }
     return didUpdate;
-  }
-
-  destroy() {
-    if (this.observer) {
-      this.observer.unobserve(this.contentDOM);
-    }
   }
 
   private updateNodeView(node: PMNode) {

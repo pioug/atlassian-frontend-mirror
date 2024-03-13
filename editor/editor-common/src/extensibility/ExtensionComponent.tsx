@@ -49,6 +49,7 @@ export interface State {
     __hideFrame?: boolean;
   };
   activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
+  isNodeHovered?: boolean;
 }
 
 export class ExtensionComponent extends Component<Props, State> {
@@ -93,6 +94,12 @@ export class ExtensionComponent extends Component<Props, State> {
     getExtensionModuleNodePrivateProps,
   );
 
+  setIsNodeHovered = (isHovered: boolean) => {
+    this.setState({
+      isNodeHovered: isHovered,
+    });
+  };
+
   render() {
     const {
       node,
@@ -123,6 +130,8 @@ export class ExtensionComponent extends Component<Props, State> {
           editorAppearance={editorAppearance}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
           isNodeSelected={selectedNode === node}
+          isNodeHovered={this.state.isNodeHovered}
+          setIsNodeHovered={this.setIsNodeHovered}
         />
       );
     }
@@ -146,6 +155,8 @@ export class ExtensionComponent extends Component<Props, State> {
               showMacroInteractionDesignUpdates
             }
             isNodeSelected={selectedNode === node}
+            isNodeHovered={this.state.isNodeHovered}
+            setIsNodeHovered={this.setIsNodeHovered}
           >
             {extensionHandlerResult}
           </Extension>

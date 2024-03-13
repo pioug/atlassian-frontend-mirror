@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { PropsWithChildren, useContext, useMemo } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -29,12 +29,12 @@ interface LinkCreateCallbackProviderProps {
 const LinkCreateCallbackContext =
   React.createContext<LinkCreateCallbackProviderProps>({});
 
-const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
+const LinkCreateCallbackProvider = ({
   children,
   onCreate,
   onFailure,
   onCancel,
-}) => {
+}: PropsWithChildren<LinkCreateCallbackProviderProps>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const experience = getBooleanFF(
     'platform.linking-platform.link-create.better-observability',

@@ -125,10 +125,7 @@ const getResizerHandleHeight = (
 
 const getResizerMinWidth = (node: PMNode) => {
   const currentColumnCount = getColgroupChildrenLength(node);
-  const minColumnWidth =
-    currentColumnCount <= 3
-      ? currentColumnCount * COLUMN_MIN_WIDTH
-      : 3 * COLUMN_MIN_WIDTH;
+  const minColumnWidth = Math.min(3, currentColumnCount) * COLUMN_MIN_WIDTH;
   // add an extra pixel as the scale table logic will scale columns to be tableContainerWidth - 1
   // the table can't scale past its min-width, so instead restrict table container min width to avoid that situation
   return minColumnWidth + 1;

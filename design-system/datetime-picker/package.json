@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/datetime-picker",
-  "version": "13.1.0",
+  "version": "13.2.0",
   "description": "A date time picker allows the user to select an associated date and time.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,9 +46,9 @@
     "@atlaskit/locale": "^2.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popper": "^5.5.0",
-    "@atlaskit/select": "^17.2.0",
+    "@atlaskit/select": "^17.3.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "date-fns": "^2.17.0",
@@ -70,7 +70,7 @@
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^6.0.0",
+    "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -108,9 +108,6 @@
       "type": "boolean"
     },
     "platform.design-system-team.border-checkbox_nyoiu": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.update-input-border-wdith_5abwv": {
       "type": "boolean"
     },
     "platform.design-system-team.date-picker-input-a11y-fix_cbbxs": {

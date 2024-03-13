@@ -1,6 +1,5 @@
 import React from 'react';
 import type { CustomGlyphProps, GlyphProps } from '@atlaskit/icon/types';
-import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Icon from '../src/entry-points/base';
 
@@ -35,17 +34,17 @@ export default function CustomIcon() {
       <CanonicalIcon
         label=""
         size="small"
-        primaryColor={token('color.icon.brand', B300)}
+        primaryColor={token('color.icon.brand')}
       />
       <CanonicalIcon
         label=""
         size="medium"
-        primaryColor={token('color.icon.brand', B300)}
+        primaryColor={token('color.icon.brand')}
       />
       <CanonicalIcon
         label=""
         size="large"
-        primaryColor={token('color.icon.brand', B300)}
+        primaryColor={token('color.icon.brand')}
       />
     </div>
   );

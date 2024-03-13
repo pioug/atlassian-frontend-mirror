@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { getContext } from '../utils/flexible-ui';
@@ -54,7 +54,7 @@ const renderChildren = (children: React.ReactNode): React.ReactNode =>
     return child;
   });
 
-const ExampleContainer: React.FC = ({ children }) => (
+const ExampleContainer = ({ children }: PropsWithChildren<{}>) => (
   <IntlProvider locale="en">
     <FlexibleUiContext.Provider value={context}>
       {renderChildren(children)}

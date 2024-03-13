@@ -46,13 +46,7 @@ const CheckboxIcon = ({ checked }: { checked: boolean }) => {
                     : N40,
                 )
           }
-          strokeWidth={
-            getBooleanFF(
-              'platform.design-system-team.update-input-border-wdith_5abwv',
-            )
-              ? 1
-              : 2
-          }
+          strokeWidth={1}
         />
         <path
           d="M9.707 11.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 10-1.414-1.414L11 12.586l-1.293-1.293z"

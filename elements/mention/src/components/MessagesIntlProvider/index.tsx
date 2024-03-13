@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { IntlProvider, useIntl } from 'react-intl-next';
 import { getMessagesForLocale } from '../../util/i18n';
 
@@ -29,7 +29,7 @@ const useI18n = (locale: string): Record<string, string> => {
   return messages;
 };
 
-const MessagesIntlProvider: React.FC = (props) => {
+const MessagesIntlProvider = (props: PropsWithChildren<{}>) => {
   const { children } = props;
   const intl = useIntl();
   const messages = useI18n(intl.locale);

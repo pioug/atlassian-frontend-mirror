@@ -1,5 +1,17 @@
 # @atlaskit/link-picker
 
+## 1.34.2
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 1.34.1
+
+### Patch Changes
+
+- [#77721](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77721) [`724546c920cf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/724546c920cf) - Changed some hard-coded px values and replaced with space tokens
+
 ## 1.34.0
 
 ### Minor Changes

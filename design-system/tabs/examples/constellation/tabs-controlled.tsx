@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
-import { N20, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../src';
@@ -18,9 +17,9 @@ const panelStyles = css({
   justifyContent: 'center',
   flexDirection: 'column',
   flexGrow: 1,
-  backgroundColor: token('color.background.neutral', N20),
+  backgroundColor: token('color.background.neutral'),
   borderRadius: token('border.radius', '3px'),
-  color: token('color.text.subtlest', N200),
+  color: token('color.text.subtlest'),
   fontSize: '4em',
   fontWeight: 500,
   marginBlockEnd: token('space.100', '8px'),

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
@@ -12,11 +12,11 @@ import FeedbackCollector from './FeedbackCollector';
 import FeedbackFlag from './FeedbackFlag';
 import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMessages';
 
-interface Props {
+type Props = PropsWithChildren<{
   entrypointId: string;
   atlassianAccountId?: string;
   shouldGetEntitlementDetails?: boolean;
-}
+}>;
 
 /*
  * Standard feedback button with "Give Feedback" as the text and speaker icon on the left of the text
@@ -59,7 +59,7 @@ const FeedbackButton = (props: Props) => {
   );
 };
 
-const FeedbackButtonWithIntl: React.FunctionComponent<Props> = (props) => {
+const FeedbackButtonWithIntl = (props: Props) => {
   const { locale } = useIntl();
   return (
     <IntlProviderWithResolvedMessages locale={locale}>

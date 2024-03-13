@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
@@ -58,13 +58,10 @@ const dependencies = [
   mockHoverCardComponent,
 ];
 
-export type VRTestWrapperProps = {
+export type VRTestWrapperProps = PropsWithChildren<{
   overrideCss?: SerializedStyles;
-};
-const VRTestWrapper: React.FC<VRTestWrapperProps> = ({
-  children,
-  overrideCss,
-}) => {
+}>;
+const VRTestWrapper = ({ children, overrideCss }: VRTestWrapperProps) => {
   return (
     <DiProvider use={dependencies}>
       <IntlProvider locale="en">

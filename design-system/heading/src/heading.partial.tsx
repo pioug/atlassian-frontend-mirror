@@ -6,8 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { useHeading } from './heading-context';
 import type { HeadingProps } from './types';
 
-// https://atlassian.design/foundations/typography
-const variantTagMap = {
+const sizeTagMap = {
   xxlarge: 'h1',
   xlarge: 'h1',
   large: 'h2',
@@ -36,11 +35,12 @@ const inverseStyles = css({
  * @example
  *
  * ```jsx
- * <Heading variant="xxlarge">Page title</Heading>
+ * <Heading size="xxlarge">Page title</Heading>
  * ```
  */
 const Heading = ({
   children,
+  size,
   variant,
   id,
   testId,
@@ -56,9 +56,12 @@ const Heading = ({
     throw new Error('`as` prop should be a string.');
   }
 
-  // Technically variant can be undefined here due to how the types work.
-  // Once removing the level prop this assertion can be removed since variant will be a required prop.
-  const [hLevel, inferredElement] = useHeading(variantTagMap[variant!]);
+  // TODO: Temporary to move variant over to size
+  const localSize = variant || size;
+
+  // Technically size can be undefined here due to how the types work.
+  // Once removing the level prop this assertion can be removed since size will be a required prop.
+  const [hLevel, inferredElement] = useHeading(sizeTagMap[localSize!]);
   const Component = as || inferredElement;
   const needsAriaRole = Component === 'div' && hLevel;
 
@@ -70,7 +73,7 @@ const Heading = ({
       aria-level={needsAriaRole ? hLevel : undefined}
       css={[
         headingResetStyles,
-        variant && headingVariantStylesMap[variant],
+        localSize && headingSizeStylesMap[localSize],
         color === 'inverse' && inverseStyles,
       ]}
     >
@@ -81,11 +84,11 @@ const Heading = ({
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e846dd958c335ee435433cfe1a6ffe77>>
+ * @codegen <<SignedSource::057c0fe2015c2071afe3d694c5afcc0e>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/heading codegen
  */
-const headingVariantStylesMap = {
+const headingSizeStylesMap = {
   xxlarge: css({
     font: token(
       'font.heading.xxlarge',
@@ -130,7 +133,7 @@ const headingVariantStylesMap = {
   }),
 };
 
-export type HeadingVariant = keyof typeof headingVariantStylesMap;
+export type HeadingSize = keyof typeof headingSizeStylesMap;
 
 /**
  * @codegenEnd

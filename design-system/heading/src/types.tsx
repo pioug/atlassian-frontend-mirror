@@ -1,7 +1,7 @@
 /* eslint-disable jsdoc/require-asterisk-prefix */
 import { ReactNode } from 'react';
 
-import { HeadingVariant } from './heading.partial';
+import { HeadingSize } from './heading.partial';
 
 export type HeadingProps =
   | {
@@ -32,7 +32,7 @@ export type HeadingProps =
       | {
           /**
            * @private
-           * @deprecated Use `variant` prop instead.
+           * @deprecated Use `size` prop instead.
            * The heading level as defined by the Atlassian Design [typography foundations](/foundations/typography/). The `level` prop affects the actual HTML element rendered in the DOM:
            * @example
            * ```js
@@ -63,20 +63,24 @@ export type HeadingProps =
             | 'h200'
             | 'h100';
           /**
-           * Heading style variant. This style is detached from the specific heading level applied to allow for more flexibility.
-           * Use instead of the deprecated `level` prop.
+           * Heading size. Use instead of the deprecated `level` prop.
            */
+          size?: never;
           variant?: never;
         }
       | {
           level?: never;
           /**
-           * Heading style variant. This style is detached from the specific heading level applied to allow for more flexibility.
+           * Heading size. This value is detached from the specific heading level applied to allow for more flexibility.
            * Use instead of the deprecated `level` prop.
            *
-           * This prop will only work if the typography theme is applied.
+           * This prop will only work if the typography tokens theme is applied on the page.
            */
-          variant: HeadingVariant;
+          size?: HeadingSize;
+          /**
+           * @deprecated. Use `size` instead.
+           */
+          variant?: HeadingSize;
         }
     );
 /* eslint-enable jsdoc/require-asterisk-prefix */

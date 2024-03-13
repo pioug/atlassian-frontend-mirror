@@ -4,6 +4,7 @@ import Heading from '@atlaskit/heading';
 
 import { Stack, Text } from '../src';
 
+const sizes = ['small', 'medium', 'large'] as const;
 const variants = ['body.small', 'body', 'body.large'] as const;
 
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
@@ -13,19 +14,24 @@ export default () => {
     <Stack space="space.300">
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
-            Variants
+          <Heading size="medium" as="h3">
+            Sizes
           </Heading>
+          {sizes.map(size => (
+            <Text key={size} size={size}>
+              Text size: {size}
+            </Text>
+          ))}
           {variants.map(variant => (
             <Text key={variant} variant={variant}>
-              Text variant {variant}
+              Text variant: {variant}
             </Text>
           ))}
         </Stack>
       </section>
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Weights
           </Heading>
           {weights.map(weight => (
@@ -37,18 +43,12 @@ export default () => {
       </section>
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Rendered element
           </Heading>
-          <Text variant="body" as="strong">
-            Text as strong tag
-          </Text>
-          <Text variant="body" as="em">
-            Text as em tag
-          </Text>
-          <Text variant="body">
-            Text is rendered as a {'<span>'} by default
-          </Text>
+          <Text as="strong">Text as strong tag</Text>
+          <Text as="em">Text as em tag</Text>
+          <Text>Text is rendered as a {'<span>'} by default</Text>
         </Stack>
       </section>
     </Stack>

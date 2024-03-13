@@ -32,6 +32,7 @@ const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
 import { useSmartLinkLifecycleAnalytics } from '../src';
 import { icon } from '@atlaskit/link-test-helpers/images';
+import { token } from '@atlaskit/tokens';
 
 const linkPickerResults: LinkSearchListItemData[] = [
   {
@@ -209,10 +210,10 @@ function LifecycleAnalytics() {
   ]);
 
   return (
-    <div className="example" style={{ padding: 50 }}>
+    <div className="example" style={{ padding: token('space.600', '48px') }}>
       <IntlProvider locale="en">
         <div style={{ margin: '0 auto', maxWidth: 800 }}>
-          <div style={{ marginBottom: 32 }}>
+          <div style={{ marginBottom: token('space.400', '32px') }}>
             {links.map(({ id, url }) => (
               <Fragment key={id}>
                 <Card

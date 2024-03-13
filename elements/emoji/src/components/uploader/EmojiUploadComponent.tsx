@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { type FC, useState, memo, useEffect } from 'react';
+import { useState, memo, useEffect } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 import type {
@@ -34,7 +34,7 @@ export interface Props {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }
 
-const EmojiUploadComponent: FC<Props> = (props) => {
+const EmojiUploadComponent = (props: Props) => {
   const { emojiProvider, createAnalyticsEvent, onUploaderRef } = props;
   const [uploadErrorMessage, setUploadErrorMessage] =
     useState<MessageDescriptor>();

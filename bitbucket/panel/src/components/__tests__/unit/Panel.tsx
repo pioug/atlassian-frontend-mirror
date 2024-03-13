@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -14,11 +14,11 @@ const NestedContent = () => (
   </p>
 );
 
-type TestWrapperProps = {
+type TestWrapperProps = PropsWithChildren<{
   locale?: string;
-};
+}>;
 
-const TestWrapper: FC<TestWrapperProps> = ({ children, locale = 'en' }) => (
+const TestWrapper = ({ children, locale = 'en' }: TestWrapperProps) => (
   <IntlProvider locale={locale}>{children}</IntlProvider>
 );
 

@@ -83,13 +83,9 @@ const getContainerTextBgAndBorderColor = (appearance: Appearance) => ({
   '&:focus-within:not([data-disabled])': {
     backgroundColor: backgroundColorFocus[appearance],
     borderColor: borderColorFocus[appearance],
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${
-          borderColorFocus[appearance]
-        }`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
+      borderColorFocus[appearance]
+    }`,
   },
   '&[data-disabled]': {
     color: token('color.text.disabled', N70),
@@ -103,26 +99,18 @@ const getContainerTextBgAndBorderColor = (appearance: Appearance) => ({
   },
   '&[data-invalid], &[data-invalid]:hover': {
     borderColor: token('color.border.danger', R400),
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
-          'color.border.danger',
-          R400,
-        )}`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
+      'color.border.danger',
+      R400,
+    )}`,
   },
   '&[data-invalid]:focus-within': {
     backgroundColor: token('color.background.input.pressed', N0),
     borderColor: token('color.border.focused', B200),
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
-          'color.border.focused',
-          B200,
-        )}`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
+      'color.border.focused',
+      B200,
+    )}`,
   },
   '@media screen and (-ms-high-contrast: active)': {
     '&[data-invalid]:focus-within': {
@@ -156,15 +144,9 @@ export const containerStyles = (
     alignItems: 'center',
     ...getContainerTextBgAndBorderColor(appearance),
     borderRadius: 3,
-    borderWidth: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? token('border.width', '1px')
-      : 2,
+    borderWidth: token('border.width', '1px'),
     // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
-    ...(getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    ) && appearance !== 'none'
+    ...(appearance !== 'none'
       ? { padding: `${token('border.width', '1px')} 0` }
       : {}),
     borderStyle: appearance === 'none' ? 'none' : 'solid',

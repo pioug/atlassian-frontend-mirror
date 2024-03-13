@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { jsx, SerializedStyles } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -19,7 +18,7 @@ export const emojiErrorMessageTestId = 'emoji-error-message';
 export const emojiErrorMessageTooltipTestId = 'emoji-error-message-tooltip';
 export const emojiErrorIconTestId = 'emoji-error-icon';
 
-const EmojiErrorMessage: FC<Props> = (props) => {
+const EmojiErrorMessage = (props: Props) => {
   const { messageStyles, message, tooltip } = props;
 
   const { formatMessage } = useIntl();

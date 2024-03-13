@@ -16,93 +16,93 @@ export const relativeFontSizeToBase16 = (px: number | string) => {
   return `${px / 16}rem`;
 };
 
-const listItemBaseStyles = css`
-  display: flex;
-  padding-top: ${token('space.100', '8px')};
-  padding-bottom: ${token('space.100', '8px')};
-  padding-left: clamp(
-    ${token('space.100', '8px')},
-    var(--link-picker-padding-left),
-    100%
-  );
-  padding-right: clamp(
-    ${token('space.100', '8px')},
-    var(--link-picker-padding-right),
-    100%
-  );
-  margin: 0;
-  cursor: pointer;
-`;
+const listItemBaseStyles = css({
+  display: 'flex',
+  paddingTop: token('space.100', '8px'),
+  paddingBottom: token('space.100', '8px'),
+  paddingLeft: `clamp( ${token(
+    'space.100',
+    '8px',
+  )}, var(--link-picker-padding-left), 100% )`,
+  paddingRight: `clamp( ${token(
+    'space.100',
+    '8px',
+  )}, var(--link-picker-padding-right), 100% )`,
+  margin: 0,
+  cursor: 'pointer',
+});
 
-const listItemFocusStyles = css`
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px ${token('color.border.focused', B100)} inset;
-    text-decoration: none;
-  }
-`;
+const listItemFocusStyles = css({
+  '&:focus': {
+    outline: 'none',
+    boxShadow: `0 0 0 2px ${token('color.border.focused', B100)} inset`,
+    textDecoration: 'none',
+  },
+});
 
-const listItemBoxShadow = css`
-  box-shadow: inset 2px 0px 0px ${token('color.border.selected', B400)};
-`;
+const listItemBoxShadow = css({
+  boxShadow: `inset 2px 0px 0px ${token('color.border.selected', B400)}`,
+});
 
-const listItemActive = css`
-  &:hover {
-    background-color: ${token('color.background.neutral.subtle.hovered', N20)};
-    ${listItemBoxShadow};
-  }
-`;
+const listItemActive = css({
+  '&:hover': {
+    backgroundColor: token('color.background.neutral.subtle.hovered', N20),
+  },
+  listItemBoxShadow,
+});
 
-const listItemSelected = css`
-  background-color: ${token('color.background.selected', B50)};
-  ${listItemBoxShadow};
-`;
+const listItemSelected = css(
+  {
+    backgroundColor: token('color.background.selected', B50),
+  },
+  listItemBoxShadow,
+);
 
 export const composeListItemStyles = (selected = false) => {
-  return css`
-    ${listItemBaseStyles};
-    ${!selected && listItemActive};
-    ${selected && listItemSelected};
-    ${listItemFocusStyles};
-  `;
+  return css(
+    listItemBaseStyles,
+    !selected && listItemActive,
+    selected && listItemSelected,
+    listItemFocusStyles,
+  );
 };
 
-export const itemNameStyles = css`
-  overflow: hidden;
-`;
+export const itemNameStyles = css({
+  overflow: 'hidden',
+});
 
-export const listItemNameStyles = css`
-  color: ${token('color.text', N800)};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 20px;
-`;
+export const listItemNameStyles = css({
+  color: token('color.text', N800),
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  lineHeight: '20px',
+});
 
-export const listItemContextStyles = css`
-  color: ${token('color.text', N300)};
-  font-size: ${relativeFontSizeToBase16(fontSizeSmall())};
-  line-height: ${fontSize()}px;
-  display: flex;
-`;
+export const listItemContextStyles = css({
+  color: token('color.text', N300),
+  fontSize: relativeFontSizeToBase16(fontSizeSmall()),
+  lineHeight: `${fontSize()}px`,
+  display: 'flex',
+});
 
-export const listItemContainerStyles = css`
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+export const listItemContainerStyles = css({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+});
 
-export const listItemContainerInnerStyles = css`
-  color: ${token('color.text.subtlest', N200)};
-  white-space: nowrap;
-`;
+export const listItemContainerInnerStyles = css({
+  color: token('color.text.subtlest', N200),
+  whiteSpace: 'nowrap',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const itemIconStyles = css`
-  min-width: ${token('space.200', '16px')};
-  margin-top: 3px;
-  margin-right: ${token('space.150', '12px')};
-`;
+export const itemIconStyles = css({
+  minWidth: token('space.200', '16px'),
+  marginTop: token('space.050', '4px'),
+  marginRight: token('space.150', '12px'),
+});
 
-export const imgStyles = css`
-  max-width: ${token('space.200', '16px')};
-`;
+export const imgStyles = css({
+  maxWidth: token('space.200', '16px'),
+});

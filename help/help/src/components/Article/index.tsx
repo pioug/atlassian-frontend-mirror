@@ -35,7 +35,7 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
   exited: { left: '100%' },
 };
 
-export const Article: React.FC = () => {
+export const Article = () => {
   const {
     view,
     articleId,

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { jsx } from '@emotion/react';
 import type { EmojiDescription } from '../../types';
 import CachingEmoji from './CachingEmoji';
@@ -15,7 +14,7 @@ type Props = {
   emoji: EmojiDescription;
 };
 
-export const EmojiPreviewComponent: FC<Props> = ({ emoji }) => {
+export const EmojiPreviewComponent = ({ emoji }: Props) => {
   return (
     <div css={preview}>
       <span css={previewImg}>

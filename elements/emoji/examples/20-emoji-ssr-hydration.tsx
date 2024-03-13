@@ -7,7 +7,10 @@ import EmojiPickerWithUpload from './05-standard-emoji-picker-with-upload';
 import { getRealEmojiProvider } from '../example-helpers/demo-resource-control';
 import { ResourcedEmoji } from '../src';
 
-const Page: React.FC<{ title: string }> = ({ title, children }) => {
+const Page = ({
+  title,
+  children,
+}: React.PropsWithChildren<{ title: string }>) => {
   return (
     <div>
       <h3>{title}</h3>

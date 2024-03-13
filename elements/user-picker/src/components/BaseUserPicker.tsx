@@ -357,7 +357,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         const input = event.target;
         this.setState({ inputValue: value.label }, () => {
           if (input instanceof HTMLInputElement) {
-            input.select();
+            input.setSelectionRange(0, value.label.length);
           }
         });
       }

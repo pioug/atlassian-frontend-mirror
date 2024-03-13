@@ -1,5 +1,15 @@
 # @atlaskit/textarea
 
+## 5.1.0
+
+### Minor Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) - [ux] Update input border width from 2px to 1px with darker color to meet 3:1 color contrast
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.1
 
 ### Patch Changes

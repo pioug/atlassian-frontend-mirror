@@ -9,11 +9,12 @@ export enum InsertDraftPosition {
 }
 
 export type Position = { from: number; to: number };
-export type AnnotationsWrapperProps = {
+
+export type AnnotationsWrapperProps = React.PropsWithChildren<{
   adfDocument: JSONDocNode;
   annotationProvider: AnnotationProviders | null | undefined;
   rendererRef: React.RefObject<HTMLDivElement>;
-};
+}>;
 
 export type TextPosition = {
   start: number;

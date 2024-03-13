@@ -447,10 +447,6 @@ export interface ToolbarMenuContext {
   formatMessage: IntlShape['formatMessage'];
 }
 
-export type ElementContentRects = {
-  [key: string]: ResizeObserverEntry['contentRect'];
-};
-
 export enum ShadowEvent {
   SHOW_BEFORE_SHADOW = 'showBeforeShadow',
   SHOW_AFTER_SHADOW = 'showAfterShadow',

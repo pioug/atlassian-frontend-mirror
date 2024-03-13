@@ -2,8 +2,6 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import { N0, N500, N800 } from '@atlaskit/theme/colors';
-
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
@@ -110,7 +108,7 @@ export const TokenPieChart = () => {
     title: {
       text: 'Revenue streams',
       textStyle: {
-        color: getTokenValue('color.text', N800),
+        color: getTokenValue('color.text'),
         fontSize: 16,
       },
     },
@@ -122,19 +120,19 @@ export const TokenPieChart = () => {
       selectedMode: false,
       itemWidth: 14,
       textStyle: {
-        color: getTokenValue('color.text.subtle', N500),
+        color: getTokenValue('color.text.subtle'),
       },
     },
     tooltip: {
       trigger: 'item',
       textStyle: {
-        color: getTokenValue('color.text', N800),
+        color: getTokenValue('color.text'),
       },
       formatter: function (params: any) {
         return `${params.name}\n${params.value}%`;
       },
-      borderColor: getTokenValue('elevation.surface.overlay', N0),
-      backgroundColor: getTokenValue('elevation.surface.overlay', N0),
+      borderColor: getTokenValue('elevation.surface.overlay'),
+      backgroundColor: getTokenValue('elevation.surface.overlay'),
     },
     series: [
       {
@@ -142,7 +140,7 @@ export const TokenPieChart = () => {
         type: 'pie',
         radius: ['40%', '70%'],
         itemStyle: {
-          borderColor: getTokenValue('elevation.surface', N0),
+          borderColor: getTokenValue('elevation.surface'),
           borderWidth: 2,
         },
         avoidLabelOverlap: false,
@@ -157,14 +155,11 @@ export const TokenPieChart = () => {
             value: 27,
             name: 'New subs',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.1', '#1D9AAA'),
+              color: getTokenValue('color.chart.categorical.1'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.1.hovered',
-                  '#1D7F8C',
-                ),
+                color: getTokenValue('color.chart.categorical.1.hovered'),
               },
             },
           },
@@ -172,14 +167,11 @@ export const TokenPieChart = () => {
             value: 27,
             name: 'Upsells',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.2', '#5E4DB2'),
+              color: getTokenValue('color.chart.categorical.2'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.2.hovered',
-                  '#352C63',
-                ),
+                color: getTokenValue('color.chart.categorical.2.hovered'),
               },
             },
           },
@@ -187,14 +179,11 @@ export const TokenPieChart = () => {
             value: 23,
             name: 'Enterprise',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.3', '#D97008'),
+              color: getTokenValue('color.chart.categorical.3'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.3.hovered',
-                  '#B65C02',
-                ),
+                color: getTokenValue('color.chart.categorical.3.hovered'),
               },
             },
           },
@@ -202,14 +191,11 @@ export const TokenPieChart = () => {
             value: 11,
             name: 'Support',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.4', '#943D73'),
+              color: getTokenValue('color.chart.categorical.4'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.4.hovered',
-                  '#50253F',
-                ),
+                color: getTokenValue('color.chart.categorical.4.hovered'),
               },
             },
           },
@@ -217,14 +203,11 @@ export const TokenPieChart = () => {
             value: 8,
             name: 'Premium',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.5', '#09326C'),
+              color: getTokenValue('color.chart.categorical.5'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.5.hovered',
-                  '#082145',
-                ),
+                color: getTokenValue('color.chart.categorical.5.hovered'),
               },
             },
           },
@@ -232,14 +215,11 @@ export const TokenPieChart = () => {
             value: 4,
             name: 'Renewals',
             itemStyle: {
-              color: getTokenValue('color.chart.categorical.6', '#8F7EE7'),
+              color: getTokenValue('color.chart.categorical.6'),
             },
             emphasis: {
               itemStyle: {
-                color: getTokenValue(
-                  'color.chart.categorical.6.hovered',
-                  '#8270DB',
-                ),
+                color: getTokenValue('color.chart.categorical.6.hovered'),
               },
             },
           },

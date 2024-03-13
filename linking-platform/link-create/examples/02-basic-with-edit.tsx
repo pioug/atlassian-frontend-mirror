@@ -3,6 +3,7 @@ import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import LinkCreateModal, {
   AsyncSelect,
@@ -157,15 +158,15 @@ function CreateBasic() {
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: token('space.250', '20px') }}>
       {ari && (
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: token('space.400', '2rem') }}>
           <p>ARI: {ari}</p>
         </div>
       )}
 
       {link && (
-        <div style={{ marginBottom: '1rem' }}>
+        <div style={{ marginBottom: token('space.200', '1rem') }}>
           <a href={link} target="_blank" rel="noopener noreferrer nofollow">
             {link}
           </a>

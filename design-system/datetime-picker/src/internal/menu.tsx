@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
+import { isValid, parseISO } from 'date-fns';
 
 import Calendar from '@atlaskit/calendar';
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
@@ -11,7 +12,18 @@ import { token } from '@atlaskit/tokens';
 
 import FixedLayer from '../internal/fixed-layer';
 
-import { getValidDate } from './parse-date';
+function getValidDate(
+  iso: string,
+): { day: number; month: number; year: number } | {} {
+  const date: Date = parseISO(iso);
+  return isValid(date)
+    ? {
+        day: date.getDate(),
+        month: date.getMonth() + 1,
+        year: date.getFullYear(),
+      }
+    : {};
+}
 
 const menuStyles = css({
   zIndex: layers.dialog(),

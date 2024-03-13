@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N200, N20A } from '@atlaskit/theme/colors';
 import checkboxTheme from './theme';
@@ -118,11 +117,7 @@ export const checkboxStyles = (isRenderer: boolean | undefined) =>
         }
         rect:first-of-type {
           stroke: ${checkboxTheme.light.borderColor.rest};
-          stroke-width: ${getBooleanFF(
-            'platform.design-system-team.update-border-radio-checkbox_7askv',
-          )
-            ? 1
-            : 2};
+          stroke-width: ${1};
           transition: stroke 0.2s ease-in-out;
         }
       }

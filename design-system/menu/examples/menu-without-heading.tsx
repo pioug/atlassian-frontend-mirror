@@ -3,7 +3,6 @@ import React from 'react';
 import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import { B300, N800, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, MenuGroup, Section } from '../src';
@@ -17,7 +16,7 @@ export default () => {
   return (
     <div
       style={{
-        color: token('color.text', N800),
+        color: token('color.text'),
         backgroundColor: token('elevation.surface.overlay', '#fff'),
         boxShadow: token(
           'elevation.shadow.overlay',
@@ -43,14 +42,14 @@ export default () => {
               >
                 <Icon
                   glyph={Portfolio}
-                  primaryColor={token('color.icon.brand', B300)}
+                  primaryColor={token('color.icon.brand')}
                   label=""
                 />
               </div>
             }
             iconAfter={
               <StarFilledIcon
-                primaryColor={token('color.icon.warning', Y300)}
+                primaryColor={token('color.icon.warning')}
                 label=""
               />
             }
@@ -61,7 +60,7 @@ export default () => {
             iconBefore={<Icon glyph={Tempo} label="" />}
             iconAfter={
               <StarFilledIcon
-                primaryColor={token('color.icon.warning', Y300)}
+                primaryColor={token('color.icon.warning')}
                 label=""
               />
             }

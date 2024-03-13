@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { useCallback, useMemo } from 'react';
+import React, { type PropsWithChildren, useCallback, useMemo } from 'react';
 import { JsonLd } from 'json-ld-types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import JsonldEditorClient from './jsonld-editor-client';
@@ -9,7 +9,7 @@ const featureFlags = {
   enableFlexibleBlockCard: true,
 };
 
-type Props = {
+type Props = PropsWithChildren<{
   json?: JsonLd.Response;
   onError?: (error: Error) => void;
   onFetch?: () => JsonLd.Response | undefined;
@@ -17,16 +17,16 @@ type Props = {
   url: string;
   ari?: string;
   branchDeploy?: string;
-};
+}>;
 
-const JsonldEditorProvider: React.FC<Props> = ({
+const JsonldEditorProvider = ({
   children,
   onError,
   onFetch,
   onResolve,
   ari,
   branchDeploy,
-}) => {
+}: Props) => {
   // This will cause Provider to rerender which is not a normal use case for
   // smart links. We are hacking it so that we can force using json from
   // jsonld editor.

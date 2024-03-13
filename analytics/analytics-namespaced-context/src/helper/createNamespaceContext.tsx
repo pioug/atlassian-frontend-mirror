@@ -1,17 +1,15 @@
 import React from 'react';
-import { FunctionComponent, ReactNode } from 'react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-export type Props = {
-  children?: ReactNode;
+export type Props = React.PropsWithChildren<{
   data: {};
-};
+}>;
 
 const createNamespaceContext = <T extends Props>(
   namespace: string,
   displayName = 'NamespacedContext',
 ) => {
-  const Component: FunctionComponent<T> = (props: T) => {
+  const Component = (props: T) => {
     const newData = {
       [namespace]: props.data,
     };

@@ -75,9 +75,6 @@
       "path": "../textfield/tsconfig.app.json"
     },
     {
-      "path": "../theme/tsconfig.app.json"
-    },
-    {
       "path": "../tokens/tsconfig.app.json"
     }
   ]

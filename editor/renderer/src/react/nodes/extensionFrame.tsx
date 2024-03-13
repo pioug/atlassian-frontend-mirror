@@ -4,7 +4,6 @@ import { jsx, css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N30 } from '@atlaskit/theme/colors';
 
-import React from 'react';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
 import type { Serializer } from '../..';
@@ -12,7 +11,7 @@ import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-export interface Props {
+export type Props = React.PropsWithChildren<{
   serializer: Serializer<any>;
   extensionHandlers?: ExtensionHandlers;
   rendererContext: RendererContext;
@@ -25,9 +24,9 @@ export interface Props {
   content?: any;
   layout?: ExtensionLayout;
   localId?: string;
-}
+}>;
 
-const ExtensionFrame = (props: React.PropsWithChildren<Props>) => {
+const ExtensionFrame = (props: Props) => {
   const containerCSS = css`
     border: 1px solid ${token('color.border', N30)};
     min-height: 100px;

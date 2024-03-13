@@ -17,12 +17,12 @@ export default function transformer(
     return;
   }
 
-  replaceLevelWithVariant(j, base, headingSpecifier);
+  replaceLevelWithSize(j, base, headingSpecifier);
 
   return base.toSource();
 }
 
-const levelToVariantMap = {
+const levelToSizeMap = {
   h900: 'xxlarge',
   h800: 'xlarge',
   h700: 'large',
@@ -35,7 +35,7 @@ const levelToVariantMap = {
   // h100: 'xxsmall',
 };
 
-function replaceLevelWithVariant(
+function replaceLevelWithSize(
   j: core.JSCodeshift,
   source: ReturnType<typeof j>,
   specifier: string,
@@ -47,13 +47,11 @@ function replaceLevelWithVariant(
         const attrValue = j(attr).nodes()[0].value;
         if (attrValue.type === 'StringLiteral') {
           const replacementValue =
-            levelToVariantMap[
-              attrValue.value as keyof typeof levelToVariantMap
-            ];
+            levelToSizeMap[attrValue.value as keyof typeof levelToSizeMap];
           if (replacementValue) {
             j(attr).replaceWith(
               j.jsxAttribute(
-                j.jsxIdentifier('variant'),
+                j.jsxIdentifier('size'),
                 j.stringLiteral(replacementValue),
               ),
             );

@@ -1,4 +1,4 @@
-import React, { type FC, memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { isMediaEmoji } from '../../util/type-helpers';
 import {
   type EmojiDescription,
@@ -32,7 +32,9 @@ export interface CachingEmojiProps extends EmojiProps {
 /**
  * Renders an emoji from a cached image, if required.
  */
-export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
+export const CachingEmoji = (
+  props: React.PropsWithChildren<CachingEmojiProps>,
+) => {
   // Optimisation to only render CachingMediaEmoji if necessary
   // slight performance hit, which accumulates for a large number of emoji.
   const { emoji, placeholderSize, ...restProps } = props;
@@ -80,7 +82,9 @@ export const CachingEmoji: FC<CachingEmojiProps> = (props) => {
  * Rendering a media emoji image from a cache for media emoji, with different
  * rendering paths depending on caching strategy.
  */
-export const CachingMediaEmoji: FC<CachingEmojiProps> = (props) => {
+export const CachingMediaEmoji = (
+  props: React.PropsWithChildren<CachingEmojiProps>,
+) => {
   const {
     emoji,
     placeholderSize,

@@ -18,9 +18,7 @@ export default () => {
           <Text>Text - no truncation:</Text>
         </Box>
         <Box xcss={truncationWidthStyles}>
-          <Text variant="body">
-            The quick brown fox jumped over the lazy dog
-          </Text>
+          <Text>The quick brown fox jumped over the lazy dog</Text>
         </Box>
       </Inline>
 
@@ -29,9 +27,7 @@ export default () => {
           <Text>Text - 1 line:</Text>
         </Box>
         <Box xcss={truncationWidthStyles}>
-          <Text variant="body" maxLines={1}>
-            The quick brown fox jumped over the lazy dog
-          </Text>
+          <Text maxLines={1}>The quick brown fox jumped over the lazy dog</Text>
         </Box>
       </Inline>
 

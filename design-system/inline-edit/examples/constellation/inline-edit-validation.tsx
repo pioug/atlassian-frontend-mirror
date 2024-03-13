@@ -7,7 +7,6 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
-import { R400 } from '@atlaskit/theme/colors';
 import {
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -105,7 +104,7 @@ const InlineEditValidationExample = () => {
                   <Box xcss={errorIconContainerStyles}>
                     <ErrorIcon
                       label="error"
-                      primaryColor={token('color.icon.danger', R400)}
+                      primaryColor={token('color.icon.danger')}
                     />
                   </Box>
                 )

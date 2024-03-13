@@ -19,7 +19,7 @@ const activeTokens: Token[] = tokens
 
 const typographyProperties = [
   {
-    objectName: 'bodyFont',
+    objectName: 'fontSize',
     cssProperty: 'font',
     prefix: 'font.body',
     filterFn: <T extends Token>(t: T) => t.name.startsWith('font.body'),
@@ -38,10 +38,17 @@ const typographyProperties = [
   },
 ] as const;
 
+const bodySizeMap = {
+  body: 'medium',
+  'body.small': 'small',
+  'body.large': 'large',
+};
+
 const removeVerbosity = (name: string): string => {
   const partialRemove = ['font.body'];
   if (partialRemove.some(s => name.includes(s))) {
-    return name.replace('font.', '');
+    // @ts-expect-error Indexing bodySizeMap
+    return bodySizeMap[name.replace('font.', '')];
   }
 
   const fullRemove = ['font.weight'];

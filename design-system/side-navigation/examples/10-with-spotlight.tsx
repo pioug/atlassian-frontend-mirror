@@ -18,7 +18,6 @@ import {
   SpotlightTransition,
 } from '@atlaskit/onboarding';
 import { Box, Inline } from '@atlaskit/primitives';
-import { N10 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -142,7 +141,7 @@ const SpotlightRenderer = () => {
   const [variant, setVariant] = useState<number | undefined>();
   const variants = [
     <Spotlight
-      targetBgColor={token('elevation.surface', N10)}
+      targetBgColor={token('elevation.surface')}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -160,7 +159,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('elevation.surface', N10)}
+      targetBgColor={token('elevation.surface')}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -182,7 +181,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('elevation.surface', N10)}
+      targetBgColor={token('elevation.surface')}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -204,7 +203,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('elevation.surface', N10)}
+      targetBgColor={token('elevation.surface')}
       actions={[
         {
           onClick: () => setVariant(Number(variant) + 1),
@@ -226,7 +225,7 @@ const SpotlightRenderer = () => {
     </Spotlight>,
 
     <Spotlight
-      targetBgColor={token('elevation.surface', N10)}
+      targetBgColor={token('elevation.surface')}
       actions={[
         {
           onClick: () => setVariant(undefined),

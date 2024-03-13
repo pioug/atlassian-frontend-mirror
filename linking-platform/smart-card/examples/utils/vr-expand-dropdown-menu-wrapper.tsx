@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import { PropsWithChildren } from 'react';
 import { jsx } from '@emotion/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
@@ -9,7 +9,7 @@ const mockDropdownMenu = injectable(DropdownMenu, (props) => (
   <DropdownMenu {...props} isOpen={true} />
 ));
 
-const VrExpandDropdownMenuWrapper: React.FC<{}> = ({ children }) => {
+const VrExpandDropdownMenuWrapper = ({ children }: PropsWithChildren<{}>) => {
   return <DiProvider use={[mockDropdownMenu]}>{children}</DiProvider>;
 };
 

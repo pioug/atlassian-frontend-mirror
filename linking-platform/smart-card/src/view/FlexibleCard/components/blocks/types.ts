@@ -7,9 +7,9 @@ import {
 } from '../../../../constants';
 import { SerializedStyles } from '@emotion/react';
 import { ActionProps } from '../actions/action/types';
-import { Ref } from 'react';
+import { PropsWithChildren, Ref } from 'react';
 
-export type BlockProps = {
+export type BlockProps = PropsWithChildren<{
   /**
    * The direction that the block should arrange it's elements. Can be vertical
    * or horizontal. Default is horizontal.
@@ -58,7 +58,7 @@ export type BlockProps = {
    * @internal
    */
   onTransitionEnd?: () => void;
-};
+}>;
 
 /**
  * Used to represent a metadata element to be rendered.

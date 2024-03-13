@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React from 'react';
 
 import LoadingEmojiComponent, {
   type Props as LoadingProps,
@@ -16,8 +16,9 @@ const emojiUploadModuleLoader = () =>
     /* webpackChunkName:"@atlaskit-internal_emojiUploadComponent" */ './EmojiUploadComponent'
   );
 
-const emojiUploadLoader: () => Promise<FC<ComponentProps>> = () =>
-  emojiUploadModuleLoader().then((module) => module.default);
+const emojiUploadLoader: () => Promise<
+  React.ComponentType<React.PropsWithChildren<ComponentProps>>
+> = () => emojiUploadModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -29,7 +30,9 @@ export class EmojiUploaderInternal extends LoadingEmojiComponent<
 > {
   // state initialised with static component to prevent
   // rerender when the module has already been loaded
-  static AsyncLoadedComponent?: FC<ComponentProps>;
+  static AsyncLoadedComponent?: React.ComponentType<
+    React.PropsWithChildren<ComponentProps>
+  >;
   state = {
     asyncLoadedComponent: EmojiUploaderInternal.AsyncLoadedComponent,
   };
@@ -47,7 +50,9 @@ export class EmojiUploaderInternal extends LoadingEmojiComponent<
 
   renderLoaded(
     loadedEmojiProvider: EmojiProvider,
-    EmojiUploadComponent: FC<ComponentProps>,
+    EmojiUploadComponent: React.ComponentType<
+      React.PropsWithChildren<ComponentProps>
+    >,
   ) {
     const { emojiProvider, ...otherProps } = this.props;
     return (

@@ -13,7 +13,6 @@ import { css, jsx } from '@emotion/react';
 
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import { easeOut } from '@atlaskit/motion';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 import { N100A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -64,7 +63,6 @@ const hiddenBackdropStyles = css({
  *
  * Provides a slot for a left sidebar within the PageLayout.
  *
- * [Behind a feature-flag 'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g']:
  * On smaller viewports, the left sidebar can no longer be expanded.  Instead, expanding it will
  * put it into our "flyout mode" to lay overtop (which in desktop is explicitly a hover state).
  * This ensures the contents behind do not reflow oddly and allows for a better experience
@@ -327,15 +325,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
   const mobileMediaQuery = useMediaQuery('below.sm');
 
-  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
   const openMobileFlyout = useCallback(() => {
-    if (
-      !getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      ) ||
-      !mobileMediaQuery?.matches
-    ) {
-      // Only do this for our feature flag and for mobile viewports
+    if (!mobileMediaQuery?.matches) {
       return;
     }
 
@@ -348,14 +339,8 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     });
   }, [setLeftSidebarState, mobileMediaQuery]);
 
-  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
   const closeMobileFlyout = useCallback(() => {
-    if (
-      !getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      ) ||
-      !mobileMediaQuery?.matches
-    ) {
+    if (!mobileMediaQuery?.matches) {
       return;
     }
 
@@ -368,16 +353,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     });
   }, [setLeftSidebarState, mobileMediaQuery]);
 
-  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone.
   useMediaQuery('below.sm', (event) => {
-    if (
-      !getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      )
-    ) {
-      return;
-    }
-
     setLeftSidebarState((current) => {
       if (event.matches && !current.isLeftSidebarCollapsed) {
         // Sidebar was previously open when resizing downwards, convert the sidebar being open to a flyout being open
@@ -410,64 +386,35 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   });
 
   // Close the flyout when the "escape" key is pressed.
-  // CLEANUP NOTE: If we revert `'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g'`, this would be gone as `closeMobileFlyout` only does something with the feature flag.
   useCloseOnEscapePress({
     onClose: closeMobileFlyout,
-    isDisabled:
-      !getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      ) || !isFlyoutOpen,
+    isDisabled: !isFlyoutOpen,
   });
 
   return (
     <Fragment>
-      {getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      ) &&
-        mobileMediaQuery?.matches && (
-          /**
-           * On desktop, the `onClick` handlers controls the temporary flyout behavior.
-           * This is an intentionally mouse-only experience, it may even be disruptive with keyboard navigation.
-           *
-           * On mobile, the `onClick` handler controls the toggled flyout behaviour.
-           * This is not intended to be how you use this with a keyboard, there is a ResizeButton for this intentionally instead.
-           */
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-          <div
-            css={[hiddenBackdropStyles, isFlyoutOpen && openBackdropStyles]}
-            onClick={closeMobileFlyout}
-          />
-        )}
+      {mobileMediaQuery?.matches && (
+        /**
+         * On desktop, the `onClick` handlers controls the temporary flyout behavior.
+         * This is an intentionally mouse-only experience, it may even be disruptive with keyboard navigation.
+         *
+         * On mobile, the `onClick` handler controls the toggled flyout behaviour.
+         * This is not intended to be how you use this with a keyboard, there is a ResizeButton for this intentionally instead.
+         */
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <div
+          css={[hiddenBackdropStyles, isFlyoutOpen && openBackdropStyles]}
+          onClick={closeMobileFlyout}
+        />
+      )}
       {/* These are strictly mouse events for mouse optimzation of features not relevant to keyboard users. */}
       {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
       <LeftSidebarOuter
         ref={leftSideBarRef}
         testId={testId}
-        onMouseOver={
-          !(
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) && mobileMediaQuery?.matches
-          )
-            ? onMouseOver
-            : undefined
-        }
-        onMouseLeave={
-          !(
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) && mobileMediaQuery?.matches
-          )
-            ? onMouseLeave
-            : undefined
-        }
-        onClick={
-          getBooleanFF(
-            'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-          ) && mobileMediaQuery?.matches
-            ? openMobileFlyout
-            : undefined
-        }
+        onMouseOver={!mobileMediaQuery?.matches ? onMouseOver : undefined}
+        onMouseLeave={!mobileMediaQuery?.matches ? onMouseLeave : undefined}
+        onClick={mobileMediaQuery?.matches ? openMobileFlyout : undefined}
         id={id}
         isFixed={isFixed}
       >

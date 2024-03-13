@@ -1,6 +1,7 @@
 import React, { Fragment, useMemo, useState } from 'react';
 
 import { mockAvailableSites } from '@atlaskit/linking-common/mocks';
+import { token } from '@atlaskit/tokens';
 import {
   AtlassianLinkPickerPlugin,
   Scope,
@@ -52,7 +53,7 @@ function Basic() {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: 20 }}>
+      <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank">
           {link.displayText || link.url}
         </a>

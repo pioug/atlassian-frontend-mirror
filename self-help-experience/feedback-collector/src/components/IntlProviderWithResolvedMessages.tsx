@@ -1,12 +1,15 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
 import { getMessagesForLocale } from '../utils/i18n-get-messages-for-locale';
 
-export const IntlProviderWithResolvedMessages: FunctionComponent<{
+export const IntlProviderWithResolvedMessages = ({
+  children,
+  locale,
+}: PropsWithChildren<{
   locale?: string;
-}> = ({ children, locale }) => {
+}>) => {
   const [resolvedMessagesForLocale, setResolvedMessagesForLocale] = useState();
   useEffect(() => {
     const fetchMessageLocale = async () => {

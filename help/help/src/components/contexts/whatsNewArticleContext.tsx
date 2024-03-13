@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, PropsWithChildren } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { NotificationLogProvider } from '@atlaskit/notification-log-client';
 
@@ -64,9 +64,7 @@ interface WhatsNewArticleProviderInterface
 export const [useWhatsNewArticleContext, CtxProvider] =
   createCtx<WhatsNewArticleContextInterface>();
 
-export const WhatsNewArticleProvider: React.FC<
-  WhatsNewArticleProviderInterface
-> = ({
+export const WhatsNewArticleProvider = ({
   whatsNewGetNotificationProvider,
   onWhatsNewButtonClick,
   onSearchWhatsNewArticles,
@@ -75,7 +73,7 @@ export const WhatsNewArticleProvider: React.FC<
   onGetWhatsNewArticle,
   productName,
   children,
-}) => {
+}: PropsWithChildren<WhatsNewArticleProviderInterface>) => {
   // What's new
   const [whatsNewSearchType, setWhatsNewSearchType] = useState<
     WHATS_NEW_ITEM_TYPES | '' | undefined

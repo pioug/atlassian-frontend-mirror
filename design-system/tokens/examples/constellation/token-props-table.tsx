@@ -2,7 +2,6 @@
 
 import { css, jsx } from '@emotion/react';
 
-import { N20, N300, N500, N800, R500 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 
@@ -13,7 +12,7 @@ const containerStyles = css({
   padding: `${gridSize()}px ${gridSize() * 2}px`,
   borderRadius: `${gridSize()}px`,
   'h3 + &': {
-    marginTop: '0px',
+    marginBlockStart: '0px',
   },
 });
 
@@ -36,24 +35,24 @@ const tableStyles = css({
   },
 
   tbody: {
-    borderBottom: 'none',
+    borderBlockEnd: 'none',
   },
 });
 
 const headerStyles = css({
   margin: `0 0 ${gridSize() / 2}px 0`,
-  paddingBottom: `${gridSize()}px`,
-  borderBottom: `1px solid ${token('color.border', '#EBECF0')}`,
+  borderBlockEnd: `1px solid ${token('color.border')}`,
   fontSize: '1em',
   fontWeight: 'normal',
   lineHeight: '1.4',
+  paddingBlockEnd: `${gridSize()}px`,
 });
 
 const codeStyles = css({
   display: 'inline-block',
-  backgroundColor: token('color.background.neutral', N20),
+  backgroundColor: token('color.background.neutral'),
   borderRadius: token('border.radius.100', '3px'),
-  color: `${token('color.text', N800)}`,
+  color: `${token('color.text')}`,
   fontSize: '1em',
   lineHeight: '20px',
   paddingBlock: token('space.050', '4px'),
@@ -85,7 +84,7 @@ const TokenPropsTable = ({
               <code
                 css={{
                   marginLeft: '1em',
-                  color: `${token('color.text.danger', R500)}`,
+                  color: `${token('color.text.danger')}`,
                 }}
               >
                 required
@@ -95,7 +94,7 @@ const TokenPropsTable = ({
               <code
                 css={{
                   marginLeft: '1em',
-                  color: `${token('color.text.disabled', N500)}`,
+                  color: `${token('color.text.disabled')}`,
                 }}
               >
                 deprecated
@@ -114,7 +113,7 @@ const TokenPropsTable = ({
               <td>
                 <code
                   css={{
-                    color: `${token('color.text.subtle', N300)}`,
+                    color: `${token('color.text.subtle')}`,
                   }}
                 >
                   {defaultValue}
@@ -128,8 +127,8 @@ const TokenPropsTable = ({
               <span>
                 <code
                   css={{
-                    background: `${token('color.background.neutral', N20)}`,
-                    color: `${token('color.text.subtle', N300)}`,
+                    background: `${token('color.background.neutral')}`,
+                    color: `${token('color.text.subtle')}`,
                     borderRadius: token('border.radius.100', '3px'),
                     display: 'inline-block',
                     padding: '0 0.2em',

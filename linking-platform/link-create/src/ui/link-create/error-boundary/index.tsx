@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { PropsWithChildren, useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { captureException } from '@atlaskit/linking-common/sentry';
@@ -14,14 +14,14 @@ import {
   ErrorBoundaryErrorInfo,
 } from './error-boundary-base';
 
-type ErrorBoundaryProps = {
+type ErrorBoundaryProps = PropsWithChildren<{
   errorComponent?: JSX.Element;
-};
+}>;
 
-export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
+export const ErrorBoundary = ({
   children,
   errorComponent,
-}) => {
+}: ErrorBoundaryProps) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const experience = getBooleanFF(
     'platform.linking-platform.link-create.better-observability',

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import type { ComponentClass, FC } from 'react';
+import type { ComponentClass } from 'react';
 import { jsx } from '@emotion/react';
 import {
   withAnalyticsEvents,
@@ -27,8 +27,9 @@ const emojiPickerModuleLoader = () =>
     /* webpackChunkName:"@atlaskit-internal_emojiPickerComponent" */ './EmojiPickerComponent'
   );
 
-const emojiPickerLoader: () => Promise<FC<ComponentProps>> = () =>
-  emojiPickerModuleLoader().then((module) => module.default);
+const emojiPickerLoader: () => Promise<
+  React.ComponentType<React.PropsWithChildren<ComponentProps>>
+> = () => emojiPickerModuleLoader().then((module) => module.default);
 
 export interface Props extends LoadingProps {
   /**
@@ -55,7 +56,9 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 > {
   // state initialised with static component to prevent
   // rerender when the module has already been loaded
-  static AsyncLoadedComponent?: FC<ComponentProps>;
+  static AsyncLoadedComponent?: React.ComponentType<
+    React.PropsWithChildren<ComponentProps>
+  >;
 
   static defaultProps = {
     size: defaultEmojiPickerSize,
@@ -108,6 +111,9 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
   }
 }
 
-const EmojiPicker = withAnalyticsEvents()(EmojiPickerInternal);
+const EmojiPicker = withAnalyticsEvents()<
+  Props & WithAnalyticsEventsProps,
+  React.ComponentType<Props & WithAnalyticsEventsProps>
+>(EmojiPickerInternal as any);
 
 export default EmojiPicker;

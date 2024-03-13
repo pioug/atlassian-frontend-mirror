@@ -135,10 +135,11 @@ export type TablePlugin = NextEditorPlugin<
 const tablesPlugin: TablePlugin = ({ config: options, api }) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
-    const defaultState = {
-      width: document?.body?.offsetWidth ?? 500,
-    };
-    return api?.width?.sharedState.currentState() ?? defaultState;
+    return (
+      api?.width?.sharedState.currentState() ?? {
+        width: document?.body?.offsetWidth ?? 500,
+      }
+    );
   };
   const editorAnalyticsAPI = api?.analytics?.actions;
 

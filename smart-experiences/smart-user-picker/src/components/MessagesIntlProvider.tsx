@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { PropsWithChildren, useMemo } from 'react';
 import { IntlProvider, injectIntl, IntlShape } from 'react-intl-next';
 import { getMessagesForLocale } from '../util/i18n-util';
 
-export interface MessagesIntlProviderProps {
+export type MessagesIntlProviderProps = PropsWithChildren<{
   intl: IntlShape;
-}
+}>;
 
 const EMPTY: Record<string, string> = {};
 
@@ -33,7 +33,7 @@ const useI18n = (locale: string): Record<string, string> => {
   return messages;
 };
 
-const MessagesIntlProvider: React.FC<MessagesIntlProviderProps> = (props) => {
+const MessagesIntlProvider = (props: MessagesIntlProviderProps) => {
   const { intl, children } = props;
   const messages = useI18n(intl.locale);
   const mergedMessages = useMemo<Record<string, string>>(() => {

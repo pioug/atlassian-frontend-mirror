@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { MediaInlineCardProps } from './mediaInlineCard';
@@ -10,10 +10,12 @@ export type MediaInlineCardWithMediaClientConfigProps =
 type MediaInlineCardWithMediaClientConfigComponent =
   React.ComponentType<MediaInlineCardWithMediaClientConfigProps>;
 
-type ErrorBoundaryComponent = React.ComponentType<{
-  data?: { [k: string]: any };
-  isSelected?: boolean;
-}>;
+type ErrorBoundaryComponent = React.ComponentType<
+  PropsWithChildren<{
+    data?: { [k: string]: any };
+    isSelected?: boolean;
+  }>
+>;
 
 export interface MediaInlineCardLoaderState {
   MediaInlineCard?: MediaInlineCardWithMediaClientConfigComponent;

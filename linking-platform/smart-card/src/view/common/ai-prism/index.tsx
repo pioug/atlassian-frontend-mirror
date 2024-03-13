@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import React from 'react';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { AI_BORDER_PALETTE, INNER_BORDER_RADIUS } from './constants';
@@ -13,13 +12,13 @@ const contentStyles = css({
   borderRadius: INNER_BORDER_RADIUS,
 });
 
-const AIPrism: React.FC<AIPrismProps> = ({
+const AIPrism = ({
   children,
   isGlowing = true,
   isMoving = true,
   isVisible,
   testId,
-}) => {
+}: AIPrismProps) => {
   const { colorMode = 'light' } = useThemeObserver();
 
   return (

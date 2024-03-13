@@ -77,11 +77,11 @@ export const buttonStyle = (selected: boolean) => css`
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const buttonWrapperStyle = css`
   border: 1px solid transparent;
-  margin: 1px;
+  margin: ${token('space.025', '2px')};
   font-size: 0;
   display: flex;
   align-items: center;
-  padding: 1px;
+  padding: ${token('space.025', '2px')};
   border-radius: 6px;
   &:focus-within,
   &:focus,
@@ -144,7 +144,7 @@ export const toolbarButtonWrapper = ({
     width: 16px !important;
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
-    margin-left: 1px;
+    margin-left: ${token('space.025', '2px')};
   }
 
   ${!enabled && getHoverStyles('.image-border-toolbar-btn')}

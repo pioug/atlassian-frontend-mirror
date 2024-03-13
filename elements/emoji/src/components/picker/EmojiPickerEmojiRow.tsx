@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { type FC, memo } from 'react';
+import { memo } from 'react';
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 import type { EmojiDescription, OnEmojiEvent } from '../../types';
@@ -22,7 +22,7 @@ export interface Props {
   virtualItemContext?: VirtualItemContext;
 }
 
-const EmojiPickerEmojiRow: FC<Props> = ({
+const EmojiPickerEmojiRow = ({
   emojis,
   onSelected,
   onMouseMove,
@@ -31,7 +31,7 @@ const EmojiPickerEmojiRow: FC<Props> = ({
   showDelete,
   onDelete,
   virtualItemContext,
-}) => {
+}: Props) => {
   const { currentEmojisFocus, setEmojisFocus } = useEmojiPickerListContext();
   const rowIndex = virtualItemContext?.index || 0;
   const { formatMessage } = useIntl();

@@ -3,7 +3,7 @@ import {
   PreviewBlock,
   TitleBlock,
 } from '../../../../FlexibleCard/components/blocks';
-import React, { type FC } from 'react';
+import React from 'react';
 import FlexibleCard from '../../../../FlexibleCard';
 import { InternalFooterBlock } from '../../../../FlexibleCard/components/blocks';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../utils';
 import { UnresolvedViewProps } from './types';
 
-const UnresolvedView: FC<UnresolvedViewProps> = ({
+const UnresolvedView = ({
   actions,
   cardState,
   children,
@@ -25,7 +25,7 @@ const UnresolvedView: FC<UnresolvedViewProps> = ({
   testId,
   title,
   url,
-}) => (
+}: UnresolvedViewProps) => (
   <FlexibleCard
     appearance="block"
     cardState={cardState}

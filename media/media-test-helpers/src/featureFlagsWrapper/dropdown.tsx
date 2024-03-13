@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import Textfield from '@atlaskit/textfield';
 import { MediaFeatureFlags } from '@atlaskit/media-common/mediaFeatureFlags';
 import {
@@ -28,17 +28,21 @@ const Container = styled.div`
   margin: ${token('space.250', '20px')} auto;
 `;
 
-const ItemWrapper: React.FC = ({ children }) => (
+const ItemWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div style={{ padding: `10px ${token('space.250', '20px')}` }}>
     {children}
   </div>
 );
 
-const CheckboxItem: React.FC<{
+const CheckboxItem = ({
+  name,
+  initialValue,
+  onChange,
+}: {
   name: keyof MediaFeatureFlags;
   initialValue: boolean;
   onChange: () => void;
-}> = ({ name, initialValue, onChange }) => (
+}) => (
   <ItemWrapper>
     <Checkbox
       defaultChecked={initialValue}
@@ -53,12 +57,17 @@ const CheckboxItem: React.FC<{
   </ItemWrapper>
 );
 
-const TextFieldItem: React.FC<{
+const TextFieldItem = ({
+  name,
+  value,
+  isNumber,
+  onChange,
+}: {
   name: keyof MediaFeatureFlags;
   value: string;
   onChange: () => void;
   isNumber?: boolean;
-}> = ({ name, value, isNumber, onChange }) => {
+}) => {
   const fieldChanged = debounce((newValue: string) => {
     const formattedValue = isNumber
       ? isNaN(Number(newValue))
@@ -84,9 +93,7 @@ const TextFieldItem: React.FC<{
   );
 };
 
-const FeatureFlagItems: React.FC<{
-  onUpdate: () => void;
-}> = ({ onUpdate }) => {
+const FeatureFlagItems = ({ onUpdate }: { onUpdate: () => void }) => {
   const flagItems = Object.entries(getMediaFeatureFlags());
 
   return (

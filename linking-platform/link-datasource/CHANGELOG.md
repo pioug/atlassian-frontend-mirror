@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.23.7
+
+### Patch Changes
+
+- [#79004](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79004) [`5438920b88ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5438920b88ce) - Fixes race conditions/concurrent requests when parameters changing on datasource, behind ff `platform.linking-platform.datasource.enable-abort-controller`.
+
+## 1.23.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.23.5
 
 ### Patch Changes

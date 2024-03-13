@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 4.1.0
+
+### Minor Changes
+
+- [#80528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80528) [`8877e9b57d55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8877e9b57d55) - Added `size` prop which will replace `variant` prop in the next major version.
+
+## 4.0.2
+
+### Patch Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) - Update input border color token and width to meet 3:1 color contrast
+- Updated dependencies
+
 ## 4.0.1
 
 ### Patch Changes

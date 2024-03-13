@@ -21,12 +21,12 @@ export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
 export const tableStickyPadding = 8;
 
-interface FixedProps {
+type FixedProps = React.PropsWithChildren<{
   top?: number;
   wrapperWidth: number;
   mode: StickyMode;
   rendererAppearance: RendererAppearance;
-}
+}>;
 
 const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
   none: css({
@@ -87,7 +87,7 @@ const fixedTableDivStaticStyles = (
   });
 };
 
-export const FixedTableDiv = (props: React.PropsWithChildren<FixedProps>) => {
+export const FixedTableDiv = (props: FixedProps) => {
   const { top, wrapperWidth, mode, rendererAppearance } = props;
   const fixedTableCss = [
     fixedTableDivStaticStyles(top, wrapperWidth, rendererAppearance),

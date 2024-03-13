@@ -1,12 +1,6 @@
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import React, {
-  type FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import {
   ResourcedEmojiControl,
@@ -24,7 +18,7 @@ const emojiIds: EmojiId[] = [
 
 const SHOW_EMOJI_AMOUNT = 3;
 
-const EmojiWrapper: FC = ({ children }) => {
+const EmojiWrapper = ({ children }: React.PropsWithChildren<unknown>) => {
   return (
     <div
       style={{

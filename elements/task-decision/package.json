@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/task-decision",
-  "version": "17.9.7",
+  "version": "17.9.8",
   "description": "Tasks and decisions react components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,9 +43,8 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/platform-feature-flags": "^0.2.2",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -83,11 +82,6 @@
       "design-tokens": [
         "color"
       ]
-    }
-  },
-  "platform-feature-flags": {
-    "platform.design-system-team.update-border-radio-checkbox_7askv": {
-      "type": "boolean"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -1,9 +1,10 @@
 import React from 'react';
-import { act, create, ReactTestRenderer } from 'react-test-renderer';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type { ReactTestRenderer } from 'react-test-renderer';
+import { act, create } from 'react-test-renderer';
+import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 
-import * as collabProvider from '@atlaskit/collab-provider';
-import * as crossPlatformPromise from '../../../cross-platform-promise';
+import type * as collabProvider from '@atlaskit/collab-provider';
+import type * as crossPlatformPromise from '../../../cross-platform-promise';
 import {
   createCollabProviderFactory,
   StorageImpl,
@@ -142,7 +143,7 @@ function setupFactory(allowCollabProvider: boolean) {
     editorConfiguration: EditorConfiguration;
     createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
   }
-  const TestComponent: React.FC<Props> = (props) => {
+  const TestComponent = (props: React.PropsWithChildren<Props>) => {
     const configuration = useEditorConfiguration(
       props.bridge,
       props.editorConfiguration,

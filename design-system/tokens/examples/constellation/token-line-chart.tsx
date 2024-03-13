@@ -2,8 +2,6 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import { G400, G500, N0, N40, N500, N800 } from '@atlaskit/theme/colors';
-
 import getTokenValue from '../../src/get-token-value';
 import useThemeObserver from '../../src/use-theme-observer';
 
@@ -56,30 +54,30 @@ export const TokenLineChart = () => {
     title: {
       text: 'Resolved issues',
       textStyle: {
-        color: getTokenValue('color.text', N800),
+        color: getTokenValue('color.text'),
         fontSize: 16,
       },
     },
     tooltip: {
       trigger: 'axis',
       textStyle: {
-        color: getTokenValue('color.text', N800),
+        color: getTokenValue('color.text'),
       },
-      borderColor: getTokenValue('color.border', N40),
-      backgroundColor: getTokenValue('elevation.surface.overlay', N0),
+      borderColor: getTokenValue('color.border'),
+      backgroundColor: getTokenValue('elevation.surface.overlay'),
       axisPointer: {
-        lineStyle: { color: getTokenValue('color.border', N40) },
+        lineStyle: { color: getTokenValue('color.border') },
       },
     },
     textStyle: {
-      color: getTokenValue('color.text.subtle', N500),
+      color: getTokenValue('color.text.subtle'),
     },
     xAxis: {
       type: 'category',
       data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       axisLine: {
         lineStyle: {
-          color: getTokenValue('color.border', N40),
+          color: getTokenValue('color.border'),
         },
       },
       axisTick: {
@@ -91,7 +89,7 @@ export const TokenLineChart = () => {
       type: 'value',
       splitLine: {
         lineStyle: {
-          color: getTokenValue('color.border', N40),
+          color: getTokenValue('color.border'),
         },
       },
     },
@@ -103,10 +101,10 @@ export const TokenLineChart = () => {
         smooth: true,
         itemStyle: {
           normal: {
-            color: getTokenValue('color.chart.success', G400),
+            color: getTokenValue('color.chart.success'),
           },
           emphasis: {
-            color: getTokenValue('color.chart.success.hovered', G500),
+            color: getTokenValue('color.chart.success.hovered'),
           },
         },
       },

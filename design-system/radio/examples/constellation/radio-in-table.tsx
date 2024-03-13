@@ -4,7 +4,6 @@ import { SyntheticEvent, useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
-import { B50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Radio } from '../../src';
@@ -91,7 +90,7 @@ export default function RadioInputExample() {
               style={{
                 backgroundColor:
                   item.value === value
-                    ? token('color.background.selected', B50)
+                    ? token('color.background.selected')
                     : 'transparent',
                 transition: 'background-color 200ms ease-in-out',
               }}

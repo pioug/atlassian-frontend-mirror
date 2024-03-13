@@ -75,9 +75,11 @@ describe('i18n', () => {
   });
 
   describe('get messages', () => {
-    let TestComponentWithMessageCallback: React.ComponentType<{
-      locale: string;
-    }>;
+    let TestComponentWithMessageCallback: React.ComponentType<
+      React.PropsWithChildren<{
+        locale: string;
+      }>
+    >;
     let geti18NMessages: (localeFileName: string) => Promise<Object>;
     let useTransaltionsSpy: any;
     beforeEach(() => {

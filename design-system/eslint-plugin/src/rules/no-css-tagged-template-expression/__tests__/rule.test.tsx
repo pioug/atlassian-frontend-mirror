@@ -588,6 +588,46 @@ const createInvalidTestCasesForImport = (importName: string) => [
       `,
     errors,
   },
+  {
+    filename: 'css-vars.ts',
+    code: `
+        import { css } from '${importName}';
+        css\`
+          --my-var: 4px;
+          padding: var(--my-var);
+        \`;
+      `,
+    output: `
+        import { css } from '${importName}';
+        css({
+          "--my-var": "4px",
+          padding: "var(--my-var)"
+        });
+      `,
+    errors: ['Unexpected `css` tagged template expression'],
+  },
+  {
+    filename: 'content-property.ts',
+    code: `
+        import { css } from '${importName}';
+        css\`
+          content: 'abc';
+          content: "def";
+          content: "'";
+          content: '"';
+        \`;
+      `,
+    output: `
+        import { css } from '${importName}';
+        css({
+          content: "'abc'",
+          content: '"def"',
+          content: '"\\'"',
+          content: "'\\"'"
+        });
+      `,
+    errors: ['Unexpected `css` tagged template expression'],
+  },
 ];
 
 tester.run('no-css-tagged-template-expression', rule, {

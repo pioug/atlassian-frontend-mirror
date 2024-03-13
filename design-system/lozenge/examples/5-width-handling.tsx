@@ -2,14 +2,13 @@ import React from 'react';
 
 import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Lozenge from '../src';
 
 const fixedWidthStyles = xcss({
   width: '400px',
-  border: `solid 1px ${token('color.border', N30A)}`,
+  border: `solid 1px ${token('color.border')}`,
 });
 
 const fixedContainerStyles = xcss({

@@ -6,10 +6,10 @@ import {
 } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-const IntlWrapper: React.FC<{ locale?: string }> = ({
+const IntlWrapper = ({
   children,
   locale = 'en',
-}) => {
+}: React.PropsWithChildren<{ locale?: string }>) => {
   return <IntlProvider locale={locale}>{children}</IntlProvider>;
 };
 

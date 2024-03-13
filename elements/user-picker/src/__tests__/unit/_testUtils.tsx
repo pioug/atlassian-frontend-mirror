@@ -1,5 +1,5 @@
 import { shallow, ShallowWrapper } from 'enzyme';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import {
   UFOExperienceState,
   UFOExperience,
@@ -34,8 +34,8 @@ export const flushPromises = () => {
 };
 
 export const createMockedSourceProvider =
-  (mockFetch: LoadUserSource): React.ComponentType =>
-  ({ children }) =>
+  (mockFetch: LoadUserSource) =>
+  ({ children }: PropsWithChildren<{}>) =>
     (
       <ExusUserSourceProvider fetchUserSource={mockFetch}>
         {children}

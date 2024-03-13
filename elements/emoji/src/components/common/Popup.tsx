@@ -1,6 +1,5 @@
 import React, {
   type ReactElement,
-  type FC,
   useCallback,
   useEffect,
   useRef,
@@ -26,7 +25,7 @@ export interface Props {
   children: ReactElement<any>;
 }
 
-const Popup: FC<Props> = (props) => {
+const Popup = (props: React.PropsWithChildren<Props>) => {
   const {
     relativePosition = 'auto',
     offsetX = 0,

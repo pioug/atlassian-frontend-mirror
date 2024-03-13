@@ -1,5 +1,5 @@
 import { layers } from '@atlaskit/theme/constants';
-import React, { type FC, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -18,7 +18,9 @@ const loremContent = (
   </div>
 );
 
-export const EmojiTypeAheadTextInput: FC<TypeaheadProps> = (props) => {
+export const EmojiTypeAheadTextInput = (
+  props: React.PropsWithChildren<TypeaheadProps>,
+) => {
   const emojiTypeAheadRef = useRef<EmojiTypeAhead | null>();
   const [active, setActive] = useState<boolean>(false);
   const [query, setQuery] = useState<string>('');

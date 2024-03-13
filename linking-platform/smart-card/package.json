@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.49.1",
+  "version": "26.49.2",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,7 @@
     "@atlaskit/avatar-group": "^9.5.0",
     "@atlaskit/badge": "^15.2.0",
     "@atlaskit/button": "^17.7.0",
-    "@atlaskit/dropdown-menu": "^12.7.0",
+    "@atlaskit/dropdown-menu": "^12.8.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/icon-object": "^6.3.0",
@@ -51,10 +51,10 @@
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.13.0",
-    "@atlaskit/primitives": "^4.0.0",
+    "@atlaskit/primitives": "^4.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -83,7 +83,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/css-reset": "^6.6.0",
+    "@atlaskit/css-reset": "^6.7.0",
     "@atlaskit/link-test-helpers": "^6.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",

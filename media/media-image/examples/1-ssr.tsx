@@ -14,7 +14,7 @@ import { tallImage } from '@atlaskit/media-test-helpers';
 import FabricAnalyticsListeners, {
   AnalyticsWebClient,
 } from '@atlaskit/analytics-listeners';
-import React, { useEffect, useMemo } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo } from 'react';
 import { SSR } from '@atlaskit/media-common';
 import { MediaImage } from '../src';
 import Spinner from '@atlaskit/spinner';
@@ -45,7 +45,7 @@ const createMediaClient = ({
   return mediaClient;
 };
 
-const SSRAnalyticsWrapper: React.FC = ({ children }) => {
+const SSRAnalyticsWrapper = ({ children }: PropsWithChildren<{}>) => {
   const mockClient: AnalyticsWebClient = {
     sendUIEvent: (e) => console.debug('UI event', e),
     sendOperationalEvent: (e) => console.debug('Operational event', e),
@@ -178,9 +178,7 @@ const rowStyle = {
   marginBottom: 20,
 } as const;
 
-const ScenariosComponent: React.FC<{ scenarios: Scenarios }> = ({
-  scenarios,
-}) => (
+const ScenariosComponent = ({ scenarios }: { scenarios: Scenarios }) => (
   <>
     {Object.entries(scenarios).map(([label, collection]) => (
       <React.Fragment key={label}>

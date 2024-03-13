@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import type { FC } from 'react';
 
 import { HoverCard } from '../../../../HoverCard';
 import { ElementName } from '../../../../../constants';
@@ -7,7 +6,7 @@ import { HoverCardDelayProps } from './types';
 
 const FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY = 100;
 
-const HoverCardControl: FC<HoverCardDelayProps> = ({
+const HoverCardControl = ({
   children,
   hideHoverCardPreviewButton,
   isHoverPreview,
@@ -16,7 +15,7 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
   testId,
   url,
   delay = FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY,
-}) => {
+}: HoverCardDelayProps) => {
   const [canOpen, setCanOpen] = useState(true);
   const mouseStopTimer = useRef<ReturnType<typeof setTimeout>>();
 

@@ -6,7 +6,6 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
-  getCellsInColumn,
   getSelectionRect,
   isColumnSelected,
   isTableSelected,
@@ -34,13 +33,13 @@ export const getColumnsWidths = (
     // When there is no cell we need to fill it with undefined
     widths = Array.from({ length: map.width });
     for (let i = 0; i < map.width; i++) {
-      const cells = getCellsInColumn(i)(selection)!;
-      const cell = cells[0];
-      if (cell) {
-        const cellRef = findDomRefAtPos(cell.pos, domAtPos) as HTMLElement;
+      if (!map.isCellMergedTopLeft(0, i)) {
+        const node = table.node.nodeAt(map.map[i])!;
+        const pos = map.map[i] + table.start;
+        const cellRef = findDomRefAtPos(pos, domAtPos) as HTMLElement;
         const rect = cellRef.getBoundingClientRect();
         widths[i] = (rect ? rect.width : cellRef.offsetWidth) + 1;
-        i += cell.node.attrs.colspan - 1;
+        i += node.attrs.colspan - 1;
       }
     }
   }

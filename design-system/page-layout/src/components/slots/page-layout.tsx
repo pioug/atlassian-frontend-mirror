@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 import {
@@ -79,12 +78,7 @@ const PageLayout = ({
         <div
           {...pageLayoutSelector}
           data-testid={testId}
-          css={[
-            gridStyles,
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) && gridStylesMobileStyles,
-          ]}
+          css={[gridStyles, gridStylesMobileStyles]}
           tabIndex={-1}
         >
           <SidebarResizeController

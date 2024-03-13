@@ -106,8 +106,8 @@ export class DocumentService {
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
     private reconcileOnRecovery: boolean = false,
-    private options: { __livePage: boolean } = { __livePage: false },
     private enableCatchupv2: boolean = false,
+    private options: { __livePage: boolean } = { __livePage: false },
   ) {
     this.stepQueue = new StepQueueState();
   }

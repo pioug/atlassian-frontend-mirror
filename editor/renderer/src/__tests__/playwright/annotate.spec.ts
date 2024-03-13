@@ -78,7 +78,8 @@ test.describe('annotations', () => {
         'fake-id-1',
       );
 
-      await expect(result).toMatchDocumentSnapshot();
+      expect(result).toBeTruthy();
+      expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
     });
   });
 
@@ -105,7 +106,8 @@ test.describe('annotations', () => {
         'fake-id-1',
       );
 
-      await expect(result).toMatchDocumentSnapshot();
+      expect(result).toBeTruthy();
+      expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
     });
   });
 
@@ -132,7 +134,8 @@ test.describe('annotations', () => {
         'fake-id-1',
       );
 
-      await expect(result).toMatchDocumentSnapshot();
+      expect(result).toBeTruthy();
+      expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
     });
   });
 
@@ -158,7 +161,8 @@ test.describe('annotations', () => {
         'fake-id-1',
       );
 
-      await expect(result).toMatchDocumentSnapshot();
+      expect(result).toBeTruthy();
+      expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
     });
   });
 });
@@ -196,7 +200,8 @@ test.describe('annotations: nested', () => {
       'fake-id-1',
     );
 
-    await expect(result).toMatchDocumentSnapshot();
+    expect(result).toBeTruthy();
+    expect(result as Record<string, unknown>).toMatchDocumentSnapshot();
   });
 });
 

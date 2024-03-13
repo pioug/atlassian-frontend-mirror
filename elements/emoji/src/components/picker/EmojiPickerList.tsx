@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createRef, PureComponent } from 'react';
+import { createRef, PropsWithChildren, PureComponent } from 'react';
 import { jsx } from '@emotion/react';
 import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -121,9 +121,12 @@ interface EmojiPickerTabPanelProps extends WrappedComponentProps {
    * Indicate whether the panel shows search results or full emojis list
    */
   showSearchResults: boolean;
+  children?: React.ReactNode;
 }
 
-class EmojiPickerTabPanelInternal extends PureComponent<EmojiPickerTabPanelProps> {
+class EmojiPickerTabPanelInternal extends PureComponent<
+  PropsWithChildren<EmojiPickerTabPanelProps>
+> {
   render() {
     const {
       intl: { formatMessage },

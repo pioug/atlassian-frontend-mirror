@@ -63,7 +63,7 @@ const Footer = (
   </FooterContent>
 );
 
-const Example: React.FC = () => {
+const Example = () => {
   const {
     token: articlesToken,
     setToken: setArticlesToken,

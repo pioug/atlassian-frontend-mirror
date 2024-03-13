@@ -4,7 +4,7 @@ import SectionMessage, {
 } from '@atlaskit/section-message';
 import { toAbsolutePath } from './index';
 
-const FlexibleUiMessage: React.FC = () => {
+const FlexibleUiMessage = () => {
   const learnMoreLink = toAbsolutePath('./flexible');
   return (
     <SectionMessage

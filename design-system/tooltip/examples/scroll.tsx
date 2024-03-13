@@ -3,7 +3,6 @@ import React from 'react';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { N20, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../src';
@@ -21,7 +20,7 @@ interface StyledProps {
 }
 
 const Parent = styled.div<StyledProps>`
-  background-color: ${token('elevation.surface.sunken', N20)};
+  background-color: ${token('elevation.surface.sunken')};
   border-radius: 5px;
   margin-bottom: ${token('space.100', '8px')};
   height: 64px;
@@ -87,7 +86,7 @@ export default () => (
         <Parent
           scroll="vertical"
           style={{
-            backgroundColor: token('elevation.surface.overlay', N40),
+            backgroundColor: token('elevation.surface.overlay'),
           }}
         >
           <Shim scroll="vertical">

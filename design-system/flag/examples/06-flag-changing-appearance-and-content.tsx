@@ -11,7 +11,6 @@ import Error from '@atlaskit/icon/glyph/error';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { RadioGroup } from '@atlaskit/radio';
 import Spinner from '@atlaskit/spinner';
-import { G300, G400, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
@@ -59,9 +58,7 @@ const appearanceOptions = appearanceTypes.map((appearance) => {
 
 const iconMap = (key: string) => {
   const icons: { [key: string]: ReactElement } = {
-    normal: (
-      <Tick label="Success" primaryColor={token('color.icon.success', G300)} />
-    ),
+    normal: <Tick label="Success" primaryColor={token('color.icon.success')} />,
     info: (
       <Box xcss={infoWrapperStyles}>
         <Spinner size="small" appearance="invert" />
@@ -70,19 +67,19 @@ const iconMap = (key: string) => {
     success: (
       <Tick
         label="Success"
-        secondaryColor={token('color.background.success.bold', G400)}
+        secondaryColor={token('color.background.success.bold')}
       />
     ),
     warning: (
       <Warning
         label="Warning"
-        secondaryColor={token('color.background.warning.bold', Y300)}
+        secondaryColor={token('color.background.warning.bold')}
       />
     ),
     error: (
       <Error
         label="Error"
-        secondaryColor={token('color.background.danger.bold', R300)}
+        secondaryColor={token('color.background.danger.bold')}
       />
     ),
   };

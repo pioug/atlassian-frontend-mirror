@@ -1,5 +1,12 @@
 # @atlaskit/forge-react-types
 
+## 0.5.3
+
+### Patch Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`6fa3baec6116`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fa3baec6116) - [ux] Update input field border from 2px to 1px with darker color to meet 3:1 contrast requirement
+- Updated dependencies
+
 ## 0.5.2
 
 ### Patch Changes

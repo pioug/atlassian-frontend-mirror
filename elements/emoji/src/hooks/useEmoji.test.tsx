@@ -1,5 +1,4 @@
 import { renderHook } from '@testing-library/react-hooks';
-import type { FC } from 'react';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
@@ -9,10 +8,13 @@ import { EmojiCommonProvider } from '../context/EmojiCommonProvider';
 import { useEmoji } from './useEmoji';
 
 describe('useEmoji', () => {
-  const ContextWrapper: FC<{
+  const ContextWrapper = ({
+    children,
+    emojiProvider,
+  }: React.PropsWithChildren<{
     emojiProvider: EmojiResource;
     children?: React.ReactNode;
-  }> = ({ children, emojiProvider }) => (
+  }>) => (
     <EmojiCommonProvider emojiProvider={emojiProvider}>
       {children}
     </EmojiCommonProvider>

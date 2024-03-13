@@ -1,15 +1,15 @@
 /* eslint-disable @repo/internal/react/no-unsafe-overrides */
-import React, { ComponentType, FC, memo } from 'react';
+import React, { ComponentType, memo, PropsWithChildren } from 'react';
 
 import { CHANNEL, DEFAULT_THEME_MODE } from '../constants';
 import type { ThemeModes } from '../types';
 
 import AtlaskitThemeProvider from './atlaskit-theme-provider';
 
-export interface DeprecatedThemeProviderProps {
+export type DeprecatedThemeProviderProps = PropsWithChildren<{
   mode?: ThemeModes;
   provider: ComponentType<any>;
-}
+}>;
 
 /**
  * __Compat Theme Provider__
@@ -19,8 +19,12 @@ export interface DeprecatedThemeProviderProps {
  *
  * @deprecated
  */
-const CompatThemeProvider: FC<DeprecatedThemeProviderProps> = memo(
-  ({ mode = DEFAULT_THEME_MODE, provider: Provider, children }) => (
+const CompatThemeProvider = memo(
+  ({
+    mode = DEFAULT_THEME_MODE,
+    provider: Provider,
+    children,
+  }: DeprecatedThemeProviderProps) => (
     <Provider theme={{ [CHANNEL]: { mode } }}>
       <AtlaskitThemeProvider mode={mode}>{children}</AtlaskitThemeProvider>
     </Provider>

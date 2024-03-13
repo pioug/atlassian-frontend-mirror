@@ -6,7 +6,7 @@ import type { ViewPageProps } from '@atlassian/embedded-confluence-common';
 
 import { I18nProvider } from '../page-common/I18nProvider';
 
-export const ViewPage: React.FC<ViewPageProps> = props => {
+export const ViewPage = (props: ViewPageProps) => {
   return (
     <I18nProvider locale={props.locale}>
       <ViewPageCommon {...props} />

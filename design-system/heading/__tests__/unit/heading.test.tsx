@@ -69,7 +69,7 @@ describe('Heading (Legacy)', () => {
 describe('Heading', () => {
   it('renders', () => {
     render(
-      <Heading variant="xxsmall" testId="test">
+      <Heading size="xxsmall" testId="test">
         Hello
       </Heading>,
     );
@@ -77,10 +77,10 @@ describe('Heading', () => {
     expect(screen.getByTestId('test')).toBeInTheDocument();
   });
 
-  it('sets variant based on nesting', () => {
+  it('sets size based on nesting', () => {
     render(
       <HeadingContextProvider value={5}>
-        <Heading variant="xxsmall" testId="test">
+        <Heading size="xxsmall" testId="test">
           Hello
         </Heading>
       </HeadingContextProvider>,
@@ -89,11 +89,11 @@ describe('Heading', () => {
     expect(screen.getByTestId('test').tagName).toEqual('H5');
   });
 
-  it('sets min variant if with user provided value exceeding range', () => {
+  it('sets min size if with user provided value exceeding range', () => {
     render(
       // @ts-expect-error invalid nesting still produces valid dom element
       <HeadingContextProvider value={10}>
-        <Heading variant="xxsmall" testId="test">
+        <Heading size="xxsmall" testId="test">
           Hello
         </Heading>
       </HeadingContextProvider>,
@@ -107,11 +107,11 @@ describe('Heading', () => {
     render(
       <HeadingContextProvider value={2}>
         <HeadingContextProvider>
-          <Heading variant="xxsmall" testId="h3">
+          <Heading size="xxsmall" testId="h3">
             Hello
           </Heading>
           <HeadingContextProvider>
-            <Heading variant="xxsmall" testId="h4">
+            <Heading size="xxsmall" testId="h4">
               Hello
             </Heading>
           </HeadingContextProvider>

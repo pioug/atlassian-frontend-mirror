@@ -9,9 +9,9 @@ jest.mock('@atlaskit/analytics-next', () => ({
     .mockImplementation((props) => <div>{props.children}</div>),
 }));
 
-type Props = {
+type Props = React.PropsWithChildren<{
   data: string;
-};
+}>;
 
 describe('createNamespaceContext', () => {
   test('calls AnalyticsContext with proper namespace for data', () => {

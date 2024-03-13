@@ -29,7 +29,7 @@ import { RendererCssClassName } from '../../consts';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { token } from '@atlaskit/tokens';
 
-export interface Props {
+export type Props = React.PropsWithChildren<{
   serializer: Serializer<any>;
   extensionHandlers?: ExtensionHandlers;
   rendererContext: RendererContext;
@@ -43,7 +43,7 @@ export interface Props {
   layout?: ExtensionLayout;
   localId?: string;
   marks?: PMMark[];
-}
+}>;
 
 type ActionsProps = {
   updateActiveChild: (index: number) => boolean;
@@ -89,7 +89,7 @@ const navigationCssExtended = css`
   }
 `;
 
-const MultiBodiedExtension = (props: React.PropsWithChildren<Props>) => {
+const MultiBodiedExtension = (props: Props) => {
   const { children, layout = 'default', path = [] } = props;
   const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 

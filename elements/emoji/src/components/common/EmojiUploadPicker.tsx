@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import {
-  type FC,
   type KeyboardEventHandler,
   useEffect,
   useLayoutEffect,
@@ -99,7 +98,7 @@ interface ChooseEmojiFileProps {
 }
 
 type ChooseEmojiFilePropsType = ChooseEmojiFileProps & WrappedComponentProps;
-const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
+const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
   const {
     name = '',
     onChooseFile,
@@ -207,7 +206,7 @@ const ChooseEmojiFile: FC<ChooseEmojiFilePropsType> = memo((props) => {
   );
 });
 
-const EmojiUploadPicker: FC<Props & WrappedComponentProps> = (props) => {
+const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
   const {
     errorMessage,
     initialUploadName,

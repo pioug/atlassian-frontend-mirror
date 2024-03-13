@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Skeleton } from '../../src';
 
 const AvatarSkeletonColorExample = () => {
-  return <Skeleton color={B300} />;
+  return <Skeleton color={token('color.background.accent.blue.subtler')} />;
 };
 
 export default AvatarSkeletonColorExample;

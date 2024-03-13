@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import React, { useCallback, useState } from 'react';
+import { PropsWithChildren, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { token } from '@atlaskit/tokens';
@@ -35,12 +35,18 @@ const contentStyles = css`
   padding-top: 0.5rem;
 `;
 
-const BlockBuilderContainer: React.FC<{
+const BlockBuilderContainer = ({
+  children,
+  name,
+  onRemove,
+  position,
+  removable = true,
+}: PropsWithChildren<{
   name: BlockName;
   onRemove: (position: number) => void;
   position: number;
   removable: boolean;
-}> = ({ children, name, onRemove, position, removable = true }) => {
+}>) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleExpand = useCallback(() => setOpen(!open), [open]);
   const handleOnRemove = useCallback(

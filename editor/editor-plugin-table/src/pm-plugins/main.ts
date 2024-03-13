@@ -77,7 +77,6 @@ import TableRow from '../nodeviews/TableRow';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
 import type {
-  ElementContentRects,
   InvalidNodeAttr,
   PluginConfig,
   PluginInjectionAPI,
@@ -133,19 +132,6 @@ export const createPlugin = (
     ...defaultTableSelection,
     getIntl,
   });
-
-  let elementContentRects: ElementContentRects = {};
-
-  const observer = window?.ResizeObserver
-    ? new ResizeObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.target.id) {
-            return;
-          }
-          elementContentRects[entry.target.id] = entry.contentRect;
-        });
-      })
-    : undefined;
 
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];
@@ -282,11 +268,6 @@ export const createPlugin = (
             removeResizeHandleDecorations()(state, dispatch);
           }
         },
-        destroy: () => {
-          if (observer) {
-            observer.disconnect();
-          }
-        },
       };
     },
     props: {
@@ -417,9 +398,9 @@ export const createPlugin = (
         tableRow: (node, view, getPos) =>
           new TableRow(node, view, getPos, eventDispatcher),
         tableCell: (node, view, getPos) =>
-          new TableCell(node, view, getPos, eventDispatcher, observer),
+          new TableCell(node, view, getPos, eventDispatcher),
         tableHeader: (node, view, getPos) =>
-          new TableCell(node, view, getPos, eventDispatcher, observer),
+          new TableCell(node, view, getPos, eventDispatcher),
       },
       handleDOMEvents: {
         focus: handleFocus,
@@ -428,7 +409,7 @@ export const createPlugin = (
         mouseover: withCellTracking(whenTableInFocus(handleMouseOver)),
         mouseleave: handleMouseLeave,
         mouseout: whenTableInFocus(handleMouseOut),
-        mousemove: whenTableInFocus(handleMouseMove, elementContentRects),
+        mousemove: whenTableInFocus(handleMouseMove),
         mouseenter: handleMouseEnter,
         mouseup: whenTableInFocus(handleMouseUp),
         click: withCellTracking(whenTableInFocus(handleClick)),

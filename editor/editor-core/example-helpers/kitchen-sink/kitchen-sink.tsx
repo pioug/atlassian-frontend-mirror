@@ -37,6 +37,8 @@ import type { Error } from '../ErrorReport';
 import { ErrorReport } from '../ErrorReport';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
 import * as FeatureFlagUrl from '../feature-flag-url';
+import { suppressFetchMockWarnings } from '../log-helper';
+import { mockMediaFetchRequests } from '../mock-media-fetch-requests';
 
 import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { KitchenSinkControls } from './kitchen-sink-controls';
@@ -46,9 +48,11 @@ import { column, container, editorColumn, rail } from './kitchen-sink-styles';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
+suppressFetchMockWarnings();
 addGlobalEventEmitterListeners();
 mockDatasourceFetchRequests();
 mockAssetsClientFetchRequests();
+mockMediaFetchRequests();
 
 const appearanceOptions = [
   {

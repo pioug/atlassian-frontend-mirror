@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/status",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,9 +28,9 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/textfield": "^6.0.0",
+    "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

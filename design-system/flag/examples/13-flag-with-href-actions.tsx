@@ -5,7 +5,6 @@ import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
-import { G400, N0, N500, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { AppearanceTypes } from '../src';
@@ -39,7 +38,7 @@ const flagVariants: Array<FlagVariant> = [
     icon: (
       <Error
         label="Error"
-        secondaryColor={token('color.background.danger.bold', R300)}
+        secondaryColor={token('color.background.danger.bold')}
       />
     ),
   },
@@ -51,7 +50,7 @@ const flagVariants: Array<FlagVariant> = [
     icon: (
       <Info
         label="Info"
-        secondaryColor={token('color.background.discovery.bold', N500)}
+        secondaryColor={token('color.background.discovery.bold')}
       />
     ),
   },
@@ -62,7 +61,7 @@ const flagVariants: Array<FlagVariant> = [
     icon: (
       <Tick
         label="Success"
-        secondaryColor={token('color.background.success.bold', G400)}
+        secondaryColor={token('color.background.success.bold')}
       />
     ),
   },
@@ -73,7 +72,7 @@ const flagVariants: Array<FlagVariant> = [
     icon: (
       <Warning
         label="Warning"
-        secondaryColor={token('color.background.warning.bold', Y300)}
+        secondaryColor={token('color.background.warning.bold')}
       />
     ),
   },
@@ -84,7 +83,7 @@ const flagVariants: Array<FlagVariant> = [
     icon: (
       <Tick
         label="Success"
-        secondaryColor={token('elevation.surface.overlay', N0)}
+        secondaryColor={token('elevation.surface.overlay')}
       />
     ),
   },

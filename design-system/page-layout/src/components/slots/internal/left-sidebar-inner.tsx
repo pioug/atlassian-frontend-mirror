@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 import {
@@ -28,7 +27,6 @@ type LeftSidebarInnerProps = {
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
 const mobileStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [UNSAFE_media.below.sm]: {
@@ -94,15 +92,9 @@ const LeftSidebarInner = ({
   return (
     <div
       css={[
-        // feature flagged mobile viewport styles
-        getBooleanFF(
-          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-        ) && mobileStyles,
-        getBooleanFF(
-          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-        ) &&
-          isFlyoutOpen &&
-          mobileInnerFlyoutStyles,
+        // mobile viewport styles
+        mobileStyles,
+        isFlyoutOpen && mobileInnerFlyoutStyles,
 
         // generic styles
         !isFixed && staticInnerStyles,

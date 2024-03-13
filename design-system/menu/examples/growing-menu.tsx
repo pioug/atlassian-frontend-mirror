@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, PopupMenuGroup, Section } from '../src';
@@ -46,7 +45,7 @@ export default () => {
       <div
         style={{
           display: 'inline-block',
-          color: token('color.text', N800),
+          color: token('color.text'),
           backgroundColor: token('elevation.surface.overlay', '#fff'),
           boxShadow: token(
             'elevation.shadow.overlay',

@@ -33,7 +33,7 @@ const transitionStyles: { [id: string]: React.CSSProperties } = {
   exited: { opacity: 0, visibility: 'hidden' },
 };
 
-export const SearchResults: React.FC = () => {
+export const SearchResults = () => {
   const {
     searchState,
     searchResult,

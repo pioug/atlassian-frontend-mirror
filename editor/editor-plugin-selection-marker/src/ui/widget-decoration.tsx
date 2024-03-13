@@ -56,7 +56,7 @@ const toDOM = (type: SelectionType) => {
 
 const containsText = (resolvedPos: ResolvedPos) => {
   const { nodeBefore, nodeAfter } = resolvedPos;
-  return nodeBefore?.isText || nodeAfter?.isText;
+  return nodeBefore?.isInline || nodeAfter?.isInline;
 };
 
 export const createWidgetDecoration = (

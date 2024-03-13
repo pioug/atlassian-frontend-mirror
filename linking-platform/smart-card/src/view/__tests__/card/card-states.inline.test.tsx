@@ -1,7 +1,7 @@
 import './card-states.card.test.mock';
 
 import React from 'react';
-import { useEffect, useState, ReactNode, FC } from 'react';
+import { useEffect, useState, ReactNode } from 'react';
 import {
   render,
   cleanup,
@@ -53,7 +53,7 @@ describe('smart-card: card states, inline', () => {
       });
 
       it('should work correctly with cache', async () => {
-        const DelayedCard: FC<{}> = () => {
+        const DelayedCard = () => {
           const [component, setComponent] = useState<ReactNode>(<></>);
           useEffect(() => {
             setTimeout(() => {

@@ -6,7 +6,6 @@ import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import Box from '@atlaskit/primitives/box';
-import { G300, P300, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
@@ -32,26 +31,23 @@ const iconMap = (key?: string, color?: string) => {
     info: (
       <Info
         label="Info"
-        primaryColor={color || token('color.icon.information', P300)}
+        primaryColor={color || token('color.icon.information')}
       />
     ),
     success: (
       <Tick
         label="Success"
-        primaryColor={color || token('color.icon.success', G300)}
+        primaryColor={color || token('color.icon.success')}
       />
     ),
     warning: (
       <Warning
         label="Warning"
-        primaryColor={color || token('color.icon.warning', Y300)}
+        primaryColor={color || token('color.icon.warning')}
       />
     ),
     error: (
-      <Error
-        label="Error"
-        primaryColor={color || token('color.icon.danger', R300)}
-      />
+      <Error label="Error" primaryColor={color || token('color.icon.danger')} />
     ),
   };
 

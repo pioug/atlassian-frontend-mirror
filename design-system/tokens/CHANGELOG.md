@@ -1,5 +1,16 @@
 # @atlaskit/tokens
 
+## 1.41.0
+
+### Minor Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) - [ux] Update input border color token to meet 3:1 color contrast ratio
+
+  Light theme: color.border.input: #091E4224 → #8590A2
+  Dark mode: color.border.input: #A6C5E229 → #738496
+
+- [#79670](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79670) [`28b71d14576b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28b71d14576b) - Adds autofallback support for Spacing, Typography, and Shape themes to the babel plugin.
+
 ## 1.40.0
 
 ### Minor Changes

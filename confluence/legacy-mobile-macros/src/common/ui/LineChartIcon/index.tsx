@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import styled from 'styled-components';
 
@@ -12,7 +12,7 @@ const IconWrapper = styled.div`
 `;
 
 /* Copied from @atlassian/charts/src/ui/icons/LineChartIcon.tsx */
-export const LineChartIcon: FC<{}> = () => {
+export const LineChartIcon = () => {
   const lineGlyph = (props: CustomGlyphProps) => (
     <svg
       {...props}

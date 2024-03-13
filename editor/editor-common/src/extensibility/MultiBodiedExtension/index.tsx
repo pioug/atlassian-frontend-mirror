@@ -46,6 +46,8 @@ type Props = {
   editorAppearance?: EditorAppearance;
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
+  isNodeHovered?: boolean;
+  setIsNodeHovered?: (isHovered: boolean) => void;
 };
 
 type PropsWithWidth = Props & {
@@ -107,6 +109,8 @@ const MultiBodiedExtensionWithWidth = ({
   editorAppearance,
   showMacroInteractionDesignUpdates,
   isNodeSelected,
+  isNodeHovered,
+  setIsNodeHovered,
 }: PropsWithWidth) => {
   const { parameters, extensionKey } = node.attrs;
   const title =
@@ -195,6 +199,12 @@ const MultiBodiedExtensionWithWidth = ({
     'remove-margins': showMacroInteractionDesignUpdates,
   });
 
+  const handleMouseEvent = (didHover: boolean) => {
+    if (setIsNodeHovered) {
+      setIsNodeHovered(didHover);
+    }
+  };
+
   return (
     <Fragment>
       {showMacroInteractionDesignUpdates && (
@@ -203,6 +213,7 @@ const MultiBodiedExtensionWithWidth = ({
           node={node}
           showMacroInteractionDesignUpdates={true}
           customContainerStyles={mbeWrapperStyles}
+          isNodeHovered={isNodeHovered}
         />
       )}
       <div
@@ -210,6 +221,8 @@ const MultiBodiedExtensionWithWidth = ({
         css={mbeExtensionWrapperCSS}
         data-testid="multiBodiedExtension--wrapper"
         style={mbeWrapperStyles}
+        onMouseOver={() => handleMouseEvent(true)}
+        onMouseLeave={() => handleMouseEvent(false)}
       >
         {getWrapperTitleContent(
           imageData,

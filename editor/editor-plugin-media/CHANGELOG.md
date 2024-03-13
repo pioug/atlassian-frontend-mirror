@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.9.0
+
+### Minor Changes
+
+- [#80857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80857) [`ad7674680f2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad7674680f2d) - [ux] Changed spacing styles to use design token instead of static values
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.2
 
 ### Patch Changes

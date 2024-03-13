@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import TextField from '@atlaskit/textfield';
-import { R400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -98,7 +97,7 @@ const InlineEditExample = () => {
                   >
                     <ErrorIcon
                       label="error"
-                      primaryColor={token('color.icon.danger', R400)}
+                      primaryColor={token('color.icon.danger')}
                     />
                   </div>
                 )

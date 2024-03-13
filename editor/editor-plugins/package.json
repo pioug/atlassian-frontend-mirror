@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "1.5.14",
+  "version": "1.5.18",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -119,10 +119,10 @@
     "update-editor-plugins": "ts-node scripts/update-editor-plugins.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-plugin-alignment": "1.0.2",
+    "@atlaskit/editor-plugin-alignment": "1.1.0",
     "@atlaskit/editor-plugin-analytics": "1.0.3",
     "@atlaskit/editor-plugin-annotation": "1.2.2",
-    "@atlaskit/editor-plugin-avatar-group": "1.0.3",
+    "@atlaskit/editor-plugin-avatar-group": "1.0.4",
     "@atlaskit/editor-plugin-base": "1.0.2",
     "@atlaskit/editor-plugin-before-primary-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-better-type-history": "1.0.2",
@@ -143,10 +143,10 @@
     "@atlaskit/editor-plugin-copy-button": "1.0.7",
     "@atlaskit/editor-plugin-custom-autoformat": "1.0.1",
     "@atlaskit/editor-plugin-data-consumer": "1.0.2",
-    "@atlaskit/editor-plugin-date": "1.0.4",
+    "@atlaskit/editor-plugin-date": "1.0.5",
     "@atlaskit/editor-plugin-decorations": "1.0.1",
     "@atlaskit/editor-plugin-editor-disabled": "1.0.1",
-    "@atlaskit/editor-plugin-editor-viewmode": "1.0.40",
+    "@atlaskit/editor-plugin-editor-viewmode": "1.0.43",
     "@atlaskit/editor-plugin-emoji": "1.1.7",
     "@atlaskit/editor-plugin-expand": "1.2.1",
     "@atlaskit/editor-plugin-extension": "1.0.8",
@@ -158,7 +158,7 @@
     "@atlaskit/editor-plugin-fragment": "1.0.2",
     "@atlaskit/editor-plugin-grid": "1.0.1",
     "@atlaskit/editor-plugin-guideline": "1.0.1",
-    "@atlaskit/editor-plugin-help-dialog": "1.0.2",
+    "@atlaskit/editor-plugin-help-dialog": "1.1.0",
     "@atlaskit/editor-plugin-history": "1.0.1",
     "@atlaskit/editor-plugin-hyperlink": "1.1.1",
     "@atlaskit/editor-plugin-image-upload": "1.0.2",
@@ -168,7 +168,7 @@
     "@atlaskit/editor-plugin-list": "3.1.12",
     "@atlaskit/editor-plugin-loom": "1.0.1",
     "@atlaskit/editor-plugin-max-content-size": "1.0.1",
-    "@atlaskit/editor-plugin-media": "1.8.2",
+    "@atlaskit/editor-plugin-media": "1.9.0",
     "@atlaskit/editor-plugin-mentions": "1.0.3",
     "@atlaskit/editor-plugin-panel": "1.0.4",
     "@atlaskit/editor-plugin-paste": "1.0.8",
@@ -184,7 +184,7 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-status": "1.0.2",
     "@atlaskit/editor-plugin-submit-editor": "1.0.1",
-    "@atlaskit/editor-plugin-table": "7.5.5",
+    "@atlaskit/editor-plugin-table": "7.5.6",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.3",
     "@atlaskit/editor-plugin-text-color": "1.0.2",
     "@atlaskit/editor-plugin-text-formatting": "1.2.2",
@@ -249,6 +249,10 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
+    "platform.editor.text-alignment-keyboard-shortcuts": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.editor.enable-selection-toolbar_ucdwd": {
       "type": "boolean",
       "referenceOnly": true
@@ -266,6 +270,14 @@
       "referenceOnly": true
     },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.card.fix-embed-card-select-all": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.enable-map-selection-backward": {
       "type": "boolean",
       "referenceOnly": true
     },
@@ -321,10 +333,6 @@
       "type": "boolean",
       "referenceOnly": true
     },
-    "platform.editor.media.autoselect-inserted-image_oumto": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
     "platform.media-experience.media-viewer-v2_hgsii": {
       "type": "boolean",
       "referenceOnly": true
@@ -341,6 +349,10 @@
       "type": "boolean",
       "referenceOnly": true
     },
+    "platform.editor.media.autoselect-inserted-image_oumto": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.editor.ordered-list-inserting-nodes_bh0vo": {
       "type": "boolean",
       "referenceOnly": true
@@ -350,6 +362,10 @@
       "referenceOnly": true
     },
     "platform.editor.handle-paste-for-action-in-panel": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.place-cursor-inside-text-block": {
       "type": "boolean",
       "referenceOnly": true
     },

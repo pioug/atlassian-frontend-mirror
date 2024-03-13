@@ -11,7 +11,6 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-import { N20 } from '@atlaskit/theme/colors';
 
 import { token } from '../../../src';
 import palettesRaw from '../../../src/entry-points/palettes-raw';
@@ -173,7 +172,7 @@ const TokenSelect = ({
           <Inline space="space.025" grow="hug">
             <input
               css={{
-                border: `2px solid ${token('color.border', N20)}`,
+                border: `2px solid ${token('color.border')}`,
                 backgroundColor: token('color.background.input', 'white'),
                 borderRadius: token('border.radius.100', '3px'),
                 height: token('space.400', '32px'),

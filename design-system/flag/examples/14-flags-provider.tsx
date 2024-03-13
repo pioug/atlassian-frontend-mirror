@@ -4,7 +4,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import noop from '@atlaskit/ds-lib/noop';
 import Info from '@atlaskit/icon/glyph/info';
-import { P300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { CreateFlagArgs, FlagsProvider, useFlags } from '../src';
@@ -25,9 +24,7 @@ const getFlagData = (
   const flagData: CreateFlagArgs = {
     actions,
     description: description,
-    icon: (
-      <Info label="Info" primaryColor={token('color.icon.information', P300)} />
-    ),
+    icon: <Info label="Info" primaryColor={token('color.icon.information')} />,
     title: `${index + 1}: Whoa a new flag!`,
     isAutoDismiss: isAutoDismiss,
   };

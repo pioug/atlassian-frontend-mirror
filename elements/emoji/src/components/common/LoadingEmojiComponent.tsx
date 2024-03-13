@@ -11,7 +11,7 @@ export interface Props {
 
 export interface State {
   loadedEmojiProvider?: EmojiProvider;
-  asyncLoadedComponent?: ComponentType<any>;
+  asyncLoadedComponent?: ComponentType<React.PropsWithChildren<any>>;
 }
 
 /**
@@ -72,7 +72,7 @@ export default abstract class LoadingEmojiComponent<
 
   private loaded = <
     T extends State & {
-      asyncLoadedComponent: ComponentType<any>;
+      asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>;
       loadedEmojiProvider: EmojiProvider;
     },
   >(
@@ -81,7 +81,9 @@ export default abstract class LoadingEmojiComponent<
 
   abstract asyncLoadComponent(): void;
 
-  protected setAsyncState(asyncLoadedComponent: ComponentType<any>) {
+  protected setAsyncState(
+    asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>,
+  ) {
     if (!this.isUnmounted) {
       this.setState({ asyncLoadedComponent });
     }
@@ -93,7 +95,7 @@ export default abstract class LoadingEmojiComponent<
 
   abstract renderLoaded(
     loadedEmojiProvider: EmojiProvider,
-    asyncLoadedComponent: ComponentType<any>,
+    asyncLoadedComponent: ComponentType<React.PropsWithChildren<any>>,
   ): JSX.Element | null;
 
   render() {

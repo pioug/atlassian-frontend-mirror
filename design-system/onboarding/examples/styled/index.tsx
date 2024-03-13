@@ -3,17 +3,16 @@ import { forwardRef, HTMLAttributes, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const highlights: Record<string, any> = {
-  blue: token('color.background.accent.blue.subtle', colors.B300),
-  green: token('color.background.accent.green.subtle', colors.G300),
-  neutral: token('color.border', colors.N100),
-  purple: token('color.background.accent.purple.subtle', colors.P300),
-  red: token('color.background.accent.red.subtle', colors.R300),
-  teal: token('color.background.accent.teal.subtle', colors.T300),
-  yellow: token('color.background.accent.orange.subtle', colors.Y300),
+  blue: token('color.background.accent.blue.subtle'),
+  green: token('color.background.accent.green.subtle'),
+  neutral: token('color.border'),
+  purple: token('color.background.accent.purple.subtle'),
+  red: token('color.background.accent.red.subtle'),
+  teal: token('color.background.accent.teal.subtle'),
+  yellow: token('color.background.accent.orange.subtle'),
 };
 
 const highlightGroupStyles = css({
@@ -44,17 +43,17 @@ const highlightStyles = css({
   position: 'relative',
   alignItems: 'space-between',
   justifyContent: 'space-between',
-  borderLeftStyle: 'solid',
-  borderLeftWidth: '4px',
+  borderInlineStartStyle: 'solid',
+  borderInlineStartWidth: '4px',
   overflow: 'hidden',
   '&::after': {
     width: '4px',
     height: '100%',
     position: 'absolute',
-    top: token('space.0', '0px'),
-    left: token('space.0', '0px'),
     backgroundColor: 'transparent',
     content: '""',
+    insetBlockStart: token('space.0', '0px'),
+    insetInlineStart: token('space.0', '0px'),
   },
 });
 
@@ -67,8 +66,7 @@ export const Highlight = forwardRef<
     css={highlightStyles}
     style={
       {
-        backgroundColor:
-          props.bg ?? token('elevation.surface.raised', colors.N20),
+        backgroundColor: props.bg ?? token('elevation.surface.raised'),
         borderRadius: `${props.radius ?? 0}px`,
         borderLeftColor: highlights[props.color],
         cursor: props.onClick ? 'pointer' : 'auto',
@@ -80,15 +78,15 @@ export const Highlight = forwardRef<
 
 const codeStyles = css({
   display: 'inline-block',
-  paddingRight: token('space.050', '4px'),
-  paddingLeft: token('space.050', '4px'),
-  backgroundColor: token('color.background.discovery.hovered', colors.P50),
-  border: `1px solid ${token('color.border.discovery', colors.P75)}`,
+  backgroundColor: token('color.background.discovery.hovered'),
+  border: `1px solid ${token('color.border.discovery')}`,
   borderRadius: '0.2em',
-  color: token('color.text.discovery', colors.P500),
+  color: token('color.text.discovery'),
   fontFamily: 'Monaco, monospace',
   fontSize: '0.85em',
   lineHeight: 1.3,
+  paddingInlineEnd: token('space.050', '4px'),
+  paddingInlineStart: token('space.050', '4px'),
   verticalAlign: 'baseline',
 });
 

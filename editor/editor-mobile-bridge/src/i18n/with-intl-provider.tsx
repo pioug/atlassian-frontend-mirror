@@ -16,7 +16,7 @@ interface Props extends WithIntlProviderProps {
   geti18NMessages: geti18NMessagesType;
 }
 
-const IntlProviderWrapper: React.FC<Props> = (props) => {
+const IntlProviderWrapper = (props: React.PropsWithChildren<Props>) => {
   const { locale, messages } = useTranslations(
     props.locale,
     props.geti18NMessages,
@@ -40,9 +40,11 @@ const IntlProviderWrapper: React.FC<Props> = (props) => {
 };
 
 export function withIntlProvider<T extends {}>(
-  WrappedComponent: React.ComponentType<T>,
+  WrappedComponent: React.ComponentType<React.PropsWithChildren<T>>,
   geti18NMessages: geti18NMessagesType,
-): React.FC<Omit<T & WithIntlProviderProps, 'intl'>> {
+): React.ComponentType<
+  React.PropsWithChildren<Omit<T & WithIntlProviderProps, 'intl'>>
+> {
   return ({ locale, onLocaleChanged, onWillLocaleChange, ...restProps }) => {
     return (
       <IntlProviderWrapper

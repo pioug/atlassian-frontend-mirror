@@ -19,8 +19,13 @@ const createKey = (key: string) => {
   return `[\`${key}\`]`;
 };
 
-const addQuotes = (literal: string): string =>
-  literal[0] === `"` ? `'${literal}'` : `"${literal}"`;
+const addQuotes = (literal: string): string => {
+  if (literal[0] === `"`) {
+    return `'${literal.replace(/'/g, `\\'`)}'`;
+  }
+
+  return `"${literal.replace(/"/g, `\\"`)}"`;
+};
 
 const createValue = (value: DeclarationValue) => {
   const { type } = value;

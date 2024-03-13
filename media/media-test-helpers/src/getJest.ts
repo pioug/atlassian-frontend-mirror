@@ -1,5 +1,6 @@
 // Mock the bare minimum of jest used within `media-test-helpers`.
 // Ideally this is not required in the future when functions are no longer used in Examples
+
 // as they should only be used in unit tests.
 interface MockedJest<F, S> {
   fn: (value?: F) => MockStub<F, F>;
@@ -25,10 +26,12 @@ const mockStub = <T>(): MockStub<T, void> =>
   });
 
 const mockJest = <F, S>(): MockedJest<F, S> => {
-  // eslint-disable-next-line no-console
-  console.warn(
-    'Using mock jest. Please remove references to media-test-helpers in non-test code.',
-  );
+  if (process.env.NODE_ENV !== 'development') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Using mock jest. Please remove references to media-test-helpers in non-test code.',
+    );
+  }
 
   return {
     fn: (value?: F) => mockStub<F>() as MockStub<F, F>,

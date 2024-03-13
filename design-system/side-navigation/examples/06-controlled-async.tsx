@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -32,7 +32,10 @@ interface Option {
 
 const isLoaded: Record<string, boolean> = {};
 
-const DelayedComponent: FC<{ id: string }> = ({ children, id }) => {
+const DelayedComponent = ({
+  children,
+  id,
+}: PropsWithChildren<{ id: string }>) => {
   // Because everything is always rendered we need to make sure async components
   // only load themselves once - else we will get a waterfall load which isn't great!
   const [showLoading, setShowLoading] = useState(!isLoaded[id]);

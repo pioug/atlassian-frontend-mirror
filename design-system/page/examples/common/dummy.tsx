@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { N30A, N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type DummyProps = {
@@ -13,13 +12,13 @@ type DummyProps = {
 
 const dummyStyles = {
   base: css({
-    background: token('color.background.neutral', N30A),
+    background: token('color.background.neutral'),
   }),
   nested: css({
-    background: token('color.background.neutral.hovered', N40A),
+    background: token('color.background.neutral.hovered'),
   }),
   margin: css({
-    marginBottom: token('space.100', '8px'),
+    marginBlockEnd: token('space.100', '8px'),
   }),
 };
 

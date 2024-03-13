@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
@@ -14,7 +14,9 @@ interface RenderRealEmojisProps {
   emailProvider: Promise<EmojiProvider>;
 }
 
-const CustomFallbackElement: FC = ({ children }) => {
+const CustomFallbackElement = ({
+  children,
+}: React.PropsWithChildren<unknown>) => {
   return (
     <span
       style={{

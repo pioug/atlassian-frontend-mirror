@@ -14,7 +14,7 @@ export default () => {
           </Heading>
         </Stack>
         <Stack testId="headings">
-          <Heading variant="xxlarge" color="inverse">
+          <Heading size="xxlarge" color="inverse">
             inverse
           </Heading>
         </Stack>

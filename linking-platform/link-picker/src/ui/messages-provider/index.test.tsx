@@ -13,7 +13,7 @@ jest.mock('./lazy-messages-provider/utils/fetch-messages-for-locale', () => ({
 }));
 
 describe('MessagesProvider', () => {
-  let MessagesProvider: React.ComponentType;
+  let MessagesProvider: React.ComponentType<React.PropsWithChildren<{}>>;
 
   beforeEach(() => {
     jest.clearAllMocks();

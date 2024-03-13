@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Box from '@atlaskit/primitives/box';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { G400, N0, N500, R400, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AutoDismissFlag, FlagGroup } from '../src';
@@ -17,11 +16,11 @@ const appearances: AppearanceTypes[] = [
   'warning',
 ];
 const color = {
-  error: token('color.icon.danger', R400),
-  info: token('color.icon.information', N500),
-  normal: token('color.icon.brand', N0),
-  success: token('color.icon.success', G400),
-  warning: token('color.icon.warning', Y200),
+  error: token('color.icon.danger'),
+  info: token('color.icon.information'),
+  normal: token('color.icon.brand'),
+  success: token('color.icon.success'),
+  warning: token('color.icon.warning'),
 };
 
 const AutoDismissExample = () => {

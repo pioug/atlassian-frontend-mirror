@@ -42,49 +42,51 @@ import {
 export const CONTAINER_WIDTH_IN_PX = RECENT_SEARCH_WIDTH_IN_PX;
 export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 
-const supportText = css`
-  color: ${token('color.text.subtlest', N200)};
-  font-size: ${relativeFontSizeToBase16(12)};
-  padding: ${token('space.150', '12px')} ${token('space.500', '40px')};
-  line-height: 20px;
-  border-top: 1px solid ${token('color.border', N30)};
-  margin: 0;
-`;
+const supportTextStyles = css({
+  color: token('color.text.subtlest', N200),
+  fontSize: relativeFontSizeToBase16(12),
+  padding: `${token('space.150', '12px')} ${token('space.500', '40px')}`,
+  lineHeight: '20px',
+  borderTop: `1px solid ${token('color.border', N30)}`,
+  margin: 0,
+});
 
-const container = css`
-  width: ${CONTAINER_WIDTH_IN_PX}px;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  line-height: 2;
-`;
+const containerStyles = css({
+  width: `${CONTAINER_WIDTH_IN_PX}px`,
+  display: 'flex',
+  flexDirection: 'column',
+  overflow: 'auto',
+  lineHeight: 2,
+});
 
-const inputWrapper = css`
-  display: flex;
-  line-height: 0;
-  padding: 5px 0;
-  align-items: center;
-`;
+const inputWrapperStyles = css({
+  display: 'flex',
+  lineHeight: 0,
+  padding: `${token('space.075', '6px')} 0`,
+  alignItems: 'center',
+});
 
-const validationWrapper = css`
-  display: flex;
-  line-height: 0;
-  padding: ${token('space.150', '12px')} ${token('space.300', '24px')}
-    ${token('space.150', '12px')} 0;
-  margin: 0 ${token('space.150', '12px')} 0 ${token('space.500', '40px')};
-  border-top: 1px solid ${token('color.border.danger', R400)};
-  align-items: start;
-  flex-direction: column;
-`;
+const validationWrapperStyles = css({
+  display: 'flex',
+  lineHeight: 0,
+  padding: `${token('space.150', '12px')} ${token('space.300', '24px')} ${token(
+    'space.150',
+    '12px',
+  )} 0`,
+  margin: `0 ${token('space.150', '12px')} 0 ${token('space.500', '40px')}`,
+  borderTop: `1px solid ${token('color.border.danger', R400)}`,
+  alignItems: 'start',
+  flexDirection: 'column',
+});
 
-const buttonWrapper = css`
-  display: flex;
-  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-`;
+const buttonWrapperStyles = css({
+  display: 'flex',
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+});
 
-const clearText = css`
-  color: ${token('color.icon.subtle', N80)};
-`;
+const clearTextStyles = css({
+  color: token('color.icon.subtle', N80),
+});
 
 type Props = {
   view: EditorView;
@@ -176,9 +178,9 @@ export class AltTextEditComponent extends React.Component<
     const hasErrors = !!errorsList.length;
 
     return (
-      <div css={container}>
-        <section css={inputWrapper}>
-          <div css={buttonWrapper}>
+      <div css={containerStyles}>
+        <section css={inputWrapperStyles}>
+          <div css={buttonWrapperStyles}>
             <Button
               title={formatMessage(messages.back)}
               icon={
@@ -204,12 +206,12 @@ export class AltTextEditComponent extends React.Component<
             autoFocus
           />
           {showClearTextButton && (
-            <div css={buttonWrapper}>
+            <div css={buttonWrapperStyles}>
               <Button
                 testId="alt-text-clear-button"
                 title={formatMessage(messages.clear)}
                 icon={
-                  <span css={clearText}>
+                  <span css={clearTextStyles}>
                     <CrossCircleIcon label={formatMessage(messages.clear)} />
                   </span>
                 }
@@ -224,12 +226,12 @@ export class AltTextEditComponent extends React.Component<
             id="errors-list"
             ref={this.errorsListRef}
             aria-live="assertive"
-            css={validationWrapper}
+            css={validationWrapperStyles}
           >
             {errorsList}
           </section>
         )}
-        <p css={supportText} id="support-text">
+        <p css={supportTextStyles} id="support-text">
           {formatMessage(messages.supportText)}
         </p>
       </div>

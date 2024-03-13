@@ -1,4 +1,10 @@
-import React, { FC, MouseEvent, useCallback, useEffect, useState } from 'react';
+import React, {
+  MouseEvent,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import {
   AnalyticsContext,
@@ -9,13 +15,14 @@ import {
 } from '../src';
 
 interface ButtonProps extends WithAnalyticsEventsProps {
+  children: ReactNode;
   onClick: (
     event: MouseEvent<HTMLButtonElement>,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
 }
 
-const Button: FC<ButtonProps> = ({ createAnalyticsEvent, ...props }) => (
+const Button = ({ createAnalyticsEvent, ...props }: ButtonProps) => (
   <button {...props} />
 );
 

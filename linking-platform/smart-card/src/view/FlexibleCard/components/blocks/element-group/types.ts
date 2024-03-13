@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { SerializedStyles } from '@emotion/react';
 
 import {
@@ -8,7 +9,7 @@ import {
   SmartLinkWidth,
 } from '../../../../../constants';
 
-export type ElementGroupProps = {
+export type ElementGroupProps = PropsWithChildren<{
   /* Determines the alignment of the Elements within. Can be left or right aligned. */
   align?: SmartLinkAlignment;
   /* Determines the direction that the Elements are rendered. Can be Vertical or Horizontal. */
@@ -23,4 +24,4 @@ export type ElementGroupProps = {
   testId?: string;
   /* Determines the position of the elements within. Can be top or center position. */
   position?: SmartLinkPosition;
-};
+}>;

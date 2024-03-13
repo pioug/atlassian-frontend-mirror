@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
@@ -46,7 +46,7 @@ const getBlockStyles = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const Block: React.FC<BlockProps> = ({
+const Block = ({
   children,
   direction = SmartLinkDirection.Horizontal,
   size = SmartLinkSize.Medium,
@@ -55,7 +55,7 @@ const Block: React.FC<BlockProps> = ({
   blockRef,
   onRender,
   onTransitionEnd,
-}) => {
+}: BlockProps) => {
   useEffect(() => {
     onRender && onRender();
   }, [onRender]);

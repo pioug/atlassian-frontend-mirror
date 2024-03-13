@@ -4,14 +4,26 @@ import * as t from '@babel/types';
 import tokenNames from '../artifacts/token-names';
 import legacyLight from '../artifacts/tokens-raw/atlassian-legacy-light';
 import light from '../artifacts/tokens-raw/atlassian-light';
+import shape from '../artifacts/tokens-raw/atlassian-shape';
+import spacing from '../artifacts/tokens-raw/atlassian-spacing';
+import typography from '../artifacts/tokens-raw/atlassian-typography-adg3';
 
-type DefaultTheme = 'light' | 'legacy-light';
+interface TokenMeta {
+  value:
+    | string
+    | number
+    | {
+        radius: number;
+        offset: { x: number; y: number };
+        color: string;
+        opacity: number;
+      }[];
+  cleanName: string;
+}
 
 // Convert raw tokens to key-value pairs { token: value }
-const getThemeValues = (theme: DefaultTheme): { [x: string]: string } => {
-  const tokensToMap = theme === 'light' ? light : legacyLight;
-
-  return tokensToMap.reduce((formatted: { [x: string]: string }, rawToken) => {
+const getThemeValues = (theme: TokenMeta[]): { [x: string]: string } => {
+  return theme.reduce((formatted: { [x: string]: string }, rawToken) => {
     let value: string;
 
     if (typeof rawToken.value === 'string') {
@@ -52,8 +64,7 @@ const getThemeValues = (theme: DefaultTheme): { [x: string]: string } => {
   }, {});
 };
 
-const lightValues = getThemeValues('light');
-const legacyLightValues = getThemeValues('legacy-light');
+type DefaultColorTheme = 'light' | 'legacy-light';
 
 export default function plugin() {
   return {
@@ -64,7 +75,7 @@ export default function plugin() {
           state: {
             opts: {
               shouldUseAutoFallback?: boolean;
-              defaultTheme?: DefaultTheme;
+              defaultTheme?: DefaultColorTheme;
             };
           },
         ) {
@@ -193,12 +204,32 @@ export default function plugin() {
   };
 }
 
+const lightValues = getThemeValues(light);
+const legacyLightValues = getThemeValues(legacyLight);
+const shapeValues = getThemeValues(shape);
+const spacingValues = getThemeValues(spacing);
+const typographyValues = getThemeValues(typography);
+
 function getDefaultFallback(
   tokenName: keyof typeof lightValues,
-  theme: DefaultTheme = 'light',
+  theme: DefaultColorTheme = 'light',
 ): string {
-  const tokens = theme === 'legacy-light' ? legacyLightValues : lightValues;
-  return tokens[tokenName];
+  if (shapeValues[tokenName]) {
+    return shapeValues[tokenName];
+  }
+
+  if (spacingValues[tokenName]) {
+    return spacingValues[tokenName];
+  }
+
+  if (typographyValues[tokenName]) {
+    return typographyValues[tokenName];
+  }
+
+  const colorValues =
+    theme === 'legacy-light' ? legacyLightValues : lightValues;
+
+  return colorValues[tokenName];
 }
 
 function getNonAliasedImportName(node: t.ImportSpecifier): string {

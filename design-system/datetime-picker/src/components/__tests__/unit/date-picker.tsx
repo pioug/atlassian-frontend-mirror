@@ -341,24 +341,70 @@ describe('DatePicker', () => {
     );
   });
 
-  describe('should not call onChange when clicking disabled dates', () => {
-    ffTest(
-      'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-      () => {
-        const onChangeSpy = jest.fn();
-        render(
-          createDatePicker({
-            value: '2018-08-06',
-            disabled: ['2018-08-16'],
-            onChange: onChangeSpy,
-          }),
-        );
+  describe('disabled dates', () => {
+    const year = '2018';
+    const month = '10';
+    const day = '16';
+    const otherDay = '17';
 
-        fireEvent.click(screen.getByTestId(testIdContainer));
-        fireEvent.click(screen.getByText('16'));
-        expect(onChangeSpy).not.toHaveBeenCalled();
-      },
-    );
+    const disabledDate = `${year}-${month}-${day}`;
+    const disabledList = [disabledDate];
+    const disabledFn = (iso: string) => iso === disabledDate;
+
+    describe('should not call onChange when clicking disabled dates', () => {
+      ffTest(
+        'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+        () => {
+          const onChangeSpy = jest.fn();
+
+          render(
+            createDatePicker({
+              value: `${year}-${month}-${otherDay}`,
+              disabled: disabledList,
+              onChange: onChangeSpy,
+            }),
+          );
+
+          fireEvent.click(screen.getByTestId(testIdContainer));
+          fireEvent.click(screen.getByText(day));
+          expect(onChangeSpy).not.toHaveBeenCalled();
+        },
+      );
+    });
+
+    it('should not allow a date entry if date is disabled via disabled array', () => {
+      const onChangeSpy = jest.fn();
+
+      render(
+        createDatePicker({
+          disabled: disabledList,
+          onChange: onChangeSpy,
+        }),
+      );
+
+      const input = screen.getByTestId(`${testId}--input`);
+
+      fireEvent.input(input, { target: { value: `${month}/${day}/${year}` } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(onChangeSpy).not.toBeCalled();
+    });
+
+    it('should allow a date entry if date is disabled via disabled date filter', () => {
+      const onChangeSpy = jest.fn();
+
+      render(
+        createDatePicker({
+          disabledDateFilter: disabledFn,
+          onChange: onChangeSpy,
+        }),
+      );
+
+      const input = screen.getByTestId(`${testId}--input`);
+
+      fireEvent.input(input, { target: { value: `${month}/${day}/${year}` } });
+      fireEvent.keyDown(input, { key: 'Enter' });
+      expect(onChangeSpy).toBeCalledWith(disabledDate);
+    });
   });
 
   describe('supplying a custom parseInputValue prop, produces the expected result', () => {
@@ -706,7 +752,7 @@ describe('DatePicker', () => {
     );
   });
 
-  describe('should add aria-label when label prop is supplied', () => {
+  it('should add aria-label when label prop is supplied', () => {
     render(createDatePicker());
 
     const input = screen.getByRole('combobox');

@@ -162,6 +162,9 @@ export const altPaste = makeKeyMapWithCommon('Paste', 'Mod-Shift-v');
 export const find = makeKeyMapWithCommon('Find', 'Mod-f');
 
 export const alignLeft = makeKeyMapWithCommon('Align Left', 'Mod-Shift-l');
+export const alignCenter = makeKeyMapWithCommon('Align Center', 'Mod-Alt-e');
+export const alignRight = makeKeyMapWithCommon('Align Right', 'Mod-Alt-t');
+
 export const toggleTaskItemCheckbox = makeKeyMapWithCommon(
   'Toggles task item',
   'Mod-Alt-Enter',

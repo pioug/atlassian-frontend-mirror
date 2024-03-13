@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import React, { forwardRef, useCallback, useRef } from 'react';
+import React, { forwardRef, useCallback, useRef, useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -78,6 +78,7 @@ type ResizableTableContainerProps = {
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
+  tableWrapperHeight?: number;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -92,9 +93,11 @@ export const ResizableTableContainer = React.memo(
     isResizing,
     pluginInjectionApi,
     isTableScalingEnabled,
+    tableWrapperHeight,
   }: PropsWithChildren<ResizableTableContainerProps>) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
+    const [resizing, setIsResizing] = useState(false);
 
     const updateContainerHeight = useCallback((height: number | 'auto') => {
       // current StickyHeader State is not stable to be fetch.
@@ -108,41 +111,26 @@ export const ResizableTableContainer = React.memo(
         //    1px is border width but collapse make it 0.5.
         // -- When sticky header appear, we should add first row height but reduce
         //    collapsed border
-        containerRef.current?.style.setProperty(
-          'height',
-          typeof height === 'number' ? `${height + 40.5}px` : 'auto',
-        );
+        return typeof height === 'number' ? `${height + 40.5}px` : 'auto';
       } else {
         const stickyHeaderHeight =
           containerRef.current
             ?.getElementsByTagName('th')[0]
             .getBoundingClientRect().height || 0;
-        containerRef.current?.style.setProperty(
-          'height',
-          typeof height === 'number'
-            ? `${height + stickyHeaderHeight + 39.5}px`
-            : 'auto',
-        );
+
+        return typeof height === 'number'
+          ? `${height + stickyHeaderHeight + 39.5}px`
+          : 'auto';
       }
     }, []);
 
-    const resizeObserverRef = useRef(
-      new ResizeObserver((entries) => {
-        updateContainerHeight(entries[entries.length - 1].contentRect.height);
-      }),
-    );
-
     const onResizeStart = useCallback(() => {
-      if (tableRef) {
-        resizeObserverRef.current.observe(tableRef);
-      }
-    }, [tableRef]);
+      setIsResizing(true);
+    }, []);
 
     const onResizeStop = useCallback(() => {
-      updateContainerHeight('auto');
-
-      resizeObserverRef.current.disconnect();
-    }, [updateContainerHeight]);
+      setIsResizing(false);
+    }, []);
 
     const updateWidth = useCallback((width: number) => {
       if (!containerRef.current) {
@@ -239,6 +227,9 @@ export const ResizableTableContainer = React.memo(
         <div
           style={{
             width: tableWidthRef.current,
+            height: resizing
+              ? updateContainerHeight(tableWrapperHeight ?? 'auto')
+              : 'auto',
           }}
           className={ClassName.TABLE_RESIZER_CONTAINER}
           ref={containerRef}
@@ -267,6 +258,7 @@ type TableContainerProps = {
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
+  tableWrapperHeight?: number;
 };
 
 export const TableContainer = ({
@@ -280,6 +272,7 @@ export const TableContainer = ({
   getPos,
   tableRef,
   isNested,
+  tableWrapperHeight,
   isResizing,
   pluginInjectionApi,
   isTableScalingEnabled,
@@ -293,6 +286,7 @@ export const TableContainer = ({
         editorView={editorView}
         getPos={getPos}
         tableRef={tableRef}
+        tableWrapperHeight={tableWrapperHeight}
         isResizing={isResizing}
         pluginInjectionApi={pluginInjectionApi}
         isTableScalingEnabled={isTableScalingEnabled}

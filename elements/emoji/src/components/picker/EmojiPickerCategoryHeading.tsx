@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { isMessagesKey } from '../../util/type-helpers';
@@ -19,7 +18,7 @@ export interface Props {
   className?: string;
 }
 
-const EmojiPickerCategoryHeading: FC<Props> = ({ id, title, className }) => (
+const EmojiPickerCategoryHeading = ({ id, title, className }: Props) => (
   <div
     id={id}
     data-category-id={id}

@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
 import { css, jsx } from '@emotion/react';
 import CardExample from './jsonld-editor/card-example';
 import JsonldExample from './jsonld-editor/jsonld-example';
@@ -18,7 +17,7 @@ const styles = css`
   }
 `;
 
-const Example: React.FC = () => {
+const Example = () => {
   return (
     <JsonldEditor>
       {({

@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugins
 
+## 1.5.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.16
+
+### Patch Changes
+
+- [#72764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72764) [`1a23abba80b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a23abba80b0) - Minor performance improvements to reduce reflows and re-renders
+- Updated dependencies
+
+## 1.5.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.14
 
 ### Patch Changes

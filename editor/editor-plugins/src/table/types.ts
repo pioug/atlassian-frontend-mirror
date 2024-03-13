@@ -23,7 +23,6 @@ export type {
   ToolbarMenuConfig,
   ToolbarMenuState,
   ToolbarMenuContext,
-  ElementContentRects,
   ReportInvalidNodeAttrs,
   InvalidNodeAttr,
   TableDirection,

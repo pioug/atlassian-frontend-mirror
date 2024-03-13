@@ -16,12 +16,12 @@ interface SourcesContainerProps {
   children: SourcesChildrenFunc;
 }
 
-export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
+export const ExternalUserSourcesContainer = ({
   children,
   accountId,
   shouldFetchSources,
   initialSources,
-}) => {
+}: SourcesContainerProps) => {
   const { sources, loading: sourcesLoading } = useUserSource(
     accountId,
     shouldFetchSources,
@@ -33,8 +33,7 @@ export const ExternalUserSourcesContainer: React.FC<SourcesContainerProps> = ({
   }
 
   return React.Children.map(children, (child) =>
-    // @ts-expect-error
-    React.cloneElement(child as JSX.Element, {
+    React.cloneElement(child, {
       sources,
       sourcesLoading,
     }),

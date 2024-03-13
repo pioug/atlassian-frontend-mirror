@@ -44,13 +44,7 @@ const RadioIcon = ({ checked }: { checked: boolean }) => {
                     : N40,
                 )
           }
-          strokeWidth={
-            getBooleanFF(
-              'platform.design-system-team.update-input-border-wdith_5abwv',
-            )
-              ? 1
-              : 2
-          }
+          strokeWidth={1}
         />
         <circle fill="inherit" cx="12" cy="12" r="2" />
       </g>

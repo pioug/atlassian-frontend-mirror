@@ -12,28 +12,31 @@ import { token } from '@atlaskit/tokens';
 
 import { FILE_WIDTH, MEDIA_HEIGHT } from '../../nodeviews/mediaNodeView/media';
 
-const iconWrapper = css`
-  color: ${token('color.icon.accent.blue', hexToRgba(B400, 0.4) || B400)};
-  background: ${token(
+const iconWrapperStyles = css({
+  color: token('color.icon.accent.blue', hexToRgba(B400, 0.4) || B400),
+  background: token(
     'color.background.accent.blue.subtle',
     hexToRgba(B300, 0.6) || B300,
-  )};
-  border-radius: ${borderRadius()}px;
-  margin: 5px 3px 25px;
-  width: ${FILE_WIDTH}px;
-  min-height: ${MEDIA_HEIGHT}px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+  ),
+  borderRadius: `${borderRadius()}px`,
+  margin: `${token('space.075', '6px')} ${token('space.050', '4px')} ${token(
+    'space.300',
+    '24px',
+  )}`,
+  width: `${FILE_WIDTH}px`,
+  minHeight: `${MEDIA_HEIGHT}px`,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
-const dropLine = css`
-  background: ${token('color.border.focused', B200)};
-  border-radius: ${borderRadius()}px;
-  margin: ${token('space.025', '2px')} 0;
-  width: 100%;
-  height: 2px;
-`;
+const dropLineStyles = css({
+  background: token('color.border.focused', B200),
+  borderRadius: `${borderRadius()}px`,
+  margin: `${token('space.025', '2px')} 0`,
+  width: '100%',
+  height: '2px',
+});
 
 export type PlaceholderType = 'single' | 'group';
 export interface Props {
@@ -45,7 +48,7 @@ const IconWrapperComponent = (props: WrappedComponentProps) => {
   const { dropPlaceholderLabel } = dropPlaceholderMessages;
 
   return (
-    <div css={iconWrapper}>
+    <div css={iconWrapperStyles}>
       <DocumentFilledIcon
         label={intl.formatMessage(dropPlaceholderLabel)}
         size="medium"
@@ -57,4 +60,4 @@ const IconWrapperComponent = (props: WrappedComponentProps) => {
 const IntlIconWrapper = injectIntl(IconWrapperComponent);
 
 export default ({ type = 'group' }: Props) =>
-  type === 'single' ? <div css={dropLine} /> : <IntlIconWrapper />;
+  type === 'single' ? <div css={dropLineStyles} /> : <IntlIconWrapper />;

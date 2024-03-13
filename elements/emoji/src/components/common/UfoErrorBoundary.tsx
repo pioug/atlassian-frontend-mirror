@@ -3,6 +3,7 @@ import type { UFOExperience } from '@atlaskit/ufo';
 
 export class UfoErrorBoundary extends React.Component<{
   experiences: UFOExperience[];
+  children?: React.ReactNode;
 }> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     for (const exp of this.props.experiences) {

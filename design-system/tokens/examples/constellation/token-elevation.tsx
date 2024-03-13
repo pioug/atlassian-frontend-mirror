@@ -25,18 +25,18 @@ shadow: token('elevation.shadow.overlay'),
 const elevationStyles = {
   sunken: {
     label: 'Sunken',
-    backgroundColor: token('elevation.surface.sunken', '#F7F8F9'),
+    backgroundColor: token('elevation.surface.sunken'),
     shadow: 'none',
   },
   default: {
     label: 'Default',
-    border: `1px solid ${token('color.border', '#091E4224')}`,
-    backgroundColor: token('elevation.surface', '#FFFFFF'),
+    border: `1px solid ${token('color.border')}`,
+    backgroundColor: token('elevation.surface'),
     shadow: 'none',
   },
   raised: {
     label: 'Raised',
-    backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
+    backgroundColor: token('elevation.surface.raised'),
     shadow: token(
       'elevation.shadow.raised',
       '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
@@ -44,11 +44,8 @@ const elevationStyles = {
   },
   overlay: {
     label: 'Overlay',
-    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
-    shadow: token(
-      'elevation.shadow.overlay',
-      '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
-    ),
+    backgroundColor: token('elevation.surface.overlay'),
+    shadow: token('elevation.shadow.overlay'),
   },
 };
 

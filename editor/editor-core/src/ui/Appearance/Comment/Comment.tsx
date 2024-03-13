@@ -28,7 +28,7 @@ import type { MediaPluginState } from '@atlaskit/editor-plugins/media/types';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/common-styles';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { N40 } from '@atlaskit/theme/colors';
+import { N100, N40 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -60,7 +60,12 @@ const commentEditorStyle = css({
   minWidth: '272px',
   height: 'auto',
   backgroundColor: token('color.background.input', 'white'),
-  border: `1px solid ${token('color.border', N40)}`,
+  border: `1px solid ${token(
+    'color.border.input',
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+      ? N100
+      : N40,
+  )}`,
   boxSizing: 'border-box',
   borderRadius: `${borderRadius()}px`,
   maxWidth: 'inherit',

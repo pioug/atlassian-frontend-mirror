@@ -38,6 +38,7 @@ export interface Props {
   tableContainerWidth?: number;
   isNumberColumnEnabled?: boolean;
   getScrollOffset?: () => number;
+  tableWrapperHeight?: number;
 }
 
 export const TableFloatingColumnControls = ({
@@ -55,10 +56,8 @@ export const TableFloatingColumnControls = ({
   tableContainerWidth,
   isNumberColumnEnabled,
   getScrollOffset,
+  tableWrapperHeight,
 }: Props) => {
-  const [tableRect, setTableRect] = useState<{ width: number; height: number }>(
-    { width: 0, height: 0 },
-  );
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -69,29 +68,6 @@ export const TableFloatingColumnControls = ({
     stickyHeader && stickyHeader.sticky && hasHeaderRow
       ? stickyHeader.top
       : undefined;
-
-  useEffect(() => {
-    if (tableRef && window?.ResizeObserver) {
-      const resizeObserver = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          setTableRect((prev) => {
-            if (
-              prev.width !== entry.contentRect.width ||
-              prev.height !== entry.contentRect.height
-            ) {
-              return entry.contentRect;
-            }
-            return prev;
-          });
-        }
-      });
-      resizeObserver.observe(tableRef);
-
-      return () => {
-        resizeObserver.disconnect();
-      };
-    }
-  }, [tableRef]);
 
   useEffect(() => {
     return monitorForElements({
@@ -115,11 +91,11 @@ export const TableFloatingColumnControls = ({
 
   const rowHeights = useMemo(() => {
     // NOTE: we don't care so much as to what tableHeight is, we only care that it changed and is a sane value.
-    if (tableRef && !!tableRect.height) {
+    if (tableRef && !!tableWrapperHeight) {
       return getRowHeights(tableRef);
     }
     return [0];
-  }, [tableRef, tableRect.height]);
+  }, [tableRef, tableWrapperHeight]);
 
   if (!tableRef || !tableActive || isResizing) {
     return null;
@@ -165,7 +141,7 @@ export const TableFloatingColumnControls = ({
         <ColumnDropTargets
           tableRef={tableRef}
           isHeaderSticky={stickyHeader?.sticky && hasHeaderRow}
-          tableHeight={tableRect.height}
+          tableHeight={tableWrapperHeight}
           localId={currentNodeLocalId}
           colWidths={colWidths}
           getScrollOffset={getScrollOffset}

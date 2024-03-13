@@ -84,6 +84,12 @@ const isIE11 = browser.ie_version === 11;
 // To make sure we capture the last update, we use setTimeout.
 const initialOverflowCaptureTimeroutDelay = 300;
 
+// This is a hard switch for controlling whether the overflow analytics should be dispatched. There has been 6months of data
+// already collected which we could use but have not. This has been disabled rather then removed entirely in the event that
+// the current collected data becomes stale and we want to start collecting fresh data again in future.
+// PLEASE NOTE: that the current way this alaytics has been configured WILL cause reflows to occur. This is why the has been disabled.
+const isOverflowAnalyticsEnabled = false;
+
 export interface ComponentProps {
   view: EditorView;
   getNode: () => PmNode;
@@ -114,6 +120,8 @@ interface TableState {
   stickyHeader?: RowStickyState;
   [ShadowEvent.SHOW_BEFORE_SHADOW]: boolean;
   [ShadowEvent.SHOW_AFTER_SHADOW]: boolean;
+  tableWrapperWidth?: number;
+  tableWrapperHeight?: number;
 }
 
 class TableComponent extends React.Component<ComponentProps, TableState> {
@@ -124,6 +132,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     parentWidth: undefined,
     [ShadowEvent.SHOW_BEFORE_SHADOW]: false,
     [ShadowEvent.SHOW_AFTER_SHADOW]: false,
+    tableWrapperWidth: undefined,
+    tableWrapperHeight: undefined,
   };
 
   private wrapper?: HTMLDivElement | null;
@@ -136,6 +146,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   private isInitialOverflowSent: boolean;
   private initialOverflowCaptureTimerId?: ReturnType<typeof setTimeout>;
+  private resizeObserver?: ResizeObserver;
 
   private dragAndDropCleanupFn?: CleanupFn;
 
@@ -157,6 +168,21 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isFullWidthModeEnabled,
       },
     );
+
+    this.resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        this.setState((prev) => {
+          return prev?.tableWrapperWidth === entry.contentRect?.width &&
+            prev?.tableWrapperHeight === entry.contentRect?.height
+            ? prev
+            : {
+                ...prev,
+                tableWrapperWidth: entry.contentRect.width,
+                tableWrapperHeight: entry.contentRect.height,
+              };
+        });
+      }
+    });
 
     // Disable inline table editing and resizing controls in Firefox
     // https://github.com/ProseMirror/prosemirror/issues/432
@@ -231,11 +257,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     eventDispatcher.on((stickyHeadersPluginKey as any).key, this.onStickyState);
 
-    const initialIsOveflowing =
-      this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
-      this.state[ShadowEvent.SHOW_AFTER_SHADOW];
+    if (isOverflowAnalyticsEnabled) {
+      const initialIsOveflowing =
+        this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        this.state[ShadowEvent.SHOW_AFTER_SHADOW];
 
-    this.setTimerToSendInitialOverflowCaptured(initialIsOveflowing);
+      this.setTimerToSendInitialOverflowCaptured(initialIsOveflowing);
+    }
   }
 
   componentWillUnmount() {
@@ -253,6 +281,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (isDragAndDropEnabled && this.dragAndDropCleanupFn) {
       this.dragAndDropCleanupFn();
     }
+
+    this.resizeObserver?.disconnect();
 
     const { stickyScrollbar } = getEditorFeatureFlags();
 
@@ -418,38 +448,42 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
       this.handleTableResizingDebounced();
     }
+    if (isOverflowAnalyticsEnabled) {
+      const newIsOverflowing =
+        this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        this.state[ShadowEvent.SHOW_AFTER_SHADOW];
 
-    const newIsOverflowing =
-      this.state[ShadowEvent.SHOW_BEFORE_SHADOW] ||
-      this.state[ShadowEvent.SHOW_AFTER_SHADOW];
+      const prevIsOverflowing =
+        prevState[ShadowEvent.SHOW_BEFORE_SHADOW] ||
+        prevState[ShadowEvent.SHOW_AFTER_SHADOW];
 
-    const prevIsOverflowing =
-      prevState[ShadowEvent.SHOW_BEFORE_SHADOW] ||
-      prevState[ShadowEvent.SHOW_AFTER_SHADOW];
+      if (this.initialOverflowCaptureTimerId) {
+        clearTimeout(this.initialOverflowCaptureTimerId);
+      }
 
-    if (this.initialOverflowCaptureTimerId) {
-      clearTimeout(this.initialOverflowCaptureTimerId);
-    }
+      if (!this.isInitialOverflowSent) {
+        this.setTimerToSendInitialOverflowCaptured(newIsOverflowing);
+      }
 
-    if (!this.isInitialOverflowSent) {
-      this.setTimerToSendInitialOverflowCaptured(newIsOverflowing);
-    }
+      if (
+        this.isInitialOverflowSent &&
+        prevIsOverflowing !== newIsOverflowing
+      ) {
+        const {
+          dispatch,
+          state: { tr },
+        } = this.props.view;
 
-    if (this.isInitialOverflowSent && prevIsOverflowing !== newIsOverflowing) {
-      const {
-        dispatch,
-        state: { tr },
-      } = this.props.view;
-
-      dispatch(
-        tr.setMeta(META_KEYS.OVERFLOW_STATE_CHANGED, {
-          isOverflowing: newIsOverflowing,
-          wasOverflowing: prevIsOverflowing,
-          editorWidth: this.props.containerWidth.width || 0,
-          width: this.node.attrs.width || 0,
-          parentWidth: this.state?.parentWidth || 0,
-        }),
-      );
+        dispatch(
+          tr.setMeta(META_KEYS.OVERFLOW_STATE_CHANGED, {
+            isOverflowing: newIsOverflowing,
+            wasOverflowing: prevIsOverflowing,
+            editorWidth: this.props.containerWidth.width || 0,
+            width: this.node.attrs.width || 0,
+            parentWidth: this.state?.parentWidth || 0,
+          }),
+        );
+      }
     }
   }
 
@@ -470,6 +504,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       table.prepend(shadowSentinelRight);
     }
   };
+
+  private observeTable(table: HTMLTableElement | null) {
+    if (table) {
+      this.resizeObserver?.observe(table);
+    }
+  }
 
   onStickyState = (state: StickyPluginState) => {
     const pos = this.props.getPos();
@@ -539,6 +579,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         selection={view.state.selection}
         headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
         stickyHeader={this.state.stickyHeader}
+        tableWrapperWidth={this.state.tableWrapperWidth}
       />
     );
     const tableContainerWidth = getTableContainerWidth(node);
@@ -563,6 +604,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         tableContainerWidth={tableContainerWidth}
         isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
         getScrollOffset={() => this.wrapper?.scrollLeft || 0}
+        tableWrapperHeight={this.state.tableWrapperHeight}
       />
     ) : null;
 
@@ -615,6 +657,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isBreakoutEnabled={options?.isBreakoutEnabled}
         isNested={isNested}
         pluginInjectionApi={pluginInjectionApi}
+        tableWrapperHeight={this.state.tableWrapperHeight}
         isTableResizingEnabled={options?.isTableResizingEnabled}
         isResizing={isResizing}
         isTableScalingEnabled={isTableScalingEnabled}
@@ -668,6 +711,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               if (tableElement !== this.table) {
                 this.table = tableElement;
                 this.createShadowSentinels(this.table);
+                this.observeTable(this.table);
               }
             }
           }}

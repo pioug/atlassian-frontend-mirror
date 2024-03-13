@@ -1121,9 +1121,10 @@ describe('BaseUserPicker', () => {
         const select = component.find(Select);
         const highlightInput = jest.fn();
         const input = document.createElement('input') as HTMLInputElement;
-        input.select = highlightInput;
+        input.setSelectionRange = highlightInput;
         select.simulate('focus', { target: input });
         expect(highlightInput).toBeCalledTimes(1);
+        expect(highlightInput).toBeCalledWith(0, 12);
       });
 
       it('should clear inputValue on change after focus', () => {

@@ -44,12 +44,12 @@ const containerStyles = xcss({
 export default () => (
   <Box padding="space.200" xcss={pageContainerStyles}>
     <Stack space="space.400">
-      <Heading variant="large" as="h2">
+      <Heading size="large" as="h2">
         Inline
       </Heading>
 
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Align inline
         </Heading>
         {alignInlineItems.map(alignInline => (
@@ -74,7 +74,7 @@ export default () => (
       </section>
 
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Spread
         </Heading>
         {spreadItems.map(spread => (
@@ -98,7 +98,7 @@ export default () => (
         ))}
       </section>
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Align block
         </Heading>
         <Inline space="space.200">
@@ -129,7 +129,7 @@ export default () => (
       </section>
 
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Space
         </Heading>
         <Stack space="space.050">
@@ -152,7 +152,7 @@ export default () => (
       </section>
 
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Should wrap
         </Heading>
         <Box
@@ -169,7 +169,7 @@ export default () => (
       </section>
 
       <section>
-        <Heading variant="medium" as="h3">
+        <Heading size="medium" as="h3">
           Separator
         </Heading>
         <Box

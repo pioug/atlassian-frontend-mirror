@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { LINK_PICKER_WIDTH_IN_PX } from '../../../common/constants';
 
 import { SearchResults, SearchResultsProps } from './index';
@@ -110,7 +112,13 @@ export const ShowingResultsWhileLoadingResults = () => {
 
   return (
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        gap: token('space.200', '1rem'),
+        flexWrap: 'wrap',
+      }}
+    >
       {exampleComponents.map((Component, i) => (
         <div key={`item-${i}`}>
           <Component />

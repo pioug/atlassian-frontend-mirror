@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Blanket from '../src';
@@ -14,7 +13,7 @@ const blanketChildStyles = css({
   width: '50%',
   margin: `${token('space.300', '24px')} auto`,
   padding: token('space.500', '40px'),
-  backgroundColor: token('elevation.surface', N0),
+  backgroundColor: token('elevation.surface'),
 });
 
 const BasicExample = () => {

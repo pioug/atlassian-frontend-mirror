@@ -1,4 +1,4 @@
-import React, { createContext, type FC, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import type { EmojiPickerListContextType } from '../components/common/internal-types';
 
 export const EmojiPickerListContext = createContext<EmojiPickerListContextType>(
@@ -15,9 +15,9 @@ export interface EmojiPickerListContextProviderProps {
   };
 }
 
-export const EmojiPickerListContextProvider: FC<
-  EmojiPickerListContextProviderProps
-> = (props) => {
+export const EmojiPickerListContextProvider = (
+  props: React.PropsWithChildren<EmojiPickerListContextProviderProps>,
+) => {
   const [currentEmojisFocus, setEmojisFocus] = useState(
     props.initialEmojisFocus,
   );

@@ -66,11 +66,8 @@ test.describe('scrollJustEnoughIntoView', () => {
     await await expect(secondCard).toHaveAttribute('data-state', 'idle');
   });
 
-  // FIXME: Playwright upgrade: Assertion failure
-  // eslint-disable-next-line playwright/no-skipped-test
-  test.skip('should not scroll if the element is already fully visible', async ({
+  test('should not scroll if the element is already fully visible', async ({
     page,
-    browserName,
   }) => {
     await page.visitExample(
       'pragmatic-drag-and-drop',
@@ -115,15 +112,7 @@ test.describe('scrollJustEnoughIntoView', () => {
     await await expect(secondCard).toHaveAttribute('data-state', 'dragging');
 
     // no scroll change required
-    // eslint-disable-next-line playwright/no-conditional-in-test
-    if (browserName === 'firefox') {
-      // the `.hover` causes firefox through Playwright to scroll a bit
-      await expect(await getScrollTop(scrollContainer)).toBeGreaterThan(
-        initialScrollTop,
-      );
-    } else {
-      await expect(await getScrollTop(scrollContainer)).toBe(initialScrollTop);
-    }
+    await expect(await getScrollTop(scrollContainer)).toBe(initialScrollTop);
 
     // finish the drag
     await page.mouse.up();

@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { useState } from 'react';
-import { N0, N800, B500 } from '@atlaskit/theme/colors';
 import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
@@ -34,10 +33,10 @@ const ChangingColorWithInheritance = () => {
       style={{
         backgroundColor: isColorFlipped
           ? 'white'
-          : token('color.background.brand.bold', B500),
+          : token('color.background.brand.bold'),
         color: isColorFlipped
-          ? token('color.text', N800)
-          : token('color.text.inverse', N0),
+          ? token('color.text')
+          : token('color.text.inverse'),
       }}
     >
       <p css={textStyles} style={{ backgroundColor: 'inherit' }}>

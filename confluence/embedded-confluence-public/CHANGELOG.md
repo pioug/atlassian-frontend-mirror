@@ -1,5 +1,17 @@
 # @atlaskit/embedded-confluence
 
+## 2.15.1
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 2.15.0
+
+### Minor Changes
+
+- [#79709](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79709) [`c9ded7e658e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9ded7e658e9) - Added non-licensed-share as a new allowed feature. This is only a placeholder and the feature is not yet implemented.
+
 ## 2.14.0
 
 ### Minor Changes

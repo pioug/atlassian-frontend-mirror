@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { css, Global, jsx } from '@emotion/react';
 
@@ -82,7 +82,7 @@ export const VRTestWrapper = ({
   </IntlProvider>
 );
 
-export const HorizontalWrapper: React.FC = ({ children }) => (
+export const HorizontalWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div css={horizontalWrapperStyles}>{children}</div>
 );
 

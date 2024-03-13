@@ -117,8 +117,9 @@ describe('Mobile MediaProvider', () => {
     mediaClient = fakeMediaClient();
     asMockReturnValue(getMediaClient, mediaClient);
     asMock(withMediaClient).mockImplementation(
-      (Component: React.ComponentType) => (props: any) =>
-        <Component {...props} mediaClient={mediaClient} />,
+      (Component: React.ComponentType<React.PropsWithChildren<unknown>>) =>
+        (props: any) =>
+          <Component {...props} mediaClient={mediaClient} />,
     );
 
     asMockReturnValue(

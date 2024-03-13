@@ -1,41 +1,4 @@
-import {
-  getSafeCalendarValue,
-  getShortISOString,
-  getValidDate,
-} from '../../parse-date';
-
-describe('getValidDate', () => {
-  it('should return an object', () => {
-    expect(getValidDate(new Date().toISOString())).toBeInstanceOf(Object);
-  });
-
-  it('should return an empty object if an invalid ISO string is provided', () => {
-    const result = getValidDate('abc');
-    expect(result).toBeInstanceOf(Object);
-    expect(result).toEqual({});
-  });
-
-  it('should return an object of shape if valid ISO string is provided', () => {
-    const result = getValidDate(new Date().toISOString());
-    expect(typeof result.day).toBe('number');
-    expect(typeof result.month).toBe('number');
-    expect(typeof result.year).toBe('number');
-  });
-
-  it('should match the input date', () => {
-    const day = 20;
-    const month = 4;
-    const year = 1969;
-    const result = getValidDate(
-      new Date(`${year}-${month}-${day}`).toISOString(),
-    );
-    expect(result).toEqual({
-      day,
-      month,
-      year,
-    });
-  });
-});
+import { getSafeCalendarValue, getShortISOString } from '../../parse-date';
 
 describe('getShortISOString', () => {
   it('should return a string', () => {

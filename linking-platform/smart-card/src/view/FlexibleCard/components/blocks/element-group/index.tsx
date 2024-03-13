@@ -1,6 +1,4 @@
 /** @jsx jsx */
-import React from 'react';
-
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import { ElementGroupProps } from './types';
@@ -109,7 +107,7 @@ export const getElementGroupStyles = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ElementGroup: React.FC<ElementGroupProps> = ({
+const ElementGroup = ({
   align = SmartLinkAlignment.Left,
   children,
   overrideCss,
@@ -118,7 +116,7 @@ const ElementGroup: React.FC<ElementGroupProps> = ({
   testId = 'smart-element-group',
   width = SmartLinkWidth.FitToContent,
   position = SmartLinkPosition.Center,
-}) => (
+}: ElementGroupProps) => (
   <div
     css={[
       getElementGroupStyles(direction, size, align, width, position),

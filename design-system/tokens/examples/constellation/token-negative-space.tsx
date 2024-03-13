@@ -2,7 +2,6 @@
 import { css, jsx } from '@emotion/react';
 
 import { Bleed } from '@atlaskit/primitives';
-import { N0, N300A, N30A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
@@ -20,16 +19,13 @@ const containerStyles = css({
   width: 300,
   height: 200,
   padding: token('space.200', '16px'),
-  backgroundColor: token('elevation.surface.overlay', N0),
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
-  ),
+  backgroundColor: token('elevation.surface.overlay'),
+  boxShadow: token('elevation.shadow.overlay'),
 });
 
 const dividerStyles = css({
   border: 'none',
-  borderBlockEnd: `1px solid ${token('color.border', N300A)}`,
+  borderBlockEnd: `1px solid ${token('color.border')}`,
 });
 
 const TokenNegativeSpace = () => {

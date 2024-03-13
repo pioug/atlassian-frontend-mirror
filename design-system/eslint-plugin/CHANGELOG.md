@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.36.3
+
+### Patch Changes
+
+- [#77172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77172) [`0e9162a7371a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e9162a7371a) - Fixes issues with CSS var and content string handling for the `no-*-tagged-template-expression` rules
+
 ## 8.36.2
 
 ### Patch Changes

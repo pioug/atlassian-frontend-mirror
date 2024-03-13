@@ -13,7 +13,7 @@ export default () => {
     <Stack space="space.300">
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Colors
           </Heading>
           <Text>Default text color</Text>
@@ -29,7 +29,7 @@ export default () => {
       </section>
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Composing text
           </Heading>
           <Text>
@@ -44,7 +44,7 @@ export default () => {
       </section>
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Inverse color
           </Heading>
           <Box
@@ -67,7 +67,7 @@ export default () => {
       </section>
       <section>
         <Stack space="space.100">
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Inherit color
           </Heading>
           <Stack xcss={inheritContainerStyles} space="space.100">

@@ -2,6 +2,7 @@ import React, {
   ComponentType,
   CSSProperties,
   Dispatch,
+  PropsWithChildren,
   ReactNode,
   Ref,
   SetStateAction,
@@ -222,6 +223,6 @@ export type FocusManagerHook = {
   shouldCloseOnTab?: boolean;
 };
 
-export type RepositionOnUpdateProps = {
+export type RepositionOnUpdateProps = PropsWithChildren<{
   update: PopperChildrenProps['update'];
-};
+}>;

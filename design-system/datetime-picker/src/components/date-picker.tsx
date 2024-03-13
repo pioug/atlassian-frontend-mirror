@@ -226,10 +226,10 @@ class DatePicker extends Component<DatePickerProps, State> {
   };
 
   onTextInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
+    const inputValue = event.target.value;
 
-    if (value) {
-      const parsed = this.parseDate(value);
+    if (inputValue) {
+      const parsed = this.parseDate(inputValue);
       // Only try to set the date if we have month & day
       if (parsed && isValid(parsed)) {
         // We format the parsed date to YYYY-MM-DD here because

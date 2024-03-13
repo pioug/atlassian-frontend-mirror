@@ -54,6 +54,8 @@ Simplification suggestions:
 - Use a maximum of three pieces of information in a preview
 - Use a maximum preview size of `280px x 280px` to prevent [super low drag preview opacity on Windows](./web-platform-design-constraints)
 
+#### Standard
+
 Drag previews should generally be pushed away from the users pointer by `space.100` vertically, and `space.200` horizontally.
 
 ```
@@ -63,11 +65,21 @@ Drag previews should generally be pushed away from the users pointer by `space.1
 }
 ```
 
-![A drag preview of a list item with an offset](/images/design-drag-preview-offset.png)
+<img
+  src="/images/design-drag-preview-offset.png"
+  alt="A drag preview of a list item with an offset"
+  style="max-width: 400px; margin: 0 auto"
+/>
+
+#### Cards
 
 Cards are to be dragged from the point they're grabbed from (no offset).
 
-![A drag preview of a card with no offset](/images/design-drag-preview-no-offset.png)
+<img
+  src="/images/design-drag-preview-no-offset.png"
+  alt="A drag preview of a card with no offset"
+  style="max-width: 300px; margin: 0 auto"
+/>
 
 ### Cursor
 

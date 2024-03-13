@@ -248,7 +248,9 @@ export function MobileEditor(props: MobileEditorProps) {
   );
 }
 
-const MobileEditorWithBridge: React.FC<MobileEditorProps> = (props) => {
+const MobileEditorWithBridge = (
+  props: React.PropsWithChildren<MobileEditorProps>,
+) => {
   useEffect(() => {
     const setTheme = async () => await setGlobalTheme({ colorMode: 'auto' });
     if (getEnableTokenThemes()) {

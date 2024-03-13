@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
 import { IntlProvider as IntlNextProvider, injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -15,11 +15,9 @@ const i18n: {
   [index: string]: Record<string, string> | undefined;
 } = untypedI18n;
 
-const I18nProviderInner: React.FC<
-  {
-    locale?: string;
-  } & WrappedComponentProps
-> = props => {
+const I18nProviderInner = (
+  props: PropsWithChildren<{ locale?: string } & WrappedComponentProps>,
+) => {
   const { language, locale, region } = useLocale(props);
 
   const messages = i18n[`${language}_${region}`] || i18n[language];

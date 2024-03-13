@@ -9,6 +9,12 @@ jest.mock('../catchup', () => {
     catchup: jest.fn(),
   };
 });
+jest.mock('../catchupv2', () => {
+  return {
+    __esModule: true,
+    catchupv2: jest.fn(),
+  };
+});
 jest.mock('lodash/throttle', () => ({
   default: jest.fn((fn) => fn),
   __esModule: true,
@@ -40,6 +46,7 @@ import type { StepsPayload } from '../../types';
 import { catchup } from '../catchup';
 import type { DocumentService } from '../document-service';
 import { createMockService } from './document-service.mock';
+import { catchupv2 } from '../catchupv2';
 
 const proseMirrorStep = ProseMirrorStep.fromJSON(
   getSchemaBasedOnStage('stage0'),
@@ -537,6 +544,31 @@ describe('document-service', () => {
         );
         expect(service.throttledCatchup).toBeCalledTimes(1);
       });
+
+      it('enableCatchupv2 = true: Handles errors thrown', () => {
+        const { service, providerEmitCallbackMock, analyticsHelperMock } =
+          createMockService({
+            featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+          });
+
+        jest.spyOn(service, 'throttledCatchupv2').mockImplementation();
+        const mockError = new Error('MyMockError');
+        providerEmitCallbackMock.mockImplementation(() => {
+          throw mockError;
+        });
+        // processSteps shouldn't throw
+        // @ts-ignore - private function
+        service.processSteps({
+          steps: [{ clientId: 'Other Client', userId: 'test' }],
+          version: 1,
+        });
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+          mockError,
+          'Error while processing steps',
+        );
+        expect(service.throttledCatchupv2).toBeCalledTimes(1);
+      });
     });
 
     describe('getCurrentState', () => {
@@ -664,6 +696,41 @@ describe('document-service', () => {
         expect(catchup).toBeCalled();
 
         expect(service.throttledCatchup).toBeCalledTimes(1);
+
+        // One for each call
+        expect(processStepsSpy).toBeCalledTimes(1);
+        expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
+      });
+
+      it('enableCatchupv2 = true: Processes all the steps in the queue after catchupv2', async () => {
+        const mocks = createMockService({
+          featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+        });
+        service = mocks.service;
+        // @ts-ignore - processSteps is private function
+        processStepsSpy = jest.spyOn(service, 'processSteps');
+        getCurrentPmVersionMock = jest.fn();
+        service.getCurrentPmVersion = getCurrentPmVersionMock;
+
+        // Mock catchupv2 updating the document version to the first step
+        let version = 0;
+        getCurrentPmVersionMock.mockImplementation(() => version);
+        (catchupv2 as jest.Mock).mockImplementation(async () => {
+          version = 1;
+        });
+        jest.spyOn(service, 'throttledCatchupv2'); // So we can be sure our test is calling catchupv2
+
+        const step1: StepsPayload = {
+          steps: [{ userId: '1', clientId: '2' }],
+          version: 2,
+        };
+
+        // Load some steps that will be added to the queue (missing step 1)
+        service.onStepsAdded(step1);
+        await Promise.resolve(); // give chance for catchup to be executed
+        expect(catchupv2).toBeCalled();
+
+        expect(service.throttledCatchupv2).toBeCalledTimes(1);
 
         // One for each call
         expect(processStepsSpy).toBeCalledTimes(1);
@@ -814,6 +881,18 @@ describe('document-service', () => {
           service.onStepRejectedError();
         }
         expect(service.throttledCatchup).toBeCalledTimes(1);
+      });
+
+      it('enableCatchupv2 = true: Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
+        const { service } = createMockService({
+          featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+        });
+        jest.spyOn(service, 'throttledCatchupv2');
+
+        for (let i = 0; i < MAX_STEP_REJECTED_ERROR; i++) {
+          service.onStepRejectedError();
+        }
+        expect(service.throttledCatchupv2).toBeCalledTimes(1);
       });
     });
 

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.1.0
+
+### Minor Changes
+
+- [#77222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77222) [`b924ab2b79f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b924ab2b79f3) - [ux] Add keyboard shortcuts for center and right text alignment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

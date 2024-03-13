@@ -1,12 +1,12 @@
 jest.autoMockOff();
 
-import transformer from '../1.6.0-level-to-variant';
+import transformer from '../1.6.0-level-to-size';
 
 import { check } from './_framework';
 
 check({
   transformer,
-  it: 'should replace level with variant only on Heading component',
+  it: 'should replace level with size only on Heading component',
   original: `
     import Heading from '@atlaskit/heading';
 
@@ -22,7 +22,7 @@ check({
 
     function App() {
       return <>
-        <Heading variant="large" as="h3">hello</Heading>
+        <Heading size="large" as="h3">hello</Heading>
         <SomethingElse level="h700">still here</SomethingElse>
       </>;
     }
@@ -48,7 +48,7 @@ check({
 
     function App() {
       return <>
-        <Heading variant="xxsmall">hello</Heading>
+        <Heading size="xxsmall">hello</Heading>
         <Heading level="h200">hello</Heading>
         <Heading level="h100">hello</Heading>
       </>;
@@ -58,13 +58,13 @@ check({
 
 check({
   transformer,
-  it: 'should do nothing if variant already exists',
+  it: 'should do nothing if size already exists',
   original: `
     import Heading from '@atlaskit/heading';
 
     function App() {
       return <>
-        <Heading variant="large">hello</Heading>
+        <Heading size="large">hello</Heading>
       </>;
     }
   `,
@@ -73,7 +73,7 @@ check({
 
     function App() {
       return <>
-        <Heading variant="large">hello</Heading>
+        <Heading size="large">hello</Heading>
       </>;
     }
   `,

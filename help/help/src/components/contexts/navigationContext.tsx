@@ -1,4 +1,10 @@
-import React, { useReducer, useEffect, useCallback, useMemo } from 'react';
+import React, {
+  useReducer,
+  useEffect,
+  useCallback,
+  useMemo,
+  PropsWithChildren,
+} from 'react';
 import isEqual from 'lodash/isEqual';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Article, ArticleItem } from '../../model/Article';
@@ -17,7 +23,7 @@ import { useHeaderContext } from './headerContext';
 
 type ViewType = keyof typeof VIEW;
 
-interface NavigationProviderInterface {
+type NavigationProviderInterface = PropsWithChildren<{
   // Navigation data this prop is optional. ID of the article to display and the history
   navigationData?: {
     articleId: articleId;
@@ -28,7 +34,7 @@ interface NavigationProviderInterface {
     articleId: articleId;
     history: HistoryItem[];
   }): void;
-}
+}>;
 
 interface NavigationContextInterface {
   articleId?: articleId;
@@ -252,16 +258,14 @@ const navigationReducer = (
   return newState;
 };
 
-export const NavigationContextProvider: React.FC<
-  NavigationProviderInterface
-> = ({
+export const NavigationContextProvider = ({
   navigationData = {
     articleId: DEFAULT_ARTICLE_ID,
     history: [],
   },
   setNavigationData,
   children,
-}) => {
+}: NavigationProviderInterface) => {
   const { onGetHelpArticle } = useHelpArticleContext();
   const { onGetWhatsNewArticle } = useWhatsNewArticleContext();
   const { homeContent, homeOptions } = useHomeContext();

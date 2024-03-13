@@ -45,12 +45,12 @@ export default () => (
   <Box padding="space.200">
     <Stack space="space.400">
       <Stack space="space.300" alignInline="start">
-        <Heading variant="large" as="h2">
+        <Heading size="large" as="h2">
           Stack
         </Heading>
         <section>
           <Stack space="space.100">
-            <Heading variant="medium" as="h3">
+            <Heading size="medium" as="h3">
               Align Block
             </Heading>
             <Inline spread="space-between" space="space.400">
@@ -80,7 +80,7 @@ export default () => (
 
         <section>
           <Stack space="space.100">
-            <Heading variant="medium" as="h3">
+            <Heading size="medium" as="h3">
               Spread
             </Heading>
             <Inline spread="space-between" space="space.400">
@@ -109,7 +109,7 @@ export default () => (
         </section>
 
         <section>
-          <Heading variant="medium" as="h3">
+          <Heading size="medium" as="h3">
             Align Inline
           </Heading>
           <Inline space="space.100">
@@ -141,7 +141,7 @@ export default () => (
 
         <section>
           <Stack space="space.100">
-            <Heading variant="medium" as="h3">
+            <Heading size="medium" as="h3">
               Space
             </Heading>
             <Inline space="space.200" spread="space-between">

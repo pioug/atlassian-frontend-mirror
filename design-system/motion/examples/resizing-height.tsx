@@ -13,7 +13,6 @@ import {
   OpsgenieIcon,
   StatuspageIcon,
 } from '@atlaskit/logo';
-import { N10, N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Centered } from '../examples-utils';
@@ -68,10 +67,7 @@ export default () => {
             width: '100%',
             maxWidth: '500px',
             borderRadius: token('border.radius.100', '3px'),
-            boxShadow: token(
-              'elevation.shadow.overlay',
-              `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
-            ),
+            boxShadow: token('elevation.shadow.overlay'),
             marginBlockEnd: '56px',
             marginBlockStart: token('space.300', '24px'),
             paddingBlockEnd: token('space.100', '8px'),
@@ -98,7 +94,9 @@ export default () => {
                 fontSize: token('font.size.400', '24px'),
                 marginBlockEnd: token('space.100', '8px'),
                 ':hover': {
-                  backgroundColor: N10,
+                  backgroundColor: token(
+                    'color.background.neutral.subtle.hovered',
+                  ),
                 },
               })}
             />
@@ -116,7 +114,9 @@ export default () => {
                         fontSize: token('font.size.200', '16px'),
                         fontWeight: token('font.weight.medium', '500'),
                         ':hover': {
-                          backgroundColor: N20,
+                          backgroundColor: token(
+                            'color.background.neutral.subtle.hovered',
+                          ),
                         },
                       })}
                       {...motion}

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css-reset",
-  "version": "6.6.2",
+  "version": "6.7.0",
   "description": "A base stylesheet for the Atlassian Design System.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,12 +25,12 @@
     }
   },
   "scripts": {
-    "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css",
+    "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && ABS_PATH=$(pwd) && ln -sf $ABS_PATH/dist/bundle.css dist/cjs/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/esm/bundle.css && ln -sf $ABS_PATH/dist/bundle.css dist/es2019/bundle.css",
     "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },
@@ -77,6 +77,7 @@
     "./styles": "./src/index.tsx",
     "./base": "./src/base.tsx",
     "./browser-fixes": "./src/browser-fixes.tsx",
+    "./bundle.css": "./src/bundle.css",
     "./reset": "./src/reset.tsx",
     "./tables": "./src/tables.tsx",
     "./utils": "./src/utils.tsx"

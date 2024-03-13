@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import AkButton from '@atlaskit/button/custom-theme-button';
@@ -20,7 +19,7 @@ export interface Props {
 export const retryUploadButtonTestId = 'retry-upload-button';
 export const uploadEmojiButtonTestId = 'upload-emoji-button';
 
-const LoadingSpinner: FC = () => {
+const LoadingSpinner = () => {
   return (
     <span css={buttonSpinner}>
       <Spinner />
@@ -28,7 +27,7 @@ const LoadingSpinner: FC = () => {
   );
 };
 
-const RetryButton: FC<Props> = (props) => {
+const RetryButton = (props: Props) => {
   const { onSubmit, ariaLabelledBy, ariaDescribedBy } = props;
 
   return (
@@ -50,7 +49,7 @@ const RetryButton: FC<Props> = (props) => {
   );
 };
 
-const UploadButton: FC<Props> = (props) => {
+const UploadButton = (props: Props) => {
   const { appearance, onSubmit, label, ariaLabelledBy, ariaDescribedBy } =
     props;
 
@@ -69,7 +68,7 @@ const UploadButton: FC<Props> = (props) => {
   );
 };
 
-const RetryableButton: FC<Props> = (props) => {
+const RetryableButton = (props: Props) => {
   const { loading, error } = props;
 
   if (loading) {

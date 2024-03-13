@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FC } from 'react';
 import { jsx } from '@emotion/react';
 import Button, {
   type CustomThemeButtonProps,
@@ -15,7 +14,7 @@ import { emojiDeleteButton, deleteButton } from './styles';
  */
 export const RENDER_EMOJI_DELETE_BUTTON_TESTID = 'render-emoji-delete-button';
 
-const DeleteButton: FC<CustomThemeButtonProps> = (props) => (
+const DeleteButton = (props: CustomThemeButtonProps) => (
   <span
     css={deleteButton}
     className={emojiDeleteButton}

@@ -1,12 +1,12 @@
-import React, { FC, Fragment, useLayoutEffect, useRef } from 'react';
+import React, { Fragment, useLayoutEffect, useRef } from 'react';
 
 import { RepositionOnUpdateProps } from './types';
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const RepositionOnUpdate: FC<RepositionOnUpdateProps> = ({
+export const RepositionOnUpdate = ({
   children,
   update,
-}) => {
+}: RepositionOnUpdateProps) => {
   // Ref used here to skip update on first render (when refs haven't been set)
   const isFirstRenderRef = useRef<boolean>(true);
 

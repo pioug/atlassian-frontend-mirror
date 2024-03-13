@@ -1,3 +1,5 @@
+import rafSchedule from 'raf-schd';
+
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
@@ -47,7 +49,6 @@ import { getPluginState as getDragDropPluginState } from './pm-plugins/drag-and-
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
-import type { ElementContentRects } from './types';
 import {
   TableCssClassName as ClassName,
   RESIZE_HANDLE_AREA_DECORATION_GAP,
@@ -406,104 +407,119 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
   return false;
 };
 
-export const handleMouseMove = (
-  view: EditorView,
-  event: Event,
-  elementContentRects?: ElementContentRects,
-) => {
-  if (!(event.target instanceof HTMLElement)) {
-    return false;
-  }
-  const element = event.target;
-
-  if (
-    isColumnControlsDecorations(element) ||
-    isDragColumnFloatingInsertDot(element)
-  ) {
-    const { state, dispatch } = view;
-    const { insertColumnButtonIndex, isDragAndDropEnabled } =
-      getPluginState(state);
-    const [startIndex, endIndex] = getColumnOrRowIndex(element);
-
-    const positionColumn =
-      getMousePositionHorizontalRelativeByElement(
-        event as MouseEvent,
-        elementContentRects,
-        undefined,
-        isDragAndDropEnabled,
-      ) === 'right'
-        ? endIndex
-        : startIndex;
-
-    if (positionColumn !== insertColumnButtonIndex) {
-      return showInsertColumnButton(positionColumn)(state, dispatch);
+// IMPORTANT: The mouse move handler has been setup with RAF schedule to avoid Reflows which will occur as some methods
+// need to access the mouse event offset position and also the target clientWidth vallue.
+const handleMouseMoveDebounce = rafSchedule(
+  (view: EditorView, event: MouseEvent, offsetX: number) => {
+    if (!(event.target instanceof HTMLElement)) {
+      return false;
     }
-  }
+    const element = event.target;
 
-  if (isRowControlsButton(element) || isDragRowFloatingInsertDot(element)) {
-    const { state, dispatch } = view;
-    const { insertRowButtonIndex } = getPluginState(state);
-    const [startIndex, endIndex] = getColumnOrRowIndex(element);
-
-    const positionRow =
-      getMousePositionVerticalRelativeByElement(event as MouseEvent) ===
-      'bottom'
-        ? endIndex
-        : startIndex;
-
-    if (positionRow !== insertRowButtonIndex) {
-      return showInsertRowButton(positionRow)(state, dispatch);
-    }
-  }
-
-  if (!isResizeHandleDecoration(element) && isCell(element)) {
-    const positionColumn = getMousePositionHorizontalRelativeByElement(
-      event as MouseEvent,
-      elementContentRects,
-      RESIZE_HANDLE_AREA_DECORATION_GAP,
-    );
-
-    if (positionColumn !== null) {
+    if (
+      isColumnControlsDecorations(element) ||
+      isDragColumnFloatingInsertDot(element)
+    ) {
       const { state, dispatch } = view;
-      const { resizeHandleColumnIndex, resizeHandleRowIndex } =
-        getPluginState(state);
+      const { insertColumnButtonIndex } = getPluginState(state);
+      const [startIndex, endIndex] = getColumnOrRowIndex(element);
 
-      const isKeyboardResize = getBooleanFF(
-        'platform.editor.a11y-column-resizing_emcvz',
-      )
-        ? getPluginState(state).isKeyboardResize
-        : false;
-      const tableCell = closestElement(
-        element,
-        'td, th',
-      ) as HTMLTableCellElement;
-      const cellStartPosition = view.posAtDOM(tableCell, 0);
-      const rect = findCellRectClosestToPos(
-        state.doc.resolve(cellStartPosition),
+      const positionColumn =
+        getMousePositionHorizontalRelativeByElement(
+          event,
+          offsetX,
+          undefined,
+        ) === 'right'
+          ? endIndex
+          : startIndex;
+
+      if (positionColumn !== insertColumnButtonIndex) {
+        return showInsertColumnButton(positionColumn)(state, dispatch);
+      }
+    }
+
+    if (isRowControlsButton(element) || isDragRowFloatingInsertDot(element)) {
+      const { state, dispatch } = view;
+      const { insertRowButtonIndex } = getPluginState(state);
+      const [startIndex, endIndex] = getColumnOrRowIndex(element);
+
+      const positionRow =
+        getMousePositionVerticalRelativeByElement(event) === 'bottom'
+          ? endIndex
+          : startIndex;
+
+      if (positionRow !== insertRowButtonIndex) {
+        return showInsertRowButton(positionRow)(state, dispatch);
+      }
+    }
+
+    if (!isResizeHandleDecoration(element) && isCell(element)) {
+      const positionColumn = getMousePositionHorizontalRelativeByElement(
+        event,
+        offsetX,
+        RESIZE_HANDLE_AREA_DECORATION_GAP,
       );
 
-      if (rect) {
-        const columnEndIndexTarget =
-          positionColumn === 'left' ? rect.left : rect.right;
+      if (positionColumn !== null) {
+        const { state, dispatch } = view;
+        const { resizeHandleColumnIndex, resizeHandleRowIndex } =
+          getPluginState(state);
 
-        const rowIndexTarget = rect.top;
+        const isKeyboardResize = getBooleanFF(
+          'platform.editor.a11y-column-resizing_emcvz',
+        )
+          ? getPluginState(state).isKeyboardResize
+          : false;
+        const tableCell = closestElement(
+          element,
+          'td, th',
+        ) as HTMLTableCellElement;
+        const cellStartPosition = view.posAtDOM(tableCell, 0);
+        const rect = findCellRectClosestToPos(
+          state.doc.resolve(cellStartPosition),
+        );
 
-        if (
-          (columnEndIndexTarget !== resizeHandleColumnIndex ||
-            rowIndexTarget !== resizeHandleRowIndex ||
-            !hasResizeHandler({ target: element, columnEndIndexTarget })) &&
-          !isKeyboardResize // if initiated by keyboard don't need to react on hover for other resize sliders
-        ) {
-          return addResizeHandleDecorations(
-            rowIndexTarget,
-            columnEndIndexTarget,
-            true,
-          )(state, dispatch);
+        if (rect) {
+          const columnEndIndexTarget =
+            positionColumn === 'left' ? rect.left : rect.right;
+
+          const rowIndexTarget = rect.top;
+
+          if (
+            (columnEndIndexTarget !== resizeHandleColumnIndex ||
+              rowIndexTarget !== resizeHandleRowIndex ||
+              !hasResizeHandler({ target: element, columnEndIndexTarget })) &&
+            !isKeyboardResize // if initiated by keyboard don't need to react on hover for other resize sliders
+          ) {
+            return addResizeHandleDecorations(
+              rowIndexTarget,
+              columnEndIndexTarget,
+              true,
+            )(state, dispatch);
+          }
         }
       }
     }
+
+    return false;
+  },
+);
+
+export const handleMouseMove = (view: EditorView, event: Event) => {
+  if (!(event.target instanceof HTMLElement)) {
+    return false;
   }
 
+  // NOTE: When accessing offsetX in gecko from a deferred callback, it will return 0. However it will be non-zero if accessed
+  // within the scope of it's initial mouse move handler. Also Chrome does return the correct value, however it could trigger
+  // a reflow. So for now this will just grab the offsetX value immediately for gecko and chrome will calculate later
+  // in the deferred callback handler.
+  // Bug Tracking: https://bugzilla.mozilla.org/show_bug.cgi?id=1882903
+  handleMouseMoveDebounce(
+    view,
+    event as MouseEvent,
+    browser.gecko ? (event as MouseEvent).offsetX : NaN,
+  );
   return false;
 };
 
@@ -614,20 +630,13 @@ export const isTableInFocus = (view: EditorView) => {
 };
 
 export const whenTableInFocus =
-  (
-    eventHandler: (
-      view: EditorView,
-      mouseEvent: Event,
-      elementContentRects?: ElementContentRects,
-    ) => boolean,
-    elementContentRects?: ElementContentRects,
-  ) =>
+  (eventHandler: (view: EditorView, mouseEvent: Event) => boolean) =>
   (view: EditorView, mouseEvent: Event): boolean => {
     if (!isTableInFocus(view)) {
       return false;
     }
 
-    return eventHandler(view, mouseEvent, elementContentRects);
+    return eventHandler(view, mouseEvent);
   };
 
 const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
@@ -681,14 +690,7 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
 };
 
 export const withCellTracking =
-  (
-    eventHandler: (
-      view: EditorView,
-      mouseEvent: Event,
-      elementContentRects?: ElementContentRects,
-    ) => boolean,
-    elementContentRects?: ElementContentRects,
-  ) =>
+  (eventHandler: (view: EditorView, mouseEvent: Event) => boolean) =>
   (view: EditorView, mouseEvent: Event): boolean => {
     if (
       getPluginState(view.state).isDragAndDropEnabled &&
@@ -696,5 +698,5 @@ export const withCellTracking =
     ) {
       trackCellLocation(view, mouseEvent);
     }
-    return eventHandler(view, mouseEvent, elementContentRects);
+    return eventHandler(view, mouseEvent);
   };

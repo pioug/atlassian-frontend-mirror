@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Badge from '../src';
@@ -9,24 +8,23 @@ import Badge from '../src';
 const itemStyles = css({
   display: 'flex',
   maxWidth: '300px',
-  marginBottom: token('space.050', '4px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '0.6em 1em',
   alignItems: 'center',
   justifyContent: 'space-between',
   background: 'none',
   borderRadius: token('border.radius', '3px'),
   color: 'inherit',
+  marginBlockEnd: token('space.050', '4px'),
   '&:hover': {
-    backgroundColor: token('color.background.neutral.hovered', N20),
+    backgroundColor: token('color.background.neutral.hovered'),
   },
 });
 
 const invertedItemStyles = css({
-  background: token('color.background.brand.bold', B400),
-  color: token('color.text.inverse', N0),
+  background: token('color.background.brand.bold'),
+  color: token('color.text.inverse'),
   '&:hover': {
-    backgroundColor: token('color.background.brand.bold.hovered', B500),
+    backgroundColor: token('color.background.brand.bold.hovered'),
   },
 });
 

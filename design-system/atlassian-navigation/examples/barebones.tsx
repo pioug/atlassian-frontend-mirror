@@ -6,7 +6,7 @@ import { ButtonItem, PopupMenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { borderRadius, colors } from '@atlaskit/theme';
+import { borderRadius } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -29,7 +29,7 @@ const PopupContents = () => (
         description="But what is an Atlassian, anyway?"
         iconBefore={
           <QuestionCircleIcon
-            primaryColor={token('color.icon.information', colors.B300)}
+            primaryColor={token('color.icon.information')}
             label=""
             size="medium"
           />
@@ -68,7 +68,7 @@ export default () => (
     style={{
       // TODO Delete this comment after verifying space token -> previous value `8`
       paddingBottom: token('space.100', '8px'),
-      border: `1px solid ${token('color.border', colors.N40)}`,
+      border: `1px solid ${token('color.border')}`,
       borderRadius: borderRadius(),
     }}
   >

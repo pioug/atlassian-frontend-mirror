@@ -13,7 +13,6 @@ import { bind } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { isReducedMotion } from '@atlaskit/motion';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 
 import {
@@ -83,12 +82,9 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
   const transition = useRef<Transition | null>(null);
   const mobileMediaQuery = useMediaQuery('below.sm');
 
-  const isOpen =
-    getBooleanFF(
-      'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-    ) && mobileMediaQuery?.matches
-      ? isFlyoutOpen
-      : !isLeftSidebarCollapsed;
+  const isOpen = mobileMediaQuery?.matches
+    ? isFlyoutOpen
+    : !isLeftSidebarCollapsed;
 
   const expandLeftSidebar = useCallback(() => {
     if (isOpen) {
@@ -97,12 +93,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
     // If the user is at a mobile viewport when this runs, we handle it differently
     // We don't expand at mobile widths; instead we use a flyout which is treated the same otherwise
-    if (
-      getBooleanFF(
-        'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-      ) &&
-      mobileMediaQuery?.matches
-    ) {
+    if (mobileMediaQuery?.matches) {
       const flyoutOpenSidebarState = {
         isResizing: false,
         isLeftSidebarCollapsed: true,
@@ -210,12 +201,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
       // If the user is at a mobile viewport when this runs, we handle it differently
       // We don't collapse at mobile widths; instead we close the flyout.
-      if (
-        getBooleanFF(
-          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-        ) &&
-        mobileMediaQuery?.matches
-      ) {
+      if (mobileMediaQuery?.matches) {
         const flyoutCloseSidebarState = {
           isResizing: false,
           isLeftSidebarCollapsed: true,

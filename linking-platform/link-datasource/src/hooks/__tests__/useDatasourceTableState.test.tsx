@@ -18,7 +18,6 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { captureException } from '@atlaskit/linking-common/sentry';
-// import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
@@ -47,7 +46,7 @@ jest.mock('@atlaskit/link-client-extension', () => {
 });
 
 jest.mock('@atlaskit/linking-common/sentry', () => {
-  const originalModule = jest.requireActual('@atlaskit/link-client-extension');
+  const originalModule = jest.requireActual('@atlaskit/linking-common/sentry');
   return {
     ...originalModule,
     captureException: jest.fn(),
@@ -59,7 +58,7 @@ describe('useDatasourceTableState', () => {
   let getDatasourceData: jest.Mock = jest.fn();
 
   const setup = (fields?: string[]) => {
-    (useDatasourceClientExtension as jest.Mock).mockReturnValue({
+    asMock(useDatasourceClientExtension).mockReturnValue({
       getDatasourceDetails,
       getDatasourceData,
     });
@@ -102,7 +101,7 @@ describe('useDatasourceTableState', () => {
 
   describe('without parameters', () => {
     const emptyParamsSetup = () => {
-      (useDatasourceClientExtension as jest.Mock).mockReturnValue({
+      asMock(useDatasourceClientExtension).mockReturnValue({
         getDatasourceDetails,
         getDatasourceData,
       });
@@ -868,6 +867,7 @@ describe('useDatasourceTableState', () => {
       act(() => {
         result.current.loadDatasourceDetails();
       });
+      await waitForNextUpdate();
 
       expect(result.current.status).toEqual('unauthorized');
     });
@@ -886,6 +886,7 @@ describe('useDatasourceTableState', () => {
       act(() => {
         result.current.loadDatasourceDetails();
       });
+      await waitForNextUpdate();
 
       expect(result.current.extensionKey).toEqual('jira-object-provider');
     });
@@ -944,6 +945,7 @@ describe('useDatasourceTableState', () => {
         act(() => {
           result.current.loadDatasourceDetails();
         });
+        await waitForNextUpdate();
 
         expect(result.current.status).toEqual(status);
       },
@@ -1051,7 +1053,6 @@ describe('useDatasourceTableState', () => {
       act(() => {
         result.current.reset({ shouldForceRequest: true });
       });
-      await waitForNextUpdate();
       expect(getDatasourceData).toHaveBeenCalledTimes(1);
       // Check third, shouldForceRequest argument to be true this time only;
       expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(true);

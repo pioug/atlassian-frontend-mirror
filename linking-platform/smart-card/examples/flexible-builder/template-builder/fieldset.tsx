@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import type { FC } from 'react';
+import type { PropsWithChildren } from 'react';
 import { useCallback, useState } from 'react';
 import Button from '@atlaskit/button';
 import ChevronIcon from './chevron-icon';
@@ -18,10 +18,14 @@ const headerStyles = css`
     flex: 2 0 auto;
   }
 `;
-const Fieldset: FC<{
+const Fieldset = ({
+  children,
+  defaultOpen = true,
+  legend,
+}: PropsWithChildren<{
   legend?: string;
   defaultOpen?: boolean;
-}> = ({ children, defaultOpen = true, legend }) => {
+}>) => {
   const [open, setOpen] = useState<boolean>(defaultOpen);
   const handleOnClick = useCallback(() => setOpen(!open), [open]);
 

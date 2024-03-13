@@ -1,5 +1,21 @@
 # @atlaskit/dropdown-menu
 
+## 12.8.1
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 12.8.0
+
+### Minor Changes
+
+- [#80805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80805) [`427c2dd9e0d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/427c2dd9e0d6) - [ux] Update input border width from 2px to 1px with darker color to meet 3:1 color contrast
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.7.0
 
 ### Minor Changes

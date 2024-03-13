@@ -11,6 +11,10 @@ jest.mock('../../artifacts/token-names', () => {
       'test-token-escape': '--test-token \\u{54} ${ ` \' " \u{54}',
       'test-token-shadow': '--test-token-shadow',
       'test-token-shadow-no-opacity': '--test-token-shadow-no-opacity',
+      'space.075': '--ds-space-075',
+      'space.100': '--ds-space-100',
+      'border.radius.050': '--ds-border-radius-050',
+      'font.heading.xlarge': '--ds-font-heading-xlarge',
     },
   };
 });
@@ -18,14 +22,8 @@ jest.mock('../../artifacts/token-names', () => {
 jest.mock('../../artifacts/tokens-raw/atlassian-light', () => ({
   __esModule: true,
   default: [
-    {
-      value: '#ffffff',
-      cleanName: 'test-token',
-    },
-    {
-      value: '#000000',
-      cleanName: 'test-token-escape',
-    },
+    { value: '#ffffff', cleanName: 'test-token' },
+    { value: '#000000', cleanName: 'test-token-escape' },
     {
       value: [
         {
@@ -66,13 +64,31 @@ jest.mock('../../artifacts/tokens-raw/atlassian-light', () => ({
 jest.mock('../../artifacts/tokens-raw/atlassian-legacy-light', () => ({
   __esModule: true,
   default: [
+    { value: '#cccccc', cleanName: 'test-token' },
+    { value: '#111111', cleanName: 'test-token-escape' },
+  ],
+}));
+
+jest.mock('../../artifacts/tokens-raw/atlassian-spacing', () => ({
+  __esModule: true,
+  default: [
+    { value: '6px', cleanName: 'space.075' },
+    { value: '8px', cleanName: 'space.100' },
+  ],
+}));
+
+jest.mock('../../artifacts/tokens-raw/atlassian-shape', () => ({
+  __esModule: true,
+  default: [{ value: '2px', cleanName: 'border.radius.050' }],
+}));
+
+jest.mock('../../artifacts/tokens-raw/atlassian-typography-adg3', () => ({
+  __esModule: true,
+  default: [
     {
-      value: '#cccccc',
-      cleanName: 'test-token',
-    },
-    {
-      value: '#111111',
-      cleanName: 'test-token-escape',
+      value:
+        '"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif"',
+      cleanName: 'font.heading.xlarge',
     },
   ],
 }));
@@ -377,5 +393,33 @@ const getStyles = css => css\`
     expect(actual).toMatchInlineSnapshot(
       '"\\"var(--test-token-shadow-no-opacity, 0px 0px 8px #091e4240, 0px 0px 1px #091e424f)\\";"',
     );
+  });
+
+  describe('Non-color themes (spacing, typography, shape)', () => {
+    it('converts 1-argument usage correctly when shouldUseAutoFallback set to false', () => {
+      const actual = transform()`
+      import { token } from '@atlaskit/tokens';
+      token('space.075');
+    `;
+
+      expect(actual).toMatchInlineSnapshot(`"\\"var(--ds-space-075)\\";"`);
+    });
+
+    it('converts 1-argument usage correctly when shouldUseAutoFallback set to true', () => {
+      const actual = transform(true, false, {}, 'legacy-light')`
+        import { token } from '@atlaskit/tokens';
+        token('space.075');
+        token('space.100');
+        token('border.radius.050');
+        token('font.heading.xlarge');
+      `;
+
+      expect(actual).toMatchInlineSnapshot(`
+        "\\"var(--ds-space-075, 6px)\\";
+        \\"var(--ds-space-100, 8px)\\";
+        \\"var(--ds-border-radius-050, 2px)\\";
+        \\"var(--ds-font-heading-xlarge, \\\\\\"normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, \\\\\\"Segoe UI\\\\\\", Ubuntu, system-ui, \\\\\\"Helvetica Neue\\\\\\", sans-serif\\\\\\")\\";"
+      `);
+    });
   });
 });

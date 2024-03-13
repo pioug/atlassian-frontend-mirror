@@ -16,7 +16,6 @@ import { css, Global, jsx } from '@emotion/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 
 import {
@@ -442,15 +441,8 @@ const ResizeControl = ({
       >
         <Shadow testId={testId && `${testId}-shadow`} />
         {
-          // Without the feature flag, always show the GrabArea
-          (!getBooleanFF(
-            'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-          ) ||
-            // With the feature flag, only show the GrabArea if we're not on the mobile viewport
-            (getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) &&
-              !mobileMediaQuery?.matches)) && (
+          // Only show the GrabArea if we're not on the mobile viewport
+          !mobileMediaQuery?.matches && (
             <GrabArea
               isDisabled={isLeftSidebarCollapsed}
               isLeftSidebarCollapsed={isLeftSidebarCollapsed}
@@ -466,12 +458,9 @@ const ResizeControl = ({
           )
         }
         {resizeButton.render(ResizeButton, {
-          isLeftSidebarCollapsed:
-            getBooleanFF(
-              'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-            ) && mobileMediaQuery?.matches
-              ? !leftSidebarState.isFlyoutOpen
-              : isLeftSidebarCollapsed,
+          isLeftSidebarCollapsed: mobileMediaQuery?.matches
+            ? !leftSidebarState.isFlyoutOpen
+            : isLeftSidebarCollapsed,
           label: resizeButtonLabel,
           onClick: toggleSideBar,
           testId: testId && `${testId}-resize-button`,

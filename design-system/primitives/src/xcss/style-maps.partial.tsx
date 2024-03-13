@@ -74,10 +74,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fcf1cfc01cda3c278e69b0b564c7746d>>
+ * @codegen <<SignedSource::3c4b71fa7d31f43144f09508cc0bbfd7>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::c9f456a6060fb74421e49528d00f56ab>>
  */
 export const inverseColorMap = {
   'color.background.neutral.bold': 'color.text.inverse',
@@ -115,11 +115,11 @@ export const inverseColorMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8c10abde8168de6260b5aa120dd948bc>>
+ * @codegen <<SignedSource::c30600da6551bf7851adc37192d36ad6>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::c9f456a6060fb74421e49528d00f56ab>>
  */
 export const opacityMap = {
   'opacity.disabled': token('opacity.disabled', '0.4'),
@@ -186,11 +186,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f7982208166d5dae0e25517d29aeaef>>
+ * @codegen <<SignedSource::cebd93cc2826bc8cdbcdca032e06b574>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::c9f456a6060fb74421e49528d00f56ab>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -1121,29 +1121,29 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::76c411b57ce0b5e8faa09cb692065229>>
+ * @codegen <<SignedSource::64be523321fab6adc76673ef5f93e3d1>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::0cd422575c3f2a3784eeef767abe71f4>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::79d24a1e558f12d671c06a7609f90dc1>>
  */
-export const bodyFontMap = {
-  body: token(
+export const fontSizeMap = {
+  medium: token(
     'font.body',
     'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
-  'body.large': token(
+  large: token(
     'font.body.large',
     'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
-  'body.small': token(
+  small: token(
     'font.body.small',
     'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
 };
 
-export type BodyFont = keyof typeof bodyFontMap;
+export type FontSize = keyof typeof fontSizeMap;
 
 export const fontWeightMap = {
   bold: token('font.weight.bold', '700'),
@@ -1319,7 +1319,7 @@ type SurfaceColorToken = keyof typeof surfaceColorMap;
 type TextColorToken = keyof typeof textColorMap;
 type FontWeightToken = keyof typeof fontWeightMap;
 type FontFamilyToken = keyof typeof fontFamilyMap;
-type BodyFontToken = keyof typeof bodyFontMap;
+type BodyFontToken = keyof typeof fontSizeMap;
 type SpacingStyleMap = Record<
   SpacingProperty,
   Record<SpacingToken, SerializedStyles>
@@ -1372,7 +1372,7 @@ export const fontFamilyStylesMap: FontFamilyStyleMap = getSerializedStylesMap(
 );
 export const fontStylesMap: FontStyleMap = getSerializedStylesMap(
   'font',
-  bodyFontMap,
+  fontSizeMap,
 );
 
 export const surfaceColorStylesMap: SurfaceColorStyleMap =

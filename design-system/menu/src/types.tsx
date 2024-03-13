@@ -1,4 +1,4 @@
-import { ComponentType, ReactNode, Ref } from 'react';
+import { ComponentType, PropsWithChildren, ReactNode, Ref } from 'react';
 
 import { CSSObject } from '@emotion/react';
 
@@ -358,7 +358,7 @@ export interface CustomItemProps<
    * __NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-  component?: React.ComponentType<TCustomComponentProps>;
+  component?: React.ComponentType<PropsWithChildren<TCustomComponentProps>>;
 }
 
 export interface SkeletonItemProps {

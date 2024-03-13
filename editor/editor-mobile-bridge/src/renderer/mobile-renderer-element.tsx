@@ -92,7 +92,7 @@ const handleRendererContentLoadedBridge = () => {
   }
 };
 
-const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
+const BasicRenderer = ({
   allowAnnotations,
   allowHeadingAnchorLinks,
   createAnalyticsEvent,
@@ -159,8 +159,8 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
 
 const withSmartCard =
   <P extends BasicRendererProps>(
-    Component: React.ComponentType<P>,
-  ): React.FC<P & WithSmartCardClientProps> =>
+    Component: React.ComponentType<React.PropsWithChildren<P>>,
+  ) =>
   ({ cardClient: smartCardClient, ...props }: WithSmartCardClientProps) => {
     // Temporarily opting out of the default oauth2 flow for phase 1 of Smart Links
     // See https://product-fabric.atlassian.net/browse/FM-2149 for details.
@@ -182,8 +182,8 @@ const withSmartCard =
 
 const withFabricAnalytics =
   <P extends MobileRendererProps>(
-    Component: React.ComponentType<P>,
-  ): React.FC<MobileRendererProps> =>
+    Component: React.ComponentType<React.PropsWithChildren<P>>,
+  ) =>
   (props: MobileRendererProps) => {
     return (
       <FabricAnalyticsListeners client={rendererAnalyticsClient}>

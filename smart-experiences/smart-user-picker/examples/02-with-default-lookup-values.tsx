@@ -32,7 +32,7 @@ const productsMap = products
   .map((p) => ({ [p.value]: p }))
   .reduce((acc, val) => ({ ...acc, ...val }), {});
 
-const Example: React.FC = () => {
+const Example = () => {
   const { ready } = useEndpointMocks();
   const [product, setProduct] = useState<string>('people');
   const memoziedDefaultValues = useMemo(() => defaultValues, []);

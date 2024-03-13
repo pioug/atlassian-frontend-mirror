@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 3.0.0
+
+### Major Changes
+
+- [#80897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80897) [`8ce3bb563079`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ce3bb563079) - [ux] If you view a product in a small window or at higher zoom levels, the sidebar now changes sizes to keep all controls in view. In these smaller windows, the sidebar no longer opens on hover to avoid accidental opening.
+
+  The sidebar is unchanged in views wider than 768 pixels.
+
+  When viewing a product in a window narrower than 768px or zoomed in at 200%, you'll notice that hovering your cursor over the sidebar no longer expands the sidebar.
+
+  To open the sidebar, select the expand sidebar button ( > icon). Select the button again to collapse the sidebar. You can also select the edge of the sidebar itself to expand and collapse it.
+
 ## 2.1.4
 
 ### Patch Changes

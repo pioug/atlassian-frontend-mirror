@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 interface SlotDimensionsProps {
@@ -12,10 +11,7 @@ interface SlotDimensionsProps {
 export default ({ variableName, value, mobileValue }: SlotDimensionsProps) => (
   <style>
     {`:root{--${variableName}:${value}px;}`}
-    {getBooleanFF(
-      'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
-    ) &&
-      mobileValue &&
+    {mobileValue &&
       `${UNSAFE_media.below.sm} { :root{--${variableName}:${mobileValue}px;} }`}
   </style>
 );

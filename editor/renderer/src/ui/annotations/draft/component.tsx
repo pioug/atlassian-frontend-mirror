@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { ReactNode } from 'react';
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
@@ -89,11 +88,10 @@ export const applyAnnotationOnText = ({
   });
 };
 
-type Props = {
+type Props = React.PropsWithChildren<{
   startPos: number;
   endPos: number;
-  children: ReactNode;
-};
+}>;
 
 export const TextWithAnnotationDraft = ({
   startPos,

@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.40.0",
+    "@atlaskit/tokens": "^1.41.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^10.0.7",
     "exenv": "^1.2.2",

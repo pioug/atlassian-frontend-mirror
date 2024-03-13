@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, PropsWithChildren } from 'react';
 import debounce from 'lodash/debounce';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -50,7 +50,7 @@ export interface SearchProviderInterface extends SearchSharedInterface {
 export const [useSearchContext, CtxProvider] =
   createCtx<SearchContextInterface>();
 
-export const SearchContextProvider: React.FC<SearchProviderInterface> = ({
+export const SearchContextProvider = ({
   onSearch,
   onSearchInputChanged,
   onSearchInputCleared,
@@ -58,7 +58,7 @@ export const SearchContextProvider: React.FC<SearchProviderInterface> = ({
   onSearchExternalUrlClick,
   searchExternalUrl,
   children,
-}) => {
+}: PropsWithChildren<SearchProviderInterface>) => {
   // Search
   const [searchValue, setSearchValue] = useState<string>('');
   const [searchResult, setSearchResult] = useState<ArticleItem[] | null>(null);

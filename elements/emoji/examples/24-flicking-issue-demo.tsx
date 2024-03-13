@@ -1,4 +1,4 @@
-import React, { type FC, memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import {
   ResourcedEmojiControl,
   getEmojiConfig,
@@ -115,13 +115,13 @@ interface ParentProps {
   onToggleReMount: (reMount: boolean) => void;
   onCount: (count: number) => void;
 }
-const Parent: FC<ParentProps> = ({
+const Parent = ({
   children,
   count,
   onCount,
   reMountEnabled,
   onToggleReMount,
-}) => {
+}: React.PropsWithChildren<ParentProps>) => {
   const reRender = () => {
     onCount(count);
   };

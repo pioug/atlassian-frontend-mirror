@@ -5,7 +5,6 @@ import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Box, xcss } from '@atlaskit/primitives';
-import { B300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -96,14 +95,14 @@ export default () => {
                 <Box xcss={iconContainerStyles}>
                   <Icon
                     glyph={Portfolio}
-                    primaryColor={token('color.icon.brand', B300)}
+                    primaryColor={token('color.icon.brand')}
                     label=""
                   />
                 </Box>
               }
               iconAfter={
                 <StarFilledIcon
-                  primaryColor={token('color.icon.warning', Y300)}
+                  primaryColor={token('color.icon.warning')}
                   label=""
                 />
               }
@@ -115,7 +114,7 @@ export default () => {
               iconBefore={<Icon glyph={Tempo} label="" />}
               iconAfter={
                 <StarFilledIcon
-                  primaryColor={token('color.icon.warning', Y300)}
+                  primaryColor={token('color.icon.warning')}
                   label=""
                 />
               }

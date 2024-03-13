@@ -190,8 +190,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.metadataService,
       this.config.enableErrorOnFailedDocumentApply,
       reconcileOnRecovery,
-      { __livePage: this.config.__livePage || false },
       this.enableCatchupv2,
+      { __livePage: this.config.__livePage || false },
     );
     this.namespaceService = new NamespaceService();
     this.api = new Api(config, this.documentService, this.channel);

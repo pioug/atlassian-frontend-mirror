@@ -45,6 +45,8 @@ export interface Props {
   pluginInjectionApi: ExtensionsPluginInjectionAPI;
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
+  isNodeHovered?: boolean;
+  setIsNodeHovered?: (isHovered: boolean) => void;
 }
 
 type WidthStateProps = { widthState?: EditorContainerWidth };
@@ -64,6 +66,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     editorAppearance,
     showMacroInteractionDesignUpdates,
     isNodeSelected,
+    isNodeHovered,
+    setIsNodeHovered,
   } = props;
 
   const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(
@@ -140,11 +144,18 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     ...contentWrapper,
   };
 
+  const handleMouseEvent = (didHover: boolean) => {
+    if (setIsNodeHovered) {
+      setIsNodeHovered(didHover);
+    }
+  };
+
   return (
     <Fragment>
       {showMacroInteractionDesignUpdates && (
         <ExtensionLozenge
           isNodeSelected={isNodeSelected}
+          isNodeHovered={isNodeHovered}
           node={node}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
           customContainerStyles={customContainerStyles}
@@ -156,6 +167,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
         className={classNames}
         css={wrapperStyle}
         style={customContainerStyles}
+        onMouseOver={() => handleMouseEvent(true)}
+        onMouseLeave={() => handleMouseEvent(false)}
       >
         <div
           className={`extension-overflow-wrapper ${hasBody ? 'with-body' : ''}`}

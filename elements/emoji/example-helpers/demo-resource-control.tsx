@@ -1,5 +1,4 @@
 import React, {
-  type FC,
   type ReactElement,
   cloneElement,
   type ChangeEvent,
@@ -45,7 +44,9 @@ export interface Props {
   customPadding?: number;
 }
 
-export const ResourcedEmojiControl: FC<Props> = (props) => {
+export const ResourcedEmojiControl = (
+  props: React.PropsWithChildren<Props>,
+) => {
   const { customEmojiProvider, children, emojiConfig, customPadding } = props;
   const paddingBottom = customPadding ? `${customPadding}px` : '30px';
 

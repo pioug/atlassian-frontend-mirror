@@ -6,7 +6,7 @@ import type { EditPageProps } from '@atlassian/embedded-confluence-common';
 
 import { I18nProvider } from '../page-common/I18nProvider';
 
-export const EditPage: React.FC<EditPageProps> = props => {
+export const EditPage = (props: EditPageProps) => {
   return (
     <I18nProvider locale={props.locale}>
       <EditPageCommon {...props} />

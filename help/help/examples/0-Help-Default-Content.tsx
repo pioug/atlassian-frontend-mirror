@@ -19,7 +19,7 @@ const handleEvent = (analyticsEvent: { payload: any; context: any }) => {
   console.log('Received event:', { payload, context });
 };
 
-const Example: React.FC = () => {
+const Example = () => {
   const [navigationData, setNavigationData] = useState<{
     articleId: articleId;
     history: HistoryItem[];

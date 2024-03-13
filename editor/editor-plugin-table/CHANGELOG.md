@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.6
+
+### Patch Changes
+
+- [#72764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/72764) [`1a23abba80b0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a23abba80b0) - Minor performance improvements to reduce reflows and re-renders
+
 ## 7.5.5
 
 ### Patch Changes

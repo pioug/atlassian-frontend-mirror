@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import getDocument from './document';
 
-export type ViewportDetectorProps = {
+export type ViewportDetectorProps = PropsWithChildren<{
   cardEl: HTMLElement | null;
   onVisible: () => void;
-};
+}>;
 
 const ABS_VIEWPORT_ANCHOR_OFFSET_TOP = 900; //px
 
@@ -20,11 +20,11 @@ const createIntersectionObserverCallback =
     }
   };
 
-const ViewportObserver: React.FC<ViewportDetectorProps> = ({
+const ViewportObserver = ({
   onVisible,
   cardEl,
   children,
-}) => {
+}: ViewportDetectorProps) => {
   useEffect(() => {
     let intersectionObserver: IntersectionObserver;
     try {
@@ -55,11 +55,11 @@ const ViewportObserver: React.FC<ViewportDetectorProps> = ({
   return <>{children}</>;
 };
 
-export const ViewportDetector: React.FC<ViewportDetectorProps> = ({
+export const ViewportDetector = ({
   cardEl,
   onVisible,
   children,
-}) => {
+}: ViewportDetectorProps) => {
   if (typeof IntersectionObserver === 'undefined') {
     return <>{children}</>;
   }

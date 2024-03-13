@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import type { MouseEvent } from 'react';
-import React, { useMemo, useCallback } from 'react';
+import { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
@@ -27,14 +26,14 @@ const markStyles = () => css`
   }
 `;
 
-type MarkComponentProps = {
+type MarkComponentProps = React.PropsWithChildren<{
   id: AnnotationId;
   annotationParentIds: AnnotationId[];
   dataAttributes: AnnotationDataAttributes;
   state: AnnotationMarkStates | null;
   hasFocus: boolean;
   onClick: (props: OnAnnotationClickPayload) => void;
-};
+}>;
 export const MarkComponent = ({
   annotationParentIds,
   children,
@@ -43,13 +42,13 @@ export const MarkComponent = ({
   state,
   hasFocus,
   onClick,
-}: React.PropsWithChildren<MarkComponentProps>) => {
+}: MarkComponentProps) => {
   const annotationIds = useMemo(
     () => [...new Set([...annotationParentIds, id])],
     [id, annotationParentIds],
   );
   const onMarkClick = useCallback(
-    (event: MouseEvent) => {
+    (event: React.MouseEvent) => {
       // prevents multiple callback on overlapping annotations
       if (event.defaultPrevented || state !== AnnotationMarkStates.ACTIVE) {
         return;

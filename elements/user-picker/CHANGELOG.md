@@ -1,5 +1,18 @@
 # @atlaskit/user-picker
 
+## 10.19.6
+
+### Patch Changes
+
+- [#80085](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80085) [`7febfed958dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7febfed958dd) - Update usage of `React.FC` to explicity include `children`
+
+## 10.19.5
+
+### Patch Changes
+
+- [#80533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80533) [`d34234ee0106`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d34234ee0106) - Fixed bug where user picker rendered infinitely when 2 pickers are selected consecutively
+- Updated dependencies
+
 ## 10.19.4
 
 ### Patch Changes

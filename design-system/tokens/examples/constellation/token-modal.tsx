@@ -2,7 +2,6 @@
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { N0, N30A, N60A } from '@atlaskit/theme/colors';
 
 import token from '../../src/get-token';
 
@@ -10,7 +9,7 @@ export const TokenModalCodeBlock = `
 import { N0, N30A, N60A, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-color: token('color.text', N800),
+color: token('color.text'),
 background: token('elevation.surface.overlay', N0),
 boxShadow: token(
   'elevation.shadow.overlay',
@@ -23,12 +22,9 @@ const dialogStyles = css({
   minHeight: 0,
   flex: '1 1 auto',
   flexDirection: 'column',
-  backgroundColor: token('elevation.surface.overlay', N0),
+  backgroundColor: token('elevation.surface.overlay'),
   borderRadius: token('border.radius.100', '3px'),
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    `0 0 0 1px ${N30A}, 0 2px 1px ${N30A}, 0 0 20px -6px ${N60A}`,
-  ),
+  boxShadow: token('elevation.shadow.overlay'),
   pointerEvents: 'auto',
 });
 

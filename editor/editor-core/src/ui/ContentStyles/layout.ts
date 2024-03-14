@@ -23,6 +23,7 @@ import { token } from '@atlaskit/tokens';
 
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const layoutStyles = css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {

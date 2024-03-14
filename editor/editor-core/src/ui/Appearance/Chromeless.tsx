@@ -16,28 +16,30 @@ import PluginSlot from '../PluginSlot';
 import { scrollbarStyles } from '../styles';
 import WithFlash from '../WithFlash';
 
-const chromelessEditor = css`
-  line-height: 20px;
-  height: auto;
-
-  overflow-x: hidden;
-  overflow-y: auto;
-  ${scrollbarStyles};
-  max-width: inherit;
-  box-sizing: border-box;
-  word-wrap: break-word;
-
-  div > .ProseMirror {
-    outline: none;
-    white-space: pre-wrap;
-    padding: 0;
-    margin: 0;
-
-    & > :last-child {
-      padding-bottom: 0.5em;
-    }
-  }
-`;
+const chromelessEditor = css(
+  {
+    lineHeight: '20px',
+    height: 'auto',
+    overflowX: 'hidden',
+    overflowY: 'auto',
+  },
+  scrollbarStyles,
+  {
+    maxWidth: 'inherit',
+    boxSizing: 'border-box',
+    wordWrap: 'break-word',
+    'div > .ProseMirror': {
+      outline: 'none',
+      whiteSpace: 'pre-wrap',
+      padding: 0,
+      margin: 0,
+      '& > :last-child': {
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+        paddingBottom: '0.5em',
+      },
+    },
+  },
+);
 
 const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';
@@ -84,12 +86,12 @@ export default class Editor extends React.Component<
           css={[
             chromelessEditor,
             maxHeight &&
-              css`
-                max-height: ${maxHeight}px;
-              `,
-            css`
-              min-height: ${minHeight}px;
-            `,
+              css({
+                maxHeight: `${maxHeight}px`,
+              }),
+            css({
+              minHeight: `${minHeight}px`,
+            }),
           ]}
           data-testid="chromeless-editor"
           ref={(ref: HTMLElement | null) => (this.containerElement = ref)}

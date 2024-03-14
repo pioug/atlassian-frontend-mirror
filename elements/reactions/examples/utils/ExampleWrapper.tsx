@@ -29,11 +29,11 @@ export interface ExampleWrapperProps {
 /**
  * A wrapper component to provide a store of resouces/reactions to the wrapper UI element.
  */
-export const ExampleWrapper: React.FC<ExampleWrapperProps> = ({
+export const ExampleWrapper = ({
   children,
   showAnalytics = false,
   client = new MockReactionsClient(500),
-}) => {
+}: ExampleWrapperProps) => {
   const store = new MemoryReactionsStore(client, undefined, {
     subproduct: 'atlaskit',
   }); // default props is handling it

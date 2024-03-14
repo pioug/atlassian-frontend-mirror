@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { FC, useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 
@@ -56,13 +56,13 @@ const getDimensions = (container: HTMLDivElement) => {
   };
 };
 
-export const ReactionsDialog: FC<ReactionsDialogProps> = ({
+export const ReactionsDialog = ({
   reactions = [],
   handleCloseReactionsDialog = () => {},
   emojiProvider,
   selectedEmojiId,
   handleSelectReaction = () => {},
-}) => {
+}: ReactionsDialogProps) => {
   const [elementToScroll, setElementToScroll] = useState<Element>();
 
   const [reactionsContainerRef, setReactionsContainerRef] =

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-better-type-history
 
+## 1.0.3
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
 ## 1.0.2
 
 ### Patch Changes

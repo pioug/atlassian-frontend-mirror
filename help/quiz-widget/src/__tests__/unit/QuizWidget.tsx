@@ -33,7 +33,7 @@ describe('QuizWidget', () => {
     );
     const nextButton = quizComponent
       .find(NavQuiz)
-      .filterWhere((n: any) => n.childAt(0).text() === 'Next');
+      .findWhere((n) => n.type() === 'span' && n.text() === 'Next');
     nextButton.simulate('click');
     expect(quizComponent.find(Question).text()).toEqual(
       quizContent.questions[2],
@@ -43,11 +43,11 @@ describe('QuizWidget', () => {
   it('should show previous question by clicking previous button', () => {
     const nextButton = quizComponent
       .find(NavQuiz)
-      .filterWhere((n: any) => n.childAt(0).text() === 'Next');
+      .findWhere((n) => n.type() === 'span' && n.text() === 'Next');
     nextButton.simulate('click');
     const prevButton = quizComponent
       .find(NavQuiz)
-      .filterWhere((n: any) => n.childAt(0).text() === 'Previous');
+      .findWhere((n) => n.type() === 'span' && n.text() === 'Previous');
     expect(quizComponent.find(Question).text()).toEqual(
       quizContent.questions[2],
     );

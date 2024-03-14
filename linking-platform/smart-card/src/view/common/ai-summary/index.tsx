@@ -57,7 +57,7 @@ const AISummary: React.FC<AISummaryProps> = ({
     <Markdown
       data-testid={testId}
       css={[AISummaryCSS, overrideCss]}
-      children={showIcon ? `${content} <Icon />` : content}
+      children={showIcon ? `${content}&nbsp;<Icon />` : content}
       options={{
         forceWrapper: true,
         overrides: { Icon: iconComponent ?? AITooltipIcon },

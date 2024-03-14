@@ -1,28 +1,23 @@
 /**
  * Copied from ADS popup component with some tweeks for our use
  */
-import React, {
-  Fragment,
-  PropsWithChildren,
-  useLayoutEffect,
-  useRef,
-} from 'react';
+import React, { Fragment, useLayoutEffect, useRef } from 'react';
 import { PopperChildrenProps } from '@atlaskit/popper';
 
-export type RepositionOnUpdateProps = PropsWithChildren<{
+export type RepositionOnUpdateProps = {
   update: PopperChildrenProps['update'];
   settings: {
     isOpen: boolean;
     showFullPicker: boolean;
   };
-}>;
+};
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const RepositionOnUpdate = ({
   children,
   update,
   settings,
-}: RepositionOnUpdateProps) => {
+}: React.PropsWithChildren<RepositionOnUpdateProps>) => {
   // Ref used here to skip update on first render (when refs haven't been set)
   const isFirstRenderRef = useRef<boolean>(true);
 

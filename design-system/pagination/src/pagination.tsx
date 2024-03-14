@@ -130,7 +130,6 @@ function InnerPagination<T>(
           isDisabled={isDisabled || selectedIndexValue === 0}
           iconBefore={<ChevronLeftLargeIcon label="" />}
           aria-label={previousLabel}
-          pages={pages}
           testId={testId && `${testId}--left-navigator`}
         />
         <Inline
@@ -162,7 +161,6 @@ function InnerPagination<T>(
           isDisabled={isDisabled || selectedIndexValue === pages.length - 1}
           iconBefore={<ChevronRightLargeIcon label="" />}
           aria-label={nextLabel}
-          pages={pages}
           testId={testId && `${testId}--right-navigator`}
         />
       </Inline>

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.9
+
+### Patch Changes
+
+- [#81302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81302) [`969e899b8844`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/969e899b8844) - Update column resize logic to match mouse movement
+- [#81427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81427) [`8adea3fa8973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8adea3fa8973) - [ux] When number column toggled and preserve table widths ff enabled, the table oveflow state should align with current behaviour.
+
+## 7.5.8
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+- Updated dependencies
+
+## 7.5.7
+
+### Patch Changes
+
+- [#80086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80086) [`c30ac781b469`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c30ac781b469) - Add keyboard support Cmd-A to select whole table
+- [#81017](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81017) [`df5a993963d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df5a993963d9) - prevent scaled table columns being resized below min width
+
 ## 7.5.6
 
 ### Patch Changes

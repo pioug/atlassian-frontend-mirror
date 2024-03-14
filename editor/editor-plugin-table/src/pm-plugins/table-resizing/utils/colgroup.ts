@@ -5,7 +5,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { MAX_SCALING_PERCENT } from './consts';
+import { getTableScalingPercent } from './misc';
 
 type Col = Array<string | { [name: string]: string }>;
 
@@ -29,13 +29,10 @@ export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
         // We slice here to guard against our colwidth array having more entries
         // Than the we actually span. We'll patch the document at a later point.
         if (tableRef) {
-          const tableWidth = table.attrs && table.attrs.width;
-          let renderWidth = tableRef.parentElement?.clientWidth || 760;
-          let scalePercent = renderWidth / tableWidth;
-          scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+          const scalePercent = getTableScalingPercent(table, tableRef);
           cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
             const fixedColWidth = getColWidthFix(width, map.width);
-            const scaledWidth = fixedColWidth * Math.min(scalePercent, 1);
+            const scaledWidth = fixedColWidth * scalePercent;
             const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
             cols.push([
               'col',

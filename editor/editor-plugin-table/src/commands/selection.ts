@@ -589,3 +589,36 @@ export const shiftArrowUpFromTable =
 
     return false;
   };
+
+export const modASelectTable =
+  (
+    editorSelectionAPI:
+      | ExtractInjectionAPI<typeof tablePlugin>['selection']
+      | undefined,
+  ) =>
+  (): Command =>
+  (state, dispatch) => {
+    const { selection } = state;
+    const table = findTable(selection);
+
+    if (!table) {
+      return false;
+    }
+    const { $from, $to } = selection;
+
+    const tableSelected = isTableSelected(selection);
+
+    if (
+      !tableSelected &&
+      $from.pos > table.start + 1 &&
+      $to.pos < table.start + table.node.nodeSize
+    ) {
+      return selectFullTable(editorSelectionAPI)({
+        node: table.node,
+        startPos: table.start,
+        dir: TableSelectionDirection.BottomToTop,
+      })(state, dispatch);
+    }
+
+    return false;
+  };

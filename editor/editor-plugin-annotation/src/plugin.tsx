@@ -53,6 +53,7 @@ export const annotationPlugin: AnnotationPlugin = ({
       stripNonExistingAnnotations,
       setInlineCommentDraftState: setInlineCommentDraftState(
         api?.analytics?.actions,
+        annotationProviders?.inlineComment.supportedBlockNodes,
       ),
     },
 
@@ -60,7 +61,10 @@ export const annotationPlugin: AnnotationPlugin = ({
       if (!editorState) {
         return undefined;
       }
-      return getPluginState(editorState) || undefined;
+      const pluginState = getPluginState(editorState) || undefined;
+      const clonedPluginState = Object.assign({}, pluginState);
+      delete clonedPluginState?.featureFlagsPluginState;
+      return clonedPluginState;
     },
 
     pmPlugins: () => [
@@ -74,6 +78,7 @@ export const annotationPlugin: AnnotationPlugin = ({
               eventDispatcher,
               provider: annotationProviders.inlineComment,
               editorAnalyticsAPI: api?.analytics?.actions,
+              featureFlagsPluginState: featureFlags,
             });
           }
 

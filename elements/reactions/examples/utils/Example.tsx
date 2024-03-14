@@ -15,7 +15,7 @@ export interface ExampleProps {
  * A custom Example wrapper component to render different examples in the same page and minimize the amount of code needed to render these.
  * @returns JSX.Element
  */
-export const Example: React.FC<ExampleProps> = ({ title, body }) => {
+export const Example = ({ title, body }: ExampleProps) => {
   return (
     <div
       style={{ marginTop: '10px', marginLeft: '10px', marginBottom: '10px' }}

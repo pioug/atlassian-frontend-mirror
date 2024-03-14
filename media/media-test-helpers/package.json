@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-helpers",
-  "version": "33.0.29",
+  "version": "33.0.30",
   "description": "Collection of test helpers used in media component stories and specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^10.0.7",
+    "@emotion/styled": "^11.0.0",
     "@testing-library/react": "^12.1.5",
     "enzyme": "^3.10.0",
     "exenv": "^1.2.2",

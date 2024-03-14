@@ -9,6 +9,7 @@ import {
 import * as ast from '../../../../ast-nodes';
 import { RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils';
+import { validateStyles } from '../../utils/validate-styles';
 
 import { convertJsxCallSite } from './convert-jsx-call-site';
 import { convertStyledComponentToXcss } from './convert-styled-component-call-to-jsx';
@@ -68,7 +69,9 @@ export const CompiledStyled = {
     if (
       !styledComponentVariableRef ||
       !isNodeOfType(styledComponentVariableRef.id, 'Identifier') ||
-      !isValidCssPropertiesToTransform(node, config)
+      !(config.patterns.includes('string-style-property-fix')
+        ? validateStyles(node, config)
+        : isValidCssPropertiesToTransform(node, config))
     ) {
       return { success: false };
     }

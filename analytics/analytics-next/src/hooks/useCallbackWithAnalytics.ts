@@ -19,7 +19,7 @@ export const useCallbackWithAnalytics: UseCallbackWithAnalyticsHook = (
   const payloadRef = useTrackedRef(payload);
 
   return useCallback(
-    (...args) => {
+    (...args: any[]) => {
       const pload =
         typeof payloadRef.current === 'function'
           ? payloadRef.current(...args)

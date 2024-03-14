@@ -11,7 +11,7 @@ import type { GlyphProps } from '@atlaskit/icon/types';
 
 const iconAndMessageMap: {
   [key: string]: {
-    Component: React.ComponentType<GlyphProps>;
+    Component: React.ComponentType<React.PropsWithChildren<GlyphProps>>;
     label: MessageDescriptor;
   };
 } = {

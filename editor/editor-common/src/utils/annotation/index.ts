@@ -5,7 +5,7 @@ import type {
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 type Range = {
   from: number;
   to: number;
@@ -21,6 +21,7 @@ export const canApplyAnnotationOnRange = (
     return false;
   }
 
+  const { inlineCard } = schema.nodes;
   let foundInvalid = false;
 
   doc.nodesBetween(
@@ -31,19 +32,31 @@ export const canApplyAnnotationOnRange = (
       if (schema.nodes.hardBreak === node.type) {
         return false;
       }
-
       // For block elements or text nodes, we want to check
       // if annotations are allowed inside this tree
       // or if we're leaf and not text
-      if (
-        (node.isInline && !node.isText) ||
-        (node.isLeaf && !node.isText) ||
-        (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
-      ) {
-        foundInvalid = true;
-        return false;
-      }
 
+      if (
+        getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+      ) {
+        if (
+          (node.isInline && !node.isText && node.type !== inlineCard) ||
+          (node.isLeaf && !node.isText && node.type !== inlineCard) ||
+          (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
+        ) {
+          foundInvalid = true;
+          return false;
+        }
+      } else {
+        if (
+          (node.isInline && !node.isText) ||
+          (node.isLeaf && !node.isText) ||
+          (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
+        ) {
+          foundInvalid = true;
+          return false;
+        }
+      }
       return true;
     },
   );

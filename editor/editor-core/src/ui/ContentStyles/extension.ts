@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
 export const extensionStyles = css`
   .multiBodiedExtensionView-content-wrap {
     &.danger > span > .multiBodiedExtension--container {

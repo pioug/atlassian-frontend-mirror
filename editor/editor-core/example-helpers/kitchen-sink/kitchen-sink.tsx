@@ -45,6 +45,8 @@ import { KitchenSinkControls } from './kitchen-sink-controls';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
 import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { column, container, editorColumn, rail } from './kitchen-sink-styles';
+import type { EditorAndRendererAnnotationProviders } from './use-annotation-providers';
+import { useEditorAndRendererAnnotationProviders } from './use-annotation-providers';
 
 type StackPlugins = [OptionalPlugin<ExtensionPlugin>];
 
@@ -93,11 +95,12 @@ const docOptions = [
 const LOCALSTORAGE_orientationKey =
   'fabric.editor.example.kitchen-sink.orientation';
 
-export type KitchenSinkProps = {
+type KitchenSinkProps = {
   actions: EditorActions;
   locale: string;
   setLocale(locale: string): void;
   setMessages(messages: any): void;
+  editorAndRendererAnnotationProviders: EditorAndRendererAnnotationProviders;
 };
 
 export type KitchenSinkState = {
@@ -154,7 +157,7 @@ const Comp = (props: any) => {
   );
 };
 
-export class KitchenSink extends React.Component<
+class KitchenSinkWithAnnotationProviders extends React.Component<
   KitchenSinkProps,
   KitchenSinkState
 > {
@@ -520,6 +523,10 @@ export class KitchenSink extends React.Component<
                 disabled={this.state.disabled}
                 featureFlags={parseSafely(this.state.featureFlagInput)}
                 editorPlugins={this.editorPlugins()}
+                editorAnnotationProviders={
+                  this.props.editorAndRendererAnnotationProviders
+                    .editorAnnotationProviders
+                }
               />
             </div>
             <div
@@ -540,6 +547,10 @@ export class KitchenSink extends React.Component<
                 featureFlags={{
                   ...parseSafely(this.state.featureFlagInput),
                 }}
+                rendererAnnotationProviders={
+                  this.props.editorAndRendererAnnotationProviders
+                    .rendererAnnotationProviders
+                }
               />
             </div>
             {this.state.showADF ? (
@@ -623,4 +634,20 @@ export class KitchenSink extends React.Component<
       </>
     );
   }
+}
+
+export function KitchenSink(
+  props: Omit<KitchenSinkProps, 'editorAndRendererAnnotationProviders'>,
+) {
+  const editorAndRendererAnnotationProviders =
+    useEditorAndRendererAnnotationProviders();
+
+  return (
+    <KitchenSinkWithAnnotationProviders
+      {...props}
+      editorAndRendererAnnotationProviders={
+        editorAndRendererAnnotationProviders
+      }
+    />
+  );
 }

@@ -45,15 +45,6 @@ async function setup({ page }: { page: Page }) {
 
 test.describe('iframes', () => {
   test('parent → iframe', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     // Dragging from parent → iframe works correctly with pdnd in Firefox@122.
     // However, there is a bug with Playwright where `.dragTo()` does not
     // publish drag events when dragging from parent → iframe
@@ -82,15 +73,6 @@ test.describe('iframes', () => {
   });
 
   test('iframe → parent', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const { dropTargetInParent, dropTargetInIframe, draggableInIframe } =
       await setup({ page });
 
@@ -109,15 +91,6 @@ test.describe('iframes', () => {
   });
 
   test('parent → iframe (multiple operations)', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     // Dragging from parent → iframe works correctly with pdnd in Firefox@122.
     // However, there is a bug with Playwright where `.dragTo()` does not
     // publish drag events when dragging from parent → iframe
@@ -149,15 +122,6 @@ test.describe('iframes', () => {
   });
 
   test('iframe → parent (multiple operations)', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const { dropTargetInParent, dropTargetInIframe, draggableInIframe } =
       await setup({ page });
 
@@ -180,15 +144,6 @@ test.describe('iframes', () => {
 
   // this previously triggered a bug with our post drop fix in the iframe
   test('iframe → parent, then parent → iframe', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     // Dragging from parent → iframe works correctly with pdnd in Firefox@122.
     // However, there is a bug with Playwright where `.dragTo()` does not
     // publish drag events when dragging from parent → iframe
@@ -244,15 +199,6 @@ test.describe('iframes', () => {
   });
 
   test('parent → iframe, then iframe → parent', async ({ page }) => {
-    // This is real sad. We are currently disabling all iframe testing
-    // as they are not working on CI.
-    fixTest({
-      jiraIssueId: 'UTEST-1404',
-      reason:
-        'Dragging between iframes and parent documents is working locally, but not on CI',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     // Dragging from parent → iframe works correctly with pdnd in Firefox@122.
     // However, there is a bug with Playwright where `.dragTo()` does not
     // publish drag events when dragging from parent → iframe

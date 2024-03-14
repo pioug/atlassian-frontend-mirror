@@ -9,13 +9,14 @@ type Props = {
 export const useUserSelectionRange = (
   props: Props,
 ): [Range | null, () => void] => {
-  const { rendererRef } = props;
+  const {
+    rendererRef: { current: rendererDOM },
+  } = props;
   const [range, setRange] = useState<Range | null>(null);
   const annotationDraftPosition = useContext(AnnotationsDraftContext);
   const hasAnnotationDraft = !!annotationDraftPosition;
 
   useEffect(() => {
-    const { current: rendererDOM } = rendererRef;
     if (!document || !rendererDOM) {
       return;
     }
@@ -34,7 +35,10 @@ export const useUserSelectionRange = (
 
       const _range = sel.getRangeAt(0);
 
-      if (isRangeInsideOfRendererContainer(rendererDOM, _range)) {
+      if (
+        rendererDOM &&
+        isRangeInsideOfRendererContainer(rendererDOM, _range)
+      ) {
         setRange(_range.cloneRange());
       }
     };
@@ -44,7 +48,7 @@ export const useUserSelectionRange = (
     return () => {
       document.removeEventListener('selectionchange', onSelectionChange);
     };
-  }, [rendererRef, range, hasAnnotationDraft]);
+  }, [rendererDOM, range, hasAnnotationDraft]);
 
   const clearRange = useCallback(() => {
     setRange(null);

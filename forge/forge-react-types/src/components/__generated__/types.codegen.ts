@@ -3,9 +3,9 @@
  *
  * Shared types file from UIKit 2
  *
- * @codegen <<SignedSource::876fcb93a6505f3c3d8febc6657b1016>>
+ * @codegen <<SignedSource::c561f6f4e9b302f67dba090188fadfd4>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/types.ts <<SignedSource::4c43233e6c4a02225fbb326afeddd9f7>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/types.ts <<SignedSource::673c66c74d1dcb5e919b6232d69247f9>>
  */
 export type SerialisableEvent = {
   bubbles: boolean;
@@ -13,7 +13,6 @@ export type SerialisableEvent = {
   defaultPrevented: boolean;
   eventPhase: number;
   isTrusted: boolean;
-  nativeEvent: any;
   target: {
     value?: any;
     checked?: boolean;

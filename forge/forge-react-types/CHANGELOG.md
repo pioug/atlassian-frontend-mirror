@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.5.4
+
+### Patch Changes
+
+- [#81281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81281) [`3a0d03ab0b76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a0d03ab0b76) - Updated form props
+
 ## 0.5.3
 
 ### Patch Changes

@@ -338,7 +338,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       return;
     }
 
-    const { width: tableNodeWidth } = tableNode.attrs;
+    const tableNodeWidth = getTableContainerWidth(tableNode);
     const shouldTableScale = tableRenderWidth < tableNodeWidth;
 
     const { width: containerWidthValue } = containerWidth;
@@ -355,7 +355,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isTableScalingEnabled: true,
       });
 
-      updateColgroup(resizeState, this.table!, tableNode, true);
+      // Request animation frame required for Firefox
+      requestAnimationFrame(() => {
+        updateColgroup(resizeState, this.table!, tableNode, true);
+      });
     }
     this.containerWidth = containerWidth;
   }
@@ -885,14 +888,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     layoutChanged: boolean;
     parentWidth?: number;
   }) => {
-    const {
-      view,
-      getNode,
-      getPos,
-      containerWidth,
-      options,
-      isTableScalingEnabled,
-    } = this.props;
+    const { view, getNode, getPos, containerWidth, options } = this.props;
     const node = getNode();
     const { state, dispatch } = view;
     const pos = getPos();
@@ -917,7 +913,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ...options,
       },
       domAtPos,
-      isTableScalingEnabled,
+      false,
     )(state.tr);
 
     dispatch(tr);

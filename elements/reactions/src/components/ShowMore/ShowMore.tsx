@@ -45,12 +45,12 @@ export interface ShowMoreProps {
 /**
  * Show more custom emojis button
  */
-export const ShowMore: React.FC<ShowMoreProps> = ({
+export const ShowMore = ({
   onClick,
   style = {},
   className = {},
   buttonStyle,
-}) => {
+}: ShowMoreProps) => {
   return (
     <div
       className={className.container}

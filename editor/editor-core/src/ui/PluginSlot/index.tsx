@@ -17,9 +17,9 @@ import { ErrorBoundary } from '../ErrorBoundary';
 
 import { MountPluginHooks } from './mount-plugin-hooks';
 
-const pluginsComponentsWrapper = css`
-  display: flex;
-`;
+const pluginsComponentsWrapper = css({
+  display: 'flex',
+});
 
 export interface Props {
   items?: UIComponentFactory[];

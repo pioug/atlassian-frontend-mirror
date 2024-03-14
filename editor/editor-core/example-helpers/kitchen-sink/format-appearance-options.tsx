@@ -3,15 +3,15 @@ import { css, jsx } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-const optionStyle = css`
-  display: flex;
-  flex-direction: column;
-`;
+const optionStyle = css({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
-const description = css`
-  font-size: ${relativeFontSizeToBase16(12)};
-  font-style: italic;
-`;
+const description = css({
+  fontSize: relativeFontSizeToBase16(12),
+  fontStyle: 'italic',
+});
 
 export const formatAppearanceOption = (
   option: { label: string; description?: string },

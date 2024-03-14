@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 193.3.0
+
+### Minor Changes
+
+- [#79555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79555) [`7f38cd921e3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f38cd921e3d) - ED-22229: Removed allowAutoSave option from ConfigPanel to default to true always
+
+### Patch Changes
+
+- [#80487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80487) [`bd40bab58a54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd40bab58a54) - migrated to react18 compatiable types
+- Updated dependencies
+
+## 193.2.6
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
 ## 193.2.1
 
 ### Patch Changes

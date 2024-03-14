@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 import React from 'react';
 
@@ -15,19 +16,18 @@ import FullPageExample, {
   LOCALSTORAGE_defaultDocKey,
 } from './5-full-page';
 
-const disabledBlanket = css`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.03);
-
-  > * {
-    margin-top: 50vh;
-    margin-left: 50vw;
-  }
-`;
+const disabledBlanket = css({
+  position: 'absolute',
+  top: '0px',
+  left: '0px',
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0, 0, 0, 0.03)',
+  '> *': {
+    marginTop: '50vh',
+    marginLeft: '50vw',
+  },
+});
 
 interface State {
   disabled: boolean;

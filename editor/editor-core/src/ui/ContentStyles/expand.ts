@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
 
-import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import { expandClassNames } from '@atlaskit/editor-common/styles';
+import {
+  BreakoutCssClassName,
+  expandClassNames,
+} from '@atlaskit/editor-common/styles';
 import { sharedExpandStyles } from '@atlaskit/editor-common/ui';
 import {
   akEditorSelectedNodeClassName,

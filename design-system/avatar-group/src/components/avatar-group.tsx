@@ -205,14 +205,17 @@ const AvatarGroup = ({
   const [isOpen, setIsOpen] = useState(false);
   const onClose = useCallback(() => setIsOpen(false), []);
 
-  const handleTriggerClicked = useCallback((event) => {
-    const { clientX, clientY, type } = event;
-    // Hitting enter/space is registered as a click with both clientX and clientY === 0
-    if (type === 'keydown' || clientX === 0 || clientY === 0) {
-      setTriggeredUsingKeyboard(true);
-    }
-    setIsOpen((isOpen) => !isOpen);
-  }, []);
+  const handleTriggerClicked = useCallback(
+    (event: React.MouseEvent | KeyboardEvent) => {
+      const { clientX, clientY, type } = event as React.MouseEvent;
+      // Hitting enter/space is registered as a click with both clientX and clientY === 0
+      if (type === 'keydown' || clientX === 0 || clientY === 0) {
+        setTriggeredUsingKeyboard(true);
+      }
+      setIsOpen((isOpen) => !isOpen);
+    },
+    [],
+  );
 
   const { isFocused, bindFocus } = useFocus();
 

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import {
   act,
   render,
@@ -10,7 +10,7 @@ import { IntlProvider } from 'react-intl-next';
 const IntlWrapper = ({
   children,
   locale = 'en',
-}: PropsWithChildren<{ locale?: string }>) => {
+}: React.PropsWithChildren<{ locale?: string }>) => {
   return <IntlProvider locale={locale}>{children}</IntlProvider>;
 };
 

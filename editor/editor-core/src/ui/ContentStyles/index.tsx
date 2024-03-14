@@ -13,13 +13,17 @@ import {
   annotationSharedStyles,
   blockMarksSharedStyles,
   codeBlockInListSafariFix,
+  codeMarkSharedStyles,
   dateSharedStyle,
   embedCardStyles,
   gridStyles,
   indentationSharedStyles,
+  linkSharedStyle,
   listsSharedStyles,
+  MediaSharedClassNames,
   paragraphSharedStyles,
   resizerStyles,
+  ruleSharedStyles,
   shadowSharedStyle,
   SmartCardSharedCssClassName,
   smartCardSharedStyles,
@@ -28,12 +32,6 @@ import {
   textColorStyles,
   unsupportedStyles,
   whitespaceSharedStyles,
-} from '@atlaskit/editor-common/styles';
-import { MediaSharedClassNames } from '@atlaskit/editor-common/styles';
-import {
-  codeMarkSharedStyles,
-  linkSharedStyle,
-  ruleSharedStyles,
 } from '@atlaskit/editor-common/styles';
 import { browser } from '@atlaskit/editor-common/utils';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
@@ -68,6 +66,7 @@ import { panelStyles } from './panel';
 import { statusStyles } from './status';
 import { taskDecisionStyles } from './tasks-and-decisions';
 
+// eslint-disable-next-line @atlaskit/design-system/no-exported-css
 export const linkStyles = css`
   .ProseMirror {
     ${linkSharedStyle}
@@ -183,6 +182,7 @@ const emojiStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-exported-css
 export const placeholderStyles = css({
   '.ProseMirror .placeholder-decoration': {
     color: token('color.text.subtlest', N200),

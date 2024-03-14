@@ -3,12 +3,23 @@ import { css } from '@emotion/react';
 import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { commentStatusStyleMap } from '../../media/styles';
+
 export const annotationPrefix = 'ak-editor-annotation';
 export const AnnotationSharedClassNames = {
   focus: `${annotationPrefix}-focus`,
   blur: `${annotationPrefix}-blur`,
   draft: `${annotationPrefix}-draft`,
 };
+
+export const blockAnnotationPrefix = 'ak-editor-block-annotation';
+export const BlockAnnotationSharedClassNames = {
+  focus: `${blockAnnotationPrefix}-focus`,
+  blur: `${blockAnnotationPrefix}-blur`,
+  draft: `${blockAnnotationPrefix}-draft`,
+};
+
+const mediaNodeDomRef = 'mediaView-content-wrap';
 
 const Y75a = 'rgba(255, 240, 179, 0.5)';
 const Y200a = 'rgba(255, 196, 0, 0.82)';
@@ -47,6 +58,23 @@ export const annotationSharedStyles = () => css`
 
     .${AnnotationSharedClassNames.blur} {
       ${AnnotationSharedCSSByState().blur};
+    }
+
+    // Styling for comments on media node
+    .${mediaNodeDomRef}[class*=ak-editor-block-annotation-] {
+      border-radius: 3px;
+    }
+
+    .${mediaNodeDomRef}.${BlockAnnotationSharedClassNames.draft} {
+      box-shadow: ${commentStatusStyleMap('draft')};
+    }
+
+    .${mediaNodeDomRef}.${BlockAnnotationSharedClassNames.focus} {
+      box-shadow: ${commentStatusStyleMap('focus')};
+    }
+
+    .${mediaNodeDomRef}.${BlockAnnotationSharedClassNames.blur} {
+      box-shadow: ${commentStatusStyleMap('blur')};
     }
   }
 `;

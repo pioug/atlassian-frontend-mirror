@@ -10,6 +10,7 @@ import type {
   Mark as PMMark,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const ADFStages = {
   FINAL: 'final',
@@ -334,7 +335,39 @@ export const getValidNode = (
         }
         break;
       }
-      case 'inlineCard':
+      case 'inlineCard': {
+        if (
+          getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+        ) {
+          let inlineCardNode: ADNode = { type };
+          if (
+            attrs &&
+            ((attrs.datasource && !attrs.url) ||
+              (attrs.url && isSafeUrl(attrs.url)) ||
+              (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+          ) {
+            inlineCardNode.attrs = { ...attrs };
+          }
+
+          if (marks) {
+            inlineCardNode.marks = [...marks];
+          }
+          return inlineCardNode;
+        } else {
+          if (
+            attrs &&
+            ((attrs.datasource && !attrs.url) ||
+              (attrs.url && isSafeUrl(attrs.url)) ||
+              (attrs.data && attrs.data.url && isSafeUrl(attrs.data.url)))
+          ) {
+            return {
+              type,
+              attrs,
+            };
+          }
+          break;
+        }
+      }
       case 'blockCard': {
         if (
           attrs &&
@@ -796,9 +829,11 @@ export const getValidNode = (
       }
       case 'placeholder': {
         if (attrs && typeof attrs.text !== 'undefined') {
-          return { type, attrs };
+          return {
+            type,
+            attrs,
+          };
         }
-
         break;
       }
 

@@ -7,6 +7,7 @@ export interface UfoErrorBoundaryProps {
    * UFO Experiences to notify failure when the children components fail on rendering
    */
   experiences: UFOExperience[] | WithSamplingUFOExperience[];
+  children?: React.ReactNode;
 }
 
 /**

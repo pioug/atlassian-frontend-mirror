@@ -41,18 +41,18 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 const mediaMock = createEditorMediaMock();
 mediaMock.enable();
 
-const wrapper = css`
-  box-sizing: border-box;
-  height: calc(100vh - 32px);
-  display: flex;
-`;
-const content = css`
-  padding: 0;
-  height: 100%;
-  width: 50%;
-  border: 2px solid #ccc;
-  box-sizing: border-box;
-`;
+const wrapper = css({
+  boxSizing: 'border-box',
+  height: 'calc(100vh - 32px)',
+  display: 'flex',
+});
+const content = css({
+  padding: 0,
+  height: '100%',
+  width: '50%',
+  border: '2px solid #ccc',
+  boxSizing: 'border-box',
+});
 
 const getLocalStorageKey = (collectionName: string) =>
   `fabric.editor.example.copypaste-${collectionName}`;

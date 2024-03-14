@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormProps
  *
- * @codegen <<SignedSource::907c2307d88c09c5afb44ad749dfc496>>
+ * @codegen <<SignedSource::7c9522c55d4584b6a3d4cc6e9366fd61>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/index.tsx <<SignedSource::6d4d25db5b3185c05c0f48ce5c0c860c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/form/index.tsx <<SignedSource::c7d435cba1e3502a0d409b3723afeece>>
  */
 import type { ReactNode } from 'react';
 

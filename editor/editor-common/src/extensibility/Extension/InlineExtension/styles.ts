@@ -25,10 +25,6 @@ export const wrapperStyle = css(wrapperDefault, {
 
 export const inlineWrapperStyels = css({
   maxWidth: '100%',
-  display: 'inline-block',
-  '&::after, &::before': {
-    display: 'block',
-  },
   'tr &': {
     maxWidth: 'inherit',
   },

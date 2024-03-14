@@ -86,7 +86,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
   });
 
   const onBlanketClicked = useCallback(
-    (e) => {
+    (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
       if (shouldCloseOnOverlayClick) {
         onCloseHandler(e);
       }

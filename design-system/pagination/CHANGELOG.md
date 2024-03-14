@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.6.1
+
+### Patch Changes
+
+- [#80972](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80972) [`6ff808b4cb86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ff808b4cb86) - Remove unused "pages" prop from Navigator buttons and replace usage of spread operator with individual props.
+
 ## 14.6.0
 
 ### Minor Changes

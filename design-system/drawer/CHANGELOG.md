@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.7.0
+
+### Minor Changes
+
+- [#80011](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80011) [`58416dfd477d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58416dfd477d) - Add closeLabel prop to provide a custom label for the drawer's "Close" control.
+
 ## 7.6.6
 
 ### Patch Changes

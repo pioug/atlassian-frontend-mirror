@@ -65,7 +65,6 @@ export type CreateExtensionAPI = (
 
 export interface ExtensionPluginOptions
   extends LongPressSelectionPluginOptions {
-  allowAutoSave?: boolean;
   breakoutEnabled?: boolean;
   extensionHandlers?: ExtensionHandlers;
   appearance?: EditorAppearance;

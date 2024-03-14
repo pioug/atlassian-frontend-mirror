@@ -170,7 +170,8 @@ export default function EditorExampleForIntegrationTests() {
     };
   }, []);
   const userId = React.useMemo(() => {
-    return urlParams.get('userId') || 'lol_editor_test_user';
+    const randomUsername = `lol_editor_test_user_${crypto.randomUUID()}`;
+    return urlParams.get('userId') || randomUsername;
   }, []);
   const [isReady, setIsReady] = React.useState(false);
 

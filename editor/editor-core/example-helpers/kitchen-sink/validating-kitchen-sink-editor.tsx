@@ -6,19 +6,16 @@ import type {
   ErrorCallback,
   ValidationError,
 } from '@atlaskit/adf-utils/validatorTypes';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { validationErrorHandler } from '@atlaskit/editor-common/utils';
+import type { AnnotationProviders as EditorAnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, import/order -- Removed import for fixing circular dependencies
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-  ExampleCreateInlineCommentWithRepliesComponent,
-  ExampleViewInlineCommentWithRepliesComponent,
-} from '@atlaskit/editor-test-helpers/example-helpers';
+
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -60,6 +57,7 @@ export type ValidatingKitchenSinkEditorProps = {
   extensionProviders: EditorProps['extensionProviders'];
   featureFlags: EditorProps['featureFlags'];
   editorPlugins?: EditorPlugin[];
+  editorAnnotationProviders: EditorAnnotationProviders;
 };
 
 export type ValidatingKitchenSinkEditorState = {
@@ -106,8 +104,6 @@ const EMPTY: EditorPlugin[] = [];
 //   moduleTablePlugin = tablePlugin;
 //   return [tablePlugin];
 // };
-
-const emitter = new AnnotationUpdateEmitter();
 
 export class ValidatingKitchenSinkEditor extends React.Component<
   ValidatingKitchenSinkEditorProps,
@@ -162,7 +158,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           }}
           allowExtension={{
             allowBreakout: true,
-            allowAutoSave: true,
             allowExtendFloatingToolbars: true,
           }}
           allowRule={true}
@@ -186,13 +181,12 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowNestedTasks
           annotationProviders={{
             inlineComment: {
-              createComponent: ExampleCreateInlineCommentWithRepliesComponent,
-              viewComponent: ExampleViewInlineCommentWithRepliesComponent,
-              updateSubscriber: emitter,
-              getState: async () => {
-                return [];
-              },
-              disallowOnWhitespace: true,
+              ...this.props.editorAnnotationProviders.inlineComment,
+              supportedBlockNodes:
+                this.props.featureFlags &&
+                this.props.featureFlags['comments-on-media']
+                  ? ['media']
+                  : [],
             },
           }}
           codeBlock={{ allowCopyToClipboard: true, appearance }}

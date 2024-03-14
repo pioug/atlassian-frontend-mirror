@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
 
@@ -14,12 +15,12 @@ import Modal, {
 
 import { Editor } from '../src';
 
-const bodyStyles = css`
-  margin-top: 2rem;
-  display: center;
-  justify-content: center;
-  align-items: center;
-`;
+const bodyStyles = css({
+  marginTop: '2rem',
+  display: 'center',
+  justifyContent: 'center',
+  alignItems: 'center',
+});
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);

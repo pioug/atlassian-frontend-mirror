@@ -163,10 +163,12 @@ const getDraftCommandAction: (
   drafting: boolean,
   targetType: TargetType,
   isCommentOnMediaOn?: boolean,
+  supportedBlockNodes?: string[],
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
   drafting: boolean,
   targetType: TargetType,
   isCommentOnMediaOn?: boolean,
+  supportedBlockNodes?: string[],
 ) => {
   return (editorState: EditorState) => {
     // validate selection only when entering draft mode
@@ -184,13 +186,18 @@ const getDraftCommandAction: (
         drafting,
         editorState,
         targetType,
+        isCommentOnMediaOn,
+        supportedBlockNodes,
       },
     };
   };
 };
 
 export const setInlineCommentDraftState =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+    supportedBlockNodes: string[] = [],
+  ) =>
   (
     drafting: boolean,
     inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
@@ -201,6 +208,7 @@ export const setInlineCommentDraftState =
       drafting,
       targetType,
       isCommentOnMediaOn,
+      supportedBlockNodes,
     );
     return createCommand(
       commandAction,

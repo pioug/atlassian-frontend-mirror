@@ -1,5 +1,5 @@
 /** @jsx   jsx */
-import { FC, useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 
@@ -34,11 +34,11 @@ export interface ReactionViewProps {
   emojiProvider: Promise<EmojiProvider>;
 }
 
-export const ReactionView: FC<ReactionViewProps> = ({
+export const ReactionView = ({
   selectedEmojiId,
   emojiProvider,
   reaction,
-}) => {
+}: ReactionViewProps) => {
   const intl = useIntl();
   const [emojiName, setEmojiName] = useState<string>('');
 

@@ -1,4 +1,3 @@
-import type { FunctionComponent, ReactElement } from 'react';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import _isEqual from 'lodash/isEqual';
@@ -134,12 +133,17 @@ function ConfigForm({
 
 const ConfigFormIntl = injectIntl(ConfigForm);
 
-const WithOnFieldChange: FunctionComponent<{
+const WithOnFieldChange = ({
+  getState,
+  autoSave,
+  handleSubmit,
+  children,
+}: {
   getState: () => { values: Parameters; errors: ValidationErrors };
   autoSave: boolean;
   handleSubmit: (parameters: Parameters) => void;
-  children: (onFieldChange: OnFieldChange) => ReactElement;
-}> = ({ getState, autoSave, handleSubmit, children }) => {
+  children: (onFieldChange: OnFieldChange) => React.ReactElement;
+}) => {
   const getStateRef =
     useRef<() => { values: Parameters; errors: ValidationErrors }>(getState);
 
@@ -181,7 +185,6 @@ type Props = {
   extensionManifest?: ExtensionManifest;
   fields?: FieldDefinition[];
   parameters?: Parameters;
-  autoSave?: boolean;
   autoSaveTrigger?: () => void;
   autoSaveReject?: RejectSave;
   showHeader?: boolean;
@@ -502,8 +505,7 @@ class ConfigPanel extends React.Component<Props, State> {
       return <LoadingState />;
     }
 
-    const { autoSave, errorMessage, fields, isLoading, onCancel, api } =
-      this.props;
+    const { errorMessage, fields, isLoading, onCancel, api } = this.props;
     const { currentParameters, hasParsedParameters, firstVisibleFieldName } =
       this.state;
     const { handleSubmit, handleKeyDown } = this;
@@ -513,7 +515,7 @@ class ConfigPanel extends React.Component<Props, State> {
         {({ formProps, getState, submitting }) => {
           return (
             <WithOnFieldChange
-              autoSave={!!autoSave}
+              autoSave={true}
               getState={
                 getState as () => {
                   values: Parameters;
@@ -534,7 +536,7 @@ class ConfigPanel extends React.Component<Props, State> {
                     {this.renderHeader(extensionManifest)}
                     <ConfigFormIntlWithBoundary
                       api={api}
-                      canSave={!autoSave}
+                      canSave={false}
                       errorMessage={errorMessage}
                       extensionManifest={extensionManifest}
                       fields={fields ?? []}

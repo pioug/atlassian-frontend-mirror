@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/icon-file-type",
-  "version": "6.4.7",
+  "version": "6.4.8",
   "description": "A file type icon is used to represent specific types of content used across Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
     "@af/icon-build-process": "^0.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@emotion/styled": "^10.0.7",
+    "@emotion/styled": "^11.0.0",
     "enzyme": "^3.10.0",
     "fs-extra": "^4.0.2",
     "jscodeshift": "^0.13.0",

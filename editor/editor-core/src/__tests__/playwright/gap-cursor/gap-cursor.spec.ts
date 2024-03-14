@@ -21,9 +21,7 @@ test.describe('Gap-cursor:', () => {
     test.use({
       editorProps: {
         appearance: 'full-page',
-        allowExtension: {
-          allowAutoSave: true,
-        },
+        allowExtension: {},
         allowFragmentMark: true,
       },
       adf: connectedExtensionADF,

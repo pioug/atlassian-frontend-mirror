@@ -131,8 +131,12 @@ export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
   AnnotationTypes.INLINE_COMMENT,
   InlineCommentState
 > & {
-  createComponent?: React.ComponentType<InlineCommentCreateComponentProps>;
-  viewComponent?: React.ComponentType<InlineCommentViewComponentProps>;
+  createComponent?: React.ComponentType<
+    React.PropsWithChildren<InlineCommentCreateComponentProps>
+  >;
+  viewComponent?: React.ComponentType<
+    React.PropsWithChildren<InlineCommentViewComponentProps>
+  >;
   // always position toolbar above the selection
   isToolbarAbove?: boolean;
 
@@ -172,4 +176,10 @@ export type CoordsAtPos = {
   bottom: number;
   left: number;
   right: number;
+};
+
+export type DraftBookmark = {
+  from: number;
+  to: number;
+  head: number;
 };

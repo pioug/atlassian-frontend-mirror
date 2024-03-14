@@ -52,6 +52,7 @@ export default class WithFlash extends React.Component<Props> {
     this.toggle = animate && !this.toggle;
 
     return (
+      // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
       <div
         css={animate ? flashWrapperAnimated : flashWrapper}
         className={this.toggle ? '-flash' : ''}

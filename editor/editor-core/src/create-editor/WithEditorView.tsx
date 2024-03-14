@@ -1,4 +1,3 @@
-import type { ComponentType, FunctionComponent } from 'react';
 import React from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -10,11 +9,11 @@ export interface WithEditorViewInternalProps {
 }
 
 export const WithEditorView = <P extends WithEditorViewInternalProps>(
-  WrappedComponent: ComponentType<P>,
-): ComponentType<Omit<P, keyof WithEditorViewInternalProps>> => {
-  const _WithFeatureFlags: FunctionComponent<
-    Omit<P, keyof WithEditorViewInternalProps>
-  > = (props) => {
+  WrappedComponent: React.ComponentType<React.PropsWithChildren<P>>,
+) => {
+  const _WithFeatureFlags = (
+    props: React.PropsWithChildren<Omit<P, keyof WithEditorViewInternalProps>>,
+  ) => {
     const { editorActions } = useEditorContext();
 
     return (

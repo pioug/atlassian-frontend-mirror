@@ -14,6 +14,7 @@ import {
   getVariableUsagesCount,
   isValidCssPropertiesToTransform,
 } from '../../utils';
+import { validateStyles } from '../../utils/validate-styles';
 import { cssToXcssTransformer } from '../css-to-xcss';
 
 import * as supported from './supported';
@@ -99,12 +100,14 @@ export const EmotionCSS = {
 
     const cssVariableValue = getVariableDefinitionValue(cssVariableDefinition);
     // Check if `cssVariableValue` is a function called `css()`
-    if (ast.FunctionCall.getName(cssVariableValue?.node?.init) !== 'css') {
+    if (ast.FunctionCall.getName(cssVariableValue?.node.init) !== 'css') {
       return false;
     }
 
     if (
-      !isValidCssPropertiesToTransform(cssVariableValue?.node?.init, config)
+      !(config.patterns.includes('string-style-property-fix')
+        ? validateStyles(cssVariableValue?.node.init, config)
+        : isValidCssPropertiesToTransform(cssVariableValue?.node.init, config))
     ) {
       return false;
     }

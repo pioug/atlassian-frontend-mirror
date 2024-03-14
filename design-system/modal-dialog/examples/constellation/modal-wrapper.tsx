@@ -20,7 +20,7 @@ export default function Example() {
   const closeModal = useCallback(() => setIsOpen(false), []);
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const data = new FormData(e.target as HTMLFormElement);
       const obj: any = {};

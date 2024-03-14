@@ -14,9 +14,7 @@ export interface KitchenSinkAdfInputProps {
   onChange?(e: React.ChangeEvent): void;
 }
 
-export const KitchenSinkAdfInput: React.FunctionComponent<
-  KitchenSinkAdfInputProps
-> = (props) => {
+export const KitchenSinkAdfInput = (props: KitchenSinkAdfInputProps) => {
   return (
     <div css={inputForm}>
       <div css={inputPadding}>

@@ -55,7 +55,7 @@ const SingleValue = ({
   );
 };
 
-const LocaleSelect: React.FunctionComponent<LocaleSelectProps> = ({
+const LocaleSelect = ({
   id,
   locales = defaultLocales,
   locale,

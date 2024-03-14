@@ -164,7 +164,7 @@ export function getTooltip(status: ReactionStatus, errorMessage?: string) {
 /**
  * Renders list of reactions
  */
-export const Reactions: React.FC<ReactionsProps> = React.memo(
+export const Reactions = React.memo(
   ({
     flash = {},
     status,
@@ -185,7 +185,7 @@ export const Reactions: React.FC<ReactionsProps> = React.memo(
     onDialogSelectReactionCallback = () => {},
     emojiPickerSize = 'medium',
     miniMode = false,
-  }) => {
+  }: ReactionsProps) => {
     const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
     const { createAnalyticsEvent } = useAnalyticsEvents();
 

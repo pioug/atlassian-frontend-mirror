@@ -16,7 +16,9 @@ const ID = (props: PropsWithChildren<{}>) => (
 export type InviteToEditButtonProps = PropsWithChildren<{
   onClick?: React.MouseEventHandler;
   selected?: boolean;
-  Component?: React.ComponentType<InviteToEditComponentProps>;
+  Component?: React.ComponentType<
+    React.PropsWithChildren<InviteToEditComponentProps>
+  >;
   title: string;
 }>;
 

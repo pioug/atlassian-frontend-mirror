@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const dateStyles = css`
   .${DateSharedCssClassName.DATE_CONTAINER} {
     .${DateSharedCssClassName.DATE_WRAPPER} {

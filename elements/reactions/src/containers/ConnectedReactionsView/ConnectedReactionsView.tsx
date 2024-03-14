@@ -113,8 +113,8 @@ export const mapDispatchToPropsHelper = (
   };
 };
 
-export const ConnectedReactionsView: React.FC<ConnectedReactionsViewProps> = (
-  props,
+export const ConnectedReactionsView = (
+  props: React.PropsWithChildren<ConnectedReactionsViewProps>,
 ) => {
   const { ari, containerAri, store, ...rest } = props;
   /**

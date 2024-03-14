@@ -24,7 +24,7 @@ export function useInView(options: IntersectionObserverInit = {}): Response {
   const { threshold, root, rootMargin } = options;
 
   const setRef = React.useCallback(
-    (node) => {
+    (node: any) => {
       observerInstance.current = new IntersectionObserver(
         (entries: IntersectionObserverEntry[]) => {
           if (entries && entries.length) {

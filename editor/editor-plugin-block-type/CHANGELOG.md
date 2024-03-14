@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.0.30
+
+### Patch Changes
+
+- [#80883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80883) [`5ecfa883d4ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ecfa883d4ba) - React 18 types for alignment, annotation, avatar-group and blocktype plugins.
+
+## 3.0.29
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
 ## 3.0.28
 
 ### Patch Changes

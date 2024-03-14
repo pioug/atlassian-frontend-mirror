@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.8.1
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
+## 109.8.0
+
+### Minor Changes
+
+- [#80781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80781) [`972cc5041482`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/972cc5041482) - useEffect creates a closure, so we need to assign the exact props passed to useUserSelectionRange
+
 ## 109.7.7
 
 ### Patch Changes

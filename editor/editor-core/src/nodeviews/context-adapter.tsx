@@ -42,6 +42,7 @@ type ContextWrapper<T> = {
 type LegacyContextAdapterProps = {
   card?: ContextWrapper<CardContextType | undefined>;
   analytics?: ContextWrapper<AnalyticsReactContextInterface>;
+  children?: React.ReactNode;
 };
 
 class LegacyContextAdapter extends React.PureComponent<

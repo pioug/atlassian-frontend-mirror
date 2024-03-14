@@ -32,8 +32,6 @@ import type {
 } from '../types/validatorTypes';
 import { validatorFnMap } from './rules';
 
-const INLINE_NODES_SUPPORTING_COMMENTS = ['inlineCard'];
-
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
   if (spec.props && spec.props.marks) {
     const { items, ...rest } = spec.props!.marks!;
@@ -82,23 +80,20 @@ const partitionObject = <T extends { [key: string]: any }>(
  * We denormalised the spec to save bundle size.
  */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {
-  const allowCommentsOnInlineNodes = !!getBooleanFF(
-    'platform.editor.allow-inline-comments-for-inline-nodes',
-  );
-  return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
-    const spec = { ...(specs as any)[k] };
-    if (
-      INLINE_NODES_SUPPORTING_COMMENTS.includes(k) &&
-      allowCommentsOnInlineNodes
-    ) {
-      spec.props = inlineCardWithAnnotation.props;
-    }
+  let _specs = { ...specs };
+  if (
+    !!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+  ) {
+    _specs.inlineCard = inlineCardWithAnnotation;
+  }
+  return Object.keys(_specs).reduce<Record<string, any>>((newSpecs, k) => {
+    const spec = { ...(_specs as any)[k] };
     if (spec.props) {
       spec.props = { ...spec.props };
       if (spec.props.content) {
         // 'tableCell_content' => { type: 'array', items: [ ... ] }
         if (isString(spec.props.content)) {
-          spec.props.content = (specs as any)[spec.props.content];
+          spec.props.content = (_specs as any)[spec.props.content];
         }
 
         // ['inline', 'emoji']
@@ -129,8 +124,8 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           // ['media'] => [['media']]
           .map((item) =>
             isString(item)
-              ? Array.isArray((specs as any)[item])
-                ? (specs as any)[item]
+              ? Array.isArray((_specs as any)[item])
+                ? (_specs as any)[item]
                 : [item]
               : item,
           )
@@ -138,8 +133,8 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           .map((item: Array<string>) =>
             item
               .map((subItem) =>
-                Array.isArray((specs as any)[subItem])
-                  ? (specs as any)[subItem]
+                Array.isArray((_specs as any)[subItem])
+                  ? (_specs as any)[subItem]
                   : isString(subItem)
                   ? subItem
                   : // Now `NoMark` produces `items: []`, should be fixed in generator

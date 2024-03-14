@@ -8,6 +8,8 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react';
 
+import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+
 import DrawerPrimitive from '../../primitives';
 import { wrapperWidth } from '../../primitives/drawer-wrapper';
 import { DrawerWidth } from '../../types';
@@ -29,7 +31,10 @@ describe('Drawer primitive', () => {
     const Icon = (props: { size: string }) => {
       return <span data-size={props.size}>Icon</span>;
     };
-    const props = { ...commonProps, icon: Icon };
+    const props = {
+      ...commonProps,
+      icon: Icon,
+    };
     render(
       <DrawerPrimitive {...props}>
         <DrawerContent />
@@ -39,7 +44,18 @@ describe('Drawer primitive', () => {
     expect(screen.getByText('Icon')).toHaveAttribute('data-size', 'large');
   });
 
-  it('should render arrow left if icon prop does NOT exist', () => {
+  it('should not overwrite the accessible name if given an icon', () => {
+    const props = { ...commonProps, icon: EmojiIcon };
+    render(
+      <DrawerPrimitive {...props}>
+        <DrawerContent />
+      </DrawerPrimitive>,
+    );
+
+    expect(screen.getByLabelText('Close drawer')).toBeInTheDocument();
+  });
+
+  it('should render close control if icon prop does NOT exist', () => {
     const props = { ...commonProps };
     render(
       <DrawerPrimitive {...props}>
@@ -48,6 +64,18 @@ describe('Drawer primitive', () => {
     );
 
     expect(screen.getByLabelText('Close drawer')).toBeInTheDocument();
+  });
+
+  it('should render close control with custom label if closeLabel is supplied', () => {
+    const closeLabel = 'Go back';
+    const props = { ...commonProps, closeLabel: closeLabel };
+    render(
+      <DrawerPrimitive {...props}>
+        <DrawerContent />
+      </DrawerPrimitive>,
+    );
+
+    expect(screen.getByLabelText(closeLabel)).toBeInTheDocument();
   });
 
   it('should unmount the node if receives shouldUnmountOnExit prop', async () => {

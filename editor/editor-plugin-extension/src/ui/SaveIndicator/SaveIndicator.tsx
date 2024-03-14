@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { FunctionComponent } from 'react';
 import { Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
@@ -41,11 +40,11 @@ const saveIndicatorTextStyles = css({
   paddingLeft: token('space.075', '6px'),
 });
 
-export const SaveIndicator: FunctionComponent<SaveIndicatorProps> = ({
+export const SaveIndicator = ({
   children,
   duration,
   visible = true,
-}) => {
+}: React.PropsWithChildren<SaveIndicatorProps>) => {
   const [saving, setSaving] = useState(false);
   const shown = useRef(false);
 

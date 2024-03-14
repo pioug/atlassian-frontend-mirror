@@ -3,7 +3,10 @@ import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { CommandDispatch } from '@atlaskit/editor-common/types';
+import type {
+  CommandDispatch,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -73,6 +76,7 @@ const fetchState = async (
 
 const initialState = (
   disallowOnWhitespace: boolean = false,
+  featureFlagsPluginState?: FeatureFlags,
 ): InlineCommentPluginState => {
   return {
     annotations: {},
@@ -84,6 +88,7 @@ const initialState = (
     isInlineCommentViewClosed: false,
     isVisible: true,
     skipSelectionHandling: false,
+    featureFlagsPluginState,
   };
 };
 
@@ -134,13 +139,18 @@ const onSetVisibility = (view: EditorView) => (isVisible: boolean) => {
 };
 
 export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
-  const { provider, portalProviderAPI, eventDispatcher } = options;
+  const {
+    provider,
+    portalProviderAPI,
+    eventDispatcher,
+    featureFlagsPluginState,
+  } = options;
 
   return new SafePlugin({
     key: inlineCommentPluginKey,
     state: createPluginState(
       options.dispatch,
-      initialState(provider.disallowOnWhitespace),
+      initialState(provider.disallowOnWhitespace, featureFlagsPluginState),
     ),
 
     view(editorView: EditorView) {

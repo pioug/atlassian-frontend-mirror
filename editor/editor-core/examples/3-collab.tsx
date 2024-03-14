@@ -230,7 +230,7 @@ const editorProps = ({
   extensionProviders: (editorActions) => [
     getExampleExtensionProviders(editorApi, editorActions),
   ],
-  allowExtension: { allowAutoSave: true, allowBreakout: true },
+  allowExtension: { allowBreakout: true },
   macroProvider: Promise.resolve(macroProvider),
   smartLinks: {
     provider: Promise.resolve(cardProviderStaging),

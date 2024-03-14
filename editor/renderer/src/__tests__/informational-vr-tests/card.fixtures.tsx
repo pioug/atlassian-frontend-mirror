@@ -1,15 +1,21 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import type { CardClient } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
 import { Renderer } from '../../ui';
-
-const smartCardClient = new CardClient('stg');
+import {
+  NotFoundClient,
+  ForbiddenClient,
+  ErroredClient,
+  UnauthorizedClient,
+  ResolvingClient,
+} from './card.customClient';
 
 mockDatasourceFetchRequests({
   initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],
@@ -36,7 +42,10 @@ const buildEmbedCardWithAttributesAdf = (
   ],
 });
 
-const buildEmbedCardAdf = (url: string) => ({
+const buildEmbedCardAdf = (
+  url: string,
+  layout: 'center' | 'wide' = 'center',
+) => ({
   version: 1,
   type: 'doc',
   content: [
@@ -44,7 +53,7 @@ const buildEmbedCardAdf = (url: string) => ({
       type: 'embedCard',
       attrs: {
         url: url,
-        layout: 'center',
+        layout,
       },
     },
   ],
@@ -85,9 +94,9 @@ const buildInlineCardAdf = (url: string) => ({
   ],
 });
 
-const Comp = ({ adf }: { adf: unknown }) => {
+const Comp = ({ adf, client }: { adf: unknown; client: CardClient }) => {
   return (
-    <SmartCardProvider client={smartCardClient}>
+    <SmartCardProvider client={client}>
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
@@ -106,82 +115,173 @@ const Comp = ({ adf }: { adf: unknown }) => {
 };
 
 export const RendererInlineCard = () => {
-  return <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl')} />;
+  return (
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl')}
+      // TODO Update with new client for gemini test
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 
 export const RendererInlineCardResolving = () => {
   return (
-    <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl/resolving')} />
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl/resolving')}
+      client={new ResolvingClient(1000000)}
+    />
   );
 };
 
 export const RendererInlineCardUnauthorized = () => {
   return (
-    <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl/unauthorized')} />
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl/unauthorized')}
+      client={new UnauthorizedClient()}
+    />
   );
 };
 
 export const RendererInlineCardForbidden = () => {
   return (
-    <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden')} />
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl/forbidden')}
+      client={new ForbiddenClient()}
+    />
   );
 };
 
 export const RendererInlineCardNotFound = () => {
   return (
-    <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl/notFound')} />
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl/notFound')}
+      client={new NotFoundClient()}
+    />
   );
 };
 
 export const RendererInlineCardErrored = () => {
-  return <Comp adf={buildInlineCardAdf('https://inlineCardTestUrl/errored')} />;
+  return (
+    <Comp
+      adf={buildInlineCardAdf('https://inlineCardTestUrl/errored')}
+      client={new ErroredClient()}
+    />
+  );
 };
 
 export const RendererBlockCard = () => {
-  return <Comp adf={buildBlockCardAdf('https://blockCardTestUrl')} />;
+  return (
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl')}
+      // TODO Update with new client for gemini test
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 
 export const RendererBlockCardResolving = () => {
-  return <Comp adf={buildBlockCardAdf('https://blockCardTestUrl/resolving')} />;
+  return (
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl/resolving')}
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 
 export const RendererBlockCardUnauthorized = () => {
   return (
-    <Comp adf={buildBlockCardAdf('https://blockCardTestUrl/unauthorized')} />
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl/unauthorized')}
+      client={new UnauthorizedClient()}
+    />
   );
 };
 
 export const RendererBlockCardForbidden = () => {
-  return <Comp adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden')} />;
+  return (
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl/forbidden')}
+      client={new ForbiddenClient()}
+    />
+  );
 };
 
 export const RendererBlockCardNotFound = () => {
-  return <Comp adf={buildBlockCardAdf('https://blockCardTestUrl/notFound')} />;
+  return (
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl/notFound')}
+      client={new NotFoundClient()}
+    />
+  );
 };
 
 export const RendererBlockCardErrored = () => {
-  return <Comp adf={buildBlockCardAdf('https://blockCardTestUrl/errored')} />;
+  return (
+    <Comp
+      adf={buildBlockCardAdf('https://blockCardTestUrl/errored')}
+      client={new ErroredClient()}
+    />
+  );
 };
 
 export const RendererEmbedCard = () => {
-  return <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl')} />;
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl')}
+      client={new NotFoundClient()}
+    />
+  );
 };
+
+export const RendererEmbedCardWide = () => {
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl', 'wide')}
+      // Honestly doesn't really matter - we just need to check the layout
+      client={new NotFoundClient()}
+    />
+  );
+};
+
 export const RendererEmbedCardResolving = () => {
-  return <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl/resolving')} />;
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl/resolving')}
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 export const RendererEmbedCardUnauthorized = () => {
   return (
-    <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl/unauthorized')} />
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl/unauthorized')}
+      client={new UnauthorizedClient()}
+    />
   );
 };
 export const RendererEmbedCardForbidden = () => {
-  return <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden')} />;
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl/forbidden')}
+      client={new ForbiddenClient()}
+    />
+  );
 };
 export const RendererEmbedCardNotFound = () => {
-  return <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl/notFound')} />;
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl/notFound')}
+      client={new NotFoundClient()}
+    />
+  );
 };
 export const RendererEmbedCardErrored = () => {
-  return <Comp adf={buildEmbedCardAdf('https://embedCardTestUrl/errored')} />;
+  return (
+    <Comp
+      adf={buildEmbedCardAdf('https://embedCardTestUrl/errored')}
+      client={new ErroredClient()}
+    />
+  );
 };
 
 export const RendererEmbedCardComplex = () => {
@@ -193,7 +293,13 @@ export const RendererEmbedCardComplex = () => {
     width: 100,
   };
 
-  return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+  return (
+    <Comp
+      adf={buildEmbedCardWithAttributesAdf(attrs)}
+      // Honestly doesn't really matter - we just need to check the layout
+      client={new NotFoundClient()}
+    />
+  );
 };
 
 export const RendererEmbedCardCenterLayoutAndNoWidth = () => {
@@ -204,7 +310,13 @@ export const RendererEmbedCardCenterLayoutAndNoWidth = () => {
     url: 'https://embedCardTestUrl',
   };
 
-  return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+  return (
+    <Comp
+      adf={buildEmbedCardWithAttributesAdf(attrs)}
+      // TODO Update with new client for gemini test
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 
 export const RendererEmbedCardCenterLayout100PercentWidth = () => {
@@ -216,7 +328,13 @@ export const RendererEmbedCardCenterLayout100PercentWidth = () => {
     url: 'https://embedCardTestUrl',
   };
 
-  return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+  return (
+    <Comp
+      adf={buildEmbedCardWithAttributesAdf(attrs)}
+      // TODO Update with new client for gemini test
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 
 export const RendererEmbedCardCenterLayout88PercentWidth = () => {
@@ -228,7 +346,13 @@ export const RendererEmbedCardCenterLayout88PercentWidth = () => {
     url: 'https://embedCardTestUrl',
   };
 
-  return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+  return (
+    <Comp
+      adf={buildEmbedCardWithAttributesAdf(attrs)}
+      // TODO Update with new client for gemini test
+      client={new ResolvingClient(1000000)}
+    />
+  );
 };
 // ------
 export const RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth =
@@ -240,7 +364,13 @@ export const RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth =
       url: 'https://embedCardTestUrl/noMessages',
     };
 
-    return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+    return (
+      <Comp
+        adf={buildEmbedCardWithAttributesAdf(attrs)}
+        // TODO Update with new client for gemini test
+        client={new ResolvingClient(1000000)}
+      />
+    );
   };
 
 export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth =
@@ -253,7 +383,13 @@ export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth =
       url: 'https://embedCardTestUrl/noMessages',
     };
 
-    return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+    return (
+      <Comp
+        adf={buildEmbedCardWithAttributesAdf(attrs)}
+        // TODO Update with new client for gemini test
+        client={new ResolvingClient(1000000)}
+      />
+    );
   };
 
 export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth =
@@ -266,5 +402,11 @@ export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth =
       url: 'https://embedCardTestUrl/noMessages',
     };
 
-    return <Comp adf={buildEmbedCardWithAttributesAdf(attrs)} />;
+    return (
+      <Comp
+        adf={buildEmbedCardWithAttributesAdf(attrs)}
+        // TODO Update with new client for gemini test
+        client={new ResolvingClient(1000000)}
+      />
+    );
   };

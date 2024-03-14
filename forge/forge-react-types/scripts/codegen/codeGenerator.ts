@@ -403,9 +403,7 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
   const utilsFile = sourceFile
     .getProject()
     .addSourceFileAtPath(
-      require.resolve(
-        '@atlassian/forge-ui/src/components/utils/xcssValidate.ts',
-      ),
+      require.resolve('@atlassian/forge-ui/utils/xcssValidate'),
     );
   try {
     const xcssValidatorDeclarationCode = utilsFile.getEmitOutput({

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.1.0
+
+### Minor Changes
+
+- [#79555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79555) [`7f38cd921e3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f38cd921e3d) - ED-22229: Removed allowAutoSave option from ConfigPanel to default to true always
+
+## 1.0.10
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
+## 1.0.9
+
+### Patch Changes
+
+- [#80986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80986) [`809b47ce5ce4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/809b47ce5ce4) - React 18 Types for editor-plugin-extensions
+
 ## 1.0.8
 
 ### Patch Changes

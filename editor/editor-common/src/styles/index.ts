@@ -16,6 +16,7 @@ export {
 
 export {
   AnnotationSharedClassNames,
+  BlockAnnotationSharedClassNames,
   AnnotationSharedCSSByState,
   annotationSharedStyles,
 } from './shared/annotation';

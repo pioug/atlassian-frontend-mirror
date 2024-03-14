@@ -4,6 +4,7 @@ import type {
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type {
   EditorState,
   SelectionBookmark,
@@ -33,6 +34,7 @@ export interface InlineCommentPluginOptions {
   portalProviderAPI: PortalProviderAPI;
   provider: InlineCommentAnnotationProvider;
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+  featureFlagsPluginState?: FeatureFlags;
 }
 export interface InlineCommentMouseData {
   isSelecting: boolean;
@@ -50,6 +52,8 @@ export type InlineCommentAction =
         drafting: boolean;
         editorState: EditorState;
         targetType?: TargetType;
+        isCommentOnMediaOn?: boolean;
+        supportedBlockNodes?: string[];
       };
     }
   | {
@@ -91,4 +95,6 @@ export type InlineCommentPluginState = {
   // Allow users to hide inline comments during editing
   isVisible: boolean;
   skipSelectionHandling: boolean;
+
+  featureFlagsPluginState?: FeatureFlags;
 };

@@ -96,10 +96,12 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
     },
     ref,
   ) => {
-    const onClickHander = useCallback(
+    const onClickHander: AvatarClickEventHandler = useCallback(
       (event, analyticsEvent) => {
         if (buttonProps.onClick) {
-          buttonProps.onClick(event);
+          buttonProps.onClick(
+            event as React.MouseEvent<HTMLElement, MouseEvent>,
+          );
         }
 
         onClick(event, analyticsEvent);

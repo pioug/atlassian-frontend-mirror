@@ -12,7 +12,10 @@ import type {
   AnnotationAEPAttributes,
 } from '@atlaskit/editor-common/analytics';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
+import {
+  AnnotationSharedClassNames,
+  BlockAnnotationSharedClassNames,
+} from '@atlaskit/editor-common/styles';
 import {
   canApplyAnnotationOnRange,
   containsAnyAnnotations,
@@ -31,17 +34,21 @@ import type {
 import type {
   EditorState,
   Selection,
+  SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
 import {
   AllSelection,
+  NodeSelection,
   PluginKey,
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { InlineCommentPluginState } from './pm-plugins/types';
 import type {
   AnnotationInfo,
+  DraftBookmark,
   InlineCommentInputMethod,
   TargetType,
 } from './types';
@@ -147,6 +154,10 @@ const validateAnnotationMark = (annotationMark: Mark): boolean => {
   }
 };
 
+export const decorationKey = {
+  block: 'blockCommentDecoration',
+  inline: 'inlineCommentDecoration',
+};
 /*
  * add decoration for the comment selection in draft state
  * (when creating new comment)
@@ -157,13 +168,25 @@ export const addDraftDecoration = (
   targetType: TargetType = 'inline',
 ) => {
   if (targetType === 'block') {
-    return Decoration.node(start, end, {
-      class: `${AnnotationSharedClassNames.draft}`,
-    });
+    return Decoration.node(
+      start,
+      end,
+      {
+        class: `${BlockAnnotationSharedClassNames.draft}`,
+      },
+      {
+        key: decorationKey.block,
+      },
+    );
   }
-  return Decoration.inline(start, end, {
-    class: `${AnnotationSharedClassNames.draft}`,
-  });
+  return Decoration.inline(
+    start,
+    end,
+    {
+      class: `${AnnotationSharedClassNames.draft}`,
+    },
+    { key: decorationKey.inline },
+  );
 };
 
 export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
@@ -208,6 +231,40 @@ export const findAnnotationsInSelection = (
   return annotations;
 };
 
+export const resolveDraftBookmark = (
+  editorState: EditorState,
+  bookmark: SelectionBookmark,
+  supportedBlockNodes: string[] = [],
+): DraftBookmark => {
+  const { doc } = editorState;
+  const resolvedBookmark = bookmark.resolve(doc);
+
+  const { from, to, head } = resolvedBookmark;
+  let draftBookmark = { from, to, head };
+  if (resolvedBookmark instanceof NodeSelection) {
+    // It's possible that annotation is only allowed in child node instead parent (e.g. mediaSingle vs media),
+    // thus, we traverse the node to find the first node that supports annotation and return its position
+    let nodeFound = false;
+    doc.nodesBetween(from, to, (node, pos) => {
+      // if we find the node, breakout the traversal to make sure we always record the first supported node
+      if (nodeFound) {
+        return false;
+      }
+      const nodeEndsAt = pos + node.nodeSize;
+      if (supportedBlockNodes.includes(node.type.name)) {
+        draftBookmark = {
+          from: pos,
+          to: nodeEndsAt,
+          head: nodeEndsAt,
+        };
+        nodeFound = true;
+        return false;
+      }
+    });
+  }
+
+  return draftBookmark;
+};
 /**
  * get selection from position to apply new comment for
  * @return bookmarked positions if they exists, otherwise current selection positions
@@ -382,9 +439,16 @@ export function hasInvalidWhitespaceNode(
   const content = selection.content().content;
 
   content.descendants(node => {
+    if (
+      getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes') &&
+      node.type === schema.nodes.inlineCard
+    ) {
+      return false;
+    }
     if (isText(node, schema)) {
       return false;
     }
+
     if (node.textContent.trim() === '') {
       // Trailing new lines do not result in the annotation spanning into
       // the trailing new line so can be ignored when looking for invalid

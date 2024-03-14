@@ -127,7 +127,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     // current: (event: React.MouseEvent | React.KeyboardEvent) => void;
     // correct: (event: React.MouseEvent | KeyboardEvent) => void;
     // https://product-fabric.atlassian.net/browse/DSP-4692
-    (event) => {
+    (event: any) => {
       const newValue = !isLocalOpen;
       const { clientX, clientY, type, detail } = event;
 
@@ -153,7 +153,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
   );
 
   const handleOnClose = useCallback(
-    (event) => {
+    (event: any) => {
       if (
         getBooleanFF(
           'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',

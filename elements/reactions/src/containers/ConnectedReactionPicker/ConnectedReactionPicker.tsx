@@ -28,8 +28,8 @@ export interface ConnectedReactionPickerProps
 /**
  * Reaction Picker component
  */
-export const ConnectedReactionPicker: React.FC<ConnectedReactionPickerProps> = (
-  props,
+export const ConnectedReactionPicker = (
+  props: React.PropsWithChildren<ConnectedReactionPickerProps>,
 ) => {
   const { store, containerAri, ari } = props;
   /**

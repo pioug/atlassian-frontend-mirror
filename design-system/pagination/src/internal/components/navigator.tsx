@@ -12,7 +12,6 @@ export type NavigatorProps<T> = {
    */
   isDisabled?: boolean;
   iconBefore: ReactElement;
-  pages: T[];
   testId?: string;
   /**
    * This function is called when the user clicks on the navigator.
@@ -25,8 +24,12 @@ export type NavigatorProps<T> = {
 export default function Navigator<T>(props: NavigatorProps<T>) {
   return (
     <Button
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...props}
+      aria-label={props['aria-label']}
+      isDisabled={props.isDisabled}
+      iconBefore={props.iconBefore}
+      testId={props.testId}
+      onClick={props.onClick}
+      component={props.component}
       appearance="subtle"
     />
   );

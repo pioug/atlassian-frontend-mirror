@@ -1,5 +1,11 @@
 # @atlaskit/help-article
 
+## 4.1.11
+
+### Patch Changes
+
+- [#80509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80509) [`fcf7481f594f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcf7481f594f) - Upgrade dependency of `@emotion/styled` to version 11
+
 ## 4.1.10
 
 ### Patch Changes

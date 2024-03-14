@@ -40,13 +40,13 @@ export interface SelectorProps {
 /**
  * Reactions picker panel part of the <ReactionPicker /> component
  */
-export const Selector: React.FC<SelectorProps> = ({
+export const Selector = ({
   emojiProvider,
   onMoreClick,
   onSelection,
   showMore,
   pickerQuickReactionEmojiIds = DefaultReactions,
-}) => {
+}: SelectorProps) => {
   const [selection, setSelection] = useState<EmojiId>();
   /**
    * Collection of global DOM timeout ids when user selects emojis for animation display

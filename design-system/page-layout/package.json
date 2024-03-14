@@ -59,7 +59,7 @@
     "@af/integration-testing": "*",
     "@atlaskit/atlassian-navigation": "^3.3.0",
     "@atlaskit/atlassian-notifications": "^0.4.0",
-    "@atlaskit/drawer": "^7.6.0",
+    "@atlaskit/drawer": "^7.7.0",
     "@atlaskit/logo": "^13.15.0",
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/notification-indicator": "^9.2.0",

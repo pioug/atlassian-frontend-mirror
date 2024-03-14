@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.3.2
+
+### Patch Changes
+
+- [#79543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79543) [`8b578f7427a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b578f7427a2) - ED-22502: updated range selection check to exempt inline card, to allow them to have annotation marks
+- [#80883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80883) [`5ecfa883d4ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ecfa883d4ba) - React 18 types for alignment, annotation, avatar-group and blocktype plugins.
+
+## 1.3.1
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
+## 1.3.0
+
+### Minor Changes
+
+- [#80123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80123) [`8bb18b4d686c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bb18b4d686c) - [ux] - Add decoration to media node when there is active draft comment associated, update plugin state mapping so that create view component is removed when there's node changes invalidating the decoration
+
+  - Save featureFlags plugin state as one of the annotation plugin state
+
 ## 1.2.2
 
 ### Patch Changes

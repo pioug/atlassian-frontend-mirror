@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.25.11
+
+### Patch Changes
+
+- [#80629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80629) [`7cc52a784224`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cc52a784224) - [ESS-4515] Collab provider: Do not use polling by default, only as safe-fail if WebSocket doesn't work
+
+## 9.25.10
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+
 ## 9.25.9
 
 ### Patch Changes

@@ -1,5 +1,46 @@
 # @atlaskit/editor-plugins
 
+## 1.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.0
+
+### Minor Changes
+
+- [#79555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79555) [`7f38cd921e3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f38cd921e3d) - ED-22229: Removed allowAutoSave option from ConfigPanel to default to true always
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.21
+
+### Patch Changes
+
+- [#80086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80086) [`c30ac781b469`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c30ac781b469) - Add keyboard support Cmd-A to select whole table
+- Updated dependencies
+
+## 1.5.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.18
 
 ### Patch Changes

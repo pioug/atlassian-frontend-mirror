@@ -42,7 +42,6 @@ export default function ConfigPanelWithProviders({
         extensionProvider={extensionProvider}
         parameters={parameters}
         showHeader
-        autoSave
         onChange={_onChange}
         // eslint-disable-next-line no-console
         onCancel={() => console.log('onCancel')}

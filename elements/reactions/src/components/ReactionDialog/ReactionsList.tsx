@@ -1,5 +1,5 @@
 /** @jsx   jsx */
-import { FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ResourcedEmoji } from '@atlaskit/emoji/element';
@@ -33,12 +33,12 @@ export interface ReactionsListProps {
   onReactionChanged: onDialogSelectReactionChange;
 }
 
-export const ReactionsList: FC<ReactionsListProps> = ({
+export const ReactionsList = ({
   reactions,
   initialEmojiId,
   emojiProvider,
   onReactionChanged,
-}) => {
+}: ReactionsListProps) => {
   const [selectedEmoji, setSelectedEmoji] = useState(() => {
     // Calculate this only on initialize the List of Tabs and each Reactions View collection
     return {

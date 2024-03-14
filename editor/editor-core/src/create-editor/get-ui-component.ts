@@ -9,9 +9,9 @@ import Mobile from '../ui/Appearance/Mobile';
 
 export default function getUiComponent(
   appearance: EditorAppearance,
-):
-  | React.ComponentClass<EditorAppearanceComponentProps>
-  | React.FunctionComponent<EditorAppearanceComponentProps> {
+): React.ComponentType<
+  React.PropsWithChildren<EditorAppearanceComponentProps>
+> {
   appearance = appearance || 'comment';
 
   switch (appearance) {

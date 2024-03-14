@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to `getSelectionStyles`
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation due to `getSelectionStyles`
 export const taskDecisionStyles = css`
   [data-decision-wrapper] {
     cursor: pointer;

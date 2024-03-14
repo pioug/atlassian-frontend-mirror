@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { jsx, css } from '@emotion/react';
 import {
   SlideIn,
@@ -62,14 +62,14 @@ export interface CounterProps {
 /**
  * Display reaction count next to the emoji button
  */
-export const Counter: React.FC<CounterProps> = ({
+export const Counter = ({
   highlight = false,
   limit,
   overLimitLabel,
   className,
   value,
   animationDuration = mediumDurationMs,
-}) => {
+}: CounterProps) => {
   const getLabel = (value: number) => {
     // Check if reached limit
     if (limit && overLimitLabel && value >= limit) {

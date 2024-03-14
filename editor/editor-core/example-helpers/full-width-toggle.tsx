@@ -14,11 +14,11 @@ import {
   LOCALSTORAGE_defaultMode,
 } from './example-constants';
 
-const toggleWrapper = css`
-  cursor: pointer;
-  background: none;
-  border: none;
-`;
+const toggleWrapper = css({
+  cursor: 'pointer',
+  background: 'none',
+  border: 'none',
+});
 
 interface Props {
   appearance: EditorAppearance;

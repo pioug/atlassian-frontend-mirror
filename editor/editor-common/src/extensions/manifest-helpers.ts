@@ -53,6 +53,17 @@ export function buildAction<T extends Parameters>(
   }
 }
 
+type Extension = {
+  type: ExtensionType;
+  attrs: {
+    extensionType: ExtensionType;
+    extensionKey: ExtensionKey;
+    // action.parameters coming from ExtensionModuleActionObject, TemplateParams
+    parameters: unknown;
+    maxFrames?: number;
+  };
+};
+
 export const resolveImport = async <T extends Parameters>(
   importPromise: Module<T>,
 ) => {
@@ -73,7 +84,7 @@ export function buildNode<T extends Parameters>(
 
   const node = manifest.modules.nodes[action.key];
   const extensionKey = buildExtensionKeyAndNodeKey(manifest.key, action.key);
-  const extension = {
+  const extension: Extension = {
     type: node.type,
     attrs: {
       extensionType: manifest.type,
@@ -93,6 +104,10 @@ export function buildNode<T extends Parameters>(
       ],
     };
   } else if (node.type === 'multiBodiedExtension') {
+    if (manifest.modules?.nodes[action.key]?.maxFrames) {
+      extension.attrs.maxFrames =
+        manifest.modules?.nodes[action.key]?.maxFrames;
+    }
     return {
       ...extension,
       content: [

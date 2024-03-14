@@ -46,11 +46,11 @@ type EditorWidth = WidthPluginState & {
   containerWidth?: number;
 };
 
-const absolutePanelStyles = css`
-  position: absolute;
-  right: 0;
-  height: calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT});
-`;
+const absolutePanelStyles = css({
+  position: 'absolute',
+  right: 0,
+  height: `calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT})`,
+});
 
 const checkTableExistsInDoc = (editorView: EditorView) => {
   const tableNodeSchema = editorView.state.schema.nodes.table;
@@ -94,26 +94,26 @@ export const shouldPanelBePositionedOverEditor = (
   }
 };
 
-const panelHidden = css`
-  width: 0;
-`;
+const panelHidden = css({
+  width: 0,
+});
 
-export const panel = css`
-  width: ${akEditorContextPanelWidth}px;
-  height: 100%;
-  transition: width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier};
-  overflow: hidden;
-  box-shadow: inset 2px 0 0 0 ${token('color.border', N30)};
-`;
+export const panel = css({
+  width: `${akEditorContextPanelWidth}px`,
+  height: '100%',
+  transition: `width ${ANIM_SPEED_MS}ms ${akEditorSwoopCubicBezier}`,
+  overflow: 'hidden',
+  boxShadow: `inset 2px 0 0 0 ${token('color.border', N30)}`,
+});
 
-export const content = css`
-  transition: width 600ms ${akEditorSwoopCubicBezier};
-  box-sizing: border-box;
-  padding: ${token('space.200', '16px')} ${token('space.200', '16px')} 0px;
-  width: ${akEditorContextPanelWidth}px;
-  height: 100%;
-  overflow-y: auto;
-`;
+export const content = css({
+  transition: `width 600ms ${akEditorSwoopCubicBezier}`,
+  boxSizing: 'border-box',
+  padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0px`,
+  width: `${akEditorContextPanelWidth}px`,
+  height: '100%',
+  overflowY: 'auto',
+});
 
 type SwappableContentAreaProps = {
   pluginContent?: React.ReactNode;

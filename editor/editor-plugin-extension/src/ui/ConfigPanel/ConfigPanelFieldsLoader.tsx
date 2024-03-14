@@ -25,7 +25,6 @@ export type PublicProps = {
   nodeKey: string;
   extensionParameters?: Parameters;
   parameters?: Parameters;
-  autoSave?: boolean;
   autoSaveTrigger?: () => void;
   autoSaveReject?: RejectSave;
   closeOnEsc?: boolean;
@@ -125,7 +124,6 @@ export default function FieldsLoader({
   extensionProvider,
   extensionParameters = defaultEmptyObject,
   parameters = defaultEmptyObject,
-  autoSave,
   autoSaveTrigger,
   autoSaveReject,
   closeOnEsc,
@@ -158,7 +156,6 @@ export default function FieldsLoader({
           isLoading={!extensionManifest || (errorMessage === null && !fields)}
           fields={fields}
           parameters={parameters}
-          autoSave={autoSave}
           autoSaveTrigger={autoSaveTrigger}
           autoSaveReject={autoSaveReject}
           closeOnEsc={closeOnEsc}

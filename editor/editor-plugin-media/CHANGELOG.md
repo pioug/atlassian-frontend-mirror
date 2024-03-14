@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 1.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.9.2
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+- Updated dependencies
+
+## 1.9.1
+
+### Patch Changes
+
+- [#80123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80123) [`e235b04b9352`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e235b04b9352) - [ED-22387] Add css styling for comments on media node
+- Updated dependencies
+
 ## 1.9.0
 
 ### Minor Changes

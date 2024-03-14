@@ -13,6 +13,7 @@ import {
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const statusStyles = css`
   .${TableSharedCssClassName.TABLE_CELL_WRAPPER},
     .${TableSharedCssClassName.TABLE_HEADER_CELL_WRAPPER},

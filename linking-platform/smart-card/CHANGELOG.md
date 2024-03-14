@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.49.3
+
+### Patch Changes
+
+- [#81241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81241) [`9e73c089380f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e73c089380f) - [ux] Fix summary icon positioning and wrapping within hover card
+
 ## 26.49.2
 
 ### Patch Changes

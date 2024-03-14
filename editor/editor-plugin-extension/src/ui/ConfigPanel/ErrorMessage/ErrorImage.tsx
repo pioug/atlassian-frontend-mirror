@@ -1,8 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Quality Ticket: https://product-fabric.atlassian.net/browse/DSP-4249
 /** @jsx jsx */
-import React from 'react';
-
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
@@ -12,7 +10,7 @@ const imageContainerStyles = css({
   height: '80px',
 });
 
-const ErrorImage: React.FunctionComponent = () => (
+const ErrorImage = () => (
   <div css={imageContainerStyles}>
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 78.13.0
+
+### Minor Changes
+
+- [#79526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79526) [`b6f7d5f2f2e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6f7d5f2f2e9) - ED-22326: Added support for maxFrames config to be passed from ExtensionManifest
+
+### Patch Changes
+
+- [#81104](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81104) [`64cef311908a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/64cef311908a) - ED-22229: MBE API.updateParams to overwrite macroParams with the passed values
+- [#80252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80252) [`04842c73f81a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04842c73f81a) - ED-22504: Adding renderer changes for annotation in kitchen sink
+
+## 78.12.6
+
+### Patch Changes
+
+- [#79543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79543) [`8b578f7427a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b578f7427a2) - ED-22502: updated range selection check to exempt inline card, to allow them to have annotation marks
+
+## 78.12.5
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+- Updated dependencies
+
+## 78.12.4
+
+### Patch Changes
+
+- [#80123](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80123) [`e235b04b9352`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e235b04b9352) - [ED-22387] Add css styling for comments on media node
+- [#80086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80086) [`c30ac781b469`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c30ac781b469) - Add keyboard support Cmd-A to select whole table
+
+## 78.12.3
+
+### Patch Changes
+
+- [#80907](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80907) [`b84391b5a626`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b84391b5a626) - fix regression issue caused by styling for inline extension
+
+## 78.12.2
+
+### Patch Changes
+
+- [#80973](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80973) [`cdff30287b21`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdff30287b21) - [ux] Fix collab telepointer styling
+
 ## 78.12.1
 
 ### Patch Changes

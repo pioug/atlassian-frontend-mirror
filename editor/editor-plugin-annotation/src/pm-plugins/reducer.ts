@@ -2,7 +2,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { TargetType } from '../types';
-import { addDraftDecoration } from '../utils';
+import { addDraftDecoration, resolveDraftBookmark } from '../utils';
 
 import type { InlineCommentAction, InlineCommentPluginState } from './types';
 import { ACTIONS } from './types';
@@ -34,6 +34,8 @@ export default (
         action.data.drafting,
         action.data.editorState,
         action.data.targetType,
+        action.data.isCommentOnMediaOn,
+        action.data.supportedBlockNodes,
       );
     case ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK:
       return {
@@ -93,6 +95,8 @@ function getNewDraftState(
   drafting: boolean,
   editorState?: EditorState,
   targetType?: TargetType,
+  isCommentOnMediaOn?: boolean,
+  supportedBlockNodes?: string[],
 ) {
   let { draftDecorationSet } = pluginState;
 
@@ -105,12 +109,15 @@ function getNewDraftState(
 
   if (drafting && editorState) {
     newState.bookmark = editorState.selection.getBookmark();
-    const resolvedBookmark = newState.bookmark.resolve(editorState.doc);
-    const draftDecoration = addDraftDecoration(
-      resolvedBookmark.from,
-      resolvedBookmark.to,
-      targetType,
-    );
+    const { from, to } = isCommentOnMediaOn
+      ? resolveDraftBookmark(
+          editorState,
+          newState.bookmark,
+          supportedBlockNodes,
+        )
+      : newState.bookmark.resolve(editorState.doc);
+
+    const draftDecoration = addDraftDecoration(from, to, targetType);
     newState.draftDecorationSet = draftDecorationSet.add(editorState.doc, [
       draftDecoration,
     ]);

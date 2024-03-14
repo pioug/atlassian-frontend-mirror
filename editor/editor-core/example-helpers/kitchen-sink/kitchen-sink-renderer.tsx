@@ -1,13 +1,16 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+import { type AnnotationProviders as RendererAnnotationProviders } from '@atlaskit/editor-common/types';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
 import { ReactRenderer } from '@atlaskit/renderer';
+import { Y200, Y75 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearance } from '../../src/types';
 
@@ -20,16 +23,25 @@ export interface KitchenSinkRendererProps {
   isFullPage: boolean;
   locale: string;
   featureFlags: Record<string, boolean>;
+  rendererAnnotationProviders: RendererAnnotationProviders;
 }
+
+const wrapperStyle = css({
+  "[data-mark-type='annotation']": {
+    backgroundColor: token('color.background.accent.yellow.subtler', Y75),
+    borderBottom: `2px solid ${token('color.border.accent.yellow', Y200)}`,
+  },
+});
 
 export const KitchenSinkRenderer: React.FunctionComponent<KitchenSinkRendererProps> =
   React.memo((props) => {
     const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
 
     return (
-      <div css={rendererPadding(props.isFullPage)}>
+      <div css={[rendererPadding(props.isFullPage), wrapperStyle]}>
         <SmartCardProvider client={smartCardClient}>
           <ReactRenderer
+            annotationProvider={props.rendererAnnotationProviders}
             allowHeadingAnchorLinks={{
               allowNestedHeaderLinks: true,
             }}

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 1.0.5
+
+### Patch Changes
+
+- [#80883](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80883) [`5ecfa883d4ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ecfa883d4ba) - React 18 types for alignment, annotation, avatar-group and blocktype plugins.
+
 ## 1.0.4
 
 ### Patch Changes

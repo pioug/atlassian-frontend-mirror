@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import type { Property, SpreadElement } from 'eslint-codemod-utils';
+import { isNodeOfType, Property, SpreadElement } from 'eslint-codemod-utils';
 
 const ObjectEntry = {
   deleteEntry(
@@ -23,6 +23,20 @@ const ObjectEntry = {
     }
 
     return fixer.removeRange([prevToken.range[1], lastToken!.range[1]]);
+  },
+
+  getPropertyName(node: Property | SpreadElement): string | undefined {
+    // SpreadElements don't really have a property name
+    if (!isNodeOfType(node, 'Property')) {
+      return undefined;
+    }
+
+    if (isNodeOfType(node.key, 'Literal')) {
+      return node.key.raw;
+    }
+    if (isNodeOfType(node.key, 'Identifier')) {
+      return node.key.name;
+    }
   },
 };
 

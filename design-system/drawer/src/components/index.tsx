@@ -115,6 +115,7 @@ export class DrawerBase extends Component<
       isOpen,
       children,
       icon,
+      closeLabel,
       width,
       shouldUnmountOnExit,
       onCloseComplete,
@@ -138,6 +139,7 @@ export class DrawerBase extends Component<
         <DrawerPrimitive
           testId={testId}
           icon={icon}
+          closeLabel={closeLabel}
           in={isOpen}
           onClose={this.handleBackButtonClick}
           onCloseComplete={onCloseComplete}

@@ -14,10 +14,10 @@ import { getCategories } from '../example-helpers/quick-insert-categories';
 import { useDefaultQuickInsertGetItems } from '../example-helpers/use-default-quickinsert-get-items';
 import { default as EditorContext } from '../src/ui/EditorContext';
 
-const wrapper = css`
-  display: flex;
-  height: 100%;
-`;
+const wrapper = css({
+  display: 'flex',
+  height: '100%',
+});
 
 const onInsertItem = (item: QuickInsertItem) => {
   console.log('Inserting item ', item);

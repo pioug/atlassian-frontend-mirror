@@ -3,6 +3,8 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
+import type { AnnotationProviders as EditorAnnotationProviders } from '@atlaskit/editor-plugins/annotation';
+
 import type EditorActions from '../../src/actions';
 import type {
   EditorAppearance,
@@ -32,6 +34,7 @@ export interface KitchenSinkEditorProps {
   loadLocale(locale: string): void;
   featureFlags: EditorProps['featureFlags'];
   editorPlugins?: EditorPlugin[];
+  editorAnnotationProviders: EditorAnnotationProviders;
 }
 
 export const KitchenSinkEditor: React.FunctionComponent<KitchenSinkEditorProps> =
@@ -65,6 +68,7 @@ export const KitchenSinkEditor: React.FunctionComponent<KitchenSinkEditorProps> 
           primaryToolbarComponents={primaryToolbarComponents}
           featureFlags={props.featureFlags}
           editorPlugins={props.editorPlugins}
+          editorAnnotationProviders={props.editorAnnotationProviders}
         />
       </div>
     );

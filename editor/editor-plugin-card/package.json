@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,10 +32,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.5.2",
+    "@atlaskit/adf-schema": "^35.6.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/custom-steps": "^0.0.14",
-    "@atlaskit/editor-common": "^78.12.0",
+    "@atlaskit/custom-steps": "^0.0.15",
+    "@atlaskit/editor-common": "^78.13.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
@@ -113,6 +113,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {
+      "type": "boolean"
+    },
+    "platform.editor-add-link-preferences-button-to-datasources_xt1sh": {
       "type": "boolean"
     },
     "platform.editor.card.fix-embed-card-select-all": {

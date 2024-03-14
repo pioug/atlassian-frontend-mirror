@@ -314,10 +314,6 @@ export default function createUniversalPreset(
             (typeof props.allowExtension === 'object'
               ? props.allowExtension.allowBreakout
               : true) !== false,
-          allowAutoSave:
-            typeof props.allowExtension === 'object'
-              ? props.allowExtension.allowAutoSave
-              : false,
           extensionHandlers: props.extensionHandlers,
           useLongPressSelection: false,
           appearance,

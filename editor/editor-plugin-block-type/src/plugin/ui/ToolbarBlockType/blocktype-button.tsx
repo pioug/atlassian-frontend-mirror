@@ -32,9 +32,7 @@ export interface BlockTypeButtonProps {
   formatMessage: WrappedComponentProps['intl']['formatMessage'];
 }
 
-export const BlockTypeButton: React.FunctionComponent<
-  BlockTypeButtonProps
-> = props => {
+export const BlockTypeButton = (props: BlockTypeButtonProps) => {
   const labelTextStyles = props.formatMessage(toolbarMessages.textStyles);
   return (
     <ToolbarButton

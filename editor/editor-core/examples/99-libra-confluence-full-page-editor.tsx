@@ -255,7 +255,6 @@ const editorProps: EditorProps = {
   },
   allowExtension: {
     allowBreakout: true,
-    allowAutoSave: true,
     allowExtendFloatingToolbars: true,
   },
   allowConfluenceInlineComment: true,

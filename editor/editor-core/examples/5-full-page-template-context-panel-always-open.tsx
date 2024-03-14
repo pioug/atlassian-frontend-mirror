@@ -160,7 +160,7 @@ const EditorWithSidebar = () => {
       extensionProviders: (editorActions: EditorActions | undefined) => [
         getExampleExtensionProviders(editorApi, editorActions),
       ],
-      allowExtension: { allowAutoSave: true },
+      allowExtension: {},
       contextPanel: (
         <WithEditorActions
           render={(actions) => (

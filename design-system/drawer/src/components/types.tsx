@@ -24,9 +24,13 @@ export interface BaseProps {
    */
   children?: ReactNode;
   /**
-   * Icon to be rendered in your drawer as a component, if available.
+   * Use this to render an icon for the drawer close/back control, if it's available.
    */
   icon?: ComponentType<any>;
+  /**
+   * Provides an accessible name for the close/back control of the drawer. Default is "Close drawer".
+   */
+  closeLabel?: string;
   /**
    * Available drawer sizes.
    */

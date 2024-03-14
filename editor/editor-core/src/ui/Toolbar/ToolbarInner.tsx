@@ -9,13 +9,12 @@ import type EditorActions from '../../actions';
 
 import type { ToolbarInnerProps } from './toolbar-types';
 
-const toolbarComponentsWrapper = css`
-  display: flex;
-
-  @media (max-width: ${akEditorMobileMaxWidth}px) {
-    justify-content: space-between;
-  }
-`;
+const toolbarComponentsWrapper = css({
+  display: 'flex',
+  [`@media (max-width: ${akEditorMobileMaxWidth}px)`]: {
+    justifyContent: 'space-between',
+  },
+});
 
 export class ToolbarInner extends React.Component<ToolbarInnerProps> {
   shouldComponentUpdate(nextProps: ToolbarInnerProps) {

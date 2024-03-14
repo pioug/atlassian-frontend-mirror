@@ -29,3 +29,5 @@ e.g.
 ```bash
 yarn workspace @atlaskit/forge-react-types ButtonProps
 ```
+
+NOTE: Make sure any new component prop types are being exported from `packages/forge/forge-react-types/src/components/__generated__/index.ts`

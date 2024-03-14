@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.37.1
+
+### Patch Changes
+
+- [#81307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81307) [`6420f933c8ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6420f933c8ae) - Fix issue where `use-primitives` was incorrectly transforming styles with string properties.
+
+## 8.37.0
+
+### Minor Changes
+
+- [#81166](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81166) [`a249a1bd29a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a249a1bd29a6) - Upgrade ESLint to version 8
+
 ## 8.36.3
 
 ### Patch Changes

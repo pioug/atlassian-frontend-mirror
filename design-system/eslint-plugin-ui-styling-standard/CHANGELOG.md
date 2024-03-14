@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.5.1
+
+### Patch Changes
+
+- [#81166](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81166) [`a249a1bd29a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a249a1bd29a6) - Upgrade ESLint to version 8
+
 ## 0.5.0
 
 ### Minor Changes

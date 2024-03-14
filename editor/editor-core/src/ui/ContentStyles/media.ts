@@ -22,7 +22,7 @@ import {
 import { B200, N60, Y500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
 export const mediaStyles = css`
   .ProseMirror {
     ${mediaSingleSharedStyle} & [layout='full-width'] .${richMediaClassName},

@@ -12,10 +12,10 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import WorldIcon from '@atlaskit/icon/glyph/world';
 import { token } from '@atlaskit/tokens';
 
-const dropdownContainer = css`
-  margin-right: ${token('space.100', '8px')};
-  min-width: 200px;
-`;
+const dropdownContainer = css({
+  marginRight: token('space.100', '8px'),
+  minWidth: '200px',
+});
 
 export interface Props {
   locale: string;

@@ -89,7 +89,6 @@ const colorTests: Tests = {
     {
       code: `
           const colors = { green: token('color.background.accent.green') };
-          return colors.green;
           `,
     },
     {

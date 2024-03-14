@@ -168,7 +168,6 @@ export const extensionPlugin: ExtensionPlugin = ({
       }),
       contextPanel: getContextPanel(() => editorViewRef.current ?? undefined)(
         api,
-        options.allowAutoSave,
         featureFlags,
       ),
     },

@@ -92,6 +92,7 @@ const StickyToolbar = (props: StickyToolbarProps) => {
   }, [props.externalToolbarRef, props.offsetTop]);
 
   return (
+    // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
     <div
       css={[
         mainToolbarWrapperStyle(props.twoLineEditorToolbar),
@@ -113,6 +114,7 @@ type FixedToolbarProps = {
 };
 
 const FixedToolbar = (props: FixedToolbarProps) => (
+  // eslint-disable-next-line @atlaskit/design-system/prefer-primitives
   <div
     css={mainToolbarWrapperStyle(props.twoLineEditorToolbar)}
     data-testid="ak-editor-main-toolbar"

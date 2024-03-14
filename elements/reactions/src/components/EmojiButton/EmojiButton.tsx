@@ -32,11 +32,11 @@ export interface EmojiButtonProps {
 /**
  * custom button to render the custom emoji selector inside the reaction picker
  */
-export const EmojiButton: React.FC<EmojiButtonProps> = ({
+export const EmojiButton = ({
   emojiId,
   onClick,
   emojiProvider,
-}) => {
+}: EmojiButtonProps) => {
   const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (onClick && isLeftClick(event)) {

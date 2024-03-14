@@ -159,7 +159,7 @@ function Editor(passedProps: EditorProps & EditorNextProps) {
 
   const { onSave: onSaveFromProps } = props;
   const handleSave = useCallback(
-    (view) => {
+    (view: EditorView) => {
       if (onSaveFromProps) {
         onSaveFromProps(view);
       }

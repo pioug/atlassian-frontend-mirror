@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import React, { Fragment } from 'react';
@@ -18,17 +19,17 @@ export type Props = {
   errors: Array<Error>;
 };
 
-const reportContainer = css`
-  display: flex;
-  flex-direction: row;
-  overflow-x: scroll;
-`;
+const reportContainer = css({
+  display: 'flex',
+  flexDirection: 'row',
+  overflowX: 'scroll',
+});
 
-const styledReportEntry = css`
-  flex: 1;
-  padding: 1em;
-  border-right: 1px solid ${token('color.border', N30)};
-`;
+const styledReportEntry = css({
+  flex: 1,
+  padding: '1em',
+  borderRight: `1px solid ${token('color.border', N30)}`,
+});
 
 const ReportEntry = ({ error }: { error: Error }) => (
   <div css={styledReportEntry}>

@@ -182,18 +182,11 @@ export const previewScaleTable = (
   }
 
   const resizeState = parentWidth
-    ? scaleWithParent(
-        tableRef,
-        parentWidth,
-        node,
-        start,
-        domAtPos,
-        isTableScalingEnabled,
-      )
-    : scale(tableRef, options, domAtPos, isTableScalingEnabled);
+    ? scaleWithParent(tableRef, parentWidth, node, start, domAtPos, false)
+    : scale(tableRef, options, domAtPos, false);
 
   if (resizeState) {
-    updateColgroup(resizeState, tableRef, node, isTableScalingEnabled);
+    updateColgroup(resizeState, tableRef, node, false);
   }
 };
 

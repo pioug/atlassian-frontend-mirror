@@ -20,7 +20,6 @@ const Comp = () => {
         getExampleExtensionProviders(editorApi, editorActions),
       ],
       allowExtension: {
-        allowAutoSave: true,
         allowExtendFloatingToolbars: true,
       },
       elementBrowser: {

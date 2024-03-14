@@ -40,7 +40,9 @@ type Pattern =
   // })
   | 'dimension-properties'
   // This enables the rule to look for JSX elements that are defined before the styles
-  | 'jsx-order-fix';
+  | 'jsx-order-fix'
+  // This enables a fix for string style properties being incorrectly transformed
+  | 'string-style-property-fix';
 
 export interface RuleConfig {
   patterns: Pattern[];

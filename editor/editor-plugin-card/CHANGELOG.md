@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-card
 
+## 1.2.0
+
+### Minor Changes
+
+- [#77720](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/77720) [`5b0f2fbdda16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b0f2fbdda16) - [ux] Added link preferences button to datasources (feature-flagged)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.5
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+- Updated dependencies
+
 ## 1.1.4
 
 ### Patch Changes

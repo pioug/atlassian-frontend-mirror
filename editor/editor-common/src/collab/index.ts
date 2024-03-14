@@ -513,48 +513,53 @@ export const colors: Color[] = [
   selection: hexToRgba(solid, 0.2)!,
 }));
 
+const telepointerColorStyle = (color: Color, index: number) => `
+  &.color-${index} {
+    background-color: ${color.selection};
+    &::after {
+      background-color: ${color.solid};
+      color: ${token('color.text.inverse', '#fff')};
+      border-color: ${color.solid};
+    }
+  }
+`;
+
 export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 
-export const telepointerStyle = css(
-  {
-    '.ProseMirror .telepointer': {
-      position: 'relative',
-      transition: 'opacity 200ms',
-      '&.telepointer-selection': {
-        lineHeight: 1.2,
-        pointerEvents: 'none',
-        userSelect: 'none',
-      },
-      '&.telepointer-selection-badge::after': {
-        content: 'attr(data-initial)',
-        position: 'absolute',
-        display: 'block',
-        // Disable top: -14px since it is necessary to align to cursor
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-        top: '-14px',
-        fontSize: relativeFontSizeToBase16(9),
-        padding: token('space.025', '2px'),
-        color: token('color.text.inverse', 'white'),
-        left: '0px',
-        borderRadius: '2px 2px 2px 0',
-        lineHeight: 'initial',
-      },
-      [`&.${TELEPOINTER_DIM_CLASS}`]: {
-        opacity: 0.2,
-      },
-    },
-  },
-  ...colors.map((color, index) => ({
-    [`&.color-${index}`]: {
-      backgroundColor: color.selection,
-      '&::after': {
-        backgroundColor: color.solid,
-        color: token('color.text.inverse', '#fff'),
-        borderColor: color.solid,
-      },
-    },
-  })),
-);
+// ED-22557: Safely convert to object styling
+// Disable top: -14px since it is necessary to align to cursor
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
+export const telepointerStyle = css`
+  .ProseMirror .telepointer {
+    position: relative;
+    transition: opacity 200ms;
+
+    &.telepointer-selection {
+      line-height: 1.2;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    &.telepointer-selection-badge::after {
+      content: attr(data-initial);
+      position: absolute;
+      display: block;
+      top: -14px;
+      font-size: ${relativeFontSizeToBase16(9)};
+      padding: ${token('space.025', '2px')};
+      color: ${token('color.text.inverse', 'white')};
+      left: 0px;
+      border-radius: 2px 2px 2px 0;
+      line-height: initial;
+    }
+
+    &.${TELEPOINTER_DIM_CLASS} {
+      opacity: 0.2;
+    }
+
+    ${colors.map((color, index) => telepointerColorStyle(color, index))};
+  }
+`;
 
 const tintKey = 'collab:isDirtyTransaction';
 

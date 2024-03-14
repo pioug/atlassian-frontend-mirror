@@ -64,7 +64,7 @@ export class AnnotationUpdateEmitter {
 
   off<T extends AnnotationUpdateEvent>(event: T, listener: Callback<T>): void;
   off(event: string, listener: (payload?: any) => void): EventEmitter {
-    return this.emitter.off(event, listener);
+    return this.emitter.removeListener(event, listener);
   }
 
   listeners(event: AnnotationUpdateEvent) {

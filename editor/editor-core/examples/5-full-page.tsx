@@ -766,7 +766,6 @@ export function FullPageExample(props: ExampleProps) {
       getExampleExtensionProviders(editorApi, editorActions),
     ],
     allowExtension: {
-      allowAutoSave: true,
       allowExtendFloatingToolbars: true,
     },
     allowFragmentMark: true,

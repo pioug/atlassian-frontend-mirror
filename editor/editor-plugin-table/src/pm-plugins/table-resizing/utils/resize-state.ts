@@ -1,4 +1,5 @@
 import type { TableLayout } from '@atlaskit/adf-schema';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import {
   tableCellMinWidth,
   tableNewColumnMinWidth,
@@ -20,14 +21,8 @@ import {
 import type { ColumnState } from './column-state';
 import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
 import { syncStickyRowToTable } from './dom';
-import { getTableContainerElementWidth, getTableMaxWidth } from './misc';
+import { getTableMaxWidth, getTableScalingPercent } from './misc';
 import type { ResizeState, ResizeStateWithAnalytics } from './types';
-
-import {
-  COLUMN_MIN_WIDTH,
-  MAX_SCALING_PERCENT,
-  TABLE_DEFAULT_WIDTH,
-} from './index';
 
 export const getResizeState = ({
   minWidth,
@@ -46,6 +41,10 @@ export const getResizeState = ({
   domAtPos: (pos: number) => { node: Node; offset: number };
   isTableScalingEnabled: boolean;
 }): ResizeState => {
+  if (isTableScalingEnabled) {
+    const scalePercent = getTableScalingPercent(table, tableRef);
+    minWidth = Math.ceil(minWidth / scalePercent);
+  }
   // If the table has been resized, we can use the column widths from the table node
   if (hasTableBeenResized(table)) {
     const cols = calcTableColumnWidths(table).map((width, index) => ({
@@ -79,11 +78,12 @@ export const getResizeState = ({
   const cols = Array.from(colgroupChildren).map((_, index) => {
     // If the table hasn't been resized and we have a table width attribute, we can use it
     // to calculate the widths of the columns
-    if (isTableScalingEnabled && table.attrs.width) {
+    if (isTableScalingEnabled) {
+      const tableNodeWidth = getTableContainerWidth(table);
       return {
         index,
-        width: table.attrs.width / colgroupChildren.length,
-        minWidth: COLUMN_MIN_WIDTH,
+        width: tableNodeWidth / colgroupChildren.length,
+        minWidth,
       };
     }
     const cellsRefs = getCellsRefsInColumn(index, table, start, domAtPos);
@@ -116,24 +116,18 @@ export const updateColgroup = (
   if (getBooleanFF('platform.editor.custom-table-width')) {
     const columnsCount = cols.length;
     if (isTableScalingEnabled && tableNode) {
-      const tableWidth = getTableContainerElementWidth(tableNode);
-      if (tableWidth) {
-        let renderWidth =
-          tableRef.parentElement?.clientWidth || TABLE_DEFAULT_WIDTH;
-        let scalePercent = renderWidth / tableWidth;
-        scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
-        state.cols
-          .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
-          .forEach((column, i) => {
-            const fixedColWidth = getColWidthFix(column.width, columnsCount);
-            const scaledWidth = fixedColWidth * Math.min(scalePercent, 1);
-            const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
-            // we aren't handling the remaining pixels here when the 48px min width is reached
-            if (cols[i]) {
-              cols[i].style.width = `${finalWidth}px`;
-            }
-          });
-      }
+      const scalePercent = getTableScalingPercent(tableNode, tableRef);
+      state.cols
+        .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
+        .forEach((column, i) => {
+          const fixedColWidth = getColWidthFix(column.width, columnsCount);
+          const scaledWidth = fixedColWidth * scalePercent;
+          const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
+          // we aren't handling the remaining pixels here when the 48px min width is reached
+          if (cols[i]) {
+            cols[i].style.width = `${finalWidth}px`;
+          }
+        });
     } else {
       state.cols
         .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.

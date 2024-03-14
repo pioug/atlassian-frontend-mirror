@@ -8,6 +8,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line no-duplicate-imports
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { EditorCommand } from '../types';
 
@@ -135,13 +136,22 @@ export const applyMarkOnRange = (
 ) => {
   const { schema } = tr.doc.type;
   const { code } = schema.marks;
+  const { inlineCard } = schema.nodes;
   if (mark.type === code) {
     transformSmartCharsMentionsAndEmojis(from, to, tr);
   }
 
   tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {
-    if (!node.isText) {
-      return true;
+    if (
+      getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+    ) {
+      if (!node.isText && node.type !== inlineCard) {
+        return true;
+      }
+    } else {
+      if (!node.isText) {
+        return true;
+      }
     }
 
     // This is an issue when the user selects some text.

@@ -1,3 +1,5 @@
+// This rule is banning the `Symbol` type from ts-morph. However we need this type in our functions below. The `symbol` replacement is throwing errors
+/* eslint-disable @typescript-eslint/ban-types */
 import { createSignedArtifact } from '@atlassian/codegen';
 import { Project } from 'ts-morph';
 import type { Symbol, SourceFile, ExportSpecifier, Node } from 'ts-morph';
@@ -144,40 +146,6 @@ const generateComponentPropTypeSourceFiles = (
   });
 };
 
-const generateComponentIndexSourceFile = (
-  componentOutputDir: string,
-  componentPropTypeSymbols: Symbol[],
-) => {
-  // eslint-disable-next-line no-console
-  console.log('Generating index file for component prop types');
-
-  const indexFileContent = componentPropTypeSymbols
-    .map((symbol) => {
-      const componentName = symbol.getName();
-      const componentAliasedName = symbol.getAliasedSymbol()?.getName();
-      if (componentName !== componentAliasedName) {
-        return `export type { ${componentAliasedName} as ${componentName} } from './${componentName}.codegen';`;
-      } else {
-        return `export type { ${componentName} } from './${componentName}.codegen';`;
-      }
-    })
-    .join('\n');
-
-  const indexFilePath = resolve(componentOutputDir, 'index.codegen.ts');
-  const signedIndexFileContent = createSignedArtifact(
-    indexFileContent,
-    'yarn workspace @atlaskit/forge-react-types codegen',
-    {
-      description: 'Index file for component prop types',
-      dependencies: componentPropTypeSymbols.map(
-        (symbol) => `${componentOutputDir}/${symbol.getName()}.codegen.tsx`,
-      ),
-      outputFolder: componentOutputDir,
-    },
-  );
-  fs.writeFileSync(indexFilePath, signedIndexFileContent);
-};
-
 const updatePackageJsonWithADSComponentDependencies = (
   componentOutputDir: string,
 ) => {
@@ -237,7 +205,7 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
   console.log('Generating shared types file');
 
   const uiKit2TypesFile = require.resolve(
-    '@atlassian/forge-ui/src/components/UIKit2-codegen/types',
+    '@atlassian/forge-ui/UIKit2-codegen/types',
   );
 
   const signedSourceCode = createSignedArtifact(
@@ -264,7 +232,7 @@ const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
     '__generated__',
   );
   const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
-    require.resolve('@atlassian/forge-ui/src/components/UIKit2-codegen'),
+    require.resolve('@atlassian/forge-ui/UIKit2-codegen'),
   );
   try {
     const componentPropTypeSymbols = componentIndexSourceFile
@@ -281,16 +249,6 @@ const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
       componentOutputDir,
       componentPropTypeSymbols,
     );
-
-    // only generate index file if componentPropTypeFilter is not provided
-    // this is to avoid overwriting the index file when generating a single
-    // component.
-    if (!componentPropTypeFilter) {
-      generateComponentIndexSourceFile(
-        componentOutputDir,
-        componentPropTypeSymbols,
-      );
-    }
 
     updatePackageJsonWithADSComponentDependencies(componentOutputDir);
   } finally {

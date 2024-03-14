@@ -31,6 +31,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { TableOptions } from '../../../nodeviews/types';
 
 import { hasTableBeenResized } from './colgroup';
+import { MAX_SCALING_PERCENT } from './consts';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
@@ -155,4 +156,16 @@ export const getTableElementWidth = (table: PMNode) => {
 
 export const getTableContainerElementWidth = (table: PMNode) => {
   return getTableContainerWidth(table);
+};
+
+export const getTableScalingPercent = (
+  table: PMNode,
+  tableRef: HTMLElement,
+) => {
+  const tableWidth = getTableContainerElementWidth(table);
+  let renderWidth = tableRef.parentElement?.clientWidth || tableWidth;
+  // minus 1 here to avoid any 1px scroll in Firefox
+  let scalePercent = (renderWidth - 1) / tableWidth;
+  scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+  return Math.min(scalePercent, 1);
 };

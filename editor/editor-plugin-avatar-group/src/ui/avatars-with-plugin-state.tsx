@@ -29,9 +29,9 @@ export type AvatarsWithPluginStateProps = {
   editorAPI: PublicPluginAPI<[OptionalPlugin<CollabEditPlugin>]> | undefined;
 } & CollabInviteToEditProps;
 
-const AvatarsWithPluginState: React.FunctionComponent<
-  AvatarsWithPluginStateProps & WrappedComponentProps
-> = props => {
+const AvatarsWithPluginState = (
+  props: AvatarsWithPluginStateProps & WrappedComponentProps,
+) => {
   const title = props.intl.formatMessage(messages.inviteToEditButtonTitle);
 
   const {

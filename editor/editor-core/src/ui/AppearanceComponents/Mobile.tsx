@@ -37,20 +37,19 @@ type MobileDimensionsPluginState = {
   /** Hybrid editor is always expanded, compact editor is collapsed or expanded */
   isExpanded: boolean;
 };
-const mobileEditor = css`
-  min-height: 30px;
-  width: 100%;
-  max-width: inherit;
-  box-sizing: border-box;
-  word-wrap: break-word;
-
-  div > .ProseMirror {
-    outline: none;
-    white-space: pre-wrap;
-    padding: 0;
-    margin: 0;
-  }
-`;
+const mobileEditor = css({
+  minHeight: '30px',
+  width: '100%',
+  maxWidth: 'inherit',
+  boxSizing: 'border-box',
+  wordWrap: 'break-word',
+  'div > .ProseMirror': {
+    outline: 'none',
+    whiteSpace: 'pre-wrap',
+    padding: 0,
+    margin: 0,
+  },
+});
 
 const ContentArea = createEditorContentStyle();
 ContentArea.displayName = 'ContentArea';

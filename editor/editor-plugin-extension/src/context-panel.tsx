@@ -79,7 +79,6 @@ export const getContextPanel =
   (getEditorView?: () => EditorView | undefined) =>
   (
     api: ExtractInjectionAPI<ExtensionPlugin> | undefined,
-    allowAutoSave?: boolean,
     featureFlags?: FeatureFlags,
   ) =>
   (state: EditorState) => {
@@ -119,7 +118,7 @@ export const getContextPanel =
         : parameters;
 
       return (
-        <SaveIndicator duration={5000} visible={allowAutoSave}>
+        <SaveIndicator duration={5000} visible={true}>
           {({ onSaveStarted, onSaveEnded }) => {
             const editorView = getEditorView?.();
             if (!editorView) {
@@ -137,7 +136,6 @@ export const getContextPanel =
                 extensionParameters={parameters}
                 parameters={configParams}
                 extensionProvider={extensionProvider}
-                autoSave={allowAutoSave}
                 autoSaveTrigger={autoSaveResolve}
                 autoSaveReject={autoSaveReject}
                 onChange={async updatedParameters => {
@@ -153,27 +151,19 @@ export const getContextPanel =
                   if (autoSaveResolve) {
                     autoSaveResolve();
                   }
-                  if (!allowAutoSave) {
-                    clearEditingContext(applyChange)(
-                      editorView.state,
-                      editorView.dispatch,
-                    );
-                  }
                 }}
                 onCancel={async () => {
-                  if (allowAutoSave) {
-                    try {
-                      await new Promise<void>((resolve, reject) => {
-                        forceAutoSave(applyChange)(resolve, reject)(
-                          editorView.state,
-                          editorView.dispatch,
-                        );
-                      });
-                    } catch (e) {
-                      // Even if the save failed, we should proceed with closing the panel
-                      // eslint-disable-next-line no-console
-                      console.error(`Autosave failed with error`, e);
-                    }
+                  try {
+                    await new Promise<void>((resolve, reject) => {
+                      forceAutoSave(applyChange)(resolve, reject)(
+                        editorView.state,
+                        editorView.dispatch,
+                      );
+                    });
+                  } catch (e) {
+                    // Even if the save failed, we should proceed with closing the panel
+                    // eslint-disable-next-line no-console
+                    console.error(`Autosave failed with error`, e);
                   }
 
                   clearEditingContext(applyChange)(

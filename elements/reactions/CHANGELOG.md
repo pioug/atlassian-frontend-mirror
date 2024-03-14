@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.5.10
+
+### Patch Changes
+
+- [#81006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81006) [`d91d334a84c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d91d334a84c0) - React 18 types for @atlaskit/reactions
+
 ## 22.5.9
 
 ### Patch Changes

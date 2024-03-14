@@ -1,5 +1,42 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.430
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.429
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.428
+
+### Patch Changes
+
+- [#80679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80679) [`104eb9443b7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104eb9443b7e) - ED-22553 Updating adf-schema version to 35.6.0
+- Updated dependencies
+
+## 2.4.427
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.426
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.425
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.424
 
 ### Patch Changes

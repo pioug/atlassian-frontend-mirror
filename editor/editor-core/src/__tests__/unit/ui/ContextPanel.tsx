@@ -45,7 +45,8 @@ import EditorContext from '../../../ui/EditorContext';
 const panelSelector = 'div[data-testid="context-panel-panel"]';
 
 describe('SwappableContentArea', () => {
-  const Component: React.FC = jest.fn(() => null);
+  const Component: React.ComponentType<React.PropsWithChildren<unknown>> =
+    jest.fn(() => null);
   let wrapper: ReactWrapper | undefined;
 
   afterEach(() => {

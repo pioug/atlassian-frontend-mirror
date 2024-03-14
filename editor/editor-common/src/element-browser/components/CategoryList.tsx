@@ -111,10 +111,11 @@ function CategoryListItem({
       themeProps: ThemeProps,
     ): ThemeTokens => {
       const { buttonStyles, ...rest } = currentTheme(themeProps);
+
       return {
         buttonStyles: {
           ...buttonStyles,
-          textAlign: 'start',
+          textAlign: 'start' as const,
           marginLeft: token('space.025', '2px'),
           height: '100%',
           width: '100%',
@@ -149,17 +150,18 @@ function CategoryListItem({
   );
 }
 
-const buttonWrapper = css`
-  height: ${GRID_SIZE * 4}px;
-  margin: ${token('space.050', '4px')} ${token('space.050', '4px')}
-    ${token('space.050', '4px')} 0;
-
-  @media (min-width: ${DEVICE_BREAKPOINT_NUMBERS.medium}px) {
-    :not(:last-child) {
-      margin-bottom: 0;
-    }
-  }
-`;
+const buttonWrapper = css({
+  height: `${GRID_SIZE * 4}px`,
+  margin: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
+    'space.050',
+    '4px',
+  )} 0`,
+  [`@media (min-width: ${DEVICE_BREAKPOINT_NUMBERS.medium}px)`]: {
+    ':not(:last-child)': {
+      marginBottom: 0,
+    },
+  },
+});
 
 const MemoizedCategoryListWithAnalytics = memo(
   withAnalyticsContext({

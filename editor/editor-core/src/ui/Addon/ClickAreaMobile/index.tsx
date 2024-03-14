@@ -18,10 +18,13 @@ const clickWrapper = ({
 }: {
   isExpanded?: boolean;
   minHeight: number;
-}) => css`
-  height: 100%;
-  ${isExpanded && minHeight ? `min-height: ${minHeight}px` : ''};
-`;
+}) =>
+  css(
+    {
+      height: '100%',
+    },
+    isExpanded && minHeight ? `min-height: ${minHeight}px` : '',
+  );
 
 export interface Props {
   editorView?: EditorView;

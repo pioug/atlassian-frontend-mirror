@@ -49,8 +49,7 @@ const iconTooltipDescStyles = xcss({
 });
 
 const iconTooltipTriggerStyles = xcss({
-  position: 'relative',
-  bottom: 'space.negative.050',
+  verticalAlign: 'bottom',
 });
 
 const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({

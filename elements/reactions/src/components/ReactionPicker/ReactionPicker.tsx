@@ -130,210 +130,205 @@ export interface ReactionPickerProps
 /**
  * Picker component for adding reactions
  */
-export const ReactionPicker: React.FC<ReactionPickerProps> = React.memo(
-  (props) => {
-    const {
-      miniMode,
-      className,
-      emojiProvider,
-      onSelection,
-      allowAllEmojis,
-      disabled,
-      pickerQuickReactionEmojiIds,
-      onShowMore = () => {},
-      onOpen = () => {},
-      onCancel = () => {},
-      tooltipContent = <FormattedMessage {...messages.addReaction} />,
-      emojiPickerSize,
-    } = props;
+export const ReactionPicker = React.memo((props: ReactionPickerProps) => {
+  const {
+    miniMode,
+    className,
+    emojiProvider,
+    onSelection,
+    allowAllEmojis,
+    disabled,
+    pickerQuickReactionEmojiIds,
+    onShowMore = () => {},
+    onOpen = () => {},
+    onCancel = () => {},
+    tooltipContent = <FormattedMessage {...messages.addReaction} />,
+    emojiPickerSize,
+  } = props;
 
-    const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(
-      null,
-    );
+  const [triggerRef, setTriggerRef] = useState<HTMLButtonElement | null>(null);
 
+  /**
+   * Container <div /> reference (used by custom hook to detect click outside)
+   */
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const updatePopper = useRef<PopperChildrenProps['update']>();
+
+  const [settings, setSettings] = useState({
     /**
-     * Container <div /> reference (used by custom hook to detect click outside)
+     * Show the picker floating panel
      */
-    const wrapperRef = useRef<HTMLDivElement>(null);
+    isOpen: false,
+    /**
+     * Show the full custom emoji list picker or the default list of emojis
+     */
+    showFullPicker:
+      !!allowAllEmojis &&
+      Array.isArray(pickerQuickReactionEmojiIds) &&
+      pickerQuickReactionEmojiIds.length === 0,
+  });
 
-    const updatePopper = useRef<PopperChildrenProps['update']>();
+  /**
+   * Custom hook triggers when user clicks outside the reactions picker
+   */
+  useCloseManager(
+    wrapperRef,
+    (callbackType) => {
+      close();
+      onCancel();
+      if (triggerRef && callbackType === 'ESCAPE') {
+        requestAnimationFrame(() => triggerRef.focus());
+      }
+    },
+    true,
+    settings.isOpen,
+  );
 
-    const [settings, setSettings] = useState({
-      /**
-       * Show the picker floating panel
-       */
-      isOpen: false,
-      /**
-       * Show the full custom emoji list picker or the default list of emojis
-       */
+  /**
+   * Event callback when the picker is closed
+   * @param _id Optional id if an emoji button was selected or undefineed if was clicked outside the picker
+   */
+  const close = useCallback(
+    (_id?: string) => {
+      setSettings({
+        ...settings,
+        isOpen: false,
+      });
+      // ufo abort reaction experience
+      PickerRender.abort({
+        metadata: {
+          emojiId: _id,
+          source: 'ReactionPicker',
+          reason: 'close dialog',
+        },
+      });
+    },
+    [settings],
+  );
+
+  /**
+   * Event handle rwhen selecting to show the custom emoji icons picker
+   * @param e event param
+   */
+  const onSelectMoreClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.preventDefault();
+      setSettings({
+        isOpen: true,
+        showFullPicker: true,
+      });
+      onShowMore();
+    },
+    [onShowMore],
+  );
+
+  /**
+   * Event callback when an emoji icon is selected
+   * @param item selected item
+   */
+  const onEmojiSelected: OnEmojiEvent = useCallback(
+    (item) => {
+      // no emoji was selected
+      if (!item.id) {
+        return;
+      }
+      onSelection(
+        item.id,
+        settings.showFullPicker ? 'emojiPicker' : 'quickSelector',
+      );
+      close(item.id);
+    },
+    [close, onSelection, settings.showFullPicker],
+  );
+
+  /**
+   * Event handler when the emoji icon to open the custom picker is selected
+   */
+  const onTriggerClick = () => {
+    // ufo start reactions picker open experience
+    PickerRender.start();
+
+    setSettings({
+      isOpen: !settings.isOpen,
       showFullPicker:
         !!allowAllEmojis &&
         Array.isArray(pickerQuickReactionEmojiIds) &&
         pickerQuickReactionEmojiIds.length === 0,
     });
 
-    /**
-     * Custom hook triggers when user clicks outside the reactions picker
-     */
-    useCloseManager(
-      wrapperRef,
-      (callbackType) => {
-        close();
-        onCancel();
-        if (triggerRef && callbackType === 'ESCAPE') {
-          requestAnimationFrame(() => triggerRef.focus());
-        }
-      },
-      true,
-      settings.isOpen,
-    );
+    onOpen();
+    // ufo reactions picker opened success
+    PickerRender.success();
+  };
 
-    /**
-     * Event callback when the picker is closed
-     * @param _id Optional id if an emoji button was selected or undefineed if was clicked outside the picker
-     */
-    const close = useCallback(
-      (_id?: string) => {
-        setSettings({
-          ...settings,
-          isOpen: false,
-        });
-        // ufo abort reaction experience
-        PickerRender.abort({
-          metadata: {
-            emojiId: _id,
-            source: 'ReactionPicker',
-            reason: 'close dialog',
-          },
-        });
-      },
-      [settings],
-    );
+  const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
+    miniMode ? 'miniMode' : ''
+  } ${className}`;
 
-    /**
-     * Event handle rwhen selecting to show the custom emoji icons picker
-     * @param e event param
-     */
-    const onSelectMoreClick = useCallback(
-      (e: React.MouseEvent<HTMLElement>) => {
-        e.preventDefault();
-        setSettings({
-          isOpen: true,
-          showFullPicker: true,
-        });
-        onShowMore();
-      },
-      [onShowMore],
-    );
+  useLayoutEffect(() => {
+    updatePopper.current?.();
+  }, [settings]);
 
-    /**
-     * Event callback when an emoji icon is selected
-     * @param item selected item
-     */
-    const onEmojiSelected: OnEmojiEvent = useCallback(
-      (item) => {
-        // no emoji was selected
-        if (!item.id) {
-          return;
-        }
-        onSelection(
-          item.id,
-          settings.showFullPicker ? 'emojiPicker' : 'quickSelector',
-        );
-        close(item.id);
-      },
-      [close, onSelection, settings.showFullPicker],
-    );
-
-    /**
-     * Event handler when the emoji icon to open the custom picker is selected
-     */
-    const onTriggerClick = () => {
-      // ufo start reactions picker open experience
-      PickerRender.start();
-
-      setSettings({
-        isOpen: !settings.isOpen,
-        showFullPicker:
-          !!allowAllEmojis &&
-          Array.isArray(pickerQuickReactionEmojiIds) &&
-          pickerQuickReactionEmojiIds.length === 0,
-      });
-
-      onOpen();
-      // ufo reactions picker opened success
-      PickerRender.success();
-    };
-
-    const wrapperClassName = ` ${settings.isOpen ? 'isOpen' : ''} ${
-      miniMode ? 'miniMode' : ''
-    } ${className}`;
-
-    useLayoutEffect(() => {
-      updatePopper.current?.();
-    }, [settings]);
-
-    return (
-      <div
-        className={wrapperClassName}
-        css={pickerStyle}
-        data-testid={RENDER_REACTIONPICKER_TESTID}
-        ref={wrapperRef}
-      >
-        <Manager>
-          <Reference>
-            {({ ref }) => (
-              // Render a button to open the <Selector /> panel
-              <Trigger
-                ariaAttributes={{
-                  'aria-expanded': settings.isOpen,
-                  'aria-controls': PICKER_CONTROL_ID,
-                }}
-                ref={(node: HTMLButtonElement | null) => {
-                  if (node && settings.isOpen) {
-                    if (typeof ref === 'function') {
-                      ref(node);
-                    } else {
-                      (
-                        ref as React.MutableRefObject<HTMLButtonElement>
-                      ).current = node;
-                    }
-                    setTriggerRef(node);
+  return (
+    <div
+      className={wrapperClassName}
+      css={pickerStyle}
+      data-testid={RENDER_REACTIONPICKER_TESTID}
+      ref={wrapperRef}
+    >
+      <Manager>
+        <Reference>
+          {({ ref }) => (
+            // Render a button to open the <Selector /> panel
+            <Trigger
+              ariaAttributes={{
+                'aria-expanded': settings.isOpen,
+                'aria-controls': PICKER_CONTROL_ID,
+              }}
+              ref={(node: HTMLButtonElement | null) => {
+                if (node && settings.isOpen) {
+                  if (typeof ref === 'function') {
+                    ref(node);
+                  } else {
+                    (ref as React.MutableRefObject<HTMLButtonElement>).current =
+                      node;
                   }
-                }}
-                onClick={onTriggerClick}
-                miniMode={miniMode}
-                disabled={disabled}
-                tooltipContent={settings.isOpen ? null : tooltipContent}
+                  setTriggerRef(node);
+                }
+              }}
+              onClick={onTriggerClick}
+              miniMode={miniMode}
+              disabled={disabled}
+              tooltipContent={settings.isOpen ? null : tooltipContent}
+            />
+          )}
+        </Reference>
+        {settings.isOpen && (
+          <PopperWrapper settings={settings}>
+            {settings.showFullPicker ? (
+              <EmojiPicker
+                emojiProvider={emojiProvider}
+                onSelection={onEmojiSelected}
+                size={emojiPickerSize}
               />
-            )}
-          </Reference>
-          {settings.isOpen && (
-            <PopperWrapper settings={settings}>
-              {settings.showFullPicker ? (
-                <EmojiPicker
+            ) : (
+              <div css={contentStyle}>
+                <Selector
                   emojiProvider={emojiProvider}
                   onSelection={onEmojiSelected}
-                  size={emojiPickerSize}
+                  showMore={allowAllEmojis}
+                  onMoreClick={onSelectMoreClick}
+                  pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
                 />
-              ) : (
-                <div css={contentStyle}>
-                  <Selector
-                    emojiProvider={emojiProvider}
-                    onSelection={onEmojiSelected}
-                    showMore={allowAllEmojis}
-                    onMoreClick={onSelectMoreClick}
-                    pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
-                  />
-                </div>
-              )}
-            </PopperWrapper>
-          )}
-        </Manager>
-      </div>
-    );
-  },
-);
+              </div>
+            )}
+          </PopperWrapper>
+        )}
+      </Manager>
+    </div>
+  );
+});
 
 interface PopperWrapperProps {
   settings: {

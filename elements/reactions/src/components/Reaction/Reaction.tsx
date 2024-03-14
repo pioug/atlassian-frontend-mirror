@@ -68,7 +68,7 @@ export interface ReactionProps
 /**
  * Render an emoji reaction button
  */
-export const Reaction: React.FC<ReactionProps> = ({
+export const Reaction = ({
   emojiProvider,
   onClick,
   reaction,
@@ -78,7 +78,7 @@ export const Reaction: React.FC<ReactionProps> = ({
   flash = false,
   handleUserListClick = () => {},
   allowUserDialog,
-}) => {
+}: ReactionProps) => {
   const intl = useIntl();
   const hoverStart = useRef<number>();
   const focusStart = useRef<number>();

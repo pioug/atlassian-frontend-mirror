@@ -68,6 +68,7 @@ const CustomSlideIn = ({
 const DrawerPrimitive = ({
   children,
   icon: Icon,
+  closeLabel = 'Close drawer',
   onClose,
   onCloseComplete,
   onOpenComplete,
@@ -129,9 +130,9 @@ const DrawerPrimitive = ({
                     testId={testId && 'DrawerPrimitiveSidebarCloseButton'}
                   >
                     {Icon ? (
-                      <Icon size="large" />
+                      <Icon size="large" label={closeLabel} />
                     ) : (
-                      <ArrowLeft label="Close drawer" />
+                      <ArrowLeft label={closeLabel} />
                     )}
                   </IconButton>
                 </Sidebar>

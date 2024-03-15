@@ -371,7 +371,14 @@ export default function ProfilecardTriggerSwitch(
   props: ProfileCardTriggerProps,
 ) {
   return getBooleanFF('platform.profile-card-trigger-next') ? (
-    <ProfilecardTriggerNext {...props} />
+    <ProfilecardTriggerNext
+      {...props}
+      onVisibilityChange={(isVisible) => {
+        if (props.onVisibilityChange) {
+          props.onVisibilityChange(isVisible);
+        }
+      }}
+    />
   ) : (
     <ProfilecardTriggerLegacy {...props} />
   );

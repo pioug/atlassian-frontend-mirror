@@ -25,12 +25,15 @@ const Row = ({ row, head, testId, isFixedSize, isHighlighted }: RowProps) => {
       testId={testId && `${testId}--row-${restRowProps.key}`}
     >
       {cells.map((cell, cellIndex) => {
-        const { content, ...restCellProps } = cell;
+        const { content, testId: cellTestId, ...restCellProps } = cell;
         const { shouldTruncate, width } =
           (head || { cells: [] }).cells[cellIndex] || ({} as any);
+
         return (
           <TableBodyCell
-            data-testid={testId && `${testId}--cell-${cellIndex}`}
+            data-testid={
+              cellTestId || (testId && `${testId}--cell-${cellIndex}`)
+            }
             {...restCellProps}
             isFixedSize={isFixedSize}
             key={cellIndex} // eslint-disable-line react/no-array-index-key

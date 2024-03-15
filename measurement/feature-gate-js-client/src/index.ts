@@ -17,6 +17,7 @@ export type {
 export {
   default,
   FeatureGateEnvironment,
+  PerimeterType,
 
   // Statsig
   EvaluationReason,

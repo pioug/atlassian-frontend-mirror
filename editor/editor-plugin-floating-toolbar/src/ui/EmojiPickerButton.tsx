@@ -20,13 +20,13 @@ import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 
 // helps adjusts position of popup
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const emojiPickerButtonWrapper = css`
-  position: relative;
-`;
+const emojiPickerButtonWrapper = css({
+  position: 'relative',
+});
 
 const EmojiPickerWithListener = withReactEditorViewOuterListeners(EmojiPicker);
 
-export const EmojiPickerButton: React.FunctionComponent<{
+export const EmojiPickerButton = (props: {
   className?: string;
   editorView?: EditorView;
   idx?: number;
@@ -36,7 +36,7 @@ export const EmojiPickerButton: React.FunctionComponent<{
   isSelected?: boolean;
   mountPoint?: HTMLElement;
   setDisableParentScroll?: (disable: boolean) => void;
-}> = props => {
+}) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
 

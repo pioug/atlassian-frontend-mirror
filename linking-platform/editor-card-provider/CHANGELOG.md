@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 3.3.1
+
+### Patch Changes
+
+- [#81050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81050) [`c15d7331e8b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c15d7331e8b8) - We are updating the Jira List URL pattern as we recently update the urls
+
 ## 3.3.0
 
 ### Minor Changes

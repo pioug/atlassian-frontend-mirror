@@ -16,6 +16,7 @@ import {
   GetExperimentValueOptions,
   Identifiers,
   InitializeValues,
+  PerimeterType,
   UpdateUserCompletionCallback,
 } from './types';
 import { CLIENT_VERSION } from './version';
@@ -38,7 +39,7 @@ export type {
   InitializeValues,
   UpdateUserCompletionCallback,
 } from './types';
-export { FeatureGateEnvironment } from './types';
+export { FeatureGateEnvironment, PerimeterType } from './types';
 
 declare global {
   interface Window {
@@ -606,6 +607,11 @@ class FeatureGates {
       clientOptions.eventLoggingApi = DEFAULT_EVENT_LOGGING_API;
     }
 
+    if (clientOptions.perimeter === PerimeterType.FEDRAMP_MODERATE) {
+      // disable all logging in FedRAMP to prevent egress of sensitive data
+      clientOptions.disableAllLogging = true;
+    }
+
     const { sdkKey } = clientOptions;
     const statsigOptions: StatsigOptions = this.toStatsigOptions(
       clientOptions,
@@ -767,6 +773,9 @@ class FeatureGates {
       // De-structured to remove from restClientOptions
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       updateUserCompletionCallback,
+      // De-structured to remove from restClientOptions
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      perimeter,
       ...restClientOptions
     } = options;
 

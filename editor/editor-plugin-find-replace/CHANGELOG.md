@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.1.5
+
+### Patch Changes
+
+- [#81374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81374) [`3e7990b6d1a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e7990b6d1a3) - React 18 types for editor-plugin-find-replace
+
 ## 1.1.4
 
 ### Patch Changes

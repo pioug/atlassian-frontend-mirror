@@ -741,6 +741,17 @@ describe('<LinkCreate />', () => {
     expect(screen.getByText('Create meeting notes')).toBeTruthy();
   });
 
+  it('should display a custom hero when provided', async () => {
+    //  eslint-disable-next-line jsx-a11y/img-redundant-alt
+    const HeroModal = () => <img src="some image here" alt="some image here" />;
+    setUpLinkCreate({
+      modalHero: <HeroModal />,
+    });
+
+    const heroModal = screen.queryByTestId('link-create-modal-hero');
+    expect(heroModal).toBeInTheDocument();
+  });
+
   it('should close modal on Esc if no changes are made', async () => {
     const { rerender } = setUpLinkCreate({ active: true });
 

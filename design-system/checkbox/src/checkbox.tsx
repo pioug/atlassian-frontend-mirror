@@ -14,6 +14,7 @@ import { css, jsx } from '@emotion/react';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -50,7 +51,11 @@ const checkboxStyles = css({
     transition: 'color 0.2s ease-in-out, fill 0.2s ease-in-out',
     'rect:first-of-type': {
       stroke: 'var(--checkbox-border-color)',
-      strokeWidth: token('border.width', '1px'),
+      strokeWidth: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('border.width', '1px')
+        : 2,
       transition: 'stroke 0.2s ease-in-out',
     },
   },

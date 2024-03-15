@@ -32,7 +32,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/locale": "^2.6.0",
     "@atlaskit/media-client": "^26.2.0",
-    "@atlaskit/media-common": "^11.0.0",
+    "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-ui": "^25.4.0",
     "@atlaskit/popup": "^1.13.0",
     "@atlaskit/tabs": "^14.0.0",

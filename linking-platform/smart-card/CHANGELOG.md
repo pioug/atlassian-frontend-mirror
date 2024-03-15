@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 26.50.1
+
+### Patch Changes
+
+- [#81356](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81356) [`1b8f940e9229`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b8f940e9229) - AI Summary: Handle error response during streaming
+
+## 26.50.0
+
+### Minor Changes
+
+- [#78681](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78681) [`c24cecdc4ec9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c24cecdc4ec9) - Allows consumers to hide the provider in the footerblock
+
+### Patch Changes
+
+- [#79523](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79523) [`e013a9217f3e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e013a9217f3e) - Adds analytics operational and ufo events for ai summary
+
 ## 26.49.3
 
 ### Patch Changes

@@ -21,7 +21,7 @@ const capitalizeFirstLetter = (str: string): string => {
 
 type LozengeComponentProps = {
   lozengeData?: LozengeData;
-  isBlockExtension: boolean;
+  extensionName: string;
   title: string;
   params: any;
   renderImage: (lozengeData: LozengeData) => void;
@@ -33,7 +33,7 @@ type LozengeComponentProps = {
 
 export const LozengeComponent = ({
   lozengeData,
-  isBlockExtension,
+  extensionName,
   title,
   params,
   renderImage,
@@ -43,9 +43,9 @@ export const LozengeComponent = ({
   isNodeHovered,
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
-  if (showMacroInteractionDesignUpdates) {
+  if (showMacroInteractionDesignUpdates && (isNodeHovered || isNodeSelected)) {
     const lozengeClassNames = classnames('extension-title', {
-      'show-lozenge': isNodeHovered || isNodeSelected,
+      'inline-extension': extensionName === 'inlineExtension',
     });
     return (
       <div
@@ -60,7 +60,8 @@ export const LozengeComponent = ({
         />
       </div>
     );
-  } else {
+  } else if (!showMacroInteractionDesignUpdates) {
+    const isBlockExtension = extensionName === 'extension';
     return (
       <div data-testid="lozenge-fallback" css={placeholderFallback}>
         {lozengeData && !isBlockExtension ? (
@@ -83,4 +84,5 @@ export const LozengeComponent = ({
       </div>
     );
   }
+  return null;
 };

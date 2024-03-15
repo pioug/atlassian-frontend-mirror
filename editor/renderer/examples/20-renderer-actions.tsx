@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { useState } from 'react';
+import type { DocNode } from '@atlaskit/adf-schema';
 import { generateUuid } from '@atlaskit/adf-schema';
 import { Y75, Y200 } from '@atlaskit/theme/colors';
 
@@ -7,10 +8,14 @@ import RendererDemo from './helper/RendererDemo';
 import { validDocument as storyDataDocument } from './helper/story-data';
 import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { AnnotationsWrapper } from '../src';
+import React from 'react';
+import { useAnnotationsProvider } from './21-annotations';
 
 const transformer = new JSONTransformer();
 
@@ -68,90 +73,108 @@ function AnnotationSelect({
   );
 }
 
-const wrapperStyle = css`
-  [data-mark-type='annotation'] {
-    background-color: ${token('color.background.accent.yellow.subtler', Y75)};
-    border-bottom: 2px solid ${token('color.border.accent.yellow', Y200)};
-  }
-`;
+const wrapperStyle = css({
+  "[data-mark-type='annotation']": {
+    backgroundColor: token('color.background.accent.yellow.subtler', Y75),
+    borderBottom: `2px solid ${token('color.border.accent.yellow', Y200)}`,
+  },
+});
 
 export default function Example() {
   const [document, setDocument] = useState<any>(storyDataDocument);
   const [selectionValid, setSelectionValidity] = useState(false);
+  const localRef = React.useRef<HTMLDivElement>(null);
+
+  const annotationInlineCommentProvider = useAnnotationsProvider(setDocument);
+  const annotationProvider = React.useMemo(() => {
+    return {
+      inlineComment: annotationInlineCommentProvider,
+    };
+  }, [annotationInlineCommentProvider]);
+
   return (
-    <RendererActionsContext>
-      <WithRendererActions
-        render={(actions) => {
-          return (
-            <div css={wrapperStyle}>
-              <RendererDemo
-                serializer="react"
-                document={document}
-                allowColumnSorting={true}
-                actionButtons={[
-                  <button
-                    onClick={() => {
-                      const selection = window.getSelection();
-                      if (!selection || selection.isCollapsed) {
-                        return;
-                      }
+    <SmartCardProvider client={new CardClient('stg')}>
+      <RendererActionsContext>
+        <WithRendererActions
+          render={(actions) => {
+            return (
+              <div css={wrapperStyle}>
+                <AnnotationsWrapper
+                  rendererRef={localRef}
+                  adfDocument={document as DocNode}
+                  annotationProvider={annotationProvider}
+                >
+                  <RendererDemo
+                    serializer="react"
+                    document={document}
+                    allowColumnSorting={true}
+                    allowAnnotations={true}
+                    actionButtons={[
+                      <button
+                        onClick={() => {
+                          const selection = window.getSelection();
+                          if (!selection || selection.isCollapsed) {
+                            return;
+                          }
 
-                      const result = actions.annotate(
-                        selection.getRangeAt(0),
-                        generateUuid(),
-                        'inlineComment',
-                      );
+                          const result = actions.annotate(
+                            selection.getRangeAt(0),
+                            generateUuid(),
+                            'inlineComment',
+                          );
 
-                      if (result) {
-                        selection.removeAllRanges();
-                        // @ts-ignore
-                        setDocument(result.doc);
-                      }
-                    }}
-                  >
-                    Add annotation
-                  </button>,
-                  <span>
-                    <button
-                      onClick={() => {
-                        const selection = window.getSelection();
-                        if (!selection || selection.isCollapsed) {
-                          return;
-                        }
+                          if (result) {
+                            selection.removeAllRanges();
+                            // @ts-ignore
+                            setDocument(result.doc);
+                          }
+                        }}
+                      >
+                        Add annotation
+                      </button>,
+                      <span>
+                        <button
+                          onClick={() => {
+                            const selection = window.getSelection();
+                            if (!selection || selection.isCollapsed) {
+                              return;
+                            }
 
-                        const valid = actions.isValidAnnotationRange(
-                          selection.getRangeAt(0),
-                        );
+                            const valid = actions.isValidAnnotationRange(
+                              selection.getRangeAt(0),
+                            );
 
-                        if (valid !== selectionValid) {
-                          setSelectionValidity(valid);
-                        }
-                      }}
-                    >
-                      Validate selection
-                    </button>{' '}
-                    Selection valid: {`${selectionValid}`}{' '}
-                  </span>,
-                  <AnnotationSelect
-                    doc={transformer.parse(document)}
-                    onDelete={(annotationId) => {
-                      const result = actions.deleteAnnotation(
-                        annotationId,
-                        'inlineComment',
-                      );
+                            if (valid !== selectionValid) {
+                              setSelectionValidity(valid);
+                            }
+                          }}
+                        >
+                          Validate selection
+                        </button>{' '}
+                        Selection valid: {`${selectionValid}`}{' '}
+                      </span>,
+                      <AnnotationSelect
+                        doc={transformer.parse(document)}
+                        onDelete={(annotationId) => {
+                          const result = actions.deleteAnnotation(
+                            annotationId,
+                            'inlineComment',
+                          );
 
-                      if (result) {
-                        // @ts-ignore
-                        setDocument(result.doc);
-                      }
-                    }}
-                  />,
-                ]}
-              />
-            </div>
-          );
-        }}
-      />
-    </RendererActionsContext>
+                          if (result) {
+                            // @ts-ignore
+                            setDocument(result.doc);
+                          }
+                        }}
+                      />,
+                    ]}
+                  />
+                </AnnotationsWrapper>
+              </div>
+            );
+          }}
+        />
+      </RendererActionsContext>
+    </SmartCardProvider>
   );
 }

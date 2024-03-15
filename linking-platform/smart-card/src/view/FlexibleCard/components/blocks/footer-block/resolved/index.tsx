@@ -19,6 +19,7 @@ const FooterBlockResolvedView: React.FC<FooterBlockProps> = (props) => {
     testId,
     onActionMenuOpenChange,
     size = SmartLinkSize.Medium,
+    hideProvider,
   } = props;
   const context = useFlexibleUiContext();
 
@@ -38,7 +39,7 @@ const FooterBlockResolvedView: React.FC<FooterBlockProps> = (props) => {
 
   return (
     <Block {...props} testId={`${testId}-resolved-view`}>
-      <Provider testId={`${testId}-provider`} />
+      {!hideProvider && <Provider testId={`${testId}-provider`} />}
       {actions && hasActions ? (
         <ElementGroup
           testId="smart-element-group-actions"

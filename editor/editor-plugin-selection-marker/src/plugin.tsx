@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { createPlugin, dispatchShouldHideDecorations } from './pm-plugins/main';
+import {
+  createPlugin,
+  dispatchShouldHideDecorations,
+  key,
+} from './pm-plugins/main';
 import type { SelectionMarkerPlugin } from './types';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
@@ -17,6 +22,33 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
           plugin: () => createPlugin(api),
         },
       ];
+    },
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return undefined;
+      }
+      return {
+        isForcedHidden: key.getState(editorState)?.forceHide ?? false,
+      };
+    },
+
+    actions: {
+      // For now this is a very simple locking mechanism that only allows one
+      // plugin to hide / release at a time.
+      hideDecoration: () => {
+        if (api?.selectionMarker?.sharedState.currentState()?.isForcedHidden) {
+          return undefined;
+        }
+        const success = api?.core?.actions.execute(({ tr }) =>
+          tr.setMeta(key, { forceHide: true }),
+        );
+        if (!success) {
+          return undefined;
+        }
+
+        return cleanupHiddenDecoration(api);
+      },
     },
 
     usePluginHook({ editorView }) {
@@ -39,3 +71,20 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
     },
   };
 };
+
+function cleanupHiddenDecoration(
+  api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined,
+) {
+  let hasRun = false;
+  return () => {
+    if (
+      !hasRun &&
+      api?.selectionMarker?.sharedState.currentState()?.isForcedHidden
+    ) {
+      hasRun = true;
+      return api?.core?.actions.execute(({ tr }) =>
+        tr.setMeta(key, { forceHide: false }),
+      );
+    }
+  };
+}

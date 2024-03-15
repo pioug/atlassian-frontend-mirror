@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 3.2.7
+
+### Patch Changes
+
+- [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644) [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) - Revert input border change from the previous version
+
 ## 3.2.6
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import Drawer from '../../index';
 describe('Drawer', () => {
   it('container should have role="dialog" and aria-modal="true" when opened', () => {
     render(
-      <Drawer isOpen width="wide" testId="drawer">
+      <Drawer isOpen width="wide" testId="drawer" label="Default drawer">
         <code>Drawer contents</code>
       </Drawer>,
     );

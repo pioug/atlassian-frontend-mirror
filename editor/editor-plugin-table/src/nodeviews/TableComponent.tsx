@@ -333,32 +333,36 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const start = getPos() || 0;
     const depth = view.state.doc.resolve(start).depth;
 
-    // TODO - remove this when support is added for nested tables
     if (depth !== 0) {
       return;
     }
 
     const tableNodeWidth = getTableContainerWidth(tableNode);
     const shouldTableScale = tableRenderWidth < tableNodeWidth;
+    if (force || shouldTableScale) {
+      const { width: containerWidthValue } = containerWidth;
+      const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
 
-    const { width: containerWidthValue } = containerWidth;
-    const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
+      const wasTableResized = hasTableBeenResized(this.node);
+      const isTableResied = hasTableBeenResized(tableNode);
+      const isColumnsDistributed = wasTableResized && !isTableResied;
 
-    if (force || (shouldTableScale && !isResizing && isWidthChanged)) {
-      const resizeState = getResizeState({
-        minWidth: COLUMN_MIN_WIDTH,
-        maxSize: tableRenderWidth,
-        table: tableNode,
-        tableRef: this.table,
-        start,
-        domAtPos: view.domAtPos,
-        isTableScalingEnabled: true,
-      });
+      if (force || (!isResizing && (isWidthChanged || isColumnsDistributed))) {
+        const resizeState = getResizeState({
+          minWidth: COLUMN_MIN_WIDTH,
+          maxSize: tableRenderWidth,
+          table: tableNode,
+          tableRef: this.table,
+          start,
+          domAtPos: view.domAtPos,
+          isTableScalingEnabled: true,
+        });
 
-      // Request animation frame required for Firefox
-      requestAnimationFrame(() => {
-        updateColgroup(resizeState, this.table!, tableNode, true);
-      });
+        // Request animation frame required for Firefox
+        requestAnimationFrame(() => {
+          updateColgroup(resizeState, this.table!, tableNode, true);
+        });
+      }
     }
     this.containerWidth = containerWidth;
   }
@@ -372,6 +376,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isResizing,
       options,
       isTableScalingEnabled,
+      getPos,
     } = this.props;
     const { isInDanger } = getPluginState(view.state);
     const table = findTable(view.state.selection);
@@ -426,24 +431,26 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       // If col widths (e.g. via collab) or number of columns (e.g. delete a column) have changed,
       // re-draw colgroup.
       const previousTable = this.node;
+      const isNoOfColumnsChanged = tablesHaveDifferentNoOfColumns(
+        currentTable,
+        previousTable,
+      );
       if (
         tablesHaveDifferentColumnWidths(currentTable, previousTable) ||
-        tablesHaveDifferentNoOfColumns(currentTable, previousTable)
+        isNoOfColumnsChanged
       ) {
         const { view } = this.props;
 
         const shouldRecreateResizeCols =
           !options?.isTableResizingEnabled ||
           !isResizing ||
-          (tablesHaveDifferentNoOfColumns(currentTable, previousTable) &&
-            isResizing);
+          (isNoOfColumnsChanged && isResizing);
 
         if (shouldRecreateResizeCols) {
-          insertColgroupFromNode(
-            this.table,
-            currentTable,
-            isTableScalingEnabled,
-          );
+          const start = getPos() || 0;
+          const depth = view.state.doc.resolve(start).depth;
+          const shouldScale = depth === 0 && isTableScalingEnabled;
+          insertColgroupFromNode(this.table, currentTable, shouldScale);
         }
 
         updateControls()(view.state);

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.2.1
+
+### Patch Changes
+
+- [#81374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81374) [`ae662e160a10`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae662e160a10) - React 18 types for editor-plugin-floating-toolbar
+
 ## 1.2.0
 
 ### Minor Changes

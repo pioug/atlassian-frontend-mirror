@@ -14,4 +14,8 @@ export type FooterBlockProps = {
    * Function to be called when footer action dropdown open state is changed.
    */
   onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void;
+  /**
+   * Allows hiding of the resources provider
+   */
+  hideProvider?: boolean;
 } & BlockProps;

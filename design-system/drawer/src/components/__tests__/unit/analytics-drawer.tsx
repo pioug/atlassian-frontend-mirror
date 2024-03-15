@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import {
@@ -64,20 +64,21 @@ describe('Drawer', () => {
     const myEvent = {};
     const createAnalyticsEventSpy: any = jest.fn(() => myEvent);
     const onCloseSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <DrawerBase
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
         testId="test-drawer"
         width="narrow"
+        label="Default drawer"
       >
         <span>Content</span>
       </DrawerBase>,
     );
 
     expect(createAnalyticsEventSpy).not.toHaveBeenCalled();
-    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+    screen.getByTestId('DrawerPrimitiveSidebarCloseButton').click();
 
     // Should call createAnalyticsEvent with correct payload
     expect(createAnalyticsEventSpy).toHaveBeenCalledWith({
@@ -102,20 +103,21 @@ describe('Drawer', () => {
     const myEvent = {};
     const createAnalyticsEventSpy: any = jest.fn(() => myEvent);
     const onCloseSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <DrawerBase
         createAnalyticsEvent={createAnalyticsEventSpy}
         onClose={onCloseSpy}
         isOpen
         testId="test-drawer"
         width="narrow"
+        label="Default drawer"
       >
         <span>Content</span>
       </DrawerBase>,
     );
 
     // Back button
-    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+    screen.getByTestId('DrawerPrimitiveSidebarCloseButton').click();
 
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
@@ -126,7 +128,7 @@ describe('Drawer', () => {
     );
 
     // Blanket
-    await userEvent.click(getByTestId('test-drawer--blanket'));
+    await userEvent.click(screen.getByTestId('test-drawer--blanket'));
     expect(createAnalyticsEventSpy).toHaveBeenLastCalledWith(
       expect.objectContaining({
         attributes: expect.objectContaining({

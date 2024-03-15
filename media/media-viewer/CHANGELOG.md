@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.3.8
+
+### Patch Changes
+
+- [#80866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80866) [`5f63192be3ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f63192be3ab) - Sanitise file id before logging to prevent PII/UGC leaks
+- Updated dependencies
+
 ## 48.3.7
 
 ### Patch Changes

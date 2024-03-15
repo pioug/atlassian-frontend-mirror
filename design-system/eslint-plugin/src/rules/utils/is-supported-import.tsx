@@ -171,7 +171,13 @@ export const isImportedFrom =
     referencesInScope: Reference[],
     importSources: ImportSource[],
   ): boolean => {
-    if (!importSources.includes(moduleName)) {
+    if (
+      !importSources.some(
+        (importSource) =>
+          importSource === moduleName ||
+          (!exactMatch && importSource.startsWith(moduleName)),
+      )
+    ) {
       // Don't go through the trouble of checking the import sources does not include this
       // We'll assume this is skipped elsewhere.
       return false;

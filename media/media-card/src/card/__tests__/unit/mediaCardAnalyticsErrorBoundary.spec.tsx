@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import MediaCardAnalyticsErrorBoundary from '../../media-card-analytics-error-boundary';
-import * as analyticsModule from '../../../utils/analytics';
+import * as analyticsModule from '../../../utils/analytics/analytics';
 import { UnhandledErrorCard } from '../../ui/unhandledErrorCard';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');

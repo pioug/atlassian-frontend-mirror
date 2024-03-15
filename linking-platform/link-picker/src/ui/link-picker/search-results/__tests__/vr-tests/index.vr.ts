@@ -34,7 +34,23 @@ const options: OptionsType = {
 
 snapshot(DefaultExample, options);
 snapshot(LoadingPlugins, options);
-snapshot(NoResults, options);
-snapshot(ErrorExample, options);
+snapshot(NoResults, {
+  ...options,
+  featureFlags: {
+    'platform.linking-platform.link-picker.remove-dst-empty-state': [
+      true,
+      false,
+    ],
+  },
+});
+snapshot(ErrorExample, {
+  ...options,
+  featureFlags: {
+    'platform.linking-platform.link-picker.remove-dst-empty-state': [
+      true,
+      false,
+    ],
+  },
+});
 snapshot(LoadingResultsWithTabs, options);
 snapshot(ShowingResultsWhileLoadingResults, options);

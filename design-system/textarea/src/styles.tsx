@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, CSSObject } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   codeFontFamily as getCodeFontFamily,
   fontFamily as getFontFamily,
@@ -111,9 +112,13 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
     '&:focus': {
       backgroundColor: backgroundColorFocus[appearance],
       borderColor: borderColorFocus[appearance],
-      boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
-        borderColorFocus[appearance]
-      }`,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-input-border-wdith_5abwv',
+      )
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            borderColorFocus[appearance]
+          }`
+        : undefined,
     },
     '&:not(:focus)': {
       backgroundColor: backgroundColor[appearance],
@@ -123,17 +128,25 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
     '&[data-invalid]:focus': {
       backgroundColor: invalidRules.backgroundColorFocus,
       borderColor: invalidRules.borderColorFocus,
-      boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
-        invalidRules.borderColorFocus
-      }`,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-input-border-wdith_5abwv',
+      )
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            invalidRules.borderColorFocus
+          }`
+        : undefined,
     },
     // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-invalid]:not(:focus)': {
       backgroundColor: invalidRules.backgroundColor,
       borderColor: invalidRules.borderColor,
-      boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
-        invalidRules.borderColor
-      }`,
+      boxShadow: getBooleanFF(
+        'platform.design-system-team.update-input-border-wdith_5abwv',
+      )
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            invalidRules.borderColor
+          }`
+        : undefined,
     },
     // Disabled background and border styles should not be applied to components that
     // have either no background or transparent background to begin with
@@ -173,9 +186,13 @@ const hoverBackgroundAndBorderStyles = (
       '&[data-invalid]': {
         backgroundColor: invalidRules.backgroundColorHover,
         borderColor: invalidRules.borderColor,
-        boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
-          invalidRules.borderColor
-        }`,
+        boxShadow: getBooleanFF(
+          'platform.design-system-team.update-input-border-wdith_5abwv',
+        )
+          ? `inset 0 0 0 ${token('border.width', '1px')} ${
+              invalidRules.borderColor
+            }`
+          : undefined,
       },
     },
   });
@@ -204,7 +221,12 @@ const borderPaddingAndHeightStyles = (
   minimumRows = 1,
   appearance: string | undefined,
 ) => {
-  const borderWidth = appearance !== 'none' ? 1 : 2;
+  const borderWidth =
+    getBooleanFF(
+      'platform.design-system-team.update-input-border-wdith_5abwv',
+    ) && appearance !== 'none'
+      ? 1
+      : 2;
   const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
   const borderHeight = borderWidth;
   return css({
@@ -235,7 +257,11 @@ const staticStyles = css({
   flex: '1 1 100%',
   borderRadius: token('border.radius', '3px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  borderWidth: 1,
+  borderWidth: getBooleanFF(
+    'platform.design-system-team.update-input-border-wdith_5abwv',
+  )
+    ? 1
+    : borderWidth,
   fontSize: fontSize,
   outline: 'none',
   overflow: 'auto',

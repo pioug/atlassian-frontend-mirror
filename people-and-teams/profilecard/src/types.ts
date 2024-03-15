@@ -133,6 +133,9 @@ export interface ProfileCardTriggerProps {
   ariaLabel?: string;
   ariaLabelledBy?: string;
   prepopulatedData?: PrepopulatedData;
+  disabledAriaAttributes?: boolean;
+  onVisibilityChange?: (isVisible: boolean) => void;
+  isVisible?: boolean;
 }
 
 export interface ProfileCardTriggerState {
@@ -352,6 +355,7 @@ export interface ProfilecardProps {
   customLozenges?: LozengeProps[];
   openKudosDrawer?: () => void;
   isTriggeredUsingKeyboard?: boolean;
+  disabledAriaAttributes?: boolean;
 }
 
 export type AnalyticsFromDuration = (duration: number) => AnalyticsEventPayload;

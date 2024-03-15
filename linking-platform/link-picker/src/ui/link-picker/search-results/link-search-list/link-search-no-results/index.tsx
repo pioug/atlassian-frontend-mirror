@@ -3,6 +3,9 @@ import { jsx } from '@emotion/react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import EmptyState from '@atlaskit/empty-state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+import { EmptyState as EmptyStateInternal } from '../../../../../common/ui/empty-state';
 
 import { NoResultsSVG } from './no-results-svg';
 import { emptyStateWrapperStyles } from './styled';
@@ -27,12 +30,24 @@ export const testIds = {
 export const NoResults = () => {
   const intl = useIntl();
 
+  const Component = getBooleanFF(
+    'platform.linking-platform.link-picker.remove-dst-empty-state',
+  )
+    ? EmptyStateInternal
+    : EmptyState;
+
   return (
     <div css={emptyStateWrapperStyles}>
-      <EmptyState
+      <Component
         testId={testIds.emptyResultPage}
         header={intl.formatMessage(messages.noResults)}
-        headingLevel={3}
+        headingLevel={
+          getBooleanFF(
+            'platform.linking-platform.link-picker.remove-dst-empty-state',
+          )
+            ? undefined
+            : 3
+        }
         description={intl.formatMessage(messages.noResultsDescription)}
         renderImage={() => <NoResultsSVG />}
       />

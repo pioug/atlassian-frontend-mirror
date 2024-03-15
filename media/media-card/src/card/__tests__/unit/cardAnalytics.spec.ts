@@ -1,15 +1,3 @@
-jest.mock('../../../utils/analytics', () => {
-  const actualModule = jest.requireActual('../../../utils/analytics');
-  return {
-    __esModule: true,
-    ...actualModule,
-    getRenderFailedFileStatusPayload: jest.fn(() => 'some-failed-payload'),
-    getRenderErrorEventPayload: jest.fn(() => 'some-error-payload'),
-    getRenderSucceededEventPayload: jest.fn(() => 'some-suceeded-payload'),
-    getCopiedFilePayload: jest.fn(() => 'some-copied-payload'),
-    getRenderCommencedEventPayload: jest.fn(() => 'some-commenced-payload'),
-  };
-});
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   fireOperationalEvent,
@@ -22,21 +10,38 @@ import {
   PerformanceAttributes,
   MediaTraceContext,
 } from '@atlaskit/media-common';
-import {
-  getRenderFailedFileStatusPayload,
-  getRenderErrorEventPayload,
-  getRenderSucceededEventPayload,
-  getCopiedFilePayload,
-  getRenderCommencedEventPayload,
-  SSRStatus,
-} from '../../../utils/analytics';
+import * as analyticsModule from '../../../utils/analytics/analytics';
+import type { SSRStatus } from '../../../utils/analytics/analytics';
+
 import { MediaCardError } from '../../../errors';
+
+const getRenderFailedFileStatusPayload = jest.spyOn(
+  analyticsModule,
+  'getRenderFailedFileStatusPayload',
+);
+const getRenderErrorEventPayload = jest.spyOn(
+  analyticsModule,
+  'getRenderErrorEventPayload',
+);
+const getRenderSucceededEventPayload = jest.spyOn(
+  analyticsModule,
+  'getRenderSucceededEventPayload',
+);
+const getCopiedFilePayload = jest.spyOn(
+  analyticsModule,
+  'getCopiedFilePayload',
+);
+const getRenderCommencedEventPayload = jest.spyOn(
+  analyticsModule,
+  'getRenderCommencedEventPayload',
+);
 
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
 const createAnalyticsEvent =
   createAnalyticsEventMock as unknown as CreateUIAnalyticsEvent;
 const fileAttributes = {
+  fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
   some: 'file attributes',
 } as unknown as FileAttributes;
 const performanceAttributes = {
@@ -81,7 +86,29 @@ describe('fireOperationalEvent', () => {
       traceContext,
       metadataTraceContext,
     );
-    expect(createAnalyticsEventMock).toBeCalledWith('some-failed-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'failed',
+      actionSubject: 'mediaCardRender',
+      attributes: {
+        failReason: 'failed-processing',
+        fileAttributes: {
+          fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+          some: 'file attributes',
+        },
+        metadataTraceContext: {
+          spanId: 'some-span-Id',
+          traceId: 'some-trace-Id',
+        },
+        performanceAttributes: { some: 'performance attributes' },
+        ssrReliability: {
+          client: { status: 'success' },
+          server: { status: 'success' },
+        },
+        status: 'fail',
+        traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
+      },
+      eventType: 'operational',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
@@ -107,7 +134,32 @@ describe('fireOperationalEvent', () => {
       traceContext,
       metadataTraceContext,
     );
-    expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'failed',
+      actionSubject: 'mediaCardRender',
+      attributes: {
+        error: 'nativeError',
+        errorDetail: 'upload',
+        failReason: 'upload',
+        fileAttributes: {
+          fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+          some: 'file attributes',
+        },
+        metadataTraceContext: {
+          spanId: 'some-span-Id',
+          traceId: 'some-trace-Id',
+        },
+        performanceAttributes: { some: 'performance attributes' },
+        request: undefined,
+        ssrReliability: {
+          client: { status: 'success' },
+          server: { status: 'success' },
+        },
+        status: 'fail',
+        traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
+      },
+      eventType: 'operational',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
@@ -132,7 +184,32 @@ describe('fireOperationalEvent', () => {
       traceContext,
       metadataTraceContext,
     );
-    expect(createAnalyticsEventMock).toBeCalledWith('some-error-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'failed',
+      actionSubject: 'mediaCardRender',
+      attributes: {
+        error: 'nativeError',
+        errorDetail: 'missing-error-data',
+        failReason: 'missing-error-data',
+        fileAttributes: {
+          fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+          some: 'file attributes',
+        },
+        metadataTraceContext: {
+          spanId: 'some-span-Id',
+          traceId: 'some-trace-Id',
+        },
+        performanceAttributes: { some: 'performance attributes' },
+        request: undefined,
+        ssrReliability: {
+          client: { status: 'success' },
+          server: { status: 'success' },
+        },
+        status: 'fail',
+        traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
+      },
+      eventType: 'operational',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
@@ -156,7 +233,28 @@ describe('fireOperationalEvent', () => {
       traceContext,
       metadataTraceContext,
     );
-    expect(createAnalyticsEventMock).toBeCalledWith('some-suceeded-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'succeeded',
+      actionSubject: 'mediaCardRender',
+      attributes: {
+        fileAttributes: {
+          fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+          some: 'file attributes',
+        },
+        metadataTraceContext: {
+          spanId: 'some-span-Id',
+          traceId: 'some-trace-Id',
+        },
+        performanceAttributes: { some: 'performance attributes' },
+        ssrReliability: {
+          client: { status: 'success' },
+          server: { status: 'success' },
+        },
+        status: 'success',
+        traceContext: { spanId: 'some-span-Id', traceId: 'some-trace-Id' },
+      },
+      eventType: 'operational',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
@@ -174,7 +272,19 @@ describe('fireOperationalEvent', () => {
       performanceAttributes,
       traceContext,
     );
-    expect(createAnalyticsEventMock).toBeCalledWith('some-commenced-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'commenced',
+      actionSubject: 'mediaCardRender',
+      attributes: {
+        fileAttributes: {
+          fileId: '264d2928-44b6-4565-ab73-9d90c96b763d',
+          some: 'file attributes',
+        },
+        performanceAttributes: { some: 'performance attributes' },
+        traceContext: { traceId: 'some-trace-Id' },
+      },
+      eventType: 'operational',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });
@@ -197,7 +307,13 @@ describe('fireCopiedEvent', () => {
     fireCopiedEvent(createAnalyticsEvent, fileId, cardRef);
 
     expect(getCopiedFilePayload).toBeCalledWith(fileId);
-    expect(createAnalyticsEventMock).toBeCalledWith('some-copied-payload');
+    expect(createAnalyticsEventMock).toBeCalledWith({
+      action: 'copied',
+      actionSubject: 'file',
+      actionSubjectId: 'some-file-id',
+      attributes: {},
+      eventType: 'ui',
+    });
     expect(event.fire).toBeCalledTimes(1);
     expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
   });

@@ -1,36 +1,18 @@
-import React from 'react';
+import noop from '@atlaskit/ds-lib/noop';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-import ReactDOM from 'react-dom';
-
-import __noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-// @ts-ignore - global usage
-jest.spyOn(global.console, 'error').mockImplementation(__noop);
-
-afterEach(() => {
-  jest.resetAllMocks();
-});
-
-test('should ssr then hydrate inline-message correctly', async () => {
-  const [example] = await getExamplesFor('inline-message');
-
-  const Example = require(example.filePath).default; // eslint-disable-line import/no-dynamic-require
-
+test('should ssr then hydrate form correctly', async () => {
+  const examplePath = require.resolve('../../../../examples/01-basic.tsx');
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
+  const { html, styles } = await ssr(examplePath);
+  elem.innerHTML = html;
+  hydrate(examplePath, elem, styles);
 
-  ReactDOM.hydrate(<Example />, elem);
-  // ignore warnings caused by emotion's server-side rendering approach
-  // @ts-ignore - no mock object on error
   // eslint-disable-next-line no-console
-  const mockCalls = console.error.mock.calls.filter(
-    ([f, s]: [any, any]) =>
-      !(
-        f ===
-          'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-        s === 'style'
-      ),
-  );
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
 
-  expect(mockCalls.length).toBe(0); // eslint-disable-line no-console
+  cleanup();
+  consoleMock.mockRestore();
 });

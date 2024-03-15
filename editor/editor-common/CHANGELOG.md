@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 78.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.14.0
+
+### Minor Changes
+
+- [#80901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80901) [`dca34a53d8ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dca34a53d8ff) - [ux] Adds back lozenges to inline macros for visual update project and updates some styles/tests
+
+## 78.13.1
+
+### Patch Changes
+
+- [#81133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81133) [`ad1f563ea96b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad1f563ea96b) - [ux] ED-22503 Styling for annotations on the inline card for edit and render view
+
 ## 78.13.0
 
 ### Minor Changes

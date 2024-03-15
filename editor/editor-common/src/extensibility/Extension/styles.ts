@@ -70,14 +70,11 @@ export const lozengeWrapper = css({
   display: 'flex',
   justifyContent: 'left',
   width: '100%',
-  /* -0.75rem neutralizes the margin top coming from extensionView-content-wrap.
-   The lozenge takes up space so we don't need the extra padding anymore. */
-  marginTop: token('space.negative.150', '-0.75rem'),
   marginLeft: token('space.050', '4px'),
-  marginBottom: token('space.negative.050', '-4px'),
-  // Using opacity so that lozenge takes up space and doesn't cause shift on render
-  opacity: '0',
-  '&.show-lozenge': {
-    opacity: '1',
+  position: 'absolute',
+  top: token('space.negative.300', '-24px'),
+  '&.inline-extension': {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+    top: '-23px', // Unfortunately, this needs to be this exact number - otherwise there will be a gap/noticeable overlap
   },
 });

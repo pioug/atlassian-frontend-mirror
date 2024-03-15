@@ -15,7 +15,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 import { render, waitFor } from '@testing-library/react';
-import * as analyticsModule from '../../../utils/analytics';
+import * as analyticsModule from '../../../utils/analytics/analytics';
 
 describe('<MediaInlineCard />', () => {
   const identifier: FileIdentifier = {

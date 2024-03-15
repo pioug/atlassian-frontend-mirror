@@ -106,17 +106,27 @@ describe(`Editor`, () => {
     it('should not have any unknown console errors on mount', () => {
       const knownErrors = ['The pseudo class ":first-child" is potentially'];
       jest.clearAllMocks();
-      const consoleErrorSpy = jest.spyOn(console, 'error');
+      const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+      const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
       render(<Editor allowAnalyticsGASV3 />);
       const calls = consoleErrorSpy.mock.calls
         .map((call) => call[0])
         .filter((call) => !knownErrors.some((error) => call.startsWith(error)));
       expect(calls.length).toBe(0);
       consoleErrorSpy.mockRestore();
+      consoleWarnSpy.mockRestore();
     });
   });
 
   describe('callbacks', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     it('should fire onChange when text is inserted', async () => {
       let instance: EditorActions | undefined;
       const handleChange = jest.fn();
@@ -175,7 +185,7 @@ describe(`Editor`, () => {
       // github.com/facebook/react/issues/7047
       // https://github.com/facebook/prop-types/blob/be165febc8133dfbe2c45133db6d25664dd68ad8/checkPropTypes.js#L47-L50
       it('should minHeight prop error for full-page', () => {
-        const consoleErrorSpy = jest.spyOn(console, 'error');
+        const consoleErrorSpy = global.console.error as jest.Mock;
         render(<Editor appearance="full-page" minHeight={250} />);
 
         expect(consoleErrorSpy.mock.calls.length).toBeGreaterThan(0);
@@ -190,8 +200,6 @@ describe(`Editor`, () => {
             ),
           ]),
         );
-
-        consoleErrorSpy.mockRestore();
       });
 
       it('should fire onCancel when Cancel is clicked', () => {
@@ -213,6 +221,14 @@ describe(`Editor`, () => {
   });
 
   describe('react-intl-next', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     describe('when IntlProvider is not in component ancestry', () => {
       const renderEditor = () => render(<Editor onSave={() => {}} />);
       it('should not throw an error', () => {
@@ -246,6 +262,14 @@ describe(`Editor`, () => {
   });
 
   describe('save on enter', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     it('should fire onSave when user presses Enter', () => {
       let instance: EditorActions | undefined;
       const handleSave = jest.fn();
@@ -272,6 +296,14 @@ describe(`Editor`, () => {
   });
 
   describe('submit-editor (save on mod-enter)', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     it('should fire onSave when user presses Enter', () => {
       let instance: EditorActions | undefined;
       const handleSave = jest.fn();
@@ -298,6 +330,14 @@ describe(`Editor`, () => {
   });
 
   describe('analytics', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     const mockAnalyticsClient = (
       analyticsAppearance: EDITOR_APPEARANCE_CONTEXT,
       done: jest.DoneCallback,
@@ -717,7 +757,13 @@ describe(`Editor`, () => {
   });
 
   describe('ufo', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
     afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
       jest.clearAllMocks();
     });
 
@@ -819,6 +865,14 @@ describe(`Editor`, () => {
   });
 
   describe('providerFactory passed to ReactEditorView', () => {
+    beforeEach(() => {
+      jest.spyOn(global.console, 'error').mockImplementation();
+      jest.spyOn(global.console, 'warn').mockImplementation();
+    });
+    afterEach(() => {
+      (global.console.error as jest.Mock).mockRestore();
+      (global.console.warn as jest.Mock).mockRestore();
+    });
     const setup = (
       useCollabEditObject: boolean = false,
       defineExtensionsProvider: boolean = true,
@@ -1150,6 +1204,14 @@ describe(`Editor`, () => {
 });
 
 describe('setting default props as expected', () => {
+  beforeEach(() => {
+    jest.spyOn(global.console, 'error').mockImplementation();
+    jest.spyOn(global.console, 'warn').mockImplementation();
+  });
+  afterEach(() => {
+    (global.console.error as jest.Mock).mockRestore();
+    (global.console.warn as jest.Mock).mockRestore();
+  });
   it('should set default behaviour for ', () => {
     const componentSpy = jest.spyOn(
       featureFlagsFromProps,

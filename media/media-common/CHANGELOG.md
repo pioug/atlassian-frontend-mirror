@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 11.1.0
+
+### Minor Changes
+
+- [#80866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80866) [`4ecbec4ed2f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ecbec4ed2f1) - Exposes utility to sanitise event log payloads
+
 ## 11.0.0
 
 ### Major Changes

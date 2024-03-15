@@ -31,7 +31,7 @@
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/datetime-picker": "^13.2.0",
-    "@atlaskit/editor-common": "^78.13.0",
+    "@atlaskit/editor-common": "^78.14.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-context-identifier": "^1.0.0",

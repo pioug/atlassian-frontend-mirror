@@ -1,5 +1,17 @@
 # @atlaskit/embedded-document
 
+## 0.9.26
+
+### Patch Changes
+
+- [#81438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81438) [`1baa2be11bcc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1baa2be11bcc) - React 18 types for embedded document
+
+## 0.9.25
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.9.24
 
 ### Patch Changes

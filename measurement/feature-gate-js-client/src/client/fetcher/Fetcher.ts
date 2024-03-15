@@ -3,6 +3,7 @@ import {
   CustomAttributes,
   FeatureGateEnvironment,
   Identifiers,
+  PerimeterType,
 } from '../types';
 import { CLIENT_VERSION } from '../version';
 
@@ -17,13 +18,21 @@ const DEFAULT_REQUEST_TIMEOUT_MS = 2000;
 
 const PROD_BASE_URL = 'https://api.atlassian.com/flags';
 const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';
-const DEV_BASE_URL = 'https://api.dev.atlassian.com/flags';
+export const DEV_BASE_URL = 'https://api.dev.atlassian.com/flags';
+export const FEDM_STAGING_BASE_URL =
+  'https://api.stg.atlassian-us-gov-mod.com/flags';
+export const FEDM_PROD_BASE_URL = 'https://api.atlassian-us-gov-mod.com/flags';
 
-const GATEWAY_BASE_URL = '/gateway/api/flags';
+export const GATEWAY_BASE_URL = '/gateway/api/flags';
 
 export type FetcherOptions = Pick<
   ClientOptions,
-  'apiKey' | 'fetchTimeoutMs' | 'environment' | 'useGatewayURL' | 'targetApp'
+  | 'apiKey'
+  | 'fetchTimeoutMs'
+  | 'environment'
+  | 'useGatewayURL'
+  | 'targetApp'
+  | 'perimeter'
 >;
 
 type Method = 'GET' | 'POST';
@@ -94,18 +103,34 @@ export default class Fetcher {
   private static getBaseUrl(
     serviceEnv: FeatureGateEnvironment,
     useGatewayUrl: boolean = false,
+    perimeter: PerimeterType = PerimeterType.COMMERCIAL,
   ): string {
     if (useGatewayUrl) {
       return GATEWAY_BASE_URL;
     }
 
-    switch (serviceEnv) {
-      case FeatureGateEnvironment.Development:
-        return DEV_BASE_URL;
-      case FeatureGateEnvironment.Staging:
-        return STAGING_BASE_URL;
-      default:
-        return PROD_BASE_URL;
+    if (perimeter === PerimeterType.FEDRAMP_MODERATE) {
+      switch (serviceEnv) {
+        case FeatureGateEnvironment.Production:
+          return FEDM_PROD_BASE_URL;
+        case FeatureGateEnvironment.Staging:
+          return FEDM_STAGING_BASE_URL;
+        default:
+          throw new Error(
+            `Invalid environment "${serviceEnv}" for "${perimeter}" perimeter`,
+          );
+      }
+    } else if (perimeter === PerimeterType.COMMERCIAL) {
+      switch (serviceEnv) {
+        case FeatureGateEnvironment.Development:
+          return DEV_BASE_URL;
+        case FeatureGateEnvironment.Staging:
+          return STAGING_BASE_URL;
+        default:
+          return PROD_BASE_URL;
+      }
+    } else {
+      throw new Error(`Invalid perimeter "${perimeter}"`);
     }
   }
 
@@ -118,6 +143,7 @@ export default class Fetcher {
     const baseUrl = Fetcher.getBaseUrl(
       fetcherOptions.environment,
       fetcherOptions.useGatewayURL,
+      fetcherOptions.perimeter,
     );
 
     const fetchTimeout =

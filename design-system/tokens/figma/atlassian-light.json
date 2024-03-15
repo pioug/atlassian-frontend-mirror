@@ -647,7 +647,7 @@
         "introduced": "0.6.0",
         "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "#8590A2"
+      "value": "#091E4224"
     },
     "Light/color.border.inverse": {
       "attributes": {

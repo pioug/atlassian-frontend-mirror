@@ -28,7 +28,9 @@ export type ThemeFileNames = Themes;
  * theme files/folders are called. style-dictionary will attempt to locate these in the file-system.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-export type ThemeOverrides = Themes;
+export type ThemeOverrides =
+  | 'atlassian-light-new-input-border'
+  | 'atlassian-dark-new-input-border';
 
 /**
  * Theme kinds: The type of theme.
@@ -81,7 +83,10 @@ export type ThemeIds = (typeof themeIds)[number];
  * Theme override ids: the equivalent of themeIds for theme overrides.
  * Theme overrides are temporary and there may not be any defined at times.
  */
-export const themeOverrideIds = [] as const;
+export const themeOverrideIds = [
+  'light-new-input-border',
+  'dark-new-input-border',
+] as const;
 
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
@@ -257,6 +262,26 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
     palette: 'shapePalette',
     attributes: {
       type: 'shape',
+    },
+  },
+  'atlassian-light-new-input-border': {
+    id: 'light-new-input-border',
+    displayName: 'Light Theme New Input Border',
+    palette: 'defaultPalette',
+    override: 'light',
+    attributes: {
+      type: 'color',
+      mode: 'light',
+    },
+  },
+  'atlassian-dark-new-input-border': {
+    id: 'dark-new-input-border',
+    displayName: 'Dark Theme New Input Border',
+    palette: 'defaultPalette',
+    override: 'dark',
+    attributes: {
+      type: 'color',
+      mode: 'dark',
     },
   },
   'atlassian-typography-minor3': {

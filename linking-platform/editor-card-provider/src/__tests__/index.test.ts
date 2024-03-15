@@ -45,7 +45,11 @@ const getMockProvidersResponse = ({
         },
         {
           source:
-            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/(timeline|roadmap|list)\\/?',
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/(list)\\/?',
+        },
+        {
+          source:
+            '^https:\\/\\/.*?\\.jira-dev\\.com\\/jira\\/software\\/(c\\/)?projects\\/([^\\/]+?)\\/boards\\/(\\d+)\\/(timeline|roadmap)\\/?',
         },
         {
           source:
@@ -568,7 +572,7 @@ describe('providers > editor', () => {
     ],
     [
       'Jira list embed',
-      'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/boards/3186/list',
+      'https://jdog.jira-dev.com/jira/software/c/projects/DL39857/list',
     ],
   ])(
     'returns embedCard when %s link inserted, calling /providers endpoint',

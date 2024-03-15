@@ -66,6 +66,10 @@ export default () => (
         makeDownloadActionItem(),
         makeViewActionItem(),
       ])}
+      <h5>Hide provider</h5>
+      <FlexibleCard cardState={getCardState()} url="link-url">
+        <FooterBlock hideProvider={true} />
+      </FlexibleCard>
       {Object.values(SmartLinkSize).map((size) => (
         <React.Fragment>
           <h5>Size: {size}</h5>

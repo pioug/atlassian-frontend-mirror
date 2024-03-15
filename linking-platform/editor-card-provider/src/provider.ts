@@ -50,9 +50,7 @@ const isJwmView = (url: string) =>
   );
 
 const isJiraList = (url: string) =>
-  url.match(
-    /^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/boards\/.*?\/(list)\/?/,
-  );
+  url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/list\/?/);
 
 const isGiphyMedia = (url: string) =>
   url.match(/^https:\/\/(.*?\.)?giphy\.com\/(gifs|media|clips)\//);

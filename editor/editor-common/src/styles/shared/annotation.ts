@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -24,25 +25,69 @@ const mediaNodeDomRef = 'mediaView-content-wrap';
 const Y75a = 'rgba(255, 240, 179, 0.5)';
 const Y200a = 'rgba(255, 196, 0, 0.82)';
 
-export const AnnotationSharedCSSByState = () => ({
-  focus: css({
-    // Background is not coming through in confluence, suspecting to be caused by some specific combination of
-    // emotion and token look up
-    background: token('color.background.accent.yellow.subtler', Y75),
-    borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
-    // TODO: https://product-fabric.atlassian.net/browse/DSP-4147
-    boxShadow: token(
-      'elevation.shadow.overlay',
-      `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
-    ),
-    cursor: 'pointer',
-  }),
-  blur: css({
-    background: token('color.background.accent.yellow.subtlest', Y75a),
-    borderBottom: `2px solid ${token('color.border.accent.yellow', Y200a)}`,
-    cursor: 'pointer',
-  }),
-});
+export const AnnotationSharedCSSByState = () =>
+  getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+    ? {
+        focus: css({
+          background: token('color.background.accent.yellow.subtler', Y75),
+          borderBottom: `2px solid ${token(
+            'color.border.accent.yellow',
+            Y300,
+          )}`,
+          boxShadow: token(
+            'elevation.shadow.overlay',
+            `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
+          ),
+          cursor: 'pointer',
+          '&:has(.card)': {
+            fontSize: '1.5rem',
+            lineHeight: '1.2rem',
+            '& > *': {
+              fontSize: '16px',
+            },
+          },
+        }),
+        blur: css({
+          background: token('color.background.accent.yellow.subtlest', Y75a),
+          borderBottom: `2px solid ${token(
+            'color.border.accent.yellow',
+            Y200a,
+          )}`,
+          cursor: 'pointer',
+          '&:has(.card)': {
+            fontSize: '1.5rem',
+            lineHeight: '1.2rem',
+            '& > *': {
+              fontSize: '16px',
+            },
+          },
+        }),
+      }
+    : {
+        focus: css({
+          // Background is not coming through in confluence, suspecting to be caused by some specific combination of
+          // emotion and token look up
+          background: token('color.background.accent.yellow.subtler', Y75),
+          borderBottom: `2px solid ${token(
+            'color.border.accent.yellow',
+            Y300,
+          )}`,
+          // TODO: https://product-fabric.atlassian.net/browse/DSP-4147
+          boxShadow: token(
+            'elevation.shadow.overlay',
+            `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
+          ),
+          cursor: 'pointer',
+        }),
+        blur: css({
+          background: token('color.background.accent.yellow.subtlest', Y75a),
+          borderBottom: `2px solid ${token(
+            'color.border.accent.yellow',
+            Y200a,
+          )}`,
+          cursor: 'pointer',
+        }),
+      };
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState()` is not safe in object syntax
 export const annotationSharedStyles = () => css`

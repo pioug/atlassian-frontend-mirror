@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   B300,
@@ -10,6 +11,7 @@ import {
   N100,
   N20,
   N30,
+  N40,
   N70,
   N80,
   N900,
@@ -56,7 +58,11 @@ const labelStyles = css({
   /**
    * Border
    */
-  '--local-border': token('color.border.input', N100),
+  '--local-border': getBooleanFF(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+  )
+    ? token('color.border.bold', N100)
+    : token('color.border.input', N40),
   '--local-border-active': token('color.border', B50),
   '--local-border-checked': token('color.background.selected.bold', B400),
   '--local-border-checked-hover': token(
@@ -66,7 +72,11 @@ const labelStyles = css({
   '--local-border-checked-invalid': token('color.border.danger', R300),
   '--local-border-disabled': token('color.background.disabled', N20),
   '--local-border-focus': token('color.border.focused', B200),
-  '--local-border-hover': token('color.border.input', N100),
+  '--local-border-hover': getBooleanFF(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+  )
+    ? token('color.border.bold', N100)
+    : token('color.border.input', N40),
   '--local-border-invalid': token('color.border.danger', R300),
   /**
    * Tick

@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::a864eebb4b6c6a7b69e574ffcfd21756>>
+ * @codegen <<SignedSource::f9a739fee346961a6a7efda6c143437c>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs = [
@@ -7839,33 +7839,6 @@ export const generatedPairs = [
     desiredContrast: 3,
   },
   {
-    foreground: 'color.border.input',
-    background: 'color.background.input',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'color.background.input.hovered',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'color.background.input.pressed',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
     foreground: 'color.border.inverse',
     background: 'color.background.accent.lime.bolder',
     desiredContrast: 3,
@@ -19591,78 +19564,6 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.border.focused',
-    background: 'elevation.surface.sunken',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.hovered',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.pressed',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.overlay',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.raised',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.raised.hovered',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
-    background: 'elevation.surface.raised.pressed',
-    desiredContrast: 3,
-    layeredTokens: [
-      'color.background.neutral.subtle',
-      'color.background.neutral',
-    ],
-  },
-  {
-    foreground: 'color.border.input',
     background: 'elevation.surface.sunken',
     desiredContrast: 3,
     layeredTokens: [

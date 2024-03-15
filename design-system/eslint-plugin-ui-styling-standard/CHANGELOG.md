@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.6.0
+
+### Minor Changes
+
+- [#81459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81459) [`08abd3b15614`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08abd3b15614) - Adds `no-classname-prop` rule which prevents the use of `className` in JSX.
+
+## 0.5.2
+
+### Patch Changes
+
+- [#81702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81702) [`04e7850f449c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/04e7850f449c) - Adding a missing LICENSE for this package, updating from "UNLICENSED" to make it clear this is available for use.
+
 ## 0.5.1
 
 ### Patch Changes

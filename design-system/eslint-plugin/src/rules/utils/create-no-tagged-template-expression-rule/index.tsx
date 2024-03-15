@@ -5,7 +5,7 @@ import type { Rule } from 'eslint';
 
 import {
   getImportSources,
-  isStyledComponents,
+  isEmotion,
   SupportedNameChecker,
 } from '../is-supported-import';
 
@@ -49,8 +49,6 @@ export const createNoTaggedTemplateExpressionRule =
         if (!isUsage(node.tag, references, importSources)) {
           return;
         }
-
-        const isSC = isStyledComponents(node.tag, references, importSources);
 
         context.report({
           messageId,
@@ -105,15 +103,22 @@ export const createNoTaggedTemplateExpressionRule =
               return;
             }
 
-            // TODO: We might want to similarly disallow `styled.div({ color: props => props.color })` for SC as it's broken too (both type and functionality)
-            // Alternatively, autofix it to `styled.div(props => ({ color: props.color }))`?
-            if (
-              (isSC && /\$\{.*:[\s]*\{/.test(newCode)) ||
-              /\$\{.*\(.*:[\s]*\{/.test(newCode)
-            ) {
+            // For styles like `position: initial !important`,
+            // Emotion can give typechecking errors when using object syntax
+            // due to csstype being overly strict
+            const usesEmotion = isEmotion(node.tag, references, importSources);
+            if (usesEmotion && !!newCode.match(/!\s*important/gm)) {
+              return;
+            }
+
+            // For styled-components, we might also want to similarly disallow or autofix `styled.div({ color: props => props.color })` as it's broken too (both type and functionality). This is tracked in https://product-fabric.atlassian.net/browse/USS-26.
+            if (/\$\{.*:[\s]*\{/.test(newCode)) {
               /**
-               * If we find a variable in a selector when migrating `styled-components` code, we skip it.
-               * This is because `styled-components@3.x` does not support the syntax.
+               * If we find a variable in a selector, we skip it. There are two reasons:
+               *
+               * - `styled-components@3.x` does not support variables in a selector (see the first example).
+               *
+               * - We cannot guarantee that the contents of an function call is actually a selector, and not a CSS block (see the third example).
                *
                * @examples
                * ```tsx
@@ -121,9 +126,19 @@ export const createNoTaggedTemplateExpressionRule =
                *   & + ${Button} { color: red; }
                * `;
                * ```
-               *```tsx
+               *
+               * ```tsx
                * const Component = styled.div`
                *   ${mixin()} button { color: red; }
+               * `;
+               * ```
+               *
+               * ```tsx
+               * const styles = `&:active { color: blue; }`;
+               * const Component = styled.div`
+               *   ${styles} &:hover {
+               *     color: red;
+               *   }
                * `;
                * ```
                */

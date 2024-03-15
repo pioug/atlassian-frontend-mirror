@@ -45,7 +45,7 @@ export interface AnalyticsWebClient {
  * @property {FeatureGateEnvironment} environment - The environment for the client.
  * @property {string} targetApp - The target app for the client.
  * @property {AnalyticsWebClient} analyticsWebClient - The analytics web client.
- *
+ * @property {PerimeterType} perimeter - The perimeter for the client.
  */
 interface BaseClientOptions
   extends Omit<
@@ -59,6 +59,7 @@ interface BaseClientOptions
   targetApp: string;
   updateUserCompletionCallback?: UpdateUserCompletionCallback;
   analyticsWebClient?: Promise<AnalyticsWebClient>;
+  perimeter?: PerimeterType;
 }
 
 /**
@@ -90,6 +91,11 @@ export enum FeatureGateEnvironment {
   Development = 'development',
   Staging = 'staging',
   Production = 'production',
+}
+
+export enum PerimeterType {
+  COMMERCIAL = 'commercial',
+  FEDRAMP_MODERATE = 'fedramp-moderate',
 }
 
 export type GetExperimentOptions = {

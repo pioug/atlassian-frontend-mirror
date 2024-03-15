@@ -6,7 +6,14 @@ import type FeatureGates from '../client';
 import type {
   FeatureGateEnvironment as FeatureGateEnvironmentType,
   Identifiers,
+  PerimeterType as PerimeterTypeType,
 } from '../client';
+import {
+  DEV_BASE_URL,
+  FEDM_PROD_BASE_URL,
+  GATEWAY_BASE_URL,
+} from '../client/fetcher/Fetcher';
+import { ClientOptions } from '../client/types';
 
 describe('FeatureGate client Statsig integration test', () => {
   const MOCK_CLIENT_SDK_KEY = 'client-mockSdkKey';
@@ -36,6 +43,7 @@ describe('FeatureGate client Statsig integration test', () => {
 
   let FeatureGatesClass: typeof FeatureGates;
   let FeatureGateEnvironment: typeof FeatureGateEnvironmentType;
+  let PerimeterType: typeof PerimeterTypeType;
   let StatsigClass: typeof StatsigType;
   let statsigInitSpy: jest.SpyInstance;
 
@@ -53,6 +61,7 @@ describe('FeatureGate client Statsig integration test', () => {
       const FG_API = jest.requireActual('../client/index');
       FeatureGatesClass = FG_API.default;
       FeatureGateEnvironment = FG_API.FeatureGateEnvironment;
+      PerimeterType = FG_API.PerimeterType;
       const S_API = jest.requireActual('statsig-js-lite');
       StatsigClass = S_API.default;
     });
@@ -80,6 +89,9 @@ describe('FeatureGate client Statsig integration test', () => {
 
     afterEach(() => {
       fetchMock.resetMocks();
+    });
+
+    afterAll(() => {
       jest.resetAllMocks();
     });
 
@@ -97,7 +109,23 @@ describe('FeatureGate client Statsig integration test', () => {
         },
       );
 
+      expect(fetchMock).toHaveBeenCalledWith(
+        `${DEV_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`, // commercial base url for environment
+        expect.objectContaining({}),
+      );
+
       expectTestCohortNotEnrolled();
+    });
+
+    test('initialize successfully with commercial perimeter specified', async () => {
+      await initializeFeatureGates(TEST_IDENTIFIERS, {
+        perimeter: PerimeterType.COMMERCIAL,
+      });
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        `${DEV_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`, // commercial base url for environment
+        expect.objectContaining({}),
+      );
     });
 
     test('initialize successfully with default key because invalid key was provided', async () => {
@@ -284,14 +312,98 @@ describe('FeatureGate client Statsig integration test', () => {
 
       expectTestCohortNotEnrolled();
     });
+
+    describe('initialize in fedramp-moderate perimeter', function () {
+      beforeEach(() => {
+        fetchMock.resetMocks();
+        fetchMock
+          .mockResponseOnce(
+            JSON.stringify({
+              clientSdkKey: MOCK_CLIENT_SDK_KEY,
+            }),
+            { status: 200 },
+          )
+          .mockResponseOnce(
+            JSON.stringify({
+              experimentValues: TEST_INITIALIZE_VALUES,
+            }),
+            { status: 200 },
+          );
+      });
+
+      test('initialize fails for fedramp-moderate perimeter and FeatureGateEnvironment.Development', async () => {
+        await expect(
+          initializeFeatureGates(TEST_IDENTIFIERS, {
+            environment: FeatureGateEnvironment.Development, // not valid for fedramp-moderate perimeter
+            perimeter: PerimeterType.FEDRAMP_MODERATE,
+          }),
+        ).rejects.toThrow(
+          'Invalid environment "development" for "fedramp-moderate" perimeter',
+        );
+        expect(fetchMock).not.toHaveBeenCalled();
+      });
+
+      test('initialize succeeds for fedramp-moderate perimeter and FeatureGateEnvironment.Production', async () => {
+        await initializeFeatureGates(TEST_IDENTIFIERS, {
+          environment: FeatureGateEnvironment.Production,
+          perimeter: PerimeterType.FEDRAMP_MODERATE,
+        });
+        expect(statsigInitSpy).toHaveBeenCalledTimes(1);
+        expect(statsigInitSpy).toHaveBeenCalledWith(
+          MOCK_CLIENT_SDK_KEY,
+          TEST_STATSIG_USER,
+          {
+            ...TEST_STATSIG_OPTIONS,
+            environment: {
+              tier: 'production',
+            },
+            disableAllLogging: true, // disableAllLogging in FedRAMP
+            initializeValues: TEST_INITIALIZE_VALUES, // with initializeValues
+            apiKey: API_KEY, // apiKey added
+          },
+        );
+
+        // call FFS with base url for environment and perimeter
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${FEDM_PROD_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+          expect.objectContaining({}),
+        );
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${FEDM_PROD_BASE_URL}/api/v2/frontend/experimentValues`,
+          expect.objectContaining({}),
+        );
+      });
+
+      test('useGatewayUrl takes precedence over perimeter and environment to build FFS base url', async () => {
+        await initializeFeatureGates(TEST_IDENTIFIERS, {
+          environment: FeatureGateEnvironment.Production,
+          useGatewayURL: true,
+          perimeter: PerimeterType.FEDRAMP_MODERATE,
+        });
+
+        // call FFS using gateway base url
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${GATEWAY_BASE_URL}/api/v2/frontend/clientSdkKey/jira_web`,
+          expect.objectContaining({}),
+        );
+        expect(fetchMock).toHaveBeenCalledWith(
+          `${GATEWAY_BASE_URL}/api/v2/frontend/experimentValues`,
+          expect.objectContaining({}),
+        );
+      });
+    });
   });
 
-  function initializeFeatureGates(identifiers: Identifiers) {
+  function initializeFeatureGates(
+    identifiers: Identifiers,
+    clientOptions: Partial<ClientOptions> = {},
+  ) {
     return FeatureGatesClass.initialize(
       {
         apiKey: API_KEY,
         environment: FeatureGateEnvironment.Development,
         targetApp: TARGET_APP,
+        ...clientOptions,
       },
       identifiers,
       undefined,

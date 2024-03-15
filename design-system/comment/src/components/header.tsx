@@ -67,7 +67,7 @@ const Header: FC<HeaderProps> = ({
         {edited || null}
         {isSaving ? savingText : null}
         {restrictedTo && (
-          <Text variant="body" color="color.text.subtlest" as="span">
+          <Text color="color.text.subtlest">
             <Inline alignBlock="center" space="space.050" as="span">
               &bull;
               <LockFilledIcon label="" size="small" />

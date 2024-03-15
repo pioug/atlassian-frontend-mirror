@@ -1,5 +1,11 @@
 # @atlaskit/badge
 
+## 15.2.5
+
+### Patch Changes
+
+- [#81805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81805) [`36d7e564977a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36d7e564977a) - Explicitly coerce value in `getSafeValue` utility function to improve compatibility with TypeScript 5
+
 ## 15.2.4
 
 ### Patch Changes

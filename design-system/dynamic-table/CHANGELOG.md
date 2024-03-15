@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.15.0
+
+### Minor Changes
+
+- [#81321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81321) [`2579643f7ac8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2579643f7ac8) - Dynamic table now respects test IDs when passed in at the cell level. Note that there are no prefixes applied to this test ID. It is assumed that if you are providing a test ID at the cell level, you are wanting to target a single cell in an isolated context. If you're looking to gain insight to a particular cell in the context of its surrounding elements, it might be preferrable to supply a test ID to the root of the table and use the generated test IDs for querying instead.
+
 ## 14.14.0
 
 ### Minor Changes

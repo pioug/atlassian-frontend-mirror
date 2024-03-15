@@ -1,12 +1,7 @@
 import { GasCorePayload } from '@atlaskit/analytics-gas-types';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context/MediaAnalyticsContext';
 
-import {
-  MediaType,
-  FileStatus,
-  WithMediaFeatureFlags,
-  MediaTraceContext,
-} from '..';
+import { MediaType, FileStatus, WithMediaFeatureFlags } from '..';
 
 // Base Media Analytics Event Shape
 export type BaseAttributes = {};
@@ -50,6 +45,11 @@ export type WithFileAttributes = {
 
 export type WithPerformanceAttributes = {
   performanceAttributes?: PerformanceAttributes;
+};
+
+export type MediaTraceContext = {
+  traceId: string;
+  spanId?: string;
 };
 
 export type WithTraceContext = {

@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import {
   DefaultCreateWithEditButton,
   DefaultCreateWithModal,
+  DefaultCreateWithModalHero,
   DefaultCreateWithModalTitle,
 } from '../../examples/vr/vr-create-modal';
 
@@ -33,3 +34,4 @@ const options: OptionsType = {
 snapshot(DefaultCreateWithModal, options);
 snapshot(DefaultCreateWithModalTitle, options);
 snapshot(DefaultCreateWithEditButton, options);
+snapshot(DefaultCreateWithModalHero, options);

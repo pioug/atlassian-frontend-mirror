@@ -34,6 +34,9 @@
             "path": "../../../helpers/frontend-utilities/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/heading/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
@@ -47,6 +50,9 @@
         },
         {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"

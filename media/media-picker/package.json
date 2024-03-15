@@ -39,7 +39,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.0.0",
+    "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-ui": "^25.4.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.41.0",

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 1.1.1
+
+### Patch Changes
+
+- [#81374](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81374) [`1aa1f97dd341`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1aa1f97dd341) - React 18 types for editor-plugin-help-dialog
+
 ## 1.1.0
 
 ### Minor Changes

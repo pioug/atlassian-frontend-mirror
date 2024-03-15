@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { useMemo, useCallback } from 'react';
+import type { MouseEvent } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
@@ -9,6 +10,7 @@ import type {
   AnnotationDataAttributes,
 } from '@atlaskit/adf-schema';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- `AnnotationSharedCSSByState` is not object-safe
 const markStyles = () => css`
@@ -26,14 +28,14 @@ const markStyles = () => css`
   }
 `;
 
-type MarkComponentProps = React.PropsWithChildren<{
+type MarkComponentProps = {
   id: AnnotationId;
   annotationParentIds: AnnotationId[];
   dataAttributes: AnnotationDataAttributes;
   state: AnnotationMarkStates | null;
   hasFocus: boolean;
   onClick: (props: OnAnnotationClickPayload) => void;
-}>;
+};
 export const MarkComponent = ({
   annotationParentIds,
   children,
@@ -42,13 +44,13 @@ export const MarkComponent = ({
   state,
   hasFocus,
   onClick,
-}: MarkComponentProps) => {
+}: React.PropsWithChildren<MarkComponentProps>) => {
   const annotationIds = useMemo(
     () => [...new Set([...annotationParentIds, id])],
     [id, annotationParentIds],
   );
   const onMarkClick = useCallback(
-    (event: React.MouseEvent) => {
+    (event: MouseEvent) => {
       // prevents multiple callback on overlapping annotations
       if (event.defaultPrevented || state !== AnnotationMarkStates.ACTIVE) {
         return;
@@ -56,6 +58,11 @@ export const MarkComponent = ({
 
       // prevents from opening link URL inside webView in Safari
       event.preventDefault();
+      if (
+        getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+      ) {
+        event.stopPropagation();
+      }
 
       onClick({ eventTarget: event.target as HTMLElement, annotationIds });
     },
@@ -76,7 +83,19 @@ export const MarkComponent = ({
           'aria-details': annotationIds.join(', '),
         };
 
-  return (
+  return getBooleanFF(
+    'platform.editor.allow-inline-comments-for-inline-nodes',
+  ) ? (
+    <mark
+      id={id}
+      onClickCapture={onMarkClick}
+      {...accessibility}
+      {...overriddenData}
+      css={markStyles}
+    >
+      {children}
+    </mark>
+  ) : (
     <mark
       id={id}
       onClick={onMarkClick}

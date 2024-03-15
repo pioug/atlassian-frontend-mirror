@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.34.3
+
+### Patch Changes
+
+- [#81158](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81158) [`d08a50c6d90b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d08a50c6d90b) - Updates empty states to no longer use the `@atlaskit/empty-state` component in order to leverage Heading Provider from `@atlaskit/heading`, behind ff
+
 ## 1.34.2
 
 ### Patch Changes

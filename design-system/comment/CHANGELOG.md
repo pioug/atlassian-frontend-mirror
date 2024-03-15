@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.9.5
+
+### Patch Changes
+
+- [#81385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81385) [`3fa98157d575`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fa98157d575) - Internal changes to update dependencies. There is no expected visual change.
+
 ## 10.9.4
 
 ### Patch Changes

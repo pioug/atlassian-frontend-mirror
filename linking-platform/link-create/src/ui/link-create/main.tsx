@@ -42,6 +42,7 @@ import { ConfirmDismissDialog } from './confirm-dismiss-dialog';
 import { EditModal } from './edit-modal';
 import { ErrorBoundary } from './error-boundary';
 import { messages } from './messages';
+import { ModalHero } from './modal-hero';
 
 export const TEST_ID = 'link-create';
 const SCREEN_ID = 'linkCreateScreen';
@@ -73,6 +74,7 @@ const LinkCreateWithModal = ({
   testId = TEST_ID,
   plugins,
   entityKey,
+  modalHero,
 }: LinkCreateWithModalProps) => {
   const intl = useIntl();
 
@@ -146,6 +148,7 @@ const LinkCreateWithModal = ({
             onCloseComplete={onCloseComplete}
             width={`${CREATE_FORM_MAX_WIDTH_IN_PX}px`}
           >
+            <ModalHero hero={modalHero} />
             <ModalHeader>
               <ModalTitle>
                 {modalTitle || intl.formatMessage(messages.heading)}

@@ -335,6 +335,10 @@ describe('setGlobalTheme style loading', () => {
   });
 
   it('should load all feature flagged themes in the expected order', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
+    );
+
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
@@ -345,7 +349,7 @@ describe('setGlobalTheme style loading', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(3);
+      expect(styleElements).toHaveLength(5);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -354,10 +358,20 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
+    expect(dataThemes).toEqual([
+      'light',
+      'dark',
+      'spacing',
+      'light-new-input-border',
+      'dark-new-input-border',
+    ]);
   });
 
   it('should load all feature flagged themes in the expected order when switching color modes', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
+    );
+
     await setGlobalTheme({
       colorMode: 'light',
     });
@@ -371,7 +385,7 @@ describe('setGlobalTheme style loading', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(3);
+      expect(styleElements).toHaveLength(5);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -380,7 +394,13 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual(['light', 'spacing', 'dark']);
+    expect(dataThemes).toEqual([
+      'light',
+      'spacing',
+      'light-new-input-border',
+      'dark',
+      'dark-new-input-border',
+    ]);
   });
 
   it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
@@ -390,12 +410,18 @@ describe('setGlobalTheme style loading', () => {
 
     await setGlobalTheme({});
 
+    (getBooleanFF as jest.Mock).mockImplementation((name) =>
+      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
+    );
+
+    await setGlobalTheme({});
+
     // Wait for styles to be added to the page
     await waitFor(() => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(3);
+      expect(styleElements).toHaveLength(5);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -404,7 +430,13 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
+    expect(dataThemes).toEqual([
+      'light',
+      'dark',
+      'spacing',
+      'light-new-input-border',
+      'dark-new-input-border',
+    ]);
   });
 
   describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {

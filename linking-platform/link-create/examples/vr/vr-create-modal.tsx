@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { default as whiteboardSvg } from '../../example-helpers/hero-image.svg';
 import { MockPluginForm } from '../../example-helpers/mock-plugin-form';
 import LinkCreate, { EditViewProps, LinkCreateWithModalProps } from '../../src';
 
@@ -82,6 +83,10 @@ export const DefaultCreateWithModalTitle = createExample({
   modalTitle: 'Create custom title',
 });
 
+export const DefaultCreateWithModalHero = createExample({
+  //  eslint-disable-next-line jsx-a11y/img-redundant-alt
+  modalHero: <img src={whiteboardSvg} alt="Whiteboard Image" />,
+});
 export const DefaultCreateWithEditButton = createExampleWithEdit({});
 
 export default DefaultCreateWithModal;

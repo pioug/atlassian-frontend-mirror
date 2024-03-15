@@ -520,6 +520,9 @@ export class Renderer extends PureComponent<RendererProps> {
                     onClick={handleWrapperOnClick}
                     onMouseDown={this.onMouseDownEditView}
                     ssr={media?.ssr}
+                    isInsideOfInlineExtension={
+                      this.props.isInsideOfInlineExtension
+                    }
                   >
                     {enableSsrInlineScripts ? (
                       <BreakoutSSRInlineScript />
@@ -652,6 +655,7 @@ type RendererWrapperProps = {
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
   ssr?: MediaSSR;
+  isInsideOfInlineExtension?: boolean;
 } & { children?: React.ReactNode };
 
 const RendererWrapper = React.memo((props: RendererWrapperProps) => {
@@ -666,6 +670,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     useBlockRenderForCodeBlock,
     addTelepointer,
     ssr,
+    isInsideOfInlineExtension,
   } = props;
 
   const createTelepointer = () => {
@@ -736,7 +741,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
       className={`ak-renderer-wrapper is-${appearance}`}
       data-appearance={appearance}
       shouldCheckExistingValue={
-        getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false
+        getBooleanFF('platform.editor.inline_extension.extended_lcqdn') &&
+        isInsideOfInlineExtension
       }
     >
       <BaseTheme

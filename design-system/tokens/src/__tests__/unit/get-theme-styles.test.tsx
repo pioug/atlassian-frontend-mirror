@@ -244,6 +244,35 @@ describe('getThemeStyles', () => {
     );
   });
 
+  it('returns an array of ThemeStyles that includes `new-input-border` when the feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (name) => name === 'platform.design-system-team.border-checkbox_nyoiu',
+    );
+
+    let results = await getThemeStyles({
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'light',
+      spacing: 'spacing',
+      typography: 'typography-adg3',
+    });
+
+    expect(getThemeData(results)).toEqual([
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+      { id: 'typography-adg3', attrs: { 'data-theme': 'typography-adg3' } },
+      {
+        id: 'light-new-input-border',
+        attrs: { 'data-theme': 'light-new-input-border' },
+      },
+      {
+        id: 'dark-new-input-border',
+        attrs: { 'data-theme': 'dark-new-input-border' },
+      },
+    ]);
+  });
+
   describe('returns a minimal set of ThemeStyles when auto switching is disabled', () => {
     ffTest(
       'platform.design-system-team.increased-contrast-themes',
@@ -389,6 +418,14 @@ describe('getThemeStyles', () => {
             id: 'typography-minor3',
             attrs: { 'data-theme': 'typography-minor3' },
           },
+          {
+            id: 'light-new-input-border',
+            attrs: { 'data-theme': 'light-new-input-border' },
+          },
+          {
+            id: 'dark-new-input-border',
+            attrs: { 'data-theme': 'dark-new-input-border' },
+          },
         ]);
       },
       async () => {
@@ -412,6 +449,14 @@ describe('getThemeStyles', () => {
           {
             id: 'typography-minor3',
             attrs: { 'data-theme': 'typography-minor3' },
+          },
+          {
+            id: 'light-new-input-border',
+            attrs: { 'data-theme': 'light-new-input-border' },
+          },
+          {
+            id: 'dark-new-input-border',
+            attrs: { 'data-theme': 'dark-new-input-border' },
           },
         ]);
       },

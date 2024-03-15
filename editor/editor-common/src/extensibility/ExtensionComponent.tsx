@@ -170,6 +170,8 @@ export class ExtensionComponent extends Component<Props, State> {
             }
             isNodeSelected={selectedNode === node}
             pluginInjectionApi={pluginInjectionApi}
+            isNodeHovered={this.state.isNodeHovered}
+            setIsNodeHovered={this.setIsNodeHovered}
           >
             {extensionHandlerResult}
           </InlineExtension>

@@ -8,7 +8,8 @@ import {
 type UfoExperienceName =
   | 'smart-link-rendered'
   | 'smart-link-authenticated'
-  | 'smart-link-action-invocation';
+  | 'smart-link-action-invocation'
+  | 'smart-link-ai-summary';
 
 const inlineExperience = {
   platform: { component: 'smart-links' },
@@ -19,6 +20,12 @@ const inlineExperience = {
 const renderExperience = {
   platform: { component: 'smart-links' },
   type: ExperienceTypes.Load,
+  performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+};
+
+const aiExperience = {
+  platform: { component: 'smart-links' },
+  type: ExperienceTypes.Experience,
   performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
 };
 
@@ -34,6 +41,10 @@ const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {
   'smart-link-action-invocation': new ConcurrentExperience(
     'smart-link-action-invocation',
     inlineExperience,
+  ),
+  'smart-link-ai-summary': new ConcurrentExperience(
+    'smart-link-ai-summary',
+    aiExperience,
   ),
 };
 

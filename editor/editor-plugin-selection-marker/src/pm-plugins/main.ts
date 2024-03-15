@@ -15,6 +15,7 @@ import { createWidgetDecoration } from '../ui/widget-decoration';
 interface PluginState {
   decorations: DecorationSet;
   shouldHideDecorations: boolean;
+  forceHide: boolean;
 }
 
 export const key = new PluginKey<PluginState>('selectionMarker');
@@ -29,29 +30,34 @@ export const createPlugin = (
         return {
           decorations: DecorationSet.empty,
           shouldHideDecorations: true,
+          forceHide: false,
         };
       },
       apply(tr: ReadonlyTransaction, currentState: PluginState) {
+        const forceHide = tr.getMeta(key)?.forceHide ?? currentState.forceHide;
         const shouldHideDecorations =
           tr.getMeta(key)?.shouldHideDecorations ??
           currentState.shouldHideDecorations;
 
         const { selection } = tr;
 
-        if (shouldHideDecorations) {
-          return {
-            decorations: DecorationSet.empty,
-            shouldHideDecorations,
-          };
-        }
+        const decorations =
+          shouldHideDecorations || forceHide
+            ? DecorationSet.empty
+            : DecorationSet.create(tr.doc, [
+                ...createWidgetDecoration(
+                  selection.$anchor,
+                  'anchor',
+                  selection,
+                ),
+                selectionDecoration(selection),
+                ...createWidgetDecoration(selection.$head, 'head', selection),
+              ]);
 
         return {
-          decorations: DecorationSet.create(tr.doc, [
-            ...createWidgetDecoration(selection.$anchor, 'anchor', selection),
-            selectionDecoration(selection),
-            ...createWidgetDecoration(selection.$head, 'head', selection),
-          ]),
+          decorations,
           shouldHideDecorations,
+          forceHide,
         };
       },
     },

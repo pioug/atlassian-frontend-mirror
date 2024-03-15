@@ -59,6 +59,17 @@ describe('FooterBlock', () => {
     expect(providerLabel.textContent).toBe('Confluence');
   });
 
+  it('should not render provider when hideProvider is true', async () => {
+    const { findByTestId, queryByTestId } = renderFooterBlock({
+      testId: testIdBase,
+      hideProvider: true,
+    });
+    const block = await findByTestId(`${testIdBase}-resolved-view`);
+    expect(block).toBeDefined();
+    const provider = queryByTestId(`${testIdBase}-provider`);
+    expect(provider).toBeNull();
+  });
+
   it('should not render actions when array is empty', () => {
     const { queryByTestId } = renderFooterBlock({
       testId: testIdBase,
@@ -95,9 +106,9 @@ describe('FooterBlock', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = renderFooterBlock({
       overrideCss,
       testId: testIdBase,

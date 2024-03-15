@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.8.3
+
+### Patch Changes
+
+- [#81759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81759) [`912bb3a58129`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/912bb3a58129) - fix regression issue of WidthProvider in renderer used when hover template marco inline extension
+
+## 109.8.2
+
+### Patch Changes
+
+- [#81133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81133) [`ad1f563ea96b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad1f563ea96b) - [ux] ED-22503 Styling for annotations on the inline card for edit and render view
+
 ## 109.8.1
 
 ### Patch Changes

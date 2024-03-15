@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.37.2
+
+### Patch Changes
+
+- [#80662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80662) [`4833299b00d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4833299b00d4) - For `no-css-tagged-template-expression` and `no-styled-tagged-template-expression`:
+
+  - When importing from Emotion, stop applying autofixer when the styles contain `!important`.
+  - When importing from any library, stop applying autofixer when a selector contains a tagged template interpolation (previously only styled-components).
+
+- [#81697](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81697) [`cf3483e7e87d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf3483e7e87d) - Adding a missing `license` entry to the `package.json` for this package. This package was already licensed under `Apache-2.0` (see `LICENSE` file), so this change is not changing it's license.
+
 ## 8.37.1
 
 ### Patch Changes

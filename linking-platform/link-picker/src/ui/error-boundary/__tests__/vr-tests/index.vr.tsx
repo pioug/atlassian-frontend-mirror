@@ -3,6 +3,12 @@ import { snapshot } from '@af/visual-regression';
 import { ErrorBoundary } from '../../examples';
 
 snapshot(ErrorBoundary, {
+  featureFlags: {
+    'platform.linking-platform.link-picker.remove-dst-empty-state': [
+      true,
+      false,
+    ],
+  },
   variants: [
     {
       name: 'default',

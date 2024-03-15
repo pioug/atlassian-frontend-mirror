@@ -5,7 +5,7 @@ import { PureComponent } from 'react';
 
 import { jsx } from '@emotion/react';
 
-export const Grid: React.FC<React.HTMLAttributes<{}>> = ({ children }) => (
+export const Grid = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
     css={{
       display: 'flex',
@@ -17,7 +17,7 @@ export const Grid: React.FC<React.HTMLAttributes<{}>> = ({ children }) => (
   </div>
 );
 
-export const Item: React.FC<React.HTMLAttributes<{}>> = ({ children }) => (
+export const Item = ({ children }: React.PropsWithChildren<unknown>) => (
   <div
     css={{
       flex: '1 1 0',

@@ -1310,6 +1310,12 @@ typescriptEslintTester.run(
         });
       `,
       },
+
+      // For the below examples:
+      //
+      // We skip handling interpolations in selectors due to the possibility of
+      // them being CSS blocks.
+
       {
         filename: 'single-variable-as-selector.ts',
         code: `
@@ -1320,15 +1326,6 @@ typescriptEslintTester.run(
             color: blue;
           }
         \`;
-      `,
-        output: `
-        import { styled } from '@compiled/react';
-
-        styled.div({
-          [\`\${Variable_Name}\`]: {
-            color: "blue"
-          }
-        });
       `,
       },
       {
@@ -1342,14 +1339,17 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
+      },
+      {
+        filename: 'selector-with-parentheses.ts',
+        code: `
         import { styled } from '@compiled/react';
 
-        styled.div({
-          [\`\${Variable_Name_1} \${Variable_Name_2}\`]: {
-            color: "blue"
+        styled.div\`
+          \${Variable_Name} :nth-of-type(even) {
+            color: blue;
           }
-        });
+        \`;
       `,
       },
       {
@@ -1363,17 +1363,7 @@ typescriptEslintTester.run(
           }
         \`;
       `,
-        output: `
-        import { styled } from '@compiled/react';
-
-        styled.div({
-          [\`.foo \${Variable_Name_1} .bar \${Variable_Name_2} &\`]: {
-            color: "blue"
-          }
-        });
-      `,
       },
-      // NOTE: We don't support any functional keys or selectors…
       {
         filename: 'props-in-selector.ts',
         code: `
@@ -1388,7 +1378,6 @@ typescriptEslintTester.run(
       },
       {
         filename: 'function-call-in-selector.ts',
-        // NOTE: If `${mixin}` does not use `()` it be autofixed and could be problematic
         code: `
           import { styled } from '@compiled/react';
 
@@ -1399,12 +1388,10 @@ typescriptEslintTester.run(
           \`;
         `,
       },
-      // NOTE: For `styled-components` we do not support the component selector syntax,
-      // so we don't support ANY interpolated selectors…
       {
         filename: 'single-variable-as-selector-sc.ts',
         code: `
-          import { styled } from 'styled-components';
+          import styled from 'styled-components';
 
           styled.div\`
             \${Variable_Name} {
@@ -1416,7 +1403,7 @@ typescriptEslintTester.run(
       {
         filename: 'multiple-variables-as-selector-sc.ts',
         code: `
-          import { styled } from 'styled-components';
+          import styled from 'styled-components';
 
           styled.div\`
             \${Variable_Name_1} \${Variable_Name_2} {
@@ -1428,10 +1415,22 @@ typescriptEslintTester.run(
       {
         filename: 'variables-as-selector-have-surrounding-text-sc.ts',
         code: `
-          import { styled } from 'styled-components';
+          import styled from 'styled-components';
 
           styled.div\`
             .foo \${Variable_Name_1} .bar \${Variable_Name_2} & {
+              color: blue;
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'functions-as-selector.ts',
+        code: `
+          import styled from '@emotion/styled';
+
+          styled.div\`
+            .foo \${functionCall()} .bar \${anotherFunctionCall()} & {
               color: blue;
             }
           \`;

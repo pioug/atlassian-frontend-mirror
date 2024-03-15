@@ -132,9 +132,10 @@ export const rescaleColumns =
       isResized,
     };
 
-    if (isTableScalingEnabled) {
+    const tableDepth = view.state.doc.resolve(table.pos).depth;
+    const shouldScale = isTableScalingEnabled && tableDepth === 0;
+    if (shouldScale) {
       previousTableInfo = {
-        // TODO - ensure correct width is returned when table doesn't have a width value
         width: getTableElementWidth(table.node),
         possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
           ? getTableContainerElementWidth(table.node)
@@ -217,7 +218,7 @@ export const rescaleColumns =
       tableRef,
       domAtPos,
       maxSize: previousTableInfo.possibleMaxWidth,
-      isTableScalingEnabled,
+      isTableScalingEnabled: shouldScale,
     });
 
     // Two scenarios that require scaling:

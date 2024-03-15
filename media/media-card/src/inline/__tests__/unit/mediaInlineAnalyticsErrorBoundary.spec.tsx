@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import * as analyticsModule from '../../../utils/analytics';
+import * as analyticsModule from '../../../utils/analytics/analytics';
 import MediaInlineAnalyticsErrorBoundary from '../../mediaInlineAnalyticsErrorBoundary';
 
 const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');

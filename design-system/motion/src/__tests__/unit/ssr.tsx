@@ -1,42 +1,18 @@
 import noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-// @ts-ignore - global usage
-jest.spyOn(global.console, 'error').mockImplementation(noop);
+test('should ssr then hydrate form correctly', async () => {
+  const examplePath = require.resolve('../../../examples/curves.tsx');
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
+  const elem = document.createElement('div');
+  const { html, styles } = await ssr(examplePath);
+  elem.innerHTML = html;
+  hydrate(examplePath, elem, styles);
 
-afterEach(() => {
-  jest.resetAllMocks();
-});
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
 
-describe('ssr for motion', () => {
-  it('should not throw when rendering any example on the server', async () => {
-    const examples = await getExamplesFor('@atlaskit/motion');
-
-    const result = await Promise.all(
-      examples.map((example: any) =>
-        ssr(example.filePath)
-          .then(() => undefined)
-          .catch((err: string) => err),
-      ),
-    );
-
-    expect(result.filter(Boolean).join('\n')).toEqual('');
-  });
-
-  it('should not log errors when rendering on the server', async () => {
-    const examples = await getExamplesFor('motion');
-
-    await Promise.all(
-      examples.map((example: any) =>
-        ssr(example.filePath).catch(() => undefined),
-      ),
-    );
-
-    expect(
-      // eslint-disable-next-line no-console
-      (console.error as jest.Mock).mock.calls
-        .map((call) => call.join(''))
-        .join(''),
-    ).toEqual('');
-  });
+  cleanup();
+  consoleMock.mockRestore();
 });

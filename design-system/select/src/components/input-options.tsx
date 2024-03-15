@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import { Component } from 'react';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
@@ -152,7 +153,11 @@ const baseIconStyles = css({
   // into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& svg rect, & svg circle:first-of-type': {
-    strokeWidth: token('border.width', '1px'),
+    strokeWidth: getBooleanFF(
+      'platform.design-system-team.update-input-border-wdith_5abwv',
+    )
+      ? token('border.width', '1px')
+      : token('border.width.outline', '2px'),
     strokeLinejoin: 'round',
   },
 });

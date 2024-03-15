@@ -65,7 +65,12 @@ export class ExtensionNode extends ReactNodeView {
     forwardRef: ForwardRef,
   ) {
     return (
-      <ExtensionNodeWrapper nodeType={this.node.type.name}>
+      <ExtensionNodeWrapper
+        nodeType={this.node.type.name}
+        showMacroInteractionDesignUpdates={
+          props.showMacroInteractionDesignUpdates
+        }
+      >
         <Extension
           editorView={this.view}
           node={this.node}

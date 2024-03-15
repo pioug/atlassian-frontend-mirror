@@ -1,40 +1,20 @@
-import __noop from '@atlaskit/ds-lib/noop';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import noop from '@atlaskit/ds-lib/noop';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
-import waitForExpect from 'wait-for-expect';
-
-type File = {
-  filePath: string;
-};
-
-jest.spyOn(global.console, 'error').mockImplementation(__noop);
-
-afterEach(() => {
-  jest.resetAllMocks();
-  jest.restoreAllMocks();
-});
-
-test('should ssr then hydrate icon correctly', async () => {
-  const examples: File[] = await getExamplesFor('@atlaskit/icon');
-  const example = examples.find(({ filePath }) =>
-    filePath.includes('size-example'),
-  )!;
-  const Example = require(example.filePath).default;
+test('should ssr then hydrate form correctly', async () => {
+  const examplePath = require.resolve(
+    '../../../../examples/01-icon-explorer.tsx',
+  );
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example.filePath);
-  ReactDOM.hydrate(<Example />, elem);
-  await waitForExpect(() => {
-    // eslint-disable-next-line no-console
-    const mockCalls = (console.error as jest.Mock).mock.calls.filter(
-      ([f, s]) =>
-        !(
-          f ===
-            'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' &&
-          s === 'style'
-        ),
-    );
-    expect(mockCalls.length).toBe(0);
-  });
+  const { html, styles } = await ssr(examplePath);
+  elem.innerHTML = html;
+  hydrate(examplePath, elem, styles);
+
+  // eslint-disable-next-line no-console
+  const mockCalls = (console.error as jest.Mock).mock.calls;
+  expect(mockCalls.length).toBe(0);
+
+  cleanup();
+  consoleMock.mockRestore();
 });

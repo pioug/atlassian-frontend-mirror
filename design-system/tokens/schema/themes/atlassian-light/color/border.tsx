@@ -20,7 +20,7 @@ const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
         value: 'Blue500',
       },
       input: {
-        value: 'Neutral500',
+        value: 'Neutral300A',
       },
       disabled: {
         value: 'Neutral200A',

@@ -159,6 +159,10 @@ export interface LinkCreateWithModalProps extends LinkCreateProps {
    */
   modalTitle?: string;
   /**
+   * A ReactNode to be displayed in the modal hero section
+   */
+  modalHero?: ReactNode;
+  /**
    * Callback function called when the final link create experience dialog has finished closing.
    * @see {@link https://atlassian.design/components/modal-dialog/code#ModalWrapper-onCloseComplete}
    */

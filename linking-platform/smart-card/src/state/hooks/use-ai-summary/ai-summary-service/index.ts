@@ -1,3 +1,4 @@
+import uuid from 'uuid';
 import type {
   AISummaryServiceConfig,
   AISummaryServiceProps,
@@ -19,6 +20,10 @@ export class AISummaryService implements AISummaryServiceInt {
   private url: string;
   private subscribedStateSetters = new Set<StateSetter>();
 
+  private onStart?: AISummaryServiceProps['onStart'];
+  private onSuccess?: AISummaryServiceProps['onSuccess'];
+  private onError?: AISummaryServiceProps['onError'];
+
   constructor(props: AISummaryServiceProps) {
     const defaultConfig: AISummaryServiceConfig = {
       baseUrl: '/gateway/api/assist',
@@ -38,6 +43,10 @@ export class AISummaryService implements AISummaryServiceInt {
     };
 
     this.url = props.url;
+
+    this.onStart = props.onStart;
+    this.onSuccess = props.onSuccess;
+    this.onError = props.onError;
   }
 
   private fetchStream = async <T>(summaryStyle: SummaryStyle) => {
@@ -78,7 +87,10 @@ export class AISummaryService implements AISummaryServiceInt {
       subscriber(this.state);
     }
 
+    const id = uuid();
     try {
+      this.onStart?.(id);
+
       const stream = await this.fetchStream<StreamMessage>(summaryStyle);
 
       let bufferContent = '';
@@ -95,13 +107,21 @@ export class AISummaryService implements AISummaryServiceInt {
         if (chunk.type === 'FINAL_RESPONSE') {
           bufferContent = chunk.message.message.content;
         }
+
+        if (chunk.type === 'ERROR') {
+          throw new Error(chunk?.message?.message_template);
+        }
       }
+
+      this.onSuccess?.(id);
 
       this.state = {
         status: 'done',
         content: bufferContent,
       };
     } catch (err) {
+      this.onError?.(id, 'generic');
+
       this.state = { status: 'error', content: '' };
     }
 

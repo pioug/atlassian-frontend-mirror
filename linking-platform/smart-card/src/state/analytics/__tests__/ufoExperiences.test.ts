@@ -87,7 +87,7 @@ describe('ufoExperience', () => {
         type: ExperienceTypes.Experience,
       };
 
-      expect(mockConcurrentExperience).toHaveBeenCalledTimes(3);
+      expect(mockConcurrentExperience).toHaveBeenCalledTimes(4);
       expect(mockConcurrentExperience).toHaveBeenCalledWith(
         'smart-link-rendered',
         {
@@ -105,6 +105,14 @@ describe('ufoExperience', () => {
       expect(mockConcurrentExperience).toHaveBeenCalledWith(
         'smart-link-action-invocation',
         inlineExperienceConfig,
+      );
+      expect(mockConcurrentExperience).toHaveBeenCalledWith(
+        'smart-link-ai-summary',
+        {
+          platform: { component: 'smart-links' },
+          type: ExperienceTypes.Experience,
+          performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+        },
       );
     });
   });

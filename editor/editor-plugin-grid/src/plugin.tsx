@@ -54,12 +54,11 @@ const overflowHighlight = (
     return false;
   }
 
-  const minHighlight = highlights.reduce((prev, cur) =>
-    Math.min(prev as any, cur as any),
+  const numericHighlights = highlights.filter(
+    (highlight): highlight is number => typeof highlight === 'number',
   );
-  const maxHighlight = highlights.reduce((prev, cur) =>
-    Math.max(prev as any, cur as any),
-  );
+  const minHighlight = Math.min(...numericHighlights);
+  const maxHighlight = Math.max(...numericHighlights);
 
   if (side === 'left') {
     return (

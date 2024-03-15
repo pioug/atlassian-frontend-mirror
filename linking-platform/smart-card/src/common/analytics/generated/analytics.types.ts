@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7957a4f104d8499ba8c1d791bc4c61e2>>
+ * @codegen <<SignedSource::81a232dd81b5db01399e6f7e28181c20>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataType = {
@@ -35,8 +35,14 @@ export type ResolvedAttributesType = {
 };
 
 export type ButtonClickedAiSummaryAttributesType = {};
-export type SummaryViewedAttributesType = {};
+export type SummaryViewedAttributesType = {
+  fromCache: boolean | null;
+};
 export type ErrorViewedAiSummaryAttributesType = {};
+export type SummarySuccessAttributesType = {};
+export type SummaryFailedAttributesType = {
+  reason: string | null;
+};
 
 export type AnalyticsEventAttributes = {
   /**
@@ -48,6 +54,12 @@ export type AnalyticsEventAttributes = {
   /**
    * fired when a summary error is viewed */
   'ui.error.viewed.aiSummary': ErrorViewedAiSummaryAttributesType;
+  /**
+   * fired when a summary request finishes with a successful response */
+  'operational.summary.success': SummarySuccessAttributesType;
+  /**
+   * fired when a summary request finishes with a failed response */
+  'operational.summary.failed': SummaryFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

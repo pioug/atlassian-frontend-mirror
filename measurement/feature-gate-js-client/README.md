@@ -50,9 +50,14 @@ try {
       // This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
       fetchTimeoutMs: 1000,
       // [Optional] Default is false
-      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service
+      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
+      // Note that this option takes precendence over the environment and perimeter options in building the url.
       // To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
-      useGatewayUrl: true
+      useGatewayUrl: true,
+      // [Optional] Must be one of the strings from the exported enum PerimeterType.
+      // If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
+      // will disable all logging to Statsig in perimeters where it is prohibited..
+      perimeter: 'fedramp-moderate'
     },
     {
       // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
@@ -93,9 +98,14 @@ try {
       // This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
       fetchTimeoutMs: 1000,
       // [Optional] Default is false
-      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service
+      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
+      // Note that this option takes precendence over the environment and perimeter options in building the url.
       // To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
-      useGatewayUrl: true
+      useGatewayUrl: true,
+      // [Optional] Default is COMMERCIAL. Must be one of the values from the exported enum PerimeterType.
+      // If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
+      // will disable all logging to Statsig in perimeters where it is prohibited.
+      perimeter: PerimeterType.FEDRAMP_MODERATE
     },
     {
       // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events

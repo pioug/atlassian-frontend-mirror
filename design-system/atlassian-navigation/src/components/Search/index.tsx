@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -47,7 +48,11 @@ const searchInputStyles = css({
   height: token('space.400', '32px'),
   padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
   backgroundColor: `var(${varSearchBackgroundColor})`,
-  border: `${token('border.width', '1px')} solid`,
+  border: `${
+    getBooleanFF('platform.design-system-team.update-input-border-wdith_5abwv')
+      ? token('border.width', '1px')
+      : '2px'
+  } solid`,
   borderColor: `var(${varSearchBorderColor})`,
   borderRadius: token('border.radius.200', '6px'),
   color: `var(${varSearchColor})`,
@@ -58,10 +63,14 @@ const searchInputStyles = css({
   },
   '&:focus': {
     borderColor: `var(${varSearchFocusBorderColor})`,
-    boxShadow: `inset 0 0 0 ${token(
-      'border.width',
-      '1px',
-    )} var(${varSearchFocusBorderColor})`,
+    boxShadow: getBooleanFF(
+      'platform.design-system-team.update-input-border-wdith_5abwv',
+    )
+      ? `inset 0 0 0 ${token(
+          'border.width',
+          '1px',
+        )} var(${varSearchFocusBorderColor})`
+      : undefined,
   },
   '&:hover': {
     backgroundColor: `var(${varSearchHoverBackgroundColor})`,

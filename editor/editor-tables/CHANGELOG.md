@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.5.8
+
+### Patch Changes
+
+- [#80612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80612) [`b3a6ffbe9e15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3a6ffbe9e15) - [ux] Fix Firefox table drag handle shift click selection
+
 ## 2.5.7
 
 ### Patch Changes

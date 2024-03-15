@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.14.0
+
+### Minor Changes
+
+- [#81461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81461) [`f01ea03ca266`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f01ea03ca266) - Added optional `perimeter` initialization option to allow customization of the base url for the `feature-flag-service` based on environment and perimeter type; this parameter enables use of this client in FedRAMP envrionments.
+
 ## 4.13.0
 
 ### Minor Changes

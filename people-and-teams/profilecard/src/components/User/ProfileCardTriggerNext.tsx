@@ -47,6 +47,8 @@ export default function ProfilecardTriggerNext({
   ariaLabel,
   ariaLabelledBy,
   prepopulatedData,
+  disabledAriaAttributes,
+  onVisibilityChange,
 }: ProfileCardTriggerProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const { formatMessage } = useIntl();
@@ -113,9 +115,10 @@ export default function ProfilecardTriggerNext({
     if (!isTriggeredUsingKeyboard) {
       hideTimer.current = window.setTimeout(() => {
         setVisible(false);
+        onVisibilityChange && onVisibilityChange(false);
       }, hideDelay);
     }
-  }, [hideDelay, isTriggeredUsingKeyboard]);
+  }, [hideDelay, isTriggeredUsingKeyboard, onVisibilityChange]);
 
   const handleKeyboardClose = useCallback(
     (event: React.KeyboardEvent) => {
@@ -127,8 +130,9 @@ export default function ProfilecardTriggerNext({
       }
       setTriggeredUsingKeyboard(false);
       setVisible(false);
+      onVisibilityChange && onVisibilityChange(false);
     },
-    [setTriggeredUsingKeyboard, setVisible],
+    [setTriggeredUsingKeyboard, setVisible, onVisibilityChange],
   );
 
   const handleClientSuccess = useCallback(
@@ -211,9 +215,10 @@ export default function ProfilecardTriggerNext({
       if (!visible) {
         void clientFetchProfile();
         setVisible(true);
+        onVisibilityChange && onVisibilityChange(true);
       }
     }, showDelay);
-  }, [showDelay, visible, clientFetchProfile]);
+  }, [showDelay, visible, clientFetchProfile, onVisibilityChange]);
 
   const onClick = useCallback(
     (event: React.MouseEvent) => {
@@ -311,6 +316,7 @@ export default function ProfilecardTriggerNext({
     cloudId: cloudId,
     openKudosDrawer: openKudosDrawer,
     isTriggeredUsingKeyboard: isTriggeredUsingKeyboard,
+    disabledAriaAttributes: disabledAriaAttributes,
   };
 
   return (
@@ -349,20 +355,29 @@ export default function ProfilecardTriggerNext({
               callbackRef(element);
             }
           };
+          const {
+            'aria-expanded': _,
+            'aria-haspopup': __,
+            ...restInnerProps
+          } = innerProps;
           return (
             <span
-              {...innerProps}
+              {...(disabledAriaAttributes ? restInnerProps : triggerProps)}
               {...containerListeners}
               ref={ref}
               data-testid={testId}
-              role="button"
-              tabIndex={0}
-              aria-label={getLabelMessage(
-                ariaLabel,
-                profilecardProps.fullName,
-                formatMessage,
-              )}
               aria-labelledby={ariaLabelledBy}
+              {...(disabledAriaAttributes
+                ? {}
+                : {
+                    role: 'button',
+                    tabIndex: 0,
+                    'aria-label': getLabelMessage(
+                      ariaLabel,
+                      profilecardProps.fullName,
+                      formatMessage,
+                    ),
+                  })}
             >
               {children}
             </span>

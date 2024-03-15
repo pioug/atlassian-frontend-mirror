@@ -72,6 +72,8 @@ export const handleMouseDown = (
   const $cell = state.doc.resolve(localResizeHandlePos);
   const originalTable = $cell.node(-1);
   const start = $cell.start(-1);
+  const tablePos = state.doc.resolve(start).start(-1);
+  const tableDepth = state.doc.resolve(tablePos).depth;
 
   let dom: HTMLTableElement = domAtPos(start).node as HTMLTableElement;
   if (dom && dom.nodeName !== 'TABLE') {
@@ -112,6 +114,7 @@ export const handleMouseDown = (
     });
   }
 
+  const shouldScale = tableDepth === 0 && isTableScalingEnabled;
   const resizeState = getResizeState({
     minWidth: tableCellMinWidth,
     maxSize,
@@ -119,7 +122,7 @@ export const handleMouseDown = (
     tableRef: dom,
     start,
     domAtPos,
-    isTableScalingEnabled: isTableScalingEnabled,
+    isTableScalingEnabled: shouldScale,
   });
 
   if (
@@ -166,6 +169,8 @@ export const handleMouseDown = (
     const $cell = state.doc.resolve(resizeHandlePos);
     const start = $cell.start(-1);
     const table = $cell.node(-1);
+    const tablePos = state.doc.resolve(start).start(-1);
+    const tableDepth = state.doc.resolve(tablePos).depth;
 
     // If we let go in the same place we started, don't need to do anything.
     if (dragging && clientX === dragging.startX) {
@@ -204,6 +209,8 @@ export const handleMouseDown = (
         const resizingSelectedColumns =
           selectedColumns.indexOf(colIndex) > -1 ||
           selectedColumns.indexOf(colIndex + 1) > -1;
+
+        const shouldScale = tableDepth === 0 && isTableScalingEnabled;
         const newResizeState = resizeColumn(
           resizeState,
           colIndex,
@@ -211,7 +218,7 @@ export const handleMouseDown = (
           dom,
           originalTable,
           resizingSelectedColumns ? selectedColumns : undefined,
-          isTableScalingEnabled,
+          shouldScale,
         );
 
         const resizedDelta = clientX - startX;
@@ -282,12 +289,15 @@ export const handleMouseDown = (
 
     const $cell = state.doc.resolve(resizeHandlePos);
     const table = $cell.node(-1);
+    const tablePos = state.doc.resolve(start).start(-1);
+    const tableDepth = state.doc.resolve(tablePos).depth;
     const map = TableMap.get(table);
     const colIndex =
       map.colCount($cell.pos - $cell.start(-1)) +
       $cell.nodeAfter!.attrs.colspan -
       1;
 
+    const shouldScale = tableDepth === 0 && isTableScalingEnabled;
     resizeColumn(
       resizeState,
       colIndex,
@@ -295,7 +305,7 @@ export const handleMouseDown = (
       dom,
       table,
       undefined,
-      isTableScalingEnabled,
+      shouldScale,
     );
 
     updateControls()(state);

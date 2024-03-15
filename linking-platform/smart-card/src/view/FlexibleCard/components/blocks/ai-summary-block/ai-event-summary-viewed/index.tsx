@@ -4,7 +4,7 @@ import { useAnalyticsEvents } from '../../../../../../common/analytics/generated
 import type { AIEventSummaryViewedProps } from './types';
 
 const AIEventSummaryViewed: React.FC<AIEventSummaryViewedProps> = ({
-  fromCache,
+  fromCache = null,
 }) => {
   const { fireEvent } = useAnalyticsEvents();
 

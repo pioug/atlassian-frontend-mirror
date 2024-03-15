@@ -24,6 +24,7 @@ describe('Drawer primitive', () => {
     width: 'wide' as DrawerWidth,
     in: true,
     shouldUnmountOnExit: false,
+    label: 'Default drawer',
     onClose: () => null,
   };
 

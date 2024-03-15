@@ -29,7 +29,7 @@ export default class TaskList extends PureComponent<Props, {}> {
     return (
       <div css={[listStyles, taskListStyles]} data-task-list-local-id="">
         {React.Children.map(children, (child, idx) => {
-          const { localId } = (child as PureComponent).props as {
+          const { localId } = (child as React.ReactElement).props as {
             localId: string;
           };
           return (

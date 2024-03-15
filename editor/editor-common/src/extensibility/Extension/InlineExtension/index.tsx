@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -21,6 +21,8 @@ export interface Props {
   children?: React.ReactNode;
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
+  isNodeHovered?: boolean;
+  setIsNodeHovered?: (isHovered: boolean) => void;
 }
 
 const InlineExtension = (props: Props) => {
@@ -30,6 +32,8 @@ const InlineExtension = (props: Props) => {
     showMacroInteractionDesignUpdates,
     isNodeSelected,
     children,
+    isNodeHovered,
+    setIsNodeHovered,
   } = props;
   const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
 
@@ -44,22 +48,42 @@ const InlineExtension = (props: Props) => {
   const extendedInlineExtension =
     getBooleanFF('platform.editor.inline_extension.extended_lcqdn') || false;
 
+  const handleMouseEvent = (didHover: boolean) => {
+    if (setIsNodeHovered) {
+      setIsNodeHovered(didHover);
+    }
+  };
+
   const inlineExtensionInternal = (
-    <div
-      css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
-      className={`extension-container inline ${className}`}
-    >
-      <div css={overlay} className="extension-overlay" />
-      {children ? (
-        children
-      ) : (
+    <Fragment>
+      {showMacroInteractionDesignUpdates && (
         <ExtensionLozenge
           node={node}
           isNodeSelected={isNodeSelected}
+          isNodeHovered={isNodeHovered}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
         />
       )}
-    </div>
+      <div
+        css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
+        className={`extension-container inline ${className}`}
+        onMouseOver={() => handleMouseEvent(true)}
+        onMouseLeave={() => handleMouseEvent(false)}
+      >
+        <div css={overlay} className="extension-overlay" />
+        {children ? (
+          children
+        ) : (
+          <ExtensionLozenge
+            node={node}
+            isNodeSelected={isNodeSelected}
+            showMacroInteractionDesignUpdates={
+              showMacroInteractionDesignUpdates
+            }
+          />
+        )}
+      </div>
+    </Fragment>
   );
   if (extendedInlineExtension) {
     return (

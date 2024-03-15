@@ -93,7 +93,7 @@ export const validDocument = {
             {
               type: 'annotation',
               attrs: {
-                id: '5381f23f-7408-45e4-a967-a8b3b7751edf',
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
                 annotationType: 'inlineComment',
               },
             },
@@ -146,6 +146,52 @@ export const validDocument = {
         {
           type: 'text',
           text: ' and invalid action mark',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum ',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger',
+          },
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' dolor sit amet',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
         },
       ],
     },

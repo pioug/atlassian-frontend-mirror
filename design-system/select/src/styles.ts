@@ -116,14 +116,22 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderColor,
         borderStyle: 'solid',
         borderRadius: token('border.radius.100', '3px'),
-        borderWidth: token('border.width', '1px'),
+        borderWidth: getBooleanFF(
+          'platform.design-system-team.update-input-border-wdith_5abwv',
+        )
+          ? token('border.width', '1px')
+          : token('border.width.outline', '2px'),
         boxShadow: 'none',
-        '&:focus-within': {
-          boxShadow: `inset 0 0 0 ${token(
-            'border.width',
-            '1px',
-          )} ${borderColor}`,
-        },
+        ...(getBooleanFF(
+          'platform.design-system-team.update-input-border-wdith_5abwv',
+        ) && {
+          '&:focus-within': {
+            boxShadow: `inset 0 0 0 ${token(
+              'border.width',
+              '1px',
+            )} ${borderColor}`,
+          },
+        }),
         minHeight: isCompact ? gridSize() * 4 : gridSize() * 5,
         padding: 0,
         transition: `background-color ${transitionDuration} ease-in-out,

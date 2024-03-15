@@ -1,13 +1,16 @@
 import React from 'react';
 
-import { act, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
 
 import Drawer from '../../index';
+import { DrawerProps } from '../../types';
 
 declare var global: any;
+
+const testId = 'test-drawer';
 
 const findKeydownListenerCall = (listenerFn: any) =>
   listenerFn.mock.calls.find((e: any) => e[0] === 'keydown');
@@ -18,6 +21,13 @@ const escKeyDown = () => {
   });
   global.window.dispatchEvent(event);
 };
+
+const createDrawer = (props: DrawerProps) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+  <Drawer width="wide" label="Default Drawer" testId={testId} {...props}>
+    <code>Drawer contents</code>
+  </Drawer>
+);
 
 describe('Drawer Transitions', () => {
   beforeEach(() => {
@@ -31,19 +41,11 @@ describe('Drawer Transitions', () => {
   });
 
   it('should add a keydown listener only when drawer is opened', () => {
-    const { rerender } = render(
-      <Drawer isOpen={false} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    const { rerender } = render(createDrawer({ isOpen: false }));
 
     expect(findKeydownListenerCall(window.addEventListener)).toBeUndefined();
 
-    rerender(
-      <Drawer isOpen={true} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    rerender(createDrawer({ isOpen: true }));
 
     const listenerCall = findKeydownListenerCall(window.addEventListener);
     expect(listenerCall).toBeTruthy();
@@ -53,11 +55,7 @@ describe('Drawer Transitions', () => {
   });
 
   it('should add a keydown listener when drawer is mounted as opened', () => {
-    render(
-      <Drawer isOpen width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true }));
 
     const listenerCall = findKeydownListenerCall(window.addEventListener);
     expect(listenerCall).toBeTruthy();
@@ -67,19 +65,11 @@ describe('Drawer Transitions', () => {
   });
 
   it('should remove a keydown listener when drawer is closed', () => {
-    const { rerender } = render(
-      <Drawer isOpen width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    const { rerender } = render(createDrawer({ isOpen: true }));
 
     expect(findKeydownListenerCall(window.removeEventListener)).toBeUndefined();
 
-    rerender(
-      <Drawer isOpen={false} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    rerender(createDrawer({ isOpen: false }));
 
     const [, eventHandler] = findKeydownListenerCall(
       window.removeEventListener,
@@ -88,11 +78,8 @@ describe('Drawer Transitions', () => {
   });
 
   it('should remove a keydown listener when the component is unmounted', () => {
-    const { unmount } = render(
-      <Drawer isOpen width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    const { unmount } = render(createDrawer({ isOpen: true }));
+
     unmount();
 
     expect(global.window.removeEventListener).toHaveBeenCalled();
@@ -102,11 +89,7 @@ describe('Drawer Transitions', () => {
     const onClose = jest.fn();
     const event = { key: 'Escape' };
 
-    render(
-      <Drawer isOpen onClose={onClose} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onClose: onClose }));
 
     const [, eventHandler] = findKeydownListenerCall(window.addEventListener);
 
@@ -119,19 +102,13 @@ describe('Drawer Transitions', () => {
     const onClose = jest.fn();
 
     const { rerender } = render(
-      <Drawer isOpen={false} onClose={onClose} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
+      createDrawer({ isOpen: false, onClose: onClose }),
     );
 
     escKeyDown();
     expect(onClose).not.toHaveBeenCalled();
 
-    rerender(
-      <Drawer isOpen={true} onClose={onClose} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    rerender(createDrawer({ isOpen: true, onClose: onClose }));
 
     escKeyDown();
     expect(onClose).toHaveBeenCalled();
@@ -139,46 +116,28 @@ describe('Drawer Transitions', () => {
 
   it('should call onClose when blanket is clicked', async () => {
     const onClose = jest.fn();
-    const { getByTestId } = render(
-      <Drawer isOpen onClose={onClose} width="wide" testId="test-drawer">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onClose: onClose }));
 
     expect(onClose).not.toHaveBeenCalled();
-    await userEvent.click(getByTestId('test-drawer--blanket')); // Blanket
+    await userEvent.click(screen.getByTestId(`${testId}--blanket`)); // Blanket
     expect(onClose).toHaveBeenCalled();
   });
 
   it('should call onClose when back button is clicked', () => {
     const onClose = jest.fn();
-    const { getByTestId } = render(
-      <Drawer isOpen onClose={onClose} width="wide" testId="test-drawer">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onClose: onClose }));
 
     expect(onClose).not.toHaveBeenCalled();
-    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+    screen.getByTestId('DrawerPrimitiveSidebarCloseButton').click();
     expect(onClose).toHaveBeenCalled();
   });
 
   it('should call onClose when custom back button is clicked', () => {
     const onClose = jest.fn();
-    const { getByTestId } = render(
-      <Drawer
-        isOpen
-        icon={EmojiIcon}
-        onClose={onClose}
-        width="wide"
-        testId="test-drawer"
-      >
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, icon: EmojiIcon, onClose: onClose }));
 
     expect(onClose).not.toHaveBeenCalled();
-    getByTestId('DrawerPrimitiveSidebarCloseButton').click();
+    screen.getByTestId('DrawerPrimitiveSidebarCloseButton').click();
     expect(onClose).toHaveBeenCalled();
   });
 
@@ -186,26 +145,11 @@ describe('Drawer Transitions', () => {
     jest.useFakeTimers();
     const onCloseComplete = jest.fn();
     const { rerender } = render(
-      <Drawer
-        isOpen
-        width="wide"
-        onCloseComplete={onCloseComplete}
-        testId="test-drawer"
-      >
-        <code>Drawer contents</code>
-      </Drawer>,
+      createDrawer({ isOpen: true, onCloseComplete: onCloseComplete }),
     );
 
-    rerender(
-      <Drawer
-        isOpen={false}
-        width="wide"
-        onCloseComplete={onCloseComplete}
-        testId="test-drawer"
-      >
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    rerender(createDrawer({ isOpen: false, onCloseComplete: onCloseComplete }));
+
     act(() => {
       jest.runAllTimers();
     });
@@ -216,11 +160,7 @@ describe('Drawer Transitions', () => {
   it('should call onOpenComplete when DrawerPrimitive calls onOpenComplete', () => {
     jest.useFakeTimers();
     const onOpenComplete = jest.fn();
-    render(
-      <Drawer isOpen width="wide" onOpenComplete={onOpenComplete}>
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onOpenComplete: onOpenComplete }));
 
     act(() => {
       jest.runAllTimers();
@@ -233,11 +173,7 @@ describe('Drawer Transitions', () => {
     const onKeyDown = jest.fn();
     const event = { key: 'Escape' };
 
-    render(
-      <Drawer isOpen onKeyDown={onKeyDown} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onKeyDown: onKeyDown }));
     const [eventName, eventHandler] = findKeydownListenerCall(
       window.addEventListener,
     );
@@ -252,11 +188,7 @@ describe('Drawer Transitions', () => {
     const onClose = jest.fn();
     const event = { key: 'another-key' };
 
-    render(
-      <Drawer isOpen onClose={onClose} width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, onClose: onClose }));
     const [, eventHandler] = findKeydownListenerCall(window.addEventListener);
 
     eventHandler(event);
@@ -266,11 +198,7 @@ describe('Drawer Transitions', () => {
   // this funtionality is currently broken and
   // will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
   it.skip('should NOT retain Drawer contents by default', () => {
-    render(
-      <Drawer isOpen width="wide">
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true }));
 
     // TODO: rewrite assertion with RTL once functionality is fixed.
     // expect(
@@ -281,11 +209,7 @@ describe('Drawer Transitions', () => {
   // this funtionality is currently broken and
   // will be fixed by https://ecosystem.atlassian.net/projects/AK/queues/issue/AK-6444
   it.skip('should retain Drawer contents when shouldUnmountOnExit is passed', () => {
-    render(
-      <Drawer isOpen width="wide" shouldUnmountOnExit={false}>
-        <code>Drawer contents</code>
-      </Drawer>,
-    );
+    render(createDrawer({ isOpen: true, shouldUnmountOnExit: false }));
 
     // expect(
     //   (wrapper.find('Slide').find('Transition').props() as any).unmountOnExit,

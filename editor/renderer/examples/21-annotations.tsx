@@ -18,11 +18,21 @@ import {
 } from './helper/annotations';
 import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 const exampleDocumentWithComments = {
   version: 1,
   type: 'doc',
   content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Example of comments in renderer',
+        },
+      ],
+    },
     {
       type: 'paragraph',
       content: [
@@ -46,7 +56,38 @@ const exampleDocumentWithComments = {
       content: [
         {
           type: 'text',
-          text: 'It has UNRESOLVED annonations',
+          text: 'It has UNRESOLVED annonations ',
+          marks: [
+            {
+              type: 'strong',
+            },
+            {
+              type: 'annotation',
+              attrs: {
+                id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://pug.jira-dev.com/wiki/spaces/CE/blog/2017/08/18/3105751050/A+better+REST+API+for+Confluence+Cloud+via+Swagger',
+          },
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: '12e213d7-badd-4c2a-881e-f5d6b9af3752',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' across ranges',
           marks: [
             {
               type: 'strong',
@@ -328,7 +369,7 @@ const mainStyle = css({
   flex: '80%',
 });
 
-const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
+export const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
   const { state } = React.useContext(annotationsStore);
   const createNewAnnotationAndReplaceDocument = React.useCallback(
     (doc: JSONDocNode) => {
@@ -458,11 +499,13 @@ const App = () => {
             adfDocument={doc as DocNode}
             annotationProvider={annotationProvider}
           >
-            <Renderer
-              appearance="full-page"
-              document={doc as DocNode}
-              allowAnnotations
-            />
+            <SmartCardProvider client={new CardClient('stg')}>
+              <Renderer
+                appearance="full-page"
+                document={doc as DocNode}
+                allowAnnotations
+              />
+            </SmartCardProvider>
           </AnnotationsWrapper>
         </RendererActionsContext>
       </main>

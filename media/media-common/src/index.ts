@@ -53,6 +53,7 @@ export type {
   TrackEventPayload,
   ContextPublicAttributes,
   ContextStaticProps,
+  MediaTraceContext,
 } from './analytics/types';
 
 // Analytics context
@@ -85,8 +86,3 @@ export {
   matches,
   getRandomHex,
 } from './utils/helpers';
-
-export type MediaTraceContext = {
-  traceId: string;
-  spanId?: string;
-};

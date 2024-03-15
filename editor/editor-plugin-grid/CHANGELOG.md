@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-grid
 
+## 1.0.2
+
+### Patch Changes
+
+- [#81801](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81801) [`3afc1428a56a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3afc1428a56a) - Small refactor in the `overflowHighlight` utility function to improve compatibility with TypeScript 5
+
 ## 1.0.1
 
 ### Patch Changes

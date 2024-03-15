@@ -20,7 +20,9 @@ import {
   ScreenAttributes,
   MediaTraceContext,
   WithTraceContext,
-} from '@atlaskit/media-common';
+  sanitiseAnalyticsPayload,
+} from '@atlaskit/media-common/analytics';
+
 import {
   CreateUIAnalyticsEvent,
   createAndFireEvent,
@@ -31,8 +33,8 @@ import {
   MediaCardErrorPrimaryReason,
   getFileStateErrorReason,
   isMediaFileStateError,
-} from '../errors';
-import { CardPreviewSource, CardDimensions, CardStatus } from '../types';
+} from '../../errors';
+import { CardPreviewSource, CardDimensions, CardStatus } from '../../types';
 
 export type CardPreviewAttributes = {
   fileId: string;
@@ -454,7 +456,7 @@ export function fireMediaCardEvent(
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
   if (createAnalyticsEvent) {
-    const event = createAnalyticsEvent(payload);
+    const event = createAnalyticsEvent(sanitiseAnalyticsPayload(payload));
     event.fire(ANALYTICS_MEDIA_CHANNEL);
   }
 }
@@ -462,5 +464,7 @@ export function fireMediaCardEvent(
 export const createAndFireMediaCardEvent = (
   payload: MediaCardAnalyticsEventPayload,
 ) => {
-  return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(payload);
+  return createAndFireEvent(ANALYTICS_MEDIA_CHANNEL)(
+    sanitiseAnalyticsPayload(payload),
+  );
 };

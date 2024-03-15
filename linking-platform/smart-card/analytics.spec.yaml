@@ -85,6 +85,7 @@ events:
       attributes:
         <<: [*PackageMetaDataContext, *ResolvedAttributes]
         fromCache:
+          required: false
           type: boolean
           description: if the summary is from a cache
 
@@ -93,3 +94,19 @@ events:
       description: fired when a summary error is viewed
       attributes:
         <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - summary success:
+      type: operational
+      description: fired when a summary request finishes with a successful response
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
+  - summary failed:
+      type: operational
+      description: fired when a summary request finishes with a failed response
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+        reason:
+          required: false
+          type: string
+          description: failure reason

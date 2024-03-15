@@ -30,7 +30,7 @@ export default class DecisionList extends PureComponent<Props, {}> {
         data-node-type="decisionList"
       >
         {React.Children.map(children, (child, idx) => {
-          const { localId } = (child as PureComponent).props as {
+          const { localId } = (child as React.ReactElement).props as {
             localId: string;
           };
           return (

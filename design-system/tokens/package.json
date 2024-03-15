@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.41.0",
+  "version": "1.41.1",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -136,6 +136,9 @@
     "./css-type-schema": "./src/entry-points/css-type-schema.codegen.tsx"
   },
   "platform-feature-flags": {
+    "platform.design-system-team.border-checkbox_nyoiu": {
+      "type": "boolean"
+    },
     "platform.design-system-team.increased-contrast-themes": {
       "type": "boolean"
     }

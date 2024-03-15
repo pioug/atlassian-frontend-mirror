@@ -1,5 +1,45 @@
 # @atlaskit/editor-plugins
 
+## 1.7.0
+
+### Minor Changes
+
+- [#80131](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80131) [`336116d18762`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/336116d18762) - Expose a new method hideDecoration on selection marker which can be used to temporarily disable the selection marker behaviour.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

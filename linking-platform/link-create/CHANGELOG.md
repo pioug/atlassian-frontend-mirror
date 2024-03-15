@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.15.0
+
+### Minor Changes
+
+- [#81320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81320) [`d26f355c6fa9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d26f355c6fa9) - allow rendering of ModalHero in LinkCreate modal
+
 ## 1.14.6
 
 ### Patch Changes

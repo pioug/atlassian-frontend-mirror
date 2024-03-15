@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "A text area lets users enter long form text which spans over multiple lines.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -95,6 +95,9 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.update-input-border-wdith_5abwv": {
       "type": "boolean"
     }
   },

@@ -1,35 +1,16 @@
-import React from 'react';
-
-import ReactDOM from 'react-dom';
-
 import noop from '@atlaskit/ds-lib/noop';
-import { getExamplesFor, ssr } from '@atlaskit/ssr';
+import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-jest.spyOn(global.console, 'error').mockImplementation(noop);
-
-afterEach(() => {
-  jest.resetAllMocks();
-});
-
-test('should ssr then hydrate page-layout correctly', async () => {
-  const example = await getExamplesFor('page-layout');
-  const Example = require(example[6].filePath).default;
-
-  // @ts-ignore
-  let localStorage = global.localStorage;
-  // @ts-ignore
-  delete global.localStorage;
-
+test('should ssr then hydrate form correctly', async () => {
+  const examplePath = require.resolve(
+    '../../../../../examples/00-customizable-page-layout.tsx',
+  );
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');
-  elem.innerHTML = await ssr(example[6].filePath);
+  const { html, styles } = await ssr(examplePath);
+  elem.innerHTML = html;
+  hydrate(examplePath, elem, styles);
 
-  // @ts-ignore
-  global.localStorage = localStorage;
-
-  ReactDOM.hydrate(<Example />, elem);
-
-  // Ignore warnings caused by emotion's server-side rendering approach
-  // Ignore `useLayoutEffect` errors (as they're intentional with `useMediaQuery`)
   // eslint-disable-next-line no-console
   const mockCalls = (console.error as jest.Mock).mock.calls;
   expect(mockCalls).toEqual([
@@ -38,11 +19,8 @@ test('should ssr then hydrate page-layout correctly', async () => {
         /Warning.*useLayoutEffect does nothing on the server/,
       ),
     ]),
-    expect.arrayContaining([
-      expect.stringMatching(
-        /Warning: Did not expect server HTML to contain a <%s> in <%s>/,
-      ),
-      'style',
-    ]),
   ]);
+
+  cleanup();
+  consoleMock.mockRestore();
 });

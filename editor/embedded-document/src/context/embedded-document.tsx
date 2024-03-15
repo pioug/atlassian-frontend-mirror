@@ -46,6 +46,7 @@ export interface Props extends ProviderProps {
 
   renderTitle?: (mode: Mode, doc?: any) => ReactElement<any>;
   renderToolbar?: (mode: Mode, editorActions?: any) => ReactElement<any>;
+  children?: React.ReactNode;
 }
 
 export default class EmbeddedDocument extends Component<Props, State> {

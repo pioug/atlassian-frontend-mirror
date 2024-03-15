@@ -4,6 +4,7 @@ import {
   PuppeteerPage,
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const checkbox = "[data-testid='cb-basic--checkbox-label']";
 const invalidCheckbox = "[data-testid='cb-invalid--checkbox-label']";
@@ -14,6 +15,24 @@ async function waitForCheckboxes(page: PuppeteerPage) {
 }
 
 describe('Snapshot Test', () => {
+  ffTest(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+    async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'checkbox',
+        'basic-usage',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await waitForCheckboxes(page);
+
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
   it('Default checkbox should render correctly under all interactions', async () => {
     const { __BASEURL__, page } = global;
     const url = getExampleUrl(

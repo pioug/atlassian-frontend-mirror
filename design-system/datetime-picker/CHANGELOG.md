@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 13.2.1
+
+### Patch Changes
+
+- [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644) [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) - Revert input border change from the previous version
+
 ## 13.2.0
 
 ### Minor Changes

@@ -27,10 +27,14 @@ export interface LozengeData {
 
 export default class ExtensionLozenge extends Component<Props, any> {
   render() {
-    const { node } = this.props;
+    const { node, showMacroInteractionDesignUpdates } = this.props;
 
     const imageData = getExtensionLozengeData({ node, type: 'image' });
-    if (imageData && node.type.name !== 'extension') {
+    if (
+      !showMacroInteractionDesignUpdates &&
+      imageData &&
+      node.type.name !== 'extension'
+    ) {
       return this.renderImage(imageData);
     }
 
@@ -60,14 +64,13 @@ export default class ExtensionLozenge extends Component<Props, any> {
         parameters.macroMetadata &&
         parameters.macroMetadata.title) ||
       extensionKey;
-    const isBlockExtension = name === 'extension';
 
     return (
       <LozengeComponent
         isNodeHovered={isNodeHovered}
         isNodeSelected={isNodeSelected}
         showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-        isBlockExtension={isBlockExtension}
+        extensionName={name}
         lozengeData={lozengeData}
         params={params}
         title={title}

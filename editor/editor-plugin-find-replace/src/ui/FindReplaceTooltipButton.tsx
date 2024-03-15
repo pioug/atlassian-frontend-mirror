@@ -12,7 +12,7 @@ import Tooltip from '@atlaskit/tooltip';
 interface Props {
   title: string;
   icon: JSX.Element;
-  newIcon: React.ComponentType<IconProps>;
+  newIcon: React.ComponentType<React.PropsWithChildren<IconProps>>;
   iconLabel: string;
   iconSize?: 'small' | undefined;
   keymapDescription: string;

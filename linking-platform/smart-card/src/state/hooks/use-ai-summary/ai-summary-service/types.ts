@@ -7,6 +7,9 @@ export interface AISummaryServiceInt {
 export type AISummaryServiceProps = {
   baseUrl?: string;
   headers?: Record<string, string>;
+  onError?: (id: string, reason?: string) => void;
+  onStart?: (id: string) => void;
+  onSuccess?: (id: string) => void;
   product?: ProductType;
   url: string;
 };

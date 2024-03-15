@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -104,6 +104,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.design-system-team.navigation-v2-no-jank_5yhbd": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.update-input-border-wdith_5abwv": {
       "type": "boolean"
     },
     "platform.design-system-team.border-checkbox_nyoiu": {

@@ -19,7 +19,7 @@ export default () => {
         <Heading level="h100">h100</Heading>
       </Stack>
       <Stack testId="headings" space="space.100">
-        <Heading variant="xxlarge">xxlarge</Heading>
+        <Heading size="xxlarge">xxlarge</Heading>
         <Heading size="xlarge">xlarge</Heading>
         <Heading size="large">large</Heading>
         <Heading size="medium">medium</Heading>

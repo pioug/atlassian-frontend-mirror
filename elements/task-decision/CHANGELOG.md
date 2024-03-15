@@ -1,5 +1,17 @@
 # @atlaskit/task-decision
 
+## 17.9.10
+
+### Patch Changes
+
+- [#81438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81438) [`cba2e815ce28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cba2e815ce28) - React 18 types for @atlaskit/task-decisions
+
+## 17.9.9
+
+### Patch Changes
+
+- [#81644](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81644) [`8ab7a816dca7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ab7a816dca7) - Revert input border change from the previous version
+
 ## 17.9.8
 
 ### Patch Changes

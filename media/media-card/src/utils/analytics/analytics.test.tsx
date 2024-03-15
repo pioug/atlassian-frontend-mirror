@@ -1,3 +1,12 @@
+jest.mock('@atlaskit/analytics-next', () => {
+  const actualModule = jest.requireActual('@atlaskit/analytics-next');
+  return {
+    __esModule: true,
+    ...actualModule,
+    createAndFireEvent: jest.fn(actualModule.createAndFireEvent),
+  };
+});
+
 import React from 'react';
 import { mount } from 'enzyme';
 import {
@@ -5,6 +14,7 @@ import {
   withAnalyticsEvents,
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
+  createAndFireEvent,
 } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
@@ -19,7 +29,7 @@ import {
   getRenderPreviewableCardPayload,
   extractErrorInfo,
   SSRStatus,
-} from '../../analytics';
+} from './analytics';
 import {
   FileAttributes,
   MediaTraceContext,
@@ -30,7 +40,7 @@ import {
   createRateLimitedError,
 } from '@atlaskit/media-test-helpers';
 import { getMediaClientErrorReason } from '@atlaskit/media-client';
-import { MediaCardError } from '../../../errors';
+import { MediaCardError } from '../../errors';
 
 const somePayload: MediaCardAnalyticsEventPayload = {
   eventType: 'ui',
@@ -50,6 +60,10 @@ const mediaPayload: MediaCardAnalyticsEventPayload = {
 };
 
 describe('Media Analytics', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('Should provide an analytics event creator for Media Card', () => {
     const SomeComponent = ({ onClick }: any) => (
       <span onClick={onClick}>Hi!</span>
@@ -280,6 +294,72 @@ describe('Media Analytics', () => {
         metadataTraceContext: {
           traceId: 'test-id',
         },
+      });
+    });
+  });
+
+  describe('Sanitisation', () => {
+    describe('fireMediaCardEvent', () => {
+      it('should sanitise the file id', () => {
+        const createAnalyticsEvent = jest.fn(() => ({ fire: jest.fn() }));
+        const payload = {
+          attributes: {
+            fileAttributes: { fileId: 'this is an invalid file id' },
+          },
+        };
+
+        fireMediaCardEvent(payload as any, createAnalyticsEvent as any);
+
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          attributes: { fileAttributes: { fileId: 'INVALID_FILE_ID' } },
+        });
+      });
+
+      it('should preserve a valid file id', () => {
+        const createAnalyticsEvent = jest.fn(() => ({ fire: jest.fn() }));
+        const validFileId = 'c2c581e3-8fb7-44ef-b3ed-7c9c9a29c3ef';
+        const payload = {
+          attributes: { fileAttributes: { fileId: validFileId } },
+        };
+
+        fireMediaCardEvent(payload as any, createAnalyticsEvent as any);
+
+        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          attributes: { fileAttributes: { fileId: validFileId } },
+        });
+      });
+    });
+
+    describe('createAndFireMediaCardEvent', () => {
+      it('should sanitise the file id', () => {
+        const createdEvent = jest.fn();
+        (createAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
+        const payload = {
+          attributes: {
+            fileAttributes: { fileId: 'this is an invalid file id' },
+          },
+        };
+
+        createAndFireMediaCardEvent(payload as any);
+
+        expect(createdEvent).toHaveBeenCalledWith({
+          attributes: { fileAttributes: { fileId: 'INVALID_FILE_ID' } },
+        });
+      });
+
+      it('should preserve a valid file id', () => {
+        const createdEvent = jest.fn();
+        (createAndFireEvent as jest.Mock).mockReturnValueOnce(createdEvent);
+        const validFileId = 'c2c581e3-8fb7-44ef-b3ed-7c9c9a29c3ef';
+        const payload = {
+          attributes: { fileAttributes: { fileId: validFileId } },
+        };
+
+        createAndFireMediaCardEvent(payload as any);
+
+        expect(createdEvent).toHaveBeenCalledWith({
+          attributes: { fileAttributes: { fileId: validFileId } },
+        });
       });
     });
   });

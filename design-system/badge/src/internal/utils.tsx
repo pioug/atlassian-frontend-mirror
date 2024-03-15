@@ -1,5 +1,6 @@
 function getSafeValue(value: string | number = 0) {
-  if (value < 0) {
+  const numericValue = +value;
+  if (numericValue < 0) {
     return 0;
   }
 

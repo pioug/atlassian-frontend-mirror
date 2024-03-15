@@ -1,11 +1,13 @@
 import { FileState, RequestMetadata } from '@atlaskit/media-client';
+
 import {
   FileAttributes,
   WithFileAttributes,
   FailureAttributes,
   ANALYTICS_MEDIA_CHANNEL,
   WithTraceContext,
-} from '@atlaskit/media-common';
+  sanitiseAnalyticsPayload,
+} from '@atlaskit/media-common/analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PrimaryErrorReason } from '../errors';
 
@@ -67,7 +69,7 @@ export function fireAnalytics(
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) {
   if (createAnalyticsEvent) {
-    const ev = createAnalyticsEvent(payload);
+    const ev = createAnalyticsEvent(sanitiseAnalyticsPayload(payload));
     ev.fire(ANALYTICS_MEDIA_CHANNEL);
   }
 }

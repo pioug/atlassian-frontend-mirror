@@ -1,8 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
 import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
+import { token } from '@atlaskit/tokens';
+import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { CardErrorBoundary } from './fallback';
 import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
@@ -17,7 +21,25 @@ export interface InlineCardProps {
   eventHandlers?: EventHandlers;
   portal?: HTMLElement;
   smartLinks?: SmartLinksOptions;
+  marks?: string[];
 }
+
+const annotatedCard = getBooleanFF(
+  'platform.editor.allow-inline-comments-for-inline-nodes',
+)
+  ? css({
+      "[data-mark-type='annotation'][data-mark-annotation-state='active'] &": {
+        background: token('color.background.accent.yellow.subtler', Y75),
+        borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+        boxShadow: token(
+          'elevation.shadow.overlay',
+          `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
+        ),
+        cursor: 'pointer',
+        padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+      },
+    })
+  : '';
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
   const { url, data, eventHandlers, portal, smartLinks } = props;
@@ -67,6 +89,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
         data-inline-card
         data-card-data={data ? JSON.stringify(data) : undefined}
         data-card-url={url}
+        css={annotatedCard}
       >
         <CardErrorBoundary
           unsupportedComponent={UnsupportedInline}

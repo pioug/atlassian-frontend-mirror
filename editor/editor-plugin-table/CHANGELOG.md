@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.10
+
+### Patch Changes
+
+- [#81527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81527) [`f54438c79095`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f54438c79095) - prevent nested tables from scaling
+
 ## 7.5.9
 
 ### Patch Changes

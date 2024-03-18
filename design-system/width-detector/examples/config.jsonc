@@ -4,12 +4,9 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "3-scrolling.tsx"
-  ],
+  "testExamples": [],
   "exampleDependencies": [
-    "@atlaskit/button",
-    "@emotion/core",
+    "@emotion/react",
     "lodash"
   ]
 }

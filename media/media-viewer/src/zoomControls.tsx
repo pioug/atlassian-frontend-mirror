@@ -20,11 +20,13 @@ import { createZoomOutButtonClickedEvent } from './analytics/events/ui/zoomOutBu
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 
-export type ZoomControlsProps = Readonly<{
-  onChange: (newZoomLevel: ZoomLevel) => void;
-  zoomLevel: ZoomLevel;
-}> &
-  WithAnalyticsEventsProps;
+export type ZoomControlsProps = React.PropsWithChildren<
+  Readonly<{
+    onChange: (newZoomLevel: ZoomLevel) => void;
+    zoomLevel: ZoomLevel;
+  }> &
+    WithAnalyticsEventsProps
+>;
 
 export class ZoomControlsBase extends Component<
   ZoomControlsProps & WrappedComponentProps,

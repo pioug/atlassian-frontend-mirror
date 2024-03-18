@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.11
+
+### Patch Changes
+
+- [#82119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82119) [`0358b8d41041`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0358b8d41041) - insert table at full width via shortcut in full width page
+- Updated dependencies
+
 ## 7.5.10
 
 ### Patch Changes

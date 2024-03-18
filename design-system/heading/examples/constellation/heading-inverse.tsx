@@ -26,8 +26,8 @@ export default () => {
         />
       </Inline>
       <Box xcss={headingContainerStyles}>
-        <Heading color={color} level="h900">
-          H900
+        <Heading color={color} size="xxlarge">
+          Heading XXLarge
         </Heading>
       </Box>
     </Stack>

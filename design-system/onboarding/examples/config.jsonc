@@ -7,11 +7,12 @@
   "testExamples": [
     "00-different-spotlights.tsx",
     "101-modal-wide-button-text.tsx",
-    "102-spotlight-with-conditional-targets.tsx",
-    "20-spotlight-autoscroll.tsx",
-    "30-spotlight-dialog-placement.tsx",
+    "104-spotlight-target-height.tsx",
+    "105-spotlight-target-tabs.tsx",
     "90-spotlight-button-appearance.tsx",
-    "99-modal-basic.tsx"
+    "96-spotlight-without-pulse.tsx",
+    "99-modal-basic.tsx",
+    "spotlight-dialog-placement.tsx"
   ],
   "exampleDependencies": []
 }

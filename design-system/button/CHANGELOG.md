@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.7.0
 
 ### Minor Changes

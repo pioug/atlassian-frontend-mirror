@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-mentions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Mentions plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -89,11 +89,9 @@
       "ui-components": [
         "lite-mode"
       ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
+      "deprecation": "no-deprecated-imports",
       "styling": [
-        "static",
+        "emotion",
         "emotion"
       ],
       "imports": [

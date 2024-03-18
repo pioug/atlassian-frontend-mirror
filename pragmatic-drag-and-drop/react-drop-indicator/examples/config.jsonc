@@ -5,8 +5,9 @@
  */
 {
   "testExamples": [
-    "11-terminal.tsx",
-    "closest-edge.tsx",
-    "gap.tsx"
+    "00-closest-edge.tsx",
+    "01-gap.tsx",
+    "02-box-without-terminal.tsx",
+    "11-tree-item.tsx"
   ]
 }

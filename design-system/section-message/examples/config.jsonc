@@ -4,14 +4,6 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-basic-example.tsx",
-    "01-appearance-variations.tsx",
-    "06-theme.tsx",
-    "100-ssr-testing.tsx",
-    "99-testing.tsx"
-  ],
-  "exampleDependencies": [
-    "@atlaskit/range"
-  ]
+  "testExamples": [],
+  "exampleDependencies": []
 }

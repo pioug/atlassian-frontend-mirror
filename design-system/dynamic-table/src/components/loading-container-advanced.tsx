@@ -13,6 +13,7 @@ import {
 import type { SpinnerSizeType } from '../types';
 
 export interface LoadingContainerAdvancedProps {
+  children?: React.ReactNode;
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number | string;

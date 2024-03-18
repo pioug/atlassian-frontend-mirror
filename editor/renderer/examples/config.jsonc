@@ -10,11 +10,10 @@
     "100-testing-with-click-to-edit.tsx",
     "101-media-ssr.tsx",
     "18-list-of-comments.tsx",
+    "200-add-telepointer.tsx",
     "99-testing.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/radio",
-    "@atlaskit/range",
     "ajv"
   ]
 }

@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import ControlledExpandedState from '../../../examples/controlled-expanded-state';
 import VrLoading from '../../../examples/vr-loading';
 import VrLoadingNested from '../../../examples/vr-loading-nested';
+import VrOverflow from '../../../examples/vr-overflow-behavior';
 
 snapshot(ControlledExpandedState, {
   variants: [
@@ -60,6 +61,16 @@ snapshot(VrLoadingNested, {
       name: 'Dark',
       environment: {
         colorScheme: 'dark',
+      },
+    },
+  ],
+});
+snapshot(VrOverflow, {
+  variants: [
+    {
+      name: 'Light',
+      environment: {
+        colorScheme: 'light',
       },
     },
   ],

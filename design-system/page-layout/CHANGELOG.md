@@ -1,5 +1,17 @@
 # @atlaskit/page-layout
 
+## 3.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.0
+
+### Minor Changes
+
+- [#81736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81736) [`5ce631eec537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ce631eec537) - Added `UNSAFE_useSetLeftSidebarState` to support an internal redesign. `UNSAFE_useSetLeftSidebarState` returns noop and will be removed in the next major release.
+
 ## 3.0.0
 
 ### Major Changes

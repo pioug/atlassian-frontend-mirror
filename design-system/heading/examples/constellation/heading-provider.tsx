@@ -1,16 +1,15 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import Heading, { HeadingContextProvider } from '../../src';
 
-const Section = ({ level, children }: any) => (
+const Section = ({ size, children }: any) => (
   <HeadingContextProvider>
     <Box paddingInlineStart="space.100">
       <Stack space="space.100">
-        <Heading level={level}>{level}</Heading>
-        <Text>
+        <Heading size={size}>Heading {size}</Heading>
+        <Text as="p">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci,
           fuga perferendis nam neque doloribus velit eveniet? Distinctio
           explicabo autem est. Temporibus sunt non beatae quis minus rem
@@ -27,10 +26,10 @@ export default () => {
     <HeadingContextProvider>
       <Box style={{ maxWidth: 850, margin: 'auto' }}>
         <Stack testId="headings" space="space.100">
-          <Heading level="h900">h900 as H2</Heading>
-          <Section level="h600">
-            <Section level="h700">
-              <Section level="h900" />
+          <Heading size="xxlarge">Heading xxlarge as H1</Heading>
+          <Section size="medium">
+            <Section size="large">
+              <Section size="xxlarge" />
             </Section>
           </Section>
         </Stack>

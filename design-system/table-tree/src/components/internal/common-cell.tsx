@@ -19,7 +19,9 @@ const commonStyles = css({
   position: 'relative',
   alignItems: 'center',
   color: token('color.text', N800),
+  hyphens: 'auto',
   lineHeight: token('font.lineHeight.200', '20px'),
+  wordBreak: 'break-word',
 });
 
 interface CommonCellProps {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.5.10",
+  "version": "7.5.11",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,7 +46,7 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^4.1.0",
+    "@atlaskit/primitives": "^5.0.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/tokens": "^1.41.0",

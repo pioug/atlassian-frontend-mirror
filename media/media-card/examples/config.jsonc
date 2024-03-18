@@ -5,18 +5,14 @@
  */
 {
   "testExamples": [
-    "5-inline-video-card.tsx",
-    "99-test-card-files-mocked.tsx",
-    "card-view-vr.tsx"
+    "Test-VR-SSR-cases.tsx",
+    "Test-VR-card-view.tsx",
+    "Test-VR-inline-player.tsx",
+    "Test-VR-inline-video-card.tsx",
+    "Test-VR-media-inline.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/button",
-    "@atlaskit/checkbox",
     "@atlaskit/media-picker",
-    "@atlaskit/radio",
-    "@atlaskit/range",
-    "@atlaskit/select",
-    "@atlaskit/toggle",
     "exenv"
   ]
 }

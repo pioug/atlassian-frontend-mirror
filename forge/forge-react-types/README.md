@@ -21,13 +21,13 @@ yarn workspace @atlaskit/forge-react-types codegen
 During development, the codegen command can be run for a specific component:
 
 ```bash
-yarn workspace @atlaskit/forge-react-types <component-name>
+yarn workspace @atlaskit/forge-react-types codegen <component-name>
 ```
 
 e.g.
 
 ```bash
-yarn workspace @atlaskit/forge-react-types ButtonProps
+yarn workspace @atlaskit/forge-react-types codegen ButtonProps
 ```
 
 NOTE: Make sure any new component prop types are being exported from `packages/forge/forge-react-types/src/components/__generated__/index.ts`

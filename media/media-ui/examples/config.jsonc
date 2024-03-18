@@ -6,13 +6,8 @@
 {
   "testExamples": [
     "exif-orientations-vr.tsx",
-    "vr-block-card-collaborators.tsx",
-    "vr-block-card-default-icon.tsx",
-    "vr-block-card-lozenge.tsx",
-    "vr-inline-card-default-icon.tsx",
-    "vr-inline-card-lozenge.tsx"
+    "vr-media-inline-card-text-wrap.tsx",
+    "vr-media-inline-card.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/lozenge"
-  ]
+  "exampleDependencies": []
 }

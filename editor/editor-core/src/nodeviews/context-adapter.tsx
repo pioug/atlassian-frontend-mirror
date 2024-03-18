@@ -46,7 +46,7 @@ type LegacyContextAdapterProps = {
 };
 
 class LegacyContextAdapter extends React.PureComponent<
-  LegacyContextAdapterProps,
+  React.PropsWithChildren<LegacyContextAdapterProps>,
   {}
 > {
   static childContextTypes = {

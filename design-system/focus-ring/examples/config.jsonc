@@ -7,10 +7,5 @@
   "testExamples": [
     "00-basic.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/button",
-    "@atlaskit/progress-indicator",
-    "@atlaskit/textfield",
-    "@atlaskit/visually-hidden"
-  ]
+  "exampleDependencies": []
 }

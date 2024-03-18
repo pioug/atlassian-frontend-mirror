@@ -216,6 +216,7 @@ export const setup = async (
       displayName: string;
     }[];
     columnCustomSizes?: JiraIssuesConfigModalProps['columnCustomSizes'];
+    wrappedColumnKeys?: JiraIssuesConfigModalProps['wrappedColumnKeys'];
     url?: JiraIssuesConfigModalProps['url'];
     viewMode?: JiraIssueViewModes;
   } = {},
@@ -259,6 +260,11 @@ export const setup = async (
               columnCustomSizes={
                 Object.keys(args).includes('columnCustomSizes')
                   ? args.columnCustomSizes
+                  : undefined
+              }
+              wrappedColumnKeys={
+                Object.keys(args).includes('wrappedColumnKeys')
+                  ? args.wrappedColumnKeys
                   : undefined
               }
               url={args.url}

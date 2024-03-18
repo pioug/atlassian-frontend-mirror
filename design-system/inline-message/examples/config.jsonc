@@ -6,7 +6,6 @@
 {
   "testExamples": [
     "01-basic.tsx",
-    "02-different-types.tsx",
-    "99-testing.tsx"
+    "02-different-types.tsx"
   ]
 }

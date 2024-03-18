@@ -5,8 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/editor-core",
-    "@atlaskit/util-data-test",
     "@emotion/react"
   ]
 }

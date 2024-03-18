@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.4.0
+
+### Minor Changes
+
+- [#81394](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81394) [`2798f5546fb7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2798f5546fb7) - [ux] ED-22118 implemented annotation style for block node (media)
+
 ## 1.3.2
 
 ### Patch Changes

@@ -9,7 +9,7 @@ import type { APIError } from '@atlaskit/smart-card';
 import type { DatasourceProps } from './nodeviews/datasource';
 import { setSelectedCardAppearance } from './pm-plugins/doc';
 
-export type DatasourceErrorBoundaryProps = {
+export type DatasourceErrorBoundaryProps = React.PropsWithChildren<{
   url?: string;
   unsupportedComponent?: React.ComponentType;
   handleError?: () => void;
@@ -17,7 +17,7 @@ export type DatasourceErrorBoundaryProps = {
   // Only used in Sentry tagging
   datasourceModalType?: DatasourceModalType;
   datasourceId?: string;
-};
+}>;
 
 export class DatasourceErrorBoundary extends React.Component<DatasourceErrorBoundaryProps> {
   state = {

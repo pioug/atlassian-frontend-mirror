@@ -149,8 +149,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Prøv et andet søgeord, eller find nye apps til Atlassian-produkter.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Gå på opdagelse på Atlassian Marketplace',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {Der er ikke noget, der matcher din søgning} one {{count} muligt forslag til indtastet tekst.} other {{count} mulige forslag til indtastet tekst.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Indtast',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Søg',
   'fabric.editor.elementbrowser.sidebar.heading': 'Gennemse',

@@ -28,7 +28,7 @@ export default class SlowLoad extends Component {
       <TableTree>
         <Headers>
           <Header width={200}>Title</Header>
-          <Header width={100}>Numbering</Header>
+          <Header width={120}>Numbering</Header>
         </Headers>
         <Rows
           items={this.state.tableData}

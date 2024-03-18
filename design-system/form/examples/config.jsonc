@@ -6,10 +6,9 @@
 {
   "testExamples": [
     "00-signup-form.tsx",
-    "01-text-fields.tsx",
     "06-create-repository.tsx",
-    "09-submit-form.tsx",
-    "10-submission-validation.tsx"
+    "10-submission-validation.tsx",
+    "21-messages.tsx"
   ],
   "exampleDependencies": []
 }

@@ -7,6 +7,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
 
 import {
   mockBaseResponseWithErrorPreview,
@@ -280,6 +281,7 @@ describe('HoverCardResolvedView', () => {
       describe('with AI Summary FF enabled', () => {
         beforeEach(() => {
           isAiSummaryFFEnabled = true;
+          AISummariesStore.clear();
         });
 
         it('renders AISummary block with actions when AI is enabled and AISummary is enabled', async () => {
@@ -294,6 +296,30 @@ describe('HoverCardResolvedView', () => {
             'smart-ai-summary-block-ai-summary-action',
           );
           expect(aiSummaryAction?.textContent).toEqual('Summarize');
+        });
+
+        it('should use a resolved data URL instead of provided URL', async () => {
+          // Provided URL can be different from the data URL obtained from the resolver (see short links as example).
+          // We want to ensure that all components within the Hover Card subscribe to the same URL AI Summary update
+          // and do not create two different instances of AI Summary Service.
+          await setup({
+            mockResponse: {
+              ...mockAtlasProjectWithAiSummary,
+              data: {
+                ...mockAtlasProjectWithAiSummary.data,
+                url: 'http://data-link-url.com',
+              },
+            },
+            isAISummaryEnabled: true,
+          });
+
+          expect(AISummariesStore.size).toBe(1);
+          //provided URL
+          expect(AISummariesStore.get(url)).not.toBeDefined();
+          //Data url from the cardState
+          expect(
+            AISummariesStore.get('http://data-link-url.com'),
+          ).toBeDefined();
         });
       });
 

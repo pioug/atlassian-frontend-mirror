@@ -266,14 +266,17 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         {
           name: 'tableKeymap',
           plugin: () => {
-            const { dragAndDropEnabled, isTableScalingEnabled = false } =
-              options || ({} as TablePluginOptions);
-
+            const {
+              dragAndDropEnabled,
+              isTableScalingEnabled = false,
+              fullWidthEnabled = false,
+            } = options || ({} as TablePluginOptions);
             return keymapPlugin(
               defaultGetEditorContainerWidth,
               editorAnalyticsAPI,
               dragAndDropEnabled,
               isTableScalingEnabled,
+              fullWidthEnabled,
             );
           },
         },

@@ -24,6 +24,7 @@ export interface Props {
   editorViewDOM: HTMLElement;
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
+  children?: React.ReactNode;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components

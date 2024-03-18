@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.6
+
+### Patch Changes
+
+- [#81852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81852) [`c784155d4ad6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c784155d4ad6) - React 18 types for editor-plugin-insert-block
+
 ## 1.1.5
 
 ### Patch Changes

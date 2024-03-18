@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 109.8.4
+
+### Patch Changes
+
+- [#76893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76893) [`8d781cb52f84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d781cb52f84) - [ux] Add support for datasource column wrapping controls
+- Updated dependencies
+
 ## 109.8.3
 
 ### Patch Changes

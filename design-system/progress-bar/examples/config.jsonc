@@ -8,6 +8,6 @@
     "00-basic.tsx",
     "01-indeterminate.tsx",
     "02-success-progress-bar.tsx",
-    "transparent-progress-bar.tsx"
+    "03-transparent-progress-bar.tsx"
   ]
 }

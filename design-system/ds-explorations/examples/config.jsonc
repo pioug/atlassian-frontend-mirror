@@ -5,17 +5,9 @@
  */
 {
   "testExamples": [
-    "00-basic.tsx"
+    "02-text.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/badge",
-    "@atlaskit/button",
-    "@atlaskit/code",
-    "@atlaskit/focus-ring",
-    "@atlaskit/heading",
-    "@atlaskit/icon",
-    "@atlaskit/lozenge",
-    "@atlaskit/section-message",
-    "@atlaskit/textfield"
+    "@atlaskit/ds-lib"
   ]
 }

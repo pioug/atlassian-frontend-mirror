@@ -43,6 +43,7 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
     } = this.props;
     const {
       cells,
+      testId: rowTestId,
       key,
       isHighlighted: isRowHighlighted,
       // TODO: Remove `rest` props and use only what is explicitly in the API.
@@ -75,7 +76,9 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
             isHighlighted={isHighlighted || isRowHighlighted}
             isRanking={isRanking}
             isRankingItem={snapshot.isDragging}
-            testId={testId && `${testId}--rankable--table--body--row`}
+            testId={
+              rowTestId || (testId && `${testId}--rankable--table--body--row`)
+            }
           >
             {cells.map((cell, cellIndex) => {
               const headCell = (head || { cells: [] }).cells[cellIndex];

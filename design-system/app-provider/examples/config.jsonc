@@ -5,6 +5,10 @@
  */
 {
   "testExamples": [
-    "basic.tsx"
+    "basic-dark.tsx",
+    "basic-light.tsx"
+  ],
+  "exampleDependencies": [
+    "react-router-dom"
   ]
 }

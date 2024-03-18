@@ -5,11 +5,18 @@
  */
 {
   "testExamples": [
-    "00-basic.tsx"
+    "vr-basic.tsx",
+    "vr-edit-link.tsx",
+    "vr-handle-plugin-error.tsx",
+    "vr-hide-display-text-with-multiple-plugins.tsx",
+    "vr-hide-display-text-with-plugin.tsx",
+    "vr-hide-display-text.tsx",
+    "vr-with-multiple-plugins.tsx",
+    "vr-with-no-plugins.tsx",
+    "vr-with-no-results-multi-product.tsx",
+    "vr-with-no-results.tsx",
+    "vr-with-plugin-action.tsx",
+    "vr-with-popup-integration.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/popup",
-    "@atlaskit/toggle",
-    "@atlassian/recent-work-client"
-  ]
+  "exampleDependencies": []
 }

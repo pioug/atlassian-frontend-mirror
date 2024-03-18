@@ -40,7 +40,7 @@ interface ItemInit {
   disabled: boolean;
   name: string;
   shortcut?: string;
-  Icon: React.ComponentType<{ label: string }>;
+  Icon: React.ComponentType<React.PropsWithChildren<{ label: string }>>;
   'aria-label'?: React.AriaAttributes['aria-label'];
   'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
   'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];

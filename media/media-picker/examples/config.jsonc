@@ -5,10 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/dropdown-menu",
-    "@atlaskit/media-core",
-    "@atlaskit/spinner",
-    "@atlaskit/toggle",
-    "react-intl-next"
+    "@atlaskit/media-core"
   ]
 }

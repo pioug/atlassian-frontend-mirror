@@ -6,10 +6,9 @@
 {
   "testExamples": [
     "0-basic.tsx",
-    "4-color.tsx"
+    "4-color.tsx",
+    "5-sizes.tsx",
+    "6-defensive-styling.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/code",
-    "@atlaskit/select"
-  ]
+  "exampleDependencies": []
 }

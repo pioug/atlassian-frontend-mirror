@@ -56,6 +56,8 @@ import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/
 import { withEditorAnalyticsAPI } from '../utils/analytics';
 
 const createTableWithAnalytics = (
+  isTableScalingEnabled: boolean,
+  isFullWidthModeEnabled: boolean,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ) =>
   withEditorAnalyticsAPI({
@@ -64,13 +66,16 @@ const createTableWithAnalytics = (
     actionSubjectId: ACTION_SUBJECT_ID.TABLE,
     attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
     eventType: EVENT_TYPE.TRACK,
-  })(editorAnalyticsAPI)(createTable());
+  })(editorAnalyticsAPI)(
+    createTable(isTableScalingEnabled, isFullWidthModeEnabled),
+  );
 
 export function keymapPlugin(
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
   dragAndDropEnabled?: boolean,
   isTableScalingEnabled = false,
+  isFullWidthEnabled?: boolean,
 ): SafePlugin {
   const list = {};
 
@@ -86,7 +91,11 @@ export function keymapPlugin(
   );
   bindKeymapWithCommand(
     toggleTable.common!,
-    createTableWithAnalytics(editorAnalyticsAPI),
+    createTableWithAnalytics(
+      isTableScalingEnabled,
+      !!isFullWidthEnabled,
+      editorAnalyticsAPI,
+    ),
     list,
   );
   bindKeymapWithCommand(

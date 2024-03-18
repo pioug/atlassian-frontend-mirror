@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 5.5.0
+
+### Minor Changes
+
+- [#76893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76893) [`764ef8bfb973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/764ef8bfb973) - Add optional `isWrapped` attribute to properties.columns array object in datasource table view configuration. Also export `DatasourceAdfTableViewColumn` type that describe one such column.
+
 ## 5.4.0
 
 ### Minor Changes

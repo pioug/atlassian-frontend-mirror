@@ -6,14 +6,11 @@
 {
   "testExamples": [
     "00-single-select.tsx",
-    "01-multi-select.tsx",
-    "02-radio-select.tsx",
     "03-checkbox-select.tsx",
     "05-validation.tsx",
-    "06-async-select-with-callback.tsx",
     "11-select-in-modal-dialog.tsx",
-    "18-popup-select.tsx",
-    "24-disabled.tsx"
+    "24-disabled.tsx",
+    "26-appearance.tsx"
   ],
   "exampleDependencies": []
 }

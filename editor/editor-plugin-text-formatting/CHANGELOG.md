@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.2.4
+
+### Patch Changes
+
+- [#78492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78492) [`3b0b93acfd19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b0b93acfd19) - [ux] [CAMPTASKS-123] faulty formatting state for inline nodes
+
 ## 1.2.3
 
 ### Patch Changes

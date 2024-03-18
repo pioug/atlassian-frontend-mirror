@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 1.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.9.4
+
+### Patch Changes
+
+- [#82153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82153) [`480761cfea9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/480761cfea9c) - Make the annotation plugin optional for media plugin.
+- [#81852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81852) [`555dccbfa979`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/555dccbfa979) - React 18 types for editor-plugin-media
+- [#82076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82076) [`614af0864121`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/614af0864121) - [ux] Remove seperator between edit and open link buttons on media floating toolbar
+- Updated dependencies
+
 ## 1.9.3
 
 ### Patch Changes

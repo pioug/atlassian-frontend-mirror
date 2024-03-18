@@ -58,7 +58,9 @@ export const useUFOConcurrentExperience = (
   }, []);
 };
 
-export class UfoErrorBoundary extends React.Component<{ id: string }> {
+export class UfoErrorBoundary extends React.Component<
+  React.PropsWithChildren<{ id: string }>
+> {
   componentDidCatch() {
     smartUserPickerRenderedUfoExperience.getInstance(this.props.id).failure();
   }

@@ -8,11 +8,9 @@
     "00-basic-usage.tsx",
     "announcement-banner-with-long-text.tsx",
     "announcement-banner.tsx",
+    "banner-with-link.tsx",
     "error-banner.tsx",
-    "open-close-example.tsx",
-    "testing.tsx"
+    "open-close-example.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/button"
-  ]
+  "exampleDependencies": []
 }

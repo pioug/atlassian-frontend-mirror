@@ -11,7 +11,12 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { MarkType } from '@atlaskit/editor-prosemirror/dist/types/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
@@ -20,6 +25,30 @@ import * as commands from '../commands/text-formatting';
 import { pluginKey } from './plugin-key';
 
 export { pluginKey };
+
+const isSelectionInlineCursor = (selection: Selection) => {
+  if (selection instanceof NodeSelection) {
+    return true;
+  }
+  return false;
+};
+
+const checkNodeSelection = (
+  mark: MarkType,
+  editorState: EditorState,
+  type?: string | null | undefined,
+): boolean => {
+  const selection = editorState.selection;
+  if (isSelectionInlineCursor(selection)) {
+    return false;
+  }
+
+  if (type !== null || type !== undefined) {
+    return toggleMark(mark, { type: type })(editorState);
+  }
+
+  return toggleMark(mark)(editorState);
+};
 
 const getTextFormattingState = (
   editorState: EditorState,
@@ -31,23 +60,25 @@ const getTextFormattingState = (
 
   if (code) {
     state.codeActive = anyMarkActive(editorState, code.create());
-    state.codeDisabled = !toggleMark(code)(editorState);
+    state.codeDisabled = !checkNodeSelection(code, editorState);
   }
   if (em) {
     state.emActive = anyMarkActive(editorState, em);
-    state.emDisabled = state.codeActive ? true : !toggleMark(em)(editorState);
+    state.emDisabled = state.codeActive
+      ? true
+      : !checkNodeSelection(em, editorState);
   }
   if (strike) {
     state.strikeActive = anyMarkActive(editorState, strike);
     state.strikeDisabled = state.codeActive
       ? true
-      : !toggleMark(strike)(editorState);
+      : !checkNodeSelection(strike, editorState);
   }
   if (strong) {
     state.strongActive = anyMarkActive(editorState, strong);
     state.strongDisabled = state.codeActive
       ? true
-      : !toggleMark(strong)(editorState);
+      : !checkNodeSelection(strong, editorState);
   }
   if (subsup) {
     const subMark = subsup.create({ type: 'sub' });
@@ -55,17 +86,17 @@ const getTextFormattingState = (
     state.subscriptActive = anyMarkActive(editorState, subMark);
     state.subscriptDisabled = state.codeActive
       ? true
-      : !toggleMark(subsup, { type: 'sub' })(editorState);
+      : !checkNodeSelection(subsup, editorState, 'sub');
     state.superscriptActive = anyMarkActive(editorState, supMark);
     state.superscriptDisabled = state.codeActive
       ? true
-      : !toggleMark(subsup, { type: 'sup' })(editorState);
+      : !checkNodeSelection(subsup, editorState, 'sup');
   }
   if (underline) {
     state.underlineActive = anyMarkActive(editorState, underline);
     state.underlineDisabled = state.codeActive
       ? true
-      : !toggleMark(underline)(editorState);
+      : !checkNodeSelection(underline, editorState);
   }
   return state;
 };

@@ -177,10 +177,7 @@ export type FloatingToolbarCustom<T extends {}> = {
     view?: EditorView,
     idx?: number,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-  ) =>
-    | React.ComponentType<React.PropsWithChildren<unknown>>
-    | React.ReactElement<any>
-    | null;
+  ) => React.ReactNode;
   hidden?: boolean;
 };
 

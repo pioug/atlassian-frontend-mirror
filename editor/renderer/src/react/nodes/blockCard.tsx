@@ -100,17 +100,20 @@ export default function BlockCard(props: {
       tableView && canRenderDatasource(props.datasource.id);
 
     if (shouldRenderDatasource) {
-      const visibleColumnKeys = tableView.properties?.columns.map(
-        ({ key }) => key,
-      );
+      const columns = tableView.properties?.columns;
+      const visibleColumnKeys = columns?.map(({ key }) => key);
 
-      const columnCustomSizesEntries = tableView.properties?.columns
-        .filter((c): c is { key: string; width: number } => !!c.width)
+      const columnCustomSizesEntries = columns
+        ?.filter((c): c is { key: string; width: number } => !!c.width)
         .map<[string, number]>(({ key, width }) => [key, width]);
 
       const columnCustomSizes = columnCustomSizesEntries?.length
         ? Object.fromEntries<number>(columnCustomSizesEntries)
         : undefined;
+
+      const wrappedColumnKeys = columns
+        ?.filter((c) => c.isWrapped)
+        .map((c) => c.key);
 
       const { datasource, layout } = props;
 
@@ -138,6 +141,11 @@ export default function BlockCard(props: {
                       parameters={datasource.parameters}
                       visibleColumnKeys={visibleColumnKeys}
                       columnCustomSizes={columnCustomSizes}
+                      wrappedColumnKeys={
+                        wrappedColumnKeys && wrappedColumnKeys.length > 0
+                          ? wrappedColumnKeys
+                          : undefined
+                      }
                       url={url}
                     />
                   </div>

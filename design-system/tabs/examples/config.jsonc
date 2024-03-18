@@ -7,11 +7,9 @@
   "testExamples": [
     "00-default-tabs.tsx",
     "20-custom-tab-components.tsx",
-    "70-no-space-for-tabs.tsx",
-    "99-testing.tsx"
+    "70-no-space-for-tabs.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/spinner",
     "react-lorem-component"
   ]
 }

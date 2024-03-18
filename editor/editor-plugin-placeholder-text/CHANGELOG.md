@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 1.0.4
+
+### Patch Changes
+
+- [#82109](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82109) [`2ab37a71220d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ab37a71220d) - Setup react 18 types for @atlaskit/editor-plugin-placeholder-text
+
 ## 1.0.3
 
 ### Patch Changes

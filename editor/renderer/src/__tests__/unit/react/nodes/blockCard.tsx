@@ -117,7 +117,10 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         {
           type: 'table',
           properties: {
-            columns: [{ key: 'column-1' }, { key: 'column-2', width: 42 }],
+            columns: [
+              { key: 'column-1', isWrapped: true },
+              { key: 'column-2', width: 42 },
+            ],
           },
         },
       ],
@@ -150,6 +153,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         columnCustomSizes: {
           'column-2': 42,
         },
+        wrappedColumnKeys: ['column-1'],
       });
     });
 

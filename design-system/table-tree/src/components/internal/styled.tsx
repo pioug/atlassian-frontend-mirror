@@ -23,12 +23,18 @@ export const TreeRowContainer: FC<
   <div role="row" css={treeRowContainerStyles} {...props} />
 );
 
-const commonChevronContainerStyles = css({
+const commonCellElementStyles = css({
   display: 'flex',
   position: 'absolute',
   alignItems: 'center',
-  insetBlockStart: 7,
+  // indentBase is re-used elsewhere and is primarily used as positive value; we need to negate it here
   marginInlineStart: `calc(${indentBase} * -1)`,
+});
+
+const commonChevronContainerStyles = css({
+  // Aligns position:absolute chevron button with the adjacent text. Any future visual breaking changes
+  // should consider setting this to `-2px` for better alignment, or refactor completely
+  marginBlockStart: -3,
 });
 
 type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
@@ -40,15 +46,16 @@ type ChevronContainerProps = HTMLAttributes<HTMLSpanElement> & {
  *
  * A wrapper container around the expand table tree button.
  */
-export const ChevronContainer: FC<ChevronContainerProps> = (
-  props,
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-) => <span {...props} css={commonChevronContainerStyles} />;
+export const ChevronContainer: FC<ChevronContainerProps> = (props) => (
+  <span
+    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+    {...props}
+    css={[commonCellElementStyles, commonChevronContainerStyles]}
+  />
+);
 
 const loadingItemContainerStyles = css({
   width: '100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingBlockStart: 5,
 });
 
 const paddingLeftStyles = css({
@@ -72,7 +79,7 @@ export const LoaderItemContainer: FC<LoaderItemContainerProps> = ({
 }) => (
   <span
     css={[
-      commonChevronContainerStyles,
+      commonCellElementStyles,
       loadingItemContainerStyles,
       isRoot && paddingLeftStyles,
     ]}

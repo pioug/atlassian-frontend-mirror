@@ -7,6 +7,7 @@ import { Vector2 } from '@atlaskit/media-ui';
 import { ContainerWrapper } from './containerWrapper';
 
 export interface ImagePlacerContainerProps {
+  children?: React.ReactNode;
   width: number;
   height: number;
   margin: number;

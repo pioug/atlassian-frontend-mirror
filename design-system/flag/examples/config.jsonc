@@ -5,15 +5,10 @@
  */
 {
   "testExamples": [
-    "01-flag-without-flag-group.tsx",
+    "00-all-flags.tsx",
     "08-flag-with-a-description-containing-a-link.tsx",
-    "11-bold-flag-component.tsx",
     "15-flag-long-title.tsx",
-    "16-flag-long-content.tsx",
-    "99-testing.tsx"
+    "16-flag-long-content.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/radio",
-    "@atlaskit/spinner"
-  ]
+  "exampleDependencies": []
 }

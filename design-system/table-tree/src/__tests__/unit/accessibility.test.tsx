@@ -71,7 +71,7 @@ it('Loading TableTree should pass basic axe audit', async () => {
     <TableTree>
       <Headers>
         <Header width={200}>Chapter title</Header>
-        <Header width={100}>Numbering</Header>
+        <Header width={120}>Numbering</Header>
         <Header width={100}>Page</Header>
       </Headers>
       <Rows items={undefined} render={() => null} />

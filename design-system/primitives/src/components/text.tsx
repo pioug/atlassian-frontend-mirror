@@ -50,10 +50,6 @@ type TextPropsBase = {
    */
   textAlign?: TextAlign;
   /**
-   * @deprecated. Use size instead.
-   */
-  variant?: 'body' | 'body.small' | 'body.large';
-  /**
    * Text size.
    */
   size?: FontSize;
@@ -96,12 +92,6 @@ const truncationStyles = css({
 const wordBreakMap = {
   breakAll: css({ wordBreak: 'break-all' }),
 };
-
-const tempVariantSizeMap = {
-  body: 'medium',
-  'body.small': 'small',
-  'body.large': 'large',
-} as const;
 
 const HasTextAncestorContext = createContext(false);
 const useHasTextAncestor = () => useContext(HasTextAncestorContext);
@@ -151,7 +141,6 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     testId,
     id,
     size = 'medium',
-    variant,
     weight,
     maxLines,
   } = props;
@@ -161,8 +150,6 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
   );
 
-  const localSize = (variant && tempVariantSizeMap[variant]) || size;
-
   const hasTextAncestor = useHasTextAncestor();
   const color = useColor(colorProp, hasTextAncestor);
 
@@ -170,7 +157,7 @@ const Text: FC<TextProps> = ({ children, ...props }) => {
     <Component
       css={[
         resetStyles,
-        fontStylesMap[localSize],
+        fontStylesMap[size],
         color && textColorStylesMap[color],
         maxLines && truncationStyles,
         maxLines === 1 && wordBreakMap.breakAll,

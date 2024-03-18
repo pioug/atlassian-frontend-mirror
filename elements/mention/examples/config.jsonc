@@ -4,7 +4,11 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "exampleDependencies": [
-    "@atlaskit/editor-core"
+  "exampleDependencies": [],
+  "testExamples": [
+    "00-simple-mention-item.tsx",
+    "01-mention-item.tsx",
+    "03-error-mention-list.tsx",
+    "07-simple-mention.tsx"
   ]
 }

@@ -6,9 +6,8 @@
 {
   "testExamples": [
     "01-example-comment.tsx",
+    "03-nested-comments.tsx",
     "10-with-inline-children.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/editor-core"
-  ]
+  "exampleDependencies": []
 }

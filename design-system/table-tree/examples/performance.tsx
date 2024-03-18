@@ -123,7 +123,7 @@ export default class extends PureComponent {
         <TableTree>
           <Headers>
             <Header width={300}>Chapter title</Header>
-            <Header width={100}>Numbering</Header>
+            <Header width={120}>Numbering</Header>
             <Header width={100}>Stuff</Header>
           </Headers>
           <Rows

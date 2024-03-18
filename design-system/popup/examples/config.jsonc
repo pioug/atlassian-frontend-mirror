@@ -8,9 +8,8 @@
     "10-popup.tsx",
     "11-asynchronous-popup.tsx",
     "13-setting-focus.tsx",
-    "popup-disable-autofocus.tsx"
+    "popup-disable-autofocus.tsx",
+    "surface-detection.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/select"
-  ]
+  "exampleDependencies": []
 }

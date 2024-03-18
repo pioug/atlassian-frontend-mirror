@@ -8,7 +8,7 @@ export default () => (
   <TableTree>
     <Headers>
       <Header width={300}>Chapter title</Header>
-      <Header width={100}>Numbering</Header>
+      <Header width={120}>Numbering</Header>
       <Header width={100}>Page</Header>
     </Headers>
     <Rows

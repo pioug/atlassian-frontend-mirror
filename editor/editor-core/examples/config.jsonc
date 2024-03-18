@@ -5,33 +5,17 @@
  */
 {
   "testExamples": [
-    "1-basic.tsx",
-    "1-clipboard-helper.tsx",
-    "2-comment.tsx",
-    "20-full-page-with-adf-import.tsx",
-    "27-config-panel-with-parameters.tsx",
-    "29-element-browser.tsx",
-    "32-full-page-click-to-edit.tsx",
-    "5-full-page-with-content-disabled-flexi-tables.tsx",
-    "5-full-page-with-toolbar.tsx",
-    "5-full-page-with-x-extensions.tsx",
-    "5-full-page.tsx",
-    "99-testing-collaborative-editing-catchup.tsx",
-    "99-testing.tsx",
-    "99-vr-testing.tsx",
-    "99-wysiwyg-testing.tsx"
+    "30-jira-clone.tsx",
+    "33-jira-clone-right-panel.tsx",
+    "40-quick-insert-icons.tsx",
+    "5-full-page-template-context-panel.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/atlassian-navigation",
-    "@atlaskit/breadcrumbs",
-    "@atlaskit/drawer",
-    "@atlaskit/lozenge",
-    "@atlaskit/page-layout",
-    "@atlaskit/section-message",
-    "@atlaskit/share",
-    "@atlaskit/toggle",
-    "@atlaskit/ufo",
-    "@atlassian/link-picker-atlassian-plugin",
+    "@atlaskit/editor-plugin-editor-viewmode",
+    "@atlaskit/media-core",
+    "@atlaskit/primitives",
+    "@atlaskit/smart-card",
+    "@atlaskit/synchrony-test-helpers",
     "@atlassian/link-picker-plugins",
     "@atlassian/ufo",
     "prettier"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -49,11 +49,11 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/link-datasource": "^1.23.0",
-    "@atlaskit/linking-common": "^5.4.0",
+    "@atlaskit/link-datasource": "^1.24.0",
+    "@atlaskit/linking-common": "^5.5.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^4.1.0",
+    "@atlaskit/primitives": "^5.0.0",
     "@atlaskit/smart-card": "^26.50.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.41.0",
@@ -95,11 +95,9 @@
       "ui-components": [
         "lite-mode"
       ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
+      "deprecation": "no-deprecated-imports",
       "styling": [
-        "static",
+        "emotion",
         "emotion"
       ]
     }
@@ -110,6 +108,9 @@
       "type": "boolean"
     },
     "platform.editor.show-embed-card-frame-renderer": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.datasource-word_wrap": {
       "type": "boolean"
     },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {

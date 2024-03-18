@@ -1,5 +1,11 @@
 # @atlaskit/progress-tracker
 
+## 8.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.8
 
 ### Patch Changes

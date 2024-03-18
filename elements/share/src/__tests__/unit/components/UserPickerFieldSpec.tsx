@@ -621,9 +621,9 @@ describe('UserPickerField', () => {
         expect(smartUserPicker.prop('includeNonLicensedUsers')).toBe(true);
 
         const overrideByline = smartUserPicker.prop('overrideByline');
-        expect(overrideByline(user)).toBe('');
-        expect(overrideByline(externalUser)).toBe(expectedByline);
-        expect(overrideByline(team)).toBe('');
+        expect(overrideByline?.(user)).toBe('');
+        expect(overrideByline?.(externalUser)).toBe(expectedByline);
+        expect(overrideByline?.(team)).toBe('');
       });
     });
   });

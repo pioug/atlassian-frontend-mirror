@@ -194,6 +194,23 @@ export const getAnnotationViewKey = (annotations: AnnotationInfo[]): string => {
   return `view-annotation-wrapper_${keys}`;
 };
 
+export const isCurrentBlockNodeSelected = (
+  state: EditorState,
+  node: Node,
+): boolean => {
+  const { selection } = state;
+  if (selection instanceof NodeSelection) {
+    if (selection.node === node) {
+      return true;
+    }
+    if (node.type.name === 'media' && selection.node.firstChild === node) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
 export const findAnnotationsInSelection = (
   selection: Selection,
   doc: Node,
@@ -205,13 +222,14 @@ export const findAnnotationsInSelection = (
   }
 
   const node = doc.nodeAt(anchor);
+
   if (!node && !$anchor.nodeBefore) {
     return [];
   }
 
   const annotationMark = doc.type.schema.marks.annotation;
   const nodeBefore = $anchor.nodeBefore;
-  const anchorAnnotationMarks = (node && node.marks) || [];
+  const anchorAnnotationMarks = node?.marks || [];
 
   let marks: readonly Mark[] = [];
   if (annotationMark.isInSet(anchorAnnotationMarks)) {

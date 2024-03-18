@@ -1,0 +1,15 @@
+/**
+ * This file is used by the test scaling project to optimise test result caching
+ * Examples that are used by tests affect the outcome of tests so must be included when hashing
+ * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
+ */
+{
+  "testExamples": [
+    "01-grid-cards.tsx",
+    "02-grid-widths.tsx",
+    "03-grid-no-inline-padding.tsx",
+    "20-grid-hidden-item.tsx",
+    "90-jsm-grid.tsx",
+    "96-grid-container.tsx"
+  ]
+}

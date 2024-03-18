@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.50.2
+
+### Patch Changes
+
+- [#80939](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80939) [`fd0808b220fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd0808b220fd) - Use the URL provided by the smart card for AI Link Summary in Hover Card to avoid inconsistencies between the short and resolved links.
+- Updated dependencies
+
 ## 26.50.1
 
 ### Patch Changes

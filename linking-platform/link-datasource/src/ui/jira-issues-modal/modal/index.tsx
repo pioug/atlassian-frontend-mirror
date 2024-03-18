@@ -170,6 +170,7 @@ export const PlainJiraIssuesConfigModal = (
   const {
     datasourceId,
     columnCustomSizes: initialColumnCustomSizes,
+    wrappedColumnKeys: initialWrappedColumnKeys,
     onCancel,
     onInsert,
     viewMode = 'issue',
@@ -230,6 +231,23 @@ export const PlainJiraIssuesConfigModal = (
       setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
     },
     [columnCustomSizes],
+  );
+
+  const [wrappedColumnKeys, setWrappedColumnKeys] = useState<
+    string[] | undefined
+  >(initialWrappedColumnKeys);
+
+  const onWrappedColumnChange = useCallback(
+    (key: string, isWrapped: boolean) => {
+      const set = new Set(wrappedColumnKeys);
+      if (isWrapped) {
+        set.add(key);
+      } else {
+        set.delete(key);
+      }
+      setWrappedColumnKeys(Array.from(set));
+    },
+    [wrappedColumnKeys],
   );
 
   const {
@@ -566,10 +584,15 @@ export const PlainJiraIssuesConfigModal = (
                 {
                   type: 'table',
                   properties: {
-                    columns: (visibleColumnKeys || []).map(key => ({
-                      key,
-                      width: columnCustomSizes?.[key],
-                    })),
+                    columns: (visibleColumnKeys || []).map(key => {
+                      const width = columnCustomSizes?.[key];
+                      const isWrapped = wrappedColumnKeys?.includes(key);
+                      return {
+                        key,
+                        ...(width ? { width } : {}),
+                        ...(isWrapped ? { isWrapped } : {}),
+                      };
+                    }),
                   },
                 },
               ],
@@ -584,17 +607,18 @@ export const PlainJiraIssuesConfigModal = (
       isParametersSet,
       jql,
       selectedJiraSite,
+      searchBarJql,
       analyticsPayload,
       totalCount,
-      visibleColumnKeys,
       currentViewMode,
       retrieveUrlForSmartCardRender,
+      responseItems.length,
       onInsert,
       datasourceId,
       cloudId,
+      visibleColumnKeys,
       columnCustomSizes,
-      searchBarJql,
-      responseItems,
+      wrappedColumnKeys,
     ],
   );
 
@@ -642,23 +666,31 @@ export const PlainJiraIssuesConfigModal = (
           extensionKey={extensionKey}
           columnCustomSizes={columnCustomSizes}
           onColumnResize={onColumnResize}
+          wrappedColumnKeys={wrappedColumnKeys}
+          onWrappedColumnChange={
+            getBooleanFF('platform.linking-platform.datasource-word_wrap')
+              ? onWrappedColumnChange
+              : undefined
+          }
         />
       </div>
     ),
     [
+      status,
       columns,
+      responseItems,
+      hasNextPage,
+      visibleColumnKeys,
       defaultVisibleColumnKeys,
       handleOnNextPage,
-      handleVisibleColumnKeysChange,
-      hasNextPage,
       loadDatasourceDetails,
+      handleVisibleColumnKeysChange,
       modalRenderInstanceId,
-      responseItems,
-      status,
-      visibleColumnKeys,
       extensionKey,
       columnCustomSizes,
       onColumnResize,
+      wrappedColumnKeys,
+      onWrappedColumnChange,
     ],
   );
 

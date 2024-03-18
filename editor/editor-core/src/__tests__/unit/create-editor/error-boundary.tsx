@@ -59,7 +59,9 @@ const ExplodingFoo = () => {
   return <div>Exploding Foo</div>;
 };
 
-class ProductErrorBoundary extends React.Component {
+class ProductErrorBoundary extends React.Component<
+  React.PropsWithChildren<{}>
+> {
   state = {
     error: undefined,
   };

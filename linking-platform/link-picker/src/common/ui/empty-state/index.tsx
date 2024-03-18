@@ -29,7 +29,7 @@ export const EmptyState = ({
       gap="space.100"
     >
       {renderImage?.()}
-      <Heading variant="medium">{header}</Heading>
+      <Heading size="medium">{header}</Heading>
       {description && (
         <Box as="p" color={'color.text'}>
           {description}

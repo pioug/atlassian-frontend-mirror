@@ -5,10 +5,23 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/button",
-    "@atlaskit/modal-dialog",
-    "@atlaskit/radio",
-    "@atlaskit/range",
-    "@emotion/styled"
+    "@atlaskit/heading",
+    "@emotion/styled",
+    "react-beautiful-dnd"
+  ],
+  "testExamples": [
+    "00-single.tsx",
+    "01-multi.tsx",
+    "03-single-compact.tsx",
+    "05-single-subtle-and-compact.tsx",
+    "06-multi-compact.tsx",
+    "07-multi-with-default-values.tsx",
+    "08-multi-with-fixed-values.tsx",
+    "09-single-disabled.tsx",
+    "12-creatable-with-locale.tsx",
+    "13-modal.tsx",
+    "24-disable-input.tsx",
+    "25-disable-options.tsx",
+    "26-footer.tsx"
   ]
 }

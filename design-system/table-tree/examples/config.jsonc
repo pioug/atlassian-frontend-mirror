@@ -5,9 +5,11 @@
  */
 {
   "testExamples": [
-    "controlled-expanded-state.js"
+    "controlled-expanded-state.tsx",
+    "vr-loading-nested.tsx",
+    "vr-loading.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/select"
+    "@atlaskit/visually-hidden"
   ]
 }

@@ -8,7 +8,5 @@
     "00-simple-emoji.tsx",
     "05-standard-emoji-picker-with-upload.tsx"
   ],
-  "exampleDependencies": [
-    "@atlassian/ufo"
-  ]
+  "exampleDependencies": []
 }

@@ -5,9 +5,9 @@ import { token } from '@atlaskit/tokens';
 import { UserPickerProps } from '../types';
 import { css, jsx } from '@emotion/react';
 
-export type Props = {
+export type Props = React.PropsWithChildren<{
   selectProps: UserPickerProps;
-};
+}>;
 
 const getFooterStyle = () => {
   return css({

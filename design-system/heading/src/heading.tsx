@@ -161,12 +161,12 @@ const Heading = ({
   );
 };
 
-export default ({ level, size, variant, ...props }: HeadingProps) => {
+export default ({ level, size, ...props }: HeadingProps) => {
   return level ? (
     // eslint-disable-next-line jsx-a11y/heading-has-content
     <Heading level={level} {...props} />
   ) : (
     // eslint-disable-next-line jsx-a11y/heading-has-content
-    <NewHeading variant={variant} size={size} {...props} />
+    <NewHeading size={size} {...props} />
   );
 };

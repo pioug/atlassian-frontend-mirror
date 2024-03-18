@@ -15,10 +15,5 @@
     "07-fluid-layout.tsx",
     "08-edge-cases.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/banner",
-    "@atlaskit/button",
-    "@atlaskit/logo",
-    "@atlaskit/navigation"
-  ]
+  "exampleDependencies": []
 }

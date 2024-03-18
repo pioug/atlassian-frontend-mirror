@@ -5,8 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/editor-common",
-    "@atlaskit/mention",
-    "@atlaskit/renderer"
+    "react-intl-next"
   ]
 }

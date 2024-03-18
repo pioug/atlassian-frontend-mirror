@@ -9,6 +9,7 @@
     "01-textarea-usage.tsx",
     "02-select-usage.tsx",
     "03-validation.tsx",
+    "04-inline-editable-textfield.tsx",
     "07-no-action-buttons.tsx",
     "08-start-with-edit.tsx",
     "09-mandatory-field.tsx",

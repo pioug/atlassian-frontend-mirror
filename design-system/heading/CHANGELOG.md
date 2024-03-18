@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 2.0.0
+
+### Major Changes
+
+- [#81744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81744) [`bc7085853ea2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc7085853ea2) - Renamed `variant` prop to `size`. The prop values remain unchanged.
+
 ## 1.8.1
 
 ### Patch Changes

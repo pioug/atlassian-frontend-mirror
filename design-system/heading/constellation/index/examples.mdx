@@ -12,9 +12,7 @@ import HeadingNew from '../../examples/constellation/heading-new';
 
 This implements the [Atlassian typography heading set](/foundations/typography/) as a component.
 
-The selected `level` will affect the final HTML element rendered in the DOM.
-It's important to note that the final DOM may be impacted by the parent heading level because of the inferred accessibility level correction. We recommend checking the final
-DOM to confirm the level of the actual rendered HTML element.
+The provided `size` maps to HTML heading elements by default, however this can be overridden using the `as` prop, or automatically incremented using the `HeadingContextProvider`.
 
 <Example Component={HeadingDefault} packageName="@atlaskit/heading" />
 
@@ -27,9 +25,9 @@ surface for better color contrast.
 
 ## Heading provider
 
-The `HeadingContextProvider` component allows you to configure the default heading level for all headings.
-By nesting a `HeadingContextProvider`, you can override the default heading level for a subtree. This is useful
-when you want to use a different heading level for a section of your page but don't have control over where
+The `HeadingContextProvider` component allows you to configure the default HTML heading level for all headings.
+By nesting a `HeadingContextProvider`, you can override the default HTML heading level for a subtree. This is useful
+when you want to use a different HTML heading level for a section of your page but don't have control over where
 in the heading heirarchy that section will be placed.
 
 <Example Component={HeadingProvider} packageName="@atlaskit/heading" />

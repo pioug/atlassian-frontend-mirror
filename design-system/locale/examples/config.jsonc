@@ -5,8 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/form",
-    "@atlaskit/textfield",
     "styled-components"
   ]
 }

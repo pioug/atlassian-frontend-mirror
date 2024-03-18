@@ -19,7 +19,7 @@ export interface TeamInfoAttrAnalytics {
 }
 
 export interface MentionPluginConfig {
-  HighlightComponent?: React.ComponentType;
+  HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
   // flag to indicate display name instead of nick name should be inserted for mentions
   // default: false, which inserts the nick name
   insertDisplayName?: boolean;

@@ -53,7 +53,7 @@ export const getCardState = ({
 }: GetCardStateProps = {}): CardState => ({
   status,
   details: {
-    ...getJsonLdResponse('link-url', meta, {
+    ...getJsonLdResponse(data.url ? data.url : 'link-url', meta, {
       '@type': 'Object',
       generator: {
         '@type': 'Object',
@@ -137,10 +137,10 @@ export const exampleTokens = {
   overrideColor: token('color.background.accent.blue.subtle', '#579DFF'),
 };
 
-export const blockOverrideCss = css`
-  background-color: ${exampleTokens.overrideColor};
-  padding: ${token('space.200', '1rem')};
-`;
+export const blockOverrideCss = css({
+  backgroundColor: exampleTokens.overrideColor,
+  padding: token('space.200', '1rem'),
+});
 
 export const metadataElements = Object.values(ElementName).filter(
   (name) =>

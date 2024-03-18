@@ -9,7 +9,6 @@
     "03-integration-example.tsx",
     "10-resize-sidebar.tsx",
     "15-stickied-element.tsx",
-    "20-controlled-left-sidebar.tsx",
-    "35-locked-sidebar.tsx"
+    "20-controlled-left-sidebar.tsx"
   ]
 }

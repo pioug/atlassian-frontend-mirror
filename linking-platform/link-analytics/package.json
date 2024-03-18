@@ -39,7 +39,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/linking-common": "^5.4.0",
+    "@atlaskit/linking-common": "^5.5.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "^3.11.0",

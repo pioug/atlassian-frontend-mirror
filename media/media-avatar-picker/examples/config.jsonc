@@ -5,10 +5,10 @@
  */
 {
   "testExamples": [
-    "4-avatar-picker-with-predefined-avatar.tsx"
+    "4-avatar-picker-with-predefined-avatar.tsx",
+    "9-avatar-picker-with-viewport-debug.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/page",
     "react-intl-next"
   ]
 }

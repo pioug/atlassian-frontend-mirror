@@ -6,10 +6,8 @@
 {
   "testExamples": [
     "0-basic.tsx",
-    "5-customization.tsx",
-    "99-testing.tsx"
+    "4-customization.tsx",
+    "5-containers.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/button"
-  ]
+  "exampleDependencies": []
 }

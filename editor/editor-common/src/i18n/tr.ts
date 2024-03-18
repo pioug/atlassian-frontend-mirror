@@ -148,8 +148,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Farklı bir terim aramayı deneyin veya Atlassian ürünleri için yeni uygulamalar keşfedin.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': "Atlassian Marketplace'i keşfedin",
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {Aramanızla eşleşen sonuç bulunamadı} one {Yazılan metin için kullanılabilir {count} öneri var.} other {Yazılan metin için kullanılabilir {count} öneri var.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Gir',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Arama',
   'fabric.editor.elementbrowser.sidebar.heading': 'Göz Atın',

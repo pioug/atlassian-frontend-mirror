@@ -6,7 +6,7 @@ export default () => (
   <TableTree>
     <Headers>
       <Header width={200}>Title</Header>
-      <Header width={100}>Numbering</Header>
+      <Header width={120}>Numbering</Header>
     </Headers>
     <Rows items={undefined} render={() => null} />
   </TableTree>

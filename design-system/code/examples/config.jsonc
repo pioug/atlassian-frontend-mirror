@@ -5,12 +5,25 @@
  */
 {
   "testExamples": [
+    "00-basic.tsx",
     "01-inline-code-basic.tsx",
-    "02-inline-code-basic-dark.tsx",
     "10-code-block-basic.tsx",
     "12-code-block-ssr.tsx",
+    "14-code-block-highlighting-long-lines.tsx",
     "21-code-block-empty.tsx",
-    "22-code-bidi-characters.tsx"
+    "22-code-bidi-characters.tsx",
+    "applescript.tsx",
+    "cascading-style-sheets.tsx",
+    "clojure.tsx",
+    "delphi.tsx",
+    "diff.tsx",
+    "foxpro.tsx",
+    "jsx.tsx",
+    "object-pascal.tsx",
+    "qml.tsx",
+    "standard-ml.tsx",
+    "visual-basic.tsx",
+    "vr-python-test-id-and-wrapping.tsx"
   ],
   "exampleDependencies": [
     "prismjs"

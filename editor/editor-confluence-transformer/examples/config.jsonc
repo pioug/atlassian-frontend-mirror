@@ -5,12 +5,6 @@
  */
 {
   "exampleDependencies": [
-    "@atlaskit/activity",
-    "@atlaskit/button",
-    "@atlaskit/editor-core",
-    "@atlaskit/editor-test-helpers",
-    "@atlaskit/spinner",
-    "@atlaskit/util-data-test",
     "@emotion/react",
     "pretty-data"
   ]

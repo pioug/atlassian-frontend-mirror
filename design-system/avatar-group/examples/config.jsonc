@@ -5,7 +5,7 @@
  */
 {
   "testExamples": [
-    "02-non-interactive-avatar-group.tsx",
+    "02-basic-avatar-group.tsx",
     "10-avatar-group-playground.tsx",
     "30-overrides.tsx",
     "40-within-modal.tsx"

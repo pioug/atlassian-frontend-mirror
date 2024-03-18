@@ -6,9 +6,10 @@
 {
   "testExamples": [
     "0-basic.tsx",
-    "99-testing.tsx"
+    "2-baseline-alignment.tsx",
+    "3-custom-color.tsx",
+    "5-width-handling.tsx",
+    "6-containers.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/button"
-  ]
+  "exampleDependencies": []
 }

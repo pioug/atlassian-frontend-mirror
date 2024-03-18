@@ -78,6 +78,7 @@ snapshotInformational(WithModal, {
   description: 'basic mode with basic filters',
   featureFlags: {
     'platform.linking-platform.datasource.show-jlol-basic-filters': true,
+    'platform.linking-platform.datasource-word_wrap': true,
   },
 });
 

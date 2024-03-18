@@ -57,7 +57,9 @@
         "spacing"
       ],
       "deprecation": "no-deprecated-imports",
-      "styling": "emotion"
+      "styling": [
+        "emotion"
+      ]
     }
   },
   "homepage": "https://atlassian.design/components/storybook-addon-design-system",

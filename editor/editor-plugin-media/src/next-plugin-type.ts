@@ -33,7 +33,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
       EditorDisabledPlugin,
       FocusPlugin,
       SelectionPlugin,
-      AnnotationPlugin,
+      OptionalPlugin<AnnotationPlugin>,
     ];
     sharedState: MediaPluginState | null;
     actions: {

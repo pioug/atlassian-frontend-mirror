@@ -1,6 +1,8 @@
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
+import { IssueLikeDataTableViewProps } from '../issue-like-table/types';
+
 type XOR<T1, T2> =
   | (T1 & {
       [k in Exclude<keyof T2, keyof T1>]?: never;
@@ -29,12 +31,9 @@ export interface Site {
 export type JiraIssuesDatasourceAdf =
   DatasourceAdf<JiraIssueDatasourceParameters>;
 
-export interface JiraIssuesConfigModalProps {
+export type JiraIssuesConfigModalProps = {
   /** Unique identifier for which type of datasource is being rendered and for making its requests */
   datasourceId: string;
-  /** The keys for each of the visible columns to the shown in the rendered table */
-  visibleColumnKeys?: string[];
-  columnCustomSizes?: { [key: string]: number };
   /** The url that was used to insert a Jira List of Links */
   url?: string;
   /** Parameters for making the data requests necessary to render data within the table */
@@ -53,4 +52,9 @@ export interface JiraIssuesConfigModalProps {
    * The view modes in 'JiraIssueViewModes' have not been changed from 'count' to 'inline link' and 'issue' to 'table'
    * because it will introduce breaking changes to the public API requiring a major version bump*/
   viewMode?: JiraIssueViewModes;
-}
+} & Partial<
+  Pick<
+    IssueLikeDataTableViewProps,
+    'visibleColumnKeys' | 'wrappedColumnKeys' | 'columnCustomSizes'
+  >
+>;

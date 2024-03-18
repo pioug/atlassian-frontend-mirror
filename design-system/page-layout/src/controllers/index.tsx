@@ -4,6 +4,7 @@ export {
   SidebarResizeContext,
   usePageLayoutResize,
   useLeftSidebarFlyoutLock,
+  UNSAFE_useSetLeftSidebarState,
 } from './sidebar-resize-context';
 export { SidebarResizeController } from './sidebar-resize-controller';
 

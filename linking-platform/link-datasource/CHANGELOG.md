@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 1.24.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.24.0
+
+### Minor Changes
+
+- [#76893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76893) [`09e169066b2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09e169066b2b) - [ux] Add column wrapping configuration into the table inside Jira Modal dialog
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.23.9
 
 ### Patch Changes

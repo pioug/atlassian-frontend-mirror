@@ -114,7 +114,6 @@ const isTokenCall = (node: CallExpression) => {
   }
 
   const token = ast.FunctionCall.getArgumentAtPos(node, 0);
-  const fallback = ast.FunctionCall.getArgumentAtPos(node, 1);
 
   if (!token || token.type !== 'Literal') {
     return false;
@@ -126,7 +125,19 @@ const isTokenCall = (node: CallExpression) => {
   }
 
   // Not all `token()` calls have a fall back. This is fine, but if there is a fallback, make sure it's the same as the fallback xcss will use
-  if (fallback && fallback.type === 'Literal') {
+  if (node.arguments.length === 2) {
+    const fallback = ast.FunctionCall.getArgumentAtPos(node, 1);
+
+    // `getArgumentAtPos` is only able to understand `Literal` and `ObjectExpression` statements
+    // If there are 2 args, but `fallback` is undefined, then the fallback is something wild, like `token('space.100, `${gridSize * rem(3)`})`
+    if (!fallback) {
+      return false;
+    }
+
+    if (fallback.type !== 'Literal') {
+      return false;
+    }
+
     if (spaceTokenMap[fallback.value] !== token.value) {
       return false;
     }

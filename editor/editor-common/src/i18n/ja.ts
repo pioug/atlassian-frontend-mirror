@@ -149,8 +149,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '別の用語で検索するか、アトラシアン製品の新しいアプリを探してください。',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace を見る',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {検索条件に一致するデータがありませんでした} other {入力したテキストでは {count} 件の候補が利用可能です。}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': '検索',
   'fabric.editor.elementbrowser.sidebar.heading': '参照',

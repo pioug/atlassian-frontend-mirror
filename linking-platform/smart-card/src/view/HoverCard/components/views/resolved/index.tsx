@@ -41,6 +41,8 @@ import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getCanBeDatasource } from '../../../../../state/helpers';
 import { useAISummary } from '../../../../../state/hooks/use-ai-summary';
+import { extractLink } from '@atlaskit/link-extractors';
+
 import { SmartLinkStatus } from '../../../../../constants';
 
 export const toFooterActions = (
@@ -87,20 +89,19 @@ export const toFooterActions = (
 //This component encapsulates useAISummary hook under the AI Summary FF 'platform.linking-platform.smart-card.hover-card-ai-summaries'
 const ConnectedAIBlock = ({
   bottomPrimary,
-  url,
   imagePreview,
+  url,
 }: {
   bottomPrimary: ElementItem[];
-  url: string;
   imagePreview: boolean;
+  url: string;
 }) => {
   const aiSummary = useAISummary({ url });
   const aiStatus = aiSummary.state.status;
-
   const showData = aiStatus === 'ready' || aiStatus === 'error';
 
   return showData ? (
-    <CustomBlock direction={SmartLinkDirection.Vertical}>
+    <>
       {!imagePreview && <SnippetBlock status={SmartLinkStatus.Resolved} />}
       <MetadataBlock
         primary={bottomPrimary}
@@ -109,7 +110,7 @@ const ConnectedAIBlock = ({
         maxLines={1}
         status={SmartLinkStatus.Resolved}
       />
-    </CustomBlock>
+    </>
   ) : null;
 };
 
@@ -141,6 +142,8 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   );
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
+  const dataUrl = extractLink(data) ?? '';
+
   const { topPrimary, topSecondary, bottomPrimary } = useMemo(() => {
     const betterMetadata = getSimulatedBetterMetadata(extensionKey, data);
     return {
@@ -201,7 +204,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
         >
           <ConnectedAIBlock
             imagePreview={!!imagePreview}
-            url={url}
+            url={dataUrl}
             bottomPrimary={bottomPrimary}
           />
         </CustomBlock>

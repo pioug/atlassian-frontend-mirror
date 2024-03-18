@@ -7,7 +7,6 @@
   "testExamples": [
     "0-editor-with-copy-paste.tsx",
     "0-editor.tsx",
-    "0-status.tsx",
     "1-renderer.tsx"
   ]
 }

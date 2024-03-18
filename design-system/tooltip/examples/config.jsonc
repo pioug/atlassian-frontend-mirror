@@ -6,7 +6,9 @@
 {
   "testExamples": [
     "component-prop.tsx",
-    "defaultTooltip.tsx"
+    "default-tooltip.tsx",
+    "position.tsx",
+    "render-props.tsx"
   ],
   "exampleDependencies": [
     "react-redux"

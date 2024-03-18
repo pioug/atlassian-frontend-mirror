@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import React, { useState } from 'react';
 
 import ReactDOM from 'react-dom';
@@ -19,10 +18,10 @@ interface FilePreviewProps {
   intl: IntlShape;
 }
 
-export const FilePreviewItem: FC<FilePreviewProps> = ({
+export const FilePreviewItem = ({
   mediaPluginState,
   intl,
-}) => {
+}: FilePreviewProps) => {
   const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
   const openMediaViewer = () => {
     setMediaViewerVisible(true);

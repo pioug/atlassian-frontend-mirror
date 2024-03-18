@@ -8,17 +8,16 @@
     "00-basic.tsx",
     "01-i18n.tsx",
     "10-date-picker-states.tsx",
-    "100-times.tsx",
+    "130-date-time-label-examples.tsx",
     "20-datetime-picker-states.tsx",
-    "30-time-picker-states.tsx",
-    "999-disable-toggle.tsx",
-    "theme-fix.tsx"
+    "30-time-picker-states.tsx"
   ],
   "exampleDependencies": [
     "@atlaskit/modal-dialog",
     "@atlaskit/popup",
     "@atlaskit/range",
     "@atlaskit/textfield",
+    "@atlaskit/toggle",
     "react-lorem-component"
   ]
 }

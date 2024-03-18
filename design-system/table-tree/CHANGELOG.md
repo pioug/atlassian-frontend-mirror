@@ -1,5 +1,14 @@
 # @atlaskit/table-tree
 
+## 9.7.0
+
+### Minor Changes
+
+- [#81902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81902) [`c11b685c99fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c11b685c99fa) - This release includes bug fixes that slightly change behaviour of multi-line content in table cells:
+
+  - Fixed bug where 'expand' chevron was incorrectly placed when the header cell was smaller than other cells in the row.
+  - Fixed bug where long words in cells would not wrap to the next line.
+
 ## 9.6.13
 
 ### Patch Changes

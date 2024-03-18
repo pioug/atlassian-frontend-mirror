@@ -122,9 +122,23 @@ export const DatasourceModal = ({
 
     const [tableView] = views as DatasourceAdfView[];
 
-    const visibleColumnKeys = tableView?.properties?.columns.map(
-      column => column.key,
-    );
+    const visibleColumnKeys: string[] = [];
+    const wrappedColumnKeys: string[] = [];
+    let columnCustomSizes: { [key: string]: number } | undefined;
+
+    const columns = tableView?.properties?.columns;
+    if (columns) {
+      columnCustomSizes = {};
+      for (const { key, width, isWrapped } of columns) {
+        visibleColumnKeys.push(key);
+        if (width) {
+          columnCustomSizes[key] = width;
+        }
+        if (isWrapped) {
+          wrappedColumnKeys.push(key);
+        }
+      }
+    }
 
     return (
       <div data-testid="jira-config-modal">
@@ -134,6 +148,8 @@ export const DatasourceModal = ({
           visibleColumnKeys={visibleColumnKeys}
           parameters={parameters as JiraIssueDatasourceParameters}
           url={existingNode?.attrs.url}
+          columnCustomSizes={columnCustomSizes}
+          wrappedColumnKeys={wrappedColumnKeys}
           onCancel={onClose}
           onInsert={onInsert}
         />

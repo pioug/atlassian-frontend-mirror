@@ -146,8 +146,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '請試著使用不同的詞彙搜尋，或探索 Atlassian 產品的新應用程式。',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': '探索 Atlassian Marketplace',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {沒有任何項目符合您的搜尋內容} other {適用於輸入文字的 {count} 個建議。}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': '搜尋',
   'fabric.editor.elementbrowser.sidebar.heading': '瀏覽',

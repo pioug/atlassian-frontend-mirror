@@ -5,6 +5,9 @@
  */
 {
   "testExamples": [
-    "00-basic.tsx"
+    "basic-with-actions.tsx",
+    "basic.tsx",
+    "multi-header.tsx",
+    "row.tsx"
   ]
 }

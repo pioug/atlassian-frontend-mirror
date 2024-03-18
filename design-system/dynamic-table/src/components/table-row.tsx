@@ -22,7 +22,7 @@ const Row = ({ row, head, testId, isFixedSize, isHighlighted }: RowProps) => {
       {...(isHighlighted
         ? { 'data-ts--dynamic-table--table-row--highlighted': true }
         : null)}
-      testId={testId && `${testId}--row-${restRowProps.key}`}
+      testId={row.testId || (testId && `${testId}--row-${restRowProps.key}`)}
     >
       {cells.map((cell, cellIndex) => {
         const { content, testId: cellTestId, ...restCellProps } = cell;

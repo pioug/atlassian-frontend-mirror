@@ -7,7 +7,7 @@ import {
 
 import { CHANNEL_ID, errorEncountered } from './analytics/analytics';
 
-type Props = WithAnalyticsEventsProps;
+type Props = React.PropsWithChildren<WithAnalyticsEventsProps>;
 type State = {
   hasError: boolean;
 };

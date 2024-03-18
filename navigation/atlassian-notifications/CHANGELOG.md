@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-notifications
 
+## 0.4.4
+
+### Patch Changes
+
+- [#82299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82299) [`d98b668a6b2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d98b668a6b2b) - Enforced usage of spacing tokens instead of hard coded values for spacing styles
+
 ## 0.4.3
 
 ### Patch Changes

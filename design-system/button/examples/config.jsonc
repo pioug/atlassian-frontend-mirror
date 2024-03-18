@@ -5,14 +5,29 @@
  */
 {
   "testExamples": [
-    "10-button.tsx",
-    "20-button-group.tsx",
-    "30-appearances.tsx",
-    "99-testing.tsx"
+    "05-button.tsx",
+    "06-link-buttons.tsx",
+    "07-icon-button.tsx",
+    "10-all-combinations.tsx",
+    "11-icon-button-combinations.tsx",
+    "15-appearances.tsx",
+    "20-spacing.tsx",
+    "25-disabled.tsx",
+    "30-icon-before-and-after.tsx",
+    "35-overlay.tsx",
+    "40-truncation.tsx",
+    "45-should-fit-container.tsx",
+    "50-alignment.tsx",
+    "70-auto-focus.tsx",
+    "90-button-group.tsx",
+    "95-split-button.tsx",
+    "99-appearances-old-button.tsx",
+    "99-button-focus-old-button.tsx",
+    "99-more-options-old-button.tsx",
+    "99-vr-loading-button-appearances-old-button.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/logo",
-    "@atlaskit/select",
+    "lodash",
     "react-router-dom"
   ]
 }

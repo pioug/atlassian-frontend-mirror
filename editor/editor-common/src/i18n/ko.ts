@@ -147,8 +147,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '다른 용어로 검색하거나 Atlassian 제품의 새로운 앱을 찾아보세요.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace 둘러보기',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {일치하는 검색 결과 없음} other {입력한 텍스트에 대해 {count}개의 제안을 사용할 수 있습니다.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': '입력',
   'fabric.editor.elementbrowser.searchbar.placeholder': '검색',
   'fabric.editor.elementbrowser.sidebar.heading': '찾아보기',

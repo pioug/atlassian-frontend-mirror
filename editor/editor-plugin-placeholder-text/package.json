@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-placeholder-text",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "placeholder text plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -79,11 +79,9 @@
       "ui-components": [
         "lite-mode"
       ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
+      "deprecation": "no-deprecated-imports",
       "styling": [
-        "static",
+        "emotion",
         "emotion"
       ],
       "imports": [

@@ -102,7 +102,7 @@ export const handleNewNode = (props: MediaInlineProps) => {
   mediaPluginState.handleMediaNodeMount(node, () => getPos());
 };
 
-export const MediaInline: React.FC<MediaInlineProps> = props => {
+export const MediaInline = (props: MediaInlineProps) => {
   const [viewMediaClientConfig, setViewMediaClientConfig] = useState<
     MediaClientConfig | undefined
   >();

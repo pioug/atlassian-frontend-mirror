@@ -820,8 +820,9 @@ describe('JiraIssuesConfigModal', () => {
       await setup({
         hookState,
       });
+
       expect(IssueLikeDataTableView).toHaveBeenCalledWith(
-        {
+        expect.objectContaining({
           status: 'resolved',
           columns: [
             { key: 'myColumn', title: 'My Column', type: 'string' },
@@ -850,7 +851,7 @@ describe('JiraIssuesConfigModal', () => {
           extensionKey: expect.any(String),
           columnCustomSizes: undefined,
           onColumnResize: expect.any(Function),
-        } as IssueLikeDataTableViewProps,
+        } as Partial<IssueLikeDataTableViewProps>),
         expect.anything(),
       );
     });
@@ -1105,6 +1106,160 @@ describe('JiraIssuesConfigModal', () => {
           columnCustomSizes: { myColumn: 56, otherColumn: 43 },
         } as Partial<IssueLikeDataTableViewProps>),
         expect.anything(),
+      );
+    });
+  });
+
+  describe('when user provides list of isWrapped column attributes', () => {
+    describe('should use isWrapped column attribute in resulting ADF', () => {
+      ffTest('platform.linking-platform.datasource-word_wrap', async () => {
+        const { assertInsertResult } = await setup({
+          visibleColumnKeys: ['myColumn', 'otherColumn'],
+          wrappedColumnKeys: ['myColumn'],
+        });
+
+        assertInsertResult(
+          {
+            properties: {
+              columns: [
+                { key: 'myColumn', isWrapped: true },
+                { key: 'otherColumn' },
+              ],
+            },
+            jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+          },
+          {
+            attributes: {
+              displayedColumnCount: 2,
+            },
+          },
+        );
+      });
+    });
+
+    describe('should render IssueLikeDataTableView with isWrapped column attribute', () => {
+      ffTest('platform.linking-platform.datasource-word_wrap', async () => {
+        await setup({
+          visibleColumnKeys: ['myColumn'],
+          wrappedColumnKeys: ['myColumn'],
+        });
+
+        expect(IssueLikeDataTableView).toHaveBeenCalledWith(
+          expect.objectContaining({
+            wrappedColumnKeys: ['myColumn'],
+          } as Partial<IssueLikeDataTableViewProps>),
+          expect.anything(),
+        );
+      });
+    });
+  });
+
+  describe('when user provides callback for when wrapped changed', () => {
+    describe('should use updated isWrapped column attributes in resulting ADF', () => {
+      ffTest(
+        'platform.linking-platform.datasource-word_wrap',
+        async () => {
+          const { getLatestIssueLikeTableProps, assertInsertResult } =
+            await setup({
+              visibleColumnKeys: ['myColumn'],
+              wrappedColumnKeys: ['myColumn'],
+            });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+
+          invariant(onWrappedColumnChange);
+
+          act(() => {
+            onWrappedColumnChange('myColumn', true);
+          });
+
+          assertInsertResult(
+            {
+              properties: { columns: [{ key: 'myColumn', isWrapped: true }] },
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+            },
+            {},
+          );
+        },
+        async () => {
+          const { getLatestIssueLikeTableProps } = await setup({
+            visibleColumnKeys: ['myColumn'],
+            wrappedColumnKeys: ['myColumn'],
+          });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+          expect(onWrappedColumnChange).toBeUndefined();
+        },
+      );
+    });
+
+    describe('should add new isWrapped column attributes going to table component', () => {
+      ffTest(
+        'platform.linking-platform.datasource-word_wrap',
+        async () => {
+          const { getLatestIssueLikeTableProps } = await setup({
+            visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+            wrappedColumnKeys: ['myColumn', 'otherColumn'],
+          });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+
+          invariant(onWrappedColumnChange);
+
+          act(() => {
+            onWrappedColumnChange('thirdColumn', true);
+          });
+          expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+              wrappedColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+            } as Partial<IssueLikeDataTableViewProps>),
+            expect.anything(),
+          );
+        },
+        async () => {
+          const { getLatestIssueLikeTableProps } = await setup({
+            visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+            wrappedColumnKeys: ['myColumn', 'otherColumn'],
+          });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+          expect(onWrappedColumnChange).toBeUndefined();
+        },
+      );
+    });
+
+    describe('should remove existing isWrapped column attributes going to table component', () => {
+      ffTest(
+        'platform.linking-platform.datasource-word_wrap',
+        async () => {
+          const { getLatestIssueLikeTableProps } = await setup({
+            visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+            wrappedColumnKeys: ['myColumn', 'otherColumn'],
+          });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+
+          invariant(onWrappedColumnChange);
+
+          act(() => {
+            onWrappedColumnChange('otherColumn', false);
+          });
+          expect(IssueLikeDataTableView).toHaveBeenLastCalledWith(
+            expect.objectContaining({
+              wrappedColumnKeys: ['myColumn'],
+            } as Partial<IssueLikeDataTableViewProps>),
+            expect.anything(),
+          );
+        },
+        async () => {
+          const { getLatestIssueLikeTableProps } = await setup({
+            visibleColumnKeys: ['myColumn', 'otherColumn', 'thirdColumn'],
+            wrappedColumnKeys: ['myColumn', 'otherColumn'],
+          });
+
+          const { onWrappedColumnChange } = getLatestIssueLikeTableProps();
+          expect(onWrappedColumnChange).toBeUndefined();
+        },
       );
     });
   });

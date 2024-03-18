@@ -5,10 +5,10 @@ import { Stack, Text } from '@atlaskit/primitives';
 export default () => {
   return (
     <Stack space="space.100">
-      <Text weight="regular">Text regular font weight</Text>
-      <Text weight="medium">Text medium font weight</Text>
-      <Text weight="semibold">Text semibold font weight</Text>
-      <Text weight="bold">Text bold font weight</Text>
+      <Text>Text weight: regular (default)</Text>
+      <Text weight="medium">Text weight: medium</Text>
+      <Text weight="semibold">Text weight: semibold</Text>
+      <Text weight="bold">Text weight: bold</Text>
     </Stack>
   );
 };

@@ -149,8 +149,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Hãy thử tìm theo một từ khác hoặc khám phá các ứng dụng mới dành cho sản phẩm của Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Khám phá Atlassian Marketplace',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {Không có nội dung nào phù hợp với yêu cầu tìm kiếm của bạn} other {{count} đề xuất có sẵn cho văn bản đã nhập.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Nhấn Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Tìm kiếm',
   'fabric.editor.elementbrowser.sidebar.heading': 'Duyệt',

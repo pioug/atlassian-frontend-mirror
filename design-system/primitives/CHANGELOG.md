@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 5.0.0
+
+### Major Changes
+
+- [#81744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81744) [`30e3d8c81030`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30e3d8c81030) - Replaced `Text`'s `variant` prop with a `size` prop. The `size` prop takes three values: `"small"`, `"medium"` (default), and `"large"`.
+
+  Migration guide:
+
+  - `variant="body.small"` -> `size="small"`
+  - `variant="body"` -> `size="medium"` (Note: Since medium is the default, the size prop can be omitted here)
+  - `variant="body.large"` -> `size="large"`
+
 ## 4.1.1
 
 ### Patch Changes

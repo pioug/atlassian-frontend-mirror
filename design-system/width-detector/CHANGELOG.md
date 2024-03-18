@@ -1,5 +1,11 @@
 # @atlaskit/width-detector
 
+## 4.1.9
+
+### Patch Changes
+
+- [#81900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81900) [`4de6e56a074b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4de6e56a074b) - Explicitly coerce value in `useInView` to improve compatibility with TypeScript 5
+
 ## 4.1.8
 
 ### Patch Changes

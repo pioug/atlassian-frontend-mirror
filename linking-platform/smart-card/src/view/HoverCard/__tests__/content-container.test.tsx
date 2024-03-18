@@ -5,6 +5,7 @@ import ContentContainer from '../components/ContentContainer';
 import { hoverCardClassName } from '../components/HoverCardContent';
 import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 
 jest.mock('../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -17,9 +18,22 @@ describe('ContentContainer', () => {
 
   const setup = (props: Partial<ContentContainerProps> = {}) =>
     render(
-      <ContentContainer testId={testId} url={url} {...props}>
-        {content}
-      </ContentContainer>,
+      <SmartCardProvider
+        storeOptions={{
+          initialState: {
+            [url]: {
+              status: 'resolved',
+              details: {
+                data: { url: url },
+              } as any,
+            },
+          },
+        }}
+      >
+        <ContentContainer testId={testId} url={url} {...props}>
+          {content}
+        </ContentContainer>
+      </SmartCardProvider>,
     );
 
   describe('returns hover card content container', () => {

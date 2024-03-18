@@ -32,7 +32,11 @@ export function useInView(options: IntersectionObserverInit = {}): Response {
             const { isIntersecting, intersectionRatio } = intersection;
 
             if (intersectionRatio >= 0) {
-              let inView = intersectionRatio >= (threshold || 0);
+              // Note: `0` will be used here when an array of numbers is passed as the threshold, which doesn't feel right
+              const numericThreshold =
+                typeof threshold === 'number' ? threshold : 0;
+
+              let inView = intersectionRatio >= numericThreshold;
 
               if (isIntersecting !== undefined) {
                 inView = inView && isIntersecting;

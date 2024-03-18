@@ -9,12 +9,14 @@ export type DatasourceTableViewProps = {
 
   /** Url for an existing datasource, initially used for displaying to a user unauthorized to query that site  */
   url?: string;
-} & Partial<Pick<IssueLikeDataTableViewProps, 'visibleColumnKeys'>> &
+} & Partial<
   Pick<
     IssueLikeDataTableViewProps,
+    | 'visibleColumnKeys'
     | 'onVisibleColumnKeysChange'
     | 'wrappedColumnKeys'
     | 'onWrappedColumnChange'
     | 'onColumnResize'
     | 'columnCustomSizes'
-  >;
+  >
+>;

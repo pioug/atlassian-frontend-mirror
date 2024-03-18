@@ -7,13 +7,12 @@
   "testExamples": [
     "0-basic.tsx",
     "1-long.tsx",
+    "10-with-on-click-no-href.tsx",
     "11-truncation.tsx",
-    "12-themed.tsx",
     "14-with-element-next-to-breadcrumbs.tsx",
     "4-icons.tsx",
     "5-with-markup.tsx",
-    "7-many-in-container.tsx",
-    "99-testing.tsx"
+    "7-many-in-container.tsx"
   ],
   "exampleDependencies": [
     "react-router",

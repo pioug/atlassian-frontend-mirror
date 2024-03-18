@@ -5,17 +5,11 @@
  */
 {
   "testExamples": [
-    "99-testing.tsx",
     "vr-basic.tsx",
     "vr-loading-buttons.tsx",
     "vr-sizes.tsx",
     "vr-table-cell-alignment.tsx",
     "vr-text-alignment.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/avatar",
-    "@atlaskit/lozenge",
-    "@atlaskit/motion",
-    "@atlaskit/select"
-  ]
+  "exampleDependencies": []
 }

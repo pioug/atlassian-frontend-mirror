@@ -1,9 +1,10 @@
 import React from 'react';
 import { md, Example, Props, code, DevPreviewWarning } from '@atlaskit/docs';
+import { token } from '@atlaskit/tokens';
 
 export default md`
   ${(
-    <div style={{ margin: '0.5rem' }}>
+    <div style={{ margin: token('space.100', '8px') }}>
       <DevPreviewWarning />
     </div>
   )}

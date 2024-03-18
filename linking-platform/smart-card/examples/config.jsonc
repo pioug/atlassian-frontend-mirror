@@ -4,8 +4,14 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "exampleDependencies": [
-    "@atlaskit/radio",
-    "@atlaskit/table-tree"
+  "exampleDependencies": [],
+  "testExamples": [
+    "forbidden.svg",
+    "not_found.svg",
+    "unauthorized.svg",
+    "vr-embed-modal-with-flexible-ui-icon.tsx",
+    "vr-embed-modal.tsx",
+    "vr-inline-card-default-icon.tsx",
+    "vr-inline-card-text-wrap.tsx"
   ]
 }

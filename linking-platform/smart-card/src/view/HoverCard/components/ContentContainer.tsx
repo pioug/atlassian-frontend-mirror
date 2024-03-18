@@ -7,6 +7,9 @@ import AIPrism from '../../common/ai-prism';
 import { hoverCardClassName } from './HoverCardContent';
 import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
+import { useSmartCardState } from '../../../state/store';
+import { JsonLd } from 'json-ld-types';
+import { extractLink } from '@atlaskit/link-extractors';
 
 const ConnectedAIPrismContainer = ({
   children,
@@ -15,9 +18,13 @@ const ConnectedAIPrismContainer = ({
   url,
   ...props
 }: ContentContainerProps) => {
+  const cardState = useSmartCardState(url);
+  const dataUrl =
+    extractLink(cardState?.details?.data as JsonLd.Data.BaseData) ?? '';
+
   const {
     state: { status },
-  } = useAISummary({ url });
+  } = useAISummary({ url: dataUrl });
 
   const [showPrism, setShowPrism] = useState(status === 'loading');
 

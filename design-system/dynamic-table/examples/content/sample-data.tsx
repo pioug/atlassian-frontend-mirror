@@ -2,6 +2,7 @@
 import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import kebabCase from 'lodash/kebabCase';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, {
@@ -87,7 +88,7 @@ export const createHead = (withWidth: boolean) => {
 export const head = createHead(true);
 
 export const rows = presidents.map((president: President, index: number) => ({
-  key: `row-${index}-${president.name}`,
+  key: kebabCase(president.name),
   isHighlighted: false,
   cells: [
     {
@@ -124,4 +125,17 @@ export const rows = presidents.map((president: President, index: number) => ({
       ),
     },
   ],
+}));
+
+export const rowsWithTestIdOverrides = rows.map((row) => ({
+  ...row,
+  testId: `foo--row-${
+    typeof row.key === 'string' ? kebabCase(row.key) : row.key
+  }`,
+  cells: row.cells.map((cell) => ({
+    ...cell,
+    testId: `foo--cell-${
+      typeof cell.key === 'string' ? kebabCase(cell.key) : cell.key
+    }`,
+  })),
 }));

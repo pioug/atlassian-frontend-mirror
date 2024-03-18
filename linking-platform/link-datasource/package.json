@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.23.9",
+  "version": "1.24.1",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/form": "^9.0.3",
-    "@atlaskit/heading": "^1.8.0",
+    "@atlaskit/heading": "^2.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/image": "^1.1.0",
@@ -50,7 +50,7 @@
     "@atlaskit/jql-editor": "^4.0.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/linking-common": "^5.4.0",
+    "@atlaskit/linking-common": "^5.5.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/modal-dialog": "^12.10.0",
@@ -60,7 +60,7 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.0.0",
-    "@atlaskit/primitives": "^4.1.0",
+    "@atlaskit/primitives": "^5.0.0",
     "@atlaskit/select": "^17.3.0",
     "@atlaskit/smart-card": "^26.50.0",
     "@atlaskit/spinner": "^16.0.0",
@@ -142,6 +142,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.linking-platform.datasource.show-jlol-basic-filters": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.datasource-word_wrap": {
       "type": "boolean"
     },
     "platform.linking-platform.datasources.enable-sentry-client": {

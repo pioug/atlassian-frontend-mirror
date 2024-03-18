@@ -41,7 +41,6 @@ const inverseStyles = css({
 const Heading = ({
   children,
   size,
-  variant,
   id,
   testId,
   as,
@@ -56,12 +55,9 @@ const Heading = ({
     throw new Error('`as` prop should be a string.');
   }
 
-  // TODO: Temporary to move variant over to size
-  const localSize = variant || size;
-
   // Technically size can be undefined here due to how the types work.
   // Once removing the level prop this assertion can be removed since size will be a required prop.
-  const [hLevel, inferredElement] = useHeading(sizeTagMap[localSize!]);
+  const [hLevel, inferredElement] = useHeading(sizeTagMap[size!]);
   const Component = as || inferredElement;
   const needsAriaRole = Component === 'div' && hLevel;
 
@@ -73,7 +69,7 @@ const Heading = ({
       aria-level={needsAriaRole ? hLevel : undefined}
       css={[
         headingResetStyles,
-        localSize && headingSizeStylesMap[localSize],
+        size && headingSizeStylesMap[size],
         color === 'inverse' && inverseStyles,
       ]}
     >

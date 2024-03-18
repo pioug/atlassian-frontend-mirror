@@ -6,16 +6,21 @@
 {
   "testExamples": [
     "00-default-modal.tsx",
-    "01-appearance-override.tsx",
     "10-appearance.tsx",
     "20-autofocus.tsx",
     "40-multiple.tsx",
     "45-form.tsx",
+    "46-form-as-container.tsx",
+    "50-width.tsx",
     "55-scroll.tsx",
-    "65-multi-line-headings.tsx",
-    "75-with-focus-on-secondary-button.tsx",
+    "56-scroll-horizontal.tsx",
+    "65-multi-line-titles.tsx",
     "80-with-footer-and-select-option.tsx",
-    "90-with-layered-components.tsx"
+    "90-with-layered-components.tsx",
+    "92-with-hidden-blanket.tsx",
+    "93-multi-column.tsx",
+    "95-custom-child.tsx",
+    "96-with-current-surface.tsx"
   ],
   "exampleDependencies": [
     "react-beautiful-dnd"

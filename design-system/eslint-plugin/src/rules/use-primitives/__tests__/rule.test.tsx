@@ -134,6 +134,28 @@ ruleTester.run('use-primitives', rule, {
     },
 
     {
+      options: [
+        {
+          patterns: [
+            'string-style-property-fix',
+            'compiled-css-function',
+            'css-property-with-tokens',
+          ],
+        },
+      ],
+      code: [
+        `
+      // ignores styles with string literal properties
+      import { css } from '@emotion/react';
+      const paddingStyles = css({
+        marginTop: token('space.150', rem(12)),
+      });
+      <div css={paddingStyles}></div>
+    `,
+      ].join('\n'),
+    },
+
+    {
       code: [
         `// this won't trigger an error unless the config 'compiled-styled-object' is set to true`,
         `import { styled } from '@compiled/react';`,
@@ -306,7 +328,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       code: [
         `// Modifies existing primitives import`,
@@ -342,7 +363,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       code: [
         `// Modifies existing primitives import if all are already contained in the import`,
@@ -377,7 +397,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -408,7 +427,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -439,7 +457,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -470,7 +487,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -507,7 +523,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -548,7 +563,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {
@@ -585,7 +599,6 @@ ruleTester.run('use-primitives', rule, {
         },
       ],
     },
-
     {
       options: [
         {

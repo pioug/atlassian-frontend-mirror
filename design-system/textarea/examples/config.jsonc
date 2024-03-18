@@ -7,8 +7,6 @@
   "testExamples": [
     "0-basic.tsx",
     "1-appearance.tsx",
-    "2-resize.tsx",
-    "99-testing.tsx",
-    "common.tsx"
+    "2-resize.tsx"
   ]
 }

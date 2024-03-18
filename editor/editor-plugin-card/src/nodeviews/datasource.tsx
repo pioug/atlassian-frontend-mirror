@@ -80,8 +80,9 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
   };
 
   private updateTableProperties(
-    columnKeys: string[],
+    columnKeysArg: string[],
     columnCustomSizes: { [key: string]: number },
+    wrappedColumnKeys: string[],
   ) {
     const { state, dispatch } = this.props.view;
     const pos = getPosSafely(this.props.getPos);
@@ -89,16 +90,31 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
       return;
     }
 
+    // In case for some reason there are no visible keys stored in ADF, we take them
+    // from incoming sets of attributes like column sizes and wrapped column keys
+    // columnKeys are needed to update ADF (
+    // since attributes (like custom width and wrapped state) only make sense for a visible column )
+    // So this part effectively adds a visible column if it wasn't there but attributes were given.
+    const columnKeys =
+      columnKeysArg.length > 0
+        ? columnKeysArg
+        : Array.from(
+            new Set([...Object.keys(columnCustomSizes), ...wrappedColumnKeys]),
+          );
+
     const views = [
       {
         type: 'table',
         properties: {
-          columns: columnKeys.map(key => ({
-            key,
-            ...(columnCustomSizes[key]
-              ? { width: columnCustomSizes[key] }
-              : {}),
-          })),
+          columns: columnKeys.map(key => {
+            const width = columnCustomSizes[key];
+            const isWrapped = wrappedColumnKeys.includes(key);
+            return {
+              key,
+              ...(width ? { width } : {}),
+              ...(isWrapped ? { isWrapped } : {}),
+            };
+          }),
         },
       } as DatasourceAdfView,
     ];
@@ -119,21 +135,48 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
   }
 
   handleColumnChange = (columnKeys: string[]) => {
-    const { columnCustomSizes } = this.getColumnsInfo();
-    this.updateTableProperties(columnKeys, columnCustomSizes || {});
+    const { wrappedColumnKeys = [], columnCustomSizes = {} } =
+      this.getColumnsInfo();
+    this.updateTableProperties(
+      columnKeys,
+      columnCustomSizes,
+      wrappedColumnKeys,
+    );
   };
 
   handleColumnResize = (key: string, width: number) => {
-    const { columnCustomSizes, visibleColumnKeys } = this.getColumnsInfo();
-    const newColumnCustomSizes = { ...(columnCustomSizes || {}), [key]: width };
-    // In case for some reason there are no visible keys stored in ADF, we can take them from columnSizes
-    // columnKeys are needed to update ADF (since custom width only make sense for a visible column)
-    // So this function effectively adds a visible column if it wasn't there
-    const columnKeys =
-      visibleColumnKeys && visibleColumnKeys.indexOf(key) > -1
-        ? visibleColumnKeys
-        : Object.keys(newColumnCustomSizes);
-    this.updateTableProperties(columnKeys, newColumnCustomSizes);
+    const {
+      wrappedColumnKeys = [],
+      columnCustomSizes = {},
+      visibleColumnKeys = [],
+    } = this.getColumnsInfo();
+    const newColumnCustomSizes = { ...columnCustomSizes, [key]: width };
+    this.updateTableProperties(
+      visibleColumnKeys,
+      newColumnCustomSizes,
+      wrappedColumnKeys,
+    );
+  };
+
+  handleWrappedColumnChange = (key: string, shouldWrap: boolean) => {
+    const {
+      wrappedColumnKeys = [],
+      columnCustomSizes = {},
+      visibleColumnKeys = [],
+    } = this.getColumnsInfo();
+
+    const wrappedColumnKeysSet = new Set(wrappedColumnKeys);
+    if (shouldWrap) {
+      wrappedColumnKeysSet.add(key);
+    } else {
+      wrappedColumnKeysSet.delete(key);
+    }
+
+    this.updateTableProperties(
+      visibleColumnKeys,
+      columnCustomSizes,
+      Array.from(wrappedColumnKeysSet),
+    );
   };
 
   onError = ({ err }: { err?: Error }) => {
@@ -159,7 +202,11 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
       columnCustomSizes = Object.fromEntries<number>(keyWidthPairs);
     }
 
-    return { visibleColumnKeys, columnCustomSizes };
+    const wrappedColumnKeys: string[] | undefined = columnsProp
+      ?.filter(c => c.isWrapped)
+      .map(c => c.key);
+
+    return { visibleColumnKeys, columnCustomSizes, wrappedColumnKeys };
   }
 
   render() {
@@ -170,8 +217,10 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     const datasource = this.getDatasource();
     const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
     const tableView = this.getTableView();
+
     if (tableView) {
-      const { visibleColumnKeys, columnCustomSizes } = this.getColumnsInfo();
+      const { visibleColumnKeys, columnCustomSizes, wrappedColumnKeys } =
+        this.getColumnsInfo();
 
       // [WS-2307]: we only render card wrapped into a Provider when the value is ready
       if (cardContext && cardContext.value) {
@@ -186,6 +235,12 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
                 url={attrs?.url}
                 onColumnResize={this.handleColumnResize}
                 columnCustomSizes={columnCustomSizes}
+                onWrappedColumnChange={
+                  getBooleanFF('platform.linking-platform.datasource-word_wrap')
+                    ? this.handleWrappedColumnChange
+                    : undefined
+                }
+                wrappedColumnKeys={wrappedColumnKeys}
               />
             </cardContext.Provider>
           </EditorAnalyticsContext>

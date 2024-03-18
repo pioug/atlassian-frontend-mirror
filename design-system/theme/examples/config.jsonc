@@ -5,11 +5,10 @@
  */
 {
   "testExamples": [
-    "colors.tsx",
-    "with-emotion-theme-provider.tsx"
+    "atlaskit-theme-provider.tsx",
+    "colors.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/button",
     "styled-components"
   ]
 }

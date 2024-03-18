@@ -6,7 +6,7 @@
 {
   "testExamples": [
     "0-stateful.tsx",
-    "2-disabled.tsx",
-    "99-testing.tsx"
+    "10-stateful-with-toggle-enabled.tsx",
+    "2-disabled.tsx"
   ]
 }

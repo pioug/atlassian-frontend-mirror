@@ -13,6 +13,7 @@ type ErrorCrashPayload = Extract<
 >;
 
 interface ErrorBoundaryProps {
+  children?: React.ReactNode;
   component: ErrorCrashPayload['actionSubject'];
   componentId?: ErrorCrashPayload['actionSubjectId'];
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;

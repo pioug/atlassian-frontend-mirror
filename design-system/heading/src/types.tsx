@@ -66,7 +66,6 @@ export type HeadingProps =
            * Heading size. Use instead of the deprecated `level` prop.
            */
           size?: never;
-          variant?: never;
         }
       | {
           level?: never;
@@ -76,11 +75,7 @@ export type HeadingProps =
            *
            * This prop will only work if the typography tokens theme is applied on the page.
            */
-          size?: HeadingSize;
-          /**
-           * @deprecated. Use `size` instead.
-           */
-          variant?: HeadingSize;
+          size: HeadingSize;
         }
     );
 /* eslint-enable jsdoc/require-asterisk-prefix */

@@ -147,7 +147,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
                       ? highlightedRowIndex === rowIndex
                       : highlightedRowIndex.indexOf(rowIndex) > -1)
                   }
-                  testId={`${testId}--rankable--table--row`}
+                  testId={testId && `${testId}--rankable--table--row`}
                 />
               ))}
               {provided.placeholder}

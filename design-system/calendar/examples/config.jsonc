@@ -8,7 +8,6 @@
     "0-basic.tsx",
     "1-controlled.tsx",
     "2-i18n.tsx",
-    "3-theme.tsx",
     "99-testing.tsx"
   ]
 }

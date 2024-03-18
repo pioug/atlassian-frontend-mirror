@@ -7,7 +7,5 @@
   "testExamples": [
     "0-basic.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/avatar"
-  ]
+  "exampleDependencies": []
 }

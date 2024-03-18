@@ -76,7 +76,7 @@ const MentionAssistiveTextComponent = ({
   );
 };
 
-export const MentionNodeView: React.FC<Props> = props => {
+export const MentionNodeView = (props: Props) => {
   const { providerFactory } = props;
   const { id, text, accessLevel } = props.node.attrs;
 

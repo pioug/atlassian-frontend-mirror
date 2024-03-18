@@ -150,8 +150,6 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Próbálj más kifejezésre keresni, vagy fedezz fel új alkalmazásokat az Atlassian-termékekhez.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace felfedezése',
-  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
-    '{count, plural, =0 {Semmi sem felel meg a keresésednek} one {{count} javaslat van a begépelt szöveghez.} other {{count} javaslat van a begépelt szöveghez.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Belépés',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Keresés',
   'fabric.editor.elementbrowser.sidebar.heading': 'Böngészés',

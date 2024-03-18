@@ -213,8 +213,10 @@ export const PixelEntry = ({
   );
 };
 
-export const FullWidthDisplay: React.FC<{ intl: IntlShape }> = ({
+export const FullWidthDisplay = ({
   intl: { formatMessage },
+}: {
+  intl: IntlShape;
 }) => {
   return (
     <div css={pixelSizingFullWidthLabelStyles}>

@@ -5,15 +5,10 @@
  */
 {
   "testExamples": [
-    "00-jira-integration-example.tsx",
     "10-authenticated-example.tsx",
-    "20-anonymous-example.tsx",
-    "40-interactive-skeleton-example.tsx",
-    "50-theming-example.tsx",
-    "80-skeleton-buttons.tsx",
-    "themed-navigation.tsx"
+    "20-anonymous-example.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/badge"
+    "react-dom"
   ]
 }

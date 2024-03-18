@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-card
 
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.2.1
+
+### Patch Changes
+
+- [#76893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/76893) [`8d781cb52f84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d781cb52f84) - [ux] Add support for datasource column wrapping controls
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

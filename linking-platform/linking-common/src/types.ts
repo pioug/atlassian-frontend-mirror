@@ -79,10 +79,16 @@ export interface EmbedCardAdf {
   };
 }
 
+export interface DatasourceAdfTableViewColumn {
+  key: string;
+  width?: number;
+  isWrapped?: boolean;
+}
+
 export interface DatasourceAdfTableView {
   type: 'table';
   properties?: {
-    columns: { key: string; width?: number }[];
+    columns: DatasourceAdfTableViewColumn[];
   };
 }
 // TODO Remove me when next View be added. I am here as an example of intent

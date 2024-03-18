@@ -3,6 +3,7 @@ import React from 'react';
 import { embedHeaderHeight } from './components/styled';
 
 interface Props {
+  children?: React.ReactNode;
   embedIframeRef: React.RefObject<HTMLIFrameElement>;
   onHeightUpdate: (height: number) => void;
 }

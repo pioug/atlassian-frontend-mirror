@@ -14,6 +14,7 @@ export const DragHandleDisabledIcon = ({
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     style={style}
+    data-testid="drag-icon-disabled"
   >
     <rect width="24" height="16" rx="4" />
     <g>

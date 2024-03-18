@@ -8,7 +8,6 @@
     "00-basic-usage.tsx",
     "03-indeterminate.tsx",
     "08-sizes.tsx",
-    "09-multiline-label.tsx",
-    "99-testing.tsx"
+    "09-multiline-label.tsx"
   ]
 }

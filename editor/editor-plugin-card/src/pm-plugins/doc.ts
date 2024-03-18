@@ -677,25 +677,23 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
 
   if (newAdf.type === 'blockCard') {
     if (node.attrs?.datasource && newAdf.attrs?.datasource) {
-      // datasource to datasource
+      const newAttrs = newAdf.attrs;
+      const oldAttrs = node.attrs as DatasourceAdf['attrs'];
+
       const [newViews] =
-        (newAdf.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+        (newAttrs.datasource.views as DatasourceAdfView[]) ?? [];
       const [oldViews] =
-        (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+        (oldAttrs.datasource.views as DatasourceAdfView[]) ?? [];
 
-      const newColumnKeys = newViews?.properties?.columns.map(
-        column => column.key,
+      const isColumnChange = !isEqual(
+        oldViews?.properties?.columns,
+        newViews?.properties?.columns,
       );
-      const oldColumnKeys = oldViews?.properties?.columns.map(
-        column => column.key,
-      );
-
-      const isColumnChange = !isEqual(oldColumnKeys, newColumnKeys);
-      const isUrlChange = newAdf.attrs?.url !== node.attrs?.url;
+      const isUrlChange = newAttrs.url !== oldAttrs.url;
 
       if (isColumnChange || isUrlChange) {
         tr.setNodeMarkup(from, schemaNodes.blockCard, {
-          ...node.attrs,
+          ...oldAttrs,
           ...newAdf.attrs,
         });
       }

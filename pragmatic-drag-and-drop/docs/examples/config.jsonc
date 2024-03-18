@@ -6,11 +6,8 @@
 {
   "testExamples": [],
   "exampleDependencies": [
-    "@atlaskit/avatar",
     "@atlaskit/code",
-    "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll",
-    "@atlaskit/menu",
-    "@atlassian/react-async",
-    "bind-event-listener"
+    "@atlaskit/grid",
+    "memoize-one"
   ]
 }

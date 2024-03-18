@@ -17,7 +17,6 @@ import {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
-import { token } from '@atlaskit/tokens';
 
 import type { MediaLinkingState } from '../pm-plugins/linking';
 import { stateKey } from '../pm-plugins/plugin-key';
@@ -37,14 +36,12 @@ export interface LinkingToolbarProps {
   isInlineNode?: boolean;
 }
 
-// need this wrapper, need to have 4px between items.
-const wrapper = css`
-  display: flex;
-  align-items: center;
-  margin-right: ${token('space.050', '4px')};
-`;
+const wrapperStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+});
 
-export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
+export const LinkToolbarAppearance = ({
   editorState,
   mediaLinkingState,
   intl,
@@ -52,7 +49,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
   onEditLink,
   onOpenLink,
   isInlineNode,
-}) => {
+}: LinkingToolbarProps) => {
   const [showLinkingControls, setShowLinkingControls] = useState(true);
 
   useEffect(() => {
@@ -89,7 +86,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
 
     return (
       <Fragment>
-        <div css={wrapper}>
+        <div css={wrapperStyles}>
           <ToolbarButton
             onClick={onEditLink}
             title={title}
@@ -100,9 +97,6 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
           >
             {title}
           </ToolbarButton>
-        </div>
-        <div css={wrapper}>
-          <Separator />
         </div>
         <ToolbarButton
           target="_blank"

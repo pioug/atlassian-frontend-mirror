@@ -5,7 +5,40 @@
  */
 {
   "testExamples": [
-    "basic.tsx",
-    "selected.tsx"
+    "02-box.tsx",
+    "03-box-padding.tsx",
+    "05-box-color.tsx",
+    "07-box-custom-styles.tsx",
+    "08-box-surface-detection.tsx",
+    "10-inline-basic.tsx",
+    "12-inline-separator.tsx",
+    "12-inline-space.tsx",
+    "13-inline-align-block.tsx",
+    "14-inline-align-inline.tsx",
+    "15-inline-spread.tsx",
+    "16-inline-should-wrap.tsx",
+    "17-inline-grow.tsx",
+    "20-stack-basic.tsx",
+    "22-stack-space.tsx",
+    "23-stack-align-block.tsx",
+    "24-stack-align-inline.tsx",
+    "25-stack-spread.tsx",
+    "26-stack-grow.tsx",
+    "30-classname-basic.tsx",
+    "32-xcss-margin.tsx",
+    "40-xcss-media-queries.tsx",
+    "41-pressable-default.tsx",
+    "42-pressable-styled.tsx",
+    "44-anchor-default.tsx",
+    "45-anchor-styled.tsx",
+    "50-use-media-query.tsx",
+    "51-responsive-show-hide.tsx",
+    "61-flex.tsx",
+    "62-grid-gap.tsx",
+    "63-bleed.tsx",
+    "70-text.tsx",
+    "71-text-color.tsx",
+    "72-text-truncation.tsx",
+    "xcss-compiled.tsx"
   ]
 }

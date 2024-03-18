@@ -10,11 +10,12 @@
     "02-customised-components.tsx",
     "03-simple-sidebar.tsx",
     "10-with-spotlight.tsx",
+    "12-nested-side-navigation-scroll-indicator.tsx",
+    "13-content.tsx",
     "loading-skeletons-nested.tsx",
     "loading-skeletons.tsx",
+    "section.tsx",
     "side-navigation.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/select"
-  ]
+  "exampleDependencies": []
 }

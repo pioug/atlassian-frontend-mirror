@@ -5,7 +5,6 @@
  */
 {
   "testExamples": [
-    "99-testing.tsx",
     "radio-default.tsx"
   ]
 }

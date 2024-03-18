@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-mentions
 
+## 1.0.5
+
+### Patch Changes
+
+- [#81852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81852) [`0641eef91f65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0641eef91f65) - React 18 types for editor-plugin-mentions
+
 ## 1.0.4
 
 ### Patch Changes

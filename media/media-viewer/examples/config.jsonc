@@ -5,11 +5,12 @@
  */
 {
   "testExamples": [
-    "5-mocked-viewer.tsx"
+    "10-vr-password-input.tsx",
+    "5-vr-mocked-viewer.tsx",
+    "7-vr-empty-file.tsx",
+    "8-vr-archive-side-bar.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/media-card",
-    "@atlaskit/modal-dialog",
     "exenv"
   ]
 }

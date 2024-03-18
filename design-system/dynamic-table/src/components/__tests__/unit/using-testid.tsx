@@ -2,11 +2,15 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { head, rows } from '../../../../examples/content/sample-data';
+import {
+  head,
+  rows,
+  rowsWithTestIdOverrides,
+} from '../../../../examples/content/sample-data';
 import DynamicTableStateful, { DynamicTableStateless } from '../../../index';
 
-describe('Using testId', () => {
-  test('Particular elements are accessible via data-testid', () => {
+describe('Test IDs', () => {
+  test('allow elements to be accessible for testing', () => {
     const testId = 'the-table';
 
     const testIds = [
@@ -14,6 +18,7 @@ describe('Using testId', () => {
       `${testId}--head`,
       `${testId}--body`,
       `${testId}--pagination`,
+      `${testId}--row-thomas-jefferson`,
     ];
 
     render(
@@ -40,15 +45,51 @@ describe('Using testId', () => {
     ];
 
     multipleTestIds.forEach((testId) => {
-      // Currently, a non-rankable table does not prefix the cell test IDs
-      // with the current table row, therefore it is possible to have multiple
-      // cells on separate rows to have the same test ID.
-      // eslint-disable-next-line jest-dom/prefer-in-document
-      expect(screen.getAllByTestId(testId)).toBeTruthy();
+      screen.getAllByTestId(testId).forEach((element) => {
+        expect(element).toBeInTheDocument();
+      });
     });
   });
 
-  describe('setting custom testIds on cells', () => {
+  test('should allow base test ID overrides when passed to `rows` and `cells`', () => {
+    const testId = 'the-table';
+
+    const testIds = [
+      'foo--row-george-washington',
+      'foo--row-john-adams',
+      'foo--row-thomas-jefferson',
+    ];
+
+    render(
+      <DynamicTableStateless
+        head={head}
+        rows={rowsWithTestIdOverrides}
+        testId={testId}
+        rowsPerPage={3}
+        page={1}
+      />,
+    );
+
+    testIds.forEach((testId) => {
+      expect(screen.getByTestId(testId)).toBeInTheDocument();
+    });
+
+    const multipleTestIds = [
+      'foo--cell-george-washington',
+      'foo--cell-none-federalist',
+      'foo--cell-1',
+      'foo--cell-lorem',
+      'foo--cell-more-dropdown',
+    ];
+
+    multipleTestIds.forEach((testId) => {
+      screen.getAllByTestId(testId).forEach((element) => {
+        expect(element).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('should be set as a data attribute on cells, not a custom attribute', () => {
     const head = { cells: [{ content: 'Greeting' }] };
     const rows = [
       {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-extension",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "editor-plugin-extension plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -46,7 +46,7 @@
     "@atlaskit/form": "^9.0.3",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^4.1.0",
+    "@atlaskit/primitives": "^5.0.0",
     "@atlaskit/radio": "^6.1.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^17.3.0",
@@ -99,11 +99,9 @@
       "ui-components": [
         "lite-mode"
       ],
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
+      "deprecation": "no-deprecated-imports",
       "styling": [
-        "static",
+        "emotion",
         "emotion"
       ]
     }

@@ -11,7 +11,5 @@
     "05-basicStatus.tsx",
     "15-skeleton.tsx"
   ],
-  "exampleDependencies": [
-    "@atlaskit/button"
-  ]
+  "exampleDependencies": []
 }

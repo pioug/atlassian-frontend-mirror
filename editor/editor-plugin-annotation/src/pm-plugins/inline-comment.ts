@@ -3,6 +3,7 @@ import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { BlockAnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import type {
   CommandDispatch,
   FeatureFlags,
@@ -23,9 +24,11 @@ import {
 import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 import {
+  decorationKey,
   getAllAnnotations,
   getPluginState,
   inlineCommentPluginKey,
+  isCurrentBlockNodeSelected,
 } from '../utils';
 
 import { createPluginState } from './plugin-factory';
@@ -269,28 +272,53 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         const focusDecorations: Decoration[] = [];
 
         state.doc.descendants((node: PMNode, pos: number) => {
+          const isSupportedBlockNode =
+            node.isBlock &&
+            provider.supportedBlockNodes?.includes(node.type.name);
+
           node.marks
             .filter(mark => mark.type === state.schema.marks.annotation)
             .forEach(mark => {
-              const isSelected =
-                !isInlineCommentViewClosed &&
-                !!selectedAnnotations?.some(
-                  selectedAnnotation => selectedAnnotation.id === mark.attrs.id,
-                );
-
-              const isUnresolved =
-                !!annotations && annotations[mark.attrs.id] === false;
-
               if (isVisible) {
-                focusDecorations.push(
-                  Decoration.inline(pos, pos + node.nodeSize, {
-                    class: `${getAnnotationViewClassname(
-                      isUnresolved,
-                      isSelected,
-                    )} ${isUnresolved}`,
-                    nodeName: 'span',
-                  }),
-                );
+                const isUnresolved =
+                  !!annotations && annotations[mark.attrs.id] === false;
+
+                if (isSupportedBlockNode) {
+                  const isBlockNodeSelected = isCurrentBlockNodeSelected(
+                    state,
+                    node,
+                  );
+
+                  const attrs = isUnresolved
+                    ? {
+                        class: isBlockNodeSelected
+                          ? `${BlockAnnotationSharedClassNames.focus}`
+                          : `${BlockAnnotationSharedClassNames.blur}`,
+                      }
+                    : {};
+                  focusDecorations.push(
+                    Decoration.node(pos, pos + node.nodeSize, attrs, {
+                      key: decorationKey.block,
+                    }),
+                  );
+                } else {
+                  const isSelected =
+                    !isInlineCommentViewClosed &&
+                    !!selectedAnnotations?.some(
+                      selectedAnnotation =>
+                        selectedAnnotation.id === mark.attrs.id,
+                    );
+
+                  focusDecorations.push(
+                    Decoration.inline(pos, pos + node.nodeSize, {
+                      class: `${getAnnotationViewClassname(
+                        isUnresolved,
+                        isSelected,
+                      )} ${isUnresolved}`,
+                      nodeName: 'span',
+                    }),
+                  );
+                }
               }
             });
         });

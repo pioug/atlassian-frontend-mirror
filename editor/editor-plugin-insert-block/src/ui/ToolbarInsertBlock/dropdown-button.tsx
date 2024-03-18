@@ -25,9 +25,7 @@ export interface DropDownButtonProps {
   handleRef(el: ToolbarButtonRef): void;
 }
 
-const DropDownButtonIcon: React.FunctionComponent<{
-  label: string;
-}> = React.memo(props => (
+const DropDownButtonIcon = React.memo((props: { label: string }) => (
   // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
   <span css={triggerWrapper}>
     <AddIcon label={props.label} />
@@ -38,20 +36,19 @@ const DropDownButtonIcon: React.FunctionComponent<{
   </span>
 ));
 
-export const DropDownButton: React.FunctionComponent<DropDownButtonProps> =
-  React.memo(props => (
-    <ToolbarButton
-      ref={props.handleRef}
-      selected={props.selected}
-      disabled={props.disabled}
-      onClick={props.onClick}
-      onKeyDown={props.onKeyDown}
-      spacing={props.spacing}
-      aria-expanded={props['aria-expanded']}
-      aria-haspopup={props['aria-haspopup']}
-      aria-keyshortcuts={props['aria-keyshortcuts']}
-      aria-label={`${props.label}`}
-      iconBefore={<DropDownButtonIcon label="" />}
-      title={<ToolTipContent description={props.label} shortcutOverride="/" />}
-    />
-  ));
+export const DropDownButton = React.memo((props: DropDownButtonProps) => (
+  <ToolbarButton
+    ref={props.handleRef}
+    selected={props.selected}
+    disabled={props.disabled}
+    onClick={props.onClick}
+    onKeyDown={props.onKeyDown}
+    spacing={props.spacing}
+    aria-expanded={props['aria-expanded']}
+    aria-haspopup={props['aria-haspopup']}
+    aria-keyshortcuts={props['aria-keyshortcuts']}
+    aria-label={`${props.label}`}
+    iconBefore={<DropDownButtonIcon label="" />}
+    title={<ToolTipContent description={props.label} shortcutOverride="/" />}
+  />
+));

@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 78.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.14.2
+
+### Patch Changes
+
+- [#81852](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81852) [`2c1b46d6d027`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c1b46d6d027) - Fix incorrect type for custom floating toolbar render method
+- Updated dependencies
+
 ## 78.14.1
 
 ### Patch Changes

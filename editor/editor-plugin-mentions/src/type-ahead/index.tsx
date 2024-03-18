@@ -247,7 +247,7 @@ const buildNodesForTeamMention = (
 type Props = {
   sanitizePrivateContent?: boolean;
   mentionInsertDisplayName?: boolean;
-  HighlightComponent?: React.ComponentType;
+  HighlightComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
   fireEvent: FireElementsChannelEvent;
   api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 };

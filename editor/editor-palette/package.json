@@ -56,11 +56,12 @@
       ]
     },
     "@repo/internal": {
-      "deprecation": [
-        "no-deprecated-imports"
-      ],
+      "deprecation": "no-deprecated-imports",
       "design-tokens": [
         "color"
+      ],
+      "styling": [
+        "emotion"
       ]
     }
   },

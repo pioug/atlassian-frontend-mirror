@@ -5,7 +5,6 @@ import Heading from '@atlaskit/heading';
 import { Stack, Text } from '../src';
 
 const sizes = ['small', 'medium', 'large'] as const;
-const variants = ['body.small', 'body', 'body.large'] as const;
 
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 
@@ -22,11 +21,6 @@ export default () => {
               Text size: {size}
             </Text>
           ))}
-          {variants.map(variant => (
-            <Text key={variant} variant={variant}>
-              Text variant: {variant}
-            </Text>
-          ))}
         </Stack>
       </section>
       <section>
@@ -36,7 +30,7 @@ export default () => {
           </Heading>
           {weights.map(weight => (
             <Text key={weight} weight={weight}>
-              Text weight {weight}
+              Text weight: {weight}
             </Text>
           ))}
         </Stack>

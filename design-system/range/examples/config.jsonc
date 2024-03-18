@@ -10,8 +10,6 @@
     "09-different-values.tsx"
   ],
   "exampleDependencies": [
-    "@atlaskit/checkbox",
-    "@atlaskit/tooltip",
     "@emotion/styled",
     "lodash"
   ]

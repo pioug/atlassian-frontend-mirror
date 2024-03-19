@@ -43,7 +43,7 @@
     "@atlaskit/inline-dialog": "^14.0.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -99,6 +99,12 @@
     }
   },
   "af:exports": {
+    "./inline-edit": "./src/entry-points/inline-edit.ts",
+    "./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
+  "exports": {
     "./inline-edit": "./src/entry-points/inline-edit.ts",
     "./inline-editable-textfield": "./src/entry-points/inline-editable-textfield.ts",
     "./types": "./src/entry-points/types.ts",

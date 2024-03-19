@@ -778,3 +778,19 @@ export const addBoldInEmptyHeaderCells =
 
     return false;
   };
+
+export const updateWidthToWidest = (widthToWidest: boolean) =>
+  createCommand((state) => {
+    let { widthToWidest: prevWidthToWidest } = getPluginState(state);
+
+    if (prevWidthToWidest === widthToWidest) {
+      return false;
+    }
+
+    return {
+      type: 'UPDATE_TABLE_WIDTH_TO_WIDEST',
+      data: {
+        widthToWidest,
+      },
+    };
+  });

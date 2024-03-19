@@ -309,6 +309,9 @@ export class InteractiveImgComponent extends React.Component<Props, State> {
   };
 
   private startDragging = (ev: React.MouseEvent<{}>) => {
+    // stopping propagation to prevent media viewer from closing
+    // when clicking on the image
+    ev.stopPropagation();
     ev.preventDefault();
     this.setState({
       isDragging: true,

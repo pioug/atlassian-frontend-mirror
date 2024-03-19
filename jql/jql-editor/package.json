@@ -35,6 +35,10 @@
     ".": "./src/index.ts",
     "./i18n": "./src/i18n/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./i18n": "./src/i18n/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-next": "^9.2.0",
@@ -49,7 +53,7 @@
     "@atlaskit/jql-parser": "^2.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

@@ -1,5 +1,15 @@
 # @atlaskit/ds-explorations
 
+## 3.3.0
+
+### Minor Changes
+
+- [#78900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78900) [`6ea786dd8082`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ea786dd8082) - Add UNSAFE_small fontsize token.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.7
 
 ### Patch Changes

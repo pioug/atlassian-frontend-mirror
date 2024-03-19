@@ -128,7 +128,7 @@ const Header = ({
               <div
                 className="item-title"
                 id="context-panel-title"
-                data-testId="context-panel-title"
+                data-testid="context-panel-title"
               >
                 {title}
               </div>
@@ -138,7 +138,7 @@ const Header = ({
             <div
               css={centeredItemTitleStyles}
               id="context-panel-title"
-              data-testId="context-panel-title"
+              data-testid="context-panel-title"
             >
               {title}
             </div>

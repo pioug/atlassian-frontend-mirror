@@ -28,9 +28,9 @@
   },
   "dependencies": {
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "final-form": "^4.20.3",
@@ -103,6 +103,19 @@
     }
   },
   "af:exports": {
+    "./CheckboxField": "./src/entry-points/checkbox-field.tsx",
+    "./Field": "./src/entry-points/field.tsx",
+    "./Fieldset": "./src/entry-points/fieldset.tsx",
+    "./FormFooter": "./src/entry-points/form-footer.tsx",
+    "./FormHeader": "./src/entry-points/form-header.tsx",
+    "./FormSection": "./src/entry-points/form-section.tsx",
+    "./Form": "./src/entry-points/form.tsx",
+    "./Messages": "./src/entry-points/messages.tsx",
+    "./RangeField": "./src/entry-points/range-field.tsx",
+    "./Label": "./src/entry-points/label.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./CheckboxField": "./src/entry-points/checkbox-field.tsx",
     "./Field": "./src/entry-points/field.tsx",
     "./Fieldset": "./src/entry-points/fieldset.tsx",

@@ -38,12 +38,16 @@
     ".": "./src/index.tsx",
     "./types": "./src/entry-points/types.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/entry-points/types.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

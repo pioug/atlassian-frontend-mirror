@@ -121,7 +121,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         inheritDimensions={inheritDimensions}
       >
         {getBooleanFF(
-          'platform.linking-platform.smart-card.embed-card-header-tooltip',
+          'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
         )
           ? renderHeader()
           : renderHeaderOld()}
@@ -144,7 +144,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
         data-is-interactive={isInteractive()}
       >
         {getBooleanFF(
-          'platform.linking-platform.smart-card.embed-card-header-tooltip',
+          'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
         )
           ? renderHeader()
           : renderHeaderOld()}

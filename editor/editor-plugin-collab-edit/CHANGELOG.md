@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.6
+
+### Patch Changes
+
+- [#82308](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82308) [`26970b6663ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26970b6663ae) - Register the custom prosemirror within the collab PM plugin
+
 ## 1.1.5
 
 ### Patch Changes

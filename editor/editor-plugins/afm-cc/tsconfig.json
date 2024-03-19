@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../editor-plugin-accessibility-utils/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-alignment/afm-cc/tsconfig.json"
         },
         {

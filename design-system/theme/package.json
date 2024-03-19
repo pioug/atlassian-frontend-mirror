@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -90,6 +90,16 @@
     }
   },
   "af:exports": {
+    "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
+    "./color-palettes": "./src/color-palettes.tsx",
+    "./colors": "./src/colors.tsx",
+    "./components": "./src/components.tsx",
+    "./constants": "./src/constants.tsx",
+    "./elevation": "./src/elevation.tsx",
+    "./types": "./src/types.tsx",
+    "./typography": "./src/typography.tsx"
+  },
+  "exports": {
     "./deprecated-provider-please-do-not-use": "./src/deprecated-provider-please-do-not-use.tsx",
     "./color-palettes": "./src/color-palettes.tsx",
     "./colors": "./src/colors.tsx",

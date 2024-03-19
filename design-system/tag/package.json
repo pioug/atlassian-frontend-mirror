@@ -39,13 +39,18 @@
     "./removable-tag": "./src/tag/removable-tag.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./simple-tag": "./src/tag/simple-tag.tsx",
+    "./removable-tag": "./src/tag/removable-tag.tsx",
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/motion": "^1.5.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

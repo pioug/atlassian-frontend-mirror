@@ -144,6 +144,7 @@ export default (
         isKeyboardResize: undefined,
       };
 
+    case 'UPDATE_TABLE_WIDTH_TO_WIDEST':
     case 'SET_TABLE_REF':
     case 'HOVER_ROWS':
     case 'HOVER_COLUMNS':

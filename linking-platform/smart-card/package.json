@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.50.2",
+  "version": "26.50.5",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,10 +51,10 @@
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.13.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -145,6 +145,16 @@
     "./link-url": "./src/linkUrl.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./ssr": "./src/ssr.tsx",
+    "./in-product": "./src/in-product.ts",
+    "./client": "./src/client/index.ts",
+    "./types": "./src/types.ts",
+    "./hooks": "./src/hooks.ts",
+    "./hover-card": "./src/hoverCard.ts",
+    "./link-url": "./src/linkUrl.ts",
+    ".": "./src/index.ts"
+  },
   "platform-feature-flags": {
     "platform.linking-platform.smart-card.enable-hover-card-related-urls": {
       "type": "boolean"
@@ -161,10 +171,13 @@
     "platform.linking-platform.smart-card.hover-card-ai-summaries": {
       "type": "boolean"
     },
+    "platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable": {
+      "type": "boolean"
+    },
     "platform.linking-platform.smart-card.fix-intersection-observer": {
       "type": "boolean"
     },
-    "platform.linking-platform.smart-card.embed-card-header-tooltip": {
+    "platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw": {
       "type": "boolean"
     }
   },

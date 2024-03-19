@@ -22,9 +22,11 @@ export type MessageKey =
   | 'assigned_to'
   | 'ai_summarize'
   | 'ai_summarized'
+  | 'ai_summarized_abbreviation'
   | 'ai_summarized_info'
   | 'ai_summarizing'
   | 'ai_summary_error_generic'
+  | 'beta'
   | 'cannot_find_link'
   | 'connect_link_account_card'
   | 'connect_link_account_card_name'
@@ -142,6 +144,12 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Summarized by Atlassian Intelligence',
     description: 'Shown with the content summarised by AI.',
   },
+  ai_summarized_abbreviation: {
+    id: 'fabric.linking.ai_summarized_abbreviation',
+    defaultMessage: 'Summarized by AI',
+    description:
+      'Shown with the content summarised by AI. AI is in abbreviation form to reduce space.',
+  },
   ai_summarized_info: {
     id: 'fabric.linking.ai_summarized_info',
     defaultMessage: 'Information quality may vary. <a>Learn more</a>',
@@ -170,6 +178,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.cancel',
     defaultMessage: 'Cancel',
     description: 'cancel',
+  },
+  beta: {
+    id: 'fabric.linking.beta',
+    defaultMessage: 'Beta',
+    description: 'Indicates a beta phase of the feature.',
   },
   cannot_connect: {
     id: 'fabric.linking.cannot_connect',

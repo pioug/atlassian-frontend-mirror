@@ -42,7 +42,7 @@ describe('<LinkItem />', () => {
       </LinkItem>,
     );
 
-    expect(getByTestId('link')).toBeDefined();
+    expect(getByTestId('link')).toBeInTheDocument();
   });
 
   // The purpose of this test is to confirm that this functionality still
@@ -70,21 +70,24 @@ describe('<LinkItem />', () => {
   });
 
   it('should not gain focus on mouse down when it had no initial focus', () => {
-    // create a random button that will have focus
-    const el: HTMLElement = document.createElement('button');
-    document.body.appendChild(el);
-    el.focus();
-    expect(el).toBe(document.activeElement);
     const { getByTestId } = render(
-      <LinkItem href="http://www.atlassian.com" testId="target">
-        Atlassian
-      </LinkItem>,
+      <div>
+        <button type="button" data-testid="focused-button">
+          Button
+        </button>
+        <LinkItem href="http://www.atlassian.com" testId="target">
+          Atlassian
+        </LinkItem>
+        ,
+      </div>,
     );
 
+    getByTestId('focused-button').focus();
+    expect(getByTestId('focused-button')).toHaveFocus();
     const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
 
     // target didn't get focus
-    expect(getByTestId('target')).not.toBe(document.activeElement);
+    expect(getByTestId('target')).not.toHaveFocus();
     // mousedown event not prevented
     expect(allowed).toBe(true);
   });
@@ -180,7 +183,7 @@ describe('<LinkItem />', () => {
 
     fireEvent.dragStart(getByTestId('target'));
 
-    expect(getByTestId('target').getAttribute('draggable')).toEqual('false');
+    expect(getByTestId('target')).toHaveAttribute('draggable', 'false');
     //  Default was prevented?
     expect(dragStartEvent.mock.results[0].value).toEqual(true);
   });

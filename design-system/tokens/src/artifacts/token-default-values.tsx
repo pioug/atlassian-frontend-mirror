@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::a5ef42a0373166de767df9be7435e58d>>
+ * @codegen <<SignedSource::6278b34544b882064c02dc5446ed0503>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -454,6 +454,8 @@ const defaultTokenValues = {
     'normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.body.small':
     'normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  'font.body.UNSAFE_small':
+    'normal 400 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.ui':
     'normal 500 0.875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   'font.ui.small':

@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/interaction-context": "^2.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -79,6 +79,12 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.tsx",
+    "./constants": "./src/constants.tsx",
+    "./spinner": "./src/spinner.tsx",
+    "./types": "./src/types.tsx"
+  },
+  "exports": {
     ".": "./src/index.tsx",
     "./constants": "./src/constants.tsx",
     "./spinner": "./src/spinner.tsx",

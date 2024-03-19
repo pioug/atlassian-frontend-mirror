@@ -31,7 +31,7 @@ import RendererDefaultComponent, {
   Renderer,
 } from '../../';
 import { Paragraph } from '../../../../react/nodes';
-import { SelectionComponentWrapper } from '../../../annotations/selection';
+import { AnnotationsContextWrapper } from '../../../annotations/wrapper';
 import type { RendererAppearance } from '../../types';
 
 let mockCreateAnalyticsEvent = jest.fn(() => ({ fire() {} }));
@@ -163,7 +163,7 @@ describe('Renderer', () => {
   });
 
   describe('when the allowAnnotations is enabled', () => {
-    it('should render the SelectionComponentWrapper', () => {
+    it('should render the AnnotationsContextWrapper', () => {
       const wrapper = mount(
         <RendererDefaultComponent
           annotationProvider={annotationProvider}
@@ -171,13 +171,13 @@ describe('Renderer', () => {
           allowAnnotations={true}
         />,
       );
-      expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(1);
+      expect(wrapper!.find(AnnotationsContextWrapper)).toHaveLength(1);
       wrapper.unmount();
     });
   });
 
   describe('when the allowAnnotations is disabled', () => {
-    it('should not render the SelectionComponentWrapper', () => {
+    it('should not render the AnnotationsContextWrapper', () => {
       let wrapper: ReactWrapper;
       act(() => {
         wrapper = mount(
@@ -189,7 +189,7 @@ describe('Renderer', () => {
         );
       });
 
-      expect(wrapper!.find(SelectionComponentWrapper)).toHaveLength(0);
+      expect(wrapper!.find(AnnotationsContextWrapper)).toHaveLength(0);
     });
   });
 

@@ -82,7 +82,7 @@ describe('ExpandedFrame', () => {
 
   describe('No tooltip is rendered by default', () => {
     ffTest(
-      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
       // Test passes whether FF is on or off
       () => {
         render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
@@ -94,7 +94,7 @@ describe('ExpandedFrame', () => {
 
   describe('Tooltip is rendered when hovered', () => {
     ffTest(
-      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
       // FF is on
       async () => {
         render(<ExpandedFrame text="foobar" isPlaceholder={false} />);
@@ -126,7 +126,7 @@ describe('ExpandedFrame', () => {
 
   describe('Tooltip is not rendered when not hovered', () => {
     ffTest(
-      'platform.linking-platform.smart-card.embed-card-header-tooltip',
+      'platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw',
       // Test passes whether FF is on or off
       async () => {
         render(<ExpandedFrame text="foobar" isPlaceholder={false} />);

@@ -35,6 +35,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0"
   },
@@ -45,15 +48,15 @@
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/focus-ring": "^1.2.0",
     "@atlaskit/grid": "^0.11.0",
-    "@atlaskit/heading": "^2.0.0",
+    "@atlaskit/heading": "^2.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.0.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",

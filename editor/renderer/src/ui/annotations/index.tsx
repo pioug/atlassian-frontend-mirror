@@ -2,12 +2,13 @@ import React from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { AnnotationView } from './view';
-import { SelectionComponentWrapper } from './selection';
+import { AnnotationsContextWrapper } from './wrapper';
 import { type AnnotationsWrapperProps } from './types';
 import { ProvidersContext, InlineCommentsStateContext } from './context';
 import { useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
 
 const LoadAnnotations = React.memo(
   ({ adfDocument }: Record<'adfDocument', JSONDocNode>) => {
@@ -34,14 +35,20 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
       <InlineCommentsStateContext.Provider
         value={inlineCommentAnnotationsState}
       >
-        <SelectionComponentWrapper
-          createAnalyticsEvent={createAnalyticsEvent}
-          rendererRef={rendererRef}
+        <AnnotationRangeProvider
+          allowCommentsOnMedia={
+            annotationProvider?.inlineComment?.allowCommentsOnMedia ?? false
+          }
         >
-          <LoadAnnotations adfDocument={adfDocument} />
-          <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
-          {children}
-        </SelectionComponentWrapper>
+          <AnnotationsContextWrapper
+            createAnalyticsEvent={createAnalyticsEvent}
+            rendererRef={rendererRef}
+          >
+            <LoadAnnotations adfDocument={adfDocument} />
+            <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
+            {children}
+          </AnnotationsContextWrapper>
+        </AnnotationRangeProvider>
       </InlineCommentsStateContext.Provider>
     </ProvidersContext.Provider>
   );

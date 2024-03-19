@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-panel
 
+## 1.0.6
+
+### Patch Changes
+
+- [#81827](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81827) [`7ed7ae4b5cb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ed7ae4b5cb8) - migrated to react18 compatiable types
+- Updated dependencies
+
 ## 1.0.5
 
 ### Patch Changes

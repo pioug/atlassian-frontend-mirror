@@ -42,11 +42,20 @@
     "./types": "./src/entry-points/types.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./AvatarItem": "./src/entry-points/avatar-item.ts",
+    "./Avatar": "./src/entry-points/avatar.ts",
+    "./Presence": "./src/entry-points/presence.ts",
+    "./Skeleton": "./src/entry-points/skeleton.ts",
+    "./Status": "./src/entry-points/status.ts",
+    "./types": "./src/entry-points/types.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/serialize": "^1.1.0",

@@ -41,6 +41,14 @@
     "./types": "./src/types.tsx",
     "./utilities": "./src/utilities.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./Tooltip": "./src/Tooltip.tsx",
+    "./TooltipContainer": "./src/TooltipContainer.tsx",
+    "./TooltipPrimitive": "./src/TooltipPrimitive.tsx",
+    "./types": "./src/types.tsx",
+    "./utilities": "./src/utilities.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
@@ -48,7 +56,7 @@
     "@atlaskit/popper": "^5.5.0",
     "@atlaskit/portal": "^4.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",

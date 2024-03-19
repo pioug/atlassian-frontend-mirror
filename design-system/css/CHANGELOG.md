@@ -1,5 +1,12 @@
 # @atlaskit/css
 
+## 0.0.4
+
+### Patch Changes
+
+- [#80571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80571) [`fafdb1dcce96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fafdb1dcce96) - Fix bugs in strict CSS typedef.
+- [#79686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79686) [`7dc7cf06a8b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7dc7cf06a8b9) - Bump @compiled/react to v0.17.0
+
 ## 0.0.3
 
 ### Patch Changes

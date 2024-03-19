@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.10.0
+
+### Minor Changes
+
+- [#82250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82250) [`5d7f76f71b82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d7f76f71b82) - Stop media viewer from closing when clicking on image
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.5
 
 ### Patch Changes

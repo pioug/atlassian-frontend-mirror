@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.3.0
+
+### Minor Changes
+
+- [#82499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82499) [`cbd66fd38b62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbd66fd38b62) - Add option to disable strikethrough on text-formatting via disableStrikethrough.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.4
 
 ### Patch Changes

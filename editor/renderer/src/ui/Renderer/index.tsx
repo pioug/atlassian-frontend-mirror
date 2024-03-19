@@ -489,9 +489,7 @@ export class Renderer extends PureComponent<RendererProps> {
       }
 
       const rendererOutput = (
-        <RendererContextProvider
-          value={this.featureFlags(this.props.featureFlags)}
-        >
+        <RendererContextProvider value={featureFlags}>
           <ActiveHeaderIdProvider
             value={getActiveHeadingId(allowHeadingAnchorLinks)}
           >
@@ -550,8 +548,10 @@ export class Renderer extends PureComponent<RendererProps> {
         rendererOutput
       );
 
-      const rendererRenderTracking = this.featureFlags(this.props.featureFlags)
-        ?.featureFlags?.rendererRenderTracking?.[ACTION_SUBJECT.RENDERER];
+      const rendererRenderTracking =
+        featureFlags?.featureFlags?.rendererRenderTracking?.[
+          ACTION_SUBJECT.RENDERER
+        ];
 
       const reRenderTracking = rendererRenderTracking?.enabled && (
         <RenderTracking

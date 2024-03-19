@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-uid": "^2.2.0"
@@ -77,6 +77,26 @@
     }
   },
   "af:exports": {
+    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
+    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
+    "./confluence-icon": "./src/confluence-logo/icon.tsx",
+    "./hipchat-icon": "./src/hipchat-logo/icon.tsx",
+    "./jira-icon": "./src/jira-logo/icon.tsx",
+    "./jira-core-icon": "./src/jira-core-logo/icon.tsx",
+    "./jra-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
+    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
+    "./ops-genie-icon": "./src/opsgenie-logo/old-icon.tsx",
+    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
+    "./stride-icon": "./src/stride-logo/icon.tsx",
+    "./trello-icon": "./src/trello-logo/icon.tsx",
+    "./atlas-icon": "./src/atlas-logo/icon.tsx",
+    "./constants": "./src/constants.tsx",
+    "./Wrapper": "./src/wrapper.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
     "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
     "./confluence-icon": "./src/confluence-logo/icon.tsx",

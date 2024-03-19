@@ -3,8 +3,10 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
 import EditorPanelIcon from '@atlaskit/icon/glyph/editor/panel';
+import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../../../../messages';
 import AIIcon from '../../../../../common/ai-icon';
@@ -60,6 +62,25 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
     <AIIcon label="AI" size="small" testId={`${testId}-done-icon`} />
   );
 
+  const title = getBooleanFF(
+    'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
+  ) ? (
+    <Box testId={`${testId}-done-message`}>
+      <FormattedMessage {...messages.ai_summarized} />
+    </Box>
+  ) : (
+    <React.Fragment>
+      <Box testId={`${testId}-done-message`}>
+        <FormattedMessage {...messages.ai_summarized_abbreviation} />
+      </Box>
+      <Box>
+        <Lozenge appearance="new" testId={`${testId}-beta`}>
+          <FormattedMessage {...messages.beta} />
+        </Lozenge>
+      </Box>
+    </React.Fragment>
+  );
+
   switch (appearance) {
     case 'icon-only':
       return (
@@ -72,12 +93,14 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
                 testId={`${testId}-done-tooltip-icon`}
               />
               <Stack>
-                <Box
+                <Inline
+                  alignBlock="center"
+                  alignInline="start"
+                  space="space.050"
                   xcss={iconTooltipTitleStyles}
-                  testId={`${testId}-done-tooltip-title`}
                 >
-                  <FormattedMessage {...messages.ai_summarized} />
-                </Box>
+                  {title}
+                </Inline>
                 <Box xcss={iconTooltipDescStyles}>
                   <FormattedMessage
                     {...messages.ai_summarized_info}
@@ -103,9 +126,7 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
           icon={icon}
           content={
             <Inline alignBlock="center" alignInline="start" space="space.050">
-              <Box testId={`${testId}-done-message`}>
-                <FormattedMessage {...messages.ai_summarized} />
-              </Box>
+              {title}
               <AIIndicatorTooltip
                 content={
                   <Box

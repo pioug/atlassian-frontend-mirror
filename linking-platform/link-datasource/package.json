@@ -41,7 +41,7 @@
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/form": "^9.0.3",
-    "@atlaskit/heading": "^2.0.0",
+    "@atlaskit/heading": "^2.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/image": "^1.1.0",
@@ -60,14 +60,14 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.0.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/select": "^17.3.0",
     "@atlaskit/smart-card": "^26.50.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/tag": "^12.0.0",
     "@atlaskit/textfield": "6.1.1",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.4",
     "@atlaskit/width-detector": "^4.1.7",
@@ -137,6 +137,9 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "exports": {
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",

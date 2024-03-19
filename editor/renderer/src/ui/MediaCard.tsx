@@ -27,6 +27,7 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
+import { useAnnotationRangeDispatch } from './annotations/contexts/AnnotationRangeContext';
 
 export type MediaProvider = {
   viewMediaClientConfig: MediaClientConfig;
@@ -96,7 +97,10 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
 };
 
 export class MediaCardView extends Component<
-  MediaCardProps & { mediaClient?: MediaClient },
+  MediaCardProps & {
+    mediaClient?: MediaClient;
+    setHoverTarget?: (target: HTMLElement) => void;
+  },
   State
 > {
   state: State = {};
@@ -274,6 +278,7 @@ export class MediaCardView extends Component<
       shouldEnableDownloadButton,
       ssr,
       mediaClient,
+      setHoverTarget,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -327,6 +332,13 @@ export class MediaCardView extends Component<
           originalDimensions,
           fileState,
         })}
+        onMouseEnter={(event) => {
+          // We will not allow a hover target to be set if any mouse button is depressed during the mouse enter state.
+          // This could be due to the user trying to select text across the document.
+          if (event.buttons === 0) {
+            setHoverTarget && setHoverTarget(event.target as HTMLElement);
+          }
+        }}
       >
         <Card
           identifier={identifier}
@@ -401,8 +413,15 @@ export const getClipboardAttrs = ({
 
 export const MediaCardInternal = (props: MediaCardProps) => {
   const mediaClient = useContext(MediaClientContext);
+  const { setHoverTarget } = useAnnotationRangeDispatch();
 
-  return <MediaCardView {...props} mediaClient={mediaClient} />;
+  return (
+    <MediaCardView
+      {...props}
+      mediaClient={mediaClient}
+      setHoverTarget={setHoverTarget}
+    />
+  );
 };
 
 export const MediaCard = withImageLoader<MediaCardProps>(MediaCardInternal);

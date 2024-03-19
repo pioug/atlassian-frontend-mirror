@@ -11,7 +11,6 @@ const buttonStyles = cssMap({
     backgroundColor: 'var(--ds-background-brand-bold)',
     borderRadius: 'var(--ds-border-radius-100)',
     border: 0,
-    fontWeight: '500',
     paddingBlock: 'var(--ds-space-150)',
     paddingInline: 'var(--ds-space-100)',
     '&:hover': {
@@ -31,7 +30,11 @@ export function Button({
   xcss?: StrictXCSSProp<'color' | 'backgroundColor', '&:hover' | '&:active'>;
 }) {
   return (
-    <button css={buttonStyles.container} className={xcss}>
+    <button
+      style={{ fontWeight: '500' }}
+      css={buttonStyles.container}
+      className={xcss}
+    >
       {children}
     </button>
   );

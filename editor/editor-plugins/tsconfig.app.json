@@ -33,6 +33,9 @@
   },
   "references": [
     {
+      "path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-alignment/tsconfig.app.json"
     },
     {

@@ -37,7 +37,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
@@ -66,6 +66,16 @@
     "wait-for-expect": "^1.2.0"
   },
   "af:exports": {
+    "./types": "./src/types.ts",
+    "./url": "./src/url.ts",
+    "./user-agent": "./src/user-agent/index.ts",
+    "./utils": "./src/utils/index.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./mocks": "./src/common/mocks/index.ts",
+    "./sentry": "./src/sentry/index.ts",
+    ".": "./src/index.ts"
+  },
+  "exports": {
     "./types": "./src/types.ts",
     "./url": "./src/url.ts",
     "./user-agent": "./src/user-agent/index.ts",

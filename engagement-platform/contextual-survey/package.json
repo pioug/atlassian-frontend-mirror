@@ -27,6 +27,11 @@
     "./constants": "./src/constants.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Personalization",
     "releaseModel": "continuous",
@@ -41,7 +46,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/textarea": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

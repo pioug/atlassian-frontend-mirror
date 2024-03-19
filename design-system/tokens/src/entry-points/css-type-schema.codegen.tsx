@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::f2fc11bdb22ab9a7a28b7be9c69bac3d>>
+ * @codegen <<SignedSource::c7363a2d80b3a60a076ac846bfebf8c1>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColor =
@@ -68,6 +68,8 @@ export type BackgroundColor =
   | 'var(--ds-background-discovery-bold)'
   | 'var(--ds-background-information)'
   | 'var(--ds-background-information-bold)'
+  | 'var(--ds-skeleton)'
+  | 'var(--ds-skeleton-subtle)'
   | 'var(--ds-surface)'
   | 'var(--ds-surface-overlay)'
   | 'var(--ds-surface-raised)'
@@ -204,16 +206,6 @@ export type BackgroundColorPressed =
   | 'var(--ds-surface-overlay-pressed)'
   | 'var(--ds-surface-raised-pressed)';
 
-export type Dimension =
-  | 'var(--ds-font-size-050)'
-  | 'var(--ds-font-size-075)'
-  | 'var(--ds-font-size-100)'
-  | 'var(--ds-font-size-200)'
-  | 'var(--ds-font-size-300)'
-  | 'var(--ds-font-size-400)'
-  | 'var(--ds-font-size-500)'
-  | 'var(--ds-font-size-600)';
-
 export type BorderColor =
   | 'var(--ds-border)'
   | 'var(--ds-border-accent-lime)'
@@ -253,6 +245,8 @@ export type BorderRadius =
   | 'var(--ds-border-radius-400)'
   | 'var(--ds-border-radius-circle)';
 
+export type SizeIntrinsic = `${number}px` | `${number}rem` | '100%';
+
 export type Space =
   | 'var(--ds-space-0)'
   | 'var(--ds-space-025)'
@@ -277,6 +271,8 @@ export type Space =
   | 'var(--ds-space-negative-250)'
   | 'var(--ds-space-negative-300)'
   | 'var(--ds-space-negative-400)';
+
+export type SpaceMargin = Space | 'auto' | '0 auto' | '0';
 
 export type Shadow =
   | 'var(--ds-shadow-overflow)'
@@ -320,16 +316,29 @@ export type TextColor =
   | 'var(--ds-text-subtlest)'
   | 'var(--ds-text-subtle)'
   | 'var(--ds-link)'
-  | 'var(--ds-link-pressed)'
   | 'var(--ds-link-visited)';
+
+export type TextColorPressed = 'var(--ds-link-pressed)';
 
 export type Opacity =
   | 'var(--ds-opacity-disabled)'
   | 'var(--ds-opacity-loading)';
 
-export interface TokenizedProps {
+export interface CSSPropertiesHovered {
+  backgroundColor: BackgroundColorHovered;
+}
+
+export interface CSSPropertiesActive {
+  backgroundColor: BackgroundColorPressed;
+  color: TextColorPressed;
+}
+
+export interface DesignTokenStyles {
+  '&:active': CSSPropertiesActive;
+  '&:hover': CSSPropertiesHovered;
+  appearance: 'none' | 'auto';
   backgroundColor: BackgroundColor;
-  blockSize: Dimension;
+  blockSize: SizeIntrinsic;
   borderBlockColor: BorderColor;
   borderBlockEndColor: BorderColor;
   borderBlockEndWidth: BorderWidth;
@@ -363,11 +372,23 @@ export interface TokenizedProps {
   borderWidth: BorderWidth;
   bottom: Space;
   boxShadow: Shadow;
+  boxSizing: 'border-box';
+  clear: never;
+  clip: never;
   color: TextColor;
   columnGap: Space;
+  container: never;
+  containerName: never;
+  containerType: never;
+  float: never;
+  font: never;
+  fontFamily: never;
+  fontSize: never;
+  fontSizeAdjust: never;
+  fontWeight: never;
   gap: Space;
-  height: Dimension;
-  inlineSize: Dimension;
+  height: SizeIntrinsic;
+  inlineSize: SizeIntrinsic;
   inset: Space;
   insetBlock: Space;
   insetBlockEnd: Space;
@@ -376,29 +397,33 @@ export interface TokenizedProps {
   insetInlineEnd: Space;
   insetInlineStart: Space;
   left: Space;
-  margin: Space;
-  marginBlock: Space;
-  marginBlockEnd: Space;
-  marginBlockStart: Space;
-  marginBottom: Space;
-  marginInline: Space;
-  marginInlineEnd: Space;
-  marginInlineStart: Space;
-  marginLeft: Space;
-  marginRight: Space;
-  marginTop: Space;
-  maxBlockSize: Dimension;
-  maxHeight: Dimension;
-  maxInlineSize: Dimension;
-  maxWidth: Dimension;
-  minBlockSize: Dimension;
-  minHeight: Dimension;
-  minInlineSize: Dimension;
-  minWidth: Dimension;
+  letterSpacing: never;
+  lineHeight: never;
+  lineHeightStep: never;
+  margin: SpaceMargin;
+  marginBlock: SpaceMargin;
+  marginBlockEnd: SpaceMargin;
+  marginBlockStart: SpaceMargin;
+  marginBottom: SpaceMargin;
+  marginInline: SpaceMargin;
+  marginInlineEnd: SpaceMargin;
+  marginInlineStart: SpaceMargin;
+  marginLeft: SpaceMargin;
+  marginRight: SpaceMargin;
+  marginTop: SpaceMargin;
+  maxBlockSize: SizeIntrinsic;
+  maxHeight: SizeIntrinsic;
+  maxInlineSize: SizeIntrinsic;
+  maxWidth: SizeIntrinsic;
+  minBlockSize: SizeIntrinsic;
+  minHeight: SizeIntrinsic;
+  minInlineSize: SizeIntrinsic;
+  minWidth: SizeIntrinsic;
   opacity: Opacity;
   outlineColor: BorderColor;
   outlineOffset: Space;
   outlineWidth: BorderWidth;
+  overlay: never;
   padding: Space;
   paddingBlock: Space;
   paddingBlockEnd: Space;
@@ -413,48 +438,7 @@ export interface TokenizedProps {
   right: Space;
   rowGap: Space;
   top: Space;
-  width: Dimension;
-  zIndex: number;
-}
-
-export interface TokenizedPropsWithHovered
-  extends Omit<TokenizedProps, 'backgroundColor'> {
-  backgroundColor: BackgroundColorHovered;
-}
-
-export interface TokenizedPropsWithPressed
-  extends Omit<TokenizedProps, 'backgroundColor'> {
-  backgroundColor: BackgroundColorPressed;
-}
-
-export interface DesignTokenStyles extends TokenizedProps {
-  '&::after': TokenizedProps;
-  '&::before': TokenizedProps;
-  '&:active': TokenizedPropsWithPressed;
-  '&:any-link': TokenizedProps;
-  '&:autofill': TokenizedProps;
-  '&:blank': TokenizedProps;
-  '&:checked': TokenizedProps;
-  '&:default': TokenizedProps;
-  '&:disabled': TokenizedProps;
-  '&:enabled': TokenizedProps;
-  '&:focus-visible': TokenizedProps;
-  '&:focus-within': TokenizedProps;
-  '&:focus': TokenizedProps;
-  '&:hover': TokenizedPropsWithHovered;
-  '&:in-range': TokenizedProps;
-  '&:indeterminate': TokenizedProps;
-  '&:invalid': TokenizedProps;
-  '&:link': TokenizedProps;
-  '&:local-link': TokenizedProps;
-  '&:optional': TokenizedProps;
-  '&:out-of-range': TokenizedProps;
-  '&:placeholder-shown': TokenizedProps;
-  '&:read-only': TokenizedProps;
-  '&:read-write': TokenizedProps;
-  '&:required': TokenizedProps;
-  '&:user-invalid': TokenizedProps;
-  '&:user-valid': TokenizedProps;
-  '&:valid': TokenizedProps;
-  '&:visited': TokenizedProps;
+  userModify: never;
+  width: SizeIntrinsic;
+  zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }

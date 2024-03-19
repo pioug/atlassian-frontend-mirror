@@ -29,6 +29,16 @@
     "./types": "./src/types.ts",
     "./utils": "./src/utils.ts"
   },
+  "exports": {
+    ".": "./index.js",
+    "./cli": "./src/cli.ts",
+    "./filepath": "./src/filepath.ts",
+    "./main": "./src/main.ts",
+    "./sinceRef": "./src/sinceRef.ts",
+    "./transforms": "./src/transforms.ts",
+    "./types": "./src/types.ts",
+    "./utils": "./src/utils.ts"
+  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous"
@@ -40,7 +50,7 @@
   "bin": "./bin/codemod-cli.js",
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@codeshift/utils": "^0.2.4",
     "@types/jscodeshift": "^0.11.0",

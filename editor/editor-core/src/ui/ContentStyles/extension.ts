@@ -36,6 +36,23 @@ export const extensionStyles = css`
     }
   }
 
+  .inlineExtensionView-content-wrap {
+    &.danger > span > .extension-container {
+      box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px
+        ${token('color.border.danger', akEditorDeleteBorder)};
+      background-color: ${token(
+        'color.background.danger',
+        akEditorDeleteBackground,
+      )};
+    }
+
+    &:not(.danger).${akEditorSelectedNodeClassName} {
+      & > span > .extension-container {
+        ${getSelectionStyles([SelectionStyle.BoxShadow])}
+      }
+    }
+  }
+
   .extensionView-content-wrap,
   .multiBodiedExtensionView-content-wrap,
   .bodiedExtensionView-content-wrap {

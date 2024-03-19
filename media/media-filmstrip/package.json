@@ -26,6 +26,10 @@
     "./filmstrip": "./src/filmstrip.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./filmstrip": "./src/filmstrip.tsx",
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
@@ -40,7 +44,7 @@
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "debounce": "^1.0.0"
   },

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import { AnnotationsDraftContext } from '../../../context';
 import type { Position } from '../../../types';
 import { useUserSelectionRange } from '../../user-selection';
@@ -237,23 +238,27 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         if (process.env.IS_REACT_18 === 'true') {
           act(() => {
             root.render(
-              <AnnotationsDraftContext.Provider value={myFakePosition}>
-                <DummyComponent
-                  shouldAttachMouseUpEvent={true}
-                  rendererRef={fakeRef}
-                />
-              </AnnotationsDraftContext.Provider>,
+              <AnnotationRangeProvider>
+                <AnnotationsDraftContext.Provider value={myFakePosition}>
+                  <DummyComponent
+                    shouldAttachMouseUpEvent={true}
+                    rendererRef={fakeRef}
+                  />
+                </AnnotationsDraftContext.Provider>
+              </AnnotationRangeProvider>,
             );
           });
         } else {
           act(() => {
             render(
-              <AnnotationsDraftContext.Provider value={myFakePosition}>
-                <DummyComponent
-                  shouldAttachMouseUpEvent={true}
-                  rendererRef={fakeRef}
-                />
-              </AnnotationsDraftContext.Provider>,
+              <AnnotationRangeProvider>
+                <AnnotationsDraftContext.Provider value={myFakePosition}>
+                  <DummyComponent
+                    shouldAttachMouseUpEvent={true}
+                    rendererRef={fakeRef}
+                  />
+                </AnnotationsDraftContext.Provider>
+              </AnnotationRangeProvider>,
               rendererDOM,
             );
           });

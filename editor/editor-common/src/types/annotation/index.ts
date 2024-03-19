@@ -1,14 +1,13 @@
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
-import {
+import type {
   AnnotationState,
-  AnnotationUpdateEmitter,
-  AnnotationUpdateEvent,
   AnnotationUpdateEventPayloads,
   OnAnnotationClickPayload,
 } from './emitter';
+import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './emitter';
 
 export type { AnnotationState };
 
@@ -86,10 +85,53 @@ export type InlineCommentViewComponentProps = {
   deleteAnnotation: (annotationInfo: AnnotationInfo) => ActionResult;
 };
 
+export type InlineCommentHoverComponentProps = {
+  /**
+   * Range selected
+   */
+  range: Range;
+
+  /**
+   * Renderer/Editor DOM element ancestors wrapping the selection.
+   */
+  wrapperDOM: HTMLElement;
+
+  /**
+   * If it is possible to add an inline comment on this range
+   */
+  isAnnotationAllowed: boolean;
+
+  /**
+   * Creates an annotation mark in the document with the given id.
+   */
+  onCreate: (annotationId: AnnotationId) => AnnotationActionResult;
+
+  /**
+   * Indicates that a draft comment was discarded/cancelled
+   */
+  onClose: () => void;
+
+  /**
+   * Call this function to surround the range with a HTML tag.
+   */
+  applyDraftMode: (keepNativeSelection?: boolean) => void;
+
+  /**
+   * Call this function to remove the draft HTML tags created by the applyDraftMode
+   */
+  removeDraftMode: () => void;
+
+  /**
+   * getAnnotationIndexMatch finds the { numMatch, matchIndex } tuple of the current selection
+   */
+  getAnnotationIndexMatch?: () => AnnotationByMatches | false;
+};
+
 interface AnnotationTypeProvider<Type> {
   getState: (annotationIds: string[]) => Promise<AnnotationState<Type>[]>;
   updateSubscriber?: AnnotationUpdateEmitter;
   allowDraftMode?: boolean;
+  allowCommentsOnMedia?: boolean;
 }
 
 export type InlineCommentAnnotationProvider =
@@ -100,6 +142,7 @@ export type InlineCommentAnnotationProvider =
     viewComponent?: React.ComponentType<
       React.PropsWithChildren<InlineCommentViewComponentProps>
     >;
+    hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
   };
 
 export type AnnotationProviders = {

@@ -25,6 +25,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Self-Help Experiences",
     "releaseModel": "continuous",
@@ -38,8 +41,8 @@
   "dependencies": {
     "@atlaskit/css-reset": "^6.7.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/renderer": "^109.8.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/renderer": "^109.10.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",
     "lodash": "^4.17.21"

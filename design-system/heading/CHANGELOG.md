@@ -1,5 +1,21 @@
 # @atlaskit/heading
 
+## 2.1.0
+
+### Minor Changes
+
+- [#78900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78900) [`2e05dc3106e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e05dc3106e3) - Run codegen for Heading font family changes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.1
+
+### Patch Changes
+
+- [#80571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80571) [`c193ae1d1163`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c193ae1d1163) - Fix heading typography styles to for apple OS edge cases.
+
 ## 2.0.0
 
 ### Major Changes

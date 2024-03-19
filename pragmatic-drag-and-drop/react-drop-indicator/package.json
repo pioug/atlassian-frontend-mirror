@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -77,6 +77,13 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts",
+    "./box": "./src/box.tsx",
+    "./box-without-terminal": "./src/box-without-terminal.tsx",
+    "./types": "./src/types.ts",
+    "./tree-item": "./src/tree-item.tsx"
+  },
+  "exports": {
     ".": "./src/index.ts",
     "./box": "./src/box.tsx",
     "./box-without-terminal": "./src/box-without-terminal.tsx",

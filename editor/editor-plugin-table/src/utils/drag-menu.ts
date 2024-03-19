@@ -37,6 +37,7 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-down';
 import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   deleteColumnsWithAnalytics,
@@ -61,6 +62,7 @@ import {
 import {
   hasMergedCellsInColumn,
   hasMergedCellsInRow,
+  hasMergedCellsInSelection,
   hasMergedCellsWithColumnNextToColumnIndex,
   hasMergedCellsWithRowNextToRowIndex,
 } from './merged-cells';
@@ -94,8 +96,8 @@ export const canMove = (
     return false;
   }
 
-  // We can't move column when target has merges with other columns
-  // We can't move row when target has merges with other rows
+  // We can't move column when target has merged cells with other columns
+  // We can't move row when target has merged cells with other rows
   const hasMergedCellsInTarget = isRow
     ? hasMergedCellsWithRowNextToRowIndex(targetIndex, selection)
     : hasMergedCellsWithColumnNextToColumnIndex(targetIndex, selection);
@@ -103,12 +105,27 @@ export const canMove = (
     return false;
   }
 
-  // Currently we can't move in any direction if there are merged cells in the source
-  const hasMergedCellsInSource = isRow
-    ? hasMergedCellsInRow(selectedIndexes)(selection)
-    : hasMergedCellsInColumn(selectedIndexes)(selection);
-  if (hasMergedCellsInSource) {
-    return false;
+  if (
+    getBooleanFF('platform.editor.table.drag-move-options-logic-update_fp7xw')
+  ) {
+    // We can't move if selection in the source is not a rectangle
+    if (
+      hasMergedCellsInSelection(
+        selectedIndexes,
+        isRow ? 'row' : 'column',
+      )(selection)
+    ) {
+      return false;
+    }
+  } else {
+    // Currently we can't move in any direction if there are merged cells in the source
+    const hasMergedCellsInSource = isRow
+      ? hasMergedCellsInRow(selectedIndexes)(selection)
+      : hasMergedCellsInColumn(selectedIndexes)(selection);
+
+    if (hasMergedCellsInSource) {
+      return false;
+    }
   }
 
   return true;

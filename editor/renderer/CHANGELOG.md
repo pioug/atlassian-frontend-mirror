@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 109.10.0
+
+### Minor Changes
+
+- [#78436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78436) [`89ff7202e5fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ff7202e5fe) - The annotation comment provider will now accept a new hoverComponent which is displayed by the annotation ui when specific block nodes are rolled over by the users mouse
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.9.0
+
+### Minor Changes
+
+- [#82078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82078) [`76ecf197027a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76ecf197027a) - Setting the range to null on the useEffect clean up function and removed range from dependancy array to avoid the infinite loop
+
 ## 109.8.4
 
 ### Patch Changes

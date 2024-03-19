@@ -1,7 +1,8 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { render } from '@testing-library/react';
+import { render, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import AIStateIndicator from '../ai-state-indicator';
 import { AIStateIndicatorProps } from '../ai-state-indicator/types';
@@ -67,34 +68,124 @@ describe('AIStateIndicator', () => {
       expect(msg).toBeInTheDocument();
     });
 
-    it('renders default appearance', async () => {
-      const user = userEvent.setup();
-      const { findByTestId } = setup({ state, appearance: 'default' });
-      const icon = await findByTestId(`${testId}-done-icon`);
-      const msg = await findByTestId(`${testId}-done-message`);
-      const tooltipTrigger = await findByTestId(`${testId}-done-info`);
+    describe('renders default appearance', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
+        async () => {
+          const user = userEvent.setup();
+          const { findByRole, findByTestId, queryByTestId } = setup({
+            state,
+            appearance: 'default',
+          });
+          const icon = await findByTestId(`${testId}-done-icon`);
+          const msg = await findByTestId(`${testId}-done-message`);
+          const beta = queryByTestId(`${testId}-beta`);
+          const tooltipTrigger = await findByTestId(`${testId}-done-info`);
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).toBeInTheDocument();
-      expect(msg.textContent).toBe('Summarized by Atlassian Intelligence');
-      expect(tooltipTrigger).toBeInTheDocument();
+          expect(icon).toBeInTheDocument();
+          expect(msg).toBeInTheDocument();
+          expect(msg.textContent).toBe('Summarized by Atlassian Intelligence');
+          expect(beta).not.toBeInTheDocument();
+          expect(tooltipTrigger).toBeInTheDocument();
 
-      await user.hover(tooltipTrigger);
+          await user.hover(tooltipTrigger);
 
-      const tooltipContent = await findByTestId(`${testId}-done-tooltip`);
-      expect(tooltipContent).toBeInTheDocument();
+          const tooltip = await findByRole('tooltip');
+          const tooltipContent = await within(tooltip).findByTestId(
+            `${testId}-done-tooltip`,
+          );
+          expect(tooltipContent).toBeInTheDocument();
+        },
+        async () => {
+          const user = userEvent.setup();
+          const { findByRole, findByTestId } = setup({
+            state,
+            appearance: 'default',
+          });
+          const icon = await findByTestId(`${testId}-done-icon`);
+          const msg = await findByTestId(`${testId}-done-message`);
+          const beta = await findByTestId(`${testId}-beta`);
+          const tooltipTrigger = await findByTestId(`${testId}-done-info`);
+
+          expect(icon).toBeInTheDocument();
+          expect(msg).toBeInTheDocument();
+          expect(msg.textContent).toBe('Summarized by AI');
+          expect(beta).toBeInTheDocument();
+          expect(tooltipTrigger).toBeInTheDocument();
+
+          await user.hover(tooltipTrigger);
+
+          const tooltip = await findByRole('tooltip');
+          const tooltipContent = await within(tooltip).findByTestId(
+            `${testId}-done-tooltip`,
+          );
+          expect(tooltipContent).toBeInTheDocument();
+        },
+      );
     });
 
-    it('renders icon-only appearance', async () => {
-      const { findByTestId, queryByTestId } = setup({
-        state,
-        appearance: 'icon-only',
-      });
-      const icon = await findByTestId(`${testId}-done-icon`);
-      const msg = queryByTestId(`${testId}-done-message`);
+    describe('renders icon-only appearance', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable',
+        async () => {
+          const user = userEvent.setup();
+          const { findByRole, findByTestId, queryByTestId } = setup({
+            state,
+            appearance: 'icon-only',
+          });
+          const icon = await findByTestId(`${testId}-done-icon`);
+          const msg = queryByTestId(`${testId}-done-message`);
+          const tooltipTrigger = icon.closest('div');
 
-      expect(icon).toBeInTheDocument();
-      expect(msg).not.toBeInTheDocument();
+          expect(icon).toBeInTheDocument();
+          expect(msg).not.toBeInTheDocument();
+
+          expect(tooltipTrigger).toBeInTheDocument();
+
+          if (tooltipTrigger) {
+            await user.hover(tooltipTrigger);
+          }
+
+          const tooltip = await findByRole('tooltip');
+          const tooltipMsg = await within(tooltip).findByTestId(
+            `${testId}-done-message`,
+          );
+          const beta = within(tooltip).queryByTestId(`${testId}-beta`);
+
+          expect(tooltipMsg.textContent).toBe(
+            'Summarized by Atlassian Intelligence',
+          );
+          expect(beta).not.toBeInTheDocument();
+        },
+        async () => {
+          const user = userEvent.setup();
+          const { findByRole, findByTestId, queryByTestId } = setup({
+            state,
+            appearance: 'icon-only',
+          });
+          const icon = await findByTestId(`${testId}-done-icon`);
+          const msg = queryByTestId(`${testId}-done-message`);
+          const tooltipTrigger = icon.closest('div');
+
+          expect(icon).toBeInTheDocument();
+          expect(msg).not.toBeInTheDocument();
+          expect(queryByTestId(`${testId}-beta`)).not.toBeInTheDocument();
+          expect(tooltipTrigger).toBeInTheDocument();
+
+          if (tooltipTrigger) {
+            await user.hover(tooltipTrigger);
+          }
+
+          const tooltip = await findByRole('tooltip');
+          const tooltipMsg = await within(tooltip).findByTestId(
+            `${testId}-done-message`,
+          );
+          const beta = await within(tooltip).findByTestId(`${testId}-beta`);
+
+          expect(tooltipMsg.textContent).toBe('Summarized by AI');
+          expect(beta).toBeInTheDocument();
+        },
+      );
     });
   });
 

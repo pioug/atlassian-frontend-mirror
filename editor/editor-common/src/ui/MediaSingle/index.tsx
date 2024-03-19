@@ -37,6 +37,7 @@ export interface Props {
   hasFallbackContainer?: boolean;
   handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
   isInsideOfInlineExtension?: boolean;
+  dataAttributes?: Record<string, any>;
 }
 
 export type { MediaSingleWidthType, MediaSingleSize };
@@ -57,6 +58,7 @@ export default function MediaSingle({
   hasFallbackContainer = true,
   handleMediaSingleRef,
   isInsideOfInlineExtension = false,
+  dataAttributes,
 }: Props) {
   const isPixelWidth = size?.widthType === 'pixel';
 
@@ -144,6 +146,7 @@ export default function MediaSingle({
             layout === 'wrap-left' || layout === 'wrap-right',
         },
       )}
+      {...dataAttributes}
     >
       <MediaWrapper
         hasFallbackContainer={hasFallbackContainer}

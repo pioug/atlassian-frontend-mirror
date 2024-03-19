@@ -17,6 +17,7 @@ export type {
   AnnotationProviders,
   AnnotationUpdateEventPayloads,
   InlineCommentSelectionComponentProps,
+  InlineCommentHoverComponentProps,
   InlineCommentViewComponentProps,
   InlineCommentAnnotationProvider,
   OnAnnotationClickPayload,

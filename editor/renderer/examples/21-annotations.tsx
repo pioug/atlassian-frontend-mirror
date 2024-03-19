@@ -15,6 +15,7 @@ import {
   ExampleViewInlineCommentComponent,
   annotationsStore,
   AnnotationsStoreProvider,
+  ExampleHoverInlineComponent,
 } from './helper/annotations';
 import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -308,6 +309,67 @@ const exampleDocumentWithComments = {
       ],
     },
     {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 760,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                annotationType: 'inlineComment',
+                id: '7053c566-db75-4605-b6b2-eca6a0cedff1',
+              },
+            },
+          ],
+          attrs: {
+            url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAyCAYAAADLLVz8AAAAWklEQVR42u3QMQEAAAQAMJIL5BVQB68twjKmKzhLgQIFChSIQIECBSJQoECBCBQoUCACBQoUiECBAgUiUKBAgQgUKFAgAgUKFIhAgQIFIlCgQIECBQoUKPCrBUAeXY/1wpUbAAAAAElFTkSuQmCC',
+            type: 'external',
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: '---',
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 760,
+        widthType: 'pixel',
+      },
+      marks: [
+        {
+          type: 'annotation',
+          attrs: {
+            annotationType: 'inlineComment',
+            id: '7053c566-db75-4605-b6b2-eca6a0cedff2',
+          },
+        },
+      ],
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAyCAYAAADLLVz8AAAAWklEQVR42u3QMQEAAAQAMJIL5BVQB68twjKmKzhLgQIFChSIQIECBSJQoECBCBQoUCACBQoUiECBAgUiUKBAgQgUKFAgAgUKFIhAgQIFIlCgQIECBQoUKPCrBUAeXY/1wpUbAAAAAElFTkSuQmCC',
+            type: 'external',
+          },
+        },
+      ],
+    },
+    {
       type: 'paragraph',
       content: [
         {
@@ -402,6 +464,9 @@ export const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
       updateSubscriber: updateAnnotationSubscriber,
       allowDraftMode: true,
       selectionComponent: ExampleSelectionInlineComponent(
+        createNewAnnotationAndReplaceDocument,
+      ),
+      hoverComponent: ExampleHoverInlineComponent(
         createNewAnnotationAndReplaceDocument,
       ),
       viewComponent: ExampleViewInlineCommentComponent,

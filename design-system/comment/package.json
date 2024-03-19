@@ -30,9 +30,9 @@
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -91,6 +91,10 @@
   },
   "homepage": "https://atlassian.design/components/comment",
   "af:exports": {
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"
   },

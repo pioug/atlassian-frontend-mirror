@@ -24,8 +24,8 @@ describe('AI Summary', () => {
     const aiSummary = getByTestId('ai-summary');
     expect(aiSummary).toBeVisible();
 
-    expect(aiSummary.innerHTML.split('\n').join('')).toEqual(
-      `<ul><li>Item 1</li><li>Item 2<ul><li>Item 2.1</li></ul></li><li>Item 3</li></ul>`,
+    expect(aiSummary.innerHTML.split('\n').join('')).toMatch(
+      /<ul class=".*?"><li>Item 1<\/li><li>Item 2<ul class=".*?"><li>Item 2.1<\/li><\/ul><\/li><li>Item 3<\/li><\/ul>/i,
     );
   });
 

@@ -54,7 +54,7 @@
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/textarea": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/user-picker": "^10.19.0",
@@ -72,7 +72,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.19.0",
+    "@atlaskit/editor-test-helpers": "^18.20.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
@@ -113,6 +113,11 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.ts",
+    "./clients": "./src/clients/index.ts",
+    "./copy-link-button": "./src/components/CopyLinkButton.tsx"
+  },
+  "exports": {
     ".": "./src/index.ts",
     "./clients": "./src/clients/index.ts",
     "./copy-link-button": "./src/components/CopyLinkButton.tsx"

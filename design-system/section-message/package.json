@@ -39,15 +39,21 @@
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./section-message": "./src/entry-points/section-message.tsx",
+    "./section-message-action": "./src/entry-points/section-message-action.tsx",
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-explorations": "^3.2.0",
-    "@atlaskit/heading": "^2.0.0",
+    "@atlaskit/ds-explorations": "^3.3.0",
+    "@atlaskit/heading": "^2.1.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

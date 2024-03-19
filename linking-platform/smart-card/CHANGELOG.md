@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 26.50.5
+
+### Patch Changes
+
+- [#82264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82264) [`8c6674a35d91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c6674a35d91) - AI summary: Reduce list indentation inside summary
+- Updated dependencies
+
+## 26.50.4
+
+### Patch Changes
+
+- [#81775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81775) [`c4ccaeb02473`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4ccaeb02473) - Add beta tag to AI summary
+
+## 26.50.3
+
+### Patch Changes
+
+- [#82262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82262) [`dc5f0c05bafa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc5f0c05bafa) - CAMPTASKS-438 Change the FF used
+
 ## 26.50.2
 
 ### Patch Changes

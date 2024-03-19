@@ -38,6 +38,7 @@ export {
   triggerUnlessTableHeader,
   addBoldInEmptyHeaderCells,
   addResizeHandleDecorations,
+  updateWidthToWidest,
   sortByColumn,
   goToNextCell,
   removeDescendantNodes,

@@ -49,6 +49,22 @@
     "./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./types": "./src/types.ts",
+    "./AnalyticsContext": "./src/components/AnalyticsContext/index.tsx",
+    "./AnalyticsListener": "./src/components/AnalyticsListener/index.tsx",
+    "./AnalyticsErrorBoundary": "./src/components/AnalyticsErrorBoundary.tsx",
+    "./withAnalyticsEvents": "./src/hocs/withAnalyticsEvents.tsx",
+    "./withAnalyticsContext": "./src/hocs/withAnalyticsContext.tsx",
+    "./usePlatformLeafEventHandler": "./src/hooks/usePlatformLeafEventHandler.ts",
+    "./useAnalyticsEvents": "./src/hooks/useAnalyticsEvents.ts",
+    "./useCallbackWithAnalytics": "./src/hooks/useCallbackWithAnalytics.ts",
+    "./usePatchedProps": "./src/hooks/usePatchedProps.ts",
+    "./AnalyticsEvent": "./src/events/AnalyticsEvent.ts",
+    "./UIAnalyticsEvent": "./src/events/UIAnalyticsEvent.ts",
+    "./createAndFireEvents": "./src/utils/createAndFireEvent.ts",
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/platform-feature-flags": "^0.2.2",

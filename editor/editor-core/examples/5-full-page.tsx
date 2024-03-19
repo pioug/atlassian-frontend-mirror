@@ -539,6 +539,7 @@ export class ExampleEditorComponent extends React.Component<
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,
                   'table-drag-and-drop': true,
+                  'table-preserve-width': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}

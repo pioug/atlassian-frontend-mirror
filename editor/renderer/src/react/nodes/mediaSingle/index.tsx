@@ -42,6 +42,7 @@ export interface Props {
   featureFlags?: MediaFeatureFlags;
   allowCaptions?: boolean;
   isInsideOfInlineExtension?: boolean;
+  dataAttributes?: Record<string, any>;
 }
 
 const DEFAULT_WIDTH = 250;
@@ -104,6 +105,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     widthType,
     allowCaptions = false,
     isInsideOfInlineExtension = false,
+    dataAttributes,
   } = props;
 
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
@@ -226,6 +228,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
         }}
         fullWidthMode={isFullWidth}
         isInsideOfInlineExtension={isInsideOfInlineExtension}
+        dataAttributes={dataAttributes}
       >
         <Fragment>{mediaComponent}</Fragment>
         {allowCaptions && caption}

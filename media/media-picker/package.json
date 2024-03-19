@@ -25,6 +25,10 @@
     "./types": "./src/types.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./types": "./src/types.ts",
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
@@ -42,7 +46,7 @@
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-ui": "^25.4.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",

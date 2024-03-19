@@ -57,7 +57,7 @@ export const typographyTests: Tests = {
     {
       code: `
         const styles = css({
-          fontSize: '12px',
+          fontSize: '13px',
           lineHeight: '20px',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
@@ -66,7 +66,7 @@ export const typographyTests: Tests = {
     {
       code: `
         const styles = css({
-          fontSize: '12px',
+          fontSize: '13px',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
@@ -105,6 +105,18 @@ export const typographyTests: Tests = {
         const styles = css({
           font: token('font.heading.xsmall', 'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
           padding: '8px'
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    {
+      code: `
+        const styles = css({
+          fontSize: '12px',
+          lineHeight: '20px',
+        })`,
+      output: `import { token } from '@atlaskit/tokens'\n
+        const styles = css({
+          font: token('font.body.UNSAFE_small', 'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },

@@ -16,6 +16,8 @@ type MyState = {
 const initialData: MyData = {
   '12e213d7-badd-4c2a-881e-f5d6b9af3752': AnnotationMarkStates.RESOLVED,
   '13272b41-b9a9-427a-bd58-c00766999638': AnnotationMarkStates.RESOLVED,
+  '7053c566-db75-4605-b6b2-eca6a0cedff1': AnnotationMarkStates.RESOLVED,
+  '7053c566-db75-4605-b6b2-eca6a0cedff2': AnnotationMarkStates.RESOLVED,
 };
 
 const annotationsStore = createContext<MyState>({

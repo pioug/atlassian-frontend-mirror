@@ -1,1 +1,1 @@
-export { Wrapper as SelectionComponentWrapper } from './wrapper';
+export { SelectionRangeValidator } from './range-validator';

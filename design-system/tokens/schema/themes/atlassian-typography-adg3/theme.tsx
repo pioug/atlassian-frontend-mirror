@@ -146,6 +146,16 @@ const typography: ValueSchema<
           letterSpacing: 'LetterSpacing0',
         },
       },
+      UNSAFE_small: {
+        value: {
+          fontWeight: 'FontWeight400',
+          fontSize: 'FontSize12',
+          lineHeight: 'LineHeight100',
+          fontFamily: 'FontFamilyWebSans',
+          fontStyle: 'normal',
+          letterSpacing: 'LetterSpacing0',
+        },
+      },
     },
     ui: {
       '[default]': {

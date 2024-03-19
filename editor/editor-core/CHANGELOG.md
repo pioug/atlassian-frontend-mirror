@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 193.4.0
+
+### Minor Changes
+
+- [#78949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78949) [`43b4f8b382eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b4f8b382eb) - [ED-22283] introduced ariaNotify like api for plugins to make screen reader announcements
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.3.11
+
+### Patch Changes
+
+- [#81768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81768) [`9d96e603865d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d96e603865d) - [ux] Fixes issue where inline macros don't turn red on trash hover and updates VR tests to check
+
 ## 193.3.4
 
 ### Patch Changes

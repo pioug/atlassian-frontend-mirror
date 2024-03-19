@@ -38,9 +38,12 @@
   "af:exports": {
     "./trigger-post-move-flash": "./src/trigger-post-move-flash.tsx"
   },
+  "exports": {
+    "./trigger-post-move-flash": "./src/trigger-post-move-flash.tsx"
+  },
   "dependencies": {
     "@atlaskit/motion": "^1.5.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

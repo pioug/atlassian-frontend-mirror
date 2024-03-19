@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 
 import { useFocusRing } from '../../src';
 import type { FocusState } from '../../src/types';
@@ -14,24 +14,26 @@ function setup(initialFocus?: FocusState) {
     const focusHook = useFocusRing(initialFocus);
     Object.assign(returnVal, focusHook);
     return (
-      <button {...focusHook.focusProps} data-testid="test" type="button" />
+      <button {...focusHook.focusProps} data-testid="test" type="button">
+        Save
+      </button>
     );
   }
-  const { getByTestId } = render(<DummyComponent />);
-  return [getByTestId, returnVal] as const;
+  render(<DummyComponent />);
+  return [returnVal] as const;
 }
 
 describe('Focus Ring', () => {
   it('can accept a different default state', () => {
-    const [, focusHook] = setup('on');
+    const [focusHook] = setup('on');
     expect(focusHook.focusState).toEqual('on');
   });
 
   it('will update the focus state when focus changes', () => {
-    const [getByTestId, focusHook] = setup();
+    const [focusHook] = setup();
 
     expect(focusHook.focusState).toEqual('off');
-    const element = getByTestId('test');
+    const element = screen.getByTestId('test');
     element.focus();
     expect(focusHook.focusState).toEqual('on');
 
@@ -40,7 +42,7 @@ describe('Focus Ring', () => {
   });
 
   it('can programmatically update the focus state by directly calling the event handlers', () => {
-    const [, focusHook] = setup();
+    const [focusHook] = setup();
 
     expect(focusHook.focusState).toEqual('off');
     act(() => {

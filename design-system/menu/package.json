@@ -45,9 +45,9 @@
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/focus-ring": "^1.3.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -107,6 +107,19 @@
     }
   },
   "af:exports": {
+    "./button-item": "./src/entry-points/menu-item/button-item.tsx",
+    "./link-item": "./src/entry-points/menu-item/link-item.tsx",
+    "./custom-item": "./src/entry-points/menu-item/custom-item.tsx",
+    "./heading-item": "./src/entry-points/menu-item/heading-item.tsx",
+    "./skeleton-item": "./src/entry-points/menu-item/skeleton-item.tsx",
+    "./skeleton-heading-item": "./src/entry-points/menu-item/skeleton-heading-item.tsx",
+    "./section": "./src/entry-points/menu-section/section.tsx",
+    "./menu-group": "./src/entry-points/menu-section/menu-group.tsx",
+    "./popup-menu-group": "./src/entry-points/menu-section/popup-menu-group.tsx",
+    "./types": "./src/types.tsx",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./button-item": "./src/entry-points/menu-item/button-item.tsx",
     "./link-item": "./src/entry-points/menu-item/link-item.tsx",
     "./custom-item": "./src/entry-points/menu-item/custom-item.tsx",

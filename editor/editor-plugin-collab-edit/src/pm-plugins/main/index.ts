@@ -27,6 +27,15 @@ import { initialize } from '../../events/initialize';
 import type { PrivateCollabEditOptions, ProviderCallback } from '../../types';
 import type { CollabEditPlugin } from '../../types';
 
+export { TableSortStep, AddColumnStep } from '@atlaskit/custom-steps';
+export {
+  InsertTypeAheadStep,
+  SetAttrsStep,
+  AnalyticsStep,
+  LinkMetaStep,
+  OverrideDocumentStep,
+} from '@atlaskit/adf-schema/steps';
+
 import { pluginKey } from './plugin-key';
 import { PluginState } from './plugin-state';
 

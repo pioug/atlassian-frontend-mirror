@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "1.7.2",
+  "version": "1.8.0",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
   },
   "atlaskit:src": "src/index.ts",
   "af:exports": {
+    "./accessibility-utils": "./src/accessibility-utils/index.ts",
     "./alignment": "./src/alignment/index.ts",
     "./analytics": "./src/analytics/index.ts",
     "./annotation": "./src/annotation/index.ts",
@@ -119,6 +120,7 @@
     "update-editor-plugins": "ts-node scripts/update-editor-plugins.ts"
   },
   "dependencies": {
+    "@atlaskit/editor-plugin-accessibility-utils": "1.0.0",
     "@atlaskit/editor-plugin-alignment": "1.1.2",
     "@atlaskit/editor-plugin-analytics": "1.0.4",
     "@atlaskit/editor-plugin-annotation": "1.4.0",
@@ -135,7 +137,7 @@
     "@atlaskit/editor-plugin-clipboard": "1.0.1",
     "@atlaskit/editor-plugin-code-bidi-warning": "1.0.1",
     "@atlaskit/editor-plugin-code-block": "1.1.3",
-    "@atlaskit/editor-plugin-collab-edit": "1.1.5",
+    "@atlaskit/editor-plugin-collab-edit": "1.1.6",
     "@atlaskit/editor-plugin-composition": "1.0.1",
     "@atlaskit/editor-plugin-content-insertion": "1.0.3",
     "@atlaskit/editor-plugin-context-identifier": "1.0.1",
@@ -146,7 +148,7 @@
     "@atlaskit/editor-plugin-date": "1.0.7",
     "@atlaskit/editor-plugin-decorations": "1.0.1",
     "@atlaskit/editor-plugin-editor-disabled": "1.0.1",
-    "@atlaskit/editor-plugin-editor-viewmode": "1.0.54",
+    "@atlaskit/editor-plugin-editor-viewmode": "1.0.57",
     "@atlaskit/editor-plugin-emoji": "1.1.8",
     "@atlaskit/editor-plugin-expand": "1.2.2",
     "@atlaskit/editor-plugin-extension": "1.1.1",
@@ -168,9 +170,9 @@
     "@atlaskit/editor-plugin-list": "3.1.13",
     "@atlaskit/editor-plugin-loom": "1.0.1",
     "@atlaskit/editor-plugin-max-content-size": "1.0.1",
-    "@atlaskit/editor-plugin-media": "1.9.5",
+    "@atlaskit/editor-plugin-media": "1.10.0",
     "@atlaskit/editor-plugin-mentions": "1.0.5",
-    "@atlaskit/editor-plugin-panel": "1.0.5",
+    "@atlaskit/editor-plugin-panel": "1.0.6",
     "@atlaskit/editor-plugin-paste": "1.0.9",
     "@atlaskit/editor-plugin-paste-options-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-placeholder": "1.0.1",
@@ -184,10 +186,10 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.1",
     "@atlaskit/editor-plugin-status": "1.0.3",
     "@atlaskit/editor-plugin-submit-editor": "1.0.1",
-    "@atlaskit/editor-plugin-table": "7.5.11",
+    "@atlaskit/editor-plugin-table": "7.5.12",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.4",
     "@atlaskit/editor-plugin-text-color": "1.0.3",
-    "@atlaskit/editor-plugin-text-formatting": "1.2.4",
+    "@atlaskit/editor-plugin-text-formatting": "1.3.0",
     "@atlaskit/editor-plugin-toolbar-lists-indentation": "1.2.2",
     "@atlaskit/editor-plugin-type-ahead": "1.0.5",
     "@atlaskit/editor-plugin-undo-redo": "1.0.1",
@@ -256,6 +258,10 @@
       "type": "boolean",
       "referenceOnly": true
     },
+    "platform.editor.allow-inline-comments-for-inline-nodes": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.editor.allow-list-in-blockquote": {
       "type": "boolean",
       "referenceOnly": true
@@ -268,7 +274,15 @@
       "type": "boolean",
       "referenceOnly": true
     },
+    "platform.linking-platform.datasource-word_wrap": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor-add-link-preferences-button-to-datasources_xt1sh": {
       "type": "boolean",
       "referenceOnly": true
     },
@@ -385,6 +399,10 @@
       "referenceOnly": true
     },
     "platform.editor.table.insert-last-column-btn-stays-in-place": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.table.drag-move-options-logic-update_fp7xw": {
       "type": "boolean",
       "referenceOnly": true
     },

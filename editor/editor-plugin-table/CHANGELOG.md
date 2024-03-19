@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.12
+
+### Patch Changes
+
+- [#82347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82347) [`1290405f274b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1290405f274b) - [ux] Updates move util used by move shortcuts and drag menu to cater for new merged cells logic.
+- Updated dependencies
+
 ## 7.5.11
 
 ### Patch Changes

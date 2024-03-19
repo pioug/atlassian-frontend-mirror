@@ -73,8 +73,10 @@ export const textFormattingPlugin: TextFormattingPlugin = ({
     return [
       { name: 'em', mark: em },
       { name: 'strong', mark: strong },
-      { name: 'strike', mark: strike },
     ]
+      .concat(
+        options?.disableStrikethrough ? [] : { name: 'strike', mark: strike },
+      )
       .concat(options?.disableCode ? [] : { name: 'code', mark: code })
       .concat(
         options?.disableSuperscriptAndSubscript

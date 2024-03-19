@@ -1,5 +1,15 @@
 # @atlaskit/forge-react-types
 
+## 0.6.0
+
+### Minor Changes
+
+- [#80613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80613) [`83fc29f5e92c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83fc29f5e92c) - Add href prop to Tag component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.5.6
 
 ### Patch Changes

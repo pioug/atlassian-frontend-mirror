@@ -33,6 +33,9 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/linking-common": "^5.5.0",
     "@atlaskit/linking-types": "^8.7.0",

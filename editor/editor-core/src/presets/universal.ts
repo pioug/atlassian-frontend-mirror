@@ -1,6 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
+import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { avatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
@@ -118,6 +119,7 @@ export default function createUniversalPreset(
 
   const finalPreset = defaultPreset
     .add(dataConsumerPlugin)
+    .add(accessibilityUtilsPlugin)
     .add(contentInsertionPlugin)
     .maybeAdd(
       [breakoutPlugin, { allowBreakoutButton: appearance === 'full-page' }],

@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugins
 
+## 1.8.0
+
+### Minor Changes
+
+- [#78949](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78949) [`43b4f8b382eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b4f8b382eb) - [ED-22283] introduced ariaNotify like api for plugins to make screen reader announcements
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.5
+
+### Patch Changes
+
+- [#82347](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82347) [`1290405f274b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1290405f274b) - Adds FF for table to use new logic for move options state in drag handle menu when there are merged cells.
+- Updated dependencies
+
+## 1.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.2
 
 ### Patch Changes

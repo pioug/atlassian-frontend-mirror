@@ -27,6 +27,10 @@
     "./types": "./src/entry-points/types.tsx",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./types": "./src/entry-points/types.tsx",
+    ".": "./src/index.tsx"
+  },
   "atlassian": {
     "team": "Design System Team",
     "productPushConsumption": [
@@ -42,10 +46,10 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-explorations": "^3.2.0",
+    "@atlaskit/ds-explorations": "^3.3.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/primitives": "^5.0.0",
+    "@atlaskit/primitives": "^5.1.0",
     "@atlaskit/visually-hidden": "^1.2.4",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"

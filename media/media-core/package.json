@@ -25,6 +25,10 @@
     "./auth": "./src/auth.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./auth": "./src/auth.ts",
+    ".": "./src/index.ts"
+  },
   "atlassian": {
     "team": "Media Experience",
     "singleton": true,

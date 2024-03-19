@@ -40,11 +40,17 @@
     "./styles": "./src/styles.tsx",
     "./text-area": "./src/text-area.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx",
+    "./component-tokens": "./src/component-tokens.tsx",
+    "./styles": "./src/styles.tsx",
+    "./text-area": "./src/text-area.tsx"
+  },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

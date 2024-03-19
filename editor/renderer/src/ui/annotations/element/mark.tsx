@@ -3,7 +3,10 @@ import type { MouseEvent } from 'react';
 import React, { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
+import {
+  AnnotationSharedCSSByState,
+  mediaAnnotationStyles,
+} from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type {
   AnnotationId,
@@ -24,6 +27,10 @@ const markStyles = () => css`
     &:focus,
     &[data-has-focus='true'] {
       ${AnnotationSharedCSSByState().focus};
+    }
+
+    & div.rich-media-item {
+      ${mediaAnnotationStyles};
     }
   }
 `;

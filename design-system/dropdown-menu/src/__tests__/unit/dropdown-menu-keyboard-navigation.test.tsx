@@ -7,6 +7,8 @@ import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
+const triggerText = 'Options';
+
 describe('dropdown menu keyboard navigation', () => {
   // requestAnimationFrame is replaced by raf-stub
   replaceRaf();
@@ -46,8 +48,6 @@ describe('dropdown menu keyboard navigation', () => {
   const testId = 'testId';
 
   it('should NOT open the menu when DOWN arrow is pressed while the trigger is NOT focused', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -67,8 +67,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should open the menu when DOWN arrow is pressed while the trigger is focused', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -85,8 +83,6 @@ describe('dropdown menu keyboard navigation', () => {
 
   describe('with open menu', () => {
     it('should focus the first element by default when accessed using a keyboard', () => {
-      const triggerText = 'click me to open';
-
       render(
         <DropdownMenu trigger={triggerText} testId={testId}>
           <DropdownItemGroup>
@@ -108,8 +104,6 @@ describe('dropdown menu keyboard navigation', () => {
     });
 
     it('should focus the content wrapper when clicked with a mouse', () => {
-      const triggerText = 'click me to open';
-
       render(
         <DropdownMenu trigger={triggerText} testId={testId}>
           <DropdownItemGroup>
@@ -129,8 +123,6 @@ describe('dropdown menu keyboard navigation', () => {
     });
 
     it('should focus the next element on pressing the DOWN arrow', () => {
-      const triggerText = 'click me to open';
-
       render(
         <DropdownMenu trigger={triggerText} testId={testId}>
           <DropdownItemGroup>
@@ -161,8 +153,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should focus the previous element on pressing the UP arrow', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -196,7 +186,6 @@ describe('dropdown menu keyboard navigation', () => {
     const second = 'Second';
     const fourth = 'Fourth';
     const secondLast = 'Second Last';
-    const triggerText = 'click me to open';
 
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
@@ -259,8 +248,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should skip disabled elements and focus on the first focusable element with autoFucus', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId} autoFocus>
         <DropdownItemGroup>
@@ -278,8 +265,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should skip disabled elements and focus on the first focusable element with keyboard navigation', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -297,8 +282,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should focus the first element on pressing the HOME arrow', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -327,8 +310,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should focus the last element on pressing the END arrow', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -358,8 +339,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should not let the focus loop to the last element', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -388,8 +367,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should not let the focus loop on the first element', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -417,8 +394,6 @@ describe('dropdown menu keyboard navigation', () => {
   });
 
   it('should not let the focus loop to the first element', () => {
-    const triggerText = 'click me to open';
-
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -454,7 +429,11 @@ describe('dropdown menu keyboard navigation', () => {
   it('should not allow the dropdown to reopen if the trigger is activated again', () => {
     const onOpenChange = jest.fn();
     render(
-      <DropdownMenu testId={testId} onOpenChange={onOpenChange}>
+      <DropdownMenu
+        trigger={triggerText}
+        testId={testId}
+        onOpenChange={onOpenChange}
+      >
         <DropdownItemGroup>
           {items.map((text) => (
             <DropdownItem>{text}</DropdownItem>

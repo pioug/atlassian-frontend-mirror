@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::06f94349afb08cd21b7579d515928d0f>>
+ * @codegen <<SignedSource::5667ffe60dd1a32e665f0a697a1b175b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -559,6 +559,7 @@ const tokens = {
   'font.body.large': '--ds-font-body-large',
   'font.body': '--ds-font-body',
   'font.body.small': '--ds-font-body-small',
+  'font.body.UNSAFE_small': '--ds-font-body-UNSAFE_small',
   'font.ui': '--ds-font-ui',
   'font.ui.small': '--ds-font-ui-small',
   'font.code': '--ds-font-code',
@@ -1029,6 +1030,7 @@ export type CSSTokenMap = {
   'font.body.large': 'var(--ds-font-body-large)';
   'font.body': 'var(--ds-font-body)';
   'font.body.small': 'var(--ds-font-body-small)';
+  'font.body.UNSAFE_small': 'var(--ds-font-body-UNSAFE_small)';
   'font.ui': 'var(--ds-font-ui)';
   'font.ui.small': 'var(--ds-font-ui-small)';
   'font.code': 'var(--ds-font-code)';

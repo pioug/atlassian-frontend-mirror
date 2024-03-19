@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.16.0
+
+### Minor Changes
+
+- [#81825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81825) [`6d27545ac997`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d27545ac997) - Dynamic table now also respects test IDs when passed in at the row level.
+
 ## 14.15.0
 
 ### Minor Changes

@@ -27,6 +27,11 @@
     "./analytics": "./src/analytics.ts",
     "./messages": "./src/messages.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./analytics": "./src/analytics.ts",
+    "./messages": "./src/messages.ts"
+  },
   "atlassian": {
     "team": "Self-Help Experiences",
     "releaseModel": "continuous",
@@ -57,7 +62,7 @@
     "@atlaskit/textarea": "^5.1.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

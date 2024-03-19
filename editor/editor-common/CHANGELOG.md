@@ -1,5 +1,28 @@
 # @atlaskit/editor-common
 
+## 78.16.0
+
+### Minor Changes
+
+- [#82499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82499) [`cbd66fd38b62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbd66fd38b62) - Add option to disable strikethrough on text-formatting via disableStrikethrough.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.15.0
+
+### Minor Changes
+
+- [#78436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78436) [`89ff7202e5fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89ff7202e5fe) - The annotation comment provider will now accept a new hoverComponent which is displayed by the annotation ui when specific block nodes are rolled over by the users mouse
+
+## 78.14.4
+
+### Patch Changes
+
+- [#81768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81768) [`9d96e603865d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d96e603865d) - [ux] Fixes issue where inline macros don't turn red on trash hover and updates VR tests to check
+- Updated dependencies
+
 ## 78.14.3
 
 ### Patch Changes

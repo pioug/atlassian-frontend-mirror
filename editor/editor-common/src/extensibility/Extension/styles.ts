@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { B200, N20, N20A, N70 } from '@atlaskit/theme/colors';
+import { N20, N20A, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { BODIED_EXT_PADDING, EXTENSION_PADDING } from '../../styles';
@@ -12,10 +12,6 @@ export const wrapperDefault = css({
   borderRadius: token('border.radius', '3px'),
   position: 'relative',
   verticalAlign: 'middle',
-  '.ProseMirror-selectednode > span > & > .extension-overlay': {
-    boxShadow: `inset 0px 0px 0px 2px ${token('color.border.selected', B200)}`,
-    opacity: 1,
-  },
   '&.with-overlay': {
     '.extension-overlay': {
       background: token('color.background.neutral.hovered', N20A),

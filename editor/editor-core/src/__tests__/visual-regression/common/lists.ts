@@ -11,6 +11,7 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   clickOnExtension,
+  hoverOverTrashButton,
   waitForExtensionToolbar,
 } from '@atlaskit/editor-test-helpers/page-objects/extensions';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -100,6 +101,17 @@ describe('Lists', () => {
       'inline-eh',
     );
     await waitForExtensionToolbar(page);
+  });
+
+  it('should render red outline when hovering trash button for inline extensions and nested inside list', async () => {
+    await initEditor(page, extensionAdf, { width: 800, height: 300 });
+    await clickOnExtension(
+      page,
+      'com.atlassian.confluence.macro.core',
+      'inline-eh',
+    );
+    await waitForExtensionToolbar(page);
+    await hoverOverTrashButton(page);
   });
 
   it('should render status toolbar on click when its nested inside lists', async () => {

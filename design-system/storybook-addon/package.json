@@ -32,8 +32,11 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@storybook/addons": "^6.4.0",
     "@storybook/api": "^6.4.0",

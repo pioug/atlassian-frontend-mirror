@@ -1164,6 +1164,7 @@ export interface TypographyTokenSchema<
     body: {
       '[default]': TypographyToken<TPalette>;
       small: TypographyToken<TPalette>;
+      UNSAFE_small: TypographyToken<TPalette>;
       large: TypographyToken<TPalette>;
     };
     code: {

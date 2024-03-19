@@ -137,6 +137,15 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           description: 'ALPHA - Use with caution. Smaller body font.',
         },
       },
+      UNSAFE_small: {
+        attributes: {
+          group: 'typography',
+          state: 'active',
+          introduced: '1.14.0',
+          description:
+            'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
+        },
+      },
       '[default]': {
         attributes: {
           group: 'typography',

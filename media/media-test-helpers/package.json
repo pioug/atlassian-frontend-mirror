@@ -37,7 +37,7 @@
     "@atlaskit/popup": "^1.13.0",
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/textfield": "^6.1.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -65,6 +65,22 @@
     "typescript": "~4.9.5"
   },
   "af:exports": {
+    "./renderWithIntl": "./src/renderWithIntl.tsx",
+    "./smart-card-state": "./src/smart-card-state.ts",
+    "./fakeMediaClient": "./src/fakeMediaClient.ts",
+    "./media-mock": "./src/mocks/media-mock.ts",
+    "./images": "./src/images.tsx",
+    "./jestHelpers": "./src/jestHelpers.ts",
+    "./collectionNames": "./src/collectionNames.ts",
+    "./exampleMediaItems": "./src/exampleMediaItems.ts",
+    "./exampleMediaFeatureFlags": "./src/example-mediaFeatureFlags.ts",
+    "./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
+    "./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
+    "./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+    "./mockData": "./src/utils/mockData.ts",
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     "./renderWithIntl": "./src/renderWithIntl.tsx",
     "./smart-card-state": "./src/smart-card-state.ts",
     "./fakeMediaClient": "./src/fakeMediaClient.ts",

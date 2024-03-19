@@ -1121,7 +1121,7 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::64be523321fab6adc76673ef5f93e3d1>>
+ * @codegen <<SignedSource::fc79aec30729db169f29271e3fe7725d>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight", "body", "ui"]
@@ -1132,6 +1132,10 @@ export const fontSizeMap = {
   medium: token(
     'font.body',
     'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  UNSAFE_small: token(
+    'font.body.UNSAFE_small',
+    'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
   ),
   large: token(
     'font.body.large',

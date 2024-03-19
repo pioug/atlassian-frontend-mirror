@@ -27,7 +27,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -94,6 +94,9 @@
     }
   },
   "af:exports": {
+    ".": "./src/index.tsx"
+  },
+  "exports": {
     ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

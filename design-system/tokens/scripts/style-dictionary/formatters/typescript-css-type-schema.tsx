@@ -24,13 +24,13 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
   const backgroundColor: TransformedToken[] = [];
   const backgroundColorHovered: TransformedToken[] = [];
   const backgroundColorPressed: TransformedToken[] = [];
-  const dimension: TransformedToken[] = [];
   const borderColor: TransformedToken[] = [];
   const borderWidth: TransformedToken[] = [];
   const borderRadius: TransformedToken[] = [];
   const space: TransformedToken[] = [];
   const shadow: TransformedToken[] = [];
   const textColor: TransformedToken[] = [];
+  const textColorPressed: TransformedToken[] = [];
   const opacity: TransformedToken[] = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -45,7 +45,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
       continue;
     }
 
-    if (token.path.includes('background') || token.path.includes('surface')) {
+    if (
+      token.path.includes('background') ||
+      token.path.includes('surface') ||
+      token.path.includes('skeleton')
+    ) {
       if (token.path.includes('hovered')) {
         backgroundColorHovered.push(token);
       } else if (token.path.includes('pressed')) {
@@ -53,10 +57,6 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
       } else {
         backgroundColor.push(token);
       }
-    }
-
-    if (token.path.includes('size') || token.path.includes('100%')) {
-      dimension.push(token);
     }
 
     if (token.path.includes('color') && token.path.includes('border')) {
@@ -80,7 +80,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     }
 
     if (token.path.includes('text') || token.path.includes('link')) {
-      textColor.push(token);
+      if (token.path.includes('pressed')) {
+        textColorPressed.push(token);
+      } else {
+        textColor.push(token);
+      }
     }
 
     if (token.path.includes('opacity')) {
@@ -95,25 +99,41 @@ export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
 
 export type BackgroundColorPressed = ${mapToCssVar(backgroundColorPressed)};
 
-export type Dimension = ${mapToCssVar(dimension)};
-
 export type BorderColor = ${mapToCssVar(borderColor)};
 
 export type BorderWidth = ${mapToCssVar(borderWidth)};
 
 export type BorderRadius = ${mapToCssVar(borderRadius)};
 
+export type SizeIntrinsic = \`\${number}px\` | \`\${number}rem\` | '100%';
+
 export type Space = ${mapToCssVar(space)};
+
+export type SpaceMargin = Space | 'auto' | '0 auto' | '0';
 
 export type Shadow = ${mapToCssVar(shadow)};
 
 export type TextColor = ${mapToCssVar(textColor)};
 
+export type TextColorPressed = ${mapToCssVar(textColorPressed)};
+
 export type Opacity = ${mapToCssVar(opacity)};
 
-export interface TokenizedProps {
+export interface CSSPropertiesHovered {
+  backgroundColor: BackgroundColorHovered;
+}
+
+export interface CSSPropertiesActive {
+  backgroundColor: BackgroundColorPressed;
+  color: TextColorPressed;
+}
+
+export interface DesignTokenStyles {
+  '&:active': CSSPropertiesActive;
+  '&:hover': CSSPropertiesHovered;
+  appearance: 'none' | 'auto';
   backgroundColor: BackgroundColor;
-  blockSize: Dimension;
+  blockSize: SizeIntrinsic;
   borderBlockColor: BorderColor;
   borderBlockEndColor: BorderColor;
   borderBlockEndWidth: BorderWidth;
@@ -147,11 +167,23 @@ export interface TokenizedProps {
   borderWidth: BorderWidth;
   bottom: Space;
   boxShadow: Shadow;
+  boxSizing: 'border-box';
+  clear: never;
+  clip: never;
   color: TextColor;
   columnGap: Space;
+  container: never;
+  containerName: never;
+  containerType: never;
+  float: never;
+  font: never;
+  fontFamily: never;
+  fontSize: never;
+  fontSizeAdjust: never;
+  fontWeight: never;
   gap: Space;
-  height: Dimension;
-  inlineSize: Dimension;
+  height: SizeIntrinsic;
+  inlineSize: SizeIntrinsic;
   inset: Space;
   insetBlock: Space;
   insetBlockEnd: Space;
@@ -160,29 +192,33 @@ export interface TokenizedProps {
   insetInlineEnd: Space;
   insetInlineStart: Space;
   left: Space;
-  margin: Space;
-  marginBlock: Space;
-  marginBlockEnd: Space;
-  marginBlockStart: Space;
-  marginBottom: Space;
-  marginInline: Space;
-  marginInlineEnd: Space;
-  marginInlineStart: Space;
-  marginLeft: Space;
-  marginRight: Space;
-  marginTop: Space;
-  maxBlockSize: Dimension;
-  maxHeight: Dimension;
-  maxInlineSize: Dimension;
-  maxWidth: Dimension;
-  minBlockSize: Dimension;
-  minHeight: Dimension;
-  minInlineSize: Dimension;
-  minWidth: Dimension;
+  letterSpacing: never;
+  lineHeight: never;
+  lineHeightStep: never;
+  margin: SpaceMargin;
+  marginBlock: SpaceMargin;
+  marginBlockEnd: SpaceMargin;
+  marginBlockStart: SpaceMargin;
+  marginBottom: SpaceMargin;
+  marginInline: SpaceMargin;
+  marginInlineEnd: SpaceMargin;
+  marginInlineStart: SpaceMargin;
+  marginLeft: SpaceMargin;
+  marginRight: SpaceMargin;
+  marginTop: SpaceMargin;
+  maxBlockSize: SizeIntrinsic;
+  maxHeight: SizeIntrinsic;
+  maxInlineSize: SizeIntrinsic;
+  maxWidth: SizeIntrinsic;
+  minBlockSize: SizeIntrinsic;
+  minHeight: SizeIntrinsic;
+  minInlineSize: SizeIntrinsic;
+  minWidth: SizeIntrinsic;
   opacity: Opacity;
   outlineColor: BorderColor;
   outlineOffset: Space;
   outlineWidth: BorderWidth;
+  overlay: never;
   padding: Space;
   paddingBlock: Space;
   paddingBlockEnd: Space;
@@ -197,48 +233,9 @@ export interface TokenizedProps {
   right: Space;
   rowGap: Space;
   top: Space;
-  width: Dimension;
-  zIndex: number;
-};
-
-export interface TokenizedPropsWithHovered extends Omit<TokenizedProps, 'backgroundColor'> {
-  backgroundColor: BackgroundColorHovered;
-}
-
-export interface TokenizedPropsWithPressed extends Omit<TokenizedProps, 'backgroundColor'> {
-  backgroundColor: BackgroundColorPressed;
-}
-
-export interface DesignTokenStyles extends TokenizedProps {
-  '&::after': TokenizedProps;
-  '&::before': TokenizedProps;
-  '&:active': TokenizedPropsWithPressed;
-  '&:any-link': TokenizedProps;
-  '&:autofill': TokenizedProps;
-  '&:blank': TokenizedProps;
-  '&:checked': TokenizedProps;
-  '&:default': TokenizedProps;
-  '&:disabled': TokenizedProps;
-  '&:enabled': TokenizedProps;
-  '&:focus-visible': TokenizedProps;
-  '&:focus-within': TokenizedProps;
-  '&:focus': TokenizedProps;
-  '&:hover': TokenizedPropsWithHovered;
-  '&:in-range': TokenizedProps;
-  '&:indeterminate': TokenizedProps;
-  '&:invalid': TokenizedProps;
-  '&:link': TokenizedProps;
-  '&:local-link': TokenizedProps;
-  '&:optional': TokenizedProps;
-  '&:out-of-range': TokenizedProps;
-  '&:placeholder-shown': TokenizedProps;
-  '&:read-only': TokenizedProps;
-  '&:read-write': TokenizedProps;
-  '&:required': TokenizedProps;
-  '&:user-invalid': TokenizedProps;
-  '&:user-valid': TokenizedProps;
-  '&:valid': TokenizedProps;
-  '&:visited': TokenizedProps;
+  userModify: never;
+  width: SizeIntrinsic;
+  zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }\n`,
     { parser: 'typescript', singleQuote: true },
   );

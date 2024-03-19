@@ -1,3 +1,10 @@
+// This should be kept in sync with
+// packages/design-system/eslint-plugin/src/rules/utils/is-supported-import.tsx
+// whenever possible.
+//
+// TODO: would having an @atlassian/eslint-plugin-design-system-common
+// package be useful?
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, Scope } from 'eslint';
 import type { CallExpression } from 'estree';

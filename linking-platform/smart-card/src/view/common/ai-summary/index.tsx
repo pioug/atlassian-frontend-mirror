@@ -3,12 +3,13 @@ import React from 'react';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
 import { SerializedStyles, css, jsx } from '@emotion/react';
 import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-block/ai-state-indicator';
+import UList from './ulist';
 
 const AITooltipIcon: MarkdownToJSX.Override = () => (
   <AIStateIndicator appearance="icon-only" state="done" testId="ai-tooltip" />
 );
 
-const AISummaryCSS = css({
+const AISummaryCSSStyles = css({
   fontSize: '0.75rem',
   lineHeight: '1rem',
   wordWrap: 'break-word',
@@ -56,11 +57,14 @@ const AISummary: React.FC<AISummaryProps> = ({
   return (
     <Markdown
       data-testid={testId}
-      css={[AISummaryCSS, overrideCss]}
+      css={[AISummaryCSSStyles, overrideCss]}
       children={showIcon ? `${content}&nbsp;<Icon />` : content}
       options={{
         forceWrapper: true,
-        overrides: { Icon: iconComponent ?? AITooltipIcon },
+        overrides: {
+          Icon: iconComponent ?? AITooltipIcon,
+          ul: UList,
+        },
       }}
       style={{ minHeight: minHeight }}
     />

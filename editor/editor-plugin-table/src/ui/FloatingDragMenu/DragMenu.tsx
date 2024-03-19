@@ -292,13 +292,23 @@ export const DragMenu = React.memo(
       ? getSelectionRect(selection)!
       : findCellRectClosestToPos(selection.$from);
 
-    const hasMergedCells =
-      direction === 'row' ? hasMergedCellsInRow : hasMergedCellsInColumn;
+    let shouldMoveDisabled;
+    let hasMergedCellsInTable;
+    if (
+      getBooleanFF('platform.editor.table.drag-move-options-logic-update_fp7xw')
+    ) {
+      shouldMoveDisabled = false;
+      hasMergedCellsInTable = tableMap?.hasMergedCells() ?? false;
+    } else {
+      const hasMergedCells =
+        direction === 'row' ? hasMergedCellsInRow : hasMergedCellsInColumn;
 
-    const shouldMoveDisabled =
-      index !== undefined && hasMergedCells(index)(selection);
+      shouldMoveDisabled =
+        index !== undefined && hasMergedCells(index)(selection);
 
-    const hasMergedCellsInTable = getMergedCellsPositions(state.tr).length > 0;
+      hasMergedCellsInTable = getMergedCellsPositions(state.tr).length > 0;
+    }
+
     const allowBackgroundColor = pluginConfig?.allowBackgroundColor ?? false;
 
     const dragMenuConfig = getDragMenuConfig(

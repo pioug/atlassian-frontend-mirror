@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '../analytics';
+import type { INPUT_METHOD } from '../analytics';
 /**
  * Configuration for the Text Formatting plugin
  */
@@ -7,6 +7,7 @@ export interface TextFormattingOptions {
   disableUnderline?: boolean;
   disableCode?: boolean;
   disableSmartTextCompletion?: boolean;
+  disableStrikethrough?: boolean;
   responsiveToolbarMenu?: boolean;
 }
 

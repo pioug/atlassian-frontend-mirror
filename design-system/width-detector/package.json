@@ -64,5 +64,9 @@
   "af:exports": {
     ".": "./src/index.ts",
     "./WidthDetector": "./src/WidthDetector.tsx"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./WidthDetector": "./src/WidthDetector.tsx"
   }
 }

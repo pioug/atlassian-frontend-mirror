@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.6.1
+
+### Patch Changes
+
+- [#80129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80129) [`dc0ce9161fc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc0ce9161fc1) - Add `convert-prop-syntax` to convert invalid `styled-components` props syntax to valid `styled-components` props syntax.
+- [#79686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79686) [`7dc7cf06a8b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7dc7cf06a8b9) - Bump @compiled/react to v0.17.0
+
 ## 0.6.0
 
 ### Minor Changes

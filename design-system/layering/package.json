@@ -22,6 +22,9 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./src/index.tsx"
+  },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
     "@babel/runtime": "^7.0.0",

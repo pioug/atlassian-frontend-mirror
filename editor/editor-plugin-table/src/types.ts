@@ -130,6 +130,7 @@ export interface TablePluginState {
   // for table wrap/collapse
   isTableCollapsed?: boolean; // is the current table already in an expand?
   canCollapseTable?: boolean; // enabled/disabled state of collapse option
+  widthToWidest?: boolean; // is the current table set to the widest width regarding view port
 
   getIntl: () => IntlShape;
 
@@ -215,6 +216,12 @@ export type TablePluginAction =
         resizeHandleRowIndex: number | undefined;
         resizeHandleColumnIndex: number | undefined;
         resizeHandleIncludeTooltip: boolean | undefined;
+      };
+    }
+  | {
+      type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
+      data: {
+        widthToWidest: boolean | undefined;
       };
     }
   | {

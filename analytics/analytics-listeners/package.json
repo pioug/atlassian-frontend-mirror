@@ -28,6 +28,13 @@
     "./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./FabricAnalyticsListeners": "./src/FabricAnalyticsListeners.tsx",
+    "./GenericAnalyticsListener": "./src/GenericAnalyticsListener.tsx",
+    "./analytics-web-client-wrapper": "./src/analytics-web-client-wrapper.ts",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "UIP Frontend Observability",
     "releaseModel": "continuous",
@@ -49,7 +56,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "jest-in-case": "^1.0.2",

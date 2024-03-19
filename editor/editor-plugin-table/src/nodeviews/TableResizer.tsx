@@ -27,10 +27,12 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+import { updateWidthToWidest } from '../commands/misc';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
@@ -341,7 +343,30 @@ export const TableResizer = ({
           TABLE_HIGHLIGHT_TOLERANCE,
         ),
       );
-      updateWidth(newWidth);
+
+      // when isTableScalingEnabled true
+      // and a table is resized to fit the widest guideline when view port width is between 1011 and 1800
+      // set the width of the table to 1800 pixels.
+      const { state, dispatch } = editorView;
+      const widestGuideLineWidthString = defaultGuidelinesForPreserveTable(
+        containerWidth,
+      )[16]
+        .key?.match(/[\d]*[.]{0,1}[\d]+/g)
+        ?.join('');
+      const widestGuideLineWidth = parseInt(
+        widestGuideLineWidthString || '',
+        10,
+      );
+      const shouldUpdateWidthToWidest = !!(
+        isTableScalingEnabled &&
+        defaultGuidelinesForPreserveTable(containerWidth).length === 17 &&
+        widestGuideLineWidth - newWidth <= 1
+      );
+      updateWidthToWidest(shouldUpdateWidthToWidest)(state, dispatch);
+
+      updateWidth(
+        shouldUpdateWidthToWidest ? akEditorFullWidthLayoutWidth : newWidth,
+      );
 
       return newWidth;
     },
@@ -363,9 +388,11 @@ export const TableResizer = ({
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
       isResizing.current = false;
-      const newWidth = originalState.width + delta.width;
+      let newWidth = originalState.width + delta.width;
       const { state, dispatch } = editorView;
       const pos = getPos();
+      const { widthToWidest } = getPluginState(editorView.state);
+      newWidth = widthToWidest ? akEditorFullWidthLayoutWidth : newWidth;
 
       let tr = state.tr.setMeta(tableWidthPluginKey, { resizing: false });
       const frameRateSamples = endMeasure();

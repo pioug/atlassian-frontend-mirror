@@ -39,6 +39,11 @@
     "./glyph": "./glyph",
     ".": "./src/index.tsx"
   },
+  "exports": {
+    "./metadata": "./src/entry-points/metadata.tsx",
+    "./glyph/*": "./glyph/*",
+    ".": "./src/index.tsx"
+  },
   "scripts": {
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
   },

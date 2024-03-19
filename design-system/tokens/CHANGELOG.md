@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 1.42.0
+
+### Minor Changes
+
+- [#78900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78900) [`6ea786dd8082`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ea786dd8082) - Add UNSAFE_small fontsize token.
+
+## 1.41.2
+
+### Patch Changes
+
+- [#80571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80571) [`fafdb1dcce96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fafdb1dcce96) - Fix bugs in strict CSS typedef.
+
 ## 1.41.1
 
 ### Patch Changes

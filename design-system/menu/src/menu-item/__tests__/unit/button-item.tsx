@@ -62,23 +62,25 @@ describe('<ButtonItem />', () => {
       <ButtonItem data-testid="link">Hello world</ButtonItem>,
     );
 
-    expect(getByTestId('link')).toBeDefined();
+    expect(getByTestId('link')).toBeInTheDocument();
   });
 
   it('should not gain focus on mouse down when it had no initial focus', () => {
-    // create a random button that will have focus
-    const el: HTMLElement = document.createElement('button');
-    document.body.appendChild(el);
-    el.focus();
-    expect(el).toBe(document.activeElement);
     const { getByTestId } = render(
-      <ButtonItem testId="target">Hello world</ButtonItem>,
+      <div>
+        <button type="button" data-testid="focused-button">
+          Button
+        </button>
+        <ButtonItem testId="target">Hello world</ButtonItem>,
+      </div>,
     );
 
+    getByTestId('focused-button').focus();
+    expect(getByTestId('focused-button')).toHaveFocus();
     const allowed: boolean = fireEvent.mouseDown(getByTestId('target'));
 
     // target didn't get focus
-    expect(getByTestId('target')).not.toBe(document.activeElement);
+    expect(getByTestId('target')).not.toHaveFocus();
     // mousedown event not prevented
     expect(allowed).toBe(true);
   });

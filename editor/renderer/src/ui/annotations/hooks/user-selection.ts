@@ -1,4 +1,8 @@
-import { useContext, useCallback, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import {
+  useAnnotationRangeDispatch,
+  useAnnotationRangeState,
+} from '../contexts/AnnotationRangeContext';
 import { AnnotationsDraftContext } from '../context';
 import { isRangeInsideOfRendererContainer } from './utils';
 
@@ -12,7 +16,8 @@ export const useUserSelectionRange = (
   const {
     rendererRef: { current: rendererDOM },
   } = props;
-  const [range, setRange] = useState<Range | null>(null);
+  const { clearSelectionRange, setRange } = useAnnotationRangeDispatch();
+  const { range, type } = useAnnotationRangeState();
   const annotationDraftPosition = useContext(AnnotationsDraftContext);
   const hasAnnotationDraft = !!annotationDraftPosition;
 
@@ -47,12 +52,9 @@ export const useUserSelectionRange = (
 
     return () => {
       document.removeEventListener('selectionchange', onSelectionChange);
+      clearSelectionRange();
     };
-  }, [rendererDOM, range, hasAnnotationDraft]);
+  }, [rendererDOM, hasAnnotationDraft, setRange, clearSelectionRange]);
 
-  const clearRange = useCallback(() => {
-    setRange(null);
-  }, []);
-
-  return [range, clearRange];
+  return [type === 'selection' ? range : null, clearSelectionRange];
 };

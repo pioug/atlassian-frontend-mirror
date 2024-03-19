@@ -43,8 +43,11 @@
   "af:exports": {
     ".": "./src/index.tsx"
   },
+  "exports": {
+    ".": "./index.js"
+  },
   "dependencies": {
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "postcss-value-parser": "^4.2.0"
   },

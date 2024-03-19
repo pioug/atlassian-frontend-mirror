@@ -5,15 +5,22 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import Button from '@atlaskit/button/standard-button';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
+import { DropdownMenuProps } from '../../types';
+
+const triggerText = 'Options';
+const testId = 'testId';
+
+const createDropdown = (props?: DropdownMenuProps) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+  <DropdownMenu trigger={triggerText} testId={testId} {...props} />
+);
 
 describe('dropdown menu', () => {
   const items = ['Move', 'Clone', 'Delete'];
-  const testId = 'testId';
-  const triggerText = 'Click me to open';
 
   describe('trigger', () => {
     it('there should be a trigger button by default', () => {
-      render(<DropdownMenu />);
+      render(createDropdown());
 
       const trigger = screen.getByRole('button');
 
@@ -21,7 +28,7 @@ describe('dropdown menu', () => {
     });
 
     it('trigger button with text', () => {
-      render(<DropdownMenu trigger={triggerText} />);
+      render(createDropdown());
 
       const trigger = screen.getByRole('button');
 
@@ -30,9 +37,7 @@ describe('dropdown menu', () => {
 
     it('should callback with flipped state when closed and controlled', () => {
       const callback = jest.fn();
-      render(
-        <DropdownMenu onOpenChange={callback} testId={testId} isOpen={false} />,
-      );
+      render(createDropdown({ onOpenChange: callback, isOpen: false }));
 
       fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
@@ -43,7 +48,7 @@ describe('dropdown menu', () => {
 
     it('should callback with flipped state when opened and controlled', () => {
       const callback = jest.fn();
-      render(<DropdownMenu onOpenChange={callback} testId={testId} isOpen />);
+      render(createDropdown({ onOpenChange: callback, isOpen: true }));
 
       fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
@@ -54,7 +59,7 @@ describe('dropdown menu', () => {
 
     it('should callback with false when opened', () => {
       const callback = jest.fn();
-      render(<DropdownMenu onOpenChange={callback} testId={testId} isOpen />);
+      render(createDropdown({ onOpenChange: callback, isOpen: true }));
 
       fireEvent.click(document.body);
 
@@ -66,13 +71,15 @@ describe('dropdown menu', () => {
 
     it('should open the menu list when button is clicked', () => {
       render(
-        <DropdownMenu trigger={triggerText}>
-          <DropdownItemGroup>
-            {items.map((text) => (
-              <DropdownItem>{text}</DropdownItem>
-            ))}
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          children: (
+            <DropdownItemGroup>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       expect(screen.queryAllByRole('menuitem')).toHaveLength(0);
@@ -84,13 +91,15 @@ describe('dropdown menu', () => {
 
     it('should return focus to the trigger after closing the menu if it is called via MouseEvent click', () => {
       render(
-        <DropdownMenu trigger={triggerText}>
-          <DropdownItemGroup>
-            {items.map((text) => (
-              <DropdownItem>{text}</DropdownItem>
-            ))}
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          children: (
+            <DropdownItemGroup>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       const trigger = screen.getByRole('button');
@@ -107,22 +116,27 @@ describe('dropdown menu', () => {
     });
 
     it('should render aria-label via label prop', () => {
-      render(<DropdownMenu label={triggerText} />);
+      render(
+        createDropdown({
+          trigger: '',
+          label: triggerText,
+        }),
+      );
 
       const trigger = screen.getByRole('button');
       expect(trigger).toHaveAttribute('aria-label', triggerText);
     });
 
     it('should not render aria-label if label prop is not present', () => {
-      render(<DropdownMenu trigger={triggerText} />);
+      render(createDropdown());
 
       const trigger = screen.getByRole('button');
       expect(trigger).not.toHaveAttribute('aria-label');
     });
 
     it('should render visible label and aria-label separately', () => {
-      const label = 'more about clicking';
-      render(<DropdownMenu trigger={triggerText} label={label} />);
+      const label = 'more';
+      render(createDropdown({ label: label }));
 
       const trigger = screen.getByRole('button', { expanded: false });
       const visibleLabel = within(trigger).getByText(triggerText);
@@ -134,12 +148,10 @@ describe('dropdown menu', () => {
 
   describe('nested dropdown', () => {
     const NestedDropdown = ({ level = 0 }) => {
-      return (
-        <DropdownMenu
-          placement="right-start"
-          trigger="nested"
-          testId={`nested-${level}`}
-        >
+      return createDropdown({
+        placement: 'right-start',
+        testId: `nested-${level}`,
+        children: (
           <DropdownItemGroup>
             <NestedDropdown level={level + 1} />
             <DropdownItem testId={`nested-item1-${level}`}>
@@ -149,8 +161,8 @@ describe('dropdown menu', () => {
               One of many items
             </DropdownItem>
           </DropdownItemGroup>
-        </DropdownMenu>
-      );
+        ),
+      });
     };
     it('should render nested dropdown on the page', () => {
       render(<NestedDropdown />);
@@ -162,9 +174,13 @@ describe('dropdown menu', () => {
         fireEvent.click(nestedTrigger);
         level += 1;
       }
+      jest.useFakeTimers();
       while (level > 0) {
         // close the dropdown by pressing Escape
-        fireEvent.keyDown(document, { key: 'Escape', code: 27 });
+        fireEvent.keyDown(document.body, {
+          key: 'Escape',
+          code: 27,
+        });
         // 0 timeout is needed to meet the same flow in layering
         // avoid immediate cleanup using setTimeout when component unmount
         // this will make sure non-top layer components can get the correct top level value
@@ -180,21 +196,21 @@ describe('dropdown menu', () => {
           screen.getByTestId(`nested-${level}--trigger`),
         ).toBeInTheDocument();
       }
+      jest.useRealTimers();
     });
   });
 
   describe('customised trigger', () => {
     it('render custom button on the page', () => {
       render(
-        <DropdownMenu
-          trigger={(triggerProps) => (
+        createDropdown({
+          trigger: (triggerProps) => (
             <Button {...triggerProps} data-test-id="native-button">
               {triggerText}
             </Button>
-          )}
-        />,
+          ),
+        }),
       );
-
       const trigger = screen.getByRole('button');
 
       expect(trigger).toBeInTheDocument();
@@ -205,26 +221,25 @@ describe('dropdown menu', () => {
 
       const DDMWithCustomTrigger = () => {
         const [isOpen, setOpen] = useState(false);
-        return (
-          <DropdownMenu
-            isOpen={isOpen}
-            trigger={(triggerProps) => (
-              <Button
-                {...triggerProps}
-                onClick={() => setOpen(!isOpen)}
-                testId={triggerTestId}
-              >
-                {triggerText}
-              </Button>
-            )}
-          >
+        return createDropdown({
+          isOpen: true,
+          trigger: (triggerProps) => (
+            <Button
+              {...triggerProps}
+              onClick={() => setOpen(!isOpen)}
+              testId={triggerTestId}
+            >
+              {triggerText}
+            </Button>
+          ),
+          children: (
             <DropdownItemGroup>
               {items.map((text) => (
                 <DropdownItem>{text}</DropdownItem>
               ))}
             </DropdownItemGroup>
-          </DropdownMenu>
-        );
+          ),
+        });
       };
 
       render(<DDMWithCustomTrigger />);
@@ -242,26 +257,25 @@ describe('dropdown menu', () => {
 
       const DDMWithCustomTrigger = ({ onClick }: { onClick: any }) => {
         const [isOpen, setIsOpen] = useState(false);
-        return (
-          <DropdownMenu
-            isOpen={isOpen}
-            trigger={(triggerProps) => (
-              <Button
-                {...triggerProps}
-                onClick={() => onClick(() => setIsOpen(!isOpen))}
-                testId={triggerTestId}
-              >
-                {triggerText}
-              </Button>
-            )}
-          >
+        return createDropdown({
+          isOpen: isOpen,
+          trigger: (triggerProps) => (
+            <Button
+              {...triggerProps}
+              onClick={() => onClick(() => setIsOpen(!isOpen))}
+              testId={triggerTestId}
+            >
+              {triggerText}
+            </Button>
+          ),
+          children: (
             <DropdownItemGroup>
               {items.map((text) => (
                 <DropdownItem>{text}</DropdownItem>
               ))}
             </DropdownItemGroup>
-          </DropdownMenu>
-        );
+          ),
+        });
       };
 
       render(<DDMWithCustomTrigger onClick={onClick} />);
@@ -280,15 +294,16 @@ describe('dropdown menu', () => {
   });
 
   describe('isLoading status', () => {
-    const testId = 'test';
-
     it('does not display the dropdown item when loading', async () => {
       render(
-        <DropdownMenu trigger={triggerText} isLoading>
-          <DropdownItemGroup>
-            <DropdownItem>Loaded action</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          isLoading: true,
+          children: (
+            <DropdownItemGroup>
+              <DropdownItem>Loaded action</DropdownItem>
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       fireEvent.click(screen.getByRole('button'));
@@ -300,11 +315,14 @@ describe('dropdown menu', () => {
       const defaultLoadingText = 'Loading';
 
       render(
-        <DropdownMenu trigger={triggerText} isLoading testId={testId}>
-          <DropdownItemGroup>
-            <DropdownItem>Loaded action</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          isLoading: true,
+          children: (
+            <DropdownItemGroup>
+              <DropdownItem>Loaded action</DropdownItem>
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       fireEvent.click(screen.getByRole('button'));
@@ -317,16 +335,15 @@ describe('dropdown menu', () => {
       const statusLabel = 'the content is loading';
 
       render(
-        <DropdownMenu
-          trigger={triggerText}
-          isLoading
-          statusLabel={statusLabel}
-          testId={testId}
-        >
-          <DropdownItemGroup>
-            <DropdownItem>Loaded action</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          isLoading: true,
+          statusLabel: statusLabel,
+          children: (
+            <DropdownItemGroup>
+              <DropdownItem>Loaded action</DropdownItem>
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       fireEvent.click(screen.getByRole('button'));
@@ -338,8 +355,8 @@ describe('dropdown menu', () => {
     it('should close the dropdown menu on outside click', () => {
       render(
         <>
-          <button data-testid="outside" type="button" />
-          <DropdownMenu testId={testId} trigger="click to open" />
+          <button aria-label="outside" data-testid="outside" type="button" />
+          {createDropdown()}
         </>,
       );
 
@@ -358,11 +375,12 @@ describe('dropdown menu', () => {
       render(
         <>
           <button
+            aria-label="outside"
             data-testid="outside"
             type="button"
             onClick={(e) => e.stopPropagation()}
           />
-          <DropdownMenu testId={testId} trigger="click to open" />
+          {createDropdown()}
         </>,
       );
 
@@ -379,13 +397,16 @@ describe('dropdown menu', () => {
 
     it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {
       render(
-        <DropdownMenu trigger={'click to open'} isOpen testId={testId}>
-          <DropdownItemGroup>
-            {items.map((text) => (
-              <DropdownItem>{text}</DropdownItem>
-            ))}
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          isOpen: true,
+          children: (
+            <DropdownItemGroup>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       const popupId = screen
@@ -400,19 +421,21 @@ describe('dropdown menu', () => {
 
     it('should generate a psuedorandom id to link the custom trigger and the popup if none was passed to it', () => {
       render(
-        <DropdownMenu
-          trigger={({ triggerRef, ...props }) => (
-            <Button ref={triggerRef} {...props} type="button" />
-          )}
-          isOpen
-          testId={testId}
-        >
-          <DropdownItemGroup>
-            {items.map((text) => (
-              <DropdownItem>{text}</DropdownItem>
-            ))}
-          </DropdownItemGroup>
-        </DropdownMenu>,
+        createDropdown({
+          isOpen: true,
+          trigger: ({ triggerRef, ...props }) => (
+            <Button ref={triggerRef} {...props} type="button">
+              Options
+            </Button>
+          ),
+          children: (
+            <DropdownItemGroup>
+              {items.map((text) => (
+                <DropdownItem>{text}</DropdownItem>
+              ))}
+            </DropdownItemGroup>
+          ),
+        }),
       );
 
       const popupId = screen

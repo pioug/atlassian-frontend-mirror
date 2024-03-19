@@ -60,5 +60,9 @@
     ".": "./src/index.ts",
     "./i18n": "./src/i18n/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./i18n": "./src/i18n/index.ts"
+  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

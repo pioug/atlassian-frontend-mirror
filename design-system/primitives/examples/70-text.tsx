@@ -4,8 +4,7 @@ import Heading from '@atlaskit/heading';
 
 import { Stack, Text } from '../src';
 
-const sizes = ['small', 'medium', 'large'] as const;
-
+const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
 
 export default () => {

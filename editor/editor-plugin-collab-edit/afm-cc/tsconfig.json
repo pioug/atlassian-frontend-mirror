@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../custom-steps/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {

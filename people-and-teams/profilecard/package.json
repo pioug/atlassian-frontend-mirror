@@ -41,6 +41,16 @@
     "./mocks": "./src/mocks/index.ts",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./client": "./src/client/index.ts",
+    "./messages": "./src/messages.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./team": "./src/components/Team/index.ts",
+    "./types": "./src/types.ts",
+    "./user": "./src/components/User/index.ts",
+    "./mocks": "./src/mocks/index.ts",
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
     "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
@@ -67,7 +77,7 @@
     "@atlaskit/popup": "^1.13.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.6.0",
-    "@atlaskit/tokens": "^1.41.0",
+    "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

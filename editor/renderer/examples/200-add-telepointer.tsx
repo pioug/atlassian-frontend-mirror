@@ -26,7 +26,7 @@ export default function AddTelepointerExample() {
         Step title: <span>{stepTitle}</span>
         <br />
         <Renderer
-          data-testId="stepTitle"
+          data-testid="stepTitle"
           appearance="full-width"
           // @ts-ignore
           document={stepDoc}

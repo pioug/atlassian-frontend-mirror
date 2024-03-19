@@ -38,6 +38,11 @@
     "./glyph": "./glyph",
     ".": "./src/index.ts"
   },
+  "exports": {
+    "./metadata": "./src/entry-points/metadata.ts",
+    "./glyph/*": "./glyph/*",
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },

@@ -7,9 +7,10 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { Frame } from '../components/Frame';
-import { gs } from '../../common/utils';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
+
+import { gs } from '../../common/utils';
 
 export interface ResolvingProps {
   isSelected?: boolean;
@@ -46,6 +47,7 @@ export const ResolvingView = ({
       css={{
         fontSize: `${fontSize()}px`,
         color: token('color.text.subtlest', N90),
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginLeft: gs(0.5),
       }}
     >

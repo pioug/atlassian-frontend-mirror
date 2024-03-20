@@ -65,13 +65,18 @@ export interface SmartCardProps extends CardProps {
 }
 
 export function Card(
-  SmartCardComponent: React.ComponentType<SmartCardProps>,
-  UnsupportedComponent: React.ComponentType,
-): React.ComponentType<CardProps> {
+  SmartCardComponent: React.ComponentType<
+    React.PropsWithChildren<SmartCardProps>
+  >,
+  UnsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>,
+): React.ComponentType<React.PropsWithChildren<CardProps>> {
   return class extends React.Component<CardProps> {
     static contextTypes = {
       contextAdapter: PropTypes.object,
     };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    context: any;
 
     state = {
       isError: false,

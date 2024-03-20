@@ -182,7 +182,7 @@ export const adfHeadingsInsideTable: DocNode = {
                       text: 'Multiline heading that wraps',
                       marks: [
                         {
-                          type: 'strong',
+                          type: 'strong' as const,
                         },
                       ],
                     },

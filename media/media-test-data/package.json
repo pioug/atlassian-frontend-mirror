@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-test-data",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Sample data to be used in Media tests",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -53,7 +53,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

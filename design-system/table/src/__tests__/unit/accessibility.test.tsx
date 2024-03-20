@@ -85,8 +85,12 @@ it('Sortable columns have programmatically defined sorting states', async () => 
   const { getByTestId } = render(
     <Table>
       <THead>
-        <SortableColumn name="Column 1" testId="col-1" />
-        <SortableColumn name="Column 2" testId="col-2" />
+        <SortableColumn name="Column 1" testId="col-1">
+          Column 1
+        </SortableColumn>
+        <SortableColumn name="Column 2" testId="col-2">
+          Column 2
+        </SortableColumn>
       </THead>
       <TBody>
         <Row>

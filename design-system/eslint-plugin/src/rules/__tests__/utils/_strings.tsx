@@ -4,4 +4,5 @@ export const linesOnly = (
 ): string =>
   String.raw(strings, ...values)
     .replace(/[ \t]+/g, ' ')
+    .replace(/[ \\]+/g, ' ')
     .replace(/\n /g, '\n');

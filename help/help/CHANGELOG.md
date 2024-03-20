@@ -1,5 +1,23 @@
 # @atlaskit/help
 
+## 7.2.25
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 7.2.24
+
+### Patch Changes
+
+- [#82940](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82940) [`a8bf2f3b71ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8bf2f3b71ac) - Updating examples to use new Algolia indices
+
+## 7.2.23
+
+### Patch Changes
+
+- [#82926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82926) [`7babdc9cd343`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7babdc9cd343) - [ux] Added aria-pressed attributes to Was Helpful Yes/No buttons
+
 ## 7.2.22
 
 ### Patch Changes

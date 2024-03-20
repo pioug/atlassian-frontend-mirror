@@ -175,6 +175,8 @@ export const performNodeUpdate =
         actionSubjectId: newNode.type.name as ExtensionType,
         eventType: EVENT_TYPE.TRACK,
         attributes: {
+          // @ts-expect-error - Type is not assignable to parameter of type 'AnalyticsEventPayload'
+          // This error was introduced after upgrading to TypeScript 5
           inputMethod: INPUT_METHOD.CONFIG_PANEL,
           extensionType,
           extensionKey,

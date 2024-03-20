@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 13.2.3
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 13.2.2
+
+### Patch Changes
+
+- [#82543](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82543) [`0f3b2fb883d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f3b2fb883d3) - Refactor border width feature to make it work in SSR
+
 ## 13.2.1
 
 ### Patch Changes

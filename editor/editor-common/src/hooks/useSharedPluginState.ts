@@ -152,6 +152,8 @@ export function useSharedPluginState<
       pluginNames.reduce(
         (acc, pluginName) => ({
           ...acc,
+          // @ts-expect-error - Implicit conversion of a 'symbol' to a 'string' will fail at runtime. Consider wrapping this expression in 'String(...)'
+          // This error was introduced after upgrading to TypeScript 5
           [`${pluginName}State`]: injectionApi?.[pluginName],
         }),
         {} as NamedPluginDependencies<typeof injectionApi, PluginNames>,
@@ -159,6 +161,8 @@ export function useSharedPluginState<
     [injectionApi, pluginNames],
   );
 
+  // @ts-expect-error - Type '`${K}State`' is not assignable to type '`${K}State`'. Two different types with this name exist, but they are unrelated.
+  // This error was introduced after upgrading to TypeScript 5
   return useSharedPluginStateInternal(namedExternalPlugins);
 }
 

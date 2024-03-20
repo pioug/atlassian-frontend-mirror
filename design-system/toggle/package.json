@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/toggle",
-  "version": "13.0.3",
+  "version": "13.0.4",
   "description": "A toggle is used to view or switch between enabled or disabled states.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "keywords": [

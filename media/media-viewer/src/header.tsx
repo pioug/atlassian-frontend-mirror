@@ -286,10 +286,7 @@ export class Header extends React.Component<
   };
 
   private needsReset(propsA: Props, propsB: Props) {
-    return (
-      !deepEqual(propsA.identifier, propsB.identifier) ||
-      propsA.mediaClient !== propsB.mediaClient
-    );
+    return !deepEqual(propsA.identifier, propsB.identifier);
   }
 
   private release() {

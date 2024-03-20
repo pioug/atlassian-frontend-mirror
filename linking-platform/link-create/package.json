@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -76,7 +76,7 @@
     "@types/debounce-promise": "^3.1.2",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "scripts": {

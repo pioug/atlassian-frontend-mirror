@@ -222,6 +222,8 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
   }
   // extension_node parameters has no type
   if (!isDefined(spec.type)) {
+    // @ts-expect-error - property 'optional' does not exist on type 'never'
+    // This error was introduced after upgrading to TypeScript 5
     return !!spec.optional;
   }
 

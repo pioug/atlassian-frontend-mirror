@@ -13,15 +13,15 @@ import {
   ExampleDefaultContent,
 } from './utils/styled';
 
-var client = algoliasearch('8K6J5OJIQW', 'c982b4b1a6ca921131d35edb63359b8c');
-var index = client.initIndex('product_help_dev');
+const client = algoliasearch('8K6J5OJIQW', '55176fdca77978d05c6da060d8724fe7');
+const index = client.initIndex('product_help_dev_copsi');
 
 const Example = () => {
   const [navigationData, setNavigationData] = useState<{
     articleId: articleId;
     history: HistoryItem[];
   }>({
-    articleId: { id: 'zqjkEZh4DPqRCpUSeg8a5', type: ARTICLE_TYPE.HELP_ARTICLE },
+    articleId: { id: 'zl7jDsTshqNFSXgY8302f', type: ARTICLE_TYPE.HELP_ARTICLE },
     history: [],
   });
 

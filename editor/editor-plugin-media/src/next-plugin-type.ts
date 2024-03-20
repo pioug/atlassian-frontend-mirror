@@ -7,6 +7,7 @@ import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -25,6 +26,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
     dependencies: [
       OptionalPlugin<AnalyticsPlugin>,
       OptionalPlugin<ContextIdentifierPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
       GuidelinePlugin,
       GridPlugin,
       WidthPlugin,

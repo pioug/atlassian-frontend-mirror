@@ -105,6 +105,7 @@ export const CompactFrame = ({
         height: inheritDimensions ? '100%' : gs(5),
         backgroundColor: token('color.background.neutral', N20A),
         width: ['calc(100% - 16px)', '100%'],
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         padding: [`0px ${gs(1)}`, '0'],
       })}
       data-testid={testId}

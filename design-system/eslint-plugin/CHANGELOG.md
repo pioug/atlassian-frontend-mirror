@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.38.0
+
+### Minor Changes
+
+- [#74844](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/74844) [`7c7b8a771792`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c7b8a771792) - Created `use-tokens-space` lint rule to replace `ensure-design-token-usage` rule for space values.
+
+## 8.37.3
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
 ## 8.37.2
 
 ### Patch Changes

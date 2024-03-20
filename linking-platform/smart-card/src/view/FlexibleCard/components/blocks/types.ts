@@ -97,6 +97,11 @@ export type BaseActionItem = {
   hideIcon?: boolean;
 
   /**
+   * Determines where the icon should be rendered if text is provided.
+   */
+  iconPosition?: 'before' | 'after';
+
+  /**
    * Determines the text and icon representation of the action, with exception
    * to CustomAction.
    */
@@ -106,6 +111,11 @@ export type BaseActionItem = {
    * Determines the onClick behaviour of the action.
    */
   onClick: () => any;
+
+  /**
+   * Determines the text content of the Action.
+   */
+  content?: React.ReactNode;
 
   /**
    * Additional CSS properties on the Action.

@@ -19,6 +19,7 @@ export const Byline = ({ text, children, testId, className }: BylineProps) => (
       lineHeight: gs(2.5),
       color: `${token('color.text.subtlest', N300)}`,
       fontWeight: 'normal',
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       marginTop: gs(0.5),
       // Spec: only allow two lines MAX to be shown.
       display: '-webkit-box',

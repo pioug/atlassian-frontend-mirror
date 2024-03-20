@@ -10,9 +10,12 @@ import { IFrame } from '../../src/view/EmbedCard/components/IFrame';
 import HoverCardControl from '../../src/view/FlexibleCard/components/container/hover-card-control';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 
-const styles = css`
-  padding: 10px;
-`;
+const styles = css({
+  // We are keeping this padding as a hardcoded variable as it is not a standard token size and needs
+  // to be thoroughly checked with a designer so that we do not miss an unintended visual change
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  padding: '10px',
+});
 
 const mockGetEmbedCardImage = injectable(
   getUnresolvedEmbedCardImage,

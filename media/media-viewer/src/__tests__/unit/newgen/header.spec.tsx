@@ -163,31 +163,6 @@ describe('<Header />', () => {
     expect(el.find(Header).state().item.status).toEqual('PENDING');
   });
 
-  it('component resets initial state when new mediaClient is passed', () => {
-    const mediaClient = fakeMediaClient();
-    asMock(mediaClient.file.getFileState).mockReturnValue(
-      createMediaSubscribable(processedImageState),
-    );
-    const el = mountWithIntlWrapper(
-      <Header
-        intl={fakeIntl}
-        mediaClient={mediaClient}
-        identifier={identifier}
-      />,
-    );
-    expect(el.find(Header).state().item.status).toEqual('SUCCESSFUL');
-
-    // since the test is executed synchronously
-    // let's prevent the second call to getFile from immediately resolving and
-    // updating the state to SUCCESSFUL before we run the assertion.
-    const newMediaClient = fakeMediaClient();
-    asMock(newMediaClient.file.getFileState).mockReturnValue(
-      createMediaSubscribable(),
-    );
-    el.setProps({ mediaClient: newMediaClient });
-    expect(el.find(Header).state().item.status).toEqual('PENDING');
-  });
-
   describe('Metadata', () => {
     it('should work with external image identifier', () => {
       const element = mountWithIntlContext(

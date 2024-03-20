@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 193.5.3
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 193.5.0
+
+### Minor Changes
+
+- [#81734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81734) [`1148ef3d8a84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1148ef3d8a84) - [ux] lozenge trash interaction, hover overlay removal, and fix label text truncation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.4.0
 
 ### Minor Changes

@@ -121,6 +121,8 @@ export function Popper<CustomModifiers>({
 
   return (
     <ReactPopper
+      // @ts-expect-error - No overload matches this call
+      // This error was introduced after upgrading to TypeScript 5
       modifiers={mergedModifiers}
       placement={placement}
       strategy={strategy}

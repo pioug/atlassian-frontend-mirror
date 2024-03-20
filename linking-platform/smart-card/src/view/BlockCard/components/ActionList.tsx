@@ -25,13 +25,20 @@ export const ActionList = ({ items }: ActionListProps) => {
   const actionsToList = items.slice(2, items.length);
 
   return (
-    <div css={mq({ display: 'flex', marginTop: [gs(2), 0] })}>
+    <div
+      css={mq({
+        display: 'flex',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+        marginTop: [gs(2), 0],
+      })}
+    >
       <ButtonGroup>
         {actionsToShow.map((action) => (
           <Action key={action.id} {...action} />
         ))}
       </ButtonGroup>
       {actionsToList.length ? (
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         <div css={{ marginLeft: gs(0.5) }}>
           <DropdownMenu
             trigger={({ triggerRef, ...props }) => (

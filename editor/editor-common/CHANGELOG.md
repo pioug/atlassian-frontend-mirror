@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 78.18.0
+
+### Minor Changes
+
+- [#71857](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/71857) [`bd0fdd102253`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd0fdd102253) - Added correct role for Browse tablist, added aria-selected toggle, added functionality for aria-controls, added tabpanel and functionality for that
+
+## 78.17.2
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- Updated dependencies
+
+## 78.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.17.0
+
+### Minor Changes
+
+- [#81734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81734) [`1148ef3d8a84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1148ef3d8a84) - [ux] lozenge trash interaction, hover overlay removal, and fix label text truncation
+
 ## 78.16.0
 
 ### Minor Changes

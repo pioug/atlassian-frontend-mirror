@@ -21,6 +21,9 @@ export class CardContextProvider extends React.Component<
     contextAdapter: PropTypes.object,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
+
   render() {
     const cardContext = this.context.contextAdapter
       ? this.context.contextAdapter.card?.value

@@ -56,6 +56,9 @@ export class LinkToolbarAppearance extends React.Component<
     contextAdapter: PropTypes.object,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
+
   renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
     const {
       url,

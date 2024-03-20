@@ -26,19 +26,19 @@ export interface KitchenSinkRendererProps {
   rendererAnnotationProviders: RendererAnnotationProviders;
 }
 
-const wrapperStyle = css({
+const wrapperStyles = css({
   "[data-mark-type='annotation']": {
     backgroundColor: token('color.background.accent.yellow.subtler', Y75),
     borderBottom: `2px solid ${token('color.border.accent.yellow', Y200)}`,
   },
 });
 
-export const KitchenSinkRenderer: React.FunctionComponent<KitchenSinkRendererProps> =
-  React.memo((props) => {
+export const KitchenSinkRenderer = React.memo(
+  (props: KitchenSinkRendererProps) => {
     const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
 
     return (
-      <div css={[rendererPadding(props.isFullPage), wrapperStyle]}>
+      <div css={[rendererPadding(props.isFullPage), wrapperStyles]}>
         <SmartCardProvider client={smartCardClient}>
           <ReactRenderer
             annotationProvider={props.rendererAnnotationProviders}
@@ -69,4 +69,5 @@ export const KitchenSinkRenderer: React.FunctionComponent<KitchenSinkRendererPro
         </SmartCardProvider>
       </div>
     );
-  });
+  },
+);

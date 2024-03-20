@@ -1,3 +1,1 @@
-import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
-
-export type WidthPluginState = EditorContainerWidth;
+export type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';

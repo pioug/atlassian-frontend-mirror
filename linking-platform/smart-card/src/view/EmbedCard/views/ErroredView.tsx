@@ -39,7 +39,9 @@ export const EmbedCardErroredView = ({
     <span
       css={{
         fontSize: `${fontSize()}px`,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginLeft: gs(0.5),
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginRight: gs(0.5),
         display: '-webkit-box',
         overflow: 'hidden',

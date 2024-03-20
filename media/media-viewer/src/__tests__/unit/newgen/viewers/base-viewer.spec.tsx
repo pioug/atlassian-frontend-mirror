@@ -85,13 +85,6 @@ describe('BaseViewer', () => {
     expect(initSpy).toHaveBeenCalledTimes(2);
   });
 
-  it('calls release(), then init() when mediaClient was updated', () => {
-    const { el, initSpy, releaseSpy } = createTestViewer(createProps());
-    el.setProps({ mediaClient: fakeMediaClient() });
-    expect(releaseSpy).toHaveBeenCalledTimes(1);
-    expect(initSpy).toHaveBeenCalledTimes(2);
-  });
-
   it('calls release(), then init() when collectionName was updated', () => {
     const { el, initSpy, releaseSpy } = createTestViewer(createProps());
     el.setProps({ collectionName: 'another-collection-name' });
@@ -106,8 +99,8 @@ describe('BaseViewer', () => {
 
   it('resets the component to the initialState when properties were updated', () => {
     const { el, TestViewer } = createTestViewer(createProps());
-    el.find(TestViewer).setState({ content: Outcome.successful('test') });
-    el.setProps({ mediaClient: fakeMediaClient() });
+    const newItem = { ...createItem(), id: 'new-id' };
+    el.setProps({ item: newItem });
     expect(el.find(TestViewer).state()).toMatchObject(createInitialState());
   });
 

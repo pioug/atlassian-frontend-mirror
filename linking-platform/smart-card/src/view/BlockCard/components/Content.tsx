@@ -19,6 +19,7 @@ export const blockCardContentClassName = 'block-card-content';
 export const Content = ({ children, isCompact = false }: ContentProps) => (
   <div
     css={mq({
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       padding: isCompact ? gs(1) : gs(2),
       display: 'flex',
       flexDirection: 'column',

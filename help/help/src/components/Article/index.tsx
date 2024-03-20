@@ -48,12 +48,8 @@ export const Article = () => {
     useHelpArticleContext();
 
   const [skipArticleSlideInAnimation, setSkipArticleSlideInAnimation] =
-    useState<boolean>(
-      articleId?.id !== '' || (history ? history.length : []) > 0,
-    );
-  const [showArticle, setShowArticle] = useState<boolean>(
-    skipArticleSlideInAnimation,
-  );
+    useState(articleId?.id !== '' || (history?.length ?? 0) > 0);
+  const [showArticle, setShowArticle] = useState(skipArticleSlideInAnimation);
 
   const currentArticleValue: HistoryItem | undefined = getCurrentArticle();
   const [currentArticle, setCurrentArticle] = useState<HistoryItem | undefined>(

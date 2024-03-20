@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 48.4.2
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 48.4.1
+
+### Patch Changes
+
+- [#82120](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82120) [`01e7ee25ba0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01e7ee25ba0d) - CXP-3108 Fix flicker issue on right key press on Media Viewer
+
 ## 48.4.0
 
 ### Minor Changes

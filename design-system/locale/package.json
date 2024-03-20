@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/locale",
-  "version": "2.6.4",
+  "version": "2.6.5",
   "description": "Utility functions for handling localization",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "styled-components": "^3.2.6",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "homepage": "https://atlaskit.atlassian.com/packages/helpers/locale",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

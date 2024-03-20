@@ -20,7 +20,7 @@ import { useSharedPluginState } from '../../hooks';
 import type { EditorAppearance, EditorContainerWidth } from '../../types';
 import type { OverflowShadowProps } from '../../ui';
 import {
-  removeMargins,
+  removeMarginsAndBorder,
   sharedMultiBodiedExtensionStyles,
 } from '../../ui/MultiBodiedExtension';
 import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
@@ -163,7 +163,7 @@ const MultiBodiedExtensionWithWidth = ({
         activeChildIndex + 1
       })`]: css(
         sharedMultiBodiedExtensionStyles.extensionFrameContent,
-        showMacroInteractionDesignUpdates && removeMargins,
+        showMacroInteractionDesignUpdates && removeMarginsAndBorder,
       ),
     },
   );
@@ -188,7 +188,11 @@ const MultiBodiedExtensionWithWidth = ({
     'multiBodiedExtension--wrapper',
     'extension-container',
     'block',
-    { 'remove-margin-top': showMacroInteractionDesignUpdates },
+    {
+      'remove-margin-top': showMacroInteractionDesignUpdates,
+      'with-border': showMacroInteractionDesignUpdates,
+      'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+    },
   );
 
   const containerClassNames = classnames('multiBodiedExtension--container', {
@@ -197,6 +201,7 @@ const MultiBodiedExtensionWithWidth = ({
 
   const navigationClassNames = classnames('multiBodiedExtension--navigation', {
     'remove-margins': showMacroInteractionDesignUpdates,
+    'remove-border': showMacroInteractionDesignUpdates,
   });
 
   const handleMouseEvent = (didHover: boolean) => {
@@ -221,7 +226,7 @@ const MultiBodiedExtensionWithWidth = ({
         css={mbeExtensionWrapperCSS}
         data-testid="multiBodiedExtension--wrapper"
         style={mbeWrapperStyles}
-        onMouseOver={() => handleMouseEvent(true)}
+        onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
         {getWrapperTitleContent(
@@ -289,6 +294,8 @@ const widthPluginKey = {
 } as PluginKey;
 const MultiBodiedExtensionDeprecated = (props: Props & OverflowShadowProps) => {
   return (
+    // @ts-ignore - 'WithPluginState' cannot be used as a JSX component.
+    // This error was introduced after upgrading to TypeScript 5
     <WithPluginState
       editorView={props.editorView}
       plugins={{

@@ -11,7 +11,9 @@ import type { ActionState } from './Action';
 export const spinnerStyles = {
   display: 'flex',
   position: 'absolute',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
   left: '50%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
   top: '50%',
   transform: 'translate(-50%, -50%)',
 } as const;

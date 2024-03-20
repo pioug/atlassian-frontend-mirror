@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "7.2.22",
+  "version": "7.2.25",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -86,7 +86,7 @@
     "algoliasearch": "^3.35.1",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "keywords": [
     "atlaskit",

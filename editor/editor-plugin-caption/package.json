@@ -31,9 +31,12 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.6.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"

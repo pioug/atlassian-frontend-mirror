@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-card
 
+## 1.2.4
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 1.2.3
+
+### Patch Changes
+
+- [#79684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79684) [`f8ed04300b5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f8ed04300b5c) - [ux] Updating hardcoded spacing variables in smart-card to use design tokens
+- [#82639](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82639) [`46e1301accc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46e1301accc1) - React 18 types for editor-plugin-card
+
 ## 1.2.2
 
 ### Patch Changes

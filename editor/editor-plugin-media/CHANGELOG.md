@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.11.0
+
+### Minor Changes
+
+- [#80438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80438) [`cf8860dbf719`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf8860dbf719) - [ux] Add media viewer previews to inline media and media single images when Editor is in view mode
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.10.1
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- Updated dependencies
+
 ## 1.10.0
 
 ### Minor Changes

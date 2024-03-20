@@ -106,7 +106,9 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     'block',
     shadowClassNames,
     {
-      'with-overlay': !hasBody,
+      'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
+      'with-border': showMacroInteractionDesignUpdates,
+      'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'without-frame': removeBorder,
       [widerLayoutClassName]: shouldBreakout,
     },
@@ -117,8 +119,12 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     'without-frame': removeBorder,
   });
 
-  const contentClassNames = classnames({
+  const newContentClassNames = classnames({
     'remove-padding': showMacroInteractionDesignUpdates,
+  });
+
+  const contentClassNames = classnames('extension-content', 'block', {
+    'remove-border': showMacroInteractionDesignUpdates,
   });
 
   let customContainerStyles: CSSProperties = {
@@ -167,7 +173,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
         className={classNames}
         css={wrapperStyle}
         style={customContainerStyles}
-        onMouseOver={() => handleMouseEvent(true)}
+        onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
         <div
@@ -191,11 +197,11 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
             {children}
           </div>
           {hasBody && (
-            <div css={newContentStyles} className={contentClassNames}>
+            <div css={newContentStyles} className={newContentClassNames}>
               <div
                 css={content}
                 ref={handleContentDOMRef}
-                className="extension-content block"
+                className={contentClassNames}
               />
             </div>
           )}
@@ -235,8 +241,11 @@ const widthPluginKey = {
     return (state as any)['widthPlugin$'];
   },
 } as PluginKey;
+
 const ExtensionDeprecated = (props: Props & OverflowShadowProps) => {
   return (
+    // @ts-ignore - 'WithPluginState' cannot be used as a JSX component.
+    // This error was introduced after upgrading to TypeScript 5
     <WithPluginState
       editorView={props.view}
       plugins={{
@@ -248,6 +257,7 @@ const ExtensionDeprecated = (props: Props & OverflowShadowProps) => {
     />
   );
 };
+
 /**
  * End workaround
  */

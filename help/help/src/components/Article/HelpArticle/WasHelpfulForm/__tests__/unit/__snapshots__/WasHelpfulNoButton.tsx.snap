@@ -98,6 +98,7 @@ exports[`ArticleContent Match snapshot 1`] = `
 }
 
 <button
+  aria-pressed="false"
   class="emotion-1"
   tabindex="0"
   type="button"

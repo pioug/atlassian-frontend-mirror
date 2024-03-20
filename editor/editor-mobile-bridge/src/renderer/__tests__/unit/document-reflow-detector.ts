@@ -23,12 +23,17 @@ describe('DocumentReflowDetector', () => {
     (window.MutationObserver as any) = () => {};
     mutationObserverSpy = jest
       .spyOn(window, 'MutationObserver')
+      // @ts-ignore - can error with "Property 'mockImplementation' does not exist on type 'never'" depending on confluence or platform
+      // This error was introduced after upgrading to TypeScript 5
       .mockImplementation(() => {
         return mutationObserverMock;
       });
+
     (window.ResizeObserver as any) = () => {};
     resizeObserverSpy = jest
       .spyOn(window, 'ResizeObserver')
+      // @ts-ignore - can error with "Property 'mockImplementation' does not exist on type 'never'" depending on confluence or platform
+      // This error was introduced after upgrading to TypeScript 5
       .mockImplementation(() => {
         return resizeObserverMock;
       });

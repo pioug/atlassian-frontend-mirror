@@ -74,12 +74,12 @@ export class WhereVisitor extends JastBuildingVisitor<Clause | void> {
     const subClauseContext = ctx.jqlSubClause();
     const terminalClauseContext = ctx.jqlTerminalClause();
 
-    let clause: Clause | void;
+    let clause: Clause | undefined;
 
     if (notClauseContext !== undefined) {
-      clause = notClauseContext.accept(this);
+      clause = notClauseContext.accept(this) || undefined;
     } else if (subClauseContext !== undefined) {
-      clause = subClauseContext.accept(this);
+      clause = subClauseContext.accept(this) || undefined;
     } else if (terminalClauseContext !== undefined) {
       clause = terminalClauseContext.accept(this.terminalClauseVisitor);
     }

@@ -37,39 +37,38 @@ export interface KitchenSinkEditorProps {
   editorAnnotationProviders: EditorAnnotationProviders;
 }
 
-export const KitchenSinkEditor: React.FunctionComponent<KitchenSinkEditorProps> =
-  React.memo((props) => {
-    const { actions, locale, loadLocale } = props;
+export const KitchenSinkEditor = React.memo((props: KitchenSinkEditorProps) => {
+  const { actions, locale, loadLocale } = props;
 
-    const primaryToolbarComponents = React.useMemo(
-      () => (
-        <KitchenSinkToolbar
-          actions={actions}
-          locale={locale}
-          loadLocale={loadLocale}
-        />
-      ),
-      [actions, locale, loadLocale],
-    );
+  const primaryToolbarComponents = React.useMemo(
+    () => (
+      <KitchenSinkToolbar
+        actions={actions}
+        locale={locale}
+        loadLocale={loadLocale}
+      />
+    ),
+    [actions, locale, loadLocale],
+  );
 
-    return (
-      <div css={popupWrapper} className="popups-wrapper">
-        <PopUps ref={props.setPopupRef} className="popups" />
-        <ValidatingKitchenSinkEditor
-          actions={props.actions}
-          adf={props.adf}
-          disabled={props.disabled}
-          appearance={props.appearance}
-          sanitizePrivateContent={props.sanitizePrivateContent}
-          popupMountPoint={props.popupMountPoint || undefined}
-          onDocumentChanged={props.onDocumentChanged}
-          onDocumentValidated={props.onDocumentValidated}
-          extensionProviders={props.extensionProviders}
-          primaryToolbarComponents={primaryToolbarComponents}
-          featureFlags={props.featureFlags}
-          editorPlugins={props.editorPlugins}
-          editorAnnotationProviders={props.editorAnnotationProviders}
-        />
-      </div>
-    );
-  });
+  return (
+    <div css={popupWrapper} className="popups-wrapper">
+      <PopUps ref={props.setPopupRef} className="popups" />
+      <ValidatingKitchenSinkEditor
+        actions={props.actions}
+        adf={props.adf}
+        disabled={props.disabled}
+        appearance={props.appearance}
+        sanitizePrivateContent={props.sanitizePrivateContent}
+        popupMountPoint={props.popupMountPoint || undefined}
+        onDocumentChanged={props.onDocumentChanged}
+        onDocumentValidated={props.onDocumentValidated}
+        extensionProviders={props.extensionProviders}
+        primaryToolbarComponents={primaryToolbarComponents}
+        featureFlags={props.featureFlags}
+        editorPlugins={props.editorPlugins}
+        editorAnnotationProviders={props.editorAnnotationProviders}
+      />
+    </div>
+  );
+});

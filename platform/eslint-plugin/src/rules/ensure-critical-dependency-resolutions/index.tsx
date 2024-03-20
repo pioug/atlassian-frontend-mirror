@@ -6,8 +6,9 @@ import { getObjectPropertyAsObject } from '../util/handle-ast-object';
 
 // Here we only need to specify the major and minor versions
 // In matchMinorVersion, we will check if the versions in resolutions fall in the right ranges.
+//
 const DESIRED_PKG_VERSIONS: Record<string, string[]> = {
-  typescript: ['4.9'],
+  typescript: ['5.4'],
   '@types/react': ['16.14', '18.2'],
 };
 

@@ -10,20 +10,21 @@ import { token } from '@atlaskit/tokens';
 import { exampleTokens } from './flexible-ui';
 import { overrideEmbedContent } from './common';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const horizontalWrapperStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 5px;
-`;
+const horizontalWrapperStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: token('space.050', '4px'),
+  padding: token('space.050', '4px'),
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const getTestWrapperStyles = (height?: number) => css`
-  padding: 30px;
-  background-color: ${exampleTokens.backgroundColor};
-  ${height ? `height: ${height}px` : ''}
-`;
+const getTestWrapperStyles = (height?: number) =>
+  css(
+    {
+      padding: token('space.400', '32px'),
+      backgroundColor: exampleTokens.backgroundColor,
+    },
+    height ? `height: ${height}px` : '',
+  );
 
 export type VRTestWrapperOptions = {
   title: string;
@@ -36,17 +37,14 @@ Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
 export const global = (
   <Global
-    styles={css`
-      // For VR testing purposes we are overriding the animation timing
-      // for both the fade-in and the rotating animations. This will
-      // freeze animation avoiding potential for VR test flakiness.
-      * {
-        animation-timing-function: step-end !important;
-        animation-duration: 0s !important;
-        transition-timing-function: step-end !important;
-        transition-duration: 0s !important;
-      }
-    `}
+    styles={css({
+      '*': {
+        animationTimingFunction: 'step-end !important',
+        animationDuration: '0s !important',
+        transitionTimingFunction: 'step-end !important',
+        transitionDuration: '0s !important',
+      },
+    })}
   />
 );
 
@@ -68,11 +66,10 @@ export const VRTestWrapper = ({
         </SectionMessage>
 
         <h6
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          css={css`
-            margin-top: 28px;
-            margin-bottom: ${token('space.100', '8px')};
-          `}
+          css={css({
+            marginTop: token('space.300', '24px'),
+            marginBottom: token('space.100', '8px'),
+          })}
         >
           {title}
         </h6>

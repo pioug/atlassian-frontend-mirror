@@ -116,7 +116,6 @@ export abstract class BaseViewer<
   protected needsReset(propsA: Props, propsB: Props) {
     return (
       !deepEqual(propsA.item, propsB.item) ||
-      propsA.mediaClient !== propsB.mediaClient ||
       propsA.collectionName !== propsB.collectionName
     );
   }

@@ -6,7 +6,6 @@ import { AIThemeBorderPalette } from './types';
  * with modifications.
  */
 
-export const GLOW_SIZE = 8;
 export const INNER_BORDER_RADIUS = 8;
 export const OUTER_BORDER_RADIUS = 10;
 

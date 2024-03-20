@@ -1,7 +1,54 @@
+/* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
 import { isNodeOfType, Property, SpreadElement } from 'eslint-codemod-utils';
 
-const ObjectEntry = {
+export const ObjectEntry = {
+  getProperty(
+    node: Property,
+  ):
+    | { type: 'Identifier'; value: string }
+    | { type: 'Literal'; value: string }
+    | { type: undefined; value: undefined } {
+    if (isNodeOfType(node.key, 'Identifier')) {
+      return {
+        type: 'Identifier',
+        value: node.key.name,
+      };
+    }
+
+    if (isNodeOfType(node.key, 'Literal') && node.key.value) {
+      return {
+        type: 'Literal',
+        value: node.key.value.toString(),
+      };
+    }
+
+    return { type: undefined, value: undefined };
+  },
+
+  getValue(
+    node: Property,
+  ): string | number | bigint | true | RegExp | undefined {
+    // The value is a number, like `-3`
+    if (
+      isNodeOfType(node.value, 'UnaryExpression') &&
+      isNodeOfType(node.value.argument, 'Literal') &&
+      node.value.argument.raw
+    ) {
+      if (node.value.operator === '-') {
+        return -1 * Number.parseInt(node.value.argument.raw);
+      }
+      return Number.parseInt(node.value.argument.raw);
+    }
+
+    // The value is a string, like `'4px'`
+    if (isNodeOfType(node.value, 'Literal') && node.value.value) {
+      return node.value.value;
+    }
+
+    return undefined;
+  },
+
   deleteEntry(
     node: Property | SpreadElement,
     context: Rule.RuleContext,
@@ -39,5 +86,3 @@ const ObjectEntry = {
     }
   },
 };
-
-export { ObjectEntry };

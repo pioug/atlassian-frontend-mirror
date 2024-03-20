@@ -67,7 +67,7 @@ const InlineExtension = (props: Props) => {
       <div
         css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
         className={`extension-container inline ${className}`}
-        onMouseOver={() => handleMouseEvent(true)}
+        onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
         <div css={overlay} className="extension-overlay" />

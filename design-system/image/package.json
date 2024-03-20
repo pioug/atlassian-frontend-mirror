@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/image",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "An image that changes in light or dark themes.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

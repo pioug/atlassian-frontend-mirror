@@ -12,22 +12,21 @@ import {
   AssignedToGroup,
 } from '../../src/view/FlexibleCard/components/elements';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const containerStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 5px;
-`;
-const overrideCss = css`
-  li {
-    span,
-    svg {
-      background-color: ${exampleTokens.overrideColor};
-    }
-  }
-`;
+const containerStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: token('space.050', '4px'),
+  padding: token('space.050', '4px'),
+});
+const overrideCss = css({
+  li: {
+    'span, svg': {
+      backgroundColor: exampleTokens.overrideColor,
+    },
+  },
+});
 const authorGroup = [
   { name: 'Bob' },
   { name: 'Charlie' },

@@ -9,10 +9,11 @@ import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/flexible/Fl
 
 import { AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+import { token } from '@atlaskit/tokens';
 
-const Container = styled.div`
-  width: 80%;
-`;
+const Container = styled.div({
+  width: '80%',
+});
 
 export default () => {
   const mockAnalytics = {} as AnalyticsFacade;
@@ -20,7 +21,7 @@ export default () => {
     <VRTestWrapper>
       <SmartCardProvider>
         <Container>
-          <div style={{ padding: '30px' }}>
+          <div style={{ padding: token('space.400', '32px') }}>
             <h5>Errored view</h5>
             <FlexibleErroredView
               cardState={getCardState({

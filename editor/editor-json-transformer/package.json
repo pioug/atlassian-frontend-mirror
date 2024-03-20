@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-json-transformer",
-  "version": "8.10.27",
+  "version": "8.10.28",
   "description": "JSON transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,6 +40,12 @@
     "./sanitize": "./src/sanitize.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./markOverrideRules": "./src/markOverrideRules.ts",
+    "./sanitize": "./src/sanitize.ts",
+    "./types": "./src/types.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.6.0",
     "@atlaskit/adf-utils": "^19.0.0",
@@ -50,7 +56,7 @@
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "techstack": {
     "@atlassian/frontend": {

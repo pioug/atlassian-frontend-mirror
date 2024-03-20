@@ -139,6 +139,8 @@ export const insertMacroFromMacroBrowser =
           actionSubjectId: macroNode.type.name as ExtensionType,
           eventType: EVENT_TYPE.TRACK,
           attributes: {
+            // @ts-expect-error - Type is not assignable to parameter of type 'AnalyticsEventPayload'
+            // This error was introduced after upgrading to TypeScript 5
             inputMethod: isEditing
               ? INPUT_METHOD.MACRO_BROWSER
               : INPUT_METHOD.TOOLBAR,

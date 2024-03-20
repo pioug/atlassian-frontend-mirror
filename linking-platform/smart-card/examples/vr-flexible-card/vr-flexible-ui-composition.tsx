@@ -33,32 +33,32 @@ import {
 } from '../content/example-responses';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const listStyles = css`
-  list-style: none;
-  margin-top: 0;
-  max-width: 300px;
-  padding-left: 0;
-  li {
-    padding: ${token('space.050', '4px')} 10px ${token('space.050', '4px')}
-      ${token('space.100', '8px')};
-    &:hover {
-      background-color: ${exampleTokens.backgroundColor};
-      border-radius: 3px;
-    }
-  }
-`;
+const listStyles = css({
+  listStyle: 'none',
+  marginTop: 0,
+  maxWidth: '300px',
+  paddingLeft: 0,
+  li: {
+    padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
+      'space.050',
+      '4px',
+    )} ${token('space.100', '8px')}`,
+    '&:hover': {
+      backgroundColor: exampleTokens.backgroundColor,
+      borderRadius: token('border.radius', '4px'),
+    },
+  },
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const previewStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  > div {
-    max-width: 350px;
-    min-width: 350px;
-  }
-`;
+const previewStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: token('space.100', '8px'),
+  '> div': {
+    maxWidth: '350px',
+    minWidth: '350px',
+  },
+});
 
 const examples = {
   'https://simple-list/01': response1,

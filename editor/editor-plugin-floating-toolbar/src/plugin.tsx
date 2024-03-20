@@ -142,6 +142,8 @@ const getDomRefFromSelection = (
           position: view.state.selection.from,
           docSize: view.state.doc.nodeSize,
           error: error.toString(),
+          // @ts-expect-error - Object literal may only specify known properties, 'errorStack' does not exist in type
+          // This error was introduced after upgrading to TypeScript 5
           errorStack: error.stack || undefined,
         },
       };

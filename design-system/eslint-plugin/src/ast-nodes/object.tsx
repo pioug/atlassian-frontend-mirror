@@ -155,6 +155,21 @@ const ASTObjectExpression = {
       }).toString()}, `,
     );
   },
+
+  recurse(node: ObjectExpression, callback: Function) {
+    node.properties.forEach((entry: Property | SpreadElement) => {
+      // Call the callback first, in case the user wants to do something with SpreadElements
+      callback(entry);
+
+      if (!isNodeOfType(entry, 'Property')) {
+        return;
+      }
+
+      if (isNodeOfType(entry.value, 'ObjectExpression')) {
+        ASTObjectExpression.recurse(entry.value, callback);
+      }
+    });
+  },
 };
 
 export { ASTObjectExpression as Object };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-extension-dropbox",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "description": "A an atlassian editor extension to add a native dropbox picker",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,6 +31,15 @@
     "./modal": "./src/modal.tsx",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./constants": "./src/constants.ts",
+    "./dropboxscript": "./src/dropboxscript.ts",
+    "./enable-dropbox": "./src/enable-dropbox.tsx",
+    "./manifest": "./src/manifest.tsx",
+    "./modal": "./src/modal.tsx",
+    "./types": "./src/types.ts"
+  },
   "atlassian": {
     "team": "Editor: Scarlet",
     "inPublicMirror": true,
@@ -43,7 +52,7 @@
   "dependencies": {
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/button": "^17.7.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/tokens": "^1.42.0",
@@ -58,7 +67,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {

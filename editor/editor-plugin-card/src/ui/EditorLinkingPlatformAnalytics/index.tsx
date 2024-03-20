@@ -14,6 +14,9 @@ export class EditorLinkingPlatformAnalytics extends React.PureComponent<Analytic
     contextAdapter: PropTypes.object,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
+
   render() {
     const cardContext = this.context?.contextAdapter?.card;
 

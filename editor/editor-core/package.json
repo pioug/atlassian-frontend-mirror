@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.4.0",
+  "version": "193.5.3",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.7.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^1.8.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -87,9 +87,9 @@
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
     "@atlaskit/checkbox": "^13.1.0",
-    "@atlaskit/collab-provider": "9.25.11",
+    "@atlaskit/collab-provider": "9.25.12",
     "@atlaskit/dropdown-menu": "^12.8.0",
-    "@atlaskit/editor-plugin-annotation": "1.4.0",
+    "@atlaskit/editor-plugin-annotation": "1.4.1",
     "@atlaskit/editor-plugin-card": "^1.2.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.5",
@@ -114,7 +114,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.38",
+    "@atlassian/search-provider": "2.4.40",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -136,7 +136,7 @@
     "react": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
     "rison": "^0.1.1",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "url-search-params": "^0.10.0",
     "worker-plugin": "^4.0.2"
   },
@@ -284,5 +284,20 @@
     "./test-utils": "./src/test-utils.ts",
     "./use-preset": "./src/use-preset.ts",
     "./version-wrapper": "./src/version-wrapper.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./composable-editor": "./src/composable-editor.ts",
+    "./editor-context": "./src/editor-context.ts",
+    "./editor": "./src/editor.tsx",
+    "./element-browser": "./src/element-browser.ts",
+    "./labs-next": "./src/labs-next.ts",
+    "./messages": "./src/messages.ts",
+    "./preset-default": "./src/preset-default.ts",
+    "./preset-universal": "./src/preset-universal.ts",
+    "./test-utils": "./src/test-utils.ts",
+    "./use-preset": "./src/use-preset.ts",
+    "./version-wrapper": "./src/version-wrapper.ts",
+    "./package.json": "./package.json"
   }
 }

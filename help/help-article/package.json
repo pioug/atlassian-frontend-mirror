@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-article",
-  "version": "4.1.11",
+  "version": "4.1.12",
   "description": "A cross-product help-article component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
     "react-test-renderer": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "keywords": [
     "atlaskit",

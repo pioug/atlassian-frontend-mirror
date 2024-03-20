@@ -2,17 +2,14 @@
 import type { CSSProperties } from 'react';
 
 import { jsx } from '@emotion/react';
-import classnames from 'classnames';
 
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
-import { SimpleTag as Tag } from '@atlaskit/tag';
 
-import type { LozengeData } from './Lozenge';
-import {
-  lozengeWrapper,
-  placeholderFallback,
-  placeholderFallbackParams,
-} from './styles';
+import { placeholderFallback, placeholderFallbackParams } from '../styles';
+
+import { ExtensionLabel } from './ExtensionLabel';
+
+import type { LozengeData } from './index';
 
 export const ICON_SIZE = 24;
 const capitalizeFirstLetter = (str: string): string => {
@@ -44,21 +41,13 @@ export const LozengeComponent = ({
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
   if (showMacroInteractionDesignUpdates && (isNodeHovered || isNodeSelected)) {
-    const lozengeClassNames = classnames('extension-title', {
-      'inline-extension': extensionName === 'inlineExtension',
-    });
     return (
-      <div
-        className={lozengeClassNames}
-        css={lozengeWrapper}
-        data-testid="new-lozenge"
-        style={customContainerStyles}
-      >
-        <Tag
-          text={capitalizedTitle}
-          color={isNodeSelected ? 'blueLight' : 'greyLight'}
-        />
-      </div>
+      <ExtensionLabel
+        text={capitalizedTitle}
+        extensionName={extensionName}
+        isNodeSelected={isNodeSelected}
+        customContainerStyles={customContainerStyles}
+      />
     );
   } else if (!showMacroInteractionDesignUpdates) {
     const isBlockExtension = extensionName === 'extension';

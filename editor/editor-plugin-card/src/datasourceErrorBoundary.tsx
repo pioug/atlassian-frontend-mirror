@@ -11,7 +11,7 @@ import { setSelectedCardAppearance } from './pm-plugins/doc';
 
 export type DatasourceErrorBoundaryProps = React.PropsWithChildren<{
   url?: string;
-  unsupportedComponent?: React.ComponentType;
+  unsupportedComponent?: React.ComponentType<React.PropsWithChildren<unknown>>;
   handleError?: () => void;
   view: DatasourceProps['view'];
   // Only used in Sentry tagging

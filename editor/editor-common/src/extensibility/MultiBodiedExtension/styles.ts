@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { N0, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { wrapperDefault } from '../Extension/styles';
@@ -20,5 +21,11 @@ export const mbeExtensionWrapperCSS = css(wrapperDefault, {
     marginLeft: `${token('space.050', '4px')} !important`,
     marginRight: token('space.100', '8px'),
     paddingTop: `${token('space.100', '8px')} !important`,
+  },
+  '&.with-border': {
+    border: `1px solid ${token('color.border.inverse', N0)}`, // adding this so macro doesn't jump when hover border is shown
+  },
+  '&.with-hover-border': {
+    border: `1px solid ${token('color.border', N30)}`,
   },
 });

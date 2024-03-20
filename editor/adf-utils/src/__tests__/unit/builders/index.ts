@@ -90,6 +90,8 @@ describe('Builders', () => {
       ),
     () =>
       doc(
+        // @ts-expect-error - Type 'TextDefinition' is missing the following properties from type 'MultiBodiedExtensionDefinition': attrs, content
+        // This error was introduced after upgrading to TypeScript 5
         a({ href: 'https://www.atlassian.com' })(
           mediaSingle({
             layout: 'center',

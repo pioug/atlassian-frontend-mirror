@@ -8,14 +8,14 @@ import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
 import { exampleTokens, getContext } from '../utils/flexible-ui';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const containerStyles = css`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  padding: 5px;
-`;
+const containerStyles = css({
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: token('space.050', '4px'),
+  padding: token('space.050', '4px'),
+});
 
 const context = getContext();
 let onClick = () => {
@@ -155,34 +155,34 @@ export default () => (
           appearance="default"
           content="Bold"
           onClick={onClick}
-          overrideCss={css`
-            span {
-              font-weight: bold;
-            }
-          `}
+          overrideCss={css({
+            span: {
+              fontWeight: 'bold',
+            },
+          })}
         />
         <DeleteAction
           appearance="default"
           content="Italic"
           onClick={onClick}
-          overrideCss={css`
-            span {
-              font-style: italic;
-            }
-          `}
+          overrideCss={css({
+            span: {
+              fontStyle: 'italic',
+            },
+          })}
         />
         <DeleteAction
           appearance="default"
           content="Color"
           onClick={onClick}
-          overrideCss={css`
-            button {
-              background-color: ${exampleTokens.iconBackgroundColor};
-            }
-            span {
-              color: ${exampleTokens.iconColor};
-            }
-          `}
+          overrideCss={css({
+            button: {
+              backgroundColor: exampleTokens.iconBackgroundColor,
+            },
+            span: {
+              color: exampleTokens.iconColor,
+            },
+          })}
         />
       </div>
     </FlexibleUiContext.Provider>

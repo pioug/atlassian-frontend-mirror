@@ -23,7 +23,6 @@ import {
   DEVICE_BREAKPOINT_NUMBERS,
   GRID_SIZE,
   INLINE_SIDEBAR_HEIGHT,
-  SIDEBAR_HEADING_PADDING_LEFT,
   SIDEBAR_HEADING_WRAPPER_HEIGHT,
   SIDEBAR_WIDTH,
 } from '../constants';
@@ -52,114 +51,94 @@ export type StatelessElementBrowserProps = {
   viewMoreItem?: QuickInsertItem;
 } & WithAnalyticsEventsProps;
 
-const wrapper = css`
-  width: 100%;
-  max-height: inherit;
-  overflow: hidden;
-`;
+const wrapper = css({
+  width: '100%',
+  maxHeight: 'inherit',
+  overflow: 'hidden',
+});
 
-const baseBrowserContainerStyles = css`
-  display: flex;
-  height: 100%;
-  /** Needed for Safari to work with current css.
-  * 100% heights wont work and
-  * will default to auto if one of the containers doesn't have a specified height in pixels.
-  * Setting the min-height to fill available fits safari's needs and the above 100% height works on the rest of the browsers.
-  */
+const baseBrowserContainerStyles = css({
+  display: 'flex',
+  height: '100%',
+  minHeight: '-webkit-fill-available',
+});
 
-  /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
+const mobileElementBrowserContainer = css(baseBrowserContainerStyles, {
+  flexDirection: 'column',
+});
 
-  /* stylelint-disable-next-line */
-  min-height: -webkit-fill-available;
-`;
+const elementBrowserContainer = css(baseBrowserContainerStyles, {
+  flexDirection: 'row',
+});
 
-const mobileElementBrowserContainer = css`
-  ${baseBrowserContainerStyles};
-  flex-direction: column;
-`;
+const baseSidebarStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  overflowX: 'auto',
+  overflowY: 'hidden',
+});
 
-const elementBrowserContainer = css`
-  ${baseBrowserContainerStyles};
-  flex-direction: row;
-`;
+const mobileSideBar = css(baseSidebarStyles, {
+  flex: `0 0 ${INLINE_SIDEBAR_HEIGHT}`,
+  padding: `${token('space.150', '12px')} ${token(
+    'space.150',
+    '12px',
+  )} 0 ${token('space.150', '12px')}`,
+});
 
-const baseSidebarStyles = css`
-  display: flex;
-  flex-direction: column;
+const mobileSideBarShowCategories = css({
+  flex: '0 0 auto',
+});
+const sideBar = css(baseSidebarStyles, {
+  flex: "0 0 'auto'",
+});
 
-  overflow-x: auto;
-  overflow-y: hidden;
-`;
+const sideBarShowCategories = css(baseSidebarStyles, {
+  flex: `0 0 ${SIDEBAR_WIDTH}`,
+});
+const sidebarHeading = css({
+  flex: `0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT}`,
+  display: 'inline-flex',
+  alignItems: 'center',
+  paddingLeft: token('space.150', '12px'),
+  fontWeight: 700,
+});
 
-const mobileSideBar = css`
-  ${baseSidebarStyles};
-  flex: 0 0 ${INLINE_SIDEBAR_HEIGHT};
-  padding: ${token('space.150', '12px')} ${token('space.150', '12px')} 0
-    ${token('space.150', '12px')};
-`;
+const mobileMainContent = css({
+  flex: '1 1 auto',
+  display: 'flex',
+  flexDirection: 'column',
+  overflowY: 'auto',
+  height: '100%',
+});
 
-const mobileSideBarShowCategories = css`
-  flex: 0 0 auto;
-`;
-const sideBar = css`
-  ${baseSidebarStyles};
-  flex: 0 0 'auto';
-`;
+const mainContent = css(mobileMainContent, {
+  marginLeft: token('space.200', '16px'),
+  height: 'auto',
+});
 
-const sideBarShowCategories = css`
-  ${baseSidebarStyles};
-  flex: 0 0 ${SIDEBAR_WIDTH};
-`;
-const sidebarHeading = css`
-  flex: 0 0 ${SIDEBAR_HEADING_WRAPPER_HEIGHT};
-  display: inline-flex;
-  align-items: center;
-  padding-left: ${SIDEBAR_HEADING_PADDING_LEFT};
-  font-weight: 700;
-`;
+const searchContainer = css({
+  paddingBottom: token('space.200', '16px'),
+});
 
-const mobileMainContent = css`
-  flex: 1 1 auto;
+const mobileCategoryListWrapper = css({
+  display: 'flex',
+  overflowX: 'auto',
+  padding: `${token('space.200', '8px')} 0 ${token('space.200', '16px')} 0`,
+  minHeight: `${GRID_SIZE * 4}px`,
+  overflow: '-moz-scrollbars-none',
+  '::-webkit-scrollbar': {
+    display: 'none',
+  },
+  scrollbarWidth: 'none',
+  MsOverflowStyle: 'none',
+});
 
-  display: flex;
-  flex-direction: column;
-
-  overflow-y: auto;
-  height: 100%;
-`;
-
-const mainContent = css`
-  ${mobileMainContent}
-  margin-left: ${GRID_SIZE * 2}px;
-  // Needed for safari
-  height: auto;
-`;
-
-const searchContainer = css`
-  padding-bottom: ${GRID_SIZE * 2}px;
-`;
-
-const mobileCategoryListWrapper = css`
-  display: flex;
-  overflow-x: auto;
-
-  padding: ${GRID_SIZE}px 0 ${GRID_SIZE * 2}px 0;
-  min-height: ${GRID_SIZE * 4}px;
-
-  overflow: -moz-scrollbars-none;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-`;
-
-const categoryListWrapper = css`
-  ${mobileCategoryListWrapper}
-  padding: 0;
-  margin-top: ${GRID_SIZE * 3}px;
-  flex-direction: column;
-`;
+const categoryListWrapper = css(mobileCategoryListWrapper, {
+  padding: 0,
+  marginTop: token('space.200', '24px'),
+  flexDirection: 'column',
+});
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   const { items, onSelectItem, onInsertItem, viewMoreItem } = props;
@@ -391,14 +370,24 @@ function DesktopBrowser({
     <div css={elementBrowserContainer} data-testid="desktop__element-browser">
       {showCategories && (
         <div css={showCategories ? sideBarShowCategories : sideBar}>
-          <h2 css={sidebarHeading} data-testid="sidebar-heading">
+          <h2
+            css={sidebarHeading}
+            data-testid="sidebar-heading"
+            id="sidebar-heading"
+          >
             <FormattedMessage
               id="fabric.editor.elementbrowser.sidebar.heading"
               defaultMessage="Browse"
               description="Sidebar heading"
             />
           </h2>
-          <nav css={categoryListWrapper}>
+
+          {/*eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */}
+          <nav
+            role="tablist"
+            aria-labelledby="sidebar-heading"
+            css={categoryListWrapper}
+          >
             <CategoryList
               categories={categories}
               onSelectCategory={onSelectCategory}
@@ -410,6 +399,7 @@ function DesktopBrowser({
       )}
       <div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
         {showSearch && (
+          // eslint-disable-next-line
           <div css={searchContainer}>
             <ElementSearch
               onSearch={onSearch}

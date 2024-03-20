@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.9.6",
+  "version": "10.9.7",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "keywords": [
     "atlaskit",

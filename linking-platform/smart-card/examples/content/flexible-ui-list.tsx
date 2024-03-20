@@ -15,15 +15,14 @@ import {
 } from '../../src';
 import { response2, response3, response4 } from './example-responses';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const styles = css`
-  list-style: none;
-  margin-top: 0;
-  padding-left: 0;
-  > li {
-    padding: ${token('space.050', '4px')} 10px;
-  }
-`;
+const styles = css({
+  listStyle: 'none',
+  marginTop: token('space.0', '0px'),
+  paddingLeft: token('space.0', '0px'),
+  '> li': {
+    padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+  },
+});
 
 const examples = {
   'https://examples/01': response3,

@@ -5,18 +5,17 @@ import { md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 import { toAbsolutePath } from './index';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const styles = css`
-  code:not([class]) {
-    border-radius: 3px;
-    display: inline-block;
-    font-size: 12px;
-    margin: ${token('space.025', '2px')} 0;
-    padding: 0 0.2em;
-    background-color: ${token('color.background.neutral', '#091E420F')};
-    color: ${token('color.text', '#172B4D')};
-  }
-`;
+const styles = css({
+  'code:not([class])': {
+    borderRadius: '3px',
+    display: 'inline-block',
+    fontSize: '12px',
+    margin: `${token('space.025', '2px')} 0`,
+    padding: `0 ${token('space.050', '4px')}`,
+    backgroundColor: token('color.background.neutral', '#091E420F'),
+    color: token('color.text', '#172B4D'),
+  },
+});
 
 const customMd = md.customize({
   renderers: {

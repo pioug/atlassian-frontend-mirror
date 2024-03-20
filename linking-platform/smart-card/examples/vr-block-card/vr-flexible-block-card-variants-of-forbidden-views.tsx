@@ -8,10 +8,11 @@ import VRTestWrapper from './../utils/vr-test-wrapper';
 import { AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import { BlockCard } from '../../src/view/BlockCard';
 import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
+import { token } from '@atlaskit/tokens';
 
-const Container = styled.div`
-  width: 80%;
-`;
+const Container = styled.div({
+  width: '80%',
+});
 
 const getMetadata = (accessType?: string) => {
   return {
@@ -31,7 +32,7 @@ export const BlockCardForbiddenViews = () => {
     <VRTestWrapper>
       <SmartCardProvider>
         <Container>
-          <div style={{ padding: '30px' }}>
+          <div style={{ padding: token('space.400', '32px') }}>
             <h5>Default Forbidden view </h5>
             <BlockCard
               cardState={getCardState(commonState)}
@@ -144,7 +145,7 @@ export const BlockCardForbiddenViewsLegacy = () => {
     <VRTestWrapper>
       <SmartCardProvider>
         <Container>
-          <div style={{ padding: '30px' }}>
+          <div style={{ padding: token('space.400', '32px') }}>
             <h5>Default Forbidden view </h5>
             <BlockCard
               cardState={getCardState(commonState)}

@@ -117,12 +117,18 @@ export const SmartLinksShowcase = () => {
           client={new Client(config.environment, envUrl)}
           authFlow={config.authFlow}
         >
-          <div style={{ padding: '60px', paddingBottom: '120px' }}>
+          <div
+            style={{
+              padding: token('space.800', '64px'),
+              // we hardcode the padding bottom to account for the spacing of the floating bar on the example page
+              paddingBottom: '120px',
+            }}
+          >
             <div
               style={{
                 textAlign: 'center',
                 paddingTop: token('space.300', '24px'),
-                paddingBottom: '72px',
+                paddingBottom: token('space.1000', '80px'),
                 position: 'relative',
                 zIndex: 1,
               }}

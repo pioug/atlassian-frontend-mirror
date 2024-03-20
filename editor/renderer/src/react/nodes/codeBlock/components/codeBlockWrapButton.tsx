@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import type { Dispatch, SetStateAction } from 'react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -63,6 +64,8 @@ const CodeBlockWrapButton = ({
               isSelected={wrapLongLines}
               onClick={(event) => {
                 fireAnalyticsEvent({
+                  // @ts-expect-error - Type 'ACTION.CLICKED' is not assignable to type 'ACTION.CLICKED | ACTION.EDITOR_TTI | ACTION.RE_RENDERED | ACTION.MEDIA_LINK_TRANSFORMED | ACTION.STARTED | ACTION.TOGGLE_EXPAND | ACTION.UNSUPPORTED_CONTENT_ENCOUNTERED | ACTION.VISITED | ACTION.RENDERED | ACTION.INVALID_PROSEMIRROR_DOCUMENT | ACTION.CRASHED | ... 6 more ... | AnnotationActionType'
+                  // This error was introduced after upgrading to TypeScript 5
                   action: ACTION.CLICKED,
                   actionSubject: ACTION_SUBJECT.BUTTON,
                   actionSubjectId: ACTION_SUBJECT_ID.CODEBLOCK_WRAP,

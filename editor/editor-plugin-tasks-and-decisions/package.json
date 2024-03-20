@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-tasks-and-decisions",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Tasks and decisions plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,11 +32,14 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.6.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-context-identifier": "^1.0.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
@@ -62,7 +65,7 @@
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

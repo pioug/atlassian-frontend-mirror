@@ -11,7 +11,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "16.14.15",
-                "typescript": "4.9.5",
+                "typescript": "5.4.2",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -21,7 +21,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
                   "resolutions": {
                       "@types/react": "18.2.28",
-                      "typescript": "4.9.5",
+                      "typescript": "5.4.2",
                   }
               }`,
         filename: `${cwd}/package.json`,
@@ -31,7 +31,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "~16.14.25",
-                "typescript": "~4.9.8",
+                "typescript": "~5.4.2",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -60,7 +60,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
       {
         code: `const foo = {
                 "resolutions": {
-                    "typescript": "~4.9.8",
+                    "typescript": "~5.4.2",
                 }
             }`,
         filename: `${cwd}/package.json`,
@@ -75,7 +75,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "16.8.25",
-                "typescript": "4.5.8",
+                "typescript": "5.1.1",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -90,7 +90,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "~16.14.25",
-                "typescript": "~4.5.8",
+                "typescript": "~5.1.1",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -105,7 +105,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "~16.14.25",
-                "typescript": "^4.9.5",
+                "typescript": "^5.4.2",
             }
         }`,
         filename: `${cwd}/package.json`,
@@ -120,7 +120,7 @@ describe('test ensure-critical-dependency-resolutions rule', () => {
         code: `const foo = {
             "resolutions": {
                 "@types/react": "16.14.15",
-                "typescript": "4.5.8",
+                "typescript": "5.1.1",
             }
         }`,
         filename: `${cwd}/packages/packge/directory/package.json`,

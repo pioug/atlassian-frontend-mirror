@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/conversation",
-  "version": "16.2.20",
+  "version": "16.2.21",
   "description": "DEPRECATED Render conversation threads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -37,8 +37,8 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/comment": "^10.9.0",
-    "@atlaskit/editor-common": "^78.16.0",
-    "@atlaskit/editor-core": "^193.4.0",
+    "@atlaskit/editor-common": "^78.18.0",
+    "@atlaskit/editor-core": "^193.5.0",
     "@atlaskit/reactions": "^22.5.0",
     "@atlaskit/renderer": "^109.10.0",
     "@babel/runtime": "^7.0.0",
@@ -59,10 +59,13 @@
     "@testing-library/react": "^12.1.5",
     "@types/react-redux": "^5.0.0",
     "enzyme": "^3.10.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "exports": {
     ".": "./src/index.ts"
   }
 }

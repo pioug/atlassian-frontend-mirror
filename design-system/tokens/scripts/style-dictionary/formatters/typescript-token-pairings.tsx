@@ -330,6 +330,8 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
     // Determine if any transparent tokens are layered in between the pairing
     const layeredTokens: string[] = [];
     if (
+      // @ts-expect-error - This condition will always return true since this function is always defined. Did you mean to call it instead?
+      // This error was introduced after upgrading to TypeScript 5
       (backgroundMetadata.type === 'surface' && isInteractiveOverlay) ||
       (backgroundMetadata.type === 'background' &&
         ['default', 'subtlest'].includes(backgroundMetadata.emphasis))

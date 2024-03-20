@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/notification-log-client",
-  "version": "6.1.5",
+  "version": "6.1.6",
   "description": "Client APIs for notification-log service",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "fetch-mock": "^8.0.0",
     "react": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

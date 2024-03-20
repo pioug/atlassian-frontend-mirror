@@ -14,21 +14,24 @@ interface VRTestCaseOpts {
   children: () => JSX.Element;
 }
 
-export const embedWrapperStyles = css`
-  width: 640px;
-  margin: ${token('space.150', '12px')} auto;
-`;
+export const embedWrapperStyles = css({
+  width: '640px',
+  margin: `${token('space.150', '12px')} auto`,
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const subHeaderCSS = css`
-  margin-top: 28px;
-  margin-bottom: ${token('space.100', '8px')};
-`;
+const subHeaderCSS = css({
+  // We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
+  // to be thoroughly checked with a designer so that we do not miss an unintended visual change
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  marginTop: '28px',
+  marginBottom: token('space.100', '8px'),
+});
 
 export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
   return (
     <IntlProvider locale={'en'}>
       <Page>
+        {/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview*/}
         <div style={{ padding: '30px' }}>
           <h6 css={subHeaderCSS}>{title}</h6>
           {children()}

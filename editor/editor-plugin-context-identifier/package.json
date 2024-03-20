@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-context-identifier",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Context identifier plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,8 +32,11 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@babel/runtime": "^7.0.0"
   },
@@ -42,7 +45,7 @@
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "techstack": {
     "@atlassian/frontend": {

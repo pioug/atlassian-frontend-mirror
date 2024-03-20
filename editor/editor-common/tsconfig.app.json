@@ -140,9 +140,6 @@
       "path": "../../design-system/spinner/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/tag/tsconfig.app.json"
-    },
-    {
       "path": "../../elements/task-decision/tsconfig.app.json"
     },
     {

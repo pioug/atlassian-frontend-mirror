@@ -41,20 +41,18 @@ const rule: Rule.RuleModule = {
 
     const pkgName = packageJson.name;
 
-    // TODO: remove '|| !packageJson['exports']' once all package.json files have 'exports'
-    if (!pkgName || !packageJson['af:exports'] || !packageJson['exports']) {
+    if (!pkgName || !packageJson['af:exports']) {
       return {};
     }
 
-    // TODO: Add back in once all package.json files have 'exports'
-    // if (!packageJson['exports']) {
-    //   context.report({
-    //     node: context.getSourceCode().ast,
-    //     messageId: 'missingExportsProperty',
-    //     data: { pkgName },
-    //   });
-    //   return {};
-    // }
+    if (!packageJson['exports']) {
+      context.report({
+        node: context.getSourceCode().ast,
+        messageId: 'missingExportsProperty',
+        data: { pkgName },
+      });
+      return {};
+    }
 
     const afExports: { [key: string]: any } = packageJson['af:exports'];
     const nativeExports: { [key: string]: any } = packageJson['exports'];

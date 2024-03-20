@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-accessibility",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Optional react components to help implement accessible alternative flows for Pragmatic drag and drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -62,7 +62,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

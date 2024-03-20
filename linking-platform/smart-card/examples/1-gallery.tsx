@@ -15,14 +15,15 @@ import { Provider, Card, CardAppearance, CardContext } from '../src';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { IntlProvider } from 'react-intl-next';
 import { ufologger } from '@atlaskit/ufo';
+import { token } from '@atlaskit/tokens';
 
 ufologger.enable();
 
-const patchedCellStyles = css`
-  & > span {
-    width: 100%;
-  }
-`;
+const patchedCellStyles = css({
+  '& > span': {
+    width: '100%',
+  },
+});
 
 type EnvironmentsKeys = 'prod' | 'stg' | 'dev';
 const environments = ['prod', 'stg', 'dev'];
@@ -67,10 +68,9 @@ type ExampleState = {
   authFlow: CardContext['config']['authFlow'];
 };
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const divWithMarginStyles = css`
-  margin: 10px 0;
-`;
+const divWithMarginStyles = css({
+  margin: `${token('space.100', '8px')} 0`,
+});
 
 const ucFirst = (text: string): string =>
   text[0].toUpperCase() + text.substring(1);

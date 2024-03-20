@@ -49,6 +49,9 @@ const mbeNavigation = css({
     marginLeft: 0,
     marginRight: 0,
   },
+  '&.remove-border': {
+    border: 'none',
+  },
 });
 
 const extensionFrameContent = css({
@@ -74,9 +77,10 @@ const extensionFrameContent = css({
   },
 });
 
-export const removeMargins = css({
+export const removeMarginsAndBorder = css({
   marginLeft: 0,
   marginRight: 0,
+  border: 'none',
 });
 
 export const sharedMultiBodiedExtensionStyles = {

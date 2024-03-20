@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/teams-avatar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A team avatar is a visual representation of a team.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -58,7 +58,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

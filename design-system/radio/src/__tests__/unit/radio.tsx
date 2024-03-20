@@ -10,62 +10,64 @@ describe('Radio', () => {
     const { queryByDisplayValue, queryByLabelText } = render(
       <Radio name="name" value="value" label={content} />,
     );
-    expect(queryByDisplayValue('value')).not.toBeNull();
-    expect(queryByLabelText(content)).not.toBeNull();
+    expect(queryByDisplayValue('value')).toBeInTheDocument();
+    expect(queryByLabelText(content)).toBeInTheDocument();
   });
 
   describe('props', () => {
+    const label = 'Default radio button';
+
     it('should set disabled to be true if isDisabled is true', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isDisabled={true} />,
+        <Radio value="test" isDisabled={true} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.disabled).toBe(true);
+      expect(radio).toBeDisabled();
     });
 
     it('should set disabled to be false if isDisabled is false', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isDisabled={false} />,
+        <Radio value="test" isDisabled={false} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.disabled).toBe(false);
+      expect(radio).toBeEnabled();
     });
 
     it('should set required to be true if isRequired is true', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isRequired={true} />,
+        <Radio value="test" isRequired={true} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.required).toBe(true);
+      expect(radio).toBeRequired();
     });
 
     it('should set required to be false if isRequired is false', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isRequired={false} />,
+        <Radio value="test" isRequired={false} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.required).toBe(false);
+      expect(radio).not.toBeRequired();
     });
 
     it('should set checked to be true if isChecked is true', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isChecked={true} />,
+        <Radio value="test" isChecked={true} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.checked).toBe(true);
+      expect(radio).toBeChecked();
     });
 
     it('should set checked to be false if isChecked is false', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" isChecked={false} />,
+        <Radio value="test" isChecked={false} label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
-      expect(radio.checked).toBe(false);
+      expect(radio).not.toBeChecked();
     });
 
     it('should set name if name prop is set', () => {
       const { getByDisplayValue } = render(
-        <Radio value="test" name="name-val" />,
+        <Radio value="test" name="name-val" label={label} />,
       );
       const radio = getByDisplayValue('test') as HTMLInputElement;
       expect(radio.name).toBe('name-val');
@@ -84,7 +86,7 @@ describe('Radio', () => {
         <Radio label="test" {...{ ['data-foo']: 'radio-bar' }} />,
       );
       const radio = getByLabelText('test') as HTMLInputElement;
-      expect(radio.getAttribute('data-foo')).toBe('radio-bar');
+      expect(radio).toHaveAttribute('data-foo', 'radio-bar');
     });
 
     it('should accept input props', () => {

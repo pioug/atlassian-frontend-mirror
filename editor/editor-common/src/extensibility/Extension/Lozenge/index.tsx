@@ -6,10 +6,10 @@ import { jsx } from '@emotion/react';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
-import { getExtensionLozengeData } from '../../utils';
+import { getExtensionLozengeData } from '../../../utils';
+import { styledImage } from '../styles';
 
 import { LozengeComponent } from './LozengeComponent';
-import { styledImage } from './styles';
 
 export interface Props {
   node: PmNode;

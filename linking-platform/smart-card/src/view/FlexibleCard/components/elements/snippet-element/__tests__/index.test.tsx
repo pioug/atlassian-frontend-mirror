@@ -6,6 +6,7 @@ import { messages } from '../../../../../../messages';
 import { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import Snippet from '../index';
+import { token } from '@atlaskit/tokens';
 
 describe('Snippet', () => {
   const snippetContent = 'Smart link snippet';
@@ -103,23 +104,26 @@ describe('Snippet', () => {
       const { queryByTestId } = setup(
         { snippet: snippetContent },
         {
-          overrideCss: css`
-            margin: 100px;
-          `,
+          overrideCss: css({
+            margin: token('space.1000', '80px'),
+          }),
         },
       );
       const snippet = queryByTestId(testId);
       expect(snippet).toHaveStyleDeclaration('color', defaultColor);
-      expect(snippet).toHaveStyleDeclaration('margin', '100px');
+      expect(snippet).toHaveStyleDeclaration(
+        'margin',
+        'var(--ds-space-1000, 80px)',
+      );
     });
 
     it('renders Snippet element with override styles', () => {
       const { queryByTestId } = setup(
         { snippet: snippetContent },
         {
-          overrideCss: css`
-            color: white;
-          `,
+          overrideCss: css({
+            color: 'white',
+          }),
         },
       );
       const snippet = queryByTestId(testId);

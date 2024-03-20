@@ -67,7 +67,7 @@ describe('Renderer', () => {
             text: 'rodrigo',
             marks: [
               {
-                type: 'annotation',
+                type: 'annotation' as const,
                 attrs: {
                   id: annotationsId[0],
                   annotationType: AnnotationTypes.INLINE_COMMENT,
@@ -93,14 +93,14 @@ describe('Renderer', () => {
             text: 'bola',
             marks: [
               {
-                type: 'annotation',
+                type: 'annotation' as const,
                 attrs: {
                   id: annotationsId[1],
                   annotationType: AnnotationTypes.INLINE_COMMENT,
                 },
               },
               {
-                type: 'annotation',
+                type: 'annotation' as const,
                 attrs: {
                   id: annotationsId[2],
                   annotationType: AnnotationTypes.INLINE_COMMENT,

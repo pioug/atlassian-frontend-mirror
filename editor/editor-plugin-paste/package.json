@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-paste",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Paste plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,8 +32,11 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-markdown-transformer": "^5.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-annotation": "^1.4.0",
@@ -41,7 +44,7 @@
     "@atlaskit/editor-plugin-card": "^1.2.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.0",
-    "@atlaskit/editor-plugin-media": "^1.10.0",
+    "@atlaskit/editor-plugin-media": "^1.11.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-tables": "^2.5.0",
     "@atlaskit/media-client": "^26.2.0",
@@ -66,7 +69,7 @@
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

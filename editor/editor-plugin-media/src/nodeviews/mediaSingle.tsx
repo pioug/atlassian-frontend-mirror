@@ -52,9 +52,14 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
-import type { ForwardRef, getPosHandler, getPosHandlerNode } from '../types';
-import type { MediaOptions } from '../types';
+import type {
+  ForwardRef,
+  getPosHandler,
+  getPosHandlerNode,
+  MediaOptions,
+} from '../types';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
+import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
@@ -274,9 +279,9 @@ export default class MediaSingleNode extends Component<
     return dispatch(tr);
   };
 
-  // Workaround for iOS 16 Caption selection issue
-  // @see https://product-fabric.atlassian.net/browse/MEX-2012
   onMediaSingleClicked = (event: MouseEvent) => {
+    // Workaround for iOS 16 Caption selection issue
+    // @see https://product-fabric.atlassian.net/browse/MEX-2012
     if (!browser.ios) {
       return;
     }
@@ -301,6 +306,8 @@ export default class MediaSingleNode extends Component<
       width: containerWidth,
       lineLength,
       dispatchAnalyticsEvent,
+      editorViewMode,
+      mediaPluginState,
     } = this.props;
 
     const {
@@ -420,27 +427,41 @@ export default class MediaSingleNode extends Component<
         )}
       </figure>
     );
-    return canResize ? (
-      getBooleanFF('platform.editor.media.extended-resize-experience') ? (
-        <ResizableMediaSingleNext
-          {...resizableMediaSingleProps}
-          showLegacyNotification={widthType !== 'pixel'}
-        >
-          {MediaChildren}
-        </ResizableMediaSingleNext>
-      ) : (
-        <ResizableMediaSingle
-          {...resizableMediaSingleProps}
-          lineLength={contentWidthForLegacyExperience}
-          pctWidth={mediaSingleWidthAttribute}
-        >
-          {MediaChildren}
-        </ResizableMediaSingle>
-      )
-    ) : (
-      <MediaSingle {...mediaSingleProps} pctWidth={mediaSingleWidthAttribute}>
-        {MediaChildren}
-      </MediaSingle>
+
+    return (
+      <MediaViewerContainer
+        mediaPluginState={mediaPluginState}
+        isEditorViewMode={editorViewMode}
+        mediaNode={node}
+        isSelected={isSelected}
+        isInline={false}
+      >
+        {canResize ? (
+          getBooleanFF('platform.editor.media.extended-resize-experience') ? (
+            <ResizableMediaSingleNext
+              {...resizableMediaSingleProps}
+              showLegacyNotification={widthType !== 'pixel'}
+            >
+              {MediaChildren}
+            </ResizableMediaSingleNext>
+          ) : (
+            <ResizableMediaSingle
+              {...resizableMediaSingleProps}
+              lineLength={contentWidthForLegacyExperience}
+              pctWidth={mediaSingleWidthAttribute}
+            >
+              {MediaChildren}
+            </ResizableMediaSingle>
+          )
+        ) : (
+          <MediaSingle
+            {...mediaSingleProps}
+            pctWidth={mediaSingleWidthAttribute}
+          >
+            {MediaChildren}
+          </MediaSingle>
+        )}
+      </MediaViewerContainer>
     );
   }
 
@@ -472,12 +493,27 @@ const MediaSingleNodeWrapper = ({
   forwardRef,
 }: Omit<
   MediaSingleNodeProps,
-  'width' | 'lineLength' | 'mediaPluginState' | 'annotationPluginState'
+  | 'width'
+  | 'lineLength'
+  | 'mediaPluginState'
+  | 'annotationPluginState'
+  | 'editorDisabled'
+  | 'editorViewMode'
 >) => {
-  const { widthState, mediaState, annotationState } = useSharedPluginState(
-    pluginInjectionApi,
-    ['width', 'media', 'annotation'],
-  );
+  const {
+    widthState,
+    mediaState,
+    annotationState,
+    editorDisabledState,
+    editorViewModeState,
+  } = useSharedPluginState(pluginInjectionApi, [
+    'width',
+    'media',
+    'annotation',
+    'editorDisabled',
+    'editorViewMode',
+  ]);
+
   return (
     <MediaSingleNode
       width={widthState!.width}
@@ -496,6 +532,8 @@ const MediaSingleNodeWrapper = ({
       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
       forwardRef={forwardRef}
       pluginInjectionApi={pluginInjectionApi}
+      editorDisabled={editorDisabledState?.editorDisabled}
+      editorViewMode={editorViewModeState?.mode === 'view'}
     />
   );
 };

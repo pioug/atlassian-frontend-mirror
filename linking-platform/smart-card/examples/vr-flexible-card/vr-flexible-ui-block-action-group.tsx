@@ -9,13 +9,14 @@ import {
   makeDeleteActionItem,
   makeEditActionItem,
 } from '../utils/flexible-ui';
+import { token } from '@atlaskit/tokens';
 
 // Override the padding that came with new vr wrapper
-const containerStyles = css`
-  div.vr-test-wrapper {
-    padding: 4px 0 0 0;
-  }
-`;
+const containerStyles = css({
+  'div.vr-test-wrapper': {
+    padding: `${token('space.050', '4px')} 0 0 0`,
+  },
+});
 
 export default () => (
   <VRTestWrapper>

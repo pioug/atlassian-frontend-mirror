@@ -18,7 +18,7 @@ export const paragraphNodeAdf: DocNode = {
                 href: 'https://www.atlassian.com',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -33,7 +33,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'strong',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -58,7 +58,7 @@ export const paragraphNodeAdf: DocNode = {
                 href: 'https://www.atlassian.com',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -67,7 +67,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'em',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -79,7 +79,7 @@ export const paragraphNodeAdf: DocNode = {
                 href: 'https://www.atlassian.com',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -88,7 +88,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'strike',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -97,7 +97,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'strong',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -108,8 +108,8 @@ export const paragraphNodeAdf: DocNode = {
               attrs: {
                 type: 'sub',
               },
-            } as const,
-          ],
+            },
+          ] as const,
         },
         {
           type: 'text',
@@ -120,8 +120,8 @@ export const paragraphNodeAdf: DocNode = {
               attrs: {
                 type: 'sup',
               },
-            } as const,
-          ],
+            },
+          ] as const,
         },
         {
           type: 'text',
@@ -130,7 +130,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'underline',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -142,7 +142,7 @@ export const paragraphNodeAdf: DocNode = {
                 color: '#ff0000',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -157,7 +157,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'strike',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -169,7 +169,7 @@ export const paragraphNodeAdf: DocNode = {
                 color: '#ff0000',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -184,7 +184,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'underline',
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -196,7 +196,7 @@ export const paragraphNodeAdf: DocNode = {
                 color: '#ff0000',
               },
             },
-          ],
+          ] as const,
         },
         {
           type: 'text',
@@ -219,11 +219,11 @@ export const paragraphNodeAdf: DocNode = {
               attrs: {
                 type: 'sup',
               },
-            } as const,
+            },
             {
               type: 'underline',
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -241,7 +241,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'code',
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -259,7 +259,7 @@ export const paragraphNodeAdf: DocNode = {
             {
               type: 'code',
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -298,7 +298,7 @@ export const headingNodeAdf: DocNode = {
                 href: 'www.atlassian.com',
               },
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -518,7 +518,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
         {
           type: 'listItem',
@@ -532,7 +532,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
         {
           type: 'listItem',
@@ -546,7 +546,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -716,7 +716,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
         {
           type: 'listItem',
@@ -730,7 +730,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
         {
           type: 'listItem',
@@ -744,7 +744,7 @@ export const listNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -765,7 +765,7 @@ export const blockQuoteNodeAdf: DocNode = {
               type: 'text',
               text: 'All that is gold does not glitter, not all those who wander are lost; The old that is strong does not wither, deep roots are not reached by the frost.',
             },
-          ],
+          ] as const,
         },
         {
           type: 'paragraph',
@@ -774,7 +774,7 @@ export const blockQuoteNodeAdf: DocNode = {
               type: 'text',
               text: 'From the ashes a fire shall be woken, a light from the shadows shall spring; Renewed shall be blade that was broken, the crownless again shall be king.',
             },
-          ],
+          ] as const,
         },
         {
           type: 'paragraph',
@@ -788,7 +788,7 @@ export const blockQuoteNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -821,7 +821,7 @@ export const panelNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -847,7 +847,7 @@ export const panelNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -873,7 +873,7 @@ export const panelNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -899,7 +899,7 @@ export const panelNodeAdf: DocNode = {
                 },
               ],
             },
-          ],
+          ] as const,
         },
       ],
     },
@@ -923,7 +923,7 @@ export const panelNodeAdf: DocNode = {
                 {
                   type: 'strong',
                 },
-              ],
+              ] as const,
             },
           ],
         },
@@ -949,7 +949,7 @@ export const panelNodeAdf: DocNode = {
                 {
                   type: 'strong',
                 },
-              ],
+              ] as const,
             },
           ],
         },
@@ -1027,7 +1027,7 @@ export const decisionNodeAdf: DocNode = {
                 {
                   type: 'strong',
                 },
-              ],
+              ] as const,
             },
             {
               type: 'text',
@@ -1043,7 +1043,7 @@ export const decisionNodeAdf: DocNode = {
                 {
                   type: 'underline',
                 },
-              ],
+              ] as const,
             },
             {
               type: 'text',
@@ -1068,7 +1068,7 @@ export const decisionNodeAdf: DocNode = {
                 {
                   type: 'strong',
                 },
-              ],
+              ] as const,
             },
             {
               type: 'text',

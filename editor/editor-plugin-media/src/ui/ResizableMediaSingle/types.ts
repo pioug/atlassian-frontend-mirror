@@ -26,4 +26,5 @@ export type Props = MediaSingleProps & {
   pluginInjectionApi:
     | ExtractInjectionAPI<MediaNextEditorPluginType>
     | undefined;
+  disableHandles?: boolean;
 };

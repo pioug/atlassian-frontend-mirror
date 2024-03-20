@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fast drag and drop for any experience on any tech stack",
   "repository": "https://github.com/atlassian/pragmatic-drag-and-drop",
   "author": "Atlassian Pty Ltd",
@@ -102,7 +102,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "tiny-invariant": "^1.2.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

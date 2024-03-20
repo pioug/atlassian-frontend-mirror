@@ -9,6 +9,7 @@ import {
   getSelectionStyles,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
+import { R200, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
@@ -22,6 +23,12 @@ export const extensionStyles = css`
         akEditorDeleteBackground,
       )};
     }
+
+    &.danger > span > div > .extension-label {
+      background-color: ${token('color.background.accent.red.subtler', R200)};
+      color: ${token('color.text.danger', R400)};
+    }
+
     &:not(.danger).${akEditorSelectedNodeClassName} {
       & > span > .multiBodiedExtension--container {
         ${getSelectionStyles([
@@ -51,6 +58,11 @@ export const extensionStyles = css`
         ${getSelectionStyles([SelectionStyle.BoxShadow])}
       }
     }
+
+    &.danger > span > div > .extension-label {
+      background-color: ${token('color.background.accent.red.subtler', R200)};
+      color: ${token('color.text.danger', R400)};
+    }
   }
 
   .extensionView-content-wrap,
@@ -79,6 +91,11 @@ export const extensionStyles = css`
         'color.background.danger',
         akEditorDeleteBackground,
       )};
+    }
+
+    &.danger > span > div > .extension-label {
+      background-color: ${token('color.background.accent.red.subtler', R200)};
+      color: ${token('color.text.danger', R400)};
     }
 
     &.inline {

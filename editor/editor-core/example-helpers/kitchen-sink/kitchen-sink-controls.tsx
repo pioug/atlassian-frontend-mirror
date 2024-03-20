@@ -52,8 +52,8 @@ export interface KitchenSinkControlsProps {
   onSanitizePrivateContent(enabled: boolean): void;
 }
 
-export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsProps> =
-  React.memo((props) => {
+export const KitchenSinkControls = React.memo(
+  (props: KitchenSinkControlsProps) => {
     const {
       adfEnabled,
       editorEnabled,
@@ -175,4 +175,5 @@ export const KitchenSinkControls: React.FunctionComponent<KitchenSinkControlsPro
         </div>
       </div>
     );
-  });
+  },
+);

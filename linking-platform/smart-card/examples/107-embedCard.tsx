@@ -5,12 +5,13 @@ import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { EmbedCardResolvedView } from '../src/view/EmbedCard/views/ResolvedView';
 import { IntlProvider } from 'react-intl-next';
 import { FrameStyle } from '../src/view/EmbedCard/types';
+import { token } from '@atlaskit/tokens';
 
 const previewUrl = 'https://www.youtube.com/embed/uhHyh55n5l0';
 const preview = { src: previewUrl };
 const cardWrapperStyles = {
   borderBottom: '1px solid',
-  paddingBottom: '15px',
+  paddingBottom: token('space.200', '16px'),
 };
 
 export default () => {
@@ -25,7 +26,8 @@ export default () => {
           style={{
             width: '640px',
             margin: '0 auto',
-            marginTop: '60px',
+            marginTop: token('space.800', '64px'),
+            // we hardcode the margin bottom to account for the spacing of the floating bar on the example page
             marginBottom: '120px',
           }}
         >
@@ -34,7 +36,7 @@ export default () => {
               display: 'flex',
               justifyContent: 'space-evenly',
               alignItems: 'center',
-              marginBottom: '10px',
+              marginBottom: token('space.150', '12px'),
             }}
           >
             EmbedCardResolvedView

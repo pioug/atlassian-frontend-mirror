@@ -36,6 +36,7 @@ export const Provider = ({ name, icon }: ProviderProps) => {
         css={{
           color: token('color.text.subtlest', N300),
           margin: 0,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginLeft: gs(0.5),
           // EDM-713: fixes copy-paste from renderer to editor for Firefox
           // due to HTML its unwrapping behaviour on paste.

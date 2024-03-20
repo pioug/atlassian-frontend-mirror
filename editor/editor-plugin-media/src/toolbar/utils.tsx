@@ -25,7 +25,7 @@ import { isVideo } from '../utils/media-single';
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,
 ): MediaBaseAttributes | null => {
-  const selectedNode = mediaPluginState.selectedMediaContainerNode();
+  const selectedNode = mediaPluginState.selectedMediaContainerNode?.();
   if (selectedNode && selectedNode.attrs) {
     return selectedNode.attrs as MediaBaseAttributes;
   }
@@ -35,7 +35,7 @@ export const getSelectedMediaContainerNodeAttrs = (
 export const getSelectedNearestMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,
 ): MediaBaseAttributes | null => {
-  const selectedNode = mediaPluginState.selectedMediaContainerNode();
+  const selectedNode = mediaPluginState.selectedMediaContainerNode?.();
   if (selectedNode) {
     switch (selectedNode.type.name) {
       case 'mediaSingle': {

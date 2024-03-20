@@ -185,6 +185,9 @@ export class EmbedCardComponent extends React.PureComponent<
   private scrollContainer?: HTMLElement;
   private embedIframeRef = React.createRef<HTMLIFrameElement>();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
+
   onClick = () => {};
 
   static contextTypes = {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-bar",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A progress bar communicates the status of a system process.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "keywords": [
     "atlaskit",

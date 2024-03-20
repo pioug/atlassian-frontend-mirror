@@ -1,10 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import LinkUrl from '../src/view/LinkUrl';
+import { token } from '@atlaskit/tokens';
 
 export default () => {
   return (
-    <div css={{ margin: '50px auto', width: '50%' }}>
+    <div
+      css={{
+        margin: `${token('space.600', '48px')} auto`,
+        width: '50%',
+      }}
+    >
       <h1>{`<LinkURL />`}</h1>
       <p>
         <a

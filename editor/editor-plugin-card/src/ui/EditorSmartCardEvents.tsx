@@ -1,12 +1,14 @@
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { useSmartLinkEvents } from '@atlaskit/smart-card';
 
 import { registerSmartCardEvents } from '../pm-plugins/actions';
 
-export const EditorSmartCardEvents: FC<{ editorView: EditorView }> = ({
+export const EditorSmartCardEvents = ({
   editorView,
+}: {
+  editorView: EditorView;
 }) => {
   const events = useSmartLinkEvents();
   useEffect(() => {

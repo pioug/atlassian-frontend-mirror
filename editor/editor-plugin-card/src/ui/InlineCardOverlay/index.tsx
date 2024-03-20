@@ -1,7 +1,6 @@
 /* eslint-disable @atlaskit/design-system/no-nested-styles */
 /* eslint-disable @atlaskit/design-system/prefer-primitives */
 /** @jsx jsx */
-import type { FC } from 'react';
 import React, {
   useCallback,
   useEffect,
@@ -122,14 +121,14 @@ const gradientStyles = css({
   background: getGradientWithColor(SMART_LINK_BACKGROUND_COLOR),
 });
 
-const InlineCardOverlay: FC<InlineCardOverlayProps> = ({
+const InlineCardOverlay = ({
   children,
   isSelected = false,
   isVisible = false,
   testId = 'inline-card-overlay',
   url,
   ...props
-}) => {
+}: React.PropsWithChildren<InlineCardOverlayProps>) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const [showLabel, setShowLabel] = useState(true);
   const [availableWidth, setAvailableWidth] = useState<number | undefined>(

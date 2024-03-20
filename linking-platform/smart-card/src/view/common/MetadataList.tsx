@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-
 import { MetadataProps, Metadata } from './Metadata';
 import { gs } from './utils';
 
@@ -16,6 +15,7 @@ export const MetadataList = ({ items, testId }: MetadataListProps) => {
     <div
       css={{
         display: 'flex',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginTop: gs(0.5),
         alignItems: 'center',
         '&:last-child': {

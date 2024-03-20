@@ -42,7 +42,11 @@ export const ArticleWasHelpfulYesButton: React.FC<
   };
 
   return (
-    <Button onClick={handleButtonClick} isSelected={isSelected}>
+    <Button
+      onClick={handleButtonClick}
+      isSelected={isSelected}
+      aria-pressed={isSelected}
+    >
       {formatMessage(messages.help_article_rating_option_yes)}
     </Button>
   );

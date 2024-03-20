@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/banner",
-  "version": "12.1.22",
+  "version": "12.1.23",
   "description": "A banner displays a prominent message at the top of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -62,7 +62,7 @@
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

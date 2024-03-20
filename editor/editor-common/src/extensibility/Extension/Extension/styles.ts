@@ -16,6 +16,12 @@ export const wrapperStyle = css(wrapperDefault, {
   '.extension-overflow-wrapper:not(.with-body)': {
     overflowX: 'auto',
   },
+  '&.with-border': {
+    border: `1px solid transparent`, // adding this so macro doesn't jump when hover border is shown
+  },
+  '&.with-hover-border': {
+    border: `1px solid ${token('color.border', N30)}`,
+  },
 });
 
 export const header = css({
@@ -39,6 +45,9 @@ export const content = css({
   borderRadius: token('border.radius', '3px'),
   cursor: 'initial',
   width: '100%',
+  '&.remove-border': {
+    border: 'none',
+  },
 });
 
 export const contentWrapper = css({

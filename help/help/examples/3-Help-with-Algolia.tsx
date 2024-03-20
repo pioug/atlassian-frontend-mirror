@@ -98,7 +98,7 @@ const Example = () => {
     setAlgoliaIndexName,
   } = useAlgolia({
     productName: 'Jira Software',
-    productExperience: 'Next-gen',
+    productExperience: 'Team-managed',
   });
 
   // CPAPI values
@@ -405,14 +405,14 @@ const Example = () => {
 
                 <Button
                   appearance="primary"
-                  onClick={() => openDrawer('zqjkEZh4DPqRCpUSeg8a5')}
+                  onClick={() => openDrawer('zl7jDsTshqNFSXgY8302f')}
                 >
                   Open drawer - article 1
                 </Button>
 
                 <Button
                   appearance="primary"
-                  onClick={() => openDrawer('zl7jDsTshqNFSXgY8302f')}
+                  onClick={() => openDrawer('zhf8pCD3TzzP6uhO9X3WO')}
                 >
                   Open drawer - article 2
                 </Button>
@@ -452,7 +452,9 @@ const Example = () => {
                           })
                         }
                       />
-                      <HelperMessage>e.g. : product_help_stg)</HelperMessage>
+                      <HelperMessage>
+                        e.g. : product_help_stg_copsi)
+                      </HelperMessage>
                     </>
                   )}
                 </Field>
@@ -490,7 +492,7 @@ const Example = () => {
                           })
                         }
                       />
-                      <HelperMessage>e.g. : Next-gen</HelperMessage>
+                      <HelperMessage>e.g. : Team-managed</HelperMessage>
                     </>
                   )}
                 </Field>

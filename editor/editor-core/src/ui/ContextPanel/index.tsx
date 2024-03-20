@@ -289,6 +289,8 @@ function ContextPanelWithActions({
   }
 
   return (
+    // @ts-ignore - 'WithPluginState' cannot be used as a JSX component.
+    // This error was introduced after upgrading to TypeScript 5
     <WithPluginState
       eventDispatcher={eventDispatcher}
       plugins={{

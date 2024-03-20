@@ -67,6 +67,9 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     contextAdapter: PropTypes.object,
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any;
+
   constructor(props: DatasourceComponentProps) {
     super(props);
   }

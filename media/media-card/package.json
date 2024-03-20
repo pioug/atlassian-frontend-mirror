@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "77.10.9",
+  "version": "77.10.10",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -95,7 +95,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "uuid": "^3.1.0",
     "wait-for-expect": "^1.2.0"
   },

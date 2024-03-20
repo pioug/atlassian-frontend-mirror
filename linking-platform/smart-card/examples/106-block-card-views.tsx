@@ -39,16 +39,15 @@ import {
   UnAuthClientWithNoAuthFlow,
 } from './utils/custom-client';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const headerCSS = css`
-  margin-top: 28px;
-  margin-bottom: ${token('space.200', '16px')};
-`;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const subHeaderCSS = css`
-  margin-top: 28px;
-  margin-bottom: ${token('space.100', '8px')};
-`;
+const headerCSS = css({
+  marginTop: token('space.300', '24px'),
+  marginBottom: token('space.200', '16px'),
+});
+
+const subHeaderCSS = css({
+  marginTop: token('space.300', '24px'),
+  marginBottom: token('space.100', '8px'),
+});
 
 const resolvedViewDetails = [
   {
@@ -258,7 +257,7 @@ export default () => {
   return (
     <IntlProvider locale={'en'}>
       <Page>
-        <div style={{ padding: '30px' }}>
+        <div style={{ padding: token('space.400', '32px') }}>
           <h2 css={headerCSS}>Components</h2>
           <h6 css={subHeaderCSS}>Frame</h6>
           <Frame />

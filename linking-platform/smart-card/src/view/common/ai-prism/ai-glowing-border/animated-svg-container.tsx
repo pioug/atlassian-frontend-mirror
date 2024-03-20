@@ -3,7 +3,8 @@ import { css, jsx } from '@emotion/react';
 import React, { useEffect, useRef } from 'react';
 
 import type { AnimatedSvgContainerProps } from './types';
-import { GLOW_SIZE, OUTER_BORDER_RADIUS } from '../constants';
+import { OUTER_BORDER_RADIUS } from '../constants';
+import { token } from '@atlaskit/tokens';
 
 let namespaceUUID = 0;
 
@@ -13,11 +14,11 @@ const svgStyles = css({
 });
 
 const blurredStyles = css({
-  width: `calc(100% - ${GLOW_SIZE / 2}px)`,
-  height: `calc(100% - ${GLOW_SIZE / 2}px)`,
-  top: GLOW_SIZE / 2,
-  left: GLOW_SIZE / 2,
-  filter: `blur(${GLOW_SIZE}px)`,
+  width: `calc(100% - ${token('space.050', '4px')})`,
+  height: `calc(100% - ${token('space.050', '4px')})`,
+  top: token('space.050', '4px'),
+  left: token('space.050', '4px'),
+  filter: `blur(${token('space.100', '8px')})`,
 
   // for safari... : https://stackoverflow.com/a/71353198
   backfaceVisibility: 'hidden',

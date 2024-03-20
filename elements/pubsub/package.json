@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pubsub",
-  "version": "6.6.4",
+  "version": "6.6.5",
   "description": "Interacts with Atlassian Frontend PubSub service to receive pubsub events.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
     "fetch-mock": "^8.0.0",
     "jest-extended": "^0.11.2",
     "sinon": "^2.2.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

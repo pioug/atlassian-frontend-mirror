@@ -21,8 +21,8 @@ expect.extend({
       if (received.getFullYear() !== year) {
         return { pass: false, message };
       }
-    } catch ({ message }) {
-      return { pass: false, message };
+    } catch (error) {
+      return { pass: false, message: (error as Error).message };
     }
     return { pass: true, message };
   },

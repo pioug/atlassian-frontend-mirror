@@ -38,6 +38,8 @@ export interface MediaSingleNodeProps {
   pluginInjectionApi:
     | ExtractInjectionAPI<MediaNextEditorPluginType>
     | undefined;
+  editorViewMode?: boolean;
+  editorDisabled?: boolean;
 }
 
 export interface MediaSingleNodeViewProps {

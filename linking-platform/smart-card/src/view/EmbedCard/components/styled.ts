@@ -166,10 +166,12 @@ export const LinkWrapper = styled.div`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Wrapper = styled.div<WrapperProps>(
   (props) => wrapperStyles(props),
   {
+    // We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
+    // to be thoroughly checked with a designer so that we do not miss an unintended visual change
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     marginTop: '10px',
   },
 );
@@ -342,9 +344,8 @@ export const Byline = styled.div(
   ellipsis('100%'),
 );
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Description = styled.div({
-  marginTop: '7px',
+  marginTop: `calc(${token('space.100', '8px')} - 1px)`,
   color: token('color.text', colors.N800),
   fontSize: '12px',
   fontWeight: 'normal',

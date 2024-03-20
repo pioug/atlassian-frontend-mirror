@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/feature-flag-client",
-  "version": "5.4.1",
+  "version": "5.4.2",
   "description": "A client to take care of feature flag evaluation and tracking of exposure events",
   "af:exports": {
     ".": "./src/index.ts",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {

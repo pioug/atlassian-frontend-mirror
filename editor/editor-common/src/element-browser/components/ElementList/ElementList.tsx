@@ -153,18 +153,33 @@ function ElementList({
   return (
     <Fragment>
       <ContainerWidthMonitor />
-      {!items.length ? (
-        emptyStateHandler ? (
-          emptyStateHandler({
-            mode,
-            selectedCategory,
-            searchTerm,
-          })
+      <div
+        css={elementItemsWrapper}
+        data-testid="element-items"
+        id={
+          selectedCategory
+            ? `browse-category-${selectedCategory}-tab`
+            : 'browse-category-tab'
+        }
+        aria-labelledby={
+          selectedCategory
+            ? `browse-category--${selectedCategory}-button`
+            : 'browse-category-button'
+        }
+        role="tabpanel"
+        tabIndex={items.length === 0 ? 0 : undefined}
+      >
+        {!items.length ? (
+          emptyStateHandler ? (
+            emptyStateHandler({
+              mode,
+              selectedCategory,
+              searchTerm,
+            })
+          ) : (
+            <EmptyState onExternalLinkClick={onExternalLinkClick} />
+          )
         ) : (
-          <EmptyState onExternalLinkClick={onExternalLinkClick} />
-        )
-      ) : (
-        <div css={elementItemsWrapper} data-testid="element-items">
           <Fragment>
             {containerWidth > 0 && (
               <AutoSizer disableWidth>
@@ -191,8 +206,8 @@ function ElementList({
               </AutoSizer>
             )}
           </Fragment>
-        </div>
-      )}
+        )}
+      </div>
     </Fragment>
   );
 }
@@ -335,7 +350,10 @@ const elementItemWrapper = css({
     button: {
       height: '75px',
       alignItems: 'flex-start',
-      padding: token('space.150', '12px'),
+      padding: `${token('space.150', '12px')} ${token(
+        'space.150',
+        '12px',
+      )} 11px`,
     },
   },
 });

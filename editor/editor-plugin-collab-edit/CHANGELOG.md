@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.8
+
+### Patch Changes
+
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+
+## 1.1.7
+
+### Patch Changes
+
+- [#82658](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82658) [`9302baf5248c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9302baf5248c) - Improve Custom Step registration
+
 ## 1.1.6
 
 ### Patch Changes

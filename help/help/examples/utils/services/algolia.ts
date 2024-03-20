@@ -99,7 +99,7 @@ const fixImagesAndLinkTags = (articleContent: string): string => {
 // Algolia configuration
 const ALGOLIA_CLIENT = algoliasearch(
   '8K6J5OJIQW',
-  'c982b4b1a6ca921131d35edb63359b8c',
+  '55176fdca77978d05c6da060d8724fe7',
 );
 
 interface useAlgoliaProps {
@@ -111,7 +111,7 @@ interface useAlgoliaProps {
 export const useAlgolia = ({
   productName: productNameValue = 'Jira Software',
   productExperience: productExperienceValue = 'Classic',
-  algoliaIndexName: algoliaIndexNameValue = 'product_help_uat',
+  algoliaIndexName: algoliaIndexNameValue = 'product_help_uat_copsi',
 }: useAlgoliaProps) => {
   const [algoliaIndexName, setAlgoliaIndexName] = useState(
     algoliaIndexNameValue,

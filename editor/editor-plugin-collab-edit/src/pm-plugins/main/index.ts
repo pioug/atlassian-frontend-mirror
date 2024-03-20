@@ -1,3 +1,7 @@
+// It is important to get all steps in that package
+import * as adfCustomSteps from '@atlaskit/adf-schema/steps';
+// It is important to get all steps in that package
+import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -20,6 +24,7 @@ import type {
   ReadonlyTransaction,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
+import { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { addSynchronyErrorAnalytics } from '../../analytics';
@@ -27,17 +32,36 @@ import { initialize } from '../../events/initialize';
 import type { PrivateCollabEditOptions, ProviderCallback } from '../../types';
 import type { CollabEditPlugin } from '../../types';
 
-export { TableSortStep, AddColumnStep } from '@atlaskit/custom-steps';
-export {
-  InsertTypeAheadStep,
-  SetAttrsStep,
-  AnalyticsStep,
-  LinkMetaStep,
-  OverrideDocumentStep,
-} from '@atlaskit/adf-schema/steps';
-
 import { pluginKey } from './plugin-key';
 import { PluginState } from './plugin-state';
+
+const enforceCustomStepRegisters = () => {
+  const tryToRegisterStep = (obj: Record<string, Step>) => {
+    for (let customStep of Object.values(obj)) {
+      // I know this seems awful
+      // But unfortunate ProseMirror does not expose the jsonID property p
+      // @ts-expect-error
+      const id = customStep?.prototype?.jsonID;
+      if (typeof id === 'string') {
+        try {
+          // We are trying to re-register the steps here
+          // in the normal flow, those custom step should be already registred
+          // So, it should throw an expeception
+          // @ts-expect-error
+          Step.jsonID(id, customStep);
+        } catch (e) {
+          // This mean the step was already registred.
+          // It is ok to ignore this exception.
+        }
+      }
+    }
+  };
+
+  // @ts-expect-error
+  tryToRegisterStep(atlaskKitCustomSteps);
+  // @ts-expect-error
+  tryToRegisterStep(adfCustomSteps);
+};
 
 export const createPlugin = (
   dispatch: Dispatch,
@@ -48,6 +72,8 @@ export const createPlugin = (
   featureFlags: FeatureFlags,
   pluginInjectionApi: ExtractInjectionAPI<CollabEditPlugin> | undefined,
 ) => {
+  enforceCustomStepRegisters();
+
   return new SafePlugin({
     key: pluginKey,
     state: {

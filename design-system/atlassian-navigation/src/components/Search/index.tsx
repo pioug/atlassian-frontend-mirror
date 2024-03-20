@@ -42,17 +42,23 @@ const searchInputIconStyles = css({
   pointerEvents: 'none',
 });
 
+const newSearchBorderStyles = css({
+  border: `${token('border.width', '1px')} solid`,
+  '&:focus': {
+    boxShadow: `inset 0 0 0 ${token(
+      'border.width',
+      '1px',
+    )} var(${varSearchFocusBorderColor})`,
+  },
+});
+
 const searchInputStyles = css({
   boxSizing: 'border-box',
   width: '220px',
   height: token('space.400', '32px'),
   padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
   backgroundColor: `var(${varSearchBackgroundColor})`,
-  border: `${
-    getBooleanFF('platform.design-system-team.update-input-border-wdith_5abwv')
-      ? token('border.width', '1px')
-      : '2px'
-  } solid`,
+  border: '2px solid',
   borderColor: `var(${varSearchBorderColor})`,
   borderRadius: token('border.radius.200', '6px'),
   color: `var(${varSearchColor})`,
@@ -63,14 +69,6 @@ const searchInputStyles = css({
   },
   '&:focus': {
     borderColor: `var(${varSearchFocusBorderColor})`,
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token(
-          'border.width',
-          '1px',
-        )} var(${varSearchFocusBorderColor})`
-      : undefined,
   },
   '&:hover': {
     backgroundColor: `var(${varSearchHoverBackgroundColor})`,
@@ -121,7 +119,12 @@ const SearchComponent = (props: SearchComponentProps) => {
       </div>
       <input
         style={searchInputDynamicStyles as React.CSSProperties}
-        css={searchInputStyles}
+        css={[
+          searchInputStyles,
+          getBooleanFF(
+            'platform.design-system-team.update-input-border-wdith_5abwv',
+          ) && newSearchBorderStyles,
+        ]}
         aria-label={label}
         placeholder={placeholder}
         onChange={onChange}

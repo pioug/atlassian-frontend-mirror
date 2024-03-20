@@ -446,13 +446,8 @@ export class ItemViewerBase extends React.Component<Props, State> {
       });
   }
 
-  // It's possible that a different identifier or mediaClient was passed.
-  // We therefore need to reset Media Viewer.
   private needsReset(propsA: Props, propsB: Props) {
-    return (
-      !deepEqual(propsA.identifier, propsB.identifier) ||
-      propsA.mediaClient !== propsB.mediaClient
-    );
+    return !deepEqual(propsA.identifier, propsB.identifier);
   }
 
   private release() {

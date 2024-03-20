@@ -16,7 +16,9 @@ it('@atlaskit/table components should be found by data-testid', async () => {
     <Table testId="table">
       <THead>
         <HeadCell testId="head-cell"></HeadCell>
-        <SortableColumn name="Test" testId="sortable-col" />
+        <SortableColumn name="Test" testId="sortable-col">
+          Test
+        </SortableColumn>
       </THead>
       <TBody>
         <Row testId="row">
@@ -27,12 +29,12 @@ it('@atlaskit/table components should be found by data-testid', async () => {
     </Table>,
   );
 
-  expect(getByTestId('table')).toBeTruthy();
-  expect(getByTestId('head-cell')).toBeTruthy();
+  expect(getByTestId('table')).toBeInTheDocument();
+  expect(getByTestId('head-cell')).toBeInTheDocument();
   // TH element itself
-  expect(getByTestId('sortable-col')).toBeTruthy();
+  expect(getByTestId('sortable-col')).toBeInTheDocument();
   // Sort button inside th
-  expect(getByTestId('sortable-col--button')).toBeTruthy();
-  expect(getByTestId('row')).toBeTruthy();
-  expect(getByTestId('cell')).toBeTruthy();
+  expect(getByTestId('sortable-col--button')).toBeInTheDocument();
+  expect(getByTestId('row')).toBeInTheDocument();
+  expect(getByTestId('cell')).toBeInTheDocument();
 });

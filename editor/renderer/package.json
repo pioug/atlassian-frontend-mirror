@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.10.0",
+  "version": "109.10.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,9 +31,9 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
-    "@atlaskit/editor-palette": "1.5.2",
+    "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/emoji": "^67.6.0",
@@ -102,7 +102,7 @@
     "react-test-renderer": "^16.8.0",
     "rxjs": "^5.5.0",
     "sinon": "^2.2.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "worker-plugin": "^4.0.2"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
@@ -149,5 +149,18 @@
     "./text-serializer": "./src/text-serializer.ts",
     "./use-feature-flags": "./src/use-feature-flags.ts",
     "./utils": "./src/utils.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./actions": "./src/actions.ts",
+    "./consts": "./src/consts.ts",
+    "./messages": "./src/messages.ts",
+    "./render-document": "./src/render-document.ts",
+    "./renderer-context": "./src/renderer-context.tsx",
+    "./serializer": "./src/serializer.ts",
+    "./text-serializer": "./src/text-serializer.ts",
+    "./use-feature-flags": "./src/use-feature-flags.ts",
+    "./utils": "./src/utils.ts",
+    "./package.json": "./package.json"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-rule",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Rule plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -31,9 +31,12 @@
   "af:exports": {
     ".": "./src/index.ts"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.6.0",
-    "@atlaskit/editor-common": "^78.16.0",
+    "@atlaskit/editor-common": "^78.18.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/prosemirror-input-rules": "^3.0.0",
@@ -46,7 +49,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "techstack": {
     "@atlassian/frontend": {

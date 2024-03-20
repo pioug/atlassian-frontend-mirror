@@ -3,54 +3,49 @@ import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
 import { getTruncateStyles } from '../../../../utils';
 
-export const dropdownItemGroupStyles = css`
-  button {
-    width: 220px;
+export const dropdownItemGroupStyles = css({
+  button: {
+    width: '220px',
+    '&:hover': {
+      backgroundColor: 'inherit',
+      cursor: 'default',
+    },
+  },
+});
 
-    &:hover {
-      background-color: inherit;
-      cursor: default;
-    }
-  }
-`;
+const sharedBlockStyles = css({
+  display: 'flex',
+  gap: '0.5rem',
+  lineHeight: '1rem',
+  minWidth: 0,
+  overflow: 'hidden',
+  flexDirection: 'row',
+  alignItems: 'center',
+});
 
-const sharedBlockStyles = css`
-  display: flex;
-  gap: 0.5rem;
-  line-height: 1rem;
-  min-width: 0;
-  overflow: hidden;
-  flex-direction: row;
-  align-items: center;
-`;
+export const contentStyles = css(sharedBlockStyles, {
+  marginTop: token('space.025', '2px'),
+  alignItems: 'flex-start',
+  '> span, > div': {
+    fontSize: '0.875rem',
+    lineHeight: '1.25rem',
+    color: token('color.text', N800),
+  },
+});
 
-export const contentStyles = css`
-  ${sharedBlockStyles};
+export const linkStyles = css(sharedBlockStyles, {
+  cursor: 'pointer',
+  fontSize: '0.875rem',
+  marginTop: token('space.100', '8px'),
+  marginLeft: token('space.400', '32px'),
+  marginBottom: token('space.025', '2px'),
+});
 
-  margin-top: ${token('space.025', '2px')};
-  align-items: flex-start;
-
-  > span,
-  > div {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    color: ${token('color.text', N800)};
-  }
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const linkStyles = css`
-  ${sharedBlockStyles};
-
-  cursor: pointer;
-  font-size: 0.875rem;
-  margin-top: 10px;
-  margin-left: ${token('space.400', '32px')};
-  margin-bottom: ${token('space.025', '2px')};
-`;
-
-export const textStyles = (maxLines: number) => css`
-  line-height: 1rem;
-  white-space: normal;
-  ${getTruncateStyles(maxLines)};
-`;
+export const textStyles = (maxLines: number) =>
+  css(
+    {
+      lineHeight: '1rem',
+      whiteSpace: 'normal',
+    },
+    getTruncateStyles(maxLines),
+  );

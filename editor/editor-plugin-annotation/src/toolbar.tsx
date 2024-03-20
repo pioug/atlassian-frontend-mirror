@@ -84,6 +84,8 @@ export const buildToolbar =
             eventType: EVENT_TYPE.UI,
             attributes: {
               source: 'highlightActionsMenu',
+              // @ts-expect-error - Object literal may only specify known properties, and 'pageMode' does not exist in type
+              // This error was introduced after upgrading to TypeScript 5
               pageMode: 'edit',
             },
           });

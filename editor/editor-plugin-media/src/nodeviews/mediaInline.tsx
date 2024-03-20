@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react';
+/** @jsx jsx */
+import { useEffect, useState } from 'react';
+
+import { jsx } from '@emotion/react';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -28,11 +31,11 @@ import type {
   getPosHandlerNode,
   getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
+import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 import { isImage } from '../utils/is-type';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import { MediaInlineNodeSelector } from './styles';
-
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;
   identifier: FileIdentifier;
@@ -43,6 +46,7 @@ export interface MediaInlineProps {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
   mediaPluginState: MediaPluginState;
+  editorViewMode?: boolean;
 }
 
 export const createMediaNodeUpdater = (
@@ -106,7 +110,6 @@ export const MediaInline = (props: MediaInlineProps) => {
   const [viewMediaClientConfig, setViewMediaClientConfig] = useState<
     MediaClientConfig | undefined
   >();
-
   const [isContextIdUnsync, setIsContextIdUnsync] = useState<boolean>(true);
 
   useEffect(() => {
@@ -156,27 +159,42 @@ export const MediaInline = (props: MediaInlineProps) => {
 
   if (allowInlineImages && isImage(type)) {
     return (
-      <MediaInlineImageCard
-        mediaClient={getMediaClient(viewMediaClientConfig)}
-        identifier={identifier}
+      <MediaViewerContainer
+        mediaNode={props.node}
+        mediaPluginState={props.mediaPluginState}
+        isEditorViewMode={props.editorViewMode}
         isSelected={props.isSelected}
-        alt={alt}
-        width={width}
-        height={height}
-        border={{
-          borderSize: borderMark?.attrs.size,
-          borderColor: borderMark?.attrs.color,
-        }}
-      />
+        isInline={true}
+      >
+        <MediaInlineImageCard
+          mediaClient={getMediaClient(viewMediaClientConfig)}
+          identifier={identifier}
+          isSelected={props.isSelected}
+          alt={alt}
+          width={width}
+          height={height}
+          border={{
+            borderSize: borderMark?.attrs.size,
+            borderColor: borderMark?.attrs.color,
+          }}
+        />
+      </MediaViewerContainer>
     );
   }
 
   return (
-    <MediaInlineCard
+    <MediaViewerContainer
+      mediaNode={props.node}
+      mediaPluginState={props.mediaPluginState}
+      isEditorViewMode={props.editorViewMode}
       isSelected={props.isSelected}
-      identifier={identifier}
-      mediaClientConfig={viewMediaClientConfig}
-    />
+    >
+      <MediaInlineCard
+        isSelected={props.isSelected}
+        identifier={identifier}
+        mediaClientConfig={viewMediaClientConfig}
+      />
+    </MediaViewerContainer>
   );
 };
 
@@ -197,7 +215,10 @@ const MediaInlineSharedState = ({
   api,
   view,
 }: MediaInlineSharedStateProps) => {
-  const { mediaState } = useSharedPluginState(api, ['media']);
+  const { editorViewModeState, mediaState } = useSharedPluginState(api, [
+    'editorViewMode',
+    'media',
+  ]);
 
   if (!mediaState) {
     return null;
@@ -213,6 +234,7 @@ const MediaInlineSharedState = ({
       view={view}
       getPos={getPos}
       contextIdentifierProvider={contextIdentifierProvider}
+      editorViewMode={editorViewModeState?.mode === 'view'}
     />
   );
 };

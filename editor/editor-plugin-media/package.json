@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-media",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "Media plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,15 +32,19 @@
     ".": "./src/index.ts",
     "./types": "./src/types.ts"
   },
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts"
+  },
   "dependencies": {
     "@atlaskit/adf-schema": "^35.6.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.7.0",
-    "@atlaskit/editor-common": "^78.16.0",
-    "@atlaskit/editor-palette": "1.5.2",
+    "@atlaskit/editor-common": "^78.18.0",
+    "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-annotation": "1.4.0",
+    "@atlaskit/editor-plugin-annotation": "1.4.1",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",
     "@atlaskit/editor-plugin-floating-toolbar": "^1.2.0",
@@ -78,7 +82,7 @@
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "react-dom": "^16.8.0",
-    "typescript": "~4.9.5"
+    "typescript": "~5.4.2"
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^34.2.0",
@@ -144,6 +148,9 @@
       "type": "boolean"
     },
     "platform.editor.media.autoselect-inserted-image_oumto": {
+      "type": "boolean"
+    },
+    "platform.editor.media.preview-in-full-page": {
       "type": "boolean"
     }
   },

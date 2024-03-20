@@ -74,7 +74,6 @@ function CategoryListItem({
   const ref = useFocus(focus);
   const onClick = useCallback(() => {
     onSelectCategory(category);
-
     /**
      * When user double clicks on same category, focus on first item.
      */
@@ -134,13 +133,17 @@ function CategoryListItem({
   );
 
   return (
-    <div css={buttonWrapper}>
+    <div css={buttonWrapper} role="presentation">
       <Button
         appearance="subtle"
         isSelected={selectedCategory === category.name}
         onClick={onClick}
         onFocus={onFocus}
         theme={getTheme}
+        role="tab"
+        aria-selected={selectedCategory === category.name ? 'true' : 'false'}
+        aria-controls={`browse-category-${category.name}-tab`}
+        id={`browse-category--${category.name}-button`}
         ref={ref}
         testId="element-browser-category-item"
       >

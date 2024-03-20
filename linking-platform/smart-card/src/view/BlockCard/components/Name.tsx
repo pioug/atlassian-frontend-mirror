@@ -31,6 +31,7 @@ export const Name = ({
     css={{
       fontSize: `${fontSize()}px`,
       fontWeight: 500,
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       marginLeft: isLeftPadded ? gs(1) : '0',
       lineHeight: gs(2.5),
       // Spec: show max two lines.

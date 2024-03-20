@@ -36,11 +36,11 @@ describe('ResolvedView', () => {
       <InlineCardResolvedView
         icon="some-link-to-icon"
         title="some text content"
-        titleTextColor="#FFFFFF"
+        titleTextColor={token('color.text.inverse', '#FFFFFF')}
       />,
     );
     expect(await screen.findByText('some text content')).toHaveStyle(
-      'color: #FFFFFF',
+      `color: var(--ds-text-inverse, '#FFFFFF')`,
     );
   });
 

@@ -405,11 +405,11 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
       }
       return {
         left: {
-          left: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          left: `calc(${token('space.negative.025', '-0.125em')} * 0.5)`,
           paddingLeft: '0px',
         },
         right: {
-          right: `calc(${token('space.025', '0.125em')} * -0.5)`,
+          right: `calc(${token('space.negative.025', '-0.125em')} * 0.5)`,
           paddingRight: '0px',
         },
       };

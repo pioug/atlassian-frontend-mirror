@@ -1,7 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 
-import { B200, B400, N700, R400 } from '@atlaskit/theme/colors';
+import { R400 } from '@atlaskit/theme/colors';
+import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 
 import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
@@ -121,30 +122,9 @@ const AtlaskitIcon: React.FC<AtlaskitIconProps> = ({ icon, label, testId }) => {
 
   switch (icon) {
     case IconType.Confluence:
-      return (
-        <ImportedIcon
-          testId={testId}
-          textColor={token('color.text.subtle', N700)}
-          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-          iconColor={B200}
-          iconGradientStart={B400}
-          iconGradientStop={B200}
-          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-        />
-      );
+      return <ConfluenceIcon appearance="brand" testId={testId} />;
     case IconType.Jira:
-      // Logo component has a different prop set from other icon components
-      return (
-        <ImportedIcon
-          testId={testId}
-          textColor={token('color.text.subtle', N700)}
-          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-          iconColor={B200}
-          iconGradientStart={B400}
-          iconGradientStop={B200}
-          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-        />
-      );
+      return <JiraIcon appearance="brand" testId={testId} />;
     case IconType.Error:
     case IconType.Forbidden:
       return (

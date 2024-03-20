@@ -62,17 +62,17 @@ const isDisabledStyles = css({
   },
 });
 
+const newBorderStyles = css({
+  border: `${token('border.width', '1px')} solid ${token(
+    'color.border.input',
+    N100,
+  )}`,
+});
+
 const baseContainerStyles = css({
   display: 'flex',
   backgroundColor: token('color.background.input', N20),
-  border: getBooleanFF(
-    'platform.design-system-team.update-input-border-wdith_5abwv',
-  )
-    ? `${token('border.width', '1px')} solid ${token(
-        'color.border.input',
-        N100,
-      )}`
-    : `2px solid ${token('color.border.input', N20)}`,
+  border: `2px solid ${token('color.border.input', N20)}`,
   borderRadius: token('border.radius', '3px'),
   transition:
     'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
@@ -107,6 +107,9 @@ export const DateTimePickerContainer = ({
     <div
       css={[
         baseContainerStyles,
+        getBooleanFF(
+          'platform.design-system-team.update-input-border-wdith_5abwv',
+        ) && newBorderStyles,
         isDisabled && isDisabledStyles,
         isFocused && isFocusedStyles,
         appearance === 'subtle' &&

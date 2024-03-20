@@ -95,7 +95,7 @@ const linkADF: DocNode = {
           text: "I'm a normal link",
           marks: [
             {
-              type: 'link',
+              type: 'link' as const,
               attrs: {
                 href: 'http://prosemirror.net',
               },

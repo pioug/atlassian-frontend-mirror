@@ -9,45 +9,30 @@ const frontColor = token(
   'color.background.neutral.subtle.hovered',
   '#091E420F',
 );
-const backgroundStyles = css`
-  .AKExampleShowcase {
-    background-color: ${backColor};
-    opacity: 1;
-    background-image: repeating-linear-gradient(
-        45deg,
-        ${frontColor} 25%,
-        transparent 25%,
-        transparent 75%,
-        ${frontColor} 75%,
-        ${frontColor}
-      ),
-      repeating-linear-gradient(
-        45deg,
-        ${frontColor} 25%,
-        ${backColor} 25%,
-        ${backColor} 75%,
-        ${frontColor} 75%,
-        ${frontColor}
-      );
-    background-position: 0 0, 6px 6px;
-    background-size: 12px 12px;
-  }
-`;
+const backgroundStyles = css({
+  '.AKExampleShowcase': {
+    backgroundColor: backColor,
+    opacity: 1,
+    backgroundImage: `repeating-linear-gradient( 45deg, ${frontColor} 25%, transparent 25%, transparent 75%, ${frontColor} 75%, ${frontColor} ), repeating-linear-gradient( 45deg, ${frontColor} 25%, ${backColor} 25%, ${backColor} 75%, ${frontColor} 75%, ${frontColor} )`,
+    backgroundPosition: '0 0, 6px 6px',
+    backgroundSize: '12px 12px',
+  },
+});
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const toggleStyles = css`
-  .AKExampleWrapper {
-    padding-top: 23px;
-  }
-  .AKExampleToggle {
-    display: none;
-  }
-`;
+const toggleStyles = css({
+  '.AKExampleWrapper': {
+    paddingTop: token('space.300', '24px'),
+  },
+  '.AKExampleToggle': {
+    display: 'none',
+  },
+});
 
-const getStyles = (sourceVisible: boolean, background: boolean) => css`
-  ${background ? backgroundStyles : undefined}
-  ${sourceVisible === false ? toggleStyles : undefined}
-`;
+const getStyles = (sourceVisible: boolean, background: boolean) =>
+  css(
+    background ? backgroundStyles : undefined,
+    sourceVisible === false ? toggleStyles : undefined,
+  );
 
 type FlexibleUiExampleProps = {
   background?: boolean;

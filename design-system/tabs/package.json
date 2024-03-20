@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "14.0.4",
+  "version": "14.0.5",
   "description": "Tabs are used to organize content by grouping similar information on the same page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,7 +58,7 @@
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",
     "storybook-addon-performance": "^0.16.0",
-    "typescript": "~4.9.5",
+    "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },
   "techstack": {

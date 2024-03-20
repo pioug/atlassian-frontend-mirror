@@ -23,6 +23,7 @@ export const ContentFooter = ({
         'space-between',
       ],
       alignItems: ['unset', 'center'],
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
       marginTop: [gs(1), gs(1.5)],
     })}
     className={contentFooterClassName}

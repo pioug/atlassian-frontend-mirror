@@ -28,7 +28,6 @@ import {
   getAllAnnotations,
   getPluginState,
   inlineCommentPluginKey,
-  isCurrentBlockNodeSelected,
 } from '../utils';
 
 import { createPluginState } from './plugin-factory';
@@ -283,15 +282,17 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
                 const isUnresolved =
                   !!annotations && annotations[mark.attrs.id] === false;
 
-                if (isSupportedBlockNode) {
-                  const isBlockNodeSelected = isCurrentBlockNodeSelected(
-                    state,
-                    node,
+                const isSelected =
+                  !isInlineCommentViewClosed &&
+                  !!selectedAnnotations?.some(
+                    selectedAnnotation =>
+                      selectedAnnotation.id === mark.attrs.id,
                   );
 
+                if (isSupportedBlockNode) {
                   const attrs = isUnresolved
                     ? {
-                        class: isBlockNodeSelected
+                        class: isSelected
                           ? `${BlockAnnotationSharedClassNames.focus}`
                           : `${BlockAnnotationSharedClassNames.blur}`,
                       }
@@ -302,13 +303,6 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
                     }),
                   );
                 } else {
-                  const isSelected =
-                    !isInlineCommentViewClosed &&
-                    !!selectedAnnotations?.some(
-                      selectedAnnotation =>
-                        selectedAnnotation.id === mark.attrs.id,
-                    );
-
                   focusDecorations.push(
                     Decoration.inline(pos, pos + node.nodeSize, {
                       class: `${getAnnotationViewClassname(

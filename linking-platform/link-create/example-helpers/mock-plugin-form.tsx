@@ -9,6 +9,8 @@ import {
   Validator,
 } from '../src';
 
+import { MockDisclaimer } from './mock-disclaimer';
+
 interface pluginProps {
   shouldThrowError?: boolean;
 }
@@ -62,7 +64,7 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
 
   return (
     <div>
-      This is a mocked plugin.
+      <MockDisclaimer />
       <CreateForm<CreateFormProps<FormData>>
         onSubmit={mockHandleSubmit}
         onCancel={onCancel}

@@ -1,9 +1,11 @@
 export type {
+  DropTargetAllowedDropEffect,
   DropTargetRecord,
   Position,
   Input,
   DragLocation,
   DragLocationHistory,
+  DropData,
   CleanupFn,
   // These types are not needed for consumers.
   // They are mostly helpful for other packages

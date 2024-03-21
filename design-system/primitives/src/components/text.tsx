@@ -1,5 +1,13 @@
 /** @jsx jsx */
-import { createContext, FC, ReactNode, useContext } from 'react';
+import {
+  ComponentPropsWithRef,
+  createContext,
+  ElementType,
+  forwardRef,
+  ReactNode,
+  Ref,
+  useContext,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -20,7 +28,7 @@ import type { BasePrimitiveProps } from './types';
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;
 type AsElement = (typeof asAllowlist)[number];
 
-type TextPropsBase = {
+type TextPropsBase<T extends ElementType = 'span'> = {
   /**
    * HTML tag to be rendered. Defaults to `span`.
    */
@@ -57,9 +65,14 @@ type TextPropsBase = {
    * The [HTML `font-weight` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight).
    */
   weight?: FontWeight;
+  /**
+   * Forwarded ref.
+   */
+  ref?: ComponentPropsWithRef<T>['ref'];
 };
 
-export type TextProps = TextPropsBase & Omit<BasePrimitiveProps, 'xcss'>;
+export type TextProps<T extends ElementType = 'span'> = TextPropsBase<T> &
+  Omit<BasePrimitiveProps, 'xcss'>;
 
 // We're doing this because our CSS reset can add top margins to elements such as `p` which is totally insane.
 // Long term we should remove those instances from the reset - it should be a reset to 0.
@@ -133,57 +146,62 @@ const useColor = (
  *
  * @internal
  */
-const Text: FC<TextProps> = ({ children, ...props }) => {
-  const {
-    as: Component = 'span',
-    color: colorProp,
-    textAlign,
-    testId,
-    id,
-    size = 'medium',
-    weight,
-    maxLines,
-  } = props;
+const Text = forwardRef(
+  <T extends ElementType = 'span'>(
+    {
+      as: Component = 'span',
+      color: colorProp,
+      textAlign,
+      testId,
+      id,
+      size = 'medium',
+      weight,
+      maxLines,
+      children,
+    }: TextProps<T>,
+    ref: Ref<any>,
+  ) => {
+    invariant(
+      asAllowlist.includes(Component),
+      `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
+    );
 
-  invariant(
-    asAllowlist.includes(Component),
-    `@atlaskit/primitives: Text received an invalid "as" value of "${Component}"`,
-  );
+    const hasTextAncestor = useHasTextAncestor();
+    const color = useColor(colorProp, hasTextAncestor);
 
-  const hasTextAncestor = useHasTextAncestor();
-  const color = useColor(colorProp, hasTextAncestor);
+    const component = (
+      <Component
+        ref={ref}
+        css={[
+          resetStyles,
+          fontStylesMap[size],
+          color && textColorStylesMap[color],
+          maxLines && truncationStyles,
+          maxLines === 1 && wordBreakMap.breakAll,
+          textAlign && textAlignMap[textAlign],
+          weight && fontWeightStylesMap[weight],
+          Component === 'em' && emStyles,
+          Component === 'strong' && strongStyles,
+        ]}
+        style={{
+          WebkitLineClamp: maxLines,
+        }}
+        data-testid={testId}
+        id={id}
+      >
+        {children}
+      </Component>
+    );
 
-  const component = (
-    <Component
-      css={[
-        resetStyles,
-        fontStylesMap[size],
-        color && textColorStylesMap[color],
-        maxLines && truncationStyles,
-        maxLines === 1 && wordBreakMap.breakAll,
-        textAlign && textAlignMap[textAlign],
-        weight && fontWeightStylesMap[weight],
-        Component === 'em' && emStyles,
-        Component === 'strong' && strongStyles,
-      ]}
-      style={{
-        WebkitLineClamp: maxLines,
-      }}
-      data-testid={testId}
-      id={id}
-    >
-      {children}
-    </Component>
-  );
-
-  return hasTextAncestor ? (
-    // no need to re-apply context if the text is already wrapped
-    component
-  ) : (
-    <HasTextAncestorContext.Provider value={true}>
-      {component}
-    </HasTextAncestorContext.Provider>
-  );
-};
+    return hasTextAncestor ? (
+      // no need to re-apply context if the text is already wrapped
+      component
+    ) : (
+      <HasTextAncestorContext.Provider value={true}>
+        {component}
+      </HasTextAncestorContext.Provider>
+    );
+  },
+);
 
 export default Text;

@@ -34,44 +34,41 @@ export const LozengeComponent = ({
   title,
   params,
   renderImage,
-  isNodeSelected,
   showMacroInteractionDesignUpdates,
   customContainerStyles,
   isNodeHovered,
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
-  if (showMacroInteractionDesignUpdates && (isNodeHovered || isNodeSelected)) {
+  if (showMacroInteractionDesignUpdates) {
     return (
       <ExtensionLabel
         text={capitalizedTitle}
         extensionName={extensionName}
-        isNodeSelected={isNodeSelected}
+        isNodeHovered={isNodeHovered}
         customContainerStyles={customContainerStyles}
       />
     );
-  } else if (!showMacroInteractionDesignUpdates) {
-    const isBlockExtension = extensionName === 'extension';
-    return (
-      <div data-testid="lozenge-fallback" css={placeholderFallback}>
-        {lozengeData && !isBlockExtension ? (
-          renderImage({
-            height: ICON_SIZE,
-            width: ICON_SIZE,
-            ...lozengeData,
-          })
-        ) : (
-          <EditorFileIcon label={title} />
-        )}
-        <span className="extension-title">{capitalizedTitle}</span>
-        {params && !isBlockExtension && (
-          <span css={placeholderFallbackParams}>
-            {Object.keys(params).map(
-              (key) => key && ` | ${key} = ${params[key].value}`,
-            )}
-          </span>
-        )}
-      </div>
-    );
   }
-  return null;
+  const isBlockExtension = extensionName === 'extension';
+  return (
+    <div data-testid="lozenge-fallback" css={placeholderFallback}>
+      {lozengeData && !isBlockExtension ? (
+        renderImage({
+          height: ICON_SIZE,
+          width: ICON_SIZE,
+          ...lozengeData,
+        })
+      ) : (
+        <EditorFileIcon label={title} />
+      )}
+      <span className="extension-title">{capitalizedTitle}</span>
+      {params && !isBlockExtension && (
+        <span css={placeholderFallbackParams}>
+          {Object.keys(params).map(
+            (key) => key && ` | ${key} = ${params[key].value}`,
+          )}
+        </span>
+      )}
+    </div>
+  );
 };

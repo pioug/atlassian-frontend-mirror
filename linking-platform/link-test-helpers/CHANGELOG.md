@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 7.0.0
+
+### Major Changes
+
+- [#83082](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83082) [`d21596d6879c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d21596d6879c) - Renamed `defaultInitialVisibleColumnKeys` export to `defaultInitialVisibleJiraColumnKeys` because we can now mock different providers.
+
 ## 6.2.15
 
 ### Patch Changes

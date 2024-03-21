@@ -149,6 +149,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Спробуйте змінити пошуковий запит або перегляньте нові додатки для продуктів Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Відкрийте для себе Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {За вашим запитом результатів не знайдено.} one {{count} доступна пропозиція за замовчуванням.} few {{count} доступні пропозиції за замовчуванням.} many {{count} доступних пропозицій за замовчуванням.} other {{count} доступних пропозицій за замовчуванням.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {За вашим запитом результатів не знайдено.} one {{count} доступна пропозиція для введеного тексту.} few {{count} доступні пропозиції для введеного тексту.} many {{count} доступних пропозицій для введеного тексту.} other {{count} доступних пропозицій для введеного тексту.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Ввести',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Пошук',
   'fabric.editor.elementbrowser.sidebar.heading': 'Перегляд',

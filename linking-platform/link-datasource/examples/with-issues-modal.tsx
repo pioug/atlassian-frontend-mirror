@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  defaultInitialVisibleColumnKeys,
+  defaultInitialVisibleJiraColumnKeys,
   mockBasicFilterAGGFetchRequests,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
@@ -33,7 +33,7 @@ export default () => {
   >(undefined);
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
-  >(defaultInitialVisibleColumnKeys);
+  >(defaultInitialVisibleJiraColumnKeys);
   const [columnCustomSizes, setColumnCustomSizes] = useState<
     { [key: string]: number } | undefined
   >();

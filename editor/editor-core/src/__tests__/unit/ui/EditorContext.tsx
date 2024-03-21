@@ -24,7 +24,8 @@ describe('EditorContext', () => {
       </EditorContext>,
     );
     expect(
-      wrapper.find(EditorContextReceiver).instance().context.editorActions,
+      (wrapper.find(EditorContextReceiver).instance().context as any)
+        .editorActions,
     ).toBeDefined();
     wrapper.unmount();
   });
@@ -37,7 +38,8 @@ describe('EditorContext', () => {
       </EditorContext>,
     );
     expect(
-      wrapper.find(EditorContextReceiver).instance().context.editorActions,
+      (wrapper.find(EditorContextReceiver).instance().context as any)
+        .editorActions,
     ).toBe(editorActions);
     wrapper.unmount();
   });

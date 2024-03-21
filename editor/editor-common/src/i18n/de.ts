@@ -110,7 +110,7 @@ export default {
   'fabric.editor.decision': 'Entscheidung',
   'fabric.editor.decision.description': 'Entscheidungen erfassen, um sie leicht zu verfolgen',
   'fabric.editor.decisionPlaceholder': 'Entscheidung hinzufügen …',
-  'fabric.editor.decreaseSize': 'Größe verringern',
+  'fabric.editor.decreaseSize': 'Verkleinern',
   'fabric.editor.defaultAltText': 'Dokument',
   'fabric.editor.description': 'Beschreibung',
   'fabric.editor.displayBlock': 'Karte anzeigen',
@@ -151,6 +151,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Versuchen Sie, nach einem anderen Begriff zu suchen, oder entdecken Sie neue Apps für Atlassian-Produkte.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace erkunden',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Keine Treffer für Ihre Suchanfrage.} one {Standardmäßig {count} Vorschlag verfügbar.} other {Standardmäßig {count} Vorschläge verfügbar.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Keine Treffer für Ihre Suchanfrage.} one {{count} Vorschlag für eingegebenen Text verfügbar.} other {{count} Vorschläge für eingegebenen Text verfügbar.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Eingeben',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Suchen',
   'fabric.editor.elementbrowser.sidebar.heading': 'Durchsuchen',
@@ -233,7 +237,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Größe',
   'fabric.editor.imageBorderSubtle': 'Schmal',
   'fabric.editor.improvement': 'Verbesserung',
-  'fabric.editor.increaseSize': 'Größe erhöhen',
+  'fabric.editor.increaseSize': 'Vergrößern',
   'fabric.editor.indent': 'Einzug vergrößern',
   'fabric.editor.info': 'Info',
   'fabric.editor.infoPanel': 'Info-Panel',

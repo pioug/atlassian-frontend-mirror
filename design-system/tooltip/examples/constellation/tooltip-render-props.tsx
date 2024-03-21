@@ -23,9 +23,9 @@ const longMessage =
 const InlineDialog = styled(TooltipPrimitive)({
   background: 'white',
   borderRadius: token('border.radius', '4px'),
-  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
+  boxShadow: token('elevation.shadow.overlay'),
   boxSizing: 'content-box',
-  color: '#333',
+  color: token('color.text'),
   maxHeight: '300px',
   maxWidth: '300px',
   padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,

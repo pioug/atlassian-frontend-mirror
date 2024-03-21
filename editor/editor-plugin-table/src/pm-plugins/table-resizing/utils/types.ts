@@ -8,6 +8,7 @@ export interface ResizeState {
   maxSize: number;
   overflow: boolean;
   tableWidth: number;
+  isScaled?: boolean;
 }
 export interface ResizeStateWithAnalytics {
   resizeState: ResizeState;

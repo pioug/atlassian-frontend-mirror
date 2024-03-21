@@ -1,4 +1,4 @@
-import Select from 'react-select';
+import ReactSelect from 'react-select';
 import {
   withAnalyticsEvents,
   withAnalyticsContext,
@@ -9,10 +9,10 @@ import createSelect from './createSelect';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export const SelectWithoutAnalytics = createSelect(Select);
+export const SelectWithoutAnalytics = createSelect(ReactSelect);
 const createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
-export default withAnalyticsContext({
+const Select = withAnalyticsContext({
   componentName: 'select',
   packageName,
   packageVersion,
@@ -29,3 +29,5 @@ export default withAnalyticsContext({
     }),
   })(SelectWithoutAnalytics),
 ) as unknown as ReturnType<typeof createSelect>;
+
+export default Select;

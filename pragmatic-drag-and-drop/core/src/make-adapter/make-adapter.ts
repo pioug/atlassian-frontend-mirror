@@ -2,6 +2,7 @@ import {
   AdapterAPI,
   AllDragTypes,
   CleanupFn,
+  DropTargetAllowedDropEffect,
   EventPayloadMap,
 } from '../internal-types';
 import { lifecycle } from '../ledger/lifecycle-manager';
@@ -18,7 +19,7 @@ export function makeAdapter<DragType extends AllDragTypes>({
 }: {
   typeKey: DragType['type'];
   mount: (api: AdapterAPI<DragType>) => CleanupFn;
-  defaultDropEffect: DataTransfer['dropEffect'];
+  defaultDropEffect: DropTargetAllowedDropEffect;
   dispatchEventToSource?: <
     EventName extends keyof EventPayloadMap<DragType>,
   >(args: {

@@ -148,6 +148,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Pesquise com um termo diferente ou descubra apps novos para produtos Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Explorar Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Nada corresponde à pesquisa.} one {{count} sugestão disponível por padrão.} other {{count} sugestões disponíveis por padrão.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Nada corresponde à pesquisa.} one {{count} sugestão disponível para texto digitado.} other {{count} sugestões disponíveis para texto digitado.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Pesquisar',
   'fabric.editor.elementbrowser.sidebar.heading': 'Procurar',

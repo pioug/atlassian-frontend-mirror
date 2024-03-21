@@ -1,5 +1,11 @@
 # @atlaskit/date
 
+## 0.10.10
+
+### Patch Changes
+
+- [#83044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83044) [`cdab77009f9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdab77009f9e) - Fix leftover react 18 type issues in editor-core, editor-plugin-extension and date
+
 ## 0.10.9
 
 ### Patch Changes

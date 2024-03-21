@@ -149,6 +149,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Prøv å søke med et annet uttrykk eller oppdag nye apper for Atlassian-produkter.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Utforsk Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Ingen treff for søket ditt.} one {{count} forslag er tilgjengelig som standard.} other {{count} forslag er tilgjengelig som standard.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Ingen treff for søket ditt.} one {{count} forslag er tilgjengelig for den skrevne teksten.} other {{count} forslag er tilgjengelig for den skrevne teksten.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Søk',
   'fabric.editor.elementbrowser.sidebar.heading': 'Se gjennom',
@@ -272,7 +276,7 @@ export default {
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'angi høyde',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Høyde',
   'fabric.editor.media.pixelEntry.inputWidthAriaLabel': 'Maksbredde {maxWidth} px',
-  'fabric.editor.media.pixelEntry.inputWidthTooltip': 'Maksbredde {maxWidth} px',
+  'fabric.editor.media.pixelEntry.inputWidthTooltip': 'Maksbredde {maxWidth} piksler',
   'fabric.editor.media.pixelEntry.migrationButtonText': 'Konverter til piksler',
   'fabric.editor.media.pixelEntry.migrationButtonTooltip': 'Migrer fra prosent til fast pikselstørrelse',
   'fabric.editor.media.pixelEntry.submitButtonText': 'Send inn',
@@ -288,7 +292,7 @@ export default {
   'fabric.editor.mention.description': 'Oppgi noen for å sende dem et varsel',
   'fabric.editor.mentionNode.label': 'Merket bruker',
   'fabric.editor.mentionsAddLabel': 'legg til-ikon',
-  'fabric.editor.mentionsIconLabel': 'Nevn',
+  'fabric.editor.mentionsIconLabel': 'Omtal',
   'fabric.editor.mergeCells': 'Slå sammen celler',
   'fabric.editor.moreFormatting': 'Mer formatering',
   'fabric.editor.moveColumnLeft': '{0, plural, one {Flytt kolonnen til venstre} other {Flytt kolonnene til venstre}}',

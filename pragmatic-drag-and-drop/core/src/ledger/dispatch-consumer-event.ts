@@ -4,6 +4,7 @@ import {
   AllDragTypes,
   DragLocation,
   DragLocationHistory,
+  DropData,
   EventPayloadMap,
 } from '../internal-types';
 
@@ -119,9 +120,11 @@ export function makeDispatch<DragType extends AllDragTypes>({
     },
     drop({
       current,
+      drop,
       updatedSourcePayload,
     }: {
       current: DragLocation;
+      drop: DropData;
       /** When dragging from an external source, we need to collect the
           drag source information again as it is often only available during
           the "drop" event */
@@ -132,6 +135,7 @@ export function makeDispatch<DragType extends AllDragTypes>({
       safeDispatch({
         eventName: 'onDrop',
         payload: {
+          drop,
           source: updatedSourcePayload ?? source,
           location: {
             current,

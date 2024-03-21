@@ -215,6 +215,8 @@ export class ReactEditorView<T = {}> extends React.Component<
     getAtlaskitAnalyticsEventHandlers: PropTypes.func,
   };
 
+  context!: EditorReactContext;
+
   // ProseMirror is instantiated prior to the initial React render cycle,
   // so we allow transactions by default, to avoid discarding the initial one.
   private canDispatchTransactions = true;

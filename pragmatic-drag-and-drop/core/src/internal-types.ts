@@ -1,6 +1,17 @@
 export type CleanupFn = () => void;
 
 /**
+ * Drop effects allowed to be passed to `getDropEffect()`.
+ * Cannot use `"none"` as a `dropEffect` for drop targets as
+ * it will opt out of accepting a drop for all nested drop targets.
+ * Please use `canDrop()` to disable dropping for this drop target.
+ */
+export type DropTargetAllowedDropEffect = Exclude<
+  DataTransfer['dropEffect'],
+  'none'
+>;
+
+/**
  * Information about a drop target
  */
 export type DropTargetRecord = {
@@ -20,7 +31,7 @@ export type DropTargetRecord = {
    *
    * (Collected by `getDropEffect()`)
    */
-  dropEffect: DataTransfer['dropEffect'];
+  dropEffect: DropTargetAllowedDropEffect;
   /**
    * Whether or not the drop target is active due to _stickiness_
    */
@@ -32,7 +43,7 @@ export type Position = { x: number; y: number };
 export type Serializable = {
   [key: string]: number | string | Serializable | Serializable[];
 };
-export type StartedFrom = 'internal' | 'external';
+export type Region = 'internal' | 'external';
 
 export type ElementDragPayload = {
   element: HTMLElement;
@@ -215,6 +226,10 @@ export type BaseEventPayload<DragType extends AllDragTypes> = {
   source: DragType['payload'];
 };
 
+export type DropData = {
+  dropEffect: DataTransfer['dropEffect'];
+};
+
 export type EventPayloadMap<DragType extends AllDragTypes> = {
   /**
    * Drag is about to start.
@@ -250,7 +265,7 @@ export type EventPayloadMap<DragType extends AllDragTypes> = {
    *
    * The `location.current` property will accurately contain the final drop targets.
    */
-  onDrop: BaseEventPayload<DragType>;
+  onDrop: BaseEventPayload<DragType> & { drop: DropData };
 };
 
 export type AllEvents<DragType extends AllDragTypes> = {
@@ -355,11 +370,11 @@ export type DropTargetArgs<DragType extends AllDragTypes> = {
   canDrop?: (args: DropTargetGetFeedbackArgs<DragType>) => boolean;
   /**
    * Optionally provide a _drop effect_ to be applied when
-   * this drop target is the innermost drop target being dragged over
+   * this drop target is the innermost drop target being dragged over.
    */
   getDropEffect?: (
     args: DropTargetGetFeedbackArgs<DragType>,
-  ) => DataTransfer['dropEffect'];
+  ) => DropTargetAllowedDropEffect;
   /**
    * Return `true` if you want your drop target to hold onto
    * selection after the user is no longer dragging over this drop target.

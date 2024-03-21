@@ -142,12 +142,10 @@ monitorForExternal({
     // when any drag starts for files block unhandled drags
     preventUnhandled.start();
   },
-  onDrop: () => {
-    // resume standard behaviour when the drag is finished
-    preventUnhandled.stop();
-  },
 });
 ```
+
+`preventUnhandled.start()` only applies for the current drag operation. You need to call it again for each drag operation you want to use it for. You can use `prevenUnhandled.stop()` to stop blocking events during a drag operation if you like.
 
 ## `types`
 
@@ -176,6 +174,9 @@ export type {
 
   // The type of our cleanup functions
   CleanupFn,
+
+  // Additional information for a `onDrop` event
+  DropData,
 
   // These types are not needed for consumers.
   // They are mostly helpful for other packages

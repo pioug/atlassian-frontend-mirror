@@ -27,7 +27,7 @@ export default {
   'fabric.editor.altText': 'Alt-tekst',
   'fabric.editor.alttext.validation': 'Verwijder speciale tekens uit alt-tekst.',
   'fabric.editor.annotationToolbar': 'Aantekeningentaakbalk',
-  'fabric.editor.backLink': 'Terug',
+  'fabric.editor.backLink': 'Ga terug',
   'fabric.editor.backgroundColor': 'Achtergrondkleur',
   'fabric.editor.blockCardUnavailable': 'De inline-link zit in {node} en de weergave ervan kan niet gewijzigd worden',
   'fabric.editor.blockDescription': 'Meer informatie weergeven over een link, inclusief een samenvatting en acties',
@@ -148,6 +148,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Probeer met een andere term te zoeken of ontdek nieuwe apps voor Atlassian-producten.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace ontdekken',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Er komt niets overeen met je zoekopdracht.} one {{count} suggestie is standaard beschikbaar.} other {{count} suggesties zijn standaard beschikbaar.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Er komt niets overeen met je zoekopdracht.} one {{count} suggestie beschikbaar voor getypte tekst.} other {{count} suggesties beschikbaar voor getypte tekst.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Invoeren',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Zoeken',
   'fabric.editor.elementbrowser.sidebar.heading': 'Bladeren',

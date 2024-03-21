@@ -10,7 +10,8 @@ import { useRowId } from './hooks/use-row-id';
 import { useTable } from './hooks/use-table';
 import { useTableBody } from './hooks/use-table-body';
 import SelectableCell from './selectable-cell';
-import * as Primitives from './ui';
+import { SelectableCell as SelectableCellPrimitive } from './ui/selectable-cell';
+import { TR as TRPrimitive } from './ui/tr';
 
 export type RowProps = {
   /**
@@ -55,18 +56,18 @@ const Row: FC<RowProps> = memo(({ children, testId }) => {
 
   let selectableCell = isSelectable && <SelectableCell />;
   if (isSelectable && isExpandableContent) {
-    selectableCell = <Primitives.SelectableCell as="td" />;
+    selectableCell = <SelectableCellPrimitive as="td" />;
   }
 
   return (
-    <Primitives.TR
+    <TRPrimitive
       isSelected={isSelected}
       testId={testId}
       isSubitem={isExpandableContent}
     >
       {selectableCell}
       {children}
-    </Primitives.TR>
+    </TRPrimitive>
   );
 });
 

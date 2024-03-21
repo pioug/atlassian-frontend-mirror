@@ -149,6 +149,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Intenta buscar con otro término o descubre nuevas aplicaciones para productos de Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Explorar Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {No hay nada que coincida con tu búsqueda.} one {{count} sugerencia disponible de forma predeterminada.} other {{count} sugerencias disponibles de forma predeterminada.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {No hay nada que coincida con tu búsqueda.} one {Hay {count} sugerencia disponible para texto escrito.} other {Hay {count} sugerencias disponibles para texto escrito.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Entrar',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Buscar',
   'fabric.editor.elementbrowser.sidebar.heading': 'Explorar',

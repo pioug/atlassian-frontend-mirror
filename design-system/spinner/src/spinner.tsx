@@ -94,7 +94,16 @@ const circleStyles = css({
 const useLayoutEffect =
   typeof window === 'undefined' ? useEffect : useRealLayoutEffect;
 
-export default React.memo(
+/**
+ * __Spinner__
+ *
+ * A spinner is an animated spinning icon that lets users know content is being loaded.
+ *
+ * - [Examples](https://atlassian.design/components/{spinner}/examples)
+ * - [Code](https://atlassian.design/components/{spinner}/code)
+ * - [Usage](https://atlassian.design/components/{spinner}/usage)
+ */
+const Spinner = React.memo(
   React.forwardRef<SVGSVGElement, SpinnerProps>(function Spinner(
     {
       appearance = 'inherit',
@@ -158,3 +167,5 @@ export default React.memo(
     );
   }),
 );
+
+export default Spinner;

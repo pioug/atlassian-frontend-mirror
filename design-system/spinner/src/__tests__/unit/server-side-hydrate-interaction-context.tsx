@@ -1,7 +1,7 @@
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-test('should ssr then hydrate form correctly', async () => {
+test('should ssr then hydrate correctly', async () => {
   const examplePath = require.resolve(
     '../../../examples/2-with-interaction-context.tsx',
   );

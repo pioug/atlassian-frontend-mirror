@@ -145,6 +145,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '请尝试用其他术语搜索或寻找适用于 Atlassian 产品的新应用。',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': '浏览 Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {未找到与您的搜索条件相匹配的内容。} other {默认有 {count} 条建议。}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {未找到与您的搜索条件相匹配的内容。} other {有 {count} 条针对已输入文本的建议。}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter 键',
   'fabric.editor.elementbrowser.searchbar.placeholder': '搜索',
   'fabric.editor.elementbrowser.sidebar.heading': '浏览',

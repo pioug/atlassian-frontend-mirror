@@ -164,12 +164,14 @@ const bgAndBorderColorStyles = (appearance: TextAreaProps['appearance']) =>
       : {}),
   });
 
-const placeholderStyle = (placeholderTextColor: string) =>
-  css({
-    '&::placeholder': {
-      color: placeholderTextColor,
-    },
-  });
+const placeholderStyles = css({
+  '&::placeholder': {
+    color: componentTokens.placeholderTextColor,
+  },
+  '&:disabled::placeholder': {
+    color: disabledRules.textColor,
+  },
+});
 
 const hoverBackgroundAndBorderStyles = (
   appearance: TextAreaProps['appearance'],
@@ -302,7 +304,7 @@ export const dynamicStyles = (appearance: TextAreaProps['appearance']) =>
   css([
     bgAndBorderColorStyles(appearance),
     hoverBackgroundAndBorderStyles(appearance),
-    placeholderStyle(componentTokens.placeholderTextColor),
+    placeholderStyles,
     {
       color: componentTokens.textColor,
       '&:disabled': {

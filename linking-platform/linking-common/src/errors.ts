@@ -24,6 +24,7 @@ export class APIError extends Error {
     public readonly hostname: string,
     public readonly message: string,
     public readonly type?: ErrorType,
+    public readonly extensionKey?: string,
   ) {
     super(`${kind}: ${message}`);
     this.name = 'APIError';
@@ -35,5 +36,7 @@ export class APIError extends Error {
     this.message = message;
     // The hostname of the URL which failed - do NOT log this (contains PII/UGC).
     this.hostname = hostname;
+    // The extensionKey passed from the error response from ORS
+    this.extensionKey = extensionKey;
   }
 }

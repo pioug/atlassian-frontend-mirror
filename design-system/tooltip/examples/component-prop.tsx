@@ -10,9 +10,9 @@ import Tooltip, { TooltipPrimitive } from '../src';
 const InlineDialog = styled(TooltipPrimitive)`
   background: white;
   border-radius: ${token('border.radius', '4px')};
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: ${token('elevation.shadow.overlay')};
   box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
-  color: #333;
+  color: ${token('color.text')};
   max-height: 300px;
   max-width: 300px;
   padding: ${token('space.100', '8px')} ${token('space.150', '12px')};

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.1.4
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+
+## 1.1.3
+
+### Patch Changes
+
+- [#83044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83044) [`cdab77009f9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdab77009f9e) - Fix leftover react 18 type issues in editor-core, editor-plugin-extension and date
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

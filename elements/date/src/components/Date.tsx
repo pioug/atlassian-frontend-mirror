@@ -47,7 +47,7 @@ export class Date extends React.Component<Props> {
         return (
           // prettier-ignore
           // eslint-disable-next-line @typescript-eslint/ban-types
-          (this.props.children as React.FunctionComponent<React.PropsWithChildren<Props>>)(this.props)
+          (this.props.children as React.FunctionComponent<Props>)(this.props)
         );
       }
       return this.props.children;

@@ -44,7 +44,7 @@ export const SaveIndicator = ({
   children,
   duration,
   visible = true,
-}: React.PropsWithChildren<SaveIndicatorProps>) => {
+}: SaveIndicatorProps) => {
   const [saving, setSaving] = useState(false);
   const shown = useRef(false);
 

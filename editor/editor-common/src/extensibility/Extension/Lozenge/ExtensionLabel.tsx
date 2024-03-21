@@ -4,10 +4,11 @@ import type { CSSProperties } from 'react';
 import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 
-import { B400, B50, N300, N500 } from '@atlaskit/theme/colors';
+import { N300, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const labelStyles = css({
+const labelStyles = css({
+  opacity: 0,
   display: 'inline-flex',
   width: 'max-content',
   justifyContent: 'left',
@@ -19,11 +20,10 @@ export const labelStyles = css({
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     top: '-17px',
   },
-  background: token('color.background.accent.gray.subtle.pressed', N300),
-  color: token('color.text.subtle', N500),
-  '&.selected': {
-    backgroundColor: token('color.background.selected', B50),
-    color: token('color.text.selected', B400),
+  '&.hovered': {
+    background: token('color.background.accent.gray.subtle.pressed', N300),
+    color: token('color.text.subtle', N500),
+    opacity: 1,
   },
   borderRadius: token('border.radius', '3px'),
   lineHeight: 1,
@@ -39,19 +39,19 @@ const textStyles = css({
 type ExtensionLabelProps = {
   text: string;
   extensionName: string;
-  isNodeSelected?: boolean;
+  isNodeHovered?: boolean;
   customContainerStyles?: CSSProperties;
 };
 
 export const ExtensionLabel = ({
   text,
   extensionName,
-  isNodeSelected,
+  isNodeHovered,
   customContainerStyles,
 }: ExtensionLabelProps) => {
   const classNames = classnames('extension-title', 'extension-label', {
     'inline-extension': extensionName === 'inlineExtension',
-    selected: isNodeSelected,
+    hovered: isNodeHovered,
   });
 
   return (

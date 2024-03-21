@@ -26,7 +26,7 @@ const renderExperience = {
 const aiExperience = {
   platform: { component: 'smart-links' },
   type: ExperienceTypes.Experience,
-  performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+  performanceType: ExperiencePerformanceTypes.InlineResult,
 };
 
 const ufoExperiences: Record<UfoExperienceName, ConcurrentExperience> = {

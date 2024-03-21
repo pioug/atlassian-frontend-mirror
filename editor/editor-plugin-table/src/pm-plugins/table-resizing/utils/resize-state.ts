@@ -63,6 +63,7 @@ export const getResizeState = ({
       maxSize,
       tableWidth,
       overflow,
+      isScaled: isTableScalingEnabled,
     };
   }
 
@@ -101,6 +102,7 @@ export const getResizeState = ({
     maxSize,
     tableWidth,
     overflow,
+    isScaled: isTableScalingEnabled,
   };
 };
 

@@ -43,7 +43,7 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-styled-components-prop-syntax' }],
+        errors: [{ messageId: 'unsupported-prop-syntax' }],
       },
       {
         name: 'converts styled usages with type annotation on the outside (as a variable)',
@@ -71,7 +71,7 @@ typescriptEslintTester.run(
             backgroundColor: props.backgroundColor,
           }));
         `,
-        errors: [{ messageId: 'unsupported-styled-components-prop-syntax' }],
+        errors: [{ messageId: 'unsupported-prop-syntax' }],
       },
       {
         name: 'disables autofixer when type annotation is inside props argument',
@@ -90,7 +90,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },
@@ -111,7 +111,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },
@@ -131,7 +131,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },

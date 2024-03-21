@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  defaultInitialVisibleColumnKeys,
+  defaultInitialVisibleJiraColumnKeys,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -24,7 +24,7 @@ export const JiraIssuesConfigModalNoInitialJQL = () => (
     <SmartCardProvider client={new SmartLinkClient()}>
       <PlainJiraIssuesConfigModal
         datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}
-        visibleColumnKeys={defaultInitialVisibleColumnKeys}
+        visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
         parameters={parameters}
         onCancel={() => {}}
         onInsert={() => {}}

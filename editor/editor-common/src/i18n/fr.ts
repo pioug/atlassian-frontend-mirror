@@ -150,6 +150,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Essayez de rechercher un autre terme ou découvrez de nouvelles apps pour les produits Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Explorer Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Aucun résultat pour votre recherche.} one {{count} suggestion disponible par défaut.} other {{count} suggestions disponibles par défaut.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Aucun résultat pour votre recherche.} one {{count} suggestion disponible pour le texte saisi.} other {{count} suggestions disponibles pour le texte saisi.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Entrer',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Rechercher',
   'fabric.editor.elementbrowser.sidebar.heading': 'Parcourir',
@@ -192,7 +196,7 @@ export default {
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': "Barre d'outils flottante",
   'fabric.editor.floatingToolbar.scrollLeft': 'Faire défiler vers la gauche',
   'fabric.editor.floatingToolbar.scrollRight': 'Faire défiler vers la droite',
-  'fabric.editor.focusTableResizeHandle': 'Poignée de redimensionnement de tableau prioritaire',
+  'fabric.editor.focusTableResizeHandle': 'Focus sur la poignée de redimensionnement des tableaux',
   'fabric.editor.headerColumn': "Colonne de l'en-tête",
   'fabric.editor.headerRow': "Ligne d'en-tête",
   'fabric.editor.heading1': 'En-tête 1',
@@ -292,7 +296,7 @@ export default {
   'fabric.editor.mention.description': 'Mentionner une personne pour lui envoyer une notification',
   'fabric.editor.mentionNode.label': 'Utilisateur mentionné',
   'fabric.editor.mentionsAddLabel': 'icône-ajout',
-  'fabric.editor.mentionsIconLabel': 'Mention',
+  'fabric.editor.mentionsIconLabel': 'Mentionner',
   'fabric.editor.mergeCells': 'Fusionner les cellules',
   'fabric.editor.moreFormatting': 'Plus de formatage',
   'fabric.editor.moveColumnLeft':

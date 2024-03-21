@@ -55,7 +55,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^17.3.0",
-    "@atlaskit/textarea": "^5.1.0",
+    "@atlaskit/textarea": "^5.2.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",

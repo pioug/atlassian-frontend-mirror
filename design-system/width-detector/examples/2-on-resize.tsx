@@ -3,25 +3,25 @@ import styled from '@emotion/styled';
 import WidthDetector from '../src';
 import debounce from 'lodash/debounce';
 
-const ResultBox = styled.div`
-  align-items: center;
-  background-color: rebeccapurple;
-  color: white;
-  display: flex;
-  height: 100%;
-  min-height: 100px;
-  justify-content: center;
-  white-space: nowrap;
-  transition: background-color 1s;
-  padding: 10px;
-`;
+const ResultBox = styled.div({
+  alignItems: 'center',
+  backgroundColor: 'rebeccapurple',
+  color: 'white',
+  display: 'flex',
+  height: '100%',
+  minHeight: '100px',
+  justifyContent: 'center',
+  whiteSpace: 'nowrap',
+  transition: 'background-color 1s',
+  padding: '10px',
+});
 
-const ResultNumber = styled.div`
-  background-color: rgb(0, 0, 0, 0.6);
-  color: white;
-  padding: 10px;
-  border-radius: 3px;
-`;
+const ResultNumber = styled.div({
+  backgroundColor: 'rgb(0, 0, 0, 0.6)',
+  color: 'white',
+  padding: '10px',
+  borderRadius: '3px',
+});
 
 export default class Example extends React.Component {
   state = {

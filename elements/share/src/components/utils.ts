@@ -50,6 +50,13 @@ export const optionDataToUsers = (optionDataArray: OptionData[]): User[] =>
           email: optionData.id,
         };
         return user;
+      case 'external_user':
+        // When optionData.type is 'external_user', we need to convert it to 'user'
+        // because 'external_user' isn't a valid type for the '/gateway/api/share' API.
+        return {
+          type: 'user',
+          id: optionData.id,
+        };
       default:
         return {
           type: optionData.type || 'user',

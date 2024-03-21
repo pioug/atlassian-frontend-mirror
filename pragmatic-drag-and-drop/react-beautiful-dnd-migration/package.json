@@ -37,7 +37,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^1.0.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-live-region": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.0.0",

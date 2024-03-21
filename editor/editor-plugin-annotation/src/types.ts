@@ -14,6 +14,7 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
+import type { showInlineCommentForBlockNode } from './commands';
 import type { InlineCommentPluginState } from './pm-plugins/types';
 
 type StripNonExistingAnnotations = (
@@ -57,6 +58,12 @@ export type AnnotationPlugin = NextEditorPlugin<
     actions: {
       stripNonExistingAnnotations: StripNonExistingAnnotations;
       setInlineCommentDraftState: SetInlineCommentDraftState;
+      /**
+       * This function attempts to display the inline comment popup for a given node.
+       * @returns A command function if the given node is supported and has an annotation mark;
+       * otherwise, it will return undefined.
+       */
+      showCommentForBlockNode: ReturnType<typeof showInlineCommentForBlockNode>;
     };
   }
 >;

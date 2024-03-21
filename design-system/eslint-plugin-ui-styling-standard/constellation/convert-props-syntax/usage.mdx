@@ -1,8 +1,8 @@
 # convert-props-syntax
 
-Convert props syntax that is unsupported by `styled-components` <4.x to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by `styled-components`.
+Convert props syntax that are unsupported by `styled-components@<4` and `@emotion/styled` to a props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax that results in a type error.
 
-`styled-components` <4.x does not support having an arrow function inside a CSS value:
+These libraries do not support having an arrow function inside a CSS value:
 
 ```js
 styled.div({
@@ -20,7 +20,7 @@ styled.div((props) => ({
 }));
 ```
 
-This ESLint rule will only run on usages of the `styled` API when imported from `styled-components`.
+This ESLint rule will only run on usages of the `styled` API when imported from libraries that are known to have this problem.
 
 ## About the autofixer
 
@@ -98,7 +98,7 @@ styled.div({
 ### Correct
 
 ```js
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 styled.div((props) => ({
   color: props.myColor,
@@ -112,4 +112,4 @@ styled.div((props) => ({
 
 ## When not to use it
 
-You do not need this rule if you are not using a codebase that has an old version of `styled-components` (<4.x).
+You do not need this rule if you are not using a codebase that has a violating library as it will never do anything.

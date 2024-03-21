@@ -2,25 +2,25 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { WidthObserver } from '../src';
 
-const ResultBox = styled.div`
-  position: relative;
-  background-color: rebeccapurple;
-  color: white;
-`;
+const ResultBox = styled.div({
+  position: 'relative',
+  backgroundColor: 'rebeccapurple',
+  color: 'white',
+});
 
-const Text = styled.p`
-  width: 100%;
-`;
+const Text = styled.p({
+  width: '100%',
+});
 
-const Aside = styled.aside`
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #000;
-  color: #fff;
-  display: flex;
-`;
+const Aside = styled.aside({
+  position: 'fixed',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  background: '#000',
+  color: '#fff',
+  display: 'flex',
+});
 
 const Lorem = () => (
   <Text>

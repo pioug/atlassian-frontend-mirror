@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.16.4
+
+### Patch Changes
+
+- [#83215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83215) [`d254bd519f7f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d254bd519f7f) - Fix error when submit share with external_user.
+
 ## 4.16.3
 
 ### Patch Changes

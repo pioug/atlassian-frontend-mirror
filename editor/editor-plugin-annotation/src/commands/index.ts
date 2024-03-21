@@ -9,6 +9,7 @@ import type {
   CommandDispatch,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
   type EditorState,
   NodeSelection,
@@ -192,6 +193,28 @@ const getDraftCommandAction: (
     };
   };
 };
+
+export const showInlineCommentForBlockNode =
+  (supportedBlockNodes: string[] = []) =>
+  (node: PMNode | null): Command | undefined => {
+    if (node && node.isBlock && supportedBlockNodes.includes(node.type.name)) {
+      const annotationMarks = (node?.marks || [])
+        .filter(mark => mark.type.name === 'annotation')
+        .map(mark => ({
+          id: mark.attrs.id,
+          type: mark.attrs.annotationType,
+        }));
+
+      if (annotationMarks.length) {
+        return createCommand({
+          type: ACTIONS.SET_SELECTED_ANNOTATION,
+          data: {
+            selectedAnnotations: annotationMarks,
+          },
+        });
+      }
+    }
+  };
 
 export const setInlineCommentDraftState =
   (

@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 13.1.0
+
+### Minor Changes
+
+- [#83505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83505) [`36b4633e8ee5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36b4633e8ee5) - Adds a testId prop to allow for easier testing
+
 ## 13.0.9
 
 ### Patch Changes

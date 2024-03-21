@@ -6,6 +6,7 @@ import {
   draggable,
   dropTargetForElements,
 } from '../../../../src/entry-point/element/adapter';
+import type { DropTargetAllowedDropEffect } from '../../../../src/entry-point/types';
 import {
   appendToBody,
   getBubbleOrderedTree,
@@ -148,9 +149,9 @@ test('[B(default: move), A(copy)] -> move', () => {
   cleanup();
 });
 
-function getChangingEffects(...effects: DataTransfer['dropEffect'][]) {
+function getChangingEffects(...effects: DropTargetAllowedDropEffect[]) {
   let index = 0;
-  return function getDropEffect(): DataTransfer['dropEffect'] {
+  return function getDropEffect(): DropTargetAllowedDropEffect {
     const effect = effects[index];
     invariant(effect, `no effect for index found ${index}`);
     index++;

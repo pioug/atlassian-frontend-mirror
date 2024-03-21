@@ -77,7 +77,7 @@ export default {
   'fabric.editor.configPanel.dateRange.option.custom': '自訂',
   'fabric.editor.configPanel.documentation': '說明文件',
   'fabric.editor.configPanel.errorBoundary.note':
-    '我們已經告訴團隊了。您仍然可以編輯和發布此頁面，或查看錯誤主控台以取得更多資訊。',
+    '我們已經通知團隊。您仍然可以編輯和發布此頁面，或查看錯誤主控台以取得更多資訊。',
   'fabric.editor.configPanel.errorBoundary.title': '發生錯誤。',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio': '無法結合 isMultiple 與 radio 風格',
   'fabric.editor.configPanel.formType.addField': '新增欄位',
@@ -146,6 +146,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '請試著使用不同的詞彙搜尋，或探索 Atlassian 產品的新應用程式。',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': '探索 Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {沒有任何項目符合您的搜尋內容。} other {依預設有 {count} 個適用的建議。}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {沒有任何項目符合您的搜尋內容。} other {適用於輸入文字的 {count} 個建議。}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': '搜尋',
   'fabric.editor.elementbrowser.sidebar.heading': '瀏覽',
@@ -221,7 +225,7 @@ export default {
   'fabric.editor.image.fullWidthLabel': '全寬',
   'fabric.editor.imageBorderBold': '粗體',
   'fabric.editor.imageBorderColor': '顏色',
-  'fabric.editor.imageBorderMedium': '普通',
+  'fabric.editor.imageBorderMedium': '中等',
   'fabric.editor.imageBorderOptions': '邊框選項',
   'fabric.editor.imageBorderSize': '大小',
   'fabric.editor.imageBorderSubtle': '不明顯的',

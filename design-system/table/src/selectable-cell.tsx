@@ -8,7 +8,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
 import { useRowId } from './hooks/use-row-id';
-import * as Primitives from './ui';
+import { SelectableCell as SelectableCellPrimitive } from './ui';
 
 const SelectableCell: FC = () => {
   const [{ allChecked, checked }, { toggleSelection }] = useSelection();
@@ -25,13 +25,13 @@ const SelectableCell: FC = () => {
   );
 
   return (
-    <Primitives.SelectableCell as="td">
+    <SelectableCellPrimitive as="td">
       <Checkbox
         isChecked={isChecked}
         onChange={onChange}
         label={<VisuallyHidden>Select row {idx + 1}</VisuallyHidden>}
       />
-    </Primitives.SelectableCell>
+    </SelectableCellPrimitive>
   );
 };
 

@@ -111,7 +111,7 @@ describe('ufoExperience', () => {
         {
           platform: { component: 'smart-links' },
           type: ExperienceTypes.Experience,
-          performanceType: ExperiencePerformanceTypes.PageSegmentLoad,
+          performanceType: ExperiencePerformanceTypes.InlineResult,
         },
       );
     });

@@ -48,7 +48,7 @@
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/tag": "^12.0.0",
     "@atlaskit/tag-group": "^10.2.0",
-    "@atlaskit/textarea": "^5.1.0",
+    "@atlaskit/textarea": "^5.2.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/tooltip": "^18.1.0",

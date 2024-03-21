@@ -52,7 +52,7 @@ const PopupSelectExample = () => (
             {...triggerProps}
             testId="button-for-testing"
           >
-            Target
+            Target1
           </Button>
         )}
         testId="select-for-testing"
@@ -61,7 +61,7 @@ const PopupSelectExample = () => (
         {...defaults}
         target={({ isOpen, ...triggerProps }) => (
           <Button isSelected={isOpen} {...triggerProps}>
-            Target
+            Target2
           </Button>
         )}
         popperProps={{ placement: 'bottom', strategy: 'fixed' }}
@@ -74,7 +74,7 @@ const PopupSelectExample = () => (
             Placement: &ldquo;right-start&rdquo; (flip)
           </Button>
         )}
-        popperProps={{ placement: 'right-start' }}
+        popperProps={{ placement: 'right-start', strategy: 'fixed' }}
       />
     </div>
     <div css={flexStyles}>
@@ -95,7 +95,7 @@ const PopupSelectExample = () => (
           {...defaults}
           target={({ isOpen, ...triggerProps }) => (
             <Button isSelected={isOpen} {...triggerProps}>
-              Target
+              Target3
             </Button>
           )}
         />

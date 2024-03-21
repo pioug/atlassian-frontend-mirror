@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-media
 
+## 1.12.0
+
+### Minor Changes
+
+- [#82581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82581) [`c1be75ae15b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1be75ae15b6) - ED-22606 add toggle inline comment action
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+- Updated dependencies
+
 ## 1.11.0
 
 ### Minor Changes

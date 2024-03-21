@@ -73,6 +73,16 @@ type PastePayloadAttributes = {
   linksInPasteCount: number;
   /** An identifier for tracing media operations(trouble shooting purpose) */
   mediaTraceId?: string;
+  /**
+   * A list of mention ids that were pasted.
+   *
+   * This does not dedupe mentions, so if the same mention is pasted twice, it will appear twice in this list.
+   *
+   * This is used by Live Pages in confluence to provide an mechanism to users for preventing mention notifications
+   * from being sent to users mentioned in Live Pages.
+   * https://product-fabric.atlassian.net/browse/COMMENTS-913
+   */
+  mentionIds: string[];
   /** Did this paste action split a list in half? */
   pasteSplitList?: boolean;
 };
@@ -292,6 +302,13 @@ function createPasteAnalyticsPayloadBySelection(
 
     const source = getPasteSource(event);
 
+    const mentionIds: string[] = [];
+    slice.content.descendants(node => {
+      if (node.type.name === 'mention') {
+        mentionIds.push(node.attrs.id);
+      }
+    });
+
     if (pasteContext.type === PasteTypes.plain) {
       return createPastePayload(actionSubjectId, {
         pasteSize: text.length,
@@ -300,6 +317,7 @@ function createPasteAnalyticsPayloadBySelection(
         source,
         hyperlinkPasteOnText: false,
         linksInPasteCount: linkUrls.length,
+        mentionIds,
         pasteSplitList: pasteContext.pasteSplitList,
       });
     }
@@ -315,6 +333,7 @@ function createPasteAnalyticsPayloadBySelection(
         hyperlinkPasteOnText: !!pasteContext.hyperlinkPasteOnText,
         linksInPasteCount: linkUrls.length,
         mediaTraceId,
+        mentionIds,
         pasteSplitList: pasteContext.pasteSplitList,
       },
       linkDomains,

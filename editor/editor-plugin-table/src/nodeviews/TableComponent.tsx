@@ -140,6 +140,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private table?: HTMLTableElement | null;
   private node: PmNode;
   private containerWidth?: EditorContainerWidth;
+  private wasResizing?: boolean;
+  private tableNodeWidth?: number;
   private layoutSize?: number;
   private overflowShadowsObserver?: OverflowShadowsObserver;
   private stickyScrollbar?: TableStickyScrollbar;
@@ -338,16 +340,26 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     const tableNodeWidth = getTableContainerWidth(tableNode);
-    const shouldTableScale = tableRenderWidth < tableNodeWidth;
-    if (force || shouldTableScale) {
+    const isTableResizedFullWidth =
+      tableNodeWidth === 1800 && this.wasResizing && !isResizing;
+    // Needed for undo / redo
+    const isTableWidthChanged = tableNodeWidth !== this.tableNodeWidth;
+    const isTableSquashed = tableRenderWidth < tableNodeWidth;
+
+    const maybeScale =
+      isTableSquashed || isTableWidthChanged || isTableResizedFullWidth;
+    if (force || maybeScale) {
       const { width: containerWidthValue } = containerWidth;
       const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
-
       const wasTableResized = hasTableBeenResized(this.node);
-      const isTableResied = hasTableBeenResized(tableNode);
-      const isColumnsDistributed = wasTableResized && !isTableResied;
-
-      if (force || (!isResizing && (isWidthChanged || isColumnsDistributed))) {
+      const isTableResized = hasTableBeenResized(tableNode);
+      const isColumnsDistributed = wasTableResized && !isTableResized;
+      const shouldScale =
+        isWidthChanged ||
+        isColumnsDistributed ||
+        isTableResizedFullWidth ||
+        isTableWidthChanged;
+      if (force || (!isResizing && shouldScale)) {
         const resizeState = getResizeState({
           minWidth: COLUMN_MIN_WIDTH,
           maxSize: tableRenderWidth,
@@ -364,6 +376,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         });
       }
     }
+    this.tableNodeWidth = tableNodeWidth;
+    this.wasResizing = isResizing;
     this.containerWidth = containerWidth;
   }
 

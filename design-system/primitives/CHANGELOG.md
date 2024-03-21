@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 5.1.2
+
+### Patch Changes
+
+- [#80174](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80174) [`2a4fd6ccba31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a4fd6ccba31) - Add forwardRef to text component
+
 ## 5.1.1
 
 ### Patch Changes

@@ -6,43 +6,41 @@ import WidthDetector from '../src';
 const startSize = 100;
 const endSize = startSize * 2;
 
-const growAndShrink = keyframes`
-  0% {
-    width: ${startSize}px;
-    height: ${startSize}px;
-  }
+const growAndShrink = keyframes({
+  '0%': {
+    width: `${startSize}px`,
+    height: `${startSize}px`,
+  },
+  '50%': {
+    width: `${endSize}px`,
+    height: `${endSize}px`,
+  },
+  '100%': {
+    width: `${startSize}px`,
+    height: `${startSize}px`,
+  },
+});
 
-  50% {
-    width: ${endSize}px;
-    height: ${endSize}px;
-  }
+const ResizingBox = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  background: 'rgba(0, 0, 0, 0.2)',
+  color: '#333',
+  animation: `${growAndShrink} 3s ease-in-out infinite`,
+  width: `${startSize}px`,
+  height: `${startSize}px`,
+});
 
-  100% {
-    width: ${startSize}px;
-    height: ${startSize}px;
-  }
-`;
-
-const ResizingBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.2);
-  color: #333;
-  animation: ${growAndShrink} 3s ease-in-out infinite;
-  width: ${startSize}px;
-  height: ${startSize}px;
-`;
-
-const ResultBox = styled.div`
-  align-items: center;
-  background-color: rebeccapurple;
-  color: white;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  white-space: nowrap;
-`;
+const ResultBox = styled.div({
+  alignItems: 'center',
+  backgroundColor: 'rebeccapurple',
+  color: 'white',
+  display: 'flex',
+  height: '100%',
+  justifyContent: 'center',
+  whiteSpace: 'nowrap',
+});
 
 const displayResults = (width?: Number) => (
   <ResultBox>Width: {width}</ResultBox>

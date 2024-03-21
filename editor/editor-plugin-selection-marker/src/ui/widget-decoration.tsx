@@ -7,12 +7,12 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { Box, xcss } from '@atlaskit/primitives';
+import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 type SelectionType = 'anchor' | 'head';
 
-// Copied from: platform/packages/editor/editor-plugin-ai/src/ui/modal/styles.tsx
-const selectionMarkerStyles = xcss({
+const selectionMarkerHighlightStyles = xcss({
   content: "''",
   position: 'absolute',
   backgroundImage:
@@ -31,25 +31,44 @@ const selectionMarkerStyles = xcss({
   pointerEvents: 'none',
 });
 
-type WidgetProps = { type: SelectionType };
+const selectionMarkerCursorStyles = xcss({
+  content: "''",
+  position: 'absolute',
+  background: token('color.text', N500),
+  width: token('space.025', '2px'),
+  display: 'inline-block',
+  top: 'space.0',
+  bottom: token('space.negative.025', '-2px'),
+  left: '1px',
+  marginLeft: '-0.1em',
+  right: '0px',
+  marginRight: '-0.1em',
+  pointerEvents: 'none',
+});
 
-const Widget = ({ type }: WidgetProps) => {
+type WidgetProps = { type: SelectionType; isHighlight: boolean };
+
+const Widget = ({ type, isHighlight }: WidgetProps) => {
   return (
     <Box
       as={'span'}
-      xcss={selectionMarkerStyles}
+      xcss={
+        isHighlight
+          ? selectionMarkerHighlightStyles
+          : selectionMarkerCursorStyles
+      }
       testId={`selection-marker-${type}-cursor`}
       contentEditable={false}
     />
   );
 };
 
-const toDOM = (type: SelectionType) => {
+const toDOM = (type: SelectionType, isHighlight: boolean) => {
   let element = document.createElement('span');
   element.contentEditable = 'false';
 
   element.setAttribute('style', `position: relative;`);
-  ReactDOM.render(<Widget type={type} />, element);
+  ReactDOM.render(<Widget type={type} isHighlight={isHighlight} />, element);
 
   return element;
 };
@@ -63,18 +82,20 @@ export const createWidgetDecoration = (
   resolvedPos: ResolvedPos,
   type: SelectionType,
   selection: Selection,
+  isHighlight: boolean,
 ) => {
   // We don't want the cursor to show if it's not text selection
   // ie. if it's on media selection
   if (
     !(selection instanceof TextSelection) ||
-    containsText(resolvedPos) === false
+    containsText(resolvedPos) === false ||
+    !selection.empty
   ) {
     return [];
   }
 
   return [
-    Decoration.widget(resolvedPos.pos, toDOM(type), {
+    Decoration.widget(resolvedPos.pos, toDOM(type, isHighlight), {
       side: -1,
       key: `${type}WidgetDecoration`,
       stopEvent: () => true,

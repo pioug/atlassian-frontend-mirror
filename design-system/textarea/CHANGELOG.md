@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 5.2.0
+
+### Minor Changes
+
+- [#82028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82028) [`065756e95a09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/065756e95a09) - [ux] This change includes a fix for the TextArea's text color when there is a placeholder and isDisabled is true.
+
 ## 5.1.2
 
 ### Patch Changes

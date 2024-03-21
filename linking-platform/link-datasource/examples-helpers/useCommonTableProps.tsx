@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { defaultInitialVisibleColumnKeys } from '@atlaskit/link-test-helpers/datasource';
+import { defaultInitialVisibleJiraColumnKeys } from '@atlaskit/link-test-helpers/datasource';
 
 import { DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
 import { ColumnSizesMap } from '../src/ui/issue-like-table/types';
@@ -19,7 +19,7 @@ export const useCommonTableProps = (
 > &
   Pick<DatasourceTableViewProps, 'columnCustomSizes'> => {
   const [visibleColumnKeys, onVisibleColumnKeysChange] = useState<string[]>(
-    defaultInitialVisibleColumnKeys,
+    defaultInitialVisibleJiraColumnKeys,
   );
 
   const [columnCustomSizes, setColumnCustomSizes] = useState<

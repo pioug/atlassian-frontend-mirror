@@ -113,7 +113,7 @@ const subtlestStyles = css({
  * );
  * ```
  */
-const Heading = ({
+const OldHeading = ({
   children,
   level,
   id,
@@ -161,12 +161,33 @@ const Heading = ({
   );
 };
 
-export default ({ level, size, ...props }: HeadingProps) => {
+/**
+ * __Heading__
+ *
+ * A heading is a typography component used to display text in different sizes and formats.
+ *
+ * @example
+ *
+ * ```jsx
+ * import Heading from '@atlaskit/heading';
+ *
+ * // New component
+ * <Heading size="xxlarge">Page title</Heading>
+ *
+ * // Old component
+ * const H100 = () => (
+ *   <Heading level="h100">h100</Heading>
+ * );
+ * ```
+ */
+const Heading = ({ level, size, ...props }: HeadingProps) => {
   return level ? (
-    // eslint-disable-next-line jsx-a11y/heading-has-content
-    <Heading level={level} {...props} />
+    // eslint-disable-next-line jsx-a11y/heading-has-content, @repo/internal/react/no-unsafe-spread-props
+    <OldHeading level={level} {...props} />
   ) : (
-    // eslint-disable-next-line jsx-a11y/heading-has-content
+    // eslint-disable-next-line jsx-a11y/heading-has-content, @repo/internal/react/no-unsafe-spread-props
     <NewHeading size={size} {...props} />
   );
 };
+
+export default Heading;

@@ -1,20 +1,14 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
-import { IntlProvider } from 'react-intl-next';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
 import { default as whiteboardSvg } from '../example-helpers/hero-image.svg';
-import LinkCreate, {
-  AsyncSelect,
-  CreateForm,
-  TextField,
-  useLinkCreateCallback,
-  Validator,
-} from '../src';
+import { MockPluginForm } from '../example-helpers/mock-plugin-form';
+import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
 const fetchMockNetworkRequest = () => {
@@ -36,77 +30,6 @@ fetchMockNetworkRequest();
 
 const ENTITY_KEY = 'object-name';
 
-function ExampleCustomPluginForm() {
-  const { onCreate, onCancel } = useLinkCreateCallback();
-
-  type MockOptions = {
-    label: string;
-    value: string;
-  };
-
-  type MockedFormData = {
-    textFieldName?: string | undefined;
-    asyncSelectName?: MockOptions | null;
-  };
-
-  const mockHandleSubmit = async () => {
-    if (onCreate) {
-      await onCreate({
-        url: 'https://atlassian.com/product/new-object-id',
-        objectId: 'new-object-id',
-        objectType: 'object-type',
-        data: {},
-        ari: 'example-ari',
-      });
-    }
-  };
-
-  const mockValidator: Validator = useMemo(
-    () => ({
-      isValid: (val: unknown) => !!val,
-      errorMessage: 'Validation Error: You need to provide a value.',
-    }),
-    [],
-  );
-
-  /**
-   * Must be stable callback otherwise re-render will trigger re-fetch
-   */
-  const mockLoadOptions = useCallback(async (query: string) => {
-    const res = await fetch(`/options?filter=${query}`);
-    if (!res.ok) {
-      throw res;
-    }
-    return res.json();
-  }, []);
-
-  return (
-    <div>
-      This is an example plugin.
-      <CreateForm<MockedFormData>
-        onSubmit={mockHandleSubmit}
-        onCancel={onCancel}
-      >
-        <TextField
-          name={'textFieldName'}
-          label={'Enter some Text'}
-          placeholder={'Type something here...'}
-          validators={[mockValidator]}
-          autoFocus
-          maxLength={255}
-        />
-        <AsyncSelect<MockOptions>
-          isRequired
-          isSearchable
-          name={'asyncSelectName'}
-          label={'Select an Option'}
-          validators={[mockValidator]}
-          loadOptions={mockLoadOptions}
-        />
-      </CreateForm>
-    </div>
-  );
-}
 const exampleCustomPlugin = {
   group: {
     label: 'test',
@@ -116,10 +39,10 @@ const exampleCustomPlugin = {
   label: 'My Plugin Object',
   icon: 'icon',
   key: ENTITY_KEY,
-  form: <ExampleCustomPluginForm />,
+  form: <MockPluginForm />,
 };
 
-function CreateBasic() {
+export default function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [ari, setAri] = useState<string | null>();
   const [active, setActive] = useState(false);
@@ -218,11 +141,3 @@ const ModalHero = () => {
     <img src={whiteboardSvg} alt="Whiteboard Image" />
   );
 };
-
-export default function Create() {
-  return (
-    <IntlProvider locale="en">
-      <CreateBasic />
-    </IntlProvider>
-  );
-}

@@ -20,7 +20,7 @@ import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
-import { content, wrapper } from './5-full-page';
+import { contentStyles, wrapperStyles } from './5-full-page';
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
@@ -68,8 +68,8 @@ export class ExampleEditor extends React.Component<Props> {
   render() {
     return (
       <IntlProvider locale="en">
-        <div css={wrapper}>
-          <div css={content}>
+        <div css={wrapperStyles}>
+          <div css={contentStyles}>
             <ToolsDrawer
               renderEditor={({
                 mentionProvider,

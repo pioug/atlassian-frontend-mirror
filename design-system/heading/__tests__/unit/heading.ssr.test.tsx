@@ -1,27 +1,18 @@
-/** @jsx jsx */
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-const example = require.resolve('../../examples/00-basic.tsx');
-
-jest.spyOn(global.console, 'error').mockImplementation(noop);
-
-afterEach(() => {
-  // Check cleanup
-  cleanup();
-  // reset mocks
-  jest.resetAllMocks();
-});
-
-test('should ssr `<Heading /> then hydrate nested styles correctly', async () => {
+test('should ssr then hydrate correctly', async () => {
+  const examplePath = require.resolve('../../examples/00-basic.tsx');
+  const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');
-  const { html, styles } = await ssr(example);
-
+  const { html, styles } = await ssr(examplePath);
   elem.innerHTML = html;
-  hydrate(example, elem, styles);
+  hydrate(examplePath, elem, styles);
 
-  // No other errors from e.g. hydrate
   // eslint-disable-next-line no-console
   const mockCalls = (console.error as jest.Mock).mock.calls;
   expect(mockCalls.length).toBe(0);
+
+  cleanup();
+  consoleMock.mockRestore();
 });

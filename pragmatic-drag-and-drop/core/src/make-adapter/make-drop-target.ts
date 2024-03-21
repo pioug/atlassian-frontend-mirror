@@ -1,6 +1,7 @@
 import {
   AllDragTypes,
   CleanupFn,
+  DropTargetAllowedDropEffect,
   DropTargetAPI,
   DropTargetArgs,
   DropTargetGetFeedbackArgs,
@@ -20,7 +21,7 @@ export function makeDropTarget<DragType extends AllDragTypes>({
   defaultDropEffect,
 }: {
   typeKey: DragType['type'];
-  defaultDropEffect: DataTransfer['dropEffect'];
+  defaultDropEffect: DropTargetAllowedDropEffect;
 }): DropTargetAPI<DragType> {
   const registry = new WeakMap<Element, DropTargetArgs<DragType>>();
 
@@ -135,7 +136,7 @@ export function makeDropTarget<DragType extends AllDragTypes>({
     // calculate our new record
     const data: Record<string | symbol, unknown> =
       args.getData?.(feedback) ?? {};
-    const dropEffect: DataTransfer['dropEffect'] | null =
+    const dropEffect: DropTargetAllowedDropEffect | null =
       args.getDropEffect?.(feedback) ?? defaultDropEffect;
     const record: DropTargetRecord = {
       data,

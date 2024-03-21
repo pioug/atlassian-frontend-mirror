@@ -362,16 +362,20 @@ export interface ThumbnailProps {
   src: string;
 }
 
-export const Thumbnail = styled.div(borderRadius, csssize(48), {
-  float: 'right',
-  margin: `${token('space.050', '4px')} 0 ${token('space.150', '12px')} ${token(
-    'space.150',
-    '12px',
-  )}`,
-  backgroundColor: token('color.skeleton', colors.N30),
-  backgroundImage: `url(${({ src }: ThumbnailProps) => src})`,
-  backgroundSize: 'cover',
-});
+export const Thumbnail = styled.div<ThumbnailProps>(
+  borderRadius,
+  csssize(48),
+  (props) => ({
+    float: 'right',
+    margin: `${token('space.050', '4px')} 0 ${token(
+      'space.150',
+      '12px',
+    )} ${token('space.150', '12px')}`,
+    backgroundColor: token('color.skeleton', colors.N30),
+    backgroundImage: `url(${props.src})`,
+    backgroundSize: 'cover',
+  }),
+);
 
 export const UsersWrapper = styled.div({
   marginTop: token('space.100', '8px'),

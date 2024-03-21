@@ -3,6 +3,7 @@ import { bindAll } from 'bind-event-listener';
 import {
   AllDragTypes,
   DragLocation,
+  DropData,
   DropTargetAPI,
   DropTargetRecord,
   EventPayloadMap,
@@ -15,10 +16,12 @@ import { getInput } from '../util/get-input';
 
 import { makeDispatch } from './dispatch-consumer-event';
 
-let isActive: boolean = false;
+const globalState = {
+  isActive: false,
+};
 
 function canStart(): boolean {
-  return !isActive;
+  return !globalState.isActive;
 }
 
 function getNativeSetDragImage(
@@ -69,16 +72,24 @@ function start<DragType extends AllDragTypes>({
   if (!canStart()) {
     return;
   }
-  isActive = true;
-
   const initial: DragLocation = getStartLocation({
     event,
     dragType,
     getDropTargetsOver,
   });
-  let current: DragLocation = initial;
+
+  globalState.isActive = true;
+
+  type LocalState = {
+    current: DragLocation;
+  };
+
+  const state: LocalState = {
+    current: initial,
+  };
+
   // Setting initial drop effect for the drag
-  setDropEffect({ event, current: initial.dropTargets });
+  setDropEffectOnEvent({ event, current: initial.dropTargets });
 
   const dispatch = makeDispatch<DragType>({
     source: dragType.payload,
@@ -89,18 +100,18 @@ function start<DragType extends AllDragTypes>({
   function updateDropTargets(next: DragLocation) {
     // only looking at whether hierarchy has changed to determine whether something as 'changed'
     const hasChanged = hasHierarchyChanged({
-      current: current.dropTargets,
+      current: state.current.dropTargets,
       next: next.dropTargets,
     });
 
     // Always updating the state to include latest data, dropEffect and stickiness
     // Only updating consumers if the hierarchy has changed in some way
     // Consumers can get the latest data by using `onDrag`
-    current = next;
+    state.current = next;
 
     if (hasChanged) {
       dispatch.dragUpdate({
-        current,
+        current: state.current,
       });
     }
   }
@@ -112,39 +123,20 @@ function start<DragType extends AllDragTypes>({
       target: event.target,
       input,
       source: dragType.payload,
-      current: current.dropTargets,
+      current: state.current.dropTargets,
     });
 
     if (nextDropTargets.length) {
       // 🩸 must call `event.preventDefault()` to allow a browser drop to occur
       event.preventDefault();
 
-      setDropEffect({ event, current: nextDropTargets });
+      setDropEffectOnEvent({ event, current: nextDropTargets });
     }
 
     updateDropTargets({ dropTargets: nextDropTargets, input });
   }
 
-  function onDrop(
-    args: { type: 'success'; event: DragEvent } | { type: 'cancel' },
-  ) {
-    // When dropping something native, we need to extract the latest
-    // `.items` from the "drop" event as it is now accessible
-    if (args.type === 'success' && dragType.type === 'external') {
-      dispatch.drop({
-        current,
-        updatedSourcePayload: dragType.getDropPayload(args.event),
-      });
-      return;
-    }
-
-    dispatch.drop({
-      current,
-      updatedSourcePayload: null,
-    });
-  }
-
-  function cancel() {
+  function cancel(drop: DropData) {
     // The spec behaviour is that when a drag is cancelled, or when dropping on no drop targets,
     // a "dragleave" event is fired on the active drop target before a "dragend" event.
     // We are replicating that behaviour in `cancel` if there are any active drop targets to
@@ -153,16 +145,21 @@ function start<DragType extends AllDragTypes>({
     // Note: When cancelling, or dropping on no drop targets, a "dragleave" event
     // will have already cleared the dropTargets to `[]` (as that particular "dragleave" has a `relatedTarget` of `null`)
 
-    if (current.dropTargets.length) {
-      updateDropTargets({ dropTargets: [], input: current.input });
+    if (state.current.dropTargets.length) {
+      updateDropTargets({ dropTargets: [], input: state.current.input });
     }
-    onDrop({ type: 'cancel' });
+
+    dispatch.drop({
+      current: state.current,
+      drop,
+      updatedSourcePayload: null,
+    });
 
     finish();
   }
 
   function finish() {
-    isActive = false;
+    globalState.isActive = false;
     unbindEvents();
   }
 
@@ -191,7 +188,7 @@ function start<DragType extends AllDragTypes>({
           // 2. let consumers know a move has occurred
           // This will include the latest 'input' values
           dispatch.drag({
-            current,
+            current: state.current,
           });
         },
       },
@@ -201,37 +198,59 @@ function start<DragType extends AllDragTypes>({
       },
 
       {
-        // This was the only reliable cross browser way I found to detect
-        // when the user is leaving the `window`.
-        // Internal drags: when we leave the `window` we want to clear any active drop targets,
-        // but the drag is not yet over. The user could drag back into the window.
-        // We only need to do this because of stickiness
-        // External drags: when we leave the `window` the drag operation is over,
-        // we will start another drag operation
         type: 'dragleave',
         listener(event: DragEvent) {
           if (!isLeavingWindow({ dragLeave: event })) {
             return;
           }
 
-          // When a drag is ending without a drop target (or when the drag is cancelled),
-          // All browsers fire:
-          // 1. "drag"
-          // 2. "dragleave"
-          // These events have `event.relatedTarget == null` so this code path is also hit in those cases.
-          // This is all good! We would be clearing the dropTargets in `cancel()` after the "dragend"
+          /**
+           * At this point we don't know if a drag is being cancelled,
+           * or if a drag is leaving the `window`.
+           *
+           * Both have:
+           *   1. "dragleave" (with `relatedTarget: null`)
+           *   2. "dragend" (a "dragend" can occur when outside the `window`)
+           *
+           * **Clearing drop targets**
+           *
+           * For either case we are clearing the the drop targets
+           *
+           * - cancelling: we clear drop targets in `"dragend"` anyway
+           * - leaving the `window`: we clear the drop targets (to clear stickiness)
+           *
+           * **Leaving the window and finishing the drag**
+           *
+           * _internal drags_
+           *
+           * - The drag continues when the user is outside the `window`
+           *   and can resume if the user drags back over the `window`,
+           *   or end when the user drops in an external `window`.
+           * - We will get a `"dragend"`, or we can listen for other
+           *   events to determine the drag is finished when the user re-enters the `window`).
+           *
+           * _external drags_
+           *
+           * - We conclude the drag operation.
+           * - We have no idea if the user will drag back over the `window`,
+           *   or if the drag ends elsewhere.
+           * - We will create a new drag if the user re-enters the `window`.
+           *
+           * **Not updating `input`**
+           *
+           * 🐛 Bug[Chrome] the final `"dragleave"` has default input values (eg `clientX == 0`)
+           * Workaround: intentionally not updating `input` in "dragleave"
+           * rather than the users current input values
+           * - [Conversation](https://twitter.com/alexandereardon/status/1642697633864241152)
+           * - [Bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937)
+           **/
 
-          // 🐛 Bug workaround: intentionally not updating `input` in "dragleave"
-          // In Chrome, this final "dragleave" has default input values (eg clientX == 0)
-          // rather than the users current input values
-          //
-          // - [Conversation](https://twitter.com/alexandereardon/status/1642697633864241152)
-          // - [Bug](https://bugs.chromium.org/p/chromium/issues/detail?id=1429937)
-          updateDropTargets({ input: current.input, dropTargets: [] });
+          updateDropTargets({ input: state.current.input, dropTargets: [] });
 
-          // End the drag operation if a native drag is leaving the window
           if (dragType.startedFrom === 'external') {
-            cancel();
+            cancel({
+              dropEffect: 'none',
+            });
           }
         },
       },
@@ -240,41 +259,68 @@ function start<DragType extends AllDragTypes>({
         listener(event: DragEvent) {
           // A "drop" can only happen if the browser allowed the drop
 
-          // Opting out of standard browser drop behaviour for the drag
+          // Accepting drop operation.
+          // Also: opting out of standard browser drop behaviour for the drag
           event.preventDefault();
 
           // applying the latest drop effect to the event
-          setDropEffect({ event, current: current.dropTargets });
+          setDropEffectOnEvent({ event, current: state.current.dropTargets });
 
-          onDrop({ type: 'success', event });
+          dispatch.drop({
+            current: state.current,
+            drop: {
+              // At this point the dropEffect has been set on the event
+              // (if we have set it), so we can read it from there
+              dropEffect: event.dataTransfer?.dropEffect ?? 'none',
+            },
+            // When dropping something native, we need to extract the latest
+            // `.items` from the "drop" event as it is now accessible
+            updatedSourcePayload:
+              dragType.type === 'external'
+                ? dragType.getDropPayload(event)
+                : null,
+          });
 
           finish();
 
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
           if (dragType.startedFrom === 'internal') {
-            fixPostDragPointerBug({ current });
+            fixPostDragPointerBug({ current: state.current });
           }
         },
       },
       {
         // "dragend" fires when on the drag source (eg a draggable element)
         // when the drag is finished.
-        // "dragend" will fire after "drop"(if there was a successful drop)
+        // "dragend" will fire after "drop" (if there was a successful drop)
         // "dragend" does not fire if the draggable source has been removed during the drag
         // or for external drag sources (eg files)
+
+        // This "dragend" listener will not fire if there was a successful drop
+        // as we will have already removed the event listener
         type: 'dragend',
-        listener() {
-          cancel();
+        listener(event: DragEvent) {
+          // The `dropEffect` will be:
+          // - "none" if dropped on no drop targets
+          // - "none" if cancelled locally
+          // - "none" if cancelled externally
+          // - "none" if `preventUnhandled` is used (and there is no drop target)
+          // - [not "none"] if accepted externally
+          cancel({
+            dropEffect: event.dataTransfer?.dropEffect ?? 'none',
+          });
 
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
           if (dragType.startedFrom === 'internal') {
-            fixPostDragPointerBug({ current });
+            fixPostDragPointerBug({ current: state.current });
           }
         },
       },
-      ...getBindingsForBrokenDrags({ onDragEnd: cancel }),
+      ...getBindingsForBrokenDrags({
+        onDragEnd: () => cancel({ dropEffect: 'none' }),
+      }),
     ],
     // Once we have started a managed drag operation it is important that we see / own all drag events
     // We got one adoption bug pop up where some code was stopping (`event.stopPropagation()`)
@@ -288,7 +334,7 @@ function start<DragType extends AllDragTypes>({
   });
 }
 
-function setDropEffect({
+function setDropEffectOnEvent({
   event,
   current,
 }: {

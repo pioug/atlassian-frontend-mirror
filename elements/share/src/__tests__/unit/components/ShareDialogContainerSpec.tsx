@@ -51,7 +51,8 @@ describe('ShareDialogContainer', () => {
   const mockTriggerButtonAppearance = 'subtle';
   const mockShouldCloseOnEscapePress = true;
   const mockUsers: OptionData[] = [
-    { type: 'user', id: 'id', name: 'User 1' },
+    { type: 'user', id: 'id1', name: 'User 1' },
+    { type: 'external_user', id: 'id2', name: 'External User 1' },
     { type: 'email', id: 'mock@email.com', name: 'mock@email.com' },
   ];
   const mockComment = {
@@ -443,7 +444,9 @@ describe('ShareDialogContainer', () => {
           type: mockShareContentType,
         },
         [
-          { type: 'user', id: 'id' },
+          { type: 'user', id: 'id1' },
+          // 'external_user' is expected to be converted to 'user' before calling the share API
+          { type: 'user', id: 'id2' },
           { type: 'user', email: 'mock@email.com' },
         ],
         {
@@ -472,7 +475,9 @@ describe('ShareDialogContainer', () => {
           type: mockShareContentType,
         },
         [
-          { type: 'user', id: 'id' },
+          { type: 'user', id: 'id1' },
+          // 'external_user' is expected to be converted to 'user' before calling the share API
+          { type: 'user', id: 'id2' },
           { type: 'user', email: 'mock@email.com' },
         ],
         {

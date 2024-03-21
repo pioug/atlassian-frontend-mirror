@@ -64,23 +64,6 @@ const columnHeaderStyles = xcss({
 
 type State = { type: 'idle' } | { type: 'is-card-over' };
 
-// TODO: we might make this an optional utility
-// https://product-fabric.atlassian.net/browse/DSP-17369
-function getNativeDropEffect(): DataTransfer['dropEffect'] | null {
-  // Using the deprecated `event` object on the window that points to the latest event
-  // This is a sneaky way to get the final drop effect
-  const { event } = window;
-  if (
-    event &&
-    event instanceof DragEvent &&
-    event.dataTransfer &&
-    (event.type === 'dragend' || event.type === 'drop')
-  ) {
-    return event.dataTransfer.dropEffect;
-  }
-  return null;
-}
-
 // preventing re-renders with stable state objects
 const idle: State = { type: 'idle' };
 const isCardOver: State = { type: 'is-card-over' };
@@ -177,7 +160,7 @@ export function Column({ columnId }: { columnId: string }) {
     return combine(
       monitorForElements({
         canMonitor: isHomeColumn,
-        onDrop({ source, location }) {
+        onDrop({ source, location, drop }) {
           const data = source.data;
           if (!isCard(data)) {
             return;
@@ -188,10 +171,17 @@ export function Column({ columnId }: { columnId: string }) {
             return;
           }
 
-          if (getNativeDropEffect() !== 'move') {
+          if (drop.dropEffect === 'none') {
             return;
           }
 
+          // if there are no drop targets, and there
+          // is a drop effect, then we know this drag
+          // was handled elsewhere (but we don't know by what)
+          // For this example, we are using it as a weak signal that
+          // the drag was handled by another column.
+          // For a production application, we would need to create a side channel
+          // (eg local storage, web socket etc) to communicate more completely
           const newItems = items.filter(item => item.userId !== data.cardId);
           setItems(newItems);
         },

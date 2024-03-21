@@ -23,7 +23,11 @@ export default {
         },
       },
     ],
-    marks: { type: 'array', items: [['link', 'border']], optional: true },
+    marks: {
+      type: 'array',
+      items: [['link', 'annotation', 'border']],
+      optional: true,
+    },
   },
   required: ['attrs'],
 };

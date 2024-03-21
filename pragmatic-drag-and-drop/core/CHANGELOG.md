@@ -1,5 +1,27 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 1.1.0
+
+### Minor Changes
+
+- [#82653](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82653) [`136d8da5542d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/136d8da5542d) - Adding additional information to `onDrop()` events to expose what the final `dropEffect` was for a drag operation.
+
+  ```ts
+  type DropData = {
+    dropEffect: DataTransfer['dropEffect'];
+  };
+
+  monitorForElements({
+    onDrop(payload) {
+      const drop: DropData = payload.drop;
+    },
+  });
+  ```
+
+  Fixing a bug where `preventUnhandled.start()` would prevent unhandled drag operations forever. It now only prevents unhandled drag operations for the current drag operation. `preventUnhandled.stop()` is now optional, as `preventUnhandled.start()` now tidies up itself. You can still leverage `preventUnhandled.stop()` to stop preventing unhandled drag operations during a drag.
+
+  Tightening the `getDropEffect()` function on drop targets slightly so that `"none"` cannot be provided. Using `"none"` as the drop effect would break the expected behaviour for nested drop targets.
+
 ## 1.0.2
 
 ### Patch Changes

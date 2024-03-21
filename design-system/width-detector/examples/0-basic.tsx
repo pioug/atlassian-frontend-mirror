@@ -13,12 +13,12 @@ const containerDivStyle: React.CSSProperties = {
   backgroundColor: '#333',
 };
 
-const ResultBox = styled.div`
-  background-color: rebeccapurple;
-  color: white;
-  justify-content: center;
-  white-space: nowrap;
-`;
+const ResultBox = styled.div({
+  backgroundColor: 'rebeccapurple',
+  color: 'white',
+  justifyContent: 'center',
+  whiteSpace: 'nowrap',
+});
 
 let n = 0;
 

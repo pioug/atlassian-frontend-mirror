@@ -48,7 +48,7 @@ import { MainToolbar, mainToolbarCustomComponentsSlotStyle } from './Toolbar';
 
 const CommentEditorMargin = 14;
 
-const commentEditorStyle = css({
+const commentEditorStyles = css({
   display: 'flex',
   flexDirection: 'column',
   '.less-margin .ProseMirror': {
@@ -90,7 +90,7 @@ const ContentArea = createEditorContentStyle(
 );
 ContentArea.displayName = 'ContentArea';
 
-const secondaryToolbarStyle = css({
+const secondaryToolbarStyles = css({
   boxSizing: 'border-box',
   justifyContent: 'flex-end',
   alignItems: 'center',
@@ -184,7 +184,7 @@ class Editor extends React.Component<
       <WithFlash animate={maxContentSizeReached}>
         <div
           css={[
-            commentEditorStyle,
+            commentEditorStyles,
             css({
               minHeight: `${minHeight}px`,
             }),
@@ -225,7 +225,7 @@ class Editor extends React.Component<
                   isTwoLineToolbarEnabled,
                 )}
               >
-                {customPrimaryToolbarComponents}
+                {customPrimaryToolbarComponents as React.ReactNode}
               </div>
             </ToolbarArrowKeyNavigationProvider>
           </MainToolbar>
@@ -280,7 +280,7 @@ class Editor extends React.Component<
         </div>
         {showSecondaryToolbar && (
           <div
-            css={secondaryToolbarStyle}
+            css={secondaryToolbarStyles}
             data-testid="ak-editor-secondary-toolbar"
           >
             <ButtonGroup>
@@ -443,7 +443,7 @@ const EditorNext = (
     <WithFlash animate={maxContentSizeReached}>
       <div
         css={[
-          commentEditorStyle,
+          commentEditorStyles,
           css({
             minHeight: `${minHeight}px`,
           }),
@@ -484,7 +484,7 @@ const EditorNext = (
                 isTwoLineToolbarEnabled,
               )}
             >
-              {customPrimaryToolbarComponents}
+              {customPrimaryToolbarComponents as React.ReactNode}
             </div>
           </ToolbarArrowKeyNavigationProvider>
         </MainToolbar>
@@ -538,7 +538,7 @@ const EditorNext = (
       </div>
       {showSecondaryToolbar && (
         <div
-          css={secondaryToolbarStyle}
+          css={secondaryToolbarStyles}
           data-testid="ak-editor-secondary-toolbar"
         >
           <ButtonGroup>

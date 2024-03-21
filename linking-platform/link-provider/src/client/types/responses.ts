@@ -16,6 +16,7 @@ export interface ErrorResponseBody {
   type: ServerErrorType;
   message: string;
   status: number;
+  extensionKey?: string;
 }
 
 export const isSuccessfulResponse = (

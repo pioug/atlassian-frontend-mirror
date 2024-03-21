@@ -143,12 +143,14 @@ All _drop targets_ add a `self` property (type: `DropTargetRecord`) that contain
 You could get all this information from the outer scope (or from `location.current.dropTargets`), but having it available inline is convenient.
 
 ```ts
+type AllowedDropTargetDropEffect = Exclude<DataTransfer['dropEffect'], 'none'>;
+
 type DropTargetRecord = {
   element: Element;
   // data provided using .getData()
   data: Record<string | symbol, unknown>;
-  // dropEffect provided by using `.getDropEffect
-  dropEffect: DataTransfer['dropEffect'] | null;
+  // dropEffect provided by using getDropEffect()
+  dropEffect: AllowedDropTargetDropEffect;
 };
 ```
 
@@ -280,13 +282,38 @@ The `onDragEnter` and `onDragLeave` events are not _strictly_ their own events, 
 
 The `onDrop` event occurs when a user has finished a drag and drop operation. The `onDrop` event will fire when the drag operation finishes, regardless of how the drag operation finished (e.g. due to an explicit drop, the drag being canceled, recovering from an error and so on).
 
-On the web platform we cannot distinguish between dropping on no drop targets and an explicit cancel, so we do not publish any information about _how_ the drag ended, only that it ended. The `location.current` property will accurately contain the final drop targets.
+Using the information that the web platform provides, we cannot distinguish between dropping on no drop targets, an explicit cancel, or dropping externally, so we do not publish any information about _how_ the drag ended, only that it ended. The `location.current` property will accurately contain the final drop targets.
+
+`onDrop` also includes the final `dropEffect` which can be used as a small signal that a drag operation was accepted externally.
+
+```ts
+type DropData = {
+  // the final `dropEffect` that was applied
+  dropEffect: DataTransfer['dropEffect'];
+};
+
+type DropEventPayload = BaseEventPayload & {
+  drop: DropData;
+};
+```
+
+```ts
+monitorForElements({
+  onDrop({ location, drop }) {
+    if (!location.current.dropTargets.length && drop.dropEffect !== 'none') {
+      // a small signal that the drag was handled in some way externally
+    }
+  },
+});
+```
 
 Flow
 
 - `onDrop` fires on the drag source (eg a `draggable`)
 - `onDrop` fires on all `dropTarget`s currently being dragged over (all those in `location.current.dropTargets`) in bubble event ordering (inner most `dropTarget` upwards)
 - `onDrop` fires on _monitors_
+
+For drags that start within the current `window` ([element adapter](./adapters/element), [text selection adapter](./adapters/text-selection)), the drag finishes when the drag operation finish, which might be while the user is outside of the current `window`. For drags that start outside of the current `windows` ([external adapter](./adapters/external)), a drag finishes when the user leaves the `window`.
 
 ## Cancelling
 

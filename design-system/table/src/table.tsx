@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import SelectionProvider from './hooks/selection-provider';
 import { useSorting } from './hooks/use-sorting';
 import { SortKey, TableProvider } from './hooks/use-table';
-import * as Primitives from './ui';
+import { Table as TablePrimitive } from './ui';
 
 export type TableProps<ItemType extends object = {}> = {
   /**
@@ -62,13 +62,13 @@ function Table<ItemType extends object = object>({
 
   return (
     <TableProvider<ItemType> state={tableProviderState}>
-      <Primitives.Table testId={testId}>
+      <TablePrimitive testId={testId}>
         {isSelectable ? (
           <SelectionProvider>{children}</SelectionProvider>
         ) : (
           children
         )}
-      </Primitives.Table>
+      </TablePrimitive>
     </TableProvider>
   );
 }

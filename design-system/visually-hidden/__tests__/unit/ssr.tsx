@@ -1,7 +1,7 @@
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
 
-test('should ssr then hydrate form correctly', async () => {
+test('should ssr then hydrate correctly', async () => {
   const examplePath = require.resolve('../../examples/00-basic.tsx');
   const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
   const elem = document.createElement('div');

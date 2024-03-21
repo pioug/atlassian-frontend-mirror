@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 193.5.7
+
+### Patch Changes
+
+- [#83164](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83164) [`4d25a598eda2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d25a598eda2) - [ux] Update alignment for summary block error text
+
+## 193.5.6
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+- [#83037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83037) [`659c2a11c370`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/659c2a11c370) - [ux] Fix bodied macro copy/delete behavior
+
+## 193.5.5
+
+### Patch Changes
+
+- [#83044](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83044) [`cdab77009f9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdab77009f9e) - Fix leftover react 18 type issues in editor-core, editor-plugin-extension and date
+
 ## 193.5.3
 
 ### Patch Changes

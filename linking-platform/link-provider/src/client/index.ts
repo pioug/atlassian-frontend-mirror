@@ -307,6 +307,7 @@ export default class CardClient implements CardClientInterface {
     if (response?.error) {
       const errorType = response.error.type;
       const errorMessage = response.error.message;
+      const extensionKey = response.error.extensionKey;
       // this means there was a network error and we fallback to blue link
       // without impacting SLO's
       if (response.error instanceof NetworkError) {
@@ -318,17 +319,35 @@ export default class CardClient implements CardClientInterface {
         // a blue link to mitigate customer impact.
         case 'ResolveBadRequestError':
         case 'SearchBadRequestError':
-          return new APIError('fallback', hostname, errorMessage, errorType);
+          return new APIError(
+            'fallback',
+            hostname,
+            errorMessage,
+            errorType,
+            extensionKey,
+          );
         // AuthError - if the user logs in, we may be able
         // to recover. Render an unauthorized card.
         case 'ResolveAuthError':
         case 'SearchAuthError':
-          return new APIError('auth', hostname, errorMessage, errorType);
+          return new APIError(
+            'auth',
+            hostname,
+            errorMessage,
+            errorType,
+            extensionKey,
+          );
         // UnsupportedError - we do not know how to render this URL.
         // Bail out and ask the Editor to render as a blue link.
         case 'ResolveUnsupportedError': // URL isn't supported
         case 'SearchUnsupportedError': // Search isn't supported
-          return new APIError('fatal', hostname, errorMessage, errorType);
+          return new APIError(
+            'fatal',
+            hostname,
+            errorMessage,
+            errorType,
+            extensionKey,
+          );
         case 'ResolveFailedError': // Failed
         case 'SearchFailedError':
         case 'ResolveTimeoutError': // Timeouts
@@ -336,7 +355,13 @@ export default class CardClient implements CardClientInterface {
         case 'SearchRateLimitError': //Rate Limit Error
         case 'ResolveRateLimitError':
         case 'InternalServerError': // ORS failures
-          return new APIError('error', hostname, errorMessage, errorType);
+          return new APIError(
+            'error',
+            hostname,
+            errorMessage,
+            errorType,
+            extensionKey,
+          );
       }
     }
     // Catch all: we don't know this error, bail out.

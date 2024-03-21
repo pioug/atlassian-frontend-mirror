@@ -1,11 +1,11 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
 import fetchMock from 'fetch-mock/cjs/client';
-import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
+import { MockDisclaimer } from '../example-helpers/mock-disclaimer';
 import LinkCreate, {
   AsyncSelect,
   CreateForm,
@@ -80,7 +80,7 @@ function ExampleCustomPluginForm() {
 
   return (
     <div>
-      This is an example plugin.
+      <MockDisclaimer />
       <CreateForm<MockedFormData>
         onSubmit={mockHandleSubmit}
         onCancel={onCancel}
@@ -117,7 +117,7 @@ const exampleCustomPlugin = {
   form: <ExampleCustomPluginForm />,
 };
 
-function CreateBasic() {
+export default function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [ari, setAri] = useState<string | null>();
   const [active, setActive] = useState(false);
@@ -188,13 +188,5 @@ function CreateBasic() {
         onCloseComplete={handleCloseComplete}
       />
     </div>
-  );
-}
-
-export default function Create() {
-  return (
-    <IntlProvider locale="en">
-      <CreateBasic />
-    </IntlProvider>
   );
 }

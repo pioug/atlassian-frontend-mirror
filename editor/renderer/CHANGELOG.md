@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.10.3
+
+### Patch Changes
+
+- [#83164](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83164) [`4d25a598eda2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d25a598eda2) - [ux] Update alignment for summary block error text
+
+## 109.10.2
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+
 ## 109.10.1
 
 ### Patch Changes

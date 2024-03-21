@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 5.6.0
+
+### Minor Changes
+
+- [#82211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82211) [`272179bd91d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/272179bd91d3) - Added optional extension key to smartlink error response to be persisted in the store
+
 ## 5.5.1
 
 ### Patch Changes

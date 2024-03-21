@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 78.18.2
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+- [#83037](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83037) [`659c2a11c370`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/659c2a11c370) - [ux] Fix bodied macro copy/delete behavior
+- Updated dependencies
+
+## 78.18.1
+
+### Patch Changes
+
+- [#83373](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83373) [`421474dd0b39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/421474dd0b39) - [ux] 2024-03-20 - Update translations via Traduki 2.0
+
 ## 78.18.0
 
 ### Minor Changes

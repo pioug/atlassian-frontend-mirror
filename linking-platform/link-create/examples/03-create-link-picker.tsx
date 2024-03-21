@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
-
 import Button from '@atlaskit/button/standard-button';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
@@ -102,10 +100,4 @@ const LinkPickerCreate = () => {
   );
 };
 
-export default function Create() {
-  return (
-    <IntlProvider locale="en">
-      <LinkPickerCreate />
-    </IntlProvider>
-  );
-}
+export default LinkPickerCreate;

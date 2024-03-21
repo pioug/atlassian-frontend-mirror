@@ -29,7 +29,41 @@ import {
 import { Doc } from './types';
 import { group, ifBreak, newLine } from './utils';
 
+type OperatorCase = 'lower' | 'upper' | 'preserve';
+
+export type PrintOptions = {
+  /**
+   * Whether to uppercase, lowercase, or preserve the case of operators (terminal, compound, predicated and order by operators) in the printed JQL.
+   * lower: make all operators lowercase
+   * upper: make all operators uppercase
+   * preserve: keep the case of the terminal and predicated operators but compound operators will be lowercase
+   *  and order by uppercase (as original)
+   */
+  operatorCase?: OperatorCase;
+};
+
+const formatOperator = (
+  operator: string,
+  operatorCase: OperatorCase,
+): string => {
+  switch (operatorCase) {
+    case 'lower':
+      return operator.toLowerCase();
+    case 'upper':
+      return operator.toUpperCase();
+    case 'preserve':
+      return operator;
+  }
+};
+
 export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
+  private operatorCase: OperatorCase;
+
+  constructor({ operatorCase }: PrintOptions = {}) {
+    super();
+    this.operatorCase = operatorCase || 'preserve';
+  }
+
   visitArgument(argument: Argument): Doc {
     return argument.text;
   }
@@ -69,7 +103,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
   }
 
   visitCompoundOperator(compoundOperator: CompoundOperator): Doc {
-    return compoundOperator.value;
+    return formatOperator(compoundOperator.value, this.operatorCase);
   }
 
   visitField(field: Field): Doc {
@@ -105,7 +139,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
   }
 
   visitOperator(operator: Operator): Doc {
-    return operator.text;
+    return formatOperator(operator.text, this.operatorCase);
   }
 
   visitOrderBy(orderBy: OrderBy): Doc {
@@ -127,7 +161,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
   }
 
   visitOrderByOperator(orderByOperator: OrderByOperator): Doc {
-    return orderByOperator.value;
+    return formatOperator(orderByOperator.value, this.operatorCase);
   }
 
   visitPredicate(predicate: Predicate): Doc {
@@ -140,7 +174,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
   }
 
   visitPredicateOperator(predicateOperator: PredicateOperator): Doc {
-    return predicateOperator.text;
+    return formatOperator(predicateOperator.text, this.operatorCase);
   }
 
   visitProperty(property: Property): Doc {
@@ -219,8 +253,7 @@ export class AstToDocVisitor extends AbstractJastVisitor<Doc> {
   }
 }
 
-const astToDocVisitor = new AstToDocVisitor();
-
-export const printAstToDoc = (jast: Jast) => {
+export const printAstToDoc = (jast: Jast, options?: PrintOptions) => {
+  const astToDocVisitor = new AstToDocVisitor(options);
   return jast.query ? jast.query.accept(astToDocVisitor) : '';
 };

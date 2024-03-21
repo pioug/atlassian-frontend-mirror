@@ -441,16 +441,45 @@ test('pointer-events should be blocked on elements that enable pointer-events as
   cleanups.forEach(cleanup => cleanup());
 });
 
-[
-  'pointerdown',
-  'pointermove',
-  'focusin',
-  'focusout',
-  'dragstart',
-  'dragenter',
-  'dragover',
-].forEach(eventName => {
-  it(`should remove the fix after a user interaction [trigger: ${eventName}]`, async () => {
+// Using this approach so we can ensure that correct event contructers are being used
+type Item = {
+  eventName: string;
+  fireEvent: (target: Element | Window) => void;
+};
+
+const items: Item[] = [
+  {
+    eventName: 'pointerdown',
+    fireEvent: target => fireEvent.pointerDown(target),
+  },
+  {
+    eventName: 'pointermove',
+    fireEvent: target => fireEvent.pointerMove(target),
+  },
+  {
+    eventName: 'focusin',
+    fireEvent: target => fireEvent.focusIn(target),
+  },
+  {
+    eventName: 'focusout',
+    fireEvent: target => fireEvent.focusOut(target),
+  },
+  {
+    eventName: 'dragstart',
+    fireEvent: target => fireEvent.dragStart(target),
+  },
+  {
+    eventName: 'dragenter',
+    fireEvent: target => fireEvent.dragEnter(target),
+  },
+  {
+    eventName: 'dragover',
+    fireEvent: target => fireEvent.dragOver(target),
+  },
+];
+
+items.forEach(item => {
+  it(`should remove the fix after a user interaction [trigger: ${item.eventName}]`, async () => {
     const [X, dropTarget] = getElements('div');
 
     const ordered: string[] = [];
@@ -495,9 +524,7 @@ test('pointer-events should be blocked on elements that enable pointer-events as
     expect(findStyleElement()).toBeTruthy();
     expect(dropTarget.style.pointerEvents).toBe('auto');
 
-    window.dispatchEvent(
-      new Event(eventName, { cancelable: true, bubbles: true }),
-    );
+    item.fireEvent(window);
 
     // fix no longer applied
     expect(findStyleElement()).toBeFalsy();

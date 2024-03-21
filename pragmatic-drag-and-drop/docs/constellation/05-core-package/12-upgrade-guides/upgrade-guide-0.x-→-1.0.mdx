@@ -29,16 +29,16 @@ The _external adapter_ can be used to handle file dropping (as the old _file ada
 We have renamed our drop indicator package to improve naming consistency across our outputs.
 
 ```diff
-- @atlaskit/pragmatic-drag-and-drop-drop-react-indicator
-+ @atlaskit/pragmatic-drag-and-drop-drop-react-drop-indicator
+- @atlaskit/pragmatic-drag-and-drop-react-indicator
++ @atlaskit/pragmatic-drag-and-drop-react-drop-indicator
 ```
 
 After running _step 1_ your application will be broken as your imports will not yet be updated in your code. In _step 3_ your imports will be fixed.
 
 ```bash
 # Using yarn
-yarn remove @atlaskit/pragmatic-drag-and-drop-drop-react-indicator
-yarn add @atlaskit/pragmatic-drag-and-drop-drop-react-drop-indicator
+yarn remove @atlaskit/pragmatic-drag-and-drop-react-indicator
+yarn add @atlaskit/pragmatic-drag-and-drop-react-drop-indicator
 ```
 
 ## Step 2: Upgrade to `1.x` packages
@@ -113,8 +113,8 @@ Here is a list of all the `1.0` changes incase you are unable to run the automat
 We have renamed our drop indicator package to improve naming consistency across our outputs.
 
 ```diff
-- @atlaskit/pragmatic-drag-and-drop-drop-react-indicator
-+ @atlaskit/pragmatic-drag-and-drop-drop-react-drop-indicator
+- @atlaskit/pragmatic-drag-and-drop-react-indicator
++ @atlaskit/pragmatic-drag-and-drop-react-drop-indicator
 ```
 
 The following entry point paths have been changed, but their exports are unchanged:

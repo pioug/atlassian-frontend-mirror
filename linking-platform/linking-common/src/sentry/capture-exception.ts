@@ -3,10 +3,12 @@ import type {
   EventHint,
   Event as SentryEvent,
 } from '@sentry/browser';
-import type { Integration, Primitive } from '@sentry/types';
+import type { Integration } from '@sentry/types';
 
 const SENTRY_DSN =
   'https://930d59a44d4acae29778d788c6391ed3@o55978.ingest.sentry.io/4506181365596160';
+
+type Primitive = number | string | boolean | bigint | symbol | null | undefined;
 
 const sanitiseSentryEvents = (
   data: SentryEvent,

@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  defaultInitialVisibleColumnKeys,
+  defaultInitialVisibleJiraColumnKeys,
   mockDatasourceFetchRequests,
   mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
@@ -32,7 +32,7 @@ export const JiraIssuesConfigModalUnauthorizedEditState = () => (
         onCancel={() => {}}
         onInsert={() => {}}
         parameters={parameters}
-        visibleColumnKeys={defaultInitialVisibleColumnKeys}
+        visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
       />
     </SmartCardProvider>
   </IntlProvider>

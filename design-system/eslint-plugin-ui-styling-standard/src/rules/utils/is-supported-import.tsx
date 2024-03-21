@@ -177,9 +177,20 @@ export const isImportedFrom =
   (
     nodeToCheck: Callee,
     referencesInScope: Reference[],
-    importSources: ImportSource[],
+    /**
+     * If we strictly have specific import sources in the config scope, pass them to make this more performant.
+     * Pass `null` if you don't care if its configured or not.
+     */
+    importSources: ImportSource[] | null = null,
   ): boolean => {
-    if (!importSources.includes(moduleName)) {
+    if (
+      importSources &&
+      !importSources.some(
+        (importSource) =>
+          importSource === moduleName ||
+          (!exactMatch && importSource.startsWith(moduleName)),
+      )
+    ) {
       // Don't go through the trouble of checking the import sources does not include this
       // We'll assume this is skipped elsewhere.
       return false;

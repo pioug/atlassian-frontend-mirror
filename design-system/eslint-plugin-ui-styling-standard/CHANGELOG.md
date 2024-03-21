@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.6.3
+
+### Patch Changes
+
+- [#83463](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83463) [`fee29cf1335a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fee29cf1335a) - Extend convert-props-syntax to Emotion as well as it has a type issue.
+
 ## 0.6.2
 
 ### Patch Changes

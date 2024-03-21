@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.50.8
+
+### Patch Changes
+
+- [#82741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82741) [`2acb6d77c0a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2acb6d77c0a6) - Update UFO experience type for Smart link AI summary
+
 ## 26.50.7
 
 ### Patch Changes

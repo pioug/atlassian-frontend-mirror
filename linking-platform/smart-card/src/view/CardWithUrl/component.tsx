@@ -171,7 +171,7 @@ function Component({
         id,
         status: state.status,
         definitionId,
-        extensionKey,
+        extensionKey: extensionKey ?? state.error?.extensionKey,
         resourceType,
         error: state.error,
       });

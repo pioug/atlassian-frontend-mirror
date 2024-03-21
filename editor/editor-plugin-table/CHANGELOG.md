@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.5.15
+
+### Patch Changes
+
+- [#83567](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83567) [`755de34e0656`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/755de34e0656) - fix preserve table width copy paste and resizing to full width behaviour
+- Updated dependencies
+
+## 7.5.14
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+- Updated dependencies
+
 ## 7.5.13
 
 ### Patch Changes

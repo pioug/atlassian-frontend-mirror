@@ -8,7 +8,7 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 
 import useExpand from './hooks/use-expand';
-import * as Primitives from './ui';
+import { ExpandableCell as ExpandableCellPrimitive } from './ui/expandable-cell';
 
 /**
  * __Expandable cell__
@@ -24,7 +24,7 @@ const ExpandableCell = memo(() => {
   }, [toggleExpanded]);
 
   return (
-    <Primitives.ExpandableCell as="td">
+    <ExpandableCellPrimitive as="td">
       <IconButton
         spacing="compact"
         appearance="subtle"
@@ -34,7 +34,7 @@ const ExpandableCell = memo(() => {
         onClick={handleClick}
         aria-pressed={isExpanded}
       />
-    </Primitives.ExpandableCell>
+    </ExpandableCellPrimitive>
   );
 });
 

@@ -1,10 +1,9 @@
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 
-import { IntlProvider } from 'react-intl-next';
-
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
+import { MockDisclaimer } from '../example-helpers/mock-disclaimer';
 import LinkCreateModal, {
   AsyncSelect,
   CreateForm,
@@ -71,7 +70,7 @@ function MockPluginForm() {
 
   return (
     <div>
-      This is a mocked plugin.
+      <MockDisclaimer />
       <CreateForm<MockedFormData>
         initialValues={initialValues}
         onSubmit={mockHandleSubmit}
@@ -99,7 +98,7 @@ function MockPluginForm() {
   );
 }
 
-function CreateBasic() {
+export default function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [ari, setAri] = useState<string | null>();
   const [active, setActive] = useState(false);
@@ -194,13 +193,5 @@ function CreateBasic() {
         onComplete={handleOnComplete}
       />
     </div>
-  );
-}
-
-export default function Create() {
-  return (
-    <IntlProvider locale="en">
-      <CreateBasic />
-    </IntlProvider>
   );
 }

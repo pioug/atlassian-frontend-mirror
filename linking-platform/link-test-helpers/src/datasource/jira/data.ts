@@ -11,9 +11,8 @@ import {
   story,
   task,
   trivial,
-} from '../images';
-
-import { Site } from './index';
+} from '../../images';
+import { Site } from '../index';
 
 const generateMockPeopleResponse = (size: number) => {
   return new Array(size).fill(null).map(() => ({
@@ -661,3 +660,18 @@ export const mockSuggestionData = {
     },
   ],
 };
+
+export const defaultInitialVisibleColumnKeys: string[] = [
+  // Order of actual columns is in different order is on purpose
+  // To demonstrate that this list is a king
+  'type',
+  'key',
+  'summary',
+  'assignee',
+  'people',
+  'priority',
+  'labels',
+  'status',
+  'created',
+  'description',
+];

@@ -23,6 +23,13 @@ describe('Text component', () => {
     expect(component).toBeDefined();
   });
 
+  it('forwards ref correctly', () => {
+    const ref = React.createRef<HTMLSpanElement>();
+    render(<Text ref={ref}>Hello, world!</Text>);
+    expect(ref.current).toBeDefined();
+    expect(ref.current?.textContent).toEqual('Hello, world!');
+  });
+
   describe('"as" prop behaviour', () => {
     it('renders as the correct element with a valid "as" attribute', () => {
       render(

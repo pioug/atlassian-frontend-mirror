@@ -152,6 +152,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Попробуйте изменить запрос или узнайте о новых приложениях для продуктов Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Ознакомиться с Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {По вашему запросу ничего не найдено.} one {По умолчанию доступен {count} вариант.} few {По умолчанию доступно {count} варианта.} many {По умолчанию доступно {count} вариантов.} other {По умолчанию доступно {count} варианта.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {По вашему запросу ничего не найдено.} one {Для введенного текста доступно {count} предложение.} few {Для введенного текста доступно {count} предложения.} many {Для введенного текста доступно {count} предложений.} other {Для введенного текста доступно {count} предложения.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Ввод',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Поиск',
   'fabric.editor.elementbrowser.sidebar.heading': 'Обзор',

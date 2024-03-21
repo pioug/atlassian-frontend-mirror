@@ -13,7 +13,10 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { setInlineCommentDraftState } from './commands';
+import {
+  setInlineCommentDraftState,
+  showInlineCommentForBlockNode,
+} from './commands';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { buildToolbar } from './toolbar';
@@ -53,6 +56,9 @@ export const annotationPlugin: AnnotationPlugin = ({
       stripNonExistingAnnotations,
       setInlineCommentDraftState: setInlineCommentDraftState(
         api?.analytics?.actions,
+        annotationProviders?.inlineComment.supportedBlockNodes,
+      ),
+      showCommentForBlockNode: showInlineCommentForBlockNode(
         annotationProviders?.inlineComment.supportedBlockNodes,
       ),
     },

@@ -9,8 +9,25 @@ import {
   getSelectionStyles,
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { R200, R400 } from '@atlaskit/theme/colors';
+import { B400, B50, R200, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+const extensionLabelStyles = css`
+  &.danger > span > div > .extension-label {
+    background-color: ${token('color.background.accent.red.subtler', R200)};
+    color: ${token('color.text.danger', R400)};
+    opacity: 1;
+  }
+
+  &:not(.danger).${akEditorSelectedNodeClassName}
+    > span
+    > div
+    > .extension-label {
+    background-color: ${token('color.background.selected', B50)};
+    color: ${token('color.text.selected', B400)};
+    opacity: 1;
+  }
+`;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
 export const extensionStyles = css`
@@ -24,10 +41,7 @@ export const extensionStyles = css`
       )};
     }
 
-    &.danger > span > div > .extension-label {
-      background-color: ${token('color.background.accent.red.subtler', R200)};
-      color: ${token('color.text.danger', R400)};
-    }
+    ${extensionLabelStyles}
 
     &:not(.danger).${akEditorSelectedNodeClassName} {
       & > span > .multiBodiedExtension--container {
@@ -59,10 +73,7 @@ export const extensionStyles = css`
       }
     }
 
-    &.danger > span > div > .extension-label {
-      background-color: ${token('color.background.accent.red.subtler', R200)};
-      color: ${token('color.text.danger', R400)};
-    }
+    ${extensionLabelStyles}
   }
 
   .extensionView-content-wrap,
@@ -93,10 +104,7 @@ export const extensionStyles = css`
       )};
     }
 
-    &.danger > span > div > .extension-label {
-      background-color: ${token('color.background.accent.red.subtler', R200)};
-      color: ${token('color.text.danger', R400)};
-    }
+    ${extensionLabelStyles}
 
     &.inline {
       word-wrap: break-all;

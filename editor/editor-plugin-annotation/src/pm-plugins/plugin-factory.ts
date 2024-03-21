@@ -39,6 +39,10 @@ const getSelectionChangedHandler =
       };
     }
 
+    /**
+     * Default we only handle caret selections.
+     * Node selection will be handled separately.
+     */
     const selectedAnnotations = findAnnotationsInSelection(
       tr.selection,
       tr.doc,

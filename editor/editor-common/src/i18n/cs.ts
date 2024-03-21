@@ -149,6 +149,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Zkuste vyhledat jiný termín nebo objevte nové aplikace pro produkty Atlassian.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Prozkoumat Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Vašemu vyhledávání neodpovídají žádné výsledky.} one {Ve výchozím nastavení je k dispozici {count} návrh.} few {Ve výchozím nastavení jsou k dispozici {count} návrhy.} many {Ve výchozím nastavení je k dispozici {count} návrhu.} other {Ve výchozím nastavení je k dispozici {count} návrhů.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Vašemu vyhledávání neodpovídají žádné výsledky.} one {Pro zadaný text je k dispozici {count} návrh.} few {Pro zadaný text jsou k dispozici {count} návrhy.} many {Pro zadaný text je k dispozici {count} návrhu.} other {Pro zadaný text je k dispozici {count} návrhů.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Vyhledat',
   'fabric.editor.elementbrowser.sidebar.heading': 'Procházet',

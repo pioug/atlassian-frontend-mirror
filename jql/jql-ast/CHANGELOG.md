@@ -1,5 +1,11 @@
 # @atlaskit/jql-ast
 
+## 3.2.0
+
+### Minor Changes
+
+- [#80630](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80630) [`9d3a49b48793`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d3a49b48793) - Added operatorCase attribute to allow user to print jql operators using "upper", "lower" or "preserve"
+
 ## 3.1.1
 
 ### Patch Changes

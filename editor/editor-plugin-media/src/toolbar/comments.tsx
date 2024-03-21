@@ -12,26 +12,33 @@ import type {
   FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
 export const commentButton = (
   intl: IntlShape,
-  state: EditorState,
+  _state: EditorState,
   api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ): FloatingToolbarButton<Command> => {
   const title = intl.formatMessage(messages.addCommentOnMedia);
 
   const onClickHandler = (state: EditorState, dispatch?: CommandDispatch) => {
-    if (api && api.annotation) {
-      api.annotation.actions.setInlineCommentDraftState(
-        true,
-        // TODO: might need to update to reflect it's from media floating toolbar
-        INPUT_METHOD.FLOATING_TB,
-        'block',
-        true,
-      )(state, dispatch);
+    if (api?.annotation && state.selection instanceof NodeSelection) {
+      const mediaNode = state.selection.node.firstChild;
+
+      const command =
+        api.annotation.actions.showCommentForBlockNode(mediaNode) ||
+        api.annotation.actions.setInlineCommentDraftState(
+          true,
+          // TODO: might need to update to reflect it's from media floating toolbar
+          INPUT_METHOD.FLOATING_TB,
+          'block',
+          true,
+        );
+
+      command(state, dispatch);
     }
     return true;
   };

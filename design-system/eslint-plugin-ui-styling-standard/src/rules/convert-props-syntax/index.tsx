@@ -8,14 +8,9 @@ import type {
   ObjectExpression,
 } from 'estree-jsx';
 import { createLintRule } from '../utils/create-rule';
-import {
-  CSS_IN_JS_IMPORTS,
-  isStyledComponents,
-} from '../utils/is-supported-import';
+import { isStyledComponents, isEmotion } from '../utils/is-supported-import';
 import type { Rule, Scope, SourceCode } from 'eslint';
 import ESTraverse from 'estraverse';
-
-const IMPORT_SOURCES = [CSS_IN_JS_IMPORTS.styledComponents];
 
 type PropInfo = {
   /**
@@ -240,7 +235,7 @@ const lintArguments = (
       if (allProps.some((propUsage) => !propUsage.valid)) {
         context.report({
           node: argument,
-          messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+          messageId: 'unsupported-prop-syntax-no-autofixer',
         });
 
         return;
@@ -248,7 +243,7 @@ const lintArguments = (
 
       context.report({
         node: argument,
-        messageId: 'unsupported-styled-components-prop-syntax',
+        messageId: 'unsupported-prop-syntax',
         fix(fixer) {
           const sourceCode = context.getSourceCode();
           return fixPropsObjectUsages(
@@ -376,17 +371,17 @@ export const rule = createLintRule({
     name: 'convert-props-syntax',
     docs: {
       description:
-        'Convert props syntax that is unsupported by `styled-components` <4.x to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by `styled-components`.',
+        'Convert props syntax that is unsupported by styled-components@<4 or @emotion/styled to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by those libraries.',
       recommended: true,
       severity: 'error',
     },
     fixable: 'code',
     messages: {
-      'unsupported-styled-components-prop-syntax':
-        'This syntax is not supported by styled-components <4.x and will fail at runtime!\n\nTo fix this, you can either migrate this to `@compiled/react`, or use the autofixer to switch the syntax from the `styled.div({ property: (props) => props.value })` syntax to the `styled.div(props => ({ property: props.value }))` syntax.',
+      'unsupported-prop-syntax':
+        'This syntax is not supported by styled-components@<4 or @emotion/styled and will fail at runtime!\n\nTo fix this, you can either migrate this to `@compiled/react`, or use the autofixer to switch the syntax from the `styled.div({ property: (props) => props.value })` syntax to the `styled.div(props => ({ property: props.value }))` syntax.',
 
-      'unsupported-styled-components-prop-syntax-no-autofixer':
-        'This syntax is not supported by styled-components <4.x and will fail at runtime!\n\nTo fix this, you can either migrate this to `@compiled/react`, or manually migrate the syntax from the `styled.div({ property: (props) => props.value })` syntax to the `styled.div(props => ({ property: props.value }))` syntax.\n\nCheck out the rule documentation for examples.',
+      'unsupported-prop-syntax-no-autofixer':
+        'This syntax is not supported by styled-components@<4 or @emotion/styled and will fail at runtime!\n\nTo fix this, you can either migrate this to `@compiled/react`, or manually migrate the syntax from the `styled.div({ property: (props) => props.value })` syntax to the `styled.div(props => ({ property: props.value }))` syntax.\n\nCheck out the rule documentation for examples.',
     },
     type: 'problem',
   },
@@ -401,7 +396,10 @@ export const rule = createLintRule({
             ? node.callee.object
             : node.callee;
 
-        if (!isStyledComponents(callee, references, IMPORT_SOURCES)) {
+        if (
+          !isStyledComponents(callee, references) &&
+          !isEmotion(callee, references)
+        ) {
           return;
         }
 

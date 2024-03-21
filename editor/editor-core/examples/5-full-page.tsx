@@ -80,6 +80,27 @@ import { usePresetContext } from '../src/presets/context';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
+/**
+ * +-------------------------------+
+ * + [Editor core v] [Full page v] +  48px height
+ * +-------------------------------+
+ * +                               +  16px padding-top
+ * +            Content            +
+ * +                               +  16px padding-bottom
+ * +-------------------------------+  ----
+ *                                    80px - 48px (Outside of iframe)
+ *
+ */
+export const wrapperStyles = css({
+  boxSizing: 'border-box',
+  height: '100%',
+});
+export const contentStyles = css({
+  padding: 0,
+  height: '100%',
+  boxSizing: 'border-box',
+});
+
 const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
 const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;
 // const tableOptions = {
@@ -114,28 +135,6 @@ addGlobalEventEmitterListeners();
 if (isMediaMockOptedIn()) {
   mediaMock.enable();
 }
-
-/**
- * +-------------------------------+
- * + [Editor core v] [Full page v] +  48px height
- * +-------------------------------+
- * +                               +  16px padding-top
- * +            Content            +
- * +                               +  16px padding-bottom
- * +-------------------------------+  ----
- *                                    80px - 48px (Outside of iframe)
- *
- */
-export const wrapper: any = css({
-  boxSizing: 'border-box',
-  height: '100%',
-});
-
-export const content: any = css({
-  padding: 0,
-  height: '100%',
-  boxSizing: 'border-box',
-});
 
 // eslint-disable-next-line no-console
 const SAVE_ACTION = () => console.log('Save');
@@ -333,8 +332,8 @@ export class ExampleEditorComponent extends React.Component<
       : defaultMediaFeatureFlags;
     return (
       <ExamplesErrorBoundary>
-        <div css={wrapper}>
-          <div css={content}>
+        <div css={wrapperStyles}>
+          <div css={contentStyles}>
             <SmartCardProvider client={smartCardClient}>
               <Editor
                 allowUndoRedoButtons={true}
@@ -450,7 +449,10 @@ export class ExampleEditorComponent extends React.Component<
 
                       return (
                         <Fragment>
-                          {this.props.customPrimaryToolbarComponents}
+                          {
+                            this.props
+                              .customPrimaryToolbarComponents as React.ReactNode
+                          }
                           <Button
                             isDisabled={!actions}
                             onClick={this.onCopyLinkWithContent}

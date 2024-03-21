@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
+import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
 import { fallbackColor } from './util/fallback';
@@ -45,8 +47,22 @@ function Item({
   children?: React.ReactElement | React.ReactElement[];
 }) {
   const [isDragAllowed, setDragIsAllowed] = useState<boolean>(true);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    invariant(element);
+    return draggable({
+      element,
+      canDrag: () => isDragAllowed,
+    });
+  }, [isDragAllowed]);
+
   return (
-    <div css={[itemStyles, !isDragAllowed ? itemDisabledStyles : undefined]}>
+    <div
+      ref={ref}
+      css={[itemStyles, !isDragAllowed ? itemDisabledStyles : undefined]}
+    >
       <div css={itemContentStyles}>
         <label>
           <input

@@ -4,6 +4,13 @@ import { token } from '@atlaskit/tokens';
 
 const decorationStyle = `
     background-color: ${token(
+      'color.background.accent.gray.subtler',
+      '#DCDFE4',
+    )};
+  `;
+
+const decorationHighlightStyle = `
+    background-color: ${token(
       'color.background.accent.blue.subtlest',
       '#E9F2FF',
     )};
@@ -13,9 +20,12 @@ const decorationStyle = `
     )};
   `;
 
-export const selectionDecoration = (selection: Selection) => {
+export const selectionDecoration = (
+  selection: Selection,
+  isHighlight: boolean,
+) => {
   return Decoration.inline(selection.from, selection.to, {
-    style: decorationStyle,
+    style: isHighlight ? decorationHighlightStyle : decorationStyle,
     'data-testid': 'selection-marker-selection',
   });
 };

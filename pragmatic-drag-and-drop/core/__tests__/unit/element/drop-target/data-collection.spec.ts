@@ -6,6 +6,7 @@ import {
   dropTargetForElements,
   ElementDropTargetGetFeedbackArgs,
 } from '../../../../src/entry-point/element/adapter';
+import type { DropTargetAllowedDropEffect } from '../../../../src/entry-point/types';
 import {
   appendToBody,
   getBubbleOrderedTree,
@@ -47,7 +48,7 @@ it('should recollect data and dropEffect during a drag', () => {
   const getDropEffect = jest.fn(
     (() => {
       let count = 0;
-      return (): DataTransfer['dropEffect'] => {
+      return (): DropTargetAllowedDropEffect => {
         ordered.push(`getDropEffect():${count++}`);
         return 'move';
       };

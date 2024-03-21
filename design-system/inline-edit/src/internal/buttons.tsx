@@ -59,12 +59,14 @@ interface ButtonsProp {
   cancelButtonLabel: string;
   onMouseDown: () => void;
   onCancelClick: (event: React.MouseEvent<HTMLElement>) => void;
+  testId?: string;
 }
 const Buttons = ({
   confirmButtonLabel,
   cancelButtonLabel,
   onMouseDown,
   onCancelClick,
+  testId,
 }: ButtonsProp) => {
   return (
     <div css={buttonsContainerStyles}>
@@ -75,6 +77,7 @@ const Buttons = ({
           UNSAFE_size="small"
           onMouseDown={onMouseDown}
           label={confirmButtonLabel}
+          testId={testId && `${testId}--confirm`}
         />
       </div>
       <div css={buttonWrapperBaseStyles}>
@@ -84,6 +87,7 @@ const Buttons = ({
           label={cancelButtonLabel}
           onClick={onCancelClick}
           onMouseDown={onMouseDown}
+          testId={testId && `${testId}--cancel`}
         />
       </div>
     </div>

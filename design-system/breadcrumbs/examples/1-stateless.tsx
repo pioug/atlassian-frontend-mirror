@@ -6,10 +6,14 @@ import { AtlassianIcon } from '@atlaskit/logo';
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
 const StatelessExample = () => {
-  const [isExpanded, setExpanse] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div>
+      <p>
+        This is a stateless breadcrumbs example, which doesn't have expand and
+        collapse support. To expand or collapse items, use the "Toggle" button.
+      </p>
       <Breadcrumbs
         isExpanded={isExpanded}
         maxItems={2}
@@ -28,7 +32,7 @@ const StatelessExample = () => {
           text="Icon After"
         />
       </Breadcrumbs>
-      <Button appearance="primary" onClick={() => setExpanse(!isExpanded)}>
+      <Button appearance="primary" onClick={() => setIsExpanded(!isExpanded)}>
         Toggle
       </Button>
     </div>

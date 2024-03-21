@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 2.1.2
+
+### Patch Changes
+
+- [#83130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83130) [`4efd62cdc533`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4efd62cdc533) - SHPLVIII-481: Assign name to default export components to fix quick-fix imports
+
 ## 2.1.1
 
 ### Patch Changes

@@ -8,7 +8,7 @@ import { useSelection } from './hooks/selection-provider';
 import { RowProvider } from './hooks/use-row-id';
 import { useTable } from './hooks/use-table';
 import { TableBodyProvider } from './hooks/use-table-body';
-import * as Primitives from './ui';
+import { TBody as TBodyPrimitive } from './ui';
 
 export type BodyProps<Item extends object> =
   | {
@@ -52,7 +52,7 @@ function TBody<ObjectType extends object>({
 
   return (
     <TableBodyProvider value={true}>
-      <Primitives.TBody>
+      <TBodyPrimitive>
         {typeof children === 'function' && sortedRows
           ? sortedRows.map(({ idx, ...row }) => (
               <RowProvider key={idx} value={idx}>
@@ -67,7 +67,7 @@ function TBody<ObjectType extends object>({
                 {row}
               </RowProvider>
             ))}
-      </Primitives.TBody>
+      </TBodyPrimitive>
     </TableBodyProvider>
   );
 }

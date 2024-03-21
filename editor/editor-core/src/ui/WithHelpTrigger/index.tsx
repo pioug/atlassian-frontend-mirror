@@ -13,6 +13,7 @@ import {
 import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugins/help-dialog';
 
+import type EditorActions from '../../actions';
 import { createDispatch } from '../../event-dispatcher';
 
 interface WithHelpTriggerProps {
@@ -26,12 +27,13 @@ export default class WithHelpTrigger extends React.Component<
   static contextTypes = {
     editorActions: PropTypes.object.isRequired,
   };
+  context!: { editorActions: EditorActions };
 
   openHelp = () => {
-    const { editorActions } = this.context;
+    const { editorActions } = this.context!;
 
     const dispatch: AnalyticsDispatch = createDispatch(
-      editorActions.eventDispatcher,
+      (editorActions as any).eventDispatcher,
     );
     dispatch(analyticsEventKey, {
       payload: {

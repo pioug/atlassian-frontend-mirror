@@ -50,6 +50,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     onConfirm: providedOnConfirm,
     onCancel: providedOnCancel = noop,
     onEdit: providedOnEdit = noop,
+    testId,
   } = props;
 
   const wasFocusReceivedSinceLastBlurRef = useRef(false);
@@ -227,6 +228,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                   )}
                   {!hideActionButtons ? (
                     <Buttons
+                      testId={testId}
                       cancelButtonLabel={cancelButtonLabel}
                       confirmButtonLabel={confirmButtonLabel}
                       onMouseDown={() => {

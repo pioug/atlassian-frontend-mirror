@@ -84,7 +84,7 @@ export default {
     '「isMultiple」と「style: radio」を組み合わせることはできません',
   'fabric.editor.configPanel.formType.addField': 'フィールドを追加',
   'fabric.editor.configPanel.formType.removeField': 'フィールドを削除',
-  'fabric.editor.configPanel.help': 'お困りですか？',
+  'fabric.editor.configPanel.help': 'お困りですか?',
   'fabric.editor.configPanel.invalid': '無効なフィールド',
   'fabric.editor.configPanel.required': '必須フィールド',
   'fabric.editor.configPanel.submit': '送信',
@@ -95,7 +95,7 @@ export default {
   'fabric.editor.createCommentInvalid': 'テキストと見出しにのみコメントできます',
   'fabric.editor.customPanel': 'カスタム パネル',
   'fabric.editor.customPanel.description': '絵文字と背景色でメモを追加',
-  'fabric.editor.datasource.assetsObjects': 'アセット（ベータ版）',
+  'fabric.editor.datasource.assetsObjects': 'アセット (ベータ版)',
   'fabric.editor.datasource.assetsObjects.description':
     '検索とフィルタリングを使用して、Jira Service Management のアセットからオブジェクトを挿入します',
   'fabric.editor.datasource.jiraIssue': 'Jira 課題',
@@ -149,6 +149,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     '別の用語で検索するか、アトラシアン製品の新しいアプリを探してください。',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Atlassian Marketplace を見る',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {検索に一致するものがありません。} other {既定で {count} 件の候補が利用可能です。}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {検索に一致するものがありません。} other {入力したテキストでは {count} 件の候補が利用可能です。}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': '検索',
   'fabric.editor.elementbrowser.sidebar.heading': '参照',
@@ -167,7 +171,7 @@ export default {
   'fabric.editor.expandPlaceholder': 'この展開にタイトルを付ける…',
   'fabric.editor.extension.confirmDeleteLinkedModalMessage':
     '{nodeName} を削除すると、接続されているすべてが破棄されます。',
-  'fabric.editor.extension.confirmDeleteLinkedModalMessagePrefix': '削除：',
+  'fabric.editor.extension.confirmDeleteLinkedModalMessagePrefix': '削除: ',
   'fabric.editor.extension.confirmDeleteLinkedModalOKButton': '削除',
   'fabric.editor.extension.deleteElementTitle': '要素の削除',
   'fabric.editor.extension.sourceNoTitledName': 'この要素',
@@ -219,7 +223,7 @@ export default {
   'fabric.editor.hyperlink.searchLinkAriaDescription': 'フィールドに入力すると、以下に候補が表示されます',
   'fabric.editor.hyperlink.searchLinkResults':
     '{count, plural, =0 {検索結果がありませんでした} other {{count,number} 件の検索結果が見つかりました}}',
-  'fabric.editor.hyperlink.textVisibleLabel': '表示テキスト（オプション）',
+  'fabric.editor.hyperlink.textVisibleLabel': '表示テキスト (オプション)',
   'fabric.editor.hyperlinkToolbarPlaceholder': 'リンクを貼り付けるか検索',
   'fabric.editor.image': '画像',
   'fabric.editor.image.fullWidthLabel': '全幅',
@@ -281,7 +285,7 @@ export default {
   'fabric.editor.mediaFiles': '画像、動画、またはファイル',
   'fabric.editor.mediaFiles.description': '画像やファイルをページに追加',
   'fabric.editor.mediaGroupDeleteLabel': '削除',
-  'fabric.editor.media_change_mediainline_caption_warn': 'インライン（キャプションは削除されます）',
+  'fabric.editor.media_change_mediainline_caption_warn': 'インライン (キャプションは削除されます)',
   'fabric.editor.media_change_mediainline_default': 'インライン',
   'fabric.editor.media_change_mediasingle': '元のサイズ',
   'fabric.editor.mention': 'メンション',

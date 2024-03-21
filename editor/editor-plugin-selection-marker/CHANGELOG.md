@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.1.3
+
+### Patch Changes
+
+- [#79359](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/79359) [`3441b8062083`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3441b8062083) - [ux] Make the selection marker styling more subtle.
+
 ## 1.1.2
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import type {
   EditorState,
   ReadonlyTransaction,
@@ -20,6 +21,47 @@ interface PluginState {
 
 export const key = new PluginKey<PluginState>('selectionMarker');
 
+type DecorationType = 'blur' | 'highlight' | 'none';
+
+function getDecorations(
+  tr: ReadonlyTransaction,
+  type: DecorationType,
+): DecorationSet {
+  const { selection } = tr;
+  switch (type) {
+    case 'none':
+      return DecorationSet.empty;
+    case 'highlight':
+      return DecorationSet.create(tr.doc, [
+        ...createWidgetDecoration(selection.$anchor, 'anchor', selection, true),
+        selectionDecoration(selection, true),
+        ...createWidgetDecoration(selection.$head, 'head', selection, true),
+      ]);
+    case 'blur':
+      return DecorationSet.create(tr.doc, [
+        ...createWidgetDecoration(
+          selection.$anchor,
+          'anchor',
+          selection,
+          false,
+        ),
+        selectionDecoration(selection, false),
+      ]);
+  }
+}
+
+function getDecorationType(
+  tr: ReadonlyTransaction,
+  forceHide: boolean,
+  shouldHideDecorations: boolean,
+): DecorationType {
+  if (shouldHideDecorations || forceHide || isEmptyDocument(tr.doc)) {
+    return 'none';
+  }
+  // TODO: implement "highlight" for AI features
+  return 'blur';
+}
+
 export const createPlugin = (
   api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined,
 ) => {
@@ -38,24 +80,9 @@ export const createPlugin = (
         const shouldHideDecorations =
           tr.getMeta(key)?.shouldHideDecorations ??
           currentState.shouldHideDecorations;
-
-        const { selection } = tr;
-
-        const decorations =
-          shouldHideDecorations || forceHide
-            ? DecorationSet.empty
-            : DecorationSet.create(tr.doc, [
-                ...createWidgetDecoration(
-                  selection.$anchor,
-                  'anchor',
-                  selection,
-                ),
-                selectionDecoration(selection),
-                ...createWidgetDecoration(selection.$head, 'head', selection),
-              ]);
-
+        const type = getDecorationType(tr, forceHide, shouldHideDecorations);
         return {
-          decorations,
+          decorations: getDecorations(tr, type),
           shouldHideDecorations,
           forceHide,
         };

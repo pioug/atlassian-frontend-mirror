@@ -59,7 +59,7 @@
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^17.3.0",
     "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/textarea": "^5.1.0",
+    "@atlaskit/textarea": "^5.2.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.6.0",
     "@atlaskit/tokens": "^1.42.0",

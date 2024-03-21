@@ -22,7 +22,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },
@@ -37,7 +37,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },
@@ -52,7 +52,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },
@@ -67,7 +67,7 @@ typescriptEslintTester.run(
         `,
         errors: [
           {
-            messageId: 'unsupported-styled-components-prop-syntax-no-autofixer',
+            messageId: 'unsupported-prop-syntax-no-autofixer',
           },
         ],
       },

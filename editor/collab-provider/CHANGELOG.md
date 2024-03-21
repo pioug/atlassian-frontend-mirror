@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.25.13
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+
 ## 9.25.12
 
 ### Patch Changes

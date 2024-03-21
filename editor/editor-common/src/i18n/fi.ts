@@ -148,6 +148,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'Hae käyttämällä eri termiä tai tutustu uusiin Atlassian-tuotteiden sovelluksiin.',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'Tutustu Atlassian Marketplaceen',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {Ei hakutuloksia.} one {{count} ehdotus käytettävissä oletusarvoisesti.} other {{count} ehdotusta käytettävissä oletusarvoisesti.}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {Ei hakutuloksia.} one {{count} ehdotus käytettävissä kirjoitettua tekstiä varten.} other {{count} ehdotusta käytettävissä kirjoitettua tekstiä varten.}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Lisää',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'Haku',
   'fabric.editor.elementbrowser.sidebar.heading': 'Selaa',

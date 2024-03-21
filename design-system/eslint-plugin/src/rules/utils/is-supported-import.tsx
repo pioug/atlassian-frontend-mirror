@@ -1,3 +1,10 @@
+// This should be kept in sync with
+// packages/design-system/eslint-plugin-ui-styling-standard/src/rules/utils/is-supported-import.tsx
+// whenever possible.
+//
+// TODO: would having an @atlassian/eslint-plugin-design-system-common
+// package be useful?
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, Scope } from 'eslint';
 import type { CallExpression } from 'estree';
@@ -163,15 +170,21 @@ export const isStyled = isSupportedImportWrapper('styled', [
   'styled-components',
   '@emotion/styled',
 ]);
+export const isXcss = isSupportedImportWrapper('xcss');
 
 export const isImportedFrom =
   (moduleName: string, exactMatch = true) =>
   (
     nodeToCheck: Callee,
     referencesInScope: Reference[],
-    importSources: ImportSource[],
+    /**
+     * If we strictly have specific import sources in the config scope, pass them to make this more performant.
+     * Pass `null` if you don't care if its configured or not.
+     */
+    importSources: ImportSource[] | null = null,
   ): boolean => {
     if (
+      importSources &&
       !importSources.some(
         (importSource) =>
           importSource === moduleName ||

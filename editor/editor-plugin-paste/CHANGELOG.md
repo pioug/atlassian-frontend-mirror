@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.12
+
+### Patch Changes
+
+- [#81777](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81777) [`c6d7a5378751`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6d7a5378751) - Bump adf-schema to 35.7.0
+- Updated dependencies
+
+## 1.0.11
+
+### Patch Changes
+
+- [#82819](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82819) [`4d110826a9d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d110826a9d6) - [ED-22608] Adds mentionIds to the pasted analytics event.
+
 ## 1.0.10
 
 ### Patch Changes

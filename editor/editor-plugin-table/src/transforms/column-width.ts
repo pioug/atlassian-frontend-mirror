@@ -35,7 +35,11 @@ export const updateColumnWidths =
     // calculating new attributes for each cell
     for (let columnIndex = 0; columnIndex < map.width; columnIndex++) {
       for (let rowIndex = 0; rowIndex < map.height; rowIndex++) {
-        const { width } = resizeState.cols[columnIndex];
+        let { width } = resizeState.cols[columnIndex];
+        if (resizeState.isScaled) {
+          // Ensure that the width is an integer if the table has been scaled
+          width = Math.floor(width);
+        }
         const mapIndex = rowIndex * map.width + columnIndex;
         const cellPos = map.map[mapIndex];
         const attrs = updatedCellsAttrs[cellPos] || {

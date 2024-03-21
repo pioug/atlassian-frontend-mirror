@@ -148,6 +148,10 @@ export default {
   'fabric.editor.elementbrowser.search.empty-state.sub-heading':
     'ลองค้นหากับคำอื่นหรือสำรวจแอปใหม่ ๆ สำหรับผลิตภัณฑ์ Atlassian',
   'fabric.editor.elementbrowser.search.empty-state.sub-heading.link': 'สำรวจ Atlassian Marketplace',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.default':
+    '{count, plural, =0 {ไม่พบรายการที่ตรงกับสิ่งที่คุณค้นหา} other {มีข้อเสนอแนะพร้อมใช้งาน {count} รายการตามค่าเริ่มต้น}}',
+  'fabric.editor.elementbrowser.searchbar.assistive.text.result':
+    '{count, plural, =0 {ไม่พบรายการที่ตรงกับสิ่งที่คุณค้นหา} other {มีข้อเสนอแนะ {count} รายการสำหรับข้อความที่พิมพ์}}',
   'fabric.editor.elementbrowser.searchbar.elementAfterInput': 'Enter',
   'fabric.editor.elementbrowser.searchbar.placeholder': 'ค้นหา',
   'fabric.editor.elementbrowser.sidebar.heading': 'ค้นหา',

@@ -17,7 +17,7 @@ const analyticsParams = {
   packageVersion: process.env._PACKAGE_VERSION_ as string,
 };
 
-const Textfield = forwardRef((props: TextfieldProps, ref) => {
+const TextfieldComponent = forwardRef((props: TextfieldProps, ref) => {
   const {
     appearance = 'standard',
     className,
@@ -153,7 +153,7 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
   );
 });
 
-Textfield.displayName = 'Textfield';
+TextfieldComponent.displayName = 'Textfield';
 
 /**
  * __Textfield__
@@ -164,6 +164,10 @@ Textfield.displayName = 'Textfield';
  * - [Code](https://atlassian.design/components/textfield/code)
  * - [Usage](https://atlassian.design/components/textfield/usage)
  */
-export default memo<TextfieldProps & React.RefAttributes<unknown>>(Textfield);
+const Textfield = memo<TextfieldProps & React.RefAttributes<unknown>>(
+  TextfieldComponent,
+);
 // The above generic is used to let ERTC know what props to extract.
 // See: https://github.com/atlassian/extract-react-types/issues/201
+
+export default Textfield;

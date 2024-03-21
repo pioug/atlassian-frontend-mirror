@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 1.9.0
+
+### Minor Changes
+
+- [#82211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82211) [`272179bd91d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/272179bd91d3) - Added optional extension key to smartlink error response to be persisted in the store
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.1
 
 ### Patch Changes

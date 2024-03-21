@@ -9,7 +9,8 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useTable } from './hooks/use-table';
-import { SortIcon, TH } from './ui';
+import { SortIcon as SortIconPrimitive } from './ui/sort-icon';
+import { TH as THPrimitive } from './ui/th';
 
 export interface CellProps {
   /**
@@ -80,7 +81,7 @@ const SortableColumn: FC<CellProps> = ({
   );
 
   return (
-    <TH
+    <THPrimitive
       testId={testId}
       sortDirection={sortKey === name ? sortDirection : 'none'}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -92,7 +93,7 @@ const SortableColumn: FC<CellProps> = ({
             testId={`${testId}--button`}
             spacing="compact"
             appearance="subtle"
-            iconAfter={<SortIcon name={name} />}
+            iconAfter={<SortIconPrimitive name={name} />}
             {...tooltipProps}
             onClick={updateSortState}
             // TODO: (from codemod) Buttons with "css" or "style" prop can't be migrated for now. Please wait for the support of xcss prop.
@@ -104,7 +105,7 @@ const SortableColumn: FC<CellProps> = ({
           </Button>
         )}
       </Tooltip>
-    </TH>
+    </THPrimitive>
   );
 };
 

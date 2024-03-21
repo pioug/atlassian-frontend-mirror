@@ -10,7 +10,10 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
 import { useTable } from './hooks/use-table';
-import * as Primitives from './ui';
+import { BulkActionOverlay as BulkActionOverlayPrimitive } from './ui/bulk-action-overlay';
+import { SelectableCell as SelectableCellPrimitive } from './ui/selectable-cell';
+import { THead as THeadPrimitive } from './ui/thead';
+import { TR as TRPrimitive } from './ui/tr';
 
 type THeadProps = {
   actions?: (selected: number[]) => ReactNode;
@@ -24,10 +27,10 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
   const isChecked = state.allChecked || state.anyChecked;
 
   return (
-    <Primitives.THead>
-      <Primitives.TR isBodyRow={false}>
+    <THeadPrimitive>
+      <TRPrimitive isBodyRow={false}>
         {isSelectable && (
-          <Primitives.SelectableCell as="th">
+          <SelectableCellPrimitive as="th">
             <Checkbox
               label={
                 <VisuallyHidden id="select-all">Select all rows</VisuallyHidden>
@@ -36,11 +39,11 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
               isChecked={isChecked}
               isIndeterminate={state.anyChecked && !state.allChecked}
             />
-          </Primitives.SelectableCell>
+          </SelectableCellPrimitive>
         )}
         {children}
         {isSelectable && isChecked && (
-          <Primitives.BulkActionOverlay>
+          <BulkActionOverlayPrimitive>
             <span
               style={{
                 color: token('color.text', '#172B4D'),
@@ -55,10 +58,10 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
                 {actions(state.checked)}
               </Inline>
             )}
-          </Primitives.BulkActionOverlay>
+          </BulkActionOverlayPrimitive>
         )}
-      </Primitives.TR>
-    </Primitives.THead>
+      </TRPrimitive>
+    </THeadPrimitive>
   );
 };
 

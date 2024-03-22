@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 1.3.0
+
+### Minor Changes
+
+- [#83578](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83578) [`e9dff7ea4ece`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9dff7ea4ece) - EDF-468 Added disableFloatingToolbar plugin option to disable showing floating toolbar when smart link is clicked.
+
 ## 1.2.5
 
 ### Patch Changes

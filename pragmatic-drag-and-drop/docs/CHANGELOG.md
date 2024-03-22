@@ -1,5 +1,21 @@
 # @atlaskit/pragmatic-drag-and-drop-docs
 
+## 1.0.4
+
+### Patch Changes
+
+- [#83176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83176) [`5c64e4657ef3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c64e4657ef3) - [ux] Minor changes to replace deprecated font tokens with new tokens. There may be some very slight differences in font size if the previous value was incorrectly applied, and slight differences in line height to match the new typography system.
+
+## 1.0.3
+
+### Patch Changes
+
+- [#83702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83702) [`4d9e25ab4eaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d9e25ab4eaa) - Updating the descriptions of Pragmatic drag and drop packages, so they each provide a consistent description to various consumers, and so they are consistently formed amongst each other.
+
+  - `package.json` `description`
+  - `README.md`
+  - Website documentation
+
 ## 1.0.2
 
 ### Patch Changes

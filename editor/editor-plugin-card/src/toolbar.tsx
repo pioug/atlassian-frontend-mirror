@@ -190,8 +190,13 @@ export const floatingToolbar = (
   platform?: CardPlatform,
   linkPickerOptions?: LinkPickerOptions,
   pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
+  disableFloatingToolbar?: boolean,
 ): FloatingToolbarHandler => {
   return (state, intl, providerFactory) => {
+    if (disableFloatingToolbar) {
+      return;
+    }
+
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;
     const nodeType = [inlineCard, blockCard, embedCard];
     const pluginState: CardPluginState | undefined = pluginKey.getState(state);

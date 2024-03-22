@@ -16,8 +16,10 @@ import { loadingErrorMessages } from './messages';
 
 const urlStyles = css({
   color: token('color.text.subtlest', N400),
-  fontSize: token('font.size.100', '14px'),
-  lineHeight: token('font.lineHeight.200', '20px'),
+  font: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
 });
 
 const descriptionMessageStyles = css({

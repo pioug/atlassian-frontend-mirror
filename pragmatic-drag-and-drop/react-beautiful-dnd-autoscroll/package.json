@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll",
-  "version": "1.0.1",
-  "description": "A port of the react-beautiful-dnd auto scroller for Pragmatic drag and drop",
+  "version": "1.0.2",
+  "description": "An optional package for Pragmatic drag and drop that enables automatic scrolling during a drag operation. This package is a port of the react-beautiful-dnd auto scroller",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {

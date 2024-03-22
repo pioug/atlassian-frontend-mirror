@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 9.1.0
+
+### Minor Changes
+
+- [#83175](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83175) [`03e4aaa5a468`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/03e4aaa5a468) - Adds ability to subscribe to form state using the useFormState hook. This can be helpful in situations such as forms with conditional fields, or for previewing a form response. [Read the docs here.](https://atlassian.design/components/form/examples#listening-to-form-state-with-useformstate)
+
 ## 9.0.12
 
 ### Patch Changes

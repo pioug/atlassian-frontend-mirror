@@ -349,7 +349,10 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
       [createAnalyticsEvent, isDisabled, onClick],
     );
 
-    const getTestId = (testId?: string, children?: ReactNode) =>
+    const getTestId = (
+      testId?: string,
+      children?: AvatarPropTypes['children'],
+    ) =>
       !children
         ? { 'data-testid': `${testId}--inner` }
         : { testId: `${testId}--inner` };

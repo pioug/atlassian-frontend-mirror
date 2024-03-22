@@ -477,6 +477,8 @@ export type TableDirection = 'row' | 'column';
  * Drag and Drop interfaces
  */
 export type DraggableType = 'table-row' | 'table-column';
+export type DraggableBehaviour = 'move' | 'clone';
+
 export interface DraggableSourceData extends Record<string, unknown> {
   type: DraggableType;
   localId: string;
@@ -498,7 +500,17 @@ export interface DraggableData {
   targetIndex: number;
   targetAdjustedIndex: number;
   targetClosestEdge: Edge;
-  direction: 1 | -1;
+  /**
+   * The target direction identifies where relative to the target index is the item being dropped. A value of 'start' would
+   * mean that the item is being inserted before the index, and 'end would be after.
+   */
+  targetDirection: 'start' | 'end';
+  /**
+   * This represents a hollistic movement direction; a value of 1 means the source->target index would shift in a positive direction.
+   * A value of 0 indicates that the target index is inside the the source indexes.
+   */
+  direction: 1 | -1 | 0;
+  behaviour: DraggableBehaviour;
 }
 
 export type HandleTypes = 'hover' | 'selected';

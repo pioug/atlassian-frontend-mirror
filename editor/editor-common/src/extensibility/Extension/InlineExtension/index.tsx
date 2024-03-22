@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
+import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
@@ -39,7 +40,15 @@ const InlineExtension = (props: Props) => {
 
   const hasChildren = !!children;
 
-  const className = hasChildren ? 'with-overlay with-children' : 'with-overlay';
+  const classNames = classnames(
+    'extension-container',
+    'inline',
+    'with-overlay',
+    {
+      'with-children': hasChildren,
+      'with-danger-overlay': showMacroInteractionDesignUpdates,
+    },
+  );
 
   const rendererContainerWidth = widthState
     ? widthState.width - akEditorGutterPadding * 2
@@ -65,8 +74,9 @@ const InlineExtension = (props: Props) => {
         />
       )}
       <div
+        data-testid="inline-extension-wrapper"
         css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
-        className={`extension-container inline ${className}`}
+        className={classNames}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >

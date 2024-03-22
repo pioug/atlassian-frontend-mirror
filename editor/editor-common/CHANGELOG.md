@@ -1,5 +1,43 @@
 # @atlaskit/editor-common
 
+## 78.20.0
+
+### Minor Changes
+
+- [#83612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83612) [`25b32cbfbb7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25b32cbfbb7e) - [ux] Added new clone row/column behaviour to tables drag N drop. When the user holds the alt modifier during the operation the row/column will be duplicated rather then moved.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.19.2
+
+### Patch Changes
+
+- [#83485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83485) [`e9f04bf0ed87`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9f04bf0ed87) - migrated todo styles to tokens
+
+## 78.19.1
+
+### Patch Changes
+
+- [#83148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83148) [`c7e46e32cf2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c7e46e32cf2d) - [ux] add label in floating toolbar when table resize to widest guideline
+
+## 78.19.0
+
+### Minor Changes
+
+- [#83790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83790) [`f590476805da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f590476805da) - [ux] Adds uniform danger overlay for macro interaction design updates
+
+### Patch Changes
+
+- [#82755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82755) [`c204f74b46a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c204f74b46a5) - The media renderer node will now correctly render annotation marks if/when they're applied to the node.
+
+## 78.18.3
+
+### Patch Changes
+
+- [#81323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81323) [`88bfdbce168d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88bfdbce168d) - [EDF-426] Added special handling for dom errors in renderer to resolve DOM errors from Google translate interactions. This is behind a platform flag (platform.editor.renderer-error-boundary-for-dom-errors) and adds a new analytics event (CAUGHT_DOM_ERROR).
+
 ## 78.18.2
 
 ### Patch Changes

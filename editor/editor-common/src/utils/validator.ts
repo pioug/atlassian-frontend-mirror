@@ -485,10 +485,17 @@ export const getValidNode = (
             mediaAttrs.alt = attrs.alt;
           }
 
-          return {
-            type,
-            attrs: mediaAttrs,
-          };
+          const getMarks = getValidMarks(marks, adfStage);
+          return getMarks
+            ? {
+                type,
+                attrs: mediaAttrs,
+                marks: getMarks,
+              }
+            : {
+                type,
+                attrs: mediaAttrs,
+              };
         } else if (mediaId && mediaType) {
           const mediaAttrs: any = {
             type: mediaType,

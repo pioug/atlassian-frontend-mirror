@@ -178,6 +178,7 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
         options.platform,
         options.linkPicker,
         api,
+        options.disableFloatingToolbar,
       ),
       quickInsert: ({ formatMessage }) => {
         const quickInsertArray: Array<QuickInsertItem> = [];

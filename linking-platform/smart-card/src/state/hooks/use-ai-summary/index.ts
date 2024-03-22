@@ -27,16 +27,16 @@ export const useAISummary = (props: AISummaryServiceProps) => {
   }, []);
 
   const onSuccess = useCallback(
-    (id) => {
+    (id: string) => {
       fireEvent('operational.summary.success', {});
       succeedUfoExperience(EXPERIENCE_NAME, id);
     },
     [fireEvent],
   );
 
-  const onError = useCallback(
-    (id, reason = null) => {
-      fireEvent('operational.summary.failed', { reason });
+  const onError: NonNullable<AISummaryServiceProps['onError']> = useCallback(
+    (id, reason) => {
+      fireEvent('operational.summary.failed', { reason: reason || null });
       failUfoExperience(EXPERIENCE_NAME, id);
     },
     [fireEvent],

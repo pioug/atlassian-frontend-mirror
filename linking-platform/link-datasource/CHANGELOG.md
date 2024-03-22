@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 1.24.5
+
+### Patch Changes
+
+- [#83176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83176) [`5c64e4657ef3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c64e4657ef3) - [ux] Minor changes to replace deprecated font tokens with new tokens. There may be some very slight differences in font size if the previous value was incorrectly applied, and slight differences in line height to match the new typography system.
+- Updated dependencies
+
+## 1.24.4
+
+### Patch Changes
+
+- [#83188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83188) [`cd5d06cd3329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd5d06cd3329) - Minor adjustments to improve compatibility with React 18
+
 ## 1.24.3
 
 ### Patch Changes

@@ -190,7 +190,10 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
     },
     ref,
   ) => {
-    const getTestId = (testId?: string, children?: ReactNode) =>
+    const getTestId = (
+      testId?: string,
+      children?: AvatarItemProps['children'],
+    ) =>
       !children
         ? { 'data-testid': `${testId}--itemInner` }
         : { testId: `${testId}--itemInner` };

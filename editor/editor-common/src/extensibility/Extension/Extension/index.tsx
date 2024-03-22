@@ -109,6 +109,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
       'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+      'with-danger-overlay': showMacroInteractionDesignUpdates,
       'without-frame': removeBorder,
       [widerLayoutClassName]: shouldBreakout,
     },

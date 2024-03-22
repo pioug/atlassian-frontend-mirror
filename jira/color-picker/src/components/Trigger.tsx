@@ -5,15 +5,26 @@ import { css, jsx } from '@emotion/react';
 import { COLOR_CARD_SIZE } from '../constants';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { SwatchSize } from '../types';
 
 export interface Props {
   value: string;
   label?: string;
   onClick?: () => void;
   expanded?: boolean;
+  swatchSize?: SwatchSize;
+  isDisabled?: boolean;
 }
 
-const ColorCard = ({ value, label, expanded, onClick }: Props) => {
+const ColorCard = ({
+  value,
+  label,
+  expanded,
+  onClick,
+  swatchSize = 'default',
+  isDisabled,
+}: Props) => {
   const handleMouseDown = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
@@ -36,11 +47,28 @@ const ColorCard = ({ value, label, expanded, onClick }: Props) => {
   return (
     <Tooltip content={label}>
       <button
-        css={[
-          sharedColorContainerStyles,
-          colorCardButtonStyles,
-          expanded && colorCardButtonFocusedStyles,
-        ]}
+        {...(getBooleanFF(
+          'platform.color-picker-radio-button-functionality_6hkcy',
+        )
+          ? {
+              css: [
+                sharedColorContainerStyles,
+                swatchSize === 'small'
+                  ? smallColorContainerSize
+                  : defaultColorContainerSize,
+                colorCardButtonStyles,
+                expanded && colorCardButtonFocusedStyles,
+              ],
+              disabled: isDisabled,
+            }
+          : {
+              css: [
+                sharedColorContainerStyles,
+                defaultColorContainerSize,
+                colorCardButtonStyles,
+                expanded && colorCardButtonFocusedStyles,
+              ],
+            })}
         onClick={handleClick}
         onMouseDown={handleMouseDown}
         aria-label={label}
@@ -49,7 +77,18 @@ const ColorCard = ({ value, label, expanded, onClick }: Props) => {
         type="button"
       >
         <span
-          css={colorCardContentStyles}
+          {...(getBooleanFF(
+            'platform.color-picker-radio-button-functionality_6hkcy',
+          )
+            ? {
+                css: [
+                  colorCardContentStyles,
+                  swatchSize === 'small'
+                    ? smallColorCardContentSize
+                    : defaultColorCardContentSize,
+                ],
+              }
+            : { css: [colorCardContentStyles, defaultColorCardContentSize] })}
           style={{
             background: value || 'transparent',
           }}
@@ -64,8 +103,6 @@ export default ColorCard;
 const sharedColorContainerStyles = css({
   display: 'inline-block',
   position: 'relative',
-  width: `${COLOR_CARD_SIZE}px`,
-  height: `${COLOR_CARD_SIZE}px`,
   border: '2px solid transparent',
   boxSizing: 'border-box',
   borderRadius: '6px',
@@ -77,28 +114,49 @@ const sharedColorContainerStyles = css({
   outline: 'none',
 });
 
+const smallColorContainerSize = css({
+  width: '22px',
+  height: '22px',
+  top: token('space.negative.025', '-2px'),
+});
+
+const defaultColorContainerSize = css({
+  width: `${COLOR_CARD_SIZE}px`,
+  height: `${COLOR_CARD_SIZE}px`,
+});
+
 const colorCardButtonStyles = css({
   ':hover': {
     borderColor: token('color.background.neutral.subtle', N0),
   },
   ':not(:focus):hover, :focus': {
     borderColor: token('color.border.focused', B100),
+    outline: 'none',
   },
 });
 
 const colorCardButtonFocusedStyles = css({
   borderColor: token('color.border.focused', B100),
+  outline: 'none',
 });
 
 const colorCardContentStyles = css({
   position: 'absolute',
   top: '1px',
   left: '1px',
-  width: token('space.300', '24px'),
-  height: token('space.300', '24px'),
   borderRadius: token('border.radius.100', '3px'),
   boxShadow: `inset 0px 0px 0px 1px ${token(
     'color.background.inverse.subtle',
     DN600A,
   )}`,
+});
+
+const smallColorCardContentSize = css({
+  width: token('space.200', '16px'),
+  height: token('space.200', '16px'),
+});
+
+const defaultColorCardContentSize = css({
+  width: token('space.300', '24px'),
+  height: token('space.300', '24px'),
 });

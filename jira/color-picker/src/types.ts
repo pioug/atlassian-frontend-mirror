@@ -9,3 +9,5 @@ export enum Mode {
   Compact,
   Standard,
 }
+
+export type SwatchSize = 'small' | 'default';

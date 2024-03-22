@@ -29,7 +29,25 @@ import ExtensionLozenge from '../Extension/Lozenge';
 import type { ExtensionsPluginInjectionAPI } from '../types';
 
 import { useMultiBodiedExtensionActions } from './action-api';
-import { mbeExtensionWrapperCSS } from './styles';
+import { mbeExtensionWrapperCSSStyles, overlayStyles } from './styles';
+
+const getContainerCssExtendedStyles = (
+  activeChildIndex: number,
+  showMacroInteractionDesignUpdates?: boolean,
+) =>
+  css(sharedMultiBodiedExtensionStyles.mbeExtensionContainer, {
+    [`.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
+      activeChildIndex + 1
+    })`]: css(
+      sharedMultiBodiedExtensionStyles.extensionFrameContent,
+      showMacroInteractionDesignUpdates && removeMarginsAndBorder,
+    ),
+  });
+
+const imageStyles = css({
+  maxHeight: '24px',
+  maxWidth: '24px',
+});
 
 export type TryExtensionHandlerType = (
   actions: MultiBodiedExtensionActions | undefined,
@@ -74,15 +92,7 @@ const getWrapperTitleContent = (
     const { url, ...rest } = imageData;
     return (
       <div className="extension-title">
-        <img
-          css={css({
-            maxHeight: '24px',
-            maxWidth: '24px',
-          })}
-          src={url}
-          {...rest}
-          alt={title}
-        />
+        <img css={imageStyles} src={url} {...rest} alt={title} />
         {title}
       </div>
     );
@@ -156,18 +166,6 @@ const MultiBodiedExtensionWithWidth = ({
     [handleContentDOMRef],
   );
 
-  const containerCssExtended = css(
-    sharedMultiBodiedExtensionStyles.mbeExtensionContainer,
-    {
-      [`.multiBodiedExtension-content-dom-wrapper > [data-extension-frame='true']:nth-of-type(${
-        activeChildIndex + 1
-      })`]: css(
-        sharedMultiBodiedExtensionStyles.extensionFrameContent,
-        showMacroInteractionDesignUpdates && removeMarginsAndBorder,
-      ),
-    },
-  );
-
   const shouldBreakout =
     // Extension should breakout when the layout is set to 'full-width' or 'wide'.
     ['full-width', 'wide'].includes(node.attrs.layout) &&
@@ -192,6 +190,7 @@ const MultiBodiedExtensionWithWidth = ({
       'remove-margin-top': showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+      'with-danger-overlay': showMacroInteractionDesignUpdates,
     },
   );
 
@@ -223,12 +222,13 @@ const MultiBodiedExtensionWithWidth = ({
       )}
       <div
         className={wrapperClassNames}
-        css={mbeExtensionWrapperCSS}
+        css={mbeExtensionWrapperCSSStyles}
         data-testid="multiBodiedExtension--wrapper"
         style={mbeWrapperStyles}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
+        <div css={overlayStyles} className="multiBodiedExtension--overlay" />
         {getWrapperTitleContent(
           imageData,
           title,
@@ -236,7 +236,10 @@ const MultiBodiedExtensionWithWidth = ({
         )}
         <div
           className={containerClassNames}
-          css={containerCssExtended}
+          css={getContainerCssExtendedStyles(
+            activeChildIndex,
+            showMacroInteractionDesignUpdates,
+          )}
           data-testid="multiBodiedExtension--container"
           data-active-child-index={activeChildIndex}
         >

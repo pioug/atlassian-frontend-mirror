@@ -25,8 +25,10 @@ const noResultsMessageContainerStyles = css({
 });
 
 const noResultsMessageStyles = css({
-  fontWeight: token('font.weight.semibold', '600'),
-  fontSize: token('font.size.200', '16px'),
+  font: token(
+    'font.heading.small',
+    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
 });
 
 interface NoResultsProps {

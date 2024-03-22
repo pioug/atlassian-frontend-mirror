@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.6.0
+
+### Minor Changes
+
+- [#83612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83612) [`25b32cbfbb7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25b32cbfbb7e) - [ux] Added new clone row/column behaviour to tables drag N drop. When the user holds the alt modifier during the operation the row/column will be duplicated rather then moved.
+
 ## 2.5.8
 
 ### Patch Changes

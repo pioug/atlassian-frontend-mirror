@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.6.4
+
+### Patch Changes
+
+- [#83188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83188) [`cd5d06cd3329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd5d06cd3329) - Minor adjustments to improve compatibility with React 18
+
 ## 14.6.3
 
 ### Patch Changes

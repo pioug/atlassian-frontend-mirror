@@ -1,8 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 
-import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
+import {
+  attachClosestEdge,
+  type Edge,
+} from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
+import { getDragBehaviour } from '../../../pm-plugins/drag-and-drop/utils/getDragBehaviour';
 import type { DraggableSourceData } from '../../../types';
 
 export interface Props {
@@ -29,8 +33,16 @@ export const ColumnDropTarget = ({
 
     return dropTargetForElements({
       element: dropTargetRef.current,
-      canDrop({ source }) {
+      canDrop({ source, input }) {
         const data = source.data as DraggableSourceData;
+        const behaviour = getDragBehaviour(input);
+
+        // A move drop is limited too where it can go, however a clone can drop can go anywhere.
+        const isDropValid =
+          behaviour === 'move'
+            ? data.indexes?.indexOf(index) === -1
+            : behaviour === 'clone';
+
         return (
           // Only draggables of row type can be dropped on this target
           data.type === 'table-column' &&
@@ -38,20 +50,42 @@ export const ColumnDropTarget = ({
           data.localId === localId &&
           // Only draggables which DO NOT include this drop targets index can be dropped
           !!data.indexes?.length &&
-          data.indexes?.indexOf(index) === -1
+          isDropValid
         );
       },
+      getDropEffect: ({ input }) =>
+        getDragBehaviour(input) === 'clone' ? 'copy' : 'move',
       getIsSticky: () => true,
-      getData({ input, element }) {
+      getData({ source, input, element }) {
         const data = {
           localId,
           type: 'table-column',
           targetIndex: index,
         };
+        const srcData = source.data as DraggableSourceData;
+        const behaviour = getDragBehaviour(input);
+
+        // During a move op there's no point in allowing edges to be dropped on which result in no change/move to occur.
+        const allowedEdges: Edge[] =
+          behaviour === 'move'
+            ? srcData.indexes?.reduce(
+                (acc, v) => {
+                  if (v - index === -1) {
+                    acc.shift();
+                  }
+                  if (v - index === 1) {
+                    acc.pop();
+                  }
+                  return acc;
+                },
+                ['left', 'right'],
+              )
+            : ['left', 'right'];
+
         return attachClosestEdge(data, {
           input,
           element,
-          allowedEdges: ['left', 'right'],
+          allowedEdges,
         });
       },
     });

@@ -91,17 +91,18 @@ import WithEditorActions from '../src/ui/WithEditorActions';
  *                                    80px - 48px (Outside of iframe)
  *
  */
-export const wrapperStyles = css({
+const wrapperStyles = css({
   boxSizing: 'border-box',
   height: '100%',
 });
-export const contentStyles = css({
+const contentStyles = css({
   padding: 0,
   height: '100%',
   boxSizing: 'border-box',
 });
 
-const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
+export { wrapperStyles, contentStyles };
+export const BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD = 2000;
 const BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD = 3000;
 // const tableOptions = {
 //   advanced: true,
@@ -162,9 +163,6 @@ export const saveChanges =
     }
 
     const value = await editorActions.getValue();
-
-    // eslint-disable-next-line no-console
-    console.log(value);
 
     localStorage.setItem(LOCALSTORAGE_defaultDocKey, JSON.stringify(value));
     if (setMode) {
@@ -261,12 +259,10 @@ export class ExampleEditorComponent extends React.Component<
       this.editorActions.focus();
     }
 
-    // eslint-disable-next-line no-console
-    console.log(`To try the macro paste handler, paste one of the following links:
+    // To try the macro paste handler, paste one of the following links:
 
-  www.dumbmacro.com?paramA=CFE
-  www.smartmacro.com?paramB=CFE
-    `);
+    // www.dumbmacro.com?paramA=CFE
+    // www.smartmacro.com?paramB=CFE
   }
 
   componentDidUpdate(prevProps: ExampleEditorProps) {
@@ -364,12 +360,14 @@ export class ExampleEditorComponent extends React.Component<
                 allowTextAlignment={true}
                 allowIndentation={true}
                 allowTemplatePlaceholders={{ allowInserting: true }}
-                smartLinks={{
-                  provider: Promise.resolve(cardProviderStaging),
-                  allowBlockCards: true,
-                  allowEmbeds: true,
-                  allowResizing: true,
-                  useAlternativePreloader: false,
+                linking={{
+                  smartLinks: {
+                    provider: Promise.resolve(cardProviderStaging),
+                    allowBlockCards: true,
+                    allowEmbeds: true,
+                    allowResizing: true,
+                    useAlternativePreloader: false,
+                  },
                 }}
                 allowExpand={{
                   allowInsertion: true,

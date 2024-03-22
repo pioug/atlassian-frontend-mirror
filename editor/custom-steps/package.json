@@ -37,7 +37,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.7.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/editor-tables": "^2.5.0",
+    "@atlaskit/editor-tables": "^2.6.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"
   },

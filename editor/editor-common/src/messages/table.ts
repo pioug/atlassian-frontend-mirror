@@ -243,4 +243,9 @@ export const messages = defineMessages({
     description:
       'The column drag handle to move the column within the table. Click to open a menu for more column options.',
   },
+  fullWidthLabel: {
+    id: 'fabric.editor.tableFullWidthLabel',
+    defaultMessage: 'Full-width',
+    description: 'Trigger table width to full-width mode',
+  },
 });

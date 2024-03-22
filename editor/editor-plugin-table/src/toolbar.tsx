@@ -90,6 +90,7 @@ import type {
   ToolbarMenuState,
 } from './types';
 import { TableCssClassName } from './types';
+import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,
@@ -451,6 +452,55 @@ export const getToolbarConfig =
 
     // We don't want to show floating toolbar while resizing the table
     const isWidthResizing = tableWidthState?.resizing;
+
+    const { isTableScalingEnabled, widthToWidest } = pluginState;
+
+    if (isTableScalingEnabled && isWidthResizing && widthToWidest) {
+      const { stickyScrollbar } = getEditorFeatureFlags();
+
+      const nodeType = state.schema.nodes.table;
+      const getDomRef = (editorView: EditorView) => {
+        let element: HTMLElement | undefined;
+        const domAtPos = editorView.domAtPos.bind(editorView);
+        const parent = findParentDomRefOfType(
+          nodeType,
+          domAtPos,
+        )(state.selection);
+        if (parent) {
+          const tableRef =
+            (parent as HTMLElement).querySelector<HTMLTableElement>('table') ||
+            undefined;
+          if (tableRef) {
+            element =
+              closestElement(
+                tableRef,
+                `.${TableCssClassName.TABLE_NODE_WRAPPER}`,
+              ) || undefined;
+          }
+        }
+        return element;
+      };
+      const fullWidthLabel = {
+        id: 'editor.table.fullWidthLabel',
+        type: 'custom',
+        fallback: [],
+        render: () => {
+          return <FullWidthDisplay key={'full-width-label'} />;
+        },
+      } as FloatingToolbarItem<Command>;
+
+      return {
+        title: 'Table floating label',
+        getDomRef,
+        nodeType,
+        key: 'full-width-label',
+        offset: [0, 18],
+        absoluteOffset: stickyScrollbar ? { top: -6 } : { top: 0 },
+        zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
+        items: [fullWidthLabel],
+        scrollable: true,
+      };
+    }
 
     if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
       const nodeType = state.schema.nodes.table;

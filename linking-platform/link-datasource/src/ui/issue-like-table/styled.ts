@@ -5,13 +5,16 @@ import { token } from '@atlaskit/tokens';
 
 export const ScrollableContainerHeight = 590;
 
-export const fieldTextFontSize = token('font.size.100', '14px');
+export const fieldTextFontSize = token(
+  'font.body',
+  'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+);
 
 export const Table = styled.table({
   width: '100%',
 });
 
-const lineHeight = token('font.lineHeight.300', '24px');
+const lineHeight = '24px';
 const verticalPadding = token('space.025', '2px');
 
 /**

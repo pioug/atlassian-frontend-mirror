@@ -66,3 +66,9 @@ export interface MoveOptions {
   direction?: number;
   selectAfterMove?: boolean;
 }
+
+export interface CloneOptions {
+  tryToFit?: boolean;
+  direction?: number;
+  selectAfterClone?: boolean;
+}

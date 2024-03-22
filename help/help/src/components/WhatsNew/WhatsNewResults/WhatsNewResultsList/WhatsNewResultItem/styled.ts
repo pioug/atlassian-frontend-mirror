@@ -70,7 +70,7 @@ export const WhatsNewResultListItemTitleText = styled.span`
 
 export const WhatsNewResultListItemDescription = styled.p`
   display: block;
-  line-height: ${token('font.lineHeight.200', '20px')};
+  line-height: 20px;
   color: ${token('color.text', colors.N800)};
   margin: 0;
 `;

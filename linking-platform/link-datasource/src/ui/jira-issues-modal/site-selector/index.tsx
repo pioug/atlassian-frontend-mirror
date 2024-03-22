@@ -20,9 +20,11 @@ export interface JiraSiteSelectorProps {
 }
 
 const selectStyles = css({
-  fontSize: token('font.size.100', '14px'),
+  font: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   fontWeight: token('font.weight.medium', '500'),
-  lineHeight: token('font.lineHeight.200', '20px'),
   zIndex: siteSelectorIndex,
 });
 

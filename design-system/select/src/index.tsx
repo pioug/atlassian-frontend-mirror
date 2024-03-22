@@ -41,9 +41,7 @@ export type {
   DropdownIndicatorProps,
   IndicatorSeparatorProps,
   LoadingIndicatorProps,
-  // we have found usages of the types below in AF and other repos,
-  // Since we are migrating to declarative entry points `deprecatedAutoEntryPoints=false`
-  // we need to include these types here.
+  // we have found usages of the types below in AF and other repos
   MultiValueProps,
   MultiValueRemoveProps,
   ReactSelectProps,

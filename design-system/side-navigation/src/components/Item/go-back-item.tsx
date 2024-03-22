@@ -34,7 +34,7 @@ const GoBackItem = forwardRef<HTMLElement, ButtonItemProps>(
   ) => {
     const [isInteracted, setIsInteracted] = useState(false);
 
-    const onClickHandler: ButtonItemProps['onClick'] = useCallback(
+    const onClickHandler: NonNullable<ButtonItemProps['onClick']> = useCallback(
       (e) => {
         if (isInteracted) {
           return;

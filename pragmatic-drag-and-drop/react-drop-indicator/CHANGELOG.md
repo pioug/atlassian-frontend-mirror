@@ -1,5 +1,15 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 1.0.2
+
+### Patch Changes
+
+- [#83702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83702) [`4d9e25ab4eaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d9e25ab4eaa) - Updating the descriptions of Pragmatic drag and drop packages, so they each provide a consistent description to various consumers, and so they are consistently formed amongst each other.
+
+  - `package.json` `description`
+  - `README.md`
+  - Website documentation
+
 ## 1.0.1
 
 ### Patch Changes

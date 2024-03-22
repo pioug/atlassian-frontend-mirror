@@ -27,6 +27,7 @@ export type {
   InvalidNodeAttr,
   TableDirection,
   DraggableType,
+  DraggableBehaviour,
   DraggableSourceData,
   DraggableTargetData,
   DraggableData,

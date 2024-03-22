@@ -29,8 +29,8 @@ const SpotlightTransitionContext =
 // checks if children exist and are truthy
 const hasChildren = (children: ReactNode) =>
   React.Children.count(children) > 0 &&
-  React.Children.map(children || false, (child) => !!child).filter(Boolean)
-    .length > 0;
+  (React.Children.map(children || false, (child) => !!child)?.filter(Boolean)
+    ?.length || 0) > 0;
 
 /**
  * __Spotlight transition__

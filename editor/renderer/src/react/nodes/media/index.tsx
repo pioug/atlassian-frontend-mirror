@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import type { SyntheticEvent } from 'react';
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
@@ -16,6 +16,7 @@ import { MediaCard } from '../../../ui/MediaCard';
 import type {
   LinkDefinition,
   BorderMarkDefinition,
+  AnnotationMarkDefinition,
 } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
@@ -30,6 +31,7 @@ import {
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
+import AnnotationComponent from '../../marks/annotation';
 import { linkStyle, borderStyle } from './styles';
 
 export type MediaProps = MediaCardProps & {
@@ -37,9 +39,12 @@ export type MediaProps = MediaCardProps & {
   allowAltTextOnImages?: boolean;
   children?: React.ReactNode;
   isInsideOfBlockNode?: boolean;
-  marks: Array<LinkDefinition | BorderMarkDefinition>;
+  marks: Array<
+    LinkDefinition | BorderMarkDefinition | AnnotationMarkDefinition
+  >;
   isBorderMark: () => boolean;
   isLinkMark: () => boolean;
+  isAnnotationMark?: () => boolean;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
   featureFlags?: MediaFeatureFlags;
   eventHandlers?: EventHandlers;
@@ -50,7 +55,97 @@ type Providers = {
   mediaProvider?: Promise<MediaProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 };
+
+const MediaBorder = ({
+  mark,
+  children,
+}: React.PropsWithChildren<{
+  mark?: BorderMarkDefinition;
+}>): JSX.Element => {
+  if (!mark) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  const borderColor = mark?.attrs.color ?? '';
+  const borderWidth = mark?.attrs.size ?? 0;
+
+  const paletteColorValue =
+    hexToEditorBorderPaletteColor(borderColor) || borderColor;
+
+  return (
+    <div
+      data-mark-type="border"
+      data-color={borderColor}
+      data-size={borderWidth}
+      css={borderStyle(paletteColorValue, borderWidth)}
+    >
+      <MediaBorderGapFiller borderColor={borderColor} />
+      {children}
+    </div>
+  );
+};
+
+const MediaLink = ({
+  mark,
+  children,
+  onClick,
+}: React.PropsWithChildren<{
+  mark?: LinkDefinition;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement> | undefined;
+}>): JSX.Element => {
+  if (!mark) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  const linkHref = mark?.attrs.href;
+
+  return (
+    <a
+      href={linkHref}
+      rel="noreferrer noopener"
+      onClick={onClick}
+      data-block-link={linkHref}
+      css={linkStyle}
+    >
+      {children}
+    </a>
+  );
+};
+
+const MediaAnnotation = ({
+  mark,
+  children,
+}: React.PropsWithChildren<{
+  mark?: AnnotationMarkDefinition;
+}>): JSX.Element => {
+  if (!mark) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  return (
+    <AnnotationComponent
+      id={mark.attrs.id}
+      annotationType={mark.attrs.annotationType}
+      dataAttributes={{
+        'data-renderer-mark': true,
+      }}
+      // This should be fine being empty [] since the serializer serializeFragmentChild getMarkProps call always passes
+      annotationParentIds={[]}
+      allowAnnotations
+    >
+      {children}
+    </AnnotationComponent>
+  );
+};
+
 export default class Media extends PureComponent<MediaProps, {}> {
+  constructor(props: MediaProps) {
+    super(props);
+    this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
+  }
+
+  private handleMediaLinkClickFn;
+
   private renderCard = (providers: Providers = {}) => {
     const { contextIdentifierProvider } = providers;
     const {
@@ -62,68 +157,49 @@ export default class Media extends PureComponent<MediaProps, {}> {
       ssr,
     } = this.props;
 
-    const borderMark = this.props.marks.find(
-      this.props.isBorderMark,
-    ) as BorderMarkDefinition;
-    const borderColor = borderMark?.attrs.color ?? '';
-    const borderWidth = borderMark?.attrs.size ?? 0;
+    const annotationMark = (
+      this.props.isAnnotationMark
+        ? this.props.marks.find(this.props.isAnnotationMark)
+        : undefined
+    ) as AnnotationMarkDefinition | undefined;
 
-    const linkMark = this.props.marks.find(
-      this.props.isLinkMark,
-    ) as LinkDefinition;
+    const borderMark = this.props.marks.find(this.props.isBorderMark) as
+      | BorderMarkDefinition
+      | undefined;
+
+    const linkMark = this.props.marks.find(this.props.isLinkMark) as
+      | LinkDefinition
+      | undefined;
+
     const linkHref = linkMark?.attrs.href;
     const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
     const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
-    const mediaComponent = (
-      <AnalyticsContext
-        data={{
-          [MEDIA_CONTEXT]: {
-            border: !!borderMark,
-          },
-        }}
-      >
-        <MediaCard
-          contextIdentifierProvider={contextIdentifierProvider}
-          {...this.props}
-          shouldOpenMediaViewer={shouldOpenMediaViewer}
-          eventHandlers={eventHandlers}
-          alt={allowAltTextOnImages ? alt : undefined}
-          featureFlags={featureFlags}
-          shouldEnableDownloadButton={enableDownloadButton}
-          ssr={ssr}
-        />
-      </AnalyticsContext>
-    );
 
-    const paletteColorValue =
-      hexToEditorBorderPaletteColor(borderColor) || borderColor;
-
-    const mediaComponentWithBorder = borderMark ? (
-      <div
-        data-mark-type="border"
-        data-color={borderColor}
-        data-size={borderWidth}
-        css={borderStyle(paletteColorValue, borderWidth)}
-      >
-        <MediaBorderGapFiller borderColor={borderColor} />
-        {mediaComponent}
-      </div>
-    ) : (
-      mediaComponent
-    );
-
-    return linkHref ? (
-      <a
-        href={linkHref}
-        rel="noreferrer noopener"
-        onClick={this.handleMediaLinkClick}
-        data-block-link={linkHref}
-        css={linkStyle}
-      >
-        {mediaComponentWithBorder}
-      </a>
-    ) : (
-      mediaComponentWithBorder
+    return (
+      <MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
+        <MediaAnnotation mark={annotationMark}>
+          <MediaBorder mark={borderMark}>
+            <AnalyticsContext
+              data={{
+                [MEDIA_CONTEXT]: {
+                  border: !!borderMark,
+                },
+              }}
+            >
+              <MediaCard
+                contextIdentifierProvider={contextIdentifierProvider}
+                {...this.props}
+                shouldOpenMediaViewer={shouldOpenMediaViewer}
+                eventHandlers={eventHandlers}
+                alt={allowAltTextOnImages ? alt : undefined}
+                featureFlags={featureFlags}
+                shouldEnableDownloadButton={enableDownloadButton}
+                ssr={ssr}
+              />
+            </AnalyticsContext>
+          </MediaBorder>
+        </MediaAnnotation>
+      </MediaLink>
     );
   };
 

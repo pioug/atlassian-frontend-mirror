@@ -66,7 +66,7 @@ export const useFilterOptions = ({
   const { getFieldValues } = useBasicFilterAGG();
 
   const fetchFilterOptions = useCallback(
-    async ({ pageCursor, searchString } = {}) => {
+    async ({ pageCursor, searchString }: FetchFilterOptionsProps = {}) => {
       if (!cloudId) {
         return;
       }
@@ -85,6 +85,7 @@ export const useFilterOptions = ({
                 cloudId,
                 jql: '',
                 jqlTerm: filterType,
+                // @ts-expect-error - Type 'string | undefined' is not assignable to type 'string'
                 searchString,
                 pageCursor,
               });

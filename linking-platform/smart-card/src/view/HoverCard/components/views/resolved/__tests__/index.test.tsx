@@ -41,6 +41,7 @@ import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import useRelatedUrls, {
   RelatedUrlsResponse,
 } from '../../../../../../state/hooks/use-related-urls';
+import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 
 jest.mock('../../../../../../state/actions', () => ({
   useSmartCardActions: jest.fn(),
@@ -67,6 +68,20 @@ mockGetBooleanFF.mockImplementation(
     key === 'platform.linking-platform.smart-card.hover-card-ai-summaries' &&
     isAiSummaryFFEnabled,
 );
+
+jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
+  const original = jest.requireActual(
+    '../../../../../../state/hooks/use-ai-summary',
+  );
+  return {
+    useAISummary: jest.fn().mockImplementation((url) => {
+      return {
+        summariseUrl: original.useAISummary(url).summariseUrl,
+        state: { status: 'ready', content: '' },
+      };
+    }),
+  };
+});
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
@@ -96,6 +111,42 @@ describe('HoverCardResolvedView', () => {
   const dispatchAnalytics = jest.fn();
   const url = 'test-url';
 
+  const TestComponent = ({
+    mockResponse = mockConfluenceResponse as JsonLdDatasourceResponse,
+    cardActions = [],
+    isAISummaryEnabled,
+    cardState,
+  }: {
+    mockResponse?: JsonLd.Response;
+    cardActions?: LinkAction[];
+    isAISummaryEnabled?: boolean;
+    cardState: any;
+  }) => {
+    return (
+      <DiProvider use={[injectableUseRelatedUrls]}>
+        <IntlProvider locale="en">
+          <HoverCardResolvedView
+            analytics={analyticsEvents}
+            extensionKey={mockResponse.meta.key}
+            id={'123'}
+            flexibleCardProps={{
+              cardState: cardState,
+              children: {},
+              actionOptions: { hide: false },
+              url: url,
+            }}
+            onActionClick={jest.fn()}
+            cardState={cardState}
+            url={url}
+            titleBlockProps={titleBlockProps}
+            cardActions={cardActions}
+            isAISummaryEnabled={isAISummaryEnabled}
+          />
+        </IntlProvider>
+      </DiProvider>
+    );
+  };
+
   beforeEach(() => {
     const { result } = renderHook(() =>
       useSmartLinkAnalytics(url, dispatchAnalytics, id, location),
@@ -124,33 +175,40 @@ describe('HoverCardResolvedView', () => {
       datasources: (mockResponse as JsonLdDatasourceResponse).datasources,
     });
 
-    const { queryByTestId, findByTestId, findByText, findAllByTestId, debug } =
-      render(
-        <DiProvider use={[injectableUseRelatedUrls]}>
-          <IntlProvider locale="en">
-            <HoverCardResolvedView
-              analytics={analyticsEvents}
-              extensionKey={mockResponse.meta.key}
-              id={'123'}
-              flexibleCardProps={{
-                cardState: cardState,
-                children: {},
-                actionOptions: { hide: false },
-                url: url,
-              }}
-              onActionClick={jest.fn()}
-              cardState={cardState}
-              url={url}
-              titleBlockProps={titleBlockProps}
-              cardActions={cardActions}
-              isAISummaryEnabled={isAISummaryEnabled}
-            />
-          </IntlProvider>
-          ,
-        </DiProvider>,
+    const {
+      queryByTestId,
+      findByTestId,
+      findByText,
+      findAllByTestId,
+      debug,
+      rerender,
+    } = render(
+      <TestComponent
+        cardState={cardState}
+        mockResponse={mockResponse}
+        cardActions={cardActions}
+        isAISummaryEnabled={isAISummaryEnabled}
+      />,
+    );
+
+    const rerenderTestComponent = () =>
+      rerender(
+        <TestComponent
+          cardState={cardState}
+          mockResponse={mockResponse}
+          cardActions={cardActions}
+          isAISummaryEnabled={isAISummaryEnabled}
+        />,
       );
 
-    return { queryByTestId, findByTestId, findByText, findAllByTestId, debug };
+    return {
+      queryByTestId,
+      findByTestId,
+      findByText,
+      findAllByTestId,
+      debug,
+      rerenderTestComponent,
+    };
   };
 
   describe('hover card blocks', () => {
@@ -296,6 +354,40 @@ describe('HoverCardResolvedView', () => {
             'smart-ai-summary-block-ai-summary-action',
           );
           expect(aiSummaryAction?.textContent).toEqual('Summarize');
+        });
+
+        it('Hide the link description and metadata only when there is summary content available', async () => {
+          (useAISummary as jest.Mock).mockReturnValueOnce({
+            state: { status: 'loading', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { queryByTestId, rerenderTestComponent } = setup({
+            mockResponse: mockAtlasProjectWithAiSummary,
+            isAISummaryEnabled: true,
+          });
+
+          const linkDescriptionAndBottomMetaData = queryByTestId(
+            'connected-AI-resolved-view',
+          );
+          expect(linkDescriptionAndBottomMetaData).toBeInTheDocument();
+
+          (useAISummary as jest.Mock).mockReturnValueOnce({
+            state: {
+              status: 'loading',
+              content: 'first piece of summary is here',
+            },
+            summariseUrl: jest.fn(),
+          });
+
+          rerenderTestComponent();
+
+          const linkDescriptionAndBottomMetaDataAfterRerender = queryByTestId(
+            'connected-AI-resolved-view',
+          );
+          expect(
+            linkDescriptionAndBottomMetaDataAfterRerender,
+          ).not.toBeInTheDocument();
         });
 
         it('should use a resolved data URL instead of provided URL', async () => {

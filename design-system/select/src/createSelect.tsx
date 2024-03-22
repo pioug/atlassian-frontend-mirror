@@ -78,6 +78,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         LoadingIndicator,
         MultiValueRemove,
         IndicatorSeparator,
+        Input: Input<Option, IsMulti>,
         ...components,
       };
     };

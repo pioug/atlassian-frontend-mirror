@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.3.4
+
+### Patch Changes
+
+- [#83706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83706) [`2c6f01982c94`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c6f01982c94) - Fixed aria-describedby attribute being incorrect when components prop is passed
+
 ## 17.3.3
 
 ### Patch Changes

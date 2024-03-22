@@ -57,4 +57,5 @@ export {
   dragTableInsertColumnButtonSize,
   dropTargetExtendedWidth,
   colorPalletteColumns,
+  tableResizerWidth,
 } from '@atlaskit/editor-plugin-table/ui/consts';

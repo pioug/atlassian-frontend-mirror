@@ -15,9 +15,11 @@ export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
 
 const messageStyles = css({
   color: token('color.text.subtle', '#44546F'),
-  fontSize: token('font.size.050', '11px'),
+  font: token(
+    'font.body.small',
+    'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   fontWeight: token('font.weight.regular', '400'),
-  lineHeight: token('font.lineHeight.100', '14px'),
 });
 
 export const ConcatenatedMenuList = ({

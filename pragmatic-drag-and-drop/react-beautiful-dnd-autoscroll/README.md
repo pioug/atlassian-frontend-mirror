@@ -1,15 +1,7 @@
-# `@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll`
+## Pragmatic drag and drop
 
-A port of the [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) auto scroller for `@atlaskit/pragmatic-drag-and-drop`
+> ⚠️ We do not recommend the usage of this package. Please use our [new auto scroller package](../auto-scroll). We plan on deprecating this package.
 
-Out of the box, `@atlaskit/pragmatic-drag-and-drop` leverages the browsers built in auto scrolling for drag and drop operations. `@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll` is an optional addon that provides a more natural feeling auto scrolling experience.
+An optional package for Pragmatic drag and drop that enables automatic scrolling during a drag operation. This package is a port of the [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) auto scroller.
 
-## Installation
-
-```sh
-yarn add @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll
-```
-
-## Usage
-
-Detailed docs and example usage can be found on [atlassian.design](https://atlassian.design/components/pragmatic-drag-and-drop/).
+[📖 Documentation](https://atlassian.design/components/pragmatic-drag-and-drop/)

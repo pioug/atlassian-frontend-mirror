@@ -113,7 +113,7 @@ export const withInputFieldTracking = <
 
     // Track the values as null when the text field is cleared
     const handleOnClear: Required<P>['onClear'] = useCallback(
-      (...args) => {
+      (...args: any) => {
         trackAttribute(`${field}FieldContent`, null);
         trackAttribute(`${field}FieldContentInputMethod`, null);
         onClear?.(...args);

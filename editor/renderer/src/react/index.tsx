@@ -321,7 +321,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const shouldSkipLinkMark = (mark: Mark): boolean =>
       this.allowMediaLinking !== true && isMedia && mark.type.name === 'link';
 
-    return marks.reverse().reduce((content, mark) => {
+    return marks.reduceRight((content, mark) => {
       if (shouldSkipLinkMark(mark) || shouldSkipBorderMark(mark)) {
         return content;
       }
@@ -507,13 +507,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
   private getMediaProps(node: Node, path: Array<Node> = []) {
     const {
-      marks: { link, border },
+      marks: { annotation, link, border },
     } = node.type.schema;
 
     const isChildOfMediaSingle = path.some(
       (n) => n.type?.name === 'mediaSingle',
     );
 
+    const isAnnotationMark = (mark: Mark) => mark.type === annotation;
     const isLinkMark = (mark: Mark) => mark.type === link;
     const isBorderMark = (mark: Mark) =>
       isChildOfMediaSingle && mark.type === border;
@@ -525,6 +526,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       ),
       isLinkMark,
       isBorderMark,
+      isAnnotationMark,
       allowAltTextOnImages: this.allowAltTextOnImages,
       featureFlags: this.media && this.media.featureFlags,
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,

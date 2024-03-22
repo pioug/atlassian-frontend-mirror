@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.10.5
+
+### Patch Changes
+
+- [#82755](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82755) [`c204f74b46a5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c204f74b46a5) - The media renderer node will now correctly render annotation marks if/when they're applied to the node.
+- Updated dependencies
+
+## 109.10.4
+
+### Patch Changes
+
+- [#81323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81323) [`88bfdbce168d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88bfdbce168d) - [EDF-426] Added special handling for dom errors in renderer to resolve DOM errors from Google translate interactions. This is behind a platform flag (platform.editor.renderer-error-boundary-for-dom-errors) and adds a new analytics event (CAUGHT_DOM_ERROR).
+
 ## 109.10.3
 
 ### Patch Changes

@@ -131,10 +131,9 @@ export const SearchResults = ({
               activePlugin={activePlugin}
             />
           )}
-          {error &&
-            (activePlugin?.errorFallback?.(error, retry) ?? (
-              <LinkSearchError />
-            ))}
+          {error
+            ? activePlugin?.errorFallback?.(error, retry) ?? <LinkSearchError />
+            : null}
         </Fragment>
       )}
     </SearchResultsContainer>

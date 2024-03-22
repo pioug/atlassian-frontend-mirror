@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.1
+
+### Patch Changes
+
+- [#83158](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83158) [`5a0749bf19ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a0749bf19ec) - Fix incorrect full width guideline snapping
+
+## 7.6.0
+
+### Minor Changes
+
+- [#83612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83612) [`25b32cbfbb7e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/25b32cbfbb7e) - [ux] Added new clone row/column behaviour to tables drag N drop. When the user holds the alt modifier during the operation the row/column will be duplicated rather then moved.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.5.16
+
+### Patch Changes
+
+- [#83148](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83148) [`c7e46e32cf2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c7e46e32cf2d) - [ux] add label in floating toolbar when table resize to widest guideline
+
 ## 7.5.15
 
 ### Patch Changes

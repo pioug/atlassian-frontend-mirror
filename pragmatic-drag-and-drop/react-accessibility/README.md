@@ -1,9 +1,5 @@
-# PragmaticDragAndDropReactAccessibility
+## Pragmatic drag and drop
 
-Accessibility helpers for pragmatic-drag-and-drop, written in React.
+An optional package for Pragmatic drag and drop containing `react` components to assist with setting up accessible experiences.
 
-## Usage
-
-`import PragmaticDragAndDropReactAccessibility from '@atlaskit/pragmatic-drag-and-drop-react-accessibility';`
-
-Detailed docs and example usage can be found [here](https://atlaskit.atlassian.com/packages/pragmatic-drag-and-drop/pragmatic-drag-and-drop-react-accessibility).
+[📖 Documentation](https://atlassian.design/components/pragmatic-drag-and-drop/)

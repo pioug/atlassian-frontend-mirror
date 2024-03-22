@@ -309,6 +309,15 @@ const exampleDocumentWithComments = {
       ],
     },
     {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'The below Media contains an annotation mark on the media node',
+        },
+      ],
+    },
+    {
       type: 'mediaSingle',
       attrs: {
         layout: 'center',
@@ -326,6 +335,13 @@ const exampleDocumentWithComments = {
                 id: '7053c566-db75-4605-b6b2-eca6a0cedff1',
               },
             },
+            {
+              type: 'border',
+              attrs: {
+                size: 2,
+                color: '#172b4d',
+              },
+            },
           ],
           attrs: {
             url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAyCAYAAADLLVz8AAAAWklEQVR42u3QMQEAAAQAMJIL5BVQB68twjKmKzhLgQIFChSIQIECBSJQoECBCBQoUCACBQoUiECBAgUiUKBAgQgUKFAgAgUKFIhAgQIFIlCgQIECBQoUKPCrBUAeXY/1wpUbAAAAAElFTkSuQmCC',
@@ -339,7 +355,7 @@ const exampleDocumentWithComments = {
       content: [
         {
           type: 'text',
-          text: '---',
+          text: 'The below Media contains an annotation mark on the mediaSingle node',
         },
       ],
     },
@@ -413,21 +429,21 @@ const AnnotationCheckbox = (props: {
   );
 };
 
-const containerStyle = css({
+const containerStyles = css({
   display: 'flex',
   height: '100%',
 });
 
-const optionsStyle = css({
+const optionsStyles = css({
   flex: '20%',
   padding: token('space.200', '16px'),
 });
 
-const flagsStyle = css({
+const flagsStyles = css({
   padding: `${token('space.250', '20px')} 0`,
 });
 
-const mainStyle = css({
+const mainStyles = css({
   flex: '80%',
 });
 
@@ -463,6 +479,7 @@ export const useAnnotationsProvider = (setDocument: (doc: any) => void) => {
         }),
       updateSubscriber: updateAnnotationSubscriber,
       allowDraftMode: true,
+      allowCommentsOnMedia: true,
       selectionComponent: ExampleSelectionInlineComponent(
         createNewAnnotationAndReplaceDocument,
       ),
@@ -539,7 +556,8 @@ const Annotations = () => {
 };
 
 const App = () => {
-  const localRef = React.useRef<HTMLDivElement>(null);
+  const localRef = React.useRef<HTMLDivElement | null>(null);
+  const [_, setInnerRefAssigned] = React.useState<boolean>(false);
   const [doc, setDoc] = React.useState(exampleDocumentWithComments);
   const annotationInlineCommentProvider = useAnnotationsProvider(setDoc);
   const annotationProvider = React.useMemo(() => {
@@ -549,15 +567,15 @@ const App = () => {
   }, [annotationInlineCommentProvider]);
 
   return (
-    <section css={containerStyle}>
-      <section css={optionsStyle}>
+    <section css={containerStyles}>
+      <section css={optionsStyles}>
         <h2>Annotations</h2>
-        <section css={flagsStyle}>
+        <section css={flagsStyles}>
           <h3>Options</h3>
         </section>
         <Annotations />
       </section>
-      <main css={mainStyle}>
+      <main css={mainStyles}>
         <RendererActionsContext>
           <AnnotationsWrapper
             rendererRef={localRef}
@@ -568,6 +586,11 @@ const App = () => {
               <Renderer
                 appearance="full-page"
                 document={doc as DocNode}
+                // @ts-ignore - Type '(ref: any) => void' is not assignable to type 'RefObject<HTMLDivElement>'.ts(2322)
+                innerRef={(ref) => {
+                  localRef.current = ref;
+                  setInnerRefAssigned(true);
+                }}
                 allowAnnotations
               />
             </SmartCardProvider>

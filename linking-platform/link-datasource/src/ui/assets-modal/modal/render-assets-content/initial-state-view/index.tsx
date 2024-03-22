@@ -18,9 +18,10 @@ const svgAndTextsWrapperStyles = css({
   alignSelf: 'center',
 });
 const searchTitleStyles = css({
-  fontWeight: token('font.weight.semibold', '600'),
-  fontSize: token('font.size.200', '16px'),
-  lineHeight: token('font.lineHeight.300', '24px'),
+  font: token(
+    'font.heading.small',
+    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   paddingTop: token('space.200', '16px'),
   paddingBottom: token('space.100', '8px'),
 });

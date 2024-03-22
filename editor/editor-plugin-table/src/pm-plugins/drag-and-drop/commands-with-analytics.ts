@@ -26,7 +26,7 @@ import {
 import { withEditorAnalyticsAPI } from '../../utils/analytics';
 import { canMove, getTargetIndex } from '../../utils/drag-menu';
 
-import { clearDropTarget, moveSource } from './commands';
+import { clearDropTarget, cloneSource, moveSource } from './commands';
 
 export const clearDropTargetWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
@@ -156,4 +156,59 @@ export const moveSourceWithAnalyticsViaShortcut =
       selectedIndexes,
       targetIndex,
     )(state, dispatch);
+  };
+
+export const cloneSourceWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    inputMethod:
+      | INPUT_METHOD.TABLE_CONTEXT_MENU
+      | INPUT_METHOD.DRAG_AND_DROP
+      | INPUT_METHOD.SHORTCUT,
+    sourceType: DraggableType,
+    sourceIndexes: number[],
+    targetIndex: number,
+    targetDirection: 'start' | 'end',
+    tr?: Transaction,
+  ) => {
+    return withEditorAnalyticsAPI(({ selection }: EditorState) => {
+      const direction = sourceIndexes[0] > targetIndex ? -1 : 1;
+      const { totalRowCount, totalColumnCount } =
+        getSelectedTableInfo(selection);
+      return {
+        action:
+          sourceType === 'table-row'
+            ? TABLE_ACTION.CLONED_ROW
+            : TABLE_ACTION.CLONED_COLUMN,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        attributes: {
+          inputMethod,
+          count: sourceIndexes.length,
+          // This identifies the total amount of row/cols the move operation covered. The distance covered should be a representaion
+          // of the minimum distance. This will account for large selection being moved causing a large distance travelled value.
+          distance:
+            Math.min(...sourceIndexes.map((v) => Math.abs(targetIndex - v))) *
+            direction,
+          // If a drop doesn't actually change anything then we're going to mark the event as cancelled.
+          status: sourceIndexes.includes(targetIndex)
+            ? TABLE_STATUS.CANCELLED
+            : TABLE_STATUS.SUCCESS,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)((state, dispatch) => {
+      if (dispatch) {
+        cloneSource(
+          sourceType,
+          sourceIndexes,
+          targetIndex,
+          targetDirection,
+          tr,
+        )(state, dispatch);
+      }
+      return true;
+    });
   };

@@ -237,6 +237,31 @@ describe('AISummaryBlock', () => {
         ANALYTICS_CHANNEL,
       );
     });
+
+    it('Display the AI Summary component only when there is summary content available', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      const aiSummaryTestId = `${testIdBase}-ai-summary`;
+      const { queryByTestId, rerenderTestComponent } = renderAISummaryBlock({
+        metadata: [{ name: ElementName.Provider, testId: aiSummaryTestId }],
+        testId: testIdBase,
+      });
+
+      const AISummary = queryByTestId(aiSummaryTestId);
+      expect(AISummary).not.toBeInTheDocument();
+
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: 'first piece of summary is here' },
+        summariseUrl: jest.fn(),
+      });
+
+      rerenderTestComponent();
+      const AISummaryWithContent = queryByTestId(aiSummaryTestId);
+      expect(AISummaryWithContent).toBeInTheDocument();
+    });
   });
 
   describe('metadata', () => {
@@ -312,11 +337,11 @@ describe('AISummaryBlock', () => {
     });
 
     it('renders with override css', async () => {
-      const overrideCss = css({
+      const overrideCssStyles = css({
         backgroundColor: 'blue',
       });
       const { findByTestId } = renderAISummaryBlock({
-        overrideCss,
+        overrideCss: overrideCssStyles,
         testId: testIdBase,
       });
 

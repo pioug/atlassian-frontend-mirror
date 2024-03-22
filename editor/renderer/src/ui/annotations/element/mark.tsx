@@ -29,8 +29,9 @@ const markStyles = () => css`
       ${AnnotationSharedCSSByState().focus};
     }
 
-    & div.rich-media-item {
+    & div.media-file-card-view {
       ${mediaAnnotationStyles};
+      z-index: -1;
     }
   }
 `;

@@ -18,9 +18,9 @@ The original thinking was that there would be lots of adapters for different ent
 
 There are now three adapters:
 
-1. [element adapter](./element) → handling the dragging of draggable elements
-2. [text selection adapter](./text-selection) **(new)** → handling the dragging of text selections
-3. [external adapter](./external) **(new)** → handling drag operations that started outside of the current `window` (eg files and text from other `window`s or applications)
+1. [element adapter](/components/pragmatic-drag-and-drop/core-package/adapters/element) → handling the dragging of draggable elements
+2. [text selection adapter](/components/pragmatic-drag-and-drop/core-package/adapters/text-selection) **(new)** → handling the dragging of text selections
+3. [external adapter](/components/pragmatic-drag-and-drop/core-package/adapters/external) **(new)** → handling drag operations that started outside of the current `window` (eg files and text from other `window`s or applications)
 
 The _external adapter_ can be used to handle file dropping (as the old _file adapter_ did), as well as any other native data type (eg `"text/plain"`).
 
@@ -193,7 +193,7 @@ The `@atlaskit/pragmatic-drag-and-drop-auto-scroll` named exports have been upda
 + import {unsafeOverflowAutoScrollForExternal} from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/unsafe-overflow/external';
 ```
 
-Our _file adapter_ has been replaced by a new [_external adapter_](./adapters/external) (and [_internal uncontrolled adapter_](./adapters/internal-uncontrolled)) which can be used for files, as well as any other native data (eg `"text/plain"`).
+Our _file adapter_ has been replaced by a new [_external adapter_](/components/pragmatic-drag-and-drop/core-package/adapters/external).
 
 ```ts
 /** 0.x API **/
@@ -243,8 +243,8 @@ dropTargetForExternal({
 
 While we are talking about changes, we encourage all consumers to move off our legacy auto scroller packages, and onto our new, faster, more flexible and more delightful auto scroller package:
 
-**Old:** [`@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll`](../optional-packages/react-beautiful-dnd-autoscroll)
+**Old:** [`@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll`](/components/pragmatic-drag-and-drop/optional-packages/react-beautiful-dnd-autoscroll)
 
 (previously called `@atlaskit/pragmatic-drag-and-drop-autoscroll`)
 
-**New:** [`@atlaskit/pragmatic-drag-and-drop-auto-scroll`](../optional-packages/auto-scroll)
+**New:** [`@atlaskit/pragmatic-drag-and-drop-auto-scroll`](/components/pragmatic-drag-and-drop/optional-packages/auto-scroll)

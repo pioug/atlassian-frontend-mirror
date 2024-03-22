@@ -4,50 +4,52 @@ import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const WhatsNewTypeTitle = styled.span`
-  text-decoration: none;
-  color: ${token('color.text.subtlest', colors.N300)};
-  font-size: ${fontSize()}px;
-  vertical-align: middle;
-  padding-left: ${token('space.050', '4px')};
-  line-height: ${token('font.lineHeight.200', '20px')};
-  white-space: normal;
-  overflow-x: hidden;
-`;
+export const WhatsNewTypeTitle = styled.span({
+  textDecoration: 'none',
+  color: token('color.text.subtlest', colors.N300),
+  font: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  verticalAlign: 'middle',
+  paddingLeft: token('space.050', '4px'),
+  whiteSpace: 'normal',
+  overflowX: 'hidden',
+});
 
-export const WhatsNewIconContainer = styled.div`
-  display: block;
-  padding-bottom: ${token('space.100', '8px')};
-`;
+export const WhatsNewIconContainer = styled.div({
+  display: 'block',
+  paddingBottom: token('space.100', '8px'),
+});
 
-export const WhatsNewTitleText = styled.span`
-  text-decoration: none;
-  color: ${token('color.text', colors.N800)};
-  font-size: ${fontSize()}px;
-  font-weight: 600;
-  white-space: normal;
-  overflow-x: hidden;
-  padding-bottom: ${token('space.100', '8px')};
-  display: block;
-`;
+export const WhatsNewTitleText = styled.span({
+  textDecoration: 'none',
+  color: token('color.text', colors.N800),
+  fontSize: `${fontSize()}px`,
+  fontWeight: 600,
+  whiteSpace: 'normal',
+  overflowX: 'hidden',
+  paddingBottom: token('space.100', '8px'),
+  display: 'block',
+});
 
-export const WhatsNewRelatedLinksTitleText = styled.span`
-  text-decoration: none;
-  color: ${token('color.text', colors.N800)};
-  font-size: ${fontSizeSmall()}px;
-  font-weight: 600;
-  white-space: normal;
-  overflow-x: hidden;
-  padding-bottom: ${token('space.100', '8px')};
-  display: block;
-`;
+export const WhatsNewRelatedLinksTitleText = styled.span({
+  textDecoration: 'none',
+  color: token('color.text', colors.N800),
+  fontSize: `${fontSizeSmall()}px`,
+  fontWeight: 600,
+  whiteSpace: 'normal',
+  overflowX: 'hidden',
+  paddingBottom: token('space.100', '8px'),
+  display: 'block',
+});
 
-export const RelatedLinkContainer = styled.div`
-  margin-bottom: ${token('space.100', '8px')};
-`;
+export const RelatedLinkContainer = styled.div({
+  marginBottom: token('space.100', '8px'),
+});
 
-export const ExternalLinkIconContainer = styled.div`
-  display: inline-block;
-  vertical-align: middle;
-  padding-left: ${token('space.050', '4px')};
-`;
+export const ExternalLinkIconContainer = styled.div({
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  paddingLeft: token('space.050', '4px'),
+});

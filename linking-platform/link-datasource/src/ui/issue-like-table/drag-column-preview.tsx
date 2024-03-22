@@ -45,7 +45,10 @@ const tableStyles = css({
   background: token('elevation.surface', '#FFF'),
   borderCollapse: 'separate',
   borderSpacing: 0,
-  fontSize: token('font.size.100', '14px'),
+  font: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   maxWidth,
 });
 

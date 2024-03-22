@@ -1,13 +1,5 @@
-# `@atlaskit/pragmatic-drag-and-drop-hitbox`
+## Pragmatic drag and drop
 
-An addon for `@atlaskit/pragmatic-drag-and-drop` with helpers for attaching interaction information to a _drop target_ when it is being dragged over
+An optional package for Pragmatic drag and drop that enables the attaching of interaction information to a drop target.
 
-## Installation
-
-```sh
-yarn add @atlaskit/pragmatic-drag-and-drop-hitbox
-```
-
-## Usage
-
-Detailed docs and example usage can be found on [atlassian.design](https://atlassian.design/components/pragmatic-drag-and-drop/).
+[📖 Documentation](https://atlassian.design/components/pragmatic-drag-and-drop/)

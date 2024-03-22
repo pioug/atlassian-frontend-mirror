@@ -1,4 +1,4 @@
-import React, { Ref } from 'react';
+import React from 'react';
 
 import Tooltip from '@atlaskit/tooltip';
 
@@ -39,11 +39,13 @@ export default function BidiWarning({
   );
 }
 
-const CustomizedTagWithRef = React.forwardRef((props, ref: Ref<any>) => {
-  const { children, ...rest } = props;
-  return (
-    <span {...rest} ref={ref}>
-      {children}
-    </span>
-  );
-});
+const CustomizedTagWithRef = React.forwardRef<any, React.PropsWithChildren<{}>>(
+  (props, ref) => {
+    const { children, ...rest } = props;
+    return (
+      <span {...rest} ref={ref}>
+        {children}
+      </span>
+    );
+  },
+);

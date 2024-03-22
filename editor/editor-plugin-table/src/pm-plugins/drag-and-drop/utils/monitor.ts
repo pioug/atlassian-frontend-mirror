@@ -8,6 +8,8 @@ import type {
   DraggableTargetData,
 } from '../../../types';
 
+import { getDragBehaviour } from './getDragBehaviour';
+
 export const getDraggableDataFromEvent = ({
   location,
   source,
@@ -54,9 +56,16 @@ export const getDraggableDataFromEvent = ({
   const targetOffset =
     targetClosestEdge === 'right' || targetClosestEdge === 'bottom' ? 1 : 0;
 
-  // since only consecutive rows/cols can be moved we can assume that if the first index is greater then
-  // the target index, the then the direction of the DnD is decreasing
-  const direction = sourceIndexes[0] > targetIndex ? -1 : 1;
+  // if the min index is greater then the target index, the then the direction of the DnD is decreasing
+  // if the target is within the min/max index then we can assume that no direction exists so it will be 0.
+  const srcMin = Math.min(...sourceIndexes);
+  const srcMax = Math.max(...sourceIndexes);
+  const direction =
+    targetIndex >= srcMin && targetIndex <= srcMax
+      ? 0
+      : srcMin >= targetIndex
+      ? -1
+      : 1;
 
   return {
     sourceType,
@@ -67,6 +76,11 @@ export const getDraggableDataFromEvent = ({
     targetIndex,
     targetAdjustedIndex: targetIndex + targetOffset,
     targetClosestEdge,
+    targetDirection:
+      targetClosestEdge === 'top' || targetClosestEdge === 'left'
+        ? 'start'
+        : 'end',
     direction,
+    behaviour: getDragBehaviour(location.current.input),
   };
 };

@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 193.6.0
+
+### Minor Changes
+
+- [#83790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83790) [`f590476805da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f590476805da) - [ux] Adds uniform danger overlay for macro interaction design updates
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.5.7
 
 ### Patch Changes

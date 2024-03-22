@@ -208,7 +208,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
    * We want both the on nest handler and the onclick handler to be called.
    * We create a wrapper function to call both.
    */
-  const onClickHandler: ButtonItemProps['onClick'] = useCallback(
+  const onClickHandler: NonNullable<ButtonItemProps['onClick']> = useCallback(
     (e) => {
       if (isInteracted) {
         // We return early if this has been interacted with because its assumed
@@ -217,6 +217,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
       }
 
       // Avoid a nesting transition if a modifier key is detected during click.
+      // @ts-expect-error - Argument of type 'MouseEvent<Element, MouseEvent> | KeyboardEvent<Element>' is not assignable to parameter of type 'MouseEvent'
       if (isNormalClick(e)) {
         setIsInteracted(true);
         onNest(id);

@@ -29,6 +29,14 @@ const extensionLabelStyles = css`
   }
 `;
 
+const dangerOverlayStyles = css({
+  opacity: 0.3,
+  backgroundColor: token(
+    'color.background.danger.hovered',
+    akEditorDeleteBackground,
+  ),
+});
+
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css -- Needs manual remediation
 export const extensionStyles = css`
   .multiBodiedExtensionView-content-wrap {
@@ -42,6 +50,13 @@ export const extensionStyles = css`
     }
 
     ${extensionLabelStyles}
+
+    &.danger > span > .with-danger-overlay {
+      background-color: transparent;
+      .multiBodiedExtension--overlay {
+        ${dangerOverlayStyles}
+      }
+    }
 
     &:not(.danger).${akEditorSelectedNodeClassName} {
       & > span > .multiBodiedExtension--container {
@@ -65,6 +80,15 @@ export const extensionStyles = css`
         'color.background.danger',
         akEditorDeleteBackground,
       )};
+    }
+
+    &.danger > span > .with-danger-overlay {
+      // If the macro turned used to turn red before, not setting the background to be transparent will cause the
+      // danger state to have two layers of red which we don't want.
+      background-color: transparent;
+      .extension-overlay {
+        ${dangerOverlayStyles}
+      }
     }
 
     &:not(.danger).${akEditorSelectedNodeClassName} {
@@ -105,6 +129,13 @@ export const extensionStyles = css`
     }
 
     ${extensionLabelStyles}
+
+    &.danger > span > .with-danger-overlay {
+      background-color: transparent;
+      .extension-overlay {
+        ${dangerOverlayStyles}
+      }
+    }
 
     &.inline {
       word-wrap: break-all;

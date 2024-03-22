@@ -182,7 +182,10 @@ function ItemCaption({
 }
 
 const bigTitleStyles = css({
-  fontSize: token('font.size.600', '0'),
+  font: token(
+    'font.heading.xxlarge',
+    'normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   fontWeight: token('font.weight.bold', 'bold'),
   margin: 0,
 });
@@ -213,9 +216,10 @@ const sectionHeaderStyles = xcss({
 });
 
 const sectionHeaderDescriptionStyles = css({
-  fontSize: token('font.size.300', '0'),
-  lineHeight: token('font.lineHeight.300', ''),
-  fontWeight: token('font.weight.medium', 'medium'),
+  font: token(
+    'font.heading.medium',
+    'normal 500 1.25rem/1.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   color: token('color.text.subtle', 'currentColor'),
 });
 
@@ -248,12 +252,18 @@ const subSectionHeaderStyles = xcss({
 });
 
 const subSectionHeaderTitleStyles = css({
-  fontSize: token('font.size.400', '0'),
-  fontWeight: token('font.weight.semibold', 'bold'),
+  font: token(
+    'font.heading.large',
+    'normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  fontWeight: token('font.weight.bold', 'bold'),
 });
 
 const subSectionHeaderDescriptionStyles = css({
-  fontSize: token('font.size.200', '0'),
+  font: token(
+    'font.body.large',
+    'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   fontWeight: token('font.weight.medium', 'medium'),
   color: token('color.text.subtle', 'currentColor'),
   maxWidth: '70ch',

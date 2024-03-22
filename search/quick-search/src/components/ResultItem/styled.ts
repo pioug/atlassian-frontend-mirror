@@ -10,7 +10,7 @@ export const ResultItemGroupHeader = styled.div`
 
 export const ResultItemGroupTitle = styled.div`
   font-size: 11px;
-  line-height: ${token('font.lineHeight.100', '16px')};
+  line-height: 16px;
   font-weight: 600;
 `;
 

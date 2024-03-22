@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.10.3",
+  "version": "109.10.5",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^78.18.0",
+    "@atlaskit/editor-common": "^78.20.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-prosemirror": "3.0.0",
@@ -135,6 +135,9 @@
       "type": "boolean"
     },
     "platform.editor.allow-inline-comments-for-inline-nodes": {
+      "type": "boolean"
+    },
+    "platform.editor.renderer-error-boundary-for-dom-errors": {
       "type": "boolean"
     }
   },

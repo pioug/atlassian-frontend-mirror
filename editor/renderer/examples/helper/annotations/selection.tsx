@@ -13,16 +13,13 @@ import { ExampleCreateInlineCommentComponent } from '@atlaskit/editor-test-helpe
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { token } from '@atlaskit/tokens';
 
-const whiteBoxStyle = css`
-  background-color: ${token(
-    'color.background.neutral.subtle',
-    'rgb(255, 255, 255)',
-  )};
-  box-shadow: ${token(
+const whiteBoxStyles = css({
+  backgroundColor: token('color.background.input', 'rgb(255, 255, 255)'),
+  boxShadow: token(
     'elevation.shadow.overlay',
     'rgba(9, 30, 66, 0.6) 0px 4px 8px 0px, rgba(9, 30, 66, 0.31) 0px 0px 1px',
-  )};
-`;
+  ),
+});
 
 type Callback = (doc: JSONDocNode) => void;
 
@@ -124,7 +121,7 @@ const Component = (
         alignY="bottom"
         onPositionCalculated={onPositionCalculated}
       >
-        <div css={whiteBoxStyle}>
+        <div css={whiteBoxStyles}>
           <Button
             appearance="subtle"
             iconBefore={<AddCommentIcon size="medium" label="" />}

@@ -98,7 +98,7 @@ const truncateStyles = css({
 
 const TableCell = styled.td({
   [`${withTablePluginBodyPrefix()}`]: {
-    fontSize: fieldTextFontSize,
+    font: fieldTextFontSize,
     padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
     border: 0,
     minWidth: 'auto',
@@ -295,7 +295,10 @@ const noDefaultBorderStyles = css({
 });
 
 const headerStyles = css({
-  fontSize: token('font.size.075', '12px'),
+  font: token(
+    'font.body.UNSAFE_small',
+    'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   fontWeight: token('font.weight.medium', '500'),
 });
 

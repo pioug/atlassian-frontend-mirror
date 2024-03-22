@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
   AnalyticsEventPayload,
   AnnotationAEP,
@@ -136,10 +137,11 @@ export function InlineCommentView({
           dom={dom}
           textSelection={textSelection}
           onCreate={id => {
-            createAnnotation(editorAnalyticsAPI, editorAPI)(id)(
-              editorView.state,
-              editorView.dispatch,
-            );
+            createAnnotation(editorAnalyticsAPI, editorAPI)(
+              id,
+              AnnotationTypes.INLINE_COMMENT,
+              inlineCommentProvider.supportedBlockNodes,
+            )(editorView.state, editorView.dispatch);
             !editorView.hasFocus() && editorView.focus();
           }}
           onClose={() => {

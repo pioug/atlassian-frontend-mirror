@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.2.5
+
+### Patch Changes
+
+- [#81931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81931) [`fd212c03b3c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd212c03b3c4) - Implemented code to modify the size, set a default color, and disable the swatch color button, based on the new props passed to the component.
+
 ## 3.2.4
 
 ### Patch Changes

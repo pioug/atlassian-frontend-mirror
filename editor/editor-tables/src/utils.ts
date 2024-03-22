@@ -33,6 +33,8 @@ export {
 export { isSelectionType } from './utils/is-selection-type';
 export { moveColumn } from './utils/move-column';
 export { moveRow } from './utils/move-row';
+export { cloneColumn } from './utils/clone-column';
+export { cloneRow } from './utils/clone-row';
 export { normalizeSelection } from './utils/normalize-selection';
 export {
   removeColumnAt,

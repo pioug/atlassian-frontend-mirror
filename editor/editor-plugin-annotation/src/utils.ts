@@ -251,14 +251,17 @@ export const findAnnotationsInSelection = (
 
 export const resolveDraftBookmark = (
   editorState: EditorState,
-  bookmark: SelectionBookmark,
+  bookmark?: SelectionBookmark,
   supportedBlockNodes: string[] = [],
 ): DraftBookmark => {
   const { doc } = editorState;
-  const resolvedBookmark = bookmark.resolve(doc);
+
+  const resolvedBookmark = bookmark
+    ? bookmark.resolve(doc)
+    : editorState.selection;
 
   const { from, to, head } = resolvedBookmark;
-  let draftBookmark = { from, to, head };
+  let draftBookmark = { from, to, head, isBlockNode: false };
   if (resolvedBookmark instanceof NodeSelection) {
     // It's possible that annotation is only allowed in child node instead parent (e.g. mediaSingle vs media),
     // thus, we traverse the node to find the first node that supports annotation and return its position
@@ -269,11 +272,13 @@ export const resolveDraftBookmark = (
         return false;
       }
       const nodeEndsAt = pos + node.nodeSize;
+
       if (supportedBlockNodes.includes(node.type.name)) {
         draftBookmark = {
           from: pos,
           to: nodeEndsAt,
           head: nodeEndsAt,
+          isBlockNode: node.isBlock,
         };
         nodeFound = true;
         return false;
@@ -556,3 +561,29 @@ export function isSelectedAnnotationsChanged(
     )
   );
 }
+
+/**
+ * Checks if the selectedAnnotations are the same as the annotations on the selected block node
+ */
+export const isBlockNodeAnnotationsSelected = (
+  selection: Selection,
+  selectedAnnotations: AnnotationInfo[] = [],
+) => {
+  if (selectedAnnotations.length && selection instanceof NodeSelection) {
+    const node =
+      selection.node.type.name === 'mediaSingle'
+        ? selection.node.firstChild
+        : selection.node;
+    const annotationMarks: AnnotationInfo[] =
+      node?.marks
+        .filter(mark => mark.type.name === 'annotation')
+        .map(mark => ({
+          id: mark.attrs.id,
+          type: mark.attrs.annotationType,
+        })) || [];
+
+    return !isSelectedAnnotationsChanged(selectedAnnotations, annotationMarks);
+  }
+
+  return false;
+};

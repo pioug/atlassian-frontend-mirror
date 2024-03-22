@@ -444,4 +444,103 @@ describe('Select input', () => {
       expect.stringContaining(`${errorId}`),
     );
   });
+
+  it('should respect explicit aria-describedby when there is components prop', () => {
+    const labelId = 'label-1';
+
+    render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-describedby={labelId}
+        isSearchable={true} // To bypass the componentDidMount solution
+        components={{
+          DropdownIndicator: null,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      expect.stringContaining(labelId),
+    );
+  });
+
+  it('should respect dynamically updated explicit aria-describedby', async () => {
+    const label = 'label-1';
+    const newLabel = 'newLabel-2';
+
+    const { rerender } = render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-describedby={label}
+        value={OPTIONS[0]}
+        isSearchable={true} // To bypass the componentDidMount solution
+        components={{
+          DropdownIndicator: null,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      label,
+    );
+
+    rerender(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-describedby={newLabel}
+        value={OPTIONS[0]}
+        isSearchable={true} // To bypass the componentDidMount solution
+        components={{
+          DropdownIndicator: null,
+        }}
+      />,
+    );
+
+    // It shouldn't contain the old aria-describedby
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      newLabel,
+    );
+  });
+
+  it("should respect dynamically updated explicit aria-describedby when the placeholder's ID is passed to aria-describedby", () => {
+    const label = 'label-1';
+    const newLabel = 'newLabel-2';
+
+    const { rerender } = render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-describedby={label}
+        value={OPTIONS[0]}
+        isSearchable={true} // To bypass the componentDidMount solution
+        components={{
+          DropdownIndicator: null,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      label,
+    );
+
+    rerender(
+      <AtlaskitSelect
+        options={OPTIONS}
+        aria-describedby={newLabel}
+        value={null} // Clear the value so that react-select adds the placeholder aria-describedby
+        isSearchable={true} // To bypass the componentDidMount solution
+        components={{
+          DropdownIndicator: null,
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('combobox')).toHaveAttribute(
+      'aria-describedby',
+      expect.stringContaining(`placeholder ${newLabel}`),
+    );
+  });
 });

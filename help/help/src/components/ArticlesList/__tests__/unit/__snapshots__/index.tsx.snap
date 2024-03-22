@@ -48,10 +48,8 @@ exports[`ArticleContent Should match snapshot 1`] = `
   -webkit-text-decoration: none;
   text-decoration: none;
   color: var(--ds-text, #172B4D);
-  font-size: 14px;
-  font-weight: 600;
+  font: var(--ds-font-heading-xsmall, normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
   display: inline-block;
-  line-height: var(--ds-font-lineHeight-200, 20px);
   white-space: normal;
   overflow-x: hidden;
   margin-bottom: var(--ds-space-100, 8px);
@@ -59,7 +57,7 @@ exports[`ArticleContent Should match snapshot 1`] = `
 
 .emotion-2 {
   display: block;
-  line-height: var(--ds-font-lineHeight-200, 20px);
+  line-height: 20px;
   color: var(--ds-text-subtle, #505F79);
   margin: 0;
 }

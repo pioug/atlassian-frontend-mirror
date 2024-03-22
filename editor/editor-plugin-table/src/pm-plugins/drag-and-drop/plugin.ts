@@ -26,6 +26,7 @@ import { DragAndDropActionType } from './actions';
 import { clearDropTarget, setDropTarget, toggleDragMenu } from './commands';
 import {
   clearDropTargetWithAnalytics,
+  cloneSourceWithAnalytics,
   moveSourceWithAnalytics,
 } from './commands-with-analytics';
 import { DropTargetType } from './consts';
@@ -172,7 +173,9 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
           sourceIndexes,
           targetIndex,
           targetAdjustedIndex,
+          targetDirection,
           direction,
+          behaviour,
         } = data;
 
         // When we drop on a target we will know the targets row/col index for certain,
@@ -203,13 +206,24 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
         }
 
         requestAnimationFrame(() => {
-          moveSourceWithAnalytics(editorAnalyticsAPI)(
-            INPUT_METHOD.DRAG_AND_DROP,
-            sourceType,
-            sourceIndexes,
-            targetAdjustedIndex + (direction === -1 ? 0 : -1),
-            tr,
-          )(editorView.state, editorView.dispatch);
+          if (behaviour === 'clone') {
+            cloneSourceWithAnalytics(editorAnalyticsAPI)(
+              INPUT_METHOD.DRAG_AND_DROP,
+              sourceType,
+              sourceIndexes,
+              targetIndex,
+              targetDirection,
+              tr,
+            )(editorView.state, editorView.dispatch);
+          } else {
+            moveSourceWithAnalytics(editorAnalyticsAPI)(
+              INPUT_METHOD.DRAG_AND_DROP,
+              sourceType,
+              sourceIndexes,
+              targetAdjustedIndex + (direction === 1 ? -1 : 0),
+              tr,
+            )(editorView.state, editorView.dispatch);
+          }
 
           // force a colgroup update here, otherwise dropped columns don't have
           // the correct width immediately after the drop

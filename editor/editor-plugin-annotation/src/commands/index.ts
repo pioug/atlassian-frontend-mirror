@@ -247,7 +247,7 @@ export const addInlineComment =
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
     editorAPI?: ExtractInjectionAPI<AnnotationPlugin> | undefined,
   ) =>
-  (id: string): Command => {
+  (id: string, supportedBlockNodes?: string[]): Command => {
     const commandAction: (editorState: EditorState) => InlineCommentAction = (
       editorState: EditorState,
     ) => ({
@@ -264,7 +264,10 @@ export const addInlineComment =
 
     return createCommand(
       commandAction,
-      transform.addInlineComment(editorAnalyticsAPI, editorAPI)(id),
+      transform.addInlineComment(editorAnalyticsAPI, editorAPI)(
+        id,
+        supportedBlockNodes,
+      ),
     );
   };
 
@@ -290,6 +293,7 @@ export const createAnnotation =
   (
     id: string,
     annotationType: AnnotationTypes = AnnotationTypes.INLINE_COMMENT,
+    supportedBlockNodes?: string[],
   ): Command =>
   (state, dispatch) => {
     // don't try to add if there are is no temp highlight bookmarked
@@ -299,10 +303,10 @@ export const createAnnotation =
     }
 
     if (annotationType === AnnotationTypes.INLINE_COMMENT) {
-      return addInlineComment(editorAnalyticsAPI, editorAPI)(id)(
-        state,
-        dispatch,
-      );
+      return addInlineComment(editorAnalyticsAPI, editorAPI)(
+        id,
+        supportedBlockNodes,
+      )(state, dispatch);
     }
 
     return false;

@@ -418,10 +418,11 @@ export const deleteText = css({
 
 export const headingH5 = css({
   '&&': {
-    fontSize: token('font.size.075', '12px'),
+    font: token(
+      'font.body.UNSAFE_small',
+      'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+    ),
     fontWeight: token('font.weight.semibold', '600'),
-    letterSpacing: '-0.003em',
-    lineHeight: token('font.lineHeight.100', '16px'),
   },
 });
 
@@ -440,7 +441,10 @@ export const deleteFooter = css({
   height: '40px',
   alignItems: 'center',
   justifyContent: 'space-between',
-  fontSize: token('font.size.100', '14px'),
+  font: token(
+    'font.body',
+    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
 
   img: {
     maxHeight: '32px',
@@ -449,7 +453,7 @@ export const deleteFooter = css({
 
   [`.${submitDelete}`]: {
     width: '84px',
-    fontWeight: 'bold',
+    fontWeight: token('font.weight.bold', 'bold'),
     marginRight: token('space.050', '4px'),
   },
 });

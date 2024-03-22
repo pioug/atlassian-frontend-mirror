@@ -5,8 +5,9 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
-  akEditorMediaResizeHandlerPaddingWide,
 } from '@atlaskit/editor-shared-styles';
+
+import { tableResizerWidth } from '../ui/consts';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
 
@@ -34,9 +35,7 @@ export const calculateDefaultTablePreserveSnappings = (
     editorContainerWith - akEditorGutterPadding * 2 >=
     akEditorFullWidthLayoutWidth
       ? akEditorFullWidthLayoutWidth
-      : editorContainerWith -
-        akEditorGutterPadding * 2 -
-        akEditorMediaResizeHandlerPaddingWide;
+      : editorContainerWith - akEditorGutterPadding * 2 - tableResizerWidth;
 
   return [
     ...calculateSubSnappingWidths(

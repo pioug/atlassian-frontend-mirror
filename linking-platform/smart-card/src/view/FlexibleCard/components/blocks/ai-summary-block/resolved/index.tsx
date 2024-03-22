@@ -51,7 +51,10 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
     state: { content, status },
   } = useAISummary({ url });
 
-  const showAISummary = status !== 'ready' && status !== 'error';
+  const showAISummary =
+    status === 'done' ||
+    // We want to display the AI Summary component only when there is content available during the loading process.
+    (status === 'loading' && !!content);
 
   const isSummarisedOnMountRef = useRef(status === 'done');
   let isErroredOnMountRef = useRef(status === 'error');
@@ -108,6 +111,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
       )}
       {showAISummary && (
         <AISummary
+          testId={`${testId}-ai-summary`}
           minHeight={aiSummaryMinHeight}
           content={content}
           showIcon={isSummarisedOnMountRef.current}

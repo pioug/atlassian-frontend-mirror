@@ -17,6 +17,8 @@ import FormSubmissionValidation from '../../examples/constellation/form-submissi
 import FormAsyncValidation from '../../examples/constellation/form-asynchronous-validation.tsx';
 import FormCustomSelectField from '../../examples/constellation/form-custom-select-field.tsx';
 import FormAllOptions from '../../examples/constellation/form-all-options.tsx';
+import FormStatePreview from '../../examples/constellation/form-state-preview.tsx';
+import FormConditionalFields from '../../examples/constellation/form-conditional-fields.tsx';
 
 ## Default
 
@@ -140,3 +142,18 @@ The `onSubmit` handler can return synchronously or return a promise that resolve
 This form has every possible input, and all required field labels.
 
 <Example Component={FormAllOptions} packageName="@atlaskit/form" />
+
+## Listening to form state with `useFormState`
+
+### Form previews
+
+A somewhat common need is to utilize the current form state to generate a preview while the user is filling their form in. This can be achieved with the `useFormState` hook.
+Do not use these values for any permanent storage or state. You should rely on form submission for the final values.
+
+<Example Component={FormStatePreview} packageName="@atlaskit/form" />
+
+### Conditional fields
+
+You can include conditional fields in your form by checking the form state with `useFormState`.
+
+<Example Component={FormConditionalFields} packageName="@atlaskit/form" />

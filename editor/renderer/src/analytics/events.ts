@@ -79,6 +79,16 @@ export type ComponentCrashErrorAEP = OperationalAEP<
   }
 >;
 
+export type ComponentCaughtDomErrorAEP = OperationalAEP<
+  ACTION.CAUGHT_DOM_ERROR,
+  ACTION_SUBJECT.RENDERER,
+  ACTION_SUBJECT_ID,
+  {
+    errorMessage: string;
+    platform: PLATFORM.WEB;
+  }
+>;
+
 type InvalidProsemirrorDocumentErrorAEP = AEP<
   ACTION.INVALID_PROSEMIRROR_DOCUMENT,
   ACTION_SUBJECT.RENDERER,

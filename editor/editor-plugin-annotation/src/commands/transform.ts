@@ -13,7 +13,10 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import type {
   EditorState,
   Transaction,
@@ -23,21 +26,35 @@ import type { AnnotationPlugin, InlineCommentInputMethod } from '../types';
 import {
   getDraftCommandAnalyticsPayload,
   getPluginState,
-  getSelectionPositions,
+  resolveDraftBookmark,
 } from '../utils';
 
 const addAnnotationMark =
-  (id: string) => (transaction: Transaction, state: EditorState) => {
+  (id: string, supportedBlockNodes?: string[]) =>
+  (transaction: Transaction, state: EditorState) => {
     const inlineCommentState = getPluginState(state);
-    const { from, to, head } = getSelectionPositions(state, inlineCommentState);
+    const { bookmark } = inlineCommentState || {};
     const annotationMark = state.schema.marks.annotation.create({
       id,
       type: AnnotationTypes.INLINE_COMMENT,
     });
-    // Apply the mark only to text node in the range.
-    let tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
-    // set selection back to the end of annotation once annotation mark is applied
-    tr.setSelection(TextSelection.create(tr.doc, head));
+    const { from, to, head, isBlockNode } = resolveDraftBookmark(
+      state,
+      bookmark,
+      supportedBlockNodes,
+    );
+
+    let tr = transaction;
+    if (isBlockNode) {
+      tr = tr.addNodeMark(from, annotationMark);
+      // Set selection on the node so that we can display view component
+      tr.setSelection(NodeSelection.create(tr.doc, from));
+    } else {
+      // Apply the mark only to text node in the range.
+      let tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
+      // set selection back to the end of annotation once annotation mark is applied
+      tr.setSelection(TextSelection.create(tr.doc, head));
+    }
     return tr;
   };
 
@@ -46,9 +63,9 @@ const addInlineComment =
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
     editorAPI: ExtractInjectionAPI<AnnotationPlugin> | undefined,
   ) =>
-  (id: string) =>
+  (id: string, supportedBlockNodes?: string[]) =>
   (transaction: Transaction, state: EditorState) => {
-    let tr = addAnnotationMark(id)(transaction, state);
+    let tr = addAnnotationMark(id, supportedBlockNodes)(transaction, state);
 
     editorAPI?.editorViewMode?.actions.applyViewModeStepAt(tr);
 

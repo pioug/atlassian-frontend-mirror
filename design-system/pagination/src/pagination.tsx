@@ -37,7 +37,7 @@ const paginationMenuItemStyles = xcss({
   marginBlockStart: 'space.0',
 });
 
-function InnerPagination<T>(
+function InnerPagination<T extends React.ReactNode>(
   {
     components = emptyObject,
     defaultSelectedIndex = 0,

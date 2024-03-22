@@ -13,6 +13,7 @@ import {
   FieldConfig,
   FieldSubscriber,
   FieldSubscription,
+  FormApi,
   FormState,
   Unsubscribe,
 } from 'final-form';
@@ -43,11 +44,15 @@ type GetCurrentValue = <FormValues>(
 export const FormContext = createContext<{
   registerField: RegisterField;
   getCurrentValue: GetCurrentValue;
+  subscribe: FormApi['subscribe'];
 }>({
   registerField: function () {
     return () => {};
   },
   getCurrentValue: () => undefined,
+  subscribe: function () {
+    return () => {};
+  },
 });
 
 /**
@@ -223,8 +228,8 @@ export default function Form<FormValues extends Record<string, any> = {}>(
   );
 
   const FormContextValue = useMemo(() => {
-    return { registerField, getCurrentValue };
-  }, [registerField, getCurrentValue]);
+    return { registerField, getCurrentValue, subscribe: form.subscribe };
+  }, [registerField, getCurrentValue, form.subscribe]);
 
   return (
     <FormContext.Provider value={FormContextValue}>

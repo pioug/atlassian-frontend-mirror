@@ -96,13 +96,24 @@ const ConnectedAIBlock = ({
   imagePreview: boolean;
   url: string;
 }) => {
-  const aiSummary = useAISummary({ url });
-  const aiStatus = aiSummary.state.status;
-  const showData = aiStatus === 'ready' || aiStatus === 'error';
+  const {
+    state: { status, content },
+  } = useAISummary({ url });
+
+  const showData =
+    status === 'ready' ||
+    status === 'error' ||
+    // Description & bottom metadata should only disappear when we start getting summary content
+    (!content && status === 'loading');
 
   return showData ? (
     <>
-      {!imagePreview && <SnippetBlock status={SmartLinkStatus.Resolved} />}
+      {!imagePreview && (
+        <SnippetBlock
+          testId={'connected-AI'}
+          status={SmartLinkStatus.Resolved}
+        />
+      )}
       <MetadataBlock
         primary={bottomPrimary}
         size={SmartLinkSize.Large}

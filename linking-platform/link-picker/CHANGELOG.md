@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.34.6
+
+### Patch Changes
+
+- [#83188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83188) [`cd5d06cd3329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd5d06cd3329) - Minor adjustments to improve compatibility with React 18
+
 ## 1.34.5
 
 ### Patch Changes

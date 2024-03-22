@@ -30,6 +30,7 @@ describe('floatingToolbar is called with the right config', () => {
       'web',
       undefined,
       expect.objectContaining({}),
+      undefined,
     );
   });
 
@@ -49,6 +50,7 @@ describe('floatingToolbar is called with the right config', () => {
       'web',
       undefined,
       expect.objectContaining({}),
+      undefined,
     );
   });
 
@@ -68,6 +70,7 @@ describe('floatingToolbar is called with the right config', () => {
       'web',
       undefined,
       expect.objectContaining({}),
+      undefined,
     );
   });
 });

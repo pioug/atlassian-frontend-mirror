@@ -126,7 +126,7 @@ interface DraggableTableHeadingProps {
   children: ReactNode;
   id: string;
   index: number;
-  tableId: Symbol;
+  tableId: symbol;
   dndPreviewHeight: number;
   dragPreview: React.ReactNode;
   width: number;
@@ -351,10 +351,8 @@ export const DraggableTableHeading = ({
     [children, id, triggerIcon],
   );
 
-  const onDropdownOpenChange: DropdownMenuProps['onOpenChange'] = useCallback(
-    ({ isOpen }) => setIsDropdownOpen(isOpen),
-    [],
-  );
+  const onDropdownOpenChange: NonNullable<DropdownMenuProps['onOpenChange']> =
+    useCallback(({ isOpen }) => setIsDropdownOpen(isOpen), []);
 
   const toggleWrap = useCallback(
     () => onIsWrappedChange && onIsWrappedChange(!(isWrapped || false)),

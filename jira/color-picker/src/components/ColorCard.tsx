@@ -1,11 +1,12 @@
 /** @jsx jsx */
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
 import { COLOR_CARD_SIZE, KEY_ENTER, KEY_SPACE } from '../constants';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
   value: string;
@@ -31,6 +32,8 @@ const ColorCard = (props: Props) => {
     onClick,
     onKeyDown,
   } = props;
+
+  const ref = useRef<null | HTMLInputElement>(null);
 
   const handleMouseDown = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -68,6 +71,26 @@ const ColorCard = (props: Props) => {
     [isTabbing, onKeyDown, value],
   );
 
+  useEffect(() => {
+    if (
+      getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy')
+    ) {
+      const refCurrent = ref.current;
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Tab') {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      };
+
+      refCurrent?.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        refCurrent?.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, []);
+
   return (
     <Tooltip content={label}>
       <div
@@ -84,6 +107,11 @@ const ColorCard = (props: Props) => {
         aria-checked={selected}
         aria-label={label}
         tabIndex={0}
+        {...(getBooleanFF(
+          'platform.color-picker-radio-button-functionality_6hkcy',
+        ) && {
+          ref: ref,
+        })}
       >
         <div
           css={colorCardContentStyles}

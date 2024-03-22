@@ -9,6 +9,7 @@ export enum ACTION {
   ACTIVATED = 'activated',
   ADDED = 'added',
   BROWSER_FREEZE = 'browserFreeze',
+  CAUGHT_DOM_ERROR = 'caughtDomError',
   CHANGED_BACKGROUND_COLOR = 'changedBackgroundColor',
   CHANGED_ICON = 'changedIcon',
   CHANGED_FULL_WIDTH_MODE = 'changedFullWidthMode',

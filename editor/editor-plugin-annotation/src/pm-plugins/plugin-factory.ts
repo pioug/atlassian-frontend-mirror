@@ -6,6 +6,7 @@ import {
   decorationKey,
   findAnnotationsInSelection,
   inlineCommentPluginKey,
+  isBlockNodeAnnotationsSelected,
   isSelectedAnnotationsChanged,
 } from '../utils';
 
@@ -39,10 +40,23 @@ const getSelectionChangedHandler =
       };
     }
 
-    /**
-     * Default we only handle caret selections.
-     * Node selection will be handled separately.
-     */
+    if (
+      pluginState.featureFlagsPluginState?.commentsOnMedia &&
+      // If pluginState.selectedAnnotations is annotations of block node, i.e. when a new comment is created,
+      // we keep it as it is so that we can show comment view component with the newly created comment
+      isBlockNodeAnnotationsSelected(
+        tr.selection,
+        pluginState.selectedAnnotations,
+      )
+    ) {
+      return {
+        ...pluginState,
+        ...(reopenCommentView && {
+          isInlineCommentViewClosed: false,
+        }),
+      };
+    }
+
     const selectedAnnotations = findAnnotationsInSelection(
       tr.selection,
       tr.doc,

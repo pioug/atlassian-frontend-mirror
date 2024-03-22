@@ -2,7 +2,7 @@
 import React from 'react';
 import { PopupSelect, PopupSelectProps, ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';
-import { Color, Palette } from '../types';
+import { Color, Palette, SwatchSize } from '../types';
 import * as components from './components';
 import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB } from '../constants';
 import {
@@ -12,6 +12,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { getOptions } from '../utils';
 import { css, jsx } from '@emotion/react';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface Props {
   /** color picker button label */
@@ -30,6 +31,12 @@ export interface Props {
   onChange: (value: string, analyticsEvent?: object) => void;
   /** You should not be accessing this prop under any circumstances. It is provided by @atlaskit/analytics-next. */
   createAnalyticsEvent?: any;
+  /** swatch button size */
+  selectedColourSwatchSize?: SwatchSize;
+  /** swatch button default color */
+  showDefaultSwatchColor?: boolean;
+  /** diasble swatch button */
+  isDisabledSelectedSwatch?: boolean;
 }
 
 const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
@@ -78,6 +85,11 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
       this.setState({ isTabbing: true });
     } else if (key === KEY_ARROW_UP || key === KEY_ARROW_DOWN) {
       this.setState({ isTabbing: false });
+    } else if (
+      getBooleanFF('platform.color-picker-radio-button-functionality_6hkcy') &&
+      key === 'Escape'
+    ) {
+      e.stopPropagation();
     }
   };
 
@@ -89,15 +101,32 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
       cols,
       popperProps = defaultPopperProps,
       label = 'Color picker',
+      selectedColourSwatchSize,
+      showDefaultSwatchColor = true,
+      isDisabledSelectedSwatch,
     } = this.props;
-    const { options, value } = getOptions(palette, selectedColor);
-    const fullLabel = `${label}, ${value.label} selected`;
+    const { options, value } = getOptions(
+      palette,
+      selectedColor,
+      showDefaultSwatchColor,
+    );
+    const fullLabel = value.label && `${label}, ${value.label} selected`;
 
     return (
       <PopupSelect<Color>
         target={({ ref, isOpen }) => (
           <div css={colorCardWrapperStyles} ref={ref}>
-            <Trigger {...value} label={fullLabel} expanded={isOpen} />
+            <Trigger
+              {...value}
+              label={fullLabel}
+              expanded={isOpen}
+              {...(getBooleanFF(
+                'platform.color-picker-radio-button-functionality_6hkcy',
+              ) && {
+                swatchSize: selectedColourSwatchSize,
+                isDisabled: isDisabledSelectedSwatch,
+              })}
+            />
           </div>
         )}
         popperProps={popperProps}

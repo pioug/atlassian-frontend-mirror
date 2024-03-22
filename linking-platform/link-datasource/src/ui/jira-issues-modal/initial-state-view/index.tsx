@@ -35,9 +35,10 @@ const betaTagStyles = css({
 
 const searchTitleStyles = css({
   color: token('color.text.subtlest', N300),
-  fontWeight: token('font.weight.medium', '500'),
-  fontSize: token('font.size.300', '20px'),
-  lineHeight: token('font.lineHeight.300', '24px'),
+  font: token(
+    'font.heading.medium',
+    'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
   paddingTop: token('space.200', '16px'),
   paddingBottom: token('space.100', '8px'),
   display: 'flex',

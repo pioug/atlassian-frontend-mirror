@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import { wrapperDefault } from '../Extension/styles';
 
 // Wrapper the extension title and extensionContainer
-export const mbeExtensionWrapperCSS = css(wrapperDefault, {
+export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
   '&.remove-margin-top': {
     marginTop: 0,
   },
@@ -28,4 +28,15 @@ export const mbeExtensionWrapperCSS = css(wrapperDefault, {
   '&.with-hover-border': {
     border: `1px solid ${token('color.border', N30)}`,
   },
+});
+
+export const overlayStyles = css({
+  borderRadius: token('border.radius', '3px'),
+  position: 'absolute',
+  width: '100%',
+  height: '100%',
+  opacity: 0,
+  pointerEvents: 'none',
+  transition: 'opacity 0.3s',
+  zIndex: 1,
 });

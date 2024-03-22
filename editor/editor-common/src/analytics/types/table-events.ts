@@ -33,6 +33,8 @@ export enum TABLE_ACTION {
   INITIAL_OVERFLOW_CAPTURED = 'initialOverflowCaptured',
   MOVED_ROW = 'movedRow',
   MOVED_COLUMN = 'movedColumn',
+  CLONED_ROW = 'clonedRow',
+  CLONED_COLUMN = 'clonedColumn',
   /**
    * This is a unique action that's used to track legacy table move behaviour flow of insert+copy+paste. Please use
    * the MOVED_ROW | MOVED_COLUMN actions if you want to track events which move row/cols in a single step.
@@ -333,6 +335,24 @@ type TableMovedRowOrColumnAEP = TableAEP<
   undefined
 >;
 
+type TableClonedRowOrColumnAEP = TableAEP<
+  TABLE_ACTION.CLONED_ROW | TABLE_ACTION.CLONED_COLUMN,
+  {
+    inputMethod:
+      | INPUT_METHOD.TABLE_CONTEXT_MENU
+      | INPUT_METHOD.DRAG_AND_DROP
+      | INPUT_METHOD.SHORTCUT;
+    // The total amount of row/columns that we're moved in a single event
+    count: number;
+    distance: number;
+    status:
+      | TABLE_STATUS.SUCCESS
+      | TABLE_STATUS.CANCELLED
+      | TABLE_STATUS.INVALID;
+  } & TotalRowAndColCount,
+  undefined
+>;
+
 export type TableEventPayload =
   | TableDeleteAEP
   | TableClearAEP
@@ -355,4 +375,5 @@ export type TableEventPayload =
   | TableResizePerfSamplingAEP
   | TableRowOrColumnMovedAEP
   | TableMovedRowOrColumnAEP
+  | TableClonedRowOrColumnAEP
   | TableColumnResizedAEP;

@@ -1,22 +1,19 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
 
+const styles = css({
+  font: token(
+    'font.heading.xsmall',
+    'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  marginTop: 0,
+});
 export default () => (
   <SuccessContainer>
-    <h1
-      css={css`
-        font-size: ${fontSize()}px;
-        font-weight: 600;
-        margin-top: 0;
-        line-height: ${token('font.lineHeight.300', '24px')};
-      `}
-    >
-      Thanks for your feedback
-    </h1>
+    <h1 css={styles}>Thanks for your feedback</h1>
   </SuccessContainer>
 );

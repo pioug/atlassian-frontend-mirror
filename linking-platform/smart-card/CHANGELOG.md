@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.50.9
+
+### Patch Changes
+
+- [#82969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82969) [`cae58d4129ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cae58d4129ff) - Display the AI Summary component only when there is summary content available
+- [#83188](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83188) [`cd5d06cd3329`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd5d06cd3329) - Minor adjustments to improve compatibility with React 18
+
 ## 26.50.8
 
 ### Patch Changes

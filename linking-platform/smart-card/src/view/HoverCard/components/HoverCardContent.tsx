@@ -48,7 +48,7 @@ export const getCopyAction = (url: string): ActionItem =>
     testId: 'hover-card-copy-button',
   } as CustomActionItem);
 
-const HoverCardContent: React.FC<HoverCardContentProps> = ({
+const HoverCardContent = ({
   id = '',
   analytics: _analytics,
   cardActions = [],
@@ -60,7 +60,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   onMouseEnter,
   onMouseLeave,
   actionOptions,
-}) => {
+}: HoverCardContentProps) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const defaultAnalytics = useSmartLinkAnalytics(url, undefined, id);
   const analytics = _analytics ?? defaultAnalytics;
@@ -161,7 +161,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     actionOptions,
     ui: flexibleUiOptions,
     url: url,
-    children: {},
+    children: null,
     analytics,
   };
 

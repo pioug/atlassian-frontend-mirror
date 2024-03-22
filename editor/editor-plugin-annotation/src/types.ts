@@ -189,4 +189,5 @@ export type DraftBookmark = {
   from: number;
   to: number;
   head: number;
+  isBlockNode?: boolean;
 };

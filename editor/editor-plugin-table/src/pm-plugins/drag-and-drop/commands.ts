@@ -4,7 +4,12 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { moveColumn, moveRow } from '@atlaskit/editor-tables/utils';
+import {
+  cloneColumn,
+  cloneRow,
+  moveColumn,
+  moveRow,
+} from '@atlaskit/editor-tables/utils';
 
 import type { DraggableType, TableDirection } from '../../types';
 import { TableDecorations } from '../../types';
@@ -59,7 +64,6 @@ export const setDropTarget = (
           TableDecorations.ROW_INSERT_LINE,
         );
       }
-
       return {
         type: DragAndDropActionType.SET_DROP_TARGET,
         data: {
@@ -173,5 +177,30 @@ export const toggleDragMenu = (
     },
     (tr: Transaction) => {
       return tr.setMeta('addToHistory', false);
+    },
+  );
+
+export const cloneSource = (
+  sourceType: DraggableType,
+  sourceIndexes: number[],
+  targetIndex: number,
+  targetDirection: 'start' | 'end',
+  tr?: Transaction,
+) =>
+  createCommand(
+    (state) => {
+      return {
+        type: DragAndDropActionType.CLEAR_DROP_TARGET,
+        data: {
+          decorationSet: DecorationSet.empty,
+        },
+      };
+    },
+    (originalTr: Transaction, state) => {
+      const nextTr = tr || originalTr;
+      const clone = sourceType === 'table-row' ? cloneRow : cloneColumn;
+      return clone(state, sourceIndexes, targetIndex, targetDirection, {
+        selectAfterClone: true,
+      })(nextTr);
     },
   );

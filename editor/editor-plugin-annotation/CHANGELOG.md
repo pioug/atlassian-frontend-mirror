@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.1
+
+### Patch Changes
+
+- [#83942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83942) [`210a84148721`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/210a84148721) - [ED-22547] Publish draft comment for media node when saving
+
 ## 1.5.0
 
 ### Minor Changes

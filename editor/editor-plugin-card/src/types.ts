@@ -113,6 +113,7 @@ export type CardPluginOptions = CardOptions & {
   linkPicker?: LinkPickerOptions;
   cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
   lpLinkPicker?: boolean;
+  disableFloatingToolbar?: boolean;
 };
 
 // actions

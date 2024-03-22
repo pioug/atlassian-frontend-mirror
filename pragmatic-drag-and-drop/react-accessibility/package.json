@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-react-accessibility",
-  "version": "1.0.4",
-  "description": "Optional react components to help implement accessible alternative flows for Pragmatic drag and drop",
+  "version": "1.0.5",
+  "description": "An optional package for Pragmatic drag and drop containing react components to assist with setting up accessible experiences",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {

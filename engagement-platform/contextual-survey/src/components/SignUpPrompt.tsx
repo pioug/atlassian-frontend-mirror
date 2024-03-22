@@ -4,11 +4,17 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
 
+const styles = css({
+  font: token(
+    'font.heading.xsmall',
+    'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+  ),
+  margin: 0,
+});
 interface Props {
   onAnswer: (answer: boolean) => Promise<void>;
 }
@@ -31,16 +37,7 @@ export default ({ onAnswer }: Props) => {
 
   return (
     <SuccessContainer>
-      <h1
-        css={css`
-          font-size: ${fontSize()}px;
-          font-weight: 600;
-          margin: 0;
-          line-height: ${token('font.lineHeight.300', '24px')};
-        `}
-      >
-        Thanks for your feedback
-      </h1>
+      <h1 css={styles}>Thanks for your feedback</h1>
       <p>Are you interested in participating in our research?</p>
       <p>
         Sign up for the{' '}
@@ -51,15 +48,14 @@ export default ({ onAnswer }: Props) => {
       </p>
 
       <div
-        css={css`
-          margin-top: ${token('space.400', '32px')};
-          display: flex;
-          justify-content: flex-end;
-
-          & > * + * {
-            margin-left: ${token('space.100', '8px')};
-          }
-        `}
+        css={css({
+          marginTop: token('space.400', '32px'),
+          display: 'flex',
+          justifyContent: 'flex-end',
+          '& > * + *': {
+            marginLeft: token('space.100', '8px'),
+          },
+        })}
       >
         <Button
           appearance="subtle"

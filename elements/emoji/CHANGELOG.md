@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.6.15
+
+### Patch Changes
+
+- [#83176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83176) [`5c64e4657ef3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c64e4657ef3) - [ux] Minor changes to replace deprecated font tokens with new tokens. There may be some very slight differences in font size if the previous value was incorrectly applied, and slight differences in line height to match the new typography system.
+
 ## 67.6.14
 
 ### Patch Changes

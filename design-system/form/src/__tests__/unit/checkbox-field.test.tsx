@@ -17,7 +17,7 @@ describe('CheckboxField', () => {
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <>
-            <CheckboxField name="remember">
+            <CheckboxField name="remember" label="Remember">
               {({ fieldProps }) => <Checkbox {...fieldProps} />}
             </CheckboxField>
             <Button onClick={formProps.onSubmit}>Submit</Button>
@@ -38,7 +38,7 @@ describe('CheckboxField', () => {
         {({ formProps }) => (
           <>
             <fieldset>
-              <CheckboxField name="remember">
+              <CheckboxField name="remember" label="Remember">
                 {({ fieldProps }) => (
                   <Checkbox {...fieldProps} testId="Checkbox" />
                 )}
@@ -64,7 +64,12 @@ describe('CheckboxField', () => {
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <>
-            <CheckboxField name="remember" value="always" defaultIsChecked>
+            <CheckboxField
+              name="remember"
+              value="always"
+              defaultIsChecked
+              label="Remember"
+            >
               {({ fieldProps }) => <Checkbox {...fieldProps} />}
             </CheckboxField>
             <Button onClick={formProps.onSubmit}>Submit</Button>
@@ -84,7 +89,7 @@ describe('CheckboxField', () => {
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <>
-            <CheckboxField name="remember" value="always">
+            <CheckboxField name="remember" value="always" label="Remember">
               {({ fieldProps }) => <Checkbox {...fieldProps} />}
             </CheckboxField>
             <Button onClick={formProps.onSubmit}>Submit</Button>
@@ -106,13 +111,23 @@ describe('CheckboxField', () => {
         {({ formProps }) => (
           <>
             <fieldset>
-              <CheckboxField name="product" value="jira" defaultIsChecked>
+              <CheckboxField
+                name="product"
+                value="jira"
+                defaultIsChecked
+                label="Jira"
+              >
                 {({ fieldProps }) => <Checkbox {...fieldProps} />}
               </CheckboxField>
-              <CheckboxField name="product" value="confluence" defaultIsChecked>
+              <CheckboxField
+                name="product"
+                value="confluence"
+                defaultIsChecked
+                label="Confluence"
+              >
                 {({ fieldProps }) => <Checkbox {...fieldProps} />}
               </CheckboxField>
-              <CheckboxField name="product" value="bitbucket">
+              <CheckboxField name="product" value="bitbucket" label="Bitbucket">
                 {({ fieldProps }) => <Checkbox {...fieldProps} />}
               </CheckboxField>
             </fieldset>
@@ -136,10 +151,10 @@ describe('CheckboxField', () => {
         {({ formProps }) => (
           <>
             <fieldset>
-              <CheckboxField name="product" value="jira">
+              <CheckboxField name="product" value="jira" label="Jira">
                 {({ fieldProps }) => <Checkbox {...fieldProps} />}
               </CheckboxField>
-              <CheckboxField name="product" value="bitbucket">
+              <CheckboxField name="product" value="bitbucket" label="Bitbucket">
                 {({ fieldProps }) => (
                   <Checkbox {...fieldProps} testId="Bitbucket" />
                 )}

@@ -46,7 +46,7 @@ describe('Field', () => {
     render(
       <Form onSubmit={jest.fn()}>
         {() => (
-          <Field name="username" defaultValue="Joe Bloggs">
+          <Field name="username" defaultValue="Joe Bloggs" label="Username">
             {({ fieldProps, meta: { dirty } }) => (
               <>
                 <TextField {...fieldProps} />
@@ -69,7 +69,7 @@ describe('Field', () => {
       <Form onSubmit={spy}>
         {({ formProps }) => (
           <form {...formProps}>
-            <Field name="username" defaultValue="Joe Bloggs">
+            <Field name="username" defaultValue="Joe Bloggs" label="Username">
               {({ fieldProps }) => <TextField {...fieldProps} />}
             </Field>
             <Button type="submit">Submit</Button>
@@ -94,6 +94,7 @@ describe('Field', () => {
           <Field
             name="username"
             defaultValue="Joe Bloggs"
+            label="Username"
             validate={() => 'ERROR'}
           >
             {({ fieldProps, error }) => (
@@ -126,6 +127,7 @@ describe('Field', () => {
           <Field
             name="username"
             defaultValue="Joe Bloggs"
+            label="Username"
             validate={() => 'ERROR'}
           >
             {({ fieldProps, error }) => (
@@ -159,7 +161,7 @@ describe('Field', () => {
       <Form onSubmit={() => Promise.resolve({ username: 'TAKEN_USERNAME' })}>
         {({ formProps }) => (
           <form {...formProps}>
-            <Field name="username" defaultValue="Joe Bloggs">
+            <Field name="username" defaultValue="Joe Bloggs" label="Username">
               {({ fieldProps, error }) => (
                 <>
                   <TextField {...fieldProps} testId="text-field" />
@@ -184,7 +186,7 @@ describe('Field', () => {
     await user.click(screen.getByRole('button'));
 
     expect(
-      screen.queryByText('There is a problem with this field'),
+      screen.getByText('There is a problem with this field'),
     ).toBeInTheDocument();
     expect(screen.getByTestId('text-field-container')).toHaveAttribute(
       'data-invalid',
@@ -202,6 +204,7 @@ describe('Field', () => {
                 <Field
                   name="username"
                   defaultValue={defaultValue}
+                  label="Username"
                   validate={(value = '') =>
                     value.length < 1 ? 'too short' : undefined
                   }
@@ -243,6 +246,7 @@ describe('Field', () => {
                 <Field<{ value: { deep: string } }>
                   name="username"
                   defaultValue={defaultValue}
+                  label="Username"
                 >
                   {({
                     fieldProps: { value, onChange, ...otherFieldProps },
@@ -303,6 +307,7 @@ describe('Field', () => {
                 <Field<{ val: string }[]>
                   name="username"
                   defaultValue={defaultValue}
+                  label="Username"
                 >
                   {({
                     fieldProps: { value, onChange, ...otherFieldProps },
@@ -372,7 +377,7 @@ describe('Field', () => {
           <Form onSubmit={submitFn}>
             {({ formProps }) => (
               <form {...formProps}>
-                <Field name={name} defaultValue="unchanged">
+                <Field name={name} defaultValue="unchanged" label="Username">
                   {({ fieldProps }) => (
                     <TextField {...fieldProps} testId="TextField" />
                   )}
@@ -421,6 +426,7 @@ describe('Field', () => {
             <Field<ValueType<Option>>
               name="select"
               defaultValue={{ label: 'a default value', value: '1' }}
+              label="Username"
             >
               {({ fieldProps }) => (
                 <Select
@@ -464,6 +470,7 @@ describe('Field', () => {
           <>
             <Field
               name="username"
+              label="Username"
               validate={(value: string = '') => {
                 if (value.length === 0) {
                   return 'TOO_SHORT';
@@ -583,7 +590,7 @@ describe('Field', () => {
       <Form onSubmit={spy} isDisabled>
         {({ formProps, disabled }) => (
           <form {...formProps}>
-            <Field name="name" defaultValue="">
+            <Field name="name" defaultValue="" label="Username">
               {({ fieldProps }) => (
                 <TextField {...fieldProps} testId="text-field" />
               )}
@@ -605,7 +612,7 @@ describe('Field', () => {
     render(
       <Form onSubmit={__noop}>
         {() => (
-          <Field name="username" defaultValue="Joe Bloggs">
+          <Field name="username" defaultValue="Joe Bloggs" label="Username">
             {spy}
           </Field>
         )}
@@ -629,6 +636,7 @@ describe('Field', () => {
             <Field
               name="username"
               defaultValue="Jane Chan"
+              label="Username"
               validate={(value = '') =>
                 value === 'foo' ? 'TAKEN_USERNAME' : undefined
               }
@@ -658,7 +666,7 @@ describe('Field', () => {
 
     await user.click(button);
 
-    expect(screen.queryByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
 
     await user.dblClick(input);
     await user.keyboard(`Doe`);
@@ -672,7 +680,7 @@ describe('Field', () => {
       <Form onSubmit={() => Promise.resolve({ username: 'TAKEN_USERNAME' })}>
         {({ formProps: { onSubmit } }) => (
           <>
-            <Field name="username" defaultValue="Jane Chan">
+            <Field name="username" defaultValue="Jane Chan" label="Username">
               {({ fieldProps, error }) => (
                 <>
                   <TextField {...fieldProps} testId="text-field" />
@@ -695,13 +703,13 @@ describe('Field', () => {
 
     await user.click(screen.getByRole('button'));
 
-    expect(screen.queryByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
     expect(container).toHaveAttribute('data-invalid', 'true');
 
     await user.click(screen.getByTestId('text-field'));
     await user.keyboard(`{Backspace}`);
 
-    expect(screen.queryByText(errorMessage)).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
     expect(container).toHaveAttribute('data-invalid', 'true');
   });
 
@@ -713,6 +721,7 @@ describe('Field', () => {
             <Field
               name="username"
               defaultValue=""
+              label="Username"
               validate={(value = '') => {
                 if (value.length < 5) {
                   return 'TOO_SHORT';
@@ -753,14 +762,14 @@ describe('Field', () => {
     await user.click(input);
     await user.keyboard(`Jane Chan`);
 
-    expect(screen.queryByText(usernameTakenMessage)).toBeInTheDocument();
+    expect(screen.getByText(usernameTakenMessage)).toBeInTheDocument();
     expect(screen.queryByText(usernameTooShortMessage)).not.toBeInTheDocument();
 
     await user.dblClick(input);
     await user.keyboard(`{Backspace}{Backspace}`);
 
     expect(screen.queryByText(usernameTakenMessage)).not.toBeInTheDocument();
-    expect(screen.queryByText(usernameTooShortMessage)).toBeInTheDocument();
+    expect(screen.getByText(usernameTooShortMessage)).toBeInTheDocument();
 
     await user.clear(input);
     await user.keyboard(`John Doe`);
@@ -776,7 +785,7 @@ describe('Field', () => {
       <Form onSubmit={onSubmitMock}>
         {({ formProps: { onSubmit } }) => (
           <>
-            <Field name="username" defaultValue="">
+            <Field name="username" defaultValue="" label="Username">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -811,7 +820,7 @@ describe('Field', () => {
       <Form onSubmit={onSubmitMock}>
         {({ formProps: { onSubmit } }) => (
           <>
-            <Field name="username[0]" defaultValue="Foo">
+            <Field name="username[0]" defaultValue="Foo" label="Username">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -820,7 +829,7 @@ describe('Field', () => {
                 />
               )}
             </Field>
-            <Field name="username[1]" defaultValue="Bar">
+            <Field name="username[1]" defaultValue="Bar" label="Nickname">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -852,7 +861,7 @@ describe('Field', () => {
       <Form onSubmit={onSubmitMock}>
         {({ formProps: { onSubmit } }) => (
           <>
-            <Field name="username.name" defaultValue="johndoe">
+            <Field name="username.name" defaultValue="johndoe" label="Username">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -861,7 +870,11 @@ describe('Field', () => {
                 />
               )}
             </Field>
-            <Field name="username.email" defaultValue="johndoe@atlassian.com">
+            <Field
+              name="username.email"
+              defaultValue="johndoe@atlassian.com"
+              label="email"
+            >
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -1020,7 +1033,7 @@ describe('Field', () => {
       <Form onSubmit={onSubmitMock}>
         {({ formProps: { onSubmit } }) => (
           <>
-            <Field name="username.name" defaultValue="">
+            <Field name="username.name" defaultValue="" label="Username">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -1029,7 +1042,7 @@ describe('Field', () => {
                 />
               )}
             </Field>
-            <Field name="username.email" defaultValue="">
+            <Field name="username.email" defaultValue="" label="Email">
               {({ fieldProps: { onChange, ...rest } }) => (
                 <TextField
                   {...rest}
@@ -1069,6 +1082,7 @@ describe('Field', () => {
           <Field
             name="username"
             defaultValue=""
+            label="Username"
             validate={(value = '') => {
               if (value.length < 3) {
                 return 'TOO_SHORT';
@@ -1108,7 +1122,7 @@ describe('Field', () => {
     // check that the most recent error message is visible - should be the sync validation error
     setTimeout(() => {
       expect(screen.queryByText('Username is in use')).not.toBeInTheDocument();
-      expect(screen.queryByText('Too short')).toBeInTheDocument();
+      expect(screen.getByText('Too short')).toBeInTheDocument();
       done();
     });
   });
@@ -1124,6 +1138,7 @@ describe('Field', () => {
                 <form {...formProps}>
                   <Field
                     name="test123"
+                    label="Username"
                     key={isRequired === 'required' ? 1 : 0}
                     isRequired={isRequired === 'required'}
                     validate={validate}
@@ -1176,6 +1191,7 @@ describe('Field', () => {
                   <Field
                     name="test123"
                     defaultValue="default value"
+                    label="Username"
                     key={key}
                     validate={(value = '') =>
                       value.length < 1 ? 'too short' : undefined

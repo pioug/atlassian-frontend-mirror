@@ -20,7 +20,11 @@ describe('RangeField', () => {
       <Form onSubmit={__noop}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
-            <RangeField name="light" defaultValue={30}>
+            <RangeField
+              name="light"
+              defaultValue={30}
+              label="Adjust brightness"
+            >
               {({ fieldProps }) => (
                 <Range {...fieldProps} testId="form--range" min={0} max={100} />
               )}
@@ -54,7 +58,11 @@ describe('RangeField', () => {
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
-            <RangeField name="volume" defaultValue={30}>
+            <RangeField
+              name="volume"
+              defaultValue={30}
+              label="Adjust brightness"
+            >
               {({ fieldProps }) => (
                 <Range {...fieldProps} testId="form--range" min={0} max={100} />
               )}
@@ -69,7 +77,7 @@ describe('RangeField', () => {
 
     const range = screen.getByTestId('form--range');
 
-    expect(range).toHaveAttribute('value', '30');
+    expect(range).toHaveValue('30');
 
     const submit = screen.getByTestId('form--submit');
     await user.click(submit);
@@ -83,7 +91,11 @@ describe('RangeField', () => {
       <Form onSubmit={(data) => spy(data)}>
         {({ formProps }) => (
           <form {...formProps} data-testid="form">
-            <RangeField name="volume" defaultValue={30}>
+            <RangeField
+              name="volume"
+              defaultValue={30}
+              label="Adjust brightness"
+            >
               {({ fieldProps }) => (
                 <Range {...fieldProps} testId="form--range" min={0} max={100} />
               )}
@@ -98,7 +110,7 @@ describe('RangeField', () => {
 
     const range = screen.getByTestId('form--range');
     fireEvent.change(range, { target: { value: 70 } });
-    expect(range).toHaveAttribute('value', '70');
+    expect(range).toHaveValue('70');
 
     const submit = screen.getByTestId('form--submit');
     fireEvent.click(submit);

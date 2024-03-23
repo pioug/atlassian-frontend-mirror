@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.6.4
+
+### Patch Changes
+
+- [#83784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83784) [`b306dbd0ab06`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b306dbd0ab06) - Add border feature flag to improve contrast
+
 ## 193.6.0
 
 ### Minor Changes

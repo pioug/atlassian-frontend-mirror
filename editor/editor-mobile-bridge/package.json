@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "193.6.3",
+  "version": "193.6.4",
   "description": "Mobile distribution of the Editor",
   "keywords": [
     "editor",
@@ -40,7 +40,7 @@
     "@atlaskit/collab-provider": "^9.25.0",
     "@atlaskit/editor-card-provider": "^3.3.0",
     "@atlaskit/editor-common": "78.20.0",
-    "@atlaskit/editor-core": "193.6.0",
+    "@atlaskit/editor-core": "193.6.4",
     "@atlaskit/editor-json-transformer": "8.10.29",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-base": "^1.0.0",

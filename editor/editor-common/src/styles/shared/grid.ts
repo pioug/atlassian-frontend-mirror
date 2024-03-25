@@ -25,7 +25,7 @@ export const gridStyles = css({
     display: 'inline-block',
     boxSizing: 'border-box',
     height: '100%',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
     marginLeft: '-1px',
     transition: 'border-color 0.15s linear',
     zIndex: 0,

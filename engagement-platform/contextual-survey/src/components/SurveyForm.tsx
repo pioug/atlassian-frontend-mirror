@@ -19,6 +19,11 @@ import { FormValues } from '../types';
 
 import FeedbackScoreButtons from './FeedbackScoreButtons';
 
+const headingStyles = css({
+  fontSize: `${fontSize()}px`,
+  fontWeight: 600,
+});
+
 interface Props {
   question: string;
   statement?: string;
@@ -27,7 +32,12 @@ interface Props {
   onSubmit: OnSubmitHandler<FormValues>;
 }
 
-type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited';
+type TransitionState =
+  | 'entering'
+  | 'entered'
+  | 'exiting'
+  | 'exited'
+  | 'unmounted';
 
 const getExpandedHeight = (
   ref: RefObject<HTMLDivElement>,
@@ -79,13 +89,7 @@ export default ({
 
   return (
     <section aria-labelledby="contextualSurveyQuestion">
-      <h1
-        id="contextualSurveyQuestion"
-        css={css`
-          font-size: ${fontSize()}px;
-          font-weight: 600;
-        `}
-      >
+      <h1 id="contextualSurveyQuestion" css={headingStyles}>
         {question}
       </h1>
       {statement && <p id="contextualSurveyStatement">{statement}</p>}
@@ -110,11 +114,11 @@ export default ({
             <Transition in={expanded} timeout={transitionDuration} mountOnEnter>
               {(state: TransitionState) => (
                 <div
-                  css={css`
-                    transition: max-height ${transitionDuration}ms ease-in-out;
-                    overflow: hidden;
-                    max-height: ${getExpandedHeight(expandedAreaRef, state)};
-                  `}
+                  css={css({
+                    transition: `max-height ${transitionDuration}ms ease-in-out`,
+                    overflow: 'hidden',
+                    maxHeight: getExpandedHeight(expandedAreaRef, state),
+                  })}
                   ref={expandedAreaRef}
                 >
                   <Field<string, HTMLTextAreaElement>

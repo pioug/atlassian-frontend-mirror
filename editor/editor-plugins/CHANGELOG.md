@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugins
 
+## 1.9.3
+
+### Patch Changes
+
+- [#83121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83121) [`97ee7097d940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97ee7097d940) - Update feature flags
+- Updated dependencies
+
+## 1.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.1
 
 ### Patch Changes

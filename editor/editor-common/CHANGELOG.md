@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 78.20.2
+
+### Patch Changes
+
+- [#84054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84054) [`43605c45b445`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43605c45b445) - EDF-468 Added disableFloatingToolbar plugin option to disable showing floating toolbar when hyperlink is clicked.
+- [#83121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83121) [`97ee7097d940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97ee7097d940) - [ux] Prevents contenteditable inside resize handle.
+
+## 78.20.1
+
+### Patch Changes
+
+- [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297) [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) - The internal composition of this component has changed. There is no expected change in behaviour.
+
 ## 78.20.0
 
 ### Minor Changes

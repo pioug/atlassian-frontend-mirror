@@ -1,23 +1,38 @@
-/** @jsx jsx */
-import { Fragment } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import invariant from 'tiny-invariant';
 
-import { token } from '@atlaskit/tokens';
+import { easeInOut, mediumDurationMs } from '@atlaskit/motion';
+import {
+  draggable,
+  dropTargetForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { Box, Grid, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { fallbackColor } from './util/fallback';
-import { GlobalStyles } from './util/global-styles';
+const dropTargetStyles = xcss({
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  borderColor: 'color.border.bold',
+  padding: 'space.100',
+  transitionProperty: 'background-color',
+  transitionDuration: `${mediumDurationMs}ms`,
+  transitionTimingFunction: easeInOut,
+  backgroundColor: 'elevation.surface',
+});
 
-const dropTargetStyles = css({
-  display: 'flex',
-  padding: 'calc(var(--grid) * 2)',
-  gap: 'var(--grid)',
-  flexDirection: 'column',
-  border: `var(--border-width) solid ${token(
-    'color.border.input',
-    fallbackColor,
-  )}`,
-  borderRadius: 'var(--border-width)',
+const dropTargetContentStyles = xcss({
+  padding: 'space.100',
+  borderWidth: 'border.width',
+  borderStyle: 'dashed',
+  borderColor: 'color.border',
+});
+
+const isOverStyles = xcss({
+  backgroundColor: 'color.background.selected.hovered',
+});
+
+const isDisabledStyles = xcss({
+  backgroundColor: 'color.background.accent.red.subtler',
 });
 
 function DropTarget({
@@ -27,45 +42,106 @@ function DropTarget({
   targetId: string;
   children?: React.ReactNode;
 }) {
+  const [state, setState] = useState<'idle' | 'is-over'>('idle');
+  const [isSticky, setIsSticky] = useState<boolean>(false);
+  const [isDropAllowed, setIsDropAllowed] = useState<boolean>(true);
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    invariant(element);
+
+    return dropTargetForElements({
+      element,
+      getIsSticky: () => isSticky,
+      canDrop: () => isDropAllowed,
+      onDragEnter: () => {
+        setState('is-over');
+        console.log('is-over:', targetId);
+      },
+      onDragLeave: () => {
+        setState('idle');
+        console.log('is leaving', targetId);
+      },
+      onDrop: () => setState('idle'),
+    });
+  }, [targetId, isSticky, isDropAllowed]);
+
   return (
-    <div css={dropTargetStyles}>
-      <strong>{targetId}</strong>
-      {children}
-    </div>
+    <Box
+      xcss={[
+        dropTargetStyles,
+        state === 'is-over'
+          ? isOverStyles
+          : !isDropAllowed
+          ? isDisabledStyles
+          : undefined,
+      ]}
+      ref={ref}
+    >
+      <Inline xcss={dropTargetContentStyles} spread="space-between">
+        <strong>{targetId}</strong>
+        <Inline>
+          <label>
+            <Inline space="space.050">
+              <input
+                onChange={() => setIsDropAllowed(value => !value)}
+                type="checkbox"
+                checked={isDropAllowed}
+              ></input>
+              Drop allowed?
+            </Inline>
+          </label>
+          <label>
+            <Inline space="space.050">
+              <input
+                onChange={() => setIsSticky(value => !value)}
+                type="checkbox"
+                checked={isSticky}
+              ></input>
+              Sticky?
+            </Inline>
+          </label>
+        </Inline>
+      </Inline>
+      {children ? <Stack space="space.100">{children}</Stack> : null}
+    </Box>
   );
 }
 
-const draggableStyles = css({
-  padding: 'calc(var(--grid) * 2)',
-  border: `var(--border-width) solid ${token(
-    'color.border.input',
-    fallbackColor,
-  )}`,
-  borderRadius: 'var(--border-width)',
+const draggableStyles = xcss({
+  padding: 'space.100',
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  borderColor: 'color.border',
+  backgroundColor: 'elevation.surface',
 });
 
 function Draggable() {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    invariant(element);
+    return draggable({
+      element,
+    });
+  }, []);
+
   return (
-    <div css={draggableStyles}>
+    <Box xcss={draggableStyles} ref={ref}>
       <strong>Drag me 👋</strong>
-    </div>
+    </Box>
   );
 }
 
-const exampleStyles = css({
-  display: 'grid',
-  maxWidth: '600px',
-  alignItems: 'start',
-  gap: 'calc(var(--grid) * 2)',
-  gridTemplateColumns: '1fr 1fr',
-});
-
 export default function Example() {
   return (
-    <Fragment>
-      <GlobalStyles />
-      <div css={exampleStyles}>
+    <Grid templateColumns="200px 1fr" gap="space.100">
+      <Box>
         <Draggable />
+      </Box>
+      <Box>
         <DropTarget targetId="Grandparent 👵">
           <DropTarget targetId="Parent 1 👩">
             <DropTarget targetId="Child 1 🧒" />
@@ -76,7 +152,7 @@ export default function Example() {
             <DropTarget targetId="Child 4 👶" />
           </DropTarget>
         </DropTarget>
-      </div>
-    </Fragment>
+      </Box>
+    </Grid>
   );
 }

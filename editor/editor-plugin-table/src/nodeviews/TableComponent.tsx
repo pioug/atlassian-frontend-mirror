@@ -711,6 +711,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           />
         )}
         <div
+          contentEditable={false}
           style={shadowStyle(showBeforeShadow)}
           className={ClassName.TABLE_LEFT_SHADOW}
         />
@@ -761,6 +762,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           </div>
         )}
         <div
+          contentEditable={false}
           style={shadowStyle(showAfterShadow)}
           className={ClassName.TABLE_RIGHT_SHADOW}
         />

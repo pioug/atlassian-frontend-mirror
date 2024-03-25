@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { MaxContentSizePluginState } from '@atlaskit/editor-plugins/max-content-size';
+import { token } from '@atlaskit/tokens';
 
 import { usePresetContext } from '../../presets/context';
 import type {
@@ -16,7 +17,7 @@ import PluginSlot from '../PluginSlot';
 import { scrollbarStyles } from '../styles';
 import WithFlash from '../WithFlash';
 
-const chromelessEditor = css(
+const chromelessEditorStyles = css(
   {
     lineHeight: '20px',
     height: 'auto',
@@ -34,8 +35,7 @@ const chromelessEditor = css(
       padding: 0,
       margin: 0,
       '& > :last-child': {
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-        paddingBottom: '0.5em',
+        paddingBottom: token('space.100', '0.5em'),
       },
     },
   },
@@ -84,7 +84,7 @@ export default class Editor extends React.Component<
       <WithFlash animate={maxContentSizeReached}>
         <div
           css={[
-            chromelessEditor,
+            chromelessEditorStyles,
             maxHeight &&
               css({
                 maxHeight: `${maxHeight}px`,

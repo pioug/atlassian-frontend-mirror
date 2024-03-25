@@ -196,6 +196,10 @@ export const getToolbarConfig =
     pluginInjectionApi: ExtractInjectionAPI<typeof hyperlinkPlugin> | undefined,
   ): FloatingToolbarHandler =>
   (state, intl, providerFactory) => {
+    if (options.disableFloatingToolbar) {
+      return;
+    }
+
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
     const editorAnalyticsApi = pluginInjectionApi?.analytics?.actions;

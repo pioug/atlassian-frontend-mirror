@@ -15,10 +15,9 @@ export const SLIDEIN_OVERLAY_TRANSITION_DURATION_MS = 300;
 export const FADEIN_OVERLAY_TRANSITION_DURATION_MS = 440;
 export const HIDE_CONTENT_DELAY = FADEIN_OVERLAY_TRANSITION_DURATION_MS + 200;
 
-export enum TRANSITION_STATUS {
-  UNMOUNTED = 'unmounted',
-  EXITED = 'exited',
-  ENTERING = 'entering',
-  ENTERED = 'entered',
-  EXITING = 'exiting',
-}
+export type TransitionStatus =
+  | 'unmounted'
+  | 'exiting'
+  | 'entering'
+  | 'entered'
+  | 'exited';

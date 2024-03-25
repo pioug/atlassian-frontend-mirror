@@ -226,10 +226,6 @@ export type BaseEventPayload<DragType extends AllDragTypes> = {
   source: DragType['payload'];
 };
 
-export type DropData = {
-  dropEffect: DataTransfer['dropEffect'];
-};
-
 export type EventPayloadMap<DragType extends AllDragTypes> = {
   /**
    * Drag is about to start.
@@ -265,7 +261,7 @@ export type EventPayloadMap<DragType extends AllDragTypes> = {
    *
    * The `location.current` property will accurately contain the final drop targets.
    */
-  onDrop: BaseEventPayload<DragType> & { drop: DropData };
+  onDrop: BaseEventPayload<DragType>;
 };
 
 export type AllEvents<DragType extends AllDragTypes> = {

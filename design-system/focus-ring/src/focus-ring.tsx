@@ -46,6 +46,7 @@ const insetFocusRingStyles = css({
     {
       '&:focus-visible': {
         outline: '1px solid',
+        // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
         outlineOffset: '-1px',
       },
     },

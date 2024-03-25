@@ -15,6 +15,7 @@ export interface PanelPluginConfig {
 export type DomPanelAtrrs = {
   class: string;
   'data-panel-type': string;
+  'data-testid'?: string;
   'data-panel-color'?: string;
   'data-panel-icon-id'?: string;
   'data-panel-icon-text'?: string;

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.2
+
+### Patch Changes
+
+- [#83121](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83121) [`97ee7097d940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97ee7097d940) - [ux] Prevents contenteditable on table shadows and table drag column handles.
+
 ## 7.6.1
 
 ### Patch Changes

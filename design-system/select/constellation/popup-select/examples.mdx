@@ -9,6 +9,7 @@ import SelectPopupNoSearch from '../../examples/constellation/select-popup-no-se
 import SelectPopupPlacement from '../../examples/constellation/select-popup-placement';
 import SelectPopupModalExample from '../../examples/constellation/select-popup-in-modal';
 import SelectPopupCheckbox from '../../examples/constellation/select-popup-checkbox';
+import SelectPopupWithoutPortalExample from '../../examples/constellation/select-popup-without-portal';
 
 ## Default
 
@@ -40,3 +41,12 @@ Currently there is no foundational platform solution that enables layered compon
 Use the `offset` and `preventOverflow` props from [popper](https://atlaskit.atlassian.com/packages/design-system/popper) to keep them in view as a stop-gap.
 
 <Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
+
+## Content without portal
+
+By default, the PopupSelect content is rendered inside `React.Portal`. Use `popperProps={{ strategy: 'fixed' }}` prop to render the content directly after the trigger element.
+
+<Example
+  Component={SelectPopupWithoutPortalExample}
+  packageName="@atlaskit/select"
+/>

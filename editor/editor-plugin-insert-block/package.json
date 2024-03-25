@@ -44,7 +44,7 @@
     "@atlaskit/editor-plugin-emoji": "^1.1.0",
     "@atlaskit/editor-plugin-expand": "^1.2.0",
     "@atlaskit/editor-plugin-extension": "^1.1.0",
-    "@atlaskit/editor-plugin-hyperlink": "^1.1.0",
+    "@atlaskit/editor-plugin-hyperlink": "^1.2.0",
     "@atlaskit/editor-plugin-image-upload": "^1.0.0",
     "@atlaskit/editor-plugin-layout": "^1.0.0",
     "@atlaskit/editor-plugin-media": "^1.12.0",

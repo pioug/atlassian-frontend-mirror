@@ -34,6 +34,7 @@ export const imagePlacerErrorWrapperStyles = css({
   width: '100%',
   height: '100%',
   textAlign: 'center',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingTop: '45%',
 });
 

@@ -23,6 +23,7 @@ export const filmStripListWrapperStyles = css({
 
 export const filmStripListStyles = css({
   margin: 0,
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '-3px',
   padding: 0,
   transitionProperty: 'transform',
@@ -83,6 +84,7 @@ export const arrowLeftWrapperStyles = css(arrowWrapperStyles, {
 export const arrowRightWrapperStyles = css(arrowWrapperStyles, {
   right: token('space.100', '8px'),
   svg: {
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
     paddingLeft: '1px',
   },
 });

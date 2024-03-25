@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/eslint-plugin-design-system",
   "description": "The essential plugin for use with the Atlassian Design System.",
-  "version": "8.38.0",
+  "version": "9.0.0",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -57,7 +57,7 @@
     "@atlassian/eslint-utils": "^0.4.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
-    "@types/eslint": "^8.4.5",
+    "@types/eslint": "^8.56.6",
     "@types/estraverse": "^5.1.7",
     "eslint": "^8.49.0",
     "jscodeshift": "^0.13.0",

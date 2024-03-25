@@ -47,7 +47,10 @@ const styles = {
   },
 };
 
-const CustomComponent = React.forwardRef<HTMLDivElement, {}>((props, ref) => (
+const CustomComponent = React.forwardRef<
+  HTMLDivElement,
+  React.PropsWithChildren<{}>
+>((props, ref) => (
   <div {...props} ref={ref}>
     {props.children}
   </div>

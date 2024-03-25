@@ -7,7 +7,7 @@ import { ArticleItem } from '../../../model/Article';
 
 import {
   FADEIN_OVERLAY_TRANSITION_DURATION_MS,
-  TRANSITION_STATUS,
+  type TransitionStatus,
   VIEW,
 } from '../../constants';
 import { useSearchContext } from '../../contexts/searchContext';
@@ -66,7 +66,7 @@ export const SearchResults = () => {
       in={view === VIEW.SEARCH && isSearchResultVisible}
       timeout={FADEIN_OVERLAY_TRANSITION_DURATION_MS}
     >
-      {(state: TRANSITION_STATUS) => (
+      {(state: TransitionStatus) => (
         <SearchResultsContainer
           style={{
             ...defaultStyle,

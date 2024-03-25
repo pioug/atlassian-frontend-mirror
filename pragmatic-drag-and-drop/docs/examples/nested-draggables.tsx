@@ -1,43 +1,48 @@
-/** @jsx jsx */
-import { Fragment, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
-import { token } from '@atlaskit/tokens';
+import { easeInOut, mediumDurationMs } from '@atlaskit/motion';
+import {
+  draggable,
+  dropTargetForElements,
+} from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { Box, Grid, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { fallbackColor } from './util/fallback';
-import { GlobalStyles } from './util/global-styles';
-
-const itemStyles = css({
-  display: 'flex',
-  padding: 'var(--grid)',
-  gap: 'var(--grid)',
-  flexDirection: 'column',
-  background: token('color.background.accent.blue.subtler', fallbackColor),
-  border: `var(--border-width) solid ${token(
-    'color.border.accent.blue',
-    fallbackColor,
-  )}`,
-  borderRadius: 'var(--border-radius)',
-  userSelect: 'none',
+const itemIdStyles = xcss({
+  margin: '0',
 });
 
-const itemDisabledStyles = css({
-  background: token('color.background.disabled', fallbackColor),
+const itemContainerStyles = xcss({
+  padding: 'space.100',
+  borderWidth: 'border.width',
+  borderStyle: 'dashed',
+  borderColor: 'color.border',
 });
 
-const itemContentStyles = css({
+const itemContentStyles = xcss({
   display: 'flex',
+  flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  flexDirection: 'row',
+  padding: 'space.100',
+  userSelect: 'none',
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  borderColor: 'color.border.bold',
 });
 
-const itemIdStyles = css({
-  margin: 0,
-});
+const itemStateStyles = {
+  enabled: xcss({
+    backgroundColor: 'color.background.accent.green.subtlest',
+  }),
+  disabled: xcss({
+    backgroundColor: 'color.background.accent.red.subtlest',
+  }),
+  dragging: xcss({
+    opacity: 0.4,
+  }),
+};
 
 function Item({
   itemId,
@@ -46,76 +51,128 @@ function Item({
   itemId: string;
   children?: React.ReactElement | React.ReactElement[];
 }) {
-  const [isDragAllowed, setDragIsAllowed] = useState<boolean>(true);
-  const ref = useRef<HTMLDivElement | null>(null);
-
+  const [isDraggingAllowed, setIsDraggingAllowed] = useState<boolean>(true);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const ref = useRef<HTMLLabelElement | null>(null);
+  itemContentStyles;
   useEffect(() => {
     const element = ref.current;
     invariant(element);
     return draggable({
       element,
-      canDrag: () => isDragAllowed,
+      canDrag: () => isDraggingAllowed,
+      getInitialData: () => ({ itemId }),
+      onDragStart: () => setIsDragging(true),
+      onDrop: () => setIsDragging(false),
     });
-  }, [isDragAllowed]);
+  }, [itemId, isDraggingAllowed]);
 
   return (
-    <div
-      ref={ref}
-      css={[itemStyles, !isDragAllowed ? itemDisabledStyles : undefined]}
+    <Stack
+      xcss={[
+        itemContainerStyles,
+        isDraggingAllowed ? itemStateStyles.enabled : itemStateStyles.disabled,
+      ]}
+      space="space.050"
     >
-      <div css={itemContentStyles}>
-        <label>
+      <Box
+        as="label"
+        ref={ref}
+        xcss={[
+          itemContentStyles,
+          isDragging ? itemStateStyles.dragging : undefined,
+        ]}
+      >
+        <Inline space="space.050">
           <input
-            onChange={() => setDragIsAllowed(value => !value)}
+            onChange={() => setIsDraggingAllowed(value => !value)}
             type="checkbox"
-            checked={isDragAllowed}
+            checked={isDraggingAllowed}
           ></input>
           Dragging allowed?
-        </label>
-        <small css={itemIdStyles}>id: {itemId}</small>
-      </div>
-      {children}
-    </div>
+        </Inline>
+        <Box as="small" xcss={itemIdStyles}>
+          (id: {itemId})
+        </Box>
+      </Box>
+      {children ? <Stack space="space.050">{children}</Stack> : null}
+    </Stack>
   );
 }
 
-const dropTargetStyles = css({
+const dropTargetStyles = xcss({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  border: `var(--border-width) solid ${token(
-    'color.border.discovery',
-    fallbackColor,
-  )}`,
-  borderRadius: 'var(--border-radius)',
+  borderWidth: 'border.width',
+  borderColor: 'color.border.discovery',
+  borderStyle: 'solid',
+  backgroundColor: 'color.background.discovery',
+  transitionProperty: 'background-color, border-color',
+  transitionDuration: `${mediumDurationMs}ms`,
+  transitionTimingFunction: easeInOut,
 });
-function DropTarget() {
-  return <div css={dropTargetStyles}>Drop on me!</div>;
-}
 
-const rootStyles = css({
-  display: 'grid',
-  gap: 'calc(var(--grid) * 2)',
-  gridTemplateColumns: '1fr 1fr',
+const dropTargetIsOverStyles = xcss({
+  borderColor: 'color.border.accent.blue',
+  backgroundColor: 'color.background.selected.hovered',
 });
+
+function DropTarget() {
+  const [state, setState] = useState<'idle' | 'is-over'>('idle');
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [lastDropped, setLastDropped] = useState<string | null>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    invariant(element);
+    return dropTargetForElements({
+      element,
+      onDragStart: () => setState('idle'),
+      onDragEnter: () => setState('is-over'),
+      onDragLeave: () => setState('idle'),
+      onDrop: ({ source }) => {
+        setState('idle');
+
+        if (typeof source.data.itemId !== 'string') {
+          return;
+        }
+        setLastDropped(source.data.itemId);
+      },
+    });
+  }, []);
+  return (
+    <Box
+      xcss={[
+        dropTargetStyles,
+        state === 'is-over' ? dropTargetIsOverStyles : undefined,
+      ]}
+      ref={ref}
+    >
+      <Stack alignInline="center">
+        <strong>Drop on me!</strong>
+        <em>
+          Last dropped: <code>{lastDropped ?? 'none'}</code>
+        </em>
+      </Stack>
+    </Box>
+  );
+}
 
 export default function Example() {
   return (
-    <Fragment>
-      <GlobalStyles />
-      <div css={rootStyles}>
-        <Item itemId="1">
-          <Item itemId="1-1">
-            <Item itemId="1-1-1" />
-            <Item itemId="1-1-2" />
-          </Item>
-          <Item itemId="1-2">
-            <Item itemId="1-2-1" />
-            <Item itemId="1-2-2" />
-          </Item>
+    <Grid templateColumns="1fr 1fr" gap="space.100">
+      <Item itemId="1">
+        <Item itemId="1-1">
+          <Item itemId="1-1-1" />
+          <Item itemId="1-1-2" />
         </Item>
-        <DropTarget />
-      </div>
-    </Fragment>
+        <Item itemId="1-2">
+          <Item itemId="1-2-1" />
+          <Item itemId="1-2-2" />
+        </Item>
+      </Item>
+      <DropTarget />
+    </Grid>
   );
 }

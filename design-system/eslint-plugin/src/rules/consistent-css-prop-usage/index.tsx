@@ -23,6 +23,8 @@ import type { RuleConfig } from './types';
 type IdentifierWithParent = Scope.Reference['identifier'] &
   Rule.NodeParentExtension;
 
+type NodeWithParent = EslintNode & Rule.NodeParentExtension;
+
 type JSXAttributeWithParent = JSXAttribute & Rule.NodeParentExtension;
 
 type CssAttributeName = 'css' | 'xcss';
@@ -60,11 +62,30 @@ function findSpreadProperties(node: ES.ObjectExpression): ES.SpreadElement[] {
   );
 }
 
-const getProgramNode = (expression: any) => {
+const getProgramNode = (expression: NodeWithParent) => {
   while (expression.parent.type !== 'Program') {
     expression = expression.parent;
   }
   return expression.parent;
+};
+
+const isDeclaredInsideComponent = (expression: NodeWithParent) => {
+  // These nodes imply that there is a distinct own scope (function scope / block scope),
+  // and so the presence of them means that expression was not defined in the module scope.
+  const NOT_MODULE_SCOPE = [
+    'ArrowFunctionExpression',
+    'BlockStatement',
+    'ClassDeclaration',
+    'FunctionExpression',
+  ];
+  while (expression.type !== 'Program') {
+    if (NOT_MODULE_SCOPE.includes(expression.type)) {
+      return true;
+    }
+
+    expression = expression.parent;
+  }
+  return false;
 };
 
 class JSXExpressionLinter {
@@ -144,7 +165,7 @@ class JSXExpressionLinter {
       return;
     }
 
-    if (identifier.parent.parent.parent.type !== 'Program') {
+    if (isDeclaredInsideComponent(identifier)) {
       // When variable is declared inside the component
       this.context.report({
         node: sourceIdentifier,
@@ -153,7 +174,7 @@ class JSXExpressionLinter {
             ? 'cssAtBottomOfModule'
             : 'cssAtTopOfModule',
         fix: (fixer) => {
-          if (this.configuration.fixNamesOnly) {
+          if (!this.configuration.autoFix) {
             return [];
           }
 
@@ -187,7 +208,7 @@ class JSXExpressionLinter {
           node: identifier,
           messageId: 'cssObjectTypeOnly',
           fix: (fixer) => {
-            if (this.configuration.fixNamesOnly) {
+            if (!this.configuration.autoFix) {
               return [];
             }
 
@@ -392,8 +413,8 @@ class JSXExpressionLinter {
     const sourceCode = this.context.getSourceCode();
 
     // Get the program node in order to properly position the hoisted styles
-    const programNode = getProgramNode(node);
-    let fixerNodePlacement = programNode;
+    const programNode = getProgramNode(node as NodeWithParent);
+    let fixerNodePlacement: ES.Node = programNode;
 
     if (this.configuration.stylesPlacement === 'bottom') {
       // The last value is the bottom of the file
@@ -401,11 +422,11 @@ class JSXExpressionLinter {
     } else {
       // Place after the last ImportDeclaration
       fixerNodePlacement =
-        programNode.body.length === 1
+        (programNode.body.length === 1
           ? programNode.body[0]
           : programNode.body.find(
-              (node: Rule.Node) => node.type !== 'ImportDeclaration',
-            );
+              (node: ES.Node) => node.type !== 'ImportDeclaration',
+            )) ?? fixerNodePlacement;
     }
 
     let moduleString;
@@ -506,7 +527,7 @@ class JSXExpressionLinter {
               ? 'cssAtBottomOfModule'
               : 'cssAtTopOfModule',
           fix: (fixer) => {
-            if (this.configuration.fixNamesOnly) {
+            if (!this.configuration.autoFix) {
               return [];
             }
 
@@ -555,8 +576,7 @@ const defaultConfig: RuleConfig = {
   cssImportSource: CSS_IN_JS_IMPORTS.compiled,
   xcssImportSource: CSS_IN_JS_IMPORTS.atlaskitPrimitives,
   excludeReactComponents: false,
-  fixNamesOnly: false,
-  autoFixNames: true,
+  autoFix: true,
 };
 
 const rule = createLintRule({
@@ -577,7 +597,6 @@ const rule = createLintRule({
       cssInModule: `Imported styles should not be used; instead define in the module, import a component, or use a design token.`,
       cssArrayStylesOnly: `Compose styles with an array on the css prop instead of using object spread.`,
       noMemberExpressions: `Styles should be a regular variable (e.g. 'buttonStyles'), not a member of an object (e.g. 'myObject.styles').`,
-      shouldEndInStyles: 'Declared styles should end in "styles".',
     },
     schema: [
       {
@@ -604,10 +623,7 @@ const rule = createLintRule({
           excludeReactComponents: {
             type: 'boolean',
           },
-          autoFixNames: {
-            type: 'boolean',
-          },
-          fixNamesOnly: {
+          autoFix: {
             type: 'boolean',
           },
         },
@@ -622,65 +638,7 @@ const rule = createLintRule({
       context.options[0],
     );
 
-    const declarationSuffix = 'Styles';
-    const callSelectorFunctions = [...mergedConfig.cssFunctions, 'cssMap'];
-    const callSelector = callSelectorFunctions
-      .map((fn) => `CallExpression[callee.name=${fn}]`)
-      .join(',');
-
     return {
-      [callSelector]: (node: Rule.Node) => {
-        if (node.parent.type !== 'VariableDeclarator') {
-          // We aren't interested in these that don't have a parent.
-          return;
-        }
-
-        const identifier = node.parent.id;
-        if (
-          identifier.type === 'Identifier' &&
-          (identifier.name.endsWith(declarationSuffix) ||
-            identifier.name.startsWith(declarationSuffix.toLowerCase()) ||
-            identifier.name === declarationSuffix.toLowerCase())
-        ) {
-          // Already prefixed! Nothing to do.
-          return;
-        }
-
-        if (!mergedConfig.autoFixNames) {
-          return;
-        }
-
-        context.report({
-          node: identifier,
-          messageId: 'shouldEndInStyles',
-          fix: (fixer) => {
-            const identifierName =
-              identifier.type === 'Identifier' ? identifier.name : '';
-            const references: Scope.Scope['references'] =
-              context
-                .getScope()
-                .variables.find((varb) => varb.name === identifierName)
-                ?.references || [];
-
-            const newIdentifierName = `${identifierName
-              // Remove "Style" if it is already defined.
-              .replace(/Style$/, '')}${declarationSuffix}`;
-
-            return references
-              .filter((ref) => ref.identifier.name === identifierName)
-              .map((ref: any) => {
-                if (ref.identifier.parent && ref.identifier.parent.shorthand) {
-                  return fixer.replaceText(
-                    ref.identifier,
-                    `${identifierName}: ${newIdentifierName}`,
-                  );
-                }
-
-                return fixer.replaceText(ref.identifier, newIdentifierName);
-              });
-          },
-        });
-      },
       JSXAttribute(nodeOriginal: any) {
         const node = nodeOriginal as JSXAttributeWithParent;
         const { name, value } = node;

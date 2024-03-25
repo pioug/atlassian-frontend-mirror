@@ -5,16 +5,15 @@ import { render } from '@testing-library/react';
 import Button from '../../../old-button/button';
 
 it('should render a custom component if provided', () => {
-  const Custom = React.forwardRef(function Custom(
-    { children, ...rest },
-    ref: React.Ref<HTMLDivElement>,
-  ) {
-    return (
-      <div ref={ref} {...rest}>
-        {children} World
-      </div>
-    );
-  });
+  const Custom = React.forwardRef<HTMLDivElement, React.PropsWithChildren<{}>>(
+    function Custom({ children, ...rest }, ref) {
+      return (
+        <div ref={ref} {...rest}>
+          {children} World
+        </div>
+      );
+    },
+  );
 
   const { getByTestId } = render(
     <Button testId="button" component={Custom}>
@@ -51,5 +50,5 @@ it('should support having a custom component with extra strange props', () => {
   const button = getByTestId('button');
 
   expect(button.tagName.toLowerCase()).toBe('span');
-  expect(button.getAttribute('data-href')).toBe('http://google.com');
+  expect(button).toHaveAttribute('data-href', 'http://google.com');
 });

@@ -36,6 +36,7 @@ import { token } from '@atlaskit/tokens';
 import { Person } from '../../data/people';
 
 import {
+  dropHandledExternallyLocalStorageKey,
   externalCardMediaType,
   getCard,
   getCardDropTarget,
@@ -167,7 +168,12 @@ export const Card = memo(function Card({
             },
           });
         },
-        onDragStart: () => setState(draggingState),
+        onDragStart: () => {
+          setState(draggingState);
+
+          // resetting this whenever a drag starts
+          localStorage.removeItem(dropHandledExternallyLocalStorageKey);
+        },
         onDrop: () => setState(idleState),
       }),
       dropTargetForExternal({

@@ -6,5 +6,5 @@ import { token } from '@atlaskit/tokens';
 export const line = {
   borderRadius: 0,
   thickness: 2,
-  backgroundColor: token('color.border.selected', '#0c66e4'),
+  backgroundColor: token('color.border.selected'),
 };

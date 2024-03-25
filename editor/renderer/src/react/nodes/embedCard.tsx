@@ -43,7 +43,7 @@ const embedCardWrapperStyles = css({
 });
 
 const uIMediaSingleLayoutStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '50%',
   transform: 'translateX(-50%)',
 });

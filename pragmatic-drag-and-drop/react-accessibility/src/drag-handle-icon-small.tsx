@@ -10,7 +10,7 @@ import type { DragHandleIconProps } from './types';
 
 const iconSmallStyles = xcss({
   display: 'inline-flex',
-  marginInline: token('space.negative.050', '-4px'),
+  marginInline: token('space.negative.050'),
 });
 
 export function DragHandleIconSmall({ label }: DragHandleIconProps) {
@@ -19,7 +19,7 @@ export function DragHandleIconSmall({ label }: DragHandleIconProps) {
       <DragHandlerIcon
         label={label}
         size="small"
-        primaryColor={token('color.icon.subtle', '#626F86')}
+        primaryColor={token('color.icon.subtle')}
       />
     </Box>
   );

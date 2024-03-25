@@ -390,6 +390,98 @@ const exampleDocumentWithComments = {
       content: [
         {
           type: 'text',
+          text: 'The below node contain external media with just an annotation on the media node ',
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 760,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                annotationType: 'inlineComment',
+                id: '7053c566-db75-4605-b6b2-eca6a0cedff1',
+              },
+            },
+          ],
+          attrs: {
+            url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAyCAYAAADLLVz8AAAAWklEQVR42u3QMQEAAAQAMJIL5BVQB68twjKmKzhLgQIFChSIQIECBSJQoECBCBQoUCACBQoUiECBAgUiUKBAgQgUKFAgAgUKFIhAgQIFIlCgQIECBQoUKPCrBUAeXY/1wpUbAAAAAElFTkSuQmCC',
+            type: 'external',
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'The below Media contains an annotation mark on the file media node (which will always be loading) and on the caption',
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 334,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            width: 334,
+            alt: 'Screenshot 2024-02-23 at 1.14.43 PM.png',
+            id: '1de76526-ecf0-489d-9641-17532579f086',
+            collection: 'contentId-26738692',
+            type: 'file',
+            height: 188,
+          },
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                annotationType: 'inlineComment',
+                id: '965e2ef6-722b-479d-995a-e63fb5511dd3',
+              },
+            },
+          ],
+        },
+        {
+          type: 'caption',
+          content: [
+            {
+              text: 'This is a ',
+              type: 'text',
+              marks: [
+                {
+                  type: 'annotation',
+                  attrs: {
+                    annotationType: 'inlineComment',
+                    id: '53500c44-4f1e-41eb-b215-9ccfaaa79397',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
           text: 'End.',
         },
       ],

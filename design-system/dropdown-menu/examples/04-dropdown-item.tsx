@@ -5,13 +5,14 @@ import CheckIcon from '@atlaskit/icon/glyph/check';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
-const CustomComponent = forwardRef(
-  ({ children, ...props }, ref: React.Ref<HTMLAnchorElement>) => (
-    <a {...props} ref={ref}>
-      {children}
-    </a>
-  ),
-);
+const CustomComponent = forwardRef<
+  HTMLAnchorElement,
+  React.PropsWithChildren<{}>
+>(({ children, ...props }, ref) => (
+  <a {...props} ref={ref}>
+    {children}
+  </a>
+));
 
 export default () => (
   <DropdownMenu trigger="Filter cities">

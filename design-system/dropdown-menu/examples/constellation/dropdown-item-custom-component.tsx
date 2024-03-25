@@ -3,22 +3,24 @@ import React, { forwardRef } from 'react';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
-const CustomComponentLink = forwardRef(
-  ({ children, ...props }, ref: React.Ref<HTMLAnchorElement>) => (
-    <a {...props} ref={ref}>
-      {children}
-    </a>
-  ),
-);
+const CustomComponentLink = forwardRef<
+  HTMLAnchorElement,
+  React.PropsWithChildren<{}>
+>(({ children, ...props }, ref) => (
+  <a {...props} ref={ref}>
+    {children}
+  </a>
+));
 
 // CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
-const CustomComponentButton = forwardRef(
-  ({ children, ...props }, ref: React.Ref<HTMLButtonElement>) => (
-    <button type="button" {...props} ref={ref}>
-      {children}
-    </button>
-  ),
-);
+const CustomComponentButton = forwardRef<
+  HTMLButtonElement,
+  React.PropsWithChildren<{}>
+>(({ children, ...props }, ref) => (
+  <button type="button" {...props} ref={ref}>
+    {children}
+  </button>
+));
 
 const DropdownItemDescriptionExample = () => {
   return (

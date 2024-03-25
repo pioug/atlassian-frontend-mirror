@@ -62,9 +62,11 @@ export const counterStyle = (isSelected: boolean) =>
     fontSize: '11px',
     fontWeight: isSelected ? 700 : 400,
     paddingRight: '0px',
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
     marginTop: '5px',
     '> div': {
       width: '100%',
+      // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
       padding: '0px!important', //Counter component has its own styles overriding them to match designs
       color: isSelected
         ? `${token('color.text', B400)}!important`

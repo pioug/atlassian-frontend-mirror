@@ -35,9 +35,8 @@ export const EmptyViewWithFixedHeight: FC<EmptyViewWithFixedHeightProps> = ({
 
 const emptyViewContainerStyles = css({
   width: '50%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: 'auto',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
   textAlign: 'center',
 });

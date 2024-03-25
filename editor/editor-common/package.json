@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "78.20.0",
+  "version": "78.20.2",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -295,6 +295,9 @@
       "type": "boolean"
     },
     "platform.editor.ordered-list-auto-join-improvements_mrlv5": {
+      "type": "boolean"
+    },
+    "platform.editor.resizer.prevent-contenteditable": {
       "type": "boolean"
     },
     "platform.editor.a11y-floating-toolbar-markup_vexmo": {

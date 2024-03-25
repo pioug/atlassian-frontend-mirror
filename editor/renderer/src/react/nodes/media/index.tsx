@@ -132,6 +132,7 @@ const MediaAnnotation = ({
       // This should be fine being empty [] since the serializer serializeFragmentChild getMarkProps call always passes
       annotationParentIds={[]}
       allowAnnotations
+      useBlockLevel
     >
       {children}
     </AnnotationComponent>

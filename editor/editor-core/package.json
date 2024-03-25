@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.6.4",
+  "version": "193.6.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -169,8 +169,16 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
+    "platform.editor.a11y-table-resizing_uapcv": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
     "platform.editor.custom-table-width": {
       "type": "boolean"
+    },
+    "platform.editor.resizer.prevent-contenteditable": {
+      "type": "boolean",
+      "referenceOnly": "true"
     },
     "platform.editor.table-sticky-scrollbar": {
       "type": "boolean"

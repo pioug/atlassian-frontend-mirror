@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-flourish
 
+## 1.0.3
+
+### Patch Changes
+
+- [#84250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84250) [`a1cc31800621`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1cc31800621) - Internal refactor: now relying on automatic fallback insertion for `token()`. This change provides an improved experience for consumers who don't have Atlassian Design tokens enabled.
+
 ## 1.0.2
 
 ### Patch Changes

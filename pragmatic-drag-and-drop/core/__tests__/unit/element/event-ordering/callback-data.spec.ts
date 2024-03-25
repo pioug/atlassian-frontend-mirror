@@ -242,9 +242,6 @@ test('scenario: [A] -> [A] -> [] -> cancel', () => {
         dragHandle: null,
         element: draggableEl,
       },
-      drop: {
-        dropEffect: 'none',
-      },
     };
     expect(draggableOnDrop).toHaveBeenCalledWith(expected);
     expect(monitorOnDrop).toHaveBeenCalledWith(expected);
@@ -486,9 +483,6 @@ test('scenario: [A] -> [A] -> cancel', () => {
         data: draggableData,
         dragHandle: null,
         element: draggableEl,
-      },
-      drop: {
-        dropEffect: 'none',
       },
     };
     expect(draggableOnDrop).toHaveBeenCalledWith(expected);
@@ -735,9 +729,6 @@ test('scenario: [B, A] -> [A] -> drop', () => {
         dragHandle: null,
         element: draggableEl,
       },
-      drop: {
-        dropEffect: 'move',
-      },
     };
     expect(draggableOnDrop).toHaveBeenCalledWith(expected);
     expect(monitorOnDrop).toHaveBeenCalledWith(expected);
@@ -955,9 +946,6 @@ test('scenario: [A] -> [A] -> drop', () => {
         data: draggableData,
         dragHandle: null,
         element: draggableEl,
-      },
-      drop: {
-        dropEffect: 'move',
       },
     };
     expect(draggableOnDrop).toHaveBeenCalledWith(expected);

@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 1.1.2
+
+### Patch Changes
+
+- [#84047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84047) [`72a86ac4a940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72a86ac4a940) - Removing experimental `DropData` from `onDrop()`. Exposing the native `dropEffect` turned out to problematic, as you will always get a `"none"` drop effect if dropping externally if the original `draggable` was removed (a native `"dragend"` event is targetted at the original draggable). This made the weak signal of `dropEffect` for even weaker and more problematic. In order to not create footguns for folks, we have decided to remove this experimental API for now. We can explore adding the API back in the future if folks think it would be valuable.
+
 ## 1.1.1
 
 ### Patch Changes
@@ -14,19 +20,7 @@
 
 ### Minor Changes
 
-- [#82653](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82653) [`136d8da5542d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/136d8da5542d) - Adding additional information to `onDrop()` events to expose what the final `dropEffect` was for a drag operation.
-
-  ```ts
-  type DropData = {
-    dropEffect: DataTransfer['dropEffect'];
-  };
-
-  monitorForElements({
-    onDrop(payload) {
-      const drop: DropData = payload.drop;
-    },
-  });
-  ```
+- [#82653](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82653) [`136d8da5542d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/136d8da5542d) - _Experimental_: Adding additional information to `onDrop()` events to expose what the final `dropEffect` was for a drag operation (_now removed_)
 
   Fixing a bug where `preventUnhandled.start()` would prevent unhandled drag operations forever. It now only prevents unhandled drag operations for the current drag operation. `preventUnhandled.stop()` is now optional, as `preventUnhandled.start()` now tidies up itself. You can still leverage `preventUnhandled.stop()` to stop preventing unhandled drag operations during a drag.
 

@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import { useCallback, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { css, jsx } from '@emotion/react';
@@ -29,7 +30,7 @@ const styles = css({
   '> div': {
     alignItems: 'center',
     'button:focus-visible': {
-      outlineOffset: '-2px',
+      outlineOffset: token('space.negative.025', '-2px'),
     },
   },
 });

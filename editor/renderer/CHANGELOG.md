@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.10.7
+
+### Patch Changes
+
+- [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297) [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) - The internal composition of this component has changed. There is no expected change in behaviour.
+
+## 109.10.6
+
+### Patch Changes
+
+- [#84179](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84179) [`8bd86714a915`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8bd86714a915) - Fixed annotation highlight support for media elements by allow mark to be changed to a block level element
+
 ## 109.10.5
 
 ### Patch Changes

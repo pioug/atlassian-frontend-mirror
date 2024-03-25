@@ -7,19 +7,12 @@ import { Transition } from 'react-transition-group';
 import { transitionDurationMs, panelWidth } from './constants';
 import { RightSidePanelDrawer, RightSidePanelDrawerContent } from './styled';
 
-export const UNMOUNTED = 'unmounted';
-export const EXITED = 'exited';
-export const ENTERING = 'entering';
-export const ENTERED = 'entered';
-export const EXITING = 'exiting';
-
-export enum TransitionStatus {
-  UNMOUNTED = 'unmounted',
-  EXITED = 'exited',
-  ENTERING = 'entering',
-  ENTERED = 'entered',
-  EXITING = 'exiting',
-}
+export type TransitionStatus =
+  | 'unmounted'
+  | 'exiting'
+  | 'entering'
+  | 'entered'
+  | 'exited';
 
 export interface Props {
   // Open/Closed state

@@ -171,7 +171,7 @@ export const Wrapper = styled.div<WrapperProps>(
   {
     // We are keeping this margin as a hardcoded variable as it is not a standard token size and needs
     // to be thoroughly checked with a designer so that we do not miss an unintended visual change
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
     marginTop: '10px',
   },
 );

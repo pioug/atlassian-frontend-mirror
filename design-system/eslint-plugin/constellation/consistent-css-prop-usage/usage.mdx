@@ -16,7 +16,6 @@ This rule checks for the following cases:
 - Styles must be defined in the same file as their usage, and not be imported.
 - Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
 - Styles must all be defined at the top of the file, or at the bottom of the file.
-- Styles must be in a variable whose name ends in `styles` (or `Styles`).
 
 This rule also has an autofixer that enforces and fixes the code (where practical) to meet the above requirements.
 
@@ -81,7 +80,7 @@ function Button({ children }) {
 
 ### Correct
 
-**Using the css() function to create a style object that follows the naming convention (ends in Styles) and passing it as a variable into the css={...} JSX attribute.**
+**Using the css() function to create a style object and passing it as a variable into the css={...} JSX attribute.**
 
 With the following options turned on:
 
@@ -181,23 +180,8 @@ Whether to exclude `css` attributes of React components from being affected by t
 
 This is `false` by default.
 
-### autoFixNames
+### autoFix
 
-When set to `true`, this rule will _turn on_ an autofixer that adds `Styles` at the end of existing style variables.
-
-```tsx
-//    vvvvv will be renamed to `myCssStyles`
-const myCss = { color: 'blue' };
-```
-
-Note that when hoisting styles, the name of the newly created style variable follows its own naming scheme (`styles`, `styles_1`, `styles_2`, ...) and is not affected by the value of `autoFixNames`.
+When set to `true`, this rule will turn on the autofixer. Set this to `false` if you do not want the autofixers to run.
 
 This is `true` by default.
-
-### fixNamesOnly
-
-When set to `true`, this rule will _turn off_ all autofixers other than the autofixer adding `Styles` to the end of existing style variables (which is controlled by `autoFixNames`). In other words, styles will no longer be hoisted and styles will no longer be wrapped in a `css`/`xcss` function call.
-
-This is `false` by default.
-
-If `autoFixNames` is `false` and `fixNamesOnly` is `true`, all autofixers will be turned off.

@@ -210,6 +210,7 @@ export const emojiItem = css({
   },
   [`& .${placeholder}`]: {
     padding: token('space.0', '0px'),
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
     margin: '7px',
     minWidth: '24px',
     maxWidth: '24px',

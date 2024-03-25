@@ -37,4 +37,5 @@ export interface HyperlinkPluginOptions {
   platform?: 'mobile' | 'web';
   editorAppearance?: EditorAppearance;
   lpLinkPicker?: boolean;
+  disableFloatingToolbar?: boolean;
 }

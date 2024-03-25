@@ -188,6 +188,12 @@ interface BaseProps {
    * Defaults to `false`.
    */
   shouldDisableFocusLock?: boolean;
+
+  /**
+   * Controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
+   * Defaults to `fixed`
+   */
+  strategy?: 'absolute' | 'fixed';
 }
 
 export interface PopupProps extends BaseProps {

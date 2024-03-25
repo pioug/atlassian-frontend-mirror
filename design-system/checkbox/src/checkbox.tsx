@@ -65,7 +65,7 @@ const checkboxStyles = css({
       'color.border.focused',
       B200,
     )}`,
-    outlineOffset: '-2px',
+    outlineOffset: token('space.negative.025', '-2px'),
   },
   '&:hover + svg': {
     '--checkbox-background-color': 'var(--local-background-hover)',

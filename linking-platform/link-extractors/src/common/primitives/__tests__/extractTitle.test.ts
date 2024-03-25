@@ -13,6 +13,24 @@ describe('extractors.primitives.title', () => {
     expect(extractTitle(TEST_BASE_DATA)).toBe(TEST_NAME);
   });
 
+  it('removes line breaks from name in string', () => {
+    expect(
+      extractTitle({
+        ...TEST_BASE_DATA,
+        name: 'my\n\r name',
+      }),
+    ).toBe(TEST_NAME);
+  });
+
+  it('does not remove characters similar to line breaks from name in string', () => {
+    expect(
+      extractTitle({
+        ...TEST_BASE_DATA,
+        name: 'my \\name',
+      }),
+    ).toBe(`my \\name`);
+  });
+
   it('returns formatted title for commit', () => {
     expect(
       extractTitle({

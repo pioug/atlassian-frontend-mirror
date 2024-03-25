@@ -41,7 +41,7 @@
   "dependencies": {
     "@atlaskit/editor-common": "^78.20.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-hyperlink": "^1.1.0",
+    "@atlaskit/editor-plugin-hyperlink": "^1.2.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@babel/runtime": "^7.0.0",

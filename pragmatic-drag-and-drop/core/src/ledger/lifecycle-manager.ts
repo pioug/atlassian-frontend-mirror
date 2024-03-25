@@ -3,7 +3,6 @@ import { bindAll } from 'bind-event-listener';
 import {
   AllDragTypes,
   DragLocation,
-  DropData,
   DropTargetAPI,
   DropTargetRecord,
   EventPayloadMap,
@@ -136,7 +135,7 @@ function start<DragType extends AllDragTypes>({
     updateDropTargets({ dropTargets: nextDropTargets, input });
   }
 
-  function cancel(drop: DropData) {
+  function cancel() {
     // The spec behaviour is that when a drag is cancelled, or when dropping on no drop targets,
     // a "dragleave" event is fired on the active drop target before a "dragend" event.
     // We are replicating that behaviour in `cancel` if there are any active drop targets to
@@ -151,7 +150,6 @@ function start<DragType extends AllDragTypes>({
 
     dispatch.drop({
       current: state.current,
-      drop,
       updatedSourcePayload: null,
     });
 
@@ -248,9 +246,7 @@ function start<DragType extends AllDragTypes>({
           updateDropTargets({ input: state.current.input, dropTargets: [] });
 
           if (dragType.startedFrom === 'external') {
-            cancel({
-              dropEffect: 'none',
-            });
+            cancel();
           }
         },
       },
@@ -268,11 +264,6 @@ function start<DragType extends AllDragTypes>({
 
           dispatch.drop({
             current: state.current,
-            drop: {
-              // At this point the dropEffect has been set on the event
-              // (if we have set it), so we can read it from there
-              dropEffect: event.dataTransfer?.dropEffect ?? 'none',
-            },
             // When dropping something native, we need to extract the latest
             // `.items` from the "drop" event as it is now accessible
             updatedSourcePayload:
@@ -301,15 +292,7 @@ function start<DragType extends AllDragTypes>({
         // as we will have already removed the event listener
         type: 'dragend',
         listener(event: DragEvent) {
-          // The `dropEffect` will be:
-          // - "none" if dropped on no drop targets
-          // - "none" if cancelled locally
-          // - "none" if cancelled externally
-          // - "none" if `preventUnhandled` is used (and there is no drop target)
-          // - [not "none"] if accepted externally
-          cancel({
-            dropEffect: event.dataTransfer?.dropEffect ?? 'none',
-          });
+          cancel();
 
           // Applying this fix after `dispatch.drop` so that frameworks have the opportunity
           // to update UI in response to a "onDrop".
@@ -319,7 +302,7 @@ function start<DragType extends AllDragTypes>({
         },
       },
       ...getBindingsForBrokenDrags({
-        onDragEnd: () => cancel({ dropEffect: 'none' }),
+        onDragEnd: cancel,
       }),
     ],
     // Once we have started a managed drag operation it is important that we see / own all drag events

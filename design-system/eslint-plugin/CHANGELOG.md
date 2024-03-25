@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.0.0
+
+### Major Changes
+
+- [#83454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83454) [`be8b7ad6ff8e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be8b7ad6ff8e) - Remove name autofixer from `consistent-css-prop-usage`. Variables for css / xcss / cssMap functions will no longer be required to end with "Styles".
+
+  [BREAKING] Some rule options have been changed:
+
+  - `fixNamesOnly` and `autoFixNames` have been removed, as there is no longer an autofixer that enforces variable names.
+    - If you use `fixNamesOnly: true`, we recommend switching to using `autoFix: false`.
+    - Users of the `autoFixNames` option should remove this from their configuration.
+  - `autoFix` option has been added. This controls whether the remaining autofixers should run or not (e.g. hoisting `css` function calls, wrapping objects in `css` function calls), and is `true` by default.
+
 ## 8.38.0
 
 ### Minor Changes

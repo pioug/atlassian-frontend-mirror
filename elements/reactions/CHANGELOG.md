@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.5.12
+
+### Patch Changes
+
+- [#83297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83297) [`6b1707c169e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b1707c169e0) - The internal composition of this component has changed. There is no expected change in behaviour.
+
 ## 22.5.11
 
 ### Patch Changes

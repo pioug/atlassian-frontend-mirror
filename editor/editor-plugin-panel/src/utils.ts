@@ -52,6 +52,7 @@ export const panelAttrsToDom = (
   let panelAttrs: DomPanelAtrrs = {
     class: PanelSharedCssClassName.prefix,
     'data-panel-type': panelType || PanelType.INFO,
+    'data-testid': 'panel-node-view',
     style,
   };
   if (panelColor && isCustomPanel) {

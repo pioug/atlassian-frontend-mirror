@@ -6,6 +6,5 @@ export type RuleConfig = {
   cssImportSource: ImportSource;
   xcssImportSource: ImportSource;
   excludeReactComponents: boolean;
-  autoFixNames: boolean;
-  fixNamesOnly: boolean;
+  autoFix: boolean;
 };

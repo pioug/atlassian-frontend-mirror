@@ -27,6 +27,7 @@ import {
 
 import { Card } from './card';
 import {
+  dropHandledExternallyLocalStorageKey,
   externalCardMediaType,
   getColumnDropTarget,
   isCard,
@@ -160,7 +161,7 @@ export function Column({ columnId }: { columnId: string }) {
     return combine(
       monitorForElements({
         canMonitor: isHomeColumn,
-        onDrop({ source, location, drop }) {
+        onDrop({ source, location }) {
           const data = source.data;
           if (!isCard(data)) {
             return;
@@ -171,17 +172,17 @@ export function Column({ columnId }: { columnId: string }) {
             return;
           }
 
-          if (drop.dropEffect === 'none') {
+          const cardId = localStorage.getItem(
+            dropHandledExternallyLocalStorageKey,
+          );
+          if (!cardId) {
             return;
           }
 
-          // if there are no drop targets, and there
-          // is a drop effect, then we know this drag
-          // was handled elsewhere (but we don't know by what)
-          // For this example, we are using it as a weak signal that
-          // the drag was handled by another column.
-          // For a production application, we would need to create a side channel
-          // (eg local storage, web socket etc) to communicate more completely
+          if (cardId !== data.cardId) {
+            return;
+          }
+
           const newItems = items.filter(item => item.userId !== data.cardId);
           setItems(newItems);
         },
@@ -215,6 +216,17 @@ export function Column({ columnId }: { columnId: string }) {
           }
 
           const dropTargetData = innerMost.data;
+
+          function update(newItems: Person[]) {
+            setItems(newItems);
+
+            // put a signal in local storage that this drag was handled
+            localStorage.setItem(
+              dropHandledExternallyLocalStorageKey,
+              person.userId,
+            );
+          }
+
           // dropped on a card: swap as needed
           if (isCardDropTarget(dropTargetData)) {
             const closestEdge = extractClosestEdge(dropTargetData);
@@ -230,9 +242,8 @@ export function Column({ columnId }: { columnId: string }) {
 
             const newItems = Array.from(items);
             newItems.splice(newIndex, 0, person);
-            console.log({ newItems });
 
-            setItems(newItems);
+            update(newItems);
             return;
           }
 
@@ -242,7 +253,7 @@ export function Column({ columnId }: { columnId: string }) {
 
             const newItems = [...items, person];
 
-            setItems(newItems);
+            update(newItems);
             return;
           }
         },
@@ -254,7 +265,9 @@ export function Column({ columnId }: { columnId: string }) {
         getIsSticky: () => true,
         onDragEnter: () => setState(isCardOver),
         onDragLeave: () => setState(idle),
-        onDragStart: () => setState(isCardOver),
+        onDragStart: () => {
+          setState(isCardOver);
+        },
         onDrop: ({ source, location }) => {
           setState(idle);
 

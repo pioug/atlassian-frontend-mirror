@@ -9,7 +9,7 @@ import { extractType } from './extractType';
 export const extractTitle = (
   jsonLd: JsonLd.Data.BaseData,
 ): string | undefined => {
-  const name = jsonLd.name;
+  const name = jsonLd.name?.replace(/[\r\n]+/g, '');
   const id = jsonLd['@id'] || '';
 
   // Check if this is a reference to something _inside_ a Repository.

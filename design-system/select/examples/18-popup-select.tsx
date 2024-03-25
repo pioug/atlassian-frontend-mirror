@@ -55,6 +55,7 @@ const PopupSelectExample = () => (
             Target1
           </Button>
         )}
+        popperProps={{ strategy: 'fixed' }}
         testId="select-for-testing"
       />
       <PopupSelect
@@ -98,6 +99,7 @@ const PopupSelectExample = () => (
               Target3
             </Button>
           )}
+          popperProps={{ strategy: 'fixed' }}
         />
         <div style={{ height: 1000 }} />
       </div>
@@ -112,6 +114,7 @@ const PopupSelectExample = () => (
               label="switcher"
             />
           )}
+          popperProps={{ strategy: 'fixed' }}
         />
       </div>
     </div>

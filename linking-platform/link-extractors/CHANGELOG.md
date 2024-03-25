@@ -1,5 +1,11 @@
 # @atlaskit/link-extractors
 
+## 1.2.4
+
+### Patch Changes
+
+- [#81411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81411) [`a5aef2090149`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5aef2090149) - Line breaks are now removed from extracted link titles
+
 ## 1.2.3
 
 ### Patch Changes

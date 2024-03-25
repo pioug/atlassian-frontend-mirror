@@ -4,11 +4,23 @@ order: 0
 
 import SectionMessage from '@atlaskit/section-message';
 
-The **core package** of Pragmatic drag and drop includes all the essential building blocks for any drag and drop experience. The **core package** is vanillaJS library (authored in TypeScript) that can be used with any view library (eg `react`, `svelt`, `vue` etc).
+The **core package** of Pragmatic drag and drop includes all the essential building blocks for any drag and drop experience. The **core package** is vanillaJS library (authored in TypeScript) that can be used with any view library (eg `react`, `svelte`, `vue` etc).
 
-Pragmatic drag and drop is optimised for performance. A key way this is achieved is by only requiring you include the code you actually use for your experience. Within the **core package**, there are many optional pieces, which are seperated into their own entry points (for example `@atlaskit/pragmatic-drag-and-drop/element/adapter`).
+```bash
+# install the core package
+yarn add @atlaskit/pragmatic-drag-and-drop
+```
 
-You can use our [optional packages](./optional-packages) to streamline the building of your experiences if you want to. Some of these optional packages are tied to specific view technologies (eg `@atlaskit/pragmatic-drag-and-drop-react-drop-indicator` uses `react` for rendering and `emotion` for styling), and those dependencies are made clear in the packages documentation. Where possible, packages don't have any dependency on a view technology (eg `@atlaskit/pragmatic-drag-and-drop-hitbox` for hitbox information).
+Pragmatic drag and drop is optimised for performance. A key way this is achieved is by only requiring you include the code you actually use for your experience. Within the **core package**, there are many optional pieces, which are separated into their own entry points
+
+For example:
+
+- [The element adapter](./adapters/element): `/element/adapter` (`@atlaskit/pragmatic-drag-and-drop/element/adapter`)
+- [An array reordering utility](./utilities): `/reorder` (`atlaskit/pragmatic-drag-and-drop/reorder`)
+
+And many more!
+
+You can also use our [optional packages](./optional-packages) to streamline the building of your experiences if you want to. Some of these optional packages are tied to specific view technologies (eg `@atlaskit/pragmatic-drag-and-drop-react-drop-indicator` uses `react` for rendering and `emotion` for styling), and those dependencies are made clear in the packages documentation. Where possible, packages don't have any dependency on a view technology (eg `@atlaskit/pragmatic-drag-and-drop-hitbox` for hitbox information).
 
 <SectionMessage appearance="success">
 

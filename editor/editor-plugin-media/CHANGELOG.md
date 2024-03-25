@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 1.12.2
+
+### Patch Changes
+
+- [#83306](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83306) [`7f90ec235c28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f90ec235c28) - [ux] Disable MediaSingle resizing when Editor in disabled or view mode states
+
 ## 1.12.1
 
 ### Patch Changes

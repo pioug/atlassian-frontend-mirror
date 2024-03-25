@@ -12,6 +12,19 @@ const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles>();
 
 export { css, cssMap, cx, XCSSAllProperties, XCSSAllPseudos };
 
+// This is to mitigate local TS error TS2315: Type 'StrictXCSSProp' is not generic.
+// Currently for some reason tsc is generating malformed .d.ts in local dev environment, below change fixes it
+type LocalXCSSProp<
+  TAllowedProperties extends keyof StrictCSSProperties,
+  TAllowedPseudos extends CSSPseudos,
+  TRequiredProperties extends {
+    requiredProperties: TAllowedProperties;
+    requiredPseudos: TAllowedPseudos;
+  } = never,
+> = ReturnType<
+  typeof XCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>
+>;
+
 /**
  * ## StrictXCSSProp
  *
@@ -78,6 +91,4 @@ export type StrictXCSSProp<
     requiredProperties: TAllowedProperties;
     requiredPseudos: TAllowedPseudos;
   } = never,
-> = ReturnType<
-  typeof XCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>
->;
+> = LocalXCSSProp<TAllowedProperties, TAllowedPseudos, TRequiredProperties>;

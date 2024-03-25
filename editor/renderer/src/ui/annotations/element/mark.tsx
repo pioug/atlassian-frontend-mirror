@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import type { MouseEvent } from 'react';
-import React, { useMemo, useCallback } from 'react';
+import type React from 'react';
+import { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
@@ -28,13 +29,17 @@ const markStyles = () => css`
     &[data-has-focus='true'] {
       ${AnnotationSharedCSSByState().focus};
     }
-
-    & div.media-file-card-view {
-      ${mediaAnnotationStyles};
-      z-index: -1;
-    }
   }
 `;
+
+const blockStyles = () =>
+  css({
+    color: 'inherit',
+    backgroundColor: 'unset',
+    WebkitTapHighlightColor: 'transparent',
+    [`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]:
+      mediaAnnotationStyles,
+  });
 
 type MarkComponentProps = {
   id: AnnotationId;
@@ -43,6 +48,7 @@ type MarkComponentProps = {
   state: AnnotationMarkStates | null;
   hasFocus: boolean;
   onClick: (props: OnAnnotationClickPayload) => void;
+  useBlockLevel?: boolean;
 };
 export const MarkComponent = ({
   annotationParentIds,
@@ -52,6 +58,7 @@ export const MarkComponent = ({
   state,
   hasFocus,
   onClick,
+  useBlockLevel,
 }: React.PropsWithChildren<MarkComponentProps>) => {
   const annotationIds = useMemo(
     () => [...new Set([...annotationParentIds, id])],
@@ -91,27 +98,17 @@ export const MarkComponent = ({
           'aria-details': annotationIds.join(', '),
         };
 
-  return getBooleanFF(
-    'platform.editor.allow-inline-comments-for-inline-nodes',
-  ) ? (
-    <mark
-      id={id}
-      onClickCapture={onMarkClick}
-      {...accessibility}
-      {...overriddenData}
-      css={markStyles}
-    >
-      {children}
-    </mark>
-  ) : (
-    <mark
-      id={id}
-      onClick={onMarkClick}
-      {...accessibility}
-      {...overriddenData}
-      css={markStyles}
-    >
-      {children}
-    </mark>
+  return jsx(
+    useBlockLevel ? 'div' : 'mark',
+    {
+      id,
+      [getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+        ? 'onClickCapture'
+        : 'onClick']: onMarkClick,
+      ...accessibility,
+      ...overriddenData,
+      css: useBlockLevel ? blockStyles : markStyles,
+    },
+    children,
   );
 };

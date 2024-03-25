@@ -31,7 +31,7 @@ type DropIndicatorProps = {
 const scrollMarginTop = lineThickness + 2 * lineOffset;
 
 const baseStyles = css({
-  background: token('color.border.brand', '#0C66E4'),
+  background: token('color.border.brand'),
   /**
    * Ensures that when the indicator is scrolled into view there is visual
    * space around it.

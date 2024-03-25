@@ -120,6 +120,10 @@ function LazyDropdownItems({ userId }: { userId: string }) {
   const numCards = getNumCards();
   const startIndex = getCardIndex(userId);
 
+  const moveToTop = useCallback(() => {
+    reorderCard({ columnId, startIndex, finishIndex: 0 });
+  }, [columnId, reorderCard, startIndex]);
+
   const moveUp = useCallback(() => {
     reorderCard({ columnId, startIndex, finishIndex: startIndex - 1 });
   }, [columnId, reorderCard, startIndex]);
@@ -127,6 +131,10 @@ function LazyDropdownItems({ userId }: { userId: string }) {
   const moveDown = useCallback(() => {
     reorderCard({ columnId, startIndex, finishIndex: startIndex + 1 });
   }, [columnId, reorderCard, startIndex]);
+
+  const moveToBottom = useCallback(() => {
+    reorderCard({ columnId, startIndex, finishIndex: numCards - 1 });
+  }, [columnId, reorderCard, startIndex, numCards]);
 
   const isMoveUpDisabled = startIndex === 0;
   const isMoveDownDisabled = startIndex === numCards - 1;
@@ -138,11 +146,17 @@ function LazyDropdownItems({ userId }: { userId: string }) {
   return (
     <Fragment>
       <DropdownItemGroup title="Reorder">
+        <DropdownItem onClick={moveToTop} isDisabled={isMoveUpDisabled}>
+          Move to top
+        </DropdownItem>
         <DropdownItem onClick={moveUp} isDisabled={isMoveUpDisabled}>
           Move up
         </DropdownItem>
         <DropdownItem onClick={moveDown} isDisabled={isMoveDownDisabled}>
           Move down
+        </DropdownItem>
+        <DropdownItem onClick={moveToBottom} isDisabled={isMoveDownDisabled}>
+          Move to bottom
         </DropdownItem>
       </DropdownItemGroup>
       <DropdownItemGroup title="Move to">

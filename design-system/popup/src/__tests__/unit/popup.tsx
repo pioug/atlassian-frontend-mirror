@@ -559,4 +559,25 @@ describe('Popup', () => {
     expect(screen.getByText('content')).toBeInTheDocument();
     expect(triggerParent).not.toContainElement(popupEl);
   });
+
+  it('popup renders position fixed by default', () => {
+    render(<Popup {...defaultProps} isOpen />);
+    const popupEl = screen.getByText('content');
+    const popupParent = popupEl.parentElement as HTMLElement;
+    expect(popupParent).toHaveStyle('position: fixed');
+  });
+
+  it('popup renders position absolute when specified', () => {
+    render(<Popup {...defaultProps} isOpen strategy="absolute" />);
+    const popupEl = screen.getByText('content');
+    const popupParent = popupEl.parentElement as HTMLElement;
+    expect(popupParent).toHaveStyle('position: absolute');
+  });
+
+  it('popup renders position fixed when specified', () => {
+    render(<Popup {...defaultProps} isOpen strategy="fixed" />);
+    const popupEl = screen.getByText('content');
+    const popupParent = popupEl.parentElement as HTMLElement;
+    expect(popupParent).toHaveStyle('position: fixed');
+  });
 });

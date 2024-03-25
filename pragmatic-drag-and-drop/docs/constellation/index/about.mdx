@@ -13,7 +13,13 @@ Pragmatic drag and drop is a **performance focused drag and drop library** that 
 
 <Example Component={BoardExample} appearance="showcase-only" />
 
-## About
+## Get started
+
+- Check out our [examples](./examples) to be inspired
+- Head over to our [tutorial](./tutorial) to learn about all the pieces
+- Grab the [core package](./core-package) and start building!
+
+## Capabilities
 
 Pragmatic drag and drop consists of a few high level pieces:
 
@@ -27,10 +33,10 @@ These pieces are unopinionated about visual language or accessibility, and have 
 - _Incremental_: Only use the pieces that you need
 - _Headless_: Full rendering and style control
 - _Framework agnostic_: Works with any frontend framework
-- _Deferred compatible_: Delay the loading of Pragmatic drag and drop (and related packages) in order to further improve page load speeds
+- _Deferred compatible_: Delay the loading the core packages and optional packages in order to further improve page load speeds
 - _Flexible_: create any experience you want, make any changes you want during a drag operation.
-- _Works everywhere_: Full feature support in Firefox, Safari, and Chrome and iOS (Android coming soon)
-- _Virtualization support_
+- _Works everywhere_: Full feature support in Firefox, Safari, and Chrome, iOS and Android
+- _Virtualization support_: create any virtual experience you want!
 
 2. **Optional visual outputs**
 
@@ -42,32 +48,15 @@ Not all users can achieve pointer based drag and drop experiences. In order to a
 
 The optional assistive controls we provide are based on the Atlassian Design System. If you do not want to use the Atlassian Design System, you can use our guidelines and substitute our components with your own components, or you can go about accessibility in a different way if you choose.
 
-## Supported experiences and features
-
-Pragmatic drag and drop can power **any drag and drop experience on the web**, including:
-
-- lists
-- boards
-- trees
-- grid / mosaic reordering
-- table column reordering
-- table row reordering
-- drawing
-- resizing
-- file dropping
-- dragging between windows (experimental)
-
-See [more examples](/components/pragmatic-drag-and-drop/examples).
-
 <details>
     <summary>Detailed capabilities</summary>
 
-- Supports dragging of different entity types (such as elements, text, images, external files)
-- Nested drop targets (elements that can be dropped on)
+- Supports dragging of any entity types (such as elements, text, images, external files)
+- Any nested configuration of drop targets you like
 - Flexible drop target sizes
-- Can add, remove, or change _drop targets_ while dragging
+- Can add, remove, or change drop targets while dragging
 - Conditional dropping
-- Auto scrolling
+- Automatic scrolling
 - Stickiness: a drop target can maintain selection even after it is no longer being dragged over
 - [`dropEffect`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer/dropEffect) control
 - High frequency input updates to power high fidelity interactions
@@ -80,17 +69,12 @@ See [more examples](/components/pragmatic-drag-and-drop/examples).
 - Flexible `draggable` sizes
 - Many options to customize the appearance of the _drag preview_ (the thing that a user drags around during a drag)
 - Can add, remove, or change `draggables` while dragging (even the dragging `draggable`)
-- Supports virtual list usage for extreme performance
-- An element can be a _drop target_, `draggable` or both
-- An element can be a _drop target_ for different entities (eg `dropTargetForElements` and `dropTargetForExternal`)
+- An element can be a drop target, `draggable` or both
+- An element can be a drop target for different entities (eg `dropTargetForElements` and `dropTargetForExternal`)
 
 </details>
 
-## Get started
-
-Head on over to our [getting started page](/components/pragmatic-drag-and-drop/getting-started)
-
-## How it works under the hood
+## How it works
 
 A technical explanation of how Pragmatic drag and drop is architected for speed
 

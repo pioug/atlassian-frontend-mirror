@@ -7,9 +7,6 @@ import type { DragHandleIconProps } from './types';
 
 export function DragHandleIcon({ label }: DragHandleIconProps) {
   return (
-    <DragHandlerIcon
-      label={label}
-      primaryColor={token('color.icon.subtle', '#626F86')}
-    />
+    <DragHandlerIcon label={label} primaryColor={token('color.icon.subtle')} />
   );
 }

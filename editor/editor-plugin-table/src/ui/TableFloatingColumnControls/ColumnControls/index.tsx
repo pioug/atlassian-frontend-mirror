@@ -198,6 +198,7 @@ export const ColumnControls = ({
 
     return (
       <div
+        contentEditable={false}
         key={type}
         style={{
           gridColumn,

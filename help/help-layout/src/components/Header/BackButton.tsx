@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../messages';
 
-import { TRANSITION_DURATION_MS, TRANSITION_STATUS } from '../constants';
+import { TRANSITION_DURATION_MS, type TransitionStatus } from '../constants';
 
 import { BackButtonContainer } from './styled';
 
@@ -62,7 +62,7 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
       mountOnEnter
       unmountOnExit
     >
-      {(state: TRANSITION_STATUS) => (
+      {(state: TransitionStatus) => (
         <BackButtonContainer
           style={{
             ...defaultStyle,

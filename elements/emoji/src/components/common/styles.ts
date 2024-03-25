@@ -208,6 +208,7 @@ export const previewText = css({
   flexDirection: 'column',
   alignSelf: 'center',
   marginTop: token('space.negative.025', '-2px'),
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '10px',
   maxWidth: '285px',
   width: '285px' /* IE */,
@@ -247,6 +248,7 @@ export const preview = css({
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'nowrap',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
   height: '32px',
   alignItems: 'center',
@@ -290,6 +292,7 @@ export const emojiScrollable = css({
 
 export const emojiUpload = css({
   height: '78px',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
   display: 'flex',
   flexDirection: 'column',
@@ -297,6 +300,7 @@ export const emojiUpload = css({
 });
 
 export const emojiUploadTop = css({
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingBottom: '7px',
   display: 'flex',
   justifyContent: 'space-between',
@@ -321,11 +325,13 @@ export const emojiUploadBottom = css({
 export const uploadChooseFileRow = css({
   display: 'flex',
   justifyContent: 'space-between',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingBottom: '7px',
 });
 
 export const uploadChooseFileEmojiName = css({
   flex: '1 1 auto',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginRight: '5px',
   input: {
     background: 'transparent',
@@ -349,6 +355,7 @@ export const uploadPreviewFooter = css({
   display: 'flex',
   flexDirection: 'column',
   height: '100px',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
 });
 
@@ -358,6 +365,7 @@ export const uploadPreview = css({
   alignItems: 'center',
   background: token('color.background.neutral', N20),
   borderRadius: token('border.radius.100', '3px'),
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
 });
 
@@ -385,12 +393,15 @@ export const uploadAddRow = css({
   display: 'flex',
   justifyContent: 'flex-end',
   alignItems: 'center',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingTop: '10px',
 });
 
 export const addCustomEmoji = css({
   alignSelf: 'center',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '10px',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginBottom: '10px',
 });
 
@@ -400,6 +411,7 @@ export const submitDelete = 'emoji-submit-delete';
 
 export const deletePreview = css({
   height: '100px',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   padding: '10px',
   display: 'flex',
   flexDirection: 'column',
@@ -469,6 +481,7 @@ export const emojiDeleteErrorMessage = css({
 export const emojiChooseFileErrorMessage = css({
   display: 'flex',
   color: token('color.text.danger', R300),
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingRight: '10px',
   justifyContent: 'flex-start',
 });
@@ -476,6 +489,7 @@ export const emojiChooseFileErrorMessage = css({
 export const emojiPreviewErrorMessage = css({
   display: 'inline-flex',
   color: token('color.text.danger', R400),
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingRight: '10px',
   justifyContent: 'flex-end',
   alignItems: 'center',
@@ -510,7 +524,9 @@ export const cancelButton = css({
 });
 
 export const buttonSpinner = css({
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginRight: '10px',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '10px',
 });
 

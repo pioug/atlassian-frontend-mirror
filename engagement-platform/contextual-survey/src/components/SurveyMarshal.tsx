@@ -8,7 +8,12 @@ import { layers } from '@atlaskit/theme/constants';
 
 import { surveyInnerWidth, surveyOffset } from '../constants';
 
-type TransitionState = 'entering' | 'entered' | 'exiting' | 'exited';
+type TransitionState =
+  | 'entering'
+  | 'entered'
+  | 'exiting'
+  | 'exited'
+  | 'unmounted';
 
 const animationDuration: number = 300;
 const offscreen = {
@@ -18,16 +23,14 @@ const offscreen = {
 
 const getAnimationProps = (state: TransitionState) => {
   switch (state) {
-    case 'entering': {
-      return offscreen;
-    }
     case 'entered': {
       return {
         translateX: '0',
         opacity: '1',
       };
     }
-
+    case 'entering':
+    case 'unmounted':
     case 'exited':
     case 'exiting': {
       return offscreen;
@@ -55,16 +58,16 @@ export default function SurveyMarshal(props: Props) {
 
         return (
           <div
-            css={css`
-              position: fixed;
-              right: ${surveyOffset}px;
-              bottom: ${surveyOffset}px;
-              z-index: ${layers.flag()};
-              transform: translateX(${translateX});
-              opacity: ${opacity};
-              transition: all ${animationDuration}ms ease-in-out;
-              transition-property: transform, opacity;
-            `}
+            css={css({
+              position: 'fixed',
+              right: `${surveyOffset}px`,
+              bottom: `${surveyOffset}px`,
+              zIndex: layers.flag(),
+              transform: `translateX(${translateX})`,
+              opacity: opacity,
+              transition: `all ${animationDuration}ms ease-in-out`,
+              transitionProperty: 'transform, opacity',
+            })}
           >
             {children()}
           </div>

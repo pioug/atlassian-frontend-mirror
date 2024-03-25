@@ -16,6 +16,7 @@ import classnames from 'classnames';
 import type { HandleComponent, ResizeDirection } from 're-resizable';
 import { Resizable } from 're-resizable';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip';
@@ -117,6 +118,16 @@ type forwardRefType = {
 };
 
 const SUPPORTED_HANDLES: ['left', 'right'] = ['left', 'right'];
+
+const inheritedCSS: CSSProperties = {
+  position: 'inherit',
+  height: 'inherit',
+  width: 'inherit',
+  display: 'inherit',
+  flexDirection: 'inherit',
+  justifyContent: 'inherit',
+  alignItems: 'inherit',
+};
 
 const ResizerNext: ForwardRefRenderFunction<
   forwardRefType,
@@ -299,38 +310,85 @@ const ResizerNext: ForwardRefRenderFunction<
         };
       }
 
-      const thumbWithTrack = (
-        //It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
-        <>
-          {thumb}
-          <div
-            className={classnames(resizerHandleTrackClassName, handleHighlight)}
-            data-testid={`resizer-handle-${position}-track`}
-          />
-        </>
-      );
+      if (getBooleanFF('platform.editor.resizer.prevent-contenteditable')) {
+        const thumbWithTrack = (
+          //It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
+          <>
+            {thumb}
+            <div
+              className={classnames(
+                resizerHandleTrackClassName,
+                handleHighlight,
+              )}
+              data-testid={`resizer-handle-${position}-track`}
+            />
+          </>
+        );
 
-      if (!!handleTooltipContent) {
+        if (!!handleTooltipContent) {
+          return {
+            ...result,
+            [position]: (
+              <div contentEditable={false} style={inheritedCSS}>
+                <Tooltip
+                  content={handleTooltipContent}
+                  hideTooltipOnClick
+                  position="mouse"
+                  mousePosition="auto-start"
+                  testId={`resizer-handle-${position}-tooltip`}
+                >
+                  {thumbWithTrack}
+                </Tooltip>
+              </div>
+            ),
+          };
+        }
+
         return {
           ...result,
           [position]: (
-            <Tooltip
-              content={handleTooltipContent}
-              hideTooltipOnClick
-              position="mouse"
-              mousePosition="auto-start"
-              testId={`resizer-handle-${position}-tooltip`}
-            >
+            <div contentEditable={false} style={inheritedCSS}>
               {thumbWithTrack}
-            </Tooltip>
+            </div>
           ),
         };
-      }
+      } else {
+        const thumbWithTrack = (
+          //It's important to have {thumb} element before the div, the thumb element is the one that gets focus and only the 1st element recives aria-descibedby attribute which is important for screen reader users
+          <>
+            {thumb}
+            <div
+              className={classnames(
+                resizerHandleTrackClassName,
+                handleHighlight,
+              )}
+              data-testid={`resizer-handle-${position}-track`}
+            />
+          </>
+        );
 
-      return {
-        ...result,
-        [position]: thumbWithTrack,
-      };
+        if (!!handleTooltipContent) {
+          return {
+            ...result,
+            [position]: (
+              <Tooltip
+                content={handleTooltipContent}
+                hideTooltipOnClick
+                position="mouse"
+                mousePosition="auto-start"
+                testId={`resizer-handle-${position}-tooltip`}
+              >
+                {thumbWithTrack}
+              </Tooltip>
+            ),
+          };
+        }
+
+        return {
+          ...result,
+          [position]: thumbWithTrack,
+        };
+      }
     }, {});
   }, [handleHighlight, handleTooltipContent]);
 

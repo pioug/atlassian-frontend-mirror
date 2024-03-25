@@ -27,9 +27,9 @@ describe('withMediaAnalyticsContext()', () => {
         createAnalyticsEvent,
       );
 
-    const MediaComponentFiringAnalyticsEvent: React.FC<
-      ContextStaticProps & WithAnalyticsEventsProps
-    > = ({ createAnalyticsEvent }) => {
+    const MediaComponentFiringAnalyticsEvent = ({
+      createAnalyticsEvent,
+    }: ContextStaticProps & WithAnalyticsEventsProps) => {
       useEffect(() => {
         if (!createAnalyticsEvent) {
           return expect(createAnalyticsEvent).toBeDefined();
@@ -101,13 +101,14 @@ describe('withMediaAnalyticsContext()', () => {
     const { someContextData } = setup();
     const someRef = React.createRef<HTMLButtonElement>();
 
-    const FancyButton = forwardRef<HTMLButtonElement, ContextStaticProps>(
-      (props, ref) => (
-        <button ref={ref} className="FancyButton">
-          {props.children}
-        </button>
-      ),
-    );
+    const FancyButton = forwardRef<
+      HTMLButtonElement,
+      React.PropsWithChildren<ContextStaticProps>
+    >((props, ref) => (
+      <button ref={ref} className="FancyButton">
+        {props.children}
+      </button>
+    ));
 
     const WrappedFancyButton =
       withMediaAnalyticsContext(someContextData)(FancyButton);

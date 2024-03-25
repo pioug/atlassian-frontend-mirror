@@ -5,6 +5,7 @@ description: Drop targets are elements that items can be dropped on.
 ---
 
 import SectionMessage from '@atlaskit/section-message';
+import NestedDropTargetExample from '../../../examples/nested-drop-targets';
 
 Drop targets are elements that can be dropped upon by something that is dragging. There are different drop targets for different types of draggable items, such as elements or files.
 
@@ -84,6 +85,8 @@ dropTargetForElements({
   element: childElement,
 });
 ```
+
+<Example Component={NestedDropTargetExample} appearance="showcase-only" />
 
 - During a drag operation:
   - You can add new _drop targets_
@@ -284,4 +287,4 @@ dropTargetForElements({
 
 ## Related
 
-- [Visual affordances for drop targets](/components/pragmatic-drag-and-drop/design-guidelines)
+- [Design guidelines](/components/pragmatic-drag-and-drop/design-guidelines)

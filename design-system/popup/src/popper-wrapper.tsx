@@ -78,6 +78,7 @@ function PopperWrapper({
   shouldUseCaptureOnOutsideClick,
   shouldRenderToParent,
   shouldDisableFocusLock,
+  strategy,
 }: PopperWrapperProps) {
   const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
   const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(
@@ -120,7 +121,12 @@ function PopperWrapper({
   );
 
   return (
-    <Popper placement={placement} offset={offset} modifiers={modifiers}>
+    <Popper
+      placement={placement}
+      offset={offset}
+      modifiers={modifiers}
+      strategy={strategy}
+    >
       {({ ref, style, placement, update }) => {
         return (
           <PopupContainer

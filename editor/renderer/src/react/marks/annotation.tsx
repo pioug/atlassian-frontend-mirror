@@ -1,11 +1,9 @@
 import React from 'react';
-import {
-  buildAnnotationMarkDataAttributes,
-  AnnotationDataAttributes,
-} from '@atlaskit/adf-schema';
-import { MarkProps, AnnotationMarkMeta } from '../types';
+import type { AnnotationDataAttributes } from '@atlaskit/adf-schema';
+import { buildAnnotationMarkDataAttributes } from '@atlaskit/adf-schema';
+import type { MarkProps, AnnotationMarkMeta } from '../types';
 import { AnnotationMark } from '../../ui/annotations';
-import { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 export const isAnnotationMark = (mark: Mark): boolean => {
   return mark && mark.type && mark.type.name === 'annotation';
@@ -18,6 +16,7 @@ const AnnotationComponent = ({
   dataAttributes,
   annotationParentIds = [],
   allowAnnotations,
+  useBlockLevel,
 }: MarkProps<AnnotationMarkMeta>) => {
   const data: AnnotationDataAttributes = {
     ...dataAttributes,
@@ -31,6 +30,7 @@ const AnnotationComponent = ({
         dataAttributes={data}
         annotationParentIds={annotationParentIds}
         annotationType={annotationType}
+        useBlockLevel={useBlockLevel}
       >
         {children}
       </AnnotationMark>

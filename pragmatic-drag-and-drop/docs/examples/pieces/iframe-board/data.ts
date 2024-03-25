@@ -74,3 +74,6 @@ export function isCardDropTarget(
 }
 
 export const externalCardMediaType = 'application/x.card';
+
+export const dropHandledExternallyLocalStorageKey =
+  'card-drop-handled-externally';

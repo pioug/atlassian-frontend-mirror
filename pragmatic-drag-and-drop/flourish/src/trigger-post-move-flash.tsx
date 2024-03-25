@@ -9,10 +9,7 @@ import { token } from '@atlaskit/tokens';
  */
 export function triggerPostMoveFlash(element: HTMLElement) {
   element.animate(
-    [
-      { backgroundColor: token('color.background.selected', 'transparent') },
-      {},
-    ],
+    [{ backgroundColor: token('color.background.selected') }, {}],
     {
       duration: largeDurationMs,
       /**

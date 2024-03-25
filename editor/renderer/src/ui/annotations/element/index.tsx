@@ -20,6 +20,7 @@ type MarkElementProps = React.PropsWithChildren<{
   annotationParentIds: AnnotationId[];
   dataAttributes: AnnotationDataAttributes;
   annotationType: AnnotationTypes;
+  useBlockLevel?: boolean;
 }>;
 
 const MarkElement = ({
@@ -27,6 +28,7 @@ const MarkElement = ({
   children,
   dataAttributes,
   id,
+  useBlockLevel,
 }: MarkElementProps) => {
   const updateSubscriber = useInlineCommentSubscriberContext();
   const states = useContext(InlineCommentsStateContext);
@@ -65,6 +67,7 @@ const MarkElement = ({
       onClick={onClick}
       hasFocus={hasFocus}
       state={states[id]}
+      useBlockLevel={useBlockLevel}
     >
       {children}
     </MarkComponent>

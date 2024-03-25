@@ -284,29 +284,6 @@ The `onDrop` event occurs when a user has finished a drag and drop operation. Th
 
 Using the information that the web platform provides, we cannot distinguish between dropping on no drop targets, an explicit cancel, or dropping externally, so we do not publish any information about _how_ the drag ended, only that it ended. The `location.current` property will accurately contain the final drop targets.
 
-`onDrop` also includes the final `dropEffect` which can be used as a small signal that a drag operation was accepted externally.
-
-```ts
-type DropData = {
-  // the final `dropEffect` that was applied
-  dropEffect: DataTransfer['dropEffect'];
-};
-
-type DropEventPayload = BaseEventPayload & {
-  drop: DropData;
-};
-```
-
-```ts
-monitorForElements({
-  onDrop({ location, drop }) {
-    if (!location.current.dropTargets.length && drop.dropEffect !== 'none') {
-      // a small signal that the drag was handled in some way externally
-    }
-  },
-});
-```
-
 Flow
 
 - `onDrop` fires on the drag source (eg a `draggable`)

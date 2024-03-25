@@ -34,6 +34,7 @@ const commonCellElementStyles = css({
 const commonChevronContainerStyles = css({
   // Aligns position:absolute chevron button with the adjacent text. Any future visual breaking changes
   // should consider setting this to `-2px` for better alignment, or refactor completely
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginBlockStart: -3,
 });
 
@@ -59,7 +60,7 @@ const loadingItemContainerStyles = css({
 });
 
 const paddingLeftStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   paddingInlineStart: '50%',
 });
 

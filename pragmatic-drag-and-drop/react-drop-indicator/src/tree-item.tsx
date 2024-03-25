@@ -113,7 +113,7 @@ function getElement({
     }px`,
     '--indicator-color': !isBlocked
       ? line.backgroundColor
-      : token('color.border.warning', '#E34935'),
+      : token('color.border.warning'),
   } as CSSProperties;
 
   if (instruction.type === 'reorder-above') {

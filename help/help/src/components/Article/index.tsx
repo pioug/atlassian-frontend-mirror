@@ -12,7 +12,7 @@ import { useNavigationContext } from '../contexts/navigationContext';
 import { useHelpArticleContext } from '../contexts/helpArticleContext';
 import {
   SLIDEIN_OVERLAY_TRANSITION_DURATION_MS,
-  TRANSITION_STATUS,
+  type TransitionStatus,
   VIEW,
 } from '../constants';
 import { ArticleContainer } from './styled';
@@ -163,7 +163,7 @@ export const Article = () => {
       unmountOnExit
       mountOnEnter
     >
-      {(state: TRANSITION_STATUS) => {
+      {(state: TransitionStatus) => {
         return (
           <ArticleContainer
             ref={articleContainerRef}

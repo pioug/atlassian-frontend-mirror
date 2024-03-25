@@ -12,7 +12,7 @@ import { REQUEST_STATE } from '../../../model/Requests';
 
 import {
   FADEIN_OVERLAY_TRANSITION_DURATION_MS,
-  TRANSITION_STATUS,
+  type TransitionStatus,
   NUMBER_OF_WHATS_NEW_ITEMS_PER_PAGE,
 } from '../../constants';
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
@@ -128,7 +128,7 @@ export const WhatsNewResults: React.FC<WrappedComponentProps> = ({
       onEnter={handleOnEnter}
       onExit={handleOnExit}
     >
-      {(state: TRANSITION_STATUS) => (
+      {(state: TransitionStatus) => (
         <WhatsNewResultsContainer
           ref={containerRef}
           style={{

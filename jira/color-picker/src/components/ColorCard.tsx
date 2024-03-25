@@ -172,5 +172,6 @@ const colorCardContentStyles = css({
 });
 
 const colorCardContentCheckMarkStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   margin: '1px',
 });

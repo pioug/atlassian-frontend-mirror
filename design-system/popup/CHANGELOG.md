@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.14.0
+
+### Minor Changes
+
+- [#84410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84410) [`9d5dc8f7de85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9d5dc8f7de85) - Adds a new `strategy` prop to control the positioning strategy to use other than the default 'fixed' position.
+
 ## 1.13.2
 
 ### Patch Changes

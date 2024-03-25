@@ -15,7 +15,7 @@ export const dropdownItemGroupStyles = css({
 
 const sharedBlockStyles = css({
   display: 'flex',
-  gap: '0.5rem',
+  gap: token('space.100', '0.5rem'),
   lineHeight: '1rem',
   minWidth: 0,
   overflow: 'hidden',

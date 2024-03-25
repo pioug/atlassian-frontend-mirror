@@ -5,6 +5,7 @@ description: Create, respond to and listen to element drag operations
 ---
 
 import SectionMessage from '@atlaskit/section-message';
+import NestedDraggablesExample from '../../../../examples/nested-draggables';
 
 The element adapter enables you to create rich drag and drop experiences, such as lists, boards, grids, resizing and so on.
 
@@ -102,6 +103,8 @@ draggable({
   canDrag: () => false,
 });
 ```
+
+<Example Component={NestedDraggablesExample} appearance="showcase-only" />
 
 Disabling a drag by returning `false` from `canDrag()` will prevent any other `draggable` on the page from being dragged. `@atlaskit/pragmatic-drag-and-drop` calls `event.preventDefault()` under the hood when `canDrag()` returns `false`, which cancels the drag operation. Unfortunately, once a drag event has started, a `draggable` element cannot individually opt out of dragging and allow another element to be dragged.
 

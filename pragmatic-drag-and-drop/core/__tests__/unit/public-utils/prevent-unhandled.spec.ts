@@ -10,10 +10,25 @@ import { appendToBody, getElements, reset, userEvent } from '../_util';
 
 afterEach(reset);
 
+const options = { cancelable: true, bubbles: true };
+
+// like our userEvent.cancel function, except returns the dragEnd event
+function cancel(target: Element): DragEvent {
+  target.dispatchEvent(new DragEvent('dragleave', options));
+  const dragEnd = new DragEvent('dragend', options);
+  target.dispatchEvent(dragEnd);
+  return dragEnd;
+}
+
+function drop(target: Element): DragEvent {
+  const event = new DragEvent('drop', options);
+  target.dispatchEvent(event);
+  return event;
+}
+
 it('should work with explicit cancels', () => {
   const [draggableEl] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
 
   const cleanup = combine(
     appendToBody(draggableEl),
@@ -21,10 +36,10 @@ it('should work with explicit cancels', () => {
       element: draggableEl,
       onDragStart() {
         ordered.push('start');
+        preventUnhandled.start();
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
   );
@@ -34,10 +49,11 @@ it('should work with explicit cancels', () => {
   expect(ordered).toEqual(['start']);
   ordered.length = 0;
 
-  userEvent.cancel(draggableEl);
+  const dragEnd = cancel(draggableEl);
 
   expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
+  // not interfering with the standard cancel drop effect
+  expect(dragEnd.dataTransfer?.dropEffect).toEqual('none');
 
   cleanup();
 });
@@ -45,7 +61,6 @@ it('should work with explicit cancels', () => {
 it('should accept drops, even when over no drop targets', () => {
   const [draggableEl, sibling] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
 
   const cleanup = combine(
     appendToBody(draggableEl, sibling),
@@ -55,9 +70,8 @@ it('should accept drops, even when over no drop targets', () => {
         ordered.push('start');
         preventUnhandled.start();
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
   );
@@ -87,10 +101,10 @@ it('should accept drops, even when over no drop targets', () => {
     expect(event.dataTransfer?.dropEffect).toBe('move');
   }
 
-  userEvent.drop(draggableEl);
+  const event = drop(draggableEl);
 
   expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
+  expect(event.dataTransfer?.dropEffect).toEqual('none');
 
   cleanup();
 });
@@ -98,7 +112,6 @@ it('should accept drops, even when over no drop targets', () => {
 it('should not override the drop effect of a drop target', () => {
   const [A] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
 
   const cleanup = combine(
     appendToBody(A),
@@ -108,9 +121,8 @@ it('should not override the drop effect of a drop target', () => {
         ordered.push('draggable:start');
         preventUnhandled.start();
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('draggable:drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
     dropTargetForElements({
@@ -125,11 +137,11 @@ it('should not override the drop effect of a drop target', () => {
   expect(ordered).toEqual(['draggable:start', 'dropTarget:start']);
   ordered.length = 0;
 
-  userEvent.drop(A);
+  const event = drop(A);
   expect(ordered).toEqual(['draggable:drop', 'dropTarget:drop']);
 
   // not being set to "none" or "move"
-  expect(dropEffect).toEqual(['link']);
+  expect(event.dataTransfer?.dropEffect).toEqual('link');
 
   cleanup();
 });
@@ -137,7 +149,6 @@ it('should not override the drop effect of a drop target', () => {
 it('should only apply to a single drag operation', () => {
   const [draggableEl, sibling] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
   let isEnabled: boolean = true;
 
   const cleanup = combine(
@@ -150,9 +161,8 @@ it('should only apply to a single drag operation', () => {
           preventUnhandled.start();
         }
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
   );
@@ -182,13 +192,13 @@ it('should only apply to a single drag operation', () => {
     expect(event.dataTransfer?.dropEffect).toBe('move');
   }
 
-  userEvent.drop(draggableEl);
+  {
+    const event = drop(draggableEl);
+    expect(ordered).toEqual(['drop']);
+    expect(event.dataTransfer?.dropEffect).toEqual('none');
 
-  expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
-
-  ordered.length = 0;
-  dropEffect.length = 0;
+    ordered.length = 0;
+  }
 
   // doing another drag
   isEnabled = false;
@@ -219,10 +229,13 @@ it('should only apply to a single drag operation', () => {
   }
 
   // a "drop" event won't fire
-  fireEvent.dragEnd(draggableEl);
+  {
+    const event = new DragEvent('dragend', options);
+    draggableEl.dispatchEvent(event);
 
-  expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
+    expect(ordered).toEqual(['drop']);
+    expect(event.dataTransfer?.dropEffect).toEqual('none');
+  }
 
   cleanup();
 });
@@ -230,7 +243,6 @@ it('should only apply to a single drag operation', () => {
 it('should be able to be disabled and enabled during a drag', () => {
   const [draggableEl, siblingA, siblingB] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
 
   const cleanup = combine(
     appendToBody(draggableEl, siblingA, siblingB),
@@ -240,9 +252,8 @@ it('should be able to be disabled and enabled during a drag', () => {
         ordered.push('start');
         preventUnhandled.start();
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
   );
@@ -314,10 +325,13 @@ it('should be able to be disabled and enabled during a drag', () => {
     expect(event.dataTransfer?.dropEffect).toBe('move');
   }
 
-  fireEvent.dragEnd(draggableEl);
+  {
+    const event = new DragEvent('dragend', options);
+    draggableEl.dispatchEvent(event);
 
-  expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
+    expect(ordered).toEqual(['drop']);
+    expect(event.dataTransfer?.dropEffect).toEqual('none');
+  }
 
   cleanup();
 });
@@ -325,7 +339,6 @@ it('should be able to be disabled and enabled during a drag', () => {
 it('should stop not block a future drag operation if a drag operation was aborted', () => {
   const [draggableEl, sibling] = getElements('div');
   const ordered: string[] = [];
-  const dropEffect: DataTransfer['dropEffect'][] = [];
   let isEnabled: boolean = true;
 
   const cleanup = combine(
@@ -338,9 +351,8 @@ it('should stop not block a future drag operation if a drag operation was aborte
           preventUnhandled.start();
         }
       },
-      onDrop({ drop }) {
+      onDrop() {
         ordered.push('drop');
-        dropEffect.push(drop.dropEffect);
       },
     }),
   );
@@ -374,12 +386,7 @@ it('should stop not block a future drag operation if a drag operation was aborte
   userEvent.rougePointerMoves();
 
   expect(ordered).toEqual(['drop']);
-  // broken drags result in a "none"
-  expect(dropEffect).toEqual(['none']);
-
   ordered.length = 0;
-  dropEffect.length = 0;
-
   // doing another drag
   isEnabled = false;
 
@@ -412,7 +419,6 @@ it('should stop not block a future drag operation if a drag operation was aborte
   fireEvent.dragEnd(draggableEl);
 
   expect(ordered).toEqual(['drop']);
-  expect(dropEffect).toEqual(['none']);
 
   cleanup();
 });

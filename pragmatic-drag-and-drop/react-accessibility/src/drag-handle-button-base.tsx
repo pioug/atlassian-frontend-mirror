@@ -14,8 +14,8 @@ import type { DragHandleButtonProps } from './types';
  * which prevents dragging.
  */
 const buttonStyles = css({
-  borderRadius: token('border.radius.100', '3px'),
-  padding: token('space.0', '0px'),
+  borderRadius: token('border.radius.100'),
+  padding: token('space.0'),
   width: 'max-content',
   border: 'none',
   cursor: 'grab',
@@ -29,32 +29,26 @@ const buttonAppearanceStyles: Record<
   SerializedStyles
 > = {
   default: css({
-    backgroundColor: token('color.background.neutral', '#091E420F'),
+    backgroundColor: token('color.background.neutral'),
     ':hover': {
-      backgroundColor: token('color.background.neutral.hovered', '#091E4224'),
+      backgroundColor: token('color.background.neutral.hovered'),
     },
     ':active': {
-      backgroundColor: token('color.background.neutral.pressed', '#091E424F'),
+      backgroundColor: token('color.background.neutral.pressed'),
     },
   }),
   subtle: css({
-    backgroundColor: token('color.background.neutral.subtle', '#00000000'),
+    backgroundColor: token('color.background.neutral.subtle'),
     ':hover': {
-      backgroundColor: token(
-        'color.background.neutral.subtle.hovered',
-        '#091E420F',
-      ),
+      backgroundColor: token('color.background.neutral.subtle.hovered'),
     },
     ':active': {
-      backgroundColor: token(
-        'color.background.neutral.subtle.pressed',
-        '#091E4224',
-      ),
+      backgroundColor: token('color.background.neutral.subtle.pressed'),
     },
   }),
   selected: css({
-    backgroundColor: token('color.background.selected', '#E9F2FF'),
-    color: token('color.text.selected', '#0C66E4'),
+    backgroundColor: token('color.background.selected'),
+    color: token('color.text.selected'),
   }),
 };
 

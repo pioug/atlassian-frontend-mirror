@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.2.0
+
+### Minor Changes
+
+- [#84054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84054) [`43605c45b445`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43605c45b445) - EDF-468 Added disableFloatingToolbar plugin option to disable showing floating toolbar when hyperlink is clicked.
+
 ## 1.1.4
 
 ### Patch Changes

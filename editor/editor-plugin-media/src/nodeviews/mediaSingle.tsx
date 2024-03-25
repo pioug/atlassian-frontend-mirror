@@ -308,6 +308,7 @@ export default class MediaSingleNode extends Component<
       dispatchAnalyticsEvent,
       editorViewMode,
       mediaPluginState,
+      editorDisabled,
     } = this.props;
 
     const {
@@ -392,7 +393,10 @@ export default class MediaSingleNode extends Component<
       ...mediaSingleProps,
     };
 
-    let canResize = !!this.props.mediaOptions.allowResizing;
+    let canResize =
+      !!this.props.mediaOptions.allowResizing &&
+      !editorDisabled &&
+      !editorViewMode;
 
     if (!this.props.mediaOptions.allowResizingInTables) {
       // If resizing not allowed in tables, check parents for tables
@@ -457,6 +461,7 @@ export default class MediaSingleNode extends Component<
           <MediaSingle
             {...mediaSingleProps}
             pctWidth={mediaSingleWidthAttribute}
+            size={{ width: mediaSingleWidthAttribute, widthType: widthType }}
           >
             {MediaChildren}
           </MediaSingle>

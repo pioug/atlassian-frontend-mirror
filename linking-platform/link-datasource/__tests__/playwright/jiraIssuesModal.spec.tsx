@@ -2,7 +2,7 @@ import type { Page } from '@playwright/test';
 
 import { expect, test } from '@af/integration-testing';
 
-const sitePickerSelector = '.jira-jql-datasource-modal--site-selector__control';
+const sitePickerSelector = '.jira-datasource-modal--site-selector__control';
 
 test.describe('JiraIssuesModal', () => {
   async function setup(
@@ -19,7 +19,7 @@ test.describe('JiraIssuesModal', () => {
   }
   async function openDropDown(page: Page) {
     await page
-      .getByTestId('jira-jql-datasource-modal--view-drop-down--trigger')
+      .getByTestId('jira-datasource-modal--view-drop-down--trigger')
       .click();
   }
 
@@ -75,24 +75,24 @@ test.describe('JiraIssuesModal', () => {
 
     await expect(
       await page
-        .getByTestId('jira-jql-datasource-modal--body')
+        .getByTestId('jira-datasource-modal--body')
         .locator('div')
         .filter({ hasText: '### Issues' }),
     ).toBeVisible();
 
     await page.getByTestId('mode-toggle-basic').click();
     const basicTextField = page.getByTestId(
-      'jira-jql-datasource-modal--basic-search-input',
+      'jira-datasource-modal--basic-search-input',
     );
     await basicTextField.click();
     await basicTextField.type('test');
     await page
-      .getByTestId('jira-jql-datasource-modal--basic-search-button')
+      .getByTestId('jira-datasource-modal--basic-search-button')
       .click();
 
     await expect(
       await page
-        .getByTestId('jira-jql-datasource-modal--body')
+        .getByTestId('jira-datasource-modal--body')
         .locator('div')
         .filter({ hasText: '55 Issues' }),
     ).toBeVisible();
@@ -104,24 +104,24 @@ test.describe('JiraIssuesModal', () => {
     await setup(page);
     await page.getByTestId('mode-toggle-basic').click();
     const basicTextField = page.getByTestId(
-      'jira-jql-datasource-modal--basic-search-input',
+      'jira-datasource-modal--basic-search-input',
     );
     await basicTextField.click();
     await basicTextField.type('basic input');
     await page
-      .getByTestId('jira-jql-datasource-modal--basic-search-button')
+      .getByTestId('jira-datasource-modal--basic-search-button')
       .click();
 
     await expect(
       page
-        .getByTestId('jira-jql-datasource-table--row-DONUT-11720')
-        .getByTestId('jira-jql-datasource-table--cell-2'),
+        .getByTestId('jira-datasource-table--row-DONUT-11720')
+        .getByTestId('jira-datasource-table--cell-2'),
     ).toBeVisible();
 
     await expect(
       page
-        .getByTestId('jira-jql-datasource-table--row-DONUT-11730')
-        .getByTestId('jira-jql-datasource-table--cell-2'),
+        .getByTestId('jira-datasource-table--row-DONUT-11730')
+        .getByTestId('jira-datasource-table--cell-2'),
     ).toBeVisible();
   });
 
@@ -131,7 +131,7 @@ test.describe('JiraIssuesModal', () => {
     await page.getByText('testNetworkError', { exact: true }).click();
     await page.getByTestId('jql-editor-search').click();
     await expect(
-      page.getByTestId('jira-jql-datasource-modal--loading-error'),
+      page.getByTestId('datasource-modal--loading-error'),
     ).toBeVisible();
   });
 
@@ -154,9 +154,7 @@ test.describe('JiraIssuesModal', () => {
   test('should close modal on ESC keydown', async ({ page }) => {
     await setup(page);
     await page.keyboard.press('Escape');
-    await expect(
-      page.getByTestId('jira-jql-datasource-modal--body'),
-    ).toBeHidden();
+    await expect(page.getByTestId('jira-datasource-modal--body')).toBeHidden();
   });
 
   test('table and table text in dropdown render correctly when table view is selected', async ({
@@ -165,9 +163,9 @@ test.describe('JiraIssuesModal', () => {
     await setup(page);
     await page.getByTestId('jql-editor-search').click();
     await expect(
-      page.getByTestId('jira-jql-datasource-modal--view-drop-down--trigger'),
+      page.getByTestId('jira-datasource-modal--view-drop-down--trigger'),
     ).toHaveText('Table');
-    await expect(page.getByTestId('jira-jql-datasource-table')).toBeVisible();
+    await expect(page.getByTestId('jira-datasource-table')).toBeVisible();
   });
 
   test('Inline smart card for count view and Inline link text in dropdown render correctly when Inline link view is selected', async ({
@@ -178,7 +176,7 @@ test.describe('JiraIssuesModal', () => {
     await openDropDown(page);
     await page.getByTestId('dropdown-item-inline-link').click();
     await expect(
-      page.getByTestId('jira-jql-datasource-modal--view-drop-down--trigger'),
+      page.getByTestId('jira-datasource-modal--view-drop-down--trigger'),
     ).toHaveText('Inline link');
     await expect(
       page.getByTestId('link-datasource-render-type--link-resolved-view'),

@@ -2,7 +2,7 @@ import React, { useCallback, useState, useContext } from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type {
   AnnotationByMatches,
-  InlineCommentSelectionComponentProps,
+  InlineCommentHoverComponentProps,
 } from '@atlaskit/editor-common/types';
 import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft';
@@ -19,7 +19,7 @@ import { RendererContext as ActionsContext } from '../../RendererActionsContext'
 
 type Props = {
   range: Range;
-  component: React.ComponentType<InlineCommentSelectionComponentProps>;
+  component: React.ComponentType<InlineCommentHoverComponentProps>;
   wrapperDOM: React.RefObject<HTMLDivElement>;
   documentPosition: Position | false;
   isAnnotationAllowed: boolean;

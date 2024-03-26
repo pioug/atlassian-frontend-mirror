@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 1.1.3
+
+### Patch Changes
+
+- [#84398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84398) [`77694db987fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77694db987fc) - Public release of Pragmatic drag and drop documentation
+
 ## 1.1.2
 
 ### Patch Changes

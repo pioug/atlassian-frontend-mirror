@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import { Position } from '../types';
+import type { Position } from '../types';
 import { useUserSelectionRange } from '../hooks/user-selection';
 import { SelectionInlineCommentMounter } from './mounter';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 type Props = {
   selectionComponent: React.ComponentType<
@@ -25,25 +25,28 @@ export const SelectionRangeValidator = (props: Props) => {
     createAnalyticsEvent,
   } = props;
   const actions = useContext(ActionsContext);
-  const [range, clearRange] = useUserSelectionRange({
+  const [range, draftRange, clearRange] = useUserSelectionRange({
     rendererRef,
   });
 
-  if (!range) {
+  if (!range && !draftRange) {
     return null;
   }
   const documentPosition = actions.getPositionFromRange(range);
-  const isAnnotationAllowed =
+
+  // This property is drilled down to consumers when a new range is selected to test it's validity
+  const isAnnotationAllowedOnRange =
     documentPosition && actions.isValidAnnotationPosition(documentPosition);
 
   return (
     <SelectionInlineCommentMounter
       range={range}
+      draftRange={draftRange}
       wrapperDOM={rendererRef}
       component={selectionComponent}
       onClose={clearRange}
       documentPosition={documentPosition}
-      isAnnotationAllowed={isAnnotationAllowed}
+      isAnnotationAllowed={isAnnotationAllowedOnRange}
       applyAnnotation={actions.applyAnnotation.bind(actions)}
       applyAnnotationDraftAt={applyAnnotationDraftAt}
       generateIndexMatch={actions.generateAnnotationIndexMatch.bind(actions)}

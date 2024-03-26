@@ -35,6 +35,9 @@
       "path": "../../design-system/badge/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/banner/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/button/tsconfig.app.json"
     },
     {

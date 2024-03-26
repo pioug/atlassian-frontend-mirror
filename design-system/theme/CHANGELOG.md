@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.7.0
+
+### Minor Changes
+
+- [#84334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84334) [`71dfcbc00239`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71dfcbc00239) - Added temporary font fallback definitions for use exclusively as token fallback values.
+
 ## 12.6.6
 
 ### Patch Changes

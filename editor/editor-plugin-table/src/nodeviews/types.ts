@@ -23,6 +23,7 @@ export interface Props {
   node: PmNode;
   view: EditorView;
   allowColumnResizing?: boolean;
+  allowControls?: boolean;
   cellMinWidth?: number;
   portalProviderAPI: PortalProviderAPI;
   eventDispatcher: EventDispatcher;

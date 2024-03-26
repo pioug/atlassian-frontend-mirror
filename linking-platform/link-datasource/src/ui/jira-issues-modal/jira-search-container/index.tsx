@@ -9,7 +9,9 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
-import type { JiraSearchMethod } from '../../../common/types';
+import type { JiraSearchMethod, Site } from '../../../common/types';
+import { BasicSearchInput } from '../../common/modal/basic-search-input';
+import { basicSearchInputMessages } from '../../common/modal/basic-search-input/messages';
 import { BasicFilters } from '../basic-filters';
 import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
 import {
@@ -18,13 +20,11 @@ import {
   SelectOption,
 } from '../basic-filters/types';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
-import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher, ModeSwitcherPropsOption } from '../mode-switcher';
 import {
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
-  Site,
 } from '../types';
 
 import { buildJQL } from './buildJQL';
@@ -312,6 +312,8 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             onChange={handleBasicSearchChange}
             onSearch={handleSearch}
             searchTerm={basicSearchTerm}
+            placeholder={basicSearchInputMessages.basicTextSearchLabel}
+            testId="jira-datasource-modal"
           />
           {showBasicFilters && (
             <BasicFilters

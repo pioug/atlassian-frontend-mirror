@@ -103,6 +103,7 @@ const addInsertAnalytics =
       actionSubject: ACTION_SUBJECT.ANNOTATION,
       eventType: EVENT_TYPE.TRACK,
       actionSubjectId: ACTION_SUBJECT_ID.INLINE_COMMENT,
+      attributes: {},
     })(transaction);
     return transaction;
   };

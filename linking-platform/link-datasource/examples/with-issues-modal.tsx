@@ -8,6 +8,7 @@ import {
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import {
+  DatasourceAdf,
   DatasourceAdfTableViewColumn,
   InlineCardAdf,
 } from '@atlaskit/linking-common/types';
@@ -44,9 +45,13 @@ export default () => {
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
 
-  const onInsert = (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => {
+  const onInsert = (
+    adf: InlineCardAdf | JiraIssuesDatasourceAdf | DatasourceAdf,
+  ) => {
     if (adf.type === 'blockCard') {
-      setParameters(adf.attrs.datasource.parameters);
+      setParameters(
+        adf.attrs.datasource.parameters as JiraIssueDatasourceParameters,
+      );
       const columnsProp = adf.attrs.datasource.views[0]?.properties?.columns;
       setVisibleColumnKeys(columnsProp?.map(c => c.key));
       const columnsWithWidth = columnsProp?.filter(

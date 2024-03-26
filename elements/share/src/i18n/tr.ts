@@ -49,6 +49,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.email-only': 'En az bir e-posta seçin',
   'fabric.elements.share.form.user-picker.validation.required-message.jira': 'En az bir kişi, takım veya e-posta seçin',
   'fabric.elements.share.in.integration.button': '{integrationName} içinde paylaş',
+  'fabric.elements.share.invite.to.confluence': "Confluence'a davet et",
+  'fabric.elements.share.invite.to.jira': "Jira'ya davet et",
   'fabric.elements.share.main.tab.text.confluence': 'Sayfayı paylaşın',
   'fabric.elements.share.main.tab.text.jira': 'Konuyu paylaşın',
   'fabric.elements.share.success.message':

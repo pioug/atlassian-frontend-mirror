@@ -45,7 +45,7 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
   return (
     <div
       css={noResultsContainerStyles}
-      data-testid="jira-jql-datasource-modal--no-results"
+      data-testid="datasource-modal--no-results"
     >
       <svg
         width="131"

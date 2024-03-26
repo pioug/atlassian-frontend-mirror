@@ -1,2 +1,5 @@
 export { CornerControls } from './ClassicCornerControls';
-export { DragCornerControls } from './DragCornerControls';
+export {
+  DragCornerControls,
+  DragCornerControlsWithSelection,
+} from './DragCornerControls';

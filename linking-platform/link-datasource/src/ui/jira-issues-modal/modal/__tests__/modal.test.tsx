@@ -29,7 +29,7 @@ import JiraIssuesConfigModal from '../../index'; // Using async one to test lazy
 import { JiraIssuesDatasourceAdf } from '../../types';
 
 import {
-  getAvailableJiraSites,
+  getAvailableSites,
   getDefaultHookState,
   getDefaultParameters,
   getEmptyHookState,
@@ -74,19 +74,19 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when no Jira instances are returned', () => {
     it('should not show insert button, mode switcher, or search bar, and show the no instances content', async () => {
-      asMock(getAvailableJiraSites).mockReturnValue([]);
+      asMock(getAvailableSites).mockReturnValue([]);
       asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
       const { queryByTestId, getByTestId } = render(
         <IntlProvider locale="en">
           <JiraIssuesConfigModal
-            datasourceId={'some-jira-jql-datasource-id'}
+            datasourceId={'some-jira-datasource-id'}
             onCancel={jest.fn()}
             onInsert={jest.fn()}
           />
         </IntlProvider>,
       );
       const insertButton = queryByTestId(
-        'jira-jql-datasource-modal--insert-button',
+        'jira-datasource-modal--insert-button',
       );
       const modeSwitcher = queryByTestId('mode-toggle-container');
       const searchBar = queryByTestId('jira-search-container');
@@ -119,11 +119,11 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should display the expected title for a single jira site', async () => {
-    (getAvailableJiraSites as jest.Mock).mockResolvedValueOnce(
+    (getAvailableSites as jest.Mock).mockResolvedValueOnce(
       mockSiteData.slice(0, 1),
     );
     const { findByTestId } = await setup({ dontWaitForSitesToLoad: true });
-    const modalTitle = await findByTestId('jira-jql-datasource-modal--title');
+    const modalTitle = await findByTestId('jira-datasource-modal--title');
 
     expect(modalTitle.innerText).toEqual('Insert Jira issues');
   });
@@ -147,7 +147,7 @@ describe('JiraIssuesConfigModal', () => {
     rerender(
       <IntlProvider locale="en">
         <JiraIssuesConfigModal
-          datasourceId={'some-jira-jql-datasource-id'}
+          datasourceId={'some-jira-datasource-id'}
           parameters={{
             cloudId: '12345',
             jql: 'some-query',
@@ -388,7 +388,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(await findByText('55 Issues')).toBeTruthy();
 
       expect(
-        queryByTestId('jira-jql-datasource-modal-total-issues-count'),
+        queryByTestId('jira-datasource-modal-total-issues-count'),
       ).toBeNull();
     });
 
@@ -515,7 +515,7 @@ describe('JiraIssuesConfigModal', () => {
     expect(useDatasourceTableState).toHaveBeenCalledWith<
       Parameters<typeof useDatasourceTableState>
     >({
-      datasourceId: 'some-jira-jql-datasource-id',
+      datasourceId: 'some-jira-datasource-id',
       parameters: getDefaultParameters(),
       fieldKeys: ['myColumn'],
     });
@@ -550,7 +550,7 @@ describe('JiraIssuesConfigModal', () => {
             parameters: undefined,
           });
         expect(
-          queryByTestId('jlol-datasource-modal--initial-state-view'),
+          queryByTestId('datasource-modal--initial-state-view'),
         ).toBeTruthy();
         expect(
           getByText('Use JQL (Jira Query Language) to search for issues.'),
@@ -575,7 +575,7 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(
-        queryByTestId('jira-jql-datasource-modal-total-issues-count'),
+        queryByTestId('jira-datasource-modal-total-issues-count'),
       ).toBeNull();
     });
 
@@ -637,9 +637,7 @@ describe('JiraIssuesConfigModal', () => {
           jql: 'some-jql',
         },
       });
-      expect(
-        queryByTestId('jira-jql-datasource-modal--empty-state'),
-      ).toBeTruthy();
+      expect(queryByTestId('jira-datasource-modal--empty-state')).toBeTruthy();
     });
   });
 
@@ -829,7 +827,7 @@ describe('JiraIssuesConfigModal', () => {
             { key: 'otherColumn', title: 'My Other Column', type: 'string' },
             { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
           ],
-          testId: 'jira-jql-datasource-table',
+          testId: 'jira-datasource-table',
           hasNextPage: false,
           items: [
             {
@@ -862,7 +860,7 @@ describe('JiraIssuesConfigModal', () => {
         hookState,
       });
       expect(
-        getByTestId('jira-jql-datasource-modal-total-issues-count').textContent,
+        getByTestId('jira-datasource-modal-total-issues-count').textContent,
       ).toEqual('3 issues');
 
       const issueCountLink = getByTestId('item-count-url');
@@ -900,7 +898,7 @@ describe('JiraIssuesConfigModal', () => {
           attrs: {
             url: 'https://hello.atlassian.net/issues/?jql=text%20~%20%22testing*%22%20or%20summary%20~%20%22testing*%22%20ORDER%20BY%20created%20DESC',
             datasource: {
-              id: 'some-jira-jql-datasource-id',
+              id: 'some-jira-datasource-id',
               parameters: {
                 cloudId: '67899',
                 jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
@@ -930,7 +928,7 @@ describe('JiraIssuesConfigModal', () => {
           attrs: {
             url: 'https://hello.atlassian.net/issues/?jql=some-query',
             datasource: {
-              id: 'some-jira-jql-datasource-id',
+              id: 'some-jira-datasource-id',
               parameters: {
                 cloudId: '67899',
                 jql: 'some-query',
@@ -1390,9 +1388,7 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       // issue view
-      expect(
-        getByTestId('jira-jql-datasource-modal--no-results'),
-      ).toBeInTheDocument();
+      expect(getByTestId('datasource-modal--no-results')).toBeInTheDocument();
       // button is still clickable since users are able to insert on no results found
       expect(getByRole('button', { name: 'Insert issues' })).not.toBeDisabled();
     });
@@ -1526,5 +1522,53 @@ describe('JiraIssuesConfigModal', () => {
         getByTestId('mode-toggle-basic').querySelector('input'),
       ).toBeChecked();
     });
+  });
+
+  describe('when a JQL inline link is inserted', () => {
+    ffTest(
+      'platform.linking-platform.datasource.enable-stricter-jql-encoding',
+      async () => {
+        // FF true so a combination of & # + characters are escaped
+        const { assertInsertResult, searchWithNewJql } = await setup();
+
+        searchWithNewJql('project in ("combination&of#all+chars##&++#&+")');
+
+        assertInsertResult(
+          {
+            jql: 'project in ("combination&of#all+chars##&++#&+")',
+            jqlUrl:
+              'https://hello.atlassian.net/issues/?jql=project%20in%20(%22combination%26of%23all%2Bchars%23%23%26%2B%2B%23%26%2B%22)',
+          },
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_search_query',
+            },
+          },
+        );
+      },
+      async () => {
+        // FF false so none of the & # and + characters are escaped
+        const { assertInsertResult, searchWithNewJql } = await setup();
+
+        searchWithNewJql('project in ("combination&of#all+chars##&++#&+")');
+
+        assertInsertResult(
+          {
+            jql: 'project in ("combination&of#all+chars##&++#&+")',
+            jqlUrl:
+              'https://hello.atlassian.net/issues/?jql=project%20in%20(%22combination&of#all+chars##&++#&+%22)',
+          },
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_search_query',
+            },
+          },
+        );
+      },
+    );
   });
 });

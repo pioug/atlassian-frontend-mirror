@@ -210,7 +210,7 @@ describe('LocalUploadReact', () => {
     };
     const addFlag = jest.spyOn(
       localUploadComponentInstance as any,
-      'addUploadRejectionFlag',
+      'addErrorFlag',
     );
     const onFileRejectionInUploadService = jest.spyOn(
       uploadService,
@@ -249,10 +249,7 @@ describe('LocalUploadReact', () => {
       withoutUploadRejectionOverride.instance() as any;
     const uploadService: UploadService = withoutOverideInstance.uploadService;
 
-    const addFlag = jest.spyOn(
-      withoutOverideInstance as any,
-      'addUploadRejectionFlag',
-    );
+    const addFlag = jest.spyOn(withoutOverideInstance as any, 'addErrorFlag');
 
     const onFileRejectionInUploadService = jest.spyOn(
       uploadService,
@@ -281,7 +278,7 @@ describe('LocalUploadReact', () => {
     const withoutOnFileRejectionInstance =
       localUploadWithoutOnFileRejection.instance() as any;
     const uploadService = withoutOnFileRejectionInstance.uploadService;
-    const addFlag = withoutOnFileRejectionInstance.addUploadRejectionFlag;
+    const addFlag = withoutOnFileRejectionInstance.addErrorFlag;
 
     const onFileRejectionInUploadService = jest.spyOn(
       uploadService,
@@ -293,47 +290,37 @@ describe('LocalUploadReact', () => {
     expect(onFileRejectionInUploadService).toBeCalledWith(addFlag);
   });
 
-  describe('addUploadRejectionFlag', () => {
+  describe('addErrorFlag', () => {
     it('should correctly update the state to add a new flag', () => {
-      (localUploadComponentInstance as any).addUploadRejectionFlag(
-        rejectionData1,
-      );
+      (localUploadComponentInstance as any).addErrorFlag(rejectionData1);
       expect((localUploadComponentInstance as any).state).toEqual({
-        uploadRejectionFlags: [rejectionData1],
+        errorFlags: [rejectionData1],
       });
     });
 
     it('should correctly update the state to add multiple new flags', () => {
-      (localUploadComponentInstance as any).addUploadRejectionFlag(
-        rejectionData1,
-      );
-      (localUploadComponentInstance as any).addUploadRejectionFlag(
-        rejectionData2,
-      );
+      (localUploadComponentInstance as any).addErrorFlag(rejectionData1);
+      (localUploadComponentInstance as any).addErrorFlag(rejectionData2);
       expect((localUploadComponentInstance as any).state).toEqual({
-        uploadRejectionFlags: [rejectionData1, rejectionData2],
+        errorFlags: [rejectionData1, rejectionData2],
       });
     });
   });
 
-  describe('dismissUploadRejectionFlag', () => {
+  describe('dismissErrorFlag', () => {
     it('should correctly update the state to remove the first flag', () => {
-      (localUploadComponentInstance as any).addUploadRejectionFlag(
-        rejectionData1,
-      );
-      (localUploadComponentInstance as any).addUploadRejectionFlag(
-        rejectionData2,
-      );
-      (localUploadComponentInstance as any).dismissUploadRejectionFlag();
+      (localUploadComponentInstance as any).addErrorFlag(rejectionData1);
+      (localUploadComponentInstance as any).addErrorFlag(rejectionData2);
+      (localUploadComponentInstance as any).dismissErrorFlag();
       expect((localUploadComponentInstance as any).state).toEqual({
-        uploadRejectionFlags: [rejectionData2],
+        errorFlags: [rejectionData2],
       });
     });
 
     it('should not change the state when there are no flags to remove', () => {
-      (localUploadComponentInstance as any).dismissUploadRejectionFlag();
+      (localUploadComponentInstance as any).dismissErrorFlag();
       expect((localUploadComponentInstance as any).state).toEqual({
-        uploadRejectionFlags: [],
+        errorFlags: [],
       });
     });
   });

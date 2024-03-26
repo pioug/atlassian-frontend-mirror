@@ -52,6 +52,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Виберіть принаймні одного користувача, команду або адресу електронної пошти',
   'fabric.elements.share.in.integration.button': 'Поділитися в {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Запросити до Confluence',
+  'fabric.elements.share.invite.to.jira': 'Запросити до Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Поділитися сторінкою',
   'fabric.elements.share.main.tab.text.jira': 'Поділитися завданням',
   'fabric.elements.share.success.message':

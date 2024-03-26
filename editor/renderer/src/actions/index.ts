@@ -1,7 +1,5 @@
-import {
-  JSONTransformer,
-  JSONDocNode,
-} from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type {
   AnnotationActionResult,
   AnnotationByMatches,
@@ -10,11 +8,13 @@ import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from '@atlaskit/editor-common/utils';
-import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
-import { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
-import { Step, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import type { AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
-import {
+import type {
   AnalyticsEventPayload,
   AnnotationDeleteAEP,
 } from '../analytics/events';
@@ -203,7 +203,11 @@ export default class RendererActions
     });
   }
 
-  isValidAnnotationRange(range: Range) {
+  isValidAnnotationRange(range: Range | null) {
+    if (!range) {
+      return false;
+    }
+
     const pos = getPosFromRange(range);
     if (!pos || !this.doc) {
       return false;
@@ -220,8 +224,8 @@ export default class RendererActions
     return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
   }
 
-  getPositionFromRange(range: Range): Position | false {
-    if (!this.doc || !this.schema) {
+  getPositionFromRange(range: Range | null): Position | false {
+    if (!this.doc || !this.schema || !range) {
       return false;
     }
 

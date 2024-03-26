@@ -35,7 +35,7 @@
     "@atlaskit/adf-schema": "^35.7.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

@@ -16,7 +16,7 @@ import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 
-import type tablePlugin from './plugin';
+import type { TablePlugin } from './plugin';
 
 export const RESIZE_HANDLE_AREA_DECORATION_GAP = 30;
 export type RowInsertPosition = 'TOP' | 'BOTTOM';
@@ -33,7 +33,32 @@ export interface InsertRowOptions {
   moveCursorToInsertedRow: boolean;
 }
 
-export type PluginInjectionAPI = ExtractInjectionAPI<typeof tablePlugin>;
+export type PluginInjectionAPI = ExtractInjectionAPI<TablePlugin>;
+
+// override getPluginState but do not expose publicly as this type is experimental and will change
+// in the future
+export type TableSharedStateInternal = Pick<
+  TablePluginState,
+  | 'isFullWidthModeEnabled'
+  | 'wasFullWidthModeEnabled'
+  | 'isHeaderRowEnabled'
+  | 'isHeaderColumnEnabled'
+  | 'ordering'
+  | 'isInDanger'
+  | 'hoveredRows'
+  | 'hoveredCell'
+  | 'isTableHovered'
+  | 'tableNode'
+> & {
+  isResizing: boolean;
+  isTableResizing?: boolean;
+  isWholeTableInDanger?: boolean;
+};
+
+export type TableSharedState = Pick<
+  TablePluginState,
+  'isFullWidthModeEnabled' | 'wasFullWidthModeEnabled'
+>;
 
 export type InsertRowMethods =
   | INPUT_METHOD.CONTEXT_MENU

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import type { Site } from '../../types';
+import type { Site } from '../../../../common/types';
 import type {
   BasicFilterFieldType,
   SelectedOptionsMap,

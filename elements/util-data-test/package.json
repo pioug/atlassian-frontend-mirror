@@ -120,7 +120,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/mention": "23.0.2",
     "@atlaskit/profilecard": "^19.11.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/user-picker": "10.19.8",
     "@atlaskit/util-service-support": "^6.2.0",

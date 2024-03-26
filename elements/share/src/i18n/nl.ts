@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Selecteer minimaal één persoon, team of e-mailadres',
   'fabric.elements.share.in.integration.button': 'Delen in {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Uitnodigen voor Confluence',
+  'fabric.elements.share.invite.to.jira': 'Uitnodigen voor Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Pagina delen',
   'fabric.elements.share.main.tab.text.jira': 'Issue delen',
   'fabric.elements.share.success.message':

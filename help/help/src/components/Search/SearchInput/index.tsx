@@ -117,6 +117,7 @@ export const SearchInput: React.FC<WrappedComponentProps> = ({
                 appearance="subtle"
                 onClick={handleOnClearButtonClick}
                 spacing="none"
+                aria-label="Clear field"
               >
                 <EditorCloseIcon label="" />
               </Button>

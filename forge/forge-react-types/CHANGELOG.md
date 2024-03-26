@@ -1,5 +1,11 @@
 # @atlaskit/forge-react-types
 
+## 0.7.0
+
+### Minor Changes
+
+- [#83443](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83443) [`3571db765403`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3571db765403) - Add code generated Banner for UI Kit 2
+
 ## 0.6.1
 
 ### Patch Changes

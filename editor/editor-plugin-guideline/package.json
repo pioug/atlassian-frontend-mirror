@@ -27,11 +27,11 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.20.0",
+    "@atlaskit/editor-common": "^78.21.0",
     "@atlaskit/editor-plugin-width": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-shared-styles": "^2.9.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"

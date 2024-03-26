@@ -52,6 +52,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Wählen Sie mindestens eine Person, ein Team oder eine E-Mail-Adresse aus.',
   'fabric.elements.share.in.integration.button': 'In {integrationName} teilen',
+  'fabric.elements.share.invite.to.confluence': 'Zu Confluence einladen',
+  'fabric.elements.share.invite.to.jira': 'Zu Jira einladen',
   'fabric.elements.share.main.tab.text.confluence': 'Seite teilen',
   'fabric.elements.share.main.tab.text.jira': 'Vorgang teilen',
   'fabric.elements.share.success.message':

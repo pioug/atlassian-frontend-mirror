@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 78.21.0
+
+### Minor Changes
+
+- [#84616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84616) [`57b0c76cdce6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57b0c76cdce6) - Adding support for draft ranges in selection component for renderer annotation provider
+
 ## 78.20.2
 
 ### Patch Changes

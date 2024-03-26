@@ -3,6 +3,7 @@ export { default as ArticlesListItem } from './components/ArticlesList/ArticlesL
 export { default as RelatedArticles } from './components/RelatedArticles';
 export { default as HelpContentButton } from './components/HelpContentButton';
 export { DividerLine } from './util/styled';
+export { createArticleObject } from './util/helpers';
 
 export { ARTICLE_TYPE } from './model/Help';
 export { ARTICLE_ITEM_TYPES } from './model/Article';

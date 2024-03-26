@@ -28,6 +28,7 @@ import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
   NextEditorPlugin,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -64,6 +65,7 @@ import { createPlugin as createTableOverflowAnalyticsPlugin } from './pm-plugins
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import {
   createPlugin as createFlexiResizingPlugin,
+  getPluginState as getFlexiResizingPlugin,
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
@@ -72,7 +74,11 @@ import {
   pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { getToolbarConfig } from './toolbar';
-import type { ColumnResizingPluginState, PluginConfig } from './types';
+import type {
+  ColumnResizingPluginState,
+  PluginConfig,
+  TableSharedState,
+} from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
@@ -100,6 +106,17 @@ type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 
 const defaultGetEditorFeatureFlags = () => ({});
 
+// TODO: duplicating type instead of importing media plugin causing a circular dependency
+type MediaPlugin = NextEditorPlugin<
+  'media',
+  {
+    pluginConfiguration: any;
+    dependencies: any;
+    sharedState: any;
+    actions: any;
+  }
+>;
+
 export type TablePlugin = NextEditorPlugin<
   'table',
   {
@@ -107,10 +124,7 @@ export type TablePlugin = NextEditorPlugin<
     actions: {
       insertTable: InsertTableAction;
     };
-    sharedState: {
-      isFullWidthModeEnabled: boolean;
-      wasFullWidthModeEnabled: boolean;
-    };
+    sharedState?: TableSharedState;
     commands: {
       insertTableWithSize: (
         rowsCount: number,
@@ -124,6 +138,7 @@ export type TablePlugin = NextEditorPlugin<
       WidthPlugin,
       GuidelinePlugin,
       SelectionPlugin,
+      OptionalPlugin<MediaPlugin>,
     ];
   }
 >;
@@ -148,10 +163,35 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
     // Use getSharedState to store fullWidthEnabled and wasFullWidthModeEnabled to guarantee access
     // to most up to date values - passing to createPluginState will not re-initialise the state
-    getSharedState: () => {
+    getSharedState: (editorState) => {
+      if (!editorState) {
+        return undefined;
+      }
+
+      const tablePluginState = getPluginState(editorState);
+      const tableResizingPluginState = getFlexiResizingPlugin(editorState);
+      const tableWidthResizingPluginState =
+        tableWidthPluginKey.getState(editorState);
+
       return {
         isFullWidthModeEnabled: !!options?.fullWidthEnabled,
         wasFullWidthModeEnabled: !!options?.wasFullWidthEnabled,
+        isHeaderRowEnabled: tablePluginState.isHeaderRowEnabled,
+        isHeaderColumnEnabled: tablePluginState.isHeaderColumnEnabled,
+        ordering: tablePluginState.ordering,
+        isResizing: !!(
+          tableResizingPluginState?.dragging ||
+          tableWidthResizingPluginState?.resizing
+        ),
+        isTableResizing: tableWidthResizingPluginState?.resizing,
+        isInDanger: tablePluginState.isInDanger,
+        hoveredRows: tablePluginState.hoveredRows,
+        hoveredCell: tablePluginState.hoveredCell,
+        isTableHovered: tablePluginState.isTableHovered,
+        isWholeTableInDanger: tablePluginState.isWholeTableInDanger,
+        // IMPORTANT: Need to continue to pass tableNode to control re-renders
+        // TableComponent listens for node attribute changes to update colgroups
+        tableNode: tablePluginState.tableNode,
       };
     },
 

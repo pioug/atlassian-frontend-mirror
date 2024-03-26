@@ -51,7 +51,7 @@ export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
   return (
     <div
       css={errorContainerStyles}
-      data-testid="jira-jql-datasource-modal--loading-error"
+      data-testid="datasource-modal--loading-error"
     >
       <LoadingErrorSVG />
       <div css={errorMessageContainerStyles}>

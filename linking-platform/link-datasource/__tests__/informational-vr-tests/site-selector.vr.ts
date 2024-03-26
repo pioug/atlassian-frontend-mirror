@@ -8,7 +8,7 @@ import SiteSelector from '../../examples/vr/site-selector-vr';
 snapshotInformational(SiteSelector, {
   prepare: async (page: Page, component: Locator) => {
     await page
-      .locator('.jira-jql-datasource-modal--site-selector__control')
+      .locator('.jira-datasource-modal--site-selector__control')
       .first()
       .click();
   },

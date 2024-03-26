@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.3
+
+### Patch Changes
+
+- [#82198](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82198) [`fb41831c5371`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb41831c5371) - Remove WithPluginState behind a feature flag and introduce basic gemini tests
+
 ## 7.6.2
 
 ### Patch Changes

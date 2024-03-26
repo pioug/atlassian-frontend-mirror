@@ -42,7 +42,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

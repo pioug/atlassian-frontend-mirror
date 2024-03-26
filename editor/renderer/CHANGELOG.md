@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.11.0
+
+### Minor Changes
+
+- [#84616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84616) [`57b0c76cdce6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57b0c76cdce6) - Adding support for draft ranges in selection component for renderer annotation provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.10.7
 
 ### Patch Changes

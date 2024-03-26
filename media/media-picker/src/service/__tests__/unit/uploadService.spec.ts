@@ -643,6 +643,19 @@ describe('UploadService', () => {
       expect(callback).not.toHaveBeenCalled();
     });
 
+    it('should not call the file empty handler when all uploads are successful', async () => {
+      const { uploadService, filesAddedPromise } = setup();
+
+      const callback = jest.fn();
+      uploadService.onFileEmpty(callback);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+      await filesAddedPromise;
+
+      expect(callback).not.toHaveBeenCalled();
+    });
+
     it('should set deferredUploadId to correctly when a batch of upload sessions are successfully created', async () => {
       const { mediaClient, uploadService, filesAddedPromise } = setup();
 
@@ -1108,6 +1121,217 @@ describe('UploadService', () => {
       ).toBeGreaterThanOrEqual(currentTimestamp);
       expect(
         filesAddedCallback.mock.calls[0][0].files[2].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+    });
+  });
+
+  describe('FileEmpty in addFilesWithSource', () => {
+    const emptyFile: File = {
+      size: 0,
+      name: 'emptyFile-name',
+      type: 'image/png',
+    } as File;
+
+    const touchedFiles: TouchedFiles = {
+      created: [
+        {
+          fileId: 'uuid1',
+          uploadId: 'some-upload-id-uuid1',
+        },
+        {
+          fileId: 'uuid2',
+          uploadId: 'some-upload-id-uuid2',
+        },
+      ],
+    };
+
+    it('should emit file-preview-update only for successfully created files', async () => {
+      const { mediaClient, uploadService, filesAddedPromise } = setup();
+
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+
+      const callback = jest.fn();
+      uploadService.on('file-preview-update', callback);
+
+      const previewObject: Preview = { someImagePreview: true } as any;
+      (getPreviewModule.getPreviewFromBlob as any).mockReturnValue(
+        Promise.resolve(previewObject),
+      );
+
+      uploadService.addFiles([file, emptyFile]);
+      await flushPromises();
+      await filesAddedPromise;
+      const expectedPayload: UploadPreviewUpdateEventPayload = {
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid1',
+          name: 'some-filename',
+          size: 100,
+          type: 'video/mp4',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      };
+      expect(callback).toHaveBeenCalledWith(expectedPayload);
+      expect(callback).not.toHaveBeenCalledWith({
+        file: {
+          creationDate: expect.any(Number),
+          id: 'uuid2',
+          name: 'emptyFile-name',
+          size: 0,
+          type: 'image/png',
+          occurrenceKey: expect.any(String),
+        },
+        preview: previewObject,
+      });
+    });
+
+    it('should call file empty handler when file is empty i.e., zero bytes', async () => {
+      const { uploadService, filesAddedPromise } = setup();
+
+      const callback = jest.fn();
+      uploadService.onFileEmpty(callback);
+
+      uploadService.addFiles([emptyFile]);
+      await flushPromises();
+      await filesAddedPromise;
+      expect(callback).toHaveBeenNthCalledWith(1, {
+        reason: 'fileEmpty',
+        fileName: 'emptyFile-name',
+      });
+    });
+
+    it('should not call file empty handler when an unexpected error occurs', async () => {
+      const { mediaClient, uploadService } = setup();
+
+      const error = new Error('some error');
+      mediaClient.file.touchFiles = jest.fn(() => Promise.reject(error));
+
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const callback = jest.fn();
+      uploadService.onFileEmpty(callback);
+
+      uploadService.addFiles([file]);
+      await flushPromises();
+
+      expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('should not emit file-upload-error when file is empty', async () => {
+      const { uploadService } = setup();
+
+      const callback = jest.fn();
+      uploadService.on('file-upload-error', callback);
+
+      uploadService.addFiles([emptyFile]);
+      await flushPromises();
+
+      expect(callback).not.toHaveBeenCalled();
+    });
+
+    it('should emit files-added only for successfully created files', async () => {
+      const { mediaClient, uploadService } = setup();
+      const currentTimestamp = Date.now();
+
+      asMock(mediaClient.file.touchFiles).mockResolvedValue(touchedFiles);
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const callback = jest.fn();
+      uploadService.on('files-added', callback);
+
+      uploadService.addFiles([file, emptyFile]);
+      await flushPromises();
+      const expectedPayload: UploadsStartEventPayload = {
+        files: [
+          {
+            creationDate: expect.any(Number),
+            id: 'uuid1',
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+        ],
+        traceContext: expect.any(Object),
+      };
+      expect(callback).toHaveBeenCalledWith(expectedPayload);
+      expect(
+        callback.mock.calls[0][0].files[0].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+    });
+
+    it('should emit files-added for all non-empty files when an unexpected error occurs', async () => {
+      const fileOverSize: File = {
+        size: 1000,
+        name: 'over-size-filename',
+        type: 'image/png',
+      } as any;
+
+      const { mediaClient, uploadService } = setup();
+      const currentTimestamp = Date.now();
+
+      const error = new Error('some error');
+      mediaClient.file.touchFiles = jest.fn(() => Promise.reject(error));
+
+      const fileStateObservable = createMediaSubject();
+      mediaClient.file.upload = jest.fn(
+        (file: any, controller?: any, uploadableFileUpfrontIds?: any) => {
+          uploadableFileUpfrontIds?.deferredUploadId.catch(() => {});
+          return fromObservable(fileStateObservable);
+        },
+      );
+
+      const callback = jest.fn();
+      uploadService.on('files-added', callback);
+
+      uploadService.addFiles([file, emptyFile, fileOverSize]);
+      try {
+        await flushPromises();
+      } catch (err) {}
+
+      const expectedPayload: UploadsStartEventPayload = {
+        files: [
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'some-filename',
+            size: 100,
+            type: 'video/mp4',
+            occurrenceKey: expect.any(String),
+          },
+          {
+            id: expect.any(String),
+            creationDate: expect.any(Number),
+            name: 'over-size-filename',
+            size: 1000,
+            type: 'image/png',
+            occurrenceKey: expect.any(String),
+          },
+        ],
+        traceContext: expect.any(Object),
+      };
+      expect(callback).toHaveBeenCalledWith(expectedPayload);
+      expect(callback.mock.calls[0][0].files[0].id).not.toEqual(
+        callback.mock.calls[0][0].files[1].id,
+      );
+      expect(
+        callback.mock.calls[0][0].files[0].creationDate,
+      ).toBeGreaterThanOrEqual(currentTimestamp);
+      expect(
+        callback.mock.calls[0][0].files[1].creationDate,
       ).toBeGreaterThanOrEqual(currentTimestamp);
     });
   });

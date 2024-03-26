@@ -14,7 +14,7 @@ import {
   SmartCardProvider,
 } from '@atlaskit/link-provider';
 import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
-import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
 import {
@@ -32,7 +32,7 @@ forceBaseUrl('https://pug.jira-dev.com');
 
 export default () => {
   const [generatedAdf, setGeneratedAdf] = useState<
-    InlineCardAdf | JiraIssuesDatasourceAdf | null
+    InlineCardAdf | JiraIssuesDatasourceAdf | DatasourceAdf | null
   >(null);
   const [showModal, setShowModal] = useState(true);
   const [parameters, setParameters] = useState<
@@ -44,9 +44,13 @@ export default () => {
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
 
-  const onInsert = (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => {
+  const onInsert = (
+    adf: InlineCardAdf | JiraIssuesDatasourceAdf | DatasourceAdf,
+  ) => {
     if (adf.type === 'blockCard') {
-      setParameters(adf.attrs.datasource.parameters);
+      setParameters(
+        adf.attrs.datasource.parameters as JiraIssueDatasourceParameters,
+      );
       setVisibleColumnKeys(
         adf.attrs.datasource.views[0].properties?.columns.map(c => c.key),
       );

@@ -57,7 +57,7 @@ import {
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
 import { TABLE_EDITOR_MARGIN } from '../pm-plugins/table-resizing/utils/consts';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
-import type { PluginInjectionAPI } from '../types';
+import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import {
   tableOverflowShadowWidth,
@@ -107,11 +107,18 @@ export interface ComponentProps {
   isDragAndDropEnabled?: boolean;
   isTableScalingEnabled?: boolean;
   tableActive: boolean;
-  ordering: TableColumnOrdering;
+  ordering?: TableColumnOrdering;
   isResizing?: boolean;
   getEditorFeatureFlags: GetEditorFeatureFlags;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   pluginInjectionApi?: PluginInjectionAPI;
+
+  // marking props as option to ensure backward compatibility when platform.editor.table.use-shared-state-hook disabled
+  isInDanger?: boolean;
+  hoveredRows?: number[];
+  hoveredCell?: CellHoverMeta;
+  isTableHovered?: boolean;
+  isWholeTableInDanger?: boolean;
 }
 
 interface TableState {
@@ -392,8 +399,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isTableScalingEnabled,
       getPos,
     } = this.props;
-    const { isInDanger } = getPluginState(view.state);
+    let { isInDanger } = this.props;
+
     const table = findTable(view.state.selection);
+
+    if (!getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+      const pluginState = getPluginState(view.state);
+      isInDanger = pluginState.isInDanger;
+    }
 
     if (isTableScalingEnabled) {
       this.handleColgroupUpdates();
@@ -454,7 +467,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isNoOfColumnsChanged
       ) {
         const { view } = this.props;
-
         const shouldRecreateResizeCols =
           !options?.isTableResizingEnabled ||
           !isResizing ||
@@ -570,11 +582,25 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isTableScalingEnabled,
     } = this.props;
 
+    let {
+      isInDanger,
+      hoveredRows,
+      hoveredCell,
+      isTableHovered,
+      isWholeTableInDanger,
+    } = this.props;
+
     const { showBeforeShadow, showAfterShadow } = this.state;
     const node = getNode();
-    // doesn't work well with WithPluginState
-    const { isInDanger, hoveredRows, hoveredCell, isTableHovered } =
-      getPluginState(view.state);
+
+    if (!getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+      const pluginState = getPluginState(view.state);
+      isInDanger = pluginState.isInDanger;
+      hoveredRows = pluginState.hoveredRows;
+      hoveredCell = pluginState.hoveredCell;
+      isTableHovered = pluginState.isTableHovered;
+      isWholeTableInDanger = pluginState.isWholeTableInDanger;
+    }
 
     const tableRef = this.table || undefined;
     const headerRow = tableRef
@@ -604,6 +630,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         headerRowHeight={headerRow ? headerRow.offsetHeight : undefined}
         stickyHeader={this.state.stickyHeader}
         tableWrapperWidth={this.state.tableWrapperWidth}
+        api={pluginInjectionApi}
       />
     );
     const tableContainerWidth = getTableContainerWidth(node);
@@ -629,6 +656,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isNumberColumnEnabled={node.attrs.isNumberColumnEnabled}
         getScrollOffset={() => this.wrapper?.scrollLeft || 0}
         tableWrapperHeight={this.state.tableWrapperHeight}
+        api={pluginInjectionApi}
       />
     ) : null;
 
@@ -685,6 +713,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isTableResizingEnabled={options?.isTableResizingEnabled}
         isResizing={isResizing}
         isTableScalingEnabled={isTableScalingEnabled}
+        isWholeTableInDanger={isWholeTableInDanger}
       >
         <div
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}

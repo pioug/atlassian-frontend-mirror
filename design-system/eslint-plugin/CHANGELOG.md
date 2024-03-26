@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.2.0
+
+### Minor Changes
+
+- [#84330](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84330) [`391be0d8e414`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/391be0d8e414) - - `prefer-primitives`: This rule is now deprecated. Please use `use-primitives` instead.
+  - `ensure-design-token-usage/preview`: This rule is now deprecated. Please use `use-tokens-space` instead.
+
+## 9.1.0
+
+### Minor Changes
+
+- [#84334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84334) [`b2134858ba58`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2134858ba58) - The `use-tokens-typography` rule now applies token fallbacks that reference the constants exported via `@atlaskit/theme/typography`, rather than applying the fallback string inline.
+
 ## 9.0.0
 
 ### Major Changes

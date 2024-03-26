@@ -10,6 +10,8 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import type { ApplyAnnotation } from '../../../../../actions/index';
+import type RendererActions from '../../../../../actions/index';
+import { RendererContext } from '../../../../RendererActionsContext';
 import * as DraftMock from '../../../draft';
 import type { Position } from '../../../types';
 import { SelectionInlineCommentMounter } from '../../mounter';
@@ -36,6 +38,11 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     } as React.RefObject<HTMLDivElement>;
     let onCreateCallback: Function = () => {};
     let applyDraftModeCallback: Function = () => {};
+    // @ts-ignore
+    const actions = {
+      isValidAnnotationPosition: jest.fn(() => true),
+      getAnnotationsByPosition: jest.fn(() => []),
+    } as RendererActions;
 
     const DummyComponent = (props: InlineCommentSelectionComponentProps) => {
       onCreateCallback = props.onCreate;
@@ -45,18 +52,21 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     };
 
     render(
-      <SelectionInlineCommentMounter
-        range={document.createRange()}
-        wrapperDOM={wrapperDOM}
-        onClose={fakeOnCloseProp}
-        component={DummyComponent}
-        documentPosition={fakeDocumentPosition}
-        isAnnotationAllowed={isAnnotationAllowed}
-        applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
-        applyAnnotationDraftAt={jest.fn()}
-        createAnalyticsEvent={fakeCreateAnalyticsEvent}
-        clearAnnotationDraft={fakeClearAnnotationDraft}
-      />,
+      <RendererContext.Provider value={actions}>
+        <SelectionInlineCommentMounter
+          range={document.createRange()}
+          draftRange={null}
+          wrapperDOM={wrapperDOM}
+          onClose={fakeOnCloseProp}
+          component={DummyComponent}
+          documentPosition={fakeDocumentPosition}
+          isAnnotationAllowed={isAnnotationAllowed}
+          applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
+          applyAnnotationDraftAt={jest.fn()}
+          createAnalyticsEvent={fakeCreateAnalyticsEvent}
+          clearAnnotationDraft={fakeClearAnnotationDraft}
+        />
+      </RendererContext.Provider>,
       { container: container! },
     );
     return {
@@ -170,9 +180,11 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
     it('sends annotation opened analytics event', () => {
       const { applyDraftModeCallback } = renderMounter();
+
       act(() => {
         applyDraftModeCallback(true);
       });
+
       expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.OPENED,
         actionSubject: ACTION_SUBJECT.ANNOTATION,

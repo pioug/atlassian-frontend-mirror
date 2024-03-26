@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Выберите хотя бы одного пользователя, команду или адрес электронной почты',
   'fabric.elements.share.in.integration.button': 'Поделиться в {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Пригласить в Confluence',
+  'fabric.elements.share.invite.to.jira': 'Пригласить в Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Поделиться страницей',
   'fabric.elements.share.main.tab.text.jira': 'Поделиться задачей',
   'fabric.elements.share.success.message':

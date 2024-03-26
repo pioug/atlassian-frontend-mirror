@@ -4,10 +4,10 @@ import type {
   AnnotationByMatches,
   InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
-import { ApplyAnnotation } from '../../../actions/index';
+import type { ApplyAnnotation } from '../../../actions/index';
 import { updateWindowSelectionAroundDraft } from '../draft';
-import { Position } from '../types';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { Position } from '../types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import {
   ACTION,
@@ -18,7 +18,8 @@ import {
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 
 type Props = {
-  range: Range;
+  range: Range | null;
+  draftRange: Range | null;
   component: React.ComponentType<
     React.PropsWithChildren<InlineCommentSelectionComponentProps>
   >;
@@ -38,6 +39,7 @@ export const SelectionInlineCommentMounter = React.memo(
     const {
       component: Component,
       range,
+      draftRange,
       isAnnotationAllowed,
       wrapperDOM,
       onClose: onCloseProps,
@@ -55,9 +57,22 @@ export const SelectionInlineCommentMounter = React.memo(
 
     const onCreateCallback = useCallback(
       (annotationId: string) => {
-        if (!isAnnotationAllowed || !documentPosition || !applyAnnotation) {
+        // We want to support creation on a documentPosition if the user is only using ranges
+        // but we want to prioritize draft positions if they are being used by consumers
+        const positionToAnnotate = draftDocumentPosition || documentPosition;
+
+        if (!positionToAnnotate || !applyAnnotation) {
           return false;
         }
+
+        // Evaluate position validity when the user commits the position to be annotated
+        const isCreateAllowedOnPosition =
+          actions.isValidAnnotationPosition(positionToAnnotate);
+
+        if (!isCreateAllowedOnPosition) {
+          return false;
+        }
+
         const annotation = {
           annotationId,
           annotationType: AnnotationTypes.INLINE_COMMENT,
@@ -73,13 +88,10 @@ export const SelectionInlineCommentMounter = React.memo(
           }).fire(FabricChannel.editor);
         }
 
-        return applyAnnotation(
-          draftDocumentPosition || documentPosition,
-          annotation,
-        );
+        return applyAnnotation(positionToAnnotate, annotation);
       },
       [
-        isAnnotationAllowed,
+        actions,
         documentPosition,
         applyAnnotation,
         draftDocumentPosition,
@@ -118,8 +130,10 @@ export const SelectionInlineCommentMounter = React.memo(
         applyAnnotationDraftAt(documentPosition);
 
         if (createAnalyticsEvent) {
-          const uniqueAnnotationsInRange =
-            actions.getAnnotationsByPosition(range);
+          const uniqueAnnotationsInRange = range
+            ? actions.getAnnotationsByPosition(range)
+            : [];
+
           createAnalyticsEvent({
             action: ACTION.OPENED,
             actionSubject: ACTION_SUBJECT.ANNOTATION,
@@ -179,6 +193,7 @@ export const SelectionInlineCommentMounter = React.memo(
     return (
       <Component
         range={range}
+        draftRange={draftRange}
         wrapperDOM={wrapperDOM.current as HTMLElement}
         isAnnotationAllowed={isAnnotationAllowed}
         onClose={onCloseCallback}

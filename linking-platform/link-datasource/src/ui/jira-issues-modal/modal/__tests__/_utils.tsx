@@ -14,23 +14,22 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { succeedUfoExperience } from '../../../../analytics/ufoExperiences';
+import { ConfigModalProps, IssueViewModes } from '../../../../common/types';
 import {
   DatasourceTableState,
   useDatasourceTableState,
 } from '../../../../hooks/useDatasourceTableState';
-import { getAvailableJiraSites } from '../../../../services/getAvailableJiraSites';
+import { getAvailableSites } from '../../../../services/getAvailableSites';
 import { IssueLikeDataTableView } from '../../../issue-like-table';
 import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import {
   JiraIssueDatasourceParameters,
-  JiraIssuesConfigModalProps,
   JiraIssuesDatasourceAdf,
-  JiraIssueViewModes,
 } from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 
-jest.mock('../../../../services/getAvailableJiraSites', () => ({
-  getAvailableJiraSites: jest.fn(),
+jest.mock('../../../../services/getAvailableSites', () => ({
+  getAvailableSites: jest.fn(),
 }));
 
 jest.mock('@atlaskit/jql-editor-autocomplete-rest', () => ({
@@ -215,13 +214,13 @@ export const setup = async (
       url: string;
       displayName: string;
     }[];
-    columnCustomSizes?: JiraIssuesConfigModalProps['columnCustomSizes'];
-    wrappedColumnKeys?: JiraIssuesConfigModalProps['wrappedColumnKeys'];
-    url?: JiraIssuesConfigModalProps['url'];
-    viewMode?: JiraIssueViewModes;
+    columnCustomSizes?: ConfigModalProps['columnCustomSizes'];
+    wrappedColumnKeys?: ConfigModalProps['wrappedColumnKeys'];
+    url?: ConfigModalProps['url'];
+    viewMode?: IssueViewModes;
   } = {},
 ) => {
-  asMock(getAvailableJiraSites).mockResolvedValue(
+  asMock(getAvailableSites).mockResolvedValue(
     args.mockSiteDataOverride || mockSiteData,
   );
   asMock(useDatasourceTableState).mockReturnValue(
@@ -244,7 +243,7 @@ export const setup = async (
         <IntlProvider locale="en">
           <SmartCardProvider client={new SmartLinkClient()}>
             <JiraIssuesConfigModal
-              datasourceId={'some-jira-jql-datasource-id'}
+              datasourceId={'some-jira-datasource-id'}
               parameters={
                 Object.keys(args).includes('parameters')
                   ? args.parameters
@@ -305,13 +304,13 @@ export const setup = async (
 
   if (!args.dontWaitForSitesToLoad) {
     await component.findByTestId(
-      'jira-jql-datasource-modal--site-selector--trigger',
+      'jira-datasource-modal--site-selector--trigger',
     );
   }
 
-  const switchMode = (viewMode: JiraIssueViewModes) => {
+  const switchMode = (viewMode: IssueViewModes) => {
     fireEvent.click(
-      getByTestId('jira-jql-datasource-modal--view-drop-down--trigger'),
+      getByTestId('jira-datasource-modal--view-drop-down--trigger'),
     );
     viewMode === 'issue'
       ? fireEvent.click(getByTestId('dropdown-item-table'))
@@ -339,7 +338,7 @@ export const setup = async (
         attrs: {
           url: args?.jqlUrl,
           datasource: {
-            id: 'some-jira-jql-datasource-id',
+            id: 'some-jira-datasource-id',
             parameters: {
               cloudId: args.cloudId || '67899',
               jql: args.jql || 'some-query',
@@ -363,14 +362,14 @@ export const setup = async (
 
   const selectNewJiraInstanceSite = async () => {
     const siteSelectorTrigger = document.getElementsByClassName(
-      'jira-jql-datasource-modal--site-selector__control',
+      'jira-datasource-modal--site-selector__control',
     )[0];
 
     fireEvent.mouseDown(siteSelectorTrigger);
 
     const availableJiraSiteDropdownItems = [
       ...document.getElementsByClassName(
-        'jira-jql-datasource-modal--site-selector__option',
+        'jira-datasource-modal--site-selector__option',
       ),
     ] as HTMLElement[];
 
@@ -381,12 +380,12 @@ export const setup = async (
 
   const getSiteSelectorText = () =>
     document.getElementsByClassName(
-      'jira-jql-datasource-modal--site-selector__control',
+      'jira-datasource-modal--site-selector__control',
     )[0]?.textContent;
 
   const getJiraModalTitleText = async () => {
     const modalTitle = await component.findByTestId(
-      'jira-jql-datasource-modal--title-text',
+      'jira-datasource-modal--title-text',
     );
     const modalTitleTextContent = modalTitle?.textContent;
 
@@ -409,13 +408,13 @@ export const setup = async (
     });
     act(() => {
       fireEvent.change(
-        getByTestId('jira-jql-datasource-modal--basic-search-input'),
+        getByTestId('jira-datasource-modal--basic-search-input'),
         { target: { value: keywords } },
       );
     });
     act(() => {
       fireEvent.click(
-        getByTestId('jira-jql-datasource-modal--basic-search-button'),
+        getByTestId('jira-datasource-modal--basic-search-button'),
       );
     });
   };
@@ -500,6 +499,6 @@ export const setup = async (
 export {
   useDatasourceTableState,
   IssueLikeDataTableView,
-  getAvailableJiraSites,
+  getAvailableSites,
   JQLEditor,
 };

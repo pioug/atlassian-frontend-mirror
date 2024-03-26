@@ -7,7 +7,7 @@ import WithModal from '../../examples/with-issues-modal';
 
 async function openDropDown(page: Page) {
   await page
-    .getByTestId('jira-jql-datasource-modal--view-drop-down--trigger')
+    .getByTestId('jira-datasource-modal--view-drop-down--trigger')
     .click();
 }
 

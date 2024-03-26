@@ -13,6 +13,8 @@ export type RenderCallbackType = (
 ) => React.ReactNode;
 
 type Props = {
+  setDraftRange: () => void;
+  clearDraftRange: () => void;
   children: RenderCallbackType;
 };
 
@@ -50,16 +52,25 @@ export class AnnotationsDraftContextWrapper extends React.Component<
   }
 
   applyAnnotationDraftAt = (nextPosition: Position) => {
-    const { position } = this.state;
+    const { setDraftRange } = this.props;
 
-    if (!position) {
-      this.setState({
-        position: nextPosition,
-      });
-    }
+    // Set the draft range to preserve it downstream
+    setDraftRange();
+
+    // We need to support a new draft being made while one exists and overwrite it
+    // Set the document position for the newly created draft
+    this.setState({
+      position: nextPosition,
+    });
   };
 
   clearAnnotationDraft = () => {
+    const { clearDraftRange } = this.props;
+
+    // Clear the draft range
+    clearDraftRange();
+
+    // Clear the draft position in the document
     this.setState({
       position: null,
     });

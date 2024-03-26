@@ -48,7 +48,7 @@
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",

@@ -48,6 +48,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'เลือกคน ทีม หรืออีเมลอย่างน้อยหนึ่งรายการ',
   'fabric.elements.share.in.integration.button': 'แชร์ใน {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'เชิญไปยัง Confluence',
+  'fabric.elements.share.invite.to.jira': 'เชิญไปยัง Jira',
   'fabric.elements.share.main.tab.text.confluence': 'แชร์หน้าข้อมูล',
   'fabric.elements.share.main.tab.text.jira': 'แชร์ปัญหา',
   'fabric.elements.share.success.message':

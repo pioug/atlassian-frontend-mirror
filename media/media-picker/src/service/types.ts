@@ -5,6 +5,7 @@ import {
   UploadsStartEventPayload,
   UploadParams,
   UploadRejectionData,
+  FileEmptyData,
 } from '../types';
 
 export type UploadServiceEventPayloadTypes = {
@@ -35,6 +36,7 @@ export interface UploadService {
     event: E,
     listener: UploadServiceEventListener<E>,
   ): void;
+  onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void): void;
   onFileRejection(handler: (rejectionData: UploadRejectionData) => void): void;
 }
 

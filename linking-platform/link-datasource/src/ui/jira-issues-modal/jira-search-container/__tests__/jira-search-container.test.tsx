@@ -294,9 +294,7 @@ describe('JiraSearchContainer', () => {
         'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
     });
 
-    fireEvent.click(
-      getByTestId('jira-jql-datasource-modal--basic-search-button'),
-    );
+    fireEvent.click(getByTestId('jira-datasource-modal--basic-search-button'));
     expect(mockOnSearch).toHaveBeenCalledWith(
       {
         jql: 'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
@@ -518,9 +516,7 @@ describe('JiraSearchContainer', () => {
         'text ~ "testing*" or summary ~ "testing*" ORDER BY created DESC',
     });
 
-    fireEvent.click(
-      getByTestId('jira-jql-datasource-modal--basic-search-button'),
-    );
+    fireEvent.click(getByTestId('jira-datasource-modal--basic-search-button'));
 
     expect(mockOnSearch).toHaveBeenCalledWith(
       {
@@ -1177,7 +1173,7 @@ describe('JiraSearchContainer', () => {
         });
 
         fireEvent.click(
-          getByTestId('jira-jql-datasource-modal--basic-search-button'),
+          getByTestId('jira-datasource-modal--basic-search-button'),
         );
 
         expect(mockFetchHydratedJqlOptions).toHaveBeenCalledTimes(0);
@@ -1342,7 +1338,7 @@ describe('JiraSearchContainer', () => {
         });
 
         fireEvent.click(
-          getByTestId('jira-jql-datasource-modal--basic-search-button'),
+          getByTestId('jira-datasource-modal--basic-search-button'),
         );
 
         expect(mockOnSearch).toHaveBeenCalledWith(
@@ -1422,7 +1418,7 @@ describe('JiraSearchContainer', () => {
         });
 
         fireEvent.click(
-          getByTestId('jira-jql-datasource-modal--basic-search-button'),
+          getByTestId('jira-datasource-modal--basic-search-button'),
         );
 
         expect(mockOnSearch).toHaveBeenCalledWith(
@@ -1466,7 +1462,7 @@ describe('JiraSearchContainer', () => {
         setupBasicFilter({ ...renderResult, openPicker: false });
 
         expect(
-          queryByTestId('jira-jql-datasource-modal--basic-search-input'),
+          queryByTestId('jira-datasource-modal--basic-search-input'),
         ).toHaveValue('hello');
       },
       () => commonBasicFilterFeatureFlagFalsyTest(),
@@ -1492,7 +1488,7 @@ describe('Analytics: JiraSearchContainer', () => {
       });
 
       fireEvent.click(
-        getByTestId('jira-jql-datasource-modal--basic-search-button'),
+        getByTestId('jira-datasource-modal--basic-search-button'),
       );
 
       expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(

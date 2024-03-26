@@ -4,15 +4,19 @@ import { IntlProvider } from 'react-intl-next';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 
-import { JiraSiteSelector } from '../../src/ui/jira-issues-modal/site-selector';
+import { SiteSelector } from '../../src/ui/common/modal/site-selector';
+import { modalMessages } from '../../src/ui/jira-issues-modal/modal/messages';
 
-export default () => (
-  <IntlProvider locale="en">
-    <JiraSiteSelector
-      testId={`jira-jql-datasource-modal--site-selector`}
-      availableSites={mockSiteData}
-      onSiteSelection={() => {}}
-      selectedJiraSite={mockSiteData[0]}
-    />
-  </IntlProvider>
-);
+export default () => {
+  return (
+    <IntlProvider locale="en">
+      <SiteSelector
+        testId={`jira-datasource-modal--site-selector`}
+        label={modalMessages.insertIssuesTitleManySites}
+        availableSites={mockSiteData}
+        onSiteSelection={() => {}}
+        selectedSite={mockSiteData[0]}
+      />
+    </IntlProvider>
+  );
+};

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "The core package for Pragmatic drag and drop - enabling fast drag and drop for any experience on any tech stack",
   "repository": "https://github.com/atlassian/pragmatic-drag-and-drop",
   "author": "Atlassian Pty Ltd",
@@ -28,10 +28,7 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Core",
-      "category": "Libraries",
-      "status": {
-        "type": "alpha"
-      }
+      "category": "Libraries"
     },
     "integrationTests": {
       "additionalBrowsers": [

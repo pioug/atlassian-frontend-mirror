@@ -79,6 +79,7 @@ type ResizableTableContainerProps = {
   pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
   tableWrapperHeight?: number;
+  isWholeTableInDanger?: boolean;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -94,6 +95,7 @@ export const ResizableTableContainer = React.memo(
     pluginInjectionApi,
     isTableScalingEnabled,
     tableWrapperHeight,
+    isWholeTableInDanger,
   }: PropsWithChildren<ResizableTableContainerProps>) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
@@ -207,6 +209,7 @@ export const ResizableTableContainer = React.memo(
       attachAnalyticsEvent,
       displayGapCursor,
       isTableScalingEnabled,
+      isWholeTableInDanger,
     };
 
     if (getBooleanFF('platform.editor.resizing-table-height-improvement')) {
@@ -259,6 +262,7 @@ type TableContainerProps = {
   pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
   tableWrapperHeight?: number;
+  isWholeTableInDanger?: boolean;
 };
 
 export const TableContainer = ({
@@ -276,6 +280,7 @@ export const TableContainer = ({
   isResizing,
   pluginInjectionApi,
   isTableScalingEnabled,
+  isWholeTableInDanger,
 }: PropsWithChildren<TableContainerProps>) => {
   if (isTableResizingEnabled && !isNested) {
     return (
@@ -290,6 +295,7 @@ export const TableContainer = ({
         isResizing={isResizing}
         pluginInjectionApi={pluginInjectionApi}
         isTableScalingEnabled={isTableScalingEnabled}
+        isWholeTableInDanger={isWholeTableInDanger}
       >
         {children}
       </ResizableTableContainer>

@@ -1,9 +1,8 @@
-import { useContext, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   useAnnotationRangeDispatch,
   useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
-import { AnnotationsDraftContext } from '../context';
 import { isRangeInsideOfRendererContainer } from './utils';
 
 type Props = {
@@ -12,14 +11,13 @@ type Props = {
 
 export const useUserSelectionRange = (
   props: Props,
-): [Range | null, () => void] => {
+): [Range | null, Range | null, () => void] => {
   const {
     rendererRef: { current: rendererDOM },
   } = props;
-  const { clearSelectionRange, setRange } = useAnnotationRangeDispatch();
-  const { range, type } = useAnnotationRangeState();
-  const annotationDraftPosition = useContext(AnnotationsDraftContext);
-  const hasAnnotationDraft = !!annotationDraftPosition;
+  const selectionTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const { clearRange, setRange } = useAnnotationRangeDispatch();
+  const { range, draftRange, type } = useAnnotationRangeState();
 
   useEffect(() => {
     if (!document || !rendererDOM) {
@@ -27,34 +25,35 @@ export const useUserSelectionRange = (
     }
 
     const onSelectionChange = (event: Event) => {
-      const sel = document.getSelection();
-
-      if (
-        !sel ||
-        sel.type !== 'Range' ||
-        sel.rangeCount !== 1 ||
-        hasAnnotationDraft
-      ) {
-        return;
+      if (selectionTimeoutRef.current) {
+        clearTimeout(selectionTimeoutRef.current);
       }
 
-      const _range = sel.getRangeAt(0);
+      selectionTimeoutRef.current = setTimeout(() => {
+        const sel = document.getSelection();
 
-      if (
-        rendererDOM &&
-        isRangeInsideOfRendererContainer(rendererDOM, _range)
-      ) {
-        setRange(_range.cloneRange());
-      }
+        if (!sel || sel.type !== 'Range' || sel.rangeCount !== 1) {
+          return;
+        }
+
+        const _range = sel.getRangeAt(0);
+
+        if (
+          rendererDOM &&
+          isRangeInsideOfRendererContainer(rendererDOM, _range)
+        ) {
+          setRange(_range.cloneRange());
+        }
+      }, 250);
     };
 
     document.addEventListener('selectionchange', onSelectionChange);
 
     return () => {
       document.removeEventListener('selectionchange', onSelectionChange);
-      clearSelectionRange();
+      clearRange();
     };
-  }, [rendererDOM, hasAnnotationDraft, setRange, clearSelectionRange]);
+  }, [rendererDOM, setRange, clearRange]);
 
-  return [type === 'selection' ? range : null, clearSelectionRange];
+  return [type === 'selection' ? range : null, draftRange, clearRange];
 };

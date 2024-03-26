@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.2
+
+### Patch Changes
+
+- [#84685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84685) [`8884904b3f36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8884904b3f36) - fix insert annotation analytics to include selectionType and nodeLocation
+
 ## 1.5.1
 
 ### Patch Changes

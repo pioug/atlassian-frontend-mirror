@@ -58,6 +58,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     '⁣⁢Select at least one person, team, or email⁠⁠⁪‌‌؜⁬‍‍‍⁠‌⁬⁪⁭⁭⁮‍‍؜‌⁠⁪⁫⁡⁪⁠⁣⁤',
   'fabric.elements.share.in.integration.button': '⁣⁢Share in {integrationName}⁠؜⁪⁡⁬⁭⁡⁭‌⁫⁪⁬⁡؜‌⁮⁪⁯⁬‌⁬‌⁭⁣⁤',
+  'fabric.elements.share.invite.to.confluence': '⁣⁢Invite to Confluence⁪⁮⁡⁭⁫⁪⁯؜‍⁫⁪‍⁠⁭‍⁡⁠⁡⁮⁬؜‍‍⁣⁤',
+  'fabric.elements.share.invite.to.jira': '⁣⁢Invite to Jira؜⁠⁡⁯⁬⁠‌⁮⁮؜⁠⁮⁠‍⁫⁯‍⁫⁡⁬⁣⁤',
   'fabric.elements.share.main.tab.text.confluence': '⁣⁢Share page⁪⁯⁭⁬⁬⁪⁬⁯‌‍‌‍⁠⁫⁡؜⁮‌⁮⁣⁤',
   'fabric.elements.share.main.tab.text.jira': '⁣⁢Share issue؜⁭‍⁮‍⁬؜‍⁬⁯⁡⁠⁠⁪⁮؜‍⁣⁤',
   'fabric.elements.share.success.message':

@@ -123,9 +123,6 @@
       "path": "../../design-system/radio/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/section-message/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/select/tsconfig.app.json"
     },
     {

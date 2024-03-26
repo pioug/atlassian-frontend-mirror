@@ -4,6 +4,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clearHoverSelection } from '../../../commands';
@@ -22,6 +23,7 @@ export interface Props {
   isResizing?: boolean;
   insertRowButtonIndex?: number;
   stickyTop?: number;
+  selection?: Selection;
 }
 
 class RowControlsComponent extends Component<Props & WrappedComponentProps> {
@@ -33,6 +35,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
       isInDanger,
       isResizing,
       intl: { formatMessage },
+      selection: selectionState,
     } = this.props;
     if (!tableRef) {
       return null;
@@ -72,7 +75,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
                     ClassName.ROW_CONTROLS_BUTTON_WRAP
                   } ${getRowClassNames(
                     startIndex,
-                    selection,
+                    selectionState || selection,
                     hoveredRows,
                     isInDanger,
                     isResizing,

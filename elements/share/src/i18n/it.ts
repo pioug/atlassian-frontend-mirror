@@ -52,6 +52,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Seleziona almeno una persona, un team o un indirizzo e-mail',
   'fabric.elements.share.in.integration.button': 'Condividi in {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Invita in Confluence',
+  'fabric.elements.share.invite.to.jira': 'Invita in Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Condividi pagina',
   'fabric.elements.share.main.tab.text.jira': 'Condividi ticket',
   'fabric.elements.share.success.message':

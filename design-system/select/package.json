@@ -52,7 +52,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
     "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",

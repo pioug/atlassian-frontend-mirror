@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Vyberte alespoň jednu osobu, tým nebo e-mail',
   'fabric.elements.share.in.integration.button': 'Sdílet v: {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Pozvat do Confluence',
+  'fabric.elements.share.invite.to.jira': 'Pozvat do Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Sdílet stránku',
   'fabric.elements.share.main.tab.text.jira': 'Sdílet požadavek',
   'fabric.elements.share.success.message':

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-collab-edit",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Collab Edit plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,11 +37,10 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.7.0",
     "@atlaskit/custom-steps": "^0.0.16",
-    "@atlaskit/editor-common": "^78.20.0",
+    "@atlaskit/editor-common": "^78.21.0",
     "@atlaskit/editor-plugin-analytics": "1.0.5",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/prosemirror-collab": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "memoize-one": "^6.0.0"
@@ -101,10 +100,5 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
-  "platform-feature-flags": {
-    "platform.editor.enable-map-selection-backward": {
-      "type": "boolean"
-    }
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

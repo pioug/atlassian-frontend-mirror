@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 7.2.28
+
+### Patch Changes
+
+- [#83342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83342) [`a0485902fc0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a0485902fc0e) - Added helper function to combine body fields.
+
+## 7.2.27
+
+### Patch Changes
+
+- [#84155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84155) [`4c8c31dab235`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c8c31dab235) - Add aria-label to close button
+
 ## 7.2.26
 
 ### Patch Changes

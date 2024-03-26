@@ -27,7 +27,12 @@ export type InlineCommentSelectionComponentProps = {
   /**
    * Range selected
    */
-  range: Range;
+  range: Range | null;
+
+  /**
+   * The draft range of a pre-committed annotation
+   */
+  draftRange?: Range | null;
 
   /**
    * Renderer/Editor DOM element ancestors wrapping the selection.

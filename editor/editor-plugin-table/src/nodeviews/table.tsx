@@ -25,6 +25,7 @@ import type {
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop';
@@ -37,6 +38,7 @@ import type { PluginInjectionAPI } from '../types';
 import { isTableNested } from '../utils';
 
 import TableComponent from './TableComponent';
+import { TableComponentWithSharedState } from './TableComponentWithSharedState';
 import type { Props } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
@@ -182,6 +184,24 @@ export default class TableView extends ReactNodeView<Props> {
   };
 
   render(props: Props, forwardRef: ForwardRef) {
+    if (getBooleanFF('platform.editor.table.use-shared-state-hook')) {
+      return (
+        <TableComponentWithSharedState
+          forwardRef={forwardRef}
+          getNode={this.getNode}
+          view={props.view}
+          options={props.options}
+          eventDispatcher={props.eventDispatcher}
+          api={props.pluginInjectionApi}
+          allowColumnResizing={props.allowColumnResizing}
+          allowControls={props.allowControls}
+          getPos={props.getPos}
+          getEditorFeatureFlags={props.getEditorFeatureFlags}
+          dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+        />
+      );
+    }
+
     // TODO: ED-15663
     // Please, do not copy or use this kind of code below
     // @ts-ignore
@@ -363,13 +383,14 @@ export const createTableView = (
     isDragAndDropEnabled,
     isTableScalingEnabled,
   } = getPluginState(view.state);
-  const { allowColumnResizing } = getPluginConfig(pluginConfig);
+  const { allowColumnResizing, allowControls } = getPluginConfig(pluginConfig);
   const hasIntlContext = true;
 
   return new TableView({
     node,
     view,
     allowColumnResizing,
+    allowControls,
     portalProviderAPI,
     eventDispatcher,
     getPos: getPos as getPosHandlerNode,

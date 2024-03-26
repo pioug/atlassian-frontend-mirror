@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Velg minst én person, gruppe, e-postadresse eller ett team',
   'fabric.elements.share.in.integration.button': 'Del i {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Inviter til Confluence',
+  'fabric.elements.share.invite.to.jira': 'Inviter til Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sak',
   'fabric.elements.share.success.message':

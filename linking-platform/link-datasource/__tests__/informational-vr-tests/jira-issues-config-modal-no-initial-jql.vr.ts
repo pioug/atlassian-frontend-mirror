@@ -11,4 +11,7 @@ snapshotInformational(JiraIssuesConfigModalNoInitialJql, {
   },
   drawsOutsideBounds: true,
   description: 'Jira Issues Config Modal No Initial Jql toggle to Basic mode',
+  featureFlags: {
+    'platform.linking-platform.datasource.show-jlol-basic-filters': true,
+  },
 });

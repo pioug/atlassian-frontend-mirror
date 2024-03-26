@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An optional Pragmatic drag and drop package that enables automatic scrolling during a drag operation",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -14,9 +14,6 @@
     "website": {
       "name": "Auto scroll",
       "category": "Libraries",
-      "status": {
-        "type": "alpha"
-      },
       "integrationTests": {
         "additionalBrowsers": [
           "desktop-firefox",

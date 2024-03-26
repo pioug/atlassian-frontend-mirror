@@ -15,11 +15,11 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../../../analytics';
-import { getAvailableJiraSites } from '../../../../services/getAvailableJiraSites';
+import { getAvailableSites } from '../../../../services/getAvailableSites';
 import JiraIssuesConfigModal from '../../index';
 
-jest.mock('../../../../services/getAvailableJiraSites', () => ({
-  getAvailableJiraSites: jest.fn(),
+jest.mock('../../../../services/getAvailableSites', () => ({
+  getAvailableSites: jest.fn(),
 }));
 
 jest.mock('@atlaskit/link-client-extension', () => {
@@ -46,7 +46,7 @@ describe('integration test', () => {
     const onInsert = jest.fn();
     const onAnalyticFireEvent = jest.fn();
 
-    asMock(getAvailableJiraSites).mockResolvedValue(mockSiteData);
+    asMock(getAvailableSites).mockResolvedValue(mockSiteData);
     asMock(useDatasourceClientExtension).mockReturnValue({
       getDatasourceDetails,
       getDatasourceData,
@@ -57,7 +57,7 @@ describe('integration test', () => {
         <IntlProvider locale="en">
           <SmartCardProvider client={new SmartLinkClient()}>
             <JiraIssuesConfigModal
-              datasourceId={'some-jira-jql-datasource-id'}
+              datasourceId={'some-jira-datasource-id'}
               parameters={getDefaultParameters()}
               onCancel={onCancel}
               onInsert={onInsert}

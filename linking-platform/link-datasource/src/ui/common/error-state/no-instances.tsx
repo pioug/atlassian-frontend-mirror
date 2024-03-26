@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { Flex, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { loadingErrorMessages } from './messages';
 import { NoInstancesSvg } from './no-instances-svg';
 
 const titleStyles = css({
@@ -24,21 +23,28 @@ const containerStyles = xcss({
   marginTop: '60px',
 });
 
-export const NoInstancesView = () => (
-  <Flex
-    testId="no-jira-instances-content"
-    direction="column"
-    alignItems="center"
-    xcss={containerStyles}
-  >
-    <NoInstancesSvg />
-    <span css={titleStyles}>
-      <FormattedMessage {...loadingErrorMessages.noAccessToJiraSitesTitle} />
-    </span>
-    <span css={descriptionStyles}>
-      <FormattedMessage
-        {...loadingErrorMessages.noAccessToJiraSitesDescription}
-      />
-    </span>
-  </Flex>
-);
+interface NoInstanceViewProps {
+  title: MessageDescriptor;
+  description: MessageDescriptor;
+  testId: string;
+}
+
+export const NoInstancesView = ({
+  title,
+  description,
+  testId,
+}: NoInstanceViewProps) => {
+  const { formatMessage } = useIntl();
+  return (
+    <Flex
+      testId={testId}
+      direction="column"
+      alignItems="center"
+      xcss={containerStyles}
+    >
+      <NoInstancesSvg />
+      <span css={titleStyles}>{formatMessage(title)}</span>
+      <span css={descriptionStyles}>{formatMessage(description)}</span>
+    </Flex>
+  );
+};

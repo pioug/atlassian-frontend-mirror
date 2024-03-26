@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.24.6
+
+### Patch Changes
+
+- [#81820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/81820) [`92e229dc81a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92e229dc81a0) - Refactor components to be shared in common and adding new confluence search modal initial state.
+
 ## 1.24.5
 
 ### Patch Changes

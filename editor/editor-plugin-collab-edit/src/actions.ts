@@ -16,7 +16,6 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { receiveTransaction } from '@atlaskit/prosemirror-collab';
 
 import type { PrivateCollabEditOptions } from './types';
@@ -89,16 +88,9 @@ export const applyRemoteSteps = (
   let tr: Transaction;
 
   if (options && options.useNativePlugin && userIds) {
-    /**
-     * https://switcheroo.atlassian.com/changes/confluence/platform.editor.enable-map-selection-backward
-     */
-    if (getBooleanFF('platform.editor.enable-map-selection-backward')) {
-      tr = receiveTransaction(state, steps, userIds, {
-        mapSelectionBackward: true,
-      });
-    } else {
-      tr = receiveTransaction(state, steps, userIds);
-    }
+    tr = receiveTransaction(state, steps, userIds, {
+      mapSelectionBackward: true,
+    });
   } else {
     tr = state.tr;
     steps.forEach(step => tr.step(step));
@@ -108,9 +100,6 @@ export const applyRemoteSteps = (
     tr.setMeta('addToHistory', false);
     tr.setMeta('isRemote', true);
 
-    const { from, to } = state.selection;
-    const [firstStep] = json;
-
     /*
      * Persist marks across transactions. Fixes an issue where
      * marks are lost if remote transactions are dispatched
@@ -118,20 +107,6 @@ export const applyRemoteSteps = (
      */
     if (state.tr.storedMarks) {
       tr.setStoredMarks(state.tr.storedMarks);
-    }
-
-    /**
-     * https://switcheroo.atlassian.com/changes/confluence/platform.editor.enable-map-selection-backward
-     */
-    if (!getBooleanFF('platform.editor.enable-map-selection-backward')) {
-      /**
-       * If the cursor is a the same position as the first step in
-       * the remote data, we need to manually set it back again
-       * in order to prevent the cursor from moving.
-       */
-      if (from === firstStep.from && to === firstStep.to) {
-        tr.setSelection(state.selection.map(tr.doc, tr.mapping));
-      }
     }
 
     view.dispatch(tr);

@@ -5,10 +5,15 @@ import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { CellHoverMeta, DraggableSourceData } from '../../types';
+import type {
+  CellHoverMeta,
+  DraggableSourceData,
+  PluginInjectionAPI,
+} from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import {
   containsHeaderColumn,
@@ -39,6 +44,7 @@ export interface Props {
   isNumberColumnEnabled?: boolean;
   getScrollOffset?: () => number;
   tableWrapperHeight?: number;
+  api?: PluginInjectionAPI;
 }
 
 export const TableFloatingColumnControls = ({
@@ -57,6 +63,7 @@ export const TableFloatingColumnControls = ({
   isNumberColumnEnabled,
   getScrollOffset,
   tableWrapperHeight,
+  api,
 }: Props) => {
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -136,6 +143,11 @@ export const TableFloatingColumnControls = ({
         isNumberColumnEnabled={isNumberColumnEnabled}
         isDragging={isDragging}
         getScrollOffset={getScrollOffset}
+        api={
+          getBooleanFF('platform.editor.table.use-shared-state-hook')
+            ? api
+            : undefined
+        }
       />
       {isDragging && (
         <ColumnDropTargets

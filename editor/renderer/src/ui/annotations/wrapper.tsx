@@ -4,6 +4,10 @@ import { AnnotationsDraftContextWrapper, ProvidersContext } from './context';
 import { HoverRangeValidator } from './hover';
 import { SelectionRangeValidator } from './selection';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  useAnnotationRangeDispatch,
+  useAnnotationRangeState,
+} from './contexts/AnnotationRangeContext';
 
 type Props = {
   rendererRef: React.RefObject<HTMLDivElement>;
@@ -14,12 +18,19 @@ export const AnnotationsContextWrapper = (
   props: React.PropsWithChildren<Props>,
 ): JSX.Element => {
   const providers = useContext(ProvidersContext);
+  const { range } = useAnnotationRangeState();
+  const { setDraftRange, clearDraftRange } = useAnnotationRangeDispatch();
   const { rendererRef, createAnalyticsEvent, children } = props;
   const inlineCommentProvider = providers && providers.inlineComment;
   const selectionComponent =
     inlineCommentProvider && inlineCommentProvider.selectionComponent;
   const hoverComponent =
     inlineCommentProvider && inlineCommentProvider.hoverComponent;
+
+  // We want to set the draft to the range the user highlighted
+  const setRangeForDraft = useCallback(() => {
+    setDraftRange(range);
+  }, [range, setDraftRange]);
 
   const render = useCallback(
     ({
@@ -64,6 +75,11 @@ export const AnnotationsContextWrapper = (
   }
 
   return (
-    <AnnotationsDraftContextWrapper>{render}</AnnotationsDraftContextWrapper>
+    <AnnotationsDraftContextWrapper
+      setDraftRange={setRangeForDraft}
+      clearDraftRange={clearDraftRange}
+    >
+      {render}
+    </AnnotationsDraftContextWrapper>
   );
 };

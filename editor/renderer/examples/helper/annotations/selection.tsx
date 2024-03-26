@@ -61,7 +61,7 @@ const Component = (
   }, [onClose, onCreate, removeDraftMode, setNewDocument]);
 
   const domTarget = React.useMemo(() => {
-    let element = range.commonAncestorContainer as HTMLElement;
+    let element = range?.commonAncestorContainer as HTMLElement;
     if (element instanceof Text) {
       element = element.parentElement!;
     }
@@ -74,7 +74,7 @@ const Component = (
       return firstRangeDOMRect;
     }
 
-    return range.getClientRects()[0] as DOMRect;
+    return range?.getClientRects()[0] as DOMRect;
   }, [range, showCreateComponent]);
 
   const onPositionCalculated = React.useCallback(

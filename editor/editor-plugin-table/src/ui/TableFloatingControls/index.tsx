@@ -1,17 +1,25 @@
 import React, { useCallback } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../commands';
+import type { TablePlugin } from '../../plugin';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 
-import { CornerControls, DragCornerControls } from './CornerControls';
+import {
+  CornerControls,
+  DragCornerControls,
+  DragCornerControlsWithSelection,
+} from './CornerControls';
+import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
 import { DragControls, RowControls } from './RowControls';
 
@@ -55,7 +63,8 @@ export const TableFloatingControls = ({
   hoveredCell,
   isTableHovered,
   tableWrapperWidth,
-}: TableFloatingControlsProps) => {
+  api,
+}: TableFloatingControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
   const _selectRow = useCallback(
     (row: number, expand: boolean) => {
       const { state, dispatch } = editorView;
@@ -141,12 +150,22 @@ export const TableFloatingControls = ({
           <>
             {isDragAndDropEnabled ? (
               <>
-                <DragCornerControls
-                  editorView={editorView}
-                  tableRef={tableRef}
-                  isInDanger={isInDanger}
-                  isResizing={isResizing}
-                />
+                {getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
+                  <DragCornerControlsWithSelection
+                    editorView={editorView}
+                    tableRef={tableRef}
+                    isInDanger={isInDanger}
+                    isResizing={isResizing}
+                    api={api}
+                  />
+                ) : (
+                  <DragCornerControls
+                    editorView={editorView}
+                    tableRef={tableRef}
+                    isInDanger={isInDanger}
+                    isResizing={isResizing}
+                  />
+                )}
                 <DragControls
                   tableRef={tableRef}
                   tableNode={tableNode}
@@ -163,6 +182,21 @@ export const TableFloatingControls = ({
                   updateCellHoverLocation={updateCellHoverLocation}
                 />
               </>
+            ) : getBooleanFF('platform.editor.table.use-shared-state-hook') ? (
+              <FloatingControlsWithSelection
+                editorView={editorView}
+                tableRef={tableRef}
+                isInDanger={isInDanger}
+                isResizing={isResizing}
+                isHeaderRowEnabled={isHeaderRowEnabled}
+                isHeaderColumnEnabled={isHeaderColumnEnabled}
+                hoveredRows={hoveredRows}
+                stickyTop={tableActive ? stickyTop : undefined}
+                tableActive={tableActive}
+                hoverRows={_hoverRows}
+                selectRow={_selectRow}
+                api={api}
+              />
             ) : (
               <>
                 <CornerControls

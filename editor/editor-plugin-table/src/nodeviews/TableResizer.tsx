@@ -78,6 +78,7 @@ interface TableResizerProps {
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
   isTableScalingEnabled?: boolean;
+  isWholeTableInDanger?: boolean;
 }
 
 export interface TableResizerImprovementProps extends TableResizerProps {
@@ -170,6 +171,7 @@ export const TableResizer = ({
   attachAnalyticsEvent,
   displayGapCursor,
   isTableScalingEnabled,
+  isWholeTableInDanger,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
@@ -208,7 +210,6 @@ export const TableResizer = ({
 
   const resizerMinWidth = getResizerMinWidth(node);
   const handleSize = getResizerHandleHeight(tableRef);
-  const { isWholeTableInDanger } = getPluginState(editorView.state);
 
   const { startMeasure, endMeasure, countFrames } = useMeasureFramerate();
 

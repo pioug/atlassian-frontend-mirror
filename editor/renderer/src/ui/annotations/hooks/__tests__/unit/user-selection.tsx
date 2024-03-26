@@ -8,6 +8,8 @@ import { useUserSelectionRange } from '../../user-selection';
 import * as utils from '../../utils';
 import { isRangeInsideOfRendererContainer } from '../../utils';
 
+jest.useFakeTimers();
+
 describe('Annotations: SelectionInlineCommentMounter', () => {
   let root: any; // Change to Root once we go full React 18
   let container: HTMLElement | null;
@@ -301,18 +303,22 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           expect(fakeFunction).toHaveBeenCalledTimes(1);
           expect(fakeFunction).toHaveBeenCalledWith([
             null,
+            null,
             expect.any(Function),
           ]);
 
-          dispatchFakeSelectionChange();
+          act(() => {
+            dispatchFakeSelectionChange();
+            jest.runAllTimers();
+          });
 
           expect(document.getSelection).toHaveBeenCalledTimes(1);
-          expect(fakeFunction).toHaveBeenCalledTimes(1);
+          expect(fakeFunction).toHaveBeenCalledTimes(2);
         });
       });
 
       describe('and when there is a annotation draft happening', () => {
-        it('should not change the range value', async () => {
+        it('should change the range value', async () => {
           expect(fakeFunction).toHaveBeenCalledTimes(0);
           expect(document.getSelection).toHaveBeenCalledTimes(0);
 
@@ -321,15 +327,20 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           expect(fakeFunction).toHaveBeenCalledTimes(1);
           expect(fakeFunction).toHaveBeenCalledWith([
             null,
+            null,
             expect.any(Function),
           ]);
 
-          dispatchFakeSelectionChange();
+          act(() => {
+            dispatchFakeSelectionChange();
+            jest.runAllTimers();
+          });
 
           expect(document.getSelection).toHaveBeenCalledTimes(1);
           expect(fakeFunction).toHaveBeenCalledTimes(2);
           expect(fakeFunction).toHaveBeenCalledWith([
             myFakeValidRange,
+            null,
             expect.any(Function),
           ]);
         });

@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Valitse vähintään yksi henkilö, tiimi tai sähköpostiosoite',
   'fabric.elements.share.in.integration.button': 'Jaa sovelluksessa {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Kutsu Confluenceen',
+  'fabric.elements.share.invite.to.jira': 'Kutsu Jiraan',
   'fabric.elements.share.main.tab.text.confluence': 'Jaa sivu',
   'fabric.elements.share.main.tab.text.jira': 'Jaa asia',
   'fabric.elements.share.success.message':

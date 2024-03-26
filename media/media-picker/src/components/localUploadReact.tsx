@@ -12,12 +12,13 @@ import {
   UploadPreviewUpdateEventPayload,
   UploadsStartEventPayload,
   UploadParams,
+  FlagData,
 } from '../types';
 import { UploadComponent } from './component';
 import { UploadServiceImpl } from '../service/uploadServiceImpl';
 import { LocalUploadConfig } from './types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { AnalyticsEventPayload, UploadRejectionData } from '../types';
+import { AnalyticsEventPayload } from '../types';
 import { ComponentName, getRequestMetadata } from '../util/analytics';
 import {
   startMediaUploadUfoExperience,
@@ -40,7 +41,7 @@ export type LocalUploadComponentBaseProps = {
 } & WithAnalyticsEventsProps;
 
 export type LocalUploadComponentBaseState = {
-  uploadRejectionFlags: UploadRejectionData[];
+  errorFlags: FlagData[];
 };
 
 export class LocalUploadComponentReact<
@@ -50,7 +51,7 @@ export class LocalUploadComponentReact<
   protected uploadComponent = new UploadComponent();
 
   state: LocalUploadComponentBaseState = {
-    uploadRejectionFlags: [],
+    errorFlags: [],
   };
 
   constructor(props: Props, protected readonly componentName: ComponentName) {
@@ -92,28 +93,30 @@ export class LocalUploadComponentReact<
     this.uploadService.on('file-preview-update', this.onFilePreviewUpdate);
     this.uploadService.on('file-converting', this.onFileConverting);
     this.uploadService.on('file-upload-error', this.onUploadError);
+    this.uploadService.onFileEmpty(this.addErrorFlag);
+
     if (tenantUploadParams.onUploadRejection) {
       const { onUploadRejection } = tenantUploadParams;
       this.uploadService.onFileRejection((rejectionData) => {
         const shouldOverride = onUploadRejection(rejectionData);
         if (!shouldOverride) {
-          this.addUploadRejectionFlag(rejectionData);
+          this.addErrorFlag(rejectionData);
         }
       });
     } else {
-      this.uploadService.onFileRejection(this.addUploadRejectionFlag);
+      this.uploadService.onFileRejection(this.addErrorFlag);
     }
   }
 
-  private addUploadRejectionFlag = (rejectionData: UploadRejectionData) => {
+  private addErrorFlag = (flagData: FlagData) => {
     this.setState({
-      uploadRejectionFlags: [...this.state.uploadRejectionFlags, rejectionData],
+      errorFlags: [...this.state.errorFlags, flagData],
     });
   };
 
-  protected dismissUploadRejectionFlag = () => {
+  protected dismissErrorFlag = () => {
     this.setState({
-      uploadRejectionFlags: this.state.uploadRejectionFlags.slice(1),
+      errorFlags: this.state.errorFlags.slice(1),
     });
   };
 

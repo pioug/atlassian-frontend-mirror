@@ -24,9 +24,12 @@ import { width } from '../../internal/constants';
 import ModalBody from '../../modal-body';
 import ModalTransition from '../../modal-transition';
 import ModalDialog from '../../modal-wrapper';
+import { ModalDialogProps } from '../../types';
 
 jest.mock('raf-schd', () => (fn: Function) => fn);
 jest.mock('@atlaskit/ds-lib/warn-once');
+
+const testId = 'test-modal';
 
 const MyContent = () => <div data-testid="test-content">Hello</div>;
 const LayeredModal = () => {
@@ -42,7 +45,12 @@ const LayeredModal = () => {
       </Button>
 
       {isOpen && (
-        <ModalDialog onClose={close} testId="modal" autoFocus={false}>
+        <ModalDialog
+          onClose={close}
+          testId="modal"
+          autoFocus={false}
+          label="Layered"
+        >
           <ModalBody>
             <DropdownMenu
               testId="dropdown-menu"
@@ -60,6 +68,11 @@ const LayeredModal = () => {
     </div>
   );
 };
+
+const createModal = (props?: ModalDialogProps) => (
+  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+  <ModalDialog label="Modal" testId={testId} onClose={noop} {...props} />
+);
 
 describe('<ModalDialog />', () => {
   describe('should close popup correctly when escape is pressed', () => {
@@ -107,16 +120,16 @@ describe('<ModalDialog />', () => {
     );
   });
   it('should be a section element', () => {
-    render(<ModalDialog testId="test" onClose={noop} />);
+    render(createModal());
 
-    const element = screen.getByTestId('test');
+    const element = screen.getByTestId(testId);
     expect(element.tagName).toBe('SECTION');
   });
 
   it('should set aria modal attribute to the modal to trap the virtual cursor', () => {
-    render(<ModalDialog testId="test" onClose={noop} />);
+    render(createModal());
 
-    const element = screen.queryByTestId('test')!;
+    const element = screen.queryByTestId(testId)!;
     expect(element).not.toBeNull();
 
     expect(element).toHaveAttribute('aria-modal', 'true');
@@ -125,18 +138,19 @@ describe('<ModalDialog />', () => {
   describe('container', () => {
     it('should render custom container around the modal children', () => {
       render(
-        <ModalDialog onClose={noop} testId="modal">
-          <form>
-            <ModalBody>I'm a modal body!</ModalBody>
-          </form>
-        </ModalDialog>,
+        createModal({
+          children: (
+            <form data-testid="form">
+              <ModalBody>I'm a modal body!</ModalBody>
+            </form>
+          ),
+        }),
       );
 
-      const modalBody = screen.getByTestId('modal--body');
-      const content = screen.getByTestId('modal');
-      const form = content.querySelector('form');
+      const modalBody = screen.getByTestId(`${testId}--body`);
+      const form = screen.getByTestId('form');
 
-      expect(form).not.toBeNull();
+      expect(form).toBeInTheDocument();
       expect(form?.contains(modalBody)).toBe(true);
     });
   });
@@ -144,9 +158,9 @@ describe('<ModalDialog />', () => {
   describe('children', () => {
     it('should render correctly when using a custom child', () => {
       render(
-        <ModalDialog onClose={noop} testId="modal">
-          <div data-testid="custom-child" />
-        </ModalDialog>,
+        createModal({
+          children: <div data-testid="custom-child" />,
+        }),
       );
 
       const child = screen.queryByTestId('custom-child');
@@ -162,9 +176,9 @@ describe('<ModalDialog />', () => {
 
       render(
         <ModalTransition>
-          <ModalDialog onClose={noop}>
-            <CountContent />
-          </ModalDialog>
+          {createModal({
+            children: <CountContent />,
+          })}
         </ModalTransition>,
       );
 
@@ -174,9 +188,13 @@ describe('<ModalDialog />', () => {
 
   describe('height', () => {
     it('should set height in px if a number is passed', () => {
-      render(<ModalDialog onClose={noop} height={42} testId="modal" />);
+      render(
+        createModal({
+          height: 42,
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       /**
@@ -194,36 +212,48 @@ describe('<ModalDialog />', () => {
     });
 
     it('should set height in the passed value if a % is passed', () => {
-      render(<ModalDialog onClose={noop} height="42%" testId="modal" />);
+      render(
+        createModal({
+          height: '42%',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-height: 42%;');
     });
 
     it('should set height in the passed value if an em is passed', () => {
-      render(<ModalDialog onClose={noop} height="42em" testId="modal" />);
+      render(
+        createModal({
+          height: '42em',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-height: 42em;');
     });
 
     it('should set height in the passed value if a string is passed', () => {
-      render(<ModalDialog onClose={noop} height="initial" testId="modal" />);
+      render(
+        createModal({
+          height: 'initial',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-height: initial;');
     });
 
     it('should set height to "auto" if not supplied', () => {
-      render(<ModalDialog onClose={noop} testId="modal" />);
+      render(createModal());
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-height: auto;');
@@ -232,9 +262,13 @@ describe('<ModalDialog />', () => {
 
   describe('width', () => {
     it('should set width in px if a number is passed', () => {
-      render(<ModalDialog onClose={noop} width={42} testId="modal" />);
+      render(
+        createModal({
+          width: 42,
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       /**
@@ -252,36 +286,48 @@ describe('<ModalDialog />', () => {
     });
 
     it('should set width in the passed value if a % is passed', () => {
-      render(<ModalDialog onClose={noop} width="42%" testId="modal" />);
+      render(
+        createModal({
+          width: '42%',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-width: 42%;');
     });
 
     it('should set width in the passed value if an em is passed', () => {
-      render(<ModalDialog onClose={noop} width="42em" testId="modal" />);
+      render(
+        createModal({
+          width: '42em',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-width: 42em;');
     });
 
     it('should set width in the passed value if a string is passed', () => {
-      render(<ModalDialog onClose={noop} width="initial" testId="modal" />);
+      render(
+        createModal({
+          width: 'initial',
+        }),
+      );
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain('--modal-dialog-width: initial;');
     });
 
     it('should set width to "medium" if not supplied', () => {
-      render(<ModalDialog onClose={noop} testId="modal" />);
+      render(createModal());
 
-      const modalDialog = screen.getByTestId('modal');
+      const modalDialog = screen.getByTestId(testId);
       const styles = modalDialog.getAttribute('style');
 
       expect(styles).toContain(
@@ -291,9 +337,13 @@ describe('<ModalDialog />', () => {
 
     Object.entries(width.widths).forEach(([widthName, widthValue]) => {
       it(`should set width to ${widthValue}px if "${widthName}" is passed`, () => {
-        render(<ModalDialog width={widthName} onClose={noop} testId="modal" />);
+        render(
+          createModal({
+            width: widthName,
+          }),
+        );
 
-        const modalDialog = screen.getByTestId('modal');
+        const modalDialog = screen.getByTestId(testId);
         const styles = modalDialog.getAttribute('style');
 
         expect(styles).toContain(`--modal-dialog-width: ${widthValue}px;`);
@@ -304,9 +354,13 @@ describe('<ModalDialog />', () => {
   describe('onClose', () => {
     it('should trigger when blanket clicked', async () => {
       const spy = jest.fn();
-      render(<ModalDialog onClose={spy} testId="modal" />);
+      render(
+        createModal({
+          onClose: spy,
+        }),
+      );
 
-      const blanket = screen.getByTestId('modal--blanket');
+      const blanket = screen.getByTestId(`${testId}--blanket`);
       await userEvent.click(blanket);
 
       expect(spy).toHaveBeenCalledTimes(1);
@@ -315,9 +369,10 @@ describe('<ModalDialog />', () => {
     it('should not trigger when modal content is clicked', () => {
       const spy = jest.fn();
       render(
-        <ModalDialog onClose={spy}>
-          <MyContent />
-        </ModalDialog>,
+        createModal({
+          onClose: spy,
+          children: <MyContent />,
+        }),
       );
 
       const content = screen.getByTestId('test-content');
@@ -339,7 +394,11 @@ describe('<ModalDialog />', () => {
     it('should be invoked after modal finished opening', async () => {
       const spy = jest.fn();
 
-      render(<ModalDialog onOpenComplete={spy} />);
+      render(
+        createModal({
+          onOpenComplete: spy,
+        }),
+      );
       act(() => {
         jest.runAllTimers();
       });
@@ -362,7 +421,7 @@ describe('<ModalDialog />', () => {
 
       const ModalWithTransition = ({ isOpen }: { isOpen: boolean }) => (
         <ModalTransition>
-          {isOpen && <ModalDialog onCloseComplete={spy} />}
+          {isOpen && createModal({ onCloseComplete: spy })}
         </ModalTransition>
       );
 
@@ -383,10 +442,12 @@ describe('<ModalDialog />', () => {
   describe('isBlanketHidden', () => {
     it('set blanket as hidden', () => {
       render(
-        <ModalDialog isBlanketHidden={true} onClose={noop} testId="modal" />,
+        createModal({
+          isBlanketHidden: true,
+        }),
       );
 
-      const blanket = screen.getByTestId('modal--blanket');
+      const blanket = screen.getByTestId(`${testId}--blanket`);
       expect(blanket).toHaveStyle('background-color: transparent');
     });
   });
@@ -395,9 +456,10 @@ describe('<ModalDialog />', () => {
     it('should invoke onClose callback on Escape key press by default', () => {
       const spy = jest.fn();
       render(
-        <ModalDialog onClose={spy}>
-          <MyContent />
-        </ModalDialog>,
+        createModal({
+          onClose: spy,
+          children: <MyContent />,
+        }),
       );
 
       // The regular escape event
@@ -412,9 +474,11 @@ describe('<ModalDialog />', () => {
     it('should not invoke onClose callback on Escape key press when disabled', () => {
       const spy = jest.fn();
       render(
-        <ModalDialog shouldCloseOnEscapePress={false} onClose={spy}>
-          <MyContent />
-        </ModalDialog>,
+        createModal({
+          shouldCloseOnEscapePress: false,
+          onClose: spy,
+          children: <MyContent />,
+        }),
       );
 
       // The regular escape event
@@ -430,41 +494,43 @@ describe('<ModalDialog />', () => {
   describe('shouldCloseOnOverlayClick', () => {
     it('should invoke onClose callback on blanket click by default', async () => {
       const callback = jest.fn();
-      render(<ModalDialog testId="test" onClose={callback} />);
+      render(
+        createModal({
+          onClose: callback,
+        }),
+      );
 
-      await userEvent.click(screen.getByTestId('test--blanket'));
+      await userEvent.click(screen.getByTestId(`${testId}--blanket`));
       expect(callback).toHaveBeenCalledTimes(1);
     });
 
     it('should not invoke onClose callback on blanket click when disabled', () => {
       const callback = jest.fn();
       render(
-        <ModalDialog
-          shouldCloseOnOverlayClick={false}
-          testId="test"
-          onClose={callback}
-        />,
+        createModal({
+          shouldCloseOnOverlayClick: false,
+          onClose: callback,
+        }),
       );
 
-      fireEvent.click(screen.getByTestId('test--blanket'));
+      fireEvent.click(screen.getByTestId(`${testId}--blanket`));
 
       expect(callback).not.toHaveBeenCalled();
     });
   });
 
   describe('label', () => {
-    const label = 'label';
-
     it('should be used as accessible name', () => {
-      render(<ModalDialog label={label} />);
+      render(createModal());
       const modal = screen.getByRole('dialog');
 
-      expect(modal).toHaveAccessibleName(label);
+      expect(modal).toHaveAccessibleName('Modal');
       expect(modal).not.toHaveAttribute('aria-labelledby');
     });
 
-    it('should have `aria-labelledby` if label is not provided', () => {
-      render(<ModalDialog />);
+    // Skipped until https://product-fabric.atlassian.net/browse/DSP-17750 is merged.
+    it.skip('should have `aria-labelledby` if label is not provided', () => {
+      render(createModal({ label: undefined }));
       const modal = screen.getByRole('dialog');
 
       // This is only the case because there is no ModalTitle, which is the default associateion
@@ -486,7 +552,7 @@ describe('focus lock', () => {
             autoFocus={true}
             data-testid="input-field-outside-modal"
             type="text"
-            placeholder="second"
+            aria-label="second"
             style={{
               top: '200px',
               left: '200px',
@@ -494,14 +560,16 @@ describe('focus lock', () => {
             }}
           />
         </Portal>
-        <ModalDialog testId="modal-focus-lock">
-          <input
-            data-testid="input-field-inside-modal"
-            title="inputFieldInsideModal"
-            type="text"
-            placeholder="first"
-          />
-        </ModalDialog>
+        {createModal({
+          children: (
+            <input
+              data-testid="input-field-inside-modal"
+              title="inputFieldInsideModal"
+              type="text"
+              aria-label="first"
+            />
+          ),
+        })}
       </div>,
     );
     expect(screen.getByTestId('input-field-inside-modal')).toHaveFocus();
@@ -520,7 +588,7 @@ describe('focus lock', () => {
             autoFocus={true}
             data-testid="input-field-outside-modal"
             type="text"
-            placeholder="second"
+            aria-label="second"
             style={{
               top: '200px',
               left: '200px',
@@ -528,13 +596,15 @@ describe('focus lock', () => {
             }}
           />
         </Portal>
-        <ModalDialog testId="modal-focus-lock">
-          <input
-            data-testid="input-field-inside-modal"
-            type="text"
-            placeholder="first"
-          />
-        </ModalDialog>
+        {createModal({
+          children: (
+            <input
+              data-testid="input-field-inside-modal"
+              type="text"
+              aria-label="first"
+            />
+          ),
+        })}
       </div>,
     );
     expect(screen.getByTestId('input-field-outside-modal')).toHaveFocus();
@@ -545,11 +615,22 @@ describe('focus lock', () => {
 describe('multiple modals', () => {
   it('should position a modal dialog behind two others', () => {
     render(
-      <>
-        <ModalDialog testId="back">back</ModalDialog>
-        <ModalDialog testId="middle">middle</ModalDialog>
-        <ModalDialog testId="front">front</ModalDialog>
-      </>,
+      createModal({
+        testId: 'back',
+        children: 'back',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'middle',
+        children: 'middle',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'front',
+        children: 'front',
+      }),
     );
 
     expect(screen.getByTestId('back')).toHaveAttribute('data-modal-stack', '2');
@@ -557,11 +638,22 @@ describe('multiple modals', () => {
 
   it('should position a modal dialog in between two others', () => {
     render(
-      <>
-        <ModalDialog testId="back">back</ModalDialog>
-        <ModalDialog testId="middle">middle</ModalDialog>
-        <ModalDialog testId="front">front</ModalDialog>
-      </>,
+      createModal({
+        testId: 'back',
+        children: 'back',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'middle',
+        children: 'middle',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'front',
+        children: 'front',
+      }),
     );
 
     expect(screen.getByTestId('middle')).toHaveAttribute(
@@ -572,11 +664,22 @@ describe('multiple modals', () => {
 
   it('should position a modal dialog infront of two others', () => {
     render(
-      <>
-        <ModalDialog testId="back">back</ModalDialog>
-        <ModalDialog testId="middle">middle</ModalDialog>
-        <ModalDialog testId="front">front</ModalDialog>
-      </>,
+      createModal({
+        testId: 'back',
+        children: 'back',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'middle',
+        children: 'middle',
+      }),
+    );
+    render(
+      createModal({
+        testId: 'front',
+        children: 'front',
+      }),
     );
 
     expect(screen.getByTestId('front')).toHaveAttribute(
@@ -588,10 +691,12 @@ describe('multiple modals', () => {
   it('should render a modal dialog inside another modal dialog and be posistioned in the front', () => {
     render(
       <>
-        <ModalDialog>back</ModalDialog>
-        <ModalDialog>
+        <ModalDialog label="Back">back</ModalDialog>
+        <ModalDialog label="Middle">
           middle
-          <ModalDialog testId="front">front</ModalDialog>
+          <ModalDialog testId="front" label="Front">
+            front
+          </ModalDialog>
         </ModalDialog>
       </>,
     );
@@ -606,14 +711,20 @@ describe('multiple modals', () => {
     const { rerender } = render(
       <>
         {false}
-        <ModalDialog testId="first">first</ModalDialog>
+        <ModalDialog testId="first" label="First">
+          first
+        </ModalDialog>
       </>,
     );
 
     rerender(
       <>
-        <ModalDialog testId="second">second</ModalDialog>
-        <ModalDialog testId="first">first</ModalDialog>
+        <ModalDialog testId="second" label="Second">
+          second
+        </ModalDialog>
+        <ModalDialog testId="first" label="First">
+          first
+        </ModalDialog>
       </>,
     );
 
@@ -626,15 +737,21 @@ describe('multiple modals', () => {
   it('should move a modal to the front a freshly unmounted modal', () => {
     const { rerender } = render(
       <>
-        <ModalDialog testId="second">second</ModalDialog>
-        <ModalDialog testId="first">first</ModalDialog>
+        <ModalDialog testId="second" label="Second">
+          second
+        </ModalDialog>
+        <ModalDialog testId="first" label="First">
+          first
+        </ModalDialog>
       </>,
     );
 
     rerender(
       <>
         {false}
-        <ModalDialog testId="first">first</ModalDialog>
+        <ModalDialog testId="first" label="First">
+          first
+        </ModalDialog>
       </>,
     );
 
@@ -647,9 +764,11 @@ describe('multiple modals', () => {
   it('should force a position in the stack', () => {
     render(
       <>
-        <ModalDialog testId="second">second</ModalDialog>
+        <ModalDialog testId="second" label="Second">
+          second
+        </ModalDialog>
         {/* Force stack index of 1 instead of 0 */}
-        <ModalDialog stackIndex={1} testId="first">
+        <ModalDialog stackIndex={1} testId="first" label="First">
           first
         </ModalDialog>
       </>,
@@ -665,8 +784,10 @@ describe('multiple modals', () => {
     const callback = jest.fn();
     const { rerender } = render(
       <>
-        <ModalDialog testId="second">second</ModalDialog>
-        <ModalDialog onStackChange={callback} testId="first">
+        <ModalDialog testId="second" label="Second">
+          second
+        </ModalDialog>
+        <ModalDialog onStackChange={callback} testId="first" label="First">
           first
         </ModalDialog>
       </>,
@@ -675,7 +796,7 @@ describe('multiple modals', () => {
     rerender(
       <>
         {false}
-        <ModalDialog onStackChange={callback} testId="first">
+        <ModalDialog onStackChange={callback} testId="first" label="First">
           first
         </ModalDialog>
       </>,
@@ -688,16 +809,18 @@ describe('multiple modals', () => {
     const callback = jest.fn();
     const { rerender } = render(
       <>
-        <ModalDialog onStackChange={callback} testId="second">
+        <ModalDialog onStackChange={callback} testId="second" label="Second">
           second
         </ModalDialog>
-        <ModalDialog testId="first">first</ModalDialog>
+        <ModalDialog testId="first" label="First">
+          first
+        </ModalDialog>
       </>,
     );
 
     rerender(
       <>
-        <ModalDialog onStackChange={callback} testId="second">
+        <ModalDialog onStackChange={callback} testId="second" label="Second">
           second
         </ModalDialog>
         {false}
@@ -712,7 +835,7 @@ describe('multiple modals', () => {
     const { rerender } = render(
       <>
         {false}
-        <ModalDialog onStackChange={callback} testId="first">
+        <ModalDialog onStackChange={callback} testId="first" label="First">
           first
         </ModalDialog>
       </>,
@@ -720,8 +843,10 @@ describe('multiple modals', () => {
 
     rerender(
       <>
-        <ModalDialog testId="second">second</ModalDialog>
-        <ModalDialog onStackChange={callback} testId="first">
+        <ModalDialog testId="second" label="Second">
+          second
+        </ModalDialog>
+        <ModalDialog onStackChange={callback} testId="first" label="First">
           first
         </ModalDialog>
       </>,
@@ -734,8 +859,12 @@ describe('multiple modals', () => {
   it('should not apply animation to the active modal after stack shift has finished', () => {
     const { rerender } = render(
       <>
-        <ModalDialog testId="back">back</ModalDialog>
-        <ModalDialog testId="front">front</ModalDialog>
+        <ModalDialog testId="back" label="Back">
+          back
+        </ModalDialog>
+        <ModalDialog testId="front" label="Front">
+          front
+        </ModalDialog>
       </>,
     );
 
@@ -754,7 +883,9 @@ describe('multiple modals', () => {
 
     rerender(
       <>
-        <ModalDialog testId="back">back</ModalDialog>
+        <ModalDialog testId="back" label="Back">
+          back
+        </ModalDialog>
         {false}
       </>,
     );

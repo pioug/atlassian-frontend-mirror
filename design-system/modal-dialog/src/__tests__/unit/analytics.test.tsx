@@ -13,7 +13,7 @@ describe('modal dialog analytics', () => {
     render(
       <AnalyticsListener channel="atlaskit" onEvent={callback}>
         <ModalTransition>
-          <ModalDialog testId="modal-analytics" />
+          <ModalDialog testId="modal-analytics" label="Modal Analytics" />
         </ModalTransition>
       </AnalyticsListener>,
     );
@@ -44,7 +44,11 @@ describe('modal dialog analytics', () => {
     render(
       <AnalyticsListener channel="atlaskit" onEvent={jest.fn()}>
         <ModalTransition>
-          <ModalDialog onClose={callback} testId="modal-analytics" />
+          <ModalDialog
+            onClose={callback}
+            testId="modal-analytics"
+            label="Modal Analytics"
+          />
         </ModalTransition>
       </AnalyticsListener>,
     );

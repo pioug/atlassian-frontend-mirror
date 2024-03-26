@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-live-region",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An optional package for Pragmatic drag and drop that enables screen reader messaging for alternative flows",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -19,10 +19,7 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Live region",
-      "category": "Libraries",
-      "status": {
-        "type": "alpha"
-      }
+      "category": "Libraries"
     }
   },
   "dependencies": {

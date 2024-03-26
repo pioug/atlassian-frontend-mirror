@@ -1,3 +1,5 @@
+import outdent from 'outdent';
+
 import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
@@ -95,96 +97,104 @@ export const typographyTests: Tests = {
     // FIXES
     // fontSize and fontWeight - 1 token match
     {
-      code: `
+      code: outdent`
         const styles = css({
           fontSize: '14px',
           fontWeight: 600,
           padding: '8px'
         })`,
-      output: `import { token } from '@atlaskit/tokens'\n
+      output: outdent`
+        import { token } from '@atlaskit/tokens';
+        import { fontFallback } from '@atlaskit/theme/typography';
         const styles = css({
-          font: token('font.heading.xsmall', 'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.heading.xsmall', fontFallback.heading.xsmall),
           padding: '8px'
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     {
-      code: `
+      code: outdent`
         const styles = css({
           fontSize: '12px',
           lineHeight: '20px',
         })`,
-      output: `import { token } from '@atlaskit/tokens'\n
+      output: outdent`
+        import { token } from '@atlaskit/tokens';
+        import { fontFallback } from '@atlaskit/theme/typography';
         const styles = css({
-          font: token('font.body.UNSAFE_small', 'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // fontSize only - 1 token match - same fontWeight
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           padding: '8px',
           fontSize: '16px',
           color: 'red'
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
           padding: '8px',
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
           color: 'red'
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // fontSize and lineHeight - 1 token match
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '16px',
           padding: '8px',
           lineHeight: '24px',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
           padding: '8px',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // fontSize match, fontWeight conversion
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '14px',
           fontWeight: 500
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body', 'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontWeight: token('font.weight.medium', '500'),
+          font: token('font.body', fontFallback.body.medium),
+        fontWeight: token('font.weight.medium', '500'),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // fontSize only - number - 1 token match
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           padding: '8px',
           fontSize: 16,
           color: 'red'
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
           padding: '8px',
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
           color: 'red'
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
@@ -192,23 +202,24 @@ fontWeight: token('font.weight.medium', '500'),
 
     // fontSize match, fontWeight conversion
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontWeight: '600',
           fontSize: '11px',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.small', 'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontWeight: token('font.weight.semibold', '600'),
+          font: token('font.body.small', fontFallback.body.small),
+        fontWeight: token('font.weight.semibold', '600'),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // nested object, fontSize match, fontWeight conversion
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '14px',
@@ -218,14 +229,15 @@ fontWeight: token('font.weight.semibold', '600'),
             fontWeight: 500,
           }
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body', 'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontWeight: token('font.weight.medium', '500'),
+          font: token('font.body', fontFallback.body.medium),
+        fontWeight: token('font.weight.medium', '500'),
           ':hover': {
-            font: token('font.body', 'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontWeight: token('font.weight.medium', '500'),
+            fontSize: '14px',
+            fontWeight: 500,
           }
         })`,
       errors: [
@@ -233,88 +245,121 @@ fontWeight: token('font.weight.medium', '500'),
         { messageId: 'noRawTypographyValues' },
       ],
     },
+    // nested object, fontSize match, fontWeight conversion
+    {
+      code: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body', fontFallback.body.medium),
+          fontWeight: token('font.weight.medium', '500'),
+          ':hover': {
+            fontSize: '14px',
+            fontWeight: 500,
+          }
+        })`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body', fontFallback.body.medium),
+          fontWeight: token('font.weight.medium', '500'),
+          ':hover': {
+            font: token('font.body', fontFallback.body.medium),
+        fontWeight: token('font.weight.medium', '500'),
+          }
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
     // Font family uses Charlie Display
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '16px',
           fontFamily: "Charlie Display, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif",
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontFamily: token('font.family.brand.heading', '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
+        fontFamily: token('font.family.brand.heading', '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // Font family uses Charlie Text
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
+        import { h100 } from '@atlaskit/theme/typography';
         const styles = css({
           fontSize: '16px',
           fontFamily: "Charlie Text, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif",
         })`,
-      output: `
+      output: outdent`
         import { token } from '@atlaskit/tokens';
+        import { h100, fontFallback } from '@atlaskit/theme/typography';
+
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
+        fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // Font family uses Charlie Text variable
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontFamily: CharlieTextVariable,
           fontSize: '16px',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontFamily: CharlieTextVariable,
+          font: token('font.body.large', fontFallback.body.large),
+        fontFamily: CharlieTextVariable,
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // Font style normal
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '16px',
           fontStyle: 'normal',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.large', fontFallback.body.large),
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // Font style italic
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontStyle: 'italic',
           fontSize: '16px',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontStyle: 'italic',
+          font: token('font.body.large', fontFallback.body.large),
+        fontStyle: 'italic',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // Font weight, Font family uses Charlie Text, font style italic, letterSpacing
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: '16px',
@@ -323,60 +368,64 @@ fontStyle: 'italic',
           fontStyle: 'italic',
           letterSpacing: '-0.008em',
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body.large', 'normal 400 16px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontWeight: token('font.weight.medium', '500'),
-fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
-fontStyle: 'italic',
+          font: token('font.body.large', fontFallback.body.large),
+        fontWeight: token('font.weight.medium', '500'),
+        fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+        fontStyle: 'italic',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // styled.div - fontSize and fontWeight - 1 token match
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = styled.div({
           fontSize: '14px',
           fontWeight: 600,
           padding: '8px'
         })`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = styled.div({
-          font: token('font.heading.xsmall', 'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.heading.xsmall', fontFallback.heading.xsmall),
           padding: '8px'
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // unary expression with fontSizeSmall
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const someValue = fontSizeSmall();
         const styles = css({
           fontSize: someValue,
         });`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const someValue = fontSizeSmall();
         const styles = css({
-          font: token('font.body.small', 'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body.small', fontFallback.body.small),
         });`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
     // unary expression with fontSize
     {
-      code: `
+      code: outdent`
         import { token } from '@atlaskit/tokens';
         const styles = css({
           fontSize: fontSize(),
         });`,
-      output: `
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
         import { token } from '@atlaskit/tokens';
         const styles = css({
-          font: token('font.body', 'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+          font: token('font.body', fontFallback.body.medium),
         });`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },

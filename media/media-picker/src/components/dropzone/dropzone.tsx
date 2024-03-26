@@ -26,7 +26,7 @@ import {
   DropzoneDragEnterEventPayload,
   DropzoneDragLeaveEventPayload,
 } from '../types';
-import UploadRejectionFlagGroup from '../uploadRejectionFlagGroup/UploadRejectionFlagGroup';
+import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
 
 export type DropzoneProps = LocalUploadComponentBaseProps & {
   //config
@@ -317,9 +317,9 @@ export class DropzoneBase extends LocalUploadComponentReact<DropzoneProps> {
 
   render() {
     return (
-      <UploadRejectionFlagGroup
-        flagData={this.state.uploadRejectionFlags}
-        onFlagDismissed={this.dismissUploadRejectionFlag}
+      <ErrorFlagGroup
+        flagData={this.state.errorFlags}
+        onFlagDismissed={this.dismissErrorFlag}
       />
     );
   }

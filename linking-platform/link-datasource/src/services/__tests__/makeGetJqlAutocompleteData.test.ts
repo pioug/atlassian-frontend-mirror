@@ -4,7 +4,7 @@ import { mockAutoCompleteData } from '@atlaskit/link-test-helpers/datasource';
 
 import { makeGetJqlAutocompleteData } from '../makeGetJqlAutocompleteData';
 
-describe('getAvailableJiraSites', () => {
+describe('makeGetJqlAutocompleteData', () => {
   beforeEach(() => {
     fetchMock.reset();
   });

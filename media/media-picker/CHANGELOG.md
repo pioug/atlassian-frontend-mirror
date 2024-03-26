@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.4.0
+
+### Minor Changes
+
+- [#83551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83551) [`332beba24a19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/332beba24a19) - [ux] Displays an error message when an empty file is uploaded
+
 ## 66.3.2
 
 ### Patch Changes

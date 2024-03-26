@@ -2,7 +2,9 @@
 import type { MouseEvent } from 'react';
 import React, { useCallback, useMemo, useRef } from 'react';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -16,6 +18,7 @@ import {
   selectColumn,
   selectColumns,
 } from '../../../commands';
+import type { TablePlugin } from '../../../plugin';
 import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import type { CellHoverMeta, HandleTypes } from '../../../types';
@@ -69,8 +72,11 @@ export const ColumnControls = ({
   isNumberColumnEnabled,
   isDragging,
   getScrollOffset,
-}: ColumnControlsProps) => {
+  api,
+}: ColumnControlsProps & { api?: ExtractInjectionAPI<TablePlugin> }) => {
   const columnControlsRef = useRef<HTMLDivElement>(null);
+  const { selectionState } = useSharedPluginState(api, ['selection']);
+
   const widths =
     colWidths
       ?.map((width) =>
@@ -82,7 +88,9 @@ export const ColumnControls = ({
   // TODO: reusing getRowsParams here because it's generic enough to work for columns -> rename
   const columnParams = getRowsParams(colWidths ?? []);
   const colIndex = hoveredCell?.colIndex;
-  const selectedColIndexes = getSelectedColumns(editorView.state.selection);
+  const selectedColIndexes = getSelectedColumns(
+    selectionState?.selection || editorView.state.selection,
+  );
 
   const firstRow = tableRef.querySelector('tr');
   const hasHeaderRow = firstRow

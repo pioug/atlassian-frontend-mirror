@@ -94,7 +94,7 @@ describe('AssetsConfigModal', () => {
   it('Should display error view when the status is rejected', async () => {
     const { queryByTestId } = setup({ status: 'rejected' });
     expect(
-      queryByTestId('jira-jql-datasource-modal--loading-error'),
+      queryByTestId('datasource-modal--loading-error'),
     ).toBeInTheDocument();
   });
 

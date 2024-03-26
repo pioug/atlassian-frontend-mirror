@@ -2,8 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { IntlShape, useIntl } from 'react-intl-next';
 
+import type { Site } from '../../../../common/types';
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
-import type { Site } from '../../types';
 import {
   AvatarLabelOption,
   BasicFilterFieldType,

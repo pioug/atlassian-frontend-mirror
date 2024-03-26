@@ -37,7 +37,7 @@
   "dependencies": {
     "@atlaskit/button": "^17.7.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/theme": "^12.6.0",
+    "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
     "@babel/runtime": "^7.0.0",
     "react-animate-height": "^2.0.5",

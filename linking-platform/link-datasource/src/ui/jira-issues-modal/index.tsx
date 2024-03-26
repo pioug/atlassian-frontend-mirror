@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 
-import { JiraIssuesConfigModalProps } from './types';
+import { ConfigModalProps } from '../../common/types';
 
 export const JIRA_LIST_OF_LINKS_DATASOURCE_ID =
   'd8b75300-dfda-4519-b6cd-e49abbd50401';
@@ -11,13 +11,9 @@ const LazyJiraIssuesConfigModal = lazy(() =>
   ).then(module => ({ default: module.JiraIssuesConfigModal })),
 );
 
-const JiraIssuesConfigModalWithWrappers = (
-  props: JiraIssuesConfigModalProps,
-) => {
+const JiraIssuesConfigModalWithWrappers = (props: ConfigModalProps) => {
   return (
-    <Suspense
-      fallback={<div data-testid={'jira-jql-datasource-table-suspense'} />}
-    >
+    <Suspense fallback={<div data-testid={'jira-datasource-table-suspense'} />}>
       <LazyJiraIssuesConfigModal {...props} />
     </Suspense>
   );

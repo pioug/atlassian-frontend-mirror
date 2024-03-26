@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.1.10
+
+### Patch Changes
+
+- [#84283](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84283) [`fcc12bc22e37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fcc12bc22e37) - Clean up platform.editor.enable-map-selection-backward FE FF
+
 ## 1.1.9
 
 ### Patch Changes

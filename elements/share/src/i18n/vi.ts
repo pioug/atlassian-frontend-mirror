@@ -49,6 +49,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Chọn ít nhất một người, đội ngũ hoặc email',
   'fabric.elements.share.in.integration.button': 'Chia sẻ trong {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Mời tham gia Confluence',
+  'fabric.elements.share.invite.to.jira': 'Mời tham gia Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Chia sẻ trang',
   'fabric.elements.share.main.tab.text.jira': 'Chia sẻ vấn đề',
   'fabric.elements.share.success.message':

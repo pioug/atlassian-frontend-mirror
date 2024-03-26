@@ -14,6 +14,7 @@ import FileExample from '../../examples/file';
 import DrawingExample from '../../examples/drawing';
 import ResizingExample from '../../examples/resizing';
 import TreeExample from '../../examples/tree';
+import VirtualListExample from '../../examples/virtual-list';
 
 This page demonstrates some of the experiences that Pragmatic drag and drop enables. These examples use a combination of our [core package](./core-package) and [optional packages](./optional-packages).
 
@@ -101,15 +102,22 @@ usability and accessibility reasons.
 
 <Example Component={ResizingExample} appearance="showcase-only" />
 
-## Virtual experiences
+## Virtual
 
-<SectionMessage appearance="information" title="Example in progress">
+<SectionMessage appearance="success">
   <p>
-    Pragmatic drag an drop works with any virtual experience: you can add,
-    remove or change any entity you want during a drag operation. We are
-    currently working on a top level example.
-
-    [See our virtualization guide](./improving-performance/virtualization)
-
+    Pragmatic drag an drop works with <strong>any virtual experience</strong>:
+    you can add, remove or change any entity you want during a drag operation.
+    This example uses{' '}
+    <a href="https://tanstack.com/virtual/latest">TanStack Virtual</a>, but you
+    can use any virtualization solution you like.
+    <br />
+    See our{' '}
+    <a href="./core-package/improving-performance/virtualization">
+      virtualization guide
+    </a>{' '}
+    for more details.
   </p>
 </SectionMessage>
+
+<Example Component={VirtualListExample} appearance="showcase-only" />

@@ -64,9 +64,7 @@ describe('AssetsConfigModal', () => {
         workspaceError: mockError,
       }),
     });
-    expect(
-      getByTestId('jira-jql-datasource-modal--loading-error'),
-    ).toBeInTheDocument();
+    expect(getByTestId('datasource-modal--loading-error')).toBeInTheDocument();
     expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
   });
 

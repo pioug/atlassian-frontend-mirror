@@ -1,16 +1,28 @@
+import type { Rule } from 'eslint';
 import {
   callExpression,
   CallExpression,
+  Directive,
   EslintNode,
+  Identifier,
   identifier,
+  ImportDeclaration,
   isNodeOfType,
+  Literal,
   literal,
+  MemberExpression,
+  memberExpression,
+  ModuleDeclaration,
   property,
   Property,
+  Statement,
+  StringableASTNode,
 } from 'eslint-codemod-utils';
 
 import { typographyPalette } from '@atlaskit/tokens/palettes-raw';
 import { typographyAdg3 as typographyTokens } from '@atlaskit/tokens/tokens-raw';
+
+import { Import, Root } from '../../ast-nodes';
 
 export const typographyProperties = [
   'fontSize',
@@ -158,16 +170,42 @@ export function isValidPropertyNode(node: Property) {
   return true;
 }
 
-function getTokenNode(tokenName: string, tokenValue: string) {
+function getTokenNode(
+  tokenName: string,
+  tokenValue: string,
+  isFallbackMember: boolean,
+) {
+  let fallback: StringableASTNode<MemberExpression | Identifier | Literal>;
+
+  if (isFallbackMember) {
+    fallback = createMemberExpressionFromArray(tokenValue.split('.'));
+  } else {
+    fallback = literal(tokenValue);
+  }
+
   return callExpression({
     callee: identifier({ name: 'token' }),
     arguments: [
       literal({
         value: `'${tokenName}'`,
       }),
-      literal(tokenValue),
+      fallback,
     ],
     optional: false,
+  });
+}
+
+function createMemberExpressionFromArray(
+  array: string[],
+): StringableASTNode<MemberExpression | Identifier> {
+  if (array.length === 1) {
+    return identifier(array[0]);
+  }
+  const property = array.pop();
+
+  return memberExpression({
+    object: createMemberExpressionFromArray(array),
+    property: identifier(property!),
   });
 }
 
@@ -175,10 +213,11 @@ export function getTokenProperty(
   propertyName: string,
   tokenName: string,
   tokenFallback: string,
+  isFallbackMember: boolean = false,
 ) {
   return property({
     key: identifier(propertyName),
-    value: getTokenNode(tokenName, tokenFallback),
+    value: getTokenNode(tokenName, tokenFallback, isFallbackMember),
   });
 }
 
@@ -197,4 +236,39 @@ export function convertPropertyNodeToStringableNode(node: Property) {
     key: node.key,
     value: node.value,
   });
+}
+
+export function insertTokensImport(
+  root: (Directive | Statement | ModuleDeclaration)[],
+  fixer: Rule.RuleFixer,
+) {
+  return Root.insertImport(
+    root,
+    {
+      module: '@atlaskit/tokens',
+      specifiers: ['token'],
+    },
+    fixer,
+  );
+}
+
+export function insertFallbackImportFull(
+  root: (Directive | Statement | ModuleDeclaration)[],
+  fixer: Rule.RuleFixer,
+) {
+  return Root.insertImport(
+    root,
+    {
+      module: '@atlaskit/theme/typography',
+      specifiers: ['fontFallback'],
+    },
+    fixer,
+  );
+}
+
+export function insertFallbackImportSpecifier(
+  fixer: Rule.RuleFixer,
+  themeImportNode: ImportDeclaration,
+) {
+  return Import.insertNamedSpecifiers(themeImportNode, ['fontFallback'], fixer);
 }

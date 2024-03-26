@@ -50,6 +50,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Wybierz co najmniej jedną osobę, jeden zespół lub jeden adres e-mail',
   'fabric.elements.share.in.integration.button': 'Udostępnij w {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Zaproś do Confluence',
+  'fabric.elements.share.invite.to.jira': 'Zaproś do systemu Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Udostępnij stronę',
   'fabric.elements.share.main.tab.text.jira': 'Udostępnij zgłoszenie',
   'fabric.elements.share.success.message':

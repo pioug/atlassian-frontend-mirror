@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/select';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
-import type { Site } from '../../../types';
+import type { Site } from '../../../../../common/types';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
 import CustomMenuList from '../menu-list';

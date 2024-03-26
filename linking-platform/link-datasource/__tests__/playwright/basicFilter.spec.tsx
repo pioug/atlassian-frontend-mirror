@@ -82,7 +82,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await loadExample(page);
 
     const initialDatasourceTable = page.getByTestId(
-      'jlol-datasource-modal--initial-state-view',
+      'datasource-modal--initial-state-view',
     );
 
     await page.getByTestId('jlol-basic-filter-project-trigger').click();

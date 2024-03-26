@@ -389,9 +389,7 @@ describe('DatasourceTableView', () => {
     it('should show an no results message on 403 response', () => {
       const { getByTestId } = setup({ status: 'forbidden' });
 
-      expect(
-        getByTestId('jira-jql-datasource-modal--no-results'),
-      ).toBeInTheDocument();
+      expect(getByTestId('datasource-modal--no-results')).toBeInTheDocument();
     });
   });
 

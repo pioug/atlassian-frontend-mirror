@@ -18,6 +18,8 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
   // eslint-disable-next-line @typescript-eslint/ban-types
   let clearAnnotationDraft: Function;
   const mockComponent = jest.fn();
+  const mockSetDraftRange = jest.fn();
+  const mockClearDraftRange = jest.fn();
   beforeEach(() => {
     const MyFakeComponent = (props: React.PropsWithChildren<ChildrenProps>) => {
       applyAnnotationDraftAt = props.applyAnnotationDraftAt;
@@ -31,13 +33,18 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
 
     render(
       <>
-        <AnnotationsDraftContextWrapper>
+        <AnnotationsDraftContextWrapper
+          setDraftRange={mockSetDraftRange}
+          clearDraftRange={mockClearDraftRange}
+        >
           {MyFakeComponent}
         </AnnotationsDraftContextWrapper>
       </>,
     );
 
     mockComponent.mockReset();
+    mockSetDraftRange.mockReset();
+    mockClearDraftRange.mockReset();
   });
 
   describe('when the applyAnnotationDraftAt is called', () => {
@@ -49,6 +56,15 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
 
       expect(mockComponent).toHaveBeenCalledTimes(1);
       expect(mockComponent).toHaveBeenNthCalledWith(1, position);
+    });
+
+    it('should call setDraftRange', () => {
+      const position = { from: 1, to: 10 };
+      act(() => {
+        applyAnnotationDraftAt!(position);
+      });
+
+      expect(mockSetDraftRange).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -66,6 +82,19 @@ describe('Annotations: AnnotationsDraftContextWrapper', () => {
       });
 
       expect(mockComponent).toHaveBeenCalledWith(null);
+    });
+
+    it('should call clear draft range', () => {
+      act(() => {
+        const position = { from: 1, to: 10 };
+        applyAnnotationDraftAt!(position);
+      });
+
+      act(() => {
+        clearAnnotationDraft!();
+      });
+
+      expect(mockClearDraftRange).toHaveBeenCalledTimes(1);
     });
   });
 });

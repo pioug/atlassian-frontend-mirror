@@ -77,6 +77,13 @@ export type UploadRejectionData = {
   limit: number;
 };
 
+export type FileEmptyData = {
+  reason: 'fileEmpty';
+  fileName: string;
+};
+
+export type FlagData = UploadRejectionData | FileEmptyData;
+
 export interface BrowserConfig extends LocalUploadConfig {
   readonly multiple?: boolean;
   readonly fileExtensions?: Array<string>;

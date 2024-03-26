@@ -50,10 +50,7 @@ export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
   }, [fireEvent]);
 
   return (
-    <div
-      css={errorContainerStyles}
-      data-testid="jira-jql-datasource--loading-error"
-    >
+    <div css={errorContainerStyles} data-testid="datasource--loading-error">
       <LoadingErrorSVG />
       <div css={errorMessageContainerStyles}>
         <span css={errorMessageStyles}>

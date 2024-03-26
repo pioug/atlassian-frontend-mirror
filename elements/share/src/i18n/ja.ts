@@ -51,6 +51,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'ユーザー、チーム、またはメール アドレスを少なくとも 1 つ選択してください',
   'fabric.elements.share.in.integration.button': '{integrationName} で共有',
+  'fabric.elements.share.invite.to.confluence': 'Confluence に招待',
+  'fabric.elements.share.invite.to.jira': 'Jira に招待',
   'fabric.elements.share.main.tab.text.confluence': 'ページを共有',
   'fabric.elements.share.main.tab.text.jira': '課題を共有',
   'fabric.elements.share.success.message':

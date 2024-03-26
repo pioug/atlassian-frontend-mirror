@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/media-client';
 import { RECENTS_COLLECTION } from '@atlaskit/media-client/constants';
 import { EventEmitter2 } from 'eventemitter2';
-import { MediaFile, UploadParams } from '../types';
+import { FileEmptyData, MediaFile, UploadParams } from '../types';
 
 import { getPreviewFromImage } from '../util/getPreviewFromImage';
 import { MediaErrorName, UploadRejectionData } from '../types';
@@ -46,6 +46,7 @@ export class UploadServiceImpl implements UploadService {
   private readonly emitter: EventEmitter2;
   private cancellableFilesUploads: { [key: string]: CancellableFileUpload };
   private fileRejectionHandler?: (rejectionData: UploadRejectionData) => void;
+  private fileEmptyHandler?: (fileEmptyData: FileEmptyData) => void;
 
   constructor(
     private readonly tenantMediaClient: MediaClient,
@@ -204,6 +205,17 @@ export class UploadServiceImpl implements UploadService {
               reason: 'fileSizeLimitExceeded',
               fileName: file.name,
               limit: rejectedFile.error.limit,
+            });
+          }
+          return null;
+        }
+
+        // exclude empty files from being uploaded
+        if (file.size === 0) {
+          if (this.fileEmptyHandler) {
+            this.fileEmptyHandler({
+              reason: 'fileEmpty',
+              fileName: file.name,
             });
           }
           return null;
@@ -427,6 +439,10 @@ export class UploadServiceImpl implements UploadService {
       traceContext,
     });
   };
+
+  onFileEmpty(handler: (fileEmptyData: FileEmptyData) => void) {
+    this.fileEmptyHandler = handler;
+  }
 
   onFileRejection(handler: (rejectionData: UploadRejectionData) => void) {
     this.fileRejectionHandler = handler;

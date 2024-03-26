@@ -1,1 +1,44 @@
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { DatasourceParameters } from '@atlaskit/linking-types';
+
+import { IssueLikeDataTableViewProps } from '../ui/issue-like-table/types';
+import { JiraIssueDatasourceParameters } from '../ui/jira-issues-modal/types';
+
 export type JiraSearchMethod = 'basic' | 'jql';
+
+export interface Site {
+  cloudId: string;
+  displayName: string;
+  url: string;
+}
+
+export type IssueViewModes = 'issue' | 'count';
+
+export type ConfigModalProps = {
+  /** Unique identifier for which type of datasource is being rendered and for making its requests */
+  datasourceId: string;
+  /** The url that was used to insert a List of Links */
+  url?: string;
+  /** Parameters for making the data requests necessary to render data within the table */
+  parameters?: DatasourceParameters | JiraIssueDatasourceParameters;
+  /** Callback function to be invoked when the modal is closed either via cancel button click, esc keydown, or modal blanket click */
+  onCancel: () => void;
+  /** Callback function to be invoked when the insert issues button is clicked */
+  onInsert: (
+    adf: InlineCardAdf | DatasourceAdf,
+    analyticsEvent?: UIAnalyticsEvent,
+  ) => void;
+  /** The view mode that the modal will show on open:
+   * - Table = Displays a list of links in table format
+   * - Inline link = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.
+
+   * The view modes in 'IssueViewModes' have not been changed from 'count' to 'inline link' and 'issue' to 'table'
+   * because it will introduce breaking changes to the public API requiring a major version bump*/
+  viewMode?: IssueViewModes;
+} & Partial<
+  Pick<
+    IssueLikeDataTableViewProps,
+    'visibleColumnKeys' | 'wrappedColumnKeys' | 'columnCustomSizes'
+  >
+>;

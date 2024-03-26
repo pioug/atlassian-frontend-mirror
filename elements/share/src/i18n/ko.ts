@@ -48,6 +48,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     '사용자, 팀 또는 이메일을 하나 이상 선택하세요',
   'fabric.elements.share.in.integration.button': '{integrationName}에서 공유',
+  'fabric.elements.share.invite.to.confluence': 'Confluence에 초대',
+  'fabric.elements.share.invite.to.jira': 'Jira에 초대',
   'fabric.elements.share.main.tab.text.confluence': '페이지 공유',
   'fabric.elements.share.main.tab.text.jira': '이슈 공유',
   'fabric.elements.share.success.message':

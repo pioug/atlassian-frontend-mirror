@@ -2,6 +2,7 @@
 export {
   insertColumnButtonOffset,
   tableRowHeight,
+  baseTableStyles,
   tableStyles,
   tableFullPageEditorStyles,
   tableCommentEditorStyles,

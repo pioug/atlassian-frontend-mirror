@@ -25,7 +25,7 @@ import {
 import { ClipboardPastePayload, ClipboardConfig } from '../../types';
 import { getPackageAttributes } from '../../util/analytics';
 import { appendTimestamp } from '../../util/appendTimestamp';
-import UploadRejectionFlagGroup from '../uploadRejectionFlagGroup/UploadRejectionFlagGroup';
+import ErrorFlagGroup from '../errorFlagGroup/ErrorFlagGroup';
 
 export const getFilesFromClipboard = (files: FileList) => {
   return Array.from(files).map((file) => {
@@ -225,9 +225,9 @@ export class ClipboardBase extends LocalUploadComponentReact<ClipboardProps> {
 
   render() {
     return (
-      <UploadRejectionFlagGroup
-        flagData={this.state.uploadRejectionFlags}
-        onFlagDismissed={this.dismissUploadRejectionFlag}
+      <ErrorFlagGroup
+        flagData={this.state.errorFlags}
+        onFlagDismissed={this.dismissErrorFlag}
       />
     );
   }

@@ -46,6 +46,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.email-only': '请至少选择一个电子邮件地址',
   'fabric.elements.share.form.user-picker.validation.required-message.jira': '请至少选择一个人员、团队或电子邮件地址',
   'fabric.elements.share.in.integration.button': '在 {integrationName} 中分享',
+  'fabric.elements.share.invite.to.confluence': '邀请加入 Confluence',
+  'fabric.elements.share.invite.to.jira': '邀请加入 Jira',
   'fabric.elements.share.main.tab.text.confluence': '分享页面',
   'fabric.elements.share.main.tab.text.jira': '共享事务',
   'fabric.elements.share.success.message':

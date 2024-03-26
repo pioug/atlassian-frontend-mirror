@@ -51,6 +51,8 @@ export default {
   'fabric.elements.share.form.user-picker.validation.required-message.jira':
     'Válassz ki legalább egy személyt, csapatot vagy e-mail-címet',
   'fabric.elements.share.in.integration.button': 'Megosztás itt: {integrationName}',
+  'fabric.elements.share.invite.to.confluence': 'Meghívás a Confluence-be',
+  'fabric.elements.share.invite.to.jira': 'Meghívás a Jirába',
   'fabric.elements.share.main.tab.text.confluence': 'Oldal megosztása',
   'fabric.elements.share.main.tab.text.jira': 'Ügy megosztása',
   'fabric.elements.share.success.message':

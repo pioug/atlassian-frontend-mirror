@@ -242,7 +242,26 @@ const generateDataResponseInternal = ({
             },
             description: idx % 2 === 0 ? adfSample : adfTableSample,
             summary: {
-              data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
+              data: {
+                url:
+                  idx === 0
+                    ? 'https://link-that-is-not-found.com/long'
+                    : idx === 1
+                    ? 'https://link-that-is-forbidden.com'
+                    : idx % 10 === 0
+                    ? 'https://link-that-is-unsupported.com'
+                    : idx % 5 === 0
+                    ? 'https://link-that-does-not-resolve.com'
+                    : idx % 4 === 0
+                    ? 'https://link-that-is-unauthorized.com'
+                    : idx % 3 === 0
+                    ? 'https://link-that-is-still-resolving.com/long-url/very-very-very-very-very-very-very-long'
+                    : item.link,
+                text:
+                  idx % 2 === 1 && idx > 10
+                    ? `[${cloudId}] ${item.summary}`
+                    : undefined,
+              },
             },
             assignee: {
               data: {

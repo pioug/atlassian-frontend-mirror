@@ -7,6 +7,8 @@
  */
 //Korean
 export default {
+  'profilecard.user.trigger.aria-label': '{fullName}에 관한 추가 정보',
+  'profilecard.user.trigger.fallback-aria-label': '이 사용자에 대한 추가 정보',
   'pt.profile-card.closed.account': '계정이 삭제됨',
   'pt.profile-card.closed.account.has.date.a.few.months': '계정이 몇 달 전에 삭제되었습니다.',
   'pt.profile-card.closed.account.has.date.last.month': '계정이 지난달에 삭제되었습니다.',

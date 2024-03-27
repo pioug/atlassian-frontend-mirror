@@ -43,13 +43,17 @@ const MarkElement = ({
         return;
       }
 
+      if (useBlockLevel) {
+        return;
+      }
+
       const { eventTarget, annotationIds } = props;
       updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
         annotationIds,
         eventTarget,
       });
     },
-    [updateSubscriber],
+    [updateSubscriber, useBlockLevel],
   );
 
   const activeParentIds = useInlineCommentsFilter({

@@ -19,6 +19,7 @@ const labelStyles = css({
   '&.inline-extension': {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     top: '-17px',
+    marginLeft: token('space.150', '12px'),
   },
   '&.hovered': {
     background: token('color.background.accent.gray.subtle.pressed', N300),
@@ -27,7 +28,6 @@ const labelStyles = css({
   },
   borderRadius: token('border.radius', '3px'),
   lineHeight: 1,
-  marginLeft: token('space.150', '12px'),
 });
 
 const textStyles = css({

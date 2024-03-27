@@ -27,18 +27,18 @@ export const commentButton = (
   const onClickHandler = (state: EditorState, dispatch?: CommandDispatch) => {
     if (api?.annotation && state.selection instanceof NodeSelection) {
       const mediaNode = state.selection.node.firstChild;
+      const { showCommentForBlockNode, setInlineCommentDraftState } =
+        api.annotation.actions;
 
-      const command =
-        api.annotation.actions.showCommentForBlockNode(mediaNode) ||
-        api.annotation.actions.setInlineCommentDraftState(
+      if (!showCommentForBlockNode(mediaNode)(state, dispatch)) {
+        setInlineCommentDraftState(
           true,
           // TODO: might need to update to reflect it's from media floating toolbar
           INPUT_METHOD.FLOATING_TB,
           'block',
           true,
-        );
-
-      command(state, dispatch);
+        )(state, dispatch);
+      }
     }
     return true;
   };

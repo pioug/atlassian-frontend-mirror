@@ -7,6 +7,8 @@
  */
 //Czech
 export default {
+  'profilecard.user.trigger.aria-label': 'Další informace o položce {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Další informace o tomto uživateli',
   'pt.profile-card.closed.account': 'Smazaný účet',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Účet uživatele je smazaný již několik měsíců.',
   'pt.profile-card.closed.account.has.date.last.month': 'Účet uživatele byl minulý měsíc smazán.',

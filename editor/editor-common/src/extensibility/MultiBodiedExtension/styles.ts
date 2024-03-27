@@ -7,8 +7,10 @@ import { wrapperDefault } from '../Extension/styles';
 
 // Wrapper the extension title and extensionContainer
 export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
-  '&.remove-margin-top': {
+  '&.with-margin-styles': {
     marginTop: 0,
+    marginLeft: token('space.negative.150', '-12px'),
+    marginRight: token('space.negative.150', '-12px'),
   },
   cursor: 'pointer',
   marginTop: token('space.250', '24px'),

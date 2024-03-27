@@ -8,12 +8,12 @@ import {
 } from '@testing-library/react';
 import cases from 'jest-in-case';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import { Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { Appearance } from '../../types';

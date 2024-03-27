@@ -7,6 +7,8 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'profilecard.user.trigger.aria-label': 'Докладніше про {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Докладніше про цього користувача',
   'pt.profile-card.closed.account': 'Обліковий запис видалено',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Обліковий запис користувача видалено кілька місяців тому.',
   'pt.profile-card.closed.account.has.date.last.month': 'Обліковий запис користувача видалено минулого місяця.',

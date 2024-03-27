@@ -60,8 +60,8 @@ export type AnnotationPlugin = NextEditorPlugin<
       setInlineCommentDraftState: SetInlineCommentDraftState;
       /**
        * This function attempts to display the inline comment popup for a given node.
-       * @returns A command function if the given node is supported and has an annotation mark;
-       * otherwise, it will return undefined.
+       * @returns A command function that returns true if the given node is supported and has resolved annotation mark(s);
+       * otherwise, it will return false.
        */
       showCommentForBlockNode: ReturnType<typeof showInlineCommentForBlockNode>;
     };

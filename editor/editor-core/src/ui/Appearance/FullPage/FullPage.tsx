@@ -3,9 +3,13 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 
+import { usePresetContext } from '../../../presets/context';
 import type { EditorAppearanceComponentProps } from '../../../types';
 
 import { FullPageContentArea } from './FullPageContentArea';
@@ -58,6 +62,12 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
   const wrapperElementRef = useMemo(() => props.innerRef, [props.innerRef]);
   const scrollContentContainerRef = useRef<ScrollContainerRefs | null>(null);
   const showKeyline = useShowKeyline(scrollContentContainerRef);
+  const editorAPI = usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
+  const { editorViewModeState } = useSharedPluginState(editorAPI, [
+    'editorViewMode',
+  ]);
+
+  const isEditorToolbarHidden = editorViewModeState?.mode === 'view';
 
   return (
     <ContextPanelWidthProvider>
@@ -66,30 +76,34 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
         className="akEditor"
         ref={wrapperElementRef}
       >
-        <FullPageToolbar
-          appearance={props.appearance}
-          beforeIcon={props.primaryToolbarIconBefore}
-          collabEdit={props.collabEdit}
-          containerElement={
-            scrollContentContainerRef.current?.scrollContainer ?? null
-          }
-          customPrimaryToolbarComponents={props.customPrimaryToolbarComponents}
-          disabled={!!props.disabled}
-          dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-          editorActions={props.editorActions}
-          editorDOMElement={props.editorDOMElement}
-          editorView={props.editorView!}
-          eventDispatcher={props.eventDispatcher!}
-          hasMinWidth={props.enableToolbarMinWidth}
-          popupsBoundariesElement={props.popupsBoundariesElement}
-          popupsMountPoint={props.popupsMountPoint}
-          popupsScrollableElement={props.popupsScrollableElement}
-          primaryToolbarComponents={props.primaryToolbarComponents}
-          providerFactory={props.providerFactory}
-          showKeyline={showKeyline}
-          featureFlags={props.featureFlags}
-          hideAvatarGroup={props.hideAvatarGroup}
-        />
+        {!isEditorToolbarHidden && (
+          <FullPageToolbar
+            appearance={props.appearance}
+            beforeIcon={props.primaryToolbarIconBefore}
+            collabEdit={props.collabEdit}
+            containerElement={
+              scrollContentContainerRef.current?.scrollContainer ?? null
+            }
+            customPrimaryToolbarComponents={
+              props.customPrimaryToolbarComponents
+            }
+            disabled={!!props.disabled}
+            dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+            editorActions={props.editorActions}
+            editorDOMElement={props.editorDOMElement}
+            editorView={props.editorView!}
+            eventDispatcher={props.eventDispatcher!}
+            hasMinWidth={props.enableToolbarMinWidth}
+            popupsBoundariesElement={props.popupsBoundariesElement}
+            popupsMountPoint={props.popupsMountPoint}
+            popupsScrollableElement={props.popupsScrollableElement}
+            primaryToolbarComponents={props.primaryToolbarComponents}
+            providerFactory={props.providerFactory}
+            showKeyline={showKeyline}
+            featureFlags={props.featureFlags}
+            hideAvatarGroup={props.hideAvatarGroup}
+          />
+        )}
         <FullPageContentArea
           ref={scrollContentContainerRef}
           appearance={props.appearance}
@@ -109,6 +123,7 @@ export const FullPageEditor = (props: EditorAppearanceComponentProps) => {
           wrapperElement={wrapperElementRef?.current ?? null}
           pluginHooks={props.pluginHooks}
           featureFlags={props.featureFlags}
+          isEditorToolbarHidden={isEditorToolbarHidden}
         />
       </div>
     </ContextPanelWidthProvider>

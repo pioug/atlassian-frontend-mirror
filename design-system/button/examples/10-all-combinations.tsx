@@ -8,6 +8,7 @@ import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 import { type Appearance, type Spacing } from '../src/new';
 import LegacyButton from '../src/old-button/button';
+import LoadingButton from '../src/old-button/loading-button';
 import variants, { type Variant } from '../src/utils/variants';
 
 const overlay = (
@@ -122,6 +123,29 @@ const ExampleRow = ({
         </Component>
       </td>
       <td>
+        {version === 'legacy' ? (
+          <LoadingButton
+            isLoading
+            // @ts-ignore
+            appearance={appearance}
+            // @ts-ignore
+            spacing={spacing}
+          >
+            {isLegacyIconButton ? null : capitalize(appearance)}
+          </LoadingButton>
+        ) : (
+          <Component
+            isLoading
+            // @ts-ignore
+            appearance={appearance}
+            // @ts-ignore
+            spacing={spacing}
+          >
+            {isLegacyIconButton ? null : capitalize(appearance)}
+          </Component>
+        )}
+      </td>
+      <td>
         <Component
           // @ts-ignore
           appearance={appearance}
@@ -230,6 +254,7 @@ export default function AppearancesExample() {
                       <th>Disabled</th>
                       <th>Selected</th>
                       <th>Disabled + Selected</th>
+                      <th>Loading</th>
                       <th>Overlay</th>
                       <th>Disabled + Overlay</th>
                       <th>Selected + Overlay</th>

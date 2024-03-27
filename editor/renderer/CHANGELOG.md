@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.11.2
+
+### Patch Changes
+
+- [#84404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84404) [`eb8c1300b8ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb8c1300b8ee) - Click on media with annotation will no longer open the annotation view behind the media preview
+
+## 109.11.1
+
+### Patch Changes
+
+- [#85141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85141) [`eb4d99e5be1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb4d99e5be1e) - Adding a try-catch around selection validation to prevent errors being thrown by nested renderers
+
 ## 109.11.0
 
 ### Minor Changes

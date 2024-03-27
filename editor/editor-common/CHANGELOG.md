@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 78.21.2
+
+### Patch Changes
+
+- [#85158](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85158) [`36988d12eb02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36988d12eb02) - The change here updated the datasource toolbar tooltip name from `Table` to `List`.
+
+## 78.21.1
+
+### Patch Changes
+
+- [#84177](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84177) [`97551a0d5b44`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97551a0d5b44) - [ux] Update block macros to align with editor elements
+
 ## 78.21.0
 
 ### Minor Changes

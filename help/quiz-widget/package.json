@@ -36,7 +36,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "dependencies": {
-    "@atlaskit/button": "^17.7.0",
+    "@atlaskit/button": "^17.8.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/radio": "^6.1.0",
     "@atlaskit/spinner": "^16.0.0",

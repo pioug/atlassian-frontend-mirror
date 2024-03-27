@@ -7,6 +7,8 @@
  */
 //Russian
 export default {
+  'profilecard.user.trigger.aria-label': 'Дополнительные сведения о пользователе {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Дополнительные сведения о пользователе',
   'pt.profile-card.closed.account': 'Аккаунт удален',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Его аккаунт был удален несколько месяцев назад.',
   'pt.profile-card.closed.account.has.date.last.month': 'Его аккаунт был удален в прошлом месяце.',

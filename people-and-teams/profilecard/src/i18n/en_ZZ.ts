@@ -8,6 +8,7 @@
 //
 export default {
   'profilecard.user.trigger.aria-label': '⁣⁢More information about {fullName}⁠⁭‍⁭⁮⁭⁡؜‍⁭⁭‌⁫‌⁭⁡⁭⁬⁬⁪‌؜⁡‌⁯⁣⁤',
+  'profilecard.user.trigger.fallback-aria-label': '⁣⁢More information about this user⁯⁬⁭‌⁯⁡⁭⁭⁪⁭⁡‍⁯⁯؜⁮⁠⁫‍⁭⁯‍‍⁡⁣⁤',
   'pt.profile-card.closed.account': '⁣⁢Account deleted⁪⁠⁭؜⁯⁭⁯⁫⁯⁪⁡⁬‌؜⁠⁭‍⁡⁠⁯؜؜⁣⁤',
   'pt.profile-card.closed.account.has.date.a.few.months':
     '⁣⁢Their account has been deleted for a few months.⁠⁮⁭⁭⁡⁠⁯⁫‍⁫‌⁠⁡‍؜⁪⁮‌⁡‌‌⁫؜⁣⁤',

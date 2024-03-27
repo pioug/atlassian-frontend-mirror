@@ -24,6 +24,14 @@ snapshotInformational(JiraIssuesTableReadonly, {
     await page.getByTestId(`people-column-heading`).hover();
   },
   description: `Hovering over people header in readonly mode`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTableNoWrapControl, {
@@ -44,4 +52,12 @@ snapshotInformational(JiraIssuesTableNoWrapControl, {
     await page.getByTestId(`people-column-heading`).hover();
   },
   description: `Hovering over people header in no wrap controls mode`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });

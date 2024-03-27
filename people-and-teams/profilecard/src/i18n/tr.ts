@@ -7,6 +7,8 @@
  */
 //Turkish (Turkey)
 export default {
+  'profilecard.user.trigger.aria-label': '{fullName} hakkında daha fazla bilgi',
+  'profilecard.user.trigger.fallback-aria-label': 'Bu kullanıcı hakkında daha fazla bilgi',
   'pt.profile-card.closed.account': 'Hesap silindi',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Bu kullanıcının hesabı birkaç ay önce silindi.',
   'pt.profile-card.closed.account.has.date.last.month': 'Bu kullanıcının hesabı geçen ay silindi.',
@@ -18,7 +20,7 @@ export default {
   'pt.profile-card.closed.account.no.date': 'Bu kullanıcının hesabı silindi.',
   'pt.profile-card.disabled.account.default.name': 'Eski kullanıcı',
   'pt.profile-card.general.msg.disabled.user': 'Artık bu kişiyle iş birliği yapamazsınız.',
-  'pt.profile-card.give-kudos': 'Tebrik edin',
+  'pt.profile-card.give-kudos': 'Tebrik et',
   'pt.profile-card.inactive.account': 'Hesap devre dışı bırakıldı',
   'pt.profile-card.inactive.account.has.date.a.few.months':
     'Bu kullanıcının hesabı birkaç ay önce devre dışı bırakıldı.',

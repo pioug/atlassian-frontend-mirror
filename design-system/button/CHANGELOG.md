@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.8.0
+
+### Minor Changes
+
+- [#85228](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85228) [`9564de632638`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9564de632638) - Introduces isLoading prop to the new Button and IconButton components. When set to true a traditional loading spinner will be shown.
+
 ## 17.7.2
 
 ### Patch Changes

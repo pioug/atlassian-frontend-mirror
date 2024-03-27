@@ -30,6 +30,7 @@ import type {
 } from '../types';
 import {
   getPluginState,
+  inlineCommentPluginKey,
   isSelectionValid,
   isSupportedBlockNode,
 } from '../utils';
@@ -194,26 +195,49 @@ const getDraftCommandAction: (
   };
 };
 
+/**
+ * Show active inline comments for a given block node, otherwise,
+ * return false if the node has no comments or no unresolved comments.
+ */
 export const showInlineCommentForBlockNode =
   (supportedBlockNodes: string[] = []) =>
-  (node: PMNode | null): Command | undefined => {
+  (node: PMNode | null): Command =>
+  (state, dispatch) => {
+    const pluginState = getPluginState(state);
+    const { annotation } = state.schema.marks;
+
     if (node && node.isBlock && supportedBlockNodes.includes(node.type.name)) {
-      const annotationMarks = (node?.marks || [])
-        .filter(mark => mark.type.name === 'annotation')
+      const unresolvedAnnotationMarks = (node?.marks || [])
+        .filter(
+          mark =>
+            mark.type === annotation &&
+            !pluginState?.annotations[mark.attrs.id],
+        )
         .map(mark => ({
           id: mark.attrs.id,
           type: mark.attrs.annotationType,
         }));
 
-      if (annotationMarks.length) {
-        return createCommand({
-          type: ACTIONS.SET_SELECTED_ANNOTATION,
-          data: {
-            selectedAnnotations: annotationMarks,
-          },
-        });
+      if (unresolvedAnnotationMarks.length) {
+        if (dispatch) {
+          // bypass createCommand with setMeta
+          // so that external plugins can be aware of if there are active(unresolved) comments associated with the node
+          // i.e. media plugin can use the return result (true/false) to show toggle create comment component
+          dispatch(
+            state.tr.setMeta(inlineCommentPluginKey, {
+              type: ACTIONS.SET_SELECTED_ANNOTATION,
+              data: {
+                selectedAnnotations: unresolvedAnnotationMarks,
+              },
+            }),
+          );
+
+          return true;
+        }
       }
     }
+
+    return false;
   };
 
 export const setInlineCommentDraftState =

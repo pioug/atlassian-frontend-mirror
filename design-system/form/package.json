@@ -47,7 +47,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/banner": "^12.1.22",
-    "@atlaskit/button": "^17.7.0",
+    "@atlaskit/button": "^17.8.0",
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/range": "^7.1.0",

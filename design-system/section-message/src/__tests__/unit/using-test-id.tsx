@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 
@@ -47,13 +47,13 @@ const sectionMessageWrapperWithTestIds = (
 describe('Section Message should be found by data-testid', () => {
   test('Using getByTestId()', async () => {
     const { getByTestId } = render(sectionMessageWrapperWithTestIds);
-    expect(getByTestId(sectionMessageInfoId)).toBeTruthy();
+    expect(getByTestId(sectionMessageInfoId)).toBeInTheDocument();
   });
 });
 describe('Flag actions should be found by data-testid', () => {
   test('Using getByTestId()', async () => {
     const { getByTestId } = render(sectionMessageWrapperWithTestIds);
-    expect(getByTestId(sectionMessageInfoBBId)).toBeTruthy();
-    expect(getByTestId(sectionMessageInfoJiraId)).toBeTruthy();
+    expect(getByTestId(sectionMessageInfoBBId)).toBeInTheDocument();
+    expect(getByTestId(sectionMessageInfoJiraId)).toBeInTheDocument();
   });
 });

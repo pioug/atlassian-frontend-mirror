@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import CodeBlock from '@atlaskit/code/block';
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import { Label } from '@atlaskit/form';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
 import SectionMessage, { SectionMessageAction } from '../src';
@@ -35,14 +34,13 @@ const Example = () => {
             </SectionMessageAction>,
           ]}
         >
-          <Text>
+          <Text as="p">
             You will rejoice to hear that no disaster has accompanied the
             commencement of an enterprise which you have regarded with such evil
             forebodings. I arrived here yesterday, and my first task is to
             assure my dear sister of my welfare and increasing confidence in the
             success of my undertaking.
           </Text>
-
           <CodeBlock
             language="javascript"
             text="const CODE_BLOCK_FULL_PARENT_WIDTH = true;"

@@ -19,7 +19,7 @@ export type ButtonProps = CommonDefaultButtonProps & CommonButtonVariantProps;
  * - [Usage](https://atlassian.design/components/button/usage)
  */
 const Button = React.memo(
-  React.forwardRef(function Button(
+  React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     {
       analyticsContext,
       interactionName,
@@ -29,6 +29,7 @@ const Button = React.memo(
       isDisabled,
       isSelected,
       iconBefore,
+      isLoading,
       UNSAFE_iconAfter_size,
       iconAfter,
       UNSAFE_iconBefore_size,
@@ -48,8 +49,8 @@ const Button = React.memo(
       type = 'button',
       testId,
       ...rest
-    }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement>,
+    },
+    ref,
   ) {
     const baseProps = useDefaultButton<HTMLButtonElement>({
       analyticsContext,
@@ -64,6 +65,7 @@ const Button = React.memo(
       interactionName,
       isDisabled,
       isSelected,
+      isLoading,
       onClick,
       onMouseDownCapture,
       onMouseUpCapture,

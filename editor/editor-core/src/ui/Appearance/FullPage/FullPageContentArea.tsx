@@ -31,6 +31,7 @@ import PluginSlot from '../../PluginSlot';
 
 import {
   contentArea,
+  contentAreaHeightNoToolbar,
   editorContentAreaStyle,
   editorContentGutterStyle,
   positionedOverEditorStyle,
@@ -56,6 +57,7 @@ interface FullPageEditorContentAreaProps {
   providerFactory: ProviderFactory;
   wrapperElement: HTMLElement | null;
   featureFlags?: FeatureFlags;
+  isEditorToolbarHidden?: boolean;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
@@ -95,6 +97,7 @@ const Content = React.forwardRef<
             <div
               css={[
                 contentArea,
+                props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
                 positionedOverEditor && positionedOverEditorStyle,
               ]}
               data-testid={CONTENT_AREA_TEST_ID}

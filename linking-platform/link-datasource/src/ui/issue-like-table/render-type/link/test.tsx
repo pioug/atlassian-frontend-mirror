@@ -5,14 +5,14 @@ import { fireEvent, render, waitFor } from '@testing-library/react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
-import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
+import SmartLinkCustomClient from '../../../../../examples-helpers/smartLinkCustomClient';
 
 import Link, { LINK_TYPE_TEST_ID } from './index';
 
 mockSimpleIntersectionObserver(); // required to mock smart link internals
 describe('Link Type', () => {
-  const smartLinkClient = new SmartLinkClient();
-  const spyFetchData = jest.spyOn(smartLinkClient, 'fetchData');
+  const smartLinkCustomClient = new SmartLinkCustomClient();
+  const spyFetchData = jest.spyOn(smartLinkCustomClient, 'fetchData');
   let originalWindowOpen: typeof window.open;
   // Needed to suppress console errors in smart-card
   let consoleErrorFn: jest.SpyInstance;
@@ -37,7 +37,7 @@ describe('Link Type', () => {
 
   const setup = ({ url = '', ...props }) => {
     return render(
-      <SmartCardProvider client={smartLinkClient}>
+      <SmartCardProvider client={smartLinkCustomClient}>
         <Link url={url} {...props} />
       </SmartCardProvider>,
     );

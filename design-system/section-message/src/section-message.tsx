@@ -1,8 +1,7 @@
 import React, { forwardRef } from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';

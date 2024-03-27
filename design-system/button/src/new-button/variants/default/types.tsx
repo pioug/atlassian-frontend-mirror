@@ -2,6 +2,10 @@ import { type ButtonSpacing, type IconProp, type IconSize } from '../types';
 
 export type CommonDefaultButtonProps = {
   /**
+   * Conditionally show a spinner over the top of a button
+   */
+  isLoading?: boolean;
+  /**
    * Text content to be rendered in the button. Required so that screen readers always have an accessible label provided for the button.
    */
   children: React.ReactNode;

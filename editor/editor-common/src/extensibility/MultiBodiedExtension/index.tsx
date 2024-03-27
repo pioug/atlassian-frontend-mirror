@@ -187,7 +187,7 @@ const MultiBodiedExtensionWithWidth = ({
     'extension-container',
     'block',
     {
-      'remove-margin-top': showMacroInteractionDesignUpdates,
+      'with-margin-styles': showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,

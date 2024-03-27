@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 1.1.9
+
+### Patch Changes
+
+- [#85055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85055) [`0eb5901fd1e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0eb5901fd1e7) - Fix the editor not focusing after inserting an emoji from the toolbar.
+
 ## 1.1.8
 
 ### Patch Changes

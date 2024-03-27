@@ -7,6 +7,8 @@
  */
 //Japanese
 export default {
+  'profilecard.user.trigger.aria-label': '{fullName} の詳細情報',
+  'profilecard.user.trigger.fallback-aria-label': 'このユーザーに関する詳細情報',
   'pt.profile-card.closed.account': '削除済みアカウント',
   'pt.profile-card.closed.account.has.date.a.few.months': 'アカウントは 2〜3 か月前に削除されました。',
   'pt.profile-card.closed.account.has.date.last.month': 'アカウントは先月削除されました。',

@@ -9,7 +9,6 @@ import { injectIntl } from 'react-intl-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
@@ -19,7 +18,6 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import type { AvatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
 import type { BeforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -79,16 +77,8 @@ export const EditorToolbar = React.memo(
           OptionalPlugin<CollabEditPlugin>,
           OptionalPlugin<AvatarGroupPlugin>,
           OptionalPlugin<BeforePrimaryToolbarPlugin>,
-          OptionalPlugin<EditorViewModePlugin>,
         ]
       >();
-
-    const { editorViewModeState } = useSharedPluginState(editorAPI, [
-      'editorViewMode',
-    ]);
-
-    // To check if the page is in viewMode
-    const isInViewMode = editorViewModeState?.mode === 'view';
 
     // When primary toolbar components is undefined, do not show two line editor toolbar
     const twoLineEditorToolbar =
@@ -188,10 +178,6 @@ export const EditorToolbar = React.memo(
       event.preventDefault();
       event.stopPropagation();
     };
-
-    if (isInViewMode) {
-      return null;
-    }
 
     return (
       <ContextPanelConsumer>

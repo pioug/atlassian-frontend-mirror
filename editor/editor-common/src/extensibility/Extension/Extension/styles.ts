@@ -22,6 +22,11 @@ export const wrapperStyle = css(wrapperDefault, {
   '&.with-hover-border': {
     border: `1px solid ${token('color.border', N30)}`,
   },
+  '&.with-margin-styles': {
+    margin: `0 ${token('space.negative.150', '-12px')}`,
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+    padding: '0 10px', // need exact number here to match editor elements' width
+  },
 });
 
 export const header = css({
@@ -56,5 +61,12 @@ export const contentWrapper = css({
   justifyContent: 'center',
   '&.remove-padding': {
     padding: 0,
+  },
+});
+
+export const overflowWrapperStyles = css({
+  '&.with-margin-styles': {
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+    margin: `0 -10px`, // need exact number here to match editor elements' width
   },
 });

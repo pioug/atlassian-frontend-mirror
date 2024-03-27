@@ -15,6 +15,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over "label, another, third" Labels',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -26,6 +34,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over "bug" Icon',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -36,6 +52,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over "Unassigned" Assignee',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -46,6 +70,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over People',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -57,6 +89,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over "TO DO" Status',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -67,6 +107,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over Date',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 snapshotInformational(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
@@ -77,6 +125,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: 'Hovering over Description',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -85,6 +141,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Hovering over labels header`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -93,6 +157,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Hovering over priority header`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -101,6 +173,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Hovering over status header`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -109,6 +189,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Double lined date of creation header text is truncated with ellipses`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -117,6 +205,14 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Click summary column dropdown to see its items`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(JiraIssuesTable, {
@@ -133,4 +229,12 @@ snapshotInformational(JiraIssuesTable, {
   },
   drawsOutsideBounds: true,
   description: `Toggle wrapping on several columns`,
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });

@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.24.7
+
+### Patch Changes
+
+- [#83952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83952) [`300149437193`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/300149437193) - [ux] Make smart-links rendered non-word-wrapped (truncated) by default and only be word-wrapped when user chooses it
+
 ## 1.24.6
 
 ### Patch Changes

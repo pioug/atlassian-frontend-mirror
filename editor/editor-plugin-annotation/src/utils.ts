@@ -582,7 +582,14 @@ export const isBlockNodeAnnotationsSelected = (
           type: mark.attrs.annotationType,
         })) || [];
 
-    return !isSelectedAnnotationsChanged(selectedAnnotations, annotationMarks);
+    return !selectedAnnotations.some(
+      annotation =>
+        !annotationMarks.find(
+          existingAnnotation =>
+            existingAnnotation.id === annotation.id &&
+            existingAnnotation.type === annotation.type,
+        ),
+    );
   }
 
   return false;

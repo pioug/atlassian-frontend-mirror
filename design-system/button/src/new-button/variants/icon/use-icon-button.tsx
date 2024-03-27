@@ -3,6 +3,7 @@ import React from 'react';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Content from '../shared/content';
+import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
   type UseButtonBaseArgs,
   type UseButtonBaseReturn,
@@ -37,6 +38,7 @@ const useIconButton = <TagName extends HTMLElement>({
   interactionName,
   isDisabled,
   isSelected,
+  isLoading,
   label,
   onClick,
   onMouseDownCapture,
@@ -55,7 +57,7 @@ const useIconButton = <TagName extends HTMLElement>({
   spacing,
   UNSAFE_size,
 }: UseIconButtonArgs<TagName>): UseIconButtonReturn<TagName> => {
-  const hasOverlay = Boolean(overlay);
+  const hasOverlay = Boolean(overlay || isLoading);
   const isCircle = shape === 'circle';
 
   const baseProps = useButtonBase<TagName>({
@@ -84,7 +86,14 @@ const useIconButton = <TagName extends HTMLElement>({
     onPointerDownCapture,
     onPointerUpCapture,
     onClickCapture,
-    overlay,
+    overlay: isLoading
+      ? renderLoadingOverlay({
+          spacing,
+          appearance,
+          isDisabled,
+          isSelected,
+        })
+      : overlay,
     ref,
     shouldFitContainer,
     spacing,

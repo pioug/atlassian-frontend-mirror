@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.25.14
+
+### Patch Changes
+
+- [#85088](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85088) [`231ec4a0412c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/231ec4a0412c) - Remove the bambooagent added FF reference of enable-map-selection-backward
+
 ## 9.25.13
 
 ### Patch Changes

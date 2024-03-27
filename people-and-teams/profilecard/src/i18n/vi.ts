@@ -7,6 +7,8 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'profilecard.user.trigger.aria-label': 'Thông tin khác về {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Thông tin khác về người dùng này',
   'pt.profile-card.closed.account': 'Tài khoản đã bị xóa',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Tài khoản của họ đã bị xóa một vài tháng.',
   'pt.profile-card.closed.account.has.date.last.month': 'Tài khoản của họ đã bị xóa tháng trước.',

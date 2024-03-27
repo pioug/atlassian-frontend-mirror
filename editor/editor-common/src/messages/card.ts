@@ -96,8 +96,8 @@ export const messages = defineMessages({
   },
   datasourceAppearanceTitle: {
     id: 'fabric.editor.datasourceAppearanceTitle',
-    defaultMessage: 'Table',
-    description: 'Tooltip of button to change to datasource table appearance',
+    defaultMessage: 'List',
+    description: 'Tooltip of button to change to datasource appearance',
   },
   datasourceJiraIssue: {
     id: 'fabric.editor.datasource.jiraIssue',

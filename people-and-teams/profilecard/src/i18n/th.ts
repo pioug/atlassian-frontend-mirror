@@ -7,6 +7,8 @@
  */
 //Thai (Thailand)
 export default {
+  'profilecard.user.trigger.aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับ {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'ข้อมูลเพิ่มเติมเกี่ยวกับผู้ใช้รายนี้',
   'pt.profile-card.closed.account': 'ลบบัญชีแล้ว',
   'pt.profile-card.closed.account.has.date.a.few.months': 'บัญชีของผู้ใช้ถูกลบไปแล้วไม่กี่เดือน',
   'pt.profile-card.closed.account.has.date.last.month': 'บัญชีของผู้ใช้ถูกลบไปเมื่อเดือนที่แล้ว',

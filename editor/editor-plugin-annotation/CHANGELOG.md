@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.3
+
+### Patch Changes
+
+- [#84432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84432) [`19324d1894bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19324d1894bb) - [ED-22643] Update showInlineCommentForBlockNode so that it can dispatch action to show comment view component when there are no active comments associated with the give node
+
 ## 1.5.2
 
 ### Patch Changes

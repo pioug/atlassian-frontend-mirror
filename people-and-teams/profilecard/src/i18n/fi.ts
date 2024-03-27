@@ -7,6 +7,8 @@
  */
 //Finnish
 export default {
+  'profilecard.user.trigger.aria-label': 'Lisätietoja kohteesta {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Lisätietoja tästä käyttäjästä',
   'pt.profile-card.closed.account': 'Tili poistettu',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Hänen tilinsä on ollut poistettuna muutaman kuukauden ajan.',
   'pt.profile-card.closed.account.has.date.last.month': 'Hänen tilinsä poistettiin viime kuussa.',

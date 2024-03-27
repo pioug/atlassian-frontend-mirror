@@ -1276,7 +1276,6 @@ describe('Provider', () => {
         onStepsAdded: expect.any(Function),
       });
     });
-
     it('enableCatchupv2 = true: should reset the rejected step counter when catchup throws an error', async () => {
       const catchupv2Mock = (catchupv2 as jest.Mock).mockImplementation(() => {
         throw new Error('catchupv2 error');

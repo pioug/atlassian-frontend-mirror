@@ -7,6 +7,8 @@
  */
 //Dutch (Netherlands)
 export default {
+  'profilecard.user.trigger.aria-label': 'Meer informatie over {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Meer informatie over deze gebruiker',
   'pt.profile-card.closed.account': 'Account verwijderd',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Zijn/haar account is al een paar maanden verwijderd.',
   'pt.profile-card.closed.account.has.date.last.month': 'Zijn/haar account is vorige maand verwijderd.',

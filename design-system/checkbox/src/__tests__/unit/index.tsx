@@ -186,8 +186,9 @@ describe('@atlaskit/checkbox', () => {
   describe('<Checkbox /> label text should be present conditionally', () => {
     it('should be checked when defaultChecked is set to checked', () => {
       renderCheckbox({
-        label: undefined,
+        label: undefined, // Not having a visible label is a legit use case for things like table row selection
         testId: 'test',
+        'aria-label': 'stub',
       });
       const checkbox = screen.getByTestId(
         'test--checkbox-label',

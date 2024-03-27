@@ -35,8 +35,13 @@ export const SelectionRangeValidator = (props: Props) => {
   const documentPosition = actions.getPositionFromRange(range);
 
   // This property is drilled down to consumers when a new range is selected to test it's validity
-  const isAnnotationAllowedOnRange =
-    documentPosition && actions.isValidAnnotationPosition(documentPosition);
+  let isAnnotationAllowedOnRange = false;
+  try {
+    isAnnotationAllowedOnRange =
+      documentPosition && actions.isValidAnnotationPosition(documentPosition);
+  } catch {
+    isAnnotationAllowedOnRange = false;
+  }
 
   return (
     <SelectionInlineCommentMounter

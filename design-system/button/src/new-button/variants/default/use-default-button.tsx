@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Content from '../shared/content';
+import renderLoadingOverlay from '../shared/loading-overlay';
 import useButtonBase, {
   type UseButtonBaseArgs,
   type UseButtonBaseReturn,
@@ -35,6 +36,7 @@ const useDefaultButton = <TagName extends HTMLElement>({
   interactionName,
   isDisabled,
   isSelected,
+  isLoading = false,
   children,
   onClick,
   onMouseDownCapture,
@@ -51,7 +53,7 @@ const useDefaultButton = <TagName extends HTMLElement>({
   shouldFitContainer,
   spacing,
 }: UseDefaultButtonArgs<TagName>): UseButtonReturn<TagName> => {
-  const hasOverlay = Boolean(overlay);
+  const hasOverlay = Boolean(overlay || isLoading);
 
   const baseProps = useButtonBase<TagName>({
     analyticsContext,
@@ -86,7 +88,14 @@ const useDefaultButton = <TagName extends HTMLElement>({
     onPointerDownCapture,
     onPointerUpCapture,
     onClickCapture,
-    overlay,
+    overlay: isLoading
+      ? renderLoadingOverlay({
+          spacing,
+          appearance,
+          isDisabled,
+          isSelected,
+        })
+      : overlay,
     ref,
     shouldFitContainer,
     spacing,

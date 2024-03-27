@@ -28,6 +28,7 @@ import {
   content,
   contentWrapper,
   header,
+  overflowWrapperStyles,
   widerLayoutClassName,
   wrapperStyle,
 } from './styles';
@@ -108,12 +109,18 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     {
       'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
+      'with-margin-styles': showMacroInteractionDesignUpdates,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,
       'without-frame': removeBorder,
       [widerLayoutClassName]: shouldBreakout,
     },
   );
+
+  const overflowClassNames = classnames('extension-overflow-wrapper', {
+    'with-body': hasBody,
+    'with-margin-styles': showMacroInteractionDesignUpdates,
+  });
 
   const headerClassNames = classnames({
     'with-children': hasChildren,
@@ -177,10 +184,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
-        <div
-          className={`extension-overflow-wrapper ${hasBody ? 'with-body' : ''}`}
-        >
-          <div css={overlay} className="extension-overlay" />
+        <div className={overflowClassNames} css={overflowWrapperStyles}>
+          <div className={'extension-overlay'} css={overlay} />
           <div
             css={header}
             contentEditable={false}

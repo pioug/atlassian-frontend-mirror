@@ -115,6 +115,12 @@ const TableCell = styled.td({
     borderRight: 0,
     paddingRight: token('space.100', '8px'),
   },
+  // Inline smart links are pretty opinionated about word-wrapping.
+  // We want it to be controlled by user, so we make it overflow and truncate by default.
+  ["& [data-testid='inline-card-icon-and-title'], " +
+  "& [data-testid='button-connect-account'] > span"]: {
+    whiteSpace: 'unset',
+  },
 });
 
 const tableContainerStyles = css({

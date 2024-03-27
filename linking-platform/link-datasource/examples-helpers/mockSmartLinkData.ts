@@ -64,4 +64,48 @@ export const mocks = {
       url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
     },
   } as JsonLd.Response,
+  notFound: {
+    meta: {
+      visibility: 'not_found',
+      access: 'forbidden',
+      auth: [],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
+      name: 'I love cheese',
+      url: 'https://some.url',
+    },
+  } as JsonLd.Response,
+  forbidden: {
+    meta: {
+      visibility: 'restricted',
+      access: 'forbidden',
+      auth: [
+        {
+          key: 'some-flow',
+          displayName: 'Flow',
+          url: 'https://outbound-auth/flow',
+        },
+      ],
+      definitionId: 'd1',
+      key: 'object-provider',
+    },
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      '@type': 'Object',
+      name: 'I love cheese',
+      url: 'https://some.url',
+    },
+  } as JsonLd.Response,
 };

@@ -7,6 +7,8 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'profilecard.user.trigger.aria-label': 'Mer informasjon om {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Mer informasjon om denne brukeren',
   'pt.profile-card.closed.account': 'Kontoen er slettet',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Vedkommendes konto har vært slettet i noen måneder.',
   'pt.profile-card.closed.account.has.date.last.month': 'Vedkommendes konto ble slettet i forrige måned.',

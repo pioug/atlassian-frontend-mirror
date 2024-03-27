@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Text } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
@@ -17,7 +17,7 @@ const Example = () => (
       </SectionMessageAction>,
     ]}
   >
-    <Text>
+    <Text as="p">
       You're not allowed to change these restrictions. It's either due to the
       restrictions on the page, or permission settings for this space.
     </Text>

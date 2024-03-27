@@ -7,6 +7,8 @@
  */
 //Hungarian
 export default {
+  'profilecard.user.trigger.aria-label': 'További információ a következőről: {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'További információ erről a felhasználóról',
   'pt.profile-card.closed.account': 'A fiók törölve.',
   'pt.profile-card.closed.account.has.date.a.few.months': 'A fiókját néhány hónapja töröltük.',
   'pt.profile-card.closed.account.has.date.last.month': 'A fiókját a múlt hónapban töröltük.',

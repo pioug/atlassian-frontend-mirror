@@ -7,6 +7,8 @@
  */
 //Swedish
 export default {
+  'profilecard.user.trigger.aria-label': 'Mer information om {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Mer information om denna användare',
   'pt.profile-card.closed.account': 'Kontot är borttaget',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Personens konto har varit borttaget i några få månader.',
   'pt.profile-card.closed.account.has.date.last.month': 'Personens konto togs bort förra månaden.',

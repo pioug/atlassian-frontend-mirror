@@ -66,7 +66,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.7.0",
+    "@atlaskit/button": "^17.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^9.1.0",
     "@atlaskit/modal-dialog": "^12.10.0",

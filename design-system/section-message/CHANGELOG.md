@@ -1,5 +1,11 @@
 # @atlaskit/section-message
 
+## 6.4.24
+
+### Patch Changes
+
+- [#84293](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84293) [`1ba0536bcaf9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ba0536bcaf9) - Internal changes to typography. No expected visual or behavioral change.
+
 ## 6.4.23
 
 ### Patch Changes

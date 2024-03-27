@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.7.0
+
+### Minor Changes
+
+- [#80872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80872) [`ac1638d405c5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac1638d405c5) - [ux] update height of editor content when in view mode to account for hidden toolbar
+
 ## 193.6.6
 
 ### Patch Changes

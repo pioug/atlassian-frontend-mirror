@@ -7,6 +7,10 @@ import {
 
 export type CommonIconButtonProps = {
   /**
+   * Conditionally show a spinner over the top of a button
+   */
+  isLoading?: boolean;
+  /**
    * The button style variation.
    */
   appearance?: IconButtonAppearance;

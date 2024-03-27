@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
@@ -14,7 +14,7 @@ describe('Checkbox analytics', () => {
     const onPublicEvent = jest.fn();
     const onAtlaskitEvent = jest.fn();
 
-    const { getByLabelText } = render(
+    render(
       <AnalyticsListener onEvent={onAtlaskitEvent}>
         <AnalyticsListener onEvent={onPublicEvent}>
           <Checkbox
@@ -31,7 +31,7 @@ describe('Checkbox analytics', () => {
         </AnalyticsListener>
       </AnalyticsListener>,
     );
-    const checkbox: HTMLElement = getByLabelText('test');
+    const checkbox: HTMLElement = screen.getByLabelText('test');
     fireEvent.click(checkbox);
     const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
       payload: {
@@ -64,7 +64,7 @@ describe('Checkbox analytics', () => {
     const onEvent = jest.fn();
     const extraContext = { hello: 'world' };
 
-    const { getByLabelText } = render(
+    render(
       <AnalyticsListener onEvent={onEvent} channel={'atlaskit'}>
         <Checkbox
           name="test"
@@ -75,7 +75,7 @@ describe('Checkbox analytics', () => {
       </AnalyticsListener>,
     );
 
-    const checkbox: HTMLElement = getByLabelText('test');
+    const checkbox: HTMLElement = screen.getByLabelText('test');
     fireEvent.click(checkbox);
 
     const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -106,11 +106,9 @@ describe('Checkbox analytics', () => {
   it('should not error if there is no analytics provider on Checkbox', () => {
     const error = jest.spyOn(console, 'error');
 
-    const { getByLabelText } = render(
-      <Checkbox name="test" value="test" label="test" />,
-    );
+    render(<Checkbox name="test" value="test" label="test" />);
 
-    const checkbox: HTMLElement = getByLabelText('test');
+    const checkbox: HTMLElement = screen.getByLabelText('test');
     fireEvent.click(checkbox);
 
     expect(error).not.toHaveBeenCalled();

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-exported-css */
 import { css } from '@emotion/react';
 
 import { N20, N20A, N70 } from '@atlaskit/theme/colors';

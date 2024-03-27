@@ -7,6 +7,8 @@
  */
 //Chinese (Simplified)
 export default {
+  'profilecard.user.trigger.aria-label': '关于 {fullName} 的更多信息',
+  'profilecard.user.trigger.fallback-aria-label': '关于此用户的更多信息',
   'pt.profile-card.closed.account': '已删除的帐户',
   'pt.profile-card.closed.account.has.date.a.few.months': '他们的帐户已被删除数月。',
   'pt.profile-card.closed.account.has.date.last.month': '他们的帐户已在上月删除。',

@@ -66,6 +66,10 @@ export const contentArea = css({
   transition: `padding 0ms ${akEditorSwoopCubicBezier}`,
 });
 
+export const contentAreaHeightNoToolbar = css({
+  height: '100%',
+});
+
 export const sidebarArea = css({
   height: '100%',
   boxSizing: 'border-box',

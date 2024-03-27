@@ -292,6 +292,8 @@ export class ToolbarInsertBlock extends React.PureComponent<
     if (!emojiPickerOpen || !ref || !emojiProvider) {
       return null;
     }
+    const onUnmount = () =>
+      this.props.pluginInjectionApi?.core?.actions?.focus();
 
     return (
       <Popup
@@ -302,6 +304,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
         mountTo={popupsMountPoint}
         boundariesElement={popupsBoundariesElement}
         scrollableElement={popupsScrollableElement}
+        onUnmount={onUnmount}
         focusTrap
         zIndex={akEditorMenuZIndex}
       >

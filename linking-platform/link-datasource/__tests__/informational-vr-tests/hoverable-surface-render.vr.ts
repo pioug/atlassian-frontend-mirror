@@ -34,6 +34,14 @@ snapshotInformational(JiraIssuesTable, {
     await page.hover(hoverableContainerSelector);
   },
   description: 'jira issues table on a hoverable surface',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });
 
 snapshotInformational(EmptyState, {
@@ -42,4 +50,12 @@ snapshotInformational(EmptyState, {
     await page.hover(hoverableContainerSelector);
   },
   description: 'empty state table on a hoverable surface',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });

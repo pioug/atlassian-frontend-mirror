@@ -7,6 +7,8 @@
  */
 //Spanish (International)
 export default {
+  'profilecard.user.trigger.aria-label': 'Más información sobre {fullName}',
+  'profilecard.user.trigger.fallback-aria-label': 'Más información sobre este usuario',
   'pt.profile-card.closed.account': 'Cuenta eliminada',
   'pt.profile-card.closed.account.has.date.a.few.months': 'Su cuenta se desactivó hace algunos meses.',
   'pt.profile-card.closed.account.has.date.last.month': 'Su cuenta se eliminó el mes pasado.',

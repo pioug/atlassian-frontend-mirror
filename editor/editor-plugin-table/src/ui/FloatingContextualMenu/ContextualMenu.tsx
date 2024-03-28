@@ -126,11 +126,9 @@ export class ContextualMenu extends Component<
     const { isOpen, mountPoint, offset, boundariesElement, editorView } =
       this.props;
     const { isDragAndDropEnabled } = getPluginState(editorView.state);
-    const items =
-      isDragAndDropEnabled &&
-      getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-        ? this.createNewContextMenuItems()
-        : this.createOriginalContextMenuItems();
+    const items = isDragAndDropEnabled
+      ? this.createNewContextMenuItems()
+      : this.createOriginalContextMenuItems();
 
     return (
       <div
@@ -161,9 +159,6 @@ export class ContextualMenu extends Component<
           offset={offset}
           section={
             isDragAndDropEnabled &&
-            getBooleanFF(
-              'platform.editor.table.new-cell-context-menu-styling',
-            ) &&
             getBooleanFF('platform.editor.menu.group-items')
               ? { hasSeparator: true }
               : undefined
@@ -210,33 +205,24 @@ export class ContextualMenu extends Component<
         node?.attrs?.background || '#ffffff',
       );
       return {
-        content:
-          isDragAndDropEnabled &&
-          getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-            ? formatMessage(messages.backgroundColor)
-            : formatMessage(messages.cellBackground),
+        content: isDragAndDropEnabled
+          ? formatMessage(messages.backgroundColor)
+          : formatMessage(messages.cellBackground),
         value: { name: 'background' },
-        elemBefore:
-          isDragAndDropEnabled &&
-          getBooleanFF(
-            'platform.editor.table.new-cell-context-menu-styling',
-          ) ? (
-            <span css={elementBeforeIconStyles}>
-              <EditorBackgroundColorIcon
-                label={formatMessage(messages.backgroundColor)}
-                size="medium"
-              />
-            </span>
-          ) : undefined,
+        elemBefore: isDragAndDropEnabled ? (
+          <span css={elementBeforeIconStyles}>
+            <EditorBackgroundColorIcon
+              label={formatMessage(messages.backgroundColor)}
+              size="medium"
+            />
+          </span>
+        ) : undefined,
         elemAfter: (
           <div className={DropdownMenuSharedCssClassName.SUBMENU}>
             <div
               css={cellColourPreviewStyles(background)}
               className={
-                isDragAndDropEnabled &&
-                getBooleanFF(
-                  'platform.editor.table.new-cell-context-menu-styling',
-                )
+                isDragAndDropEnabled
                   ? ClassName.CONTEXTUAL_MENU_ICON_SMALL
                   : ClassName.CONTEXTUAL_MENU_ICON
               }
@@ -280,29 +266,21 @@ export class ContextualMenu extends Component<
           content: formatMessage(messages.mergeCells),
           value: { name: 'merge' },
           isDisabled: !canMergeCells(state.tr),
-          elemBefore:
-            isDragAndDropEnabled &&
-            getBooleanFF(
-              'platform.editor.table.new-cell-context-menu-styling',
-            ) ? (
-              <span css={elementBeforeIconStyles}>
-                <MergeCellsIcon />
-              </span>
-            ) : undefined,
+          elemBefore: isDragAndDropEnabled ? (
+            <span css={elementBeforeIconStyles}>
+              <MergeCellsIcon />
+            </span>
+          ) : undefined,
         },
         {
           content: formatMessage(messages.splitCell),
           value: { name: 'split' },
           isDisabled: !splitCell(state),
-          elemBefore:
-            isDragAndDropEnabled &&
-            getBooleanFF(
-              'platform.editor.table.new-cell-context-menu-styling',
-            ) ? (
-              <span css={elementBeforeIconStyles}>
-                <SplitCellIcon />
-              </span>
-            ) : undefined,
+          elemBefore: isDragAndDropEnabled ? (
+            <span css={elementBeforeIconStyles}>
+              <SplitCellIcon />
+            </span>
+          ) : undefined,
         },
       ] as MenuItem[];
     }
@@ -318,20 +296,15 @@ export class ContextualMenu extends Component<
 
     return {
       content: formatMessage(
-        isDragAndDropEnabled &&
-          getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-          ? messages.addColumnRight
-          : messages.insertColumn,
+        isDragAndDropEnabled ? messages.addColumnRight : messages.insertColumn,
       ),
       value: { name: 'insert_column' },
       elemAfter: <div css={shortcutStyle}>{tooltip(addColumnAfter)}</div>,
-      elemBefore:
-        isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling') ? (
-          <span css={elementBeforeIconStyles}>
-            <AddColRightIcon />
-          </span>
-        ) : undefined,
+      elemBefore: isDragAndDropEnabled ? (
+        <span css={elementBeforeIconStyles}>
+          <AddColRightIcon />
+        </span>
+      ) : undefined,
     } as MenuItem;
   };
 
@@ -344,20 +317,15 @@ export class ContextualMenu extends Component<
 
     return {
       content: formatMessage(
-        isDragAndDropEnabled &&
-          getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-          ? messages.addRowBelow
-          : messages.insertRow,
+        isDragAndDropEnabled ? messages.addRowBelow : messages.insertRow,
       ),
       value: { name: 'insert_row' },
       elemAfter: <div css={shortcutStyle}>{tooltip(addRowAfter)}</div>,
-      elemBefore:
-        isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling') ? (
-          <span css={elementBeforeIconStyles}>
-            <AddRowBelowIcon />
-          </span>
-        ) : undefined,
+      elemBefore: isDragAndDropEnabled ? (
+        <span css={elementBeforeIconStyles}>
+          <AddRowBelowIcon />
+        </span>
+      ) : undefined,
     } as MenuItem;
   };
 
@@ -378,17 +346,15 @@ export class ContextualMenu extends Component<
       }),
       value: { name: 'clear' },
       elemAfter: <div css={shortcutStyle}>{tooltip(backspace)}</div>,
-      elemBefore:
-        isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling') ? (
-          <span css={elementBeforeIconStyles}>
-            <CrossCircleIcon
-              label={formatMessage(messages.clearCells, {
-                0: Math.max(noOfColumns, noOfRows),
-              })}
-            />
-          </span>
-        ) : undefined,
+      elemBefore: isDragAndDropEnabled ? (
+        <span css={elementBeforeIconStyles}>
+          <CrossCircleIcon
+            label={formatMessage(messages.clearCells, {
+              0: Math.max(noOfColumns, noOfRows),
+            })}
+          />
+        </span>
+      ) : undefined,
     } as MenuItem;
   };
 
@@ -408,17 +374,15 @@ export class ContextualMenu extends Component<
         0: noOfColumns,
       }),
       value: { name: 'delete_column' },
-      elemBefore:
-        isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling') ? (
-          <span css={elementBeforeIconStyles}>
-            <RemoveIcon
-              label={formatMessage(messages.removeColumns, {
-                0: noOfColumns,
-              })}
-            />
-          </span>
-        ) : undefined,
+      elemBefore: isDragAndDropEnabled ? (
+        <span css={elementBeforeIconStyles}>
+          <RemoveIcon
+            label={formatMessage(messages.removeColumns, {
+              0: noOfColumns,
+            })}
+          />
+        </span>
+      ) : undefined,
     } as MenuItem;
   };
 
@@ -438,17 +402,15 @@ export class ContextualMenu extends Component<
         0: noOfRows,
       }),
       value: { name: 'delete_row' },
-      elemBefore:
-        isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling') ? (
-          <span css={elementBeforeIconStyles}>
-            <RemoveIcon
-              label={formatMessage(messages.removeRows, {
-                0: noOfRows,
-              })}
-            />
-          </span>
-        ) : undefined,
+      elemBefore: isDragAndDropEnabled ? (
+        <span css={elementBeforeIconStyles}>
+          <RemoveIcon
+            label={formatMessage(messages.removeRows, {
+              0: noOfRows,
+            })}
+          />
+        </span>
+      ) : undefined,
     } as MenuItem;
   };
 
@@ -463,11 +425,7 @@ export class ContextualMenu extends Component<
       isDragAndDropEnabled,
       pluginConfig: { allowDistributeColumns },
     } = getPluginState(editorView.state);
-    if (
-      allowDistributeColumns &&
-      (!isDragAndDropEnabled ||
-        !getBooleanFF('platform.editor.table.new-cell-context-menu-styling'))
-    ) {
+    if (allowDistributeColumns && !isDragAndDropEnabled) {
       const { isTableScalingEnabled = false } = getPluginState(
         editorView.state,
       );
@@ -498,11 +456,7 @@ export class ContextualMenu extends Component<
     } = this.props;
     const { isDragAndDropEnabled } = getPluginState(editorView.state);
 
-    if (
-      allowColumnSorting &&
-      (!isDragAndDropEnabled ||
-        !getBooleanFF('platform.editor.table.new-cell-context-menu-styling'))
-    ) {
+    if (allowColumnSorting && !isDragAndDropEnabled) {
       const hasMergedCellsInTable =
         getMergedCellsPositions(editorView.state.tr).length > 0;
       const warning = hasMergedCellsInTable

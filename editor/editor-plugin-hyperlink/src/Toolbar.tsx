@@ -17,12 +17,11 @@ import type {
   LinkType,
 } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
-import {
-  productionLinkPreferencesUrl,
-  stagingLinkPreferencesUrl,
-} from '@atlaskit/editor-common/constants';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
+import {
+  getLinkPreferencesURLFromENV,
+  HyperlinkAddToolbar,
+} from '@atlaskit/editor-common/link';
 import type {
   EditInsertedState,
   HyperlinkAddToolbarProps,
@@ -182,10 +181,7 @@ const getSettingsButtonGroup = (
     icon: CogIcon,
     title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
     onClick: openLinkSettings(editorAnalyticsApi),
-    href:
-      process.env.NODE_ENV === 'production'
-        ? productionLinkPreferencesUrl
-        : stagingLinkPreferencesUrl,
+    href: getLinkPreferencesURLFromENV(),
     target: '_blank',
   },
 ];

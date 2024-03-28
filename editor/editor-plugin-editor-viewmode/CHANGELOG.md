@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 1.0.59
+
+### Patch Changes
+
+- [#85544](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85544) [`6c1d71f9f17c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c1d71f9f17c) - Bumping editor-plugin-editor-viewmode to fix package.json out of sync on npm
+
 ## 1.0.58
 
 ### Patch Changes

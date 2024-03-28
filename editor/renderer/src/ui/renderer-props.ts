@@ -19,6 +19,7 @@ import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import type { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { DocNode } from '@atlaskit/adf-schema';
+import type { TextHighlighter } from '../react/types';
 
 export interface RawObjectFeatureFlags {
   ['renderer-render-tracking']: string;
@@ -123,4 +124,6 @@ export interface RendererProps {
   featureFlags?:
     | { [featureFlag: string]: boolean }
     | Partial<RawObjectFeatureFlags>;
+
+  UNSTABLE_textHighlighter?: TextHighlighter;
 }

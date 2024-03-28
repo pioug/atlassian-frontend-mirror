@@ -10,6 +10,7 @@ import Modal, {
   ModalFooterProps as FooterComponentProps,
   ModalHeaderProps as HeaderComponentProps,
   ModalBody,
+  useModal,
 } from '@atlaskit/modal-dialog';
 
 import {
@@ -114,6 +115,11 @@ export default class BenefitsModal extends Component<ModalProps> {
     const Header = this.headerComponent(this.props);
     const Footer = this.footerComponent(this.props);
 
+    const CustomHeader = () => {
+      const { titleId } = useModal();
+      return <Heading id={titleId}>{heading}</Heading>;
+    };
+
     return (
       <Modal
         autoFocus
@@ -125,7 +131,7 @@ export default class BenefitsModal extends Component<ModalProps> {
         <Header />
         <ModalBody>
           <Body>
-            {heading && <Heading>{heading}</Heading>}
+            {heading && <CustomHeader />}
             {children}
           </Body>
         </ModalBody>

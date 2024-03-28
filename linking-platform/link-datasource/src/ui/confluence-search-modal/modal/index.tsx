@@ -13,7 +13,7 @@ import Modal, {
   ModalTitle,
 } from '@atlaskit/modal-dialog';
 
-import { ConfigModalProps, Site } from '../../../common/types';
+import { Site } from '../../../common/types';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import i18nEN from '../../../i18n/en';
 import { getAvailableSites } from '../../../services/getAvailableSites';
@@ -22,11 +22,14 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SiteSelector } from '../../common/modal/site-selector';
+import { ConfluenceSearchConfigModalProps } from '../types';
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
 import { confluenceSearchModalMessages } from './messages';
 
-export const ConfluenceSearchConfigModal = (props: ConfigModalProps) => {
+export const ConfluenceSearchConfigModal = (
+  props: ConfluenceSearchConfigModalProps,
+) => {
   const { parameters: initialParameters, onCancel } = props;
   const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
     undefined,

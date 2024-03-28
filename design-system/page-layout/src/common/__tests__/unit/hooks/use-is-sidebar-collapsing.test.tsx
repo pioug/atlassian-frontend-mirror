@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { waitFor } from '@testing-library/dom';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import { Content, LeftSidebar, PageLayout } from '../../../../index';
 import { IS_SIDEBAR_COLLAPSING } from '../../../constants';
@@ -11,6 +12,10 @@ import { useIsSidebarCollapsing } from '../../../hooks';
 describe('useIsSidebarCollapsing', () => {
   beforeEach(() => {
     document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
+
+    // a11y audits fail due to old axe rules that need to be updated
+    // See https://product-fabric.atlassian.net/browse/DSP-17790 for info
+    skipA11yAudit();
   });
 
   describe('initial values', () => {
@@ -114,8 +119,8 @@ describe('useIsSidebarCollapsing', () => {
     });
 
     it('should be true when the sidebar is collapsing', async () => {
-      const { getByTestId } = render(<Harness />);
-      const resizeButton = getByTestId(resizeButtonSelector);
+      render(<Harness />);
+      const resizeButton = screen.getByTestId(resizeButtonSelector);
 
       const { result, unmount } = renderHook(() => useIsSidebarCollapsing());
 
@@ -126,8 +131,8 @@ describe('useIsSidebarCollapsing', () => {
     });
 
     it('should be false when the sidebar is expanding', async () => {
-      const { getByTestId } = render(<Harness isCollapsed />);
-      const resizeButton = getByTestId(resizeButtonSelector);
+      render(<Harness isCollapsed />);
+      const resizeButton = screen.getByTestId(resizeButtonSelector);
 
       const { result, unmount } = renderHook(() => useIsSidebarCollapsing());
 

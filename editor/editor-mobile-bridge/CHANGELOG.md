@@ -1,5 +1,12 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.7.3
+
+### Patch Changes
+
+- [#85268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85268) [`473d1932301b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/473d1932301b) - Replaces various CustomThemedButtons with the appropriate new button variants.
+- Updated dependencies
+
 ## 193.7.2
 
 ### Patch Changes

@@ -19,6 +19,7 @@ export type {
   ColumnResizingPluginState,
   CellColumnPositioning,
   CellHoverMeta,
+  WidthToWidest,
   TablePluginState,
   TablePluginAction,
   ColumnResizingPluginAction,

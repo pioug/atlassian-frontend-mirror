@@ -1,4 +1,4 @@
-# Editor plugin analytics
+# Editor plugin viewmode
 
 View Mode plugin for @atlaskit/editor-core
 

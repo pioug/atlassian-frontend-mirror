@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.19.9
+
+### Patch Changes
+
+- [#85640](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85640) [`da6c4e34a2a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da6c4e34a2a0) - [ux] Removed name prop being passed to Avatar to fix an issue where VoiceOver users have the selected user name repeated twice.
+
 ## 10.19.8
 
 ### Patch Changes

@@ -55,7 +55,6 @@ describe('SingleValue', () => {
         <SizeableAvatar
           src="http://avatars.atlassian.com/jace.png"
           appearance="normal"
-          name="Jace Beleren"
         />
       ),
     });
@@ -74,7 +73,6 @@ describe('SingleValue', () => {
         <SizeableAvatar
           src="http://avatars.atlassian.com/jace.png"
           appearance="compact"
-          name="Jace Beleren"
         />
       ),
     });

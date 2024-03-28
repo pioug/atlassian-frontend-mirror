@@ -71,8 +71,18 @@ export const ModalBody = ({ children }: { children: ReactNode }) => (
  *
  * @internal
  */
-export const ModalHeading = ({ children }: { children: ReactNode }) => {
-  return <h4 css={modalHeadingStyles}>{children}</h4>;
+export const ModalHeading = ({
+  children,
+  id,
+}: {
+  children: ReactNode;
+  id: string;
+}) => {
+  return (
+    <h1 css={modalHeadingStyles} id={id}>
+      {children}
+    </h1>
+  );
 };
 
 /**

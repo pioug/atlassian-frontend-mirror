@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.4
+
+### Patch Changes
+
+- [#84595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84595) [`412b82018310`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/412b82018310) - ED-22555: Added isFullWidth to GuidelineConfig and use it as a signal
+- Updated dependencies
+
 ## 7.6.3
 
 ### Patch Changes

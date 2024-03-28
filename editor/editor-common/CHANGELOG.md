@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 78.22.0
+
+### Minor Changes
+
+- [#84733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84733) [`de779b2d9543`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de779b2d9543) - Modify link-preferences to factor in CLOUD_ENV environment varaible when fetching preferences link
+
+### Patch Changes
+
+- [#84595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84595) [`412b82018310`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/412b82018310) - ED-22555: Added isFullWidth to GuidelineConfig and use it as a signal
+- [#85335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85335) [`0ede8cbb7ccf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ede8cbb7ccf) - [ux] [ED-22607] - Removed check for maxFrames when adding child to multi-bodied extensions
+
+  - Allows any number of children to be added to a multi-bodied extension
+
 ## 78.21.2
 
 ### Patch Changes

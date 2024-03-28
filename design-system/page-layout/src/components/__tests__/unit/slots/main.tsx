@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
+
 import {
   Content,
   LeftSidebar,
@@ -35,5 +37,9 @@ describe('<Main />', () => {
       'width',
       'var(--rightSidebarWidth, 0px)',
     );
+
+    // a11y audits fail due to old axe rules that need to be updated
+    // See https://product-fabric.atlassian.net/browse/DSP-17790 for info
+    skipA11yAudit();
   });
 });

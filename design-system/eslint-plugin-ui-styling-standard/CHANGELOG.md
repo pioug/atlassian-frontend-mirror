@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.7.1
+
+### Patch Changes
+
+- [#84413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84413) [`2860b53c90d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2860b53c90d9) - Added eslint rule to block @container queries in css styling
+
 ## 0.7.0
 
 ### Minor Changes

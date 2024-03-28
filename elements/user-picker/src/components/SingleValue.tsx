@@ -36,11 +36,7 @@ export const SingleValue = (props: Props) => {
       <AvatarItem
         backgroundColor="transparent"
         avatar={
-          <SizeableAvatar
-            src={getAvatarUrl(data)}
-            appearance={appearance}
-            name={label}
-          />
+          <SizeableAvatar src={getAvatarUrl(data)} appearance={appearance} />
         }
         primaryText={label}
       >

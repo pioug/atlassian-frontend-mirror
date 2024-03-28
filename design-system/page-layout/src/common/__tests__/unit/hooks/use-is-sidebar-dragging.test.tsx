@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { waitFor } from '@testing-library/dom';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
+
+import { skipA11yAudit } from '@af/accessibility-testing';
 
 import { Content, LeftSidebar, PageLayout } from '../../../../index';
 import { IS_SIDEBAR_DRAGGING } from '../../../constants';
@@ -103,6 +104,10 @@ describe('useIsSidebarDragging', () => {
       expect(result.current).toBe(false);
 
       unmount(); // Avoids some act() warnings
+
+      // a11y audits fail due to old axe rules that need to be updated
+      // See https://product-fabric.atlassian.net/browse/DSP-17790 for info
+      skipA11yAudit();
     });
 
     it('should correctly update with mouse interactions', async () => {

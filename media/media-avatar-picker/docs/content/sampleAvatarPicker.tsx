@@ -3,6 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { generateAvatars } from '../../example-helpers';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 
@@ -25,7 +26,7 @@ const AvatarApp = ({ isOpen }: AvatarAppProps) => {
           src={imageSrc}
           style={{
             visibility: imageSrc.length > 0 ? 'visible' : 'hidden',
-            marginLeft: '20%',
+            marginLeft: token('space.1000', '80px'),
           }}
         />
       </div>

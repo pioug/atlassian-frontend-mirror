@@ -18,7 +18,10 @@ import type { LengthGuide } from './types';
  * @param lengths A colection of length values which will be split into a left & right guides.
  * @returns A collection of LengthGuide objects which can be used to draw left & right guides
  */
-export const createGuidesFromLengths = (lengths: number[]): LengthGuide[] => {
+export const createGuidesFromLengths = (
+  lengths: number[],
+  isMaxLengthFullWidth: boolean = false,
+): LengthGuide[] => {
   return Array.from(new Set(lengths)).reduce<LengthGuide[]>((acc, length) => {
     const h = length * 0.5;
     if (length === 0) {
@@ -28,7 +31,18 @@ export const createGuidesFromLengths = (lengths: number[]): LengthGuide[] => {
       // Filter out nonsensical values, null, undefined, NaN, empty string
       return acc;
     }
-    return [...acc, { left: -h, right: h, length }];
+
+    return [
+      ...acc,
+      {
+        left: -h,
+        right: h,
+        length,
+        ...(isMaxLengthFullWidth && length === Math.max(...lengths)
+          ? { isFullWidth: true }
+          : {}),
+      },
+    ];
   }, []);
 };
 
@@ -41,10 +55,11 @@ export const createGuidesFromLengths = (lengths: number[]): LengthGuide[] => {
 export const createFixedGuidelinesFromLengths = (
   lengths: number[],
   key: string = 'guide',
+  isMaxLengthFullWidth: boolean = false,
 ): { key: string; position: { x: number } }[] => {
-  return createGuidesFromLengths(lengths).reduce<
+  return createGuidesFromLengths(lengths, isMaxLengthFullWidth).reduce<
     { key: string; position: { x: number } }[]
-  >((acc, { left, right, length }) => {
+  >((acc, { left, right, length, isFullWidth }) => {
     if (length === 0) {
       return [
         ...acc,
@@ -69,6 +84,7 @@ export const createFixedGuidelinesFromLengths = (
           position: {
             x: right,
           },
+          ...(isFullWidth ? { isFullWidth: true } : {}),
         },
       ];
     }

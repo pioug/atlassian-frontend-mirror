@@ -620,27 +620,18 @@ export const DragMenu = React.memo(
       return null;
     }
 
-    if (
-      allowBackgroundColor &&
-      getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-    ) {
+    if (allowBackgroundColor) {
       menuItems[0].items.unshift(createBackgroundColorMenuItem());
     }
 
     // If first row, add toggle for Header row, default is true
     // If first column, add toggle for Header column, default is false
-    if (
-      getBooleanFF('platform.editor.table.new-cell-context-menu-styling') &&
-      index === 0
-    ) {
+    if (index === 0) {
       menuItems.push({ items: [createHeaderRowColumnMenuItem(direction)] });
     }
 
     // All rows, add toggle for numbered rows, default is false
-    if (
-      getBooleanFF('platform.editor.table.new-cell-context-menu-styling') &&
-      direction === 'row'
-    ) {
+    if (direction === 'row') {
       index === 0
         ? menuItems[menuItems.length - 1].items.push(createRowNumbersMenuItem())
         : menuItems.push({ items: [createRowNumbersMenuItem()] });

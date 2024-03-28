@@ -48,7 +48,6 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type {
-  ConfigModalProps,
   IssueViewModes,
   JiraSearchMethod,
   Site,
@@ -78,6 +77,7 @@ import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraSearchContainer } from '../jira-search-container';
 import {
+  JiraConfigModalProps,
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
 } from '../types';
@@ -139,7 +139,7 @@ export const getColumnAction = (
   }
 };
 
-export const PlainJiraIssuesConfigModal = (props: ConfigModalProps) => {
+export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   const {
     datasourceId,
     columnCustomSizes: initialColumnCustomSizes,

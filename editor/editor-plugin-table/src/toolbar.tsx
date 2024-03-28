@@ -51,7 +51,6 @@ import {
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   clearHoverSelection,
@@ -135,10 +134,7 @@ export const getToolbarMenuConfig = (
     },
   ];
 
-  if (
-    state.isDragAndDropEnabled &&
-    getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-  ) {
+  if (state.isDragAndDropEnabled) {
     return {
       id: 'editor.table.tableOptions',
       type: 'dropdown',
@@ -454,8 +450,15 @@ export const getToolbarConfig =
     const isWidthResizing = tableWidthState?.resizing;
 
     const { isTableScalingEnabled, widthToWidest } = pluginState;
+    const currentTableNodeLocalId = tableObject?.node?.attrs?.localId ?? '';
 
-    if (isTableScalingEnabled && isWidthResizing && widthToWidest) {
+    if (
+      isTableScalingEnabled &&
+      isWidthResizing &&
+      widthToWidest &&
+      currentTableNodeLocalId &&
+      widthToWidest[currentTableNodeLocalId]
+    ) {
       const { stickyScrollbar } = getEditorFeatureFlags();
 
       const nodeType = state.schema.nodes.table;
@@ -526,18 +529,16 @@ export const getToolbarConfig =
           );
 
       let columnSettingsItems;
-      columnSettingsItems =
-        pluginState.isDragAndDropEnabled &&
-        getBooleanFF('platform.editor.table.new-cell-context-menu-styling')
-          ? getColumnSettingItems(
-              state,
-              getEditorView(),
-              intl,
-              getEditorContainerWidth,
-              editorAnalyticsAPI,
-              isTableScalingEnabled,
-            )
-          : [];
+      columnSettingsItems = pluginState.isDragAndDropEnabled
+        ? getColumnSettingItems(
+            state,
+            getEditorView(),
+            intl,
+            getEditorContainerWidth,
+            editorAnalyticsAPI,
+            isTableScalingEnabled,
+          )
+        : [];
       const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI);
 
       // Check if we need to show confirm dialog for delete button

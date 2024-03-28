@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.2.0
+
+### Minor Changes
+
+- [#85632](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85632) [`9516860b7490`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9516860b7490) - Export BannerProps from Banner component
+
 ## 12.1.23
 
 ### Patch Changes

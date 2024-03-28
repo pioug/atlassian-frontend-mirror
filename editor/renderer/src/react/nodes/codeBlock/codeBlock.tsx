@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { useState } from 'react';
 import { jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { CodeBlock as AkCodeBlock } from '@atlaskit/code';
@@ -49,6 +50,7 @@ function CodeBlock(props: Props & WrappedComponentProps) {
       wrapLongLines={wrapLongLines}
     >
       <AkCodeBlock
+        testId="renderer-code-block"
         language={language}
         text={text}
         codeBidiWarningLabel={codeBidiWarningLabel}

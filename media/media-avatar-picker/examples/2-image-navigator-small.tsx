@@ -3,6 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { smallImage } from '@atlaskit/media-test-helpers';
 import ImageNavigator from '../src/image-navigator';
+import { token } from '@atlaskit/tokens';
 
 let onLoadParams: any;
 let imageElement: any;
@@ -36,12 +37,12 @@ export default () => (
         onImageUploaded={(file: any) => console.log('onImageLoaded', file)}
       />
       <button onClick={exportImage}>Export</button>
-      <img
-        style={{ position: 'absolute', top: 0, left: '300px' }}
-        src=""
-        alt=""
-        ref={handleImgRef}
-      />
     </div>
+    <img
+      style={{ marginTop: token('space.100', '8px') }}
+      src=""
+      alt=""
+      ref={handleImgRef}
+    />
   </IntlProvider>
 );

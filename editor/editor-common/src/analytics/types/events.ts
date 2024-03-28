@@ -117,7 +117,7 @@ type MBEEventPayload = TrackAEP<
     extensionType: string;
     extensionKey: string;
     localId: string;
-    maxFramesCount: number;
+    maxFramesCount?: number;
     currentFramesCount: number;
   },
   undefined

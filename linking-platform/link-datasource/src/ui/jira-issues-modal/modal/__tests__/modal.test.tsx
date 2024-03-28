@@ -36,7 +36,7 @@ import {
   getErrorHookState,
   getInsertAnalyticPayload,
   getLoadingHookState,
-  getSingleIssueHookState,
+  getSingleResponseItemHookState,
   IssueLikeDataTableView,
   JQLEditor,
   setup,
@@ -112,8 +112,8 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should display the preselected jira site in the title', async () => {
-    const { getJiraModalTitleText } = await setup();
-    const modalTitle = await getJiraModalTitleText();
+    const { getConfigModalTitleText } = await setup();
+    const modalTitle = await getConfigModalTitleText();
 
     expect(modalTitle).toEqual('Insert Jira issues from hello');
   });
@@ -131,8 +131,8 @@ describe('JiraIssuesConfigModal', () => {
   describe('when selecting a different jira site', () => {
     it('should reset hooks state', async () => {
       const hookState = getDefaultHookState();
-      const { selectNewJiraInstanceSite } = await setup({ hookState });
-      await selectNewJiraInstanceSite();
+      const { selectNewInstanceSite } = await setup({ hookState });
+      await selectNewInstanceSite();
       expect(hookState.reset).toHaveBeenCalledWith({
         shouldForceRequest: true,
       });
@@ -140,8 +140,8 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   it('should update title with new site name when cloudId updates', async () => {
-    const { getJiraModalTitleText, rerender } = await setup();
-    const modalTitle = await getJiraModalTitleText();
+    const { getConfigModalTitleText, rerender } = await setup();
+    const modalTitle = await getConfigModalTitleText();
     expect(modalTitle).toEqual('Insert Jira issues from hello');
 
     rerender(
@@ -158,7 +158,7 @@ describe('JiraIssuesConfigModal', () => {
       </IntlProvider>,
     );
 
-    const modalTitle2 = await getJiraModalTitleText();
+    const modalTitle2 = await getConfigModalTitleText();
     expect(modalTitle2).toEqual('Insert Jira issues from test1');
   });
 
@@ -166,13 +166,13 @@ describe('JiraIssuesConfigModal', () => {
     describe('is not present', () => {
       it('should produce ADF with cloudId for the site which user is browsing from', async () => {
         const {
-          getJiraModalTitleText,
+          getConfigModalTitleText,
           searchWithNewBasic,
           assertInsertResult,
         } = await setup({
           parameters: undefined,
         });
-        await getJiraModalTitleText();
+        await getConfigModalTitleText();
 
         // We need to do generate jql, since insert button won't active without it.
         searchWithNewBasic('some keywords');
@@ -199,12 +199,15 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       it('should default to first cloudId if no URL match is found', async () => {
-        const { getJiraModalTitleText, searchWithNewJql, assertInsertResult } =
-          await setup({
-            parameters: undefined,
-            mockSiteDataOverride: mockSiteData.slice(0, 2),
-          });
-        await getJiraModalTitleText();
+        const {
+          getConfigModalTitleText,
+          searchWithNewJql,
+          assertInsertResult,
+        } = await setup({
+          parameters: undefined,
+          mockSiteDataOverride: mockSiteData.slice(0, 2),
+        });
+        await getConfigModalTitleText();
 
         searchWithNewJql('some-query');
 
@@ -237,7 +240,7 @@ describe('JiraIssuesConfigModal', () => {
       'platform.linking-platform.datasource.show-jlol-basic-filters',
       async () => {
         const {
-          getJiraModalTitleText,
+          getConfigModalTitleText,
           getByTestId,
           assertInsertResult,
           queryByTestId,
@@ -248,7 +251,7 @@ describe('JiraIssuesConfigModal', () => {
             jql: 'status = done',
           },
         });
-        await getJiraModalTitleText();
+        await getConfigModalTitleText();
 
         act(() => {
           fireEvent.click(getByTestId('mode-toggle-basic'));
@@ -291,9 +294,9 @@ describe('JiraIssuesConfigModal', () => {
         );
       },
       async () => {
-        const { getJiraModalTitleText, getByTestId, queryByTestId } =
+        const { getConfigModalTitleText, getByTestId, queryByTestId } =
           await setup();
-        await getJiraModalTitleText();
+        await getConfigModalTitleText();
 
         act(() => {
           fireEvent.click(getByTestId('mode-toggle-basic'));
@@ -643,7 +646,7 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when only one issue is returned', () => {
     it('should call LinkRenderType with the correct url', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       const { switchMode, queryByTestId, getByText } = await setup({
         hookState,
       });
@@ -666,7 +669,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not render a smart-link when the response object does not have a "key" prop', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       hookState.responseItems = [{}];
       const { queryByTestId } = await setup({
         hookState,
@@ -679,7 +682,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should not render a smart-link when the response object does not have a url in the "key" prop', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       hookState.responseItems = [
         {
           key: {
@@ -710,7 +713,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should have enabled Insert button', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       const { getByRole } = await setup({
         hookState,
       });
@@ -720,7 +723,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with inline card ADF upon Insert button press', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       const { getByText, onInsert, getByRole } = await setup({
         hookState,
         viewMode: 'count',
@@ -756,7 +759,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with datasource ADF when no valid url is available', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       hookState.responseItems = [
         {
           key: {
@@ -787,7 +790,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with datasource ADF when response does not have a "key" prop', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       hookState.responseItems = [{}];
       const { onInsert, getByRole } = await setup({
         hookState,
@@ -975,7 +978,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should render inlineCard ADF with firstIssueUrl upon Insert button press in count view mode', async () => {
-      const hookState = getSingleIssueHookState();
+      const hookState = getSingleResponseItemHookState();
       const { onInsert, findByRole } = await setup({
         hookState,
         viewMode: 'count',

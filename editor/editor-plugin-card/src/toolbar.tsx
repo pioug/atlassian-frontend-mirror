@@ -24,10 +24,7 @@ import type {
   CardOptions,
   CardPluginActions,
 } from '@atlaskit/editor-common/card';
-import {
-  productionLinkPreferencesUrl,
-  stagingLinkPreferencesUrl,
-} from '@atlaskit/editor-common/constants';
+import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
 import commonMessages, {
   linkMessages,
   linkToolbarMessages,
@@ -160,9 +157,7 @@ export const openLinkSettings =
     if (!(state.selection instanceof NodeSelection)) {
       return false;
     }
-    process.env.NODE_ENV === 'production'
-      ? window.open(productionLinkPreferencesUrl)
-      : window.open(stagingLinkPreferencesUrl);
+    window.open(getLinkPreferencesURLFromENV());
     if (dispatch) {
       const {
         tr,

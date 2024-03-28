@@ -4,7 +4,12 @@ import type { CSSToken } from '@atlaskit/tokens';
 
 export type WidthTypes = 'percentage' | 'pixel';
 
-export type LengthGuide = { left: number; right: number; length: number };
+export type LengthGuide = {
+  left: number;
+  right: number;
+  length: number;
+  isFullWidth?: boolean;
+};
 
 export type Range = { start: number; end: number };
 
@@ -37,6 +42,7 @@ export type GuidelineStyles = {
 export type GuidelineConfig = {
   key: string; // will be used as the React key
   position: Position;
+  isFullWidth?: boolean;
 } & GuidelineStyles;
 
 export type GuidelineContainerRect = {

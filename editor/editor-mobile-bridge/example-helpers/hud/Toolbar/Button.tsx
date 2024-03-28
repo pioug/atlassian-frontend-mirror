@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomThemeButton } from '@atlaskit/button';
+import DefaultButton from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 
 import icons from './icons';
@@ -8,7 +8,7 @@ interface Props {
   onClick?: (e: any) => void;
   iconName?: string;
   title?: string;
-  ref?: React.Ref<HTMLElement>;
+  ref?: React.Ref<HTMLButtonElement>;
   disabled?: boolean;
   dropdown?: boolean;
 }
@@ -23,10 +23,10 @@ const Button = ({
 }: Props) => {
   const IconComponent =
     iconName && icons[iconName] ? icons[iconName] : undefined;
-  const Icon = IconComponent ? <IconComponent /> : undefined;
+  const Icon = IconComponent ? IconComponent : undefined;
 
   return (
-    <CustomThemeButton
+    <DefaultButton
       isDisabled={disabled}
       iconBefore={Icon}
       onClick={(e) => {
@@ -35,10 +35,10 @@ const Button = ({
       }}
       spacing="compact"
       ref={ref}
-      iconAfter={dropdown ? <ChevronDownIcon label="more" /> : undefined}
+      iconAfter={dropdown ? ChevronDownIcon : undefined}
     >
       {title}
-    </CustomThemeButton>
+    </DefaultButton>
   );
 };
 

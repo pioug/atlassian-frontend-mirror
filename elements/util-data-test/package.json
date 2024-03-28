@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/util-data-test",
-  "version": "17.9.18",
+  "version": "17.9.19",
   "description": "Shared test and story data",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -122,7 +122,7 @@
     "@atlaskit/profilecard": "^19.11.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",
-    "@atlaskit/user-picker": "10.19.8",
+    "@atlaskit/user-picker": "10.19.9",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@atlaskit/badge": "^15.2.0",
-    "@atlaskit/banner": "^12.1.22",
+    "@atlaskit/banner": "^12.2.0",
     "@atlaskit/button": "^17.8.0",
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/code": "^15.1.0",

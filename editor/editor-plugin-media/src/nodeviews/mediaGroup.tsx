@@ -21,6 +21,7 @@ import {
   setNodeSelection,
 } from '@atlaskit/editor-common/utils';
 import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
@@ -49,6 +50,7 @@ export type MediaGroupProps = {
   view: EditorView;
   getPos: () => number | undefined;
   disabled?: boolean;
+  editorViewMode?: boolean;
   allowLazyLoading?: boolean;
   mediaProvider: Promise<MediaProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
@@ -289,7 +291,8 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 
   renderChildNodes = () => {
     const { viewMediaClientConfig } = this.state;
-    const { getPos, allowLazyLoading, disabled, mediaOptions } = this.props;
+    const { getPos, allowLazyLoading, disabled, mediaOptions, editorViewMode } =
+      this.props;
     const items: FilmstripItem[] = this.mediaNodes.map((item, idx) => {
       // We declared this to get a fresh position every time
       const getNodePos = () => {
@@ -353,6 +356,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
         items={items}
         mediaClientConfig={viewMediaClientConfig}
         featureFlags={mediaOptions.featureFlags}
+        shouldOpenMediaViewer={editorViewMode}
       />
     );
   };
@@ -377,6 +381,7 @@ interface MediaGroupNodeViewProps {
 
 interface RenderFn {
   editorDisabledPlugin?: EditorDisabledPluginState;
+  editorViewModePlugin?: EditorViewModePluginState | null;
 }
 
 interface MediaGroupNodeViewInternalProps {
@@ -390,23 +395,30 @@ function MediaGroupNodeViewInternal({
   renderFn,
   pluginInjectionApi,
 }: MediaGroupNodeViewInternalProps) {
-  const { editorDisabledState: editorDisabledPlugin } = useSharedPluginState(
-    pluginInjectionApi,
-    ['editorDisabled'],
-  );
-  return renderFn({ editorDisabledPlugin });
+  const {
+    editorDisabledState: editorDisabledPlugin,
+    editorViewModeState: editorViewModePlugin,
+  } = useSharedPluginState(pluginInjectionApi, [
+    'editorDisabled',
+    'editorViewMode',
+  ]);
+  return renderFn({ editorDisabledPlugin, editorViewModePlugin });
 }
 
 class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
   render(props: MediaGroupNodeViewProps, forwardRef: ForwardRef) {
     const { providerFactory, mediaOptions, pluginInjectionApi } = props;
     const getPos = this.getPos as getPosHandlerNode;
+
     return (
       <WithProviders
         providers={['mediaProvider', 'contextIdentifierProvider']}
         providerFactory={providerFactory}
         renderNode={({ mediaProvider, contextIdentifierProvider }) => {
-          const renderFn = ({ editorDisabledPlugin }: RenderFn) => {
+          const renderFn = ({
+            editorDisabledPlugin,
+            editorViewModePlugin,
+          }: RenderFn) => {
             if (!mediaProvider) {
               return null;
             }
@@ -424,6 +436,7 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
                 anchorPos={this.view.state.selection.$anchor.pos}
                 headPos={this.view.state.selection.$head.pos}
                 mediaOptions={mediaOptions}
+                editorViewMode={editorViewModePlugin?.mode === 'view'}
               />
             );
           };

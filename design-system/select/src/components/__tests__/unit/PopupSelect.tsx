@@ -63,6 +63,7 @@ describe('Popup Select', () => {
               Target
             </button>
           )}
+          label="Options"
         />
       </React.Fragment>,
     );
@@ -103,6 +104,7 @@ describe('Popup Select', () => {
               Target
             </button>
           )}
+          label="Options"
         />
       </React.Fragment>,
     );
@@ -130,6 +132,7 @@ describe('Popup Select', () => {
               Target
             </button>
           )}
+          label="Options"
         />
       </React.Fragment>,
     );
@@ -155,6 +158,7 @@ describe('Popup Select', () => {
         value={OPTIONS[0]}
         isClearable
         target={({ ref }) => <button ref={ref}>Target</button>}
+        label="Options"
       />,
     );
 
@@ -187,6 +191,7 @@ describe('Popup Select', () => {
         value={OPTIONS[0]}
         isClearable
         target={({ ref }) => <button ref={ref}>Target</button>}
+        label="Options"
       />,
     );
 
@@ -211,6 +216,7 @@ describe('Popup Select', () => {
               Target
             </button>
           )}
+          label="Options"
         />
         <button data-testid="focus-decoy">Focus decoy</button>
       </React.Fragment>,
@@ -234,6 +240,7 @@ describe('Popup Select', () => {
           options={OPTIONS}
           value={OPTIONS[0]}
           target={({ ref }) => <button ref={ref}>Target</button>}
+          label="Options"
         />
       </div>,
     );
@@ -261,12 +268,13 @@ describe('Popup Select', () => {
           Target
         </button>
       )}
+      label="Options"
     />
   );
 
   describe('accessible name for the input field', () => {
     it('should have an accessible name that references the label prop', async () => {
-      const label = 'label';
+      const label = 'Options';
 
       render(
         <PopupSelect
@@ -452,6 +460,7 @@ describe('Popup Select', () => {
           target={({ isOpen, ...triggerProps }) => (
             <button {...triggerProps}>Target</button>
           )}
+          label="Options"
         />,
       );
 

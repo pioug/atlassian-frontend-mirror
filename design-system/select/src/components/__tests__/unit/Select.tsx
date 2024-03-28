@@ -30,13 +30,15 @@ const OPTIONS = [
 describe('Select', () => {
   // temporarily skip this test as part of DST-2476 resolution
   it.skip('should load the animated component as default', () => {
-    render(<AtlaskitSelect />);
+    render(<AtlaskitSelect aria-label="Options" />);
 
     expect(screen.getByText('Transition')).toBeInTheDocument();
   });
 
   it('should toggle the menu on dropdown indicator click', async () => {
-    render(<AtlaskitSelect classNamePrefix="react-select" />);
+    render(
+      <AtlaskitSelect classNamePrefix="react-select" aria-label="Options" />,
+    );
 
     // Menu closed by default
     expect(screen.getByRole('combobox')).toHaveAttribute(
@@ -66,7 +68,11 @@ describe('Select', () => {
       ];
 
       const { rerender } = render(
-        <AtlaskitSelect options={groupedOptions} menuIsOpen />,
+        <AtlaskitSelect
+          options={groupedOptions}
+          menuIsOpen
+          aria-label="Options"
+        />,
       );
 
       await user.click(screen.getByText('Select...'));
@@ -74,7 +80,9 @@ describe('Select', () => {
         screen.getByText(/overwrite native ariaLiveMessages onFocus method/),
       ).toBeInTheDocument();
 
-      rerender(<AtlaskitSelect options={OPTIONS} menuIsOpen />);
+      rerender(
+        <AtlaskitSelect options={OPTIONS} menuIsOpen aria-label="Options" />,
+      );
 
       await user.click(screen.getByText('Select...'));
       expect(
@@ -85,7 +93,13 @@ describe('Select', () => {
 
   describe('single value select', () => {
     it('should show the default AtlaskitSelected value', () => {
-      render(<AtlaskitSelect options={OPTIONS} value={OPTIONS[0]} />);
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          aria-label="Options"
+        />,
+      );
 
       // Hides options cause the menu is closed
       expect(screen.queryByText('1')).not.toBeInTheDocument();
@@ -95,7 +109,13 @@ describe('Select', () => {
 
     //default value is there, no placeholder, no passed aria == no aria describedby
     it('should have no id aria-describedby', () => {
-      render(<AtlaskitSelect options={OPTIONS} value={OPTIONS[0]} />);
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          value={OPTIONS[0]}
+          aria-label="Options"
+        />,
+      );
 
       expect(screen.getByRole('combobox')).not.toHaveAttribute(
         'aria-describedby',
@@ -109,6 +129,7 @@ describe('Select', () => {
           options={OPTIONS}
           value={OPTIONS[0]}
           aria-describedby="descriptive-id"
+          aria-label="Options"
         />,
       );
 
@@ -126,6 +147,7 @@ describe('Select', () => {
           value={OPTIONS[0]}
           placeholder="Placeholder"
           aria-describedby="descriptive-id"
+          aria-label="Options"
         />,
       );
 
@@ -142,6 +164,7 @@ describe('Select', () => {
           options={OPTIONS}
           placeholder="Placeholder"
           aria-describedby="descriptive-id"
+          aria-label="Options"
         />,
       );
 
@@ -156,7 +179,13 @@ describe('Select', () => {
 
     //default value is not there, yes placeholder, no passed aria == yes aria describedby --> placeholder
     it('should show placeholder id as aria-describedby', () => {
-      render(<AtlaskitSelect options={OPTIONS} placeholder="Placeholder" />);
+      render(
+        <AtlaskitSelect
+          options={OPTIONS}
+          placeholder="Placeholder"
+          aria-label="Options"
+        />,
+      );
 
       const placeholder = screen.queryByText('Placeholder');
       expect(placeholder).toBeInTheDocument();
@@ -175,6 +204,7 @@ describe('Select', () => {
         placeholder="Placeholder"
         isSearchable={false}
         aria-describedby="descriptionId"
+        aria-label="Options"
       />,
     );
 
@@ -194,6 +224,7 @@ describe('Select', () => {
           options={OPTIONS}
           isMulti
           value={[OPTIONS[0], OPTIONS[3]]}
+          aria-label="Options"
         />,
       );
 
@@ -207,11 +238,11 @@ describe('Select', () => {
     it('should show clear icons on selections plus clear icon for whole select', () => {
       render(
         <AtlaskitSelect
-          className="multi-select"
           classNamePrefix="react-select"
           defaultValue={OPTIONS.slice(3, 5)}
           options={OPTIONS}
           isMulti
+          aria-label="Options"
         />,
       );
 
@@ -224,11 +255,11 @@ describe('Select', () => {
       render(
         <AtlaskitSelect
           isDisabled
-          className="multi-select"
           classNamePrefix="react-select"
           defaultValue={OPTIONS.slice(3, 5)}
           options={OPTIONS}
           isMulti
+          aria-label="Options"
         />,
       );
 
@@ -242,15 +273,16 @@ describe('Select', () => {
     const { container } = render(
       <AtlaskitSelect
         isDisabled
-        className="multi-select"
         classNamePrefix="react-select"
         options={OPTIONS}
         isMulti
+        aria-label="Options"
       />,
     );
 
     expect(screen.getByText('Select...')).toBeInTheDocument();
 
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     const selectControl = container.getElementsByClassName(
       'react-select__control--is-disabled',
     );
@@ -263,10 +295,10 @@ describe('Select', () => {
     render(
       <AtlaskitSelect
         isDisabled={false}
-        className="multi-select"
         classNamePrefix="react-select"
         options={OPTIONS}
         isMulti
+        aria-label="Options"
       />,
     );
 
@@ -289,11 +321,14 @@ describe('Select', () => {
         ],
       },
     ];
-    render(<AtlaskitSelect options={options} menuIsOpen />);
+    render(
+      <AtlaskitSelect options={options} menuIsOpen aria-label="Options" />,
+    );
 
     expect(screen.getByText('group')).toBeInTheDocument();
     expect(screen.getAllByText('group')).toHaveLength(1);
 
+    // eslint-disable-next-line testing-library/no-node-access
     const groupContainer = screen.getByText('group').parentNode;
 
     if (groupContainer) {
@@ -325,7 +360,9 @@ describe('Select', () => {
         ],
       },
     ];
-    render(<AtlaskitSelect options={options} menuIsOpen />);
+    render(
+      <AtlaskitSelect options={options} menuIsOpen aria-label="Options" />,
+    );
 
     await user.click(screen.getByRole('combobox'));
     await user.keyboard('1');
@@ -354,7 +391,9 @@ describe('Select', () => {
         ],
       },
     ];
-    render(<AtlaskitSelect options={options} menuIsOpen />);
+    render(
+      <AtlaskitSelect options={options} menuIsOpen aria-label="Options" />,
+    );
 
     await user.click(screen.getByRole('combobox'));
     await user.keyboard('5');
@@ -365,7 +404,7 @@ describe('Select', () => {
   });
 
   it('should autoFocus on the AtlaskitSelect when autoFocus is set to true', async () => {
-    render(<AtlaskitSelect options={OPTIONS} autoFocus />);
+    render(<AtlaskitSelect options={OPTIONS} autoFocus aria-label="Options" />);
 
     await user.keyboard('5');
 
@@ -373,7 +412,13 @@ describe('Select', () => {
   });
 
   it('should not autoFocus on the AtlaskitSelect when autoFocus is set to false', async () => {
-    render(<AtlaskitSelect options={OPTIONS} autoFocus={false} />);
+    render(
+      <AtlaskitSelect
+        options={OPTIONS}
+        autoFocus={false}
+        aria-label="Options"
+      />,
+    );
 
     await user.keyboard('5');
 
@@ -381,10 +426,17 @@ describe('Select', () => {
   });
 
   it('should pass the className down to react-select', () => {
+    const customClass = 'custom-class-name';
+
     const { container } = render(
-      <AtlaskitSelect className="custom-class-name" />,
+      <AtlaskitSelect
+        // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+        className={customClass}
+        aria-label="Options"
+      />,
     );
 
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     const selectWrapper = container.getElementsByClassName('custom-class-name');
 
     expect(selectWrapper).toHaveLength(1);
@@ -392,9 +444,10 @@ describe('Select', () => {
 
   it('should render a hidden form field when name prop is passed', () => {
     const { container } = render(
-      <AtlaskitSelect name="test-name" className="custom-class-name" />,
+      <AtlaskitSelect name="test-name" aria-label="Options" />,
     );
 
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     const inputs = container.getElementsByTagName('input');
 
     expect(inputs).toHaveLength(2);
@@ -412,6 +465,7 @@ describe('Select', () => {
         options={OPTIONS}
         filterOption={filterOptionSpy}
         autofocus
+        aria-label="Options"
       />,
     );
 
@@ -433,6 +487,7 @@ describe('Select input', () => {
         options={OPTIONS}
         aria-invalid={true}
         aria-describedby={errorId}
+        aria-label="Options"
       />,
     );
 
@@ -456,6 +511,7 @@ describe('Select input', () => {
         components={{
           DropdownIndicator: null,
         }}
+        aria-label="Options"
       />,
     );
 
@@ -478,6 +534,7 @@ describe('Select input', () => {
         components={{
           DropdownIndicator: null,
         }}
+        aria-label="Options"
       />,
     );
 
@@ -495,6 +552,7 @@ describe('Select input', () => {
         components={{
           DropdownIndicator: null,
         }}
+        aria-label="Options"
       />,
     );
 
@@ -518,6 +576,7 @@ describe('Select input', () => {
         components={{
           DropdownIndicator: null,
         }}
+        aria-label="Options"
       />,
     );
 
@@ -535,6 +594,7 @@ describe('Select input', () => {
         components={{
           DropdownIndicator: null,
         }}
+        aria-label="Options"
       />,
     );
 

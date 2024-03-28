@@ -14,7 +14,7 @@ import {
   getEmptyHookState,
   getErrorHookState,
   getLoadingHookState,
-  getSingleIssueHookState,
+  getSingleResponseItemHookState,
   getUnauthorisedHookState,
   setup,
   useDatasourceTableState,
@@ -198,12 +198,12 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "instance updated" when user selected a new site, searched for results and then clicked the ${buttonName} button`, async () => {
           const {
-            selectNewJiraInstanceSite,
+            selectNewInstanceSite,
             assertAnalyticsAfterButtonClick,
             searchWithNewJql,
           } = await setup();
 
-          await selectNewJiraInstanceSite();
+          await selectNewInstanceSite();
 
           if (actionSubjectId === 'insert') {
             await searchWithNewJql();
@@ -657,7 +657,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
       const singleItemActionSubjectId = 'singleItem';
 
       it('should fire "ui.link.viewed.singleItem" event once when a single issue is viewed', async () => {
-        const hookState = getSingleIssueHookState();
+        const hookState = getSingleResponseItemHookState();
         const { onAnalyticFireEvent } = await setup({
           hookState: hookState,
         });
@@ -775,7 +775,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
       it('should not fire "ui.table.viewed.datasourceConfigModal" event when issue mode is on and there is less than 2 issues', async () => {
         const { onAnalyticFireEvent } = await setup({
-          hookState: getSingleIssueHookState(),
+          hookState: getSingleResponseItemHookState(),
         });
 
         expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(

@@ -49,6 +49,7 @@ export type TableSharedStateInternal = Pick<
   | 'hoveredCell'
   | 'isTableHovered'
   | 'tableNode'
+  | 'widthToWidest'
 > & {
   isResizing: boolean;
   isTableResizing?: boolean;
@@ -121,6 +122,9 @@ export interface CellHoverMeta {
   colIndex?: number;
   rowIndex?: number;
 }
+export interface WidthToWidest {
+  [tableLocalId: string]: boolean;
+}
 
 export interface TablePluginState {
   editorHasFocus?: boolean;
@@ -155,7 +159,7 @@ export interface TablePluginState {
   // for table wrap/collapse
   isTableCollapsed?: boolean; // is the current table already in an expand?
   canCollapseTable?: boolean; // enabled/disabled state of collapse option
-  widthToWidest?: boolean; // is the current table set to the widest width regarding view port
+  widthToWidest?: WidthToWidest; // is the current table set to the widest width regarding view port
 
   getIntl: () => IntlShape;
 
@@ -246,7 +250,7 @@ export type TablePluginAction =
   | {
       type: 'UPDATE_TABLE_WIDTH_TO_WIDEST';
       data: {
-        widthToWidest: boolean | undefined;
+        widthToWidest: WidthToWidest | undefined;
       };
     }
   | {

@@ -345,7 +345,7 @@ export class ImageNavigator extends Component<
         {isLoading ? (
           <Spinner size="medium" />
         ) : (
-          <div>
+          <React.Fragment>
             <img
               id="drag-zone-image"
               css={dragZoneImageStyles}
@@ -358,7 +358,7 @@ export class ImageNavigator extends Component<
             >
               <Ellipsify text={dragZoneText} lines={3} />
             </div>
-          </div>
+          </React.Fragment>
         )}
       </DragZone>
     );

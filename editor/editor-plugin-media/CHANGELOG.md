@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 1.13.0
+
+### Minor Changes
+
+- [#84964](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84964) [`be8d48da5d54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be8d48da5d54) - [ux] MediaGroup should show MediaViewer when Editor in 'view' mode
+
 ## 1.12.4
 
 ### Patch Changes

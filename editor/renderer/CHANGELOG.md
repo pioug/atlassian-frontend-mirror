@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.12.0
+
+### Minor Changes
+
+- [#85610](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85610) [`9e962c72289e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e962c72289e) - Adding UNSTABLE_textHighlight API to renderer. It allows to wrap text that matches a RegEx in a provided React Component.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.11.2
 
 ### Patch Changes

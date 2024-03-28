@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 11.2.7
+
+### Patch Changes
+
+- [#85076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85076) [`3032fb024382`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3032fb024382) - Associates the heading prop with the accessible label for the benefits modal.
+
 ## 11.2.6
 
 ### Patch Changes

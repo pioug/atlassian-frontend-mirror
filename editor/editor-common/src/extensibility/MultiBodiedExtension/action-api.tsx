@@ -77,11 +77,6 @@ export const useMultiBodiedExtensionActions = ({
       addChild(): boolean {
         const { state, dispatch } = editorView;
 
-        if (node.content.childCount >= node.attrs.maxFrames) {
-          throw new Error(
-            `Cannot add more than ${node.attrs.maxFrames} frames`,
-          );
-        }
         const p = state.schema.nodes.paragraph.createAndFill({});
         if (!p) {
           throw new Error('Could not create paragraph');

@@ -1,3 +1,5 @@
+import isEqual from 'lodash/isEqual';
+
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
@@ -45,6 +47,7 @@ import {
 } from '../pm-plugins/decorations/utils';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
 import { fixAutoSizedTable } from '../transforms';
+import type { WidthToWidest } from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
 import {
   createColumnControlsDecoration,
@@ -779,18 +782,18 @@ export const addBoldInEmptyHeaderCells =
     return false;
   };
 
-export const updateWidthToWidest = (widthToWidest: boolean) =>
+export const updateWidthToWidest = (widthToWidest: WidthToWidest) =>
   createCommand((state) => {
     let { widthToWidest: prevWidthToWidest } = getPluginState(state);
 
-    if (prevWidthToWidest === widthToWidest) {
+    if (isEqual(widthToWidest, prevWidthToWidest)) {
       return false;
     }
 
     return {
       type: 'UPDATE_TABLE_WIDTH_TO_WIDEST',
       data: {
-        widthToWidest,
+        widthToWidest: { ...prevWidthToWidest, ...widthToWidest },
       },
     };
   });

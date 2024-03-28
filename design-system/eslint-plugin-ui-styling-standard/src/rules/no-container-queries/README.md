@@ -1,0 +1,48 @@
+This rule prevents the usage of the `@container` query in style declarations.
+
+Container queries break the rules of scope and aren’t guaranteed to be deterministic or type safe and isn’t fully supported across our frontend tech stacks.
+
+We suggest you explore the use alternatives such as client JavaScript-based APIs or media queries.
+
+## Examples
+
+### Incorrect
+
+```js
+import { css } from '@compiled/react';
+
+const styles = css({
+  '@container (width > 400px)': {
+    h2: {
+      fontSize: '1.5rem',
+    },
+  },
+});
+```
+
+### Correct
+
+```js
+import { css } from '@compiled/react';
+
+const containerStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+});
+```
+
+## Options
+
+### importSources
+
+By default, this rule will check `css` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).

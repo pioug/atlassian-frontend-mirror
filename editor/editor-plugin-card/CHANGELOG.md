@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 1.4.0
+
+### Minor Changes
+
+- [#84733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84733) [`de779b2d9543`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de779b2d9543) - Modify link-preferences to factor in CLOUD_ENV environment varaible when fetching preferences link
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

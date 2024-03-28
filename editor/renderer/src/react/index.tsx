@@ -35,6 +35,7 @@ import type {
   NodeMeta,
   MarkMeta,
   AnnotationMarkMeta,
+  TextHighlighter,
 } from './types';
 import {
   insideBlockNode,
@@ -45,6 +46,8 @@ import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
+import type { TextSegment } from './utils/segment-text';
+import { segmentText } from './utils/segment-text';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -74,6 +77,7 @@ export interface ReactSerializerInit {
   nodeComponents?: NodeComponentsProps;
   allowWindowedCodeBlock?: boolean;
   isInsideOfInlineExtension?: boolean;
+  textHighlighter?: TextHighlighter;
 }
 
 interface ParentInfo {
@@ -169,6 +173,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private allowWindowedCodeBlock?: boolean;
   private isInsideOfInlineExtension?: boolean;
 
+  private textHighlighter?: TextHighlighter;
+
   constructor(init: ReactSerializerInit) {
     this.providers = init.providers;
     this.eventHandlers = init.eventHandlers;
@@ -200,6 +206,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.nodeComponents = init.nodeComponents;
     this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
     this.isInsideOfInlineExtension = init.isInsideOfInlineExtension;
+    this.textHighlighter = init.textHighlighter;
   }
 
   private resetState() {
@@ -396,12 +403,14 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       );
     }
 
+    const segments = segmentText(mark.text, this.textHighlighter);
+
     const startPos = this.startPos;
     const endPos = startPos + mark.nodeSize;
     this.startPos = endPos;
+    const textKey = `text-wrapper_${this.startPos}`;
 
     if (this.surroundTextNodesWithTextWrapper) {
-      const textKey = `text-wrapper_${this.startPos}`;
       const parentDepth = Math.max(parentNode.path.length - 1, 0);
 
       return (
@@ -410,12 +419,38 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
           startPos={startPos + parentDepth}
           endPos={endPos + parentDepth}
         >
-          {mark.text}
+          {this.renderTextSegments(segments, textKey)}
         </TextWrapperComponent>
       );
     }
 
-    return mark.text || '';
+    return this.renderTextSegments(segments, textKey);
+  }
+
+  private renderTextSegments(segments: Array<TextSegment>, key: string) {
+    const Component = this.textHighlighter?.component;
+    function renderSegment(segment: TextSegment, idx: number = 0) {
+      if (segment.type === 'plain' || !Component) {
+        return segment.text;
+      }
+      return (
+        <Component
+          match={segment.text}
+          groups={segment.groups}
+          key={`${segment.text}_${idx}`}
+        >
+          {segment.text}
+        </Component>
+      );
+    }
+
+    if (segments.length === 1) {
+      return renderSegment(segments[0]);
+    }
+
+    return (
+      <React.Fragment key={key}>{segments.map(renderSegment)}</React.Fragment>
+    );
   }
 
   private renderNode(

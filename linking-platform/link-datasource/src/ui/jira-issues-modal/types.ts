@@ -1,4 +1,7 @@
-import { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { DatasourceParameters } from '@atlaskit/linking-types';
+
+import { ConfigModalProps } from '../../common/types';
 
 type XOR<T1, T2> =
   | (T1 & {
@@ -19,3 +22,9 @@ export type JiraIssueDatasourceParameters = {
 
 export type JiraIssuesDatasourceAdf =
   DatasourceAdf<JiraIssueDatasourceParameters>;
+
+export interface JiraConfigModalProps
+  extends ConfigModalProps<
+    InlineCardAdf | DatasourceAdf,
+    DatasourceParameters | JiraIssueDatasourceParameters
+  > {}

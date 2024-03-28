@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 import {
+  Modal,
   Spotlight,
   SpotlightManager,
   SpotlightPulse,
@@ -100,50 +102,78 @@ const buildOnboardingMarkup = (target: string) => (
   </SpotlightManager>
 );
 
+describe('Benefits Modal', () => {
+  it('should have an appriorate accessible label', () => {
+    render(
+      <Modal heading="Experience the new Jira">
+        <p>How about some body text?</p>
+      </Modal>,
+    );
+
+    expect(screen.getByRole('dialog')).toHaveAccessibleName(
+      'Experience the new Jira',
+    );
+  });
+});
+
 describe('<Spotlight />', () => {
   it('should position the cloned target ontop of the original', () => {
-    const { getByTestId } = render(buildOnboardingMarkup('target-one'));
+    render(buildOnboardingMarkup('target-one'));
 
-    expect(getByTestId('spotlight--target')).toHaveStyle({ position: 'fixed' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ height: '50px' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ width: '100px' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '50px' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      position: 'fixed',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      height: '50px',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      width: '100px',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      left: '50px',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      top: '100px',
+    });
   });
 
   it('should render the spotlight dialog', () => {
-    const { getByTestId } = render(buildOnboardingMarkup('target-one'));
+    render(buildOnboardingMarkup('target-one'));
 
-    expect(getByTestId('spotlight--dialog').innerText).toEqual(
+    expect(screen.getByTestId('spotlight--dialog')).toHaveTextContent(
       'Spotlight for target-one',
     );
   });
 
   it('should re-render and show the second spotlight', () => {
-    const { rerender, getByTestId } = render(
-      buildOnboardingMarkup('target-one'),
-    );
+    const { rerender } = render(buildOnboardingMarkup('target-one'));
 
     rerender(buildOnboardingMarkup('target-two'));
 
-    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '100px' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
-    expect(getByTestId('spotlight--dialog').innerText).toEqual(
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      left: '100px',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      top: '100px',
+    });
+    expect(screen.getByTestId('spotlight--dialog')).toHaveTextContent(
       'Spotlight for target-two',
     );
   });
 
   it('should re-render and show the third spotlight', () => {
-    const { rerender, getByTestId } = render(
-      buildOnboardingMarkup('target-one'),
-    );
+    const { rerender } = render(buildOnboardingMarkup('target-one'));
 
     rerender(buildOnboardingMarkup('target-two'));
     rerender(buildOnboardingMarkup('target-three'));
 
-    expect(getByTestId('spotlight--target')).toHaveStyle({ left: '150px' });
-    expect(getByTestId('spotlight--target')).toHaveStyle({ top: '100px' });
-    expect(getByTestId('spotlight--dialog').innerText).toEqual(
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      left: '150px',
+    });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      top: '100px',
+    });
+    expect(screen.getByTestId('spotlight--dialog')).toHaveTextContent(
       'Spotlight for target-three',
     );
   });
@@ -167,7 +197,7 @@ describe('<Spotlight />', () => {
   });
 
   it('should retain a fixed positioned target as fixed when under a spotlight', () => {
-    const { getByTestId } = render(
+    render(
       <SpotlightManager>
         <SpotlightTarget name="target-one">
           <ElementStub
@@ -186,7 +216,97 @@ describe('<Spotlight />', () => {
       </SpotlightManager>,
     );
 
-    expect(getByTestId('spotlight--target')).toHaveStyle({ position: 'fixed' });
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle({
+      position: 'fixed',
+    });
+  });
+
+  it('pulse should not appear on target element when SpotlightPulse pulse prop is true', () => {
+    render(
+      <SpotlightManager>
+        <SpotlightTarget name="target-one">
+          <ElementStub
+            width={100}
+            height={50}
+            position="fixed"
+            testId="target"
+            marginLeft={50}
+            marginTop={100}
+          >
+            Target
+          </ElementStub>
+        </SpotlightTarget>
+
+        <Spotlight target="target-one">Spotlight for target</Spotlight>
+      </SpotlightManager>,
+    );
+
+    expect(screen.getByTestId('spotlight--target')).toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
+    );
+  });
+
+  it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
+    render(
+      <SpotlightManager>
+        <SpotlightTarget name="target-one">
+          <ElementStub
+            width={100}
+            height={50}
+            position="fixed"
+            testId="target"
+            marginLeft={50}
+            marginTop={100}
+          >
+            Target
+          </ElementStub>
+        </SpotlightTarget>
+
+        <Spotlight pulse={false} target="target-one">
+          Spotlight for target
+        </Spotlight>
+      </SpotlightManager>,
+    );
+
+    expect(screen.getByTestId('spotlight--target')).not.toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
+    );
+  });
+
+  it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
+    render(
+      <SpotlightManager>
+        <ButtonGroup label="Choose spotlight options">
+          <SpotlightTarget name="copy">
+            <SpotlightPulse pulse={false} radius={3} testId="spotlight-pulse">
+              <Button>Existing feature</Button>
+            </SpotlightPulse>
+          </SpotlightTarget>
+        </ButtonGroup>
+      </SpotlightManager>,
+    );
+
+    expect(screen.getByTestId('spotlight-pulse')).not.toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
+    );
+  });
+
+  it('pulse should appear on element when SpotlightPulse pulse prop is true', () => {
+    render(
+      <SpotlightManager>
+        <ButtonGroup label="Choose spotlight options">
+          <SpotlightTarget name="copy">
+            <SpotlightPulse pulse={true} radius={3} testId="spotlight-pulse">
+              <Button>Existing feature</Button>
+            </SpotlightPulse>
+          </SpotlightTarget>
+        </ButtonGroup>
+      </SpotlightManager>,
+    );
+
+    expect(screen.getByTestId('spotlight-pulse')).toHaveStyle(
+      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
+    );
   });
 
   it('should not log any errors when rendering the spotlight', () => {
@@ -219,93 +339,9 @@ describe('<Spotlight />', () => {
         </SpotlightManager>,
       );
     }).not.toThrow();
-  });
 
-  it('pulse should not appear on target element when SpotlightPulse pulse prop is true', () => {
-    const { getByTestId } = render(
-      <SpotlightManager>
-        <SpotlightTarget name="target-one">
-          <ElementStub
-            width={100}
-            height={50}
-            position="fixed"
-            testId="target"
-            marginLeft={50}
-            marginTop={100}
-          >
-            Target
-          </ElementStub>
-        </SpotlightTarget>
-
-        <Spotlight target="target-one">Spotlight for target</Spotlight>
-      </SpotlightManager>,
-    );
-
-    expect(getByTestId('spotlight--target')).toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-    );
-  });
-
-  it('pulse should not appear on target element when SpotlightPulse pulse prop is false', () => {
-    const { getByTestId } = render(
-      <SpotlightManager>
-        <SpotlightTarget name="target-one">
-          <ElementStub
-            width={100}
-            height={50}
-            position="fixed"
-            testId="target"
-            marginLeft={50}
-            marginTop={100}
-          >
-            Target
-          </ElementStub>
-        </SpotlightTarget>
-
-        <Spotlight pulse={false} target="target-one">
-          Spotlight for target
-        </Spotlight>
-      </SpotlightManager>,
-    );
-
-    expect(getByTestId('spotlight--target')).not.toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-    );
-  });
-
-  it('pulse should not appear on element when SpotlightPulse pulse prop is false', () => {
-    const { getByTestId } = render(
-      <SpotlightManager>
-        <ButtonGroup label="Choose spotlight options">
-          <SpotlightTarget name="copy">
-            <SpotlightPulse pulse={false} radius={3} testId="spotlight-pulse">
-              <Button>Existing feature</Button>
-            </SpotlightPulse>
-          </SpotlightTarget>
-        </ButtonGroup>
-      </SpotlightManager>,
-    );
-
-    expect(getByTestId('spotlight-pulse')).not.toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-    );
-  });
-
-  it('pulse should appear on element when SpotlightPulse pulse prop is true', () => {
-    const { getByTestId } = render(
-      <SpotlightManager>
-        <ButtonGroup label="Choose spotlight options">
-          <SpotlightTarget name="copy">
-            <SpotlightPulse pulse={true} radius={3} testId="spotlight-pulse">
-              <Button>Existing feature</Button>
-            </SpotlightPulse>
-          </SpotlightTarget>
-        </ButtonGroup>
-      </SpotlightManager>,
-    );
-
-    expect(getByTestId('spotlight-pulse')).toHaveStyle(
-      `animation: ${pulseKeyframesName} 3000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite`,
-    );
+    // This test always causes the a11y audti (after) to fail with this non-a11y error:
+    // Warning: An update to %s inside a test was not wrapped in act(...).
+    skipA11yAudit();
   });
 });

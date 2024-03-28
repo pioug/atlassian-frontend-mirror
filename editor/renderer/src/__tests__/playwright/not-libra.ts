@@ -69,9 +69,24 @@ class AnnotationModel {
   }
 }
 
+class CodeBlockModel {
+  public lightWeightCodeBlock: Locator;
+  public block: Locator;
+
+  private constructor(page: Page) {
+    this.lightWeightCodeBlock = page.locator('.light-weight-code-block');
+    this.block = page.locator('[data-ds--code--code-block]');
+  }
+
+  static from(page: Page) {
+    return new CodeBlockModel(page);
+  }
+}
+
 interface RendererPageInterface {
   page: Page;
   annotation: AnnotationModel;
+  codeBlock: CodeBlockModel;
   waitForRendererStable: () => Promise<void>;
   getAnalyticsEvents: () => Promise<GasPurePayload[]>;
 }
@@ -91,11 +106,13 @@ type MountRendererOptions = {
 
 class RendererPageModel implements RendererPageInterface {
   public annotation: AnnotationModel;
+  public codeBlock: CodeBlockModel;
   private rendererContainer: Locator;
 
   private constructor(public page: Page) {
     this.rendererContainer = page.locator('#renderer-container');
     this.annotation = AnnotationModel.from(page);
+    this.codeBlock = CodeBlockModel.from(page);
   }
 
   public async waitForRendererStable() {

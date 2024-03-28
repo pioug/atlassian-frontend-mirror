@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import Tooltip from '@atlaskit/tooltip';
 
 import {
@@ -19,6 +20,10 @@ describe('Left sidebar', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     raf.replace();
+
+    // a11y audits fail due to old axe rules that need to be updated
+    // See https://product-fabric.atlassian.net/browse/DSP-17790 for info
+    skipA11yAudit();
   });
 
   afterEach(() => {

@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.16.5
+
+### Patch Changes
+
+- [#85268](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85268) [`473d1932301b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/473d1932301b) - Replaces various CustomThemedButtons with the appropriate new button variants.
+
 ## 4.16.4
 
 ### Patch Changes

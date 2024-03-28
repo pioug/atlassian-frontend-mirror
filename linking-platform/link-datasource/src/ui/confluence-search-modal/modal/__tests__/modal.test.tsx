@@ -8,9 +8,9 @@ import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
-import { ConfigModalProps } from '../../../../common/types';
 import { getAvailableSites } from '../../../../services/getAvailableSites';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../../index';
+import { ConfluenceSearchConfigModalProps } from '../../types';
 import { ConfluenceSearchConfigModal } from '../index';
 
 jest.mock('../../../../services/getAvailableSites', () => ({
@@ -27,7 +27,7 @@ describe('ConfluenceSearchConfigModal', () => {
   const onCancel = jest.fn();
   const onInsert = jest.fn();
 
-  const setup = async (props?: ConfigModalProps) => {
+  const setup = async (props?: ConfluenceSearchConfigModalProps) => {
     asMock(getAvailableSites).mockResolvedValue(mockSiteData);
 
     const spy = jest.fn();

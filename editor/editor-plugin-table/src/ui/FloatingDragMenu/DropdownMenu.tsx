@@ -11,7 +11,6 @@ import {
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { dragMenuDropdownWidth } from '../consts';
 
@@ -150,39 +149,31 @@ export const DropdownMenu = ({
             // The logic below normalises the index value based on the number
             // of menu items with 2 focusable elements, and adjusts the index to ensure
             // the correct menu item is sent in onItemActivated callback
-            if (
-              getBooleanFF(
-                'platform.editor.table.new-cell-context-menu-styling',
-              )
-            ) {
-              const keys = ['row_numbers', 'header_row', 'header_column'];
-              let doubleItemCount = 0;
+            const keys = ['row_numbers', 'header_row', 'header_column'];
+            let doubleItemCount = 0;
 
-              const firstIndex = results.findIndex((value) =>
-                keys.includes(value.key!),
-              );
+            const firstIndex = results.findIndex((value) =>
+              keys.includes(value.key!),
+            );
 
-              if (firstIndex === -1 || index <= firstIndex) {
-                onItemActivated && onItemActivated({ item: results[index] });
+            if (firstIndex === -1 || index <= firstIndex) {
+              onItemActivated && onItemActivated({ item: results[index] });
+              return;
+            }
+
+            for (let i = firstIndex; i < results.length; i += 1) {
+              if (keys.includes(results[i].key!)) {
+                doubleItemCount += 1;
+              }
+              if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
+                onItemActivated && onItemActivated({ item: results[i] });
                 return;
               }
 
-              for (let i = firstIndex; i < results.length; i += 1) {
-                if (keys.includes(results[i].key!)) {
-                  doubleItemCount += 1;
-                }
-                if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
-                  onItemActivated && onItemActivated({ item: results[i] });
-                  return;
-                }
-
-                if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
-                  onItemActivated && onItemActivated({ item: results[i] });
-                  return;
-                }
+              if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
+                onItemActivated && onItemActivated({ item: results[i] });
+                return;
               }
-            } else {
-              onItemActivated && onItemActivated({ item: results[index] });
             }
           }}
         >

@@ -70,3 +70,12 @@ export interface AnnotationMarkMeta extends MarkMeta {
 
 export type NodeProps<NodeAttrs = {}> = NodeAttrs & PropsWithChildren<NodeMeta>;
 export type MarkProps<MarkAttrs = {}> = MarkAttrs & PropsWithChildren<MarkMeta>;
+
+export type TextHighlighter = {
+  pattern: RegExp;
+  component: React.ComponentType<{
+    children: React.ReactNode;
+    match: string;
+    groups: Array<string> | undefined;
+  }>;
+};

@@ -56,7 +56,7 @@ const iconWrapperStyles = xcss({
   flexShrink: '0',
 });
 
-interface BannerProps {
+export interface BannerProps {
   /**
    * Visual style to be used for the banner
    */

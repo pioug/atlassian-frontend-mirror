@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
@@ -19,7 +20,7 @@ import {
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
-import type { PluginInjectionAPI } from '../types';
+import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
@@ -61,7 +62,7 @@ export const InnerContainer = forwardRef<
       className={className}
       data-number-column={node.attrs.isNumberColumnEnabled}
       data-layout={node.attrs.layout}
-      data-test-id="table-container"
+      data-testid="table-container"
     >
       {children}
     </div>
@@ -180,6 +181,10 @@ export const ResizableTableContainer = React.memo(
     );
 
     const tableWidth = getTableContainerWidth(node);
+    const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+    const { widthToWidest } = tableState as TableSharedStateInternal;
+    const currentTableNodeLocalId = node?.attrs?.localId ?? '';
+
     // 76 is currently an accepted padding value considering the spacing for resizer handle
     const responsiveContainerWidth = isTableScalingEnabled
       ? containerWidth -
@@ -189,7 +194,16 @@ export const ResizableTableContainer = React.memo(
         akEditorGutterPadding * 2 -
         akEditorMediaResizeHandlerPaddingWide;
 
-    const width = Math.min(tableWidth, responsiveContainerWidth);
+    let width = Math.min(tableWidth, responsiveContainerWidth);
+
+    if (
+      isTableScalingEnabled &&
+      currentTableNodeLocalId &&
+      widthToWidest &&
+      widthToWidest[currentTableNodeLocalId]
+    ) {
+      width = TABLE_MAX_WIDTH;
+    }
 
     if (!isResizing) {
       tableWidthRef.current = width;
@@ -210,6 +224,7 @@ export const ResizableTableContainer = React.memo(
       displayGapCursor,
       isTableScalingEnabled,
       isWholeTableInDanger,
+      pluginInjectionApi,
     };
 
     if (getBooleanFF('platform.editor.resizing-table-height-improvement')) {

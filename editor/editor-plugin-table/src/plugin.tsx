@@ -192,6 +192,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         // IMPORTANT: Need to continue to pass tableNode to control re-renders
         // TableComponent listens for node attribute changes to update colgroups
         tableNode: tablePluginState.tableNode,
+        widthToWidest: tablePluginState.widthToWidest,
       };
     },
 

@@ -33,4 +33,12 @@ export {
 export type { Props as HyperlinkLinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar/HyperlinkAddToolbar';
 export type { HyperlinkAddToolbarProps } from './LinkPicker/HyperlinkAddToolbar';
 export { sha1 } from './LinkPicker/HyperlinkAddToolbar/utils';
-export { isLinkAtPos, isTextAtPos } from './utils';
+export {
+  isLinkAtPos,
+  isTextAtPos,
+  getLinkPreferencesURLFromENV,
+} from './utils';
+export {
+  stagingLinkPreferencesUrl,
+  productionLinkPreferencesUrl,
+} from './constants';

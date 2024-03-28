@@ -16,6 +16,7 @@ import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { TABLE_OVERFLOW_CHANGE_TRIGGER } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
   focusTableResizer,
   ToolTipContent,
@@ -27,21 +28,21 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { updateWidthToWidest } from '../commands/misc';
-import { getPluginState } from '../pm-plugins/plugin-factory';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
   COLUMN_MIN_WIDTH,
   getColgroupChildrenLength,
   previewScaleTable,
   scaleTable,
+  TABLE_MAX_WIDTH,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
+import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import {
   TABLE_GUIDELINE_VISIBLE_ADJUSTMENT,
   TABLE_HIGHLIGHT_GAP,
@@ -77,6 +78,7 @@ interface TableResizerProps {
     payload: TableEventPayload,
   ) => ((tr: Transaction) => boolean) | undefined;
   displayGapCursor: (toggle: boolean) => boolean;
+  pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
   isWholeTableInDanger?: boolean;
 }
@@ -172,13 +174,16 @@ export const TableResizer = ({
   displayGapCursor,
   isTableScalingEnabled,
   isWholeTableInDanger,
+  pluginInjectionApi,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
   const currentGap = useRef(0);
   // track resizing state - use ref over state to avoid re-render
   const isResizing = useRef(false);
   const areResizeMetaKeysPressed = useRef(false);
-
+  const [localTableWidth, setLocalTableWidth] = useState(width);
   const resizerRef = useRef<ResizerNextHandler>(null);
+  const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
+  const { widthToWidest } = tableState as TableSharedStateInternal;
 
   // used to reposition tooltip when table is resizing via keyboard
   const updateTooltip = React.useRef<() => void>();
@@ -349,25 +354,28 @@ export const TableResizer = ({
       // and a table is resized to fit the widest guideline when view port width is between 1011 and 1800
       // set the width of the table to 1800 pixels.
       const { state, dispatch } = editorView;
-      const widestGuideLineWidthString = defaultGuidelinesForPreserveTable(
+      const currentTableNodeLocalId = node?.attrs?.localId ?? '';
+
+      const widestGuideline = defaultGuidelinesForPreserveTable(
         containerWidth,
-      )[16]
-        .key?.match(/[\d]*[.]{0,1}[\d]+/g)
-        ?.join('');
-      const widestGuideLineWidth = parseInt(
-        widestGuideLineWidthString || '',
-        10,
-      );
+      ).filter((guideline) => guideline.isFullWidth)[0];
+      const widestGuideLineWidth = widestGuideline
+        ? ((widestGuideline.position?.x || 0) as number) * 2
+        : null;
       const shouldUpdateWidthToWidest = !!(
         isTableScalingEnabled &&
-        defaultGuidelinesForPreserveTable(containerWidth).length === 17 &&
-        widestGuideLineWidth - newWidth <= 1
+        widestGuideLineWidth &&
+        Math.abs(widestGuideLineWidth - newWidth) <= 1
       );
-      updateWidthToWidest(shouldUpdateWidthToWidest)(state, dispatch);
+      shouldUpdateWidthToWidest
+        ? setLocalTableWidth(TABLE_MAX_WIDTH)
+        : setLocalTableWidth(newWidth);
 
-      updateWidth(
-        shouldUpdateWidthToWidest ? akEditorFullWidthLayoutWidth : newWidth,
-      );
+      updateWidthToWidest({
+        [currentTableNodeLocalId]: shouldUpdateWidthToWidest,
+      })(state, dispatch);
+
+      updateWidth(shouldUpdateWidthToWidest ? TABLE_MAX_WIDTH : newWidth);
 
       return newWidth;
     },
@@ -392,8 +400,13 @@ export const TableResizer = ({
       let newWidth = originalState.width + delta.width;
       const { state, dispatch } = editorView;
       const pos = getPos();
-      const { widthToWidest } = getPluginState(editorView.state);
-      newWidth = widthToWidest ? akEditorFullWidthLayoutWidth : newWidth;
+      const currentTableNodeLocalId = node?.attrs?.localId ?? '';
+      newWidth =
+        widthToWidest &&
+        currentTableNodeLocalId &&
+        widthToWidest[currentTableNodeLocalId]
+          ? TABLE_MAX_WIDTH
+          : newWidth;
 
       let tr = state.tr.setMeta(tableWidthPluginKey, { resizing: false });
       const frameRateSamples = endMeasure();
@@ -467,6 +480,7 @@ export const TableResizer = ({
       endMeasure,
       onResizeStop,
       isTableScalingEnabled,
+      widthToWidest,
     ],
   );
 
@@ -617,7 +631,7 @@ export const TableResizer = ({
       <ResizerNext
         ref={resizerRef}
         enable={handles}
-        width={width}
+        width={localTableWidth}
         handleAlignmentMethod="sticky"
         handleSize={handleSize}
         handleStyles={handleStyles}

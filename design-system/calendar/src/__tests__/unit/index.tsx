@@ -407,15 +407,24 @@ describe('Calendar', () => {
         'tabindex',
         String(tabIndexValue),
       );
-      // Body
-      const calendarDatesElement = getByTestId(`${testId}--calendar-dates`);
-
-      expect(calendarDatesElement).toHaveAttribute(
-        'tabindex',
-        String(tabIndexValue),
-      );
       unmount();
     });
+  });
+
+  it('dates container should not have unnecessary tab stop for keyboard users', () => {
+    const { renderResult } = setup({
+      day: defaultDay,
+      month: defaultMonth,
+      year: defaultYear,
+      selected: [
+        dateToString({
+          day: defaultDay,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
+      ],
+    });
+    expect(renderResult.getByRole('grid')).not.toHaveAttribute('tabindex');
   });
 
   it('should set appropriate attributes on focus', () => {

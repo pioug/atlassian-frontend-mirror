@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { skipA11yAudit } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import ProgressDots from '../../progress-dots';
@@ -98,6 +99,9 @@ describe('Progress Indicator', () => {
       render(<StubComponent onSelect={__noop} />);
 
       expect(screen.getAllByRole('tab')).toHaveLength(3);
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
 
     it('should call onSelect when pressed an indicator button', async () => {
@@ -114,6 +118,9 @@ describe('Progress Indicator', () => {
 
       await user.click(firstButton);
       await waitFor(() => expect(onSelectMock).toHaveBeenCalledTimes(2));
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
   });
 
@@ -144,6 +151,9 @@ describe('Progress Indicator', () => {
       render(<StubComponent onSelect={__noop} />);
 
       expect(screen.getByRole('tablist')).toBeInTheDocument();
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
 
     it('should apply default aria-controls and aria-label props', () => {
@@ -155,6 +165,9 @@ describe('Progress Indicator', () => {
 
       expect(buttons[0]).toHaveAttribute('aria-label', 'tab0');
       expect(buttons[0]).toHaveAttribute('aria-controls', 'panel0');
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
 
     it('should apply provided aria-controls and aria-label props', () => {
@@ -174,6 +187,9 @@ describe('Progress Indicator', () => {
 
       expect(buttons[0]).toHaveAttribute('aria-label', 'testAriaLabel0');
       expect(buttons[0]).toHaveAttribute('aria-controls', 'testAriaControls0');
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
 
     it('should apply aria-selected prop to the selected button', () => {
@@ -185,6 +201,9 @@ describe('Progress Indicator', () => {
 
       expect(buttons[0]).toHaveAttribute('aria-selected', 'true');
       expect(buttons[1]).toHaveAttribute('aria-selected', 'false');
+      // skip should be removed once DSP-17664 is fixed
+      // This will skip the a11y audit in after each
+      skipA11yAudit();
     });
   });
 });

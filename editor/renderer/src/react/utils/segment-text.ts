@@ -23,8 +23,8 @@ export function segmentText(
   let pos = 0;
 
   try {
-    const markTextSeggmentMatches = text.matchAll(highlighter.pattern);
-    for (const markTextMatch of markTextSeggmentMatches) {
+    const markTextSegmentMatches = text.matchAll(highlighter.pattern);
+    for (const markTextMatch of markTextSegmentMatches) {
       if (markTextMatch.index !== 0) {
         segments.push({
           type: 'plain',
@@ -43,7 +43,7 @@ export function segmentText(
       pos = markTextMatch.index + markTextMatch[0].length;
     }
 
-    if (pos < text.length - 1) {
+    if (pos < text.length) {
       segments.push({
         type: 'plain',
         text: text.substring(pos),

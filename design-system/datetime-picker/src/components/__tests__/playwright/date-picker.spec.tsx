@@ -4,7 +4,6 @@ const datePicker = '[data-testid="datepicker-1--container"]';
 const calendar = `[aria-label='calendar']`;
 const previousMonthButton = 'button[data-testid$="previous-month"]';
 const nextMonthButton = 'button[data-testid$="next-month"]';
-const calendarDates = '[data-testid$="calendar-dates"]';
 const date = '[role=gridcell]:nth-child(6)';
 const focusedDate = '[data-focused="true"]';
 const input = 'input#react-select-datepicker-1-input';
@@ -91,8 +90,6 @@ test('Should tab through all interactive elements inside datepicker', async ({
   await page.keyboard.press('Tab');
   await expect(page.locator(nextMonthButton).first()).toBeFocused();
   await page.keyboard.press('Tab');
-  await expect(page.locator(calendarDates).first()).toBeFocused();
-  await page.keyboard.press('Tab');
   await expect(page.locator(focusedDate).first()).toBeFocused();
   await page.keyboard.press('Tab');
   await expect(page.locator('input#text2').first()).toBeFocused();
@@ -117,8 +114,6 @@ test('Should tab from input component to datepicker to next input in popup', asy
   await expect(page.locator(previousMonthButton).first()).toBeFocused();
   await page.keyboard.press('Tab');
   await expect(page.locator(nextMonthButton).first()).toBeFocused();
-  await page.keyboard.press('Tab');
-  await expect(page.locator(calendarDates).first()).toBeFocused();
   await page.keyboard.press('Tab');
   await expect(page.locator(focusedDate).first()).toBeFocused();
   await page.keyboard.press('Tab');

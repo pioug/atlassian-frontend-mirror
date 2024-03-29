@@ -76,6 +76,8 @@ export type TextHighlighter = {
   component: React.ComponentType<{
     children: React.ReactNode;
     match: string;
+    marks: Set<string>; // In future maybe extract the mark names from Schema
     groups: Array<string> | undefined;
+    startPos: number;
   }>;
 };

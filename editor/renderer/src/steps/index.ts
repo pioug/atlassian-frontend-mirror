@@ -1,4 +1,4 @@
-import { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 function getStartPos(element: HTMLElement) {
@@ -43,6 +43,10 @@ function isTextNode(node: ChildNode | Node): node is Text {
   return node.nodeType === Node.TEXT_NODE;
 }
 
+function isHighlightTextNode(node: Node) {
+  return !!(node as HTMLElement).dataset?.highlighted;
+}
+
 function isNodeInlineMark(node: ChildNode | Node) {
   return isElementNode(node) && Boolean(node.dataset.rendererMark);
 }
@@ -57,7 +61,7 @@ function resolveNodePos(node: Node) {
   let resolvedPos = 0;
   let prev = node.previousSibling;
   while (prev) {
-    if (prev && isTextNode(prev)) {
+    if (prev && (isTextNode(prev) || isHighlightTextNode(prev))) {
       resolvedPos += (prev.textContent || '').length;
     } else if (prev) {
       if (isNodeInlineMark(prev) && prev.textContent) {

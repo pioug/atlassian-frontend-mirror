@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { RendererWithAnalytics as Renderer } from '../../';
 import type { DocNode } from '@atlaskit/adf-schema';
@@ -131,8 +132,28 @@ const doc = {
   ],
 };
 
-function TextHighliterComponent({ match }: { match: string }) {
+function TextHighliterComponent({
+  match,
+  marks,
+}: {
+  match: string;
+  marks: Set<string>;
+}) {
   return <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>;
+}
+
+function FilteredTextHighliterComponent({
+  match,
+  marks,
+}: {
+  match: string;
+  marks: Set<string>;
+}) {
+  return marks.has('link') ? (
+    <Fragment>{match}</Fragment>
+  ) : (
+    <span style={{ color: 'red', border: '1px solid red' }}>{match}</span>
+  );
 }
 
 export function RendererWithTextHighlighter() {
@@ -143,6 +164,20 @@ export function RendererWithTextHighlighter() {
       UNSTABLE_textHighlighter={{
         pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
         component: TextHighliterComponent,
+      }}
+      allowAnnotations
+    />
+  );
+}
+
+export function RendererWithFilteredTextHighlighter() {
+  return (
+    <Renderer
+      appearance="full-page"
+      document={doc as DocNode}
+      UNSTABLE_textHighlighter={{
+        pattern: /(?<acronym>\b[A-Z][A-Z0-9&]{2,}\b)/g,
+        component: FilteredTextHighliterComponent,
       }}
       allowAnnotations
     />

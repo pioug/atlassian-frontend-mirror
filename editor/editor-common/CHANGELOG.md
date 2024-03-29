@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 78.22.1
+
+### Patch Changes
+
+- [#85506](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85506) [`9b0e106465b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b0e106465b6) - [ux] Updates border color to a darker one after AY11 suggestion after their review
+
 ## 78.22.0
 
 ### Minor Changes

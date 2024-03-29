@@ -205,7 +205,6 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(
             />
             <Box
               role="grid"
-              tabIndex={tabIndex}
               onKeyDown={handleContainerKeyDown}
               aria-labelledby={headerId}
               testId={testId && `${testId}--calendar-dates`}

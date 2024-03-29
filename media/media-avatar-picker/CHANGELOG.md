@@ -1,5 +1,11 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.27
+
+### Patch Changes
+
+- [#84563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84563) [`8f8efba47b22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f8efba47b22) - a11y fix - updated heading markup
+
 ## 24.3.26
 
 ### Patch Changes

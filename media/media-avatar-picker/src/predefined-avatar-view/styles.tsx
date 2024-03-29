@@ -4,67 +4,52 @@ import {
   visuallyHiddenRadioStyles,
   selectedShadow,
   focusedShadow,
+  avatarImageStyles,
 } from '../styles';
-import { avatarImageStyles } from '../styles';
 
-export const largeAvatarImageStyles = css`
-  ${avatarImageStyles}
-  width: 72px;
-  height: 72px;
-`;
+export const largeAvatarImageStyles = css(avatarImageStyles, {
+  width: '72px',
+  height: '72px',
+});
 
-export const predefinedAvatarViewWrapperStyles = css`
-  .body {
-    display: flex;
-    flex-flow: row wrap;
-    width: 353px;
-    max-height: 294px;
-    overflow-y: auto;
-
-    padding: ${token('space.100', '8px')} 0 0;
-    margin: 0;
-  }
-
-  input {
-    ${visuallyHiddenRadioStyles}
-  }
-
-  input:checked + img {
-    ${selectedShadow}
-  }
-
-  input:focus + img {
-    ${focusedShadow}
-  }
-
-  label {
-    padding-right: ${token('space.050', '4px')};
-    padding-left: ${token('space.050', '4px')};
-    padding-bottom: ${token('space.100', '8px')};
-    display: inline-flex;
-  }
-
-  .header {
-    display: flex;
-    align-items: center;
-
-    padding-top: ${token('space.050', '4px')};
-    padding-bottom: ${token('space.100', '8px')};
-
-    .description {
-      padding-left: ${token('space.100', '8px')};
-    }
-
-    .back-button {
-      width: 32px;
-      height: 32px;
-      border-radius: ${token('border.radius.400', '16px')};
-
-      align-items: center;
-      justify-content: center;
-
-      margin: 0;
-      padding: 0;
-    }
-  }
-`;
+export const predefinedAvatarViewWrapperStyles = css({
+  '.body': {
+    display: 'flex',
+    flexFlow: 'row wrap',
+    width: '353px',
+    maxHeight: '294px',
+    overflowY: 'auto',
+    padding: `${token('space.100', '8px')} 0 0`,
+    margin: 0,
+  },
+  input: visuallyHiddenRadioStyles,
+  'input:checked + img': selectedShadow,
+  'input:focus + img': focusedShadow,
+  label: {
+    paddingRight: token('space.050', '4px'),
+    paddingLeft: token('space.050', '4px'),
+    paddingBottom: token('space.100', '8px'),
+    display: 'inline-flex',
+  },
+  '.header': {
+    display: 'flex',
+    alignItems: 'center',
+    paddingTop: token('space.050', '4px'),
+    paddingBottom: token('space.100', '8px'),
+    '.description': {
+      paddingLeft: token('space.100', '8px'),
+      margin: 0,
+      fontSize: '14px',
+      fontWeight: 400,
+    },
+    '.back-button': {
+      width: '32px',
+      height: '32px',
+      borderRadius: token('border.radius.400', '16px'),
+      alignItems: 'center',
+      justifyContent: 'center',
+      margin: 0,
+      padding: 0,
+    },
+  },
+});

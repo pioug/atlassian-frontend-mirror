@@ -33,6 +33,17 @@ test('segment text simple regex', () => {
   expect(segments[3].type).toBe('match');
 });
 
+test('segment text simple regex full string match', () => {
+  const highlighter: TextHighlighter = {
+    pattern: /(\b[A-Z]{2,}\b)/g,
+    component: () => null,
+  };
+  const text = 'ADF';
+  const segments = segmentText(text, highlighter);
+  expect(segments.length).toBe(1);
+  expect(segments[0].type).toBe('match');
+});
+
 test('segment text simple regex no match', () => {
   const highlighter: TextHighlighter = {
     pattern: /(\b[A-Z]{2,}\b)/g,
@@ -40,6 +51,17 @@ test('segment text simple regex no match', () => {
   };
   const text =
     'Some text with no acronym in the middle of the text, followed by another acronym which is missing';
+  const segments = segmentText(text, highlighter);
+  expect(segments.length).toBe(1);
+  expect(segments[0].type).toBe('plain');
+});
+
+test('segment text simple regex no match single char string', () => {
+  const highlighter: TextHighlighter = {
+    pattern: /(\b[A-Z]{2,}\b)/g,
+    component: () => null,
+  };
+  const text = ' ';
   const segments = segmentText(text, highlighter);
   expect(segments.length).toBe(1);
   expect(segments[0].type).toBe('plain');

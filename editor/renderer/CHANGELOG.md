@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 109.12.2
+
+### Patch Changes
+
+- [#85922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85922) [`9cb0eef56b9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cb0eef56b9d) - Adjusted renderer TextHighlighter API added more tests and fixed off by 1 error
+
+## 109.12.1
+
+### Patch Changes
+
+- [#85780](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85780) [`f9127d5f97ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9127d5f97ed) - Add marks to TextHighlighter component
+
 ## 109.12.0
 
 ### Minor Changes

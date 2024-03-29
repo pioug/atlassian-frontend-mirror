@@ -46,8 +46,8 @@ import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import { isCodeMark } from './marks/code';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import type { TextSegment } from './utils/segment-text';
 import { segmentText } from './utils/segment-text';
+import { renderTextSegments } from './utils/render-text-segments';
 export interface ReactSerializerInit {
   providers?: ProviderFactory;
   eventHandlers?: EventHandlers;
@@ -403,8 +403,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       );
     }
 
-    const segments = segmentText(mark.text, this.textHighlighter);
-
     const startPos = this.startPos;
     const endPos = startPos + mark.nodeSize;
     this.startPos = endPos;
@@ -418,38 +416,20 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
           key={textKey}
           startPos={startPos + parentDepth}
           endPos={endPos + parentDepth}
+          textHighlighter={this.textHighlighter}
+          marks={mark.marks}
         >
-          {this.renderTextSegments(segments, textKey)}
+          {mark.text}
         </TextWrapperComponent>
       );
     }
 
-    return this.renderTextSegments(segments, textKey);
-  }
-
-  private renderTextSegments(segments: Array<TextSegment>, key: string) {
-    const Component = this.textHighlighter?.component;
-    function renderSegment(segment: TextSegment, idx: number = 0) {
-      if (segment.type === 'plain' || !Component) {
-        return segment.text;
-      }
-      return (
-        <Component
-          match={segment.text}
-          groups={segment.groups}
-          key={`${segment.text}_${idx}`}
-        >
-          {segment.text}
-        </Component>
-      );
-    }
-
-    if (segments.length === 1) {
-      return renderSegment(segments[0]);
-    }
-
-    return (
-      <React.Fragment key={key}>{segments.map(renderSegment)}</React.Fragment>
+    const segments = segmentText(mark.text, this.textHighlighter);
+    return renderTextSegments(
+      segments,
+      this.textHighlighter,
+      mark.marks,
+      startPos,
     );
   }
 
@@ -493,7 +473,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       : undefined;
 
     const isInsideOfBlockNode = insideBlockNode(path, node.type.schema);
-    const isinsideMultiBodiedExtension = insideMultiBodiedExtension(
+    const isInsideMultiBodiedExtension = insideMultiBodiedExtension(
       path,
       node.type.schema,
     );
@@ -505,7 +485,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       tableNode: node,
       stickyHeaders,
       isInsideOfBlockNode,
-      isinsideMultiBodiedExtension,
+      isInsideMultiBodiedExtension,
     };
   }
 

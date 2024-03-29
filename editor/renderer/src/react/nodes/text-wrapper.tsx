@@ -1,10 +1,15 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { TextWithAnnotationDraft } from '../../ui/annotations';
+import type { TextHighlighter } from '../types';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
 type Props = {
   startPos: number;
   endPos: number;
   children?: ReactNode | null;
+  textHighlighter?: TextHighlighter;
+  marks?: readonly Mark[];
 };
 
 const TextWrapper = (props: Props) => {
@@ -16,7 +21,12 @@ const TextWrapper = (props: Props) => {
   }
 
   return (
-    <TextWithAnnotationDraft startPos={startPos} endPos={endPos}>
+    <TextWithAnnotationDraft
+      startPos={startPos}
+      endPos={endPos}
+      textHighlighter={props.textHighlighter}
+      marks={props.marks}
+    >
       {children}
     </TextWithAnnotationDraft>
   );

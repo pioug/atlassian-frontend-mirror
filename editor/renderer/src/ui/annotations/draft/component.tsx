@@ -8,16 +8,22 @@ import { AnnotationsDraftContext } from '../context';
 import { splitText, calcTextSplitOffset, findTextString } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
 
+import type { TextHighlighter } from '../../../react/types';
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
+import { segmentText } from '../../../react/utils/segment-text';
+import { renderTextSegments } from '../../../react/utils/render-text-segments';
 
-const markStyles = () => css`
-  color: inherit;
-  background-color: unset;
-  -webkit-tap-highlight-color: transparent;
-
-  ${AnnotationSharedCSSByState().focus};
-`;
+const markStyles = () =>
+  css(
+    {
+      color: 'inherit',
+      backgroundColor: 'unset',
+      WebkitTapHighlightColor: 'transparent',
+    },
+    AnnotationSharedCSSByState().focus,
+  );
 
 export const AnnotationDraft = ({
   draftPosition,
@@ -41,6 +47,8 @@ type ApplyAnnotationsProps = {
     | InsertDraftPosition.START
     | InsertDraftPosition.END;
   draftPosition: Position;
+  textHighlighter?: TextHighlighter;
+  marks?: readonly Mark[];
 };
 
 export const getAnnotationIndex = (
@@ -69,6 +77,8 @@ export const applyAnnotationOnText = ({
   texts,
   shouldApplyAnnotationAt,
   draftPosition,
+  textHighlighter,
+  marks,
 }: ApplyAnnotationsProps): JSX.Element[] => {
   const annotateIndex = getAnnotationIndex(
     shouldApplyAnnotationAt,
@@ -76,27 +86,46 @@ export const applyAnnotationOnText = ({
   );
 
   return texts.map((value, index) => {
+    const segments = segmentText(value, textHighlighter);
     if (annotateIndex === index) {
       return (
         <AnnotationDraft key={index} draftPosition={draftPosition}>
-          {value}
+          {renderTextSegments(
+            segments,
+            textHighlighter,
+            marks || [],
+            draftPosition.from,
+          )}
         </AnnotationDraft>
       );
     }
 
-    return <React.Fragment key={index}>{value}</React.Fragment>;
+    return (
+      <React.Fragment key={index}>
+        {renderTextSegments(
+          segments,
+          textHighlighter,
+          marks || [],
+          draftPosition.from,
+        )}
+      </React.Fragment>
+    );
   });
 };
 
 type Props = React.PropsWithChildren<{
   startPos: number;
   endPos: number;
+  textHighlighter?: TextHighlighter;
+  marks?: readonly Mark[];
 }>;
 
 export const TextWithAnnotationDraft = ({
   startPos,
   endPos,
   children,
+  textHighlighter,
+  marks,
 }: Props) => {
   const textPosition = React.useMemo(
     () => ({
@@ -114,22 +143,29 @@ export const TextWithAnnotationDraft = ({
     return calcInsertDraftPositionOnText(textPosition, nextDraftPosition);
   }, [nextDraftPosition, textPosition]);
 
-  if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
-    return <Fragment>{children}</Fragment>;
-  }
-
-  if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
-    return (
-      <AnnotationDraft key={0} draftPosition={nextDraftPosition}>
-        {children}
-      </AnnotationDraft>
-    );
-  }
-
   const textString = findTextString(children);
   if (!textString) {
     return <Fragment>{children}</Fragment>;
   }
+
+  if (shouldApplyAnnotationAt === false || !nextDraftPosition) {
+    const segments = segmentText(textString, textHighlighter);
+    return (
+      <Fragment>
+        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
+      </Fragment>
+    );
+  }
+
+  if (shouldApplyAnnotationAt === InsertDraftPosition.AROUND_TEXT) {
+    const segments = segmentText(textString, textHighlighter);
+    return (
+      <AnnotationDraft key={0} draftPosition={nextDraftPosition}>
+        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
+      </AnnotationDraft>
+    );
+  }
+
   const offsets = calcTextSplitOffset(
     nextDraftPosition,
     textPosition,
@@ -137,13 +173,20 @@ export const TextWithAnnotationDraft = ({
   );
   const texts = splitText(textString, offsets);
   if (!texts) {
-    return <Fragment>{children}</Fragment>;
+    const segments = segmentText(textString, textHighlighter);
+    return (
+      <Fragment>
+        {renderTextSegments(segments, textHighlighter, marks || [], startPos)}
+      </Fragment>
+    );
   }
 
   const components = applyAnnotationOnText({
     texts,
     shouldApplyAnnotationAt,
     draftPosition: nextDraftPosition,
+    textHighlighter,
+    marks,
   });
 
   return <Fragment>{components}</Fragment>;

@@ -71,11 +71,11 @@ export const PredefinedAvatarView = ({
           iconAfter={<ArrowLeftIcon label="" />}
           onClick={onGoBack}
         />
-        <div className="description">
+        <h2 className="description">
           {predefinedAvatarsText || (
             <FormattedMessage {...messages.default_avatars} />
           )}
-        </div>
+        </h2>
       </div>
       <div
         role="radiogroup"

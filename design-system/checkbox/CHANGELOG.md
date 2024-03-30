@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 13.1.4
+
+### Patch Changes
+
+- [#84905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84905) [`f03cb7163ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f03cb7163ffc) - Remove input focus style on `Checkbox` component
+
 ## 13.1.3
 
 ### Patch Changes

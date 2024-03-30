@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 14.0.13
+
+### Patch Changes
+
+- [#84135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84135) [`87ddd92e0265`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87ddd92e0265) - [ux] Unnecessary tab stop for keyboard users removed.
+
 ## 14.0.12
 
 ### Patch Changes

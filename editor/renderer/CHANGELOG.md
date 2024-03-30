@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.12.3
+
+### Patch Changes
+
+- [#85984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85984) [`3689328bd7c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3689328bd7c4) - Fix resolvePos for renderer TextHighlight
+
 ## 109.12.2
 
 ### Patch Changes

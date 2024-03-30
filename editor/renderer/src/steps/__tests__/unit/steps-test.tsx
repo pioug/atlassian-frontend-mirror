@@ -174,5 +174,25 @@ describe('steps', () => {
         expect(resolvePos(element, size)).toBe(endPos + DOC_ROOT_OFFSET);
       });
     });
+
+    describe('when the text node is inside text highlight', () => {
+      it('should return the same position as ProseMirror', () => {
+        const testElement = document.createElement('p');
+        testElement.dataset.rendererStartPos = '7';
+        testElement.appendChild(document.createTextNode('Hello '));
+        const textHighlighterContainer = document.createElement('span');
+        textHighlighterContainer.dataset.highlighted = 'true';
+        const textHighlighterText = document.createTextNode('FY20');
+        textHighlighterContainer.appendChild(textHighlighterText);
+        testElement.appendChild(textHighlighterContainer);
+
+        // 7 + 'Hello '.length + 2
+        // 7 + 6 + 2 = 15
+        expect(resolvePos(textHighlighterText, 2)).toBe(15);
+
+        // 7 + 6 + 4 = 17
+        expect(resolvePos(textHighlighterText, 4)).toBe(17);
+      });
+    });
   });
 });

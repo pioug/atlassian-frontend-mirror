@@ -58,7 +58,6 @@
     }
   },
   "scripts": {
-    "ak-postbuild": "ls -d dist/* | grep -v dist/types | xargs -n 1 copyfiles -u 1 -V src/**/*.svg",
     "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-picker run codegen-analytics'"
   },
   "dependencies": {

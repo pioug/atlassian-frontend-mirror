@@ -43,8 +43,8 @@ function isTextNode(node: ChildNode | Node): node is Text {
   return node.nodeType === Node.TEXT_NODE;
 }
 
-function isHighlightTextNode(node: Node) {
-  return !!(node as HTMLElement).dataset?.highlighted;
+function isHighlightTextNode(node: Node | null) {
+  return !!(node as HTMLElement)?.dataset?.highlighted;
 }
 
 function isNodeInlineMark(node: ChildNode | Node) {
@@ -82,7 +82,7 @@ function isRoot(element: HTMLElement | null) {
 }
 
 export function resolvePos(node: Node | null, offset: number) {
-  // If the passed node doesnt exist, we should abort
+  // If the passed node doesn't exist, we should abort
   if (!node) {
     return false;
   }
@@ -103,12 +103,17 @@ export function resolvePos(node: Node | null, offset: number) {
   let current: Node | null = node;
   if (current.parentElement && current.parentElement !== parent) {
     // Find the parent element that is a direct child of the position pointer
-    // the outter most element from our text position.
+    // the outer most element from our text position.
     const preParentPointer = findParentBeforePointer(current.parentElement);
     // If our range is inside an inline node
     // We need to move our pointers to parent element
-    // since we dont want to count text inside inline nodes at all
-    if (!isElementInlineMark(preParentPointer)) {
+    // since we don't want to count text inside inline nodes at all
+    if (
+      !(
+        isElementInlineMark(preParentPointer) ||
+        isHighlightTextNode(preParentPointer)
+      )
+    ) {
       current = current.parentElement;
       offset = 0;
     }

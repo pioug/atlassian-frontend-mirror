@@ -31,9 +31,6 @@ const checkboxStyles = css({
   gridArea: '1 / 1 / 2 / 2',
   opacity: 0,
   outline: 'none',
-  '&:focus': {
-    opacity: 1,
-  },
   '& + svg': {
     /**
      *  Change the variables --checkbox-background-color, --checkbox-border-color

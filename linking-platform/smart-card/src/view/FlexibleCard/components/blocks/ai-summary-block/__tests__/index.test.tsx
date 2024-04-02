@@ -185,7 +185,7 @@ describe('AISummaryBlock', () => {
       expect(provider).not.toBeInTheDocument();
     });
 
-    it('shows error state indicator on error', async () => {
+    it('shows default error state indicator on error', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'loading', content: '' },
         summariseUrl: jest.fn(),
@@ -209,6 +209,40 @@ describe('AISummaryBlock', () => {
       expect(indicatorA).toBeInTheDocument();
     });
 
+    it('shows acceptable use violation error state indicator on acceptable use violation error', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      const { queryByTestId, findByTestId, rerenderTestComponent } =
+        renderAISummaryBlock({
+          testId: testIdBase,
+        });
+
+      const indicator = queryByTestId(`${testIdBase}-error`);
+      expect(indicator).not.toBeInTheDocument();
+
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: {
+          status: 'error',
+          content: '',
+          error: 'ACCEPTABLE_USE_VIOLATIONS',
+        },
+        summariseUrl: jest.fn(),
+      });
+
+      rerenderTestComponent();
+      const indicatorA = queryByTestId(`${testIdBase}-error`);
+      expect(
+        (await findByTestId(`${testIdBase}-error-message`)).textContent,
+      ).toBe(
+        "We cannot show the results of this summary as it goes against Atlassian's Acceptable Use Policy.",
+      );
+
+      expect(indicatorA).toBeInTheDocument();
+    });
+
     it('fires a error viewed event on error', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'loading', content: '' },
@@ -220,7 +254,7 @@ describe('AISummaryBlock', () => {
       });
 
       (useAISummary as jest.Mock).mockReturnValue({
-        state: { status: 'error', content: '' },
+        state: { status: 'error', content: '', error: 'NETWORK_ERROR' },
         summariseUrl: jest.fn(),
       });
 
@@ -232,6 +266,9 @@ describe('AISummaryBlock', () => {
             action: 'viewed',
             actionSubject: 'error',
             actionSubjectId: 'aiSummary',
+            attributes: {
+              reason: 'NETWORK_ERROR',
+            },
           },
         },
         ANALYTICS_CHANNEL,

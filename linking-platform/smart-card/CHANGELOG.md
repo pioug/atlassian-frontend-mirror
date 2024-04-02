@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 26.50.12
+
+### Patch Changes
+
+- [#85502](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85502) [`65a8e82b8b0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/65a8e82b8b0c) - [ux] increasing max lines for error messages on flexible block cards
+- Updated dependencies
+
+## 26.50.11
+
+### Patch Changes
+
+- [#84238](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84238) [`76b053da8795`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76b053da8795) - [ux] Add fade in/out transition to AI prism border
+- [#85227](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85227) [`ceaf5b7ee00b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ceaf5b7ee00b) - [ux] Add new error message to hover card ai summary based on response from api
+
 ## 26.50.10
 
 ### Patch Changes

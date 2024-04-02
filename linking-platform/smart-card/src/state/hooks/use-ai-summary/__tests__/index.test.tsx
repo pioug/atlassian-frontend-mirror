@@ -28,7 +28,17 @@ const successMock = {
 const errorMock = {
   type: 'ERROR',
   message: {
-    message_template: 'ERROR',
+    message_template: 'NETWORK_ERROR',
+    content: 'Error answering prompt',
+    status_code: 500,
+    error: 'The server has encountered trouble with some components',
+  },
+};
+
+const unexpectedErrorMock = {
+  type: 'ERROR',
+  message: {
+    message_template: 'RANDOM-BLAH-1234',
     content: 'Error answering prompt',
     status_code: 500,
     error: 'The server has encountered trouble with some components',
@@ -46,6 +56,11 @@ async function* mockReadStreamError() {
 async function* mockReadStreamErrorMulti() {
   yield successMock;
   yield errorMock;
+}
+
+async function* mockReadStreamErrorUnexpectedMulti() {
+  yield successMock;
+  yield unexpectedErrorMock;
 }
 
 describe('useAISummary', () => {
@@ -94,6 +109,7 @@ describe('useAISummary', () => {
     });
     expect(result.current.state?.status).toBe('error');
     expect(result.current.state?.content).toBe('');
+    expect(result.current.state?.error).toBe('NETWORK_ERROR');
   });
 
   it('sets status on summariseUrl successful response with error message mid stream', async () => {
@@ -108,6 +124,22 @@ describe('useAISummary', () => {
     });
     expect(result.current.state?.status).toBe('error');
     expect(result.current.state?.content).toBe('');
+    expect(result.current.state?.error).toBe('NETWORK_ERROR');
+  });
+
+  it('sets error on error mid stream with an unexpected error message', async () => {
+    const readStreamSpy = jest.spyOn(utils, 'readStream');
+
+    fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
+    readStreamSpy.mockImplementationOnce(mockReadStreamErrorUnexpectedMulti);
+
+    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    await act(async () => {
+      await result.current.summariseUrl();
+    });
+    expect(result.current.state?.status).toBe('error');
+    expect(result.current.state?.content).toBe('');
+    expect(result.current.state?.error).toBe('UNEXPECTED');
   });
 
   it('sends summary success event', async () => {
@@ -174,7 +206,7 @@ describe('useAISummary', () => {
           actionSubject: 'summary',
           action: 'failed',
           attributes: {
-            reason: 'generic',
+            reason: 'UNEXPECTED',
           },
         },
       },

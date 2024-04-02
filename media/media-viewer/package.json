@@ -50,7 +50,7 @@
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-ui": "^25.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/primitives": "^5.1.0",
+    "@atlaskit/primitives": "^5.2.0",
     "@atlaskit/side-navigation": "^3.0.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/textfield": "^6.1.0",

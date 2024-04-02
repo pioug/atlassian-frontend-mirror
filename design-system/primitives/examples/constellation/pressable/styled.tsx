@@ -1,27 +1,124 @@
 import React from 'react';
 
-import { xcss } from '@atlaskit/primitives';
+import { Flex, Grid, type TextColor, xcss } from '@atlaskit/primitives';
+import Box from '@atlaskit/primitives/box';
 import Pressable from '@atlaskit/primitives/pressable';
+import { media } from '@atlaskit/primitives/responsive';
+import Stack from '@atlaskit/primitives/stack';
+import Text from '@atlaskit/primitives/text';
+import { token } from '@atlaskit/tokens';
 
 const pressableStyles = xcss({
-  color: 'color.text.inverse',
+  borderRadius: 'border.radius',
+  borderColor: 'color.border',
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  color: 'color.text',
 
   ':hover': {
-    backgroundColor: 'color.background.discovery.bold.hovered',
+    backgroundColor: 'color.background.neutral.subtle.hovered',
   },
   ':active': {
-    backgroundColor: 'color.background.discovery.bold.pressed',
+    backgroundColor: 'color.background.neutral.subtle.pressed',
   },
 });
 
-export default function PressableStyled() {
+const valueStyles = xcss({
+  font: token('font.heading.xlarge'),
+});
+
+const gridStyles = xcss({
+  [media.above.sm]: {
+    gridTemplateColumns: '1fr 1fr',
+  },
+  [media.above.md]: {
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
+});
+
+const ProjectStatus = ({
+  value,
+  title,
+  subtitle,
+  color,
+}: {
+  value: number;
+  title: string;
+  subtitle: string;
+  color: TextColor;
+}) => {
   return (
     <Pressable
       xcss={pressableStyles}
-      backgroundColor="color.background.discovery.bold"
-      padding="space.100"
+      backgroundColor="color.background.neutral.subtle"
+      padding="space.150"
     >
-      Pressable
+      <Flex as="span" gap="space.150" alignItems="center">
+        <Text color={color}>
+          <Box as="span" xcss={valueStyles}>
+            {value}
+          </Box>
+        </Text>
+        <Stack as="span" space="space.0" alignInline="start">
+          <Text weight="semibold">{title}</Text>
+          <Text size="small" color="color.text.subtlest">
+            {subtitle}
+          </Text>
+        </Stack>
+      </Flex>
     </Pressable>
+  );
+};
+
+export default function PressableStyled() {
+  return (
+    <Stack space="space.150">
+      <Text weight="bold" size="large">
+        You're following 5 active projects, here's the breakdown.
+      </Text>
+      <Grid
+        rowGap="space.100"
+        columnGap="space.100"
+        templateColumns="1fr"
+        xcss={gridStyles}
+      >
+        <ProjectStatus
+          value={2}
+          title="On track"
+          subtitle="-1 from last week"
+          color="color.text.success"
+        />
+        <ProjectStatus
+          value={1}
+          title="At risk"
+          subtitle="+1 from last week"
+          color="color.text.warning"
+        />
+        <ProjectStatus
+          value={0}
+          title="Off track"
+          subtitle="No change"
+          color="color.text.danger"
+        />
+        <ProjectStatus
+          value={2}
+          title="No update"
+          subtitle="+2 from last week"
+          color="color.text.discovery"
+        />
+        <ProjectStatus
+          value={0}
+          title="Cancelled"
+          subtitle="No change"
+          color="color.text.subtle"
+        />
+        <ProjectStatus
+          value={1}
+          title="Completed"
+          subtitle="+1 from last week"
+          color="color.text.information"
+        />
+      </Grid>
+    </Stack>
   );
 }

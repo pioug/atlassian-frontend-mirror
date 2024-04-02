@@ -42,6 +42,12 @@ type FlagGroupProps = {
    * Receives the id of the dismissed Flag as a parameter.
    */
   onDismissed?: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
+  /**
+   * The root element where the flag group should be rendered.
+   * `true` - rendering in the DOM node closest to the trigger. `false` - rendering in React.Portal.
+   * Defaults to `false`.
+   */
+  shouldRenderToParent?: boolean;
 };
 
 const gridSize = getGridSize();
@@ -73,7 +79,7 @@ export function useFlagGroup() {
 const baseStyles = css({
   width: flagWidth,
   position: 'absolute',
-  bottom: 0,
+  insetBlockEnd: 0,
   transition: `transform ${flagAnimationTime}ms ease-in-out`,
   // TODO: Use new breakpoints
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
@@ -112,13 +118,13 @@ const dismissAllowedStyles = css({
 const flagGroupContainerStyles = css({
   position: 'fixed',
   zIndex: 'flag',
-  bottom: token('space.600', '48px'),
-  left: token('space.1000', '80px'),
+  insetBlockEnd: token('space.600', '48px'),
+  insetInlineStart: token('space.1000', '80px'),
   // TODO: Use new breakpoints
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '@media (max-width: 560px)': {
-    bottom: 0,
-    left: 0,
+    insetBlockEnd: 0,
+    insetInlineStart: 0,
   },
 });
 
@@ -135,6 +141,7 @@ const FlagGroup = (props: FlagGroupProps) => {
     id,
     label = 'Flag notifications',
     labelTag: LabelTag = 'h2',
+    shouldRenderToParent = false,
     children,
     onDismissed = noop,
   } = props;
@@ -187,20 +194,22 @@ const FlagGroup = (props: FlagGroupProps) => {
       : false;
   };
 
-  return (
-    <Portal zIndex={layers.flag()}>
-      <div id={id} css={flagGroupContainerStyles}>
-        {hasFlags ? (
-          <VisuallyHidden>
-            <LabelTag>{label}</LabelTag>
-          </VisuallyHidden>
-        ) : null}
+  const flags = (
+    <div id={id} css={flagGroupContainerStyles}>
+      {hasFlags ? (
+        <VisuallyHidden>
+          <LabelTag>{label}</LabelTag>
+        </VisuallyHidden>
+      ) : null}
 
-        <ExitingPersistence appear={false}>
-          {renderChildren()}
-        </ExitingPersistence>
-      </div>
-    </Portal>
+      <ExitingPersistence appear={false}>{renderChildren()}</ExitingPersistence>
+    </div>
+  );
+
+  return shouldRenderToParent ? (
+    flags
+  ) : (
+    <Portal zIndex={layers.flag()}>{flags}</Portal>
   );
 };
 

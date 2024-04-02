@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.2.1
+
+### Patch Changes
+
+- [#85899](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85899) [`4ee3baaad3b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ee3baaad3b7) - Loosen our final autofix check to just ignore all interpolated keys or properties in general for all `no-*-tagged-template-expression` rules as they may result in broken code in some edge-cases.
+
 ## 9.2.0
 
 ### Minor Changes

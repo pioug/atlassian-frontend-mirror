@@ -7,6 +7,7 @@ order: 0
 import Basic from '../../examples/constellation/text/basic';
 import ColorInverse from '../../examples/constellation/text/color-inverse';
 import Weight from '../../examples/constellation/text/weight';
+import Align from '../../examples/constellation/text/align';
 import AsElement from '../../examples/constellation/text/as-element';
 
 ## Basic
@@ -15,19 +16,25 @@ Implements the [Atlassian typography system](/foundations/typography/) as a comp
 
 The `size` prop expresses the visual appearance of the text element.
 
-<Example Component={Basic} pacckageName="@atlaskit/primitives" />
+<Example Component={Basic} packageName="@atlaskit/primitives" />
 
 ## Color
 
 Set `color` to change the text color, defaults to `text.color` if not nested in other Text components. When used within a [box component](/components/primitives/box) that has a bold background color, the text color will automatically be inverted.
 
-<Example Component={ColorInverse} pacckageName="@atlaskit/primitives" />
+<Example Component={ColorInverse} packageName="@atlaskit/primitives" />
 
 ## Weight
 
 Set `weight` to change the font weight.
 
-<Example Component={Weight} pacckageName="@atlaskit/primitives" />
+<Example Component={Weight} packageName="@atlaskit/primitives" />
+
+## Alignment
+
+Set `align` to change the text alignment.
+
+<Example Component={Align} packageName="@atlaskit/primitives" />
 
 ## Rendered HTML tag
 

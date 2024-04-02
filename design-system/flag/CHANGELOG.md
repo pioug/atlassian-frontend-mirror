@@ -1,5 +1,11 @@
 # @atlaskit/flag
 
+## 15.3.0
+
+### Minor Changes
+
+- [#85860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85860) [`6c6d44b0293f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c6d44b0293f) - Add shouldRenderToParent prop on flag group to render directly in the parent so the flags can be acessed in aria-modal components
+
 ## 15.2.27
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import { Stack, Text } from '../src';
 
 const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;
+const alignments = ['start', 'center', 'end'] as const;
 
 export default () => {
   return (
@@ -30,6 +31,18 @@ export default () => {
           {weights.map(weight => (
             <Text key={weight} weight={weight}>
               Text weight: {weight}
+            </Text>
+          ))}
+        </Stack>
+      </section>
+      <section>
+        <Stack space="space.100">
+          <Heading size="medium" as="h3">
+            Alignment
+          </Heading>
+          {alignments.map(alignment => (
+            <Text key={alignment} align={alignment}>
+              Text alignment: {alignment}
             </Text>
           ))}
         </Stack>

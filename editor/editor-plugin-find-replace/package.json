@@ -46,7 +46,7 @@
     "@atlaskit/form": "^9.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^5.1.0",
+    "@atlaskit/primitives": "^5.2.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",

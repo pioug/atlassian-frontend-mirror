@@ -18,18 +18,18 @@ export const flexibleUiOptions: FlexibleUiOptions = {
 };
 
 export const CARD_WIDTH_REM = 24;
-export const NEW_CARD_WIDTH_REM = 28;
+export const NEW_CARD_WIDTH_REM = 25;
 // gap between mouse cursor and hover card
 export const CARD_GAP_PX = 10;
 
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
-export const separatorCss = css`
-  [data-separator] + [data-separator]:before {
-    margin-right: ${elementGap};
-  }
-`;
+export const separatorCss = css({
+  '[data-separator] + [data-separator]:before': {
+    marginRight: elementGap,
+  },
+});
 
 export const HoverCardContainer = css`
   background: none;
@@ -69,23 +69,24 @@ export const titleBlockCss = css`
   }
 `;
 
-export const getTransitionStyles = (snippetHeight: number) => css`
-  transition: height 300ms ease-in-out;
-  height: ${snippetHeight}px;
-`;
+export const getTransitionStyles = (snippetHeight: number) =>
+  css({
+    transition: 'height 300ms ease-in-out',
+    height: `${snippetHeight}px`,
+  });
 
-export const popupContainerStyles = css`
-  border-radius: ${token('border.radius.200', '8px')};
-  background-color: ${token('elevation.surface.raised', 'white')};
-  box-shadow: ${token(
+export const popupContainerStyles = css({
+  borderRadius: token('border.radius.200', '8px'),
+  backgroundColor: token('elevation.surface.raised', 'white'),
+  boxShadow: token(
     'elevation.shadow.overlay',
     '0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
-  )};
-`;
+  ),
+});
 
-export const getPreviewBlockStyles = (previewHeight?: number) => css`
-  ${previewHeight ? `height: ${previewHeight}px;` : ''}
-  border-top-left-radius: ${token('border.radius.200', '8px')};
-  border-top-right-radius: ${token('border.radius.200', '8px')};
-  margin-bottom: ${blockGap};
-`;
+export const getPreviewBlockStyles = (previewHeight?: number) =>
+  css(previewHeight ? `height: ${previewHeight}px;` : '', {
+    borderTopLeftRadius: token('border.radius.200', '8px'),
+    borderTopRightRadius: token('border.radius.200', '8px'),
+    marginBottom: blockGap,
+  });

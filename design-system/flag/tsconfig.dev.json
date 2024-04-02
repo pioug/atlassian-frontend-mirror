@@ -51,6 +51,9 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../drawer/tsconfig.app.json"
+    },
+    {
       "path": "../ds-explorations/tsconfig.app.json"
     },
     {

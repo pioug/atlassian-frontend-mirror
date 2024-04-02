@@ -26,6 +26,7 @@ export type MessageKey =
   | 'ai_summarized_info'
   | 'ai_summarizing'
   | 'ai_summary_error_generic'
+  | 'ai_summary_error_acceptable_use_violation'
   | 'beta'
   | 'cannot_find_link'
   | 'connect_link_account_card'
@@ -167,6 +168,13 @@ export const messages: Messages = defineMessages({
       "Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.",
     description:
       'Shown when AI summary is summarising the link resource content.',
+  },
+  ai_summary_error_acceptable_use_violation: {
+    id: 'fabric.linking.ai_summary_error_acceptable_use_violation',
+    defaultMessage:
+      "We cannot show the results of this summary as it goes against <a>Atlassian's Acceptable Use Policy</a>.",
+    description:
+      'Shown when AI summary is summarising the link resource content and the content violates atlassians acceptable use policy.',
   },
   assigned_to: {
     id: 'fabric.linking.assigned_to',

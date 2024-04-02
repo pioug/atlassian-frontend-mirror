@@ -48,7 +48,7 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
 
   const {
     summariseUrl,
-    state: { content, status },
+    state: { content, status, error },
   } = useAISummary({ url });
 
   const showAISummary =
@@ -148,11 +148,10 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
           />
         </Box>
       </Inline>
-      {/* <AIStateIndicator state={'error'} testId={testId} /> */}
       {showAISummaryErrorMessage && (
         <Inline grow="fill">
-          <AIEventErrorViewed />
-          <AIStateIndicator state={status} testId={testId} />
+          <AIEventErrorViewed reason={error} />
+          <AIStateIndicator error={error} state={status} testId={testId} />
         </Inline>
       )}
     </Block>

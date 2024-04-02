@@ -26,6 +26,9 @@ import {
   RendererInlineCardNotFound,
   RendererInlineCardResolving,
   RendererInlineCardUnauthorized,
+  RendererBlockCardFullWidthLayout,
+  RendererBlockCardDefaultWidthLayout,
+  RendererBlockCardWideWidthLayout,
 } from './card.fixtures';
 
 // TODO: UTEST-1409
@@ -159,6 +162,27 @@ snapshotInformational(RendererEmbedCardUnauthorized, {
   prepare: async (page) => {
     await page
       .getByTestId('embed-card-unauthorized-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardFullWidthLayout, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('renderer-datasource-table')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardDefaultWidthLayout, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('renderer-datasource-table')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardWideWidthLayout, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('renderer-datasource-table')
       .waitFor({ state: 'visible' });
   },
 });

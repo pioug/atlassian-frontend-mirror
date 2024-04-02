@@ -34,6 +34,7 @@ const FlexibleErroredView = ({
         testId={`${testId}-warning-icon`}
       />
       <Text
+        maxLines={3}
         message={{
           descriptor: messages.could_not_load_link,
         }}

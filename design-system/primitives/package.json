@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "5.1.2",
+  "version": "5.2.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -103,7 +103,7 @@
           "slug": "primitives/pressable",
           "id": "@atlaskit/primitives/pressable",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         },
         {

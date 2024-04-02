@@ -14,7 +14,7 @@ export type TextProps = ElementProps & {
   content?: string;
 
   /**
-   * The maximum number of lines the text should span over. Maximum is 2.
+   * The maximum number of lines the text should span over. Maximum is 2 unless its an error message.
    */
   maxLines?: number;
 };

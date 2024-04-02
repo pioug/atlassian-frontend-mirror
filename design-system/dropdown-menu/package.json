@@ -34,7 +34,7 @@
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
     "@atlaskit/popup": "^1.14.0",
-    "@atlaskit/primitives": "^5.1.0",
+    "@atlaskit/primitives": "^5.2.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.42.0",

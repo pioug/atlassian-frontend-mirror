@@ -5,9 +5,16 @@ order: 0
 ---
 
 import FlagGroup from '../../examples/constellation/flag-group';
+import FlagGroupInDrawer from '../../examples/constellation/flag-group-in-drawer';
 
 ## Default
 
 Use `FlagGroup` to group a set of related flags, with entry and exit animation.
 
 <Example Component={FlagGroup} packageName="@atlaskit/flag" />
+
+## Using in modal components
+
+By default, the flag group is rendered inside `React.Portal`. Use `shouldRenderToParent` prop to render the group in its direct parent instead of `React.Portal`.
+
+<Example Component={FlagGroupInDrawer} packageName="@atlaskit/flag" />

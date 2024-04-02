@@ -1,13 +1,15 @@
 import uuid from 'uuid';
-import type {
-  AISummaryServiceConfig,
-  AISummaryServiceProps,
-  AISummaryServiceInt,
-  AISummaryState,
-  StreamMessage,
-  StateSetter,
-  PostAgentPayload,
-  SummaryStyle,
+import {
+  type AISummaryServiceConfig,
+  type AISummaryServiceProps,
+  type AISummaryServiceInt,
+  type AISummaryState,
+  type StreamMessage,
+  type StateSetter,
+  type PostAgentPayload,
+  type SummaryStyle,
+  errorMessages,
+  ErrorMessage,
 } from './types';
 import { readStream, addPath } from './utils';
 
@@ -120,14 +122,22 @@ export class AISummaryService implements AISummaryServiceInt {
         content: bufferContent,
       };
     } catch (err) {
-      this.onError?.(id, 'generic');
+      let message =
+        err instanceof Error && this.isExpectedError(err.message)
+          ? err.message
+          : 'UNEXPECTED';
 
-      this.state = { status: 'error', content: '' };
+      this.onError?.(id, message);
+      this.state = { status: 'error', content: '', error: message };
     }
 
     for (const subscriber of this.subscribedStateSetters) {
       subscriber(this.state);
     }
+  }
+
+  private isExpectedError(value: unknown): value is ErrorMessage {
+    return typeof value === 'string' && errorMessages.some((a) => a === value);
   }
 
   public subscribe(stateSetter: StateSetter) {

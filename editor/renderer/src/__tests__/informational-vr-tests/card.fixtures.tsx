@@ -72,6 +72,21 @@ const buildBlockCardAdf = (url: string) => ({
   ],
 });
 
+const buildBlockCardWithAttributesAdf = (
+  attributes: Record<string, unknown>,
+) => ({
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'blockCard',
+      attrs: {
+        ...attributes,
+      },
+    },
+  ],
+});
+
 const buildInlineCardAdf = (url: string) => ({
   version: 1,
   type: 'doc',
@@ -93,6 +108,37 @@ const buildInlineCardAdf = (url: string) => ({
     },
   ],
 });
+
+const buildRendererExampleAttributes = (width: string) => {
+  const attrs = {
+    url: 'https://a4t-moro.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
+    datasource: {
+      id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+      parameters: {
+        cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
+        jql: 'project=EDM',
+      },
+      views: [
+        {
+          type: 'table',
+          properties: {
+            columns: [
+              {
+                key: 'key',
+              },
+              {
+                key: 'description',
+              },
+            ],
+          },
+        },
+      ],
+    },
+    layout: width,
+  };
+
+  return attrs;
+};
 
 const Comp = ({ adf, client }: { adf: unknown; client: CardClient }) => {
   return (
@@ -410,3 +456,36 @@ export const RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth =
       />
     );
   };
+
+export const RendererBlockCardFullWidthLayout = () => {
+  return (
+    <Comp
+      adf={buildBlockCardWithAttributesAdf(
+        buildRendererExampleAttributes('full-width'),
+      )}
+      client={new ResolvingClient(1000000)}
+    />
+  );
+};
+
+export const RendererBlockCardDefaultWidthLayout = () => {
+  return (
+    <Comp
+      adf={buildBlockCardWithAttributesAdf(
+        buildRendererExampleAttributes('center'),
+      )}
+      client={new ResolvingClient(1000000)}
+    />
+  );
+};
+
+export const RendererBlockCardWideWidthLayout = () => {
+  return (
+    <Comp
+      adf={buildBlockCardWithAttributesAdf(
+        buildRendererExampleAttributes('wide'),
+      )}
+      client={new ResolvingClient(1000000)}
+    />
+  );
+};

@@ -46,7 +46,7 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^5.1.0",
+    "@atlaskit/primitives": "^5.2.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/toggle": "^13.0.0",
     "@atlaskit/tokens": "^1.42.0",

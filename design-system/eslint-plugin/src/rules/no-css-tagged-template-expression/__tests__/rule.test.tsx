@@ -628,6 +628,19 @@ const createInvalidTestCasesForImport = (importName: string) => [
       `,
     errors: ['Unexpected `css` tagged template expression'],
   },
+  {
+    filename: 'invalid-interpolated-property.tsx',
+    code: `
+      import { css } from '@emotion/react';
+      export const InsertMarker = (cssString?: string) => css\`
+        .\${ClassName.CONTROLS_INSERT_MARKER} {
+          \${Marker()};
+          \${cssString}
+        }
+      \`;
+    `,
+    errors: ['Unexpected `css` tagged template expression'],
+  },
 ];
 
 tester.run('no-css-tagged-template-expression', rule, {

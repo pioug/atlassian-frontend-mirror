@@ -38,7 +38,9 @@ export type ButtonClickedAiSummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
   fromCache: boolean | null;
 };
-export type ErrorViewedAiSummaryAttributesType = {};
+export type ErrorViewedAiSummaryAttributesType = {
+  reason?: string;
+};
 export type SummarySuccessAttributesType = {};
 export type SummaryFailedAttributesType = {
   reason: string | null;

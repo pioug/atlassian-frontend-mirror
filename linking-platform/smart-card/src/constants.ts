@@ -10,6 +10,9 @@ export const CONTENT_URL_AI =
 export const CONTENT_URL_AI_TROUBLESHOOTING =
   'https://support.atlassian.com/organization-administration/docs/troubleshooting-for-atlassian-intelligence/';
 
+export const CONTENT_URL_ACCEPTABLE_USE_POLICY =
+  'https://www.atlassian.com/legal/acceptable-use-policy';
+
 /**
  * The alignment of Flexible UI component.
  */

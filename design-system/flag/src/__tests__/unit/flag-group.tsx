@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 
 import Flag from '../../index';
 import { FlagProps } from '../../types';
@@ -25,7 +25,7 @@ describe('FlagGroup', () => {
   });
 
   it('should render Flag children in the correct place', () => {
-    const { getByTestId, queryByTestId } = render(
+    render(
       <FlagGroup>
         {generateFlag({ testId: '0' })}
         {generateFlag({ testId: '1' })}
@@ -33,10 +33,10 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    expect(queryByTestId('0')).toBeTruthy();
+    expect(screen.getByTestId('0')).toBeInTheDocument();
 
-    const flag1Container = getByTestId('1').parentElement;
-    const flag2Container = getByTestId('2').parentElement;
+    const flag1Container = screen.getByTestId('1').parentElement;
+    const flag2Container = screen.getByTestId('2').parentElement;
     if (flag1Container === null || flag2Container === null) {
       throw Error('Flag 1 and 1 missing container');
     }
@@ -52,6 +52,22 @@ describe('FlagGroup', () => {
     );
   });
 
+  it('should render FlagGroup in direct parent when shouldRenderToParent is true', () => {
+    render(
+      <Box role="dialog" aria-modal>
+        <FlagGroup shouldRenderToParent>
+          {generateFlag({ testId: '0' })}
+          {generateFlag({ testId: '1' })}
+          {generateFlag({ testId: '2' })}
+        </FlagGroup>
+      </Box>,
+    );
+
+    const dialog = screen.getByRole('dialog');
+    const flags = screen.getAllByRole('alert');
+    expect(within(dialog).getAllByRole('alert')).toHaveLength(flags.length);
+  });
+
   it('should allow falsy children', () => {
     expect(() => {
       render(<FlagGroup>{null}</FlagGroup>);
@@ -62,7 +78,7 @@ describe('FlagGroup', () => {
 
   it('should move Flag children up when dismissed', () => {
     const spy = jest.fn();
-    const { getByTestId, queryByTestId, rerender } = render(
+    const { rerender } = render(
       <FlagGroup onDismissed={spy}>
         {generateFlag({ testId: '0', id: '0' })}
         {generateFlag({ testId: '1', id: '2' })}
@@ -80,10 +96,10 @@ describe('FlagGroup', () => {
     act(() => {
       jest.runAllTimers();
     });
-    expect(queryByTestId('0')).toBeNull();
+    expect(screen.queryByTestId('0')).not.toBeInTheDocument();
 
-    const flag1Container = getByTestId('1').parentElement;
-    const flag2Container = getByTestId('2').parentElement;
+    const flag1Container = screen.getByTestId('1').parentElement;
+    const flag2Container = screen.getByTestId('2').parentElement;
     if (flag1Container === null || flag2Container === null) {
       throw Error('Flag 1 or 2 missing container');
     }
@@ -100,7 +116,7 @@ describe('FlagGroup', () => {
 
   it('should move Flag children down when new flag is added', () => {
     const spy = jest.fn();
-    const { getByTestId, rerender } = render(
+    const { rerender } = render(
       <FlagGroup onDismissed={spy}>
         {generateFlag({ testId: '1', id: '1' })}
         {generateFlag({ testId: '2', id: '2' })}
@@ -119,9 +135,9 @@ describe('FlagGroup', () => {
       jest.runAllTimers();
     });
 
-    const flag0Container = getByTestId('0').parentElement;
-    const flag1Container = getByTestId('1').parentElement;
-    const flag2Container = getByTestId('2').parentElement;
+    const flag0Container = screen.getByTestId('0').parentElement;
+    const flag1Container = screen.getByTestId('1').parentElement;
+    const flag2Container = screen.getByTestId('2').parentElement;
     if (
       flag0Container === null ||
       flag1Container === null ||
@@ -146,7 +162,7 @@ describe('FlagGroup', () => {
 
   it('onDismissed provided by FlagGroup should be called when child Flag is dismissed', () => {
     const spy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <FlagGroup onDismissed={spy}>
         {generateFlag({
           id: 'a',
@@ -156,7 +172,7 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    fireEvent.click(getByTestId('a-dismiss'));
+    fireEvent.click(screen.getByTestId('a-dismiss'));
     act(() => {
       jest.runAllTimers();
     });
@@ -167,7 +183,7 @@ describe('FlagGroup', () => {
 
   it('onDismissed provided by Flag should be called when child Flag is dismissed', () => {
     const spy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <FlagGroup>
         {generateFlag({
           id: 'a',
@@ -178,7 +194,7 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    fireEvent.click(getByTestId('a-dismiss'));
+    fireEvent.click(screen.getByTestId('a-dismiss'));
     act(() => {
       jest.runAllTimers();
     });
@@ -190,7 +206,7 @@ describe('FlagGroup', () => {
   it('onDismissed provided by Flag and FlagGroup should be called when child Flag is dismissed', () => {
     const flagGroupSpy = jest.fn();
     const flagSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <FlagGroup onDismissed={flagGroupSpy}>
         {generateFlag({
           id: 'a',
@@ -201,7 +217,7 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    fireEvent.click(getByTestId('a-dismiss'));
+    fireEvent.click(screen.getByTestId('a-dismiss'));
     act(() => {
       jest.runAllTimers();
     });
@@ -216,7 +232,7 @@ describe('FlagGroup', () => {
   it('should call onDismissed of the first flag and not the second when the first is dismissed', () => {
     const flagASpy = jest.fn();
     const flagBSpy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <FlagGroup>
         {generateFlag({
           id: 'a',
@@ -227,7 +243,7 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    fireEvent.click(getByTestId('a-dismiss'));
+    fireEvent.click(screen.getByTestId('a-dismiss'));
     act(() => {
       jest.runAllTimers();
     });
@@ -240,7 +256,7 @@ describe('FlagGroup', () => {
 
   it('onDismissed provided by Flag should be called when child Flag wrapped within another component and dismissed', () => {
     const spy = jest.fn();
-    const { getByTestId } = render(
+    render(
       <FlagGroup>
         <Box>
           {generateFlag({
@@ -253,7 +269,7 @@ describe('FlagGroup', () => {
       </FlagGroup>,
     );
 
-    fireEvent.click(getByTestId('a-dismiss'));
+    fireEvent.click(screen.getByTestId('a-dismiss'));
     act(() => {
       jest.runAllTimers();
     });
@@ -263,22 +279,22 @@ describe('FlagGroup', () => {
   });
 
   it('should render screen reader text only when FlagGroup has children', () => {
-    const { queryByText } = render(<FlagGroup>{generateFlag()}</FlagGroup>);
-    expect(queryByText('Flag notifications')).toBeTruthy();
+    render(<FlagGroup>{generateFlag()}</FlagGroup>);
+    expect(screen.getByText('Flag notifications')).toBeInTheDocument();
   });
 
   it("should not render screen reader text when FlagGroup doesn't have children", () => {
-    const { queryByText } = render(<FlagGroup></FlagGroup>);
-    expect(queryByText('Flag notifications')).toBeFalsy();
+    render(<FlagGroup></FlagGroup>);
+    expect(screen.queryByText('Flag notifications')).not.toBeInTheDocument();
   });
 
   it('should render custom screen reader text and tag from props', () => {
-    const { getByText } = render(
+    render(
       <FlagGroup label="notifs" labelTag="h3">
         {generateFlag()}
       </FlagGroup>,
     );
-    const screenReaderText = getByText('notifs');
+    const screenReaderText = screen.getByText('notifs');
     expect(screenReaderText.nodeName).toBe('H3');
   });
 

@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.12.4
+
+### Patch Changes
+
+- [#85294](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85294) [`be63992e342e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be63992e342e) - Fixes bug regarding datasources not expanding to full width in renderer
+
 ## 109.12.3
 
 ### Patch Changes

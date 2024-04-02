@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 5.2.0
+
+### Minor Changes
+
+- [#86279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86279) [`0988fda99a0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0988fda99a0d) - Renaming text alignment prop for Text component from `textAlign` to `align`
+
 ## 5.1.2
 
 ### Patch Changes

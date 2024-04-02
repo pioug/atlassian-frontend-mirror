@@ -30,11 +30,9 @@ import {
 const datasourceContainerStyle = css({
   borderRadius: `${token('border.radius.200', '8px')}`,
   border: `1px solid ${token('color.border', N40)}`,
-});
-
-const parentContainerStyle = css({
-  display: 'flex',
-  justifyContent: 'center',
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+  marginLeft: '50%',
+  transform: 'translateX(-50%)',
 });
 
 export default function BlockCard(props: {
@@ -126,29 +124,27 @@ export default function BlockCard(props: {
           >
             <WidthConsumer>
               {({ width }) => (
-                <div css={parentContainerStyle}>
-                  <div
-                    css={datasourceContainerStyle}
-                    data-testid="renderer-datasource-table"
-                    style={{
-                      width: isNodeNested
-                        ? '100%'
-                        : calcBreakoutWidth(layout, width),
-                    }}
-                  >
-                    <DatasourceTableView
-                      datasourceId={datasource.id}
-                      parameters={datasource.parameters}
-                      visibleColumnKeys={visibleColumnKeys}
-                      columnCustomSizes={columnCustomSizes}
-                      wrappedColumnKeys={
-                        wrappedColumnKeys && wrappedColumnKeys.length > 0
-                          ? wrappedColumnKeys
-                          : undefined
-                      }
-                      url={url}
-                    />
-                  </div>
+                <div
+                  css={datasourceContainerStyle}
+                  data-testid="renderer-datasource-table"
+                  style={{
+                    width: isNodeNested
+                      ? '100%'
+                      : calcBreakoutWidth(layout, width),
+                  }}
+                >
+                  <DatasourceTableView
+                    datasourceId={datasource.id}
+                    parameters={datasource.parameters}
+                    visibleColumnKeys={visibleColumnKeys}
+                    columnCustomSizes={columnCustomSizes}
+                    wrappedColumnKeys={
+                      wrappedColumnKeys && wrappedColumnKeys.length > 0
+                        ? wrappedColumnKeys
+                        : undefined
+                    }
+                    url={url}
+                  />
                 </div>
               )}
             </WidthConsumer>

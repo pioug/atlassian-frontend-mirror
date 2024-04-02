@@ -5,7 +5,9 @@ order: 0
 ---
 
 import PressableDefault from '../../examples/constellation/pressable/default';
+import PressableBasic from '../../examples/constellation/pressable/basic';
 import PressableStyled from '../../examples/constellation/pressable/styled';
+import PressableDisabled from '../../examples/constellation/pressable/disabled';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 import SectionMessage from '@atlaskit/section-message';
@@ -18,22 +20,45 @@ import SectionMessage from '@atlaskit/section-message';
 
 Pressable is a primitive used for building custom buttons with Atlassian Design System styling. This component is used by other design system components, such as the [Button component](/components/button/examples).
 
-For most buttons, use the [Button component](/components/button/examples) wherever possible, and use [XCSS](/components/primitives/xcss/usage) for any necessary customization. Only use pressable if you aren't able to use the button component.
+Only use Pressable when [the Button component](/components/button/examples) is unsuitable and unable to be customized with [XCSS](/components/primitives/xcss/usage).
 
 ## Default
 
-Pressable comes unstyled, ready for styles to be applied.
+Pressable is unstyled by default.
 
 <Example
   Component={PressableDefault}
   packageName="@atlaskit/primitives/pressable"
 />
 
-## Styling
+## Basic styling with XCSS
 
-Pressable consumes the Box primitive to provide a consistent styling API that supports design tokens. See [Box](/components/primitives/box/examples) for complete styling documentation and examples.
+Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover` and `:active` pseudo-classes.
+
+By default, pressable includes consistent Atlassian Design System `:focus` styles so it's not necessary to add your own.
+
+For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
+
+<Example
+  Component={PressableBasic}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+## Disabled
+
+Pressable can be disabled using the `isDisabled` prop. Disabled styles should be conditionally applied and defined using XCSS.
+
+<Example
+  Component={PressableDisabled}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+## Advanced styling
+
+Advanced styling can be achieved using a combination of XCSS and other primitives.
 
 <Example
   Component={PressableStyled}
   packageName="@atlaskit/primitives/pressable"
+  backgroundColor="white"
 />

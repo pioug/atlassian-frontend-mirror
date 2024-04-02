@@ -13,6 +13,11 @@ import {
   FooterBlockOptions,
 } from '../utils';
 import { UnresolvedViewProps } from './types';
+import { css } from '@emotion/react';
+
+const customBlockStyles = css({
+  alignItems: 'flex-start',
+});
 
 const UnresolvedView = ({
   actions,
@@ -37,7 +42,7 @@ const UnresolvedView = ({
     url={url}
   >
     <TitleBlock {...titleBlockOptions} hideIcon={!!title} text={title} />
-    <CustomBlock>{children}</CustomBlock>
+    <CustomBlock overrideCss={customBlockStyles}>{children}</CustomBlock>
     {showPreview && <PreviewBlock {...PreviewBlockOptions} />}
     <InternalFooterBlock
       {...FooterBlockOptions}

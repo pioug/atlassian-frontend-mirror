@@ -44,9 +44,24 @@ export type AgentInput = {
 
 export type SummaryStyle = 'short' | 'medium' | 'long';
 
+export const errorMessages = [
+  'NETWORK_ERROR',
+  'NO_ANSWER',
+  'RATE_LIMIT',
+  'NO_AGENT',
+  'PLUGIN_ERRORED',
+  'OPENAI_RATE_LIMIT_USER_ABUSE',
+  'ACCEPTABLE_USE_VIOLATIONS',
+  'AI_DISABLED',
+  'UNEXPECTED',
+] as const;
+
+export type ErrorMessage = (typeof errorMessages)[number];
+
 export type AISummaryState = {
   content: string;
   status: AISummaryStatus;
+  error?: ErrorMessage;
 };
 
 export type StateSetter = (state: AISummaryState) => any;
@@ -73,7 +88,7 @@ export type StreamError = {
   message: {
     content: string;
     status_code?: number;
-    message_template?: string;
+    message_template?: ErrorMessage;
   };
   millisOffset: number;
   metadata: null | {

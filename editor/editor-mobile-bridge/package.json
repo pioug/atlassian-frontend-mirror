@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-mobile-bridge",
-  "version": "193.7.7",
+  "version": "193.7.10",
   "description": "Mobile distribution of the Editor",
   "keywords": [
     "editor",
@@ -73,8 +73,8 @@
     "@atlaskit/media-client": "^26.2.0",
     "@atlaskit/media-picker": "^66.4.0",
     "@atlaskit/mention": "23.0.2",
-    "@atlaskit/renderer": "109.12.3",
-    "@atlaskit/smart-card": "26.50.10",
+    "@atlaskit/renderer": "109.12.4",
+    "@atlaskit/smart-card": "26.50.12",
     "@atlaskit/status": "1.4.9",
     "@atlaskit/task-decision": "17.9.11",
     "@atlaskit/theme": "12.7.0",

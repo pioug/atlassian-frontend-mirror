@@ -4,20 +4,97 @@ description: A pressable is a primitive used for building custom buttons.
 order: 2
 ---
 
-## When not to use pressable
+import pressablePrimaryDo from './images/pressable-01a-do.png';
+import pressablePrimaryDont from './images/pressable-01b-dont.png';
 
-The [Button component](/components/button/usage) should be used whenever possible for buttons to maintain visual consistency. Only use pressable when building custom buttons beyond the capabilities of the button component. The decision to use pressable should involve checking if the button component can be customized to fit your needs using [XCSS](/components/primitives/XCSS/usage).
+Pressable is a button with consistent focus styles and analytics built in. Pressable works with design tokens to make it easy to compose Atlassian-styled clickable elements that aren't possible using existing [buttons](/components/button/examples), [menus](/components/menu/examples), or other existing design system components.
 
-Do not use Pressable for links (anchor tags). Use the equivalent [Anchor primitive](/components/primitives/anchor/usage) instead.
+![Pressable anatomy](./images/pressable-anatomy.png)
 
-## Styling
+1. **Pressable area:** For accessibility this should be a minimum of 24 by 24 pixels, unless exempt from [Target Size (Minimum) (Level AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
+2. **Focus ring**: This is included in pressable and appears on keyboard focus.
+3. **Accessible label:** Pressable should always include a clear label for accessibility. Use this to communicate the action that occurs when the button is pressed.
 
-Display behavior follows the same patterns as [Box](/components/primitives/box/usage). Use available props or [XCSS](/components/primitives/xcss/usage) to customize padding options, background color, and other styles.
+## Use pressable when there aren't existing components that work for your experience
+
+Only use pressable when existing components such as [the button component](/components/button/examples), menus, or other existing design system components can't be customized to fit your case. Using existing components with safe customizations will prevent inconsistency as Atlassian UI evolves.
+
+<DoDont
+  type="do"
+  image={{
+    url: pressablePrimaryDo,
+    alt: "A set of custom buttons built with pressable that aren't possible using existing design system components",
+  }}
+>
+  Use pressable to create buttons when there isn't an existing design system
+  component to achieve your use case.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: pressablePrimaryDont,
+    alt: 'A custom button build with Pressable that looks similar to Button, an existing design system component',
+  }}
+>
+  Don't use pressable in place of an element that already has a design system
+  representation, such as{' '}
+  <a href="/components/button/examples">the button component</a>. This can cause
+  visual and behavioral inconsistencies in Atlassian products.
+</DoDont>
+
+## Accessibility
+
+### Use clear labels for assistive technology
+
+Pressable should always announce what action will happen once pressed.
+
+![Pressable labels](./images/pressable-labels.png)
+
+#### When no visible label is present
+
+- Ensure an accessible label is still available by using [the visually hidden component](/components/visually-hidden/examples) which will render hidden text inside the button. This is preferable over the `aria-label` attribute because not all screen readers translate this between languages.
+- Use [a tooltip](/components/tooltip/examples) to provide sighted users with the same information.
+
+### Focus ring behavior
+
+Pressable creates buttons that are available in focus order, and provides a visual ring to clarify what is in focus. Adding additional focus styles is unnecessary.
+
+### Avoid disabling buttons
+
+Disabled buttons can cause accessibility problems. Avoid disabling buttons and [follow our disabled and tooltip button guidance](/components/button/button-new/usage#avoid-disabling-buttons).
+
+## Best practices
+
+### Make it clear what can be pressed
+
+Custom buttons should be obviously interactable. Make sure they are clearly identifiable through styles, surrounding context, labels, or other cues.
+
+### Don't use pressable for navigation
+
+Pressable is meant for on-page actions such as opening modals, or submitting forms. If you're making something that navigates to a new page, use a component that renders a semantically correct HTML `<a>` element such as:
+
+- The [link](/components/primitives/link/examples) component (coming soon) for standard text links.
+- The [anchor](/components/primitives/anchor/examples) primitive (coming soon) to create custom links.
+
+## Content guidelines
+
+### Use sentence case capitalization
+
+Use sentence case capitalization, only capitalizing the first letter of the label and any proper nouns. Other forms of capitalization should be only applied through styling with `text-transform`.
+
+### Make it clear what pressing the button does
+
+Make sure labels are concise, active, and clear about what pressing the button does.
+
+For example, _Change issue color to yellow_ instead of _yellow_.
+
+### Follow other label and UI content guidance
+
+Follow label and content guidelines for [buttons](/components/button/button-new/usage#content-guidelines). Review our [general UI text guidance](/foundations/accessibility/#meaningful-text) for specific question.
 
 ## Related
 
-- [The underlying box component](/components/primitives/box/usage)
-- [Counterpart anchor primitive for anchor tags](/components/primitives/anchor/usage)
-- [Manage horizontal layout using an inline component](/components/primitives/inline/usage)
-- [Manage vertical layout using a stack component](/components/primitives/stack/usage)
-- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)
+- Use [existing buttons](/components/button/examples) or [menus](/components/button/examples) for most actions in Atlassian products.
+- If you must create a custom component, consider using an existing component with [XCSS](/components/primitives/xcss) (coming soon).
+- Pressable is built on the same API as [box](/components/primitives/box/usage). Use available props or [XCSS](/components/primitives/xcss/usage) to customize padding options, background color, and other styles.

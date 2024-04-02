@@ -102,7 +102,7 @@ const FlexibleForbiddenView = ({
         testId={`${testId}-lock-icon`}
       />
       <Text
-        maxLines={2}
+        maxLines={3}
         message={{
           descriptor: toMessage(
             messages.invalid_permissions_description,

@@ -11,10 +11,13 @@ const AIStateIndicator: React.FC<AIStateIndicatorProps> = ({
   state,
   appearance = 'default',
   testId = 'ai-state-indicator',
+  error,
 }) => {
   switch (state) {
     case 'error':
-      return <AIStateError appearance={appearance} testId={testId} />;
+      return (
+        <AIStateError appearance={appearance} testId={testId} error={error} />
+      );
     case 'loading':
       return <AIStateLoading appearance={appearance} testId={testId} />;
     case 'done':

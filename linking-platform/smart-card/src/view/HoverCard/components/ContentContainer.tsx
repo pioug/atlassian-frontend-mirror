@@ -37,7 +37,7 @@ const ConnectedAIPrismContainer = ({
       className={hoverCardClassName}
       css={[
         HoverCardContainer,
-        isAIEnabled && showPrism ? undefined : popupContainerStyles,
+        !isAIEnabled ? popupContainerStyles : undefined,
       ]}
       data-testid={testId}
       {...props}

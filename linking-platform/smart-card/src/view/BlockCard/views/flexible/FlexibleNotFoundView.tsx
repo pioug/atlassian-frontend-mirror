@@ -55,7 +55,7 @@ const FlexibleNotFoundView = ({
         primaryColor={token('color.icon.danger', R300)}
         testId={`${testId}-lock-icon`}
       />
-      <Text message={description} testId={`${testId}-message`} />
+      <Text message={description} testId={`${testId}-message`} maxLines={3} />
     </UnresolvedView>
   );
 };

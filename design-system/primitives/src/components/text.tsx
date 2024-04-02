@@ -54,9 +54,13 @@ type TextPropsBase<T extends ElementType = 'span'> = {
    */
   maxLines?: number;
   /**
-   * The [HTML `text-align` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
+   * @deprecated The [HTML `text-align` attribute](https://developer.mozilla.org/en-US/docs/Web/CSS/text-align).
    */
   textAlign?: TextAlign;
+  /**
+   * Text alignment.
+   */
+  align?: TextAlign;
   /**
    * Text size.
    */
@@ -152,6 +156,7 @@ const Text = forwardRef(
       as: Component = 'span',
       color: colorProp,
       textAlign,
+      align = textAlign,
       testId,
       id,
       size = 'medium',
@@ -178,7 +183,7 @@ const Text = forwardRef(
           color && textColorStylesMap[color],
           maxLines && truncationStyles,
           maxLines === 1 && wordBreakMap.breakAll,
-          textAlign && textAlignMap[textAlign],
+          align && textAlignMap[align],
           weight && fontWeightStylesMap[weight],
           Component === 'em' && emStyles,
           Component === 'strong' && strongStyles,

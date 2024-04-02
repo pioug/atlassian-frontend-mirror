@@ -111,14 +111,14 @@ export const createNoTaggedTemplateExpressionRule =
               return;
             }
 
-            // For styled-components, we might also want to similarly disallow or autofix `styled.div({ color: props => props.color })` as it's broken too (both type and functionality). This is tracked in https://product-fabric.atlassian.net/browse/USS-26.
-            if (/\$\{.*:[\s]*\{/.test(newCode)) {
+            if (/\$\{.*:/.test(newCode)) {
               /**
-               * If we find a variable in a selector, we skip it. There are two reasons:
-               *
+               * If we find a variable in a property at all, we skip it. There are two reasons:
                * - `styled-components@3.x` does not support variables in a selector (see the first example).
+               * - We cannot guarantee that the contents of a mixin will ever be valid as a property or selector (which in tagged template expressions don't have to even be called).
+               * - It's not uncommon we just get this parsing wrong altogether…
                *
-               * - We cannot guarantee that the contents of an function call is actually a selector, and not a CSS block (see the third example).
+               * // TODO: In this case, we _might_ want to convert this into a suggestion to support manual remediation, some of those code isn't bad, or it can be manually made safe…
                *
                * @examples
                * ```tsx
@@ -130,6 +130,7 @@ export const createNoTaggedTemplateExpressionRule =
                * ```tsx
                * const Component = styled.div`
                *   ${mixin()} button { color: red; }
+               *   ${mixin} button { color: red; }
                * `;
                * ```
                *

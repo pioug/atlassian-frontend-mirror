@@ -3,7 +3,7 @@ import { AISummariesStore } from './ai-summary-service/store';
 import { AISummaryService } from './ai-summary-service';
 import type {
   AISummaryServiceProps,
-  AISummaryStatus,
+  AISummaryState,
 } from './ai-summary-service/types';
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import {
@@ -16,10 +16,9 @@ const EXPERIENCE_NAME = 'smart-link-ai-summary';
 
 export const useAISummary = (props: AISummaryServiceProps) => {
   const { url, baseUrl, headers, product } = props;
-  const [state, setState] = useState<{
-    status: AISummaryStatus;
-    content: string;
-  }>(AISummariesStore.get(url)?.state || { status: 'ready', content: '' });
+  const [state, setState] = useState<AISummaryState>(
+    AISummariesStore.get(url)?.state || { status: 'ready', content: '' },
+  );
   const { fireEvent } = useAnalyticsEvents();
 
   const onStart = useCallback((id: string) => {

@@ -85,8 +85,10 @@ const TitleContainer = (
     padding-bottom: ${paddingBottom};
   `;
 
+  const { expanded, ...buttonProps } = props;
+
   return (
-    <button type="button" css={styles} {...props}>
+    <button type="button" css={styles} {...buttonProps}>
       {props.children}
     </button>
   );
@@ -171,6 +173,7 @@ function Expand({
 
   return (
     <Container
+      data-testid={`expand-container-${nodeType}-${id}`}
       data-node-type={nodeType}
       data-title={title}
       data-expanded={expanded}

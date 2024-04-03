@@ -1,4 +1,5 @@
 // #region Constants
+import type { IntlShape } from 'react-intl-next/src/types';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -21,7 +22,11 @@ const TAB_FORWARD_DIRECTION = 1;
 const TAB_BACKWARD_DIRECTION = -1;
 
 export const goToNextCell =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    ariaNotify?: (message: string) => void,
+    getIntl?: () => IntlShape,
+  ) =>
   (direction: Direction): Command =>
   (state, dispatch, view) => {
     const table = findTable(state.selection);
@@ -32,7 +37,10 @@ export const goToNextCell =
     if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
       const isColumnResizing = getPluginState(state)?.isKeyboardResize;
       if (isColumnResizing) {
-        stopKeyboardColumnResizing()(state, dispatch, view);
+        stopKeyboardColumnResizing({
+          ariaNotify: ariaNotify,
+          getIntl: getIntl,
+        })(state, dispatch, view);
         return true;
       }
     }

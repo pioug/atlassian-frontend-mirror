@@ -7,6 +7,7 @@ import {
   MenuListComponentProps,
   OptionType,
 } from '@atlaskit/select';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { columnPickerMessages } from './messages';
@@ -15,10 +16,7 @@ export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
 
 const messageStyles = css({
   color: token('color.text.subtle', '#44546F'),
-  font: token(
-    'font.body.small',
-    'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body.small', fontFallback.body.small),
   fontWeight: token('font.weight.regular', '400'),
 });
 

@@ -12,6 +12,7 @@ export type {
   CellTransform,
   InsertRowOptions,
   PluginInjectionAPI,
+  PluginInjectionAPIWithA11y,
   TableSharedStateInternal,
   TableSharedState,
   InsertRowMethods,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.12.4",
+  "version": "109.12.5",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -24,7 +24,7 @@
     "runReact18": true
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.7.0",
+    "@atlaskit/adf-schema": "^35.8.0",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",

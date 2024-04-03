@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -25,10 +26,7 @@ const errorMessageContainerStyles = css({
 });
 
 const errorMessageStyles = css({
-  font: token(
-    'font.heading.small',
-    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.small', fontFallback.heading.small),
 });
 
 const errorDescriptionStyles = css({
@@ -36,10 +34,12 @@ const errorDescriptionStyles = css({
 });
 
 interface ModalLoadingErrorProps {
-  url?: string;
+  errorMessage?: React.ReactNode;
 }
 
-export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
+export const ModalLoadingError = ({
+  errorMessage = <FormattedMessage {...loadingErrorMessages.checkConnection} />,
+}: ModalLoadingErrorProps) => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
 
   useEffect(() => {
@@ -58,16 +58,7 @@ export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
         <span css={errorMessageStyles}>
           <FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
         </span>
-        <p css={errorDescriptionStyles}>
-          {url ? (
-            <FormattedMessage
-              {...loadingErrorMessages.checkConnectionWithSource}
-              values={{ a: (chunk: any) => <a href={url}>{chunk}</a> }}
-            />
-          ) : (
-            <FormattedMessage {...loadingErrorMessages.checkConnection} />
-          )}
-        </p>
+        <p css={errorDescriptionStyles}>{errorMessage}</p>
       </div>
     </div>
   );

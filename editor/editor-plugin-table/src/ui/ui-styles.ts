@@ -55,14 +55,15 @@ const InsertLine = (cssString?: string) => css`
   }
 `;
 
-const Marker = () => css`
-  background-color: ${tableBorderColor};
-  position: absolute;
-  height: ${lineMarkerSize}px;
-  width: ${lineMarkerSize}px;
-  border-radius: 50%;
-  pointer-events: none;
-`;
+const Marker = () =>
+  css({
+    backgroundColor: tableBorderColor,
+    position: 'absolute',
+    height: `${lineMarkerSize}px`,
+    width: `${lineMarkerSize}px`,
+    borderRadius: '50%',
+    pointerEvents: 'none',
+  });
 
 export const InsertMarker = (cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_MARKER} {
@@ -93,6 +94,8 @@ const Button = (cssString?: string) => css`
   ${cssString}
 `;
 
+// Explicit pixel values required here to ensure classic row controls align correctly
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 export const HeaderButton = (cssString?: string) => css`
   .${ClassName.CONTROLS_BUTTON} {
     background: ${tableHeaderCellBackgroundColor};
@@ -273,28 +276,30 @@ export const dragCornerControlButton = () => css`
   }
 `;
 
-export const insertColumnButtonWrapper = () => css`
-  ${InsertButton()}
-  ${InsertButtonHover()}
-  ${InsertLine(
-    `
+export const insertColumnButtonWrapper = () =>
+  css(
+    InsertButton(),
+    InsertButtonHover(),
+    InsertLine(
+      `
     width: 2px;
     left: 9px;
   `,
-  )}
-`;
+    ),
+  );
 
-export const insertRowButtonWrapper = () => css`
-  ${InsertButton()}
-  ${InsertButtonHover()}
-  ${InsertLine(
-    `
+export const insertRowButtonWrapper = () =>
+  css(
+    InsertButton(),
+    InsertButtonHover(),
+    InsertLine(
+      `
     height: 2px;
     top: -11px;
     left: ${tableInsertColumnButtonSize - 1}px;
   `,
-  )}
-`;
+    ),
+  );
 
 export const columnControlsLineMarker = () => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
@@ -419,41 +424,42 @@ const overflowShadowWidhoutDnD = (
 
 const columnHeaderButton = (cssString?: string) => {
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
-    return css`
-      background: ${tableHeaderCellBackgroundColor};
-      display: block;
-      box-sizing: border-box;
-      padding: 0;
-
-      :focus {
-        outline: none;
-      }
-
-      ${cssString}
-    `;
+    return css(
+      {
+        background: tableHeaderCellBackgroundColor,
+        display: 'block',
+        boxSizing: 'border-box',
+        padding: 0,
+        ':focus': {
+          outline: 'none',
+        },
+      },
+      cssString,
+    );
   } else {
-    return css`
-      background: ${tableHeaderCellBackgroundColor};
-      border: 1px solid ${tableBorderColor};
-      display: block;
-      box-sizing: border-box;
-      padding: 0;
-
-      :focus {
-        outline: none;
-      }
-
-      ${cssString}
-    `;
+    return css(
+      {
+        background: tableHeaderCellBackgroundColor,
+        border: `1px solid ${tableBorderColor}`,
+        display: 'block',
+        boxSizing: 'border-box',
+        padding: 0,
+        ':focus': {
+          outline: 'none',
+        },
+      },
+      cssString,
+    );
   }
 };
 
-const columnHeaderButtonSelected = () => css`
-  color: ${token('color.text.inverse', N0)};
-  background-color: ${tableToolbarSelectedColor};
-  border-color: ${tableBorderSelectedColor};
-  z-index: ${columnControlsSelectedZIndex};
-`;
+const columnHeaderButtonSelected = () =>
+  css({
+    color: token('color.text.inverse', N0),
+    backgroundColor: tableToolbarSelectedColor,
+    borderColor: tableBorderSelectedColor,
+    zIndex: columnControlsSelectedZIndex,
+  });
 
 const getFloatingDotOverrides = () => {
   return getBooleanFF('platform.editor.custom-table-width')
@@ -795,6 +801,8 @@ const getLastColumnResizerOverrides = () => {
     : '';
 };
 
+// Explicit pixel values required here to ensure correct positioning and sizes of column resize handle
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 const resizeHandleOverrides = (isDragAndDropEnabled: boolean | undefined) => {
   if (isDragAndDropEnabled) {
     return css`
@@ -902,34 +910,37 @@ export const resizeHandle = (isDragAndDropEnabled: boolean | undefined) => css`
 `;
 
 // Drag and Drop: drop target insert line
-const tableCellColumnInsertLineStyles = css`
-  content: ' ';
-  position: absolute;
-  height: calc(100% + ${tableCellBorderWidth * 2}px);
-  width: ${insertLineWidth}px;
-  z-index: ${columnControlsZIndex * 2};
-`;
+const tableCellColumnInsertLineStyles = css({
+  content: "' '",
+  position: 'absolute',
+  height: `calc(100% + ${tableCellBorderWidth * 2}px)`,
+  width: `${insertLineWidth}px`,
+  zIndex: columnControlsZIndex * 2,
+});
 
-const tableCellRowInsertLineStyles = css`
-  content: ' ';
-  position: absolute;
-  left: ${token('space.negative.025', '-2px')};
-  height: ${insertLineWidth}px;
-  width: calc(100% + ${tableCellBorderWidth * 2}px);
-  z-index: ${columnControlsZIndex * 2};
-`;
+const tableCellRowInsertLineStyles = css({
+  content: "' '",
+  position: 'absolute',
+  left: token('space.negative.025', '-2px'),
+  height: `${insertLineWidth}px`,
+  width: `calc(100% + ${tableCellBorderWidth * 2}px)`,
+  zIndex: columnControlsZIndex * 2,
+});
 
-const insertLineActiveColor = css`
-  background-color: ${tableBorderSelectedColor};
-`;
+const insertLineActiveColor = css({
+  backgroundColor: tableBorderSelectedColor,
+});
 
-const insertLineInactiveColor = css`
-  background-color: ${token(
+const insertLineInactiveColor = css({
+  backgroundColor: token(
     'color.background.accent.gray.subtler',
     akEditorTableBorder,
-  )};
-`;
+  ),
+});
 
+// Explicit pixel values required here to ensure correct positioning of line that is show on row
+// or column drag
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 export const insertLine = () => css`
   .${ClassName.TABLE_CONTAINER} {
     td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {

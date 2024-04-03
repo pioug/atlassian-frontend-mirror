@@ -71,7 +71,11 @@ export default class Item extends PureComponent<Props, {}> {
       );
     } else if (itemType === 'DECISION') {
       return (
-        <div css={decisionStyles()} data-decision-wrapper="true">
+        <div
+          data-testid="elements-decision-item"
+          css={decisionStyles()}
+          data-decision-wrapper="true"
+        >
           {icon}
           {this.renderPlaceholder()}
           <div

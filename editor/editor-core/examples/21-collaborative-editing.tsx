@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import URLSearchParams from 'url-search-params';
@@ -9,6 +9,11 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -20,7 +25,6 @@ import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/me
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import type { EditorActions } from '../src';
-import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
@@ -33,6 +37,7 @@ export const getRandomUser = () => {
 const defaultCollabUrl =
   'https://pf-collab-service--app.ap-southeast-2.dev.atl-paas.net/ccollab';
 
+// eslint-disable-next-line
 export const content: any = css({
   padding: `0 ${token('space.250', '20px')}`,
   height: '50%',
@@ -99,12 +104,69 @@ export type State = {
   hasError?: boolean;
   title?: string;
   __livePage: boolean;
+  __liveView: boolean;
 };
 
 const getQueryParam = (param: string) => {
   const win = window.parent || window;
   const urlParams = new URLSearchParams(win.document.location.search);
   return urlParams.get(param);
+};
+
+function useFullPageEditorPreset(props: any) {
+  const universalPreset = useUniversalPreset({ props });
+
+  const { preset, editorApi } = usePreset(() => {
+    return universalPreset
+      .add([editorViewModePlugin, { mode: 'view' }])
+      .add(selectionMarkerPlugin);
+  }, [universalPreset]);
+
+  const { setEditorAPI } = props;
+  useEffect(() => {
+    if (!setEditorAPI) {
+      return;
+    }
+
+    setEditorAPI(editorApi);
+  }, [editorApi, setEditorAPI]);
+
+  useEffect(() => {
+    if (props.viewMode === undefined) {
+      return;
+    }
+    editorApi?.core?.actions.execute(
+      editorApi?.editorViewMode?.commands.updateViewMode(props.viewMode),
+    );
+  }, [props.viewMode, editorApi]);
+
+  return preset;
+}
+
+const FullPageComposableEditor = (props: any) => {
+  const fullPagePreset = useFullPageEditorPreset(props);
+
+  return (
+    <ComposableEditor
+      preset={fullPagePreset}
+      appearance={props.appearance}
+      placeholder={props.placeholder}
+      // Providers
+      mentionProvider={props.mentionProvider}
+      media={props.media}
+      emojiProvider={props.emojiProvider}
+      contextIdentifierProvider={props.contextIdentifierProvider}
+      collabEdit={props.collabEdit}
+      taskDecisionProvider={props.taskDecisionProvider}
+      // Other props
+      shouldFocus={props.shouldFocus}
+      featureFlags={props.featureFlags}
+      primaryToolbarComponents={props.primaryToolbarComponents}
+      contentComponents={props.contentComponents}
+      sanitizePrivateContent={props.sanitizePrivateContent}
+      __livePage={props.__livePage}
+    />
+  );
 };
 export default class Example extends React.Component<Props, State> {
   state = {
@@ -116,7 +178,8 @@ export default class Example extends React.Component<Props, State> {
     collabUrlInput: undefined,
     hasError: false,
     title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
-    __livePage: getQueryParam('__livePage') || false,
+    __livePage: getQueryParam('__livePage') === 'true' || false,
+    __liveView: getQueryParam('__liveView') === 'true' || false,
   };
 
   componentDidCatch() {
@@ -157,11 +220,11 @@ export default class Example extends React.Component<Props, State> {
           <strong>CollabUrl:</strong> {this.state.collabUrl}
         </div>
         <div>
-          <strong>
-            Live Page: {this.state.__livePage ? 'enabled' : 'disabled'}
-          </strong>{' '}
-          <button
-            onClick={() => {
+          <strong>Live Page:</strong>{' '}
+          <input
+            type="checkbox"
+            checked={this.state.__livePage}
+            onChange={() => {
               this.setState({ __livePage: !this.state.__livePage });
               const win = window.parent || window;
               const url = new URL(win.location.href);
@@ -171,9 +234,24 @@ export default class Example extends React.Component<Props, State> {
               );
               win.history.pushState({}, '', url.toString());
             }}
-          >
-            Toggle
-          </button>
+          />
+        </div>
+        <div>
+          <strong>Live View:</strong>{' '}
+          <input
+            type="checkbox"
+            checked={this.state.__liveView}
+            onChange={() => {
+              this.setState({ __liveView: !this.state.__liveView });
+              const win = window.parent || window;
+              const url = new URL(win.location.href);
+              url.searchParams.set(
+                '__liveView',
+                String(!this.state.__liveView),
+              );
+              win.history.pushState({}, '', url.toString());
+            }}
+          />
         </div>
       </div>
     );
@@ -277,7 +355,7 @@ export default class Example extends React.Component<Props, State> {
         <DropzoneEditorWrapper>
           {(parentContainer) => (
             <EditorContext>
-              <Editor
+              <FullPageComposableEditor
                 __livePage={this.state.__livePage}
                 appearance="full-page"
                 allowStatus={true}
@@ -345,6 +423,8 @@ export default class Example extends React.Component<Props, State> {
                     )}
                   />
                 }
+                viewMode={this.state.__liveView ? 'view' : 'edit'}
+                featureFlags={{ 'table-drag-and-drop': true }}
               />
             </EditorContext>
           )}

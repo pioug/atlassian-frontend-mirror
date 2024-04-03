@@ -113,7 +113,7 @@ export const ModeSwitcher = <T extends string = string>(
           const isSelected = value === selectedOptionValue;
 
           return (
-            <Tooltip content={tooltipText}>
+            <Tooltip key={value} content={tooltipText}>
               {tooltipProps => (
                 <label
                   {...tooltipProps}

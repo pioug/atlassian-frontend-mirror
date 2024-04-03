@@ -2,16 +2,19 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { Rule } from 'eslint';
+import esquery from 'esquery';
 
 import {
   getImportSources,
   isEmotion,
+  isStyledComponents,
   SupportedNameChecker,
 } from '../is-supported-import';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';
 import { toArguments } from './to-arguments';
+import { Argument, Block, DeclarationValue } from './types';
 
 type RuleModule = Rule.RuleModule;
 type RuleFixer = Rule.RuleFixer;
@@ -69,17 +72,37 @@ export const createNoTaggedTemplateExpressionRule =
               return;
             }
 
-            // Replace empty tagged template expression with the equivalent object call expression
+            const matches = esquery(
+              node,
+              'ArrowFunctionExpression > BlockStatement',
+            );
+            if (matches.length) {
+              return;
+            }
+
             if (
               !quasi.expressions.length &&
               quasi.quasis.length === 1 &&
               !quasi.quasis[0].value.raw.trim()
             ) {
+              // Replace empty tagged template expression with the equivalent object call expression
               yield fixer.replaceText(quasi, '({})');
               return;
             }
 
             const args = toArguments(source, quasi);
+
+            if (
+              isStyledComponents(node.tag, references, importSources) &&
+              args.some(hasMixinInsideNestedSelector)
+            ) {
+              /**
+               * Styled components doesn't support arrays as style object values,
+               * so we cannot autofix mixins as we cannot combine them with the other
+               * properties in the object.
+               */
+              return;
+            }
 
             // Skip invalid CSS
             if (args.length < 1) {
@@ -153,3 +176,31 @@ export const createNoTaggedTemplateExpressionRule =
       },
     };
   };
+
+type Node = DeclarationValue | Block | Argument;
+
+function hasMixinInsideNestedSelector(arg: Node) {
+  if (
+    arg.type === 'literal' ||
+    arg.type === 'expression' ||
+    arg.type === 'declaration'
+  ) {
+    return false;
+  }
+
+  if (
+    arg.type === 'rule' &&
+    arg.declarations.length > 1 &&
+    arg.declarations.some((node) => node.type === 'expression')
+  ) {
+    return true;
+  }
+
+  if (arg.type === 'block') {
+    return arg.blocks.some(hasMixinInsideNestedSelector);
+  }
+
+  if (arg.type === 'rule') {
+    return arg.declarations.some(hasMixinInsideNestedSelector);
+  }
+}

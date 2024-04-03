@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { mockAssetsClientFetchRequests } from './assets';
+import { defaultInitialVisibleColumnKeys as defaultInitialVisibleConfluenceColumnKeys } from './confluence/data';
 import * as confluenceMocks from './confluence/mocks';
 import {
   defaultInitialVisibleColumnKeys as defaultInitialVisibleJiraColumnKeys,
@@ -11,6 +12,8 @@ import {
   mockSuggestionData,
 } from './jira/data';
 import * as jiraMocks from './jira/mocks';
+
+export { defaultInitialVisibleConfluenceColumnKeys };
 
 export {
   defaultInitialVisibleJiraColumnKeys,

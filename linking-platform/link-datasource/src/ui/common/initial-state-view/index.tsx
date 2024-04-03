@@ -4,6 +4,7 @@ import { FormattedMessage, MessageDescriptor, useIntl } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
 import { N300 } from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { initialStateViewMessages } from './messages';
@@ -27,10 +28,7 @@ const betaTagStyles = css({
 
 const searchTitleStyles = css({
   color: token('color.text.subtlest', N300),
-  font: token(
-    'font.heading.medium',
-    'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.medium', fontFallback.heading.medium),
   paddingTop: token('space.200', '16px'),
   paddingBottom: token('space.100', '8px'),
   display: 'flex',

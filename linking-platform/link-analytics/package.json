@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-analytics",
-  "version": "8.3.9",
+  "version": "8.3.10",
   "description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "@atlaskit/linking-common": "^5.6.0",
     "@atlaskit/linking-types": "^8.7.0",
     "@babel/runtime": "^7.0.0",
-    "json-ld-types": "^3.11.0",
+    "json-ld-types": "^4.1.0",
     "lru_map": "^0.4.1",
     "rusha": "^0.8.13"
   },

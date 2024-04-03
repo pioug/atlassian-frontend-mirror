@@ -93,12 +93,16 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
     extensionKey: `${providerType}-object-provider`,
   });
 
-  const getSingleResponseItemHookState: () => DatasourceTableState = () => ({
+  const getSingleResponseItemHookState: (
+    url?: string,
+  ) => DatasourceTableState = (
+    url = 'https://mock-site.atlassian.net/mock-path',
+  ) => ({
     ...getDefaultHookState(),
     responseItems: [
       {
         key: {
-          data: { url: 'https://product-fabric.atlassian.net/browse/EDM-5941' },
+          data: { url },
         },
       },
     ],
@@ -205,14 +209,14 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
         displayName: string;
       }[];
       columnCustomSizes?: ConfigModalProps<
-        unknown,
-        unknown
+        ADF,
+        Parameters
       >['columnCustomSizes'];
       wrappedColumnKeys?: ConfigModalProps<
-        unknown,
-        unknown
+        ADF,
+        Parameters
       >['wrappedColumnKeys'];
-      url?: ConfigModalProps<unknown, unknown>['url'];
+      url?: ConfigModalProps<ADF, Parameters>['url'];
       viewMode?: IssueViewModes;
     } = {},
   ) => {
@@ -436,12 +440,21 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
         `${providerType}-datasource-modal--insert-button`,
       );
       button.click();
-      expect(onInsert).toHaveBeenCalledWith(
-        insertArgs(args),
-        expect.objectContaining(
-          getInsertAnalyticPayload(analyticsExpectedOverride),
-        ),
-      );
+
+      // Remove condition when confluence-search supports analytics
+      // in https://product-fabric.atlassian.net/browse/EDM-9413
+      switch (providerType) {
+        case 'jira':
+          expect(onInsert).toHaveBeenCalledWith(
+            insertArgs(args),
+            expect.objectContaining(
+              getInsertAnalyticPayload(analyticsExpectedOverride),
+            ),
+          );
+          break;
+        default:
+          expect(onInsert).toHaveBeenCalledWith(insertArgs(args));
+      }
     };
 
     return {

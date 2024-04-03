@@ -77,7 +77,7 @@ export const getTransitionStyles = (snippetHeight: number) =>
 
 export const popupContainerStyles = css({
   borderRadius: token('border.radius.200', '8px'),
-  backgroundColor: token('elevation.surface.raised', 'white'),
+  backgroundColor: token('elevation.surface.overlay', 'white'),
   boxShadow: token(
     'elevation.shadow.overlay',
     '0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',

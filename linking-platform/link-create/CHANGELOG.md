@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.15.3
+
+### Patch Changes
+
+- [#86416](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86416) [`91c59efc1417`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91c59efc1417) - Cleans up feature flag platform.linking-platform.link-create.slo-ignore-failed-fetch permanently marking failed to fetch errors to be ignored for SLO metrics.
+
 ## 1.15.2
 
 ### Patch Changes

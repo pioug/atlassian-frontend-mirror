@@ -17,8 +17,8 @@ import {
   CREATE_CONVERSATION_ERROR,
   HIGHLIGHT_COMMENT,
 } from './actions';
-import { Action, State } from './store';
-import { User, Conversation, Comment } from '../model';
+import type { Action, State } from './store';
+import type { User, Conversation, Comment } from '../model';
 import { createReducer } from './create-reducer';
 
 export const getNestedDepth = (
@@ -414,7 +414,7 @@ export const reducers = createReducer(initialState, {
   [UPDATE_USER_SUCCESS](state: State, action: Action) {
     return {
       ...state,
-      user: <User>action.payload.user,
+      user: action.payload.user as User,
     };
   },
 

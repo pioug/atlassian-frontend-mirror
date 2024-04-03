@@ -2,15 +2,13 @@
 import styled from '@emotion/styled';
 import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 export const WhatsNewTypeTitle = styled.span({
   textDecoration: 'none',
   color: token('color.text.subtlest', colors.N300),
-  font: token(
-    'font.body',
-    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body', fontFallback.body.medium),
   verticalAlign: 'middle',
   paddingLeft: token('space.050', '4px'),
   whiteSpace: 'normal',

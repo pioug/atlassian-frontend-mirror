@@ -18,13 +18,13 @@ typescriptEslintTester.run(
   {
     valid: [
       `
-        import { styled } from 'styled';
-        styled.div\`color: blue\`;
-      `,
+      import { styled } from 'styled';
+      styled.div\`color: blue\`;
+    `,
       `
-        import { styled } from '@compiled/react-clone';
-        styled.div\`color: blue\`;
-      `,
+      import { styled } from '@compiled/react-clone';
+      styled.div\`color: blue\`;
+    `,
     ],
     invalid: createInvalidTestCases([
       {
@@ -1434,6 +1434,96 @@ typescriptEslintTester.run(
               color: blue;
             }
           \`;
+        `,
+      },
+      {
+        filename: 'non-expression-function-interpolation.ts',
+        code: `
+          import styled from 'styled-components';
+          styled.div\`
+            color: \${props => {
+              if (props.appearance === 'warning') {
+                return 'red';
+              }
+
+              if (props.appearance === 'success') {
+                return 'green';
+              }
+
+              return 'blue';
+            }}
+          \`;
+        `,
+      },
+      /**
+       * styled components does not support an array for a style object value,
+       * so we cannot autofix this usage
+       */
+      {
+        filename: 'nested-mixin-sc.ts',
+        code: `
+          import styled from 'styled-components';
+          styled.div\`
+            a {
+              \${mixin};
+              color: red;
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'nested-mixin-only-sc.ts',
+        code: `
+          import styled from 'styled-components';
+          styled.div\`
+            a {
+              \${mixin}
+            }
+          \`;
+        `,
+        output: `
+          import styled from 'styled-components';
+          styled.div({
+            a: mixin
+          });
+        `,
+      },
+      {
+        filename: 'deep-nested-mixin-sc.ts',
+        code: `
+          import styled from 'styled-components';
+          styled.div\`
+            a {
+              textDecoration: none;
+              span {
+                \${mixin};
+                color: red;
+              }
+            }
+          \`;
+        `,
+      },
+      {
+        filename: 'deep-nested-mixin-only-sc.ts',
+        code: `
+          import styled from 'styled-components';
+          styled.div\`
+            a {
+              textDecoration: none;
+              span {
+                \${mixin};
+              }
+            }
+          \`;
+        `,
+        output: `
+          import styled from 'styled-components';
+          styled.div({
+            a: {
+              textDecoration: "none",
+              span: mixin
+            }
+          });
         `,
       },
     ]),

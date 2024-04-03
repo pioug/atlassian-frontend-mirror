@@ -409,128 +409,6 @@ const createInvalidTestCasesForImport = (importName: string) => [
     errors,
   },
   {
-    filename: 'mixins.ts',
-    code: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css\`
-          \${primary};
-          opacity: 0.8;
-          :hover {
-            \${hover};
-            opacity: 1;
-          }
-        \`;
-      `,
-    output: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css(
-          primary,
-          {
-            opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
-          }
-        );
-      `,
-    errors,
-  },
-  {
-    filename: 'no-trailing-semicolon-mixins.ts',
-    code: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css\`
-          \${primary}
-          opacity: 0.8;
-          :hover {
-            \${hover}
-            opacity: 1
-          }
-        \`;
-      `,
-    output: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css(
-          primary,
-          {
-            opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
-          }
-        );
-      `,
-    errors,
-  },
-  {
-    filename: 'mixins-comments.ts',
-    code: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css\`
-          /* before mixin 1 */
-          \${primary};
-          /* after mixin 1 */
-          opacity: 0.8;
-          :hover {
-            /*
-             * before mixin 2
-             */
-            \${hover};
-            /*
-             * after mixin 2
-             */
-            opacity: 1;
-          }
-        \`;
-      `,
-    output: `
-        import { css } from '${importName}';
-
-        const primary = css({ color: 'blue' });
-        const hover = css({ textDecoration: 'underline' });
-
-        css(
-          primary,
-          {
-            opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
-          }
-        );
-      `,
-    errors,
-  },
-  {
     filename: 'colon-in-value.ts',
     code: `
         import { css } from '${importName}';
@@ -661,5 +539,198 @@ tester.run('no-css-tagged-template-expression', rule, {
     ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionReact),
     ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.emotionCore),
     ...createInvalidTestCasesForImport(CSS_IN_JS_IMPORTS.styledComponents),
+
+    {
+      filename: 'mixins.ts',
+      code: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            \${primary};
+            opacity: 0.8;
+            :hover {
+              \${hover};
+              opacity: 1;
+            }
+          \`;
+        `,
+      output: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css(
+            primary,
+            {
+              opacity: 0.8,
+              ":hover": [
+                hover,
+                {
+                  opacity: 1
+                }
+              ]
+            }
+          );
+        `,
+      errors,
+    },
+    {
+      filename: 'no-trailing-semicolon-mixins.ts',
+      code: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            \${primary}
+            opacity: 0.8;
+            :hover {
+              \${hover}
+              opacity: 1
+            }
+          \`;
+        `,
+      output: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css(
+            primary,
+            {
+              opacity: 0.8,
+              ":hover": [
+                hover,
+                {
+                  opacity: 1
+                }
+              ]
+            }
+          );
+        `,
+      errors,
+    },
+    {
+      filename: 'mixins-comments.ts',
+      code: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            /* before mixin 1 */
+            \${primary};
+            /* after mixin 1 */
+            opacity: 0.8;
+            :hover {
+              /*
+               * before mixin 2
+               */
+              \${hover};
+              /*
+               * after mixin 2
+               */
+              opacity: 1;
+            }
+          \`;
+        `,
+      output: `
+          import { css } from '@compiled/react';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css(
+            primary,
+            {
+              opacity: 0.8,
+              ":hover": [
+                hover,
+                {
+                  opacity: 1
+                }
+              ]
+            }
+          );
+        `,
+      errors,
+    },
+
+    /**
+     * Mixins cannot be autofixed for styled components as it does not support
+     * arrays for object values.
+     */
+    {
+      filename: 'mixins-sc.ts',
+      code: `
+          import { css } from 'styled-components';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            \${primary};
+            opacity: 0.8;
+            :hover {
+              \${hover};
+              opacity: 1;
+            }
+          \`;
+        `,
+      errors,
+    },
+    {
+      filename: 'no-trailing-semicolon-mixins-sc.ts',
+      code: `
+          import { css } from 'styled-components';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            \${primary}
+            opacity: 0.8;
+            :hover {
+              \${hover}
+              opacity: 1
+            }
+          \`;
+        `,
+      errors,
+    },
+    {
+      filename: 'mixins-comments-sc.ts',
+      code: `
+          import { css } from 'styled-components';
+
+          const primary = css({ color: 'blue' });
+          const hover = css({ textDecoration: 'underline' });
+
+          css\`
+            /* before mixin 1 */
+            \${primary};
+            /* after mixin 1 */
+            opacity: 0.8;
+            :hover {
+              /*
+               * before mixin 2
+               */
+              \${hover};
+              /*
+               * after mixin 2
+               */
+              opacity: 1;
+            }
+          \`;
+        `,
+      errors,
+    },
   ],
 });

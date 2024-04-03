@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -25,10 +26,7 @@ const noResultsMessageContainerStyles = css({
 });
 
 const noResultsMessageStyles = css({
-  font: token(
-    'font.heading.small',
-    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.small', fontFallback.heading.small),
 });
 
 interface NoResultsProps {

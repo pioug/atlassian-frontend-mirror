@@ -3,6 +3,7 @@
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { CrystalBallSVG } from './assets/crystal-ball-svg';
@@ -18,10 +19,7 @@ const svgAndTextsWrapperStyles = css({
   alignSelf: 'center',
 });
 const searchTitleStyles = css({
-  font: token(
-    'font.heading.small',
-    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.small', fontFallback.heading.small),
   paddingTop: token('space.200', '16px'),
   paddingBottom: token('space.100', '8px'),
 });

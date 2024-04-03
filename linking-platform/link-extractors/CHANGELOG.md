@@ -1,5 +1,15 @@
 # @atlaskit/link-extractors
 
+## 1.3.0
+
+### Minor Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`7aab5c5119fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7aab5c5119fc) - Add ARI extractor
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+
 ## 1.2.4
 
 ### Patch Changes

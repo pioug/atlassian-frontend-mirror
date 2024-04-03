@@ -215,6 +215,7 @@ const DragControlsComponent = ({
           width: '9px',
           height: '100%',
           position: 'relative',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           right: '-0.5px',
         }}
         data-testid={`table-floating-row-${
@@ -297,7 +298,10 @@ const DragControlsComponent = ({
         gridTemplateColumns: isDragging
           ? `${dropTargetExtendedWidth}px 14px ${tableWidth}px`
           : '0px 14px 0px',
-        left: isDragging ? `-${dropTargetExtendedWidth + 2}px` : `-2px`,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+        left: isDragging
+          ? `-${dropTargetExtendedWidth + 2}px`
+          : token('space.negative.025', '-2px'),
       }}
       onMouseMove={handleMouseMove}
       contentEditable={false}

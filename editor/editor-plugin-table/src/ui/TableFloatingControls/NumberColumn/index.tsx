@@ -41,6 +41,7 @@ export default class NumberColumn extends Component<Props, any> {
       <div
         className={ClassName.NUMBERED_COLUMN}
         style={{
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginTop:
             hasHeaderRow && this.props.stickyTop !== undefined
               ? rowHeights[0]

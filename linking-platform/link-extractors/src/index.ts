@@ -62,6 +62,7 @@ export {
   extractType,
   extractUrlFromIconJsonLd,
   extractUrlFromLinkJsonLd,
+  extractAri,
 } from './common';
 
 export type {

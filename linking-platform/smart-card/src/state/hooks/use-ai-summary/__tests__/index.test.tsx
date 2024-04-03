@@ -63,6 +63,8 @@ async function* mockReadStreamErrorUnexpectedMulti() {
   yield unexpectedErrorMock;
 }
 
+const mockUseAISummaryProps = { url: 'test-url', ari: 'test-ari' };
+
 describe('useAISummary', () => {
   beforeEach(() => {
     fetchMock.resetMocks();
@@ -79,7 +81,7 @@ describe('useAISummary', () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     readStreamSpy.mockImplementationOnce(mockReadStreamSuccess);
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
       await result.current.summariseUrl();
     });
@@ -89,7 +91,7 @@ describe('useAISummary', () => {
 
   it('sets status on summariseUrl error response', async () => {
     fetchMock.mockRejectOnce(new Error('foo'));
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
       await result.current.summariseUrl();
     });
@@ -103,7 +105,7 @@ describe('useAISummary', () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     readStreamSpy.mockImplementationOnce(mockReadStreamError);
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
       await result.current.summariseUrl();
     });
@@ -118,7 +120,7 @@ describe('useAISummary', () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     readStreamSpy.mockImplementationOnce(mockReadStreamErrorMulti);
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
       await result.current.summariseUrl();
     });
@@ -133,7 +135,7 @@ describe('useAISummary', () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     readStreamSpy.mockImplementationOnce(mockReadStreamErrorUnexpectedMulti);
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }));
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
       await result.current.summariseUrl();
     });
@@ -153,7 +155,7 @@ describe('useAISummary', () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     readStreamSpy.mockImplementationOnce(mockReadStreamSuccess);
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }), {
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
       wrapper: ({ children }) => (
         <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
           {children}
@@ -189,7 +191,7 @@ describe('useAISummary', () => {
     uuid.mockReturnValueOnce(experienceId);
     fetchMock.mockRejectOnce(new Error('foo'));
 
-    const { result } = renderHook(() => useAISummary({ url: 'test-url' }), {
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
       wrapper: ({ children }) => (
         <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
           {children}

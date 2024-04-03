@@ -1018,6 +1018,38 @@ const checkExpand = (slice: Slice): boolean => {
   return hasExpand;
 };
 
+export function handleTableContentPasteInBodiedExtension(
+  slice: Slice,
+): Command {
+  return (state, dispatch) => {
+    const isInsideBodyExtension = hasParentNodeOfType(
+      state.schema.nodes.bodiedExtension,
+    )(state.selection);
+
+    if (!insideTable(state) || !isInsideBodyExtension) {
+      return false;
+    }
+
+    const { bodiedExtension } = state.schema.nodes;
+    const newSlice = mapSlice(slice, maybeNode => {
+      if (maybeNode.type === bodiedExtension) {
+        return bodiedExtension.createChecked(
+          maybeNode.attrs,
+          maybeNode.content,
+          maybeNode.marks,
+        );
+      }
+      return maybeNode;
+    });
+
+    if (dispatch) {
+      dispatch(state.tr.replaceSelection(newSlice));
+      return true;
+    }
+    return false;
+  };
+}
+
 export function handleExpandPasteInTable(slice: Slice): Command {
   return (state, dispatch) => {
     // Do not handle expand if it's not being pasted into a table

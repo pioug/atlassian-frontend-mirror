@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugins
 
+## 1.9.13
+
+### Patch Changes
+
+- [#86222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86222) [`38afb794d859`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38afb794d859) - Fix a table content paste issue when copy content from a table cell inside bodied extension
+- Updated dependencies
+
+## 1.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.11
 
 ### Patch Changes

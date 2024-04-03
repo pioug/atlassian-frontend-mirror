@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.9.12
+
+### Patch Changes
+
+- [#85831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85831) [`1eb41b0f62ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1eb41b0f62ce) - Add test id to decision item.
+
 ## 17.9.11
 
 ### Patch Changes

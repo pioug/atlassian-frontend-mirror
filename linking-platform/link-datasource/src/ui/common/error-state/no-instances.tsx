@@ -3,15 +3,13 @@ import { css, jsx } from '@emotion/react';
 import { MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { Flex, xcss } from '@atlaskit/primitives';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { NoInstancesSvg } from './no-instances-svg';
 
 const titleStyles = css({
-  font: token(
-    'font.heading.small',
-    'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.small', fontFallback.heading.small),
   marginTop: token('space.200', '16px'),
 });
 

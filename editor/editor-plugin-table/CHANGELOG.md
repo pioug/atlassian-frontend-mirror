@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.6
+
+### Patch Changes
+
+- [#86633](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86633) [`d9780cd1adb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9780cd1adb8) - ED-22713: Fixed table resizing not working with keyboard shortcuts
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+- Updated dependencies
+
+## 7.6.5
+
+### Patch Changes
+
+- [#85342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85342) [`9a6a1786bc65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a6a1786bc65) - [ux] Migrates table styles to space tokens
+
 ## 7.6.4
 
 ### Patch Changes

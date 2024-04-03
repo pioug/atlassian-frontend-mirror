@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 109.12.5
+
+### Patch Changes
+
+- [#86429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86429) [`f7ed11720c73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7ed11720c73) - ED-22675: removes redundant attribute from editor html button, adds gemini error log pattern
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+
 ## 109.12.4
 
 ### Patch Changes

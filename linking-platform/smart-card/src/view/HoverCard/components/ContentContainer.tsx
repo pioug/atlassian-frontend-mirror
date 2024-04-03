@@ -9,7 +9,7 @@ import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import { useSmartCardState } from '../../../state/store';
 import { JsonLd } from 'json-ld-types';
-import { extractLink } from '@atlaskit/link-extractors';
+import { extractAri, extractLink } from '@atlaskit/link-extractors';
 
 const ConnectedAIPrismContainer = ({
   children,
@@ -19,12 +19,13 @@ const ConnectedAIPrismContainer = ({
   ...props
 }: ContentContainerProps) => {
   const cardState = useSmartCardState(url);
-  const dataUrl =
-    extractLink(cardState?.details?.data as JsonLd.Data.BaseData) ?? '';
+  const data = cardState?.details?.data as JsonLd.Data.BaseData;
+  const dataUrl = extractLink(data) ?? '';
+  const dataAri = extractAri(data) ?? '';
 
   const {
     state: { status },
-  } = useAISummary({ url: dataUrl });
+  } = useAISummary({ url: dataUrl, ari: dataAri });
 
   const [showPrism, setShowPrism] = useState(status === 'loading');
 

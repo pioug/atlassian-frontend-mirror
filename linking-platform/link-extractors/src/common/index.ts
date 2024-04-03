@@ -18,7 +18,12 @@ export {
 
 export { extractImage, extractPreview } from './preview';
 
-export { extractLink, extractTitle, extractType } from './primitives';
+export {
+  extractLink,
+  extractTitle,
+  extractType,
+  extractAri,
+} from './primitives';
 
 export { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from './url';
 

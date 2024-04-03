@@ -60,7 +60,6 @@ type Extension = {
     extensionKey: ExtensionKey;
     // action.parameters coming from ExtensionModuleActionObject, TemplateParams
     parameters: unknown;
-    maxFrames?: number;
   };
 };
 
@@ -104,10 +103,6 @@ export function buildNode<T extends Parameters>(
       ],
     };
   } else if (node.type === 'multiBodiedExtension') {
-    if (manifest.modules?.nodes[action.key]?.maxFrames) {
-      extension.attrs.maxFrames =
-        manifest.modules?.nodes[action.key]?.maxFrames;
-    }
     return {
       ...extension,
       content: [

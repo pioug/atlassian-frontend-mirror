@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 3.3.3
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

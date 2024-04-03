@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-placeholder-text",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "placeholder text plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.7.0",
+    "@atlaskit/adf-schema": "^35.8.0",
     "@atlaskit/editor-common": "^78.22.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",

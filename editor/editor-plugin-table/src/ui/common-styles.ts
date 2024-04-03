@@ -211,6 +211,7 @@ const tableBorderStyles = () => {
   }
 };
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 const tableStickyHeaderColumnControlsDecorationsStyle = () => {
   if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
     return css`
@@ -1116,6 +1117,7 @@ export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
   ${shadowSentinelStyles}
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 export const tableFullPageEditorStyles = css`
   .ProseMirror .${ClassName.TABLE_NODE_WRAPPER} > table {
     margin-left: 0;

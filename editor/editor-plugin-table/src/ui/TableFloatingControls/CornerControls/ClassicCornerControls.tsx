@@ -41,6 +41,7 @@ class CornerControlComponent extends Component<
           sticky: this.props.stickyTop !== undefined,
         })}
         style={{
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           top:
             this.props.stickyTop !== undefined
               ? `${this.props.stickyTop}px`

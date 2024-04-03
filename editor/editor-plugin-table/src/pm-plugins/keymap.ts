@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl-next/src/types';
+
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -53,6 +55,7 @@ import {
   addColumnBefore as addColumnBeforeCommand,
 } from '../commands/insert';
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
+import type { PluginInjectionAPIWithA11y } from '../types';
 import { withEditorAnalyticsAPI } from '../utils/analytics';
 
 const createTableWithAnalytics = (
@@ -76,17 +79,22 @@ export function keymapPlugin(
   dragAndDropEnabled?: boolean,
   isTableScalingEnabled = false,
   isFullWidthEnabled?: boolean,
+  pluginInjectionApi?: PluginInjectionAPIWithA11y,
+  getIntl?: () => IntlShape,
 ): SafePlugin {
   const list = {};
 
+  const ariaNotifyPlugin =
+    pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify;
+
   bindKeymapWithCommand(
     nextCell.common!,
-    goToNextCell(editorAnalyticsAPI)(1),
+    goToNextCell(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(1),
     list,
   );
   bindKeymapWithCommand(
     previousCell.common!,
-    goToNextCell(editorAnalyticsAPI)(-1),
+    goToNextCell(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(-1),
     list,
   );
   bindKeymapWithCommand(
@@ -190,13 +198,32 @@ export function keymapPlugin(
   if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
     bindKeymapWithCommand(
       startColumnResizing.common!,
-      initiateKeyboardColumnResizing,
+      initiateKeyboardColumnResizing({
+        ariaNotify: ariaNotifyPlugin,
+        getIntl: getIntl,
+      }),
       list,
     );
 
-    bindKeymapWithCommand(moveRight.common!, activateNextResizeArea(1), list);
+    bindKeymapWithCommand(
+      moveRight.common!,
+      activateNextResizeArea({
+        direction: 1,
+        ariaNotify: ariaNotifyPlugin,
+        getIntl: getIntl,
+      }),
+      list,
+    );
 
-    bindKeymapWithCommand(moveLeft.common!, activateNextResizeArea(-1), list);
+    bindKeymapWithCommand(
+      moveLeft.common!,
+      activateNextResizeArea({
+        direction: -1,
+        ariaNotify: ariaNotifyPlugin,
+        getIntl: getIntl,
+      }),
+      list,
+    );
 
     bindKeymapWithCommand(
       decreaseMediaSize.common!,
@@ -205,6 +232,8 @@ export function keymapPlugin(
         getEditorContainerWidth,
         isTableScalingEnabled,
         INPUT_METHOD.SHORTCUT,
+        ariaNotifyPlugin,
+        getIntl,
       ),
       list,
     );
@@ -216,10 +245,19 @@ export function keymapPlugin(
         getEditorContainerWidth,
         isTableScalingEnabled,
         INPUT_METHOD.SHORTCUT,
+        ariaNotifyPlugin,
+        getIntl,
       ),
       list,
     );
-    bindKeymapWithCommand(escape.common!, stopKeyboardColumnResizing(), list);
+    bindKeymapWithCommand(
+      escape.common!,
+      stopKeyboardColumnResizing({
+        ariaNotify: ariaNotifyPlugin,
+        getIntl: getIntl,
+      }),
+      list,
+    );
   }
 
   return keymap(list) as SafePlugin;

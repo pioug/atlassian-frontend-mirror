@@ -14,7 +14,6 @@ export interface ExtensionParams<T extends Parameters> {
   content?: object | string; // This would be the original Atlassian Document Format
   localId?: string;
   fragmentLocalId?: string;
-  maxFrames?: number;
   layout?: string;
 }
 

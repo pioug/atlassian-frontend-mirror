@@ -304,7 +304,9 @@ export const ColumnControls = ({
         data-testid="table-floating-column-controls"
         style={{
           gridTemplateColumns: widths,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginTop,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           width: stickyTop ? containerWidth : undefined,
           overflowX: stickyTop ? 'hidden' : 'visible',
           pointerEvents: isDragging ? 'none' : undefined,

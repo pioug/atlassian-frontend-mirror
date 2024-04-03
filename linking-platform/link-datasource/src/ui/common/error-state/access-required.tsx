@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl-next';
 import EmptyState from '@atlaskit/empty-state';
 import { Box, xcss } from '@atlaskit/primitives';
 import { N400 } from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -16,10 +17,7 @@ import { loadingErrorMessages } from './messages';
 
 const urlStyles = css({
   color: token('color.text.subtlest', N400),
-  font: token(
-    'font.body',
-    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body', fontFallback.body.medium),
 });
 
 const descriptionMessageStyles = css({

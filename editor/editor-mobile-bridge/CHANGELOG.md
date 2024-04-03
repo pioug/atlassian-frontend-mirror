@@ -1,5 +1,42 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.7.16
+
+### Patch Changes
+
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+- Updated dependencies
+
+## 193.7.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.7.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.7.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.7.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.7.10
 
 ### Patch Changes

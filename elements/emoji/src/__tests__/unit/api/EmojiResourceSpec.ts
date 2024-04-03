@@ -647,7 +647,7 @@ describe('EmojiResource', () => {
     let mockRecordUsage: sinon.SinonStub;
 
     beforeEach(() => {
-      mockEmojiRepository = <EmojiRepository>{};
+      mockEmojiRepository = {} as EmojiRepository;
       mockRecordUsage = sinon.stub();
       mockEmojiRepository.used = mockRecordUsage;
     });

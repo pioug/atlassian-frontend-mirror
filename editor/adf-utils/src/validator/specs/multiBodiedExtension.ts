@@ -3,7 +3,6 @@ export default {
     type: { type: 'enum', values: ['multiBodiedExtension'] },
     attrs: {
       props: {
-        maxFrames: { type: 'number', default: 5, optional: true },
         extensionKey: { type: 'string', minLength: 1 },
         extensionType: { type: 'string', minLength: 1 },
         parameters: { type: 'object', optional: true },

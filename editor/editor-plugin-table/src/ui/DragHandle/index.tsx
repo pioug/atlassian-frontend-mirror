@@ -222,8 +222,8 @@ const DragHandleComponent = ({
           width: isRow
             ? `${token('space.200', '16px')}` // 16px here because it's the size of drag handle button's large side
             : `calc(100% - ${dragTableInsertColumnButtonSize}px)`,
-          left: isRow ? '3px' : undefined,
-          bottom: isColumn ? '0' : undefined,
+          left: isRow ? `${token('space.050', '4px')}` : undefined,
+          bottom: isColumn ? `${token('space.0', '0px')}` : undefined,
           alignSelf: isColumn ? 'none' : 'center',
           zIndex: isColumn ? '-1' : 'auto',
         }}

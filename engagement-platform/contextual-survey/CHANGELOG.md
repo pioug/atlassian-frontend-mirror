@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 2.2.15
+
+### Patch Changes
+
+- [#84829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84829) [`a6299ec57bc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6299ec57bc3) - Internal change to replace hardcoded font fallback values with an exported constant. There is no expected visual difference.
+
 ## 2.2.14
 
 ### Patch Changes

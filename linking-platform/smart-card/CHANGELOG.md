@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 26.50.14
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`3e267c62d680`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e267c62d680) - Change request shape to ai mate summary service and include ARI, add ari to flex context
+- Updated dependencies
+
+## 26.50.13
+
+### Patch Changes
+
+- [#86599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86599) [`06e49db490ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06e49db490ed) - [ux] Updated hover card background token to use overlay rather than raised to match shadow token
+- [#85643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85643) [`32f691ba9300`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32f691ba9300) - Removes error state indicator when hovercard is remounted"
+
 ## 26.50.12
 
 ### Patch Changes

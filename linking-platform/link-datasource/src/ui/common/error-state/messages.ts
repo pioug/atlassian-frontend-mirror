@@ -53,21 +53,6 @@ export const loadingErrorMessages = defineMessages({
       'Instructions to let the user know how to resolve the network error that occurred or to try again at a different time',
     defaultMessage: 'Check your connection and refresh, or try again later.',
   },
-  checkConnectionWithSourceDuplicate: {
-    id: 'linkDataSource.checkConnectionWithSource',
-    description:
-      'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
-    defaultMessage:
-      'Check your connection and refresh, or <a>open this query in Jira</a> to review.',
-  },
-  //delete and remove duplicate from title above
-  checkConnectionWithSource: {
-    id: 'linkDataSource.jira-issues.checkConnectionWithSource',
-    description:
-      'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
-    defaultMessage:
-      'Check your connection and refresh, or <a>open this query in Jira</a> to review.',
-  },
   noResultsFoundDuplicate: {
     id: 'linkDataSource.noResultsFound',
     description:

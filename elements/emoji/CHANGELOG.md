@@ -1,5 +1,17 @@
 # @atlaskit/emoji
 
+## 67.6.18
+
+### Patch Changes
+
+- [#86796](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86796) [`0f85b3ff0e7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0f85b3ff0e7a) - Fix matching of FedRAMP URLs for SHA256 usage when uploading emoji
+
+## 67.6.17
+
+### Patch Changes
+
+- [#84829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84829) [`a6299ec57bc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6299ec57bc3) - Internal change to replace hardcoded font fallback values with an exported constant. There is no expected visual difference.
+
 ## 67.6.16
 
 ### Patch Changes

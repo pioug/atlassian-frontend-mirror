@@ -75,10 +75,6 @@ export type ExtensionModuleNode<T extends Parameters = Parameters> = {
     | 'bodiedExtension'
     | 'multiBodiedExtension';
 
-  /**
-   * Used to set the maximum number of frames in case of a MultiBodiedExtension node.
-   */
-  maxFrames?: number;
   render: () => ExtensionComponentModule<T>;
   update?: UpdateExtension<T>;
   getFieldsDefinition?: (

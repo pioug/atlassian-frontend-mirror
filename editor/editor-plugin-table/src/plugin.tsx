@@ -306,7 +306,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         // plugin as it is currently swallowing backspace events inside tables
         {
           name: 'tableKeymap',
-          plugin: () => {
+          plugin: ({ getIntl }) => {
             const {
               dragAndDropEnabled,
               isTableScalingEnabled = false,
@@ -318,6 +318,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               dragAndDropEnabled,
               isTableScalingEnabled,
               fullWidthEnabled,
+              api,
+              getIntl,
             );
           },
         },

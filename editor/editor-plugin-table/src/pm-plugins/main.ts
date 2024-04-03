@@ -80,6 +80,7 @@ import type {
   InvalidNodeAttr,
   PluginConfig,
   PluginInjectionAPI,
+  PluginInjectionAPIWithA11y,
 } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 import {
@@ -136,6 +137,10 @@ export const createPlugin = (
   // Used to prevent invalid table cell spans being reported more than once per editor/document
   const invalidTableIds: string[] = [];
   let editorViewRef: EditorView | null = null;
+
+  const ariaNotifyPlugin = (pluginInjectionApi as PluginInjectionAPIWithA11y)
+    ?.accessibilityUtils?.actions.ariaNotify;
+
   const getCurrentEditorState = (): EditorState | null => {
     const editorView = editorViewRef;
     if (!editorView) {
@@ -215,7 +220,7 @@ export const createPlugin = (
             }
             const tableNode = findTable(state.selection);
             if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-              // when cursor leaves the table we need to stop column resizing
+              // when keyboard cursor leaves the table we need to stop column resizing
               const pluginPrevState = getPluginState(prevState);
               const isStopKeyboardColumResizing =
                 pluginPrevState.isResizeHandleWidgetAdded &&
@@ -238,11 +243,17 @@ export const createPlugin = (
                       pluginPrevState.tableNode.attrs.localId
                   ) {
                     // Jump to another table
-                    stopKeyboardColumnResizing()(state, dispatch);
+                    stopKeyboardColumnResizing({
+                      ariaNotify: ariaNotifyPlugin,
+                      getIntl: getIntl,
+                    })(state, dispatch);
                   }
                 } else if (!tableNode) {
                   // selection outside of table
-                  stopKeyboardColumnResizing()(state, dispatch);
+                  stopKeyboardColumnResizing({
+                    ariaNotify: ariaNotifyPlugin,
+                    getIntl: getIntl,
+                  })(state, dispatch);
                 }
               }
             }
@@ -366,7 +377,10 @@ export const createPlugin = (
         if (getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
           const { isKeyboardResize } = getPluginState(state);
           if (isKeyboardResize) {
-            stopKeyboardColumnResizing()(state, dispatch);
+            stopKeyboardColumnResizing({
+              ariaNotify: ariaNotifyPlugin,
+              getIntl: getIntl,
+            })(state, dispatch);
             return false;
           }
         }

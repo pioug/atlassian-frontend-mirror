@@ -1,5 +1,24 @@
 # @atlaskit/legacy-mobile-macros
 
+## 2.4.460
+
+### Patch Changes
+
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+- Updated dependencies
+
+## 2.4.459
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.458
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.457
 
 ### Patch Changes

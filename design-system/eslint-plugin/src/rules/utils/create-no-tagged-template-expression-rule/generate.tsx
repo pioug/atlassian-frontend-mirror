@@ -86,7 +86,7 @@ const generateArguments = (
   level: number,
 ): string => {
   let chars = '';
-  if (level > 1 && args.length > 1) {
+  if (level >= 1 && args.length > 1) {
     chars += '[';
   }
 
@@ -119,7 +119,7 @@ const generateArguments = (
     }
   }
 
-  if (level > 1 && args.length > 1) {
+  if (level >= 1 && args.length > 1) {
     chars += '\n';
     chars += indent(offset, level);
     chars += ']';

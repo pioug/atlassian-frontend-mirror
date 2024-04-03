@@ -5,7 +5,7 @@ import {
 
 import { GenerateDataResponse } from '../types';
 
-import { mockConfluenceData } from './data';
+import { defaultInitialVisibleColumnKeys, mockConfluenceData } from './data';
 
 const defaultDetailsResponse: DatasourceDetailsResponse = {
   meta: {
@@ -205,14 +205,18 @@ export const generateDetailsResponse = (
   },
 });
 
-const maxItems = 99;
-
-export const generateDataResponse: GenerateDataResponse = ({
-  cloudId = '',
+const buildDataResponse = ({
+  initialVisibleColumnKeys,
   numberOfLoads = 0,
   includeSchema,
-  initialVisibleColumnKeys,
-}) => {
+  isUnauthorized = false,
+  includeAuthInfo = false,
+  maxItems = 99,
+}: Parameters<GenerateDataResponse>[0] & {
+  maxItems?: number;
+  isUnauthorized?: boolean;
+  includeAuthInfo?: boolean;
+}): ReturnType<GenerateDataResponse> => {
   const schema = {
     properties: defaultDetailsResponse.data.schema.properties.filter(
       ({ key }) => initialVisibleColumnKeys.includes(key),
@@ -221,8 +225,18 @@ export const generateDataResponse: GenerateDataResponse = ({
 
   return {
     meta: {
-      access: 'granted',
-      auth: [],
+      access: isUnauthorized ? 'unauthorized' : 'granted',
+      // TODO: further refactoring in EDM-9573
+      // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6798084
+      auth: includeAuthInfo
+        ? [
+            {
+              key: 'confluence',
+              displayName: 'Atlassian Links - Confluence',
+              url: 'https://id.atlassian.com/login',
+            },
+          ]
+        : [],
       definitionId: 'object-resolver-service',
       destinationObjectTypes: [
         'page',
@@ -254,6 +268,62 @@ export const generateDataResponse: GenerateDataResponse = ({
       ...(includeSchema && { schema }),
     },
   };
+};
+
+export const generateDataResponse: GenerateDataResponse = ({
+  cloudId = '',
+  numberOfLoads = 0,
+  includeSchema = true,
+  initialVisibleColumnKeys = defaultInitialVisibleColumnKeys,
+}) => {
+  switch (cloudId) {
+    case '22222':
+    case 'mock-no-results':
+      return buildDataResponse({
+        cloudId,
+        numberOfLoads,
+        includeSchema,
+        initialVisibleColumnKeys,
+        maxItems: 0,
+      });
+    case '44444': // to move away to more readable cloud ids, but the test helpers are still relying on numeric cloudIds
+    case 'mock-unauth':
+      return buildDataResponse({
+        cloudId,
+        numberOfLoads,
+        includeSchema,
+        initialVisibleColumnKeys,
+        isUnauthorized: true,
+      });
+    case '11111':
+    case 'mock-1-item':
+      return buildDataResponse({
+        cloudId,
+        maxItems: 1,
+        numberOfLoads,
+        includeSchema,
+        initialVisibleColumnKeys,
+      });
+    case 'mock-unauthorized-unauth':
+      return buildDataResponse({
+        cloudId,
+        numberOfLoads,
+        includeSchema,
+        isUnauthorized: true,
+        initialVisibleColumnKeys,
+        includeAuthInfo: true,
+      });
+    case '33333':
+    case 'mock-error': // to move away to more readable cloud ids, but the test helpers are still relying on numeric cloudIds
+      throw new Error('Mock error');
+    default:
+      return buildDataResponse({
+        cloudId,
+        numberOfLoads,
+        includeSchema,
+        initialVisibleColumnKeys,
+      });
+  }
 };
 
 const resolveConfluenceSearch = {
@@ -297,7 +367,7 @@ const resolveConfluenceSearch = {
       {
         key: 'datasource-confluence-search',
         parameters: {
-          searchTerm: 'searchsomething',
+          searchString: 'searchsomething',
         },
         id: '768fc736-3af4-4a8f-b27e-203602bff8ca',
         ari: 'ari:cloud:linking-platform::datasource/768fc736-3af4-4a8f-b27e-203602bff8ca',
@@ -311,14 +381,9 @@ const resolveConfluenceSearch = {
 
 export const generateResolveResponse = (resourceUrl: string) => {
   const url = new URL(resourceUrl);
-  if (url.search.includes('wiki/search?text=')) {
+  if (url.search.includes('wiki/')) {
     return resolveConfluenceSearch;
   }
 };
 
-export const defaultInitialVisibleColumnKeys = [
-  'createdBy',
-  'id',
-  'space',
-  'status',
-];
+export { defaultInitialVisibleColumnKeys };

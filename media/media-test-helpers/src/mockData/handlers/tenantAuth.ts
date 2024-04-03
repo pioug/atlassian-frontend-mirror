@@ -63,11 +63,11 @@ export const tenantAuth =
           'content-length': '602',
           'content-type': 'application/json; charset=utf-8',
         },
-        body: JSON.stringify(<Auth>{
+        body: JSON.stringify({
           token,
           clientId,
           baseUrl: authProviderBaseURL,
-        }),
+        } as Auth),
       };
       context().tenantContext.auth = {
         clientId,

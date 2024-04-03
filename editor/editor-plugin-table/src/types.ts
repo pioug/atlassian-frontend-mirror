@@ -35,6 +35,14 @@ export interface InsertRowOptions {
 
 export type PluginInjectionAPI = ExtractInjectionAPI<TablePlugin>;
 
+export type PluginInjectionAPIWithA11y = ExtractInjectionAPI<TablePlugin> & {
+  accessibilityUtils?: {
+    actions: {
+      ariaNotify: (message: string) => void | undefined;
+    };
+  };
+};
+
 // override getPluginState but do not expose publicly as this type is experimental and will change
 // in the future
 export type TableSharedStateInternal = Pick<

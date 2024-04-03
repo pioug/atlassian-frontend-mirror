@@ -15,7 +15,7 @@ import {
 const EXPERIENCE_NAME = 'smart-link-ai-summary';
 
 export const useAISummary = (props: AISummaryServiceProps) => {
-  const { url, baseUrl, headers, product } = props;
+  const { url, baseUrl, headers, product, ari } = props;
   const [state, setState] = useState<AISummaryState>(
     AISummariesStore.get(url)?.state || { status: 'ready', content: '' },
   );
@@ -47,6 +47,7 @@ export const useAISummary = (props: AISummaryServiceProps) => {
         url,
         new AISummaryService({
           url,
+          ari,
           baseUrl,
           headers,
           onError,
@@ -59,7 +60,7 @@ export const useAISummary = (props: AISummaryServiceProps) => {
 
     //returns function that calls unsubscribe method
     return AISummariesStore.get(url)?.subscribe(setState);
-  }, [url, baseUrl, headers, onError, onStart, onSuccess, product]);
+  }, [url, baseUrl, headers, onError, onStart, onSuccess, product, ari]);
 
   const summariseUrl = () => {
     return AISummariesStore.get(url)?.summariseUrl();

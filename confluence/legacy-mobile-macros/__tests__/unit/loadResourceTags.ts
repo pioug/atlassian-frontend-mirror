@@ -9,7 +9,7 @@ describe('loadResourceTags', () => {
     document.head.append(document.createElement('link'));
     const testId = 'testid';
     loadResourceTags([`<script data-testid="${testId}"></script>`], true);
-    const tag = <Element>document.head.childNodes[0];
+    const tag = document.head.childNodes[0] as Element;
     expect(tag.getAttribute('data-testid')).toEqual(testId);
   });
 
@@ -17,7 +17,7 @@ describe('loadResourceTags', () => {
     document.head.append(document.createElement('link'));
     const testId = 'testid';
     loadResourceTags([`<script data-testid="${testId}"></script>`], false);
-    const tag = <Element>document.head.childNodes[1];
+    const tag = document.head.childNodes[1] as Element;
     expect(tag.getAttribute('data-testid')).toEqual(testId);
   });
 

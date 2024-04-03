@@ -132,4 +132,11 @@ export const modalMessages = defineMessages({
       'Description that shows in the modal when user has no access to any Jira sites',
     defaultMessage: 'To request access, contact your admin.',
   },
+  checkConnectionWithSource: {
+    id: 'linkDataSource.jira-issues.checkConnectionWithSource',
+    description:
+      'Instructions to let the user know how to resolve the error that occured, or click the link provided to open the query in Jira',
+    defaultMessage:
+      'Check your connection and refresh, or <a>open this query in Jira</a> to review.',
+  },
 });

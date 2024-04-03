@@ -347,8 +347,10 @@ class FloatingDeleteButton extends Component<Props, State> {
           <div
             style={{
               position: 'fixed',
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
               top: pos.top,
               zIndex: stickyRowZIndex,
+              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
               left:
                 rect.left +
                 (pos.left || 0) -

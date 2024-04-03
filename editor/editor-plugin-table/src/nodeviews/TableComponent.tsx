@@ -25,14 +25,12 @@ import type {
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  MAX_BROWSER_SCROLLBAR_HEIGHT,
-  akEditorTableToolbarSize as tableToolbarSize,
-} from '@atlaskit/editor-shared-styles';
+import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';
@@ -59,10 +57,6 @@ import { TABLE_EDITOR_MARGIN } from '../pm-plugins/table-resizing/utils/consts';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
-import {
-  tableOverflowShadowWidth,
-  tableOverflowShadowWidthWide,
-} from '../ui/consts';
 import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
@@ -751,7 +745,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               visibility:
                 showBeforeShadow && hasHeaderRow ? 'visible' : 'hidden',
               top: `${topStickyShadowPosition}px`,
-              paddingBottom: `${isDragAndDropEnabled ? '1px' : ''}`,
+              paddingBottom: `${
+                isDragAndDropEnabled && token('space.025', '2px')
+              }`,
             }}
           />
         )}
@@ -776,10 +772,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           <div
             className={ClassName.TABLE_STICKY_SCROLLBAR_CONTAINER}
             style={{
-              height: MAX_BROWSER_SCROLLBAR_HEIGHT,
+              height: token('space.250', '20px'), // MAX_BROWSER_SCROLLBAR_HEIGHT
               display: 'none',
               // prevent unwanted scroll during table resize without removing scrollbar container from the dom
-              width: isResizing ? '0px' : '100%',
+              width: isResizing ? token('space.0', '0px') : '100%',
             }}
           >
             <div
@@ -804,10 +800,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
                     getBooleanFF(
                       'platform.editor.table.increase-shadow-visibility_lh89r',
                     )
-                      ? tableOverflowShadowWidthWide
-                      : tableOverflowShadowWidth
-                  }px`
-                : '-2px',
+                      ? token('space.400', '32px') // tableOverflowShadowWidthWide
+                      : token('space.100', '8px') // tableOverflowShadowWidth
+                  }`
+                : token('space.negative.025', '-2px'),
             }}
           >
             <div
@@ -816,7 +812,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
                 visibility:
                   showAfterShadow && hasHeaderRow ? 'visible' : 'hidden',
                 top: `${topStickyShadowPosition}px`,
-                paddingBottom: `${isDragAndDropEnabled ? '1px' : ''}`,
+                paddingBottom: `${
+                  isDragAndDropEnabled && token('space.025', '2px')
+                }`,
               }}
             />
           </div>

@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.3.10
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+
 ## 8.3.9
 
 ### Patch Changes

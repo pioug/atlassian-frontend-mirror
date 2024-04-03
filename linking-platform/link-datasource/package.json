@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.24.7",
+  "version": "1.24.10",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,7 @@
     "analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.7.0",
+    "@atlaskit/adf-schema": "^35.8.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
@@ -102,7 +102,7 @@
     "@types/debounce-promise": "^3.1.2",
     "fetch-mock": "^8.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "json-ld-types": "^3.11.0",
+    "json-ld-types": "^4.1.0",
     "typescript": "~5.4.2",
     "wait-for-expect": "^1.2.0"
   },

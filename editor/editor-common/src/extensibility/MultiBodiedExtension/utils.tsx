@@ -29,7 +29,6 @@ export const sendMBEAnalyticsEvent = (
         extensionType: node.attrs.extensionType,
         extensionKey: node.attrs.extensionKey,
         localId: node.attrs.localId,
-        maxFramesCount: node.attrs.maxFrames,
         currentFramesCount: node.content.childCount,
       },
     },

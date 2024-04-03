@@ -278,47 +278,24 @@ describe('<LinkCreate />', () => {
 
     ffTest(
       'platform.linking-platform.link-create.better-observability',
-      ff =>
-        ffTest(
-          'platform.linking-platform.link-create.slo-ignore-failed-fetch',
-          async () => {
-            setUpLinkCreate();
+      async () => {
+        setUpLinkCreate();
 
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(1);
+        screen.getByTestId('error-button').click();
+        expect(onFailureMock).toBeCalledTimes(1);
 
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'TypeError',
-                  isSLOFailure: false,
-                },
-              },
-            });
+        expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            eventType: 'operational',
+            action: 'failed',
+            actionSubject: 'linkCreateExperience',
+            attributes: {
+              errorType: 'TypeError',
+              isSLOFailure: false,
+            },
           },
-          async () => {
-            setUpLinkCreate();
-
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(1);
-
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'TypeError',
-                  isSLOFailure: true,
-                },
-              },
-            });
-          },
-          ff,
-        ),
+        });
+      },
       async () => {
         setUpLinkCreate();
 

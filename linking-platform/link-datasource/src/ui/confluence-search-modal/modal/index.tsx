@@ -1,8 +1,16 @@
 /** @jsx jsx */
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, FormattedNumber } from 'react-intl-next';
+import { v4 as uuidv4 } from 'uuid';
 
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
@@ -12,37 +20,108 @@ import Modal, {
   ModalHeader,
   ModalTitle,
 } from '@atlaskit/modal-dialog';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
+import LinkUrl from '@atlaskit/smart-card/link-url';
+import { N800 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Site } from '../../../common/types';
+import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
+import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
 import { getAvailableSites } from '../../../services/getAvailableSites';
+import { AccessRequired } from '../../common/error-state/access-required';
+import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoInstancesView } from '../../common/error-state/no-instances';
+import { NoResults } from '../../common/error-state/no-results';
 import { InitialStateView } from '../../common/initial-state-view';
-import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SiteSelector } from '../../common/modal/site-selector';
-import { ConfluenceSearchConfigModalProps } from '../types';
+import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
+import { ColumnSizesMap } from '../../issue-like-table/types';
+import ConfluenceSearchContainer from '../confluence-search-container';
+import {
+  ConfluenceSearchConfigModalProps,
+  ConfluenceSearchDatasourceParameters,
+} from '../types';
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
 import { confluenceSearchModalMessages } from './messages';
 
+const inputContainerStyles = xcss({
+  alignItems: 'baseline',
+  display: 'flex',
+  minHeight: '72px',
+});
+
+const searchCountStyles = xcss({
+  flex: 1,
+  fontWeight: 600,
+});
+
 export const ConfluenceSearchConfigModal = (
   props: ConfluenceSearchConfigModalProps,
 ) => {
-  const { parameters: initialParameters, onCancel } = props;
+  const { current: modalRenderInstanceId } = useRef(uuidv4());
+
+  const {
+    datasourceId,
+    columnCustomSizes: initialColumnCustomSizes,
+    wrappedColumnKeys: initialWrappedColumnKeys,
+    onCancel,
+    onInsert,
+    parameters: initialParameters,
+    url: urlBeingEdited,
+    visibleColumnKeys: initialVisibleColumnKeys,
+  } = props;
+
   const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
     undefined,
   );
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const onSiteSelection = useCallback(
-    (site: Site) => {
-      setCloudId(site.cloudId);
-    },
-    [setCloudId],
+  const [searchString, setSearchString] = useState<string | undefined>(
+    initialParameters?.searchString,
   );
+  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
+    initialVisibleColumnKeys,
+  );
+
+  // TODO: further refactoring in EDM-9573
+  // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829210
+  const parameters = useMemo(
+    () => ({ ...initialParameters, cloudId, searchString }),
+    [
+      cloudId,
+      initialParameters,
+      searchString /** Add more parameters when more filters are added */,
+    ],
+  );
+
+  const isParametersSet = useMemo(
+    () =>
+      !!cloudId &&
+      Object.values(parameters ?? {}).filter(v => v !== undefined).length > 1,
+    [cloudId, parameters],
+  );
+
+  const {
+    reset,
+    status,
+    onNextPage,
+    responseItems,
+    hasNextPage,
+    columns,
+    defaultVisibleColumnKeys,
+    loadDatasourceDetails,
+    extensionKey = null,
+    totalCount,
+  } = useDatasourceTableState({
+    datasourceId,
+    parameters: isParametersSet ? parameters : undefined,
+    fieldKeys: visibleColumnKeys,
+  });
 
   const hasNoConfluenceSites = availableSites && availableSites.length === 0;
 
@@ -64,12 +143,26 @@ export const ConfluenceSearchConfigModal = (
     }
   }, [availableSites, cloudId]);
 
-  const handleSearchChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const rawSearch = e.currentTarget.value;
-      setSearchTerm(rawSearch);
+  // TODO: further refactoring in EDM-9573
+  // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828283
+  useEffect(() => {
+    if (
+      selectedConfluenceSite &&
+      (!cloudId || cloudId !== selectedConfluenceSite.cloudId)
+    ) {
+      setCloudId(selectedConfluenceSite.cloudId);
+    }
+  }, [cloudId, selectedConfluenceSite]);
+
+  // TODO: further refactoring in EDM-9573
+  // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829171
+  const onSiteSelection = useCallback(
+    (site: Site) => {
+      setSearchString(undefined);
+      setCloudId(site.cloudId);
+      reset({ shouldForceRequest: true });
     },
-    [setSearchTerm],
+    [reset],
   );
 
   useEffect(() => {
@@ -88,6 +181,189 @@ export const ConfluenceSearchConfigModal = (
     availableSites && availableSites.length > 1
       ? confluenceSearchModalMessages.insertIssuesTitleManySites
       : confluenceSearchModalMessages.insertIssuesTitle;
+
+  const [columnCustomSizes, setColumnCustomSizes] = useState<
+    ColumnSizesMap | undefined
+  >(initialColumnCustomSizes);
+
+  const onColumnResize = useCallback(
+    (key: string, width: number) => {
+      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
+    },
+    [columnCustomSizes],
+  );
+
+  const [wrappedColumnKeys, setWrappedColumnKeys] = useState<
+    string[] | undefined
+  >(initialWrappedColumnKeys);
+
+  const onWrappedColumnChange = useCallback(
+    (key: string, isWrapped: boolean) => {
+      const set = new Set(wrappedColumnKeys);
+      if (isWrapped) {
+        set.add(key);
+      } else {
+        set.delete(key);
+      }
+      setWrappedColumnKeys(Array.from(set));
+    },
+    [wrappedColumnKeys],
+  );
+
+  // TODO: further refactoring in EDM-9573
+  // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6798258
+  const confluenceSearchTable = useMemo(
+    () => (
+      <ContentContainer withTableBorder>
+        <IssueLikeDataTableView
+          testId="confluence-search-datasource-table"
+          status={status}
+          columns={columns}
+          items={responseItems}
+          hasNextPage={hasNextPage}
+          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={loadDatasourceDetails}
+          onVisibleColumnKeysChange={setVisibleColumnKeys}
+          parentContainerRenderInstanceId={modalRenderInstanceId}
+          extensionKey={extensionKey}
+          columnCustomSizes={columnCustomSizes}
+          onColumnResize={onColumnResize}
+          wrappedColumnKeys={wrappedColumnKeys}
+          onWrappedColumnChange={
+            getBooleanFF('platform.linking-platform.datasource-word_wrap')
+              ? onWrappedColumnChange
+              : undefined
+          }
+        />
+      </ContentContainer>
+    ),
+    [
+      status,
+      columns,
+      responseItems,
+      hasNextPage,
+      visibleColumnKeys,
+      defaultVisibleColumnKeys,
+      onNextPage,
+      loadDatasourceDetails,
+      setVisibleColumnKeys,
+      modalRenderInstanceId,
+      extensionKey,
+      columnCustomSizes,
+      onColumnResize,
+      wrappedColumnKeys,
+      onWrappedColumnChange,
+    ],
+  );
+
+  const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
+
+  const hasConfluenceSearchParams = selectedConfluenceSite && searchString;
+
+  const selectedConfluenceSiteUrl = selectedConfluenceSite?.url;
+  const confluenceSearchUrl =
+    selectedConfluenceSiteUrl &&
+    searchString !== undefined &&
+    `${selectedConfluenceSiteUrl}/wiki/search/?text=${encodeURI(searchString)}`;
+
+  const renderModalContent = useCallback(() => {
+    if (status === 'rejected') {
+      return <ModalLoadingError />;
+    } else if (status === 'unauthorized') {
+      return (
+        <AccessRequired url={selectedConfluenceSiteUrl || urlBeingEdited} />
+      );
+    } else if (resolvedWithNoResults || status === 'forbidden') {
+      return <NoResults />;
+    } else if (status === 'empty' || !columns.length) {
+      // persist the empty state when making the initial /data request which contains the columns
+      if (hasConfluenceSearchParams !== undefined) {
+        return (
+          <EmptyState
+            testId={`confluence-search-datasource-modal--empty-state`}
+          />
+        );
+      }
+      return (
+        <ContentContainer>
+          <InitialStateView
+            icon={<ConfluenceSearchInitialStateSVG />}
+            title={confluenceSearchModalMessages.initialViewSearchTitle}
+            description={
+              confluenceSearchModalMessages.initialViewSearchDescription
+            }
+          />
+        </ContentContainer>
+      );
+    }
+    return confluenceSearchTable;
+  }, [
+    columns.length,
+    selectedConfluenceSiteUrl,
+    confluenceSearchTable,
+    resolvedWithNoResults,
+    status,
+    urlBeingEdited,
+    hasConfluenceSearchParams,
+  ]);
+
+  const shouldShowResultsCount = !!totalCount && totalCount !== 1;
+
+  const onInsertPressed = useCallback(() => {
+    if (!isParametersSet || !cloudId) {
+      return;
+    }
+
+    onInsert(
+      buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
+        id: datasourceId,
+        parameters: {
+          ...parameters,
+          cloudId,
+        },
+        views: [
+          {
+            type: 'table',
+            properties: {
+              columns: (visibleColumnKeys || []).map(key => {
+                const width = columnCustomSizes?.[key];
+                const isWrapped = wrappedColumnKeys?.includes(key);
+                return {
+                  key,
+                  ...(width ? { width } : {}),
+                  ...(isWrapped ? { isWrapped } : {}),
+                };
+              }),
+            },
+          },
+        ],
+      }),
+    );
+  }, [
+    cloudId,
+    isParametersSet,
+    onInsert,
+    datasourceId,
+    parameters,
+    visibleColumnKeys,
+    columnCustomSizes,
+    wrappedColumnKeys,
+  ]);
+
+  const onSearch = useCallback(
+    (newSearchString: string) => {
+      setSearchString(newSearchString);
+      reset({ shouldForceRequest: true });
+    },
+    [reset],
+  );
+
+  const isInsertDisabled =
+    !isParametersSet ||
+    status === 'rejected' ||
+    status === 'unauthorized' ||
+    status === 'loading';
 
   return (
     <IntlMessagesProvider
@@ -114,24 +390,15 @@ export const ConfluenceSearchConfigModal = (
         <ModalBody>
           {!hasNoConfluenceSites ? (
             <Fragment>
-              <BasicSearchInput
-                testId="confluence-search-datasource-modal"
-                isSearching={status === 'loading'}
-                onChange={handleSearchChange}
-                onSearch={() => {}}
-                searchTerm={searchTerm}
-                placeholder={confluenceSearchModalMessages.searchLabel}
-                fullWidth
-              />
-              <ContentContainer>
-                <InitialStateView
-                  icon={<ConfluenceSearchInitialStateSVG />}
-                  title={confluenceSearchModalMessages.initialViewSearchTitle}
-                  description={
-                    confluenceSearchModalMessages.initialViewSearchDescription
-                  }
+              <Box xcss={inputContainerStyles}>
+                <ConfluenceSearchContainer
+                  cloudId={cloudId}
+                  isSearching={status === 'loading'}
+                  onSearch={onSearch}
+                  initialSearchValue={initialParameters?.searchString}
                 />
-              </ContentContainer>
+              </Box>
+              {renderModalContent()}
             </Fragment>
           ) : (
             <NoInstancesView
@@ -146,6 +413,25 @@ export const ConfluenceSearchConfigModal = (
           )}
         </ModalBody>
         <ModalFooter>
+          {shouldShowResultsCount && confluenceSearchUrl && (
+            <Box
+              testId="confluence-search-datasource-modal-total-results-count"
+              xcss={searchCountStyles}
+            >
+              <LinkUrl
+                href={confluenceSearchUrl}
+                target="_blank"
+                testId="item-count-url"
+                style={{ color: token('color.text.accent.gray', N800) }}
+              >
+                <FormattedNumber value={totalCount} />{' '}
+                <FormattedMessage
+                  {...confluenceSearchModalMessages.searchCountText}
+                  values={{ totalCount }}
+                />
+              </LinkUrl>
+            </Box>
+          )}
           <Button appearance="default" onClick={onCancel}>
             <FormattedMessage
               {...confluenceSearchModalMessages.cancelButtonText}
@@ -154,8 +440,8 @@ export const ConfluenceSearchConfigModal = (
           {!hasNoConfluenceSites && (
             <Button
               appearance="primary"
-              onClick={() => {}}
-              isDisabled={true}
+              onClick={onInsertPressed}
+              isDisabled={isInsertDisabled}
               testId="confluence-search-datasource-modal--insert-button"
             >
               <FormattedMessage

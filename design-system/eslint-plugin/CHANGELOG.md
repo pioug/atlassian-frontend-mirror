@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.2.3
+
+### Patch Changes
+
+- [#86352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86352) [`c32535ff8734`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c32535ff8734) - Fixed an issue where the `ensure-design-token-usage` rule (and by extension `ensure-design-token-usage/preview` rule) would report on color properties even if `"color"` was not provided in the domains config.
+
+## 9.2.2
+
+### Patch Changes
+
+- [#86321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86321) [`b353b26e22b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b353b26e22b6) - Improvements for `no-*-tagged-template-expression` rules:
+
+  - Fixed a bug that could produce syntax errors when mixins were present in nested selectors.
+  - Disabled autofixing styled components usages with mixins in nested selectors, as there is no general equivalent.
+  - Disabled autofixing function interpolations with non-expression bodies.
+
 ## 9.2.1
 
 ### Patch Changes

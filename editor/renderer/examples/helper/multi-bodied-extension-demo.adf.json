@@ -7,7 +7,6 @@
       "attrs": {
         "extensionKey": "fake_tabs.com:fakeTabNode",
         "extensionType": "com.atlassian.confluence.",
-        "maxFrames": 5,
         "parameters": {
           "activeTabIndex": 0,
           "macroParams": {},

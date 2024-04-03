@@ -24,6 +24,19 @@ export const spacingTests: Tests = {
         word-break: break-word;
       \``,
     },
+    // Make sure color properties aren't linted against when domains doesn't include color
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `<Something fill="white" />`,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `<Something color={color.red} />`,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `<Something fill={red} />`,
+    },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ padding: token('space.100', '8px') })`,

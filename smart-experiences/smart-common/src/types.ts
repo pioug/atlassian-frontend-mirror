@@ -40,6 +40,7 @@ export interface UserSearchContext {
   productKey: string;
   sessionId?: string;
   siteId: string;
+  organizationId?: string;
 }
 
 export interface UserSearchQuery {

@@ -102,11 +102,7 @@ export const Experience = ({ children }: ExperienceProps) => {
             /**
              * Whether the failure should be involved when considering SLI/SLO
              */
-            isSLOFailure: getBooleanFF(
-              'platform.linking-platform.link-create.slo-ignore-failed-fetch',
-            )
-              ? isErrorSLOFailure(error)
-              : true,
+            isSLOFailure: isErrorSLOFailure(error),
             /**
              * Fields related to `Response` object that can help with debugging
              * what has gone wrong
@@ -126,23 +122,13 @@ export const Experience = ({ children }: ExperienceProps) => {
           }
         }
 
-        if (
-          getBooleanFF(
-            'platform.linking-platform.link-create.slo-ignore-failed-fetch',
-          )
-        ) {
-          /**
-           * Only consider the experience truly failed if the
-           * failure is one we haven't correctly handled.
-           *
-           * In otherwords allow the experience to be "restarted" for the user to try again
-           */
-          if (isErrorSLOFailure(error)) {
-            if (experience.current !== experienceStatus) {
-              experience.current = experienceStatus;
-            }
-          }
-        } else {
+        /**
+         * Only consider the experience truly failed if the
+         * failure is one we haven't correctly handled.
+         *
+         * In otherwords allow the experience to be "restarted" for the user to try again
+         */
+        if (isErrorSLOFailure(error)) {
           if (experience.current !== experienceStatus) {
             experience.current = experienceStatus;
           }

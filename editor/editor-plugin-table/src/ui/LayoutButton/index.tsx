@@ -125,7 +125,9 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
         aria-label={title}
         style={{
           position: 'fixed',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           top: pos.top + 22,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           left: tablePos.right,
         }}
       >

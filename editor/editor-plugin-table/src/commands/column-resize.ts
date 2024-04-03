@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl-next/src/types';
+
+import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type {
   Command,
@@ -121,36 +124,54 @@ const updateResizeHandleAndStatePosition =
     return false;
   };
 
-export const initiateKeyboardColumnResizing: Command = (
-  state,
-  dispatch,
-  view,
-) => {
-  if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-    return false;
-  }
-  const { selection } = state;
-  const selectionRect = isSelectionType(selection, 'cell')
-    ? getSelectionRect(selection)!
-    : findCellRectClosestToPos(selection.$from);
-  const cell = findCellClosestToPos(selection.$from);
-
-  if (selectionRect && cell && view) {
-    return updateResizeHandleAndStatePosition(
-      selectionRect.top,
-      selectionRect.right,
-      cell.pos,
-    )(state, dispatch);
-  }
-  return false;
-};
-
-export const activateNextResizeArea =
-  (direction: Direction): Command =>
+export const initiateKeyboardColumnResizing =
+  ({
+    ariaNotify,
+    getIntl,
+  }: {
+    ariaNotify?: (message: string) => void;
+    getIntl?: () => IntlShape;
+  }): Command =>
   (state, dispatch, view) => {
     if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
       return false;
     }
+
+    const { selection } = state;
+    const selectionRect = isSelectionType(selection, 'cell')
+      ? getSelectionRect(selection)!
+      : findCellRectClosestToPos(selection.$from);
+    const cell = findCellClosestToPos(selection.$from);
+
+    if (ariaNotify && getIntl) {
+      ariaNotify(getIntl().formatMessage(messages.startedColumnResize));
+    }
+
+    if (selectionRect && cell && view) {
+      return updateResizeHandleAndStatePosition(
+        selectionRect.top,
+        selectionRect.right,
+        cell.pos,
+      )(state, dispatch);
+    }
+    return false;
+  };
+
+export const activateNextResizeArea =
+  ({
+    direction,
+    ariaNotify,
+    getIntl,
+  }: {
+    direction: Direction;
+    ariaNotify?: (message: string) => void;
+    getIntl?: () => IntlShape;
+  }): Command =>
+  (state, dispatch, view) => {
+    if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
+      return false;
+    }
+
     const { resizeHandlePos } = getTableResizingPluginState(state) || {};
     // If No resizing has initiated, skip to regular handler
     if (!resizeHandlePos) {
@@ -182,6 +203,23 @@ export const activateNextResizeArea =
     );
 
     const $nextCell = nextCell($currentCell, 'horiz', direction);
+    if (ariaNotify && getIntl) {
+      let columnDirection = '';
+
+      if (direction === 1) {
+        columnDirection = getIntl().formatMessage(messages.columnRightResize);
+      }
+
+      if (direction === -1) {
+        columnDirection = getIntl().formatMessage(messages.columnLeftResize);
+      }
+
+      ariaNotify(
+        getIntl().formatMessage(messages.focusedOtherResize, {
+          direction: columnDirection,
+        }),
+      );
+    }
 
     if ($nextCell) {
       // we are somewhere in between the side columns of the table
@@ -221,15 +259,25 @@ export const activateNextResizeArea =
         )(state, dispatch);
       }
     }
+
     return false;
   };
 
 export const changeColumnWidthByStep =
-  (
-    stepSize: number,
-    getEditorContainerWidth: GetEditorContainerWidth,
-    isTableScalingEnabled = false,
-  ): Command =>
+  ({
+    stepSize,
+    getEditorContainerWidth,
+    isTableScalingEnabled,
+    ariaNotify,
+    getIntl,
+  }: {
+    stepSize: number;
+    getEditorContainerWidth: GetEditorContainerWidth;
+    isTableScalingEnabled: boolean;
+    ariaNotify?: (message: string) => void;
+    getIntl?: () => IntlShape;
+    originalTr?: Transaction;
+  }): Command =>
   (state, dispatch, view) => {
     let customTr = state.tr;
     const fakeDispatch = (tr: Transaction) => {
@@ -323,11 +371,36 @@ export const changeColumnWidthByStep =
       dispatch(customTr);
     }
 
+    if (ariaNotify && getIntl) {
+      ariaNotify(
+        getIntl().formatMessage(messages.changedColumnWidth, {
+          width: Math.floor(newResizeState.cols[colIndex].width),
+        }),
+      );
+
+      if (newResizeState.cols.length === colIndex + 1) {
+        if (newResizeState.overflow === true) {
+          ariaNotify(getIntl().formatMessage(messages.columnResizeLast));
+        }
+        if (newResizeState.overflow === false) {
+          ariaNotify(getIntl().formatMessage(messages.columnResizeOverflow));
+        }
+      }
+    }
+
     return true;
   };
 
 export const stopKeyboardColumnResizing =
-  (originalTr?: Transaction): Command =>
+  ({
+    ariaNotify,
+    getIntl,
+    originalTr,
+  }: {
+    ariaNotify?: (message: string) => void;
+    getIntl?: () => IntlShape;
+    originalTr?: Transaction;
+  }): Command =>
   (state, dispatch) => {
     if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
       return false;
@@ -364,6 +437,9 @@ export const stopKeyboardColumnResizing =
       },
       () => customTr.setMeta('scrollIntoView', false),
     )(state, fakeDispatch);
+    if (ariaNotify && getIntl) {
+      ariaNotify(getIntl().formatMessage(messages.columnResizeStop));
+    }
 
     if (dispatch) {
       dispatch(customTr);

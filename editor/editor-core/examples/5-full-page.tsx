@@ -540,6 +540,7 @@ export class ExampleEditorComponent extends React.Component<
                   'safer-dispatched-transactions': true,
                   'table-drag-and-drop': true,
                   'table-preserve-width': true,
+                  'sticky-scrollbar': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}

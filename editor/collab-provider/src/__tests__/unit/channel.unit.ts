@@ -139,7 +139,7 @@ describe('Channel unit tests', () => {
       done();
     });
 
-    channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
+    channel.getSocket()!.emit('data', {
       type: 'initial',
       doc: 'ari:cloud:confluence:a436116f-02ce-4520-8fbb-7301462a1674:page/1731046230',
       version: 1234567,
@@ -148,7 +148,7 @@ describe('Channel unit tests', () => {
       metadata: {
         title: 'a-title',
       },
-    });
+    } as InitPayload & { type: 'initial' });
     expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
     expect(sendActionEventSpy).toHaveBeenCalledWith('documentInit', 'SUCCESS', {
       hasTitle: true,
@@ -386,14 +386,14 @@ describe('Channel unit tests', () => {
 
     channel.on('init', (data: any) => {
       try {
-        expect(data).toEqual(<InitPayload>{
+        expect(data).toEqual({
           doc: expect.stringMatching(/.*/),
           version: expect.any(Number),
           userId: '123',
           metadata: {
             title: 'a-title',
           },
-        });
+        } as InitPayload);
         expect(channel.getInitialized()).toBe(true);
         done();
       } catch (err) {
@@ -402,7 +402,7 @@ describe('Channel unit tests', () => {
     });
 
     expect(channel.getInitialized()).toBe(false);
-    channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
+    channel.getSocket()!.emit('data', {
       type: 'initial',
       doc: '',
       version: 1234567,
@@ -410,7 +410,7 @@ describe('Channel unit tests', () => {
       metadata: {
         title: 'a-title',
       },
-    });
+    } as InitPayload & { type: 'initial' });
   });
 
   it('should handle receiving steps:added from server', (done) => {
@@ -427,10 +427,10 @@ describe('Channel unit tests', () => {
         done(err);
       }
     });
-    channel.getSocket()!.emit('steps:added', <StepsPayload>{
+    channel.getSocket()!.emit('steps:added', {
       version: 121423674845,
       steps: [],
-    });
+    } as StepsPayload);
   });
 
   it('should handle receiving participant:telepointer from server', (done) => {
@@ -438,19 +438,19 @@ describe('Channel unit tests', () => {
 
     channel.on('participant:telepointer', (data: any) => {
       try {
-        expect(data).toEqual(<CollabSendableSelection & { timestamp: number }>{
+        expect(data).toEqual({
           type: 'textSelection',
           anchor: 3,
           head: 3,
           timestamp: 456734573473564,
-        });
+        } as CollabSendableSelection & { timestamp: number });
         done();
       } catch (err) {
         done(err);
       }
     });
 
-    channel.getSocket()!.emit('participant:telepointer', <PresencePayload>{
+    channel.getSocket()!.emit('participant:telepointer', {
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',
@@ -460,7 +460,7 @@ describe('Channel unit tests', () => {
         anchor: 3,
         head: 3,
       },
-    });
+    } as PresencePayload);
   });
 
   describe('should emit errors to the provider', () => {
@@ -509,10 +509,10 @@ describe('Channel unit tests', () => {
     const channel = getChannel();
 
     channel.on('presence:joined', (data: PresencePayload) => {
-      expect(data).toEqual(<PresencePayload>{
+      expect(data).toEqual({
         sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
         timestamp: 1680759407925,
-      });
+      } as PresencePayload);
       done();
     });
 
@@ -525,21 +525,21 @@ describe('Channel unit tests', () => {
     const channel = getChannel();
 
     channel.on('participant:left', (data: any) => {
-      expect(data).toEqual(<PresencePayload>{
+      expect(data).toEqual({
         sessionId: 'abc',
         userId: 'cbfb',
         clientId: 'fbfbfb',
         timestamp: 234562345623653,
-      });
+      } as PresencePayload);
       done();
     });
 
-    channel.getSocket()!.emit('participant:left', <PresencePayload>{
+    channel.getSocket()!.emit('participant:left', {
       sessionId: 'abc',
       userId: 'cbfb',
       clientId: 'fbfbfb',
       timestamp: 234562345623653,
-    });
+    } as PresencePayload);
   });
 
   it('should handle receiving participant:updated from server', (done) => {
@@ -582,15 +582,15 @@ describe('Channel unit tests', () => {
     const channel = getChannel();
 
     channel.on('metadata:changed', (data: any) => {
-      expect(data).toEqual(<any>{
+      expect(data).toEqual({
         editorWidth: 'My tremendous page width!',
-      });
+      } as any);
       done();
     });
 
-    channel.getSocket()!.emit('metadata:changed', <any>{
+    channel.getSocket()!.emit('metadata:changed', {
       editorWidth: 'My tremendous page width!',
-    });
+    } as any);
   });
 
   it('should handle receiving restore event from server', (done) => {
@@ -620,10 +620,10 @@ describe('Channel unit tests', () => {
       expect(data).toEqual(mockRestoreData);
       done();
     });
-    channel.getSocket()!.emit('data', <any>{
+    channel.getSocket()!.emit('data', {
       type: 'initial',
       ...mockRestoreData,
-    });
+    } as any);
   });
 
   it('should send x-token when making catchup call if tokenRefresh exist', async () => {
@@ -850,7 +850,7 @@ describe('Channel unit tests', () => {
       (channel.getSocket() as any)?._authCb.mockClear();
 
       // send initial data, should set channel.initialized to true
-      channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
+      channel.getSocket()!.emit('data', {
         type: 'initial',
         doc: '',
         version: 1234567,
@@ -858,7 +858,7 @@ describe('Channel unit tests', () => {
         metadata: {
           title: 'a-title',
         },
-      });
+      } as InitPayload & { type: 'initial' });
 
       expect(channel.getInitialized()).toEqual(true);
 

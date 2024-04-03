@@ -1,3 +1,5 @@
+import type { IntlShape } from 'react-intl-next/src/types';
+
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
@@ -259,6 +261,8 @@ export const changeColumnWidthByStepWithAnalytics =
     getEditorContainerWidth: GetEditorContainerWidth,
     isTableScalingEnabled: boolean,
     inputMethod: INPUT_METHOD.SHORTCUT,
+    ariaNotify?: (message: string) => void,
+    getIntl?: () => IntlShape,
   ) =>
     withEditorAnalyticsAPI((state) => {
       const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
@@ -283,11 +287,13 @@ export const changeColumnWidthByStepWithAnalytics =
         },
       };
     })(editorAnalyticsAPI)(
-      changeColumnWidthByStep(
-        stepSize,
-        getEditorContainerWidth,
-        isTableScalingEnabled,
-      ),
+      changeColumnWidthByStep({
+        stepSize: stepSize,
+        getEditorContainerWidth: getEditorContainerWidth,
+        isTableScalingEnabled: isTableScalingEnabled,
+        ariaNotify: ariaNotify,
+        getIntl: getIntl,
+      }),
     );
 
 export const insertColumnWithAnalytics =

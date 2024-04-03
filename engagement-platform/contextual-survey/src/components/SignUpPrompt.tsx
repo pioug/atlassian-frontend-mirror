@@ -4,15 +4,13 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import SuccessContainer from './SuccessContainer';
 
 const styles = css({
-  font: token(
-    'font.heading.xsmall',
-    'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.xsmall', fontFallback.heading.xsmall),
   margin: 0,
 });
 interface Props {

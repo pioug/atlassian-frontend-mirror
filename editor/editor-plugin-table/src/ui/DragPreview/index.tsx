@@ -36,7 +36,9 @@ export const DragPreview = ({
       <DragInMotionIcon
         style={{
           position: 'absolute',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginLeft: `${marginLeft}px`,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginTop: `${marginTop}px`,
           transform: transform,
         }}

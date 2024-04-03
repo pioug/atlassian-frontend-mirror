@@ -85,17 +85,24 @@ describe('JiraIssuesConfigModal', () => {
           />
         </IntlProvider>,
       );
+
+      // TODO: further refactoring in EDM-9573
+      // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828011
+      await waitFor(() => expect(getAvailableSites).toHaveBeenCalledTimes(1));
+
       const insertButton = queryByTestId(
         'jira-datasource-modal--insert-button',
       );
       const modeSwitcher = queryByTestId('mode-toggle-container');
       const searchBar = queryByTestId('jira-search-container');
-      expect(insertButton).not.toBeInTheDocument();
-      expect(modeSwitcher).not.toBeInTheDocument();
-      expect(searchBar).not.toBeInTheDocument();
+
       await waitFor(() => {
         getByTestId('no-jira-instances-content');
       });
+
+      expect(insertButton).not.toBeInTheDocument();
+      expect(searchBar).not.toBeInTheDocument();
+      expect(modeSwitcher).not.toBeInTheDocument();
     });
   });
 
@@ -646,7 +653,9 @@ describe('JiraIssuesConfigModal', () => {
 
   describe('when only one issue is returned', () => {
     it('should call LinkRenderType with the correct url', async () => {
-      const hookState = getSingleResponseItemHookState();
+      const hookState = getSingleResponseItemHookState(
+        'https://product-fabric.atlassian.net/browse/EDM-5941',
+      );
       const { switchMode, queryByTestId, getByText } = await setup({
         hookState,
       });
@@ -723,7 +732,9 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with inline card ADF upon Insert button press', async () => {
-      const hookState = getSingleResponseItemHookState();
+      const hookState = getSingleResponseItemHookState(
+        'https://product-fabric.atlassian.net/browse/EDM-5941',
+      );
       const { getByText, onInsert, getByRole } = await setup({
         hookState,
         viewMode: 'count',
@@ -978,7 +989,9 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should render inlineCard ADF with firstIssueUrl upon Insert button press in count view mode', async () => {
-      const hookState = getSingleResponseItemHookState();
+      const hookState = getSingleResponseItemHookState(
+        'https://product-fabric.atlassian.net/browse/EDM-5941',
+      );
       const { onInsert, findByRole } = await setup({
         hookState,
         viewMode: 'count',
@@ -1412,6 +1425,21 @@ describe('JiraIssuesConfigModal', () => {
       expect(
         getByText("You don't have access to the following site:"),
       ).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+    });
+
+    // TODO: further refactoring in EDM-9573
+    // check that JQL URL comes through in error message
+    // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828360
+    it('should show rejected error message', async () => {
+      const { getByRole, getByText, getByTestId } = await setup({
+        hookState: { ...getErrorHookState(), status: 'rejected' },
+      });
+
+      expect(
+        getByTestId('datasource-modal--loading-error'),
+      ).toBeInTheDocument();
+      expect(getByText('Unable to load results')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
     });
 

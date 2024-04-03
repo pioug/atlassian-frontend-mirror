@@ -1,4 +1,5 @@
 import { test as base, expect as baseExpect } from '@af/integration-testing';
+import type { DocNode } from '@atlaskit/adf-schema';
 
 import type { Expect, Page, Locator } from '@af/integration-testing';
 import type { RendererProps } from '@atlaskit/renderer';
@@ -104,6 +105,35 @@ type MountRendererOptions = {
   exampleType?: string;
 };
 
+// Based on https://github.com/microsoft/playwright/issues/6347
+async function mockDate(
+  page: Page,
+  date: { year: number; month: number; day: number },
+) {
+  // Calculate the date (account for offset)
+  const fakeNow = new Date(
+    Date.UTC(date.year, date.month - 1, date.day),
+  ).valueOf();
+
+  // Update the Date accordingly in your test pages
+  await page.addInitScript(`{
+      // Extend Date constructor to default to fakeNow
+      Date = class extends Date {
+        constructor(...args) {
+          if (args.length === 0) {
+            super(${fakeNow});
+          } else {
+            super(...args);
+          }
+        }
+      }
+      // Override Date.now() to start from fakeNow
+      const __DateNowOffset = ${fakeNow} - Date.now();
+      const __DateNow = Date.now;
+      Date.now = () => __DateNow() + __DateNowOffset;
+    }`);
+}
+
 class RendererPageModel implements RendererPageInterface {
   public annotation: AnnotationModel;
   public codeBlock: CodeBlockModel;
@@ -153,7 +183,7 @@ class RendererPageModel implements RendererPageInterface {
   }: {
     rendererProps: RendererPropsOptional;
     rendererMountOptions: MountRendererOptions;
-    adf: string | Record<string, unknown> | undefined;
+    adf: DocNode | string | Record<string, unknown> | undefined;
   }) {
     await this.rendererContainer.waitFor({ state: 'attached' });
 
@@ -164,7 +194,7 @@ class RendererPageModel implements RendererPageInterface {
     type RendererMountEvaluateProps = {
       _props: unknown;
       _mountOptions: MountRendererOptions;
-      _adf: string | Record<string, unknown> | undefined;
+      _adf: DocNode | string | Record<string, unknown> | undefined;
     };
     type DoEvaluate = (arg: RendererMountEvaluateProps) => void;
 
@@ -218,13 +248,16 @@ export const rendererTestCase = base.extend<{
   renderer: RendererPageInterface;
   rendererProps: RendererPropsOptional;
   rendererMountOptions: MountRendererOptions;
-  adf: string | Record<string, unknown> | undefined;
+  adf: DocNode | string | Record<string, unknown> | undefined;
 }>({
   rendererProps: {},
   rendererMountOptions: {},
   adf: undefined,
 
   renderer: async ({ page, adf, rendererProps, rendererMountOptions }, use) => {
+    // Mock the date for testing purposes
+    await mockDate(page, { year: 2017, month: 8, day: 16 });
+
     await page.visitExample(
       'editor',
       'renderer',

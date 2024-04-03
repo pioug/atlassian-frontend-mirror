@@ -14,6 +14,7 @@ import {
   R400,
 } from '@atlaskit/theme/colors';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
+import { fontFallback } from '@atlaskit/theme/typography';
 
 export const commonSelectedStyles = 'emoji-common-selected';
 export const selectOnHoverStyles = 'emoji-common-select-on-hover';
@@ -119,14 +120,14 @@ export const placeholderContainer = css({
   textAlign: 'center',
 });
 
-const easeSweep = keyframes`
-  from {
-    transform: translateX(-100%);
-  }
-  to   {
-    transform: translateX(100%);
-  }
-`;
+const easeSweep = keyframes({
+  from: {
+    transform: 'translateX(-100%)',
+  },
+  to: {
+    transform: 'translateX(100%)',
+  },
+});
 
 export const placeholderContainerAnimated = css({
   '&::before': {
@@ -430,10 +431,7 @@ export const deleteText = css({
 
 export const headingH5 = css({
   '&&': {
-    font: token(
-      'font.body.UNSAFE_small',
-      'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
+    font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
     fontWeight: token('font.weight.semibold', '600'),
   },
 });
@@ -453,10 +451,7 @@ export const deleteFooter = css({
   height: '40px',
   alignItems: 'center',
   justifyContent: 'space-between',
-  font: token(
-    'font.body',
-    'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body', fontFallback.body.medium),
 
   img: {
     maxHeight: '32px',

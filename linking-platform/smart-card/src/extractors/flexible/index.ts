@@ -35,6 +35,7 @@ import {
   LinkTypeCreated,
   extractLink,
   extractPersonOwnedBy,
+  extractAri,
 } from '@atlaskit/link-extractors';
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
@@ -106,6 +107,7 @@ const extractFlexibleUiContext = ({
     ),
     title: extractTitle(data) || url,
     url,
+    ari: extractAri(data),
   };
 };
 

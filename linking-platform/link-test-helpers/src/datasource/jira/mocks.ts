@@ -178,7 +178,7 @@ export const generateDetailsResponse = (
   },
 });
 
-const generateDataResponseInternal = ({
+const buildDataResponse = ({
   cloudId = '',
   maxItems = 99,
   numberOfLoads = 0,
@@ -315,7 +315,7 @@ export const generateDataResponse: GenerateDataResponse = ({
   initialVisibleColumnKeys,
 }) => {
   if (cloudId === '11111') {
-    return generateDataResponseInternal({
+    return buildDataResponse({
       cloudId,
       maxItems: 1,
       numberOfLoads,
@@ -323,7 +323,7 @@ export const generateDataResponse: GenerateDataResponse = ({
       initialVisibleColumnKeys,
     });
   } else if (cloudId === '22222') {
-    return generateDataResponseInternal({
+    return buildDataResponse({
       cloudId,
       maxItems: 0,
       numberOfLoads,
@@ -333,7 +333,7 @@ export const generateDataResponse: GenerateDataResponse = ({
   } else if (cloudId === '33333') {
     throw new Error('Mock error');
   } else if (cloudId === '44444') {
-    return generateDataResponseInternal({
+    return buildDataResponse({
       cloudId,
       numberOfLoads,
       includeSchema,
@@ -341,7 +341,7 @@ export const generateDataResponse: GenerateDataResponse = ({
       initialVisibleColumnKeys,
     });
   } else if (cloudId === '1234') {
-    return generateDataResponseInternal({
+    return buildDataResponse({
       cloudId,
       numberOfLoads,
       includeSchema,
@@ -350,7 +350,7 @@ export const generateDataResponse: GenerateDataResponse = ({
       includeAuthInfo: true,
     });
   } else {
-    return generateDataResponseInternal({
+    return buildDataResponse({
       cloudId,
       numberOfLoads,
       includeSchema,

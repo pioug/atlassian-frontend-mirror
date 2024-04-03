@@ -2,6 +2,7 @@
 
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 export const ArticleFeedbackContainer = styled.div({
@@ -9,10 +10,7 @@ export const ArticleFeedbackContainer = styled.div({
 });
 
 export const ArticleFeedbackText = styled.div({
-  font: token(
-    'font.heading.xxsmall',
-    'normal 600 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.xxsmall', fontFallback.heading.xxsmall),
   color: token('color.text.subtlest', colors.N200),
   position: 'relative',
   display: 'inline-block',

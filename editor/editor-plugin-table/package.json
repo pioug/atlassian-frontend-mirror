@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.6.4",
+  "version": "7.6.6",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,8 +28,8 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.7.0",
-    "@atlaskit/custom-steps": "^0.0.16",
+    "@atlaskit/adf-schema": "^35.8.0",
+    "@atlaskit/custom-steps": "^0.0.17",
     "@atlaskit/editor-common": "^78.22.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",

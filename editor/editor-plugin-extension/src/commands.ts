@@ -149,7 +149,6 @@ export const checkAndRemoveExtensionNode = (
           extensionType: maybeMBENode.node.attrs.extensionType,
           extensionKey: maybeMBENode.node.attrs.extensionKey,
           localId: maybeMBENode.node.attrs.localId,
-          maxFramesCount: maybeMBENode.node.attrs.maxFrames,
           currentFramesCount: maybeMBENode.node.content.childCount,
         },
       })(tr);

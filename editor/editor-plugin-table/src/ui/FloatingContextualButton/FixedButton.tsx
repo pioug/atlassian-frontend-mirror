@@ -4,6 +4,7 @@ import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
 import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
@@ -144,26 +145,28 @@ export const FixedButton = ({
       ref={observerTargetRef}
       style={{
         position: 'absolute',
-        top: '0px',
-        left: '0px',
-        width: `${BUTTON_WIDTH}px`,
-        height: `${BUTTON_WIDTH}px`,
+        top: token('space.0', '0px'),
+        left: token('space.0', '0px'),
+        width: token('space.250', '20px'), // BUTTON_WIDTH
+        height: token('space.250', '20px'), // BUTTON_WIDTH
       }}
     >
       <div
         ref={fixedButtonRef}
         style={{
           position: 'fixed',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           top: stickyHeader.top + stickyHeader.padding + offset * 2,
           zIndex: akEditorTableCellOnStickyHeaderZIndex,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           left: calcLeftPos({
             buttonWidth: BUTTON_WIDTH,
             cellRectLeft: targetCellRect.left,
             cellRefWidth: targetCellRef.clientWidth,
             offset,
           }),
-          width: `${BUTTON_WIDTH}px`,
-          height: `${BUTTON_WIDTH}px`,
+          width: token('space.250', '20px'), // BUTTON_WIDTH
+          height: token('space.250', '20px'), // BUTTON_WIDTH
         }}
         className={ClassName.CONTEXTUAL_MENU_BUTTON_FIXED}
       >

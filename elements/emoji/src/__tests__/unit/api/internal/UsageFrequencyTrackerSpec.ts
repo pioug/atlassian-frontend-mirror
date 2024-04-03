@@ -138,7 +138,7 @@ describe('UsageFrequencyTracker', () => {
     };
 
     beforeEach(() => {
-      mockQueue = <DuplicateLimitedQueue<string>>{};
+      mockQueue = {} as DuplicateLimitedQueue<string>;
       mockEnqueue = sinon.stub();
       mockClear = sinon.spy();
       mockQueue.enqueue = mockEnqueue;

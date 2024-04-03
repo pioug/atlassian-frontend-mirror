@@ -76,7 +76,6 @@ export const useMultiBodiedExtensionActions = ({
       },
       addChild(): boolean {
         const { state, dispatch } = editorView;
-
         const p = state.schema.nodes.paragraph.createAndFill({});
         if (!p) {
           throw new Error('Could not create paragraph');

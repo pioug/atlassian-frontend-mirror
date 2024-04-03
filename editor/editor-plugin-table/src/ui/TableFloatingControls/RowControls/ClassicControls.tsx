@@ -82,11 +82,15 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
                   )} ${thisRowSticky ? 'sticky' : ''}`}
                   key={startIndex}
                   style={{
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                     height: height,
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                     marginTop: `${marginTop}px`,
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                     top: thisRowSticky
                       ? `${this.props.stickyTop! + 3}px`
                       : undefined,
+                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                     paddingTop: thisRowSticky
                       ? `${tableControlsSpacing}px`
                       : undefined,

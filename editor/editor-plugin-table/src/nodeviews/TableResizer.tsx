@@ -98,7 +98,7 @@ const RESIZE_STEP_VALUE = 10;
 const handles = { right: true };
 const handleStyles = {
   right: {
-    // eslint-disable-next-line
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
     right: '-14px',
     marginTop: token('space.150', '12px'),
   },
@@ -491,6 +491,7 @@ export const TableResizer = ({
       if (newWidth > maxWidth || newWidth < resizerMinWidth) {
         return;
       }
+      setLocalTableWidth(newWidth);
       handleResizeStop(
         { width: width, x: 0, y: 0, height: 0 },
         { width: step, height: 0 },

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-block-type",
-  "version": "3.0.32",
+  "version": "3.0.33",
   "description": "BlockType plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
     "./styles": "./src/styles.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.7.0",
+    "@atlaskit/adf-schema": "^35.8.0",
     "@atlaskit/editor-common": "^78.22.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

@@ -3,6 +3,8 @@ export const TEST_URL = 'https://my.url.com';
 export const TEST_INTERACTIVE_HREF_URL = 'https://my.url.com/embed';
 export const TEST_NAME = 'my name';
 export const TEST_STRING = 'foo';
+export const TEST_ARI =
+  'ari:cloud:confluence:DUMMY-12345678-abcd-efgh-adbb-a0906ccc722b:page/1228472772';
 export const TEST_LINK: JsonLd.Primitives.Link = {
   '@type': 'Link',
   href: TEST_URL,

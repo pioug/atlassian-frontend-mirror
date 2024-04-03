@@ -56,6 +56,7 @@ export const ExternalDropTargets = ({
         width: getTableWrapperWidth(),
         overflow: 'hidden',
         position: 'absolute',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         top: `-${dropTargetExtendedWidth - tableMarginTop}px`,
         pointerEvents: 'auto',
         zIndex: `${dropTargetsZIndex}`,
@@ -66,6 +67,7 @@ export const ExternalDropTargets = ({
         style={{
           display: 'flex',
           // move drop targets based on table wrapper scroll
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
           marginLeft: `-${getScrollOffset()}px`,
         }}
       >

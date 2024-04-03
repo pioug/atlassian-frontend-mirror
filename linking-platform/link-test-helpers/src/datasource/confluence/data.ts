@@ -1,5 +1,14 @@
 import { DatasourceDataResponseItem } from '@atlaskit/linking-types';
-// It is not in a particular format. IT is transformed into expected format when consumed.
+
+import { profile as profileBase64Image } from '../../images';
+
+export const defaultInitialVisibleColumnKeys = [
+  'id',
+  'title',
+  'space',
+  'type',
+  'ownedBy',
+];
 
 const mockData: Array<DatasourceDataResponseItem> = [
   {
@@ -37,22 +46,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -136,22 +142,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -196,22 +199,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -256,22 +256,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Stanislav Sysoev',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:874e9056-5c63-4e87-90fc-66656c7b9bf9/4952cdd1-74a9-471c-9cf2-e953bc8668bd/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Stanislav Sysoev',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:874e9056-5c63-4e87-90fc-66656c7b9bf9/4952cdd1-74a9-471c-9cf2-e953bc8668bd/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Stanislav Sysoev',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:874e9056-5c63-4e87-90fc-66656c7b9bf9/4952cdd1-74a9-471c-9cf2-e953bc8668bd/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -316,22 +313,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Cherie Du',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5b74f65ce6230705b624dfeb/33ac12fb-29f0-4016-a542-6d61a88af8cd/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -376,22 +370,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alex Hixon',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5a73cada398e1024e9bbc202/0f9d34ea-19f4-4a5e-bba0-9493574609d8/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alex Hixon',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5a73cada398e1024e9bbc202/0f9d34ea-19f4-4a5e-bba0-9493574609d8/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alex Hixon',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5a73cada398e1024e9bbc202/0f9d34ea-19f4-4a5e-bba0-9493574609d8/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -436,22 +427,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Gordie Johnson',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5fbe2b04facfd60076ecb86e/efa73794-8923-46d2-9807-f3fd925325a0/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Gordie Johnson',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5fbe2b04facfd60076ecb86e/efa73794-8923-46d2-9807-f3fd925325a0/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Gordie Johnson',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5fbe2b04facfd60076ecb86e/efa73794-8923-46d2-9807-f3fd925325a0/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -496,22 +484,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Hector Zarco Garcia',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:f87158bb-15fc-48a9-a396-744a9fbe9ed7/816c2a47-eb93-4425-a3d2-9bd597377b4b/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Hector Zarco Garcia',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:f87158bb-15fc-48a9-a396-744a9fbe9ed7/816c2a47-eb93-4425-a3d2-9bd597377b4b/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Hector Zarco Garcia',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/655363:f87158bb-15fc-48a9-a396-744a9fbe9ed7/816c2a47-eb93-4425-a3d2-9bd597377b4b/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -553,22 +538,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -610,22 +592,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Harshita Mehta',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5e203d390f45160ca25d4624/9376b956-f96e-46ce-b2b3-61c102324eba/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -667,22 +646,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -724,22 +700,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -784,22 +757,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -844,22 +814,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -901,22 +868,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -961,22 +925,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Sergey Chebykin',
-        avatarSource:
-          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/5bfcc70329575856b0d91560/99f66083-52ad-41c5-be7f-c83f8fa7bc44/128',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -1021,22 +982,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Alexey Markevich',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/c338bb4d69d18c547531693fb186a01b?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FAM-6.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -1078,22 +1036,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {
@@ -1138,22 +1093,19 @@ const mockData: Array<DatasourceDataResponseItem> = [
     updatedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     ownedBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     createdBy: {
       data: {
         displayName: 'Sheava Alqadhy',
-        avatarSource:
-          'https://secure.gravatar.com/avatar/bc9fb3391ce226616724af0934a572db?d=https%3A%2F%2Favatar-management--avatars.us-west-2.staging.public.atl-paas.net%2Finitials%2FSA-0.png',
+        avatarSource: profileBase64Image,
       },
     },
     versionNumber: {

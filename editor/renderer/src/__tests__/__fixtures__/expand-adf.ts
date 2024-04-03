@@ -1,4 +1,9 @@
-export const expandADF = (breakoutMode = 'default', title = 'Cool cheese') => ({
+import type { DocNode } from '@atlaskit/adf-schema';
+
+export const expandADF: (breakoutMode?: string, title?: string) => DocNode = (
+  breakoutMode = 'default',
+  title = 'Cool cheese',
+) => ({
   version: 1,
   type: 'doc',
   content: [

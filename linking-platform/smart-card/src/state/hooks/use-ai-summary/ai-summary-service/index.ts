@@ -20,6 +20,7 @@ export class AISummaryService implements AISummaryServiceInt {
   };
   private config: AISummaryServiceConfig;
   private url: string;
+  private ari?: string;
   private subscribedStateSetters = new Set<StateSetter>();
 
   private onStart?: AISummaryServiceProps['onStart'];
@@ -45,6 +46,7 @@ export class AISummaryService implements AISummaryServiceInt {
     };
 
     this.url = props.url;
+    this.ari = props.ari;
 
     this.onStart = props.onStart;
     this.onSuccess = props.onSuccess;
@@ -54,9 +56,11 @@ export class AISummaryService implements AISummaryServiceInt {
   private fetchStream = async <T>(summaryStyle: SummaryStyle) => {
     const payload: PostAgentPayload = {
       recipient_agent_named_id: 'summary_agent',
-      agent_input: {
-        urls: [this.url],
+      agent_input_context: {
+        content_url: this.url,
+        content_ari: this.ari,
         summary_style: summaryStyle,
+        summary_output_mimetype: 'text/markdown',
       },
     };
 

@@ -94,7 +94,10 @@ const createWithConfig: (
       'TemplateLiteral > Identifier': (node: Rule.Node) =>
         errorBoundary(
           () => {
-            return lintTemplateIdentifierForColor(node, context, config);
+            if (config.domains.includes('color')) {
+              return lintTemplateIdentifierForColor(node, context, config);
+            }
+            return;
           },
           { config },
         ),
@@ -402,7 +405,10 @@ const createWithConfig: (
       'JSXAttribute > Literal': (node: Rule.Node) =>
         errorBoundary(
           () => {
-            return lintJSXLiteralForColor(node, context, config);
+            if (config.domains.includes('color')) {
+              return lintJSXLiteralForColor(node, context, config);
+            }
+            return;
           },
           { config },
         ),
@@ -411,7 +417,10 @@ const createWithConfig: (
       'JSXExpressionContainer > MemberExpression': (node: Rule.Node) =>
         errorBoundary(
           () => {
-            return lintJSXMemberForColor(node, context, config);
+            if (config.domains.includes('color')) {
+              return lintJSXMemberForColor(node, context, config);
+            }
+            return;
           },
           { config },
         ),
@@ -420,7 +429,10 @@ const createWithConfig: (
       'JSXExpressionContainer > Identifier': (node: Rule.Node) =>
         errorBoundary(
           () => {
-            return lintJSXIdentifierForColor(node, context, config);
+            if (config.domains.includes('color')) {
+              return lintJSXIdentifierForColor(node, context, config);
+            }
+            return;
           },
           { config },
         ),

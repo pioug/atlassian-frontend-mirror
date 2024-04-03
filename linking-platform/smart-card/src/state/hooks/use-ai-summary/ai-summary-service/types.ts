@@ -12,6 +12,7 @@ export type AISummaryServiceProps = {
   onSuccess?: (id: string) => void;
   product?: ProductType;
   url: string;
+  ari: string;
 };
 
 export type AISummaryServiceConfig = {
@@ -33,16 +34,20 @@ export type ProductType =
 
 export type PostAgentPayload = {
   recipient_agent_named_id: string;
-  agent_input: AgentInput;
+  agent_input_context: AgentInputContext;
   user_intent?: string;
 };
 
-export type AgentInput = {
-  urls: Array<string>;
+export type AgentInputContext = {
+  content_url: string;
+  content_ari?: string;
   summary_style?: SummaryStyle;
+  summary_output_mimetype?: SummaryOutputMimeType;
 };
 
 export type SummaryStyle = 'short' | 'medium' | 'long';
+
+export type SummaryOutputMimeType = 'text/adf' | 'text/markdown' | 'text/json';
 
 export const errorMessages = [
   'NETWORK_ERROR',

@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 7.0.3
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+
+## 7.0.2
+
+### Patch Changes
+
+- [#82725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82725) [`058b020b8275`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/058b020b8275) - Adds e2e confluence search functionality and mocks.
+
 ## 7.0.1
 
 ### Patch Changes

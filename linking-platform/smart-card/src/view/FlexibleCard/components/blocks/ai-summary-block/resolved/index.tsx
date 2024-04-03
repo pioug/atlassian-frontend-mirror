@@ -45,11 +45,12 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const { fireEvent } = useAnalyticsEvents();
   const context = useFlexibleUiContext();
   const url = context?.url || '';
+  const ari = context?.ari || '';
 
   const {
     summariseUrl,
     state: { content, status, error },
-  } = useAISummary({ url });
+  } = useAISummary({ url, ari });
 
   const showAISummary =
     status === 'done' ||
@@ -57,16 +58,18 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
     (status === 'loading' && !!content);
 
   const isSummarisedOnMountRef = useRef(status === 'done');
-  let isErroredOnMountRef = useRef(status === 'error');
+  const isErroredOnMountRef = useRef(status === 'error');
 
   const [showAISummaryErrorMessage, setShowAISummaryErrorMessage] =
     useState<boolean>(false);
 
   useEffect(() => {
+    // if the error was apparent on mount and the status is changed to loading we can
+    // clear the initial error on mount state
     if (isErroredOnMountRef.current && status === 'loading') {
       isErroredOnMountRef.current = false;
-      setShowAISummaryErrorMessage(true);
     } else {
+      // if a new error occurs and it was not an apparent error on mount, we can show the error message
       setShowAISummaryErrorMessage(
         !isErroredOnMountRef.current && status === 'error',
       );

@@ -1,5 +1,6 @@
-import { Store, Unsubscribe } from 'redux';
-import createStore, { State, Action, Handler } from '../internal/store';
+import type { Store, Unsubscribe } from 'redux';
+import type { State, Action, Handler } from '../internal/store';
+import createStore from '../internal/store';
 import {
   FETCH_CONVERSATIONS_REQUEST,
   FETCH_CONVERSATIONS_SUCCESS,
@@ -18,7 +19,7 @@ import {
   CREATE_CONVERSATION_SUCCESS,
   CREATE_CONVERSATION_ERROR,
 } from '../internal/actions';
-import { Comment, Conversation, User } from '../model';
+import type { Comment, Conversation, User } from '../model';
 import { uuid } from '../internal/uuid';
 import { HttpError } from './HttpError';
 
@@ -238,7 +239,7 @@ export class ConversationResource extends AbstractConversationResource {
 
     // Content deleted
     if (response.status === 204) {
-      return <T>{};
+      return {} as T;
     }
 
     return await response.json();

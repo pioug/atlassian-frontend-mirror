@@ -145,6 +145,7 @@ export const InsertButtonForDragAndDrop = ({
               : {
                   height:
                     getInsertLineHeight(tableRef, hasStickyHeaders, true) - 8,
+                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
                   top: '-3px',
                 }
           }

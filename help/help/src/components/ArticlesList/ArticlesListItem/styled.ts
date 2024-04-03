@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 type ArticlesListItemWrapperProps = {
@@ -55,10 +56,7 @@ export const ArticlesListItemContainer = styled.div({
 });
 
 export const ArticlesListItemTypeTitle = styled.div({
-  font: token(
-    'font.body.small',
-    'normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body.small', fontFallback.body.small),
   fontWeight: token('font.weight.bold', 'bold'),
   color: token('color.text.subtlest', colors.N200),
   paddingBottom: token('space.050', '4px'),
@@ -73,10 +71,7 @@ export const ArticlesListItemLinkIcon = styled.span({
 export const ArticlesListItemTitleText = styled.span({
   textDecoration: 'none',
   color: token('color.text', colors.N800),
-  font: token(
-    'font.heading.xsmall',
-    'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.heading.xsmall', fontFallback.heading.xsmall),
   display: 'inline-block',
   whiteSpace: 'normal',
   overflowX: 'hidden',

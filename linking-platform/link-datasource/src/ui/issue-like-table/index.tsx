@@ -25,6 +25,7 @@ import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { N40 } from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -301,10 +302,7 @@ const noDefaultBorderStyles = css({
 });
 
 const headerStyles = css({
-  font: token(
-    'font.body.UNSAFE_small',
-    'normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-  ),
+  font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
   fontWeight: token('font.weight.medium', '500'),
 });
 

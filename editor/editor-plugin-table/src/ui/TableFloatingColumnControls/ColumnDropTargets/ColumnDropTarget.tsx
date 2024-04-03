@@ -95,8 +95,11 @@ export const ColumnDropTarget = ({
     <div
       ref={dropTargetRef}
       style={{
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         width: width && `${width - 1}px`,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         height: height && `${height}px`,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
         marginTop: marginTop && `${marginTop}px`,
         pointerEvents: 'auto',
         flexShrink: 0,

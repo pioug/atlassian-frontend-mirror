@@ -179,7 +179,7 @@ export const handleMouseDown = (
           /** if column resize had started via keyboard but continued by mouse
            *  or mouse pointer leaves the table but mouse button still pressed
            */
-          return stopKeyboardColumnResizing()(state, dispatch, view);
+          return stopKeyboardColumnResizing({})(state, dispatch, view);
         } else {
           return stopResizing()(state, dispatch);
         }
@@ -261,7 +261,11 @@ export const handleMouseDown = (
           /** if column resize had started via keyboard but continued by mouse
            *  or mouse pointer leaves the table but mouse button still pressed
            */
-          return stopKeyboardColumnResizing(tr)(state, dispatch, view);
+          return stopKeyboardColumnResizing({ originalTr: tr })(
+            state,
+            dispatch,
+            view,
+          );
         } else {
           return stopResizing(tr)(state, dispatch);
         }

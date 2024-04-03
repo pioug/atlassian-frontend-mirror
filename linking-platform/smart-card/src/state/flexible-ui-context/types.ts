@@ -235,6 +235,12 @@ export type FlexibleUiDataContext = {
    */
   url?: string;
   /**
+   * Contains the atlassian resource identifier (ARI) of the linked resource.
+   * @type string
+   * @see Title
+   */
+  ari?: string;
+  /**
    * Contains the name and url of the location that the resource is located in.
    * @type LinkLocation
    * @see Location

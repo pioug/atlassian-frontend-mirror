@@ -248,4 +248,53 @@ export const messages = defineMessages({
     defaultMessage: 'Full-width',
     description: 'Trigger table width to full-width mode',
   },
+  startedColumnResize: {
+    id: 'fabric.editor.tables.startedColumnResize',
+    defaultMessage: 'Started column resize',
+    description:
+      'Screen Reader announces when the user engages the column resizer',
+  },
+  focusedOtherResize: {
+    id: 'fabric.editor.tables.otherResize',
+    defaultMessage: 'Switched to the {direction} column resize',
+    description:
+      'Screen Reader announces when the user switches to the left or right column resizer',
+  },
+  changedColumnWidth: {
+    id: 'fabric.editor.tables.columnWidth',
+    defaultMessage: 'Column width was changed to {width} pixels',
+    description:
+      'Screen Reader announces when the user modifies the column width',
+  },
+  columnLeftResize: {
+    id: 'fabric.editor.tables.columnLeftResize',
+    defaultMessage: 'left',
+    description:
+      'Screen Reader announces the jump to the preceding column resizer',
+  },
+  columnRightResize: {
+    id: 'fabric.editor.tables.columnRightResize',
+    defaultMessage: 'right',
+    description:
+      'Screen Reader announces the jump to the subsequent column resizer',
+  },
+  columnResizeStop: {
+    id: 'fabric.editor.tables.resizeStop',
+    defaultMessage: 'Stopped resize',
+    description:
+      'Screen Reader announces when the user discontinues the resizing operation',
+  },
+  columnResizeOverflow: {
+    id: 'fabric.editor.tables.columnResizeOverflow',
+    defaultMessage:
+      'You can only resize this column while the table has a scroll bar.',
+    description:
+      'Screen Reader announces when the user attempts to resize the last column without the table being in overflow state',
+  },
+  columnResizeLast: {
+    id: 'fabric.editor.tables.columnResizeLast',
+    defaultMessage: 'You can only resize this column to the left.',
+    description:
+      'Screen Reader announces when the user attempts to resize the last column when only the previous one is available for resizing',
+  },
 });

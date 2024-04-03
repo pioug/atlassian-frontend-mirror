@@ -41,7 +41,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getCanBeDatasource } from '../../../../../state/helpers';
 import { useAISummary } from '../../../../../state/hooks/use-ai-summary';
-import { extractLink } from '@atlaskit/link-extractors';
+import { extractAri, extractLink } from '@atlaskit/link-extractors';
 
 import { SmartLinkStatus } from '../../../../../constants';
 
@@ -91,14 +91,16 @@ const ConnectedAIBlock = ({
   bottomPrimary,
   imagePreview,
   url,
+  ari,
 }: {
   bottomPrimary: ElementItem[];
   imagePreview: boolean;
   url: string;
+  ari: string;
 }) => {
   const {
     state: { status, content },
-  } = useAISummary({ url });
+  } = useAISummary({ url, ari });
 
   const showData =
     status === 'ready' ||
@@ -154,6 +156,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const dataUrl = extractLink(data) ?? '';
+  const dataAri = extractAri(data) ?? '';
 
   const { topPrimary, topSecondary, bottomPrimary } = useMemo(() => {
     const betterMetadata = getSimulatedBetterMetadata(extensionKey, data);
@@ -216,6 +219,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
           <ConnectedAIBlock
             imagePreview={!!imagePreview}
             url={dataUrl}
+            ari={dataAri}
             bottomPrimary={bottomPrimary}
           />
         </CustomBlock>

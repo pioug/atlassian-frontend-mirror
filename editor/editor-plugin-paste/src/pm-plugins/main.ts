@@ -61,6 +61,7 @@ import {
   handleMacroAutoConvert,
   handleMention,
   handleParagraphBlockMarks,
+  handleTableContentPasteInBodiedExtension,
 } from '../handlers';
 import type { PastePlugin } from '../index';
 import {
@@ -614,6 +615,16 @@ export function createPlugin(
             return true;
           }
 
+          // handle the case when copy content from a table cell inside bodied extension
+          if (
+            getBooleanFF('platform.editor.table.copy-paste-in-bodied-extension')
+          ) {
+            if (
+              handleTableContentPasteInBodiedExtension(slice)(state, dispatch)
+            ) {
+              return true;
+            }
+          }
           // remove annotation marks from the pasted data if they are not present in the document
           // for the cases when they are pasted from external pages
           if (slice.content.size && containsAnyAnnotations(slice, state)) {

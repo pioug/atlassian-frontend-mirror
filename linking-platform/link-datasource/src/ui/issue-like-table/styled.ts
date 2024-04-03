@@ -1,14 +1,12 @@
 import styled from '@emotion/styled';
 
 import { N40 } from '@atlaskit/theme/colors';
+import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 export const ScrollableContainerHeight = 590;
 
-export const fieldTextFontSize = token(
-  'font.body',
-  'normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-);
+export const fieldTextFontSize = token('font.body', fontFallback.body.medium);
 
 export const Table = styled.table({
   width: '100%',

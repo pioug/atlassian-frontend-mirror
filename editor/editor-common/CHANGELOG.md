@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 78.22.4
+
+### Patch Changes
+
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+- Updated dependencies
+
+## 78.22.3
+
+### Patch Changes
+
+- [#86616](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86616) [`09254f8db79a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09254f8db79a) - Reverting distance parameter to the quick insert
+
+## 78.22.2
+
+### Patch Changes
+
+- [#86002](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86002) [`8d4fb94bd0b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4fb94bd0b7) - Added a distance parameter to the quick insert options to facilitate the search for long descriptions
+
 ## 78.22.1
 
 ### Patch Changes

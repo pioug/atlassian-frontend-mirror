@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.24.10
+
+### Patch Changes
+
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+
+## 1.24.9
+
+### Patch Changes
+
+- [#86596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86596) [`37621cb1f1b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37621cb1f1b9) - Update dependency json-ld-types
+- [#85653](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85653) [`e0233a62f24a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0233a62f24a) - Add logic to insert confluence search datasource table ADF from modal
+
+## 1.24.8
+
+### Patch Changes
+
+- [#84829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84829) [`a6299ec57bc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a6299ec57bc3) - Internal change to replace hardcoded font fallback values with an exported constant. There is no expected visual difference.
+- [#82725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82725) [`058b020b8275`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/058b020b8275) - Adds e2e confluence search functionality and mocks.
+
 ## 1.24.7
 
 ### Patch Changes

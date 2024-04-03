@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.13
+
+### Patch Changes
+
+- [#86222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86222) [`0e1dc019f1cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e1dc019f1cd) - Fix a table content paste issue when copy content from a table cell inside bodied extension
+- [#86724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86724) [`718a9aa2424d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/718a9aa2424d) - [ED-22607] Remove references to maxFrames for multi bodied extensions and bump adf-schema from 35.7.0 to 35.8.0
+
 ## 1.0.12
 
 ### Patch Changes

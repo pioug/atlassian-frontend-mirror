@@ -723,7 +723,20 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   const renderIssuesModeContent = useCallback(() => {
     const selectedJiraSiteUrl = selectedJiraSite?.url;
     if (status === 'rejected' && jqlUrl) {
-      return <ModalLoadingError url={jqlUrl} />;
+      return (
+        <ModalLoadingError
+          errorMessage={
+            jqlUrl ? (
+              <FormattedMessage
+                {...modalMessages.checkConnectionWithSource}
+                values={{
+                  a: (urlText: string) => <a href={jqlUrl}>{urlText}</a>,
+                }}
+              />
+            ) : undefined
+          }
+        />
+      );
     } else if (status === 'unauthorized') {
       return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
     } else if (resolvedWithNoResults || status === 'forbidden') {

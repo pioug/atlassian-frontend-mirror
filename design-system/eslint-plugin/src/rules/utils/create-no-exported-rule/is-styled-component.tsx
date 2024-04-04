@@ -1,8 +1,9 @@
 import type { Rule } from 'eslint';
 import type { Identifier, MemberExpression } from 'estree';
 
+import type { ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { getFirstSupportedImport } from '../get-first-supported-import';
-import type { ImportSource } from '../is-supported-import';
 
 type Node = Rule.Node;
 type RuleContext = Rule.RuleContext;

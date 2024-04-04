@@ -1,4 +1,4 @@
-import type { LoomVideo, SDKUnsupportedReasons } from '@loomhq/record-sdk';
+import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
 
 import type {
   EditorAnalyticsAPI,
@@ -12,6 +12,7 @@ import {
 import type { EditorCommand } from '@atlaskit/editor-common/types';
 
 import { LoomPluginAction, loomPluginKey } from './pm-plugin';
+import type { VideoMeta } from './types';
 
 export const enableLoom =
   ({ loomButton }: { loomButton: HTMLButtonElement }): EditorCommand =>
@@ -24,7 +25,7 @@ export const enableLoom =
   };
 
 export const disableLoom =
-  ({ error }: { error: SDKUnsupportedReasons | undefined }): EditorCommand =>
+  ({ error }: { error: string }): EditorCommand =>
   ({ tr }) => {
     tr.setMeta(loomPluginKey, {
       type: LoomPluginAction.DISABLE,
@@ -87,7 +88,7 @@ export const insertVideo =
     video,
   }: {
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
-    video: LoomVideo;
+    video: VideoMeta;
   }): EditorCommand =>
   ({ tr }) => {
     tr.setMeta(loomPluginKey, {

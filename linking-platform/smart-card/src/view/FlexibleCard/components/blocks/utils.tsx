@@ -61,16 +61,16 @@ const getDirectionStyles = (
 ): SerializedStyles => {
   switch (direction) {
     case SmartLinkDirection.Vertical:
-      return css`
-        flex-direction: column;
-        align-items: flex-start;
-      `;
+      return css({
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+      });
     case SmartLinkDirection.Horizontal:
     default:
-      return css`
-        flex-direction: row;
-        align-items: center;
-      `;
+      return css({
+        flexDirection: 'row',
+        alignItems: 'center',
+      });
   }
 };
 
@@ -91,24 +91,29 @@ export const getGapSize = (size: SmartLinkSize): number => {
 export const getBaseStyles = (
   direction: SmartLinkDirection,
   size: SmartLinkSize,
-): SerializedStyles => css`
-  align-items: center;
-  display: flex;
-  gap: ${getGapSize(size)}rem;
-  line-height: 1rem;
-  min-width: 0;
-  overflow: hidden;
-  ${getDirectionStyles(direction)};
-  &:empty {
-    display: none;
-  }
-  & > * {
-    min-width: 0;
-  }
-  & > [data-fit-to-content] {
-    min-width: fit-content;
-  }
-`;
+): SerializedStyles =>
+  css(
+    {
+      alignItems: 'center',
+      display: 'flex',
+      gap: `${getGapSize(size)}rem`,
+      lineHeight: '1rem',
+      minWidth: 0,
+      overflow: 'hidden',
+    },
+    getDirectionStyles(direction),
+    {
+      '&:empty': {
+        display: 'none',
+      },
+      '& > *': {
+        minWidth: 0,
+      },
+      '& > [data-fit-to-content]': {
+        minWidth: 'fit-content',
+      },
+    },
+  );
 
 export const highlightRemoveStyles = css`
   outline: none !important;
@@ -147,9 +152,9 @@ export const getActionGroupStyles = (
     // The biggest height of the action button exceeds the max line-height
     // of the elements causing the action on the block with x-large size to
     // get cut at the bottom.
-    return css`
-      max-height: 2rem;
-    `;
+    return css({
+      maxHeight: '2rem',
+    });
   }
 };
 
@@ -159,18 +164,26 @@ export const filterActionItems = (
 ) => {
   return items.filter((item) => {
     switch (item.name) {
-      // Action that require data from the data context to render.
+      case ActionName.DeleteAction:
+      case ActionName.EditAction:
+      case ActionName.CustomAction:
+        // Named and custom actions that user defines.
+        return Boolean(ActionName[item.name]);
       case ActionName.DownloadAction:
+        // Remove once DownloadAction is refactored to context.action
+        // https://product-fabric.atlassian.net/browse/EDM-9545
         return Boolean(context?.downloadAction);
+      // Remove once FollowAction is refactored to context.action
+      // https://product-fabric.atlassian.net/browse/EDM-9559
       case ActionName.FollowAction:
         return Boolean(context?.followAction);
-      case ActionName.PreviewAction:
-        return Boolean(context?.previewAction);
+      // Remove once ViewAction is retired
+      // https://product-fabric.atlassian.net/browse/EDM-9547
       case ActionName.ViewAction:
         return Boolean(context?.viewAction);
       default:
-        // Named and custom actions that user defines.
-        return Boolean(ActionName[item.name]);
+        // Action that require data from the data context to render.
+        return Boolean(context?.actions?.[item.name]);
     }
   });
 };

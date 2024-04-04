@@ -17,5 +17,5 @@ export const hiddenMixin = css`
 
 export const TooltipContent = styled.div`
   /* CSS reset */
-  font-family: ${fontFamily};
+  font-family: ${fontFamily()};
 `;

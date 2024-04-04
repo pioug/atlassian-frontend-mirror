@@ -41,6 +41,9 @@
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
+      "path": "../eslint-utils/tsconfig.app.json"
+    },
+    {
       "path": "../tokens/tsconfig.app.json"
     },
     {

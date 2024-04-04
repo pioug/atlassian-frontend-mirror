@@ -8,7 +8,10 @@ import type {
   ObjectExpression,
 } from 'estree-jsx';
 import { createLintRule } from '../utils/create-rule';
-import { isStyledComponents, isEmotion } from '../utils/is-supported-import';
+import {
+  isStyledComponents,
+  isEmotion,
+} from '@atlaskit/eslint-utils/is-supported-import';
 import type { Rule, Scope, SourceCode } from 'eslint';
 import ESTraverse from 'estraverse';
 

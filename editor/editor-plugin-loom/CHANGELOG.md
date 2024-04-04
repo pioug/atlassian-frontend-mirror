@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.0.0
+
+### Major Changes
+
+- [#85470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85470) [`32cb4d4ca34f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cb4d4ca34f) - Update loom plugin to take in interface and remove SDK references
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

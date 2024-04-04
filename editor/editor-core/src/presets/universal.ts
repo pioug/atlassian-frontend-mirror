@@ -31,7 +31,6 @@ import { indentationPlugin } from '@atlaskit/editor-plugins/indentation';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
-import { loomPlugin } from '@atlaskit/editor-plugins/loom';
 import { maxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
 import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
@@ -478,14 +477,7 @@ export default function createUniversalPreset(
       {
         appearance,
       },
-    ])
-    .maybeAdd(loomPlugin, () => {
-      if (getBooleanFF('platform.editor.loom-integration')) {
-        return true;
-      }
-
-      return false;
-    });
+    ]);
 
   return finalPreset;
 }

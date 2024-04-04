@@ -137,6 +137,38 @@ const App = () => (<${variants.icon}
   );
 });
 
+describe('migrate-to-loading-buttons', () => {
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import LoadingButton from '@atlaskit/button/loading-button';
+    const App = () => (
+      <LoadingButton isLoading={true} onClick={() => {}} appearance="primary">Loading Button</LoadingButton>
+    );
+    `,
+    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (
+      <${variants.default} isLoading={true} onClick={() => {}} appearance="primary">Loading Button</${variants.default}>
+    );`,
+    'should import and replace loading button with default button + isLoading prop',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import FooBar from '@atlaskit/button/loading-button';
+    const App = () => (
+      <FooBar isLoading={true} onClick={() => {}} appearance="primary">Loading Button</FooBar>
+    );
+    `,
+    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (
+      <${variants.default} isLoading={true} onClick={() => {}} appearance="primary">Loading Button</${variants.default}>
+    );`,
+    'should import and replace aliased loading button with default button + isLoading prop',
+  );
+});
+
 describe('migrate-to-link-buttons', () => {
   defineInlineTest(
     { default: transformer, parser: 'tsx' },

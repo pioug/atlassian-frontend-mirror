@@ -38,7 +38,7 @@ describe('getBaseStyles', () => {
         const { styles } = getBaseStyles(direction, SmartLinkSize.Medium);
 
         expect(styles).toEqual(
-          expect.stringContaining(`flex-direction: ${expected}`),
+          expect.stringContaining(`flex-direction:${expected}`),
         );
       },
     );
@@ -55,7 +55,7 @@ describe('getBaseStyles', () => {
       (size: SmartLinkSize, expected: string) => {
         const { styles } = getBaseStyles(SmartLinkDirection.Horizontal, size);
 
-        expect(styles).toEqual(expect.stringContaining(`gap: ${expected}`));
+        expect(styles).toEqual(expect.stringContaining(`gap:${expected}`));
       },
     );
   });

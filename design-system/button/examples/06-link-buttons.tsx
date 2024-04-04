@@ -47,6 +47,24 @@ const MyRouterLinkComponent = forwardRef(
 export default function LinkButtonExample() {
   return (
     <Stack space="space.100" alignInline="start">
+      <h2>
+        With <code>target="_blank"</code>
+      </h2>
+      <p>
+        These have visually hidden "(opens in new window)" text added as
+        accessible labels
+      </p>
+      <ButtonGroup>
+        <LinkButton href="/home" target="_blank">
+          LinkButton
+        </LinkButton>
+        <LinkIconButton
+          href="/home"
+          icon={AddIcon}
+          label="Link icon button"
+          target="_blank"
+        />
+      </ButtonGroup>
       <h2>Outside AppProvider, without router link component defined</h2>
       <ButtonGroup>
         <LinkButton href="/home">LinkButton</LinkButton>

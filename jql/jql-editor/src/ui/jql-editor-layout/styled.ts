@@ -179,7 +179,7 @@ export const EditorView = styled.div<{
     getEditorInputVerticalPadding(props.isCompact) * 2}px;
 
   line-height: ${rowHeight / fontSize()};
-  font-family: ${codeFontFamily};
+  font-family: ${codeFontFamily()};
   word-break: break-word;
   overflow-wrap: anywhere;
   white-space: pre-wrap;
@@ -256,6 +256,8 @@ export const EditorView = styled.div<{
   }
 `;
 
+// FIXME: convert-props-syntax rule doesn't catch this
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
 export const ReadOnlyEditorView = styled(EditorView)`
   /* We need to replicate padding from the inner prosemirror element in our read only state. That means we also need
   recompute max height excluding the child padding. */

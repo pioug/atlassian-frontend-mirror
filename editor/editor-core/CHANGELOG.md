@@ -1,5 +1,16 @@
 # @atlaskit/editor-core
 
+## 193.8.0
+
+### Minor Changes
+
+- [#84430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84430) [`2981b2835973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2981b2835973) - [ux] EDM-9111 Prevent linkification of links with suspicious tlds
+
+### Patch Changes
+
+- [#85470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85470) [`32cb4d4ca34f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cb4d4ca34f) - Update loom plugin to take in interface and remove SDK references
+- Updated dependencies
+
 ## 193.7.16
 
 ### Patch Changes

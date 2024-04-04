@@ -1,13 +1,21 @@
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/md/linkify-md-plugin.ts
 // If changes are made to this file, please make the same update in the linked file.
 
+// See https://product-fabric.atlassian.net/browse/ED-3097 for why this file exists.
+
 import LinkifyIt from 'linkify-it';
 
-import { linkifyMatch, Match } from '@atlaskit/adf-schema';
+import type { Match } from '@atlaskit/adf-schema';
+import { linkifyMatch } from '@atlaskit/adf-schema';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { findFilepaths, isLinkInMatches } from '../../utils';
+import {
+  findFilepaths,
+  isLinkInMatches,
+  shouldAutoLinkifyMatch,
+} from '../../utils';
 
-// modified version of the original Linkify plugin
+// modified version of the original markdown-it Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js
 const arrayReplaceAt = (
   src: Array<any>,
@@ -76,9 +84,17 @@ const linkify = (state: any) => {
 
       if (currentToken.type === 'text' && linkify.test(currentToken.content)) {
         const text = currentToken.content;
-        let links: Match[] | null = linkifyMatch(text);
+        let links: Match[] = linkifyMatch(text);
+
         if (!links.length) {
           links = linkify.match(text) || [];
+        }
+        if (
+          getBooleanFF(
+            'platform.linking-platform.prevent-suspicious-linkification',
+          )
+        ) {
+          links = links.filter((link) => shouldAutoLinkifyMatch(link));
         }
 
         // Now split string to nodes

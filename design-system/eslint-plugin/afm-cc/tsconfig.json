@@ -22,6 +22,9 @@
     ],
     "references": [
         {
+            "path": "../../eslint-utils/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../tokens/afm-cc/tsconfig.json"
         }
     ]

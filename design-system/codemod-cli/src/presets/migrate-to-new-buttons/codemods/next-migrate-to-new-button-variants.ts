@@ -5,6 +5,7 @@ import type {
   ImportSpecifier,
 } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
+import { getDefaultImportSpecifierName } from '@hypermod/utils';
 
 import {
   PRINT_SETTINGS,
@@ -34,6 +35,7 @@ const transformer = (file: FileInfo, api: API): string => {
     .filter(
       (path) =>
         path.node.source.value === entryPointsMapping.Button ||
+        path.node.source.value === entryPointsMapping.LoadingButton ||
         path.node.source.value === NEW_BUTTON_ENTRY_POINT,
     );
 
@@ -78,6 +80,12 @@ const transformer = (file: FileInfo, api: API): string => {
     (path) => !ifHasUnsupportedProps(path.value.openingElement.attributes),
   );
 
+  const loadingButtonImportName = getDefaultImportSpecifierName(
+    j,
+    fileSource,
+    entryPointsMapping.LoadingButton,
+  );
+
   buttonsWithoutUnsupportedProps.forEach((element) => {
     const { attributes } = element.value.openingElement;
     if (!attributes) {
@@ -112,6 +120,10 @@ const transformer = (file: FileInfo, api: API): string => {
       !isFitContainerIconButton &&
       hasIcon;
 
+    const isLoadingButton =
+      element.value.openingElement.name.type === 'JSXIdentifier' &&
+      element.value.openingElement.name.name === loadingButtonImportName;
+
     if (isDefaultButtonWithAnIcon) {
       moveSizeAndLabelAttributes(element.value, j);
     }
@@ -144,6 +156,12 @@ const transformer = (file: FileInfo, api: API): string => {
 
       j(element).replaceWith(
         generateNewElement(NEW_BUTTON_VARIANTS.link, element.value, j),
+      );
+    }
+
+    if (isLoadingButton) {
+      j(element).replaceWith(
+        generateNewElement(NEW_BUTTON_VARIANTS.default, element.value, j),
       );
     }
 
@@ -183,7 +201,8 @@ const transformer = (file: FileInfo, api: API): string => {
     .filter(
       (path) =>
         path.node.source.value === NEW_BUTTON_ENTRY_POINT ||
-        path.node.source.value === entryPointsMapping.Button,
+        path.node.source.value === entryPointsMapping.Button ||
+        path.node.source.value === entryPointsMapping.LoadingButton,
     );
 
   const remainingDefaultButtons =
@@ -202,6 +221,14 @@ const transformer = (file: FileInfo, api: API): string => {
           .map((argument) => argument.type === 'Identifier' && argument?.name)
           .includes(specifierIdentifier),
       ).length > 0;
+
+  // Loading buttons map back to default imports
+  if (specifierIdentifier === loadingButtonImportName) {
+    specifiers.push(
+      j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
+    );
+  }
+
   if (remainingDefaultButtons) {
     specifiers.push(
       j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),

@@ -6,67 +6,6 @@ import extractHostname from '../hostname/extractHostname';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 
-export const extractRequestAccessContext = ({
-  jsonLd,
-  url,
-  product,
-}: {
-  jsonLd: JsonLd.Meta.BaseMeta;
-  url: string;
-  product?: string;
-}): RequestAccessContextProps => {
-  const requestAccess = jsonLd?.requestAccess
-    ? {
-        ...jsonLd?.requestAccess,
-        hostname: extractHostname(url),
-      }
-    : undefined;
-
-  switch (jsonLd?.requestAccess?.accessType) {
-    case 'DIRECT_ACCESS':
-      return {
-        ...requestAccess,
-        callToActionMessageKey: 'click_to_join',
-        descriptiveMessageKey: 'click_to_join_description',
-        action: ForbiddenAction(
-          () => window.open(url),
-          'click_to_join',
-          messages.click_to_join,
-          { context: product },
-        ),
-      };
-    case 'REQUEST_ACCESS':
-      return {
-        ...requestAccess,
-        callToActionMessageKey: 'request_access',
-        descriptiveMessageKey: 'request_access_description',
-        action: ForbiddenAction(
-          () => window.open(url),
-          'request_access',
-          messages.request_access,
-          { product },
-        ),
-      };
-    case 'PENDING_REQUEST_EXISTS':
-      return {
-        ...requestAccess,
-        descriptiveMessageKey: 'request_access_pending_description',
-      };
-    case 'FORBIDDEN':
-      return {
-        ...requestAccess,
-        descriptiveMessageKey: 'forbidden_description',
-      };
-    case 'DENIED_REQUEST_EXISTS':
-      return {
-        ...requestAccess,
-        descriptiveMessageKey: 'request_denied_description',
-      };
-    default:
-      return requestAccess;
-  }
-};
-
 export const extractRequestAccessContextImproved = ({
   jsonLd,
   url,
@@ -76,7 +15,7 @@ export const extractRequestAccessContextImproved = ({
   jsonLd: JsonLd.Meta.BaseMeta;
   url: string;
   product: string;
-  createAnalyticsEvent: CreateUIAnalyticsEvent;
+  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 }): RequestAccessContextProps => {
   const requestAccess = jsonLd?.requestAccess
     ? {
@@ -93,13 +32,14 @@ export const extractRequestAccessContextImproved = ({
         callToActionMessageKey: 'direct_access',
         action: ForbiddenAction(
           () => {
-            createAnalyticsEvent({
-              action: 'clicked',
-              actionSubject: 'button',
-              actionSubjectId: 'crossJoin',
-              eventType: 'ui',
-            }).fire(ANALYTICS_CHANNEL);
-
+            if (createAnalyticsEvent !== undefined) {
+              createAnalyticsEvent({
+                action: 'clicked',
+                actionSubject: 'button',
+                actionSubjectId: 'crossJoin',
+                eventType: 'ui',
+              }).fire(ANALYTICS_CHANNEL);
+            }
             window.open(url);
           },
           'direct_access',
@@ -115,12 +55,14 @@ export const extractRequestAccessContextImproved = ({
         callToActionMessageKey: 'request_access',
         action: ForbiddenAction(
           () => {
-            createAnalyticsEvent({
-              action: 'clicked',
-              actionSubject: 'button',
-              actionSubjectId: 'requestAccess',
-              eventType: 'ui',
-            }).fire(ANALYTICS_CHANNEL);
+            if (createAnalyticsEvent !== undefined) {
+              createAnalyticsEvent({
+                action: 'clicked',
+                actionSubject: 'button',
+                actionSubjectId: 'requestAccess',
+                eventType: 'ui',
+              }).fire(ANALYTICS_CHANNEL);
+            }
 
             window.open(url);
           },
@@ -163,12 +105,14 @@ export const extractRequestAccessContextImproved = ({
         callToActionMessageKey: 'request_access',
         action: ForbiddenAction(
           () => {
-            createAnalyticsEvent({
-              action: 'clicked',
-              actionSubject: 'button',
-              actionSubjectId: 'requestAccess',
-              eventType: 'ui',
-            }).fire(ANALYTICS_CHANNEL);
+            if (createAnalyticsEvent !== undefined) {
+              createAnalyticsEvent({
+                action: 'clicked',
+                actionSubject: 'button',
+                actionSubjectId: 'requestAccess',
+                eventType: 'ui',
+              }).fire(ANALYTICS_CHANNEL);
+            }
 
             window.open(url);
           },

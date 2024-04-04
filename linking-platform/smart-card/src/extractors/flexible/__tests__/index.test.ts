@@ -59,6 +59,19 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          linkIcon: {
+            icon: 'FileType:Document',
+            label: 'Everything you need to know about ShipIt53!',
+          },
+          isSupportTheming: true,
+          providerName: 'Confluence',
+          src: 'https://preview-url',
+          title: 'Everything you need to know about ShipIt53!',
+          url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+        },
+      },
       linkIcon: {
         icon: 'FileType:Document',
         label: 'Everything you need to know about ShipIt53!',
@@ -76,17 +89,6 @@ describe('extractFlexibleUiContext', () => {
           src: 'https://person-url',
         },
       ],
-      previewAction: {
-        linkIcon: {
-          icon: 'FileType:Document',
-          label: 'Everything you need to know about ShipIt53!',
-        },
-        isSupportTheming: true,
-        providerName: 'Confluence',
-        src: 'https://preview-url',
-        title: 'Everything you need to know about ShipIt53!',
-        url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-      },
     });
   });
 
@@ -96,6 +98,21 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          linkIcon: {
+            icon: 'FileType:Blog',
+            label:
+              'Announcing the winners of the Customer Fun Award for ShipIt 53',
+          },
+          providerName: 'Confluence',
+          isSupportTheming: true,
+          src: 'https://preview-url',
+          title:
+            'Announcing the winners of the Customer Fun Award for ShipIt 53',
+          url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
+        },
+      },
       linkIcon: {
         icon: 'FileType:Blog',
         label: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
@@ -114,18 +131,6 @@ describe('extractFlexibleUiContext', () => {
           src: 'https://person-url',
         },
       ],
-      previewAction: {
-        linkIcon: {
-          icon: 'FileType:Blog',
-          label:
-            'Announcing the winners of the Customer Fun Award for ShipIt 53',
-        },
-        providerName: 'Confluence',
-        isSupportTheming: true,
-        src: 'https://preview-url',
-        title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
-        url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
-      },
     });
   });
 
@@ -194,22 +199,24 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          download: undefined,
+          linkIcon: {
+            label: 'Linking Platform',
+            url: 'https://icon-url',
+          },
+          providerName: 'Jira',
+          isSupportTheming: true,
+          src: 'https://preview-url',
+          title: 'Linking Platform',
+          url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
+        },
+      },
       linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
       title: 'Linking Platform',
       url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
       provider: expectedJiraProvider,
-      previewAction: {
-        download: undefined,
-        linkIcon: {
-          label: 'Linking Platform',
-          url: 'https://icon-url',
-        },
-        providerName: 'Jira',
-        isSupportTheming: true,
-        src: 'https://preview-url',
-        title: 'Linking Platform',
-        url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
-      },
     });
   });
 
@@ -219,22 +226,24 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          download: undefined,
+          linkIcon: {
+            label: 'Linking Platform',
+            url: 'https://icon-url',
+          },
+          providerName: 'Jira',
+          isSupportTheming: true,
+          src: 'https://preview-url',
+          title: 'Linking Platform',
+          url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
+        },
+      },
       linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
       title: 'Linking Platform',
       url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
       provider: expectedJiraProvider,
-      previewAction: {
-        download: undefined,
-        linkIcon: {
-          label: 'Linking Platform',
-          url: 'https://icon-url',
-        },
-        providerName: 'Jira',
-        isSupportTheming: true,
-        src: 'https://preview-url',
-        title: 'Linking Platform',
-        url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
-      },
     });
   });
 
@@ -244,6 +253,19 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          isSupportTheming: true,
+          linkIcon: {
+            label: 'The Superman Project',
+            url: 'https://icon-url',
+          },
+          providerName: 'Atlas',
+          src: 'https://preview-url',
+          title: 'The Superman Project',
+          url: 'https://link-url',
+        },
+      },
       authorGroup: [
         {
           name: 'Lois Lane',
@@ -273,17 +295,6 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://icon-url',
       },
       modifiedOn: '2023-03-05T08:00:00.861423',
-      previewAction: {
-        isSupportTheming: true,
-        linkIcon: {
-          label: 'The Superman Project',
-          url: 'https://icon-url',
-        },
-        providerName: 'Atlas',
-        src: 'https://preview-url',
-        title: 'The Superman Project',
-        url: 'https://link-url',
-      },
       provider: {
         label: 'Atlas',
         url: 'https://icon-url',
@@ -305,6 +316,19 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          linkIcon: {
+            label: 'Figma',
+            url: 'https://icon-url',
+          },
+          isSupportTheming: false,
+          providerName: 'Figma',
+          src: 'https://preview-url',
+          title: 'Flexible Links',
+          url: 'https://figma-url/Flexible-Links?node-id=node-id',
+        },
+      },
       linkIcon: {
         label: 'Figma',
         url: 'https://icon-url',
@@ -320,17 +344,6 @@ describe('extractFlexibleUiContext', () => {
         url: 'https://icon-url',
         label: 'Figma',
       },
-      previewAction: {
-        linkIcon: {
-          label: 'Figma',
-          url: 'https://icon-url',
-        },
-        isSupportTheming: false,
-        providerName: 'Figma',
-        src: 'https://preview-url',
-        title: 'Flexible Links',
-        url: 'https://figma-url/Flexible-Links?node-id=node-id',
-      },
     });
   });
 
@@ -340,6 +353,19 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        PreviewAction: {
+          linkIcon: {
+            label: 'YouTube',
+            url: 'https://icon-url',
+          },
+          isSupportTheming: false,
+          providerName: 'YouTube',
+          src: 'https://preview-url',
+          title: 'The Atlassian Business Model',
+          url: 'https://youtube-url/watch?v=video-id',
+        },
+      },
       linkIcon: {
         label: 'YouTube',
         url: 'https://icon-url',
@@ -356,17 +382,6 @@ describe('extractFlexibleUiContext', () => {
       provider: {
         url: 'https://icon-url',
         label: 'YouTube',
-      },
-      previewAction: {
-        linkIcon: {
-          label: 'YouTube',
-          url: 'https://icon-url',
-        },
-        isSupportTheming: false,
-        providerName: 'YouTube',
-        src: 'https://preview-url',
-        title: 'The Atlassian Business Model',
-        url: 'https://youtube-url/watch?v=video-id',
       },
     });
   });

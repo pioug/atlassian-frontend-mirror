@@ -15,6 +15,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { disableLoom, enableLoom, insertVideo } from './commands';
 import type { LoomPlugin } from './plugin';
+import type { LoomPluginOptions } from './types';
 
 export interface LoomPluginState {
   isEnabled: boolean;
@@ -32,11 +33,13 @@ export enum LoomPluginAction {
 
 export const loomPluginKey = new PluginKey<LoomPluginState>('loom');
 
-const LOOM_SDK_PUBLIC_APP_ID = 'e1cff63a-8ca2-4c2c-ad41-d61c54beb16a';
-
-export const createPlugin = (
-  api: ExtractInjectionAPI<LoomPlugin> | undefined,
-) => {
+export const createPlugin = ({
+  config,
+  api,
+}: {
+  config: LoomPluginOptions;
+  api: ExtractInjectionAPI<LoomPlugin> | undefined;
+}) => {
   const editorAnalyticsAPI = api?.analytics?.actions;
 
   return new SafePlugin({
@@ -89,60 +92,49 @@ export const createPlugin = (
     },
     view(editorView: EditorView) {
       const setupLoom = async () => {
-        // Asynchronously check if the Loom SDK is supported
-        // it hits a Loom API so could take a while
-        const { isSupported, setup } = await import(
-          /* webpackChunkName: "@atlaskit-internal_editor-loom-sdk" */ '@loomhq/record-sdk'
-        );
-        const { supported, error } = await isSupported();
+        const clientResult = await config.loomProvider.getClient();
 
-        if (!supported) {
-          // Keep plugin state update and analytics separate to avoid accidentally not updating
-          // plugin state due to collab-edit filtering out transactions with steps
-          api?.core?.actions.execute(disableLoom({ error }));
-          logException(new Error(error), {
+        if (clientResult.status === 'error') {
+          api?.core?.actions.execute(
+            disableLoom({ error: clientResult.message }),
+          );
+          logException(new Error(clientResult.message), {
             location: 'editor-plugin-loom/sdk-initialisation',
           });
-          // We're not combining the analytics steps into the enable / disable commands because the collab-edit plugin
-          // filters out any transactions with steps (even analytics) when it's initialising
           api?.analytics?.actions.fireAnalyticsEvent({
             action: ACTION.ERRORED,
             actionSubject: ACTION_SUBJECT.LOOM,
             eventType: EVENT_TYPE.OPERATIONAL,
-            attributes: { error },
+            attributes: { error: clientResult.message },
           });
           return;
         }
 
-        const { configureButton } = await setup({
-          publicAppId: LOOM_SDK_PUBLIC_APP_ID,
-        });
+        const { attachToButton } = clientResult.client;
 
         // Hidden element to work around the SDK API
         const loomButton = document.createElement('button');
-        const sdkButton = configureButton({
-          element: loomButton,
-        });
+        attachToButton({
+          button: loomButton,
+          onInsert: video => {
+            const { state, dispatch } = editorView;
+            const pos = editorView.state.selection.from;
+            api?.hyperlink?.actions.insertLink(
+              INPUT_METHOD.TYPEAHEAD,
+              pos, // from === to, don't replace text to avoid accidental content loss
+              pos,
+              video.sharedUrl,
+              video.title,
+              undefined,
+              undefined,
+              undefined,
+              'embed', // Convert to embed card instead of inline
+            )(state, dispatch);
 
-        // Attach insertion logic to the event handlers on the SDK
-        sdkButton.on('insert-click', async video => {
-          const { state, dispatch } = editorView;
-          const pos = editorView.state.selection.from;
-          api?.hyperlink?.actions.insertLink(
-            INPUT_METHOD.TYPEAHEAD,
-            pos, // from === to, don't replace text to avoid accidental content loss
-            pos,
-            video.sharedUrl,
-            video.title,
-            undefined,
-            undefined,
-            undefined,
-            'embed', // Convert to embed card instead of inline
-          )(state, dispatch);
-
-          api?.core?.actions.execute(
-            insertVideo({ editorAnalyticsAPI, video }),
-          );
+            api?.core?.actions.execute(
+              insertVideo({ editorAnalyticsAPI, video }),
+            );
+          },
         });
 
         api?.core?.actions.execute(enableLoom({ loomButton }));
@@ -155,7 +147,9 @@ export const createPlugin = (
         });
       };
 
-      setupLoom();
+      if (config) {
+        setupLoom();
+      }
 
       return {};
     },

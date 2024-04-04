@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 26.51.0
+
+### Minor Changes
+
+- [#85226](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85226) [`721df2752215`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/721df2752215) - Replaces usages of extractRequestAccessContext for extractRequestAccessContextImproved and removes extractRequestAccessContext
+
+### Patch Changes
+
+- [#87154](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87154) [`7ec9068aa6fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7ec9068aa6fb) - Update style for Snippet & summary component to enable user text selection
+- Updated dependencies
+
+## 26.50.15
+
+### Patch Changes
+
+- [#86332](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86332) [`813df6eb80c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/813df6eb80c9) - Refactor FlexibleCard's PreviewAction creation
+
 ## 26.50.14
 
 ### Patch Changes

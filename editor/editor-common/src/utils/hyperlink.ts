@@ -1,24 +1,28 @@
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/utils/hyperlink.ts
 // If changes are made to this file, please make the same update in the linked file.
 
+import type { Match } from '@atlaskit/adf-schema';
 import {
   isSafeUrl,
   linkify,
-  Match,
   normalizeUrl as normaliseLinkHref,
 } from '@atlaskit/adf-schema';
-import { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type {
+  AnalyticsEventPayload,
+  InputMethodInsertLink,
+} from '../analytics/types';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   EVENT_TYPE,
-  InputMethodInsertLink,
 } from '../analytics/types';
 
+import { shouldAutoLinkifyTld } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';
 
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
@@ -83,6 +87,9 @@ export function normalizeUrl(url?: string | null) {
   return normaliseLinkHref(url);
 }
 
+/**
+ * Linkify content in a slice (eg. after a rich text paste)
+ */
 export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
   return (slice: Slice): Slice =>
     mapSlice(slice, (node, parent) => {
@@ -95,7 +102,14 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
       if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
         const linkified = [] as Node[];
         const text = node.text!;
-        const matches: any[] = findLinkMatches(text);
+        const matches = getBooleanFF(
+          'platform.linking-platform.prevent-suspicious-linkification',
+        )
+          ? findLinkMatches(text).filter((match) =>
+              shouldAutoLinkifyTld(match.title),
+            )
+          : findLinkMatches(text);
+
         let pos = 0;
         const filepaths = findFilepaths(text);
         matches.forEach((match) => {

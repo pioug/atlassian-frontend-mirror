@@ -14,6 +14,8 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { hasDocAsParent } from './document';
 import { isEmptyParagraph } from './editor-core-utils';
 
+export { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
+
 export {
   canApplyAnnotationOnRange,
   containsAnyAnnotations,

@@ -114,6 +114,7 @@ describe('extractors.access.context', () => {
         text: expect.any(Object),
       },
       hostname: 'visit.url.com',
+      buttonDisabled: true,
     });
   });
 
@@ -207,7 +208,7 @@ describe('extractors.access.context', () => {
     });
   });
 
-  it('an analytics event is invoked when the request access type is REQUEST_ACCESS', async () => {
+  it('an analytics event is invoked when the request access type is REQUEST_ACCESS and createAnalyticsEvent is supplied', async () => {
     window.open = jest.fn();
 
     const jsonLd = { ...TEST_META_DATA };
@@ -240,7 +241,7 @@ describe('extractors.access.context', () => {
     expect(fireMock).toHaveBeenCalledWith(ANALYTICS_CHANNEL);
   });
 
-  it('an analytics event is invoked when the request access type is DIRECT_ACCESS', async () => {
+  it('an analytics event is invoked when the request access type is DIRECT_ACCESS and createAnalyticsEvent is supplied', async () => {
     window.open = jest.fn();
 
     const jsonLd = { ...TEST_META_DATA };

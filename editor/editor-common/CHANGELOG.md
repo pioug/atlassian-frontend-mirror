@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 78.23.0
+
+### Minor Changes
+
+- [#84430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84430) [`2981b2835973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2981b2835973) - [ux] EDM-9111 Prevent linkification of links with suspicious tlds
+- [#86103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86103) [`af2544086b27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af2544086b27) - Changed comment create mutation to send pos if comment is added to a block node
+
+### Patch Changes
+
+- [#85470](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85470) [`32cb4d4ca34f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cb4d4ca34f) - Update loom plugin to take in interface and remove SDK references
+- Updated dependencies
+
 ## 78.22.4
 
 ### Patch Changes

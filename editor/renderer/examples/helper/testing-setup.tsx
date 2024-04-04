@@ -40,6 +40,7 @@ export type MountProps = { [T in keyof RendererProps]?: RendererProps[T] } & {
   showSidebar?: boolean;
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
+  enableClickToEdit?: boolean;
 };
 
 const providerFactory = ProviderFactory.create({
@@ -141,7 +142,9 @@ export function createRendererWindowBindings(
      * Callback given to the editor on what to do when onUnhandledClick is called.
      * Swap out the renderer for a dummy editor (which will be clearly identifiable in VR tests)
      */
-    const setMode = enableClickToEdit
+    const onUnhandledClickEnabled =
+      enableClickToEdit || props.enableClickToEdit;
+    const setMode = onUnhandledClickEnabled
       ? (mode: boolean) => {
           const rendererContainer =
             document.getElementById('renderer-container');

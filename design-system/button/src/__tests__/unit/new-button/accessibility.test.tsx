@@ -8,7 +8,9 @@ import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import ButtonGroup from '../../../containers/button-group';
 import { SplitButton } from '../../../new-button/containers/split-button';
 import Button from '../../../new-button/variants/default/button';
+import LinkButton from '../../../new-button/variants/default/link';
 import IconButton from '../../../new-button/variants/icon/button';
+import LinkIconButton from '../../../new-button/variants/icon/link';
 import variants, { iconButtonVariants } from '../../../utils/variants';
 
 variants.forEach(({ name, Component, appearances }) =>
@@ -182,6 +184,76 @@ describe('Icon button: Accessibility', () => {
 
       const button = screen.getByTestId('icon-button');
       expect(button).not.toHaveAttribute('aria-label');
+    });
+  });
+});
+
+describe('Link button" Accessibility', () => {
+  describe('"(opens new window)" announcements', () => {
+    it('should be added to the accessible name if `target="_blank"`', () => {
+      render(
+        <LinkButton
+          href="https://www.atlassian.com"
+          testId="anchor"
+          target="_blank"
+        >
+          Atlassian website
+        </LinkButton>,
+      );
+
+      const anchor = screen.getByTestId('anchor');
+      expect(anchor).toHaveAccessibleName(
+        'Atlassian website (opens new window)',
+      );
+    });
+    it('should not be added to the accessible name if `target` is not "_blank"', () => {
+      render(
+        <LinkButton
+          href="https://www.atlassian.com"
+          testId="anchor"
+          target="_self"
+        >
+          Atlassian website
+        </LinkButton>,
+      );
+
+      const anchor = screen.getByTestId('anchor');
+      expect(anchor).toHaveAccessibleName('Atlassian website');
+    });
+  });
+});
+
+describe('Link icon button" Accessibility', () => {
+  describe('"(opens new window)" announcements', () => {
+    it('should be added to the accessible name if `target="_blank"`', () => {
+      render(
+        <LinkIconButton
+          icon={SettingsIcon}
+          label="Atlassian website"
+          href="https://www.atlassian.com"
+          testId="anchor"
+          target="_blank"
+        />,
+      );
+
+      const anchor = screen.getByTestId('anchor');
+      expect(anchor).toHaveAccessibleName(
+        'Atlassian website (opens new window)',
+      );
+    });
+    it('should not be added to the accessible name if `target` is not "_blank"', () => {
+      render(
+        <LinkIconButton
+          icon={SettingsIcon}
+          label="Atlassian website"
+          href="https://www.atlassian.com"
+          testId="anchor"
+          target="_self"
+        />,
+      );
+
+      const anchor = screen.getByTestId('anchor');
+      expect(anchor).toHaveAccessibleName('Atlassian website');
     });
   });
 });

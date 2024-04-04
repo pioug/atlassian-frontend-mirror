@@ -1,5 +1,6 @@
+import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { tester } from '../../__tests__/utils/_tester';
-import { CSS_IN_JS_IMPORTS } from '../../utils/is-supported-import';
 import rule from '../index';
 
 const errors = ['Unexpected `css` tagged template expression'];

@@ -1,1 +1,1 @@
-export { extractRequestAccessContext } from './extractAccessContext';
+export { extractRequestAccessContextImproved } from './extractAccessContext';

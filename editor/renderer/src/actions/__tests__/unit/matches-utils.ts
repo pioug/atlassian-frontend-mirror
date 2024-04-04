@@ -93,7 +93,11 @@ describe('RendererActions matches', () => {
           DocBuilder, // Doc builder
           string, // Query text
           number, // Position of query
-          { matchIndex: number; numMatches: number }, // Expected result
+          {
+            matchIndex: number;
+            numMatches: number;
+            blockNodePos: number | undefined;
+          }, // Expected result
         ]
       >([
         [
@@ -101,7 +105,7 @@ describe('RendererActions matches', () => {
           doc(p('Gummies Oat Cake')),
           'Gummies',
           1,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
 
         [
@@ -109,28 +113,28 @@ describe('RendererActions matches', () => {
           doc(p('Gummies Oat Cake')),
           'Oat',
           9,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
         [
           'paragraph end',
           doc(p('Gummies Oat Cake')),
           'Cake',
           13,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
         [
           'not found',
           doc(p('Gummies Oat Cake')),
           'Bun',
           9,
-          { matchIndex: 0, numMatches: 0 },
+          { matchIndex: 0, numMatches: 0, blockNodePos: undefined },
         ],
         [
           'across node boundary',
           doc(p('Chocolate Cake'), panel()(p('Surprise'))),
           'CakeSurprise',
           9,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
         [
           'repeated content over one paragraph',
@@ -140,7 +144,7 @@ describe('RendererActions matches', () => {
           ),
           'Oat',
           33,
-          { matchIndex: 8, numMatches: 12 },
+          { matchIndex: 8, numMatches: 12, blockNodePos: undefined },
         ],
         [
           'repeated content over multiple paragraphs',
@@ -153,7 +157,7 @@ describe('RendererActions matches', () => {
           ),
           'Oat',
           45,
-          { matchIndex: 2, numMatches: 4 },
+          { matchIndex: 2, numMatches: 4, blockNodePos: undefined },
         ],
         [
           'links',
@@ -167,7 +171,7 @@ describe('RendererActions matches', () => {
           ),
           'https://www.google.com',
           20,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
         [
           'links with parameters',
@@ -181,14 +185,14 @@ describe('RendererActions matches', () => {
           ),
           'results?page=1',
           43,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
         [
           'plain text links',
           doc(p('See results at: https://www.google.com/results?page=1')),
           'https://www.google.com/results?page=1',
           17,
-          { matchIndex: 0, numMatches: 1 },
+          { matchIndex: 0, numMatches: 1, blockNodePos: undefined },
         ],
       ])('%s', (_testName, docNode, query, from, expectedMatch) => {
         const result = getIndexMatch(docNode(schema), schema, query, from);

@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.21.0
+
+### Minor Changes
+
+- [#87074](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87074) [`92be609ad553`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92be609ad553) - Adds migration support for LoadingButtons
+
 ## 0.20.1
 
 ### Patch Changes

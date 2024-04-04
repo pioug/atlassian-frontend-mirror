@@ -51,6 +51,9 @@
       "path": "../tokens/tsconfig.app.json"
     },
     {
+      "path": "../visually-hidden/tsconfig.app.json"
+    },
+    {
       "path": "../codegen/tsconfig.app.json"
     }
   ],

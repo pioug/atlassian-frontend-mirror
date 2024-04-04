@@ -48,6 +48,8 @@ try {
       targetApp: 'jira_web',
       // [Optional] Default is 2000ms
       // This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
+      // The higher this value the longer your application will need to wait to render if you block on client initialization
+      // Too low and your application will be more likely to fallback on default values
       fetchTimeoutMs: 1000,
       // [Optional] Default is false
       // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.

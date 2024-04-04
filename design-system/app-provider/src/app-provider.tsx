@@ -23,6 +23,16 @@ interface AppProviderProps {
   routerLinkComponent?: RouterLinkComponent<any>;
 
   /**
+   * Disables theming functionality.
+   * This is intended for use in apps with existing
+   * theming configuration that want to incrementally
+   * adopt AppProvider.
+   *
+   * @warning Use with caution. This prop will be removed in a future release.
+   */
+  UNSAFE_isThemingDisabled?: boolean;
+
+  /**
    * App content.
    */
   children: React.ReactNode;
@@ -40,6 +50,7 @@ export function AppProvider({
   defaultColorMode = 'light',
   defaultTheme,
   routerLinkComponent,
+  UNSAFE_isThemingDisabled,
 }: AppProviderProps) {
   const isInsideAppProvider = useContext(InsideAppProviderContext);
 
@@ -49,16 +60,24 @@ export function AppProvider({
     );
   }
 
+  const routerLinkProvider = (
+    <RouterLinkProvider routerLinkComponent={routerLinkComponent}>
+      {children}
+    </RouterLinkProvider>
+  );
+
   return (
     <InsideAppProviderContext.Provider value={true}>
-      <ThemeProvider
-        defaultColorMode={defaultColorMode}
-        defaultTheme={defaultTheme}
-      >
-        <RouterLinkProvider routerLinkComponent={routerLinkComponent}>
-          {children}
-        </RouterLinkProvider>
-      </ThemeProvider>
+      {UNSAFE_isThemingDisabled ? (
+        routerLinkProvider
+      ) : (
+        <ThemeProvider
+          defaultColorMode={defaultColorMode}
+          defaultTheme={defaultTheme}
+        >
+          {routerLinkProvider}
+        </ThemeProvider>
+      )}
     </InsideAppProviderContext.Provider>
   );
 }

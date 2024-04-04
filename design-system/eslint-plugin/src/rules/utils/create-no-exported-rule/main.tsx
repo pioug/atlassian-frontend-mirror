@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import {
   getImportSources,
   type SupportedNameChecker,
-} from '../is-supported-import';
+} from '@atlaskit/eslint-utils/is-supported-import';
 
 import { checkIfSupportedExport } from './check-if-supported-export';
 

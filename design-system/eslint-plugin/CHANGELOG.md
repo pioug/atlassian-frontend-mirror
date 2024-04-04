@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.2.4
+
+### Patch Changes
+
+- [#86638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86638) [`f003f07e88e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f003f07e88e1) - Internal refactoring to use a shared `@atlaskit/eslint-utils` package
+- Updated dependencies
+
 ## 9.2.3
 
 ### Patch Changes

@@ -11,13 +11,18 @@ import {
   isLinkInMatches,
   LinkMatcher,
   normalizeUrl,
+  shouldAutoLinkifyMatch,
 } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { toolbarKey } from './toolbar-buttons';
 
+/**
+ * Called when space after link, but not on enter
+ */
 export function createLinkInputRule(
   regexp: RegExp,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -31,7 +36,34 @@ export function createLinkInputRule(
         return null;
       }
       const link = match as unknown as Match;
-      const url = normalizeUrl(link.url);
+      let url: string;
+
+      if (
+        getBooleanFF(
+          'platform.linking-platform.prevent-suspicious-linkification',
+        )
+      ) {
+        // Property 'url' does not exist on type 'RegExpExecArray', the type of `match`.
+        // This check is in case the match is not a Linkify match, which has a url property.
+        if (link.url === undefined) {
+          return null;
+        }
+
+        if (!shouldAutoLinkifyMatch(link)) {
+          return null;
+        }
+
+        url = normalizeUrl(link.url);
+
+        // Not previously handled; don't create a link if the URL is empty.
+        // This will only happen if the `regexp` matches more links than the normalizeUrl validation;
+        // if they both use the same linkify instance this shouldn't happen.
+        if (url === '') {
+          return null;
+        }
+      } else {
+        url = normalizeUrl(link.url);
+      }
       const markType = schema.mark('link', { href: url });
 
       // Need access to complete text to check if last URL is part of a filepath before linkifying
@@ -94,6 +126,10 @@ export function createInputRulePlugin(
     (state, match, start, end) => {
       const { schema } = state;
       const [, prefix, linkText, linkUrl] = match;
+
+      // We don't filter this match here by shouldAutoLinkifyMatch
+      // because the intent of creating a link is clear
+
       const url = normalizeUrl(linkUrl).trim();
       const markType = schema.mark('link', { href: url });
 

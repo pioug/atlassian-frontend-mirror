@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import { ImportDeclaration, isNodeOfType, Program } from 'eslint-codemod-utils';
 
-import { ImportSource } from './is-supported-import';
+import { ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
 
 type RuleContext = Rule.RuleContext;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 
@@ -15,6 +15,38 @@ describe('Primitives', () => {
         <UNSAFE_ANCHOR href="/home">Anchor</UNSAFE_ANCHOR>,
       );
       await axe(container);
+    });
+    describe('"(opens new window)" announcements', () => {
+      it('should be added to the accessible name if `target="_blank"`', () => {
+        render(
+          <UNSAFE_ANCHOR
+            href="https://www.atlassian.com"
+            testId="anchor"
+            target="_blank"
+          >
+            Atlassian website
+          </UNSAFE_ANCHOR>,
+        );
+
+        const anchor = screen.getByTestId('anchor');
+        expect(anchor).toHaveAccessibleName(
+          'Atlassian website (opens new window)',
+        );
+      });
+      it('should not be added to the accessible name if `target` is not "_blank"', () => {
+        render(
+          <UNSAFE_ANCHOR
+            href="https://www.atlassian.com"
+            testId="anchor"
+            target="_self"
+          >
+            Atlassian website
+          </UNSAFE_ANCHOR>,
+        );
+
+        const anchor = screen.getByTestId('anchor');
+        expect(anchor).toHaveAccessibleName('Atlassian website');
+      });
     });
   });
 

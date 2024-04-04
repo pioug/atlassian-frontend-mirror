@@ -34,6 +34,9 @@
   },
   "references": [
     {
+      "path": "../eslint-utils/tsconfig.app.json"
+    },
+    {
       "path": "../codegen/tsconfig.app.json"
     }
   ],

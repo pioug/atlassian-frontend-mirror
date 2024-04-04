@@ -303,7 +303,7 @@ export default class RendererActions
     }
 
     const originalSelection = doc.textBetween(from, to);
-    const { numMatches, matchIndex } = getIndexMatch(
+    const { numMatches, matchIndex, blockNodePos } = getIndexMatch(
       this.doc,
       this.schema,
       originalSelection,
@@ -316,6 +316,7 @@ export default class RendererActions
       originalSelection,
       numMatches,
       matchIndex,
+      pos: blockNodePos,
     };
   }
 
@@ -325,7 +326,7 @@ export default class RendererActions
     }
     const { from, to } = pos;
     const originalSelection = this.doc.textBetween(from, to);
-    const { numMatches, matchIndex } = getIndexMatch(
+    const { numMatches, matchIndex, blockNodePos } = getIndexMatch(
       this.doc,
       this.schema,
       originalSelection,
@@ -336,6 +337,7 @@ export default class RendererActions
       originalSelection,
       numMatches,
       matchIndex,
+      pos: blockNodePos,
     };
   }
 }

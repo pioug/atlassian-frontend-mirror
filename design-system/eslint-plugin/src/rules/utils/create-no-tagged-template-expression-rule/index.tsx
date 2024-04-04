@@ -9,7 +9,7 @@ import {
   isEmotion,
   isStyledComponents,
   SupportedNameChecker,
-} from '../is-supported-import';
+} from '@atlaskit/eslint-utils/is-supported-import';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';

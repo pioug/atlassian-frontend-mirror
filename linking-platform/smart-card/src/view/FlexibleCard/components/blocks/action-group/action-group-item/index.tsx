@@ -8,7 +8,6 @@ import { SmartLinkSize } from '../../../../../../constants';
 import { ActionProps } from '../../../actions/action/types';
 import * as Actions from '../../../actions';
 import { ActionItem } from '../../types';
-import { isJSXElementNull } from '../../utils';
 
 const ActionGroupItem: React.FC<{
   item: ActionItem;
@@ -42,8 +41,14 @@ const ActionGroupItem: React.FC<{
     actionProps.icon = undefined;
   }
 
-  const action = (
+  return (
     <Action
+      // Remove url once ViewAction is retired.
+      // This seems to be a typescript workaround
+      // because ViewAction marks it as required,
+      // which does not reflect actual implementation as the url
+      // came from data context and not all actions require url.
+      // https://product-fabric.atlassian.net/browse/EDM-9547
       url=""
       asDropDownItem={asDropDownItems}
       size={size}
@@ -53,10 +58,5 @@ const ActionGroupItem: React.FC<{
       {...actionProps}
     />
   );
-
-  if (!isJSXElementNull(action)) {
-    return action;
-  }
-  return null;
 };
 export default ActionGroupItem;

@@ -14,6 +14,10 @@ const AISummaryCSSStyles = css({
   lineHeight: '1rem',
   wordWrap: 'break-word',
   whiteSpace: 'normal',
+  WebkitUserSelect: 'text',
+  MozUserSelect: 'text',
+  MsUserSelect: 'text',
+  userSelect: 'text',
 });
 
 type AISummaryProps = {

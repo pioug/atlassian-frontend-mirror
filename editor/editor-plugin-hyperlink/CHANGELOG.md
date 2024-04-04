@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.4.0
+
+### Minor Changes
+
+- [#84430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84430) [`2981b2835973`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2981b2835973) - [ux] EDM-9111 Prevent linkification of links with suspicious tlds
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.1
 
 ### Patch Changes

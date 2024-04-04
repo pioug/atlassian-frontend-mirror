@@ -1,13 +1,14 @@
 import type { Rule } from 'eslint';
 import type { CallExpression as ESCallExpression } from 'estree';
 
-import { checkIfSupportedExport } from '../utils/create-no-exported-rule/check-if-supported-export';
-import { createLintRule } from '../utils/create-rule';
 import {
   CSS_IN_JS_IMPORTS,
   ImportSource,
   isCssMap,
-} from '../utils/is-supported-import';
+} from '@atlaskit/eslint-utils/is-supported-import';
+
+import { checkIfSupportedExport } from '../utils/create-no-exported-rule/check-if-supported-export';
+import { createLintRule } from '../utils/create-rule';
 
 import { CssMapObjectChecker, getCssMapObject } from './utils';
 

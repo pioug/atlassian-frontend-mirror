@@ -2,7 +2,7 @@ import { JsonLd } from 'json-ld-types';
 import { ExtractFlexibleUiDataContextParams, RetryOptions } from './types';
 import { SmartLinkStatus } from '../../constants';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import { extractRequestAccessContext } from '../../extractors/common/context';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import { MessageKey, messages } from '../../messages';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import extractFlexibleUiContext from '../../extractors/flexible';
@@ -68,15 +68,18 @@ export const getRetryOptions = (
   switch (status) {
     case SmartLinkStatus.Forbidden:
       const meta = response?.meta ?? getForbiddenJsonLd().meta;
-      const access = extractRequestAccessContext({
+      const access = extractRequestAccessContextImproved({
         jsonLd: meta,
         url,
-        product: context,
+        product: context ?? '',
       });
       const messageKey = getForbiddenMessageKey(meta);
       const descriptor = messages[messageKey as MessageKey];
       const retry = onAuthorize || access?.action?.promise;
-      const onClick = retry ? handleOnClick(retry) : undefined;
+      const onClick =
+        retry && !(access?.buttonDisabled ?? false)
+          ? handleOnClick(retry)
+          : undefined;
       return { descriptor, onClick, values };
     case SmartLinkStatus.Unauthorized:
       return onAuthorize

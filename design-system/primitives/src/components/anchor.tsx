@@ -20,6 +20,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, {
   type InteractionContextType,
 } from '@atlaskit/interaction-context';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type XCSS, xcss } from '../xcss/xcss';
 
@@ -109,7 +110,6 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
     testId,
     xcss: xcssStyles,
     target,
-    rel,
     onClick: providedOnClick = noop,
     interactionName,
     componentName,
@@ -188,8 +188,7 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
         testId ? (isRouterLink ? 'true' : 'false') : undefined
       }
       href={!isRouterLink && typeof href !== 'string' ? undefined : href}
-      target={isExternal && target === undefined ? '_blank' : target}
-      rel={isExternal && rel === undefined ? 'noopener noreferrer' : rel}
+      target={target}
       backgroundColor={backgroundColor}
       padding={padding}
       paddingBlock={paddingBlock}
@@ -203,6 +202,9 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
       xcss={styles}
     >
       {children}
+      {target === '_blank' && (
+        <VisuallyHidden>(opens new window)</VisuallyHidden>
+      )}
     </Box>
   );
 };

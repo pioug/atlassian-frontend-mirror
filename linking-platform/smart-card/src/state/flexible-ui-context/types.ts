@@ -1,6 +1,6 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
 import { LinkPerson } from '@atlaskit/link-extractors';
-import { IconType, MediaType } from '../../constants';
+import { ActionName, IconType, MediaType } from '../../constants';
 import { InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import type { AnalyticsFacade } from '../analytics';
@@ -10,6 +10,10 @@ import type { AnalyticsFacade } from '../analytics';
  * underlying elements.
  */
 export type FlexibleUiDataContext = {
+  /**
+   * An object containing available action on the linked resource.
+   */
+  actions?: FlexibleUiActions;
   /**
    * An array containing data used to populate the AssignedToGroup element.
    * @see AvatarGroup
@@ -104,13 +108,6 @@ export type FlexibleUiDataContext = {
    * @see CreatedOn
    */
   createdOn?: string;
-
-  /**
-   * Contains data needed to show a preview action.
-   * @type PreviewActionData
-   * @see PreviewAction
-   */
-  previewAction?: PreviewActionData;
 
   /**
    * Contains data needed to show a view action.
@@ -262,6 +259,11 @@ export type LinkLocation = {
 export type Media = {
   type: MediaType;
   url: string;
+};
+
+export type FlexibleUiActions = {
+  /* Contains data needed to show a preview action that open embed modal.*/
+  [ActionName.PreviewAction]?: PreviewActionData;
 };
 
 export type PreviewActionData = {

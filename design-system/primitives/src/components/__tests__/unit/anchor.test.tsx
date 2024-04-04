@@ -279,38 +279,6 @@ describe('Anchor', () => {
     });
   });
 
-  describe('external link attributes `target` and `rel`', () => {
-    it('should apply if undefined', () => {
-      render(
-        <UNSAFE_ANCHOR href="https://atlassian.com" testId={testId}>
-          External link
-        </UNSAFE_ANCHOR>,
-      );
-
-      const anchor = screen.getByTestId(testId);
-
-      expect(anchor).toHaveAttribute('target', '_blank');
-      expect(anchor).toHaveAttribute('rel', 'noopener noreferrer');
-    });
-    it('should not override if explicitly defined', () => {
-      render(
-        <UNSAFE_ANCHOR
-          href="https://atlassian.com"
-          testId={testId}
-          target="_self"
-          rel="license"
-        >
-          External link
-        </UNSAFE_ANCHOR>,
-      );
-
-      const anchor = screen.getByTestId(testId);
-
-      expect(anchor).toHaveAttribute('target', '_self');
-      expect(anchor).toHaveAttribute('rel', 'license');
-    });
-  });
-
   describe('should conditionally render router links or standard <a> anchors', () => {
     describe('when links are used outside an AppProvider', () => {
       testCases.forEach(

@@ -13,6 +13,7 @@ import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { loadingErrorMessages } from './messages';
 
 const noResultsContainerStyles = css({
+  margin: `${token('space.500', '40px')} auto`,
   display: 'grid',
   gap: token('space.300', '24px'),
   placeItems: 'center',

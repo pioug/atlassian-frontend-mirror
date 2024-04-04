@@ -12,11 +12,12 @@ import type ES from 'estree';
 import type { JSXAttribute } from 'estree-jsx';
 import assign from 'lodash/assign';
 
+import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { Import } from '../../ast-nodes';
 import { createLintRule } from '../utils/create-rule';
 import { getFirstSupportedImport } from '../utils/get-first-supported-import';
 import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
-import { CSS_IN_JS_IMPORTS } from '../utils/is-supported-import';
 
 import type { RuleConfig } from './types';
 

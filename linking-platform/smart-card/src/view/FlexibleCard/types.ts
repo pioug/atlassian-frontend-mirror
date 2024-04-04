@@ -104,13 +104,13 @@ export type FlexibleCardProps = {
    * Determine whether or not a preview card should show up when a user hovers
    * over the smartlink. Default value is false.
    */
-  showHoverPreview?: Boolean;
+  showHoverPreview?: boolean;
 
   /**
    * Determines whether to show an unauthorised view of the hover card
    * when a user hovers over a smartlink.
    */
-  showAuthTooltip?: Boolean;
+  showAuthTooltip?: boolean;
 };
 
 export type FlexibleUiOptions = {
@@ -186,4 +186,23 @@ export type ExtractFlexibleUiDataContextParams = Pick<
   status?: SmartLinkStatus;
   response?: JsonLd.Response;
   featureFlags?: Partial<LinkingPlatformFeatureFlags>;
+};
+
+/**
+ * Mark a specific props in the type as optional.
+ * FlexibleCard use this concept where base component has required props
+ * and the extended component provides these props. The props become an optional
+ * for the extended component but is still available for override/callback.
+ *
+ * For example: Action component require onClick callback to perform action
+ * but PreviewAction defines the onClick behaviour inside its component.
+ * PreviewAction still wants the onClick for a callback to executed after the
+ * action completes, but it is optional.
+ *
+ * Usage:
+ *   type ActionProps = { onClick: () => {}, content: string, icon?: React.ReactNode }
+ *   type PreviewActionProps = Optional<ActionProps, 'onClick'>
+ */
+export type Optional<T, K extends keyof T> = Omit<T, K> & {
+  [K in keyof T]?: T[K];
 };

@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 109.13.0
+
+### Minor Changes
+
+- [#86103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86103) [`af2544086b27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af2544086b27) - Changed comment create mutation to send pos if comment is added to a block node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.12.5
 
 ### Patch Changes

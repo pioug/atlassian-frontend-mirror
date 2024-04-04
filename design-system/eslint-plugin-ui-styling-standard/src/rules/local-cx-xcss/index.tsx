@@ -2,7 +2,10 @@ import type { Rule } from 'eslint';
 import type { JSXAttribute } from 'estree-jsx';
 
 import { createLintRule } from '../utils/create-rule';
-import { CSS_IN_JS_IMPORTS, isCxFunction } from '../utils/is-supported-import';
+import {
+  CSS_IN_JS_IMPORTS,
+  isCxFunction,
+} from '@atlaskit/eslint-utils/is-supported-import';
 
 const IMPORT_SOURCES = [
   CSS_IN_JS_IMPORTS.compiled,

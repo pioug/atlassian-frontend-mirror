@@ -8,7 +8,7 @@ import {
   isKeyframes,
   isCssMap,
   isXcss,
-} from '../utils/is-supported-import';
+} from '@atlaskit/eslint-utils/is-supported-import';
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 const schema: JSONSchema4 = [

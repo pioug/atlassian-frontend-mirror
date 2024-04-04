@@ -17,33 +17,6 @@ const importSources: readonly string[] = [
   'styled-components',
 ];
 
-/**
- * Same as importSources, but excludes `styled-components` because the type-checking
- * for `styled-components` does not support the `no-styled-tagged-template-expression`
- * lint output for this:
- *
- *     export const Container = styled(Section)`
- *         max-height: ${gridSize * 46}px;
- *         overflow: auto;
- *     `;
- *
- *     export const ErrorStateContainer = styled(Container)`
- *         margin: ${
- *             (props: any) =>
- *                 props.canManageAutomations // Use negative margin to reduce whitespace when the Footer component is shown
- *                     ? `${gridSize * -4}px ${gridSize * 2}px`
- *                     : `0 ${gridSize * 2}px`
- *         };
- *     `;
- */
-const noStyledTaggedTemplateExpressionImportSources: readonly string[] = [
-  '@compiled/react',
-  '@atlaskit/css', // doesn't do anything because @atlaskit/css doesn't expose a styled API
-  '@emotion/core',
-  '@emotion/react',
-  '@emotion/styled',
-];
-
 export const externalRules: ExternalRuleMeta[] = [
   {
     name: '@atlaskit/design-system/consistent-css-prop-usage',
@@ -108,9 +81,6 @@ export const externalRules: ExternalRuleMeta[] = [
         'https://atlassian.design/components/eslint-plugin-design-system/no-styled-tagged-template-expression/usage',
       recommended: true,
       severity: 'warn',
-      pluginConfig: {
-        importSources: noStyledTaggedTemplateExpressionImportSources,
-      },
     },
   },
   {

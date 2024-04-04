@@ -75,9 +75,13 @@ export const ForbiddenView = ({
     action,
     descriptiveMessageKey = 'invalid_permissions_description',
     hostname = '',
+    buttonDisabled,
   } = requestAccessContext;
 
-  const items = action ? [...actions, action] : actions;
+  const items =
+    action !== undefined && !(buttonDisabled ?? false)
+      ? [...actions, action]
+      : actions;
 
   return (
     <Frame

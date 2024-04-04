@@ -1,9 +1,10 @@
+import { isCss } from '@atlaskit/eslint-utils/is-supported-import';
+
 import {
   createNoTaggedTemplateExpressionRule,
   noTaggedTemplateExpressionRuleSchema,
 } from '../utils/create-no-tagged-template-expression-rule';
 import { createLintRule } from '../utils/create-rule';
-import { isCss } from '../utils/is-supported-import';
 
 const rule = createLintRule({
   meta: {

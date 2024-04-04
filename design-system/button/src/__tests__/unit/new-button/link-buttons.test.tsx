@@ -8,8 +8,6 @@ import AppProvider, {
 
 import { linkButtonVariants } from '../../../utils/variants';
 
-const testId = 'test-link-button';
-
 type MyRouterLinkConfig = {
   to: string;
   customProp?: string;
@@ -130,38 +128,6 @@ const testCases: Array<{
 
 linkButtonVariants.forEach(({ name, Component }) => {
   describe(name, () => {
-    describe('external link attributes `target` and `rel`', () => {
-      it('should apply if undefined', () => {
-        render(
-          <Component href="https://atlassian.com" testId={testId}>
-            External link
-          </Component>,
-        );
-
-        const link = screen.getByTestId(testId);
-
-        expect(link).toHaveAttribute('target', '_blank');
-        expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-      });
-      it('should not override if explicitly defined', () => {
-        render(
-          <Component
-            href="https://atlassian.com"
-            testId={testId}
-            target="_self"
-            rel="license"
-          >
-            External link
-          </Component>,
-        );
-
-        const link = screen.getByTestId(testId);
-
-        expect(link).toHaveAttribute('target', '_self');
-        expect(link).toHaveAttribute('rel', 'license');
-      });
-    });
-
     describe('should conditionally render router links or standard <a> anchors', () => {
       describe('when links are used outside an AppProvider', () => {
         testCases.forEach(

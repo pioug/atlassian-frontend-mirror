@@ -1,7 +1,14 @@
-import type { SDKUnsupportedReasons } from '@loomhq/record-sdk';
-
 import type { ACTION, ACTION_SUBJECT, INPUT_METHOD } from './enums';
 import type { OperationalAEP, TrackAEP } from './utils';
+
+type LoomPluginErrorMessages =
+  | 'is-supported-failure'
+  | 'failed-to-initialise'
+  | 'api-key-not-provided';
+type LoomSDKErrorMessages =
+  | 'incompatible-browser'
+  | 'third-party-cookies-disabled'
+  | 'no-media-streams-support';
 
 type LoomInitialisedAEP = OperationalAEP<
   ACTION.INITIALISED,
@@ -14,7 +21,7 @@ type LoomDisabledAEP = OperationalAEP<
   ACTION.ERRORED,
   ACTION_SUBJECT.LOOM,
   undefined,
-  { error?: SDKUnsupportedReasons }
+  { error?: LoomPluginErrorMessages | LoomSDKErrorMessages }
 >;
 
 type RecordVideoAEP = TrackAEP<
@@ -29,7 +36,10 @@ type RecordVideoFailedAEP = TrackAEP<
   ACTION.RECORD_VIDEO_FAILED,
   ACTION_SUBJECT.LOOM,
   undefined,
-  { inputMethod: INPUT_METHOD; error?: SDKUnsupportedReasons },
+  {
+    inputMethod: INPUT_METHOD;
+    error?: LoomPluginErrorMessages | LoomSDKErrorMessages;
+  },
   undefined
 >;
 

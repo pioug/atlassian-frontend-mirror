@@ -7,8 +7,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../messages';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
-import PreviewAction from './action/preview-action';
-import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import ViewAction from './action/view-action';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import DownloadAction from './action/download-action';
@@ -37,15 +35,6 @@ const actionMappings: {
       content: <FormattedMessage {...messages.edit} />,
       icon: <EditIcon label="Edit" />,
       tooltipMessage: <FormattedMessage {...messages.edit} />,
-    },
-  },
-  [ActionName.PreviewAction]: {
-    component: PreviewAction,
-    props: {
-      testId: 'smart-action-preview-action',
-      content: <FormattedMessage {...messages.preview_improved} />,
-      icon: <VidFullScreenOnIcon label="Open preview" />,
-      tooltipMessage: <FormattedMessage {...messages.preview_improved} />,
     },
   },
 
@@ -88,7 +77,6 @@ const getActionData = (
 
   const data = context[contextKey as keyof typeof context];
   switch (actionName) {
-    case ActionName.PreviewAction:
     case ActionName.ViewAction:
     case ActionName.DownloadAction:
       return data;

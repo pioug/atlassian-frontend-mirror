@@ -15,6 +15,7 @@ export type AnnotationByMatches = {
   originalSelection: string;
   numMatches: number;
   matchIndex: number;
+  pos?: number;
   isAnnotationAllowed?: boolean;
 };
 

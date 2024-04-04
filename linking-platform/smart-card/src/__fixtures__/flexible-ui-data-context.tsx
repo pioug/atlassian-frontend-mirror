@@ -3,6 +3,16 @@ import { IconType, MediaType } from '../constants';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 const context: FlexibleUiDataContext = {
+  actions: {
+    PreviewAction: {
+      downloadUrl: 'https://www.link-url.com',
+      linkIcon: { url: 'Provider:Confluence' },
+      providerName: 'dropbox-object-provider',
+      src: 'https://www.link-url.com',
+      title: 'embed title',
+      url: 'https://www.link-url.com',
+    },
+  },
   attachmentCount: 3,
   authorGroup: [
     { name: 'Alexander Hamilton' },
@@ -53,14 +63,6 @@ const context: FlexibleUiDataContext = {
     },
   ],
   preview: { type: MediaType.Image, url: 'image-url' },
-  previewAction: {
-    downloadUrl: 'https://www.link-url.com',
-    linkIcon: { url: 'Provider:Confluence' },
-    providerName: 'dropbox-object-provider',
-    src: 'https://www.link-url.com',
-    title: 'embed title',
-    url: 'https://www.link-url.com',
-  },
   priority: {
     icon: 'Badge:PriorityMajor' as IconType,
     label: 'Major',

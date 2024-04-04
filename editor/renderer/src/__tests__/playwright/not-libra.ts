@@ -103,6 +103,7 @@ type MountRendererOptions = {
   withRendererActions?: boolean;
   mockInlineComments?: boolean;
   exampleType?: string;
+  enableClickToEdit?: boolean;
 };
 
 // Based on https://github.com/microsoft/playwright/issues/6347

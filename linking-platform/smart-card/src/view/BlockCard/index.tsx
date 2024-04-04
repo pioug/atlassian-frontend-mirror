@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { FC } from 'react';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { ExtractBlockOpts } from '../../extractors/block/types';
-import { extractRequestAccessContext } from '../../extractors/common/context';
+import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import { CardLinkView } from '../LinkView';
 import { AuthorizeAction } from './actions/AuthorizeAction';
 import { ForbiddenAction } from './actions/ForbiddenAction';
@@ -58,6 +59,7 @@ export const BlockCard: FC<BlockCardProps> = ({
   enableFlexibleBlockCard,
   actionOptions,
 }) => {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const { status, details } = cardState;
   const data =
     ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
@@ -198,10 +200,11 @@ export const BlockCard: FC<BlockCardProps> = ({
 
       const forbiddenViewProps = extractBlockProps(data, meta, extractorOpts);
       const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
-      const requestAccessContext = extractRequestAccessContext({
+      const requestAccessContext = extractRequestAccessContextImproved({
         jsonLd: cardMetadata,
         url,
-        product: forbiddenViewProps.context?.text,
+        product: forbiddenViewProps.context?.text ?? '',
+        createAnalyticsEvent,
       });
       return (
         <BlockCardForbiddenView

@@ -14,11 +14,13 @@ import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { recordVideo, recordVideoFailed } from './commands';
 import type { LoomPluginState } from './pm-plugin';
 import { createPlugin, loomPluginKey } from './pm-plugin';
+import type { LoomPluginOptions } from './types';
 import LoomToolbarButton from './ui/ToolbarButton';
 
 export type LoomPlugin = NextEditorPlugin<
   'loom',
   {
+    pluginConfiguration: LoomPluginOptions;
     dependencies: [
       // Optional, because works fine without analytics
       OptionalPlugin<AnalyticsPlugin>,
@@ -28,7 +30,7 @@ export type LoomPlugin = NextEditorPlugin<
   }
 >;
 
-export const loomPlugin: LoomPlugin = ({ api }) => {
+export const loomPlugin: LoomPlugin = ({ config, api }) => {
   const editorAnalyticsAPI = api?.analytics?.actions;
 
   return {
@@ -37,7 +39,7 @@ export const loomPlugin: LoomPlugin = ({ api }) => {
     pmPlugins: () => [
       {
         name: 'loom',
-        plugin: () => createPlugin(api),
+        plugin: () => createPlugin({ config, api }),
       },
     ],
 

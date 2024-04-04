@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.24.11
+
+### Patch Changes
+
+- [#86784](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86784) [`c3e5e5eb1a2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c3e5e5eb1a2c) - Fixes display padding of datasources for no results modal
+- Updated dependencies
+
 ## 1.24.10
 
 ### Patch Changes

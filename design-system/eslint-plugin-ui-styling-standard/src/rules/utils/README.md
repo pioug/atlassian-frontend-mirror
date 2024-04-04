@@ -1,1 +1,0 @@
-This contains utility functions copied over from `packages/design-system/eslint-plugin/src/rules/utils/` until we move the relevant eslint rules over to `packages/design-system/eslint-plugin-ui-styling-standard`.

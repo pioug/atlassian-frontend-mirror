@@ -55,7 +55,7 @@
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popper": "^5.5.0",
-    "@atlaskit/primitives": "^5.2.0",
+    "@atlaskit/primitives": "^5.3.0",
     "@atlaskit/select": "^17.3.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/teams-avatar": "^1.0.0",

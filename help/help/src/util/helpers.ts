@@ -1,9 +1,17 @@
 import { Article } from '../model/Article';
 
-export const createArticleObject = (algoliaResponse: any): Article => {
-  const bodyObject = algoliaResponse.hits[0].body;
-  const stylesObject = algoliaResponse.hits[1].body;
+export enum RESPONSE_TYPE {
+  ALGOLIA = 'ALGOLIA',
+}
+
+export const createArticleObject = (
+  styles: any,
+  content: any,
+  responseType = RESPONSE_TYPE.ALGOLIA,
+): Article => {
+  const bodyObject = content.body;
+  const stylesObject = styles.body;
   const body = `<div class="content-platform-support">${stylesObject} ${bodyObject}</div>`;
 
-  return { ...algoliaResponse.hits[0], body };
+  return { ...content, body };
 };

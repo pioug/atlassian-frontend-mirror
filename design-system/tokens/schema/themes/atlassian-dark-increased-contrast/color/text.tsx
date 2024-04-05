@@ -48,7 +48,7 @@ const color: ExtendedValueSchema<TextColorTokenSchema<BaseToken>> = {
         value: 'Blue200',
       },
       pressed: {
-        value: 'Blue100',
+        value: 'Blue200',
       },
     },
   },

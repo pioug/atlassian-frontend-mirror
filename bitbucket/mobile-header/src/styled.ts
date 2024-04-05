@@ -19,11 +19,13 @@ const mobileHeaderHeight = 54;
 
 const xPositioning = ({ side, isOpen }: { side: string; isOpen: boolean }) =>
   side === 'right'
-    ? css`
+    ? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+      css`
         right: 0;
         transform: translateX(${isOpen ? '0' : '100vw'});
       `
-    : css`
+    : // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+      css`
         left: 0;
         transform: translateX(${isOpen ? '0' : '-100vw'});
       `;
@@ -32,48 +34,59 @@ export const MobileNavSlider = styled.div<{
   topOffset: number | undefined;
   isOpen: boolean;
   side: string;
-}>`
-  height: ${(props) => `calc(100vh - ${props.topOffset}px)`};
-  position: fixed;
-  top: ${(props) => props.topOffset}px;
-  transition: transform 0.2s ease-out;
-  z-index: ${layers.slider};
-  ${xPositioning};
-`;
+}>(
+  (props) => ({
+    height: `calc(100vh - ${props.topOffset}px)`,
+    position: 'fixed',
+    top: `${props.topOffset}px`,
+    transition: 'transform 0.2s ease-out',
+    zIndex: layers.slider,
+  }),
+  xPositioning,
+);
 
 // make space so content below doesn't slip beneath the header
 // since the content is `position: fixed`
-export const MobilePageHeader = styled.header`
-  height: ${mobileHeaderHeight}px;
-`;
+export const MobilePageHeader = styled.header({
+  height: `${mobileHeaderHeight}px`,
+});
 
 export const MobilePageHeaderContent = styled.div<{
   topOffset: number | undefined;
-}>`
-  align-items: center;
-  background-color: ${token('color.background.neutral', N20)};
-  box-sizing: border-box;
-  display: flex;
-  height: ${mobileHeaderHeight}px;
-  padding: ${token('space.100', '8px')};
-  position: fixed;
-  top: ${(props) => props.topOffset}px;
-  width: 100%;
-  z-index: ${layers.header};
-`;
+}>((props) => ({
+  alignItems: 'center',
+  backgroundColor: token('color.background.neutral', N20),
+  boxSizing: 'border-box',
+  display: 'flex',
+  height: `${mobileHeaderHeight}px`,
+  padding: token('space.100', '8px'),
+  position: 'fixed',
+  top: `${props.topOffset}px`,
+  width: '100%',
+  zIndex: layers.header,
+}));
 
-const opacityIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
+const opacityIn = keyframes({
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+});
 
-const opacityOut = keyframes`
-  from { opacity: 1; }
-  to { opacity: 0; }
-`;
+const opacityOut = keyframes({
+  from: {
+    opacity: 1,
+  },
+  to: {
+    opacity: 0,
+  },
+});
 
 // @atlaskit/blanket has a z-index *higher* than @atlaskit/navigation,
 // so we can't display the AK blanket underneath the navigation.
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const FakeBlanket = styled.div<{
   isOpen: boolean;
 }>`
@@ -88,11 +101,15 @@ export const FakeBlanket = styled.div<{
 `;
 
 // use proper h1 and header styles but for mobile we don't want a top margin
-export const PageHeading = styled.h1`
-  flex-grow: 1;
-  margin-left: ${token('space.100', '8px')};
-  ${h500};
-  && {
-    margin-top: 0;
-  }
-`;
+export const PageHeading = styled.h1(
+  {
+    flexGrow: 1,
+    marginLeft: token('space.100', '8px'),
+  },
+  h500,
+  {
+    '&&': {
+      marginTop: 0,
+    },
+  },
+);

@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 1.24.12
+
+### Patch Changes
+
+- [#87145](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87145) [`dde291a6a448`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dde291a6a448) - Improve compatibility with React 18
+- Updated dependencies
+
 ## 1.24.11
 
 ### Patch Changes

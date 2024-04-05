@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.2.30
+
+### Patch Changes
+
+- [#87366](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87366) [`24730abb98fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/24730abb98fa) - Refactoring createArticleObject helper function
+
 ## 7.2.29
 
 ### Patch Changes

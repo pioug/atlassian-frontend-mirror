@@ -77,19 +77,6 @@ describe('Snapshot Test: Table selection', () => {
       await selectRow(4, true);
     });
 
-    it('should be able select multiple rows from a cell selection', async () => {
-      await selectRow(4);
-      await animationFrame(page);
-      await selectRow(6, true);
-    });
-
-    it('should be able select multiple rows after direction change', async () => {
-      await selectRow(4);
-      await animationFrame(page);
-      await selectRow(6, true);
-      await animationFrame(page);
-      await selectRow(2, true);
-    });
     // #endregion
 
     // #region Columns
@@ -115,39 +102,7 @@ describe('Snapshot Test: Table selection', () => {
     it('should be able select multiple columns from a text selection', async () => {
       await selectColumn(1, true);
     });
-
-    it('should be able select multiple columns from a cell selection', async () => {
-      await selectColumn(1);
-      await animationFrame(page);
-      await retryUntilStablePosition(
-        page,
-        () => page.click(tableSelectors.nthColumnControl(1)),
-        tableSelectors.nthColumnControl(1),
-        1000,
-      );
-      await selectColumn(2, true);
-    });
-
-    it('should be able select multiple columns after direction change', async () => {
-      await selectColumn(1);
-      await animationFrame(page);
-      await selectColumn(2, true);
-      await animationFrame(page);
-      await selectColumn(0, true);
-    });
     // #endregion
-
-    it('should be able select multiple cells going from row to column', async () => {
-      await selectRow(1);
-      await animationFrame(page);
-      await selectColumn(1, true);
-    });
-
-    it('should be able select multiple cells going from column to row', async () => {
-      await selectColumn(1);
-      await animationFrame(page);
-      await selectRow(6, true);
-    });
   });
 
   describe('Table', () => {

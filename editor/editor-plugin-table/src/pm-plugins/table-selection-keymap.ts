@@ -42,19 +42,17 @@ export function tableSelectionKeymapPlugin(
     list,
   );
 
-  if (getBooleanFF('platform.editor.a11y.table-selection_9uv33')) {
-    bindKeymapArrayWithCommand(
-      selectColumn,
-      selectColumns(editorSelectionAPI)(true),
-      list,
-    );
+  bindKeymapArrayWithCommand(
+    selectColumn,
+    selectColumns(editorSelectionAPI)(true),
+    list,
+  );
 
-    bindKeymapArrayWithCommand(
-      selectRow,
-      selectRows(editorSelectionAPI)(true),
-      list,
-    );
-  }
+  bindKeymapArrayWithCommand(
+    selectRow,
+    selectRows(editorSelectionAPI)(true),
+    list,
+  );
 
   if (getBooleanFF('platform.editor.table.shift-arrowup-fix')) {
     bindKeymapWithCommand(

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.2.5
+
+### Patch Changes
+
+- [#87434](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87434) [`dda5ca94da13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dda5ca94da13) - `use-primitives` - bail on dimension properties that have token call values.
+
 ## 9.2.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.5
+
+### Patch Changes
+
+- [#87191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87191) [`f24bc58a479e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f24bc58a479e) - Exporting getAllAnnotations function to be used outside the package
+
 ## 1.5.4
 
 ### Patch Changes

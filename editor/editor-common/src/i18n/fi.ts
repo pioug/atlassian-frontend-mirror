@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-asiat',
   'fabric.editor.datasource.jiraIssue.description':
     'Lisää Jira-asioita Jira Cloudista parannetulla haulla, suodatuksella ja määrityksellä.',
-  'fabric.editor.datasourceAppearanceTitle': 'Taulukko',
+  'fabric.editor.datasourceAppearanceTitle': 'Luettelo',
   'fabric.editor.datasourceTitle': 'Muokkaa hakukyselyä',
   'fabric.editor.date': 'Päivämäärä',
   'fabric.editor.date.description': 'Lisää päivämäärä kalenterin avulla',
@@ -192,7 +192,7 @@ export default {
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Kelluva työkalupalkki',
   'fabric.editor.floatingToolbar.scrollLeft': 'Vieritä vasemmalle',
   'fabric.editor.floatingToolbar.scrollRight': 'Vieritä oikealle',
-  'fabric.editor.focusTableResizeHandle': 'Fokustaulukon koonmuutoskahva',
+  'fabric.editor.focusTableResizeHandle': 'Taulukon fokusoinnin muutoskahva',
   'fabric.editor.headerColumn': 'Otsikkosarake',
   'fabric.editor.headerRow': 'Otsikkorivi',
   'fabric.editor.heading1': 'Otsikko 1',
@@ -374,6 +374,7 @@ export default {
     'Vaihtoehtoinen teksti on hyödyllinen niille, jotka käyttävät näytönlukuohjelmia näkörajoitteen vuoksi.',
   'fabric.editor.table': 'Taulu',
   'fabric.editor.table.description': 'Lisää taulukko',
+  'fabric.editor.tableFullWidthLabel': 'Täysi leveys',
   'fabric.editor.tableOptions': 'Taulukkovaihtoehdot',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Taulukon leveys pieneni {newWidth,number} pikseliin.} other {Taulukon leveys pieneni {newWidth,number} pikseliin.}}',

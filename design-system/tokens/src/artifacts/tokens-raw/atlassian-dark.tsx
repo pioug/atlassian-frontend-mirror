@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::17268b2c8921f4f8a7e40e1920d7891a>>
+ * @codegen <<SignedSource::d02f50dc17f26a614bbae98768237a9d>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -996,7 +996,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "1.23.0",
-      "description": "Use for links in a visited state."
+      "description": "Use for visited links."
     },
     "value": "#B8ACF6",
     "filePath": "schema/themes/atlassian-dark/color/text.tsx",
@@ -1006,17 +1006,46 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "1.23.0",
-        "description": "Use for links in a visited state."
+        "description": "Use for visited links."
       },
       "value": "Purple300"
     },
-    "name": "color.link.visited",
+    "name": "color.link.visited.[default]",
     "path": [
       "color",
       "link",
-      "visited"
+      "visited",
+      "[default]"
     ],
     "cleanName": "color.link.visited"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.43.0",
+      "description": "Use for visited links in a pressed state."
+    },
+    "value": "#DFD8FD",
+    "filePath": "schema/themes/atlassian-dark/color/text.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.43.0",
+        "description": "Use for visited links in a pressed state."
+      },
+      "value": "Purple200"
+    },
+    "name": "color.link.visited.pressed",
+    "path": [
+      "color",
+      "link",
+      "visited",
+      "pressed"
+    ],
+    "cleanName": "color.link.visited.pressed"
   },
   {
     "attributes": {

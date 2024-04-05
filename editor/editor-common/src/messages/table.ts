@@ -256,27 +256,17 @@ export const messages = defineMessages({
   },
   focusedOtherResize: {
     id: 'fabric.editor.tables.otherResize',
-    defaultMessage: 'Switched to the {direction} column resize',
+    defaultMessage:
+      '{direction, select, left {Switched to the left column resize} right {Switched to the right column resize} other {}}',
     description:
       'Screen Reader announces when the user switches to the left or right column resizer',
   },
   changedColumnWidth: {
     id: 'fabric.editor.tables.columnWidth',
-    defaultMessage: 'Column width was changed to {width} pixels',
+    defaultMessage:
+      '{width, plural, one {Column width was changed to {width} pixel} other {Column width was changed to {width} pixels}}',
     description:
       'Screen Reader announces when the user modifies the column width',
-  },
-  columnLeftResize: {
-    id: 'fabric.editor.tables.columnLeftResize',
-    defaultMessage: 'left',
-    description:
-      'Screen Reader announces the jump to the preceding column resizer',
-  },
-  columnRightResize: {
-    id: 'fabric.editor.tables.columnRightResize',
-    defaultMessage: 'right',
-    description:
-      'Screen Reader announces the jump to the subsequent column resizer',
   },
   columnResizeStop: {
     id: 'fabric.editor.tables.resizeStop',

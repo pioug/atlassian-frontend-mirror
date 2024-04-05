@@ -321,9 +321,18 @@
         "group": "paint",
         "state": "active",
         "introduced": "1.23.0",
-        "description": "Use for links in a visited state."
+        "description": "Use for visited links."
       },
       "value": "#B8ACF6"
+    },
+    "Dark/color.link.visited.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.43.0",
+        "description": "Use for visited links in a pressed state."
+      },
+      "value": "#DFD8FD"
     },
     "Dark/color.icon": {
       "attributes": {

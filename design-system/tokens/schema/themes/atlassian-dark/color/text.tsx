@@ -54,7 +54,12 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
         value: 'Blue300',
       },
       visited: {
-        value: 'Purple300',
+        '[default]': {
+          value: 'Purple300',
+        },
+        pressed: {
+          value: 'Purple200',
+        },
       },
     },
   },

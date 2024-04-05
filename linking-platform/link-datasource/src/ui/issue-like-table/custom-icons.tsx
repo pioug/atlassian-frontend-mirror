@@ -1,15 +1,14 @@
 import React from 'react';
 
-import { CustomGlyphProps } from '@atlaskit/icon';
+import { IconProps } from '@atlaskit/icon';
 
-export const GlyphPlaceholder = (props: CustomGlyphProps) => (
+export const GlyphPlaceholder = (props: IconProps) => (
   <svg
     width="24"
     height="24"
     viewBox="0 0 24 24"
-    data-testid={props['data-testid']}
-    aria-label={props['aria-label']}
-    className={props.className}
+    data-testid={props.testId}
+    aria-label={props.label}
   ></svg>
 );
 

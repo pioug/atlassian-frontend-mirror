@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 17.4.0
+
+### Minor Changes
+
+- [#86848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86848) [`fa9de32b502e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa9de32b502e) - Convert AtlaskitSelect from react class component to function component
+
 ## 17.3.4
 
 ### Patch Changes

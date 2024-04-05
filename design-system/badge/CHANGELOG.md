@@ -1,5 +1,15 @@
 # @atlaskit/badge
 
+## 15.3.0
+
+### Minor Changes
+
+- [#87252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87252) [`eef585934a84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eef585934a84) - Add react 18 support
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.2.7
 
 ### Patch Changes

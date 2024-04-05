@@ -102,7 +102,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-ügyek',
   'fabric.editor.datasource.jiraIssue.description':
     'Jira-ügyek beszúrása a Jira Cloudból továbbfejlesztett kereséssel, szűrőkkel és konfigurációkkal.',
-  'fabric.editor.datasourceAppearanceTitle': 'Táblázat',
+  'fabric.editor.datasourceAppearanceTitle': 'Lista',
   'fabric.editor.datasourceTitle': 'Keresési lekérdezés szerkesztése',
   'fabric.editor.date': 'Dátum',
   'fabric.editor.date.description': 'Dátum hozzáadása naptár használatával',
@@ -378,6 +378,7 @@ export default {
     'Az alternatív szöveg a látássérült felhasználók számára hasznos, akik képernyőolvasót használnak.',
   'fabric.editor.table': 'Táblázat',
   'fabric.editor.table.description': 'Táblázat beszúrása',
+  'fabric.editor.tableFullWidthLabel': 'Teljes szélesség',
   'fabric.editor.tableOptions': 'Táblázatbeállítások',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {A tábla szélessége {newWidth,number} pixelre csökkentve.} other {A tábla szélessége {newWidth,number} pixelre csökkentve.}}',

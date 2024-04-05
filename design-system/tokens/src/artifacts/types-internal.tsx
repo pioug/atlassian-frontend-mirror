@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::11e69875f6597eeaa18883170f08da29>>
+ * @codegen <<SignedSource::5ca48b2d3178c703429114e94192f54c>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -39,7 +39,8 @@ export type InternalTokenIds =
   | 'color.text.subtle'
   | 'color.link.[default]'
   | 'color.link.pressed'
-  | 'color.link.visited'
+  | 'color.link.visited.[default]'
+  | 'color.link.visited.pressed'
   | 'color.icon.[default]'
   | 'color.icon.accent.lime'
   | 'color.icon.accent.red'

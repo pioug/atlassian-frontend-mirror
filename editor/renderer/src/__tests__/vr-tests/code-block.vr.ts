@@ -4,6 +4,7 @@ import {
   CodeBlockRendererCopyWrap,
   CodeBlockRendererTrailingNewline,
   CodeBlockRendererWrap,
+  CodeBlockRendererOverflow,
 } from './code-block.fixture';
 
 snapshot(CodeBlockRendererCopy, {
@@ -23,4 +24,8 @@ snapshot(CodeBlockRendererTrailingNewline, {
 snapshot(CodeBlockRendererWrap, {
   description: 'should render wrap button on hover if enabled',
   states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
+});
+
+snapshot(CodeBlockRendererOverflow, {
+  description: 'should render overflow as expected',
 });

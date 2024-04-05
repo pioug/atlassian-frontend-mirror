@@ -74,10 +74,10 @@ export type AllSpace = keyof typeof allSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fcf1cfc01cda3c278e69b0b564c7746d>>
+ * @codegen <<SignedSource::7e2103695ffbc3573276b7ef3408c91b>>
  * @codegenId inverse-colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::eface03157c2df5c1b3b305911d3ed4d>>
  */
 export const inverseColorMap = {
   'color.background.neutral.bold': 'color.text.inverse',
@@ -115,11 +115,11 @@ export const inverseColorMap = {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8c10abde8168de6260b5aa120dd948bc>>
+ * @codegen <<SignedSource::b219b05d38339a7cd427cbf5de4ad327>>
  * @codegenId elevation
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::eface03157c2df5c1b3b305911d3ed4d>>
  */
 export const opacityMap = {
   'opacity.disabled': token('opacity.disabled', '0.4'),
@@ -186,11 +186,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0f7982208166d5dae0e25517d29aeaef>>
+ * @codegen <<SignedSource::75cecbb153ddd5bdd2cb0c5e9a07107d>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f1021f8d47ab63374e371ce18db72a1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::eface03157c2df5c1b3b305911d3ed4d>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -1024,6 +1024,7 @@ export const textColorMap = {
   'color.link': token('color.link', '#0052CC'),
   'color.link.pressed': token('color.link.pressed', '#0747A6'),
   'color.link.visited': token('color.link.visited', '#403294'),
+  'color.link.visited.pressed': token('color.link.visited.pressed', '#403294'),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

@@ -101,7 +101,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira 課題',
   'fabric.editor.datasource.jiraIssue.description':
     '強化された検索、フィルタリング、設定を使用して、Jira Cloud から Jira 課題を挿入します。',
-  'fabric.editor.datasourceAppearanceTitle': '表',
+  'fabric.editor.datasourceAppearanceTitle': 'リスト',
   'fabric.editor.datasourceTitle': '検索クエリを編集',
   'fabric.editor.date': '日付',
   'fabric.editor.date.description': 'カレンダーを使用して日付を追加',
@@ -375,6 +375,7 @@ export default {
     '代替テキストは視覚障がいがあるためスクリーン リーダーを使用している人に便利な機能です。',
   'fabric.editor.table': '表',
   'fabric.editor.table.description': '表を挿入',
+  'fabric.editor.tableFullWidthLabel': '全幅',
   'fabric.editor.tableOptions': '表のオプション',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, other {テーブル幅が {newWidth,number} ピクセルに縮小しました。}}',

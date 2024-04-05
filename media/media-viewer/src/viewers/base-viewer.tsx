@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import deepEqual from 'deep-equal';
@@ -68,7 +68,9 @@ export abstract class BaseViewer<
   render() {
     return this.state.content.match({
       pending: () => <Spinner />,
-      successful: (content) => this.renderSuccessful(content),
+      successful: (content) => (
+        <Fragment>{this.renderSuccessful(content)}</Fragment>
+      ),
       failed: (error) => {
         const { item } = this.props;
         return (

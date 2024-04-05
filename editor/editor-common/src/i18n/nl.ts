@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-issues',
   'fabric.editor.datasource.jiraIssue.description':
     'Voeg Jira-issues in vanuit Jira Cloud met verbeterde zoekfunctie, filteren en configuratie.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabel',
+  'fabric.editor.datasourceAppearanceTitle': 'Lijst',
   'fabric.editor.datasourceTitle': 'Zoekopdracht bewerken',
   'fabric.editor.date': 'Datum',
   'fabric.editor.date.description': 'Een datum toevoegen via een agenda',
@@ -377,6 +377,7 @@ export default {
     'Alt-tekst is handig voor mensen die gebruikmaken van schermlezers vanwege visuele beperkingen.',
   'fabric.editor.table': 'Tabel',
   'fabric.editor.table.description': 'Een tabel invoegen',
+  'fabric.editor.tableFullWidthLabel': 'Volledige breedte',
   'fabric.editor.tableOptions': 'Tabelopties',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Tabelbreedte verminderd tot {newWidth,number} pixel.} other {Tabelbreedte verminderd tot {newWidth,number} pixels.}}',

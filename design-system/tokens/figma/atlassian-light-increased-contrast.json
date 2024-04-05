@@ -308,7 +308,7 @@
       }
     },
     "Light increased-contrast/color.link.pressed": {
-      "value": "#1C2B41",
+      "value": "#09326C",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -322,7 +322,16 @@
         "group": "paint",
         "state": "active",
         "introduced": "1.23.0",
-        "description": "Use for links in a visited state."
+        "description": "Use for visited links."
+      }
+    },
+    "Light increased-contrast/color.link.visited.pressed": {
+      "value": "#352C63",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.43.0",
+        "description": "Use for visited links in a pressed state."
       }
     },
     "Light increased-contrast/color.icon": {

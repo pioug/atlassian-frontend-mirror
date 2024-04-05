@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "17.3.4",
+  "version": "17.4.0",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,18 +49,17 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/ds-lib": "^2.2.5",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@popperjs/core": "^2.9.1",
     "bind-event-listener": "^2.1.1",
-    "memoize-one": "^6.0.0",
-    "react-fast-compare": "^3.2.0",
     "react-focus-lock": "^2.9.5",
     "react-node-resolver": "^1.0.1",
     "react-popper": "^2.2.3",
@@ -75,7 +74,6 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
-    "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

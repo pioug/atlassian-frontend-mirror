@@ -46,10 +46,10 @@
     "@atlaskit/pragmatic-drag-and-drop": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
-    "@atlaskit/primitives": "^5.3.0",
+    "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/toggle": "^13.0.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -134,9 +134,6 @@
       "type": "boolean"
     },
     "platform.editor.a11y-table-resizing_uapcv": {
-      "type": "boolean"
-    },
-    "platform.editor.a11y.table-selection_9uv33": {
       "type": "boolean"
     },
     "platform.editor.menu.group-items": {

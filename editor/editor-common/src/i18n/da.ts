@@ -101,7 +101,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-sager',
   'fabric.editor.datasource.jiraIssue.description':
     'Indsæt Jira-sager fra Jira Cloud med forbedret søgning, filtrering og konfiguration.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabel',
+  'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Rediger søgning',
   'fabric.editor.date': 'Dato',
   'fabric.editor.date.description': 'Tilføj en dato med en kalender',
@@ -276,7 +276,7 @@ export default {
   'fabric.editor.media.pixelEntry.inputHeightAriaLabel': 'højdeinput',
   'fabric.editor.media.pixelEntry.inputHeightTooltip': 'Højde',
   'fabric.editor.media.pixelEntry.inputWidthAriaLabel': 'Maks. bredde {maxWidth} px',
-  'fabric.editor.media.pixelEntry.inputWidthTooltip': 'Maks. bredde {maxWidth} px',
+  'fabric.editor.media.pixelEntry.inputWidthTooltip': 'Maks. bredde {maxWidth} pixels',
   'fabric.editor.media.pixelEntry.migrationButtonText': 'Konverter til pixels',
   'fabric.editor.media.pixelEntry.migrationButtonTooltip': 'Overfør fra procentdel til fast pixelstørrelse',
   'fabric.editor.media.pixelEntry.submitButtonText': 'Indsend',
@@ -374,6 +374,7 @@ export default {
   'fabric.editor.supportAltText': 'Alternativ tekst er nyttig, når folk bruger skærmlæsere pga. synshandicap.',
   'fabric.editor.table': 'Tabel',
   'fabric.editor.table.description': 'Indsæt en tabel',
+  'fabric.editor.tableFullWidthLabel': 'Fuld bredde',
   'fabric.editor.tableOptions': 'Egenskaber for tabel',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Tabelbredde reduceret til {newWidth,number} pixel.} other {Tabelbredde reduceret til {newWidth,number} pixel.}}',

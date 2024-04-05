@@ -1,6 +1,7 @@
 import type { FC, HTMLProps } from 'react';
 
 import { withFocusWithin } from 'react-focus-within';
+// TODO: should use @emotion
 import styled, { css } from 'styled-components';
 
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -8,14 +9,17 @@ import styled, { css } from 'styled-components';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const transition = css`
   transition: all 200ms ease-in-out;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const PanelWrapper = styled.div`
   margin: 0 auto ${token('space.200', '16px')};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
   left: 0;
   line-height: 0;

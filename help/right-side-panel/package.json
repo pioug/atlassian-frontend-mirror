@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",
     "exenv": "^1.2.2",

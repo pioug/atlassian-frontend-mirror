@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Itens do Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Insira itens do Jira a partir do Jira Cloud com ferramentas aprimoradas de pesquisa, filtro e configuração.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabela',
+  'fabric.editor.datasourceAppearanceTitle': 'Lista',
   'fabric.editor.datasourceTitle': 'Editar consulta de pesquisa',
   'fabric.editor.date': 'Data',
   'fabric.editor.date.description': 'Adicionar data usando um calendário',
@@ -378,6 +378,7 @@ export default {
     'O texto alt ajuda pessoas que usam leitores de tela por conta de limitações visuais.',
   'fabric.editor.table': 'Tabela',
   'fabric.editor.table.description': 'Inserir uma tabela',
+  'fabric.editor.tableFullWidthLabel': 'Largura total',
   'fabric.editor.tableOptions': 'Opções de tabela',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {A largura da tabela foi reduzida para {newWidth,number} pixel.} other {A largura da tabela foi reduzida para {newWidth,number} pixels.}}',

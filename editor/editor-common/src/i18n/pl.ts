@@ -80,7 +80,7 @@ export default {
   'fabric.editor.configPanel.dateRange.option.custom': 'Niestandardowa',
   'fabric.editor.configPanel.documentation': 'Dokumentacja',
   'fabric.editor.configPanel.errorBoundary.note':
-    'Poinformowaliśmy zespół. Nadal możesz edytować i opublikować tę stronę, a także sprawdzić konsolę błędów w celu uzyskania dalszych informacji.',
+    'Poinformowaliśmy zespół. Wciąż możesz edytować i opublikować tę stronę, a także sprawdzić konsolę błędów, aby uzyskać więcej informacji.',
   'fabric.editor.configPanel.errorBoundary.title': 'Coś poszło nie tak.',
   'fabric.editor.configPanel.fieldTypeError.isMultipleAndRadio': 'Nie można połączyć isMultiple ze stylem: radio',
   'fabric.editor.configPanel.formType.addField': 'Dodaj pole',
@@ -102,7 +102,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Zgłoszenia Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Wstawianie zgłoszeń Jira z Jira Cloud z ulepszonym wyszukiwaniem, filtrowaniem i konfigurowaniem.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabela',
+  'fabric.editor.datasourceAppearanceTitle': 'Lista',
   'fabric.editor.datasourceTitle': 'Edytuj zapytanie wyszukiwania',
   'fabric.editor.date': 'Data',
   'fabric.editor.date.description': 'Dodaj datę, korzystając z kalendarza',
@@ -384,6 +384,7 @@ export default {
     'Tekst alternatywny jest przydatny dla osób z zaburzeniami widzenia, korzystających z czytników ekranowych.',
   'fabric.editor.table': 'Tabela',
   'fabric.editor.table.description': 'Wstaw tabelę',
+  'fabric.editor.tableFullWidthLabel': 'Pełna szerokość',
   'fabric.editor.tableOptions': 'Opcje tabeli',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Szerokość tabeli została zmniejszona do {newWidth,number} piksela.} few {Szerokość tabeli została zmniejszona do {newWidth,number} pikseli.} many {Szerokość tabeli została zmniejszona do {newWidth,number} pikseli.} other {Szerokość tabeli została zmniejszona do {newWidth,number} piksela.}}',

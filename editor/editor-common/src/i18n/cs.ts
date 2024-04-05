@@ -101,7 +101,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Požadavky Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Vkládání požadavků Jira z Jira Cloud pomocí rozšířeného vyhledávání, filtrování a konfigurací.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabulka',
+  'fabric.editor.datasourceAppearanceTitle': 'Sloupec',
   'fabric.editor.datasourceTitle': 'Upravit vyhledávací dotaz',
   'fabric.editor.date': 'Datum',
   'fabric.editor.date.description': 'Přidat datum pomocí kalendáře',
@@ -381,6 +381,7 @@ export default {
     'Alternativní text je užitečný pro lidi, kteří kvůli zrakovým omezením používají čtečky obrazovky.',
   'fabric.editor.table': 'Tabulka',
   'fabric.editor.table.description': 'Vložit tabulku',
+  'fabric.editor.tableFullWidthLabel': 'Celá šířka',
   'fabric.editor.tableOptions': 'Možnosti tabulky',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Šířka tabulky byla snížena na {newWidth,number} pixel.} few {Šířka tabulky byla snížena na {newWidth,number} pixely.} many {Šířka tabulky byla snížena na {newWidth,number} pixelu.} other {Šířka tabulky byla snížena na {newWidth,number} pixelů.}}',

@@ -12,13 +12,13 @@ import MobileHeader from '../src';
 
 const BANNER_HEIGHT = 52;
 
-const FakeSideBar = styled.div`
-  background-color: white;
-  height: 100vh;
-  padding-top: 32px;
-  text-align: center;
-  width: 264px;
-`;
+const FakeSideBar = styled.div({
+  backgroundColor: 'white',
+  height: '100vh',
+  paddingTop: '32px',
+  textAlign: 'center',
+  width: '264px',
+});
 
 interface State {
   drawerState: 'navigation' | 'sidebar' | 'none' | string;

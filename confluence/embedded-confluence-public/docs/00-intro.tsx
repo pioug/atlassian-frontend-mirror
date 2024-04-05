@@ -26,5 +26,5 @@ export default md`
 
   ### A note on limitations
 
-  When a [Forge](https://developer.atlassian.com/platform/forge/) app uses embedded Confluence pages, hyperlinks in the page will not work correctly. The recommended interim workaround is to use a [Connect](https://developer.atlassian.com/cloud/jira/platform/getting-started-with-connect/) app.
+  When a [Forge](https://developer.atlassian.com/platform/forge/) app uses embedded Confluence pages, hyperlinks in the page will not work correctly. Learn more [here](https://jira.atlassian.com/browse/ECO-205).
 `;

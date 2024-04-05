@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::13b519ff8291998fc292b5fcb756fdd4>>
+ * @codegen <<SignedSource::fb497c2575a43684b70e2ae5c134d8e7>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -965,7 +965,7 @@ const tokens = [
     "cleanName": "color.link"
   },
   {
-    "value": "#1C2B41",
+    "value": "#09326C",
     "filePath": "schema/themes/atlassian-light-increased-contrast/color/text.tsx",
     "isSource": true,
     "attributes": {
@@ -975,7 +975,7 @@ const tokens = [
       "description": "Use for links in a pressed state."
     },
     "original": {
-      "value": "Blue1000",
+      "value": "Blue900",
       "attributes": {
         "group": "paint",
         "state": "active",
@@ -999,7 +999,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "1.23.0",
-      "description": "Use for links in a visited state."
+      "description": "Use for visited links."
     },
     "original": {
       "value": "Purple800",
@@ -1007,16 +1007,45 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "1.23.0",
-        "description": "Use for links in a visited state."
+        "description": "Use for visited links."
       }
     },
-    "name": "color.link.visited",
+    "name": "color.link.visited.[default]",
     "path": [
       "color",
       "link",
-      "visited"
+      "visited",
+      "[default]"
     ],
     "cleanName": "color.link.visited"
+  },
+  {
+    "value": "#352C63",
+    "filePath": "schema/themes/atlassian-light/color/text.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.43.0",
+      "description": "Use for visited links in a pressed state."
+    },
+    "original": {
+      "value": "Purple900",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.43.0",
+        "description": "Use for visited links in a pressed state."
+      }
+    },
+    "name": "color.link.visited.pressed",
+    "path": [
+      "color",
+      "link",
+      "visited",
+      "pressed"
+    ],
+    "cleanName": "color.link.visited.pressed"
   },
   {
     "value": "#172B4D",

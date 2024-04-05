@@ -9,13 +9,13 @@ import Navigation from '@atlaskit/navigation';
 
 import MobileHeader from '../src';
 
-const FakeSideBar = styled.div`
-  background-color: white;
-  height: 100vh;
-  padding-top: 32px;
-  text-align: center;
-  width: 264px;
-`;
+const FakeSideBar = styled.div({
+  backgroundColor: 'white',
+  height: '100vh',
+  paddingTop: '32px',
+  textAlign: 'center',
+  width: '264px',
+});
 
 interface State {
   drawerState: 'none' | 'navigation' | 'sidebar' | string;

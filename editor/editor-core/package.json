@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.8.0",
+  "version": "193.8.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -58,7 +58,7 @@
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/task-decision": "^17.9.0",
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@atlaskit/tooltip": "^18.1.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
@@ -89,7 +89,7 @@
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/collab-provider": "9.25.15",
     "@atlaskit/dropdown-menu": "^12.8.0",
-    "@atlaskit/editor-plugin-annotation": "1.5.4",
+    "@atlaskit/editor-plugin-annotation": "1.5.5",
     "@atlaskit/editor-plugin-card": "^1.4.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.5",
@@ -103,9 +103,9 @@
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.10.0",
-    "@atlaskit/primitives": "^5.3.0",
+    "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/renderer": "^109.13.0",
-    "@atlaskit/select": "^17.3.0",
+    "@atlaskit/select": "^17.4.0",
     "@atlaskit/smart-card": "^26.51.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
     "@atlaskit/util-data-test": "^17.9.0",
@@ -286,10 +286,6 @@
       "referenceOnly": "true"
     },
     "platform.editor.table.analytics-plugin-moved-event": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.a11y.table-selection_9uv33": {
       "type": "boolean",
       "referenceOnly": "true"
     },

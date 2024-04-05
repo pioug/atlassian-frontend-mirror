@@ -1,6 +1,5 @@
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';
@@ -42,76 +41,64 @@ const select =
           if (isRowSelection) {
             top = Math.min(top, selRect.top);
             bottom = Math.max(bottom, selRect.bottom);
-            if (
-              getBooleanFF(
-                'platform.editor.table-shift-click-selection-backward',
-              )
-            ) {
-              cellsInFirstRow = map.cellsInRect({
-                left,
-                top,
-                right,
-                bottom: top + 1,
-              });
 
-              const targetRowCells = map.cellsInRect({
-                left,
-                top: index,
-                right,
-                bottom: index + 1,
-              });
+            cellsInFirstRow = map.cellsInRect({
+              left,
+              top,
+              right,
+              bottom: top + 1,
+            });
 
-              const isBackwardSelection =
-                targetRowCells[0] < prevSelection.$head.pos - table.start;
+            const targetRowCells = map.cellsInRect({
+              left,
+              top: index,
+              right,
+              bottom: index + 1,
+            });
 
-              if (isBackwardSelection && isPrevRowSelection) {
-                const head = table.start + cellsInFirstRow[0];
-                const anchor = prevSelection.$anchorCell.pos;
+            const isBackwardSelection =
+              targetRowCells[0] < prevSelection.$head.pos - table.start;
 
-                const $head = tr.doc.resolve(head);
-                const $anchor = tr.doc.resolve(anchor);
+            if (isBackwardSelection && isPrevRowSelection) {
+              const head = table.start + cellsInFirstRow[0];
+              const anchor = prevSelection.$anchorCell.pos;
 
-                return cloneTr(
-                  tr.setSelection(new CellSelection($anchor, $head)),
-                );
-              }
+              const $head = tr.doc.resolve(head);
+              const $anchor = tr.doc.resolve(anchor);
+              return cloneTr(
+                tr.setSelection(new CellSelection($anchor, $head)),
+              );
             }
           } else {
             left = Math.min(left, selRect.left);
             right = Math.max(right, selRect.right);
 
-            if (
-              getBooleanFF(
-                'platform.editor.table-shift-click-selection-backward',
-              )
-            ) {
-              cellsInFirstRow = map.cellsInRect({
-                left,
-                top,
-                right: left + 1,
-                bottom,
-              });
+            cellsInFirstRow = map.cellsInRect({
+              left,
+              top,
+              right: left + 1,
+              bottom,
+            });
 
-              const targetRowCells = map.cellsInRect({
-                left: index,
-                top,
-                right: index + 1,
-                bottom,
-              });
+            const targetRowCells = map.cellsInRect({
+              left: index,
+              top,
+              right: index + 1,
+              bottom,
+            });
 
-              const isBackwardSelection =
-                targetRowCells[0] < prevSelection.$head.pos - table.start;
+            const isBackwardSelection =
+              targetRowCells[0] < prevSelection.$head.pos - table.start;
 
-              if (isBackwardSelection && isPrevRowSelection) {
-                const head = table.start + cellsInFirstRow[0];
-                const anchor = prevSelection.$anchorCell.pos;
+            if (isBackwardSelection && isPrevRowSelection) {
+              const head = table.start + cellsInFirstRow[0];
+              const anchor = prevSelection.$anchorCell.pos;
 
-                const $head = tr.doc.resolve(head);
-                const $anchor = tr.doc.resolve(anchor);
-                return cloneTr(
-                  tr.setSelection(new CellSelection($anchor, $head)),
-                );
-              }
+              const $head = tr.doc.resolve(head);
+              const $anchor = tr.doc.resolve(anchor);
+              return cloneTr(
+                tr.setSelection(new CellSelection($anchor, $head)),
+              );
             }
           }
         }

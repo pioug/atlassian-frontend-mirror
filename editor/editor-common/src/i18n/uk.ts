@@ -101,7 +101,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Завдання в Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Вставляйте завдання Jira з Jira Cloud за допомогою розширеного пошуку, фільтрації та конфігурації.',
-  'fabric.editor.datasourceAppearanceTitle': 'Таблиця',
+  'fabric.editor.datasourceAppearanceTitle': 'Список',
   'fabric.editor.datasourceTitle': 'Редагувати пошуковий запит',
   'fabric.editor.date': 'Дата',
   'fabric.editor.date.description': 'Вставити дату через календар',
@@ -194,7 +194,7 @@ export default {
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Плаваюча панель інструментів',
   'fabric.editor.floatingToolbar.scrollLeft': 'Прокрутити вліво',
   'fabric.editor.floatingToolbar.scrollRight': 'Прокрутити вправо',
-  'fabric.editor.focusTableResizeHandle': 'Ручка для зміни розміру таблиці під час фокусування',
+  'fabric.editor.focusTableResizeHandle': 'Активувати маркер змінення розміру таблиці',
   'fabric.editor.headerColumn': 'Стовпець заголовка',
   'fabric.editor.headerRow': 'Рядок заголовка',
   'fabric.editor.heading1': 'Заголовок 1',
@@ -294,7 +294,7 @@ export default {
   'fabric.editor.mention.description': 'Згадати користувача та надіслати йому сповіщення',
   'fabric.editor.mentionNode.label': 'Згаданий за допомогою тегу користувач',
   'fabric.editor.mentionsAddLabel': 'додати-значок',
-  'fabric.editor.mentionsIconLabel': 'Згадка',
+  'fabric.editor.mentionsIconLabel': 'Згадати',
   'fabric.editor.mergeCells': 'Об’єднати клітинки',
   'fabric.editor.moreFormatting': 'Додаткове форматування',
   'fabric.editor.moveColumnLeft':
@@ -383,6 +383,7 @@ export default {
     'Текст заміщення потрібний для людей, які користуються засобами читання з екрана через обмеження зору.',
   'fabric.editor.table': 'Таблиця',
   'fabric.editor.table.description': 'Вставити таблицю',
+  'fabric.editor.tableFullWidthLabel': 'Повна ширина',
   'fabric.editor.tableOptions': 'Параметри таблиці',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Ширину таблиці зменшено до {newWidth,number} пікселя.} few {Ширину таблиці зменшено до {newWidth,number} пікселів.} many {Ширину таблиці зменшено до {newWidth,number} пікселів.} other {Ширину таблиці зменшено до {newWidth,number} пікселів.}}',

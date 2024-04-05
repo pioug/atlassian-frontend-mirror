@@ -203,22 +203,23 @@ export const activateNextResizeArea =
     );
 
     const $nextCell = nextCell($currentCell, 'horiz', direction);
-    if (ariaNotify && getIntl) {
-      let columnDirection = '';
 
+    if (ariaNotify && getIntl) {
       if (direction === 1) {
-        columnDirection = getIntl().formatMessage(messages.columnRightResize);
+        ariaNotify(
+          getIntl().formatMessage(messages.focusedOtherResize, {
+            direction: 'right',
+          }),
+        );
       }
 
       if (direction === -1) {
-        columnDirection = getIntl().formatMessage(messages.columnLeftResize);
+        ariaNotify(
+          getIntl().formatMessage(messages.focusedOtherResize, {
+            direction: 'left',
+          }),
+        );
       }
-
-      ariaNotify(
-        getIntl().formatMessage(messages.focusedOtherResize, {
-          direction: columnDirection,
-        }),
-      );
     }
 
     if ($nextCell) {

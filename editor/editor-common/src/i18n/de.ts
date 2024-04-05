@@ -103,7 +103,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-Vorgänge',
   'fabric.editor.datasource.jiraIssue.description':
     'Fügen Sie Jira-Vorgänge aus Jira Cloud mit verbesserten Such-, Filter- und Konfigurationsfunktionen ein.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabelle',
+  'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Suchanfrage bearbeiten',
   'fabric.editor.date': 'Datum',
   'fabric.editor.date.description': 'Datum mittels Kalender hinzufügen',
@@ -380,6 +380,7 @@ export default {
     'Alternativtexte sind eine Hilfe für Personen, die aufgrund ihrer eingeschränkten Sehfähigkeit Screenreader nutzen.',
   'fabric.editor.table': 'Tabelle',
   'fabric.editor.table.description': 'Tabelle einfügen',
+  'fabric.editor.tableFullWidthLabel': 'Volle Breite',
   'fabric.editor.tableOptions': 'Tabellenoptionen',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Die Tabellenbreite wurde auf {newWidth,number} Pixel verringert.} other {Die Tabellenbreite wurde auf {newWidth,number} Pixel verringert.}}',

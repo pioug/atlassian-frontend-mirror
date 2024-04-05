@@ -98,7 +98,7 @@ export default {
     '透過搜尋和篩選，從 Jira Service Management 中的 Assets 插入物件',
   'fabric.editor.datasource.jiraIssue': 'Jira 議題',
   'fabric.editor.datasource.jiraIssue.description': '透過增強的搜尋、篩選和組態，從 Jira Cloud 插入 Jira 議題。',
-  'fabric.editor.datasourceAppearanceTitle': '表格',
+  'fabric.editor.datasourceAppearanceTitle': '列表',
   'fabric.editor.datasourceTitle': '編輯搜尋查詢',
   'fabric.editor.date': '日期',
   'fabric.editor.date.description': '使用日曆新增日期',
@@ -369,6 +369,7 @@ export default {
   'fabric.editor.supportAltText': '替代文字對於因為視障而使用螢幕閱讀器的人相當實用。',
   'fabric.editor.table': '表格',
   'fabric.editor.table.description': '插入表格',
+  'fabric.editor.tableFullWidthLabel': '全寬',
   'fabric.editor.tableOptions': '表格選項',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, other {表格寬度已降低至 {newWidth,number} 像素。}}',

@@ -446,7 +446,10 @@ export interface TextColorTokenSchema<BaseToken> {
     link: {
       '[default]': PaintToken<BaseToken>;
       pressed: PaintToken<BaseToken>;
-      visited: PaintToken<BaseToken>;
+      visited: {
+        '[default]': PaintToken<BaseToken>;
+        pressed: PaintToken<BaseToken>;
+      };
     };
   };
 }

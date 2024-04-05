@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Vấn đề trên Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Chèn vấn đề trên Jira từ Jira Cloud bằng tính năng tìm kiếm, lọc và định cấu hình nâng cao.',
-  'fabric.editor.datasourceAppearanceTitle': 'Bảng',
+  'fabric.editor.datasourceAppearanceTitle': 'Danh sách',
   'fabric.editor.datasourceTitle': 'Sửa truy vấn tìm kiếm',
   'fabric.editor.date': 'Ngày',
   'fabric.editor.date.description': 'Thêm ngày bằng cách sử dụng lịch',
@@ -376,6 +376,7 @@ export default {
     'Văn bản thay thế là tính năng hữu ích cho những người sử dụng trình đọc màn hình do suy giảm thị lực.',
   'fabric.editor.table': 'Bảng',
   'fabric.editor.table.description': 'Chèn bảng',
+  'fabric.editor.tableFullWidthLabel': 'Toàn chiều rộng',
   'fabric.editor.tableOptions': 'Tùy chọn bảng',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, other {Chiều rộng bảng đã giảm xuống {newWidth,number} pixel.}}',

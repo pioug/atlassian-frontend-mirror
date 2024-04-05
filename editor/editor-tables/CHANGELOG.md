@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.6.1
+
+### Patch Changes
+
+- [#86621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86621) [`819e262c9b0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/819e262c9b0b) - remove table-shift-click-selection-backward feature flag
+
 ## 2.6.0
 
 ### Minor Changes

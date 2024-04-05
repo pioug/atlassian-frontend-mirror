@@ -50,11 +50,10 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
       '[default]': {
         value: 'B400',
       },
-      pressed: {
-        value: 'B300',
-      },
+      pressed: { value: 'B300' },
       visited: {
-        value: 'P300',
+        '[default]': { value: 'P300' },
+        pressed: { value: 'P300' },
       },
     },
   },

@@ -398,62 +398,66 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
     type: 'checkbox',
     keymap: () => toggleTaskItemCheckbox,
   },
-  ...(getBooleanFF('platform.editor.a11y.table-selection_9uv33')
-    ? [
-        {
-          name: formatMessage(messages.selectTableRow),
-          type: 'table',
-          autoFormatting: () => (
-            <span css={shortcutsArray}>
-              <span>
-                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-                {' + '}
-                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-                {' + '}
-                <span css={codeMd}>Shift</span>
-                {' + '}
-                <span css={codeSm}>←</span>
-              </span>
-              <span>
-                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-                {' + '}
-                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-                {' + '}
-                <span css={codeMd}>Shift</span>
-                {' + '}
-                <span css={codeSm}>→</span>
-              </span>
-            </span>
-          ),
-        },
-        {
-          name: formatMessage(messages.selectTableColumn),
-          type: 'table',
-          autoFormatting: () => (
-            <span css={shortcutsArray}>
-              <span>
-                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-                {' + '}
-                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-                {' + '}
-                <span css={codeMd}>Shift</span>
-                {' + '}
-                <span css={codeSm}>↑</span>
-              </span>
-              <span>
-                <span css={codeSm}>{browser.mac ? '⌘' : 'Ctrl'}</span>
-                {' + '}
-                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
-                {' + '}
-                <span css={codeMd}>Shift</span>
-                {' + '}
-                <span css={codeSm}>↓</span>
-              </span>
-            </span>
-          ),
-        },
-      ]
-    : []),
+  {
+    name: formatMessage(messages.selectTableRow),
+    type: 'table',
+    autoFormatting: () => (
+      <span css={shortcutsArray}>
+        <span>
+          <span css={browser.mac ? codeSm : codeMd}>
+            {browser.mac ? '⌘' : 'Ctrl'}
+          </span>
+          {' + '}
+          <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+          {' + '}
+          <span css={codeMd}>Shift</span>
+          {' + '}
+          <span css={codeSm}>←</span>
+        </span>
+        <span>
+          <span css={browser.mac ? codeSm : codeMd}>
+            {browser.mac ? '⌘' : 'Ctrl'}
+          </span>
+          {' + '}
+          <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+          {' + '}
+          <span css={codeMd}>Shift</span>
+          {' + '}
+          <span css={codeSm}>→</span>
+        </span>
+      </span>
+    ),
+  },
+  {
+    name: formatMessage(messages.selectTableColumn),
+    type: 'table',
+    autoFormatting: () => (
+      <span css={shortcutsArray}>
+        <span>
+          <span css={browser.mac ? codeSm : codeMd}>
+            {browser.mac ? '⌘' : 'Ctrl'}
+          </span>
+          {' + '}
+          <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+          {' + '}
+          <span css={codeMd}>Shift</span>
+          {' + '}
+          <span css={codeSm}>↑</span>
+        </span>
+        <span>
+          <span css={browser.mac ? codeSm : codeMd}>
+            {browser.mac ? '⌘' : 'Ctrl'}
+          </span>
+          {' + '}
+          <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+          {' + '}
+          <span css={codeMd}>Shift</span>
+          {' + '}
+          <span css={codeSm}>↓</span>
+        </span>
+      </span>
+    ),
+  },
 ];
 
 const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({

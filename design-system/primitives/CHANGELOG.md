@@ -1,5 +1,21 @@
 # @atlaskit/primitives
 
+## 5.5.0
+
+### Minor Changes
+
+- [#86439](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86439) [`43cd9551f332`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43cd9551f332) - Removed deprecated `textAlign` prop from Text primitive component
+
+## 5.4.0
+
+### Minor Changes
+
+- [#85745](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85745) [`0e9c8c15ef86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e9c8c15ef86) - Extends XCSS selector types to allow up to two CSS psuedos to be used in combination. For example: `:visited:hover {}`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.3.0
 
 ### Minor Changes

@@ -1,4 +1,12 @@
 import { snapshot } from '@af/visual-regression';
-import { TableRenderer } from './table.fixture';
+import {
+  TableRenderer,
+  TableRendererOverflow,
+  TableRendererWideOverflow,
+  TableRendererFullWidthOverflow,
+} from './table.fixture';
 
 snapshot(TableRenderer);
+snapshot(TableRendererOverflow);
+snapshot(TableRendererWideOverflow);
+snapshot(TableRendererFullWidthOverflow);

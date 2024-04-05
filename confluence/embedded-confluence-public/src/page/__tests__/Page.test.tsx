@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React, { useContext } from 'react';
 import { IntlProvider } from 'react-intl-next';
@@ -93,126 +93,137 @@ jest.mock('../../edit-page/EditPage', () => ({
   EditPage: (props: any) => MockEditPage(props),
 }));
 
-function shouldRenderViewPage() {
-  expect(screen.getByText('Edit')).toBeInTheDocument();
-  expect(screen.queryByText('Publish')).not.toBeInTheDocument();
-  expect(screen.queryByText('Close')).not.toBeInTheDocument();
-}
+const shouldRenderViewPage = async () => {
+  const edit = await screen.findByText('Edit');
+  expect(edit).toBeInTheDocument();
 
-function shouldRenderEditPage() {
-  expect(screen.getByText('Publish')).toBeInTheDocument();
-  expect(screen.getByText('Close')).toBeInTheDocument();
-  expect(screen.queryByText('Edit')).not.toBeInTheDocument();
-}
+  await waitFor(() => {
+    expect(screen.queryByText('Publish')).not.toBeInTheDocument();
+    expect(screen.queryByText('Close')).not.toBeInTheDocument();
+  });
+};
 
-function shouldNotRenderViewEditComponents() {
-  expect(screen.queryByText('Edit')).not.toBeInTheDocument();
-  expect(screen.queryByText('Publish')).not.toBeInTheDocument();
-  expect(screen.queryByText('Close')).not.toBeInTheDocument();
-}
+const shouldRenderEditPage = async () => {
+  const publish = await screen.findByText('Publish');
+  expect(publish).toBeInTheDocument();
+
+  const close = await screen.findByText('Close');
+  expect(close).toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(screen.queryByText('Edit')).not.toBeInTheDocument();
+  });
+};
+
+const shouldNotRenderViewEditComponents = async () => {
+  await waitFor(() => {
+    expect(screen.queryByText('Edit')).not.toBeInTheDocument();
+    expect(screen.queryByText('Publish')).not.toBeInTheDocument();
+    expect(screen.queryByText('Close')).not.toBeInTheDocument();
+  });
+};
 
 test('should render view page correctly', async () => {
-  render(<BasicPage url={`${viewPageUrl}`} />);
+  render(<BasicPage url={viewPageUrl} />);
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
 test('should render view blog correctly', async () => {
-  render(<BasicPage url={`${viewPageUrl}`} />);
+  render(<BasicPage url={viewPageUrl} />);
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
 test('should render edit page correctly', async () => {
   render(<BasicPage url={editPageUrl} />);
 
-  shouldRenderEditPage();
+  await shouldRenderEditPage();
 });
 
 test('should render view if contentId, parentProduct, spaceKey, hostname are passed in', async () => {
   render(
     <BasicPage
-      contentId={'123'}
-      spaceKey={'ABC'}
-      hostname={'jira-dev.com'}
-      parentProduct={'TestProduct'}
+      contentId="123"
+      spaceKey="ABC"
+      hostname="jira-dev.com"
+      parentProduct="TestProduct"
     />,
   );
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
-test('should not render anything if the url is not supported in the named routes', () => {
+test('should not render anything if the url is not supported in the named routes', async () => {
   render(
-    <BasicPage
-      url={
-        'https://hello.atlassian.net/wiki/spaces/ABC/blog/edit-embed/123?parentProduct=TestProduct&locale=en-US'
-      }
-    />,
+    <BasicPage url="https://hello.atlassian.net/wiki/spaces/ABC/blog/edit-embed/123?parentProduct=TestProduct&locale=en-US" />,
   );
 
-  shouldNotRenderViewEditComponents();
+  await shouldNotRenderViewEditComponents();
 });
 
 test('should switch from View to Edit if you click the edit button', async () => {
   render(<BasicPage url={viewPageUrl} />);
 
-  await userEvent.click(screen.getByText('Edit'));
+  const edit = await screen.findByText('Edit');
+  await userEvent.click(edit);
 
-  shouldRenderEditPage();
+  await shouldRenderEditPage();
 });
 
 test('should switch from Edit to View if you click the Publish button', async () => {
   render(<BasicPage url={editPageUrl} />);
 
-  await userEvent.click(screen.getByText('Publish'));
+  const publish = await screen.findByText('Publish');
+  await userEvent.click(publish);
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
 test('should switch from Edit to View if you click the Close button', async () => {
   render(<BasicPage url={editPageUrl} />);
 
-  await userEvent.click(screen.getByText('Close'));
+  const close = await screen.findByText('Close');
+  await userEvent.click(close);
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
 test('should not switch from draft (unpublished) Edit to View if clicking the Close button (View can only render published pages)', async () => {
-  const draftUrl = `${editPageUrl}&draftShareId=test-draft-share-id`;
-  render(<BasicPage url={draftUrl} />);
+  render(<BasicPage url={`${editPageUrl}&draftShareId=test-draft-share-id`} />);
 
-  await userEvent.click(screen.getByText('Close'));
+  const close = await screen.findByText('Close');
+  await userEvent.click(close);
 
-  shouldRenderEditPage();
+  await shouldRenderEditPage();
 });
 
 test('should show Edit page if edit mode is passed in with contentId, spackeKey, hostname, and parentProduct', async () => {
   render(
     <BasicPage
-      contentId={'245465589'}
-      spaceKey={'HOM'}
-      hostname={'laika.jira-dev.com'}
-      parentProduct={'atlaskit'}
+      contentId="245465589"
+      spaceKey="HOM"
+      hostname="laika.jira-dev.com"
+      parentProduct="atlaskit"
       mode={EMBEDDED_CONFLUENCE_MODE.EDIT_MODE}
     />,
   );
 
-  shouldRenderEditPage();
+  await shouldRenderEditPage();
 });
 
 test('should show View page if view mode is passed in with contentId, spackeKey, hostname, and parentProduct', async () => {
   render(
     <BasicPage
-      contentId={'245465589'}
-      spaceKey={'HOM'}
-      hostname={'laika.jira-dev.com'}
-      parentProduct={'atlaskit'}
+      contentId="245465589"
+      spaceKey="HOM"
+      hostname="laika.jira-dev.com"
+      parentProduct="atlaskit"
       mode={EMBEDDED_CONFLUENCE_MODE.VIEW_MODE}
     />,
   );
 
-  shouldRenderViewPage();
+  await shouldRenderViewPage();
 });
 
 describe('if parent product passes allowedFeatures array', () => {
@@ -224,7 +235,8 @@ describe('if parent product passes allowedFeatures array', () => {
     const allowedFeatures = undefined;
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
 
-    expect(screen.getByText(defaultViewAllowedFeatures)).toBeInTheDocument();
+    const expected = await screen.findByText(defaultViewAllowedFeatures);
+    expect(expected).toBeInTheDocument();
   });
 
   test('should show correct parsed allowedFeatures for View and Edit components when we pass allowedFeatures(view: array, edit: array)', async () => {
@@ -246,11 +258,19 @@ describe('if parent product passes allowedFeatures array', () => {
     ].join(',');
     const expectedEditAllowedFeatures = (allowedFeatures.edit as [string])[0];
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
-    expect(screen.getByText(expectedViewAllowedFeatures)).toBeInTheDocument();
 
-    await userEvent.click(screen.getByText('Edit'));
+    const expectedViewFeaturesElement = await screen.findByText(
+      expectedViewAllowedFeatures,
+    );
+    expect(expectedViewFeaturesElement).toBeInTheDocument();
 
-    expect(screen.getByText(expectedEditAllowedFeatures)).toBeInTheDocument();
+    const edit = await screen.findByText('Edit');
+    await userEvent.click(edit);
+
+    const expectedEditFeaturesElement = await screen.findByText(
+      expectedEditAllowedFeatures,
+    );
+    expect(expectedEditFeaturesElement).toBeInTheDocument();
   });
 
   test('should show edit allowedFeature in view component when we pass allowedFeatures(view: [])', async () => {
@@ -259,7 +279,8 @@ describe('if parent product passes allowedFeatures array', () => {
     };
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
 
-    expect(screen.getByText('edit')).toBeInTheDocument();
+    const edit = await screen.findByText('edit');
+    expect(edit).toBeInTheDocument();
   });
 
   test("should show show correct parsed allowedFeatures in view component when we pass allowedFeatures(view: 'all')", async () => {
@@ -268,21 +289,23 @@ describe('if parent product passes allowedFeatures array', () => {
     };
     render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
 
-    expect(screen.getByText('all')).toBeInTheDocument();
+    const all = await screen.findByText('all');
+    expect(all).toBeInTheDocument();
   });
 });
 
-describe('if parent product passes its navigation policy', () => {
-  test('If parent product passes navigationPolicy that has navigate function, should use it for child page', async () => {
-    const mockNavigationPolicy = {
-      navigate: jest.fn(),
-    };
-    render(
-      <BasicPage url={viewPageUrl} navigationPolicy={mockNavigationPolicy} />,
-    );
+test('If parent product passes navigationPolicy that has navigate function, should use it for child page', async () => {
+  const mockNavigationPolicy = {
+    navigate: jest.fn(),
+  };
+  render(
+    <BasicPage url={viewPageUrl} navigationPolicy={mockNavigationPolicy} />,
+  );
 
-    await userEvent.click(screen.getByText('Custom Edit'));
+  const customEdit = await screen.findByText('Custom Edit');
+  await userEvent.click(customEdit);
 
+  await waitFor(() => {
     expect(mockNavigationPolicy.navigate).toHaveBeenCalled();
   });
 });

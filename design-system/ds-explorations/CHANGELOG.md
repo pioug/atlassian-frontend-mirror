@@ -1,5 +1,15 @@
 # @atlaskit/ds-explorations
 
+## 3.4.0
+
+### Minor Changes
+
+- [#85745](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85745) [`0e9c8c15ef86`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e9c8c15ef86) - Added new color token `color.link.visited.pressed`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

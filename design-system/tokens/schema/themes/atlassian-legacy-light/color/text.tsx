@@ -23,7 +23,10 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
     link: {
       '[default]': { value: 'B400' },
       pressed: { value: 'B500' },
-      visited: { value: 'P500' },
+      visited: {
+        '[default]': { value: 'P500' },
+        pressed: { value: 'P500' },
+      },
     },
   },
 };

@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::c7363a2d80b3a60a076ac846bfebf8c1>>
+ * @codegen <<SignedSource::c345da7f1f95af83e69004221f7f0827>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColor =
@@ -318,7 +318,9 @@ export type TextColor =
   | 'var(--ds-link)'
   | 'var(--ds-link-visited)';
 
-export type TextColorPressed = 'var(--ds-link-pressed)';
+export type TextColorPressed =
+  | 'var(--ds-link-pressed)'
+  | 'var(--ds-link-visited-pressed)';
 
 export type Opacity =
   | 'var(--ds-opacity-disabled)'

@@ -46,7 +46,7 @@
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1"

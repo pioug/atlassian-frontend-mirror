@@ -1,5 +1,6 @@
 import {
   CallExpression,
+  EslintNode,
   isNodeOfType,
   Property,
   SpreadElement,
@@ -55,6 +56,8 @@ export const validateStyles = (
       return false;
     }
 
+    const isDimensionProperty = !!supportedDimensionAttributesMap[property];
+
     // Currently, we handle values like `'8px'` (a 'Literal') or `token('space.100')` (a 'CallExpression')
     if (isNodeOfType(value, 'Literal')) {
       if (!value.value) {
@@ -72,11 +75,15 @@ export const validateStyles = (
       // If it's a function call, then make sure it's the `token` function (and we have `css-property-with-tokens` enabled)
 
       // Short-circuit when token calls are found but pattern is not enabled in config
-      if (
-        isTokenCall(value) &&
-        !config.patterns.includes('css-property-with-tokens')
-      ) {
-        return false;
+      if (isTokenCall(value)) {
+        if (!config.patterns.includes('css-property-with-tokens')) {
+          return false;
+        }
+
+        // Don't attempt to convert `width: token('space.100') -> width: 'size.100'`
+        if (isDimensionProperty) {
+          return false;
+        }
       }
 
       // Bail if it's a function, but that function call is not `tokens('<token>')`
@@ -90,7 +97,6 @@ export const validateStyles = (
     // Bail if dimension property is found but pattern is not enabled in config
     // Note: We don't need to exhaustively re-check the key/value pair here. That's already been done above.
     // This is just to check wether 'dimension-properties' pattern is enabled and can be removed when the pattern is completely rolled out
-    const isDimensionProperty = !!supportedDimensionAttributesMap[property];
     if (
       isDimensionProperty &&
       !config.patterns.includes('dimension-properties')
@@ -102,7 +108,7 @@ export const validateStyles = (
   });
 };
 
-const isTokenCall = (node: CallExpression) => {
+const isTokenCall = (node: EslintNode): node is CallExpression => {
   // Is it a function call?
   if (!isNodeOfType(node, 'CallExpression')) {
     return false;

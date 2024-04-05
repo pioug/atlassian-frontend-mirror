@@ -1,5 +1,6 @@
 import * as codeBlockAdf from '../__fixtures__/code-block.adf.json';
 import * as adfTrailingNewline from '../__fixtures__/code-block-trailing-newline.adf.json';
+import { overflowCodeblock } from '../__fixtures__/overflow.adf';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
@@ -26,4 +27,9 @@ export const CodeBlockRendererTrailingNewline = generateRendererComponent({
   document: adfTrailingNewline,
   appearance: 'full-width',
   allowCopyToClipboard: true,
+});
+
+export const CodeBlockRendererOverflow = generateRendererComponent({
+  document: overflowCodeblock,
+  appearance: 'full-page',
 });

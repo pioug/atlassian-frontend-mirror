@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 193.8.2
+
+### Patch Changes
+
+- [#86621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86621) [`9b323d23baae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b323d23baae) - remove legacy test and move to editor-plugin-table-test
+
+## 193.8.1
+
+### Patch Changes
+
+- [#87060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87060) [`305e4a41500d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/305e4a41500d) - [ux] [ED-22362] reverting the colour change made to the layout border (ECA11Y-58) and updating the VR tests to reflect this
+
 ## 193.8.0
 
 ### Minor Changes

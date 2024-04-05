@@ -44,7 +44,7 @@
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-intl-next": "npm:react-intl@^5.18.1",
@@ -89,9 +89,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
-    "platform.editor.a11y.table-selection_9uv33": {
-      "type": "boolean"
-    },
     "platform.editor.a11y-media-resizing_b5v0o": {
       "type": "boolean"
     },

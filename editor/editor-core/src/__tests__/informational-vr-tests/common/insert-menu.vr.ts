@@ -8,7 +8,8 @@ import { snapshotInformational } from '@af/visual-regression';
 
 import { EditorWithElementBrowser } from './element-browser.fixtures';
 
-snapshotInformational(EditorWithElementBrowser, {
+// FIXME: skipping test due to inconsistency in font (UTEST-1424)
+snapshotInformational.skip(EditorWithElementBrowser, {
   description: 'Insert Menu with elementBrowser enabled',
   selector: {
     byTestId: 'element-browser',

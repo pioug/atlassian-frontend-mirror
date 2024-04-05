@@ -6,6 +6,8 @@ const supportedPatterns = [
   'compiled-styled-object',
   'multiple-properties',
   'css-property-with-tokens',
+  'jsx-order-fix',
+  'string-style-property-fix',
 ];
 
 const allSupportedPatterns = [...supportedPatterns, 'dimension-properties'];
@@ -33,6 +35,33 @@ export const dimensionPropertiesTests: Tests = {
         <div css={dimensionStyles}></div>
       `,
       options,
+    },
+    // Emotion
+    {
+      // it should ignore dimension properties with token call values
+      code: `
+        import { css } from '@emotion/react';
+        const dimensionStyles = css({ width: token('space.300', '24px') });
+        <div css={dimensionStyles}></div>
+      `,
+      options,
+    },
+    {
+      // it should ignore dimension properties with token call values
+      code: `
+        import { css } from '@emotion/react';
+        const dimensionStyles = css({ width: token('space.300', '24px') });
+        <div css={dimensionStyles}></div>
+      `,
+      options: [
+        'compiled-css-function',
+        'compiled-styled-object',
+        'multiple-properties',
+        'css-property-with-tokens',
+        'jsx-order-fix',
+        'dimension-properties',
+        // 'string-style-property-fix', Disable this pattern to make sure isValidCssPropertiesToTransform correctly bails in this case
+      ],
     },
     {
       // it should ignore dimension values with supported dimension values in emotion css object for non supported elements

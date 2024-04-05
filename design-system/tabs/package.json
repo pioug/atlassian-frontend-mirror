@@ -36,10 +36,10 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-explorations": "^3.3.0",
-    "@atlaskit/primitives": "^5.3.0",
+    "@atlaskit/ds-explorations": "^3.4.0",
+    "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

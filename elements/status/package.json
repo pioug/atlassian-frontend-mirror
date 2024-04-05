@@ -30,7 +30,7 @@
     "@atlaskit/lozenge": "^11.6.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.42.0",
+    "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

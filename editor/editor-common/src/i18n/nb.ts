@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira-saker',
   'fabric.editor.datasource.jiraIssue.description':
     'Sett inn Jira-saker fra Jira Cloud med forbedret søk, filtrering og konfigurasjon.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabell',
+  'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Rediger søkespørring',
   'fabric.editor.date': 'Dato',
   'fabric.editor.date.description': 'Legg til en dato med en kalender',
@@ -375,6 +375,7 @@ export default {
     'Alternativ tekst er nyttig for folk som bruker skjermlesere på grunn av redusert synsfunksjon.',
   'fabric.editor.table': 'Tabell',
   'fabric.editor.table.description': 'Sett inn en tavle',
+  'fabric.editor.tableFullWidthLabel': 'Full bredde',
   'fabric.editor.tableOptions': 'Tabellalternativer',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Tabellbredden er redusert til {newWidth,number} piksel.} other {Tabellbredden er redusert til {newWidth,number} piksler.}}',

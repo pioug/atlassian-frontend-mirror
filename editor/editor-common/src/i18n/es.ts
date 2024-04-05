@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Incidencias de Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Inserta incidencias de Jira desde Jira Cloud con las funciones mejoradas de búsqueda, filtro y configuración.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tabla',
+  'fabric.editor.datasourceAppearanceTitle': 'Lista',
   'fabric.editor.datasourceTitle': 'Editar consulta de búsqueda',
   'fabric.editor.date': 'Fecha',
   'fabric.editor.date.description': 'Añadir una fecha usando un calendario',
@@ -194,7 +194,7 @@ export default {
   'fabric.editor.floatingToolbar.floatingToolbarAriaLabel': 'Barra de herramientas flotante',
   'fabric.editor.floatingToolbar.scrollLeft': 'Desplazarse a la izquierda',
   'fabric.editor.floatingToolbar.scrollRight': 'Desplazarse a la derecha',
-  'fabric.editor.focusTableResizeHandle': 'Controlador de cambio de tamaño de la tabla de centrado',
+  'fabric.editor.focusTableResizeHandle': 'Controlador de cambio de tamaño de la tabla centrado',
   'fabric.editor.headerColumn': 'Columna de encabezado',
   'fabric.editor.headerRow': 'Fila de encabezado',
   'fabric.editor.heading1': 'Título 1',
@@ -378,6 +378,7 @@ export default {
     'El texto alternativo es útil para aquellas personas que utilicen lectores de pantalla debido a limitaciones visuales.',
   'fabric.editor.table': 'Tabla',
   'fabric.editor.table.description': 'Insertar una tabla',
+  'fabric.editor.tableFullWidthLabel': 'Anchura completa',
   'fabric.editor.tableOptions': 'Opciones de tabla',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Ancho de la tabla reducido a {newWidth,number} píxel.} other {Ancho de la tabla reducido a {newWidth,number} píxeles.}}',

@@ -102,7 +102,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Tickets Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Insérez des tickets Jira depuis Jira Cloud grâce à la recherche, au filtrage et à la configuration améliorés.',
-  'fabric.editor.datasourceAppearanceTitle': 'Tableau',
+  'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Modifier la requête de recherche',
   'fabric.editor.date': 'Date',
   'fabric.editor.date.description': 'Ajouter une date depuis un calendrier',
@@ -383,6 +383,7 @@ export default {
     "Le texte alternatif est utile pour les personnes utilisant des lecteurs d'écran en raison d'une déficience visuelle.",
   'fabric.editor.table': 'Tableau',
   'fabric.editor.table.description': 'Insérer un tableau',
+  'fabric.editor.tableFullWidthLabel': 'Pleine largeur',
   'fabric.editor.tableOptions': 'Options du tableau',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {La largeur du tableau a été réduite à {newWidth,number} pixel.} other {La largeur du tableau a été réduite à {newWidth,number} pixels.}}',

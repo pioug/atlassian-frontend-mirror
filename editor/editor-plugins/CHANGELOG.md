@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugins
 
+## 2.0.1
+
+### Patch Changes
+
+- [#87191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87191) [`f24bc58a479e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f24bc58a479e) - Exporting getAllAnnotations function to be used outside the package
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

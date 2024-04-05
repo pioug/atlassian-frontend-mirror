@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 1.1.0
+
+### Minor Changes
+
+- [#87244](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87244) [`7d9d0320d3da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d9d0320d3da) - Add option to disable theming features with `UNSAFE_isThemingDisabled`
+
 ## 1.0.1
 
 ### Patch Changes

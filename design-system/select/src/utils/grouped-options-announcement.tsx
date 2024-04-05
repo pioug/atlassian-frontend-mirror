@@ -23,7 +23,7 @@ export function onFocus(
 
 // Helper function which identifies if options are grouped.
 export const isOptionsGrouped = (
-  arr: OptionsOrGroups<OptionType, GroupType<OptionType>>,
+  arr: OptionsOrGroups<OptionType, GroupType<OptionType>> | undefined,
 ) => {
   return arr?.every((obj) => obj.hasOwnProperty('options'));
 };

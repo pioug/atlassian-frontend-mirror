@@ -104,7 +104,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Задачи Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Вставка задач Jira из Jira Cloud с помощью расширенного поиска, фильтрации и настройки.',
-  'fabric.editor.datasourceAppearanceTitle': 'Таблица',
+  'fabric.editor.datasourceAppearanceTitle': 'Список',
   'fabric.editor.datasourceTitle': 'Изменить поисковый запрос',
   'fabric.editor.date': 'Дата',
   'fabric.editor.date.description': 'Добавление даты из календаря',
@@ -386,6 +386,7 @@ export default {
     'Альтернативный текст предназначен для слабовидящих и незрячих людей, которые пользуются функцией озвучивания текста на экране.',
   'fabric.editor.table': 'Таблица',
   'fabric.editor.table.description': 'Вставка таблицы',
+  'fabric.editor.tableFullWidthLabel': 'Полная ширина',
   'fabric.editor.tableOptions': 'Параметры таблицы',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Ширина таблицы уменьшена до {newWidth,number} пикселя.} few {Ширина таблицы уменьшена до {newWidth,number} пикселей.} many {Ширина таблицы уменьшена до {newWidth,number} пикселей.} other {Ширина таблицы уменьшена до {newWidth,number} пикселя.}}',

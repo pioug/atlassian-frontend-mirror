@@ -269,9 +269,14 @@ type AllMedia =
 
 // Media queries should not contain nested media queries
 type CSSMediaQueries = { [MQ in AllMedia]?: Omit<SafeCSSObject, AllMedia> };
+// Allow chained pseudos, e.g. `:visited:hover`
+type ChainedCSSPseudos = `${CSS.Pseudos}${CSS.Pseudos}`;
 // Pseudos should not contain nested pseudos, or media queries
 type CSSPseudos = {
-  [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject, CSS.Pseudos | AllMedia>;
+  [Pseudo in CSS.Pseudos | ChainedCSSPseudos]?: Omit<
+    SafeCSSObject,
+    CSS.Pseudos | AllMedia
+  >;
 };
 
 type AtRulesWithoutMedia = Exclude<CSS.AtRules, '@media'>;

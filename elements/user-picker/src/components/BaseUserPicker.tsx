@@ -42,7 +42,7 @@ import { userPickerOptionsShownUfoExperience } from '../util/ufoExperiences';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type BaseUserPickerProps = UserPickerProps & {
-  SelectComponent: React.ComponentClass<any>;
+  SelectComponent: React.ComponentType<any>;
   pickerProps?: any;
   styles: any;
   components: any;

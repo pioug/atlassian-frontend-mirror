@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'ปัญหา Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'แทรกปัญหา Jira จาก Jira Cloud ด้วยการค้นหา ตัวกรอง และการกำหนดค่าที่ได้รับการปรับปรุงใหม่',
-  'fabric.editor.datasourceAppearanceTitle': 'ตาราง',
+  'fabric.editor.datasourceAppearanceTitle': 'รายการ',
   'fabric.editor.datasourceTitle': 'แก้ไขคำถามการค้นหา',
   'fabric.editor.date': 'วันที่',
   'fabric.editor.date.description': 'เพิ่มวันที่โดยใช้ปฏิทิน',
@@ -373,6 +373,7 @@ export default {
     'ข้อความอธิบายรูปภาพมีประโยชน์สำหรับผู้ที่กำลังใช้โปรแกรมอ่านออกเสียงบนหน้าจอเนื่องจากอาจมีข้อจำกัดทางด้านภาพ',
   'fabric.editor.table': 'ตาราง',
   'fabric.editor.table.description': 'แทรกตาราง',
+  'fabric.editor.tableFullWidthLabel': 'แบบเต็มความกว้าง',
   'fabric.editor.tableOptions': 'ตัวเลือกตาราง',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, other {ความกว้างของตารางลดลงเหลือ {newWidth,number} พิกเซล}}',

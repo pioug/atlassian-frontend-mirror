@@ -100,7 +100,7 @@ export default {
   'fabric.editor.datasource.jiraIssue': 'Jira Konuları',
   'fabric.editor.datasource.jiraIssue.description':
     "Gelişmiş arama, filtreleme ve yapılandırma ile Jira Cloud'daki Jira konularını ekleyin.",
-  'fabric.editor.datasourceAppearanceTitle': 'Tablo',
+  'fabric.editor.datasourceAppearanceTitle': 'Liste',
   'fabric.editor.datasourceTitle': 'Arama sorgusunu düzenleyin',
   'fabric.editor.date': 'Tarih',
   'fabric.editor.date.description': 'Takvimi kullanarak tarih ekleyin',
@@ -374,6 +374,7 @@ export default {
     'Alternatif metin, görme güçlüğü çektiği için ekran okuyucu kullanan kişilere yardımcı olur.',
   'fabric.editor.table': 'Tablo',
   'fabric.editor.table.description': 'Tablo ekleyin',
+  'fabric.editor.tableFullWidthLabel': 'Tam genişlik',
   'fabric.editor.tableOptions': 'Tablo seçenekleri',
   'fabric.editor.tableResizeDecreaseScreenReaderInformation':
     '{newWidth, plural, one {Tablo genişliği {newWidth,number} piksele düşürüldü.} other {Tablo genişliği {newWidth,number} piksele düşürüldü.}}',

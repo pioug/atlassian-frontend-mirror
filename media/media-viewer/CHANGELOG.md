@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.4.3
+
+### Patch Changes
+
+- [#87533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87533) [`fd6518db29ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd6518db29ae) - Improve compatibility with React 18
+
 ## 48.4.2
 
 ### Patch Changes

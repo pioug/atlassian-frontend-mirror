@@ -9,20 +9,18 @@ import {
 import { ViewPage } from '../view-page/ViewPage';
 import { EditPage } from '../edit-page/EditPage';
 
-const viewComponent = (props: ViewPageProps) => <ViewPage {...props} />;
-const editComponent = (props: EditPageProps) => <EditPage {...props} />;
+const ViewComponent = (props: ViewPageProps) => <ViewPage {...props} />;
+const EditComponent = (props: EditPageProps) => <EditPage {...props} />;
 
-export const Page = (
-  props: Omit<
-    React.ComponentProps<typeof PageCommon>,
-    'viewComponent' | 'editComponent'
-  >,
-) => {
-  return (
-    <PageCommon
-      {...props}
-      viewComponent={viewComponent}
-      editComponent={editComponent}
-    />
-  );
-};
+export type PageProps = Omit<
+  React.ComponentProps<typeof PageCommon>,
+  'viewComponent' | 'editComponent'
+>;
+
+export const Page = (props: PageProps) => (
+  <PageCommon
+    {...props}
+    viewComponent={ViewComponent}
+    editComponent={EditComponent}
+  />
+);

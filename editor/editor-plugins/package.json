@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -212,7 +212,7 @@
     "@atlaskit/editor-plugin-accessibility-utils": "1.0.1",
     "@atlaskit/editor-plugin-alignment": "1.1.5",
     "@atlaskit/editor-plugin-analytics": "1.0.6",
-    "@atlaskit/editor-plugin-annotation": "1.5.4",
+    "@atlaskit/editor-plugin-annotation": "1.5.5",
     "@atlaskit/editor-plugin-avatar-group": "1.0.6",
     "@atlaskit/editor-plugin-base": "1.0.5",
     "@atlaskit/editor-plugin-before-primary-toolbar": "1.0.2",
@@ -259,7 +259,7 @@
     "@atlaskit/editor-plugin-list": "3.1.16",
     "@atlaskit/editor-plugin-loom": "2.0.0",
     "@atlaskit/editor-plugin-max-content-size": "1.0.2",
-    "@atlaskit/editor-plugin-media": "1.13.1",
+    "@atlaskit/editor-plugin-media": "1.13.2",
     "@atlaskit/editor-plugin-mentions": "1.0.8",
     "@atlaskit/editor-plugin-panel": "1.0.9",
     "@atlaskit/editor-plugin-paste": "1.0.13",
@@ -400,10 +400,6 @@
       "referenceOnly": true
     },
     "platform.editor.a11y-floating-toolbar-markup_vexmo": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.a11y.table-selection_9uv33": {
       "type": "boolean",
       "referenceOnly": true
     },

@@ -139,11 +139,21 @@ const color: AttributeSchema<TextColorTokenSchema<BaseToken>> = {
         },
       },
       visited: {
-        attributes: {
-          group: 'paint',
-          state: 'active',
-          introduced: '1.23.0',
-          description: 'Use for links in a visited state.',
+        '[default]': {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '1.23.0',
+            description: 'Use for visited links.',
+          },
+        },
+        pressed: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '1.43.0',
+            description: 'Use for visited links in a pressed state.',
+          },
         },
       },
     },

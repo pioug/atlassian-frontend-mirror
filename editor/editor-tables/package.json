@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -56,9 +56,6 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.editor.custom-table-width": {
-      "type": "boolean"
-    },
-    "platform.editor.table-shift-click-selection-backward": {
       "type": "boolean"
     }
   },

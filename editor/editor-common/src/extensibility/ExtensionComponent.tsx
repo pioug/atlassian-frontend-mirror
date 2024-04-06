@@ -117,6 +117,12 @@ export class ExtensionComponent extends Component<Props, State> {
     const selectedNode =
       selection instanceof NodeSelection && (selection as NodeSelection).node;
 
+    const position = typeof getPos === 'function' && getPos();
+
+    const resolvedPosition = position && editorView.state.doc.resolve(position);
+
+    const isNodeNested = !!(resolvedPosition && resolvedPosition.depth > 0);
+
     if (node.type.name === 'multiBodiedExtension') {
       return (
         <MultiBodiedExtension
@@ -130,6 +136,7 @@ export class ExtensionComponent extends Component<Props, State> {
           editorAppearance={editorAppearance}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
           isNodeSelected={selectedNode === node}
+          isNodeNested={isNodeNested}
           isNodeHovered={this.state.isNodeHovered}
           setIsNodeHovered={this.setIsNodeHovered}
         />
@@ -156,6 +163,7 @@ export class ExtensionComponent extends Component<Props, State> {
             }
             isNodeSelected={selectedNode === node}
             isNodeHovered={this.state.isNodeHovered}
+            isNodeNested={isNodeNested}
             setIsNodeHovered={this.setIsNodeHovered}
           >
             {extensionHandlerResult}

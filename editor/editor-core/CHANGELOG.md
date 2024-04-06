@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.8.4
+
+### Patch Changes
+
+- [#87315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87315) [`ec2d46a68891`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec2d46a68891) - [ux] ED-22089: File inserted in table/layout should shifted down if it is placed next by media with wrapping
+
 ## 193.8.2
 
 ### Patch Changes

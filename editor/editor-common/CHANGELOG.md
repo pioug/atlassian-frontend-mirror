@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 78.23.3
+
+### Patch Changes
+
+- [#87738](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87738) [`40f32c84fb24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40f32c84fb24) - [ux] Fix nesting styles of block macros
+
+## 78.23.2
+
+### Patch Changes
+
+- [#87406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87406) [`09db51ef5852`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09db51ef5852) - [ux] Update extension label style to match design
+
 ## 78.23.1
 
 ### Patch Changes

@@ -65,6 +65,7 @@ type Props = {
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
   isNodeHovered?: boolean;
+  isNodeNested?: boolean;
   setIsNodeHovered?: (isHovered: boolean) => void;
 };
 
@@ -120,6 +121,7 @@ const MultiBodiedExtensionWithWidth = ({
   showMacroInteractionDesignUpdates,
   isNodeSelected,
   isNodeHovered,
+  isNodeNested,
   setIsNodeHovered,
 }: PropsWithWidth) => {
   const { parameters, extensionKey } = node.attrs;
@@ -187,7 +189,7 @@ const MultiBodiedExtensionWithWidth = ({
     'extension-container',
     'block',
     {
-      'with-margin-styles': showMacroInteractionDesignUpdates,
+      'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
       'with-border': showMacroInteractionDesignUpdates,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,

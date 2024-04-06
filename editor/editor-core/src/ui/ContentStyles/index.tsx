@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- Requires manual remediation over time due to use of unsafe nested mixins */
 /** @jsx jsx */
 import React, { useMemo } from 'react';
@@ -303,6 +305,9 @@ const contentStyles = (props: ContentStylesProps) => css`
     p:first-of-type {
       margin-top: 0;
     }
+  }
+  .pm-table-cell-content-wrap .mediaGroupView-content-wrap {
+    clear: both;
   }
 
   .hyperlink-floating-toolbar,

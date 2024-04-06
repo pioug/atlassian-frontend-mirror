@@ -47,6 +47,7 @@ export interface Props {
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
   isNodeHovered?: boolean;
+  isNodeNested?: boolean;
   setIsNodeHovered?: (isHovered: boolean) => void;
 }
 
@@ -68,6 +69,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     showMacroInteractionDesignUpdates,
     isNodeSelected,
     isNodeHovered,
+    isNodeNested,
     setIsNodeHovered,
   } = props;
 
@@ -109,7 +111,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     {
       'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
-      'with-margin-styles': showMacroInteractionDesignUpdates,
+      'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,
       'without-frame': removeBorder,
@@ -119,7 +121,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
   const overflowClassNames = classnames('extension-overflow-wrapper', {
     'with-body': hasBody,
-    'with-margin-styles': showMacroInteractionDesignUpdates,
+    'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
   });
 
   const headerClassNames = classnames({

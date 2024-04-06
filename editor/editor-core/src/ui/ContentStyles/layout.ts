@@ -106,6 +106,9 @@ export const layoutStyles = css`
         [data-layout-content] {
           height: 100%;
           cursor: text;
+          .mediaGroupView-content-wrap {
+            clear: both;
+          }
         }
       }
 

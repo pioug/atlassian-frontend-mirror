@@ -26,7 +26,10 @@ const labelStyles = css({
     color: token('color.text.subtle', N500),
     opacity: 1,
   },
-  borderRadius: token('border.radius', '3px'),
+  borderRadius: `${token('border.radius', '3px')} ${token(
+    'border.radius',
+    '3px',
+  )} 0 0`,
   lineHeight: 1,
 });
 

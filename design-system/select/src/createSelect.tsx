@@ -1,19 +1,18 @@
-import React, {
-  useRef,
-  useEffect,
-  useMemo,
-  forwardRef,
-  type ComponentType,
-  type Ref,
-} from 'react';
-import { mergeStyles, type OptionsOrGroups } from 'react-select';
+import React, { Component, ComponentType } from 'react';
+import {
+  type ClearIndicatorProps,
+  type GroupBase,
+  mergeStyles,
+  OptionsOrGroups,
+} from 'react-select';
 import BaseSelect from 'react-select/base';
-import mergeRefs from '@atlaskit/ds-lib/merge-refs';
-
+import memoizeOne from 'memoize-one';
+import isEqual from 'react-fast-compare';
 import { Input } from './components/input-aria-describedby';
 
 import {
   SelectProps,
+  SelectComponentsConfig,
   OptionType,
   AsyncSelectProps,
   CreatableSelectProps,
@@ -32,54 +31,80 @@ import {
   isOptionsGrouped,
 } from './utils/grouped-options-announcement';
 
-type AtlaskitSelectProps<Option extends unknown, IsMulti extends boolean> =
-  | SelectProps<Option, IsMulti>
-  | AsyncSelectProps<Option, IsMulti>
-  | CreatableSelectProps<Option, IsMulti>;
-
 export default function createSelect(WrappedComponent: ComponentType<any>) {
-  const AtlaskitSelect = forwardRef(function AtlaskitSelect<
-    Option extends unknown = OptionType,
+  return class AtlaskitSelect<
+    Option = OptionType,
     IsMulti extends boolean = false,
-  >(
-    props: AtlaskitSelectProps<Option, IsMulti>,
-    forwardedRef: Ref<BaseSelect>,
-  ) {
-    const {
-      appearance,
-      ariaLiveMessages,
-      components: componentsProp,
-      isInvalid, // TODO: set to true when cleaning up validationState prop so it has a default value
-      onClickPreventDefault = true,
-      spacing = 'default',
-      styles = {},
-      tabSelectsValue = false,
-      validationState = 'default',
-      ...restProps
-    } = props;
+  > extends Component<
+    | SelectProps<Option, IsMulti>
+    | AsyncSelectProps<Option, IsMulti>
+    | CreatableSelectProps<Option, IsMulti>
+  > {
+    components: SelectComponentsConfig<Option, IsMulti> = {};
 
-    const internalSelectRef = useRef<BaseSelect>(null);
+    select: BaseSelect | null = null;
 
-    const components = useMemo(
-      () => ({
-        ClearIndicator,
+    constructor(props: SelectProps<Option, IsMulti>) {
+      super(props);
+      this.cacheComponents = memoizeOne(this.cacheComponents, isEqual).bind(
+        this,
+      );
+      this.cacheComponents(props.components || {});
+    }
+
+    static defaultProps = {
+      validationState: 'default',
+      // TODO: uncomment the next line when cleaning up validationState prop so it has a default value
+      // isInvalid: false,
+      spacing: 'default',
+      onClickPreventDefault: true,
+      tabSelectsValue: false,
+      components: { Input },
+      styles: {},
+    };
+
+    UNSAFE_componentWillReceiveProps(nextProps: SelectProps<Option, IsMulti>) {
+      this.cacheComponents(nextProps.components!);
+    }
+
+    cacheComponents = (components: SelectComponentsConfig<Option, IsMulti>) => {
+      this.components = {
+        ClearIndicator: ClearIndicator
+          ? (ClearIndicator as React.ComponentType<
+              ClearIndicatorProps<Option, IsMulti, GroupBase<Option>>
+            >)
+          : undefined,
         DropdownIndicator,
         LoadingIndicator,
         MultiValueRemove,
         IndicatorSeparator,
-        Input,
-        ...componentsProp,
-      }),
-      [componentsProp],
-    );
+        Input: Input<Option, IsMulti>,
+        ...components,
+      };
+    };
 
-    const descriptionId = props['aria-describedby'];
-    const isSearchable = props.isSearchable;
-    useEffect(() => {
-      if (!isSearchable && descriptionId) {
+    focus() {
+      if (this.select) {
+        this.select.focus();
+      }
+    }
+
+    blur() {
+      if (this.select) {
+        this.select.blur();
+      }
+    }
+
+    onSelectRef = (ref: BaseSelect) => {
+      this.select = ref;
+    };
+
+    componentDidMount(): void {
+      const descriptionId = this.props['aria-describedby'];
+      if (!this.props.isSearchable && descriptionId) {
         // when isSearchable is false, react-select will create its own dummy input instead of using ours,
         // so we need to manually add the additional aria-describedby using ref.
-        const input = internalSelectRef.current?.inputRef;
+        const input = this.select?.inputRef;
         const ariaDescribedby = input?.getAttribute('aria-describedby');
         if (!ariaDescribedby?.includes(descriptionId)) {
           input?.setAttribute(
@@ -88,47 +113,54 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           );
         }
       }
-    }, [descriptionId, isSearchable]);
+    }
 
-    const isCompact = spacing === 'compact';
+    render() {
+      const {
+        styles,
+        validationState,
+        isInvalid,
+        spacing,
+        isMulti,
+        appearance,
+        ariaLiveMessages,
+        ...props
+      } = this.props;
+      const isCompact = spacing === 'compact';
 
-    return (
-      <WrappedComponent
-        // @ts-ignore - mergeRefs only supports HTMLElement
-        ref={mergeRefs([forwardedRef, internalSelectRef])}
-        aria-live="assertive"
-        ariaLiveMessages={
-          isOptionsGrouped(
-            props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-          )
-            ? { onFocus, ...ariaLiveMessages }
-            : { ...ariaLiveMessages }
-        }
-        tabSelectsValue={tabSelectsValue}
-        onClickPreventDefault={onClickPreventDefault}
-        {...restProps}
-        components={components}
-        styles={mergeStyles(
-          baseStyles<Option, IsMulti>(
-            // This will cover both props for invalid state while giving priority to isInvalid. When cleaning up validationState, we can just keep the inner condition.
-            typeof isInvalid !== 'undefined'
-              ? isInvalid
-                ? 'error'
-                : 'default'
-              : validationState!,
-            isCompact,
-            appearance || 'default',
-          ),
-          styles,
-        )}
-      />
-    );
-  });
-  AtlaskitSelect.displayName = 'AtlaskitSelect';
-  return AtlaskitSelect as <
-    Option extends unknown = OptionType,
-    IsMulti extends boolean = false,
-  >(
-    props: AtlaskitSelectProps<Option, IsMulti> & { ref?: Ref<BaseSelect> },
-  ) => JSX.Element;
+      // props must be spread first to stop `components` being overridden
+      return (
+        <WrappedComponent
+          ref={this.onSelectRef}
+          isMulti={isMulti}
+          aria-live="assertive"
+          ariaLiveMessages={
+            isOptionsGrouped(
+              this.props.options as OptionsOrGroups<
+                OptionType,
+                GroupType<OptionType>
+              >,
+            )
+              ? { onFocus, ...ariaLiveMessages }
+              : { ...ariaLiveMessages }
+          }
+          {...props}
+          components={this.components}
+          styles={mergeStyles(
+            baseStyles<Option, IsMulti>(
+              // This will cover both props for invalid state while giving priority to isInvalid. When cleaning up validationState, we can just keep the inner condition.
+              typeof isInvalid !== 'undefined'
+                ? isInvalid
+                  ? 'error'
+                  : 'default'
+                : validationState!,
+              isCompact,
+              this.props.appearance || 'default',
+            ),
+            styles!,
+          )}
+        />
+      );
+    }
+  };
 }

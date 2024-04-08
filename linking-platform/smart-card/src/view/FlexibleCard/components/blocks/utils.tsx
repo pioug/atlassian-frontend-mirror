@@ -169,14 +169,6 @@ export const filterActionItems = (
       case ActionName.CustomAction:
         // Named and custom actions that user defines.
         return Boolean(ActionName[item.name]);
-      case ActionName.DownloadAction:
-        // Remove once DownloadAction is refactored to context.action
-        // https://product-fabric.atlassian.net/browse/EDM-9545
-        return Boolean(context?.downloadAction);
-      // Remove once FollowAction is refactored to context.action
-      // https://product-fabric.atlassian.net/browse/EDM-9559
-      case ActionName.FollowAction:
-        return Boolean(context?.followAction);
       // Remove once ViewAction is retired
       // https://product-fabric.atlassian.net/browse/EDM-9547
       case ActionName.ViewAction:

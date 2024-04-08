@@ -22,9 +22,6 @@
             "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../icon/afm-cc/tsconfig.json"
         },
         {

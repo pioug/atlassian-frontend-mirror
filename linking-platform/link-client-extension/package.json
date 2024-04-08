@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@atlaskit/linking-common": "^5.6.0",
-    "@atlaskit/linking-types": "^8.7.0",
+    "@atlaskit/linking-types": "^8.8.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "^4.1.0",
     "lru_map": "^0.4.1"

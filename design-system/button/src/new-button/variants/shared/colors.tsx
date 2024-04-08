@@ -9,11 +9,18 @@ export type ColorGroup<T extends BackgroundColor | TextColor> = {
   hover?: T;
   active?: T;
   disabled?: T;
-  selected?: T;
 };
 
-export type ColorPreset<T extends BackgroundColor | TextColor> = {
-  [key in Appearance]: ColorGroup<T>;
+export type ColorGroupWithSelected<T extends BackgroundColor | TextColor> =
+  ColorGroup<T> & {
+    selected?: ColorGroup<T>;
+  };
+
+export type ColorPreset<T extends BackgroundColor | TextColor> = Record<
+  Appearance,
+  ColorGroupWithSelected<T>
+> & {
+  selected: ColorGroup<T>;
 };
 
 type Values = {
@@ -38,8 +45,6 @@ const values: Values = {
       active: 'color.background.neutral.pressed',
       // @ts-expect-error
       disabled: token('color.background.disabled', colors.N20A),
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.N700),
     },
     primary: {
       default: 'color.background.brand.bold',
@@ -47,8 +52,6 @@ const values: Values = {
       active: 'color.background.brand.bold.pressed',
       // @ts-expect-error
       disabled: token('color.background.disabled', colors.N20A),
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.N700),
     },
     warning: {
       default: 'color.background.warning.bold',
@@ -56,8 +59,14 @@ const values: Values = {
       active: 'color.background.warning.bold.pressed',
       // @ts-expect-error
       disabled: token('color.background.disabled', colors.N20A),
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.Y400),
+      selected: {
+        // @ts-expect-error
+        default: token('color.background.selected', colors.Y400),
+        // @ts-expect-error
+        hover: token('color.background.selected.hovered', colors.Y400),
+        // @ts-expect-error
+        active: token('color.background.selected.pressed', colors.Y400),
+      },
     },
     danger: {
       default: 'color.background.danger.bold',
@@ -65,13 +74,17 @@ const values: Values = {
       active: 'color.background.danger.bold.pressed',
       // @ts-expect-error
       disabled: token('color.background.disabled', colors.N20A),
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.R500),
+      selected: {
+        // @ts-expect-error
+        default: token('color.background.selected', colors.R500),
+        // @ts-expect-error
+        hover: token('color.background.selected.hovered', colors.R500),
+        // @ts-expect-error
+        active: token('color.background.selected.pressed', colors.R500),
+      },
     },
     link: {
       default: 'color.background.neutral.subtle',
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.N700),
     },
     subtle: {
       default: 'color.background.neutral.subtle',
@@ -79,13 +92,17 @@ const values: Values = {
       active: 'color.background.neutral.subtle.pressed',
       // @ts-expect-error
       disabled: token('color.background.neutral.subtle', 'none'),
-      // @ts-expect-error
-      selected: token('color.background.selected', colors.N700),
     },
     'subtle-link': {
       default: 'color.background.neutral.subtle',
+    },
+    selected: {
       // @ts-expect-error
-      selected: token('color.background.selected', colors.N700),
+      default: token('color.background.selected', colors.N700),
+      // @ts-expect-error
+      hover: token('color.background.selected.hovered', colors.N700),
+      // @ts-expect-error
+      active: token('color.background.selected.pressed', colors.N700),
     },
   },
   color: {
@@ -95,26 +112,26 @@ const values: Values = {
       // @ts-expect-error
       active: token('color.text', colors.B400),
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N20),
     },
     primary: {
       default: 'color.text.inverse',
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N20),
     },
     warning: {
       default: 'color.text.warning.inverse',
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N800),
+      selected: {
+        // @ts-expect-error
+        default: token('color.text.selected', colors.N800),
+      },
     },
     danger: {
       default: 'color.text.inverse',
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N0),
+      selected: {
+        // @ts-expect-error
+        default: token('color.text.selected', colors.N0),
+      },
     },
     link: {
       default: 'color.link',
@@ -122,8 +139,6 @@ const values: Values = {
       hover: token('color.link', colors.B300),
       active: 'color.link.pressed',
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N20),
     },
     subtle: {
       // @ts-expect-error
@@ -131,8 +146,6 @@ const values: Values = {
       // @ts-expect-error
       active: token('color.text', colors.B400),
       disabled: 'color.text.disabled',
-      // @ts-expect-error
-      selected: token('color.text.selected', colors.N20),
     },
     'subtle-link': {
       // @ts-expect-error
@@ -142,8 +155,10 @@ const values: Values = {
       // @ts-expect-error
       active: token('color.text', colors.N400),
       disabled: 'color.text.disabled',
+    },
+    selected: {
       // @ts-expect-error
-      selected: token('color.text.selected', colors.N20),
+      default: token('color.text.selected', colors.N20),
     },
   },
 };

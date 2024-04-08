@@ -11,6 +11,7 @@ import JiraRoadMap from '../../../__fixtures__/jira-roadmap';
 import JiraTask from '../../../__fixtures__/jira-task';
 import JiraTimeline from '../../../__fixtures__/jira-timeline';
 import YouTubeVideo from '../../../__fixtures__/youtube-video';
+import DropboxFile from '../../../__fixtures__/dropbox-file';
 import extractFlexibleUiContext from '../index';
 
 describe('extractFlexibleUiContext', () => {
@@ -265,6 +266,21 @@ describe('extractFlexibleUiContext', () => {
           title: 'The Superman Project',
           url: 'https://link-url',
         },
+        FollowAction: {
+          action: {
+            action: {
+              actionType: 'FollowEntityAction',
+              resourceIdentifiers: {
+                ari: 'some-id',
+              },
+            },
+            providerKey: 'watermelon-object-provider',
+            reload: {
+              url: 'https://link-url',
+            },
+          },
+          value: true,
+        },
       },
       authorGroup: [
         {
@@ -275,21 +291,6 @@ describe('extractFlexibleUiContext', () => {
       commentCount: 1,
       createdBy: 'Lois Lane',
       dueOn: '2030-12-31',
-      followAction: {
-        action: {
-          action: {
-            actionType: 'FollowEntityAction',
-            resourceIdentifiers: {
-              ari: 'some-id',
-            },
-          },
-          providerKey: 'watermelon-object-provider',
-          reload: {
-            url: 'https://link-url',
-          },
-        },
-        value: true,
-      },
       linkIcon: {
         label: 'The Superman Project',
         url: 'https://icon-url',
@@ -382,6 +383,50 @@ describe('extractFlexibleUiContext', () => {
       provider: {
         url: 'https://icon-url',
         label: 'YouTube',
+      },
+    });
+  });
+
+  it('returns flexible ui context for dropbox file', () => {
+    const data = extractFlexibleUiContext({
+      response: DropboxFile as JsonLd.Response,
+    });
+
+    expect(data).toEqual({
+      actions: {
+        DownloadAction: {
+          downloadUrl: 'https://download-url',
+        },
+        PreviewAction: {
+          downloadUrl: 'https://download-url',
+          linkIcon: {
+            label: 'Dropbox',
+            render: undefined,
+            url: 'https://icon-url',
+          },
+          isSupportTheming: false,
+          providerName: 'Dropbox',
+          src: 'https://preview-url',
+          title: 'Happy Guy.gif',
+          url: 'https://link-url',
+        },
+      },
+      linkIcon: {
+        label: 'Dropbox',
+        render: undefined,
+        url: 'https://icon-url',
+      },
+      modifiedOn: '2022-06-30T00:06:16Z',
+      preview: {
+        type: 'image',
+        url: 'https://image-url',
+      },
+      snippet: undefined,
+      title: 'Happy Guy.gif',
+      url: 'https://link-url',
+      provider: {
+        url: 'https://icon-url',
+        label: 'Dropbox',
       },
     });
   });

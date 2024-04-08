@@ -797,13 +797,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
               position: 'absolute',
               right: getBooleanFF('platform.editor.custom-table-width')
                 ? `${
-                    getBooleanFF(
-                      'platform.editor.table.increase-shadow-visibility_lh89r',
-                    )
-                      ? token('space.400', '32px') // tableOverflowShadowWidthWide
-                      : token('space.100', '8px') // tableOverflowShadowWidth
+                    token('space.400', '32px') // tableOverflowShadowWidthWide
                   }`
-                : token('space.negative.025', '-2px'),
+                : // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+                  '22px',
             }}
           >
             <div

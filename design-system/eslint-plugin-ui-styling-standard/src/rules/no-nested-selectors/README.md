@@ -1,0 +1,58 @@
+This rule prevents the usage of the nested selectors in style declarations. Avoid setting styles for any child elements or elements that require context from other elements.
+
+## Examples
+
+### Incorrect
+
+```js
+import { css } from '@compiled/react';
+const styles = css({
+  h2: {
+    fontSize: '1.5rem',
+  },
+});
+```
+
+```js
+import { styled } from '@compiled/react';
+const Component = styled.div({
+  '*': {
+    padding: 0,
+  },
+});
+```
+
+```js
+import { styled } from '@compiled/react';
+const Component = styled.div({
+  '.myclass': {
+    padding: 0,
+  },
+});
+```
+
+### Correct
+
+```js
+import { css } from '@compiled/react';
+const styles = css({
+  display: 'flex',
+  flexDirection: 'column',
+});
+```
+
+## Options
+
+### importSources
+
+By default, this rule will check `css` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).

@@ -21,7 +21,6 @@ import FlexibleUiElementMedia from '../../../examples/vr-flexible-card/vr-flexib
 
 import FlexibleUiHoverCard from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card';
 import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-no-preview-button';
-import FlexibleUiHoverCardWithAiSummary from '../../../examples/vr-flexible-card/vr-flexible-ui-hover-card-with-ai-summary';
 
 import FlexibleUiAccessibility from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility';
 import FlexibleUiAccessibilityForbidden from '../../../examples/vr-flexible-card/vr-flexible-ui-accessibility-forbidden';
@@ -117,23 +116,6 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
       state: 'hovered',
     },
   ],
-});
-snapshot(FlexibleUiHoverCardWithAiSummary, {
-  drawsOutsideBounds: true,
-  states: [
-    {
-      selector: {
-        byTestId: 'smart-element-link',
-      },
-      state: 'hovered',
-    },
-  ],
-  featureFlags: {
-    'platform.linking-platform.smart-card.hover-card-ai-summaries': [
-      true,
-      false,
-    ],
-  },
 });
 
 // Accessibility

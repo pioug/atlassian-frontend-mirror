@@ -1,5 +1,25 @@
 # @atlaskit/editor-common
 
+## 78.23.6
+
+### Patch Changes
+
+- [#88038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88038) [`19ac4de34153`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19ac4de34153) - update 'w3c-keyname' dependency to 2.1.8
+- Updated dependencies
+
+## 78.23.5
+
+### Patch Changes
+
+- [#87218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87218) [`697e394e4300`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/697e394e4300) - NO-ISSUE Refactor linkifyContent and findLinkMatches
+- Updated dependencies
+
+## 78.23.4
+
+### Patch Changes
+
+- [#86408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86408) [`6bff86c31d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bff86c31d81) - Clean up feature flag for increasing visibility of table scroll shadows
+
 ## 78.23.3
 
 ### Patch Changes

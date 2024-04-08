@@ -526,21 +526,8 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         <form
           data-testid={testIds.linkPicker}
           css={rootContainerStyles}
-          // Use onSubmitCapture instead of onSubmit when FF enabled so that any possible parent form isn't submitted
-          onSubmit={
-            getBooleanFF(
-              'platform.linking-platform.link-picker.use-onsubmitcapture',
-            )
-              ? undefined
-              : handleSubmit
-          }
-          onSubmitCapture={
-            getBooleanFF(
-              'platform.linking-platform.link-picker.use-onsubmitcapture',
-            )
-              ? handleSubmit
-              : undefined
-          }
+          // Use onSubmitCapture instead of onSubmit so that any possible parent form isn't submitted
+          onSubmitCapture={handleSubmit}
         >
           <TrackMount />
           {isActivePlugin && screenReaderText && (

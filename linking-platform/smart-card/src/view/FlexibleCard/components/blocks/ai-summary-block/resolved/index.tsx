@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  useEffect,
-} from 'react';
+import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { Box, Inline } from '@atlaskit/primitives';
@@ -30,18 +24,68 @@ import AISummary from '../../../../../common/ai-summary';
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import AIEventSummaryViewed from '../ai-event-summary-viewed';
 import AIEventErrorViewed from '../ai-event-error-viewed';
+import { di } from 'react-magnetic-di';
+import type {
+  AISummaryStatus,
+  ErrorMessage,
+} from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 
-const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
+export const AISummaryBlockErrorIndicator = ({
+  showErrorIndicator,
+  error,
+  testId,
+}: {
+  showErrorIndicator: boolean;
+  error?: ErrorMessage;
+} & Pick<AISummaryBlockProps, 'testId'>) => {
+  return showErrorIndicator ? (
+    <Inline grow="fill">
+      <AIEventErrorViewed reason={error} />
+      <AIStateIndicator error={error} state={'error'} testId={testId} />
+    </Inline>
+  ) : null;
+};
+
+export const AISummaryBlockStatusIndicator = ({
+  showStatusIndicator,
+  metadata,
+  status,
+  testId,
+}: {
+  showStatusIndicator: boolean;
+  status: AISummaryStatus;
+} & Pick<AISummaryBlockProps, 'metadata' | 'testId'>) => {
+  const metadataElements = renderElementItems(metadata);
+
+  return showStatusIndicator ? (
+    <AIStateIndicator state={status} testId={`${testId}-state-indicator`} />
+  ) : (
+    <ElementGroup
+      width={SmartLinkWidth.FitToContent}
+      testId={`${testId}-metadata-group`}
+    >
+      {metadataElements}
+    </ElementGroup>
+  );
+};
+
+const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
+  di(
+    useAISummary,
+    AISummaryBlockErrorIndicator,
+    AISummaryBlockStatusIndicator,
+    AISummary,
+  );
+
   const {
     actions = [],
-    metadata,
     onActionMenuOpenChange,
     size = SmartLinkSize.Medium,
     testId,
     aiSummaryMinHeight,
+    metadata,
   } = props;
 
-  const metadataElements = renderElementItems(metadata);
   const { fireEvent } = useAnalyticsEvents();
   const context = useFlexibleUiContext();
   const url = context?.url || '';
@@ -60,19 +104,11 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
   const isSummarisedOnMountRef = useRef(status === 'done');
   const isErroredOnMountRef = useRef(status === 'error');
 
-  const [showAISummaryErrorMessage, setShowAISummaryErrorMessage] =
-    useState<boolean>(false);
-
   useEffect(() => {
     // if the error was apparent on mount and the status is changed to loading we can
     // clear the initial error on mount state
     if (isErroredOnMountRef.current && status === 'loading') {
       isErroredOnMountRef.current = false;
-    } else {
-      // if a new error occurs and it was not an apparent error on mount, we can show the error message
-      setShowAISummaryErrorMessage(
-        !isErroredOnMountRef.current && status === 'error',
-      );
     }
   }, [status]);
 
@@ -127,20 +163,15 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
         spread="space-between"
       >
         <Box>
-          {!isSummarisedOnMountRef.current &&
-          (status === 'loading' || status === 'done') ? (
-            <AIStateIndicator
-              state={status}
-              testId={`${testId}-state-indicator`}
-            />
-          ) : (
-            <ElementGroup
-              width={SmartLinkWidth.FitToContent}
-              testId={`${testId}-metadata-group`}
-            >
-              {metadataElements}
-            </ElementGroup>
-          )}
+          <AISummaryBlockStatusIndicator
+            metadata={metadata}
+            showStatusIndicator={
+              !isSummarisedOnMountRef.current &&
+              (status === 'loading' || status === 'done')
+            }
+            status={status}
+            testId={testId}
+          />
         </Box>
         <Box>
           <ActionGroup
@@ -151,12 +182,11 @@ const AISummaryBlockResolvedView: React.FC<AISummaryBlockProps> = (props) => {
           />
         </Box>
       </Inline>
-      {showAISummaryErrorMessage && (
-        <Inline grow="fill">
-          <AIEventErrorViewed reason={error} />
-          <AIStateIndicator error={error} state={status} testId={testId} />
-        </Inline>
-      )}
+      <AISummaryBlockErrorIndicator
+        showErrorIndicator={!isErroredOnMountRef.current && status === 'error'}
+        error={error}
+        testId={testId}
+      />
     </Block>
   );
 };

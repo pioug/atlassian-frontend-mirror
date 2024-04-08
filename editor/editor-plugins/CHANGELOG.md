@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugins
 
+## 2.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.2
+
+### Patch Changes
+
+- [#86408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86408) [`6bff86c31d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bff86c31d81) - Clean up feature flag for increasing visibility of table scroll shadows
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

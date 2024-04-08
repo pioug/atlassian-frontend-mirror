@@ -32,6 +32,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import type { AccessibilityUtilsPlugin } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ContentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
@@ -133,6 +134,7 @@ export type TablePlugin = NextEditorPlugin<
       ) => EditorCommand;
     };
     dependencies: [
+      OptionalPlugin<AccessibilityUtilsPlugin>,
       AnalyticsPlugin,
       ContentInsertionPlugin,
       WidthPlugin,

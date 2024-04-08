@@ -39,6 +39,29 @@ export interface DateTimeType {
 export interface Tag {
   id?: string;
   text: string;
+  url?: string;
+  color?:
+    | 'standard'
+    | 'green'
+    | 'lime'
+    | 'blue'
+    | 'red'
+    | 'purple'
+    | 'magenta'
+    | 'grey'
+    | 'teal'
+    | 'orange'
+    | 'yellow'
+    | 'limeLight'
+    | 'orangeLight'
+    | 'magentaLight'
+    | 'greenLight'
+    | 'blueLight'
+    | 'redLight'
+    | 'purpleLight'
+    | 'greyLight'
+    | 'tealLight'
+    | 'yellowLight';
 }
 
 export interface TagType {

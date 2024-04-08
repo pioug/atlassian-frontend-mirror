@@ -43,6 +43,9 @@
       "path": "../editor-palette/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-accessibility-utils/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {

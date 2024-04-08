@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.8.7
+
+### Patch Changes
+
+- [#86408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86408) [`6bff86c31d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bff86c31d81) - Clean up feature flag for increasing visibility of table scroll shadows
+
 ## 193.8.4
 
 ### Patch Changes

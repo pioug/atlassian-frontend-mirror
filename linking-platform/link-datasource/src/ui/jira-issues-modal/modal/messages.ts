@@ -1,11 +1,6 @@
 import { defineMessages } from 'react-intl-next';
 
 export const modalMessages = defineMessages({
-  cancelButtonText: {
-    id: 'linkDataSource.jira-issues.configmodal.cancelButtonText',
-    description: 'Button text to close the modal with no changes being made',
-    defaultMessage: 'Cancel',
-  },
   insertIssuesButtonText: {
     id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText',
     description: 'Button text to insert the displayed content',

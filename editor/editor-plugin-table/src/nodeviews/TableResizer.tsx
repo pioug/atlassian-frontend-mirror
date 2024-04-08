@@ -8,7 +8,6 @@ import React, {
   useState,
 } from 'react';
 
-import debounce from 'lodash/debounce';
 import rafSchd from 'raf-schd';
 import { useIntl } from 'react-intl-next';
 
@@ -90,9 +89,6 @@ export interface TableResizerImprovementProps extends TableResizerProps {
 
 type ResizerNextHandler = React.ElementRef<typeof ResizerNext>;
 
-type ResizeAction = 'increase' | 'decrease' | 'none';
-
-const DEBOUNCE_TIME_FOR_SCREEN_READER_ANNOUNCER = 1000;
 const RESIZE_STEP_VALUE = 10;
 
 const handles = { right: true };
@@ -189,26 +185,7 @@ export const TableResizer = ({
   const updateTooltip = React.useRef<() => void>();
   const [snappingEnabled, setSnappingEnabled] = useState(false);
 
-  // we don't want to update aria-live region on each width change, it might provide bad experience for screen reader users
-  const [screenReaderResizeInformation, setScreenReaderResizeInformation] =
-    useState<{
-      type: ResizeAction;
-      width: number;
-    }>({
-      type: 'none',
-      width,
-    });
-
   const { formatMessage } = useIntl();
-  const screenReaderResizeAnnouncerMessages = {
-    increase: formatMessage(messages.tableSizeIncreaseScreenReaderInformation, {
-      newWidth: screenReaderResizeInformation.width,
-    }),
-    decrease: formatMessage(messages.tableSizeDecreaseScreenReaderInformation, {
-      newWidth: screenReaderResizeInformation.width,
-    }),
-    none: '',
-  };
 
   const isTableSelected =
     findTable(editorView.state?.selection)?.pos === getPos();
@@ -453,6 +430,22 @@ export const TableResizer = ({
       displayGapCursor(true);
       dispatch(tr);
 
+      if (getBooleanFF('platform.editor.a11y-table-resizing_uapcv')) {
+        if (delta.width < 0) {
+          pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+            formatMessage(messages.tableSizeDecreaseScreenReaderInformation, {
+              newWidth: newWidth,
+            }),
+          );
+        } else if (delta.width > 0) {
+          pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+            formatMessage(messages.tableSizeIncreaseScreenReaderInformation, {
+              newWidth: newWidth,
+            }),
+          );
+        }
+      }
+
       // Hide guidelines when resizing stops
       displayGuideline([]);
       updateWidth(newWidth);
@@ -481,6 +474,8 @@ export const TableResizer = ({
       onResizeStop,
       isTableScalingEnabled,
       widthToWidest,
+      formatMessage,
+      pluginInjectionApi,
     ],
   );
 
@@ -599,34 +594,6 @@ export const TableResizer = ({
     }
   }, [width]);
 
-  useEffect(() => {
-    if (getBooleanFF('platform.editor.a11y-table-resizing_uapcv')) {
-      const debouncedSetWidth = debounce(
-        setScreenReaderResizeInformation,
-        DEBOUNCE_TIME_FOR_SCREEN_READER_ANNOUNCER,
-      );
-      debouncedSetWidth((prevState) => {
-        let type: ResizeAction = 'none';
-        if (prevState.width > width) {
-          type = 'decrease';
-        }
-
-        if (prevState.width < width) {
-          type = 'increase';
-        }
-
-        return {
-          type,
-          width,
-        };
-      });
-
-      return () => {
-        debouncedSetWidth.cancel();
-      };
-    }
-  }, [width]);
-
   return (
     <>
       <ResizerNext
@@ -667,15 +634,6 @@ export const TableResizer = ({
       >
         {children}
       </ResizerNext>
-      {getBooleanFF('platform.editor.a11y-table-resizing_uapcv') && (
-        <div className="assistive" role="status">
-          {
-            screenReaderResizeAnnouncerMessages[
-              screenReaderResizeInformation.type
-            ]
-          }
-        </div>
-      )}
     </>
   );
 };

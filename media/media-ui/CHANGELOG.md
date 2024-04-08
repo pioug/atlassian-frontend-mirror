@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 25.5.0
+
+### Minor Changes
+
+- [#87932](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87932) [`9de84130ef6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9de84130ef6a) - [ux] Fixes text colour in playback speed menu in light mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.4.4
 
 ### Patch Changes

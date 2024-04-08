@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media
 
+## 1.13.3
+
+### Patch Changes
+
+- [#86920](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86920) [`b06aff2f43c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b06aff2f43c8) - ECA11Y-72: fix borken changeInlineToMediaCard function
+- Updated dependencies
+
 ## 1.13.2
 
 ### Patch Changes

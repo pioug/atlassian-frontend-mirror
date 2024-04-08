@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.15.4
+
+### Patch Changes
+
+- [#87422](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87422) [`54c6f458dbd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/54c6f458dbd6) - Cleansup ff platform.linking-platform.link-create.enable-sentry-client, enabling sentry client to capture exceptions
+
 ## 1.15.3
 
 ### Patch Changes

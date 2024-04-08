@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.9.0
+
+### Minor Changes
+
+- [#87334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87334) [`b779928f2d49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b779928f2d49) - [ux] New buttons now have hovered and pressed interaction states when they are selected (`isSelected`)
+
 ## 17.8.0
 
 ### Minor Changes

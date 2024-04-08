@@ -152,7 +152,7 @@ export const getAvatarUrl = (optionData: OptionData) => {
 };
 
 export const isPopupUserPickerByComponent = (
-  SelectComponent: React.ComponentType<any>,
+  SelectComponent: React.ComponentClass<any>,
 ) => SelectComponent === PopupSelect;
 
 export const isPopupUserPickerByProps = (selectProps: any) =>

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.8
+
+### Patch Changes
+
+- [#84955](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84955) [`f5eded0ecb9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5eded0ecb9d) - ECA11Y-192: Fix table resize screen reader announcement for NVDA Windows
+
+## 7.6.7
+
+### Patch Changes
+
+- [#86408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86408) [`6bff86c31d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bff86c31d81) - Clean up feature flag for increasing visibility of table scroll shadows
+
 ## 7.6.6
 
 ### Patch Changes

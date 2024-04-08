@@ -6,7 +6,6 @@ import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 
 import { getGlobalTheme, token } from '@atlaskit/tokens';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { mediaInlineImageStyles } from '@atlaskit/editor-common/media-inline';
 import {
   tableSharedStyle,
@@ -422,39 +421,37 @@ const breakoutWidthStyle = () => {
 };
 
 const getShadowOverrides = () => {
-  return getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-    ? css`
-        /** Shadow overrides */
-        &.${shadowClassNames.RIGHT_SHADOW}::after,
-          &.${shadowClassNames.LEFT_SHADOW}::before {
-          width: ${tableShadowWidth}px;
-          background: linear-gradient(
-              to left,
-              transparent 0,
-              ${token('elevation.shadow.overflow.spread', N40A)} 140%
-            ),
-            linear-gradient(
-              to right,
-              ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
-              transparent 1px
-            );
-        }
+  return css`
+    /** Shadow overrides */
+    &.${shadowClassNames.RIGHT_SHADOW}::after,
+      &.${shadowClassNames.LEFT_SHADOW}::before {
+      width: ${tableShadowWidth}px;
+      background: linear-gradient(
+          to left,
+          transparent 0,
+          ${token('elevation.shadow.overflow.spread', N40A)} 140%
+        ),
+        linear-gradient(
+          to right,
+          ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+          transparent 1px
+        );
+    }
 
-        &.${shadowClassNames.RIGHT_SHADOW}::after {
-          background: linear-gradient(
-              to right,
-              transparent 0,
-              ${token('elevation.shadow.overflow.spread', N40A)} 140%
-            ),
-            linear-gradient(
-              to left,
-              ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
-              transparent 1px
-            );
-          right: 0px;
-        }
-      `
-    : '';
+    &.${shadowClassNames.RIGHT_SHADOW}::after {
+      background: linear-gradient(
+          to right,
+          transparent 0,
+          ${token('elevation.shadow.overflow.spread', N40A)} 140%
+        ),
+        linear-gradient(
+          to left,
+          ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
+          transparent 1px
+        );
+      right: 0px;
+    }
+  `;
 };
 
 export const rendererStyles =

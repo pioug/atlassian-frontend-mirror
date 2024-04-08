@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.6
+
+### Patch Changes
+
+- [#87089](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87089) [`5d130cbb8277`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d130cbb8277) - Change statsig gates to LD FFs
+
 ## 1.5.5
 
 ### Patch Changes

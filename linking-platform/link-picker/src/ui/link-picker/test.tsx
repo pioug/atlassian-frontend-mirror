@@ -12,7 +12,6 @@ import {
   ManualPromise,
   renderWithIntl as render,
 } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
@@ -98,56 +97,27 @@ describe('<LinkPicker />', () => {
   };
 
   describe('with no plugins', () => {
-    describe('should submit with valid url in the input field when form uses onSubmitCapture', () => {
-      ffTest(
-        'platform.linking-platform.link-picker.use-onsubmitcapture',
-        async () => {
-          const { onSubmitMock, testIds } = setupLinkPicker();
+    it('should submit with valid url in the input field when form uses onSubmitCapture', async () => {
+      const { onSubmitMock, testIds } = setupLinkPicker();
 
-          await user.type(
-            screen.getByTestId(testIds.urlInputField),
-            'www.atlassian.com',
-          );
-          fireEvent.submit(screen.getByTestId(testIds.urlInputField));
+      await user.type(
+        screen.getByTestId(testIds.urlInputField),
+        'www.atlassian.com',
+      );
+      fireEvent.submit(screen.getByTestId(testIds.urlInputField));
 
-          expect(onSubmitMock).toHaveBeenCalledTimes(1);
-          expect(onSubmitMock).toHaveBeenCalledWith(
-            {
-              url: 'http://www.atlassian.com',
-              title: null,
-              displayText: null,
-              rawUrl: 'www.atlassian.com',
-              meta: {
-                inputMethod: 'manual',
-              },
-            },
-            expect.any(UIAnalyticsEvent),
-          );
+      expect(onSubmitMock).toHaveBeenCalledTimes(1);
+      expect(onSubmitMock).toHaveBeenCalledWith(
+        {
+          url: 'http://www.atlassian.com',
+          title: null,
+          displayText: null,
+          rawUrl: 'www.atlassian.com',
+          meta: {
+            inputMethod: 'manual',
+          },
         },
-        // This test is exactly the same as above; ffTest doesn't allow passing in a non-inline function.
-        async () => {
-          const { onSubmitMock, testIds } = setupLinkPicker();
-
-          await user.type(
-            screen.getByTestId(testIds.urlInputField),
-            'www.atlassian.com',
-          );
-          fireEvent.submit(screen.getByTestId(testIds.urlInputField));
-
-          expect(onSubmitMock).toHaveBeenCalledTimes(1);
-          expect(onSubmitMock).toHaveBeenCalledWith(
-            {
-              url: 'http://www.atlassian.com',
-              title: null,
-              displayText: null,
-              rawUrl: 'www.atlassian.com',
-              meta: {
-                inputMethod: 'manual',
-              },
-            },
-            expect.any(UIAnalyticsEvent),
-          );
-        },
+        expect.any(UIAnalyticsEvent),
       );
     });
 

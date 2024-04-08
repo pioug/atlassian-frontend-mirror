@@ -134,16 +134,17 @@ export class HyperlinkToolbarAppearance extends Component<
         />
         {getBooleanFF(
           'platform.linking-platform.enable-datasource-appearance-toolbar',
-        ) && (
-          <DatasourceAppearanceButton
-            intl={intl}
-            url={url}
-            editorState={editorState}
-            editorView={editorView}
-            editorAnalyticsApi={editorAnalyticsApi}
-            inputMethod={INPUT_METHOD.FLOATING_TB}
-          />
-        )}
+        ) &&
+          cardOptions?.allowDatasource && (
+            <DatasourceAppearanceButton
+              intl={intl}
+              url={url}
+              editorState={editorState}
+              editorView={editorView}
+              editorAnalyticsApi={editorAnalyticsApi}
+              inputMethod={INPUT_METHOD.FLOATING_TB}
+            />
+          )}
       </Flex>
     );
   }

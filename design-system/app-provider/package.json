@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/app-provider",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A top level provider for the Design System.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -17,7 +17,8 @@
       "status": {
         "type": "beta"
       }
-    }
+    },
+    "runReact18": true
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
@@ -46,7 +47,7 @@
     "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/visual-regression": "*",

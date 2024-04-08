@@ -46,6 +46,7 @@ import i18nEN from '../../../i18n/en';
 import { PermissionError } from '../../../services/cmdbService.utils';
 import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
+import { CancelButton } from '../../common/modal/cancel-button';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
 import { AssetsConfigModalProps, AssetsDatasourceParameters } from '../types';
@@ -344,28 +345,6 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     ],
   );
 
-  const onCancelClick = useCallback(
-    (
-      e: React.MouseEvent<HTMLElement, MouseEvent>,
-      analyticEvent: UIAnalyticsEvent,
-    ) => {
-      analyticEvent
-        .update({
-          eventType: 'ui',
-          actionSubjectId: 'cancel',
-          attributes: {
-            ...analyticsPayload,
-            searchCount: searchCount.current,
-            actions: Array.from(userInteractionActions.current),
-          },
-        })
-        .fire(EVENT_CHANNEL);
-
-      onCancel();
-    },
-    [analyticsPayload, onCancel],
-  );
-
   const handleOnSearch = useCallback(
     (searchAql: string, searchSchemaId: string) => {
       if (
@@ -435,6 +414,14 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     status,
   ]);
 
+  const getCancelButtonAnalyticsPayload = useCallback(() => {
+    return {
+      ...analyticsPayload,
+      searchCount: searchCount.current,
+      actions: Array.from(userInteractionActions.current),
+    };
+  }, [analyticsPayload]);
+
   return (
     <IntlMessagesProvider
       defaultMessages={i18nEN}
@@ -472,13 +459,11 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
             )}
           </ModalBody>
           <ModalFooter>
-            <Button
-              appearance="default"
-              onClick={onCancelClick}
+            <CancelButton
+              onCancel={onCancel}
+              getAnalyticsPayload={getCancelButtonAnalyticsPayload}
               testId={'asset-datasource-modal--cancel-button'}
-            >
-              <FormattedMessage {...modalMessages.cancelButtonText} />
-            </Button>
+            />
             <Button
               appearance="primary"
               onClick={onInsertPressed}

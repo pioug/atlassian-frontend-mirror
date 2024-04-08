@@ -1,11 +1,6 @@
 import { defineMessages } from 'react-intl-next';
 
 export const modalMessages = defineMessages({
-  cancelButtonText: {
-    id: 'linkDataSource.assets.configmodal.cancelButtonText',
-    description: 'Button text to close the modal with no changes being made',
-    defaultMessage: 'Cancel',
-  },
   updateObjectsButtonText: {
     id: 'linkDataSource.assets.configmodal.updateObjectsButtonText',
     description: 'Button text to update the displayed content',

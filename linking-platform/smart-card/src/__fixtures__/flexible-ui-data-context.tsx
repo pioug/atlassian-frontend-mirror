@@ -12,6 +12,19 @@ const context: FlexibleUiDataContext = {
       title: 'embed title',
       url: 'https://www.link-url.com',
     },
+    DownloadAction: {
+      downloadUrl: 'https://www.link-url.com',
+    },
+    FollowAction: {
+      action: {
+        action: {
+          actionType: SmartLinkActionType.FollowEntityAction,
+          resourceIdentifiers: {},
+        },
+        providerKey: 'object-provider',
+      },
+      value: true,
+    },
   },
   attachmentCount: 3,
   authorGroup: [
@@ -23,20 +36,7 @@ const context: FlexibleUiDataContext = {
   commentCount: 10,
   createdBy: 'Doctor Stephen Vincent Strange',
   createdOn: '2020-02-04T12:40:12.353+0800',
-  downloadAction: {
-    downloadUrl: 'https://www.link-url.com',
-  },
   dueOn: '2022-02-22T12:40:12.353+0800',
-  followAction: {
-    action: {
-      action: {
-        actionType: SmartLinkActionType.FollowEntityAction,
-        resourceIdentifiers: {},
-      },
-      providerKey: 'object-provider',
-    },
-    value: true,
-  },
   latestCommit: '03e6a82',
   linkIcon: {
     icon: 'BitBucket:Project' as IconType,

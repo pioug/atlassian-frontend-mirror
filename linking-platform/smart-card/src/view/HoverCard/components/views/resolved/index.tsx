@@ -44,6 +44,7 @@ import { useAISummary } from '../../../../../state/hooks/use-ai-summary';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
 
 import { SmartLinkStatus } from '../../../../../constants';
+import { di } from 'react-magnetic-di';
 
 export const toFooterActions = (
   cardActions: LinkAction[],
@@ -98,6 +99,8 @@ const ConnectedAIBlock = ({
   url: string;
   ari: string;
 }) => {
+  di(useAISummary);
+
   const {
     state: { status, content },
   } = useAISummary({ url, ari });

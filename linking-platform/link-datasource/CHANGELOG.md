@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 1.25.1
+
+### Patch Changes
+
+- [#86770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86770) [`67209c8f2921`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67209c8f2921) - Adds cancel button click analytics event and tests to confluence-search config modal.
+- Updated dependencies
+
+## 1.25.0
+
+### Minor Changes
+
+- [#87079](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87079) [`b3f493af070b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3f493af070b) - [ux] Added optional `color` and `url` field to datasource-types.ts to update the possible properties of Tags (Labels) and how they are rendered.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.24.12
 
 ### Patch Changes

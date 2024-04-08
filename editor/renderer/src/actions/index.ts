@@ -12,7 +12,10 @@ import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
+import {
+  RemoveMarkStep,
+  RemoveNodeMarkStep,
+} from '@atlaskit/editor-prosemirror/transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 import type {
   AnalyticsEventPayload,
@@ -131,9 +134,14 @@ export default class RendererActions
 
     let from: number | undefined;
     let to: number | undefined;
+    let nodePos: number | undefined;
+    let step: Step | undefined;
 
     this.doc.descendants((node, pos) => {
       const found = mark.isInSet(node.marks);
+      if (found && node.type.name === 'media') {
+        nodePos = pos;
+      }
       if (found && !from) {
         // Set both here incase it only spans one node.
         from = pos;
@@ -146,11 +154,16 @@ export default class RendererActions
       return true;
     });
 
-    if (from === undefined || to === undefined) {
-      return false;
+    if (nodePos !== undefined) {
+      step = new RemoveNodeMarkStep(nodePos, mark);
+    } else {
+      if (from === undefined || to === undefined) {
+        return false;
+      }
+
+      step = new RemoveMarkStep(from, to, mark);
     }
 
-    const step = new RemoveMarkStep(from, to, mark);
     const { doc, failed } = step.apply(this.doc);
 
     if (this.onAnalyticsEvent) {

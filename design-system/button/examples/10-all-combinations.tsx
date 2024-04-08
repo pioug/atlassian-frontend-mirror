@@ -37,11 +37,13 @@ const ExampleRow = ({
   version,
   isIconOnly,
   showLegacyButton,
+  elementType,
 }: {
   appearance: Appearance;
   spacing: Spacing;
   showLegacyButton: boolean;
   isIconOnly: boolean;
+  elementType: typeof HTMLButtonElement | typeof HTMLAnchorElement;
 } & ComponentVersion) => {
   const isLegacyIconButton = isIconOnly && version === 'legacy';
 
@@ -135,11 +137,15 @@ const ExampleRow = ({
           </LoadingButton>
         ) : (
           <Component
-            isLoading
             // @ts-ignore
             appearance={appearance}
             // @ts-ignore
             spacing={spacing}
+            {...(elementType === HTMLButtonElement
+              ? {
+                  isLoading: true,
+                }
+              : [])}
           >
             {isLegacyIconButton ? null : capitalize(appearance)}
           </Component>
@@ -198,9 +204,9 @@ const ExampleRow = ({
           <Component
             // @ts-ignore
             appearance={appearance}
-            shouldFitContainer
             // @ts-ignore
             spacing={spacing}
+            {...(isIconOnly ? [] : { shouldFitContainer: true })}
           >
             {isIconOnly ? null : 'Hello'}
           </Component>
@@ -240,7 +246,13 @@ export default function AppearancesExample() {
       />
       <Stack space="space.200">
         {variants.map(
-          ({ name, Component: NewButtonComponent, appearances, spacing }) => {
+          ({
+            name,
+            elementType,
+            Component: NewButtonComponent,
+            appearances,
+            spacing,
+          }) => {
             const isIconOnly = ['IconButton', 'LinkIconButton'].includes(name);
             return (
               <Stack space="space.100" key={name}>
@@ -283,6 +295,7 @@ export default function AppearancesExample() {
                                 spacing={space}
                                 version="legacy"
                                 isIconOnly={isIconOnly}
+                                elementType={elementType}
                               />
                             )}
                             <ExampleRow
@@ -292,6 +305,7 @@ export default function AppearancesExample() {
                               spacing={space}
                               version="new"
                               isIconOnly={isIconOnly}
+                              elementType={elementType}
                             />
                           </Fragment>
                         ))}

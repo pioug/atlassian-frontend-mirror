@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 1.2.0
+
+### Minor Changes
+
+- [#87603](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87603) [`07a08e440f76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/07a08e440f76) - Added support for React 18
+
 ## 1.1.0
 
 ### Minor Changes

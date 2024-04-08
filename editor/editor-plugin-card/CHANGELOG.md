@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 1.4.2
+
+### Patch Changes
+
+- [#87585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87585) [`b9e0cbd0958b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9e0cbd0958b) - [ux] Fix hyperlink toolbar to render list view icon only when datasources is explicitly set to true by parent property
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

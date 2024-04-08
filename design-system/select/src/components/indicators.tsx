@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
+import { FC } from 'react';
 import { components } from 'react-select';
 import {
   ClearIndicatorProps,
@@ -17,12 +18,7 @@ const iconContainerStyles = css({
   alignItems: 'center',
 });
 
-export const ClearIndicator = <
-  Option extends unknown,
-  IsMulti extends boolean = false,
->(
-  props: ClearIndicatorProps<Option, IsMulti>,
-) => (
+export const ClearIndicator: FC<ClearIndicatorProps<any>> = (props) => (
   <components.ClearIndicator
     {...{
       ...props,
@@ -35,23 +31,13 @@ export const ClearIndicator = <
   </components.ClearIndicator>
 );
 
-export const DropdownIndicator = <
-  Option extends unknown,
-  IsMulti extends boolean = false,
->(
-  props: DropdownIndicatorProps<Option, IsMulti>,
-) => (
+export const DropdownIndicator: FC<DropdownIndicatorProps<any>> = (props) => (
   <components.DropdownIndicator {...props}>
     <DownIcon label="open" />
   </components.DropdownIndicator>
 );
 
-export const LoadingIndicator = <
-  Option extends unknown,
-  IsMulti extends boolean = false,
->(
-  props: LoadingIndicatorProps<Option, IsMulti>,
-) => {
+export const LoadingIndicator: FC<LoadingIndicatorProps<any>> = (props) => {
   const loadingStyles = css(props.getStyles('loadingIndicator', props));
   return (
     // This *must* be constructed this way because this is being consumed by

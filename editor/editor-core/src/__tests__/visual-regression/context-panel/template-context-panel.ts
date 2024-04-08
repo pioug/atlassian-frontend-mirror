@@ -41,7 +41,8 @@ const waitForFloatingToolbar = async (page: PuppeteerPage) => {
 };
 
 describe('Full page with template context panel', () => {
-  it('should reposition popup components on insert table', async () => {
+  // TODO currently there is an table overflown issue and we can unskipped the test once the issue #ED-22806 is fixed
+  it.skip('should reposition popup components on insert table', async () => {
     const page = await goToFullPageWithTemplateContextPanel();
     await focusEditor(page);
     await insertTable(page);

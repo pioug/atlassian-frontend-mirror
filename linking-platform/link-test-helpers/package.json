@@ -42,7 +42,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-types": "^8.7.0",
+    "@atlaskit/linking-types": "^8.8.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",
     "@testing-library/react": "^12.1.5",

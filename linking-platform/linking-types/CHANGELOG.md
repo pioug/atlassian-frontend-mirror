@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.8.0
+
+### Minor Changes
+
+- [#87079](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87079) [`b3f493af070b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3f493af070b) - [ux] Added optional `color` and `url` field to datasource-types.ts to update the possible properties of Tags (Labels) and how they are rendered.
+
 ## 8.7.1
 
 ### Patch Changes

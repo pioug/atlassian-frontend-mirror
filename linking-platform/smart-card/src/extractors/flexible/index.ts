@@ -2,7 +2,6 @@ import { JsonLd } from 'json-ld-types';
 import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { extractSummary } from '../common/primitives';
 import extractActions from './actions';
-import extractFollowAction from './actions/extract-follow-action';
 import { extractLinkIcon } from './icon';
 import {
   extractAttachmentCount,
@@ -43,7 +42,6 @@ import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';
 import extractState from './extract-state';
 import { extractLatestCommit, LinkTypeLatestCommit } from './latest-commit';
-import { extractDownloadAction } from './actions/extract-download-action';
 import { extractViewAction } from './actions/extract-view-action';
 import { ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 
@@ -62,7 +60,7 @@ const extractFlexibleUiContext = ({
   const url = extractLink(data);
 
   return {
-    actions: extractActions(response, actionOptions),
+    actions: extractActions(response, data, actionOptions, id),
     assignedToGroup: extractPersonAssignedToAsArray(
       data as JsonLd.Data.Task | JsonLd.Data.TaskType,
     ),
@@ -80,9 +78,7 @@ const extractFlexibleUiContext = ({
     assignedTo: extractAssignedTo(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
-    followAction: extractFollowAction(response, actionOptions, id),
     viewAction: extractViewAction(data, actionOptions),
-    downloadAction: extractDownloadAction(data, actionOptions),
     latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
     linkIcon: extractLinkIcon(response, renderers),
     location: extractLocation(data),

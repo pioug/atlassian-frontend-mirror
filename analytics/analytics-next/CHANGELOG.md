@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.2.3
+
+### Patch Changes
+
+- [#87314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87314) [`36ccb66917fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36ccb66917fb) - Fix a bug in ModernAnalyticsContext when it's bit late to update data in new React context when mounting a component
+
 ## 9.2.2
 
 ### Patch Changes

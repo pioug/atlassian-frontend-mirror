@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.52.0
+
+### Minor Changes
+
+- [#87468](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87468) [`c93de2e39c73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c93de2e39c73) - [ux] Removes image for 'not found' links in Flexible Block Card
+
+### Patch Changes
+
+- [#87862](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87862) [`f47cde6d6abd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f47cde6d6abd) - Refactoring FollowAction to context.action
+- [#87097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87097) [`5d81dab96f45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d81dab96f45) - Refactor FelibleCard's DownloadAction creation
+- [#87006](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87006) [`9b1883e717d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b1883e717d2) - Refactor AISummaryBlockResolvedView to support VR testing
+
 ## 26.51.0
 
 ### Minor Changes

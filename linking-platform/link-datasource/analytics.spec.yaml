@@ -13,7 +13,7 @@ context:
       description: The source where the event is fired from.
   AnalyticsContextAttributes: &AnalyticsContextAttributes
     dataProvider:
-      type: ["jira-issues", "jsm-assets"]
+      type: ["jira-issues", "jsm-assets", "confluence-search"]
       description: Data provider that the configuration modal supports.
 
 attributes:

@@ -35,7 +35,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/select": "^17.4.0",
+    "@atlaskit/select": "^17.5.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
     "@atlaskit/tooltip": "^18.1.0",

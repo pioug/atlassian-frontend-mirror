@@ -30,7 +30,7 @@
   "dependencies": {
     "@atlaskit/badge": "^15.3.0",
     "@atlaskit/banner": "^12.2.0",
-    "@atlaskit/button": "^17.8.0",
+    "@atlaskit/button": "^17.9.0",
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/dynamic-table": "^14.16.0",
@@ -44,7 +44,7 @@
     "@atlaskit/radio": "^6.1.0",
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/select": "^17.4.0",
+    "@atlaskit/select": "^17.5.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/tabs": "^14.0.0",
     "@atlaskit/tag": "^12.0.0",

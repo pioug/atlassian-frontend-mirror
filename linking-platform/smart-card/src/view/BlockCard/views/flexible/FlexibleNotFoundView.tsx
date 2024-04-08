@@ -48,7 +48,7 @@ const FlexibleNotFoundView = ({
   );
 
   return (
-    <UnresolvedView {...props} showPreview={true} testId={testId} title={title}>
+    <UnresolvedView {...props} testId={testId} title={title}>
       <LockIcon
         label="not-found-lock-icon"
         size="small"

@@ -48,6 +48,29 @@ jest.mock('../../ui/issue-like-table', () => ({
 
 export type ProviderType = 'jira' | 'confluence-search';
 
+// TODO: further refactoring in EDM-9573
+// some extension keys can be {key}-object-provider
+// but others like confluence will need to use the first part of the key
+const extensionKey = (providerType: ProviderType) =>
+  providerType === 'jira'
+    ? `${providerType}-object-provider`
+    : 'confluence-object-provider';
+
+// TODO: further refactoring in EDM-9573
+// additional providers will have different destination object types
+const destinationObjectTypes = (providerType: ProviderType) =>
+  providerType === 'jira'
+    ? ['issue']
+    : [
+        'page',
+        'attachment',
+        'blogpost',
+        'space',
+        'comment',
+        'whiteboard',
+        'database',
+      ];
+
 type AnalyticsPayloadOverride = {
   attributes?: object;
 };
@@ -89,8 +112,8 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
     ],
     defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
     totalCount: 3,
-    destinationObjectTypes: ['issue'],
-    extensionKey: `${providerType}-object-provider`,
+    destinationObjectTypes: destinationObjectTypes(providerType),
+    extensionKey: extensionKey(providerType),
   });
 
   const getSingleResponseItemHookState: (
@@ -146,8 +169,8 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
     onNextPage: jest.fn(),
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
-    destinationObjectTypes: ['issue'],
-    extensionKey: `${providerType}-object-provider`,
+    destinationObjectTypes: destinationObjectTypes(providerType),
+    extensionKey: extensionKey(providerType),
   });
 
   const getErrorHookState: () => DatasourceTableState = () => ({
@@ -160,8 +183,8 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
     totalCount: undefined,
-    destinationObjectTypes: ['issue'],
-    extensionKey: `${providerType}-object-provider`,
+    destinationObjectTypes: destinationObjectTypes(providerType),
+    extensionKey: extensionKey(providerType),
   });
 
   const getInsertAnalyticPayload = <
@@ -184,10 +207,10 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
         ...override,
         attributes: {
           actions: [],
-          destinationObjectTypes: ['issue'],
+          destinationObjectTypes: destinationObjectTypes(providerType),
           display: 'datasource_table',
           displayedColumnCount: 1,
-          extensionKey: `${providerType}-object-provider`,
+          extensionKey: extensionKey(providerType),
           searchCount: 0,
           searchMethod: null,
           totalItemCount: 3,

@@ -20,8 +20,8 @@
 
 ### Minor Changes
 
-- [#86400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86400) [`92f574fd392d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92f574fd392d) - - Anchor now suffixes the accessible label with visually hidden text "(opens new window)" when `target` is set to `_blank`. This improves accessibility for screen readers.
-  - Anchor no longer automatically opens external links in new windows, which is a poor usability and accessibility practice. Previously this involved applying default attributes `rel="noopener noreferrer"` and `target="_blank"` when the link was detected to link externally.
+- [#86400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86400) [`92f574fd392d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92f574fd392d) - Anchor now suffixes the accessible label with visually hidden text "(opens new window)" when `target` is set to `_blank`. This improves accessibility for screen readers.
+- Anchor no longer automatically opens external links in new windows, which is a poor usability and accessibility practice. Previously this involved applying default attributes `rel="noopener noreferrer"` and `target="_blank"` when the link was detected to link externally.
 
 ## 5.2.0
 

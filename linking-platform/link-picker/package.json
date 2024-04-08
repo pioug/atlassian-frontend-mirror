@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.34.6",
+  "version": "1.34.7",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -50,9 +50,6 @@
     "platform.linking-platform.link-picker.enable-jira-create": {
       "type": "boolean"
     },
-    "platform.linking-platform.link-picker.use-onsubmitcapture": {
-      "type": "boolean"
-    },
     "platform.linking-platform.link-picker.remove-dst-empty-state": {
       "type": "boolean"
     }
@@ -62,7 +59,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.8.0",
+    "@atlaskit/button": "^17.9.0",
     "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/form": "^9.1.0",
     "@atlaskit/frontend-utilities": "^2.7.0",

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.34.7
+
+### Patch Changes
+
+- [#87202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87202) [`fe89dc2c3c0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe89dc2c3c0a) - EDM-9608 Cleanup onSubmitCapture feature flag in link picker
+
 ## 1.34.6
 
 ### Patch Changes

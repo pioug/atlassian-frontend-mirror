@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi",
+                  "marks": [
+                    {
+                      "type": "em"
+                    },
+                    {
+                      "type": "underline"
+                    }
+                  ]
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "mention",
+                  "attrs": {
+                    "id": "2",
+                    "text": "@Verdie Carrales",
+                    "accessLevel": ""
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                },
+                {
+                  "type": "emoji",
+                  "attrs": {
+                    "shortName": ":grin:",
+                    "id": "1f601",
+                    "text": "😁"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": " "
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

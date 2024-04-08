@@ -3,7 +3,6 @@
 import { css } from '@emotion/react';
 
 import { akEditorShadowZIndex } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -44,11 +43,7 @@ const shadowSharedStyle = css({
     background: `linear-gradient( to left, transparent 0, ${token(
       'elevation.shadow.overflow.spread',
       N40A,
-    )} ${
-      getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-        ? 140
-        : 100
-    }% ), linear-gradient( to right, ${token(
+    )} 140% ), linear-gradient( to right, ${token(
       'elevation.shadow.overflow.perimeter',
       'transparent',
     )} 0px, transparent 1px )`,
@@ -60,11 +55,7 @@ const shadowSharedStyle = css({
     background: `linear-gradient( to right, transparent 0, ${token(
       'elevation.shadow.overflow.spread',
       N40A,
-    )} ${
-      getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-        ? 140
-        : 100
-    }% ), linear-gradient( to left, ${token(
+    )} 140% ), linear-gradient( to left, ${token(
       'elevation.shadow.overflow.perimeter',
       'transparent',
     )} 0px, transparent 1px )`,

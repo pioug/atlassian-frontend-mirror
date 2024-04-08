@@ -10,6 +10,7 @@ import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import { useSmartCardState } from '../../../state/store';
 import { JsonLd } from 'json-ld-types';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
+import { di } from 'react-magnetic-di';
 
 const ConnectedAIPrismContainer = ({
   children,
@@ -18,6 +19,8 @@ const ConnectedAIPrismContainer = ({
   url,
   ...props
 }: ContentContainerProps) => {
+  di(useAISummary, AIPrism);
+
   const cardState = useSmartCardState(url);
   const data = cardState?.details?.data as JsonLd.Data.BaseData;
   const dataUrl = extractLink(data) ?? '';

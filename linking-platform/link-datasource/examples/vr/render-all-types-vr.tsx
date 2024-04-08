@@ -213,6 +213,25 @@ const items: Item[] = [
           text: 'Simple Tag',
         },
       ],
+      [
+        {
+          text: 'Linked & No Color',
+          url: 'www.myanklehurtsxyz.com.au',
+        },
+      ],
+      [
+        {
+          text: 'Color & No Link',
+          color: 'green',
+        },
+      ],
+      [
+        {
+          text: 'Color & Linked',
+          color: 'green',
+          url: 'www.myanklehurtsxyz.com.au',
+        },
+      ],
     ],
   },
   {

@@ -9,8 +9,6 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import ViewAction from './action/view-action';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
-import DownloadAction from './action/download-action';
-import DownloadIcon from '@atlaskit/icon/glyph/download';
 
 const actionMappings: {
   [key in ActionName]?: { component: React.FC<any> | undefined; props?: any };
@@ -47,15 +45,6 @@ const actionMappings: {
       tooltipMessage: <FormattedMessage {...messages.view} />,
     },
   },
-  [ActionName.DownloadAction]: {
-    component: DownloadAction,
-    props: {
-      testId: 'smart-action-download-action',
-      content: <FormattedMessage {...messages.download} />,
-      icon: <DownloadIcon label="Download" />,
-      tooltipMessage: <FormattedMessage {...messages.download} />,
-    },
-  },
 };
 
 const getContextKey = (name: ActionName) => {
@@ -78,7 +67,6 @@ const getActionData = (
   const data = context[contextKey as keyof typeof context];
   switch (actionName) {
     case ActionName.ViewAction:
-    case ActionName.DownloadAction:
       return data;
     default:
       return undefined;

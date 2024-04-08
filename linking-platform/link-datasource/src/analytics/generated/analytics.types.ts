@@ -13,7 +13,7 @@ export type AnalyticsContextType = {
   source: 'datasourceConfigModal';
 };
 export type AnalyticsContextAttributesType = {
-  dataProvider: 'jira-issues' | 'jsm-assets';
+  dataProvider: 'jira-issues' | 'jsm-assets' | 'confluence-search';
 };
 
 export type DatasourceModalDialogViewedAttributesType = {};

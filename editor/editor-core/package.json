@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.8.4",
+  "version": "193.8.7",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.8.0",
+    "@atlaskit/button": "^17.9.0",
     "@atlaskit/editor-common": "^78.23.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^2.0.0",
@@ -89,7 +89,7 @@
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/collab-provider": "9.25.15",
     "@atlaskit/dropdown-menu": "^12.8.0",
-    "@atlaskit/editor-plugin-annotation": "1.5.5",
+    "@atlaskit/editor-plugin-annotation": "1.5.6",
     "@atlaskit/editor-plugin-card": "^1.4.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.5",
@@ -104,9 +104,9 @@
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/renderer": "^109.13.0",
-    "@atlaskit/select": "^17.4.0",
-    "@atlaskit/smart-card": "^26.51.0",
+    "@atlaskit/renderer": "^109.14.0",
+    "@atlaskit/select": "^17.5.0",
+    "@atlaskit/smart-card": "^26.52.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
@@ -114,7 +114,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.46",
+    "@atlassian/search-provider": "2.4.47",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -219,10 +219,6 @@
       "referenceOnly": "true"
     },
     "platform.media-experience.card-views-refactor_b91lr": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean",
       "referenceOnly": "true"
     },

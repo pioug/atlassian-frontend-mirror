@@ -1,20 +1,20 @@
 import InviteTeamIcon from '@atlaskit/icon/glyph/invite-team';
-import React, { useContext } from 'react';
+import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
+import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
-
-import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context';
 import ServerAction from '../action/server-action';
-import type { ActionProps } from '../action/types';
+import { FollowActionProps } from './types';
 import UnfollowIcon from './unfollow-icon';
 
-const FollowAction: React.FC<ActionProps> = (props) => {
-  const context = useContext(FlexibleUiContext);
-  if (!context || !context.followAction) {
+const FollowAction: React.FC<FollowActionProps> = (props) => {
+  const context = useFlexibleUiContext();
+  if (!context || !context?.actions?.[ActionName.FollowAction]) {
     return null;
   }
 
-  const { value, ...data } = context.followAction;
+  const { value, ...data } = context?.actions?.[ActionName.FollowAction];
   const message = value ? messages.follow : messages.unfollow;
   const icon = value ? (
     <InviteTeamIcon label="Follow" />

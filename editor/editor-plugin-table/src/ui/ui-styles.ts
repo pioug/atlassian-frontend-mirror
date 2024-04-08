@@ -38,7 +38,6 @@ import {
   tableDeleteButtonSize,
   tableHeaderCellBackgroundColor,
   tableInsertColumnButtonSize,
-  tableOverflowShadowWidth,
   tableOverflowShadowWidthWide,
   tableToolbarDeleteColor,
   tableToolbarSelectedColor,
@@ -346,22 +345,13 @@ export const OverflowShadow = (
     pointer-events: none;
     top: ${tableMarginTop}px;
     z-index: ${akEditorShadowZIndex};
-    width: ${getBooleanFF(
-      'platform.editor.table.increase-shadow-visibility_lh89r',
-    )
-      ? tableOverflowShadowWidthWide
-      : tableOverflowShadowWidth}px;
+    width: ${tableOverflowShadowWidthWide}px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
     background: linear-gradient(
         to left,
         transparent 0,
-        ${token('elevation.shadow.overflow.spread', N40A)}
-          ${getBooleanFF(
-            'platform.editor.table.increase-shadow-visibility_lh89r',
-          )
-            ? 140
-            : 100}%
+        ${token('elevation.shadow.overflow.spread', N40A)} 140%
       ),
       linear-gradient(
         to right,
@@ -377,12 +367,7 @@ export const OverflowShadow = (
     background: linear-gradient(
         to right,
         transparent 0,
-        ${token('elevation.shadow.overflow.spread', N40A)}
-          ${getBooleanFF(
-            'platform.editor.table.increase-shadow-visibility_lh89r',
-          )
-            ? 140
-            : 100}%
+        ${token('elevation.shadow.overflow.spread', N40A)} 140%
       ),
       linear-gradient(
         to left,
@@ -390,16 +375,8 @@ export const OverflowShadow = (
         transparent 1px
       );
     left: ${getBooleanFF('platform.editor.custom-table-width')
-      ? `calc(100% - ${
-          getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-            ? tableOverflowShadowWidthWide
-            : tableOverflowShadowWidth
-        }px)`
-      : `calc(100% - ${
-          getBooleanFF('platform.editor.table.increase-shadow-visibility_lh89r')
-            ? tableOverflowShadowWidthWide - 10
-            : -2
-        }px)`};
+      ? `calc(100% - ${tableOverflowShadowWidthWide}px)`
+      : `calc(100% - ${tableOverflowShadowWidthWide - 10}px)`};
   }
   .${ClassName.WITH_CONTROLS} {
     ${overflowShadowWidhoutDnD(isDragAndDropEnabled)}

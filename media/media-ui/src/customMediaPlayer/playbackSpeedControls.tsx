@@ -11,7 +11,7 @@ import {
   GroupedOptionsType,
   ActionMeta,
 } from '@atlaskit/select';
-import { N600 } from '@atlaskit/theme/colors';
+import { N600, DN900 } from '@atlaskit/theme/colors';
 import { NumericalCardDimensions } from '@atlaskit/media-common';
 import {
   FormattedMessage,
@@ -80,7 +80,7 @@ export class PlaybackSpeedControls extends Component<
     menuList: (styles) => ({ ...styles, padding: '4px 0px' }),
     option: (styles, { isFocused, isSelected }) => ({
       ...styles,
-      color: isSelected ? '#579dff' : 'inherit',
+      color: isSelected ? '#579dff' : DN900,
       backgroundColor: isSelected
         ? '#082145'
         : isFocused

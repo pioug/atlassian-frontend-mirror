@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 25
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi"
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "table",
+              "attrs": {
+                "isNumberColumnEnabled": false,
+                "layout": "default",
+                "localId": "47695948-c9f3-45ed-bbbe-7ee5e7c0c617"
+              },
+              "content": [
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableHeader",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "hi",
+                              "marks": [
+                                {
+                                  "type": "strong"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "more",
+                              "marks": [
+                                {
+                                  "type": "strong"
+                                }
+                              ]
+                            }
+                          ],
+                          "marks": [
+                            {
+                              "type": "alignment",
+                              "attrs": {
+                                "align": "center"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableHeader",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "things",
+                              "marks": [
+                                {
+                                  "type": "strong"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "content": [
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "tableCell",
+                      "attrs": {},
+                      "content": [
+                        {
+                          "type": "paragraph",
+                          "content": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 25
+          },
+          "content": [
+            {
+              "type": "panel",
+              "attrs": {
+                "panelType": "note"
+              },
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "more thing"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

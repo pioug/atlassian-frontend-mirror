@@ -97,27 +97,30 @@ function getColors({
   backgroundColor: BackgroundColor;
   color: TextColor;
 } {
+  const showSelectedState =
+    (isSelected || isHighlighted) && !isDisabled && !isActiveOverSelected;
+
   let key: keyof ColorGroup<any> = interactionState;
   // Overlay does not change color on interaction, revert to 'default' or resting state
   key = hasOverlay ? 'default' : key;
-  key =
-    isSelected || isHighlighted
-      ? isActiveOverSelected
-        ? 'active'
-        : 'selected'
-      : key;
+  key = showSelectedState && isActiveOverSelected ? 'active' : key;
+
   // Disabled colors overrule everything else
   key = isDisabled ? 'disabled' : key;
 
   return {
     backgroundColor: getColor<BackgroundColor>({
-      group: colors.background[appearance],
+      group:
+        (showSelectedState && colors.background[appearance]['selected']) ||
+        colors.background[showSelectedState ? 'selected' : appearance],
       key,
     }),
-    color: `${getColor<TextColor>({
-      group: colors.color[appearance],
+    color: getColor<TextColor>({
+      group:
+        (showSelectedState && colors.color[appearance]['selected']) ||
+        colors.color[showSelectedState ? 'selected' : appearance],
       key,
-    })}`,
+    }),
   };
 }
 

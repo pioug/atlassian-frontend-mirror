@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 109.14.0
+
+### Minor Changes
+
+- [#87313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87313) [`1789491c0687`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1789491c0687) - [ED-22804] Update renderer action deleteAnnotation to function with media node
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.13.1
+
+### Patch Changes
+
+- [#86408](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86408) [`6bff86c31d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bff86c31d81) - Clean up feature flag for increasing visibility of table scroll shadows
+
 ## 109.13.0
 
 ### Minor Changes

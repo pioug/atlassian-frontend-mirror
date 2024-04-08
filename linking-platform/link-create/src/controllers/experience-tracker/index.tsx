@@ -112,14 +112,8 @@ export const Experience = ({ children }: ExperienceProps) => {
         ).fire(ANALYTICS_CHANNEL);
 
         if (error instanceof Error) {
-          if (
-            getBooleanFF(
-              'platform.linking-platform.link-create.enable-sentry-client',
-            )
-          ) {
-            // Capture exception to Sentry
-            captureException(error, 'link-create');
-          }
+          // Capture exception to Sentry
+          captureException(error, 'link-create');
         }
 
         /**

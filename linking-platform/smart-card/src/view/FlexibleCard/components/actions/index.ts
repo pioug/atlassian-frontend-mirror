@@ -2,10 +2,10 @@ import { ActionName } from '../../../../constants';
 import { ActionProps } from './action/types';
 import { createDataAction, createUIAction } from './utils';
 import { ViewActionProps } from './action/view-action/types';
-import { DownloadActionProps } from './action/download-action/types';
 
 export { default as FollowAction } from './follow-action';
 export { default as PreviewAction } from './preview-action';
+export { default as DownloadAction } from './download-action';
 
 /**
  * Creates a DeleteAction component. Accepts default ActionProps, but defaults
@@ -29,15 +29,6 @@ export const EditAction = createUIAction<ActionProps>(ActionName.EditAction);
  */
 export const ViewAction = createDataAction<ViewActionProps>(
   ActionName.ViewAction,
-);
-
-/**
- * Creates a DownloadAction component. Accepts default DownloadActionProps, and defaults
- * to the text 'Download' inside the button.
- * @see Action
- */
-export const DownloadAction = createDataAction<DownloadActionProps>(
-  ActionName.DownloadAction,
 );
 
 /**

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.2.6
+
+### Patch Changes
+
+- [#88038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88038) [`19ac4de34153`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19ac4de34153) - update 'w3c-keyname' dependency to 2.1.8
+- Updated dependencies
+
 ## 1.2.5
 
 ### Patch Changes

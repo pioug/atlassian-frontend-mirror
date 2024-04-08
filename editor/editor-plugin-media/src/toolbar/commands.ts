@@ -80,7 +80,7 @@ export const changeInlineToMediaCard =
     })?.node;
 
     let tr = state.tr;
-
+    let insertPos;
     if (
       !!parent &&
       parent.content.size === 2 &&
@@ -90,7 +90,7 @@ export const changeInlineToMediaCard =
     ) {
       /// Empty paragraph or empty heading
       /// Drop the corresponding card on the current line
-      const insertPos = state.tr.doc.resolve(state.selection.from).start() - 1;
+      insertPos = state.tr.doc.resolve(state.selection.from).start() - 1;
       if (insertPos < 0) {
         return false;
       }
@@ -99,7 +99,7 @@ export const changeInlineToMediaCard =
     } else {
       /// Non-empty paragraph, non-empty heading, or other nodes (e.g., action, list)
       /// Drop the corresponding card underneath the current line
-      const insertPos = state.tr.doc.resolve(state.selection.from).end();
+      insertPos = state.tr.doc.resolve(state.selection.from).end();
       tr = removeSelectedNode(tr);
       tr = safeInsert(group, insertPos, false)(tr);
     }
@@ -115,9 +115,8 @@ export const changeInlineToMediaCard =
         },
       })(tr);
 
-      const nodePos = state.tr.doc.resolve(state.selection.from).end();
       if (getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')) {
-        const $endOfNode = tr.doc.resolve(nodePos + 1);
+        const $endOfNode = tr.doc.resolve(insertPos + 1);
         const newSelection = new NodeSelection($endOfNode);
         tr.setSelection(newSelection);
         forceFocusSelector?.(`.thumbnail-appearance`)(tr);

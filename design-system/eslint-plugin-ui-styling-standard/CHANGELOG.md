@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.8.0
+
+### Minor Changes
+
+- [#87972](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87972) [`1f420b2c4a9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f420b2c4a9f) - The `@atlaskit/design-system/no-styled-tagged-template-expression` rule will now lint against `styled-components` by default in the preset configurations.
+
+### Patch Changes
+
+- [#86779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86779) [`4b4bbf195e39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b4bbf195e39) - Created no nested selectors eslint rule to prevent setting styles for child elements
+
 ## 0.7.2
 
 ### Patch Changes

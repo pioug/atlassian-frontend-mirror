@@ -21,7 +21,14 @@
       "name": "Layout grid",
       "category": "Components",
       "status": {
-        "type": "closed-beta"
+        "type": "deprecated",
+        "description": "This package is deprecated. Use @atlaskit/primitives.Grid instead.",
+        "actions": [
+          {
+            "text": "View @atlaskit/primitives.Grid documentation",
+            "href": "https://atlassian.design/components/primitives/grid/examples"
+          }
+        ]
       }
     }
   },

@@ -22,7 +22,7 @@ import {
   EVENT_TYPE,
 } from '../analytics/types';
 
-import { shouldAutoLinkifyTld } from './should-auto-linkify-tld';
+import { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';
 
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
@@ -87,10 +87,20 @@ export function normalizeUrl(url?: string | null) {
   return normaliseLinkHref(url);
 }
 
+export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
+  if (
+    getBooleanFF('platform.linking-platform.prevent-suspicious-linkification')
+  ) {
+    return linkifyContentNew(schema);
+  }
+
+  return linkifyContentOld(schema);
+}
+
 /**
  * Linkify content in a slice (eg. after a rich text paste)
  */
-export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
+export function linkifyContentOld(schema: Schema): (slice: Slice) => Slice {
   return (slice: Slice): Slice =>
     mapSlice(slice, (node, parent) => {
       const isAllowedInParent =
@@ -102,13 +112,7 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
       if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
         const linkified = [] as Node[];
         const text = node.text!;
-        const matches = getBooleanFF(
-          'platform.linking-platform.prevent-suspicious-linkification',
-        )
-          ? findLinkMatches(text).filter((match) =>
-              shouldAutoLinkifyTld(match.title),
-            )
-          : findLinkMatches(text);
+        const matches = findLinkMatchesOld(text);
 
         let pos = 0;
         const filepaths = findFilepaths(text);
@@ -140,6 +144,54 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
     });
 }
 
+/**
+ * Linkify content in a slice (eg. after a rich text paste)
+ */
+export function linkifyContentNew(schema: Schema): (slice: Slice) => Slice {
+  return (slice: Slice): Slice =>
+    mapSlice(slice, (node, parent) => {
+      const isAllowedInParent =
+        !parent || parent.type !== schema.nodes.codeBlock;
+      const link = node.type.schema.marks.link;
+      if (link === undefined) {
+        throw new Error('Link not in schema - unable to linkify content');
+      }
+      if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
+        const linkified = [] as Node[];
+        const text = node.text!;
+
+        const matches = findLinkMatches(text).filter(shouldAutoLinkifyMatch);
+
+        let pos = 0;
+        const filepaths = findFilepaths(text);
+        matches.forEach((match) => {
+          if (isLinkInMatches(match.index, filepaths)) {
+            return;
+          }
+
+          if (match.index > 0) {
+            linkified.push(node.cut(pos, match.index));
+          }
+          linkified.push(
+            node
+              .cut(match.index, match.lastIndex)
+              .mark(
+                link
+                  .create({ href: normalizeUrl(match.url) })
+                  .addToSet(node.marks),
+              ),
+          );
+          pos = match.lastIndex;
+        });
+        if (pos < text.length) {
+          linkified.push(node.cut(pos));
+        }
+        return linkified;
+      }
+      return node;
+    });
+}
+
 export function getLinkDomain(url: string): string {
   // Remove protocol and www., if either exists
   const withoutProtocol = url.toLowerCase().replace(/^(.*):\/\//, '');
@@ -158,6 +210,18 @@ export function isFromCurrentDomain(url: string): boolean {
   return currentDomain === linkDomain;
 }
 
+/**
+ * Fetch linkify matches from text
+ * @param text Input text from a node
+ * @returns Array of linkify matches. Returns empty array if text is empty or no matches found;
+ */
+function findLinkMatches(text: string): Match[] {
+  if (text === '') {
+    return [];
+  }
+  return linkify.match(text) || [];
+}
+
 interface LinkMatch {
   start: number;
   end: number;
@@ -165,7 +229,7 @@ interface LinkMatch {
   href: string;
 }
 
-function findLinkMatches(text: string): LinkMatch[] {
+function findLinkMatchesOld(text: string): LinkMatch[] {
   const matches: LinkMatch[] = [];
   let linkMatches: '' | null | Match[] = text && linkify.match(text);
   if (linkMatches && linkMatches.length > 0) {
@@ -180,6 +244,7 @@ function findLinkMatches(text: string): LinkMatch[] {
   }
   return matches;
 }
+
 interface filepathMatch {
   startIndex: number;
   endIndex: number;

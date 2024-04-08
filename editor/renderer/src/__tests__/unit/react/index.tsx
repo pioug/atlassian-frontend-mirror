@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any -- TODO: remove this and fix types */
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
@@ -33,7 +34,7 @@ import * as mediaGroupFragment from '../../__fixtures__/media-group-fragment.jso
 import * as linkDoc from '../../__fixtures__/links.adf.json';
 import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json';
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
-import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
+import * as layoutWithMedia from '../../__fixtures__/layout-with-media.adf.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { AnalyticsEventPayload } from '../../../analytics/events';

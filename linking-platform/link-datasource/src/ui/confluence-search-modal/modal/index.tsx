@@ -12,6 +12,7 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Modal, {
@@ -26,6 +27,13 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { componentMetadata } from '../../../analytics/constants';
+import type {
+  AnalyticsContextAttributesType,
+  AnalyticsContextType,
+  ComponentMetaDataType,
+} from '../../../analytics/generated/analytics.types';
+import { DatasourceAction } from '../../../analytics/types';
 import { Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
@@ -37,6 +45,7 @@ import { ModalLoadingError } from '../../common/error-state/modal-loading-error'
 import { NoInstancesView } from '../../common/error-state/no-instances';
 import { NoResults } from '../../common/error-state/no-results';
 import { InitialStateView } from '../../common/initial-state-view';
+import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
@@ -61,7 +70,7 @@ const searchCountStyles = xcss({
   fontWeight: 600,
 });
 
-export const ConfluenceSearchConfigModal = (
+export const PlainConfluenceSearchConfigModal = (
   props: ConfluenceSearchConfigModalProps,
 ) => {
   const { current: modalRenderInstanceId } = useRef(uuidv4());
@@ -87,6 +96,10 @@ export const ConfluenceSearchConfigModal = (
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(
     initialVisibleColumnKeys,
   );
+
+  // analytics related parameters
+  const searchCount = useRef(0);
+  const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
 
   // TODO: further refactoring in EDM-9573
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829210
@@ -115,8 +128,9 @@ export const ConfluenceSearchConfigModal = (
     columns,
     defaultVisibleColumnKeys,
     loadDatasourceDetails,
-    extensionKey = null,
     totalCount,
+    extensionKey = null,
+    destinationObjectTypes,
   } = useDatasourceTableState({
     datasourceId,
     parameters: isParametersSet ? parameters : undefined,
@@ -341,8 +355,8 @@ export const ConfluenceSearchConfigModal = (
       }),
     );
   }, [
-    cloudId,
     isParametersSet,
+    cloudId,
     onInsert,
     datasourceId,
     parameters,
@@ -353,6 +367,8 @@ export const ConfluenceSearchConfigModal = (
 
   const onSearch = useCallback(
     (newSearchString: string) => {
+      searchCount.current++;
+      userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
       setSearchString(newSearchString);
       reset({ shouldForceRequest: true });
     },
@@ -364,6 +380,15 @@ export const ConfluenceSearchConfigModal = (
     status === 'rejected' ||
     status === 'unauthorized' ||
     status === 'loading';
+
+  const getCancelButtonAnalyticsPayload = useCallback(() => {
+    return {
+      extensionKey,
+      destinationObjectTypes,
+      searchCount: searchCount.current,
+      actions: Array.from(userInteractionActions.current),
+    };
+  }, [destinationObjectTypes, extensionKey]);
 
   return (
     <IntlMessagesProvider
@@ -432,11 +457,11 @@ export const ConfluenceSearchConfigModal = (
               </LinkUrl>
             </Box>
           )}
-          <Button appearance="default" onClick={onCancel}>
-            <FormattedMessage
-              {...confluenceSearchModalMessages.cancelButtonText}
-            />
-          </Button>
+          <CancelButton
+            onCancel={onCancel}
+            getAnalyticsPayload={getCancelButtonAnalyticsPayload}
+            testId="confluence-search-modal--cancel-button"
+          />
           {!hasNoConfluenceSites && (
             <Button
               appearance="primary"
@@ -454,3 +479,23 @@ export const ConfluenceSearchConfigModal = (
     </IntlMessagesProvider>
   );
 };
+
+const analyticsContextAttributes: AnalyticsContextAttributesType = {
+  dataProvider: 'confluence-search',
+};
+
+const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
+  ...componentMetadata.configModal,
+  source: 'datasourceConfigModal',
+};
+
+const contextData = {
+  ...analyticsContextData,
+  attributes: {
+    ...analyticsContextAttributes,
+  },
+};
+
+export const ConfluenceSearchConfigModal = withAnalyticsContext(contextData)(
+  PlainConfluenceSearchConfigModal,
+);

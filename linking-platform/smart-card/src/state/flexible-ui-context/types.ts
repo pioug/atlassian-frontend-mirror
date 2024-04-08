@@ -55,12 +55,6 @@ export type FlexibleUiDataContext = {
    */
   dueOn?: string;
   /**
-   * Contains data needed to perform follow action.
-   * @type PreviewActionData
-   * @see FollowAction
-   */
-  followAction?: ServerActionProp<boolean>;
-  /**
    * Contains the number of views of the linked resource.
    * @type number
    * @see ViewCount
@@ -115,13 +109,6 @@ export type FlexibleUiDataContext = {
    * @see ViewAction
    */
   viewAction?: ViewActionData;
-
-  /**
-   * Contains data needed to show a download action.
-   * @type DownloadActionData
-   * @see DownloadAction
-   */
-  downloadAction?: DownloadActionData;
 
   /**
    * Contains the information about the latest commit in the repository
@@ -264,6 +251,8 @@ export type Media = {
 export type FlexibleUiActions = {
   /* Contains data needed to show a preview action that open embed modal.*/
   [ActionName.PreviewAction]?: PreviewActionData;
+  [ActionName.DownloadAction]?: DownloadActionData;
+  [ActionName.FollowAction]?: ServerActionProp<boolean>;
 };
 
 export type PreviewActionData = {

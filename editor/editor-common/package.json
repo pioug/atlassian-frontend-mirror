@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "78.23.3",
+  "version": "78.23.6",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -163,7 +163,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.8.0",
+    "@atlaskit/button": "^17.9.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/custom-steps": "^0.0.17",
@@ -176,7 +176,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^1.24.0",
+    "@atlaskit/link-datasource": "^1.25.0",
     "@atlaskit/link-picker": "^1.34.0",
     "@atlaskit/media-card": "^77.10.0",
     "@atlaskit/media-client": "^26.2.0",
@@ -184,7 +184,7 @@
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-file-preview": "^0.5.0",
     "@atlaskit/media-picker": "^66.4.0",
-    "@atlaskit/media-ui": "^25.4.0",
+    "@atlaskit/media-ui": "^25.5.0",
     "@atlaskit/media-viewer": "48.4.3",
     "@atlaskit/mention": "^23.0.0",
     "@atlaskit/menu": "^2.1.0",
@@ -192,7 +192,7 @@
     "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/profilecard": "^19.11.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/smart-card": "^26.51.0",
+    "@atlaskit/smart-card": "^26.52.0",
     "@atlaskit/smart-user-picker": "^6.9.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/task-decision": "^17.9.0",
@@ -224,7 +224,7 @@
     "react-loadable": "^5.1.0",
     "react-virtualized": "^9.8.0",
     "rusha": "^0.8.13",
-    "w3c-keyname": "^2.1.0"
+    "w3c-keyname": "^2.1.8"
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^34.2.0",
@@ -288,9 +288,6 @@
       "type": "boolean"
     },
     "platform.linking-platform.datasource-assets_objects": {
-      "type": "boolean"
-    },
-    "platform.editor.table.increase-shadow-visibility_lh89r": {
       "type": "boolean"
     },
     "platform.editor.menu.group-items": {

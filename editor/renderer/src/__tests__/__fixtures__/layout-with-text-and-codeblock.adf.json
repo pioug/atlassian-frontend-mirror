@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi",
+                  "marks": [
+                    {
+                      "type": "textColor",
+                      "attrs": {
+                        "color": "#0747a6"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "end"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 50
+          },
+          "content": [
+            {
+              "type": "codeBlock",
+              "attrs": {},
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

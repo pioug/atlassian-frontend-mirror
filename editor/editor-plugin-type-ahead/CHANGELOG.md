@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.0.9
+
+### Patch Changes
+
+- [#88038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88038) [`19ac4de34153`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19ac4de34153) - update 'w3c-keyname' dependency to 2.1.8
+
 ## 1.0.8
 
 ### Patch Changes

@@ -37,33 +37,16 @@ export const ErrorBoundary = ({
           'platform.linking-platform.link-create.better-observability',
         )
       ) {
-        if (
-          getBooleanFF(
-            'platform.linking-platform.link-create.enable-sentry-client',
-          )
-        ) {
-          // Capture exception to Sentry
-          captureException(error, 'link-create');
-        }
+        // Capture exception to Sentry
+        captureException(error, 'link-create');
       }
 
       createAnalyticsEvent(
-        createEventPayload(
-          'operational.linkCreate.unhandledErrorCaught',
-          getBooleanFF(
-            'platform.linking-platform.link-create.enable-sentry-client',
-          )
-            ? {
-                browserInfo: window?.navigator?.userAgent || 'unknown',
-                error: error.name,
-                componentStack: 'unknown',
-              }
-            : {
-                browserInfo: window?.navigator?.userAgent || 'unknown',
-                error: error.toString(),
-                componentStack: info?.componentStack ?? '',
-              },
-        ),
+        createEventPayload('operational.linkCreate.unhandledErrorCaught', {
+          browserInfo: window?.navigator?.userAgent || 'unknown',
+          error: error.name,
+          componentStack: 'unknown',
+        }),
       ).fire(ANALYTICS_CHANNEL);
 
       if (

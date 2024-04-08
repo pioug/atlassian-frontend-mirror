@@ -1,0 +1,87 @@
+import { snapshot } from '@af/visual-regression';
+
+import FlexUiBlockAiSummaryReady from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-ready';
+import FlexUiBlockAiSummaryLoading from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-loading';
+import FlexUiBlockAiSummaryDone from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-done';
+import FlexUiBlockAiSummaryDoneOnMount from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-done-on-mount';
+import FlexUiBlockAiSummaryError from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary-error';
+
+snapshot(FlexUiBlockAiSummaryReady, {
+  drawsOutsideBounds: true,
+  states: [
+    {
+      selector: {
+        byTestId: 'smart-element-link',
+      },
+      state: 'hovered',
+    },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': [
+      true,
+      false,
+    ],
+  },
+});
+
+snapshot(FlexUiBlockAiSummaryLoading, {
+  drawsOutsideBounds: true,
+  states: [
+    {
+      selector: {
+        byTestId: 'smart-element-link',
+      },
+      state: 'hovered',
+    },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+  },
+});
+
+snapshot(FlexUiBlockAiSummaryDone, {
+  drawsOutsideBounds: true,
+  states: [
+    {
+      selector: {
+        byTestId: 'smart-element-link',
+      },
+      state: 'hovered',
+    },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+    'platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable':
+      [true, false],
+  },
+});
+
+snapshot(FlexUiBlockAiSummaryDoneOnMount, {
+  drawsOutsideBounds: true,
+  states: [
+    {
+      selector: {
+        byTestId: 'smart-element-link',
+      },
+      state: 'hovered',
+    },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+  },
+});
+
+snapshot(FlexUiBlockAiSummaryError, {
+  drawsOutsideBounds: true,
+  states: [
+    {
+      selector: {
+        byTestId: 'smart-element-link',
+      },
+      state: 'hovered',
+    },
+  ],
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': true,
+  },
+});

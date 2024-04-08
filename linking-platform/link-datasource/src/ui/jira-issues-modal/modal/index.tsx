@@ -67,6 +67,7 @@ import { NoInstancesView } from '../../common/error-state/no-instances';
 import { NoResults } from '../../common/error-state/no-results';
 import { InitialStateView } from '../../common/initial-state-view';
 import { initialStateViewMessages } from '../../common/initial-state-view/messages';
+import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
@@ -260,12 +261,13 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     }
   }, [availableSites, cloudId]);
 
-  const analyticsPayload = useMemo(() => {
-    return {
-      extensionKey: extensionKey,
-      destinationObjectTypes: destinationObjectTypes,
-    };
-  }, [destinationObjectTypes, extensionKey]);
+  const analyticsPayload = useMemo(
+    () => ({
+      extensionKey,
+      destinationObjectTypes,
+    }),
+    [destinationObjectTypes, extensionKey],
+  );
 
   const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
   const jqlUrl =
@@ -428,28 +430,6 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       reset({ shouldForceRequest: true });
     },
     [jql, reset],
-  );
-
-  const onCancelClick = useCallback(
-    (
-      e: React.MouseEvent<HTMLElement, MouseEvent>,
-      analyticEvent: UIAnalyticsEvent,
-    ) => {
-      analyticEvent
-        .update({
-          eventType: 'ui',
-          actionSubjectId: 'cancel',
-          attributes: {
-            ...analyticsPayload,
-            searchCount: searchCount.current,
-            actions: Array.from(userInteractionActions.current),
-          },
-        })
-        .fire(EVENT_CHANNEL);
-
-      onCancel();
-    },
-    [analyticsPayload, onCancel],
   );
 
   const onSiteSelection = useCallback(
@@ -793,6 +773,14 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       ? modalMessages.insertIssuesTitleManySites
       : modalMessages.insertIssuesTitle;
 
+  const getCancelButtonAnalyticsPayload = useCallback(() => {
+    return {
+      ...analyticsPayload,
+      searchCount: searchCount.current,
+      actions: Array.from(userInteractionActions.current),
+    };
+  }, [analyticsPayload]);
+
   return (
     <IntlMessagesProvider
       defaultMessages={i18nEN}
@@ -869,9 +857,11 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
                 </LinkUrl>
               </div>
             )}
-            <Button appearance="default" onClick={onCancelClick}>
-              <FormattedMessage {...modalMessages.cancelButtonText} />
-            </Button>
+            <CancelButton
+              onCancel={onCancel}
+              getAnalyticsPayload={getCancelButtonAnalyticsPayload}
+              testId="jira-datasource-modal--cancel-button"
+            />
             {!hasNoJiraSites && (
               <Button
                 appearance="primary"

@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "layoutSection",
+      "content": [
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi"
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "hi"
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ],
+              "marks": [
+                {
+                  "type": "alignment",
+                  "attrs": {
+                    "align": "center"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "layoutColumn",
+          "attrs": {
+            "width": 33.33
+          },
+          "content": [
+            {
+              "type": "expand",
+              "attrs": {
+                "title": "asd"
+              },
+              "content": [
+                {
+                  "type": "heading",
+                  "attrs": {
+                    "level": 3
+                  },
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "more content"
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "more"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "more"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

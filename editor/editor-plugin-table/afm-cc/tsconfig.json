@@ -28,6 +28,9 @@
             "path": "../../editor-palette/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-accessibility-utils/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {

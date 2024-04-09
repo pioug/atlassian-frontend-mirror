@@ -60,7 +60,6 @@ describe('Team Option', () => {
       <SizeableAvatar
         appearance="big"
         src="https://avatars.atlassian.com/team-1.png"
-        name="Team-1"
         type="team"
       />,
     );
@@ -86,7 +85,6 @@ describe('Team Option', () => {
       <SizeableAvatar
         appearance="big"
         src="https://avatars.atlassian.com/team-1.png"
-        name="Team-1"
         type="team"
       />,
     );

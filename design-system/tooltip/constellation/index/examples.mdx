@@ -19,25 +19,25 @@ The default form of a tooltip.
 
 ## Positioning
 
-Use the `position` prop to set a preferred position (auto, top, right, left, or bottom). The tooltip will move automatically if it is near the edge of the screen.
+Use the `position` prop to set a preferred position (`auto`, `top`, `right`, `left`, or `bottom`). The tooltip will move automatically if it's near the edge of the screen.
 
 Using a position of `auto` will place the tooltip on the side with the most space available.
 
 <Example Component={TooltipPosition} packageName="@atlaskit/tooltip" />
 
-If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mousePosition` if you want to customize where the tooltip shows in relation to the mouse.
+If set to `mouse`, the tooltip will display next to the mouse pointer. Use `mousePosition` to customize where the tooltip shows in relation to the mouse.
 
 <Example Component={TooltipPositionMouse} packageName="@atlaskit/tooltip" />
 
 ## Custom component
 
-The tooltip component accepts a component prop, which enables people to customize the look and feel of the tooltip area. Never put links or other interactable components in tooltips because this isn't accessible.
+The tooltip component accepts a component prop, which you can use to customize the look and feel of the tooltip area. Never put links or other interactive components in tooltips because this isn't accessible.
 
 <Example Component={TooltipComponent} packageName="@atlaskit/tooltip" />
 
 ## Accessibility issues using 'title'
 
-A `Tooltip` is often used to specify extra information when a person hovers or keyboard focuses on an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of `Tooltip` or you may see double tooltips displayed. In addition, the `title` attribute isn't supported consistently across screen readers, and is inaccessible to all keyboard-only users and mobile phone users.
+A tooltip is often used to specify extra information when a person hovers or keyboard focuses on an element, which matches the behavior of the HTML `title` attribute. Avoid using the HTML `title` attribute in any children of the tooltip or you may see double tooltips displayed. The `title` attribute isn't supported consistently across screen readers, and is inaccessible to all keyboard-only users and mobile phone users.
 
 <Example Component={TooltipAvoidTitle} packageName="@atlaskit/tooltip" />
 
@@ -49,12 +49,12 @@ Use `TooltipPrimitive` to customize the style of a default tooltip.
 
 ## Updating tooltip position
 
-When the content of a visible tooltip changes, its position is not recalculated and the tooltip may become misaligned. If you need the tooltip to recalculate its position you can control this manually using the `update` render prop.
+When the content of a visible tooltip changes, its' position isn't recalculated and the tooltip may become misaligned. If you need the tooltip to recalculate its position you can control this manually using the `update` render prop.
 
 <Example Component={TooltipUpdate} packageName="@atlaskit/tooltip" />
 
 ## Accessibility
 
-The tooltip uses render props to provide aria attributes for users with assistive technologies.
+The tooltip uses render props to provide aria attributes for assistive technology.
 
 <Example Component={TooltipRenderProps} packageName="@atlaskit/tooltip" />

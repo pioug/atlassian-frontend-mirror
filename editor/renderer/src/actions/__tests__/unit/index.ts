@@ -4,6 +4,7 @@ import {
   simpleTextWithAnnotation,
   textWithOverlappingAnnotations,
   annotationSpanningMultiText,
+  mediaWithAnnotation,
 } from '../../../__tests__/__fixtures__/annotation';
 import {
   ACTION,
@@ -11,7 +12,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
-import { AnalyticsEventPayload } from '../../../analytics/events';
+import type { AnalyticsEventPayload } from '../../../analytics/events';
 
 const mockArg = {} as any;
 const mockArg2 = {} as any;
@@ -58,14 +59,21 @@ describe('RendererActions', () => {
       );
       return actions;
     }
-    it('should delete the annotaion with provided ID', () => {
+    it('should delete the annotation with provided ID', () => {
       let actions = initActions(simpleTextWithAnnotation(annotationId));
       expect(
         actions.deleteAnnotation(annotationId, 'inlineComment'),
       ).toMatchSnapshot();
     });
 
-    it('should delete the annotaion with provided ID without touching overlapping marks', () => {
+    it('should delete the annotation on media with provided ID', () => {
+      let actions = initActions(mediaWithAnnotation(annotationId));
+      expect(
+        actions.deleteAnnotation(annotationId, 'inlineComment'),
+      ).toMatchSnapshot();
+    });
+
+    it('should delete the annotation with provided ID without touching overlapping marks', () => {
       let actions = initActions(textWithOverlappingAnnotations(annotationId));
       expect(
         actions.deleteAnnotation(annotationId, 'inlineComment'),
@@ -79,7 +87,7 @@ describe('RendererActions', () => {
       ).toMatchSnapshot();
     });
 
-    it('should trigger the analytics event when annotation is deteted', () => {
+    it('should trigger the analytics event when annotation is detected', () => {
       let actions = initActions(simpleTextWithAnnotation(annotationId));
       actions.deleteAnnotation(annotationId, 'inlineComment');
 
@@ -91,7 +99,7 @@ describe('RendererActions', () => {
       });
     });
 
-    it('should not trigger the analytics event when annotation is not deteted', () => {
+    it('should not trigger the analytics event when annotation is not detected', () => {
       let actions = initActions(simpleTextWithAnnotation(annotationId));
       actions.deleteAnnotation('noAnnotation', 'inlineComment');
 

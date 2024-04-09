@@ -3,12 +3,16 @@ import React, { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
 
 import { ContextualSurvey, OnDismissArgs, SurveyMarshal } from '../src';
 
+const styles = css({
+  paddingTop: token('space.100', '8px'),
+  fontSize: '16px',
+});
 export default function BasicUsage() {
   const [showSurvey, setShowSurvey] = useState(false);
   const [hasUserAnswered, setHasUserAnswered] = useState(false);
@@ -29,12 +33,7 @@ export default function BasicUsage() {
       <Button appearance="primary" onClick={onClick}>
         Show survey
       </Button>
-      <div
-        css={css`
-          padding-top: ${token('space.100', '8px')};
-          font-size: 16px;
-        `}
-      >
+      <div css={styles}>
         <Checkbox
           isChecked={hasUserAnswered}
           label="Has the user previously answered the mailing list question?"

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-utils
 
+## 1.1.0
+
+### Minor Changes
+
+- [#87476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87476) [`defa5a6cb0de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/defa5a6cb0de) - Add `getCreateLintRule` and other types/utils for creating lint rules
+
 ## 1.0.0
 
 ### Major Changes

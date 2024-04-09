@@ -3,7 +3,6 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { upsertImportDeclaration } from '../../use-primitives/transformers/emotion-css/upsert-import-declaration';
 
 import {
   addColorInheritAttributeFix,
@@ -64,7 +63,7 @@ export const EmphasisElements = {
 
   _fix(node: JSXElement, { context, config }: MetaData): Rule.ReportFixer {
     return (fixer) => {
-      const importFix = upsertImportDeclaration(
+      const importFix = ast.Root.upsertNamedImportDeclaration(
         {
           module: '@atlaskit/primitives',
           specifiers: ['Text'],

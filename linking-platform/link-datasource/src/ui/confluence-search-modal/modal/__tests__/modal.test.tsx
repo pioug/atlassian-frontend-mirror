@@ -176,12 +176,21 @@ describe('ConfluenceSearchConfigModal', () => {
         // We need to do generate a search, since insert button won't active without it.
         searchWithNewBasic('some keywords');
 
-        assertInsertResult({
-          parameters: {
-            cloudId: '67899',
-            searchString: 'some keywords',
+        assertInsertResult(
+          {
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some keywords',
+            },
           },
-        });
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_search_query',
+            },
+          },
+        );
       });
 
       it('should default to first cloudId if no URL match is found', async () => {
@@ -197,12 +206,21 @@ describe('ConfluenceSearchConfigModal', () => {
 
         searchWithNewBasic('some keywords');
 
-        assertInsertResult({
-          parameters: {
-            cloudId: '67899',
-            searchString: 'some keywords',
+        assertInsertResult(
+          {
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some keywords',
+            },
           },
-        });
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              searchMethod: 'datasource_search_query',
+            },
+          },
+        );
       });
     });
   });
@@ -213,12 +231,21 @@ describe('ConfluenceSearchConfigModal', () => {
 
       searchWithNewBasic('some query');
 
-      assertInsertResult({
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
 
     it('should reset hooks state', async () => {
@@ -245,14 +272,23 @@ describe('ConfluenceSearchConfigModal', () => {
 
       searchWithNewBasic('some query');
 
-      assertInsertResult({
-        parameters: {
-          cloudId: '67899',
-          labels: ['foo', 'bar'],
-          shouldMatchTitleOnly: true,
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          parameters: {
+            cloudId: '67899',
+            labels: ['foo', 'bar'],
+            shouldMatchTitleOnly: true,
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
   });
 
@@ -526,13 +562,22 @@ describe('ConfluenceSearchConfigModal', () => {
 
       searchWithNewBasic('some query');
 
-      assertInsertResult({
-        properties: { columns: [{ key: 'myColumn' }] },
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'myColumn' }] },
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
   });
 
@@ -545,13 +590,22 @@ describe('ConfluenceSearchConfigModal', () => {
 
       searchWithNewBasic('some query');
 
-      assertInsertResult({
-        properties: { columns: [{ key: 'myColumn', width: 42 }] },
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'myColumn', width: 42 }] },
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
 
     it('should render IssueLikeDataTableView with custom column width', async () => {
@@ -588,13 +642,22 @@ describe('ConfluenceSearchConfigModal', () => {
         onColumnResize('myColumn', 56);
       });
 
-      assertInsertResult({
-        properties: { columns: [{ key: 'myColumn', width: 56 }] },
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'myColumn', width: 56 }] },
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
 
     it('should update and send custom column widths to table component', async () => {
@@ -630,18 +693,28 @@ describe('ConfluenceSearchConfigModal', () => {
 
         searchWithNewBasic('some query');
 
-        assertInsertResult({
-          properties: {
-            columns: [
-              { key: 'myColumn', isWrapped: true },
-              { key: 'otherColumn' },
-            ],
+        assertInsertResult(
+          {
+            properties: {
+              columns: [
+                { key: 'myColumn', isWrapped: true },
+                { key: 'otherColumn' },
+              ],
+            },
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some query',
+            },
           },
-          parameters: {
-            cloudId: '67899',
-            searchString: 'some query',
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              displayedColumnCount: 2,
+              searchMethod: 'datasource_search_query',
+            },
           },
-        });
+        );
       });
     });
 
@@ -685,13 +758,22 @@ describe('ConfluenceSearchConfigModal', () => {
             onWrappedColumnChange('myColumn', true);
           });
 
-          assertInsertResult({
-            properties: { columns: [{ key: 'myColumn', isWrapped: true }] },
-            parameters: {
-              cloudId: '67899',
-              searchString: 'some query',
+          assertInsertResult(
+            {
+              properties: { columns: [{ key: 'myColumn', isWrapped: true }] },
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some query',
+              },
             },
-          });
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
         },
         async () => {
           const { getLatestIssueLikeTableProps } = await setup({
@@ -787,17 +869,26 @@ describe('ConfluenceSearchConfigModal', () => {
       searchWithNewBasic('some query');
       updateVisibleColumnList(['someColumn']);
 
-      assertInsertResult({
-        properties: { columns: [{ key: 'someColumn' }] },
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+      assertInsertResult(
+        {
+          properties: { columns: [{ key: 'someColumn' }] },
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-      });
+        {
+          attributes: {
+            actions: ['query updated', 'column reordered'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
+          },
+        },
+      );
     });
   });
 
-  describe.skip('when consumer not providing list of visible column keys', () => {
+  describe('when consumer not providing list of visible column keys', () => {
     it('should use default list coming from backend', async () => {
       const { assertInsertResult, searchWithNewBasic } = await setup({
         visibleColumnKeys: undefined,
@@ -812,15 +903,25 @@ describe('ConfluenceSearchConfigModal', () => {
         expect.anything(),
       );
 
-      assertInsertResult({
-        properties: {
-          columns: [],
+      assertInsertResult(
+        {
+          properties: {
+            columns: [{ key: 'myColumn' }, { key: 'otherColumn' }],
+          },
+          parameters: {
+            cloudId: '67899',
+            searchString: 'some query',
+          },
         },
-        parameters: {
-          cloudId: '67899',
-          searchString: 'some query',
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            displayedColumnCount: 2,
+            searchMethod: 'datasource_search_query',
+          },
         },
-      });
+      );
     });
 
     describe("but hook state hasn't loaded default column keys yet", () => {
@@ -837,15 +938,25 @@ describe('ConfluenceSearchConfigModal', () => {
 
         renderComponent();
 
-        assertInsertResult({
-          properties: {
-            columns: [],
+        assertInsertResult(
+          {
+            properties: {
+              columns: [{ key: 'myColumn' }, { key: 'otherColumn' }],
+            },
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some query',
+            },
           },
-          parameters: {
-            cloudId: '67899',
-            searchString: 'some query',
+          {
+            attributes: {
+              actions: ['query updated'],
+              searchCount: 1,
+              displayedColumnCount: 2,
+              searchMethod: 'datasource_search_query',
+            },
           },
-        });
+        );
       });
     });
   });

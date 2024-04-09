@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { LinkPicker } from '@atlaskit/link-picker';
 import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';

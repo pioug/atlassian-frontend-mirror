@@ -402,7 +402,7 @@ const EditorNext = (
     [innerRef],
   );
 
-  const [saveButtonDisabled, setSaveButtonDisabled] = useState(disabled);
+  const [saveButtonDisabled, setSaveButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (mediaState) {

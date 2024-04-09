@@ -1,6 +1,6 @@
 import React from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Page from '@atlaskit/page';
 
 import { ButtonsWrapper, TextWrapper } from './utils/styled';

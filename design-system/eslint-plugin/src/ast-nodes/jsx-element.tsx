@@ -3,6 +3,7 @@ import {
   isNodeOfType,
   JSXAttribute,
   JSXElement,
+  JSXFragment,
   jsxIdentifier,
   JSXSpreadAttribute,
 } from 'eslint-codemod-utils';
@@ -98,7 +99,7 @@ export const JSXElementHelper = {
     return fix;
   },
 
-  getChildren(node: JSXElement): JSXElement['children'] {
+  getChildren(node: JSXElement | JSXFragment): JSXElement['children'] {
     // Filter out text children with whitespace characters only as JSX removes whitespace used for intendation
     const filteredChildren = node.children.filter((child) => {
       if (isNodeOfType(child, 'JSXText')) {

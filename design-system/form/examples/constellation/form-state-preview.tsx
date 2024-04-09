@@ -17,7 +17,7 @@ const formContainerStyles = xcss({
   margin: '0 auto',
 });
 
-const previewStyles = xcss({ marginBlockStart: '16px' });
+const previewStyles = xcss({ marginBlockStart: 'space.200' });
 
 type BannerForm = {
   appearance: Option;

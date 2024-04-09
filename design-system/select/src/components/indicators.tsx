@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
-import { FC } from 'react';
 import { components } from 'react-select';
 import {
   ClearIndicatorProps,
@@ -18,7 +17,12 @@ const iconContainerStyles = css({
   alignItems: 'center',
 });
 
-export const ClearIndicator: FC<ClearIndicatorProps<any>> = (props) => (
+export const ClearIndicator = <
+  Option extends unknown,
+  IsMulti extends boolean = false,
+>(
+  props: ClearIndicatorProps<Option, IsMulti>,
+) => (
   <components.ClearIndicator
     {...{
       ...props,
@@ -31,13 +35,23 @@ export const ClearIndicator: FC<ClearIndicatorProps<any>> = (props) => (
   </components.ClearIndicator>
 );
 
-export const DropdownIndicator: FC<DropdownIndicatorProps<any>> = (props) => (
+export const DropdownIndicator = <
+  Option extends unknown,
+  IsMulti extends boolean = false,
+>(
+  props: DropdownIndicatorProps<Option, IsMulti>,
+) => (
   <components.DropdownIndicator {...props}>
     <DownIcon label="open" />
   </components.DropdownIndicator>
 );
 
-export const LoadingIndicator: FC<LoadingIndicatorProps<any>> = (props) => {
+export const LoadingIndicator = <
+  Option extends unknown,
+  IsMulti extends boolean = false,
+>(
+  props: LoadingIndicatorProps<Option, IsMulti>,
+) => {
   const loadingStyles = css(props.getStyles('loadingIndicator', props));
   return (
     // This *must* be constructed this way because this is being consumed by

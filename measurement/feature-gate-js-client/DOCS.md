@@ -31,7 +31,7 @@
 
 <p>Base client options.</p>
 
-**Kind**: global interface  
+**Kind**: global interface
 **Properties**
 
 | Name               | Type                                | Description                            |
@@ -46,8 +46,8 @@
 
 <p>The options for the client.</p>
 
-**Kind**: global interface  
-**Extends**: [<code>BaseClientOptions</code>](#BaseClientOptions)  
+**Kind**: global interface
+**Extends**: [<code>BaseClientOptions</code>](#BaseClientOptions)
 **Properties**
 
 | Name           | Type                        | Description                                                                 |
@@ -168,7 +168,7 @@ to GASv3 with the following attributes:</p>
 
 <p>Returns the entire config for a given experiment.</p>
 
-**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)  
+**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)
 **Returns**: <p>The config for an experiment</p>
 
 | Param                          | Type                 | Description                                                                                                                                                                                                                                                                                                                                                 |
@@ -193,7 +193,7 @@ const backgroundColor: string = experimentConfig.get(
 
 <p>Returns the value of a given parameter in an experiment config.</p>
 
-**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)  
+**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)
 **Returns**: <p>The value of the parameter if the experiment and parameter both exist, otherwise the default value.</p>
 
 | Param                          | Type                  | Description                                                                                                                                                                                                                                                                                                                                                |
@@ -424,7 +424,7 @@ const backgroundColor: string = experimentConfig.get('backgroundColor', 'yellow'
 
 <p>Returns the value of a given parameter in an experiment config.</p>
 
-**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)  
+**Kind**: static method of [<code>FeatureGates</code>](#FeatureGates)
 **Returns**: <p>The value of the parameter if the experiment and parameter both exist, otherwise the default value.</p>
 
 | Param                          | Type                  | Description                                                                                                                                                                                                                                                                                                                                                |
@@ -579,6 +579,7 @@ methods can be used to re-align these values.</p>
 
 | Name | Type |
 | --- | --- |
+| [activationId] | <code>string</code> |
 | [analyticsAnonymousId] | <code>string</code> |
 | [atlassianAccountId] | <code>string</code> |
 | [atlassianOrgId] | <code>string</code> |

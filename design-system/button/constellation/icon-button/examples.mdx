@@ -17,6 +17,7 @@ import LinkIconButtonWithRouting from '../../examples/constellation/new-button/i
 import LinkIconButtonDisabled from '../../examples/constellation/new-button/icon-button/link-icon-button-disabled';
 import IconButtonSelected from '../../examples/constellation/new-button/icon-button/icon-button-selected';
 import IconButtonSpacing from '../../examples/constellation/new-button/icon-button/icon-button-spacing';
+import IconButtonLoading from '../../examples/constellation/new-button/icon-button/icon-button-loading';
 
 ## Default
 
@@ -96,7 +97,7 @@ Link button accepts a generic type containing the configured router link's props
   appearance="source-only"
 />
 
-## State
+## States
 
 ### Disabled
 
@@ -121,3 +122,9 @@ The `disabled` HTML attribute does not exist for anchor `<a>` tags, so link butt
 Set `isSelected` to indicate the button is selected.
 
 <Example Component={IconButtonSelected} packageName="@atlaskit/button" />
+
+### Loading
+
+When a button is still loading and not actionable, a loading spinner can be displayed in place of the icon. This also disables the button and blocks user interaction.
+
+<Example Component={IconButtonLoading} packageName="@atlaskit/button" />

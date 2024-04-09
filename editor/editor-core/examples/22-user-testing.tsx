@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 

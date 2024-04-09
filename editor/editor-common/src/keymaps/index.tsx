@@ -188,6 +188,11 @@ export const decreaseMediaSize = makeKeyMapWithCommon(
   'Mod-Alt-[',
 );
 
+export const activateVideoControls = makeKeyMapWithCommon(
+  'Activate controls panel on video',
+  'Shift-F10',
+);
+
 const arrowKeysMap: Record<string, string> = {
   // for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
   ARROWLEFT: '\u2190',

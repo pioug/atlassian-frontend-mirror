@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useMemo, useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import Popup from '@atlaskit/popup';

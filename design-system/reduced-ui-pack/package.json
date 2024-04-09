@@ -36,7 +36,7 @@
     "fbjs": "^3.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/css-reset": "^6.7.0"
+    "@atlaskit/css-reset": "^6.8.0"
   },
   "devDependencies": {
     "@atlaskit/icon": "^22.1.0",

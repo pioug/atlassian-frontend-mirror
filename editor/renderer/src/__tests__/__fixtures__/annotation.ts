@@ -290,3 +290,34 @@ export const textWithOverlappingAnnotations = (id: string) => ({
     },
   ],
 });
+
+export const mediaWithAnnotation = (annotationId: string) => ({
+  type: 'mediaSingle',
+  attrs: {
+    layout: 'center',
+    width: 426,
+    widthType: 'pixel',
+  },
+  content: [
+    {
+      type: 'media',
+      attrs: {
+        width: 1200,
+        alt: 'dog-puppy.jpeg',
+        id: 'c7ef3a01-d45c-41e3-a662-67ccb54d088f',
+        collection: 'contentId-3533084563',
+        type: 'file',
+        height: 1197,
+      },
+      marks: [
+        {
+          type: 'annotation',
+          attrs: {
+            annotationType: 'inlineComment',
+            id: `${annotationId}`,
+          },
+        },
+      ],
+    },
+  ],
+});

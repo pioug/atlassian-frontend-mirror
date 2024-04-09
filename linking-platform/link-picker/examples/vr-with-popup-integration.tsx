@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
 
 import { PageWrapper } from '../example-helpers/common';

@@ -60,6 +60,9 @@
       "path": "../tokens/tsconfig.app.json"
     },
     {
+      "path": "../tooltip/tsconfig.app.json"
+    },
+    {
       "path": "../visually-hidden/tsconfig.app.json"
     }
   ],

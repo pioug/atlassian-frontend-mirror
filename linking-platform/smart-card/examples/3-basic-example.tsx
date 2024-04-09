@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { CardClient as SmartCardClient } from '@atlaskit/link-provider';
 import { Provider, Card } from '../src';
 import { CardAppearance } from '../src/view/Card/types';

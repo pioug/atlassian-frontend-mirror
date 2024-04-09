@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-floating-toolbar",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Floating toolbar plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/button": "^17.9.0",
+    "@atlaskit/button": "^17.11.0",
     "@atlaskit/checkbox": "^13.1.0",
     "@atlaskit/editor-common": "^78.23.0",
     "@atlaskit/editor-palette": "1.5.3",
@@ -45,7 +45,7 @@
     "@atlaskit/menu": "^2.1.0",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.5",
-    "@atlaskit/select": "^17.5.0",
+    "@atlaskit/select": "^17.6.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
     "@atlaskit/tooltip": "^18.1.0",
@@ -111,6 +111,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.a11y-floating-toolbar-markup_vexmo": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
       "type": "boolean"
     }
   }

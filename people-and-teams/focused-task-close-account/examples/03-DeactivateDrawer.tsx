@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import accessibleSites from '../src/mocks/accessibleSites';
 import { catherineHirons } from '../src/mocks/users';

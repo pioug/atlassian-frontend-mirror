@@ -10,6 +10,8 @@ import {
   Statement,
 } from 'eslint-codemod-utils';
 
+import { Import } from './import';
+
 type ImportData = Parameters<typeof insertImportDeclaration>[1]; // Little bit unreadable, but better than duplicating the type
 
 export const Root = {
@@ -48,6 +50,60 @@ export const Root = {
     return fixer.insertTextBefore(
       root[0],
       `${insertImportDeclaration(data.module, data.specifiers)};\n`,
+    );
+  },
+
+  upsertNamedImportDeclaration(
+    {
+      module,
+      specifiers,
+    }: {
+      module: string;
+      specifiers: string[];
+    },
+    context: Rule.RuleContext,
+    fixer: Rule.RuleFixer,
+  ): Rule.Fix | undefined {
+    // Find any imports that match the packageName
+    const root = context.getSourceCode().ast.body;
+    const importDeclarations = this.findImportsByModule(root, module);
+
+    // The named import doesn't exist yet, we can just insert a whole new one
+    if (importDeclarations.length === 0) {
+      return this.insertImport(root, { module, specifiers }, fixer);
+    }
+
+    // The import exists so, modify the existing one
+    return Import.insertNamedSpecifiers(
+      importDeclarations[0],
+      specifiers,
+      fixer,
+    );
+  },
+
+  upsertDefaultImportDeclaration(
+    {
+      module,
+      localName,
+    }: {
+      module: string;
+      localName: string;
+    },
+    context: Rule.RuleContext,
+    fixer: Rule.RuleFixer,
+  ) {
+    // Find any imports that match the packageName
+    const root = context.getSourceCode().ast.body;
+    const importDeclarations = this.findImportsByModule(root, module);
+
+    // The import already exist exist
+    if (importDeclarations.length > 0) {
+      return undefined;
+    }
+
+    return fixer.insertTextBefore(
+      root[0],
+      `import ${localName} from '${module}';\n`,
     );
   },
 };

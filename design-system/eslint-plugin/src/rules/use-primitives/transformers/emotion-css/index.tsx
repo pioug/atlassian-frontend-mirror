@@ -18,7 +18,6 @@ import { validateStyles } from '../../utils/validate-styles';
 import { cssToXcssTransformer } from '../css-to-xcss';
 
 import * as supported from './supported';
-import { upsertImportDeclaration } from './upsert-import-declaration';
 
 interface MetaData {
   context: Rule.RuleContext;
@@ -130,7 +129,7 @@ export const EmotionCSS = {
     { context }: { context: Rule.RuleContext },
   ): Rule.ReportFixer {
     return (fixer) => {
-      const importFix = upsertImportDeclaration(
+      const importFix = ast.Root.upsertNamedImportDeclaration(
         {
           module: '@atlaskit/primitives',
           specifiers: ['Box', 'xcss'],

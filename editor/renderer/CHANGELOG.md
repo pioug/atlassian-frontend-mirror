@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 109.15.1
+
+### Patch Changes
+
+- [#87575](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87575) [`d528eb09243a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d528eb09243a) - Update renderer to force skip context media client
+
+## 109.15.0
+
+### Minor Changes
+
+- [#87820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87820) [`120f76a32bf9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/120f76a32bf9) - [ED-22819]
+
+  - Update ApplyAnnotation to return `step` of type AddNodeMarkStep for annotation on media and correct `doc` that includes newly add annotation mark
+  - Make media node read in data attributes so that it shows data-renderer-start-pos
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.14.0
 
 ### Minor Changes

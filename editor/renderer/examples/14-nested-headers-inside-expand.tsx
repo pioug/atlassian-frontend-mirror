@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { RadioGroup } from '@atlaskit/radio';
 import type { OptionsPropType } from '@atlaskit/radio/types';
 import { css, jsx } from '@emotion/react';

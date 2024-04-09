@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 import { Label } from '@atlaskit/form';
 

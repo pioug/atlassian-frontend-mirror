@@ -12,14 +12,13 @@ import {
 } from '../../examples-util/data';
 import AvatarGroup from '../../src';
 
-const ButtonGroup = styled.div`
-  margin: ${token('space.100', '8px')};
-  text-align: center;
-`;
+const ButtonGroup = styled.div({
+  margin: token('space.100', '8px'),
+  textAlign: 'center',
+});
 
 const AvatarGroupOverridesExample = () => {
   const data = RANDOM_USERS.slice(0, 8).map((d, i) => ({
-    email: d.email,
     key: d.email,
     name: d.name,
     href: '#',

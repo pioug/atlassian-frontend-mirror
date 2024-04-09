@@ -39,9 +39,9 @@ export default () => (
   >
     {/* If you want a Spinner in a Button, you should use `LoadingButton` */}
     <div>
-      <LoadingButton isLoading={true} appearance="primary">
+      <Button isLoading={true} appearance="primary">
         Button
-      </LoadingButton>
+      </Button>
     </div>
     <div>
       <LoadingButton

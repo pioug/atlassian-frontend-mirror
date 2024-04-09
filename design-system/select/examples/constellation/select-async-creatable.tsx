@@ -15,7 +15,7 @@ const createOption = (inputValue: string) => ({
   value: inputValue.toLowerCase().replace(/\W/g, ''),
 });
 
-export default class AsyncCreatableExample extends Component<{}, State> {
+class AsyncCreatableExample extends Component<{}, State> {
   state = {
     allowCreateWhileLoading: false,
     options: cities,
@@ -79,3 +79,5 @@ export default class AsyncCreatableExample extends Component<{}, State> {
     );
   }
 }
+
+export default () => <AsyncCreatableExample />;

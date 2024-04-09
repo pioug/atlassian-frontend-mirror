@@ -6,9 +6,10 @@ import { jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
-import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, SlideIn } from '../src';
 import { Direction, Fade } from '../src/entering/types';
+
+import { Block, Centered, RetryContainer } from './utils';
 
 const froms: Direction[] = ['top', 'right', 'bottom', 'left'];
 const fades: Fade[] = ['none', 'in', 'out', 'inout'];

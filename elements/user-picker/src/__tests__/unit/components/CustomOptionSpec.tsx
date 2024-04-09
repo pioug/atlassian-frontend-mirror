@@ -47,7 +47,6 @@ describe('Custom Option', () => {
       <SizeableAvatar
         appearance="big"
         src="https://avatars.atlassian.com/team-1.png"
-        name="Custom-Option-1"
       />,
     );
   });

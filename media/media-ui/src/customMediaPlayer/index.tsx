@@ -19,7 +19,6 @@ import {
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { xcss, Box, Flex } from '@atlaskit/primitives';
 
 import MediaButton from '../MediaButton';
@@ -90,12 +89,10 @@ export interface CustomMediaPlayerProps
   readonly originalDimensions?: NumericalCardDimensions;
   readonly featureFlags?: MediaFeatureFlags;
   readonly poster?: string;
-  readonly isVideoSelected?: boolean;
+  readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 }
 
-export interface CustomMediaPlayerState extends WithMediaPlayerState {
-  areVideoControlsFocused: boolean;
-}
+export interface CustomMediaPlayerState extends WithMediaPlayerState {}
 
 export type Action = () => void;
 
@@ -142,8 +139,6 @@ export class CustomMediaPlayerBase extends Component<
   CustomMediaPlayerState
 > {
   videoWrapperRef = React.createRef<HTMLDivElement>();
-  controlsWrapperRef = React.createRef<HTMLDivElement>();
-  videoPlayPauseButtonRef = React.createRef<HTMLButtonElement>();
 
   private actions?: VideoActions;
   private videoState: Partial<VideoState> = {
@@ -164,7 +159,6 @@ export class CustomMediaPlayerBase extends Component<
     isFullScreenEnabled: false,
     playerSize: 'large',
     playbackSpeed: 1,
-    areVideoControlsFocused: false,
   };
 
   componentDidMount() {
@@ -200,14 +194,6 @@ export class CustomMediaPlayerBase extends Component<
         'fullscreenchange',
         this.onFullScreenChange,
       );
-    }
-
-    if (
-      getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-    ) {
-      document.addEventListener('keydown', this.handleKeyDown);
-      window.addEventListener('focus', this.onFocusChange, true);
-      window.addEventListener('blur', this.onFocusChange, true);
     }
 
     simultaneousPlayManager.subscribe(this);
@@ -261,29 +247,8 @@ export class CustomMediaPlayerBase extends Component<
       this.props.onFullscreenChange?.(false);
     }
 
-    if (
-      getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-    ) {
-      document.removeEventListener('keydown', this.handleKeyDown);
-      window.removeEventListener('focus', this.onFocusChange, true);
-      window.removeEventListener('blur', this.onFocusChange, true);
-    }
-
     simultaneousPlayManager.unsubscribe(this);
   }
-
-  onFocusChange = () => {
-    if (
-      getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
-    ) {
-      //Check if element or any of it's children is focused
-      this.setState({
-        areVideoControlsFocused:
-          !!this.controlsWrapperRef.current &&
-          !!this.controlsWrapperRef.current.contains(document.activeElement),
-      });
-    }
-  };
 
   private onFullScreenChange = (e: Event) => {
     if (e.target !== this.videoWrapperRef.current) {
@@ -297,21 +262,6 @@ export class CustomMediaPlayerBase extends Component<
       this.setState({
         isFullScreenEnabled,
       });
-    }
-  };
-
-  private handleKeyDown = (event: KeyboardEvent) => {
-    if (
-      event.shiftKey &&
-      (event.key === 'F10' || event.keyCode === 121) &&
-      this.videoPlayPauseButtonRef.current &&
-      this.props.isVideoSelected
-    ) {
-      event.preventDefault();
-      this.videoPlayPauseButtonRef.current.focus();
-      if (this.props.showControls) {
-        this.props.showControls();
-      }
     }
   };
 
@@ -569,7 +519,6 @@ export class CustomMediaPlayerBase extends Component<
           testId="custom-media-player-play-toggle-button"
           data-test-is-playing={isPlaying}
           iconBefore={toggleButtonIcon}
-          buttonRef={this.videoPlayPauseButtonRef}
           onClick={
             isPlaying
               ? this.pausePlayByButtonClick
@@ -832,7 +781,15 @@ export class CustomMediaPlayerBase extends Component<
   );
 
   render() {
-    const { type, src, isAutoPlay, onCanPlay, onError, poster } = this.props;
+    const {
+      type,
+      src,
+      isAutoPlay,
+      onCanPlay,
+      onError,
+      poster,
+      videoControlsWrapperRef,
+    } = this.props;
 
     return (
       <Box
@@ -897,17 +854,8 @@ export class CustomMediaPlayerBase extends Component<
                   {video}
                 </PlayPauseBlanket>
                 <ControlsWrapper
-                  ref={this.controlsWrapperRef}
-                  className={
-                    getBooleanFF(
-                      'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
-                    )
-                      ? getControlsWrapperClassName(
-                          this.wasPlayedOnce,
-                          this.state.areVideoControlsFocused,
-                        )
-                      : getControlsWrapperClassName(this.wasPlayedOnce)
-                  }
+                  ref={videoControlsWrapperRef}
+                  className={getControlsWrapperClassName(this.wasPlayedOnce)}
                 >
                   <Box xcss={timeWrapperStyles}>
                     <TimeRange

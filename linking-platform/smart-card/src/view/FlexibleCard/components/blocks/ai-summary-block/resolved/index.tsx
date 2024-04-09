@@ -119,6 +119,11 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
         name: ActionName.CustomAction,
         onClick: () => {
           fireEvent('ui.button.clicked.aiSummary', {});
+          fireEvent('track.aiInteraction.initiated', {
+            aiFeatureName: 'Smart Links Summary',
+            proactiveAIGenerated: 0,
+            userGeneratedAI: 1,
+          });
           summariseUrl();
         },
         testId: `${testId}-ai-summary-action`,

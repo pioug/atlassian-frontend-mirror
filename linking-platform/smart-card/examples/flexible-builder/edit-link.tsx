@@ -2,16 +2,17 @@
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useState } from 'react';
 import { JsonLd } from 'json-ld-types';
-import Button, { ButtonGroup } from '@atlaskit/button';
+import ButtonGroup from '@atlaskit/button/button-group';
+import Button from '@atlaskit/button/new';
 import LoadLinkForm from '../jsonld-editor/load-link-form';
 import JsonldExample from '../jsonld-editor/jsonld-example';
 import JsonldEditorInput from '../jsonld-editor/jsonld-editor-input';
 import type { FlexibleTemplate } from './types';
 import Code from './code';
 
-const buttonGroupStyles = css`
-  text-align: right;
-`;
+const buttonGroupStyles = css({
+  textAlign: 'right',
+});
 
 const EditLink: React.FC<{
   initialJson: JsonLd.Response;

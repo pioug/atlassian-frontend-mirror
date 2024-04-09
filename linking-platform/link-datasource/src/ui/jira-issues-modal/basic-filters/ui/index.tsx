@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { Flex, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import type { Site } from '../../../../common/types';
 import type {
@@ -29,7 +28,7 @@ export interface BasicFilterContainerProps {
 }
 
 const basicFilterContainerStyles = xcss({
-  paddingLeft: token('space.100', '8px'),
+  paddingLeft: 'space.100',
 });
 
 const BasicFilterContainer = ({

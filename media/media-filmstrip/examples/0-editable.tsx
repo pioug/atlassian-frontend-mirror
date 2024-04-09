@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { RadioGroup } from '@atlaskit/radio';
 import Range from '@atlaskit/range';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Card } from '@atlaskit/media-card';
 import {
   createStorybookMediaClientConfig,

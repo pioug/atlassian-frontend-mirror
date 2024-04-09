@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useMemo, useState } from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select/Select';

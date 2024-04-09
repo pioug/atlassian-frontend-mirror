@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Form, { FormFooter } from '@atlaskit/form';
 import UiBuilder from './ui-builder';
 import BlockBuilder from './block-builder';

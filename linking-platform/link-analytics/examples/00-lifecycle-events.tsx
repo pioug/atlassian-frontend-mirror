@@ -6,7 +6,7 @@ import React, {
   forwardRef,
 } from 'react';
 import { IntlProvider } from 'react-intl-next';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Popup, { PopupProps } from '@atlaskit/popup';
 import {
   LinkPicker,

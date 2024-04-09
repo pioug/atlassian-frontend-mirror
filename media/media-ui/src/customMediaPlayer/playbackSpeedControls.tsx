@@ -1,7 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 // Keep PlaybackSpeedControls to use static colors from the new color palette to support the hybrid
 // theming in media viewer https://product-fabric.atlassian.net/browse/DSP-6067
-import React from 'react';
+import React, { KeyboardEvent } from 'react';
 import { Component } from 'react';
 import {
   PopupSelect,
@@ -22,12 +22,14 @@ import Tooltip from '@atlaskit/tooltip';
 import MediaButton from '../MediaButton';
 import { messages } from '../messages';
 import { WidthObserver } from '@atlaskit/width-detector';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface PlaybackSpeedControlsProps {
   playbackSpeed: number;
   onPlaybackSpeedChange: (playbackSpeed: number) => void;
   originalDimensions?: NumericalCardDimensions;
   onClick?: () => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
 export interface PlaybackSpeedControlsState {
@@ -162,7 +164,7 @@ export class PlaybackSpeedControls extends Component<
           })}
           closeMenuOnScroll={true}
           onChange={this.onPlaybackSpeedChange}
-          target={({ ref, isOpen }) => (
+          target={({ ref, isOpen, onKeyDown: popupKeydown }) => (
             <Tooltip
               content={intl.formatMessage(messages.playbackSpeed)}
               position="top"
@@ -172,6 +174,15 @@ export class PlaybackSpeedControls extends Component<
                 buttonRef={ref}
                 isSelected={isOpen}
                 onClick={onClick}
+                onKeyDown={(event) => {
+                  if (
+                    getBooleanFF(
+                      'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+                    )
+                  ) {
+                    popupKeydown(event);
+                  }
+                }}
               >
                 {playbackSpeed}x
               </MediaButton>

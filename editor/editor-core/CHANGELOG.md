@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 193.9.0
+
+### Minor Changes
+
+- [#88300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88300) [`3f6fb42cfa90`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f6fb42cfa90) - Paste is no longer a mandatory prop when creating a default preset.
+
+## 193.8.11
+
+### Patch Changes
+
+- [#87069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87069) [`3c2cb323593e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c2cb323593e) - remove feature flag in-danger-hover-merged-cells-fix
+
+## 193.8.10
+
+### Patch Changes
+
+- [#83266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83266) [`2ccef5c67079`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ccef5c67079) - fix editor comment disabled state regression issue
+- Updated dependencies
+
 ## 193.8.7
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import React, { FC, useCallback, useState } from 'react';
 import styled from '@emotion/styled';
@@ -13,12 +13,12 @@ type UserValueProps = {
   onRemove: (user: OptionData) => void;
 };
 
-const UserValueContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  max-width: 350px;
-  align-items: center;
-`;
+const UserValueContainer = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  maxWidth: '350px',
+  alignItems: 'center',
+});
 
 const UserValue: FC<UserValueProps> = ({ onRemove, user }) => {
   const handleRemoveClick = useCallback(() => {
@@ -35,9 +35,10 @@ const UserValue: FC<UserValueProps> = ({ onRemove, user }) => {
         }
         primaryText={user.name}
       />
-      <Button
-        iconBefore={<SelectClearIcon label="clear" />}
+      <IconButton
+        icon={SelectClearIcon}
         onClick={handleRemoveClick}
+        label="clear"
       />
     </UserValueContainer>
   );

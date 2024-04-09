@@ -59,6 +59,7 @@ import type {
   MediaOptions,
 } from '../types';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
+import { CommentBadge } from '../ui/CommentBadge';
 import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
@@ -310,6 +311,8 @@ export default class MediaSingleNode extends Component<
       mediaPluginState,
       editorDisabled,
     } = this.props;
+    const { commentsOnMedia = false } =
+      mediaOptions?.getEditorFeatureFlags?.() || {};
 
     const {
       layout,
@@ -422,6 +425,16 @@ export default class MediaSingleNode extends Component<
         className={MediaSingleNodeSelector}
         onClick={this.onMediaSingleClicked}
       >
+        {commentsOnMedia && (
+          <CommentBadge
+            view={view}
+            api={
+              pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>
+            }
+            mediaNode={node?.firstChild}
+            getPos={getPos}
+          />
+        )}
         <div ref={this.props.forwardRef} />
         {shouldShowPlaceholder && (
           <CaptionPlaceholder
@@ -630,6 +643,25 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
       return node.firstChild.attrs.id;
     }
     return undefined;
+  }
+
+  stopEvent(event: Event): boolean {
+    if (
+      getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
+    ) {
+      if (
+        this.isNodeSelected() &&
+        event instanceof KeyboardEvent &&
+        event?.target instanceof HTMLElement
+      ) {
+        const targetType = (event.target as HTMLElement & { type?: string })
+          .type;
+        if (event.key === 'Enter' && targetType === 'button') {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   update(

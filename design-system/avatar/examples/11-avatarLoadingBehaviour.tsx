@@ -1,7 +1,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Box, Inline } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

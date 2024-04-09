@@ -7,7 +7,6 @@ import { isStringOrNumber } from '../../utils';
 
 import { styleMap } from './style-map';
 import supported from './supported';
-import { upsertImportDeclaration } from './upsert-import-declaration';
 
 const messageId = 'noRawSpacingValues';
 
@@ -110,7 +109,7 @@ export const StyleProperty = {
    */
   _fix(ref: Ref, context: Rule.RuleContext) {
     return (fixer: Rule.RuleFixer) => {
-      const importFix = upsertImportDeclaration(
+      const importFix = ast.Root.upsertNamedImportDeclaration(
         {
           module: '@atlaskit/tokens',
           specifiers: ['token'],

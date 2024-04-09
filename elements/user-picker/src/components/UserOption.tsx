@@ -73,16 +73,11 @@ export class UserOption extends React.PureComponent<UserOptionProps> {
 
   private renderAvatar = () => {
     const {
-      user: { avatarUrl, name },
+      user: { avatarUrl },
       status,
     } = this.props;
     return (
-      <SizeableAvatar
-        appearance="big"
-        src={avatarUrl}
-        presence={status}
-        name={name}
-      />
+      <SizeableAvatar appearance="big" src={avatarUrl} presence={status} />
     );
   };
 

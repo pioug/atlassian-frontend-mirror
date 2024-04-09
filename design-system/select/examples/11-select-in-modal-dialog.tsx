@@ -27,7 +27,7 @@ const options = [
   { label: 'Sydney', value: 'sydney' },
 ];
 
-export default class SelectInModal extends Component<{}, State> {
+class SelectInModal extends Component<{}, State> {
   state: State = { isOpen: false };
 
   open = () => this.setState({ isOpen: true });
@@ -83,3 +83,5 @@ export default class SelectInModal extends Component<{}, State> {
     );
   }
 }
+
+export default () => <SelectInModal />;

@@ -1,36 +1,36 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { useCallback, useMemo } from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const labelHelpMessageStyles = css`
-  font-weight: normal;
-  font-size: 0.9em;
-  vertical-align: text-top;
-`;
+const labelHelpMessageStyles = css({
+  fontWeight: 'normal',
+  fontSize: '0.9em',
+  verticalAlign: 'text-top',
+});
 
-const textFieldStyles = css`
-  align-content: stretch;
-  align-items: center;
-  display: flex;
-  gap: 1rem;
-`;
+const textFieldStyles = css({
+  alignContent: 'stretch',
+  alignItems: 'center',
+  display: 'flex',
+  gap: '1rem',
+});
 
-const tooltipStyles = css`
-  a {
-    color: ${token('color.background.accent.blue.subtle', '#579DFF')};
-    :active {
-      color: ${token('color.text.information', '#85B8FF')};
-    }
-    :hover {
-      color: ${token('color.background.accent.blue.subtle', '#579DFF')};
-    }
-  }
-`;
+const tooltipStyles = css({
+  a: {
+    color: token('color.background.accent.blue.subtle', '#579DFF'),
+    ':active': {
+      color: token('color.text.information', '#85B8FF'),
+    },
+    ':hover': {
+      color: token('color.background.accent.blue.subtle', '#579DFF'),
+    },
+  },
+});
 
 const urlPattern = new RegExp(
   '^(https?:\\/\\/)?' + // protocol

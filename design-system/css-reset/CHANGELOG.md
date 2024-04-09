@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.8.0
+
+### Minor Changes
+
+- [#87162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87162) [`555f5611abaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/555f5611abaf) - Utilise typography tokens in css reset without any UI changes
+
 ## 6.7.1
 
 ### Patch Changes

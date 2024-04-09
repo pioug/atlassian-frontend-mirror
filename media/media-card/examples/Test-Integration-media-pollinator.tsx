@@ -11,7 +11,7 @@ import {
   BrowserConfig,
   UploadsStartEventPayload,
 } from '@atlaskit/media-picker';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Card } from '../src';
 import { FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';

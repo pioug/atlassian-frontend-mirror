@@ -285,8 +285,8 @@ const metadataSubTextStyles = css(
 );
 
 const metadataIconWrapperStyles = xcss({
-  paddingTop: token('space.050', '4px'),
-  paddingRight: token('space.150', '12px'),
+  paddingTop: 'space.050',
+  paddingRight: 'space.150',
 });
 
 export interface IconWrapperProps {

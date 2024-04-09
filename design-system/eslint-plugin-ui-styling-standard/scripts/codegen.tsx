@@ -8,7 +8,10 @@ import { format, resolveConfig } from 'prettier';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import { type LintRule, getPathSafeName } from '../src/rules/utils/create-rule';
+import {
+  type LintRule,
+  getPathSafeName,
+} from '@atlaskit/eslint-utils/create-rule';
 import {
   externalRules,
   type ExternalRuleMeta,

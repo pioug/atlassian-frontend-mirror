@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -117,9 +117,6 @@
       "type": "boolean"
     },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {
-      "type": "boolean"
-    },
-    "platform.editor-add-link-preferences-button-to-datasources_xt1sh": {
       "type": "boolean"
     },
     "platform.editor.card.fix-embed-card-select-all": {

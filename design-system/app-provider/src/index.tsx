@@ -6,6 +6,9 @@ export {
   useTheme,
 } from './theme-provider';
 
-export { type RouterLinkComponentProps } from './router-link-provider';
+export {
+  type RouterLinkComponent,
+  type RouterLinkComponentProps,
+} from './router-link-provider';
 import useRouterLink from './router-link-provider/hooks/use-router-link';
 export { useRouterLink };

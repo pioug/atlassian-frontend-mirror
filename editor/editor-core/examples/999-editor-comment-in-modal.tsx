@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Modal, {
   ModalBody,
   ModalFooter,

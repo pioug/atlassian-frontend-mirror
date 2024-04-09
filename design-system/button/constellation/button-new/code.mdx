@@ -4,7 +4,7 @@ description: A button triggers an event or action. They let users know what will
 order: 1
 ---
 
-import CommonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/common-props';
+import CommonDefaultButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/common-default-button-props';
 import ButtonProps from '!!extract-react-types-loader!../../extract-react-types/new-button/variants/default/button-props';
 import SectionMessage from '@atlaskit/section-message';
 
@@ -26,10 +26,8 @@ These props work for both `Button` and `LinkButton`. Each button type also suppo
 - `style`
 - `role`
 
-<PropsTable heading="" props={CommonProps} />
+<PropsTable heading="" props={CommonDefaultButtonProps} />
 
 ### Button props
-
-Buttons also support valid `<button>` tag HTML attributes.
 
 <PropsTable heading="" props={ButtonProps} />

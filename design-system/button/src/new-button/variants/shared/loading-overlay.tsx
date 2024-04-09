@@ -24,11 +24,8 @@ function getSpinnerAppearance({
   isDisabled?: boolean;
   isSelected?: boolean;
 }): 'inherit' | 'invert' {
-  if (isDisabled) {
+  if (isDisabled || isSelected) {
     return 'inherit';
-  }
-  if (isSelected) {
-    return 'invert';
   }
   if (appearance === 'primary' || appearance === 'danger') {
     return 'invert';

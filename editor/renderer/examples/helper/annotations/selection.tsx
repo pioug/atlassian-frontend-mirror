@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
@@ -124,7 +124,7 @@ const Component = (
         <div css={whiteBoxStyles}>
           <Button
             appearance="subtle"
-            iconBefore={<AddCommentIcon size="medium" label="" />}
+            iconBefore={AddCommentIcon}
             isDisabled={!isAnnotationAllowed}
             testId="createInlineCommentButton"
             onClick={onToolbarCreateButtonClick}

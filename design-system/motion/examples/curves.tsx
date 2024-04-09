@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { MovesRightBlock } from '../examples-utils/blocks';
 import { easeIn } from '../src';
+
+import { MovesRightBlock } from './utils/blocks';
 
 export default () => <MovesRightBlock curve={easeIn} duration={1000} />;

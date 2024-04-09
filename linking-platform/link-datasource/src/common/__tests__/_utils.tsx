@@ -214,7 +214,7 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
           searchCount: 0,
           searchMethod: null,
           totalItemCount: 3,
-          isQueryComplex: false,
+          ...(providerType === 'jira' ? { isQueryComplex: false } : undefined),
           ...override?.attributes,
         },
       },
@@ -464,20 +464,12 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
       );
       button.click();
 
-      // Remove condition when confluence-search supports analytics
-      // in https://product-fabric.atlassian.net/browse/EDM-9413
-      switch (providerType) {
-        case 'jira':
-          expect(onInsert).toHaveBeenCalledWith(
-            insertArgs(args),
-            expect.objectContaining(
-              getInsertAnalyticPayload(analyticsExpectedOverride),
-            ),
-          );
-          break;
-        default:
-          expect(onInsert).toHaveBeenCalledWith(insertArgs(args));
-      }
+      expect(onInsert).toHaveBeenCalledWith(
+        insertArgs(args),
+        expect.objectContaining(
+          getInsertAnalyticPayload(analyticsExpectedOverride),
+        ),
+      );
     };
 
     return {

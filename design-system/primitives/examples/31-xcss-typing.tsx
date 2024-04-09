@@ -30,11 +30,6 @@ const rawValuesStyles = xcss({
   // things that can also be raw values (any string...)
   width: '100px',
   height: '100px',
-  paddingRight: '8px',
-  margin: '8px',
-  marginInlineStart: '8px',
-  marginLeft: 'auto',
-  marginRight: '-8px',
 });
 
 export default function Basic() {

@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Flag, { FlagGroup, FlagProps } from '@atlaskit/flag';
 import { Box, xcss } from '@atlaskit/primitives';
 

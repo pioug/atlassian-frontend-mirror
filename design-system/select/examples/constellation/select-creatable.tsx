@@ -24,7 +24,7 @@ interface State {
   value?: ValueType<OptionType>;
 }
 
-export default class CreatableAdvanced extends Component<{}, State> {
+class CreatableAdvanced extends Component<{}, State> {
   state: State = {
     isLoading: false,
     options: defaultOptions,
@@ -77,3 +77,5 @@ export default class CreatableAdvanced extends Component<{}, State> {
     );
   }
 }
+
+export default () => <CreatableAdvanced />;

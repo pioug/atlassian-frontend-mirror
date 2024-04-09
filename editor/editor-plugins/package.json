@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.0.4",
+  "version": "2.0.9",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -212,7 +212,7 @@
     "@atlaskit/editor-plugin-accessibility-utils": "1.0.1",
     "@atlaskit/editor-plugin-alignment": "1.1.5",
     "@atlaskit/editor-plugin-analytics": "1.0.6",
-    "@atlaskit/editor-plugin-annotation": "1.5.6",
+    "@atlaskit/editor-plugin-annotation": "1.5.7",
     "@atlaskit/editor-plugin-avatar-group": "1.0.6",
     "@atlaskit/editor-plugin-base": "1.0.5",
     "@atlaskit/editor-plugin-before-primary-toolbar": "1.0.2",
@@ -221,7 +221,7 @@
     "@atlaskit/editor-plugin-border": "1.0.6",
     "@atlaskit/editor-plugin-breakout": "1.0.6",
     "@atlaskit/editor-plugin-caption": "1.0.5",
-    "@atlaskit/editor-plugin-card": "1.4.2",
+    "@atlaskit/editor-plugin-card": "1.4.3",
     "@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.0.2",
     "@atlaskit/editor-plugin-clipboard": "1.0.2",
     "@atlaskit/editor-plugin-code-bidi-warning": "1.0.2",
@@ -244,7 +244,7 @@
     "@atlaskit/editor-plugin-feature-flags": "1.0.5",
     "@atlaskit/editor-plugin-feedback-dialog": "1.0.2",
     "@atlaskit/editor-plugin-find-replace": "1.1.6",
-    "@atlaskit/editor-plugin-floating-toolbar": "1.2.2",
+    "@atlaskit/editor-plugin-floating-toolbar": "1.2.3",
     "@atlaskit/editor-plugin-focus": "1.1.0",
     "@atlaskit/editor-plugin-fragment": "1.0.6",
     "@atlaskit/editor-plugin-grid": "1.0.3",
@@ -259,7 +259,7 @@
     "@atlaskit/editor-plugin-list": "3.1.16",
     "@atlaskit/editor-plugin-loom": "2.0.0",
     "@atlaskit/editor-plugin-max-content-size": "1.0.2",
-    "@atlaskit/editor-plugin-media": "1.13.3",
+    "@atlaskit/editor-plugin-media": "1.14.1",
     "@atlaskit/editor-plugin-mentions": "1.0.8",
     "@atlaskit/editor-plugin-panel": "1.0.9",
     "@atlaskit/editor-plugin-paste": "1.0.13",
@@ -275,7 +275,7 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.2",
     "@atlaskit/editor-plugin-status": "1.0.6",
     "@atlaskit/editor-plugin-submit-editor": "1.0.2",
-    "@atlaskit/editor-plugin-table": "7.6.8",
+    "@atlaskit/editor-plugin-table": "7.6.11",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.7",
     "@atlaskit/editor-plugin-text-color": "1.0.6",
     "@atlaskit/editor-plugin-text-formatting": "1.3.3",
@@ -368,10 +368,6 @@
       "referenceOnly": true
     },
     "platform.linking-platform.enable-datasource-appearance-toolbar": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor-add-link-preferences-button-to-datasources_xt1sh": {
       "type": "boolean",
       "referenceOnly": true
     },
@@ -504,10 +500,6 @@
       "referenceOnly": true
     },
     "platform.editor.menu.group-items": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.table.in-danger-hover-merged-cells-fix": {
       "type": "boolean",
       "referenceOnly": true
     },

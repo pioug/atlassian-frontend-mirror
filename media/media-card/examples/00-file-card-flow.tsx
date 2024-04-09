@@ -20,7 +20,7 @@ import {
   emptyImageFileId,
 } from '@atlaskit/media-test-helpers';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Card } from '../src';
 import {
   UploadController,

@@ -23,3 +23,4 @@ export {
   getMaxWidthForNestedNodeNext,
   currentMediaNodeWithPos,
 } from './utils';
+export { CommentBadge } from './CommentBadge';

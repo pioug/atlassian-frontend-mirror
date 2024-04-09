@@ -28,7 +28,7 @@ const ResolvedResultsStack: React.FC<ResolvedResultsStackProps> = ({
       space="space.050"
       testId={`${testId}-items-wrapper`}
       as="ul"
-      xcss={xcss({ paddingLeft: '0px', marginTop: '0px' })}
+      xcss={xcss({ paddingLeft: 'space.0', marginTop: 'space.0' })}
     >
       {resolvedResults.map((resolvedResults, idx) => (
         <RelatedUrlItemAnalyticsContext details={resolvedResults} key={idx}>

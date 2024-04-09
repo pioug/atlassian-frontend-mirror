@@ -5,6 +5,8 @@ function getStartPos(element: HTMLElement) {
   return parseInt(element.dataset.rendererStartPos || '-1', 10);
 }
 
+const getNodeType = (element: HTMLElement) => element.dataset.nodeType;
+
 function isPositionPointer(element: HTMLElement) {
   return getStartPos(element) > -1;
 }
@@ -142,6 +144,12 @@ export function getPosFromRange(
   range: Range,
 ): { from: number; to: number } | false {
   const { startContainer, startOffset, endContainer, endOffset } = range;
+
+  const parent = findParent(startContainer);
+  if (parent && getNodeType(parent) === 'media') {
+    const pos = getStartPos(parent);
+    return { from: pos, to: pos };
+  }
 
   const from = resolvePos(startContainer, startOffset);
   const to = resolvePos(endContainer, endOffset);

@@ -1,6 +1,7 @@
 import React, { forwardRef, memo, type Ref } from 'react';
 
 import UNSAFE_ANCHOR from '@atlaskit/primitives/anchor';
+import Tooltip from '@atlaskit/tooltip';
 
 import { type CommonLinkVariantProps } from '../types';
 
@@ -15,32 +16,34 @@ const LinkIconButtonBase = <
   RouterLinkConfig extends Record<string, any> = never,
 >(
   {
-    analyticsContext,
-    interactionName,
-    autoFocus,
-    appearance,
-    spacing,
-    isDisabled,
-    isSelected,
-    icon,
-    label,
-    overlay,
-    onClick,
-    onMouseDownCapture,
-    onMouseUpCapture,
-    onKeyDownCapture,
-    onKeyUpCapture,
-    onTouchStartCapture,
-    onTouchEndCapture,
-    onPointerDownCapture,
-    onPointerUpCapture,
-    onClickCapture,
-    shape,
-    testId,
-    UNSAFE_size,
-    href,
     // Prevent duplicate labels being added.
     'aria-label': preventedAriaLabel,
+    analyticsContext,
+    appearance,
+    autoFocus,
+    href,
+    icon,
+    interactionName,
+    isDisabled,
+    isSelected,
+    isTooltipDisabled = true,
+    label,
+    onClick,
+    onClickCapture,
+    onKeyDownCapture,
+    onKeyUpCapture,
+    onMouseDownCapture,
+    onMouseUpCapture,
+    onPointerDownCapture,
+    onPointerUpCapture,
+    onTouchEndCapture,
+    onTouchStartCapture,
+    overlay,
+    shape,
+    spacing,
+    testId,
+    tooltip,
+    UNSAFE_size,
     ...rest
   }: LinkIconButtonProps<RouterLinkConfig>,
   ref: Ref<HTMLAnchorElement>,
@@ -71,6 +74,93 @@ const LinkIconButtonBase = <
     spacing,
     UNSAFE_size,
   });
+
+  if (!isTooltipDisabled) {
+    return (
+      <Tooltip
+        content={tooltip?.content ?? label}
+        testId={tooltip?.testId}
+        position={tooltip?.position}
+        delay={tooltip?.delay}
+        onShow={tooltip?.onShow}
+        onHide={tooltip?.onHide}
+        mousePosition={tooltip?.mousePosition}
+        analyticsContext={tooltip?.analyticsContext}
+        strategy={tooltip?.strategy}
+        tag={tooltip?.tag}
+        truncate={tooltip?.truncate}
+        component={tooltip?.component}
+        hideTooltipOnClick={tooltip?.hideTooltipOnClick}
+        hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+      >
+        {(triggerProps) => (
+          <UNSAFE_ANCHOR
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+            {...rest}
+            testId={testId}
+            componentName="LinkIconButton"
+            analyticsContext={analyticsContext}
+            interactionName={interactionName}
+            // Shared between tooltip and native props
+            onMouseOver={(e) => {
+              triggerProps.onMouseOver?.(e);
+              rest.onMouseOver?.(e);
+            }}
+            onMouseOut={(e) => {
+              triggerProps.onMouseOut?.(e);
+              rest.onMouseOut?.(e);
+            }}
+            onMouseMove={(e) => {
+              triggerProps.onMouseMove?.(e);
+              rest.onMouseMove?.(e);
+            }}
+            onMouseDown={(e) => {
+              triggerProps.onMouseDown?.(e);
+              rest.onMouseDown?.(e);
+            }}
+            onFocus={(e) => {
+              triggerProps.onFocus?.(e);
+              rest.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              triggerProps.onBlur?.(e);
+              rest.onBlur?.(e);
+            }}
+            // Shared between tooltip and base props
+            onClick={(event, analyticsEvent) => {
+              baseProps?.onClick?.(event, analyticsEvent);
+              triggerProps?.onClick?.(event);
+            }}
+            ref={(ref) => {
+              baseProps.ref(ref);
+              triggerProps?.ref?.(ref);
+            }}
+            // Base props only
+            xcss={baseProps.xcss}
+            onMouseDownCapture={baseProps.onMouseDownCapture}
+            onMouseUpCapture={baseProps.onMouseUpCapture}
+            onKeyDownCapture={baseProps.onKeyDownCapture}
+            onKeyUpCapture={baseProps.onKeyUpCapture}
+            onTouchStartCapture={baseProps.onTouchStartCapture}
+            onTouchEndCapture={baseProps.onTouchEndCapture}
+            onPointerDownCapture={baseProps.onPointerDownCapture}
+            onPointerUpCapture={baseProps.onPointerUpCapture}
+            onClickCapture={baseProps.onClickCapture}
+            /**
+             * Disable link in an accessible way using `href`, `role`, and `aria-disabled`.
+             * @see https://a11y-guidelines.orange.com/en/articles/disable-elements/#disable-a-link
+             */
+            // @ts-expect-error (`href` is required, we could make it optional but don't want to encourage this pattern elsewhere)
+            href={baseProps.isDisabled ? undefined : href}
+            role={baseProps.isDisabled ? 'link' : undefined}
+            aria-disabled={baseProps.isDisabled === true ? true : undefined}
+          >
+            {baseProps.children}
+          </UNSAFE_ANCHOR>
+        )}
+      </Tooltip>
+    );
+  }
 
   return (
     <UNSAFE_ANCHOR

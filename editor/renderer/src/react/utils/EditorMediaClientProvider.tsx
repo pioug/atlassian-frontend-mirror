@@ -17,6 +17,12 @@ export const EditorMediaClientProvider = ({
 
   const mediaProvider = useProvider('mediaProvider');
 
+  /**
+   * If a mediaClientConfig is provided then we will force
+   * skip the mediaClient from context
+   */
+  const shouldSkipContext = Boolean(ssr?.config || mediaProvider);
+
   const contextMediaClient = useContext(MediaClientContext);
 
   // MediaClientProvider currently requires a mediaClientConfig
@@ -42,7 +48,9 @@ export const EditorMediaClientProvider = ({
   }, [mediaProvider, ssr]);
 
   return (
-    <MediaClientContext.Provider value={mediaClient || contextMediaClient}>
+    <MediaClientContext.Provider
+      value={shouldSkipContext ? mediaClient : contextMediaClient}
+    >
       {children}
     </MediaClientContext.Provider>
   );

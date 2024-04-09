@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 import { AnalyticsContext, AnalyticsListener, UIAnalyticsEvent } from '../src';
 

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 import { default as whiteboardSvg } from '../example-helpers/hero-image.svg';

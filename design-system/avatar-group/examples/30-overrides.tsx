@@ -9,14 +9,13 @@ import { token } from '@atlaskit/tokens';
 import { RANDOM_USERS } from '../examples-util/data';
 import AvatarGroup from '../src';
 
-const ButtonGroup = styled.div`
-  margin: ${token('space.100', '8px')};
-  text-align: center;
-`;
+const ButtonGroup = styled.div({
+  margin: token('space.100', '8px'),
+  textAlign: 'center',
+});
 
 export default () => {
   const data = RANDOM_USERS.slice(0, 8).map((d) => ({
-    email: d.email,
     key: d.email,
     name: d.name,
     href: '#',

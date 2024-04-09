@@ -9,11 +9,11 @@ import { Appearance } from '../old-button/types';
 
 export type ButtonGroupProps = {
   /**
-   * The appearance to apply to all buttons
+   * The appearance to apply to all buttons.
    */
   appearance?: Appearance;
   /**
-   * The buttons to render inside the Button Group
+   * The buttons to render inside the button group.
    */
   children?: React.ReactNode;
   /**
@@ -21,12 +21,12 @@ export type ButtonGroupProps = {
    */
   testId?: string;
   /**
-   * Refers to an aria-label attribute. Sets an accessible name for ButtonGroup wrapper to announce it to users of assistive technology.
+   * Refers to an `aria-label` attribute. Sets an accessible name for the button group wrapper to announce it to users of assistive technology.
    * Usage of either this, or the `titleId` attribute is strongly recommended.
    */
   label?: string;
   /**
-   * Id referenced by the ButtonGroup wrapper's aria-labelledby attribute. This id should be assigned to the group-button title element.
+   * ID referenced by the button group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group-button title element.
    * Usage of either this, or the `label` attribute is strongly recommended.
    */
   titleId?: string;

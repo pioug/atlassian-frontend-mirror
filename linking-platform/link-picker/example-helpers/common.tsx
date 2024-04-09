@@ -18,7 +18,7 @@ interface WrapperProps {
 export type messages = { [key: string]: string };
 
 const pageWrapperStyles = xcss({
-  marginBottom: '2em',
+  marginBottom: 'space.400',
   maxWidth: '700px',
 });
 

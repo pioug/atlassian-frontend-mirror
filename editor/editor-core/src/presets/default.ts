@@ -51,7 +51,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 // #endregion
 
 export type DefaultPresetPluginOptions = {
-  paste: PastePluginOptions;
+  paste?: PastePluginOptions;
   base?: BasePluginOptions;
   blockType?: BlockTypePluginOptions;
   placeholder?: PlaceholderPluginOptions;
@@ -100,7 +100,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
       Boolean(options.allowAnalyticsGASV3),
     )
     .add(betterTypeHistoryPlugin)
-    .add([pastePlugin, options.paste])
+    .add([pastePlugin, { ...options?.paste }])
     .add(clipboardPlugin)
     .add(focusPlugin)
     .add(compositionPlugin)

@@ -4,7 +4,7 @@ import { Stack } from '@atlaskit/primitives';
 
 import variants from '../src/utils/variants';
 
-export default function ButtonsWithIconBeforeOrAfterExample() {
+export default function ShouldFitContainerExample() {
   return (
     <Stack space="space.100">
       {variants.map(({ name, Component }) => (

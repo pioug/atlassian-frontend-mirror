@@ -14,7 +14,7 @@ import { EmojiPickerPopup } from './26-emoji-common-provider-with-real-backend';
 
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 const EmojiPickerWithUpload = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);

@@ -77,6 +77,7 @@ const useDefaultButton = <TagName extends HTMLElement>({
     ),
     interactionName,
     isDisabled,
+    isLoading,
     isSelected,
     onClick,
     onMouseDownCapture,

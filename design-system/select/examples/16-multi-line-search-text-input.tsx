@@ -19,7 +19,7 @@ interface State {
   value: OptionsType;
 }
 
-export default class MultiLineSearchInput extends Component<{}, State> {
+class MultiLineSearchInput extends Component<{}, State> {
   state = {
     inputValue: '',
     value: [],
@@ -84,3 +84,5 @@ export default class MultiLineSearchInput extends Component<{}, State> {
     );
   }
 }
+
+export default () => <MultiLineSearchInput />;

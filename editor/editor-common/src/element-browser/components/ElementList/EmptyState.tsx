@@ -76,5 +76,5 @@ const emptyStateWrapper = css({
 });
 
 const externalLinkWrapper = xcss({
-  marginTop: token('space.150', '12px'),
+  marginTop: 'space.150',
 });

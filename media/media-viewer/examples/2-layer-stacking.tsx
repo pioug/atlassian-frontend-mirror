@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
 import {
   createStorybookMediaClientConfig,

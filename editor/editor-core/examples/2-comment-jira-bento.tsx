@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';

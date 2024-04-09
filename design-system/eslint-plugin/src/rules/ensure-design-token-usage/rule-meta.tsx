@@ -1,4 +1,4 @@
-import { LintRuleMeta } from '../utils/create-rule';
+import type { LintRuleMeta } from '@atlaskit/eslint-utils/create-rule';
 
 import { Domains } from './types';
 

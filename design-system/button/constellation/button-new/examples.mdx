@@ -21,7 +21,7 @@ import ButtonWithIconBefore from '../../examples/constellation/new-button/button
 import ButtonWithIconAfter from '../../examples/constellation/new-button/button/button-with-icon-after';
 import ButtonWithIconBeforeSize from '../../examples/constellation/new-button/button/button-with-icon-before-size';
 import ButtonTruncation from '../../examples/constellation/new-button/button/button-truncation';
-import ButtonOverlay from '../../examples/constellation/new-button/button/button-overlay';
+import ButtonLoading from '../../examples/constellation/new-button/button/button-loading';
 
 ## Default
 
@@ -104,6 +104,12 @@ Set `isSelected` to indicate the button is selected.
 
 <Example Component={ButtonSelected} packageName="@atlaskit/button" />
 
+### Loading
+
+When a button is still loading and not actionable, a loading spinner can be displayed in place of the button label. This also disables the button and blocks user interaction.
+
+<Example Component={ButtonLoading} packageName="@atlaskit/button" />
+
 ## Spacing
 
 Button spacing depends on the surrounding UI. Default spacing is used for most use cases, `compact` for tables, and `none` for breadcrumbs.
@@ -157,19 +163,6 @@ The truncation is implemented with styles, so screen readers will still read the
 For more information see [truncation](/content/language-and-grammar#truncation).
 
 <Example Component={ButtonTruncation} packageName="@atlaskit/button" />
-
-## Overlays
-
-The `overlay` prop disables the button and block user interaction. This can be used to show a spinner or other loading state.
-
-<SectionMessage title="Caution" appearance="warning">
-  <p>
-    This isn't recommended for most cases. This feature may be removed in the
-    future. Use with caution.
-  </p>
-</SectionMessage>
-
-<Example Component={ButtonOverlay} packageName="@atlaskit/button" />
 
 ## Custom buttons
 

@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 78.23.10
+
+### Patch Changes
+
+- [#88137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88137) [`0a744349d5e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a744349d5e6) - [ux] [ED-22833] Change icon used for comment button in media floating toolbar when there are active comments associated with the media. The icon will now be comment icon with a dot at top right corner.
+
+## 78.23.9
+
+### Patch Changes
+
+- [#88354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88354) [`4c87d9b4f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c87d9b4f0c2) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
+## 78.23.8
+
+### Patch Changes
+
+- [#88096](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88096) [`38f5046368e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38f5046368e5) - fix preserve table width undo / redo issue and show full width guide on small screens
+- [#87596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87596) [`e0b95c3a4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0b95c3a4fba) - Add new UI badge for media node to trigger comments
+
+## 78.23.7
+
+### Patch Changes
+
+- [#87820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87820) [`6702a9cc8f80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6702a9cc8f80) - [ux] [ED-22819] Update comment styling for media in renderer so that it aligns with editor
+- Updated dependencies
+
 ## 78.23.6
 
 ### Patch Changes

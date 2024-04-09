@@ -203,9 +203,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
       },
     );
 
-    if (currentSearchMethod === 'basic') {
-      fireEvent('ui.form.submitted.basicSearch', {});
-    } else if (currentSearchMethod === 'jql') {
+    if (currentSearchMethod === 'jql') {
       fireEvent('ui.jqlEditor.searched', {
         isQueryComplex: isCurrentQueryComplex,
       });

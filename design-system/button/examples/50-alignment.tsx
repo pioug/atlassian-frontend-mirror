@@ -10,7 +10,7 @@ import variants from '../src/utils/variants';
 /**
  * Tests alignment of Button with inline text
  */
-export default function ButtonAlignmentExample() {
+export default function AlignmentExample() {
   return (
     <Stack space="space.300">
       {variants.map(({ name, Component, spacing }) => (

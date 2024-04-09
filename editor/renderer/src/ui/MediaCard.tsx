@@ -59,6 +59,7 @@ export interface MediaCardProps {
   featureFlags?: MediaFeatureFlags;
   shouldEnableDownloadButton?: boolean;
   ssr?: MediaSSR;
+  dataAttributes?: Record<string, any>;
 }
 
 export interface State {
@@ -279,6 +280,7 @@ export class MediaCardView extends Component<
       ssr,
       mediaClient,
       setHoverTarget,
+      dataAttributes,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -332,6 +334,7 @@ export class MediaCardView extends Component<
           originalDimensions,
           fileState,
         })}
+        {...dataAttributes}
         onMouseEnter={(event) => {
           // We will not allow a hover target to be set if any mouse button is depressed during the mouse enter state.
           // This could be due to the user trying to select text across the document.

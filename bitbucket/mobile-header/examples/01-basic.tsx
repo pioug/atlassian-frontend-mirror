@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import DetailViewIcon from '@atlaskit/icon/glyph/detail-view';
 import Navigation from '@atlaskit/navigation';
 
@@ -54,9 +54,10 @@ class MobileHeaderDemo extends Component<{}, State> {
             secondaryContent={
               <ButtonGroup>
                 <Button>One</Button>
-                <Button
-                  iconBefore={<DetailViewIcon label="Show sidebar" />}
+                <IconButton
+                  icon={DetailViewIcon}
                   onClick={this.sidebarOpened}
+                  label="Show sidebar"
                 />
               </ButtonGroup>
             }

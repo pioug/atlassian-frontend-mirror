@@ -91,7 +91,7 @@ describe('AISummaryBlock', () => {
       expect(buttonAfterClick).not.toBeInTheDocument();
     });
 
-    it('fires button clicked event when click on Summarize button', async () => {
+    it('fires expected events when click on Summarize button', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'ready', content: '' },
         summariseUrl: jest.fn(),
@@ -113,9 +113,23 @@ describe('AISummaryBlock', () => {
         },
         ANALYTICS_CHANNEL,
       );
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'initiated',
+            actionSubject: 'aiInteraction',
+            attributes: {
+              aiFeatureName: 'Smart Links Summary',
+              proactiveAIGenerated: 0,
+              userGeneratedAI: 1,
+            },
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
     });
 
-    it('fires a summary viewed event when the summary is done', async () => {
+    it('fires expected events when the summary is done', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'loading', content: '' },
         summariseUrl: jest.fn(),
@@ -144,9 +158,23 @@ describe('AISummaryBlock', () => {
         },
         ANALYTICS_CHANNEL,
       );
+      expect(spy).not.toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'initiated',
+            actionSubject: 'aiInteraction',
+            attributes: {
+              aiFeatureName: 'Smart Links Summary',
+              proactiveAIGenerated: 1,
+              userGeneratedAI: 0,
+            },
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
     });
 
-    it('fires a summary viewed event when the summary is cached', async () => {
+    it('fires expected events when the summary is cached', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'done', content: '' },
         summariseUrl: jest.fn(),
@@ -162,6 +190,20 @@ describe('AISummaryBlock', () => {
             actionSubject: 'summary',
             attributes: {
               fromCache: true,
+            },
+          },
+        },
+        ANALYTICS_CHANNEL,
+      );
+      expect(spy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'initiated',
+            actionSubject: 'aiInteraction',
+            attributes: {
+              aiFeatureName: 'Smart Links Summary',
+              proactiveAIGenerated: 1,
+              userGeneratedAI: 0,
             },
           },
         },

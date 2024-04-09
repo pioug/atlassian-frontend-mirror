@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-media",
-  "version": "1.13.3",
+  "version": "1.14.1",
   "description": "Media plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,11 +40,11 @@
     "@atlaskit/adf-schema": "^35.8.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.9.0",
+    "@atlaskit/button": "^17.11.0",
     "@atlaskit/editor-common": "^78.23.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-annotation": "1.5.6",
+    "@atlaskit/editor-plugin-annotation": "1.5.7",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
     "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
@@ -65,7 +65,7 @@
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
     "@atlaskit/media-picker": "^66.4.0",
-    "@atlaskit/media-ui": "^25.5.0",
+    "@atlaskit/media-ui": "^25.6.0",
     "@atlaskit/media-viewer": "^48.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^5.5.0",
@@ -75,6 +75,7 @@
     "@atlaskit/tooltip": "^18.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
+    "bind-event-listener": "^2.1.1",
     "classnames": "^2.2.5",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
@@ -143,6 +144,9 @@
       "type": "boolean"
     },
     "platform.editor.allow-extended-panel": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y_video_controls_keyboard_support_yhcxh": {
       "type": "boolean"
     },
     "platform.editor.media.fix-copy-paste-excel_62g4s": {

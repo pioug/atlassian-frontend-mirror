@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.11
+
+### Patch Changes
+
+- [#80728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80728) [`aac7ad9bb32d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aac7ad9bb32d) - [ux] The table's floating toolbar dropdown menu a11y annnouncement.
+
+## 7.6.10
+
+### Patch Changes
+
+- [#88096](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88096) [`38f5046368e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38f5046368e5) - fix preserve table width undo / redo issue and show full width guide on small screens
+
+## 7.6.9
+
+### Patch Changes
+
+- [#87069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87069) [`3c2cb323593e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c2cb323593e) - remove feature flag in-danger-hover-merged-cells-fix
+
 ## 7.6.8
 
 ### Patch Changes

@@ -42,6 +42,7 @@ export interface InlinePlayerOwnProps {
   readonly cardPreview?: CardPreview;
   //To Forward Ref
   readonly forwardRef?: React.Ref<HTMLDivElement>;
+  readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 }
 
 export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;
@@ -239,6 +240,7 @@ export class InlinePlayerBase extends Component<
       autoplay,
       cardPreview,
       onFullscreenChange,
+      videoControlsWrapperRef,
     } = this.props;
     const { fileSrc, isUploading, progress } = this.state;
 
@@ -259,7 +261,6 @@ export class InlinePlayerBase extends Component<
             <CustomMediaPlayer
               type="video"
               src={fileSrc}
-              isVideoSelected={selected}
               onFullscreenChange={onFullscreenChange}
               fileId={identifier.id}
               isAutoPlay={autoplay}
@@ -272,6 +273,7 @@ export class InlinePlayerBase extends Component<
               originalDimensions={originalDimensions}
               showControls={checkMouseMovement}
               poster={cardPreview?.dataURI}
+              videoControlsWrapperRef={videoControlsWrapperRef}
             />
           )}
         </InactivityDetector>

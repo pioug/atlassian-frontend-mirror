@@ -7,7 +7,7 @@ import { Stack } from '@atlaskit/primitives';
 
 import variants from '../src/utils/variants';
 
-export default function Overlay() {
+export default function OverlayExample() {
   const [overlay, setOverlay] = useState(true);
 
   const overlayElement = (

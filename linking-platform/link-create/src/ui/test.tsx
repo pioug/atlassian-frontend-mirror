@@ -313,148 +313,74 @@ describe('<LinkCreate />', () => {
   describe('it should dispatch operational analytics when a plugin calls `onFailure` and can still proceed to succeed the experience', () => {
     ffTest(
       'platform.linking-platform.link-create.better-observability',
-      ff => {
-        ffTest(
-          'platform.linking-platform.link-create.tmp-log-error-message',
-          async () => {
-            setUpLinkCreate();
+      async () => {
+        setUpLinkCreate();
 
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(1);
+        screen.getByTestId('error-button').click();
+        expect(onFailureMock).toBeCalledTimes(1);
 
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'Error',
-                  errorMessage: 'An error just happened',
-                  path: null,
-                  status: null,
-                  traceId: null,
-                  experienceStatus: 'FAILED',
-                  previousExperienceStatus: 'STARTED',
-                },
-              },
-            });
-
-            screen.getByTestId('submit-button').click();
-
-            expect(onCreateMock).toBeCalledWith(
-              expect.objectContaining({
-                url: 'https://www.atlassian.com',
-                objectId: '123',
-                objectType: 'page',
-                data: { spaceName: 'space' },
-                ari: 'example-ari',
-              }),
-            );
-
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'track',
-                action: 'created',
-                actionSubject: 'object',
-                actionSubjectId: 'linkCreate',
-              },
-            });
-
-            /**
-             * Could technically still fail the experience again after creation if we want to
-             */
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(2);
-
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'Error',
-                  path: null,
-                  status: null,
-                  traceId: null,
-                  experienceStatus: 'FAILED',
-                  previousExperienceStatus: 'SUCCEEDED',
-                },
-              },
-            });
-
-            // the onCreate callback is awaited
-            await flushPromises();
+        expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            eventType: 'operational',
+            action: 'failed',
+            actionSubject: 'linkCreateExperience',
+            attributes: {
+              errorType: 'Error',
+              errorMessage: 'An error just happened',
+              path: null,
+              status: null,
+              traceId: null,
+              experienceStatus: 'FAILED',
+              previousExperienceStatus: 'STARTED',
+            },
           },
-          async () => {
-            setUpLinkCreate();
+        });
 
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(1);
+        screen.getByTestId('submit-button').click();
 
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'Error',
-                  errorMessage: null,
-                  path: null,
-                  status: null,
-                  traceId: null,
-                  experienceStatus: 'FAILED',
-                  previousExperienceStatus: 'STARTED',
-                },
-              },
-            });
-            screen.getByTestId('submit-button').click();
-
-            expect(onCreateMock).toBeCalledWith(
-              expect.objectContaining({
-                url: 'https://www.atlassian.com',
-                objectId: '123',
-                objectType: 'page',
-                data: { spaceName: 'space' },
-                ari: 'example-ari',
-              }),
-            );
-
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'track',
-                action: 'created',
-                actionSubject: 'object',
-                actionSubjectId: 'linkCreate',
-              },
-            });
-
-            /**
-             * Could technically still fail the experience again after creation if we want to
-             */
-            screen.getByTestId('error-button').click();
-            expect(onFailureMock).toBeCalledTimes(2);
-
-            expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
-              payload: {
-                eventType: 'operational',
-                action: 'failed',
-                actionSubject: 'linkCreateExperience',
-                attributes: {
-                  errorType: 'Error',
-                  path: null,
-                  status: null,
-                  traceId: null,
-                  experienceStatus: 'FAILED',
-                  previousExperienceStatus: 'SUCCEEDED',
-                },
-              },
-            });
-
-            // the onCreate callback is awaited
-            await flushPromises();
-          },
-          ff,
+        expect(onCreateMock).toBeCalledWith(
+          expect.objectContaining({
+            url: 'https://www.atlassian.com',
+            objectId: '123',
+            objectType: 'page',
+            data: { spaceName: 'space' },
+            ari: 'example-ari',
+          }),
         );
+
+        expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            eventType: 'track',
+            action: 'created',
+            actionSubject: 'object',
+            actionSubjectId: 'linkCreate',
+          },
+        });
+
+        /**
+         * Could technically still fail the experience again after creation if we want to
+         */
+        screen.getByTestId('error-button').click();
+        expect(onFailureMock).toBeCalledTimes(2);
+
+        expect(onAnalyticsEventMock).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            eventType: 'operational',
+            action: 'failed',
+            actionSubject: 'linkCreateExperience',
+            attributes: {
+              errorType: 'Error',
+              path: null,
+              status: null,
+              traceId: null,
+              experienceStatus: 'FAILED',
+              previousExperienceStatus: 'SUCCEEDED',
+            },
+          },
+        });
+
+        // the onCreate callback is awaited
+        await flushPromises();
       },
       async () => {
         setUpLinkCreate();

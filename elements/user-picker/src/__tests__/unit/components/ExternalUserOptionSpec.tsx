@@ -52,9 +52,7 @@ describe('ExternalUserOption', () => {
     );
     expect(screen.getByText(hasTextIgnoringHtml(user.email!))).toBeTruthy();
     expect(screen.getByText(user.name)).toBeTruthy();
-    expect(
-      screen.getByRole('img', { name: new RegExp(user.name) }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('img')).toBeInTheDocument();
   });
 
   it('should render byline as the secondary text instead of email if byline is passed in', () => {
@@ -70,9 +68,7 @@ describe('ExternalUserOption', () => {
     ).not.toBeInTheDocument();
     expect(screen.getByText(hasTextIgnoringHtml(user.byline!))).toBeTruthy();
     expect(screen.getByText(user.name)).toBeTruthy();
-    expect(
-      screen.getByRole('img', { name: new RegExp(user.name) }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('img')).toBeInTheDocument();
   });
 
   it('should render a tooltip containing the user sources', async () => {

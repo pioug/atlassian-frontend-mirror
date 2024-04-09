@@ -1,4 +1,4 @@
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import ModalDialog, { ModalBody } from '@atlaskit/modal-dialog';
 import { token } from '@atlaskit/tokens';
 import React, { useState } from 'react';

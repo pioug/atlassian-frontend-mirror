@@ -3,7 +3,6 @@ import React from 'react';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 import { components, MenuListComponentProps } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
 
 import { FilterOptionsState } from '../../hooks/useFilterOptions';
 import { BasicFilterFieldType, SelectOption } from '../../types';
@@ -14,12 +13,12 @@ import CustomDropdownLoadingMessage from './loadingMessage';
 import CustomNoOptionsMessage from './noOptionsMessage';
 
 const inlineSpinnerStyles = xcss({
-  paddingTop: token('space.075', '6px'),
+  paddingTop: 'space.075',
 });
 
 const showMoreButtonBoxStyles = xcss({
-  paddingLeft: token('space.075', '6px'),
-  paddingTop: token('space.100', '8px'),
+  paddingLeft: 'space.075',
+  paddingTop: 'space.100',
 });
 
 type CustomProps = {

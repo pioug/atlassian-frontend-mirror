@@ -9,12 +9,12 @@ import ImageThemed from '../../examples/constellation/image-themed';
 
 ### Default
 
-Works exactly like a native `img` element. It recognizes and accepts all `img` props, but future versions will have more limitations and not include unsafe props like `className` and `css`.
+The image component works exactly like a native `img` element. It recognizes and accepts all `img` props, but future versions will have limitations to exclude unsafe props like `className` and `css`.
 
 <Example Component={ImageDefault} packageName="@atlaskit/image" />
 
 ### Dark mode
 
-Provide a dark mode image source with `srcDark`. When provided, `srcDark` will automatically be displayed when in dark mode and `src` in all other cases. If a theme hasn't been explicitly selected by the user, the `Image` component will also check for operating system preferences.
+Use the image component to provide a dark mode image source with `srcDark`. When provided, `srcDark` will automatically display when in dark mode and `src` in all other cases. If a theme hasn't been explicitly selected in the product, the `Image` component will check for operating system preferences.
 
 <Example Component={ImageThemed} packageName="@atlaskit/image" />

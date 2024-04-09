@@ -12,25 +12,39 @@ import type {
   FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
+import { CommentWithDotIcon } from './assets/commentWithDotIcon';
+import { getSelectedMediaSingle } from './utils';
+
 export const commentButton = (
   intl: IntlShape,
-  _state: EditorState,
+  state: EditorState,
   api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 ): FloatingToolbarButton<Command> => {
-  const title = intl.formatMessage(messages.addCommentOnMedia);
+  const selectMediaNode = getSelectedMediaSingle(state)?.node.firstChild;
+  let hasActiveComments = false;
+  const annotations = api?.annotation?.sharedState.currentState()?.annotations;
+
+  if (selectMediaNode && annotations) {
+    hasActiveComments = selectMediaNode.marks.some(
+      mark => mark.type.name === 'annotation' && !annotations[mark.attrs.id],
+    );
+  }
+  const title = intl.formatMessage(
+    hasActiveComments
+      ? messages.viewCommentsOnMedia
+      : messages.addCommentOnMedia,
+  );
 
   const onClickHandler = (state: EditorState, dispatch?: CommandDispatch) => {
-    if (api?.annotation && state.selection instanceof NodeSelection) {
-      const mediaNode = state.selection.node.firstChild;
+    if (api?.annotation && selectMediaNode) {
       const { showCommentForBlockNode, setInlineCommentDraftState } =
         api.annotation.actions;
 
-      if (!showCommentForBlockNode(mediaNode)(state, dispatch)) {
+      if (!showCommentForBlockNode(selectMediaNode)(state, dispatch)) {
         setInlineCommentDraftState(
           true,
           // TODO: might need to update to reflect it's from media floating toolbar
@@ -46,7 +60,7 @@ export const commentButton = (
   return {
     type: 'button',
     testId: 'add-comment-media-button',
-    icon: CommentIcon,
+    icon: hasActiveComments ? CommentWithDotIcon : CommentIcon,
     title,
     onClick: onClickHandler,
     tooltipContent: <ToolTipContent description={title} />,

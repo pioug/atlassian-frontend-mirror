@@ -18,7 +18,7 @@ import {
 import { FadeIn, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../../examples-utils';
+import { Block, RetryContainer } from '../utils';
 
 const MotionFadeInGridOfElementsExample = () => {
   const [state, setState] = useState(() => ({

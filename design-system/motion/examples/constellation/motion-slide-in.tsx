@@ -8,8 +8,8 @@ import Button from '@atlaskit/button/new';
 import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from '../../examples-utils';
 import { Fade } from '../../src/entering/types';
+import { Block, Centered, RetryContainer } from '../utils';
 
 const MotionSlideInExample = () => {
   const [fromIndex, setFromIndex] = useState(0);

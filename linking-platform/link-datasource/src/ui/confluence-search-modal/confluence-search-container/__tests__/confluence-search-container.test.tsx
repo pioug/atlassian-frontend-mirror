@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+
+import { EVENT_CHANNEL } from '../../../../analytics';
 import ConfluenceSearchContainer from '../index';
+import '@atlaskit/link-test-helpers/jest';
 
 type MockConfluenceSearchContainerProps = Partial<
   React.ComponentProps<typeof ConfluenceSearchContainer>
 > & { onSearch: jest.Mock };
+
+const onAnalyticFireEvent = jest.fn();
 
 const TestConfluenceSearchContainer = ({
   onSearch,
@@ -19,7 +26,7 @@ const TestConfluenceSearchContainer = ({
   return (
     // TODO: further refactoring in EDM-9573
     // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828131
-    <>
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <button data-testid="mock-set-new-cloudid" onClick={setNewCloudId}>
         New cloudid
       </button>
@@ -32,12 +39,12 @@ const TestConfluenceSearchContainer = ({
           cloudId={cloudId}
         />
       </IntlProvider>
-    </>
+    </AnalyticsListener>
   );
 };
 
 const setup = (
-  propsOverride: Partial<
+  propsOverride?: Partial<
     React.ComponentProps<typeof ConfluenceSearchContainer>
   >,
 ) => {
@@ -99,5 +106,63 @@ describe('ConfluenceSearchContainer', () => {
     fireEvent.click(container.getByTestId(testIds.mockSetNewCloudId));
 
     expect(searchInput.getAttribute('value')).toEqual('');
+  });
+});
+
+describe('Analytics: ConfluenceSearchContainer', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('ui.form.submitted.basicSearch', () => {
+    it('should fire event on search button click', async () => {
+      const {
+        container: { getByTestId },
+      } = setup();
+
+      const basicTextInput = getByTestId(testIds.searchInput);
+
+      fireEvent.change(basicTextInput, {
+        target: { value: 'testing' },
+      });
+
+      fireEvent.click(getByTestId(testIds.searchButton));
+
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'submitted',
+            actionSubject: 'form',
+            actionSubjectId: 'basicSearch',
+            attributes: {},
+            eventType: 'ui',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
+
+    it('should fire event on enter key press', async () => {
+      const {
+        container: { getByTestId },
+      } = setup();
+
+      const basicTextInput = getByTestId(testIds.searchInput);
+
+      await userEvent.type(basicTextInput, 'testing{enter}');
+
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'submitted',
+            actionSubject: 'form',
+            actionSubjectId: 'basicSearch',
+            attributes: {},
+            eventType: 'ui',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
   });
 });

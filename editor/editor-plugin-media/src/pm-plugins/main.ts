@@ -1044,7 +1044,37 @@ export const createPlugin = (
         return DecorationSet.create(state.doc, dropPlaceholders);
       },
       nodeViews: options.nodeViews,
-      handleTextInput(view: EditorView): boolean {
+      handleTextInput(view: EditorView, from, to, text): boolean {
+        if (
+          getBooleanFF(
+            'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+          )
+        ) {
+          const { selection } = view.state;
+          if (
+            text === ' ' &&
+            selection instanceof NodeSelection &&
+            selection.node.type.name === 'mediaSingle'
+          ) {
+            const videoControlsWrapperRef = stateKey.getState(
+              view.state,
+            )?.element;
+            const videoControls =
+              videoControlsWrapperRef?.querySelectorAll<HTMLButtonElement>(
+                'button, [tabindex]:not([tabindex="-1"])',
+              );
+            if (videoControls) {
+              const isVideoControl = Array.from(videoControls).some(
+                (videoControl: HTMLButtonElement) => {
+                  return document.activeElement === videoControl;
+                },
+              );
+              if (isVideoControl) {
+                return true;
+              }
+            }
+          }
+        }
         getMediaPluginState(view.state).splitMediaGroup();
         return false;
       },
@@ -1072,6 +1102,69 @@ export const createPlugin = (
         }
 
         return false;
+      },
+
+      handleDOMEvents: {
+        keydown: (view, event: KeyboardEvent) => {
+          if (
+            getBooleanFF(
+              'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+            )
+          ) {
+            const { selection } = view.state;
+            if (
+              selection instanceof NodeSelection &&
+              selection.node.type.name === 'mediaSingle'
+            ) {
+              // handle keydown events for video controls panel to prevent fire of rest prosemirror listeners;
+              if (event?.target instanceof HTMLElement) {
+                const a11yDefaultKeys = [
+                  'Tab',
+                  'Space',
+                  'Enter',
+                  'Shift',
+                  'Esc',
+                ];
+                const targetsAndButtons = {
+                  button: a11yDefaultKeys,
+                  range: [
+                    ...a11yDefaultKeys,
+                    'ArrowDown',
+                    'ArrowUp',
+                    'ArrowLeft',
+                    'ArrowRight',
+                  ],
+                  text: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'Esc'],
+                };
+
+                const targetType = (
+                  event.target as HTMLElement & { type?: string }
+                ).type;
+                // only if targeting button or range/text input
+                if (targetType && targetType in targetsAndButtons) {
+                  let targetRelatedA11YKeys: string[] =
+                    targetsAndButtons[
+                      targetType as keyof typeof targetsAndButtons
+                    ];
+                  const allowedKeys = new Set(targetRelatedA11YKeys);
+
+                  if (
+                    allowedKeys.has(event.key) ||
+                    allowedKeys.has(event.code)
+                  ) {
+                    // allow event to bubble to be handled by react handlers
+                    return true;
+                  } else {
+                    // otherwise focus editor to allow setting gapCursor. (e.g.: arrowRightFromMediaSingle)
+                    view.focus();
+                  }
+                }
+              }
+            }
+            // fire regular prosemirror listeners;
+            return false;
+          }
+        },
       },
     },
   });

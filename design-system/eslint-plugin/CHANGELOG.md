@@ -1,5 +1,16 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.3.0
+
+### Minor Changes
+
+- [#87586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87586) [`47d9f5fb1b11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47d9f5fb1b11) - Added use-heading rule
+
+### Patch Changes
+
+- [#87476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87476) [`af296d200ad2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af296d200ad2) - Internal refactoring to use `getCreateLintRule` from `@atlaskit/eslint-utils`
+- Updated dependencies
+
 ## 9.2.5
 
 ### Patch Changes

@@ -47,7 +47,7 @@
     "@atlaskit/editor-plugin-hyperlink": "^1.4.0",
     "@atlaskit/editor-plugin-image-upload": "^1.0.0",
     "@atlaskit/editor-plugin-layout": "^1.0.0",
-    "@atlaskit/editor-plugin-media": "^1.13.0",
+    "@atlaskit/editor-plugin-media": "^1.14.0",
     "@atlaskit/editor-plugin-mentions": "^1.0.0",
     "@atlaskit/editor-plugin-panel": "^1.0.0",
     "@atlaskit/editor-plugin-placeholder-text": "^1.0.0",

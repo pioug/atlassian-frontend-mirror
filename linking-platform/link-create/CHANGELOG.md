@@ -1,5 +1,12 @@
 # @atlaskit/link-create
 
+## 1.15.5
+
+### Patch Changes
+
+- [#88102](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88102) [`e424cbf4d842`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e424cbf4d842) - Cleans up internal observability feature flag. No expected functional changes.
+- Updated dependencies
+
 ## 1.15.4
 
 ### Patch Changes

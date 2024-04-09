@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.15.0
+
+### Minor Changes
+
+- Introduce `activationId` identifier type.
+
 ## 4.14.1
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 1.25.4
+
+### Patch Changes
+
+- [#88354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88354) [`4c87d9b4f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c87d9b4f0c2) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
+## 1.25.3
+
+### Patch Changes
+
+- [#88297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88297) [`0b8748a0e0fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b8748a0e0fc) - Add search action analytics events for confluence datasource modal.
+
+## 1.25.2
+
+### Patch Changes
+
+- [#87128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87128) [`2b6b715884a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b6b715884a0) - Adds Insert button click analytics event and tests to confluence-search config modal.
+- Updated dependencies
+
 ## 1.25.1
 
 ### Patch Changes

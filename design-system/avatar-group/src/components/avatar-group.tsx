@@ -72,8 +72,9 @@ export interface AvatarGroupProps {
   borderColor?: string;
 
   /**
-   * Array of avatar data passed to each `avatar` component.
-   * These props will be spread on to the component passed into avatar.
+   * An array of avatar prop data, that are spread onto each `avatar` component.
+   *
+   * For further usage information on AvatarPropTypes, the supported props for `avatar`, refer to [Avatar's prop documentation](https://atlassian.design/components/avatar/code).
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   data: Array<AvatarProps>;

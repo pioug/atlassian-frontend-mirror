@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-media
 
+## 1.14.1
+
+### Patch Changes
+
+- [#88137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88137) [`0a744349d5e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a744349d5e6) - [ux] [ED-22833] Change icon used for comment button in media floating toolbar when there are active comments associated with the media. The icon will now be comment icon with a dot at top right corner.
+
+## 1.14.0
+
+### Minor Changes
+
+- [#73901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73901) [`2aefab5730ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2aefab5730ab) - ECA11Y-207 Added Tab navigation for video panel controls and handling key press on them
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.13.5
+
+### Patch Changes
+
+- [#87596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87596) [`e0b95c3a4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0b95c3a4fba) - Add new UI badge for media node to trigger comments
+- Updated dependencies
+
+## 1.13.4
+
+### Patch Changes
+
+- [#83266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83266) [`2ccef5c67079`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ccef5c67079) - fix editor comment disabled state regression issue
+- Updated dependencies
+
 ## 1.13.3
 
 ### Patch Changes

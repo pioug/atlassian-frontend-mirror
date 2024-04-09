@@ -1,5 +1,11 @@
 # @atlaskit/app-provider
 
+## 1.3.0
+
+### Minor Changes
+
+- [#88515](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88515) [`ef20ec7145b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef20ec7145b7) - Add type export for `RouterLinkComponent` to enable router link configuration
+
 ## 1.2.0
 
 ### Minor Changes

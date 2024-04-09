@@ -41,6 +41,7 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
   appearance?: Appearance;
   children: React.ReactNode;
   spacing?: Spacing;
+  isLoading?: boolean;
 } & Pick<
   CommonButtonProps<TagName>,
   | 'analyticsContext'
@@ -88,6 +89,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   autoFocus = false,
   buttonType,
   isDisabled: propIsDisabled = false,
+  isLoading = false,
   isSelected = false,
   // TODO: Separate Icon Button styling from button base
   isIconButton = false,
@@ -152,6 +154,7 @@ const useButtonBase = <TagName extends HTMLElement>({
         appearance,
         spacing,
         isDisabled,
+        isLoading,
         isSelected,
         isHighlighted,
         isActiveOverSelected,
@@ -170,6 +173,7 @@ const useButtonBase = <TagName extends HTMLElement>({
       buttonType,
       spacing,
       isDisabled,
+      isLoading,
       isSelected,
       isHighlighted,
       isActiveOverSelected,

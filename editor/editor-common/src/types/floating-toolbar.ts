@@ -33,10 +33,17 @@ export interface DropdownOptionT<T extends {}> {
   selected?: boolean;
   disabled?: boolean;
   hidden?: boolean;
+  domItemOptions?: { type: typeOption };
   testId?: string;
   tooltip?: string;
   elemAfter?: React.ReactNode;
 }
+
+export type typeOption =
+  /** Dropdown menu item type
+   * @default 'item'
+   */
+  'item' | 'item-checkbox';
 
 export type DropdownOptions<T extends {}> =
   | Array<DropdownOptionT<T>>

@@ -2,7 +2,6 @@ import React, { createContext, useContext, useMemo, useRef } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { captureException } from '@atlaskit/linking-common/sentry';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
@@ -84,12 +83,7 @@ export const Experience = ({ children }: ExperienceProps) => {
             /**
              * Error message if instanceof Error
              */
-            errorMessage:
-              getBooleanFF(
-                'platform.linking-platform.link-create.tmp-log-error-message',
-              ) && error instanceof Error
-                ? error.message
-                : null,
+            errorMessage: error instanceof Error ? error.message : null,
             /**
              * The current status of the experience (has failed)
              */

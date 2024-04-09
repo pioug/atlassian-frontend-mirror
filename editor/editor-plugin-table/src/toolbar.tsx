@@ -13,6 +13,7 @@ import {
 import commonMessages, {
   tableMessages as messages,
 } from '@atlaskit/editor-common/messages';
+import type { typeOption } from '@atlaskit/editor-common/src/types/floating-toolbar';
 import type {
   Command,
   CommandDispatch,
@@ -51,6 +52,7 @@ import {
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   clearHoverSelection,
@@ -102,6 +104,12 @@ export const getToolbarMenuConfig = (
   { formatMessage }: ToolbarMenuContext,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ): FloatingToolbarItem<Command> => {
+  const optionItem: typeOption = getBooleanFF(
+    'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+  )
+    ? 'item-checkbox'
+    : 'item';
+
   const options = [
     {
       id: 'editor.table.headerRow',
@@ -109,6 +117,7 @@ export const getToolbarMenuConfig = (
       onClick: toggleHeaderRowWithAnalytics(editorAnalyticsAPI),
       selected: state.isHeaderRowEnabled,
       hidden: !config.allowHeaderRow,
+      domItemOptions: { type: optionItem },
     },
     {
       id: 'editor.table.headerColumn',
@@ -116,6 +125,7 @@ export const getToolbarMenuConfig = (
       onClick: toggleHeaderColumnWithAnalytics(editorAnalyticsAPI),
       selected: state.isHeaderColumnEnabled,
       hidden: !config.allowHeaderColumn,
+      domItemOptions: { type: optionItem },
     },
     {
       id: 'editor.table.numberedColumn',
@@ -123,6 +133,7 @@ export const getToolbarMenuConfig = (
       onClick: toggleNumberColumnWithAnalytics(editorAnalyticsAPI),
       selected: state.isNumberColumnEnabled,
       hidden: !config.allowNumberColumn,
+      domItemOptions: { type: optionItem },
     },
     {
       id: 'editor.table.collapseTable',
@@ -131,6 +142,7 @@ export const getToolbarMenuConfig = (
       selected: !!state.isTableCollapsed,
       disabled: !state.canCollapseTable,
       hidden: !config.allowCollapse,
+      domItemOptions: { type: optionItem },
     },
   ];
 

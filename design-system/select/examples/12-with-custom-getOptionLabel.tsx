@@ -16,7 +16,7 @@ interface State {
   value?: string;
 }
 
-export default class WithCustomGetOptionLabel extends Component<{}, State> {
+class WithCustomGetOptionLabel extends Component<{}, State> {
   state = {
     useCustomOptionLabel: true,
   };
@@ -70,3 +70,5 @@ export default class WithCustomGetOptionLabel extends Component<{}, State> {
     );
   }
 }
+
+export default () => <WithCustomGetOptionLabel />;

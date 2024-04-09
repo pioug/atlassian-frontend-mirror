@@ -29,12 +29,40 @@ import {
   RendererBlockCardFullWidthLayout,
   RendererBlockCardDefaultWidthLayout,
   RendererBlockCardWideWidthLayout,
+  RendererInlineCardRequestAccess,
+  RendererInlineCardForbiddenPendingRequestAccess,
+  RendererInlineCardRequestAccessForbidden,
+  RendererInlineCardRequestAccessDirectAccess,
+  RendererInlineCardRequestAccessDeniedRequestExists,
+  RendererInlineCardForbiddenRequestApprovedRequestExists,
+  RendererInlineCardRequestAccessAccessExists,
+  RendererBlockCardRequestAccess,
+  RendererBlockCardForbiddenPendingRequestAccess,
+  RendererBlockCardRequestAccessForbidden,
+  RendererBlockCardRequestAccessDirectAccess,
+  RendererBlockCardRequestAccessDeniedRequestExists,
+  RendererBlockCardForbiddenRequestApprovedRequestExists,
+  RendererBlockCardRequestAccessAccessExists,
+  RendererEmbedCardRequestAccess,
+  RendererEmbedCardForbiddenPendingRequestAccess,
+  RendererEmbedCardRequestAccessForbidden,
+  RendererEmbedCardRequestAccessDirectAccess,
+  RendererEmbedCardRequestAccessDeniedRequestExists,
+  RendererEmbedCardForbiddenRequestApprovedRequestExists,
+  RendererEmbedCardRequestAccessAccessExists,
+  RendererInlineCardXSS,
+  RendererBlockCardXSS,
+  RendererEmbedCardXSS,
 } from './card.fixtures';
 
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererInlineCard, {});
+snapshotInformational(RendererInlineCardXSS, {});
+snapshotInformational(RendererInlineCard, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
 snapshotInformational(RendererInlineCardResolving, {
   prepare: async (page) => {
     await page
@@ -63,20 +91,21 @@ snapshotInformational(RendererInlineCardNotFound, {
       .waitFor({ state: 'visible' });
   },
 });
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererInlineCardErrored, {
+snapshotInformational(RendererInlineCardErrored, {
   prepare: async (page) => {
     await page
       .getByTestId('inline-card-errored-view')
       .waitFor({ state: 'visible' });
   },
 });
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererBlockCard, {});
+snapshotInformational(RendererBlockCard, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardXSS, {});
 snapshotInformational(RendererBlockCardResolving, {
   prepare: async (page) => {
     await page
@@ -111,11 +140,29 @@ snapshotInformational(RendererBlockCardErrored, {
       .getByTestId('block-card-errored-view')
       .waitFor({ state: 'visible' });
   },
-  // TODO: UTEST-1409
-  // Gemini does not allow test that relies on network assets (too Flaky)
-  // We may need to change the code to enable those tests
 });
-snapshotInformational.skip(RendererEmbedCard, {});
+snapshotInformational(RendererEmbedCard, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCard, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+  description: 'renderer embed card hovered',
+  states: [
+    {
+      selector: { byTestId: 'embed-card-resolved-view' },
+      state: 'hovered',
+    },
+  ],
+});
+snapshotInformational(RendererEmbedCardXSS, {});
 snapshotInformational(RendererEmbedCardWide, {
   prepare: async (page) => {
     await page
@@ -186,36 +233,205 @@ snapshotInformational(RendererBlockCardWideWidthLayout, {
       .waitFor({ state: 'visible' });
   },
 });
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererEmbedCardCenterLayoutAndNoWidth, {});
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererEmbedCardCenterLayout100PercentWidth, {});
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(RendererEmbedCardCenterLayout88PercentWidth, {});
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(
+snapshotInformational(RendererEmbedCardCenterLayoutAndNoWidth, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardCenterLayout100PercentWidth, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardCenterLayout88PercentWidth, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-resolved-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(
   RendererEmbedCardCenterLayoutNoHeightAndNoMessageAndNoWidth,
-  {},
+  {
+    prepare: async (page) => {
+      await page
+        .getByTestId('embed-card-resolved-view')
+        .waitFor({ state: 'visible' });
+    },
+  },
 );
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(
+snapshotInformational(
   RendererEmbedCardCenterLayoutNoHeightAndNoMessage100PercentWidth,
-  {},
+  {
+    prepare: async (page) => {
+      await page
+        .getByTestId('embed-card-resolved-view')
+        .waitFor({ state: 'visible' });
+    },
+  },
 );
-// TODO: UTEST-1409
-// Gemini does not allow test that relies on network assets (too Flaky)
-// We may need to change the code to enable those tests
-snapshotInformational.skip(
+
+snapshotInformational(
   RendererEmbedCardCenterLayoutNoHeightAndNoMessage88PercentWidth,
-  {},
+  {
+    prepare: async (page) => {
+      await page
+        .getByTestId('embed-card-resolved-view')
+        .waitFor({ state: 'visible' });
+    },
+  },
 );
+
+snapshotInformational(RendererInlineCardRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardForbiddenPendingRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardRequestAccessForbidden, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardRequestAccessDirectAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardRequestAccessDeniedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardForbiddenRequestApprovedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererInlineCardRequestAccessAccessExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('inline-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+
+snapshotInformational(RendererBlockCardRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardForbiddenPendingRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardRequestAccessForbidden, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardRequestAccessDirectAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardRequestAccessDeniedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardForbiddenRequestApprovedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererBlockCardRequestAccessAccessExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('block-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+
+snapshotInformational(RendererEmbedCardRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardForbiddenPendingRequestAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardRequestAccessForbidden, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardRequestAccessDirectAccess, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardRequestAccessDeniedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardForbiddenRequestApprovedRequestExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});
+snapshotInformational(RendererEmbedCardRequestAccessAccessExists, {
+  prepare: async (page) => {
+    await page
+      .getByTestId('embed-card-forbidden-view')
+      .waitFor({ state: 'visible' });
+  },
+});

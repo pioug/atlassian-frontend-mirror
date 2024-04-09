@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/new';
 import { ExitingPersistence, ShrinkOut } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered } from '../../examples-utils';
+import { Block, Centered } from '../utils';
 
 const MotionShrinkOutExample = () => {
   const [actualProducts, setProducts] = useState(products);

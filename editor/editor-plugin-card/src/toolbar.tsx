@@ -704,11 +704,7 @@ const getDatasourceButtonGroup = (
         { type: 'separator' },
       ],
     },
-    ...(getBooleanFF(
-      'platform.editor-add-link-preferences-button-to-datasources_xt1sh',
-    )
-      ? getSettingsButtonGroup(intl, editorAnalyticsApi)
-      : []),
+    ...getSettingsButtonGroup(intl, editorAnalyticsApi),
     {
       id: 'editor.link.delete',
       focusEditoronEnter: true,

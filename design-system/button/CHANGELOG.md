@@ -1,5 +1,23 @@
 # @atlaskit/button
 
+## 17.11.0
+
+### Minor Changes
+
+- [#85696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85696) [`3f4e688ce636`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f4e688ce636) - Tooltips are now included within icon buttons. They are disabled by default. To enable set `isTooltipDisabled` to false.
+
+## 17.10.0
+
+### Minor Changes
+
+- [#88036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88036) [`c1d62ce0679e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1d62ce0679e) - - Fixed a bug in new loading buttons where the spinner color was incorrect in selected state.
+  - Fixed a bug where the `isLoading` prop on new buttons was mistakenly added to unsupported link buttons.
+  - New loading buttons now display a loading cursor (`cursor: progress`), rather than a disabled cursor (`cursor: not-allowed`).
+
+### Patch Changes
+
+- [#87335](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87335) [`4bb74bb023d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bb74bb023d4) - Added explicit `text-decoration` styles to new button focus states. This ensures button styles are not interfered with by global styles.
+
 ## 17.9.0
 
 ### Minor Changes

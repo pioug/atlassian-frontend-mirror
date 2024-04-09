@@ -26,7 +26,6 @@ export interface TooltipProps {
    * The content of the tooltip. It can be either a:
    * 1. `ReactNode`
    * 2. Function which returns a `ReactNode`
-
    * The benefit of the second approach is that it allows you to consume the `update` render prop.
    * This `update` function can be called to manually recalculate the position of the tooltip.
    */
@@ -43,8 +42,7 @@ export interface TooltipProps {
   delay?: number;
 
   /**
-   * Hide the tooltip when the click event is triggered. This should be
-   * used when tooltip should be hidden if `onClick` react synthetic event
+   * Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event
    * is triggered, which happens after `onMouseDown` event.
    */
   hideTooltipOnClick?: boolean;
@@ -58,26 +56,26 @@ export interface TooltipProps {
 
   /**
    * Where the tooltip should appear relative to the mouse pointer.
-   * Only used when the `position` prop is set to `"mouse"`.
-   * When interacting with the target element using the keyboard will use this position against the target element instead.
+   * Only use this when the `position` prop is set to `"mouse"`.
+   * When interacting with the target element using a keyboard, it will use this position against the target element instead.
    */
   mousePosition?: PositionTypeBase;
 
   /**
-   * Function to be called when the tooltip will be shown. It is called when the
+   * Function to be called when the tooltip will be shown. It's called when the
    * tooltip begins to animate in.
    */
   onShow?: (analyticsEvent: UIAnalyticsEvent) => void;
 
   /**
-   * Function to be called when the tooltip will be hidden. It is called after the
+   * Function to be called when the tooltip will be hidden. It's called after the
    * delay, when the tooltip begins to animate out.
    */
   onHide?: (analyticsEvent: UIAnalyticsEvent) => void;
 
   /**
-   * Where the tooltip should appear relative to its target.
-   * If set to `"mouse"` the tooltip will display next to the mouse pointer instead.
+   * Where the tooltip should appear relative to its' target.
+   * If set to `"mouse"`, the tooltip will display next to the mouse pointer instead.
    * Make sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.
    */
   position?: PositionType;
@@ -85,7 +83,7 @@ export interface TooltipProps {
   /**
    * Replace the wrapping element. This accepts the name of a html tag which will
    * be used to wrap the element.
-   * If you provide a component it needs to support a ref prop which is used by popper for positioning.
+   * If you provide a component, it needs to support a ref prop which is used by popper for positioning.
    */
   tag?:
     | keyof JSX.IntrinsicElements
@@ -94,7 +92,7 @@ export interface TooltipProps {
       >;
 
   /**
-   * Used to show only one line of text, and truncate when too long. Avoid this wherever possible, as any important information that is truncated will be visually hidden to the person reading the tooltip.
+   * Use this to show only one line of text, and truncate the text when it's too long. We no longer support truncating text in the tooltip as it's inaccessible, and this will be removed in a future release.
    */
   truncate?: boolean;
 
@@ -116,7 +114,7 @@ export interface TooltipProps {
   analyticsContext?: Record<string, any>;
 
   /**
-   * Used to define the strategy of popper.
+   * Use this to define the strategy of popper.
    */
   strategy?: 'absolute' | 'fixed' | undefined;
 }

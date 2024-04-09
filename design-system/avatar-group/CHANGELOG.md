@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.5.3
+
+### Patch Changes
+
+- [#82336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82336) [`87dafc8315c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87dafc8315c4) - Updated Avatar Group's 'data' prop documentation to add more clarity around what AvatarGroupProps is.
+
 ## 9.5.2
 
 ### Patch Changes

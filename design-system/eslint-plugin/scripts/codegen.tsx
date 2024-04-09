@@ -5,9 +5,8 @@ import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
 import { format, resolveConfig } from 'prettier';
 
+import type { LintRule } from '@atlaskit/eslint-utils/create-rule';
 import { createSignedArtifact } from '@atlassian/codegen';
-
-import type { LintRule } from '../src/rules/utils/create-rule';
 
 interface FoundRule {
   module: LintRule;

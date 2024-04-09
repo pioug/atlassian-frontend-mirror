@@ -72,6 +72,18 @@ context:
       required: false
       description: An indicator that a link can be converted to datasource view
 
+aiInteractionAttributes: &aiInteractionAttributes
+    aiFeatureName:
+      type: string
+      description: The name of the AI feature as shared with AI team
+    proactiveAIGenerated:
+      type: number
+      description: Attribute that captures the fact that an AI generated result was proactively served to a user.
+    userGeneratedAI:
+      type: number
+      description: Attribute that captures the fact that a user interaction with a feature lead to generation of an AI result.
+
+
 events:
   - button clicked (aiSummary):
       type: ui
@@ -110,3 +122,9 @@ events:
           required: false
           type: string
           description: failure reason
+
+  - aiInteraction initiated:
+      type: track
+      description: fired when an explicit request is made to use an AI-powered feature
+      attributes:
+        <<: [*PackageMetaDataContext, *aiInteractionAttributes]

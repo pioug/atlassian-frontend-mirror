@@ -128,6 +128,7 @@ export type GetXCSSArgs = {
   appearance: Appearance;
   spacing: Spacing;
   isDisabled: boolean;
+  isLoading: boolean;
   isSelected: boolean;
   isHighlighted: boolean;
   isActiveOverSelected: boolean;
@@ -156,6 +157,7 @@ export function getXCSS({
   spacing,
   isDisabled,
   isSelected,
+  isLoading,
   isHighlighted,
   isActiveOverSelected,
   isIconButton,
@@ -249,9 +251,9 @@ export function getXCSS({
     // justifyContent required for shouldFitContainer buttons with an icon inside
     justifyContent: 'center',
     ...combinedBaseColorStyles,
-    ...(isDisabled || hasOverlay
+    ...(isDisabled || hasOverlay || isLoading
       ? {
-          cursor: 'not-allowed',
+          cursor: isLoading ? 'progress' : 'not-allowed',
         }
       : {}),
 
@@ -283,6 +285,15 @@ export function getXCSS({
       }),
       // background, box-shadow
       transitionDuration: '0s, 0s',
+    },
+
+    ':focus': {
+      // Required due to Jira's AUI CSS reset
+      // See https://product-fabric.atlassian.net/browse/DSP-15687
+      textDecoration:
+        !isSelected && (appearance === 'link' || appearance === 'subtle-link')
+          ? 'underline'
+          : 'none',
     },
     ...splitButtonStyles,
   });

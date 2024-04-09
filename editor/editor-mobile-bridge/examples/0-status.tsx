@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import React from 'react';
 import type { Color as StatusColor } from '@atlaskit/status/element';
 import Form, { Field, FormFooter } from '@atlaskit/form';
-import AkButton from '@atlaskit/button/standard-button';
+import AkButton from '@atlaskit/button/new';
 import Textfield from '@atlaskit/textfield';
 import AkSelect from '@atlaskit/select';
 import MobileEditor from '../src/editor/mobile-editor-element';
@@ -25,12 +25,13 @@ export interface Props {
   bridge: WebBridgeImpl;
 }
 
-const divStyle = (height: string) => css`
-  height: ${height ? height : 'auto'};
-  border: 1px solid #ddd;
-  margin: 16px 0;
-  padding: 8px;
-`;
+const divStyle = (height: string) =>
+  css({
+    height: height ? height : 'auto',
+    border: '1px solid #ddd',
+    margin: '16px 0',
+    padding: '8px',
+  });
 
 const colorOptions = [
   { value: 'neutral', label: 'Neutral' },

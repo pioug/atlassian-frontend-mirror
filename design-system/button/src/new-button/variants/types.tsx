@@ -124,6 +124,10 @@ export type AdditionalButtonVariantProps = {
    * The button style variation.
    */
   appearance?: ButtonAppearance;
+  /**
+   * Conditionally show a spinner over the top of a button
+   */
+  isLoading?: boolean;
 };
 
 /**

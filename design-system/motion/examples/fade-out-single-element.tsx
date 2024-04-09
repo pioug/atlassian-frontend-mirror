@@ -5,8 +5,9 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 
-import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn } from '../src';
+
+import { Block, Centered, RetryContainer } from './utils';
 
 export default () => {
   const directions = [

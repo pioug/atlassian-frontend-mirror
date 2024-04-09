@@ -16,13 +16,12 @@ import type {
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
   getCellsInRow,
   getSelectionRect,
 } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { Cell, CellColumnPositioning } from '../types';
 import { TableCssClassName as ClassName, TableDecorations } from '../types';
@@ -102,44 +101,12 @@ export const createControlsHoverDecoration = (
   // So If the table cells are in danger we want to create a "rectangle" selection
   // to match the "clicked" selection
 
-  if (getBooleanFF('platform.editor.table.in-danger-hover-merged-cells-fix')) {
-    if (danger && type !== 'table') {
-      const { selection } = tr;
-      const table = findTable(selection);
-      const rect = getSelectionRect(selection);
+  if (danger && type !== 'table') {
+    const { selection } = tr;
+    const table = findTable(selection);
+    const rect = getSelectionRect(selection);
 
-      if (table && rect) {
-        updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
-      }
-    }
-  } else {
-    if (danger) {
-      // Find the bounding rectangle of all the given cells, also considering
-      // merged cells.
-      const { recLeft, recTop, recRight, recBottom } = cells.reduce(
-        (acc, cell) => {
-          const { left, right, bottom, top } = map.findCell(
-            cell.pos - table.start,
-          );
-          // Finding the bounding rect requires finding the min left and top positions,
-          // and the max right and bottom positions of the cells
-          return {
-            recLeft: Math.min(acc.recLeft, left),
-            recTop: Math.min(acc.recTop, top),
-            recRight: Math.max(acc.recRight, right),
-            recBottom: Math.max(acc.recBottom, bottom),
-          };
-        },
-        // +-Infinity as initialisation vars which will always be overwritten
-        // by smaller/larger values respectively
-        {
-          recLeft: Infinity,
-          recTop: Infinity,
-          recRight: -Infinity,
-          recBottom: -Infinity,
-        },
-      );
-      const rect = new Rect(recLeft, recTop, recRight, recBottom);
+    if (table && rect) {
       updatedCells = map.cellsInRect(rect).map((x) => x + table.start);
     }
   }

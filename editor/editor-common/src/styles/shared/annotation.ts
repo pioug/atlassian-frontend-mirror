@@ -125,6 +125,6 @@ export const annotationSharedStyles = () => css`
 `;
 
 export const mediaAnnotationStyles = css({
-  boxShadow: `5px 5px ${token('color.background.accent.yellow.subtler', Y75a)}`,
+  boxShadow: `3px 3px ${token('color.background.accent.yellow.subtler', Y75a)}`,
   borderRadius: '3px',
 });

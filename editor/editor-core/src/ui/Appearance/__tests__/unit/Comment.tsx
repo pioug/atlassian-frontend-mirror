@@ -134,6 +134,38 @@ describe('comment editor', () => {
       expect(getSaveButton(comment).prop('disabled')).toBe(false);
     });
 
+    it('should not be remain disabled when disabled prop has been updated', async () => {
+      const { editorView, eventDispatcher } = createEditor({
+        doc: doc(p('')),
+        providerFactory,
+        editorProps: {
+          allowExtension: true,
+          media: { allowMediaSingle: true },
+          appearance: 'comment',
+        },
+      });
+
+      const EditorComment = ({ disabled = true }) => (
+        <EditorContext
+          editorActions={EditorActions.from(editorView, eventDispatcher)}
+        >
+          <Comment
+            onSave={jest.fn()}
+            editorView={editorView}
+            providerFactory={providerFactory}
+            editorDOMElement={<div />}
+            featureFlags={{}}
+            disabled={disabled}
+          />
+        </EditorContext>
+      );
+      const comment = mountWithIntl(<EditorComment disabled={true} />);
+      await comment.setProps({ disabled: false });
+
+      // save button should not be disabled
+      expect(getSaveButton(comment).prop('disabled')).toBe(false);
+    });
+
     it('should set up required media options for Comment Editor', () => {
       const { editorAPI } = createEditor({
         doc: doc(p('')),

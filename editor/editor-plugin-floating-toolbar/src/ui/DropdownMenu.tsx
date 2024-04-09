@@ -12,6 +12,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -183,6 +184,31 @@ const DropdownMenuItem = ({
     },
     [item.disabled],
   );
+
+  const isAriaChecked = (item: DropdownOptionT<any>) => {
+    const { selected, domItemOptions } = item;
+
+    if (
+      getBooleanFF(
+        'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+      ) &&
+      domItemOptions?.type === 'item-checkbox'
+    ) {
+      return selected;
+    }
+    return undefined;
+  };
+
+  const hasRole = (item: DropdownOptionT<any>) => {
+    const { domItemOptions } = item;
+
+    return getBooleanFF(
+      'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+    ) && domItemOptions?.type === 'item-checkbox'
+      ? 'menuitemcheckbox'
+      : undefined;
+  };
+
   useEffect(() => {
     const labelRefCurrent = labelRef.current;
     // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -220,6 +246,8 @@ const DropdownMenuItem = ({
       onMouseOut={handleItemMouseOut}
       onFocus={handleItemOnFocus}
       onBlur={handleItemOnBlur}
+      role={hasRole(item)}
+      aria-checked={isAriaChecked(item)}
     >
       <span ref={labelRef} css={labelStyles}>
         {item.title}
@@ -239,7 +267,16 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
   render() {
     const { hide, dispatchCommand, items, intl, editorView } = this.props;
     return (
-      <div css={menuContainerStyles}>
+      <div
+        css={menuContainerStyles}
+        role={
+          getBooleanFF(
+            'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+          )
+            ? 'menu'
+            : undefined
+        }
+      >
         {items
           .filter(item => !item.hidden)
           .map((item, idx) => (
@@ -261,6 +298,22 @@ class Dropdown extends Component<Props & WrappedComponentProps> {
     const { selected } = item;
 
     if (showSelected && selected) {
+      if (
+        getBooleanFF(
+          'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+        )
+      ) {
+        return (
+          <span aria-hidden="true">
+            <EditorDoneIcon
+              primaryColor={token('color.icon.selected', B400)}
+              size="small"
+              label={intl.formatMessage(messages.confirmModalOK)}
+            />
+          </span>
+        );
+      }
+
       return (
         <EditorDoneIcon
           primaryColor={token('color.icon.selected', B400)}

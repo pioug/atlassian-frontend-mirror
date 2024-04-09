@@ -1,5 +1,15 @@
 # @atlaskit/select
 
+## 17.6.0
+
+### Minor Changes
+
+- [#88021](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88021) [`2cf5300457e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2cf5300457e7) - Convert AtlaskitSelect from react class component to function component
+
+### Patch Changes
+
+- [#73901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73901) [`2aefab5730ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2aefab5730ab) - ECA11Y-207 Added Tab navigation for video panel controls and handling key press on them
+
 ## 17.5.0
 
 ### Minor Changes

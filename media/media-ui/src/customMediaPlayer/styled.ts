@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { hideControlsClassName } from '../classNames';
 
 export interface MutedIndicatorProps {
   isMuted: boolean;
@@ -107,6 +108,10 @@ export const ControlsWrapper = styled.div({
   height: 'auto',
   background: 'linear-gradient(to top, #101214, rgba(14, 22, 36, 0))',
   position: 'absolute',
+
+  [`:focus-within.${hideControlsClassName}`]: {
+    opacity: '1',
+  },
 });
 
 export const VolumeToggleWrapper = styled.div(

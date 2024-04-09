@@ -15,7 +15,7 @@ type UseIconButtonArgs<TagName extends HTMLElement> = Omit<
   UseButtonBaseArgs<TagName>,
   'children'
 > &
-  CommonIconButtonProps;
+  Omit<CommonIconButtonProps, 'isTooltipDisabled' | 'tooltip'>;
 
 type UseIconButtonReturn<TagName extends HTMLElement> =
   UseButtonBaseReturn<TagName>;
@@ -73,6 +73,7 @@ const useIconButton = <TagName extends HTMLElement>({
     ),
     interactionName,
     isDisabled,
+    isLoading,
     isSelected,
     isIconButton: true,
     isCircle,

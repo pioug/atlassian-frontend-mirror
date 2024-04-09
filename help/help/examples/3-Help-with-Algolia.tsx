@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { NotificationLogClient } from '@atlaskit/notification-log-client';
 import Page from '@atlaskit/page';
 import Textfield from '@atlaskit/textfield';

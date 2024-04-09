@@ -52,7 +52,7 @@
     "@atlaskit/editor-plugin-guideline": "^1.0.0",
     "@atlaskit/editor-plugin-selection": "^1.1.0",
     "@atlaskit/editor-plugin-width": "^1.0.0",
-    "@atlaskit/renderer": "^109.14.0",
+    "@atlaskit/renderer": "^109.15.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "peerDependencies": {

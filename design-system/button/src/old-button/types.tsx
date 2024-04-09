@@ -23,78 +23,78 @@ type Combine<First, Second> = Omit<First, keyof Second> & Second;
 
 export type BaseOwnProps = {
   /**
-   * The base styling to apply to the button
+   * The base styling to apply to the button.
    */
   appearance?: Appearance;
   /**
-   * Set the button to autofocus on mount
+   * Set the button to autofocus on mount.
    */
   autoFocus?: boolean;
   /**
-   * Add a classname to the button
+   * Add a classname to the button.
    */
   className?: string;
   /**
-   * Used to 'overlay' something over a button. This is commonly used to display a loading spinner
+   * Used to 'overlay' something over a button. This is commonly used to display a loading spinner.
    */
   overlay?: React.ReactNode;
   /**
-   * Provides a url for buttons being used as a link
+   * Provides a URL that's used when the button is a link styled as a button.
    */
   href?: string;
   /**
-   * Places an icon within the button, after the button's text
+   * Places an icon within the button, after the button's text.
    */
   iconAfter?: React.ReactChild;
   /**
-   * Places an icon within the button, before the button's text
+   * Places an icon within the button, before the button's text.
    */
   iconBefore?: React.ReactChild;
   /**
-   * Set if the button is disabled
+   * Set if the button is disabled.
    */
   isDisabled?: boolean;
   /**
-   * Change the style to indicate the button is selected
+   * Change the style to indicate the button is selected.
    */
   isSelected?: boolean;
   /**
-   * Handler to be called on blur
+   * Handler to be called on blur.
    */
   onBlur?: React.FocusEventHandler<HTMLElement>;
   /**
-   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details
+   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
    */
   onClick?: (
     e: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Handler to be called on focus
+   * Handler to be called on focus.
    */
   onFocus?: React.FocusEventHandler<HTMLElement>;
   /**
-   * Set the amount of padding in the button
+   * Set the amount of padding in the button.
    */
   spacing?: Spacing;
   /**
-   * Pass target down to a link within the button component, if a href is provided
+   * Pass target down to the button. If a href is provided, this will be a semantic link styled as a button.
    */
   target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
   /**
-   * Pass type down to a button
+   * Pass type down to the button.
    */
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   /**
-   * Option to fit button width to its parent width
+   * Option to fit button width to its parent width.
    */
   shouldFitContainer?: boolean;
   /**
-   * Text content to be rendered in the button
+   * Text content to be rendered in the button.
    */
   children?: React.ReactNode;
   /**
-   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
 
@@ -109,12 +109,12 @@ export type BaseOwnProps = {
 
   /**
    * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration)
+   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
    */
   interactionName?: string;
 
   /**
-   * Additional information to be included in the `context` of analytics events that come from button
+   * Additional information to be included in the `context` of analytics events that come from button.
    */
   analyticsContext?: Record<string, any>;
 };

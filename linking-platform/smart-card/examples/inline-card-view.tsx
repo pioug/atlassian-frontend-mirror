@@ -1,6 +1,6 @@
 import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import {
   InlineCardResolvedView as ResolvedView,
   InlineCardResolvingView as ResolvingView,

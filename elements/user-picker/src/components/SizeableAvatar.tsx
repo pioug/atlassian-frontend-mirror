@@ -6,19 +6,17 @@ import { getAvatarSize } from './utils';
 export type Props = {
   appearance: string;
   src?: string;
-  name?: string;
   presence?: string;
   type?: 'person' | 'team';
 };
 
 export class SizeableAvatar extends React.PureComponent<Props> {
   render() {
-    const { src, name, presence, appearance, type = 'person' } = this.props;
+    const { src, presence, appearance, type = 'person' } = this.props;
 
     const props: AvatarPropTypes = {
       size: getAvatarSize(appearance),
       src,
-      name,
       borderColor: 'transparent',
       presence,
     };

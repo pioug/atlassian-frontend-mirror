@@ -10,8 +10,9 @@ import {
 import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 
-import { Block, Centered, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn } from '../src';
+
+import { Block, Centered, RetryContainer } from './utils';
 
 const EnteringBlock = ({ children }: any) => (
   <FadeIn>

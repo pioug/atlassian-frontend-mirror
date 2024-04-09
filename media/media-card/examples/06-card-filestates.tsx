@@ -19,7 +19,7 @@ import { MainWrapper } from '../example-helpers';
 import { Card } from '../src/card/card';
 import { CardProps } from '../src';
 import { R500 } from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 
 const defaultDimensions = { width: 200, height: 150 };

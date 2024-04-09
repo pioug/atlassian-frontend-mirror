@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 const boxStyles = xcss({
   height: token('space.800', '64px'),
-  marginBottom: token('space.200', '16px'),
+  marginBottom: 'space.200',
 });
 
 const stackStyles = xcss({

@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 10.19.10
+
+### Patch Changes
+
+- [#85437](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85437) [`b3bed8af54a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3bed8af54a0) - Remove duplicate hidden name announcement in single-value picker
+- Updated dependencies
+
 ## 10.19.9
 
 ### Patch Changes

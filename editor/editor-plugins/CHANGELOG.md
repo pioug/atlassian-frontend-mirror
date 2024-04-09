@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugins
 
+## 2.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.6
+
+### Patch Changes
+
+- [#87069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87069) [`3c2cb323593e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c2cb323593e) - remove feature flag in-danger-hover-merged-cells-fix
+- Updated dependencies
+
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.4
 
 ### Patch Changes

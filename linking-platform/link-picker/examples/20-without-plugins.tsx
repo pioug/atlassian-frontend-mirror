@@ -1,6 +1,6 @@
 import React, { Fragment, SyntheticEvent, useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
 

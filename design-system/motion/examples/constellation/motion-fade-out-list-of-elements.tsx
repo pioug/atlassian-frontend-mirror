@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Block } from '../../examples-utils';
+import { Block } from '../utils';
 
 const MotionFadeOutListOfElementsExample = () => {
   const [items, setItems] = useState(logos);

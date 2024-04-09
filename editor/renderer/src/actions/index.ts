@@ -13,6 +13,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import {
+  AddNodeMarkStep,
   RemoveMarkStep,
   RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
@@ -302,12 +303,27 @@ export default class RendererActions
     }
     const { from, to } = pos;
     const { annotationId, annotationType } = annotation;
+    let step;
 
-    const step = createAnnotationStep(from, to, {
-      annotationId,
-      annotationType,
-      schema: this.schema,
-    });
+    // If from points to a node position,
+    // we need to 1 position before it for nodeAt to return the node itself
+    const beforeNodePos = Math.max(from - 1, 0);
+    const possibleNode = this.doc.nodeAt(beforeNodePos);
+    if (possibleNode?.type.name === 'media') {
+      step = new AddNodeMarkStep(
+        beforeNodePos,
+        this.schema.marks.annotation.create({
+          id: annotationId,
+          type: annotationType,
+        }),
+      );
+    } else {
+      step = createAnnotationStep(from, to, {
+        annotationId,
+        annotationType,
+        schema: this.schema,
+      });
+    }
 
     const { doc, failed } = step.apply(this.doc);
 

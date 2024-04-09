@@ -7,8 +7,9 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered } from '../examples-utils';
 import { ExitingPersistence, ShrinkOut } from '../src';
+
+import { Block, Centered } from './utils';
 
 const products = [
   'Confluence',

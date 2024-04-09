@@ -105,10 +105,35 @@ export interface UserSearchItem {
   id: string;
   entityType: EntityType;
   avatarUrl: string;
-  description?: string;
-  displayName?: string;
-  name?: string;
   teamAri?: string;
+
+  name?: string;
+  displayName?: string;
+  title?: string;
+  description?: string;
+  nickname?: string;
+
+  includesYou?: boolean;
+  notMentionable?: boolean;
+  nonLicensedUser?: boolean;
+  accountStatus?: string;
+  userType?: string;
+  zoneInfo?: string;
+  locale?: string;
+
+  largeHeaderImageUrl?: string;
+  smallHeaderImageUrl?: string;
+  largeAvatarImageUrl?: string;
+  smallAvatarImageUrl?: string;
+
+  matchPositions?: MatchPositions;
+  members?: string[];
+  memberCount?: number;
+}
+
+interface MatchPositions {
+  name?: string;
+  nickname?: string;
 }
 
 export interface UserSearchResponse {

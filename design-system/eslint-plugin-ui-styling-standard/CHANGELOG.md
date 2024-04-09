@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.8.1
+
+### Patch Changes
+
+- [#88029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88029) [`01d74d2899d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01d74d2899d5) - Disabled ESlint rule convert-props-syntax on .attrs() calls
+- [#87476](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87476) [`af296d200ad2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af296d200ad2) - Internal refactoring to use `getCreateLintRule` from `@atlaskit/eslint-utils`
+- Updated dependencies
+
 ## 0.8.0
 
 ### Minor Changes

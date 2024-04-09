@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import styled from '@emotion/styled';
 
 import Banner from '@atlaskit/banner';
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import RoomMenuIcon from '@atlaskit/icon/glyph/room-menu';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Navigation from '@atlaskit/navigation';
@@ -54,9 +54,10 @@ export default class BannerMobileHeaderDemo extends Component<{}, State> {
           menuIconLabel="Menu"
           navigation={(isOpen) => isOpen && <Navigation onResize={() => {}} />}
           secondaryContent={
-            <Button
-              iconBefore={<RoomMenuIcon label="Show sidebar" />}
+            <IconButton
+              icon={RoomMenuIcon}
               onClick={this.sidebarOpened}
+              label="Show sidebar"
             />
           }
           sidebar={(isOpen) =>

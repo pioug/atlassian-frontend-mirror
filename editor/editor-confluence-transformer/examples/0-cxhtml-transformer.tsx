@@ -3,7 +3,7 @@ import { css, jsx } from '@emotion/react';
 import { Component } from 'react';
 import { pd } from 'pretty-data';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import type { EditorActions } from '@atlaskit/editor-core';
 import {
   Editor,

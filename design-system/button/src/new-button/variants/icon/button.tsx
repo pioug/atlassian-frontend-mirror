@@ -1,6 +1,7 @@
 import React from 'react';
 
 import UNSAFE_PRESSABLE from '@atlaskit/primitives/pressable';
+import Tooltip from '@atlaskit/tooltip';
 
 import { type CommonButtonVariantProps } from '../types';
 
@@ -21,33 +22,35 @@ export type IconButtonProps = CommonButtonVariantProps & CommonIconButtonProps;
 const IconButton = React.memo(
   React.forwardRef(function Button(
     {
-      analyticsContext,
-      interactionName,
-      autoFocus,
-      appearance,
-      spacing,
-      isDisabled,
-      isSelected,
-      isLoading,
-      icon,
-      label,
-      overlay,
-      onClick,
-      onMouseDownCapture,
-      onMouseUpCapture,
-      onKeyDownCapture,
-      onKeyUpCapture,
-      onTouchStartCapture,
-      onTouchEndCapture,
-      onPointerDownCapture,
-      onPointerUpCapture,
-      onClickCapture,
-      shape,
-      type = 'button',
-      testId,
-      UNSAFE_size,
       // Prevent duplicate labels being added.
       'aria-label': preventedAriaLabel,
+      analyticsContext,
+      appearance,
+      autoFocus,
+      icon,
+      interactionName,
+      isDisabled,
+      isLoading,
+      isSelected,
+      isTooltipDisabled = true,
+      label,
+      onClick,
+      onClickCapture,
+      onKeyDownCapture,
+      onKeyUpCapture,
+      onMouseDownCapture,
+      onMouseUpCapture,
+      onPointerDownCapture,
+      onPointerUpCapture,
+      onTouchEndCapture,
+      onTouchStartCapture,
+      overlay,
+      shape,
+      spacing,
+      testId,
+      tooltip,
+      type = 'button',
+      UNSAFE_size,
       ...rest
     }: IconButtonProps,
     ref: React.Ref<HTMLButtonElement>,
@@ -83,6 +86,87 @@ const IconButton = React.memo(
       spacing,
       UNSAFE_size,
     });
+
+    if (!isTooltipDisabled) {
+      return (
+        <Tooltip
+          content={tooltip?.content ?? label}
+          testId={tooltip?.testId}
+          position={tooltip?.position}
+          delay={tooltip?.delay}
+          onShow={tooltip?.onShow}
+          onHide={tooltip?.onHide}
+          mousePosition={tooltip?.mousePosition}
+          analyticsContext={tooltip?.analyticsContext}
+          strategy={tooltip?.strategy}
+          tag={tooltip?.tag}
+          truncate={tooltip?.truncate}
+          component={tooltip?.component}
+          hideTooltipOnClick={tooltip?.hideTooltipOnClick}
+          hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
+        >
+          {(triggerProps) => (
+            <UNSAFE_PRESSABLE
+              // Top level props
+              {...rest}
+              type={type}
+              testId={testId}
+              componentName="IconButton"
+              analyticsContext={analyticsContext}
+              interactionName={interactionName}
+              // Shared between tooltip and native props
+              onMouseOver={(e) => {
+                triggerProps.onMouseOver?.(e);
+                rest.onMouseOver?.(e);
+              }}
+              onMouseOut={(e) => {
+                triggerProps.onMouseOut?.(e);
+                rest.onMouseOut?.(e);
+              }}
+              onMouseMove={(e) => {
+                triggerProps.onMouseMove?.(e);
+                rest.onMouseMove?.(e);
+              }}
+              onMouseDown={(e) => {
+                triggerProps.onMouseDown?.(e);
+                rest.onMouseDown?.(e);
+              }}
+              onFocus={(e) => {
+                triggerProps.onFocus?.(e);
+                rest.onFocus?.(e);
+              }}
+              onBlur={(e) => {
+                triggerProps.onBlur?.(e);
+                rest.onBlur?.(e);
+              }}
+              // Shared between tooltip and base props
+              onClick={(event, analyticsEvent) => {
+                baseProps?.onClick?.(event, analyticsEvent);
+                triggerProps?.onClick?.(event);
+              }}
+              ref={(ref) => {
+                baseProps.ref(ref);
+                triggerProps?.ref?.(ref);
+              }}
+              // Base props only
+              xcss={baseProps.xcss}
+              isDisabled={baseProps.isDisabled}
+              onMouseDownCapture={baseProps.onMouseDownCapture}
+              onMouseUpCapture={baseProps.onMouseUpCapture}
+              onKeyDownCapture={baseProps.onKeyDownCapture}
+              onKeyUpCapture={baseProps.onKeyUpCapture}
+              onTouchStartCapture={baseProps.onTouchStartCapture}
+              onTouchEndCapture={baseProps.onTouchEndCapture}
+              onPointerDownCapture={baseProps.onPointerDownCapture}
+              onPointerUpCapture={baseProps.onPointerUpCapture}
+              onClickCapture={baseProps.onClickCapture}
+            >
+              {baseProps.children}
+            </UNSAFE_PRESSABLE>
+          )}
+        </Tooltip>
+      );
+    }
 
     return (
       <UNSAFE_PRESSABLE

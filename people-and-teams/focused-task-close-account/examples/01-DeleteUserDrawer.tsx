@@ -1,7 +1,7 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import styled from '@emotion/styled';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
 
@@ -14,13 +14,13 @@ import {
   DeleteUserContentPreviewScreen,
 } from '../src';
 
-const Controls = styled.div`
-  display: flex;
-  align-items: center;
-  > {
-    padding-right: ${token('space.050', '4px')};
-  }
-`;
+const Controls = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  '>': {
+    paddingRight: token('space.050', '4px'),
+  },
+});
 
 const submitButton = (
   <Button appearance="primary" onClick={() => null}>

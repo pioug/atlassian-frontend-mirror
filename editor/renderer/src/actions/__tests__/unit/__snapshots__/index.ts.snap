@@ -1,6 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RendererActions deleteAnnotation should delete the annotaion with provided ID 1`] = `
+exports[`RendererActions deleteAnnotation should delete the annotation on media with provided ID 1`] = `
+Object {
+  "doc": Object {
+    "content": Array [
+      Object {
+        "attrs": Object {
+          "alt": "dog-puppy.jpeg",
+          "collection": "contentId-3533084563",
+          "height": 1197,
+          "id": "c7ef3a01-d45c-41e3-a662-67ccb54d088f",
+          "type": "file",
+          "width": 1200,
+        },
+        "type": "media",
+      },
+    ],
+    "type": "doc",
+    "version": 1,
+  },
+  "step": Object {
+    "mark": Object {
+      "attrs": Object {
+        "annotationType": "inlineComment",
+        "id": "<<<ANNOTATION-ID>>>",
+      },
+      "type": "annotation",
+    },
+    "pos": 0,
+    "stepType": "removeNodeMark",
+  },
+}
+`;
+
+exports[`RendererActions deleteAnnotation should delete the annotation with provided ID 1`] = `
 Object {
   "doc": Object {
     "content": Array [
@@ -32,7 +65,7 @@ Object {
 }
 `;
 
-exports[`RendererActions deleteAnnotation should delete the annotaion with provided ID without touching overlapping marks 1`] = `
+exports[`RendererActions deleteAnnotation should delete the annotation with provided ID without touching overlapping marks 1`] = `
 Object {
   "doc": Object {
     "content": Array [

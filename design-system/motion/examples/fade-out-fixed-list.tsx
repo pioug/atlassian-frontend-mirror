@@ -14,8 +14,9 @@ import {
 } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../examples-utils';
 import { ExitingPersistence, FadeIn, StaggeredEntrance } from '../src';
+
+import { Block, RetryContainer } from './utils';
 
 const Card = ({
   icon,

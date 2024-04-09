@@ -19,7 +19,7 @@ import {
   MediaClient,
   FileIdentifier,
 } from '@atlaskit/media-client';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { filmstripWrapperStyles } from '../example-helpers/styles';
 import { Filmstrip, FilmstripItem } from '../src';
 

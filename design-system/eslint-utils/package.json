@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-utils",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Shared utilities for ESLint rules",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,10 +32,12 @@
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     ".": "./src/index.tsx",
+    "./create-rule": "./src/create-rule.tsx",
     "./is-supported-import": "./src/is-supported-import.tsx"
   },
   "exports": {
     ".": "./src/index.tsx",
+    "./create-rule": "./src/create-rule.tsx",
     "./is-supported-import": "./src/is-supported-import.tsx"
   },
   "dependencies": {

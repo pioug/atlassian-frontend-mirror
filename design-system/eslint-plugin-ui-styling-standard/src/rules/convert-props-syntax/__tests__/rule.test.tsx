@@ -103,6 +103,58 @@ typescriptEslintTester.run(
           });
         `,
       },
+      {
+        name: 'ignores styled(...).attrs() call',
+        code: `
+          import { styled } from 'styled-components';
+          
+          const StyledMinimized = styled(Minimized).attrs({
+            className: (props) => props.transitionClass,
+          })\`
+            color: blue;
+          \`;
+        `,
+      },
+      {
+        name: 'ignores styled.div.attrs<...>() call',
+        code: `
+          import { styled } from '@compiled/react';
+          
+          export const ModalAnchorOld = styled.div.attrs<ModalAnchorProps>({
+            style: ({ left, top }: ModalAnchorProps) => ({
+              left,
+              top,
+            }),
+          })\`
+            position: fixed;
+          \`;
+        `,
+      },
+      {
+        name: 'ignores styled.div.attrs() call',
+        code: `
+          const BlanketControl = styled.div.attrs({
+            style: ({ scrollOffset, width }) => ({
+                top: scrollOffset,
+                bottom: -scrollOffset,
+                width,
+            }),
+          })\`
+            display: flex;
+            justify-content: center;
+          \`;
+        `,
+      },
+      {
+        name: 'ignores styled.img.attrs() call',
+        code: `
+          export const FieldsRestoredIllustration = styled.img.attrs({ src: fieldsRestoredImage })\`
+            display: block;
+            min-height: 190px;
+            max-width: 290px;
+          \`;
+        `,
+      },
     ],
     invalid: [
       {

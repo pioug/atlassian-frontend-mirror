@@ -916,6 +916,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       testId,
       originalDimensions,
       onFullscreenChange,
+      videoControlsWrapperRef,
     } = this.props;
     const { shouldAutoplay, cardPreview } = this.state;
 
@@ -936,6 +937,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
           ref={this.setRef}
           testId={testId}
           cardPreview={cardPreview}
+          videoControlsWrapperRef={videoControlsWrapperRef}
         />
       </Suspense>
     );

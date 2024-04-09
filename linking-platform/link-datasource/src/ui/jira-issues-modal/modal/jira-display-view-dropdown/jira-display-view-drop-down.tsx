@@ -8,7 +8,6 @@ import DropdownMenu, {
 } from '@atlaskit/dropdown-menu';
 import TableIcon from '@atlaskit/icon/glyph/table';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { IssueViewModes } from '../../../../common/types';
 import { modalMessages } from '../messages';
@@ -16,8 +15,8 @@ import { modalMessages } from '../messages';
 const dropDownItemGroupStyles = xcss({
   width: '320px',
   height: '140px',
-  paddingTop: token('space.050', '4px'),
-  paddingBottom: token('space.050', '4px'),
+  paddingTop: 'space.050',
+  paddingBottom: 'space.050',
   borderRadius: 'border.radius',
 });
 

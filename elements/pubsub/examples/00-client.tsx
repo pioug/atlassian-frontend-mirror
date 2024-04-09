@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Textfield from '@atlaskit/textfield';
 import Lozenge from '@atlaskit/lozenge';
 

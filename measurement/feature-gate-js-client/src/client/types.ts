@@ -4,6 +4,7 @@ import { StatsigOptions } from 'statsig-js-lite';
  * The identifiers for the user. Options are restricted to the set that is currently supported.
  */
 export type Identifiers = {
+  activationId?: string;
   analyticsAnonymousId?: string;
   atlassianAccountId?: string;
   atlassianOrgId?: string;

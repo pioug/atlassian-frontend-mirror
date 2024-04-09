@@ -5,14 +5,13 @@ import { jsx } from '@emotion/react';
 
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Bleed, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { PrimaryButton } from '../PrimaryButton';
 
 import { PrimaryDropdownButtonProps } from './types';
 
 const chevronIconStylesWithSpacingFixStyles = xcss({
-  marginInlineEnd: `${token('space.negative.050', '-0.25rem')}`,
+  marginInlineEnd: 'space.negative.050',
 });
 
 /**

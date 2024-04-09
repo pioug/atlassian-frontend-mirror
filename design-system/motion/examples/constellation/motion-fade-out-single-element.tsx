@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
-import { Block, Centered, RetryContainer } from '../../examples-utils';
+import { Block, Centered, RetryContainer } from '../utils';
 
 const MotionFadeOutSingleElementExample = () => {
   const directions = [

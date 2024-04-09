@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.2.3
+
+### Patch Changes
+
+- [#80728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/80728) [`aac7ad9bb32d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aac7ad9bb32d) - [ux] The table's floating toolbar dropdown menu a11y annnouncement.
+
 ## 1.2.2
 
 ### Patch Changes

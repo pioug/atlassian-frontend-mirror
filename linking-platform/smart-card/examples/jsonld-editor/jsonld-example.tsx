@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 import React, { useCallback } from 'react';
 import * as examples from '../../examples-helpers/_jsonLDExamples';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { ResolveResponse } from '../../src';
 

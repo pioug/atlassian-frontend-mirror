@@ -20,30 +20,34 @@ import type { LengthGuide } from './types';
  */
 export const createGuidesFromLengths = (
   lengths: number[],
-  isMaxLengthFullWidth: boolean = false,
+  hasFullWidthGuide: boolean = false,
 ): LengthGuide[] => {
-  return Array.from(new Set(lengths)).reduce<LengthGuide[]>((acc, length) => {
-    const h = length * 0.5;
-    if (length === 0) {
-      return [...acc, { left: 0, right: 0, length }];
-    }
-    if (!h || !Number.isFinite(length)) {
-      // Filter out nonsensical values, null, undefined, NaN, empty string
-      return acc;
-    }
+  return Array.from(new Set(lengths)).reduce<LengthGuide[]>(
+    (acc, length, index) => {
+      const h = length * 0.5;
+      if (length === 0) {
+        return [...acc, { left: 0, right: 0, length }];
+      }
+      if (!h || !Number.isFinite(length)) {
+        // Filter out nonsensical values, null, undefined, NaN, empty string
+        return acc;
+      }
 
-    return [
-      ...acc,
-      {
-        left: -h,
-        right: h,
-        length,
-        ...(isMaxLengthFullWidth && length === Math.max(...lengths)
-          ? { isFullWidth: true }
-          : {}),
-      },
-    ];
-  }, []);
+      return [
+        ...acc,
+        {
+          left: -h,
+          right: h,
+          length,
+          // Assumes the full width guide is always the last length in the array
+          ...(hasFullWidthGuide && index === lengths.length - 1
+            ? { isFullWidth: true }
+            : {}),
+        },
+      ];
+    },
+    [],
+  );
 };
 
 /**
@@ -55,9 +59,9 @@ export const createGuidesFromLengths = (
 export const createFixedGuidelinesFromLengths = (
   lengths: number[],
   key: string = 'guide',
-  isMaxLengthFullWidth: boolean = false,
+  hasFullWidthGuide: boolean = false,
 ): { key: string; position: { x: number } }[] => {
-  return createGuidesFromLengths(lengths, isMaxLengthFullWidth).reduce<
+  return createGuidesFromLengths(lengths, hasFullWidthGuide).reduce<
     { key: string; position: { x: number } }[]
   >((acc, { left, right, length, isFullWidth }) => {
     if (length === 0) {

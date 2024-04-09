@@ -12,7 +12,10 @@ import { jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
-import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import {
+  UIAnalyticsEvent,
+  withAnalyticsContext,
+} from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import Modal, {
@@ -27,13 +30,18 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { EVENT_CHANNEL } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
 import type {
   AnalyticsContextAttributesType,
   AnalyticsContextType,
   ComponentMetaDataType,
 } from '../../../analytics/generated/analytics.types';
-import { DatasourceAction } from '../../../analytics/types';
+import {
+  DatasourceAction,
+  DatasourceDisplay,
+  DatasourceSearchMethod,
+} from '../../../analytics/types';
 import { Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
@@ -70,6 +78,23 @@ const searchCountStyles = xcss({
   fontWeight: 600,
 });
 
+// TODO: common functionality of all modals refactor in EDM-9573
+export const getColumnAction = (
+  oldVisibleColumnKeys: string[],
+  newVisibleColumnKeys: string[],
+): DatasourceAction => {
+  const newColumnSize = newVisibleColumnKeys.length;
+  const oldColumnSize = oldVisibleColumnKeys.length;
+
+  if (newColumnSize > oldColumnSize) {
+    return DatasourceAction.COLUMN_ADDED;
+  } else if (newColumnSize < oldColumnSize) {
+    return DatasourceAction.COLUMN_REMOVED;
+  } else {
+    return DatasourceAction.COLUMN_REORDERED;
+  }
+};
+
 export const PlainConfluenceSearchConfigModal = (
   props: ConfluenceSearchConfigModalProps,
 ) => {
@@ -100,6 +125,7 @@ export const PlainConfluenceSearchConfigModal = (
   // analytics related parameters
   const searchCount = useRef(0);
   const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
+  const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
   // TODO: further refactoring in EDM-9573
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829210
@@ -191,6 +217,16 @@ export const PlainConfluenceSearchConfigModal = (
     void fetchSiteDisplayNames();
   }, []);
 
+  useEffect(() => {
+    const newVisibleColumnKeys =
+      !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
+        ? defaultVisibleColumnKeys
+        : initialVisibleColumnKeys;
+
+    visibleColumnCount.current = newVisibleColumnKeys.length;
+    setVisibleColumnKeys(newVisibleColumnKeys);
+  }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
+
   const siteSelectorLabel =
     availableSites && availableSites.length > 1
       ? confluenceSearchModalMessages.insertIssuesTitleManySites
@@ -224,6 +260,21 @@ export const PlainConfluenceSearchConfigModal = (
     [wrappedColumnKeys],
   );
 
+  // TODO: common functionality of all modals refactor in EDM-9573
+  const handleVisibleColumnKeysChange = useCallback(
+    (newVisibleColumnKeys: string[] = []) => {
+      const columnAction = getColumnAction(
+        visibleColumnKeys || [],
+        newVisibleColumnKeys,
+      );
+      userInteractionActions.current.add(columnAction);
+      visibleColumnCount.current = newVisibleColumnKeys.length;
+
+      setVisibleColumnKeys(newVisibleColumnKeys);
+    },
+    [visibleColumnKeys],
+  );
+
   // TODO: further refactoring in EDM-9573
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6798258
   const confluenceSearchTable = useMemo(
@@ -238,7 +289,7 @@ export const PlainConfluenceSearchConfigModal = (
           visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
           onNextPage={onNextPage}
           onLoadDatasourceDetails={loadDatasourceDetails}
-          onVisibleColumnKeysChange={setVisibleColumnKeys}
+          onVisibleColumnKeysChange={handleVisibleColumnKeysChange}
           parentContainerRenderInstanceId={modalRenderInstanceId}
           extensionKey={extensionKey}
           columnCustomSizes={columnCustomSizes}
@@ -261,7 +312,7 @@ export const PlainConfluenceSearchConfigModal = (
       defaultVisibleColumnKeys,
       onNextPage,
       loadDatasourceDetails,
-      setVisibleColumnKeys,
+      handleVisibleColumnKeysChange,
       modalRenderInstanceId,
       extensionKey,
       columnCustomSizes,
@@ -280,6 +331,16 @@ export const PlainConfluenceSearchConfigModal = (
     selectedConfluenceSiteUrl &&
     searchString !== undefined &&
     `${selectedConfluenceSiteUrl}/wiki/search/?text=${encodeURI(searchString)}`;
+
+  const analyticsPayload = useMemo(
+    () => ({
+      extensionKey,
+      destinationObjectTypes,
+      searchCount: searchCount.current,
+      actions: Array.from(userInteractionActions.current),
+    }),
+    [destinationObjectTypes, extensionKey],
+  );
 
   const renderModalContent = useCallback(() => {
     if (status === 'rejected') {
@@ -324,46 +385,69 @@ export const PlainConfluenceSearchConfigModal = (
 
   const shouldShowResultsCount = !!totalCount && totalCount !== 1;
 
-  const onInsertPressed = useCallback(() => {
-    if (!isParametersSet || !cloudId) {
-      return;
-    }
+  const onInsertPressed = useCallback(
+    (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
+      if (!isParametersSet || !cloudId) {
+        return;
+      }
 
-    onInsert(
-      buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
-        id: datasourceId,
-        parameters: {
-          ...parameters,
-          cloudId,
+      const insertButtonClickedEvent = analyticsEvent.update({
+        actionSubjectId: 'insert',
+        attributes: {
+          ...analyticsPayload,
+          totalItemCount: totalCount || 0,
+          displayedColumnCount: visibleColumnCount.current,
+          display: DatasourceDisplay.DATASOURCE_TABLE,
+          searchCount: searchCount.current,
+          searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
+          actions: Array.from(userInteractionActions.current),
         },
-        views: [
-          {
-            type: 'table',
-            properties: {
-              columns: (visibleColumnKeys || []).map(key => {
-                const width = columnCustomSizes?.[key];
-                const isWrapped = wrappedColumnKeys?.includes(key);
-                return {
-                  key,
-                  ...(width ? { width } : {}),
-                  ...(isWrapped ? { isWrapped } : {}),
-                };
-              }),
-            },
+        eventType: 'ui',
+      });
+
+      const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
+      insertButtonClickedEvent.fire(EVENT_CHANNEL);
+
+      onInsert(
+        buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
+          id: datasourceId,
+          parameters: {
+            ...parameters,
+            cloudId,
           },
-        ],
-      }),
-    );
-  }, [
-    isParametersSet,
-    cloudId,
-    onInsert,
-    datasourceId,
-    parameters,
-    visibleColumnKeys,
-    columnCustomSizes,
-    wrappedColumnKeys,
-  ]);
+          views: [
+            {
+              type: 'table',
+              properties: {
+                columns: (visibleColumnKeys || []).map(key => {
+                  const width = columnCustomSizes?.[key];
+                  const isWrapped = wrappedColumnKeys?.includes(key);
+                  return {
+                    key,
+                    ...(width ? { width } : {}),
+                    ...(isWrapped ? { isWrapped } : {}),
+                  };
+                }),
+              },
+            },
+          ],
+        }),
+        consumerEvent,
+      );
+    },
+    [
+      isParametersSet,
+      cloudId,
+      analyticsPayload,
+      totalCount,
+      onInsert,
+      datasourceId,
+      parameters,
+      visibleColumnKeys,
+      columnCustomSizes,
+      wrappedColumnKeys,
+    ],
+  );
 
   const onSearch = useCallback(
     (newSearchString: string) => {

@@ -49,13 +49,13 @@ const ICON_WIDTH_ESTIMATE = 24;
 
 const staticItemWithTruncationStyles = css({
   maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
-  fontWeight: 400,
+  fontWeight: token('font.weight.regular'),
 });
 
 const staticItemWithoutTruncationStyles = css({
   minWidth: 0,
   flexShrink: 1,
-  fontWeight: 400,
+  fontWeight: token('font.weight.regular'),
 });
 
 const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {

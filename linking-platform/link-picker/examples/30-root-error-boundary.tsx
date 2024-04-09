@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import Popup from '@atlaskit/popup';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';

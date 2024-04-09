@@ -2,7 +2,7 @@ import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
 
 const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';

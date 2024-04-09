@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 26.52.2
+
+### Patch Changes
+
+- [#88354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88354) [`4c87d9b4f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c87d9b4f0c2) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
+## 26.52.1
+
+### Patch Changes
+
+- [#87946](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87946) [`784121aa50b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/784121aa50b4) - Add ai mau analytics
+- Updated dependencies
+
 ## 26.52.0
 
 ### Minor Changes

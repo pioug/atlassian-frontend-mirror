@@ -154,6 +154,7 @@ export const FileCard = ({
   onClick,
   onMouseEnter,
   createAnalyticsEvent,
+  videoControlsWrapperRef,
 }: FileCardBaseProps) => {
   //----------------------------------------------------------------//
   //------------ State, Refs & Initial Values ----------------------//
@@ -836,6 +837,7 @@ export const FileCard = ({
             ref={setCardElement}
             testId={testId}
             cardPreview={preview}
+            videoControlsWrapperRef={videoControlsWrapperRef}
           />
         </Suspense>
       ) : (

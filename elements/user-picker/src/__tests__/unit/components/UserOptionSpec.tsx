@@ -51,7 +51,6 @@ describe('User Option', () => {
         appearance="big"
         src="http://avatars.atlassian.com/jace.png"
         presence="approved"
-        name="Jace Beleren"
       />,
     );
 
@@ -92,7 +91,6 @@ describe('User Option', () => {
         appearance="big"
         src="http://avatars.atlassian.com/jace.png"
         presence="approved"
-        name="Jace Beleren"
       />,
     );
 
@@ -143,7 +141,6 @@ describe('User Option', () => {
         appearance="big"
         src="http://avatars.atlassian.com/jace.png"
         presence="approved"
-        name="Jace Beleren"
       />,
     );
 
@@ -191,7 +188,6 @@ describe('User Option', () => {
         appearance="big"
         src="http://avatars.atlassian.com/jace.png"
         presence="approved"
-        name="Jace Beleren"
       />,
     );
 

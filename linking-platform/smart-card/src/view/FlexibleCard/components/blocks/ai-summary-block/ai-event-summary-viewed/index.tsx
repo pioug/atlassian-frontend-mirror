@@ -10,6 +10,13 @@ const AIEventSummaryViewed: React.FC<AIEventSummaryViewedProps> = ({
 
   useEffect(() => {
     fireEvent('ui.summary.viewed', { fromCache });
+    if (fromCache) {
+      fireEvent('track.aiInteraction.initiated', {
+        aiFeatureName: 'Smart Links Summary',
+        proactiveAIGenerated: 1,
+        userGeneratedAI: 0,
+      });
+    }
   }, [fireEvent, fromCache]);
 
   return null;

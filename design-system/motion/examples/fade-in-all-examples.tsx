@@ -4,8 +4,9 @@ import { jsx } from '@emotion/react';
 import { md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 
-import { Block, Centered, RetryContainer } from '../examples-utils';
 import { FadeIn, StaggeredEntrance } from '../src';
+
+import { Block, Centered, RetryContainer } from './utils';
 
 export default () => md`
   ## Single element

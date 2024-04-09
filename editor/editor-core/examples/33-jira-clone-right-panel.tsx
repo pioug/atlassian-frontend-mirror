@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
-import Button from '@atlaskit/button';
+import Button, { IconButton } from '@atlaskit/button/new';
 import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 import LikeIcon from '@atlaskit/icon/glyph/like';
@@ -119,34 +119,35 @@ export default function CommentWithJiraCardsExample() {
             <RightSidebar width={600}>
               <Box xcss={rightSidebarContainer}>
                 <div id="jira-issue-header-actions" css={headerActionContainer}>
-                  <Button
+                  <IconButton
                     appearance="subtle"
-                    iconBefore={<FeedbackIcon label="feedback" size="medium" />}
-                  ></Button>
-                  <Button
+                    icon={FeedbackIcon}
+                    label="feedback"
+                  />
+                  <IconButton
                     appearance="subtle"
-                    iconBefore={<WatchFilledIcon label="watch" size="medium" />}
-                  ></Button>
-                  <Button
+                    icon={WatchFilledIcon}
+                    label="watch"
+                  />
+                  <IconButton
                     appearance="subtle"
-                    iconBefore={<LikeIcon label="like" size="medium" />}
-                  ></Button>
-                  <Button
+                    icon={LikeIcon}
+                    label="like"
+                  />
+                  <IconButton
                     appearance="subtle"
-                    iconBefore={<ShareIcon label="share" size="medium" />}
-                  ></Button>
-                  <Button
+                    icon={ShareIcon}
+                    label="share"
+                  />
+                  <IconButton
                     appearance="subtle"
-                    iconBefore={<MoreIcon label="more" size="medium" />}
-                  ></Button>
+                    icon={MoreIcon}
+                    label="more"
+                  />
                 </div>
                 <div css={statusContainer}>
-                  <Button iconAfter={<ChevronDown label="" size="medium" />}>
-                    To Do
-                  </Button>
-                  <Button iconAfter={<ChevronDown label="" size="medium" />}>
-                    Action
-                  </Button>
+                  <Button iconAfter={ChevronDown}>To Do</Button>
+                  <Button iconAfter={ChevronDown}>Action</Button>
                 </div>
 
                 <div

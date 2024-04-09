@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.6.8",
+  "version": "7.6.11",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -137,9 +137,6 @@
     "platform.editor.menu.group-items": {
       "type": "boolean"
     },
-    "platform.editor.table.in-danger-hover-merged-cells-fix": {
-      "type": "boolean"
-    },
     "platform.editor.a11y-column-resizing_emcvz": {
       "type": "boolean"
     },
@@ -150,6 +147,9 @@
       "type": "boolean"
     },
     "platform.editor.table.use-shared-state-hook": {
+      "type": "boolean"
+    },
+    "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
       "type": "boolean"
     }
   }

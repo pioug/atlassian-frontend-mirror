@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 6.4.25
+
+### Patch Changes
+
+- [#88354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88354) [`4c87d9b4f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c87d9b4f0c2) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
 ## 6.4.24
 
 ### Patch Changes

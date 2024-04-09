@@ -9,7 +9,7 @@ import Button from '@atlaskit/button/new';
 import { ConfluenceIcon, JiraServiceManagementIcon } from '@atlaskit/logo';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
-import { Block, Centered, RetryContainer } from '../../examples-utils';
+import { Block, Centered, RetryContainer } from '../utils';
 
 const MotionFadeBetweenElements = () => {
   const [index, setIndex] = useState(0);

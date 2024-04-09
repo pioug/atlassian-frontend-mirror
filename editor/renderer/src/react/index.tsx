@@ -535,7 +535,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       isChildOfMediaSingle && mark.type === border;
 
     return {
-      ...this.getProps(node),
+      ...this.getProps(node, path),
       marks: node.marks.filter(
         (m) => !isLinkMark(m) || this.allowMediaLinking === true,
       ),

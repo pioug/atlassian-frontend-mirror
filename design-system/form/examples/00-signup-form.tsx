@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextField from '@atlaskit/textfield';
@@ -104,13 +103,9 @@ export default () => (
           <FormFooter>
             <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
-              <LoadingButton
-                type="submit"
-                appearance="primary"
-                isLoading={submitting}
-              >
+              <Button type="submit" appearance="primary" isLoading={submitting}>
                 Sign up
-              </LoadingButton>
+              </Button>
             </ButtonGroup>
           </FormFooter>
         </form>

@@ -11,8 +11,9 @@ import {
 } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
-import { Block, RetryContainer } from '../examples-utils';
 import { FadeIn, StaggeredEntrance } from '../src';
+
+import { Block, RetryContainer } from './utils';
 
 const logos = [
   [<BitbucketIcon size="small" />, 'Bitbucket'],

@@ -15,8 +15,9 @@ import {
 } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
 
-import { Centered } from '../examples-utils';
 import { FadeIn, StaggeredEntrance, useResizingHeight } from '../src';
+
+import { Centered } from './utils';
 
 const logos = [
   [<BitbucketIcon size="small" />, 'Bitbucket'],

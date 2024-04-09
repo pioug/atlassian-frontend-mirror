@@ -19,7 +19,7 @@ const promiseOptions = (inputValue: string) =>
     }, 1000);
   });
 
-export default class WithPromises extends Component<{}, State> {
+class WithPromises extends Component<{}, State> {
   state = { inputValue: '' };
 
   handleInputChange = (newValue: string) => {
@@ -42,3 +42,5 @@ export default class WithPromises extends Component<{}, State> {
     );
   }
 }
+
+export default () => <WithPromises />;

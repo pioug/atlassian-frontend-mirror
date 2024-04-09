@@ -394,6 +394,16 @@ export const rule = createLintRule({
         node: CallExpression,
       ) => {
         const references = context.getScope().references;
+
+        // Rule should ignore .attrs() calls
+        if (
+          node.callee.type === 'MemberExpression' &&
+          node.callee.property.type === 'Identifier' &&
+          node.callee.property.name === 'attrs'
+        ) {
+          return;
+        }
+
         const callee =
           node.callee.type === 'MemberExpression'
             ? node.callee.object

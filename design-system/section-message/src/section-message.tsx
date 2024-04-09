@@ -2,7 +2,6 @@ import React, { forwardRef } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
@@ -14,7 +13,7 @@ const sectionMessageStyles = xcss({
 
 const bleedStyles = xcss({
   display: 'flex',
-  marginBlock: `${token('space.negative.025', '-2px')}`,
+  marginBlock: 'space.negative.025',
 });
 
 /**

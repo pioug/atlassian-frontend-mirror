@@ -7,7 +7,7 @@ import { JsonLd } from 'json-ld-types';
 import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 import { useCallback, useState } from 'react';
 import { CardStore } from '@atlaskit/linking-common';
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 class CustomClient extends Client {
   fetchData() {

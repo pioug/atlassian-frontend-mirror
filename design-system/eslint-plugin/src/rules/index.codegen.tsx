@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d1c25758089a050334359276ede0ca3a>>
+ * @codegen <<SignedSource::eb5c94901f711e67446ba88f0630bf76>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -28,6 +28,7 @@ import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-li
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
 import useDrawerLabel from './use-drawer-label';
+import useHeading from './use-heading';
 import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-card';
 import useHrefInLinkItem from './use-href-in-link-item';
 import usePrimitives from './use-primitives';
@@ -63,6 +64,7 @@ export default {
   'prefer-primitives': preferPrimitives,
   'use-button-group-label': useButtonGroupLabel,
   'use-drawer-label': useDrawerLabel,
+  'use-heading': useHeading,
   'use-heading-level-in-spotlight-card': useHeadingLevelInSpotlightCard,
   'use-href-in-link-item': useHrefInLinkItem,
   'use-primitives': usePrimitives,

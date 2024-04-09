@@ -14,7 +14,6 @@ const containerStyles = xcss({
 
 const AvatarGroupGridExample = () => {
   const data = RANDOM_USERS.map((d, i) => ({
-    email: d.email,
     key: d.email,
     name: d.name,
     href: '#',

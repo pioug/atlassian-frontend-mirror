@@ -23,7 +23,7 @@ import {
 } from '../src/inline/mediaInlineCard';
 
 import { R500 } from '@atlaskit/theme/colors';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 
 const defaultDimensions = { width: 200, height: 150 };
 

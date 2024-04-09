@@ -176,7 +176,6 @@ export const TableResizer = ({
   // track resizing state - use ref over state to avoid re-render
   const isResizing = useRef(false);
   const areResizeMetaKeysPressed = useRef(false);
-  const [localTableWidth, setLocalTableWidth] = useState(width);
   const resizerRef = useRef<ResizerNextHandler>(null);
   const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
   const { widthToWidest } = tableState as TableSharedStateInternal;
@@ -313,40 +312,33 @@ export const TableResizer = ({
         isTableScalingEnabled,
       );
 
-      updateActiveGuidelines(
-        findClosestSnap(
-          newWidth,
-          isTableScalingEnabled
-            ? defaultTablePreserveSnappingWidths(containerWidth)
-            : defaultSnappingWidths,
-          isTableScalingEnabled
-            ? defaultGuidelinesForPreserveTable(containerWidth)
-            : defaultGuidelines,
-          TABLE_HIGHLIGHT_GAP,
-          TABLE_HIGHLIGHT_TOLERANCE,
-        ),
+      const closestSnap = findClosestSnap(
+        newWidth,
+        isTableScalingEnabled
+          ? defaultTablePreserveSnappingWidths(containerWidth)
+          : defaultSnappingWidths,
+        isTableScalingEnabled
+          ? defaultGuidelinesForPreserveTable(containerWidth)
+          : defaultGuidelines,
+        TABLE_HIGHLIGHT_GAP,
+        TABLE_HIGHLIGHT_TOLERANCE,
       );
 
-      // when isTableScalingEnabled true
-      // and a table is resized to fit the widest guideline when view port width is between 1011 and 1800
-      // set the width of the table to 1800 pixels.
+      updateActiveGuidelines(closestSnap);
+
+      // When snapping to the full width guideline, resize the table to be 1800px
       const { state, dispatch } = editorView;
       const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
-      const widestGuideline = defaultGuidelinesForPreserveTable(
+      const fullWidthGuideline = defaultGuidelinesForPreserveTable(
         containerWidth,
       ).filter((guideline) => guideline.isFullWidth)[0];
-      const widestGuideLineWidth = widestGuideline
-        ? ((widestGuideline.position?.x || 0) as number) * 2
-        : null;
-      const shouldUpdateWidthToWidest = !!(
-        isTableScalingEnabled &&
-        widestGuideLineWidth &&
-        Math.abs(widestGuideLineWidth - newWidth) <= 1
+
+      const isFullWidthGuidelineActive = closestSnap.keys.includes(
+        fullWidthGuideline.key,
       );
-      shouldUpdateWidthToWidest
-        ? setLocalTableWidth(TABLE_MAX_WIDTH)
-        : setLocalTableWidth(newWidth);
+      const shouldUpdateWidthToWidest =
+        !!isTableScalingEnabled && isFullWidthGuidelineActive;
 
       updateWidthToWidest({
         [currentTableNodeLocalId]: shouldUpdateWidthToWidest,
@@ -486,7 +478,6 @@ export const TableResizer = ({
       if (newWidth > maxWidth || newWidth < resizerMinWidth) {
         return;
       }
-      setLocalTableWidth(newWidth);
       handleResizeStop(
         { width: width, x: 0, y: 0, height: 0 },
         { width: step, height: 0 },
@@ -599,7 +590,7 @@ export const TableResizer = ({
       <ResizerNext
         ref={resizerRef}
         enable={handles}
-        width={localTableWidth}
+        width={width}
         handleAlignmentMethod="sticky"
         handleSize={handleSize}
         handleStyles={handleStyles}

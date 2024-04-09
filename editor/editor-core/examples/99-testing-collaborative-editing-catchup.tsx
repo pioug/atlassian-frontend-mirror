@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import URLSearchParams from 'url-search-params';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';

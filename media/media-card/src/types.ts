@@ -132,6 +132,9 @@ export interface CardEventProps {
    * `fullscreen = false` indicates video exits fullscreen
    */
   readonly onFullscreenChange?: (fullscreen: boolean) => void;
+
+  // Callback function to be called when video controls panel rendered.
+  readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 }
 
 export interface CardProps extends SharedCardProps, CardEventProps {

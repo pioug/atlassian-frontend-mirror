@@ -4,10 +4,45 @@ order: 2
 
 ## Usage
 
-The `Image` component can be used interchangeably with the native `img` element. The key difference at this stage is the `Image` component's awareness of themes.
+The image component can be used interchangeably with the native `img` element. The key difference at this stage is the image component's awareness of themes, like dark mode.
+
+## Accessibility
+
+For important information, use text instead of images. Only use images that usefully add to the text. Avoid moving or flashing images if possible.
+
+### Writing alternative text
+
+If there's information that can only be understood by seeing the image, then you need to explain the image using alternative text. Follow these guidelines when you write alt text:
+
+- The text should describe what the image is supposed to convey to a sighted person.
+- Keep alt text as short as possible, without being confusing. Ideally, 100 characters or fewer.
+- Don't repeat information that's contained in the text found on the page around the image.
+- Don't use phrases like "image of..." to describe the image. This is already announced by assistive technology. An exception to this is when the format conveys useful information, like "screenshot of...".
+- If the meaning and content of an image is conveyed by surrounding text, header, or captions, then you might not need as much alternative text.
+
+### Complex images
+
+For images that have a lot of information, like an image of a diagram or a chart, you will need to include either a supporting on-page description, or a link to a page with a long description. For images of graphs, include the data in a more accessible format like a table.
+
+Relying on alt text for images that need very long descriptions is a usability issue. While there isn't a hard limit on how long alt text can be, people don't expect to find an essay hidden inside an image, and you can't navigate within alt text.
+
+### Images that are links
+
+If the image links to another destination, then your alt text should describe that destination. For example, the Atlassian logo used to link to the Atlassian home page would have the alt text "Atlassian home".
+
+### Decorative images
+
+If the image is only used to make the page visually appealing and doesn't contain a link, then include the alt attribute, but leave it empty. For example, `alt=""`.
+
+### Avoid images of text
+
+Avoid images of text as this isn't accessible, and doesn't scale well. Our [typography](/foundations/typography/) provides display headings that are accessible and optimised to work on every screen size.
+
+### Avoid moving or flashing images
+
+Avoid using moving images unless absolutely necessary. Never use moving images that flash more than three times in one second.
 
 ## Best practices
 
-- Use the `Image` component when your image requires different sources for light and dark modes.
-
-- Avoid applying css directly to `Image`. This is not supported, and will be deprecated in favor of `xcss` in future. In most cases it should be possible to apply styling to a containing element instead.
+- Use the image component when your image requires different sources for light and dark modes.
+- Avoid applying css directly to `image`. This isn't supported, and will be deprecated in favor of `xcss` in future. In most cases it should be possible to apply styling to the image's container instead, but [avoid unsafe style overrides](/components/eslint-plugin-design-system/no-unsafe-style-overrides/usage).

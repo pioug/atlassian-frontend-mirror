@@ -4,8 +4,8 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
+import Button from '@atlaskit/button';
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';

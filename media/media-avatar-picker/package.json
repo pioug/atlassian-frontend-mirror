@@ -37,10 +37,10 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^17.9.0",
+    "@atlaskit/button": "^17.11.0",
     "@atlaskit/flag": "^15.3.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/media-ui": "^25.5.0",
+    "@atlaskit/media-ui": "^25.6.0",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/range": "^7.1.0",

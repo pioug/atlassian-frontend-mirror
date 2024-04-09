@@ -1,5 +1,12 @@
 # @atlaskit/breadcrumbs
 
+## 12.0.7
+
+### Patch Changes
+
+- [#87524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87524) [`1cdec73eb809`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1cdec73eb809) - Internal change to use font tokens. There is no visual change.
+- Updated dependencies
+
 ## 12.0.6
 
 ### Patch Changes

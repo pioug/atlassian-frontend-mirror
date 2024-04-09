@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.4.4
+
+### Patch Changes
+
+- [#88354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88354) [`4c87d9b4f0c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c87d9b4f0c2) - The internal composition of this component has changed. There is no expected change in behavior.
+- Updated dependencies
+
 ## 48.4.3
 
 ### Patch Changes

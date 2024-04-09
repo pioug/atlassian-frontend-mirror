@@ -1,5 +1,15 @@
 # @atlaskit/media-ui
 
+## 25.6.0
+
+### Minor Changes
+
+- [#73901](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/73901) [`2aefab5730ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2aefab5730ab) - ECA11Y-207 Added Tab navigation for video panel controls and handling key press on them
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.5.0
 
 ### Minor Changes

@@ -7,7 +7,6 @@ import AvatarGroup from '../src';
 
 const Example = () => {
   const data = RANDOM_USERS.slice(0, 8).map((d) => ({
-    email: d.email,
     key: d.email,
     name: d.name,
     appearance: 'circle' as AppearanceType,

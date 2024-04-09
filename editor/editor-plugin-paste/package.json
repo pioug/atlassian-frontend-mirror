@@ -44,7 +44,7 @@
     "@atlaskit/editor-plugin-card": "^1.4.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.0",
-    "@atlaskit/editor-plugin-media": "^1.13.0",
+    "@atlaskit/editor-plugin-media": "^1.14.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-tables": "^2.6.0",
     "@atlaskit/media-client": "^26.2.0",

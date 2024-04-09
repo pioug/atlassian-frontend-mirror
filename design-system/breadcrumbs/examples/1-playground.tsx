@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Select from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 

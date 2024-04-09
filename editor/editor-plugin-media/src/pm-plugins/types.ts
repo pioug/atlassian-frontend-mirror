@@ -29,6 +29,7 @@ export interface MediaPluginState {
   showDropzone: boolean;
   isFullscreen: boolean;
   element?: HTMLElement;
+  videoControlsWrapperRef?: HTMLElement;
   layout: MediaSingleLayout;
   mediaNodes: MediaNodeWithPosHandler[];
   options: MediaPluginOptions;
@@ -90,7 +91,13 @@ export interface MediaPluginState {
 
   updateAndDispatch(
     props: Partial<
-      Pick<this, 'allowsUploads' | 'allUploadsFinished' | 'isFullscreen'>
+      Pick<
+        this,
+        | 'allowsUploads'
+        | 'allUploadsFinished'
+        | 'isFullscreen'
+        | 'videoControlsWrapperRef'
+      >
     >,
   ): void;
 

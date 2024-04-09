@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
 
 import FeedbackCollector, { FeedbackFlag } from '../src';

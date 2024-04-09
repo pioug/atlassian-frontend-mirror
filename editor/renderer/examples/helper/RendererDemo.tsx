@@ -16,7 +16,7 @@ import type {
   EventHandlers,
 } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 

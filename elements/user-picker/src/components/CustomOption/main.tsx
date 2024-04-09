@@ -61,9 +61,9 @@ export class CustomOption extends React.PureComponent<CustomOptionProps> {
 
   private renderAvatar = () => {
     const {
-      data: { avatarUrl, name },
+      data: { avatarUrl },
     } = this.props;
-    return <SizeableAvatar appearance="big" src={avatarUrl} name={name} />;
+    return <SizeableAvatar appearance="big" src={avatarUrl} />;
   };
 
   private getLozengeProps = () =>

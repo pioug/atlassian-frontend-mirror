@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.7
+
+### Patch Changes
+
+- [#87596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87596) [`e0b95c3a4fba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0b95c3a4fba) - Add new UI badge for media node to trigger comments
+
 ## 1.5.6
 
 ### Patch Changes

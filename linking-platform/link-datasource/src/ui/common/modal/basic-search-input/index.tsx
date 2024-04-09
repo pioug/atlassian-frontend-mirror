@@ -10,6 +10,8 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
+import { useDatasourceAnalyticsEvents } from '../../../../analytics';
+
 import { basicSearchInputMessages } from './messages';
 
 export interface BasicSearchInputProps {
@@ -47,10 +49,16 @@ export const BasicSearchInput = ({
   placeholder,
 }: BasicSearchInputProps) => {
   const { formatMessage } = useIntl();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
+
+  const handleSearchWithAnalytics = () => {
+    fireEvent('ui.form.submitted.basicSearch', {});
+    onSearch(searchTerm);
+  };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(searchTerm);
+    handleSearchWithAnalytics();
   };
 
   const showBasicFilters = useMemo(() => {
@@ -86,7 +94,7 @@ export const BasicSearchInput = ({
             }
             isDisabled={isDisabled}
             isLoading={isSearching}
-            onClick={() => onSearch(searchTerm)}
+            onClick={handleSearchWithAnalytics}
             spacing="none"
             testId={`${testId}--basic-search-button`}
           />

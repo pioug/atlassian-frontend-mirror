@@ -5,7 +5,6 @@ import classNames from 'classnames';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
@@ -20,7 +19,7 @@ import {
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
-import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
+import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
@@ -181,9 +180,6 @@ export const ResizableTableContainer = React.memo(
     );
 
     const tableWidth = getTableContainerWidth(node);
-    const { tableState } = useSharedPluginState(pluginInjectionApi, ['table']);
-    const { widthToWidest } = tableState as TableSharedStateInternal;
-    const currentTableNodeLocalId = node?.attrs?.localId ?? '';
 
     // 76 is currently an accepted padding value considering the spacing for resizer handle
     const responsiveContainerWidth = isTableScalingEnabled
@@ -195,15 +191,6 @@ export const ResizableTableContainer = React.memo(
         akEditorMediaResizeHandlerPaddingWide;
 
     let width = Math.min(tableWidth, responsiveContainerWidth);
-
-    if (
-      isTableScalingEnabled &&
-      currentTableNodeLocalId &&
-      widthToWidest &&
-      widthToWidest[currentTableNodeLocalId]
-    ) {
-      width = TABLE_MAX_WIDTH;
-    }
 
     if (!isResizing) {
       tableWidthRef.current = width;

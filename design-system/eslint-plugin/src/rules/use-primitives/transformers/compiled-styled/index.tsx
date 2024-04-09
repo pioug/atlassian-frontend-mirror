@@ -15,7 +15,6 @@ import { convertJsxCallSite } from './convert-jsx-call-site';
 import { convertStyledComponentToXcss } from './convert-styled-component-call-to-jsx';
 import { findValidJsxUsageToTransform } from './find-valid-jsx-usage-to-transform';
 import { findValidStyledComponentCall } from './find-valid-styled-component-call';
-import { upsertImportDeclaration } from './upsert-import-declaration';
 
 interface MetaData {
   context: Rule.RuleContext;
@@ -128,7 +127,7 @@ export const CompiledStyled = {
         return [];
       }
 
-      const importFixes = upsertImportDeclaration(
+      const importFixes = ast.Root.upsertNamedImportDeclaration(
         {
           module: '@atlaskit/primitives',
           specifiers: ['Box', 'xcss'],

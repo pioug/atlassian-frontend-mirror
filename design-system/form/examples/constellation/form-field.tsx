@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
@@ -43,13 +42,9 @@ const FormFieldExample = () => (
           <FormFooter>
             <ButtonGroup label="Form submit options">
               <Button appearance="subtle">Cancel</Button>
-              <LoadingButton
-                type="submit"
-                appearance="primary"
-                isLoading={submitting}
-              >
+              <Button type="submit" appearance="primary" isLoading={submitting}>
                 Submit
-              </LoadingButton>
+              </Button>
             </ButtonGroup>
           </FormFooter>
         </form>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "109.14.0",
+  "version": "109.15.1",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.9.0",
+    "@atlaskit/button": "^17.11.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/editor-common": "^78.23.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
@@ -44,7 +44,7 @@
     "@atlaskit/media-client-react": "^2.0.0",
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
-    "@atlaskit/media-ui": "^25.5.0",
+    "@atlaskit/media-ui": "^25.6.0",
     "@atlaskit/media-viewer": "^48.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/smart-card": "^26.52.0",
@@ -71,7 +71,7 @@
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/css-reset": "^6.7.0",
+    "@atlaskit/css-reset": "^6.8.0",
     "@atlaskit/editor-test-helpers": "^18.20.0",
     "@atlaskit/link-provider": "^1.9.0",
     "@atlaskit/link-test-helpers": "^7.0.0",
@@ -98,6 +98,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-live-clock": "^5.0.0",
+    "react-magnetic-di": "^2.2.6",
     "react-moment": "^1.1.2",
     "react-test-renderer": "^16.8.0",
     "rxjs": "^5.5.0",

@@ -2,7 +2,7 @@ import React, { useRef, useState, ComponentType, FC } from 'react';
 import styled from '@emotion/styled';
 
 import Textfield from '@atlaskit/textfield';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import Modal, {
   ModalTransition,
   ModalBody,
@@ -13,35 +13,32 @@ import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const IconExplorerLink = styled.a`
-  &,
-  &:hover,
-  &:active,
-  &:focus {
-    display: block;
-    padding: 10px;
-    border-radius: ${token('border.radius.100', '4px')};
-    color: inherit;
-    cursor: pointer;
-    line-height: 0;
-  }
-  &:hover {
-    background: ${token('color.background.neutral.hovered', N30A)};
-  }
-`;
+const IconExplorerLink = styled.a({
+  '&, &:hover, &:active, &:focus': {
+    display: 'block',
+    padding: '10px',
+    borderRadius: token('border.radius.100', '4px'),
+    color: 'inherit',
+    cursor: 'pointer',
+    lineHeight: 0,
+  },
+  '&:hover': {
+    background: token('color.background.neutral.hovered', N30A),
+  },
+});
 
-const IconModalHeader = styled.h3`
-  display: flex;
-  padding: ${token('space.250', '20px')};
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-`;
+const IconModalHeader = styled.h3({
+  display: 'flex',
+  padding: token('space.250', '20px'),
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  flexDirection: 'row',
+});
 
-const Divider = styled.h4`
-  width: 100%;
-  text-align: center;
-`;
+const Divider = styled.h4({
+  width: '100%',
+  textAlign: 'center',
+});
 
 interface IconExplorerCellProps {
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions

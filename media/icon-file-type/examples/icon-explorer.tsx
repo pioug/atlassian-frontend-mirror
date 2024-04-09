@@ -1,7 +1,7 @@
 import React, { Component, FormEvent, ComponentType } from 'react';
 import styled from '@emotion/styled';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button';
 import TextField from '@atlaskit/textfield';
 
 import metadata from '../src/metadata';
@@ -21,24 +21,24 @@ const allIcons = Promise.all(
 );
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const IconGridWrapper = styled.div`
-  padding: 10px 5px 0;
-`;
+const IconGridWrapper = styled.div({
+  padding: '10px 5px 0',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const IconExplorerGrid = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  margin-top: 10px;
-`;
+const IconExplorerGrid = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  justifyContent: 'flex-start',
+  marginTop: '10px',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const NoIcons = styled.div`
-  margin-top: 10px;
-  padding: 10px;
-`;
+const NoIcons = styled.div({
+  marginTop: '10px',
+  padding: '10px',
+});
 
 interface Icon {
   keywords: string[];

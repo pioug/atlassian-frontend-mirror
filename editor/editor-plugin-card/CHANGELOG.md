@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 1.4.3
+
+### Patch Changes
+
+- [#87517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87517) [`cb501b6ea6e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb501b6ea6e0) - Link preferences button for datasources toolbar is now in full effect (feature flag removed).
+
 ## 1.4.2
 
 ### Patch Changes

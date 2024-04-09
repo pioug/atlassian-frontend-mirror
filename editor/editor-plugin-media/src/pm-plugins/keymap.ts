@@ -2,6 +2,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
+  activateVideoControls,
   bindKeymapWithCommand,
   decreaseMediaSize,
   enter,
@@ -55,7 +56,6 @@ export function keymapPlugin(
   const list = {};
 
   bindKeymapWithCommand(undo.common!, ignoreLinksInSteps, list);
-  bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
   if (options?.allowCaptions) {
     bindKeymapWithCommand(
@@ -82,6 +82,7 @@ export function keymapPlugin(
   }
 
   bindKeymapWithCommand(insertNewLine.common!, splitMediaGroup, list);
+  bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
   if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
     if (getBooleanFF('platform.editor.a11y-media-resizing_b5v0o')) {
@@ -98,6 +99,11 @@ export function keymapPlugin(
     }
   }
 
+  if (
+    getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
+  ) {
+    bindKeymapWithCommand(activateVideoControls.common!, focusPlayButton, list);
+  }
   return keymap(list) as SafePlugin;
 }
 
@@ -110,6 +116,18 @@ const ignoreLinksInSteps: Command = state => {
 const splitMediaGroup: Command = state => {
   const mediaPluginState = stateKey.getState(state) as MediaPluginState;
   return mediaPluginState.splitMediaGroup();
+};
+
+const focusPlayButton: Command = state => {
+  const videoControlsWrapperRef = stateKey.getState(state)?.element;
+  if (videoControlsWrapperRef) {
+    const firstButton =
+      videoControlsWrapperRef?.querySelector<HTMLButtonElement>(
+        'button, [tabindex]:not([tabindex="-1"])',
+      );
+    firstButton?.focus();
+  }
+  return true;
 };
 
 const validationMaxMin = (

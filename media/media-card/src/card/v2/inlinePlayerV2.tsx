@@ -37,6 +37,7 @@ export interface InlinePlayerOwnProps {
   readonly cardPreview?: CardPreview;
   //To Forward Ref
   readonly forwardRef?: React.Ref<HTMLDivElement>;
+  readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 }
 
 export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;
@@ -72,6 +73,7 @@ export const InlinePlayerBaseV2 = ({
   autoplay,
   cardPreview,
   onFullscreenChange,
+  videoControlsWrapperRef,
 }: InlinePlayerProps) => {
   // === States ===
   const [fileSrc, setFileSrc] = useState<string>();
@@ -178,7 +180,6 @@ export const InlinePlayerBaseV2 = ({
             fileId={id}
             isAutoPlay={autoplay}
             isHDAvailable={false}
-            isVideoSelected={selected}
             onDownloadClick={() => {
               mediaClient.file.downloadBinary(id, undefined, collectionName);
             }}
@@ -194,6 +195,7 @@ export const InlinePlayerBaseV2 = ({
             originalDimensions={originalDimensions}
             showControls={checkMouseMovement}
             poster={cardPreview?.dataURI}
+            videoControlsWrapperRef={videoControlsWrapperRef}
           />
         )}
       </InactivityDetector>

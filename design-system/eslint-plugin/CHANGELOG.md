@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.3.1
+
+### Patch Changes
+
+- [#88012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88012) [`c478a4d80fc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c478a4d80fc9) - The `no-*-tagged-template-expression` rules will no longer autofix usages with mixins in nested selectors. This is because they were producing an array syntax that is not valid in compiled or styled-components.
+
 ## 9.3.0
 
 ### Minor Changes

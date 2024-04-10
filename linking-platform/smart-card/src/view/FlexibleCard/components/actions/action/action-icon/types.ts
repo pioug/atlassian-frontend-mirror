@@ -1,9 +1,10 @@
-import { ReactChild } from 'react';
-import { SmartLinkSize } from '../../../../../../constants';
+import type { ReactChild } from 'react';
+import type { SmartLinkSize } from '../../../../../../constants';
 
 export type ActionIconProps = {
   size?: SmartLinkSize;
   icon?: ReactChild;
-  testId?: string;
   isDisabled?: boolean;
+  showBackground?: boolean;
+  testId?: string;
 };

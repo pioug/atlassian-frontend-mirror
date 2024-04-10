@@ -431,7 +431,6 @@ typescriptEslintTester.run(
           opacity: 0.8;
           :hover {
             \${hover};
-            opacity: 1;
           }
         \`;
       `,
@@ -445,12 +444,7 @@ typescriptEslintTester.run(
           primary,
           {
             opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
+            ":hover": hover
           }
         );
       `,
@@ -468,7 +462,6 @@ typescriptEslintTester.run(
           opacity: 0.8;
           :hover {
             \${hover}
-            opacity: 1
           }
         \`;
       `,
@@ -482,12 +475,7 @@ typescriptEslintTester.run(
           primary,
           {
             opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
+            ":hover": hover
           }
         );
       `,
@@ -510,10 +498,6 @@ typescriptEslintTester.run(
             * before mixin 2
             */
             \${hover};
-            /*
-            * after mixin 2
-            */
-            opacity: 1;
           }
         \`;
       `,
@@ -527,12 +511,7 @@ typescriptEslintTester.run(
           primary,
           {
             opacity: 0.8,
-            ":hover": [
-              hover,
-              {
-                opacity: 1
-              }
-            ]
+            ":hover": hover
           }
         );
       `,
@@ -709,10 +688,6 @@ typescriptEslintTester.run(
           \${(props) => props.disabled ? "opacity: 0.8" : 'opacity: 1'};
           \${(props) => props.hidden && 'visibility: hidden'};
           color: \${(props) => props.color};
-          :hover {
-            \${(props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'};
-            color: \${(props) => props.hoverColor};
-          }
         \`;
       `,
         output: `
@@ -722,13 +697,7 @@ typescriptEslintTester.run(
           (props) => props.disabled ? "opacity: 0.8" : 'opacity: 1',
           (props) => props.hidden && 'visibility: hidden',
           {
-            color: (props) => props.color,
-            ":hover": [
-              (props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto',
-              {
-                color: (props) => props.hoverColor
-              }
-            ]
+            color: (props) => props.color
           }
         );
       `,
@@ -743,10 +712,6 @@ typescriptEslintTester.run(
           \${(props) => props.disabled ? "opacity: 0.8" : 'opacity: 1'}
           \${(props) => props.hidden && 'visibility: hidden'}
           color: \${(props) => props.color};
-          :hover {
-            \${(props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'}
-            color: \${(props) => props.hoverColor}
-          }
         \`;
       `,
         output: `
@@ -756,13 +721,7 @@ typescriptEslintTester.run(
           (props) => props.disabled ? "opacity: 0.8" : 'opacity: 1',
           (props) => props.hidden && 'visibility: hidden',
           {
-            color: (props) => props.color,
-            ":hover": [
-              (props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto',
-              {
-                color: (props) => props.hoverColor
-              }
-            ]
+            color: (props) => props.color
           }
         );
       `,
@@ -776,10 +735,6 @@ typescriptEslintTester.run(
           color: \${(props) => props.color};
           \${(props) => props.disabled ? "opacity: 0.8" : 'opacity: 1'};
           \${(props) => props.hidden && 'visibility: hidden'};
-          :hover {
-            color: \${(props) => props.hoverColor};
-            \${(props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'};
-          }
         \`;
       `,
         output: `
@@ -790,15 +745,7 @@ typescriptEslintTester.run(
             color: (props) => props.color
           },
           (props) => props.disabled ? "opacity: 0.8" : 'opacity: 1',
-          (props) => props.hidden && 'visibility: hidden',
-          {
-            ":hover": [
-              {
-                color: (props) => props.hoverColor
-              },
-              (props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'
-            ]
-          }
+          (props) => props.hidden && 'visibility: hidden'
         );
       `,
       },
@@ -812,10 +759,6 @@ typescriptEslintTester.run(
           color: \${(props) => props.color};
           \${(props) => props.disabled ? "opacity: 0.8" : 'opacity: 1'}
           \${(props) => props.hidden && 'visibility: hidden'};
-          :hover {
-            color: \${(props) => props.hoverColor};
-            \${(props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'}
-          }
         \`;
       `,
         output: `
@@ -826,15 +769,7 @@ typescriptEslintTester.run(
             color: (props) => props.color
           },
           (props) => props.disabled ? "opacity: 0.8" : 'opacity: 1',
-          (props) => props.hidden && 'visibility: hidden',
-          {
-            ":hover": [
-              {
-                color: (props) => props.hoverColor
-              },
-              (props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'
-            ]
-          }
+          (props) => props.hidden && 'visibility: hidden'
         );
       `,
       },
@@ -1525,6 +1460,22 @@ typescriptEslintTester.run(
             }
           });
         `,
+      },
+      {
+        filename: 'mixins-nested-with-multiple-arguments.ts',
+        code: `
+        import { styled } from '@compiled/react';
+
+        styled.div\`
+          \${(props) => props.disabled ? "opacity: 0.8" : 'opacity: 1'};
+          \${(props) => props.hidden && 'visibility: hidden'};
+          color: \${(props) => props.color};
+          :hover {
+            \${(props) => props.disabled ? "cursor: not-allowed" : 'cursor: auto'};
+            color: \${(props) => props.hoverColor};
+          }
+        \`;
+      `,
       },
     ]),
   },

@@ -13,6 +13,7 @@ import AsyncAppendTableTreeExample from '../../examples/constellation/async-appe
 import AsyncUpdateTableTreeExample from '../../examples/constellation/async-update';
 import ShouldExpandOnClickTableTreeExample from '../../examples/constellation/should-expand-on-click';
 import ExtendedExpandLabelTableTreeExample from '../../examples/constellation/extended-expand-collapse-label';
+import AddAccessibleName from '../../examples/constellation/accessible-name';
 
 ## Basic
 
@@ -137,3 +138,9 @@ For example, the first expand button below would read "Expand Chapter 1: Clean C
   Component={ExtendedExpandLabelTableTreeExample}
   packageName="@atlaskit/table-tree"
 />
+
+## Adding an accessible name
+
+Use either the `label` or `referencedLabel` prop to add or reference the accessible name for the table.
+
+<Example Component={AddAccessibleName} packageName="@atlaskit/table-tree" />

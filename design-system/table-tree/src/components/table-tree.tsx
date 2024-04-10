@@ -40,6 +40,8 @@ export default class TableTree extends Component<any, State> {
   render() {
     const {
       items,
+      label,
+      referencedLabel,
       shouldExpandOnClick,
       headers,
       columns,
@@ -95,7 +97,12 @@ export default class TableTree extends Component<any, State> {
           getColumnWidth: this.getColumnWidth,
         }}
       >
-        <div role="treegrid" aria-readonly>
+        <div
+          role="treegrid"
+          aria-readonly
+          aria-label={label}
+          aria-labelledby={referencedLabel}
+        >
           {heads}
           {rows}
           {this.props.children}

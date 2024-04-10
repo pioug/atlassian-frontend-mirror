@@ -2,6 +2,7 @@ import React from 'react';
 import { css, SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 import { Spacing } from '@atlaskit/button';
+import type { Space } from '@atlaskit/primitives';
 import { SmartLinkSize } from '../../../constants';
 import { MessageProps } from './types';
 import Icon from './elements/icon';
@@ -33,14 +34,15 @@ export const getFormattedMessageAsString = (
   return message ? formatMessage(message, { context }) : '';
 };
 
-const getIconDimensionStyles = (value: string): SerializedStyles => css`
-  height: ${value};
-  min-height: ${value};
-  max-height: ${value};
-  width: ${value};
-  min-width: ${value};
-  max-width: ${value};
-`;
+const getIconDimensionStyles = (value: string): SerializedStyles =>
+  css({
+    height: value,
+    minHeight: value,
+    maxHeight: value,
+    width: value,
+    minWidth: value,
+    maxWidth: value,
+  });
 
 export const getIconSizeStyles = (width: string): SerializedStyles => {
   const sizeStyles = getIconDimensionStyles(width);
@@ -87,28 +89,28 @@ export const getLinkLineHeight = (size: SmartLinkSize): string => {
 export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
   switch (size) {
     case SmartLinkSize.XLarge:
-      return css`
-        font-size: 1.25rem;
-        font-weight: 400;
-        letter-spacing: -0.008em;
-        line-height: ${getLinkLineHeight(size)};
-      `;
+      return css({
+        fontSize: '1.25rem',
+        fontWeight: 400,
+        letterSpacing: '-0.008em',
+        lineHeight: getLinkLineHeight(size),
+      });
     case SmartLinkSize.Large:
     case SmartLinkSize.Medium:
-      return css`
-        font-size: 0.875rem;
-        font-weight: 400;
-        letter-spacing: -0.003em;
-        line-height: ${getLinkLineHeight(size)};
-      `;
+      return css({
+        fontSize: '0.875rem',
+        fontWeight: 400,
+        letterSpacing: '-0.003em',
+        lineHeight: getLinkLineHeight(size),
+      });
     case SmartLinkSize.Small:
     default:
-      return css`
-        font-size: 0.75rem;
-        font-weight: 400;
-        letter-spacing: 0em;
-        line-height: ${getLinkLineHeight(size)};
-      `;
+      return css({
+        fontSize: '0.75rem',
+        fontWeight: 400,
+        letterSpacing: '0em',
+        lineHeight: getLinkLineHeight(size),
+      });
   }
 };
 
@@ -143,23 +145,58 @@ export const getMaxLines = (
   return value;
 };
 
+/**
+ * A space between element based on smart link size
+ * To replace blocks/utils.tsz getGapSize() with space token for primitives
+ */
+export const getPrimitivesInlineSpaceBySize = (size: SmartLinkSize): Space => {
+  switch (size) {
+    case SmartLinkSize.XLarge:
+      return 'space.250';
+    case SmartLinkSize.Large:
+      return 'space.200';
+    case SmartLinkSize.Medium:
+      return 'space.100';
+    case SmartLinkSize.Small:
+    default:
+      return 'space.050';
+  }
+};
+
+/**
+ * Get container padding based on smart link size
+ * To replace container/index.tsx getPadding() with space token for primitives
+ */
+export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): Space => {
+  switch (size) {
+    case SmartLinkSize.XLarge:
+      return 'space.300';
+    case SmartLinkSize.Large:
+      return 'space.250';
+    case SmartLinkSize.Medium:
+      return 'space.200';
+    case SmartLinkSize.Small:
+    default:
+      return 'space.100';
+  }
+};
+
 export const getTruncateStyles = (
   maxLines: number,
   lineHeight: string = '1rem',
   wordBreak: 'break-word' | 'break-all' = 'break-word',
 ): SerializedStyles =>
-  css`
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: ${wordBreak};
-    -webkit-line-clamp: ${maxLines};
-    -webkit-box-orient: vertical;
-    // Fallback options
-    @supports not (-webkit-line-clamp: 1) {
-      max-height: calc(${maxLines} * ${lineHeight});
-    }
-  `;
+  css({
+    display: '-webkit-box',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    wordBreak: wordBreak,
+    WebkitLineClamp: maxLines,
+    WebkitBoxOrient: 'vertical',
+    '@supports not (-webkit-line-clamp: 1)': {
+      maxHeight: `calc(${maxLines} * ${lineHeight})`,
+    },
+  });
 
 export const hasWhiteSpace = (str: string): boolean => {
   return str.search(/\s/) >= 0;

@@ -7,7 +7,6 @@ import {
   type StreamMessage,
   type StateSetter,
   type PostAgentPayload,
-  type SummaryStyle,
   errorMessages,
   ErrorMessage,
 } from './types';
@@ -53,13 +52,13 @@ export class AISummaryService implements AISummaryServiceInt {
     this.onError = props.onError;
   }
 
-  private fetchStream = async <T>(summaryStyle: SummaryStyle) => {
+  private fetchStream = async <T>() => {
     const payload: PostAgentPayload = {
       recipient_agent_named_id: 'summary_agent',
       agent_input_context: {
         content_url: this.url,
         content_ari: this.ari,
-        summary_style: summaryStyle,
+        prompt_id: 'smart_links',
         summary_output_mimetype: 'text/markdown',
       },
     };
@@ -83,7 +82,7 @@ export class AISummaryService implements AISummaryServiceInt {
     }
   };
 
-  public async summariseUrl(summaryStyle: SummaryStyle = 'medium') {
+  public async summariseUrl() {
     this.state = {
       status: 'loading',
       content: '',
@@ -97,7 +96,7 @@ export class AISummaryService implements AISummaryServiceInt {
     try {
       this.onStart?.(id);
 
-      const stream = await this.fetchStream<StreamMessage>(summaryStyle);
+      const stream = await this.fetchStream<StreamMessage>();
 
       let bufferContent = '';
       for await (const chunk of stream) {

@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 26.2.3
+
+### Patch Changes
+
+- [#86762](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86762) [`f3d1602fa574`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3d1602fa574) - CXP-2655 Implemented a change to an endpoint for Mocked Media API
+
 ## 26.2.2
 
 ### Patch Changes

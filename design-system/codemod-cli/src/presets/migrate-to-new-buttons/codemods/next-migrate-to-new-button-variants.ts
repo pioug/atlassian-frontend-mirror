@@ -1,4 +1,4 @@
-import type {
+import {
   API,
   FileInfo,
   ImportDefaultSpecifier,
@@ -280,9 +280,18 @@ const transformer = (file: FileInfo, api: API): string => {
   }
 
   if (specifiers.length) {
-    oldButtonImport.replaceWith(
-      j.importDeclaration(specifiers, j.stringLiteral(NEW_BUTTON_ENTRY_POINT)),
+    const newButtonImport = j.importDeclaration(
+      specifiers,
+      j.stringLiteral(NEW_BUTTON_ENTRY_POINT),
     );
+
+    oldButtonImport.forEach((path) => {
+      newButtonImport.comments = path?.node?.comments
+        ? path.node.comments
+        : undefined;
+    });
+
+    oldButtonImport.replaceWith(newButtonImport);
   }
 
   // remove empty import declarations

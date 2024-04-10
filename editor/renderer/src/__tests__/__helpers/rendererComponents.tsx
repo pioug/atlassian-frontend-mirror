@@ -43,12 +43,17 @@ const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
 
 export const generateRendererComponent = (
   props: RendererProps,
-  mockDatasources = false,
+  options?: {
+    viewport?: { height?: number; width?: number };
+    mockDatasources?: boolean;
+  },
 ): ComponentType<React.PropsWithChildren<any>> => {
   const renderProps = {
     ...defaultBaseRendererProps,
     ...props,
   };
+
+  const mockDatasources = options?.mockDatasources ?? false;
 
   return () => {
     const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
@@ -62,13 +67,20 @@ export const generateRendererComponent = (
     }
 
     return (
-      <IntlProvider locale="en">
-        <SmartCardProvider client={smartCardClient}>
-          <MockMediaClientProvider>
-            <Renderer {...renderProps} />
-          </MockMediaClientProvider>
-        </SmartCardProvider>
-      </IntlProvider>
+      <div
+        style={{
+          width: options?.viewport?.width ?? 'unset',
+          height: options?.viewport?.height ?? 'unset',
+        }}
+      >
+        <IntlProvider locale="en">
+          <SmartCardProvider client={smartCardClient}>
+            <MockMediaClientProvider>
+              <Renderer {...renderProps} />
+            </MockMediaClientProvider>
+          </SmartCardProvider>
+        </IntlProvider>
+      </div>
     );
   };
 };
@@ -138,7 +150,9 @@ export const DatasourceWithRichTextFullPage = generateRendererComponent(
     document: datasourceWithRichtext,
     appearance: 'full-page',
   },
-  true,
+  {
+    mockDatasources: true,
+  },
 );
 
 export const DatasourceWithRichTextFullWidth = generateRendererComponent(
@@ -146,7 +160,9 @@ export const DatasourceWithRichTextFullWidth = generateRendererComponent(
     document: datasourceWithRichtext,
     appearance: 'full-width',
   },
-  true,
+  {
+    mockDatasources: true,
+  },
 );
 
 export const ListInsideBlockquote = generateRendererComponent(
@@ -154,7 +170,9 @@ export const ListInsideBlockquote = generateRendererComponent(
     document: listInBlockquote,
     appearance: 'full-width',
   },
-  true,
+  {
+    mockDatasources: true,
+  },
 );
 
 export const MediaInsidePanelFullPage = generateRendererComponent(
@@ -162,5 +180,7 @@ export const MediaInsidePanelFullPage = generateRendererComponent(
     document: panelWithMedia,
     appearance: 'full-page',
   },
-  true,
+  {
+    mockDatasources: true,
+  },
 );

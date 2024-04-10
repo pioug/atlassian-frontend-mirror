@@ -177,5 +177,6 @@ export default () => (
     mainColumnForExpandCollapseLabel="title"
     columnWidths={['200px', '100px', '100px']}
     items={items}
+    label="Aria labelled expand and collapse button example"
   />
 );

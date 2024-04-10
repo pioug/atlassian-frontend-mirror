@@ -41,7 +41,7 @@ export default () => {
   return (
     <Box>
       <Button onClick={loadMore}>Load more</Button>
-      <TableTree>
+      <TableTree label="Appended data">
         <Headers>
           <Header width={200}>Chapter title</Header>
           <Header width={120}>Numbering</Header>

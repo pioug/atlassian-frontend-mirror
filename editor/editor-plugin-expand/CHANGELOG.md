@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.3.0
+
+### Minor Changes
+
+- [#87870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87870) [`76711a3e7edd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76711a3e7edd) - [ED-22839] Refactor expand plugin to use either legacy (current) expand or single player expand (coming soon). Single player expand will only be used if `platform.editor.single-player-expand` is true and livePage is enabled.
+
 ## 1.2.6
 
 ### Patch Changes

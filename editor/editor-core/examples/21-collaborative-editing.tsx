@@ -275,7 +275,7 @@ export default class Example extends React.Component<Props, State> {
         product: 'editor-core example',
         subProduct: 'collab provider example',
       },
-      featureFlags: { testFF: false, testAF: true },
+      featureFlags: { testFF: false, testAF: true, catchupv2: true },
       __livePage: this.state.__livePage,
     });
 

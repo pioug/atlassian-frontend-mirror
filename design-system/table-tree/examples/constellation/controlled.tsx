@@ -16,7 +16,7 @@ const defaultExpansionMap: Record<string, boolean> = { '2': true };
 export default () => {
   const [expansionMap, setExpansionMap] = useState(defaultExpansionMap);
   return (
-    <TableTree>
+    <TableTree label="Manually controlled row expansion">
       <Headers>
         <Header width={200}>Chapter title</Header>
         <Header width={120}>Numbering</Header>

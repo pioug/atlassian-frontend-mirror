@@ -61,6 +61,16 @@ type TableTreeProps = {
    * Should be a number when we pass data via `<Rows />` component as children in `<TableTree />`.
    */
   mainColumnForExpandCollapseLabel?: string | number;
+  /**
+   * Refers to an `aria-label` attribute. Use label to describe the table for assistive technologies.
+   * Usage of either this, or the `labelId` attribute is strongly recommended.
+   */
+  label?: string;
+  /**
+   * Refers to an `aria-labelledby` attribute. Pass an id of the element which should define an accessible name for the table.
+   * Usage of either this, or the `label` attribute is strongly recommended.
+   */
+  referencedLabel?: string;
 };
 
 export default function (props: TableTreeProps) {

@@ -64,6 +64,7 @@ export type MessageKey =
   | 'open_issue_in_jira'
   | 'open_link_in_a_new_tab'
   | 'owned_by'
+  | 'preview_description'
   | 'preview_improved'
   | 'preview_close'
   | 'preview_max_size'
@@ -407,6 +408,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Owned by {context}',
     description:
       'Indicates the person or entity that owns or maintains the resource.',
+  },
+  preview_description: {
+    id: 'fabric.linking.preview_description.nonfinal',
+    defaultMessage: 'Open a full screen preview of this link',
+    description: 'Description on what Preview does',
   },
   preview_improved: {
     id: 'fabric.linking.preview_improved',

@@ -1,5 +1,11 @@
 # @atlaskit/codemod-cli
 
+## 0.21.1
+
+### Patch Changes
+
+- [#87918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87918) [`1de8dc826f8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1de8dc826f8d) - Fixed the duplicated label issue and the missing JSX pragma comment.
+
 ## 0.21.0
 
 ### Minor Changes

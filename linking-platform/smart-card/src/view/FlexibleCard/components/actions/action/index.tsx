@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import React from 'react';
+import { type FC } from 'react';
 import { jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
-import { ActionProps, InternalActionProps } from './types';
+import ActionStackItem from './action-stack-item';
+import { ActionProps } from './types';
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
@@ -11,11 +12,9 @@ import ActionIcon from './action-icon';
  * A base action that can be triggered with an on click.
  * @internal
  * @param {ActionProps} ActionProps - The props necessary for the Action.
- * @see DeleteAction
- * @see EditAction
- * @see CustomAction
  */
-const Action: React.FC<ActionProps & InternalActionProps> = ({
+const Action: FC<ActionProps> = ({
+  as,
   appearance = 'subtle',
   content,
   isLoading = false,
@@ -24,27 +23,50 @@ const Action: React.FC<ActionProps & InternalActionProps> = ({
   testId = 'smart-action',
   icon,
   iconPosition = 'before',
+  spaceInline,
   tooltipMessage,
+  xcss,
   asDropDownItem,
   overrideCss,
   isDisabled,
-}) => {
+}: ActionProps) => {
   if (!onClick) {
     return null;
   }
+
+  const isStackItem = as === 'stack-item';
+  const isDropdownItem = as === 'dropdown-item' || asDropDownItem;
 
   const actionIcon = icon && (
     <ActionIcon
       isDisabled={isDisabled}
       icon={icon}
       size={size}
+      showBackground={isStackItem}
       testId={testId}
     />
   );
   const iconBefore = icon && iconPosition === 'before' ? actionIcon : undefined;
   const iconAfter = icon && iconPosition === 'after' ? actionIcon : undefined;
 
-  if (asDropDownItem) {
+  if (isStackItem) {
+    return (
+      <ActionStackItem
+        content={content}
+        icon={actionIcon}
+        space={spaceInline}
+        isDisabled={isDisabled}
+        isLoading={isLoading}
+        onClick={onClick}
+        size={size}
+        testId={testId}
+        tooltipMessage={tooltipMessage || content}
+        xcss={xcss}
+      />
+    );
+  }
+
+  if (isDropdownItem) {
     return (
       <ActionDropdownItem
         content={content}
@@ -55,23 +77,23 @@ const Action: React.FC<ActionProps & InternalActionProps> = ({
         testId={testId}
       />
     );
-  } else {
-    return (
-      <ActionButton
-        appearance={appearance}
-        content={content}
-        iconAfter={iconAfter}
-        iconBefore={iconBefore}
-        isLoading={isLoading}
-        onClick={onClick}
-        overrideCss={overrideCss}
-        size={size}
-        testId={testId}
-        tooltipMessage={tooltipMessage || content}
-        isDisabled={isDisabled}
-      />
-    );
   }
+
+  return (
+    <ActionButton
+      appearance={appearance}
+      content={content}
+      iconAfter={iconAfter}
+      iconBefore={iconBefore}
+      isLoading={isLoading}
+      onClick={onClick}
+      overrideCss={overrideCss}
+      size={size}
+      testId={testId}
+      tooltipMessage={tooltipMessage || content}
+      isDisabled={isDisabled}
+    />
+  );
 };
 
 export default Action;

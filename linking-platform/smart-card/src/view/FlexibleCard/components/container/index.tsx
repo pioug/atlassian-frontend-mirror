@@ -25,11 +25,11 @@ import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/ut
 import { N40 } from '@atlaskit/theme/colors';
 import { di } from 'react-magnetic-di';
 
-const elevationStyles: SerializedStyles = css`
-  border: 1px solid ${token('color.border', N40)};
-  border-radius: ${token('border.radius.200', '8px')};
-  margin: ${token('space.025', '2px')};
-`;
+const elevationStyles: SerializedStyles = css({
+  border: `1px solid ${token('color.border', N40)}`,
+  borderRadius: token('border.radius.200', '8px'),
+  margin: token('space.025', '2px'),
+});
 
 const getGap = (size?: SmartLinkSize): string => {
   switch (size) {
@@ -45,6 +45,11 @@ const getGap = (size?: SmartLinkSize): string => {
   }
 };
 
+/**
+ * Get container padding based on smart link size
+ * Equivalent version for DS primitives space token is getPrimitivesPaddingSpaceBySize()
+ * at view/FlexibleCard/components/utils.tsx
+ */
 const getPadding = (size?: SmartLinkSize): string => {
   switch (size) {
     case SmartLinkSize.XLarge:
@@ -59,15 +64,12 @@ const getPadding = (size?: SmartLinkSize): string => {
   }
 };
 
-const clickableContainerStyles = css`
-  // Position any interactive elements at the top of the z-index stack.
-  a,
-  button,
-  .has-action {
-    position: relative;
-    z-index: 1;
-  }
-`;
+const clickableContainerStyles = css({
+  'a, button, .has-action': {
+    position: 'relative',
+    zIndex: 1,
+  },
+});
 
 const getContainerPaddingStyles = (
   size: SmartLinkSize,
@@ -78,21 +80,21 @@ const getContainerPaddingStyles = (
   const gap = getGap(size);
   const { previewOnLeft, previewOnRight } = childrenOptions;
 
-  return css`
-    // Set variables for PreviewBlock to use.
-    --container-padding: ${padding};
-    --container-gap-left: ${previewOnLeft ? gap : padding};
-    --container-gap-right: ${previewOnRight ? gap : padding};
-    --preview-block-width: 30%;
-
-    padding: ${padding};
-    ${previewOnLeft
+  return css(
+    {
+      '--container-padding': padding,
+      '--container-gap-left': previewOnLeft ? gap : padding,
+      '--container-gap-right': previewOnRight ? gap : padding,
+      '--preview-block-width': '30%',
+      padding: padding,
+    },
+    previewOnLeft
       ? `padding-left: calc(var(--preview-block-width) + ${gap});`
-      : ''}
-    ${previewOnRight
+      : '',
+    previewOnRight
       ? `padding-right: calc(var(--preview-block-width) + ${gap});`
-      : ''}
-  `;
+      : '',
+  );
 };
 
 const getChildrenOptions = (

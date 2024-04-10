@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 193.9.1
+
+### Patch Changes
+
+- [#87870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87870) [`3af8be694dfa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3af8be694dfa) - [ED-22839] Add 'platform.editor.single-player-expand' to package.json as readOnly to be used in atlaskit examples.
+- [#88524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88524) [`2b31e930a8fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b31e930a8fc) - Add catchupV2 feature flag for demo editor
+
 ## 193.9.0
 
 ### Minor Changes

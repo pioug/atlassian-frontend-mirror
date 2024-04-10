@@ -20,6 +20,7 @@ import {
   TitleBlock,
   AISummaryBlock,
   CustomBlock,
+  ActionBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import {
   footerBlockCss,
@@ -261,6 +262,9 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
           overrideCss={footerBlockCss}
         />
       )}
+      {getBooleanFF(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+      ) && <ActionBlock spaceInline="space.150" />}
     </FlexibleCard>
   );
 };

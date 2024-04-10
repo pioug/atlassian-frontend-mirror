@@ -1,26 +1,40 @@
 import React from 'react';
-
+/* eslint-disable-next-line import/no-extraneous-dependencies */
 import {
-  EditPageProps,
   Page as PageCommon,
+  type PageProps as Props,
+  EditPageProps,
   ViewPageProps,
 } from '@atlassian/embedded-confluence-common';
+import { useIntl } from 'react-intl-next';
 
-import { ViewPage } from '../view-page/ViewPage';
-import { EditPage } from '../edit-page/EditPage';
+import { ViewPage } from '../view-page';
+import { EditPage } from '../edit-page';
 
-const ViewComponent = (props: ViewPageProps) => <ViewPage {...props} />;
-const EditComponent = (props: EditPageProps) => <EditPage {...props} />;
+const ViewComponent = (props: Omit<ViewPageProps, 'locale'>) => {
+  const { locale } = useIntl();
+  return <ViewPage locale={locale} {...props} />;
+};
+
+const EditComponent = (props: Omit<EditPageProps, 'locale'>) => {
+  const { locale } = useIntl();
+  return <EditPage locale={locale} {...props} />;
+};
 
 export type PageProps = Omit<
-  React.ComponentProps<typeof PageCommon>,
-  'viewComponent' | 'editComponent'
+  Props,
+  'viewComponent' | 'editComponent' | 'locale'
 >;
 
-export const Page = (props: PageProps) => (
-  <PageCommon
-    {...props}
-    viewComponent={ViewComponent}
-    editComponent={EditComponent}
-  />
-);
+export const Page = (props: PageProps) => {
+  const { locale } = useIntl();
+
+  return (
+    <PageCommon
+      locale={locale}
+      {...props}
+      viewComponent={ViewComponent}
+      editComponent={EditComponent}
+    />
+  );
+};

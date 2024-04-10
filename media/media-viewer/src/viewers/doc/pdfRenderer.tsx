@@ -107,7 +107,7 @@ export type Props = {
   onError?: (error: MediaViewerError) => void;
 } & WithAnalyticsEventsProps;
 
-class CmapFacotry {
+class CmapFactory {
   constructor() {}
   async fetch({ name }: { name: string }) {
     const { value } = await cmap[name]();
@@ -159,7 +159,7 @@ const PDFRendererBase = ({
         GlobalWorkerOptions.workerSrc = workerUrl ?? defaultWorkerUrl;
         const getDocumentTask = getDocument({
           url: src,
-          CMapReaderFactory: CmapFacotry,
+          CMapReaderFactory: CmapFactory,
         });
 
         getDocumentTask.onPassword = (

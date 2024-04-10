@@ -66,17 +66,24 @@ export const moveSizeAndLabelAttributes = (
       }
 
       // move label and size attributes from icon to the root Button prop
-      const labelAttribute = iconJSXElementAttributes.find(
+      const buttonAlreadyHasLabelProp = attributes?.find(
         (attribute) =>
           attribute.type === 'JSXAttribute' && attribute.name.name === 'label',
       );
 
-      if (
-        labelAttribute &&
-        labelAttribute.type === 'JSXAttribute' &&
-        iconRenamed
-      ) {
-        attributes?.push(labelAttribute);
+      if (!buttonAlreadyHasLabelProp) {
+        const labelAttribute = iconJSXElementAttributes.find(
+          (attribute) =>
+            attribute.type === 'JSXAttribute' &&
+            attribute.name.name === 'label',
+        );
+        if (
+          labelAttribute &&
+          labelAttribute.type === 'JSXAttribute' &&
+          iconRenamed
+        ) {
+          attributes?.push(labelAttribute);
+        }
       }
 
       const sizeAttribute = iconJSXElementAttributes.find(

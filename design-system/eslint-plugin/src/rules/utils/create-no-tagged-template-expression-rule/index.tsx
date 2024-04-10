@@ -7,7 +7,6 @@ import esquery from 'esquery';
 import {
   getImportSources,
   isEmotion,
-  isStyledComponents,
   SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
@@ -92,14 +91,23 @@ export const createNoTaggedTemplateExpressionRule =
 
             const args = toArguments(source, quasi);
 
-            if (
-              isStyledComponents(node.tag, references, importSources) &&
-              args.some(hasMixinInsideNestedSelector)
-            ) {
+            if (args.some(hasNestedSelectorWithMultipleArguments)) {
               /**
-               * Styled components doesn't support arrays as style object values,
-               * so we cannot autofix mixins as we cannot combine them with the other
-               * properties in the object.
+               * We don't want to autofix if we would produce an array value, for example:
+               * ```
+               * styled.div({
+               *  ':hover': [
+               *    mixin,
+               *    {
+               *      color: 'red'
+               *    }
+               *  ]
+               * })
+               * ```
+               *
+               * This should only occur if there is a mixin in a nested selector.
+               *
+               * The array syntax is only supported by emotion.
                */
               return;
             }
@@ -179,7 +187,7 @@ export const createNoTaggedTemplateExpressionRule =
 
 type Node = DeclarationValue | Block | Argument;
 
-function hasMixinInsideNestedSelector(arg: Node) {
+function hasNestedSelectorWithMultipleArguments(arg: Node) {
   if (
     arg.type === 'literal' ||
     arg.type === 'expression' ||
@@ -188,19 +196,15 @@ function hasMixinInsideNestedSelector(arg: Node) {
     return false;
   }
 
-  if (
-    arg.type === 'rule' &&
-    arg.declarations.length > 1 &&
-    arg.declarations.some((node) => node.type === 'expression')
-  ) {
+  if (arg.type === 'rule' && arg.declarations.length > 1) {
     return true;
   }
 
   if (arg.type === 'block') {
-    return arg.blocks.some(hasMixinInsideNestedSelector);
+    return arg.blocks.some(hasNestedSelectorWithMultipleArguments);
   }
 
   if (arg.type === 'rule') {
-    return arg.declarations.some(hasMixinInsideNestedSelector);
+    return arg.declarations.some(hasNestedSelectorWithMultipleArguments);
   }
 }

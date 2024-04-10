@@ -3,7 +3,7 @@ import React from 'react';
 import TableTree, { Header, Headers, Rows } from '../../src';
 
 export default () => (
-  <TableTree>
+  <TableTree label="Root loading state">
     <Headers>
       <Header width={200}>Chapter title</Header>
       <Header width={120}>Numbering</Header>

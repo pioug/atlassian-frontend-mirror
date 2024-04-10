@@ -1,5 +1,11 @@
 # @atlaskit/media-test-data
 
+## 1.3.0
+
+### Minor Changes
+
+- [#86762](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86762) [`ba1e3c9c4371`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba1e3c9c4371) - CXP-2655 Add new sample file items for code
+
 ## 1.2.2
 
 ### Patch Changes

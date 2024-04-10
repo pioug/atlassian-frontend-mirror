@@ -4,6 +4,7 @@ import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui
 import FlexibleUiComposition from '../../../examples/vr-flexible-card/vr-flexible-ui-composition';
 
 import FlexibleUiBlock from '../../../examples/vr-flexible-card/vr-flexible-ui-block';
+import FlexibleUiBlockActionList from '../../../examples/vr-flexible-card/vr-flexible-ui-block-action';
 import FlexibleUiBlockAISummary from '../../../examples/vr-flexible-card/vr-flexible-ui-block-ai-summary';
 import FlexibleUiBlockTitle from '../../../examples/vr-flexible-card/vr-flexible-ui-block-title';
 import FlexibleUiBlockMetadata from '../../../examples/vr-flexible-card/vr-flexible-ui-block-metadata';
@@ -70,6 +71,7 @@ snapshot(FlexibleUiBlockSnippet);
 snapshot(FlexibleUiBlockFooter);
 snapshot(FlexibleUiBlockAISummary);
 snapshot(FlexibleUiBlockPreview);
+snapshot(FlexibleUiBlockActionList);
 snapshot(FlexibleUiBlockAction);
 snapshot(FlexibleUiBlockActionGroup, { drawsOutsideBounds: true });
 snapshot(FlexibleUiBlockActionGroup, {

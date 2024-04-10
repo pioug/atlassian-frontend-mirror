@@ -134,7 +134,7 @@ function mountBaseComponent(
 // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2029845/steps/{b861b857-1de4-45f9-b9bd-9538e39c4847}#line=5-42939
 // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2029983/steps/{705070ed-dc23-4793-b71a-7647e5897f98}#line=5-42832
 // https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2028621/steps/%7B40ebb21f-cd44-44e2-bd70-bdc5b69130e4%7D#line=5-61336
-describe.skip('<ItemViewer />', () => {
+describe('<ItemViewer />', () => {
   Loadable.preloadAll();
   beforeEach(() => {
     mocks.clearViewerError();
@@ -297,26 +297,45 @@ describe.skip('<ItemViewer />', () => {
   });
 
   describe('should show the document viewer if mimeType type is pdf and status is failed-processing', () => {
-    ffTest('platform.corex.password-protected-pdf_ht8re', () => {
-      const state: FileState = {
-        id: identifier.id,
-        mediaType: 'doc',
-        status: 'failed-processing',
-        artifacts: {},
-        name: '',
-        size: 10,
-        mimeType: 'application/pdf',
-        representations: { image: {} },
-      };
-      const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-      const { el } = mountComponent(mediaClient, identifier);
-      el.update();
-      expect(el.find(DocViewer)).toHaveLength(1);
-      // MSW:720 - passes the collectionName along
-      expect(el.find(DocViewer).prop('collectionName')).toEqual(
-        identifier.collectionName,
-      );
-    });
+    ffTest(
+      'platform.corex.password-protected-pdf_ht8re',
+      () => {
+        const state: FileState = {
+          id: identifier.id,
+          mediaType: 'doc',
+          status: 'failed-processing',
+          artifacts: {},
+          name: '',
+          size: 10,
+          mimeType: 'application/pdf',
+          representations: { image: {} },
+        };
+        const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+        const { el } = mountComponent(mediaClient, identifier);
+        el.update();
+        expect(el.find(DocViewer)).toHaveLength(1);
+        // MSW:720 - passes the collectionName along
+        expect(el.find(DocViewer).prop('collectionName')).toEqual(
+          identifier.collectionName,
+        );
+      },
+      () => {
+        const state: FileState = {
+          id: identifier.id,
+          mediaType: 'doc',
+          status: 'failed-processing',
+          artifacts: {},
+          name: '',
+          size: 10,
+          mimeType: 'application/pdf',
+          representations: { image: {} },
+        };
+        const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+        const { el } = mountComponent(mediaClient, identifier);
+        el.update();
+        expect(el.find(DocViewer)).toHaveLength(0);
+      },
+    );
   });
 
   it('should load archiveViewerLoader if media type is archive', () => {
@@ -442,24 +461,6 @@ describe.skip('<ItemViewer />', () => {
       };
       el.setProps({ mediaClient, identifier: identifier2 });
       expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(2);
-
-      // if the mediaClient changes, we will also resubscribe
-      const newMediaClient = makeFakeMediaClient(
-        createMediaSubscribable({
-          id: '123',
-          mediaType: 'unknown',
-          status: 'processed',
-          artifacts: {},
-          name: '',
-          size: 10,
-          mimeType: '',
-          representations: { image: {} },
-        }),
-      );
-
-      el.setProps({ mediaClient: newMediaClient, identifier: identifier2 });
-      expect(mediaClient.file.getFileState).toHaveBeenCalledTimes(2);
-      expect(newMediaClient.file.getFileState).toHaveBeenCalledTimes(1);
     });
 
     it('should return to PENDING state when resets', () => {

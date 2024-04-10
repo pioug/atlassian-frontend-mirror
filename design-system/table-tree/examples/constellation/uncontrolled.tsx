@@ -12,7 +12,7 @@ type Item = {
 };
 
 export default () => (
-  <TableTree>
+  <TableTree label="Automatically controlled row expansion">
     <Headers>
       <Header width={200}>Chapter title</Header>
       <Header width={120}>Numbering</Header>

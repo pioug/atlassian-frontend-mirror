@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.9.3
+
+### Patch Changes
+
+- [#88247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88247) [`634a42ea0ca8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/634a42ea0ca8) - [ux] Fix webkit scrollbar style so header image can be full width
+
 ## 2.9.2
 
 ### Patch Changes

@@ -554,7 +554,6 @@ tester.run('no-css-tagged-template-expression', rule, {
             opacity: 0.8;
             :hover {
               \${hover};
-              opacity: 1;
             }
           \`;
         `,
@@ -568,12 +567,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             primary,
             {
               opacity: 0.8,
-              ":hover": [
-                hover,
-                {
-                  opacity: 1
-                }
-              ]
+              ":hover": hover
             }
           );
         `,
@@ -592,7 +586,6 @@ tester.run('no-css-tagged-template-expression', rule, {
             opacity: 0.8;
             :hover {
               \${hover}
-              opacity: 1
             }
           \`;
         `,
@@ -606,12 +599,7 @@ tester.run('no-css-tagged-template-expression', rule, {
             primary,
             {
               opacity: 0.8,
-              ":hover": [
-                hover,
-                {
-                  opacity: 1
-                }
-              ]
+              ":hover": hover
             }
           );
         `,
@@ -635,10 +623,6 @@ tester.run('no-css-tagged-template-expression', rule, {
                * before mixin 2
                */
               \${hover};
-              /*
-               * after mixin 2
-               */
-              opacity: 1;
             }
           \`;
         `,
@@ -652,26 +636,16 @@ tester.run('no-css-tagged-template-expression', rule, {
             primary,
             {
               opacity: 0.8,
-              ":hover": [
-                hover,
-                {
-                  opacity: 1
-                }
-              ]
+              ":hover": hover
             }
           );
         `,
       errors,
     },
-
-    /**
-     * Mixins cannot be autofixed for styled components as it does not support
-     * arrays for object values.
-     */
     {
-      filename: 'mixins-sc.ts',
+      filename: 'mixins-nested-with-multiple-arguments.ts',
       code: `
-          import { css } from 'styled-components';
+          import { css } from '@compiled/react';
 
           const primary = css({ color: 'blue' });
           const hover = css({ textDecoration: 'underline' });
@@ -681,52 +655,6 @@ tester.run('no-css-tagged-template-expression', rule, {
             opacity: 0.8;
             :hover {
               \${hover};
-              opacity: 1;
-            }
-          \`;
-        `,
-      errors,
-    },
-    {
-      filename: 'no-trailing-semicolon-mixins-sc.ts',
-      code: `
-          import { css } from 'styled-components';
-
-          const primary = css({ color: 'blue' });
-          const hover = css({ textDecoration: 'underline' });
-
-          css\`
-            \${primary}
-            opacity: 0.8;
-            :hover {
-              \${hover}
-              opacity: 1
-            }
-          \`;
-        `,
-      errors,
-    },
-    {
-      filename: 'mixins-comments-sc.ts',
-      code: `
-          import { css } from 'styled-components';
-
-          const primary = css({ color: 'blue' });
-          const hover = css({ textDecoration: 'underline' });
-
-          css\`
-            /* before mixin 1 */
-            \${primary};
-            /* after mixin 1 */
-            opacity: 0.8;
-            :hover {
-              /*
-               * before mixin 2
-               */
-              \${hover};
-              /*
-               * after mixin 2
-               */
               opacity: 1;
             }
           \`;

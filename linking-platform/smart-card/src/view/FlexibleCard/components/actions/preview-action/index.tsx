@@ -10,6 +10,7 @@ import {
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import { openEmbedModalWithFlexibleUiIcon } from '../../utils';
 import Action from '../action';
+import PreviewIcon from './preview-icon';
 import type { PreviewActionProps } from './types';
 
 const PreviewAction: FC<PreviewActionProps> = ({
@@ -45,13 +46,19 @@ const PreviewAction: FC<PreviewActionProps> = ({
     }
   }, [analytics, data, invoke, onClickCallback]);
 
+  const isStackItem = props.as === 'stack-item';
+  const Icon = isStackItem ? PreviewIcon : VidFullScreenOnIcon;
+  const tooltipMessage = isStackItem
+    ? messages.preview_description
+    : messages.preview_improved;
+
   return data ? (
     <Action
       content={<FormattedMessage {...messages.preview_improved} />}
-      icon={<VidFullScreenOnIcon label="Open preview" />}
+      icon={<Icon label="Open preview" />}
       onClick={onClick}
       testId="smart-action-preview-action"
-      tooltipMessage={<FormattedMessage {...messages.preview_improved} />}
+      tooltipMessage={<FormattedMessage {...tooltipMessage} />}
       {...data}
       {...props}
     />

@@ -3,45 +3,47 @@ import { css, jsx } from '@emotion/react';
 import { PropsWithChildren, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
+import Lozenge from '@atlaskit/lozenge';
 import { token } from '@atlaskit/tokens';
 import { BlockName } from '../constants';
 import ChevronIcon from './chevron-icon';
 
-const containerStyles = css`
-  border-radius: 0.25rem;
-  box-shadow: ${token(
+const containerStyles = css({
+  borderRadius: '0.25rem',
+  boxShadow: token(
     'elevation.shadow.raised',
     '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
-  )};
-  padding: 0.5rem;
-`;
+  ),
+  padding: '0.5rem',
+});
 
-const headerStyles = css`
-  display: flex;
-  align-items: center;
+const headerStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  h5: {
+    flex: '2 0 auto',
+    marginTop: 'initial',
+  },
+});
 
-  h5 {
-    flex: 2 0 auto;
-    margin-top: initial;
-  }
-`;
-
-const contentStyles = css`
-  border-top: 1px solid ${token('color.border', '#091E4224')};
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding-top: 0.5rem;
-`;
+const contentStyles = css({
+  borderTop: `1px solid ${token('color.border', '#091E4224')}`,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0.5rem',
+  marginTop: '0.5rem',
+  paddingTop: '0.5rem',
+});
 
 const BlockBuilderContainer = ({
   children,
+  internal = false,
   name,
   onRemove,
   position,
   removable = true,
 }: PropsWithChildren<{
+  internal?: boolean;
   name: BlockName;
   onRemove: (position: number) => void;
   position: number;
@@ -58,7 +60,9 @@ const BlockBuilderContainer = ({
     <div css={containerStyles}>
       <div css={headerStyles}>
         <DragHandlerIcon label="" />
-        <h5>{name}</h5>
+        <h5>
+          {name} {internal && <Lozenge>INTERNAL</Lozenge>}
+        </h5>
         <Button
           iconBefore={<ChevronIcon open={open} />}
           onClick={handleExpand}

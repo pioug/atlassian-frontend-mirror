@@ -5,8 +5,7 @@ export const scrollbarStyles = `
   -ms-overflow-style: -ms-autohiding-scrollbar;
 
   &::-webkit-scrollbar {
-    height: ${token('space.100', '8px')};
-    width: ${token('space.100', '8px')};
+    overflow: hidden,
   }
 
   &::-webkit-scrollbar-corner {

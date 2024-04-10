@@ -41,11 +41,11 @@ export type PostAgentPayload = {
 export type AgentInputContext = {
   content_url: string;
   content_ari?: string;
-  summary_style?: SummaryStyle;
+  prompt_id: PromptId;
   summary_output_mimetype?: SummaryOutputMimeType;
 };
 
-export type SummaryStyle = 'short' | 'medium' | 'long';
+export type PromptId = 'smart_links';
 
 export type SummaryOutputMimeType = 'text/adf' | 'text/markdown' | 'text/json';
 
@@ -161,7 +161,7 @@ export type Message = {
   content: string;
   content_mime_type: ContentType;
   conversation_channel_id?: string;
-  experience_id: ExpirienceID;
+  experience_id: ExperienceId;
   message_metadata?: Metadata;
   plugin_invocations: PluginInvocationMessage[];
   role: Role;
@@ -173,7 +173,7 @@ export type Message = {
 
 export type ContentType = 'text/markdown';
 
-export type ExpirienceID = 'ai-mate';
+export type ExperienceId = 'ai-mate' | 'smart-link';
 
 export type Role = 'ASSISTANT';
 

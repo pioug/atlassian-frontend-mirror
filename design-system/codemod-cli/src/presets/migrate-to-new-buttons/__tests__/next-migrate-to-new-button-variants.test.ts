@@ -51,6 +51,18 @@ describe('migrate-to-icon-buttons', () => {
     { default: transformer, parser: 'tsx' },
     {},
     `import Button from '@atlaskit/button/standard-button';
+    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />} label="original label" />);
+    `,
+    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (<${variants.icon} icon={MoreIcon} label="original label" UNSAFE_size="small" />);
+    `,
+    'should replace default button with icon button, rename the iconBefore prop, and keep the original label prop in Button',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import Button from '@atlaskit/button/standard-button';
     const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
     `,
     `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
@@ -151,6 +163,25 @@ describe('migrate-to-loading-buttons', () => {
       <${variants.default} isLoading={true} onClick={() => {}} appearance="primary">Loading Button</${variants.default}>
     );`,
     'should import and replace loading button with default button + isLoading prop',
+  );
+
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `import FooBar from '@atlaskit/button/loading-button';
+    const App = () => (
+      <FooBar isLoading={true} onClick={() => {}} appearance="primary" iconBefore={<MoreIcon />}>Loading Button</FooBar>
+    );
+    `,
+    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
+    const App = () => (
+      <${variants.default}
+        isLoading={true}
+        onClick={() => {}}
+        appearance="primary"
+        iconBefore={MoreIcon}>Loading Button</${variants.default}>
+    );`,
+    'should import and replace aliased loading button with default button + isLoading prop, and do not modify the icon prop',
   );
 
   defineInlineTest(
@@ -568,6 +599,21 @@ const App = () => (
         render(Button);
         `,
     'should only replace the import if the button is used in a call expression',
+  );
+  defineInlineTest(
+    { default: transformer, parser: 'tsx' },
+    {},
+    `
+/** jsx @jsx */
+import Button from '@atlaskit/button/standard-button';
+render(Button);
+`,
+    `
+/** jsx @jsx */
+import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
+render(Button);
+`,
+    'should keep the jsx pragma',
   );
 });
 

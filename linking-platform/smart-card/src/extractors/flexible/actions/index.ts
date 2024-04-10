@@ -13,9 +13,9 @@ const extractActions = (
   id?: string,
 ): FlexibleUiActions | undefined => {
   const action = {
-    [ActionName.PreviewAction]: extractPreviewAction(response, actionOptions),
     [ActionName.DownloadAction]: extractDownloadAction(data, actionOptions),
     [ActionName.FollowAction]: extractFollowAction(response, actionOptions, id),
+    [ActionName.PreviewAction]: extractPreviewAction(response, actionOptions),
   };
 
   return Object.values(action).some((value) => Boolean(value))

@@ -54,5 +54,6 @@ export default () => (
     headers={['Title', 'Description']}
     columnWidths={['120px', '300px']}
     items={items}
+    label="Basic"
   />
 );

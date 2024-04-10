@@ -1,9 +1,15 @@
-import { SerializedStyles } from '@emotion/react';
-import { SmartLinkSize } from '../../../../../constants';
-import { Appearance } from '@atlaskit/button/types';
-import { ReactChild } from 'react';
+import type { Appearance } from '@atlaskit/button/types';
+import type { Space, XCSS } from '@atlaskit/primitives';
+import type { SerializedStyles } from '@emotion/react';
+import type { ReactChild, ReactNode } from 'react';
+import type { SmartLinkSize } from '../../../../../constants';
 
 export type ActionProps = {
+  /**
+   * Determines the appearance of the action.
+   */
+  as?: 'button' | 'dropdown-item' | 'stack-item';
+
   /**
    * Determines the size of the Action. Corresponds to an Action appearance.
    */
@@ -12,7 +18,7 @@ export type ActionProps = {
   /**
    * Determines the text content of the Action.
    */
-  content?: React.ReactNode;
+  content?: ReactNode;
 
   /**
    * Determines the appearance of the action. Corresponds to the Atlaskit action appearance.
@@ -35,19 +41,32 @@ export type ActionProps = {
   iconPosition?: 'before' | 'after';
 
   /**
-   * Determines the tooltip message when hovering over the Action.
+   * Conditionally show a spinner over the top of a button or disable a dropdown item
+   * while server action is executing.
    */
-  tooltipMessage?: React.ReactNode;
+  isLoading?: boolean;
 
   /**
+   * Determines the tooltip message when hovering over the Action.
+   */
+  tooltipMessage?: ReactNode;
+
+  /**
+   * @deprecated Use 'as' instead
    * Used to determine whether the Action is in a Dropdown.
    */
   asDropDownItem?: boolean;
 
   /**
    * Additional CSS properties on the Action.
+   * Note: This should be replaced with xcss once component has migrate to use DS Primitives
    */
   overrideCss?: SerializedStyles;
+
+  /**
+   * Used to add space along the inline axis in ActionStackItem.
+   */
+  spaceInline?: Space;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -60,17 +79,9 @@ export type ActionProps = {
    * Determines whether the button displays as disabled.
    */
   isDisabled?: boolean;
-};
 
-/**
- * The internal props that should only be controlled by internal components
- * and/or used by experiment. If there is a use case where these props/feature
- * should be available as part of smart-card, please move them to ActionProps.
- */
-export type InternalActionProps = {
   /**
-   * Conditionally show a spinner over the top of a button or disable a dropdown item
-   * while server action is executing.
+   * Additional styling properties for Primitives based component
    */
-  isLoading?: boolean;
+  xcss?: XCSS;
 };

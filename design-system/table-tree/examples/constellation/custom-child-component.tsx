@@ -15,7 +15,7 @@ type Item = {
 };
 
 export default () => (
-  <TableTree>
+  <TableTree label="Custom child component">
     <Headers>
       <Header width={200}>Chapter title</Header>
       <Header width={120}>Numbering</Header>

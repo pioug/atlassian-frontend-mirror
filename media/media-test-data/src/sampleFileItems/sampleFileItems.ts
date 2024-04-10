@@ -458,6 +458,78 @@ const workingGif = createGenerator({
   },
 });
 
+const workingCode = createGenerator({
+  type: 'file',
+  id: 'd748a73c-a9dd-4d00-9bbb-08b7d1fcee18',
+  collection: 'MediaServicesSample',
+  details: {
+    mediaType: 'doc',
+    mimeType: 'text/plain',
+    name: 'repo-stats.config.js',
+    size: 2441,
+    processingStatus: 'succeeded',
+    artifacts: {
+      'document.pdf': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/document.pdf/binary',
+        processingStatus: 'succeeded',
+      },
+      'document.txt': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/document.txt/binary',
+        processingStatus: 'succeeded',
+      },
+      'thumb_120.jpg': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/thumb_120.jpg/binary',
+        processingStatus: 'succeeded',
+      },
+      'thumb_320.jpg': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/thumb_320.jpg/binary',
+        processingStatus: 'succeeded',
+      },
+    },
+    representations: {
+      image: {},
+    },
+    createdAt: 1712217487207,
+  },
+});
+
+// This is to simulate MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER error
+
+const workingCodeLarge = createGenerator({
+  type: 'file',
+  id: 'd748a73c-a9dd-4d00-9bbb-08b7d1fcee18',
+  collection: 'MediaServicesSample',
+  details: {
+    mediaType: 'doc',
+    mimeType: 'text/plain',
+    name: 'repo-stats.config.js',
+    size: 10485765,
+    processingStatus: 'succeeded',
+    artifacts: {
+      'document.pdf': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/document.pdf/binary',
+        processingStatus: 'succeeded',
+      },
+      'document.txt': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/document.txt/binary',
+        processingStatus: 'succeeded',
+      },
+      'thumb_120.jpg': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/thumb_120.jpg/binary',
+        processingStatus: 'succeeded',
+      },
+      'thumb_320.jpg': {
+        url: '/file/d748a73c-a9dd-4d00-9bbb-08b7d1fcee18/thumb_320.jpg/binary',
+        processingStatus: 'succeeded',
+      },
+    },
+    representations: {
+      image: {},
+    },
+    createdAt: 1712217487207,
+  },
+});
+
 export const generateSampleFileItem = {
   workingImgWithRemotePreview,
   workingImgWithRemotePreviewInRecentsCollection,
@@ -470,6 +542,8 @@ export const generateSampleFileItem = {
   workingArchive,
   workingUnknown,
   workingGif,
+  workingCode,
+  workingCodeLarge,
   processingPdf,
   failedPdf,
   failedVideo,

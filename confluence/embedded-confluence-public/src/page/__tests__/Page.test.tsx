@@ -1,27 +1,25 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React, { useContext } from 'react';
-import { IntlProvider } from 'react-intl-next';
 
-import { EMBEDDED_CONFLUENCE_MODE } from '@atlassian/embedded-confluence-common';
+import {
+  EMBEDDED_CONFLUENCE_MODE,
+  DEFAULT_LOCALE,
+} from '@atlassian/embedded-confluence-common';
 import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
 
 import {
   DEFAULT_ALLOWED_FEATURES,
   PageAllowedFeatures,
 } from '@atlassian/embedded-confluence-common/features';
-import { Page } from '../Page';
+import { Page, type PageProps } from '../';
 
-const BasicPage = (props: React.ComponentProps<typeof Page>) => (
-  <IntlProvider locale="en">
-    <Page {...props} />
-  </IntlProvider>
-);
+const defaultProps: PageProps = {
+  locale: DEFAULT_LOCALE,
+};
 
-const editPageUrl =
-  'https://laika.jira-dev.com/wiki/spaces/HOM/pages/edit-embed/245465589?parentProduct=Test&locale=en-US';
-const viewPageUrl =
-  'https://laika.jira-dev.com/wiki/spaces/HOM/pages/245465589?parentProduct=Test&locale=en-US';
+const editPageUrl = `https://laika.jira-dev.com/wiki/spaces/HOM/pages/edit-embed/245465589?parentProduct=Test&locale=${defaultProps.locale}`;
+const viewPageUrl = `https://laika.jira-dev.com/wiki/spaces/HOM/pages/245465589?parentProduct=Test&locale=${defaultProps.locale}`;
 
 const MockViewPage = (props: any) => {
   function handleOnEdit() {
@@ -124,26 +122,27 @@ const shouldNotRenderViewEditComponents = async () => {
 };
 
 test('should render view page correctly', async () => {
-  render(<BasicPage url={viewPageUrl} />);
+  render(<Page {...defaultProps} url={viewPageUrl} />);
 
   await shouldRenderViewPage();
 });
 
 test('should render view blog correctly', async () => {
-  render(<BasicPage url={viewPageUrl} />);
+  render(<Page {...defaultProps} url={viewPageUrl} />);
 
   await shouldRenderViewPage();
 });
 
 test('should render edit page correctly', async () => {
-  render(<BasicPage url={editPageUrl} />);
+  render(<Page {...defaultProps} url={editPageUrl} />);
 
   await shouldRenderEditPage();
 });
 
 test('should render view if contentId, parentProduct, spaceKey, hostname are passed in', async () => {
   render(
-    <BasicPage
+    <Page
+      {...defaultProps}
       contentId="123"
       spaceKey="ABC"
       hostname="jira-dev.com"
@@ -156,14 +155,17 @@ test('should render view if contentId, parentProduct, spaceKey, hostname are pas
 
 test('should not render anything if the url is not supported in the named routes', async () => {
   render(
-    <BasicPage url="https://hello.atlassian.net/wiki/spaces/ABC/blog/edit-embed/123?parentProduct=TestProduct&locale=en-US" />,
+    <Page
+      {...defaultProps}
+      url={`https://hello.atlassian.net/wiki/spaces/ABC/blog/edit-embed/123?parentProduct=TestProduct&locale=${defaultProps.locale}`}
+    />,
   );
 
   await shouldNotRenderViewEditComponents();
 });
 
 test('should switch from View to Edit if you click the edit button', async () => {
-  render(<BasicPage url={viewPageUrl} />);
+  render(<Page {...defaultProps} url={viewPageUrl} />);
 
   const edit = await screen.findByText('Edit');
   await userEvent.click(edit);
@@ -172,7 +174,7 @@ test('should switch from View to Edit if you click the edit button', async () =>
 });
 
 test('should switch from Edit to View if you click the Publish button', async () => {
-  render(<BasicPage url={editPageUrl} />);
+  render(<Page {...defaultProps} url={editPageUrl} />);
 
   const publish = await screen.findByText('Publish');
   await userEvent.click(publish);
@@ -181,7 +183,7 @@ test('should switch from Edit to View if you click the Publish button', async ()
 });
 
 test('should switch from Edit to View if you click the Close button', async () => {
-  render(<BasicPage url={editPageUrl} />);
+  render(<Page {...defaultProps} url={editPageUrl} />);
 
   const close = await screen.findByText('Close');
   await userEvent.click(close);
@@ -190,7 +192,12 @@ test('should switch from Edit to View if you click the Close button', async () =
 });
 
 test('should not switch from draft (unpublished) Edit to View if clicking the Close button (View can only render published pages)', async () => {
-  render(<BasicPage url={`${editPageUrl}&draftShareId=test-draft-share-id`} />);
+  render(
+    <Page
+      {...defaultProps}
+      url={`${editPageUrl}&draftShareId=test-draft-share-id`}
+    />,
+  );
 
   const close = await screen.findByText('Close');
   await userEvent.click(close);
@@ -200,7 +207,8 @@ test('should not switch from draft (unpublished) Edit to View if clicking the Cl
 
 test('should show Edit page if edit mode is passed in with contentId, spackeKey, hostname, and parentProduct', async () => {
   render(
-    <BasicPage
+    <Page
+      {...defaultProps}
       contentId="245465589"
       spaceKey="HOM"
       hostname="laika.jira-dev.com"
@@ -214,7 +222,8 @@ test('should show Edit page if edit mode is passed in with contentId, spackeKey,
 
 test('should show View page if view mode is passed in with contentId, spackeKey, hostname, and parentProduct', async () => {
   render(
-    <BasicPage
+    <Page
+      {...defaultProps}
       contentId="245465589"
       spaceKey="HOM"
       hostname="laika.jira-dev.com"
@@ -233,7 +242,13 @@ describe('if parent product passes allowedFeatures array', () => {
       'edit',
     ].join(',');
     const allowedFeatures = undefined;
-    render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
+    render(
+      <Page
+        {...defaultProps}
+        url={viewPageUrl}
+        allowedFeatures={allowedFeatures}
+      />,
+    );
 
     const expected = await screen.findByText(defaultViewAllowedFeatures);
     expect(expected).toBeInTheDocument();
@@ -257,7 +272,13 @@ describe('if parent product passes allowedFeatures array', () => {
       'edit',
     ].join(',');
     const expectedEditAllowedFeatures = (allowedFeatures.edit as [string])[0];
-    render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
+    render(
+      <Page
+        {...defaultProps}
+        url={viewPageUrl}
+        allowedFeatures={allowedFeatures}
+      />,
+    );
 
     const expectedViewFeaturesElement = await screen.findByText(
       expectedViewAllowedFeatures,
@@ -277,7 +298,13 @@ describe('if parent product passes allowedFeatures array', () => {
     const allowedFeatures: PageAllowedFeatures = {
       view: [],
     };
-    render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
+    render(
+      <Page
+        {...defaultProps}
+        url={viewPageUrl}
+        allowedFeatures={allowedFeatures}
+      />,
+    );
 
     const edit = await screen.findByText('edit');
     expect(edit).toBeInTheDocument();
@@ -287,7 +314,13 @@ describe('if parent product passes allowedFeatures array', () => {
     const allowedFeatures: PageAllowedFeatures = {
       view: 'all',
     };
-    render(<BasicPage url={viewPageUrl} allowedFeatures={allowedFeatures} />);
+    render(
+      <Page
+        {...defaultProps}
+        url={viewPageUrl}
+        allowedFeatures={allowedFeatures}
+      />,
+    );
 
     const all = await screen.findByText('all');
     expect(all).toBeInTheDocument();
@@ -299,7 +332,11 @@ test('If parent product passes navigationPolicy that has navigate function, shou
     navigate: jest.fn(),
   };
   render(
-    <BasicPage url={viewPageUrl} navigationPolicy={mockNavigationPolicy} />,
+    <Page
+      {...defaultProps}
+      url={viewPageUrl}
+      navigationPolicy={mockNavigationPolicy}
+    />,
   );
 
   const customEdit = await screen.findByText('Custom Edit');

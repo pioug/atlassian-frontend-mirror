@@ -1,8 +1,49 @@
 import React, { useEffect } from 'react';
 
-import { hasWhiteSpace, openEmbedModalWithFlexibleUiIcon } from '../utils';
+import {
+  getPrimitivesInlineSpaceBySize,
+  getPrimitivesPaddingSpaceBySize,
+  hasWhiteSpace,
+  openEmbedModalWithFlexibleUiIcon,
+} from '../utils';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { IconType } from '../../../../constants';
+import { IconType, SmartLinkSize } from '../../../../constants';
+
+describe('getPrimitivesInlineSpaceBySize', () => {
+  it.each([
+    [SmartLinkSize.XLarge, 'space.250'],
+    [SmartLinkSize.Large, 'space.200'],
+    [SmartLinkSize.Medium, 'space.100'],
+    [SmartLinkSize.Small, 'space.050'],
+  ])('renders space in %s size', (size: SmartLinkSize, expected: string) => {
+    const space = getPrimitivesInlineSpaceBySize(size);
+    expect(space).toBe(expected);
+  });
+
+  it('returns small space.050 by default', () => {
+    // @ts-ignore For testing purpose
+    const space = getPrimitivesInlineSpaceBySize();
+    expect(space).toBe('space.050');
+  });
+});
+
+describe('getPrimitivesPaddingSpaceBySize', () => {
+  it.each([
+    [SmartLinkSize.XLarge, 'space.300'],
+    [SmartLinkSize.Large, 'space.250'],
+    [SmartLinkSize.Medium, 'space.200'],
+    [SmartLinkSize.Small, 'space.100'],
+  ])('renders padding in %s size', (size: SmartLinkSize, expected: string) => {
+    const space = getPrimitivesPaddingSpaceBySize(size);
+    expect(space).toBe(expected);
+  });
+
+  it('returns small space.100 by default', () => {
+    // @ts-ignore For testing purpose
+    const space = getPrimitivesPaddingSpaceBySize();
+    expect(space).toBe('space.100');
+  });
+});
 
 describe('hasWhiteSpace', () => {
   it('returns true when string contains whitespace', () => {

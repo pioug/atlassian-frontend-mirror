@@ -88,11 +88,8 @@ const getMediaApi = ({
   // URL ENDPOINTS
   // --------------------------------------------------------
 
-  // TODO
-  getFileImageURL: async () => {
-    throw new Error(
-      '500 - MockedMediaApi.getFileImageURL: method not implemented',
-    );
+  getFileImageURL: async (id) => {
+    return `image-url-${id}`;
   },
   getFileImageURLSync: (id) => {
     return `image-url-sync-${id}`;

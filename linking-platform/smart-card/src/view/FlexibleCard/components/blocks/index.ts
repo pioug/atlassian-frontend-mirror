@@ -9,3 +9,4 @@ export { default as CustomBlock } from './block';
 export { default as InternalFooterBlock } from './footer-block/resolved';
 export { default as RelatedUrlsBlock } from './related-urls-block';
 export { default as AISummaryBlock } from './ai-summary-block';
+export { default as ActionBlock } from './action-block';

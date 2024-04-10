@@ -184,7 +184,11 @@ export const ArchiveSidebarFileEntryWrapper = ({
 };
 
 export const ArchiveLayout = ({ children }: Children) => {
-  return <div css={archiveLayoutStyles}>{children}</div>;
+  return (
+    <div css={archiveLayoutStyles} data-testid="archive-layout">
+      {children}
+    </div>
+  );
 };
 
 export const ArchiveViewerWrapper = ({ children }: Children) => {

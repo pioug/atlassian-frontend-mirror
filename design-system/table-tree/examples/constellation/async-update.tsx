@@ -44,7 +44,7 @@ export default () => {
   return (
     <Box>
       <Button onClick={reloadItems}>Reload items</Button>
-      <TableTree>
+      <TableTree label="Updated data">
         <Headers>
           <Header width={200}>Chapter title</Header>
           <Header width={120}>Numbering</Header>

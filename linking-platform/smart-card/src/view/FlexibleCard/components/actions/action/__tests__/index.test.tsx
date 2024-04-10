@@ -6,6 +6,7 @@ import Action from '../index';
 import userEvent from '@testing-library/user-event';
 import { SmartLinkSize } from '../../../../../../constants';
 import TestIcon from '@atlaskit/icon/glyph/activity';
+import { ActionProps } from '../types';
 
 describe('Action', () => {
   let user: ReturnType<typeof userEvent.setup>;
@@ -88,9 +89,9 @@ describe('Action', () => {
     });
 
     it('renders with override css', async () => {
-      const overrideCss = css`
-        font-style: italic;
-      `;
+      const overrideCss = css({
+        fontStyle: 'italic',
+      });
       const testId = 'css';
       const { findByTestId } = await render(
         <Action
@@ -171,6 +172,111 @@ describe('Action', () => {
       await user.click(element);
 
       expect(onClick).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('as stack item', () => {
+    const content = 'spaghetti';
+    const setup = (props?: Partial<ActionProps>) =>
+      render(
+        <Action
+          as="stack-item"
+          onClick={() => {}}
+          content={content}
+          {...props}
+        />,
+      );
+
+    it('renders action', async () => {
+      const { findByRole } = setup();
+
+      const element = await findByRole('button');
+
+      expect(element).toBeInTheDocument();
+      expect(element.textContent).toBe(content);
+    });
+
+    it('calls onClick when stack item is clicked', async () => {
+      const onClick = jest.fn();
+      const { findByRole } = setup({ onClick });
+
+      const element = await findByRole('button');
+
+      expect(element).toBeTruthy();
+      expect(element.textContent).toBe(content);
+
+      await user.click(element);
+      expect(onClick).toHaveBeenCalled();
+    });
+
+    it('does not call onClick on loading', async () => {
+      const onClick = jest.fn();
+      const { findByRole } = setup({ isLoading: true, onClick });
+
+      const element = await findByRole('button');
+      await user.click(element);
+
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    it('does not call onClick on disabled', async () => {
+      const onClick = jest.fn();
+      const { findByRole } = setup({ isDisabled: true, onClick });
+
+      const element = await findByRole('button');
+      await user.click(element);
+
+      expect(onClick).not.toHaveBeenCalled();
+    });
+
+    describe('with icon', () => {
+      const icon = <svg data-testid="test-icon" />;
+
+      it('renders icon', async () => {
+        const onClick = jest.fn();
+        const { findByTestId } = setup({ icon, onClick, testId });
+        const element = await findByTestId('test-icon');
+        expect(element).toBeInTheDocument();
+      });
+
+      it('renders spinner on loading', async () => {
+        const onClick = jest.fn();
+        const { findByTestId } = setup({
+          icon,
+          isLoading: true,
+          onClick,
+          testId,
+        });
+        const element = await findByTestId(`${testId}-loading`);
+        expect(element).toBeInTheDocument();
+      });
+
+      it('does not render spinner on loading if there is no icon', () => {
+        const onClick = jest.fn();
+        const { queryByTestId } = setup({ isLoading: true, onClick, testId });
+        const element = queryByTestId(`${testId}-loading`);
+        expect(element).not.toBeInTheDocument();
+      });
+    });
+
+    describe('with tooltip', () => {
+      const tooltipMessage = 'This is tooltip';
+
+      it('renders content as tooltip message by default', async () => {
+        const { findByRole } = setup();
+        const element = await findByRole('button');
+        await user.hover(element);
+        const tooltip = await findByRole('tooltip');
+        expect(tooltip.textContent).toBe(content);
+      });
+
+      it('renders tooltip message', async () => {
+        const { findByRole } = setup({ tooltipMessage });
+        const element = await findByRole('button');
+        await user.hover(element);
+        const tooltip = await findByRole('tooltip');
+        expect(tooltip.textContent).toBe(tooltipMessage);
+      });
     });
   });
 });

@@ -1,6 +1,7 @@
 import { FlexibleTemplate } from './types';
 
 export enum BlockName {
+  ActionBlock = 'ActionBlock',
   FooterBlock = 'FooterBlock',
   MetadataBlock = 'MetadataBlock',
   PreviewBlock = 'PreviewBlock',

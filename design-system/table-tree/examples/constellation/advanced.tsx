@@ -30,7 +30,7 @@ const items = [
 ];
 
 export default () => (
-  <TableTree>
+  <TableTree label="Advanced usage">
     <Headers>
       <Header width={120}>Title</Header>
       <Header width={300}>Description</Header>

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.52.3
+
+### Patch Changes
+
+- [#88485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88485) [`1b538a48d41d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b538a48d41d) - Update aAiSummary service call to use smart_links prompt_id
+- [#87234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87234) [`62622d539ca6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62622d539ca6) - Add ActionBlock
+
 ## 26.52.2
 
 ### Patch Changes

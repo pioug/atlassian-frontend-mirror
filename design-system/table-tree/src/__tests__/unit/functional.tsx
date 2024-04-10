@@ -9,9 +9,46 @@ import {
   screen,
 } from '@testing-library/react';
 
+import staticData from '../../../examples/data-cleancode-toc.json';
 import TableTree, { Cell, Header, Headers, Row, Rows } from '../../index';
 
 const c = (title: any, children?: any) => ({ title, children });
+
+describe('TableTree', () => {
+  const Title = (props: any) => <span>{props.title}</span>;
+  const Numbering = (props: any) => <span>{props.numbering}</span>;
+  const labelValue = 'test label';
+  it('should have label', () => {
+    render(
+      <TableTree
+        headers={['Title', 'Numbering']}
+        columns={[Title, Numbering]}
+        columnWidths={['200px', '200px']}
+        items={staticData.children}
+        label={labelValue}
+      />,
+    );
+    expect(screen.getByRole('treegrid')).toHaveAttribute('aria-label');
+    expect(screen.getByRole('treegrid')).toHaveAccessibleName(labelValue);
+  });
+  it('should have reference to label', () => {
+    render(
+      <div>
+        <h2 id="table-label">{labelValue}</h2>
+        <TableTree
+          headers={['Title', 'Numbering']}
+          columns={[Title, Numbering]}
+          columnWidths={['200px', '200px']}
+          items={staticData.children}
+          referencedLabel="table-label"
+        />
+        ,
+      </div>,
+    );
+    expect(screen.getByRole('treegrid')).toHaveAttribute('aria-labelledby');
+    expect(screen.getByRole('treegrid')).toHaveAccessibleName(labelValue);
+  });
+});
 
 test('flat tree', async () => {
   const flatItems = [

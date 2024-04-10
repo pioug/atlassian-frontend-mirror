@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.16.0
+
+### Minor Changes
+
+- [#87772](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87772) [`816e5f0f41bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/816e5f0f41bf) - Fix I18n translation infrastructure across Embedded Confluence packages and standardize its implementation.
+
 ## 2.15.2
 
 ### Patch Changes

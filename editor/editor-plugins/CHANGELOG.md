@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugins
 
+## 2.0.10
+
+### Patch Changes
+
+- [#87870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87870) [`8c18fa8f6b41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c18fa8f6b41) - [ED-22839] Add 'platform.editor.single-player-expand' to package.json as readOnly to be used in atlaskit examples.
+- Updated dependencies
+
 ## 2.0.9
 
 ### Patch Changes

@@ -1,10 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
+import { DEFAULT_LOCALE } from '@atlassian/embedded-confluence-common';
 
-import { ViewPage } from '../ViewPage';
+import { ViewPage, type ViewPageProps } from '../';
 
-const defaultProps = {
+const defaultProps: ViewPageProps = {
+  locale: DEFAULT_LOCALE,
   contentId: '123',
   spaceKey: 'TEST',
   parentProduct: 'test',
@@ -30,36 +31,23 @@ afterEach(() => {
   window.location = originalLocation;
 });
 
-it('should use default locale to localize text by if no locale is provided', async () => {
-  render(<ViewPage {...defaultProps} />);
+it('should use default locale to localize by if no locale was provided', async () => {
+  render(<ViewPage {...defaultProps} locale={undefined} />);
 
   const iframe = await screen.findByTestId('confluence-page-iframe');
   expect(iframe).toHaveAttribute(
     'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=en-US`,
+    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=${DEFAULT_LOCALE}`,
   );
 });
 
-it('should localize text by locale provided by React prop', async () => {
-  render(<ViewPage {...defaultProps} locale="zh-CN" />);
+it('should localize by the locale provided', async () => {
+  const locale = 'zh-CN';
+  render(<ViewPage {...defaultProps} locale={locale} />);
 
   const iframe = await screen.findByTestId('confluence-page-iframe');
   expect(iframe).toHaveAttribute(
     'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
-  );
-});
-
-it('should localize text by locale provided by IntlProvider', async () => {
-  render(
-    <IntlProvider locale="zh-CN">
-      <ViewPage {...defaultProps} />
-    </IntlProvider>,
-  );
-
-  const iframe = await screen.findByTestId('confluence-page-iframe');
-  expect(iframe).toHaveAttribute(
-    'src',
-    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=zh-CN`,
+    `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/123?parentProduct=test&parentProductContentContainerId=10000&locale=${locale}`,
   );
 });

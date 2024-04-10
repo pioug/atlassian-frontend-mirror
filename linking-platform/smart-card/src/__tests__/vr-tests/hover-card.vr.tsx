@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
+import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
 import HoverCardUanuthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
 import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
@@ -27,6 +28,30 @@ snapshot(HoverCard, {
         colorScheme: 'dark',
       },
     },
+  ],
+});
+
+snapshot(HoverCardActions, {
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-ai-summaries': [
+      true,
+      false,
+    ],
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+      false,
+    ],
+  },
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'hover-card-trigger-wrapper' },
+    },
+  ],
+  variants: [
+    { name: 'light mode', environment: { colorScheme: 'light' } },
+    { name: 'dark mode', environment: { colorScheme: 'dark' } },
   ],
 });
 

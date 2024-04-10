@@ -10,6 +10,7 @@ import {
   OnDragEndResponder,
   DropResult,
 } from 'react-beautiful-dnd';
+import ActionBlockBuilder from './action-block-builder';
 import BlockBuilderContainer from './block-builder-container';
 import { BlockTemplate } from '../types';
 import { BlockName } from '../constants';
@@ -27,12 +28,15 @@ const listStyles = css({
 });
 
 const blockBuilderMapper = {
+  [BlockName.ActionBlock]: ActionBlockBuilder,
   [BlockName.FooterBlock]: FooterBlockBuilder,
   [BlockName.MetadataBlock]: MetadataBlockBuilder,
   [BlockName.PreviewBlock]: PreviewBlockBuilder,
   [BlockName.SnippetBlock]: SnippetBlockBuilder,
   [BlockName.TitleBlock]: TitleBlockBuilder,
 };
+
+const isInternal = (name: BlockName) => name === BlockName.ActionBlock;
 
 const add = <T,>(list: T[], item: T) => {
   return [...list, item];
@@ -141,6 +145,7 @@ const BlockBuilder: React.FC<{
                           {...provided.dragHandleProps}
                         >
                           <BlockBuilderContainer
+                            internal={isInternal(name)}
                             name={name}
                             onRemove={handleOnBlockRemove}
                             position={idx}

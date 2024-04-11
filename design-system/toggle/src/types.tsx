@@ -7,7 +7,8 @@ export type Size = 'regular' | 'large';
 
 export interface ToggleProps extends WithAnalyticsEventsProps {
   /**
-   * Sets if the toggle is disabled or not. This prevents any interaction. Keep in mind that disabled toggles will not be available to screen readers.
+   * Sets if the toggle is disabled or not. This prevents any interaction.
+   * Disabled toggles will not appear in the tab order for assistive technology.
    */
   isDisabled?: boolean;
   /**
@@ -16,7 +17,7 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
    */
   id?: string;
   /**
-   * Descriptive name for value property to be submitted in a form.
+   * Descriptive name for the value property, to be submitted in a form.
    */
   name?: string;
   /**
@@ -62,14 +63,14 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
   analyticsContext?: Record<string, any>;
 
   /**
-   * Whether the toggle is initially checked or not.
+   * Sets whether the toggle is initially checked or not.
    * After the initial interaction, whether the component is checked or not is
    * controlled by the component.
    */
   defaultChecked?: boolean;
 
   /**
-   * If defined it takes precedence over defaultChecked and Toggle acts
+   * If defined, it takes precedence over defaultChecked, and the toggle acts
    * as a controlled component.
    *
    * You can provide a onChange function to be notified of checked value changes
@@ -77,7 +78,7 @@ export interface ToggleProps extends WithAnalyticsEventsProps {
   isChecked?: boolean;
 
   /**
-   * Text to be used as aria-label of toggle component.
+   * Text to be used as an `aria-label` for the toggle component.
    *
    * Use this when there is no visible label for the toggle.
    */

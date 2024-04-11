@@ -1,5 +1,8 @@
 import React, { ReactNode } from 'react';
 
+import { useIntl } from 'react-intl-next';
+
+import { messages } from '../../i18n';
 import { ShareDialogWithTriggerProps } from '../../types';
 import { ShareHeader } from '../ShareHeader';
 
@@ -19,14 +22,18 @@ const ShareFormWrapper = ({
   shouldShowTitle,
   children = null,
   footer = null,
-}: ShareFormWrapperProps) => (
-  <InlineDialogContentWrapper>
-    <InlineDialogFormWrapper>
-      {shouldShowTitle && <ShareHeader title={shareFormTitle} />}
-      {children}
-    </InlineDialogFormWrapper>
-    {footer}
-  </InlineDialogContentWrapper>
-);
+}: ShareFormWrapperProps) => {
+  const { formatMessage } = useIntl();
+
+  return (
+    <InlineDialogContentWrapper label={formatMessage(messages.formTitle)}>
+      <InlineDialogFormWrapper>
+        {shouldShowTitle && <ShareHeader title={shareFormTitle} />}
+        {children}
+      </InlineDialogFormWrapper>
+      {footer}
+    </InlineDialogContentWrapper>
+  );
+};
 
 export default ShareFormWrapper;

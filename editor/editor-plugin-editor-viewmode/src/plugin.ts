@@ -150,11 +150,11 @@ const createFilterStepsPlugin =
     });
   };
 
-const createPlugin = () => {
+const createPlugin = (initialMode: ViewMode | undefined) => {
   return new SafePlugin({
     key: viewModePluginKey,
     state: {
-      init: () => ({ mode: 'edit' }),
+      init: () => ({ mode: initialMode ?? 'edit' }),
       apply: (tr, pluginState) => {
         const meta = tr.getMeta(viewModePluginKey);
         if (meta) {
@@ -239,7 +239,7 @@ export const editorViewModePlugin: EditorViewModePlugin = ({
       return [
         {
           name: 'editorViewMode',
-          plugin: createPlugin,
+          plugin: () => createPlugin(options?.mode),
         },
         {
           name: 'editorViewModeFilterSteps',

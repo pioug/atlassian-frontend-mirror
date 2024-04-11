@@ -31,55 +31,52 @@ import { IntegrationForm } from './IntegrationForm';
 import { ShareHeader } from './ShareHeader';
 import { UserPickerField } from './UserPickerField';
 
-const submitButtonWrapperStyles = css`
-  display: flex;
-  margin-left: auto;
-`;
+const submitButtonWrapperStyles = css({
+  display: 'flex',
+  marginLeft: 'auto',
+});
 
-const centerAlignedIconWrapperStyles = css`
-  display: flex;
-  align-self: center;
-  padding: ${token('space.0', '0px')} ${token('space.150', '12px')};
+const centerAlignedIconWrapperStyles = css({
+  display: 'flex',
+  alignSelf: 'center',
+  padding: `${token('space.0', '0px')} ${token('space.150', '12px')}`,
+  '> div': {
+    lineHeight: 1,
+  },
+});
 
-  > div {
-    line-height: 1;
-  }
-`;
+export const formWrapperStyles = css({
+  marginTop: token('space.100', '8px'),
+  width: '100%',
+  '#ghx-modes-tools #ghx-share & h1:first-child': {
+    marginTop: 0,
+  },
+});
 
-export const formWrapperStyles = css`
-  margin-top: ${token('space.100', '8px')};
-  width: 100%;
+export const formFooterStyles = css({
+  display: 'flex',
+  justifyContent: 'flex-start',
+});
 
-  /* jira has a class override font settings on h1 in gh-custom-field-pickers.css */
-  #ghx-modes-tools #ghx-share & h1:first-child {
-    margin-top: 0;
-  }
-`;
+const formFieldStyles = css({
+  marginBottom: token('space.150', '12px'),
+});
 
-export const formFooterStyles = css`
-  display: flex;
-  justify-content: flex-start;
-`;
+const integrationWrapperStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+});
 
-const formFieldStyles = css`
-  margin-bottom: ${token('space.150', '12px')};
-`;
+const integrationIconWrapperStyles = css({
+  marginBottom: token('space.negative.075', '-6px'),
+  marginRight: token('space.050', '4px'),
+});
 
-const integrationWrapperStyles = css`
-  display: flex;
-  align-items: center;
-`;
-
-const integrationIconWrapperStyles = css`
-  margin-bottom: ${token('space.negative.075', '-6px')};
-  margin-right: ${token('space.050', '4px')};
-`;
-
-const requiredFieldInfoStyles = css`
-  margin-bottom: ${token('space.200', '16px')};
-  color: ${token('color.text.subtle', N300)};
-  font-size: ${fontSizeSmall()}px;
-`;
+const requiredFieldInfoStyles = css({
+  marginBottom: token('space.200', '16px'),
+  color: token('color.text.subtle', N300),
+  fontSize: `${fontSizeSmall()}px`,
+});
 
 const integrationTabText = (integrationName: string) => (
   <FormattedMessage

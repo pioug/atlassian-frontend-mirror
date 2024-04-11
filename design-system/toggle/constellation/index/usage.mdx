@@ -18,10 +18,7 @@ If a physical switch would work for the action, a toggle is the best component t
 
 - Let people know what happens when the toggle is switched by using a [tooltip](/components/tooltip).
 - Toggles should never require people to press a button to apply the settings.
-
-## Content guidelines
-
-When writing tooltips for toggle states, be concise and follow the [writing guidelines](/content/writing-style).
+- The toggle component doesn't work within the form component by default. This is because the toggle is supposed to make change happen instantly, not after pressing a submit button. For options that require a button press to apply the setting, use a [checkbox](/components/checkbox).
 
 ## Data Center products
 
@@ -29,7 +26,7 @@ For all new features, we recommend using Atlassian Design System and other [Atla
 
 ## Related
 
-- For options that require a button press to apply the setting, use a [checkbox](/components/checkbox).
 - Use a [dropdown menu](/components/dropdown-menu) to select a single option from a list.
 - Use [radio buttons](/components/radio) to select a single option from a set of visible options.
-- A [tooltip](/components/tooltip) should be used to explain what happens when a toggle is switched on or off.
+- For options that require a button press to apply the setting, use a [checkbox](/components/checkbox).
+- You can use a [tooltip](/components/tooltip) to explain what happens when a toggle is switched on or off.

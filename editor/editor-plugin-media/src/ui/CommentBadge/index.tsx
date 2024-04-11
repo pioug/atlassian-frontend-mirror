@@ -67,11 +67,12 @@ const CommentBadgeWrapper = ({
 
   return (
     <CommentBadgeComponent
-      view={view}
-      mediaNode={mediaNode}
+      width={mediaNode.attrs.width}
+      height={mediaNode.attrs.height}
       onClick={onClick}
       mediaElement={mediaElement}
       intl={intl}
+      isEditor
     />
   );
 };

@@ -341,6 +341,11 @@ export const mediaWrapperStyle = (props: MediaWrapperProps) => css`
     width: 100%;
   }
 
+  & * [data-mark-annotation-type='inlineComment'] {
+    width: 100%;
+    height: 100%;
+  }
+
   &[data-node-type='embedCard'] > div {
     width: 100%;
   }

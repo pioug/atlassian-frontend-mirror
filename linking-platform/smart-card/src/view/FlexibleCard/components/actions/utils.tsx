@@ -5,8 +5,6 @@ import React, { useContext } from 'react';
 import Action from './action';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../messages';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
-import EditIcon from '@atlaskit/icon/glyph/edit';
 import ViewAction from './action/view-action';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 
@@ -17,25 +15,6 @@ const actionMappings: {
     component: Action,
     props: {},
   },
-  [ActionName.DeleteAction]: {
-    component: Action,
-    props: {
-      testId: 'smart-action-delete-action',
-      content: <FormattedMessage {...messages.delete} />,
-      icon: <CrossIcon label="Delete" />,
-      tooltipMessage: <FormattedMessage {...messages.delete} />,
-    },
-  },
-  [ActionName.EditAction]: {
-    component: Action,
-    props: {
-      testId: 'smart-action-edit-action',
-      content: <FormattedMessage {...messages.edit} />,
-      icon: <EditIcon label="Edit" />,
-      tooltipMessage: <FormattedMessage {...messages.edit} />,
-    },
-  },
-
   [ActionName.ViewAction]: {
     component: ViewAction,
     props: {

@@ -54,7 +54,7 @@ describe('FlagGroup', () => {
 
   it('should render FlagGroup in direct parent when shouldRenderToParent is true', () => {
     render(
-      <Box role="dialog" aria-modal>
+      <Box role="dialog" aria-modal aria-label="flag-group">
         <FlagGroup shouldRenderToParent>
           {generateFlag({ testId: '0' })}
           {generateFlag({ testId: '1' })}

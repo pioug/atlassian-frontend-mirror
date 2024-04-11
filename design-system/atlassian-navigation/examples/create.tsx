@@ -10,6 +10,7 @@ const CreateButton = () => (
     iconButtonTooltip="I'm shown when on smaller viewports"
     text="Create"
     onClick={console.log}
+    label="Create label"
   />
 );
 

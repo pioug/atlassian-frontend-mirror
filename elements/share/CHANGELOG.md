@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.16.6
+
+### Patch Changes
+
+- [#88791](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88791) [`f0006aeb4509`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0006aeb4509) - PTC-8940 Add aria-label for InlineDialogContentWrapper
+
 ## 4.16.5
 
 ### Patch Changes

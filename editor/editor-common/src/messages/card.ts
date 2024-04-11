@@ -110,6 +110,12 @@ export const messages = defineMessages({
       'Insert Jira issues from Jira Cloud with enhanced search, filtering, and configuration.',
     description: 'Insert a jira datasource table',
   },
+  datasourceAssetsObjectsGeneralAvailability: {
+    id: 'fabric.editor.datasource.assetsObjectsGeneralAvailability',
+    defaultMessage: 'Assets',
+    description:
+      'Text displayed when selecting the type of data to include onto the page, in this case: JSM Assets objects.',
+  },
   datasourceAssetsObjects: {
     id: 'fabric.editor.datasource.assetsObjects',
     defaultMessage: 'Assets (Beta)',

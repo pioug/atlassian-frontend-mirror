@@ -352,7 +352,10 @@ export const createPlugin = (
 
           if (
             targetClassList.contains(ClassName.CONTROLS_BUTTON) ||
-            targetClassList.contains(ClassName.CONTEXTUAL_MENU_BUTTON)
+            targetClassList.contains(ClassName.CONTEXTUAL_MENU_BUTTON) ||
+            targetClassList.contains(
+              ClassName.DRAG_HANDLE_BUTTON_CLICKABLE_ZONE,
+            )
           ) {
             return true;
           }

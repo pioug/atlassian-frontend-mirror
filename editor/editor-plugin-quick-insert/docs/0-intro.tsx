@@ -4,9 +4,8 @@ import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { createEditorUseOnlyNotice } from '@atlaskit/editor-common/doc-utils';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
-const warnStyles = xcss({ marginTop: token('space.100', '8px') });
+const warnStyles = xcss({ marginTop: 'space.100' });
 
 export default md`
 

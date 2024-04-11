@@ -114,7 +114,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.48",
+    "@atlassian/search-provider": "2.4.50",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -181,6 +181,14 @@
       "type": "boolean"
     },
     "platform.editor.resizer.prevent-contenteditable": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.linking-platform.datasource-assets_objects_remove_beta": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.linking-platform.datasource-assets_objects": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -304,6 +312,9 @@
     "platform.editor.single-player-expand": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "__live-view-toggle": {
+      "type": "boolean"
     }
   },
   "stricter": {

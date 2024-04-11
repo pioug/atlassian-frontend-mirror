@@ -229,6 +229,13 @@ class RendererPageModel implements RendererPageInterface {
     }
 
     await this.rendererContainer.waitFor({ state: 'visible' });
+    // Disable transition side effects in integration tests
+    await this.page.addStyleTag({
+      content: `* {
+        transition: none !important;
+        animation: none !important
+      }`,
+    });
     await this.waitUntilIdleTime();
   }
 

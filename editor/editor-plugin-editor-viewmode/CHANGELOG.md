@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 1.0.60
+
+### Patch Changes
+
+- [#88634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88634) [`0065b9dba872`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0065b9dba872) - Fix initial state not being set correctly for viewmode plugin.
+
 ## 1.0.59
 
 ### Patch Changes

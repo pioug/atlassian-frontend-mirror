@@ -58,6 +58,19 @@ const getToolbarSize = (tableRef: HTMLElement): number => {
   return tableToolbarSize;
 };
 
+const getNumberColumnWidth = (
+  tableRef: HTMLElement,
+  isDragAndDropEnabled?: boolean,
+): number => {
+  const parent = closestElement(tableRef, `.${ClassName.TABLE_CONTAINER}`);
+  if (parent && isDragAndDropEnabled) {
+    return parent.querySelector(`.${ClassName.NUMBERED_COLUMN}`)
+      ? akEditorTableNumberColumnWidth - 1
+      : 0;
+  }
+  return 0;
+};
+
 const getInsertLineWidth = (
   tableRef: HTMLElement,
   isDragAndDropEnabled?: boolean,
@@ -78,7 +91,9 @@ const getInsertLineWidth = (
     Math.min(
       offsetWidth + toolbarSize,
       parentOffsetWidth + toolbarSize - Math.max(scrollLeft - diff, 0),
-    ) + lineOffset
+    ) +
+    lineOffset +
+    getNumberColumnWidth(tableRef, isDragAndDropEnabled)
   );
 };
 

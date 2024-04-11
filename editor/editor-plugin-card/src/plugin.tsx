@@ -21,6 +21,7 @@ import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { createEventsQueue } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
@@ -204,7 +205,13 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
         if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
           quickInsertArray.push({
             id: 'datasource',
-            title: formatMessage(messages.datasourceAssetsObjects),
+            title: getBooleanFF(
+              'platform.linking-platform.datasource-assets_objects_remove_beta',
+            )
+              ? formatMessage(
+                  messages.datasourceAssetsObjectsGeneralAvailability,
+                )
+              : formatMessage(messages.datasourceAssetsObjects),
             description: formatMessage(
               messages.datasourceAssetsObjectsDescription,
             ),

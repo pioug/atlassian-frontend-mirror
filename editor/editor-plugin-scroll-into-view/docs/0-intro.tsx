@@ -2,11 +2,10 @@ import React from 'react';
 
 import { AtlassianInternalWarning, code, md } from '@atlaskit/docs';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { createEditorUseOnlyNotice } from './editor-use-only';
 
-const warnStyles = xcss({ marginTop: token('space.100', '8px') });
+const warnStyles = xcss({ marginTop: 'space.100' });
 
 export default md`
   ${createEditorUseOnlyNotice('Editor Plugin Scroll-into-view', [

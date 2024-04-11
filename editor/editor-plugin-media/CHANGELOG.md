@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-media
 
+## 1.14.2
+
+### Patch Changes
+
+- [#88742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88742) [`6771cedeadd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6771cedeadd3) - Add UI for comment badge in Renderer, clean up props
+
 ## 1.14.1
 
 ### Patch Changes

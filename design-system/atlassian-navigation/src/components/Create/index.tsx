@@ -68,6 +68,7 @@ export const Create = ({
   buttonTooltip,
   iconButtonTooltip,
   testId,
+  label,
 }: CreateProps) => {
   const theme = useTheme();
 
@@ -80,6 +81,7 @@ export const Create = ({
       <TooltipSwitch buttonTooltip={buttonTooltip}>
         <Button
           id="createGlobalItem"
+          aria-label={label}
           onClick={onClick}
           href={href}
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides

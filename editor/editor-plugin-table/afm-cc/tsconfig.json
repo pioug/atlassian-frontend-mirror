@@ -37,6 +37,9 @@
             "path": "../../editor-plugin-content-insertion/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-guideline/afm-cc/tsconfig.json"
         },
         {

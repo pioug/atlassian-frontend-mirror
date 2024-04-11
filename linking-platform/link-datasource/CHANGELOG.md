@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.26.0
+
+### Minor Changes
+
+- [#88531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88531) [`e7f52420c9a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7f52420c9a8) - Exports Confluence Search Config Modal, related props, datasource ID.
+
 ## 1.25.4
 
 ### Patch Changes

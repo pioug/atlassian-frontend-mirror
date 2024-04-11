@@ -10,15 +10,16 @@ export type {
   UpdateUserCompletionCallback,
 
   // Statsig
-  DynamicConfig,
   EvaluationDetails,
   LocalOverrides,
 } from './client';
+
 export {
   default,
   FeatureGateEnvironment,
   PerimeterType,
 
   // Statsig
+  DynamicConfig,
   EvaluationReason,
 } from './client';

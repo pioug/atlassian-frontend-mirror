@@ -1,7 +1,7 @@
 import { br, doc, emoji, p, strong } from '@atlaskit/adf-utils/builders';
 
 import { sanitizeNode } from '../../../sanitize/sanitize-node';
-import { JSONDocNode } from '../../../types';
+import type { JSONDocNode } from '../../../types';
 
 describe('@atlaskit/editor-json-transformer', () => {
   describe('Utils -> filter -> node-filter', () => {
@@ -159,6 +159,60 @@ describe('@atlaskit/editor-json-transformer', () => {
         });
       });
 
+      it('should filter out marks from inline nodes on json document', () => {
+        // This is to guard situations where marks are applied to inline nodes.
+        // While this no longer happens with emojis, when applying the mark via a range selection
+        // it could still happen due to bugs. Having this guard prevents the bug from becoming an
+        // incident.
+        // https://product-fabric.atlassian.net/browse/ED-5964
+        const jsonDoc = {
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'emoji',
+                  attrs: {
+                    shortName: ':exploding_head:',
+                    id: '1f92f',
+                    text: '🤯',
+                  },
+                  marks: [
+                    {
+                      type: 'strike',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        } as JSONDocNode;
+
+        const sanitizedJSON = sanitizeNode(jsonDoc);
+
+        expect(sanitizedJSON).toEqual({
+          version: 1,
+          type: 'doc',
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'emoji',
+                  attrs: {
+                    shortName: ':exploding_head:',
+                    id: '1f92f',
+                    text: '🤯',
+                  },
+                },
+              ],
+            },
+          ],
+        });
+      });
+
       it('should preserve other marks', () => {
         const jsonDoc = {
           version: 1,
@@ -199,6 +253,21 @@ describe('@atlaskit/editor-json-transformer', () => {
                   marks: [
                     {
                       type: 'strike',
+                    },
+                  ],
+                },
+                {
+                  type: 'inlineCard',
+                  attrs: {
+                    url: 'https://google.com',
+                  },
+                  marks: [
+                    {
+                      type: 'annotation',
+                      attrs: {
+                        id: 'inline-comment-9001',
+                        annotationType: 'inlineComment',
+                      },
                     },
                   ],
                 },

@@ -12,24 +12,23 @@ import { messages } from '../i18n';
 export type Props = {
   title?: React.ReactNode;
 };
-const headerWrapperStyles = css`
-  display: flex;
-  justify-content: space-between;
-`;
+const headerWrapperStyles = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
 
-export const getFormHeaderTitleStyles = (theme: Theme) => css`
-  ${h500(theme)}
-  line-height: ${token('space.400', '32px')};
-  margin-right: ${token('space.400', '32px')};
-  margin-top: ${token('space.400', '32px')};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-
-  > span {
-    font-size: initial;
-  }
-`;
+export const getFormHeaderTitleStyles = (theme: Theme) =>
+  css(h500(theme), {
+    lineHeight: token('space.400', '32px'),
+    marginRight: token('space.400', '32px'),
+    marginTop: token('space.400', '32px'),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    '> span': {
+      fontSize: 'initial',
+    },
+  });
 
 export const ShareHeader: React.FunctionComponent<Props> = ({ title }) => {
   const theme = useTheme();

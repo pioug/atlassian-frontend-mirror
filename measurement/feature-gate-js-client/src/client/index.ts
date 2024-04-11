@@ -21,12 +21,8 @@ import {
 } from './types';
 import { CLIENT_VERSION } from './version';
 
-export type {
-  DynamicConfig,
-  EvaluationDetails,
-  LocalOverrides,
-} from 'statsig-js-lite';
-export { EvaluationReason } from 'statsig-js-lite';
+export type { EvaluationDetails, LocalOverrides } from 'statsig-js-lite';
+export { DynamicConfig, EvaluationReason } from 'statsig-js-lite';
 
 export type {
   AnalyticsWebClient,

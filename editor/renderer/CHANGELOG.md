@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.15.3
+
+### Patch Changes
+
+- [#88742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88742) [`6771cedeadd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6771cedeadd3) - Add UI for comment badge in Renderer, clean up props
+
+## 109.15.2
+
+### Patch Changes
+
+- [#88323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88323) [`b56b60b50087`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b56b60b50087) - Support nested annotation marks for media nodes in renderer
+- Updated dependencies
+
 ## 109.15.1
 
 ### Patch Changes

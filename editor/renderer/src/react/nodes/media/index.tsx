@@ -18,6 +18,7 @@ import type {
   BorderMarkDefinition,
   AnnotationMarkDefinition,
 } from '@atlaskit/adf-schema';
+import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 
@@ -33,6 +34,10 @@ import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
 import { linkStyle, borderStyle } from './styles';
+import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
+import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
+import { injectIntl } from 'react-intl-next';
+import { useInlineCommentsFilter } from '../../../ui/annotations/hooks';
 
 export type MediaProps = MediaCardProps & {
   providers?: ProviderFactory;
@@ -49,6 +54,11 @@ export type MediaProps = MediaCardProps & {
   featureFlags?: MediaFeatureFlags;
   eventHandlers?: EventHandlers;
   enableDownloadButton?: boolean;
+  // only used for comment badge, is injected via nodes/mediaSingle
+  mediaSingleElement?: HTMLElement | null;
+  // attributes for media node
+  width?: number;
+  height?: number;
 };
 
 type Providers = {
@@ -139,6 +149,57 @@ const MediaAnnotation = ({
   );
 };
 
+const MediaAnnotations = ({
+  marks = [],
+  children,
+}: React.PropsWithChildren<{
+  marks?: AnnotationMarkDefinition[];
+}>): JSX.Element => {
+  // Early Exit
+  if (marks.length === 0) {
+    return <Fragment>{children}</Fragment>;
+  }
+
+  // Recursive marks
+  const currentMark = marks[0];
+  const otherMarks = marks.slice(1);
+
+  return (
+    <Fragment>
+      <MediaAnnotation key={currentMark.attrs.id} mark={currentMark}>
+        {otherMarks.length ? (
+          <MediaAnnotations marks={otherMarks}>{children}</MediaAnnotations>
+        ) : (
+          <Fragment>{children}</Fragment>
+        )}
+      </MediaAnnotation>
+    </Fragment>
+  );
+};
+
+const CommentBadge = injectIntl(CommentBadgeComponent);
+
+const CommentBadgeWrapper = ({
+  marks,
+  ...rest
+}: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
+  marks?: AnnotationMarkDefinition[];
+}) => {
+  const activeParentIds = useInlineCommentsFilter({
+    annotationIds: marks?.map((mark) => mark.attrs.id) ?? [''],
+    filter: {
+      state: AnnotationMarkStates.ACTIVE,
+    },
+  });
+
+  if (!activeParentIds.length) {
+    return null;
+  }
+
+  // todo: handle onClick
+  return <CommentBadge onClick={() => {}} {...rest} />;
+};
+
 export default class Media extends PureComponent<MediaProps, {}> {
   constructor(props: MediaProps) {
     super(props);
@@ -156,13 +217,16 @@ export default class Media extends PureComponent<MediaProps, {}> {
       shouldOpenMediaViewer: allowMediaViewer,
       enableDownloadButton,
       ssr,
+      width,
+      height,
+      mediaSingleElement,
     } = this.props;
 
-    const annotationMark = (
+    const annotationMarks = (
       this.props.isAnnotationMark
-        ? this.props.marks.find(this.props.isAnnotationMark)
+        ? this.props.marks.filter(this.props.isAnnotationMark)
         : undefined
-    ) as AnnotationMarkDefinition | undefined;
+    ) as AnnotationMarkDefinition[] | undefined;
 
     const borderMark = this.props.marks.find(this.props.isBorderMark) as
       | BorderMarkDefinition
@@ -178,7 +242,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
 
     return (
       <MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
-        <MediaAnnotation mark={annotationMark}>
+        <MediaAnnotations marks={annotationMarks}>
           <MediaBorder mark={borderMark}>
             <AnalyticsContext
               data={{
@@ -187,6 +251,14 @@ export default class Media extends PureComponent<MediaProps, {}> {
                 },
               }}
             >
+              {!!annotationMarks && (
+                <CommentBadgeWrapper
+                  marks={annotationMarks}
+                  mediaElement={mediaSingleElement}
+                  width={width}
+                  height={height}
+                />
+              )}
               <MediaCard
                 contextIdentifierProvider={contextIdentifierProvider}
                 {...this.props}
@@ -199,7 +271,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
               />
             </AnalyticsContext>
           </MediaBorder>
-        </MediaAnnotation>
+        </MediaAnnotations>
       </MediaLink>
     );
   };

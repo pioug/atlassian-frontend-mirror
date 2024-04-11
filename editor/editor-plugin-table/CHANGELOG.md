@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.12
+
+### Patch Changes
+
+- [#88299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88299) [`5a05e6793651`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a05e6793651) - [ux] fix clickable zone issue
+- [#88007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88007) [`966ef2d91a91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/966ef2d91a91) - Disable table resizing in live view mode
+- Updated dependencies
+
 ## 7.6.11
 
 ### Patch Changes

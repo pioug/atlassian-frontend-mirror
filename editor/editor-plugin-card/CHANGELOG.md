@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 1.4.4
+
+### Patch Changes
+
+- [#88295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88295) [`6b703183b847`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b703183b847) - [ux] Remove (Beta) from the /Assets and + Assets elements description for GA
+- [#88531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88531) [`2362c633e4e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2362c633e4e9) - Adds confluence-search modal integration
+- Updated dependencies
+
 ## 1.4.3
 
 ### Patch Changes

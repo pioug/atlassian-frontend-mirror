@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
@@ -180,6 +181,9 @@ export const ResizableTableContainer = React.memo(
     );
 
     const tableWidth = getTableContainerWidth(node);
+    const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
+      'editorViewMode',
+    ]);
 
     // 76 is currently an accepted padding value considering the spacing for resizer handle
     const responsiveContainerWidth = isTableScalingEnabled
@@ -239,11 +243,17 @@ export const ResizableTableContainer = React.memo(
           className={ClassName.TABLE_RESIZER_CONTAINER}
           ref={containerRef}
         >
-          <TableResizer {...tableResizerProps}>
+          {editorViewModeState?.mode === 'view' ? (
             <InnerContainer className={className} node={node}>
               {children}
             </InnerContainer>
-          </TableResizer>
+          ) : (
+            <TableResizer {...tableResizerProps}>
+              <InnerContainer className={className} node={node}>
+                {children}
+              </InnerContainer>
+            </TableResizer>
+          )}
         </div>
       </div>
     );

@@ -26,11 +26,13 @@ export const InlineDialogFormWrapper = ({
  */
 export const InlineDialogContentWrapper = ({
   children,
-}: PropsWithChildren<{}>) => (
+  label,
+}: PropsWithChildren<{ label?: string }>) => (
   <div
     css={{
       padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
     }}
+    aria-label={label}
   >
     {children}
   </div>

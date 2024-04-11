@@ -62,8 +62,6 @@ export const CurrentTimeLine = styled.div({
   position: 'absolute',
   top: token('space.0', '0px'),
   maxWidth: '100%',
-  display: 'flex',
-  alignItems: 'center',
 });
 
 export const Thumb = styled.div({
@@ -75,6 +73,7 @@ export const Thumb = styled.div({
   border: '1px solid #666',
   position: 'absolute',
   right: 0,
+  top: token('space.025', '2px'),
   transform: 'translate(7px, -50%) scale(0)',
   transition: 'all 0.1s',
   transitionDelay: '1s',

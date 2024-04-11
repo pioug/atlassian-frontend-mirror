@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 78.24.1
+
+### Patch Changes
+
+- [#88742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88742) [`6771cedeadd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6771cedeadd3) - Add UI for comment badge in Renderer, clean up props
+
+## 78.24.0
+
+### Minor Changes
+
+- [#88295](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88295) [`6b703183b847`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b703183b847) - [ux] Remove (Beta) from the /Assets and + Assets elements description for GA
+
+### Patch Changes
+
+- [#88323](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88323) [`98bac3c2f1ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98bac3c2f1ff) - Update styles for annotation on media
+- [#88531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88531) [`2362c633e4e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2362c633e4e9) - Adds confluence-search modal integration
+- Updated dependencies
+
 ## 78.23.10
 
 ### Patch Changes

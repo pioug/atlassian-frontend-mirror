@@ -227,6 +227,15 @@ const DragHandleComponent = ({
           alignSelf: isColumn ? 'none' : 'center',
           zIndex: isColumn ? '-1' : 'auto',
         }}
+        onMouseUp={(e) => {
+          // should toggle menu if current drag menu open.
+          // return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing
+          // -> this is bad for a11y but is the current standard new copy/paste keyboard shortcuts should be introduced instead
+          editorView.focus();
+          if (isDragMenuOpen) {
+            toggleDragMenu && toggleDragMenu('mouse', e);
+          }
+        }}
         onClick={onClick}
       />
       <button

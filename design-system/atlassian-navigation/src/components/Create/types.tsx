@@ -8,6 +8,12 @@ export interface CreateProps {
   text: string;
 
   /**
+   * Aria-label attribute for create button
+   */
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  label?: string;
+
+  /**
    * Text for the button tooltip when seen on large viewports.
    */
   buttonTooltip?: React.ReactNode;

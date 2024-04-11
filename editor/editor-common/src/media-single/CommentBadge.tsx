@@ -6,8 +6,7 @@ import debounce from 'lodash/debounce';
 import type { IntlShape } from 'react-intl-next';
 
 import { CustomThemeButton } from '@atlaskit/button';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -17,33 +16,41 @@ import { commentMessages as messages } from '../media';
 const commentBadgeWrapper = css({
   position: 'absolute',
   // closest parent element with position relative is .resizer-hover-zone, which includes 10px padding
-  right: '14px',
+  right: '2px',
   top: '2px',
   borderRadius: '3px',
+  zIndex: akEditorUnitZIndex * 10,
+});
+
+const commentBadgeEditorOverrides = css({
+  right: '14px',
   zIndex: layers.card(),
 });
 
-const getDefaultSize = (node: PMNode | null) => {
+const getBadgeSize = (width?: number, height?: number) => {
   // width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
-  return !node || node.attrs.width > 70 ? 'medium' : 'small';
+  return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
 };
 
-type CommentBadgeProps = {
+export type CommentBadgeProps = {
   intl: IntlShape;
-  mediaNode: PMNode | null;
-  view: EditorView;
-  mediaElement?: HTMLElement;
-  onClick: () => void;
+  width?: number;
+  height?: number;
+  mediaElement?: HTMLElement | null;
+  onClick: (e: React.MouseEvent) => void;
+  isEditor?: boolean;
 };
 
 export const CommentBadge = ({
   intl,
-  mediaNode,
+  width,
+  height,
   mediaElement,
   onClick,
+  isEditor = false,
 }: CommentBadgeProps) => {
   const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
-    getDefaultSize(mediaNode),
+    getBadgeSize(width, height),
   );
   const title = intl.formatMessage(messages.viewAndAddCommentsOnMedia);
 
@@ -52,7 +59,7 @@ export const CommentBadge = ({
       debounce((entries) => {
         const [entry] = entries;
         const { width, height } = entry.contentRect;
-        setBadgeSize(width > 70 || height > 70 ? 'medium' : 'small');
+        setBadgeSize(getBadgeSize(width, height));
       }),
     );
 
@@ -67,7 +74,13 @@ export const CommentBadge = ({
   const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
 
   return (
-    <div css={commentBadgeWrapper}>
+    <div
+      css={
+        isEditor
+          ? [commentBadgeWrapper, commentBadgeEditorOverrides]
+          : commentBadgeWrapper
+      }
+    >
       <CustomThemeButton
         style={{
           height: badgeDimensions,

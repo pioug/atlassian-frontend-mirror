@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.31
+
+### Patch Changes
+
+- [#88926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88926) [`7fe4b7e92a92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fe4b7e92a92) - ED-22917 chore(editor-json-transformer): accomodate annotations on inlineCards
+
 ## 8.10.30
 
 ### Patch Changes

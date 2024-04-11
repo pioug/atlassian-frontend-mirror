@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.0.4
+
+### Patch Changes
+
+- [#89247](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89247) [`a65b4a0870d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a65b4a0870d8) - The internal composition of this package has changed. There is no expected change in behavior.
+
 ## 1.0.3
 
 ### Patch Changes

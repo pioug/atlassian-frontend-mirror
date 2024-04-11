@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.8.0
+
+### Minor Changes
+
+- [#87326](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87326) [`a79d6ea51b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a79d6ea51b5a) - Introducing props `label` and `referencedLabel` to provide/reference accessible name for TableTree.
+
 ## 9.7.1
 
 ### Patch Changes

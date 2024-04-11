@@ -206,6 +206,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
       onExternalImageLoaded,
       disableOverlay: true,
       featureFlags,
+      mediaSingleElement: ref.current,
     } as MediaProps & ImageLoaderProps);
 
     const uiMediaSingleStyles =

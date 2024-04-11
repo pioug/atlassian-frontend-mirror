@@ -1,7 +1,6 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 type CardViewWrapperProps = {
   small?: boolean;
@@ -28,7 +27,8 @@ const largeStyles = xcss({
 const cardWrapperStyles = ({ small, displayInline }: CardViewWrapperProps) =>
   xcss({
     display: displayInlineStyles(displayInline),
-    margin: `${token('space.200', '16px')} ${token('space.250', '20px')}`,
+    marginBlock: 'space.200',
+    marginInline: 'space.250',
   });
 
 export const CardViewWrapper = (props: CardViewWrapperProps) => {

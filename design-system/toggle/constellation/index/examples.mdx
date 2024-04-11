@@ -42,7 +42,7 @@ use a [tooltip](/components/tooltip).
 
 ## Checked
 
-Set the initial checked value by setting `defaultChecked` (this is optional, by default it will be set as false if not provided). After that point the checked value is controlled by the component. Provide an `onChange` handler to be notified of checked value changes.
+Set the initial checked value using `defaultChecked` (this is optional, by default it will be set as false if not provided). After that point, the checked value is controlled by the component. Provide an `onChange` handler to be notified of checked value changes.
 
 <Example Component={ToggleDefaultChecked} packageName="@atlaskit/toggle" />
 
@@ -54,6 +54,6 @@ In a stateless toggle, manage the checked state of the input by providing the `i
 
 ## Labeled
 
-Always use the `label` prop when there isn't visible label that you can pair toggle with.
+It's better to include a visible label with the toggle. When there isn't a visible label that you can pair toggle with, use the `label` prop to tell people who use assistive technology what the toggle is for.
 
 <Example Component={ToggleLabeled} packageName="@atlaskit/toggle" />

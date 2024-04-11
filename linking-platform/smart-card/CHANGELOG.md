@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.52.4
+
+### Patch Changes
+
+- [#88718](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88718) [`c0c472e0dc0b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0c472e0dc0b) - Refactoring FlexibleCard's EditAction and DeleteAction creation
+
 ## 26.52.3
 
 ### Patch Changes

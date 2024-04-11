@@ -13,6 +13,8 @@ import type {
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
   AssetsConfigModal,
+  CONFLUENCE_SEARCH_DATASOURCE_ID,
+  ConfluenceSearchConfigModal,
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
   JiraIssuesConfigModal,
 } from '@atlaskit/link-datasource';
@@ -176,6 +178,54 @@ export const DatasourceModal = ({
           datasourceId={datasourceId}
           visibleColumnKeys={visibleColumnKeys}
           parameters={parameters}
+          onCancel={onClose}
+          onInsert={onInsert}
+        />
+      </div>
+    );
+  }
+
+  if (modalType === 'confluence-search') {
+    if (!ready) {
+      return null;
+    }
+
+    const {
+      id: datasourceId = CONFLUENCE_SEARCH_DATASOURCE_ID,
+      parameters,
+      views = [],
+    } = existingNode?.attrs?.datasource || {};
+
+    const [tableView] = views as DatasourceAdfView[];
+
+    const visibleColumnKeys: string[] = [];
+    const wrappedColumnKeys: string[] = [];
+    let columnCustomSizes: { [key: string]: number } | undefined;
+
+    const columns = tableView?.properties?.columns;
+    if (columns) {
+      columnCustomSizes = {};
+      for (const { key, width, isWrapped } of columns) {
+        visibleColumnKeys.push(key);
+        if (width) {
+          columnCustomSizes[key] = width;
+        }
+        if (isWrapped) {
+          wrappedColumnKeys.push(key);
+        }
+      }
+    }
+
+    return (
+      <div data-testid="confluence-search-config-modal">
+        <ConfluenceSearchConfigModal
+          datasourceId={datasourceId}
+          viewMode={'issue'}
+          visibleColumnKeys={visibleColumnKeys}
+          parameters={parameters}
+          url={existingNode?.attrs.url}
+          columnCustomSizes={columnCustomSizes}
+          wrappedColumnKeys={wrappedColumnKeys}
           onCancel={onClose}
           onInsert={onInsert}
         />

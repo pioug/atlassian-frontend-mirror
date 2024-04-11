@@ -6,9 +6,11 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  CONFLUENCE_SEARCH_DATASOURCE_ID,
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState } from './types';
@@ -128,6 +130,12 @@ export const isDatasourceConfigEditable = (datasourceId: string) => {
     JIRA_LIST_OF_LINKS_DATASOURCE_ID,
     ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
   ];
-
+  if (
+    getBooleanFF(
+      'platform.linking-platform.datasource.enable-confluence-search-modal',
+    )
+  ) {
+    datasourcesWithConfigModal.push(CONFLUENCE_SEARCH_DATASOURCE_ID);
+  }
   return datasourcesWithConfigModal.includes(datasourceId);
 };

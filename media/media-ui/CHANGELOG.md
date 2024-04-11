@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.6.1
+
+### Patch Changes
+
+- [#89185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89185) [`bf076b766e85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf076b766e85) - CXP-3206 Fix CustomMediaPlayer's thumb vertical positioning
+
 ## 25.6.0
 
 ### Minor Changes

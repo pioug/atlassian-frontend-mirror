@@ -1,1 +1,1 @@
-export type DatasourceModalType = 'jira' | 'assets';
+export type DatasourceModalType = 'jira' | 'assets' | 'confluence-search';

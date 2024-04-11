@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.15.1
+
+### Patch Changes
+
+- [#89200](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89200) [`74d711290a14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74d711290a14) - Ensure the `DynamicConfig` class is exported, so that new instances can be created for testing.
+
 ## 4.15.0
 
 ### Minor Changes

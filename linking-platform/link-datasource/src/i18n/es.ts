@@ -7,6 +7,9 @@
  */
 //Spanish (International)
 export default {
+  'linkDataSource.accessInstructions': 'Para solicitar acceso, ponte en contacto con tu administrador del sitio.',
+  'linkDataSource.accessRequired': 'No tienes acceso a este contenido',
+  'linkDataSource.accessRequiredWithSite': 'No tienes acceso al siguiente sitio:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Ayuda de Sintaxis',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Buscar con AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Seleccionar esquema',
@@ -17,7 +20,6 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Empieza a escribir o utiliza AQL para buscar.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Buscar objetos',
-  'linkDataSource.assets.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Insertar objeto} other {Insertar objetos}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Insertar objetos de',
@@ -33,16 +35,30 @@ export default {
   'linkDataSource.basic-filter.showMoreButton': 'Mostrar más',
   'linkDataSource.basic-filter.status.label': 'Estado',
   'linkDataSource.basic-filter.type.label': 'Tipo',
+  'linkDataSource.checkConnection': 'Comprueba tu conexión y, luego, actualiza o vuelve a intentarlo más tarde.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1': 'Tu búsqueda ha devuelto demasiados resultados.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Vuelve a intentarlo con palabras clave más específicas.',
   'linkDataSource.column-picker.search': 'Buscar campos',
   'linkDataSource.column-picker.tooltip': 'Configurar columnas',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Buscar incidencias por palabra clave',
+  'linkDataSource.configmodal.cancelButtonText': 'Cancelar',
+  'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Cancelar',
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Insertar lista de Confluence',
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Insertar lista de Confluence desde',
+  'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Insertar resultados',
+  'linkDataSource.confluence-search.configmodal.searchLabel':
+    'Escribe palabras clave para encontrar páginas, archivos adjuntos y mucho más',
+  'linkDataSource.confluence-search.no.confluence.sites.access.description':
+    'Para solicitar acceso, ponte en contacto con tu administrador.',
+  'linkDataSource.confluence-search.no.confluence.sites.access.title': 'No tienes acceso a ningún sitio de Confluence',
   'linkDataSource.datasource.table.authConnectButtonText': 'Conectar',
   'linkDataSource.datasource.table.authScreenDescriptionText':
     'Conecta tu cuenta de {providerName} para colaborar en el trabajo a través de los productos de Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Conecta tu cuenta de {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Más información sobre los enlaces inteligentes.',
+  'linkDataSource.issue-line-table.unwrap-text': 'Desajustar texto',
+  'linkDataSource.issue-line-table.wrap-text': 'Ajustar texto',
   'linkDataSource.jira-issues.accessInstructions':
     'Para solicitar acceso, ponte en contacto con tu administrador del sitio.',
   'linkDataSource.jira-issues.accessRequired': 'No tienes acceso a este contenido',
@@ -55,7 +71,6 @@ export default {
     'No puedes cambiar a Básica esta consulta.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Básica',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Buscar incidencias por palabra clave',
-  'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Elegir sitio',
   'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
     'Mostrar el número de resultados de búsqueda o como un enlace inteligente insertado',
@@ -67,25 +82,39 @@ export default {
   'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
     'Mostrar los resultados de búsqueda de Jira en forma de tabla',
   'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabla',
+  'linkDataSource.jira-issues.learnMoreLink': 'Más información sobre cómo buscar con JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description':
     'Para solicitar acceso, ponte en contacto con tu administrador.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'No tienes acceso a ningún sitio de Jira',
   'linkDataSource.jira-issues.noResultsFound': 'No se han encontrado resultados',
   'linkDataSource.jira-issues.refresh': 'Actualizar',
+  'linkDataSource.jira-issues.searchDescription-basic': 'Busca por palabras clave para insertar incidencias.',
+  'linkDataSource.jira-issues.searchDescription-jql': 'Utiliza JQL (Jira Query Language) para buscar incidencias.',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Buscar incidencias de Jira',
   'linkDataSource.jira-issues.unableToLoadItems': 'No se han podido cargar los elementos',
   'linkDataSource.jira-issues.unableToLoadResults': 'No se pueden cargar los resultados',
   'linkDataSource.modal-initial-state.beta': 'Beta',
+  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Buscar páginas de Confluence',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Buscar incidencias de Jira',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Más información sobre cómo buscar con JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic': 'Busca por palabras clave para insertar incidencias.',
+  'linkDataSource.modal-initial-state.searchDescription-confluence': 'Busca por palabras clave para insertar páginas.',
   'linkDataSource.modal-initial-state.searchDescription-jql':
     'Utiliza JQL (Jira Query Language) para buscar incidencias.',
   'linkDataSource.modal-initial-state.searchTitle': 'Buscar incidencias de Jira',
+  'linkDataSource.no.jira.sites.access.description': 'Para solicitar acceso, ponte en contacto con tu administrador.',
+  'linkDataSource.no.jira.sites.access.title': 'No tienes acceso a ningún sitio de Jira',
+  'linkDataSource.noResultsFound': 'No se han encontrado resultados',
+  'linkDataSource.refresh': 'Actualizar',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sí',
   'linkDataSource.render-type.user.default.display.name': 'Sin asignar',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Elegir sitio',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronización hace un momento',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Última sincronización: {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {elemento} other {elementos}}',
   'linkDataSource.table-footer.loading': 'Cargando...',
   'linkDataSource.table-footer.refresh': 'Actualizar',
+  'linkDataSource.unableToLoadItems': 'No se han podido cargar los elementos',
+  'linkDataSource.unableToLoadResults': 'No se pueden cargar los resultados',
 };

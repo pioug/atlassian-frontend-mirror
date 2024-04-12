@@ -15,6 +15,8 @@ export default {
   'fabric.linking.ai_summarized': '⁣⁢Summarized by Atlassian Intelligence⁯⁡⁯⁪‍⁮⁯⁭⁬‌⁡⁠‍‌⁪⁪⁡⁠⁯‌⁠⁬⁣⁤',
   'fabric.linking.ai_summarized_info': '⁣⁢Information quality may vary. <a>Learn more</a>⁠‌⁫⁪⁬⁠⁭‌‌‌‌⁮‌⁪‍؜⁡⁮⁠⁫‌⁯⁣⁤',
   'fabric.linking.ai_summarizing': '⁣⁢Atlassian Intelligence is working...‌⁡⁡⁯‍‍⁡⁭⁠⁬⁠⁯⁮‍⁮؜⁬؜؜‌؜⁪⁪⁣⁤',
+  'fabric.linking.ai_summary_error_generic':
+    "⁣⁢Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.‍⁭⁯‌⁡⁯⁫⁬⁫⁫‌⁭⁠⁮⁣⁤",
   'fabric.linking.assigned_to': '⁣⁢Assigned to {context}؜⁯‌‍⁬⁬‍⁡؜⁯؜‌‌‍⁡⁫⁭⁮‍⁠⁠؜⁯⁣⁤',
   'fabric.linking.cancel': '⁣⁢Cancel؜⁯⁡⁪⁮‌‌⁪؜⁭⁡‌⁫‌⁠‍⁪‍‍⁯⁣⁤',
   'fabric.linking.cannot_connect': "⁣⁢Can't connect, try again⁪⁪⁪⁯⁮‌‍⁯⁮‍⁫⁡؜؜⁡‌⁬⁮⁡⁣⁤",

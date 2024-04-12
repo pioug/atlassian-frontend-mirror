@@ -5,7 +5,7 @@ import type {
 } from '@atlaskit/media-state';
 
 import { defaultArtifactsUris } from './artifactSets';
-import type { ItemWithBinaries } from './types';
+import type { ArtifactsSet, ItemWithBinaries } from './types';
 
 const getArtifactType = (artifactKey: string) =>
   artifactKey.replace('.', '_').split('_')[0];
@@ -13,62 +13,65 @@ const getArtifactType = (artifactKey: string) =>
 const createArtifactUri = (
   mediaType: string,
   artifactKey: string,
-  artifactsUri?: Record<string, string>,
+  artifactsUri?: ArtifactsSet,
 ) => {
   const artifactType = getArtifactType(artifactKey);
 
-  return (
+  const binaryFn =
     artifactsUri?.[artifactKey] ||
     artifactsUri?.[artifactType] ||
     defaultArtifactsUris[mediaType]?.[artifactKey] ||
     defaultArtifactsUris[mediaType]?.[artifactType] ||
-    `no-default-uri-for-${mediaType}-${artifactKey}`
-  );
+    (async () => `no-default-uri-for-${mediaType}-${artifactKey}`);
+
+  return binaryFn();
 };
 
-const setArtifactsUri = (
+const setArtifactsUri = async (
   mediaType: string,
   artifacts: MediaFileArtifacts,
-  artifactsUri?: Record<string, string>,
-): MediaFileArtifacts => {
+  artifactsSet?: ArtifactsSet,
+): Promise<MediaFileArtifacts> => {
   const artifactsEntries = Object.entries<MediaFileArtifact>({
     ...artifacts, // Spreading to make TS happy
   });
-  const processedArtifactEntries = artifactsEntries.map(
-    ([key, artifact]): [string, MediaFileArtifact] => [
-      key,
-      {
-        ...artifact,
-        url: createArtifactUri(mediaType, key, artifactsUri),
-      },
-    ],
+  const processedArtifactEntries = await Promise.all(
+    artifactsEntries.map(
+      async ([key, artifact]): Promise<[string, MediaFileArtifact]> => [
+        key,
+        {
+          ...artifact,
+          url: await createArtifactUri(mediaType, key, artifactsSet),
+        },
+      ],
+    ),
   );
   return Object.fromEntries(processedArtifactEntries);
 };
 
-const setFileItemArtifacts = (
+const setFileItemArtifacts = async (
   fileItem: ResponseFileItem,
-  artifactsUri?: Record<string, string>,
-): ResponseFileItem => {
+  artifactsSet?: ArtifactsSet,
+): Promise<ResponseFileItem> => {
   const { details } = fileItem;
   const { mediaType, artifacts } = details;
   return {
     ...fileItem,
     details: {
       ...details,
-      artifacts: setArtifactsUri(mediaType, artifacts, artifactsUri),
+      artifacts: await setArtifactsUri(mediaType, artifacts, artifactsSet),
     },
   };
 };
 
-export const createItemWithBinaries = (
+export const createItemWithBinaries = async (
   fileItem: ResponseFileItem,
-  artifactsUri?: Record<string, string>,
-): ItemWithBinaries => {
+  artifactsSet?: ArtifactsSet,
+): Promise<ItemWithBinaries> => {
   const { mediaType } = fileItem.details;
   return {
-    fileItem: setFileItemArtifacts(fileItem, artifactsUri),
-    binaryUri: createArtifactUri(mediaType, 'binaryUri', artifactsUri),
-    image: createArtifactUri(mediaType, 'image', artifactsUri),
+    fileItem: await setFileItemArtifacts(fileItem, artifactsSet),
+    binaryUri: await createArtifactUri(mediaType, 'binaryUri', artifactsSet),
+    image: await createArtifactUri(mediaType, 'image', artifactsSet),
   };
 };

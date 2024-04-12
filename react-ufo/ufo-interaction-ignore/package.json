@@ -1,0 +1,92 @@
+{
+  "name": "@atlaskit/ufo-interaction-ignore",
+  "version": "1.1.0",
+  "description": "Ignoring any holds under this component tree",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "UFO - Vulcans",
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "productPushConsumption": [
+      "jira"
+    ],
+    "website": {
+      "name": "InteractionContext"
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@atlaskit/interaction-context": "^2.1.4",
+    "@babel/runtime": "^7.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/react": "^12.1.5",
+    "react-dom": "^16.8.0",
+    "typescript": "~5.4.2",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "analytics": [
+        "analytics-next"
+      ],
+      "design-tokens": [
+        "color"
+      ],
+      "theming": [
+        "react-context"
+      ],
+      "ui-components": [
+        "lite-mode"
+      ],
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "styling": [
+        "static",
+        "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

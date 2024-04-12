@@ -43,7 +43,6 @@ import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
 import { commitStepQueue } from '../../provider/commit-step';
 import type { StepsPayload } from '../../types';
-import { catchup } from '../catchup';
 import type { DocumentService } from '../document-service';
 import { createMockService } from './document-service.mock';
 import { catchupv2 } from '../catchupv2';
@@ -331,6 +330,7 @@ describe('document-service', () => {
         await service.getFinalAcknowledgedState();
         expect(fetchReconcileMock).toBeCalledWith(
           '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello "},{"type":"text","text":"world","marks":[{"type":"strong"}]}]}]}',
+          'fe-final-ack',
         );
         expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
         expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
@@ -523,32 +523,10 @@ describe('document-service', () => {
         expect(service.sendStepsFromCurrentState).toBeCalledTimes(1);
       });
 
-      it('Handles errors thrown', () => {
-        const { service, providerEmitCallbackMock, analyticsHelperMock } =
-          createMockService();
-        jest.spyOn(service, 'throttledCatchup').mockImplementation();
-        const mockError = new Error('MyMockError');
-        providerEmitCallbackMock.mockImplementation(() => {
-          throw mockError;
-        });
-        // processSteps shouldn't throw
-        // @ts-ignore - private function
-        service.processSteps({
-          steps: [{ clientId: 'Other Client', userId: 'test' }],
-          version: 1,
-        });
-        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-        expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
-          mockError,
-          'Error while processing steps',
-        );
-        expect(service.throttledCatchup).toBeCalledTimes(1);
-      });
-
-      it('enableCatchupv2 = true: Handles errors thrown', () => {
+      it('catchupv2 : Handles errors thrown', () => {
         const { service, providerEmitCallbackMock, analyticsHelperMock } =
           createMockService({
-            featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+            featureFlags: { reconcileOnRecovery: false },
           });
 
         jest.spyOn(service, 'throttledCatchupv2').mockImplementation();
@@ -676,33 +654,7 @@ describe('document-service', () => {
         expect(processStepsSpy).not.toBeCalled();
       });
 
-      it('Processes all the steps in the queue after catchup', async () => {
-        // Mock catchup updating the document version to the first step
-        let version = 0;
-        getCurrentPmVersionMock.mockImplementation(() => version);
-        (catchup as jest.Mock).mockImplementation(async () => {
-          version = 1;
-        });
-        jest.spyOn(service, 'throttledCatchup'); // So we can be sure our test is calling catchup
-
-        const step1: StepsPayload = {
-          steps: [{ userId: '1', clientId: '2' }],
-          version: 2,
-        };
-
-        // Load some steps that will be added to the queue (missing step 1)
-        service.onStepsAdded(step1);
-        await Promise.resolve(); // give chance for catchup to be executed
-        expect(catchup).toBeCalled();
-
-        expect(service.throttledCatchup).toBeCalledTimes(1);
-
-        // One for each call
-        expect(processStepsSpy).toBeCalledTimes(1);
-        expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
-      });
-
-      it('enableCatchupv2 = true: Processes all the steps in the queue after catchupv2', async () => {
+      it('catchupv2 : Processes all the steps in the queue after catchupv2', async () => {
         const mocks = createMockService({
           featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
         });
@@ -873,19 +825,9 @@ describe('document-service', () => {
         expect(service.sendStepsFromCurrentState).toBeCalled();
       });
 
-      it('Calls catchup after trying "MAX_STEP_REJECTED_ERROR" times', () => {
-        const { service } = createMockService();
-        jest.spyOn(service, 'throttledCatchup');
-
-        for (let i = 0; i < MAX_STEP_REJECTED_ERROR; i++) {
-          service.onStepRejectedError();
-        }
-        expect(service.throttledCatchup).toBeCalledTimes(1);
-      });
-
-      it('enableCatchupv2 = true: Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
+      it('catchupv2 : Calls catchupv2 after trying "MAX_STEP_REJECTED_ERROR" times', () => {
         const { service } = createMockService({
-          featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+          featureFlags: { reconcileOnRecovery: false },
         });
         jest.spyOn(service, 'throttledCatchupv2');
 

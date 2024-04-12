@@ -1,9 +1,16 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { memo } from 'react';
 
-import Text, { TextProps } from '@atlaskit/ds-explorations/text';
-import { BackgroundColor, Box, xcss } from '@atlaskit/primitives';
+import OldText, {
+  TextProps as OldTextProps,
+} from '@atlaskit/ds-explorations/text';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import {
+  BackgroundColor,
+  Box,
+  Text,
+  TextColor,
+  xcss,
+} from '@atlaskit/primitives';
 
 import { formatValue } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
@@ -36,24 +43,34 @@ const Badge = memo(function Badge({
       as="span"
       backgroundColor={backgroundColors[appearance]}
       xcss={boxStyles}
-      style={
-        style?.backgroundColor
-          ? { backgroundColor: style.backgroundColor }
-          : undefined
-      }
+      style={{ background: style?.backgroundColor, color: style?.color }}
       paddingInline="space.075"
     >
-      <Text
-        fontSize="size.075"
-        lineHeight="lineHeight.100"
-        textAlign="center"
-        color={textColors[appearance]}
-        UNSAFE_style={style?.color ? { color: style.color } : undefined}
-      >
-        {typeof children === 'number' && max
-          ? formatValue(children, max)
-          : children}
-      </Text>
+      {getBooleanFF(
+        'platform.design-system-team.remove-badge-text-style-inheritance_add9o',
+      ) ? (
+        <Text
+          size="UNSAFE_small"
+          align="center"
+          color={style?.color ? 'inherit' : textColors[appearance]}
+        >
+          {typeof children === 'number' && max
+            ? formatValue(children, max)
+            : children}
+        </Text>
+      ) : (
+        <OldText
+          fontSize="size.075"
+          lineHeight="lineHeight.100"
+          textAlign="center"
+          color={textColorsOld[appearance]}
+          UNSAFE_style={style?.color ? { color: style.color } : undefined}
+        >
+          {typeof children === 'number' && max
+            ? formatValue(children, max)
+            : children}
+        </OldText>
+      )}
     </Box>
   );
 });
@@ -71,11 +88,20 @@ const backgroundColors: Record<ThemeAppearance, BackgroundColor> = {
   removed: 'color.background.danger',
 };
 
-const textColors: Record<ThemeAppearance, TextProps['color']> = {
+const textColorsOld: Record<ThemeAppearance, OldTextProps['color']> = {
   added: 'success',
   default: 'color.text',
   important: 'inverse',
   primary: 'inverse',
   primaryInverted: 'brand',
   removed: 'danger',
+};
+
+const textColors: Record<ThemeAppearance, TextColor> = {
+  added: 'color.text.success',
+  default: 'color.text',
+  important: 'color.text.inverse',
+  primary: 'color.text.inverse',
+  primaryInverted: 'color.text.brand',
+  removed: 'color.text.danger',
 };

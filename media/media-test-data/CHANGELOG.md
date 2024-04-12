@@ -1,5 +1,11 @@
 # @atlaskit/media-test-data
 
+## 2.0.0
+
+### Major Changes
+
+- [#87724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87724) [`188e1c68746f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/188e1c68746f) - Breaking: Sample items with binaries generators are now asynchronous.
+
 ## 1.3.0
 
 ### Minor Changes

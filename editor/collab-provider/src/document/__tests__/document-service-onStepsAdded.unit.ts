@@ -59,36 +59,11 @@ describe('onStepsAdded', () => {
     expect(processStepsMock).toBeCalledWith(stepAddData);
   });
 
-  it('Adds the steps to be processed later by calling queueSteps when the version is in the future (we have a step gap)', () => {
-    const stepAddData = {
-      steps: [{ step: 'fake' }],
-      version: 3,
-    } as unknown as StepsPayload;
-    (service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);
-    service.onStepsAdded(stepAddData);
-    expect(queueStepsSpy).toBeCalledTimes(1);
-    expect(queueStepsSpy).toBeCalledWith(stepAddData);
-    expect(processStepsMock).not.toBeCalled();
-    expect(service.throttledCatchup).toBeCalledTimes(1);
-  });
-
-  it('Does nothing when the step received has already been received', () => {
-    const stepAddData = {
-      steps: [{ step: 'fake' }],
-      version: 3,
-    } as unknown as StepsPayload;
-    (service.getCurrentPmVersion as jest.Mock).mockReturnValue(5);
-    service.onStepsAdded(stepAddData);
-    expect(queueStepsSpy).not.toBeCalled();
-    expect(processStepsMock).not.toBeCalled();
-    expect(service.throttledCatchup).not.toBeCalled();
-  });
-
-  describe('enableCatchupv2 = true', () => {
+  describe('catchupv2', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       const mocks = createMockService({
-        featureFlags: { reconcileOnRecovery: false, enableCatchupv2: true },
+        featureFlags: { reconcileOnRecovery: false },
       });
       analyticsMock = mocks.analyticsHelperMock;
       participantsServiceMock = mocks.participantsServiceMock;

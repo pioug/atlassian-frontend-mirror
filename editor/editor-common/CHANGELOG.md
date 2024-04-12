@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 78.26.0
+
+### Minor Changes
+
+- [#88763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88763) [`9fcd30347b0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcd30347b0c) - [ux] Removed annotation styling for media in editor and renderer
+
+## 78.25.0
+
+### Minor Changes
+
+- [#87262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87262) [`78397655c80b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78397655c80b) - Export new quickInsert assets: IconDatasourceConfluenceSearch and Messages for confluence search datasource creation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.24.1
 
 ### Patch Changes

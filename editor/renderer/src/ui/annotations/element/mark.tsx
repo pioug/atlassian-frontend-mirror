@@ -4,10 +4,7 @@ import type React from 'react';
 import { useMemo, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import {
-  AnnotationSharedCSSByState,
-  mediaAnnotationStyles,
-} from '@atlaskit/editor-common/styles';
+import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
 import type {
   AnnotationId,
@@ -31,15 +28,6 @@ const markStyles = () => css`
     }
   }
 `;
-
-const blockStyles = () =>
-  css({
-    color: 'inherit',
-    backgroundColor: 'unset',
-    WebkitTapHighlightColor: 'transparent',
-    [`&[data-mark-annotation-state='${AnnotationMarkStates.ACTIVE}']`]:
-      mediaAnnotationStyles,
-  });
 
 type MarkComponentProps = {
   id: AnnotationId;
@@ -107,7 +95,7 @@ export const MarkComponent = ({
         : 'onClick']: onMarkClick,
       ...accessibility,
       ...overriddenData,
-      css: useBlockLevel ? blockStyles : markStyles,
+      ...(!useBlockLevel && { css: markStyles }),
     },
     children,
   );

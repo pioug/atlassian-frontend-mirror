@@ -69,6 +69,9 @@
         },
         {
             "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../react-ufo/ufo-interaction-ignore/afm-cc/tsconfig.json"
         }
     ]
 }

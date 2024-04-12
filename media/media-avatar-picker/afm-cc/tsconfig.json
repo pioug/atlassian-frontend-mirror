@@ -25,6 +25,9 @@
             "path": "../../../design-system/flag/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/form/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
@@ -41,6 +44,9 @@
         },
         {
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/textfield/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"

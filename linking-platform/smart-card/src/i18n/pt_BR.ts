@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Adicionar conta',
   'fabric.linking.ai_summarize': 'Resumir',
   'fabric.linking.ai_summarized': 'Resumido pelo Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Resumido pelo AI',
   'fabric.linking.ai_summarized_info': 'A qualidade das informações pode variar. <a>Saiba mais</a>',
   'fabric.linking.ai_summarizing': 'O Atlassian Intelligence está trabalhando...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'A gente não pode mostrar os resultados deste resumo, pois vão contra a <a>Política de uso aceitável da Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'O Atlassian Intelligence não pode oferecer uma resposta no momento. Leia mais <a>na documentação de suporte</a>.',
   'fabric.linking.assigned_to': 'Atribuído a {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancelar',
   'fabric.linking.cannot_connect': 'Não é possível conectar; tente de novo',
   'fabric.linking.cannot_find_link': 'Não é possível encontrar o link',

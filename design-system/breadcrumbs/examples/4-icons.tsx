@@ -4,7 +4,7 @@ import { AtlassianIcon } from '@atlaskit/logo';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
-const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
+const TestIcon = <AtlassianIcon label="" size="small" />;
 
 export default () => (
   // with icons

@@ -28,12 +28,12 @@ export default class BreadcrumbsExpand extends React.Component<
         <BreadcrumbsItem href="/pages/home" text="Home" />
         <BreadcrumbsItem
           href="/item"
-          iconBefore={<AtlassianIcon label="Test icon" size="small" />}
+          iconBefore={<AtlassianIcon label="" size="small" />}
           text="Icon Before"
         />
         <BreadcrumbsItem
           href="/item"
-          iconAfter={<AtlassianIcon label="Test icon" size="small" />}
+          iconAfter={<AtlassianIcon label="" size="small" />}
           text="Icon After"
         />
       </Breadcrumbs>

@@ -37,7 +37,11 @@ import { linkStyle, borderStyle } from './styles';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
 import { injectIntl } from 'react-intl-next';
-import { useInlineCommentsFilter } from '../../../ui/annotations/hooks';
+import {
+  useInlineCommentSubscriberContext,
+  useInlineCommentsFilter,
+} from '../../../ui/annotations/hooks';
+import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 
 export type MediaProps = MediaCardProps & {
   providers?: ProviderFactory;
@@ -185,6 +189,7 @@ const CommentBadgeWrapper = ({
 }: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
   marks?: AnnotationMarkDefinition[];
 }) => {
+  const updateSubscriber = useInlineCommentSubscriberContext();
   const activeParentIds = useInlineCommentsFilter({
     annotationIds: marks?.map((mark) => mark.attrs.id) ?? [''],
     filter: {
@@ -196,8 +201,16 @@ const CommentBadgeWrapper = ({
     return null;
   }
 
-  // todo: handle onClick
-  return <CommentBadge onClick={() => {}} {...rest} />;
+  const onClick = (e: React.MouseEvent) => {
+    if (updateSubscriber) {
+      updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
+        annotationIds: activeParentIds,
+        eventTarget: e.target as HTMLElement,
+      });
+    }
+  };
+
+  return <CommentBadge onClick={onClick} {...rest} />;
 };
 
 export default class Media extends PureComponent<MediaProps, {}> {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.52.4",
+  "version": "26.52.8",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
-    "@atlaskit/badge": "^15.3.0",
+    "@atlaskit/badge": "^16.0.0",
     "@atlaskit/button": "^17.11.0",
     "@atlaskit/dropdown-menu": "^12.8.0",
     "@atlaskit/icon": "^22.1.0",
@@ -55,7 +55,7 @@
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.1.0",
+    "@atlaskit/tooltip": "^18.2.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -153,6 +153,7 @@
     "./hooks": "./src/hooks.ts",
     "./hover-card": "./src/hoverCard.ts",
     "./link-url": "./src/linkUrl.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     ".": "./src/index.ts"
   },
   "platform-feature-flags": {

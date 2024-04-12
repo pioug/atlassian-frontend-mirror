@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'เพิ่มบัญชี',
   'fabric.linking.ai_summarize': 'สรุป',
   'fabric.linking.ai_summarized': 'สรุปโดย Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'สรุปด้วย AI',
   'fabric.linking.ai_summarized_info': 'คุณภาพข้อมูลอาจแตกต่างกันไป <a>เรียนรู้เพิ่มเติม</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence กำลังดำเนินการ...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'เราไม่สามารถแสดงผลลัพธ์ของข้อมูลสรุปนี้ได้ เนื่องจากขัดกับ<a>นโยบายการใช้งานที่ยอมรับได้ของ Atlassian</a>',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence ไม่สามารถให้คำตอบได้ในขณะนี้ อ่านเพิ่มเติม<a>ในเอกสารประกอบด้านการสนับสนุนของเรา</a>',
   'fabric.linking.assigned_to': 'มอบหมายให้ {context} แล้ว',
+  'fabric.linking.beta': 'เบต้า',
   'fabric.linking.cancel': 'ยกเลิก',
   'fabric.linking.cannot_connect': 'ไม่สามารถเชื่อมต่อได้ โปรดลองอีกครั้ง',
   'fabric.linking.cannot_find_link': 'ไม่พบลิงก์',

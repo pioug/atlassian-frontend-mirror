@@ -13,6 +13,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes as ActionTypes } from './actions';
 import { createCommand } from './pm-plugins/plugin-factory';
@@ -77,6 +78,175 @@ const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
     const match = node.text!.match(listType.matcher);
     return match ? [listType.node, match[0].length] : lastMatch;
   }, null);
+};
+
+// Splits array of nodes by hardBreak. E.g.:
+// [text "1. ", em "hello", date, hardbreak, text "2. ",
+//  subsup "world", hardbreak, text "smile"]
+// => [
+//      [ text "1. ", em "hello", date ],
+//      [hardbreak, text "2. ", subsup "world"],
+//      [hardbreak, text "smile"]
+//    ]
+export const _contentSplitByHardBreaks = (
+  content: Array<Node>,
+  schema: Schema,
+): Array<Node>[] => {
+  const wrapperContent: Array<Node>[] = [];
+  let nextContent: Array<Node> = [];
+
+  content.forEach(node => {
+    if (node.type === schema.nodes.hardBreak) {
+      if (nextContent.length !== 0) {
+        wrapperContent.push(nextContent);
+      }
+      nextContent = [node];
+    } else {
+      nextContent.push(node);
+    }
+  });
+
+  wrapperContent.push(nextContent);
+  return wrapperContent;
+};
+
+export const _extractListFromParagraphV2 = (
+  node: Node,
+  parent: Node | null,
+  schema: Schema,
+): Fragment => {
+  const content: Array<Node> = mapChildren(node.content, node => node);
+  const linesSplitByHardbreaks = _contentSplitByHardBreaks(content, schema);
+
+  const splitListsAndParagraphs: Node[] = [];
+
+  let paragraphParts: Array<Node[]> = [];
+
+  for (
+    var index = 0;
+    index < linesSplitByHardbreaks.length;
+    index = index + 1
+  ) {
+    const line = linesSplitByHardbreaks[index];
+    let listMatch: [NodeType, number] | null;
+    if (index === 0) {
+      if (line[0]?.type === schema.nodes.hardbreak) {
+        paragraphParts.push(line);
+        continue;
+      } else {
+        // the first line the potential list item is at postion 0
+        listMatch = getListType(line[0], schema);
+      }
+    } else {
+      // lines after the first the potential list item is at postion 1
+      if (line.length === 1) {
+        // if the line only has a line break return as is
+        paragraphParts.push(line);
+        continue;
+      }
+
+      listMatch = getListType(line[1], schema);
+    }
+    if (!listMatch) {
+      // if there is not list match return as is
+      paragraphParts.push(line);
+      continue;
+    }
+
+    const [nodeType, length] = listMatch;
+    const firstNonHardBreakNode = line.find(
+      node => node.type !== schema.nodes.hardBreak,
+    );
+    const chunksWithoutLeadingHardBreaks = line.slice(
+      line.findIndex(node => node.type !== schema.nodes.hardBreak),
+    );
+
+    // retain text after bullet or number-dot e.g. 1. Hello
+    const startingText = firstNonHardBreakNode?.text?.substr(length);
+    const restOfChunk = startingText
+      ? // apply transformation to first entry
+        ([
+          schema.text(startingText, firstNonHardBreakNode?.marks),
+          ...chunksWithoutLeadingHardBreaks.slice(1),
+        ] as Node[])
+      : chunksWithoutLeadingHardBreaks.slice(1);
+
+    // convert to list
+    const listItemNode = schema.nodes.listItem.createAndFill(
+      undefined,
+      schema.nodes.paragraph.createChecked(undefined, restOfChunk),
+    );
+
+    if (!listItemNode) {
+      paragraphParts.push(line);
+      continue;
+    }
+    const attrs =
+      nodeType === schema.nodes.orderedList
+        ? {
+            order: parseInt(firstNonHardBreakNode!.text!.split('.')[0]),
+          }
+        : undefined;
+    const newList = nodeType.createChecked(attrs, [listItemNode]);
+
+    if (paragraphParts.length !== 0) {
+      splitListsAndParagraphs.push(
+        schema.nodes.paragraph.createAndFill(
+          undefined,
+          paragraphParts.flat(),
+        ) as Node,
+      );
+      paragraphParts = [];
+    }
+    splitListsAndParagraphs.push(newList);
+  }
+  if (paragraphParts.length !== 0) {
+    splitListsAndParagraphs.push(
+      schema.nodes.paragraph.createAndFill(
+        undefined,
+        paragraphParts.flat(),
+      ) as Node,
+    );
+  }
+  const result = splitListsAndParagraphs.flat();
+  // try to join
+  const mockState = EditorState.create({
+    schema,
+  });
+
+  let joinedListsTr: Transaction | undefined;
+  const mockDispatch = (tr: Transaction) => {
+    joinedListsTr = tr;
+  };
+
+  // Return false to prevent replaceWith from wrapping the text node in a paragraph
+  // paragraph since that will be done later. If it's done here, it will fail
+  // the paragraph.validContent check.
+  // Dont return false if there are lists, as they arent validContent for paragraphs
+  // and will result in hanging textNodes
+  autoJoin(
+    (state, dispatch) => {
+      if (!dispatch) {
+        return false;
+      }
+      const containsList = result.some(
+        node =>
+          node.type === schema.nodes.bulletList ||
+          node.type === schema.nodes.orderedList,
+      );
+      if (result.some(node => node.isText) && !containsList) {
+        return false;
+      }
+
+      dispatch(state.tr.replaceWith(0, 2, result));
+      return true;
+    },
+    (before, after) => isListNode(before) && isListNode(after),
+  )(mockState, mockDispatch);
+  const fragment = joinedListsTr
+    ? joinedListsTr.doc.content
+    : Fragment.from(result);
+  return fragment;
 };
 
 const extractListFromParagraph = (
@@ -202,7 +372,11 @@ const extractListFromParagraph = (
 export const upgradeTextToLists = (slice: Slice, schema: Schema): Slice => {
   return mapSlice(slice, (node, parent) => {
     if (node.type === schema.nodes.paragraph) {
-      return extractListFromParagraph(node, parent, schema);
+      if (getBooleanFF('platform.editor.extractlistfromparagraphv2')) {
+        return _extractListFromParagraphV2(node, parent, schema);
+      } else {
+        return extractListFromParagraph(node, parent, schema);
+      }
     }
 
     return node;
@@ -301,7 +475,6 @@ export const splitIntoParagraphs = ({
       paragraph.createChecked(undefined, curChildren, [...blockMarks]),
     );
   }
-
   return Fragment.from(
     paragraphs.length
       ? paragraphs

@@ -10,12 +10,16 @@ import { useAISummary } from '../index';
 import { AISummariesStore } from '../ai-summary-service/store';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 import * as ufo from '../../../analytics/ufoExperiences';
-import * as utils from '../ai-summary-service/utils';
+import { readStream } from '../ai-summary-service/readStream';
 
 jest.mock('uuid', () => ({
   ...jest.requireActual('uuid'),
   __esModule: true,
   default: jest.fn().mockReturnValue('some-uuid-1'),
+}));
+
+jest.mock('../ai-summary-service/readStream', () => ({
+  readStream: jest.fn(),
 }));
 
 const { act } = TestRenderer;
@@ -76,10 +80,8 @@ describe('useAISummary', () => {
   });
 
   it('sets status on successful response', async () => {
-    const readStreamSpy = jest.spyOn(utils, 'readStream');
-
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    readStreamSpy.mockImplementationOnce(mockReadStreamSuccess);
+    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
@@ -100,10 +102,8 @@ describe('useAISummary', () => {
   });
 
   it('sets status on summariseUrl successful response with error message', async () => {
-    const readStreamSpy = jest.spyOn(utils, 'readStream');
-
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    readStreamSpy.mockImplementationOnce(mockReadStreamError);
+    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamError);
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
@@ -115,10 +115,8 @@ describe('useAISummary', () => {
   });
 
   it('sets status on summariseUrl successful response with error message mid stream', async () => {
-    const readStreamSpy = jest.spyOn(utils, 'readStream');
-
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    readStreamSpy.mockImplementationOnce(mockReadStreamErrorMulti);
+    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamErrorMulti);
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
@@ -130,10 +128,10 @@ describe('useAISummary', () => {
   });
 
   it('sets error on error mid stream with an unexpected error message', async () => {
-    const readStreamSpy = jest.spyOn(utils, 'readStream');
-
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    readStreamSpy.mockImplementationOnce(mockReadStreamErrorUnexpectedMulti);
+    (readStream as jest.Mock).mockImplementationOnce(
+      mockReadStreamErrorUnexpectedMulti,
+    );
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps));
     await act(async () => {
@@ -149,11 +147,10 @@ describe('useAISummary', () => {
     const onEventSpy = jest.fn();
     const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
     const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
-    const readStreamSpy = jest.spyOn(utils, 'readStream');
 
     uuid.mockReturnValueOnce(experienceId);
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
-    readStreamSpy.mockImplementationOnce(mockReadStreamSuccess);
+    (readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
       wrapper: ({ children }) => (

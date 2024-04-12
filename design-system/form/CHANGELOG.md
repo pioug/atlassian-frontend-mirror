@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 9.1.2
+
+### Patch Changes
+
+- [#68248](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68248) [`22e0fd4f6694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22e0fd4f6694) - Move the onBlur event from the input to the input container in `DatePicker`.
+  Add the type `aria-describedby` in to Field component.
+
 ## 9.1.1
 
 ### Patch Changes

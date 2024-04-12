@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 193.9.9
+
+### Patch Changes
+
+- [#88938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88938) [`f35baf9ca9e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f35baf9ca9e6) - Set allowBreakout to true for collaborative editing example
+- Updated dependencies
+
+## 193.9.8
+
+### Patch Changes
+
+- [#89223](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89223) [`0daf47d3f6d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0daf47d3f6d6) - Remove catchupv2 FE FF
+
+## 193.9.7
+
+### Patch Changes
+
+- [#89135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89135) [`134b3db4945d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/134b3db4945d) - fix drag menu flicker issue
+
+## 193.9.6
+
+### Patch Changes
+
+- [#87898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87898) [`6d4009f72e36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d4009f72e36) - [ux] [ED-22591] Fix pasting logic for lines with number and dot (but is not a list item) to retain formatting and correct list conversion.
+- Updated dependencies
+
 ## 193.9.1
 
 ### Patch Changes

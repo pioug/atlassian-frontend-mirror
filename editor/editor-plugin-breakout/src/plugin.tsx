@@ -8,9 +8,11 @@ import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
 import type {
   ExtractInjectionAPI,
   NextEditorPlugin,
+  OptionalPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type {
   WidthPlugin,
   WidthPluginState,
@@ -197,9 +199,14 @@ const LayoutButtonWrapper = ({
   mountPoint,
 }: LayoutButtonWrapperProps) => {
   // Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-  const { breakoutState } = useSharedPluginState(api, ['width', 'breakout']);
+  const { breakoutState, editorViewModeState } = useSharedPluginState(api, [
+    'width',
+    'breakout',
+    'editorViewMode',
+  ]);
+  const isViewMode = editorViewModeState?.mode === 'view';
 
-  return (
+  return !isViewMode ? (
     <LayoutButton
       editorView={editorView}
       mountPoint={mountPoint}
@@ -207,7 +214,7 @@ const LayoutButtonWrapper = ({
       scrollableElement={scrollableElement}
       node={breakoutState?.breakoutNode?.node ?? null}
     />
-  );
+  ) : null;
 };
 
 export interface BreakoutPluginOptions {
@@ -218,7 +225,7 @@ export type BreakoutPlugin = NextEditorPlugin<
   'breakout',
   {
     pluginConfiguration: BreakoutPluginOptions | undefined;
-    dependencies: [WidthPlugin];
+    dependencies: [WidthPlugin, OptionalPlugin<EditorViewModePlugin>];
     sharedState: Partial<BreakoutPluginState>;
   }
 >;
@@ -263,7 +270,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
     popupsScrollableElement,
   }) {
     // This is a bit crappy, but should be resolved once we move to a static schema.
-    if (options && !options.allowBreakoutButton) {
+    if ((options && !options.allowBreakoutButton) || !editorView.editable) {
       return null;
     }
 

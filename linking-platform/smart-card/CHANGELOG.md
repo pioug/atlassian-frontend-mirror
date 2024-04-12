@@ -1,5 +1,32 @@
 # @atlaskit/smart-card
 
+## 26.52.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.52.7
+
+### Patch Changes
+
+- [#89507](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89507) [`c888e79b0d91`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c888e79b0d91) - [ux] Updating DownloadAction to support ActionBlock
+
+## 26.52.6
+
+### Patch Changes
+
+- [#88740](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88740) [`f454353018d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f454353018d1) - Remove Spinner override style from ActionBlock
+- [#89311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89311) [`689b179d1ad1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/689b179d1ad1) - Internal-only: Refactor custom action creation
+- Updated dependencies
+
+## 26.52.5
+
+### Patch Changes
+
+- [#89065](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89065) [`9276d00960ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9276d00960ff) - [ux] AI Link Summary Generic Error text has been updated.
+- [#87848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87848) [`b7121232bf12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b7121232bf12) - Tests for link AI Summary Service added.
+
 ## 26.52.4
 
 ### Patch Changes

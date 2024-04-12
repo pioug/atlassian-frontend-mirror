@@ -6,22 +6,13 @@ export enum Mode {
   PredefinedAvatars,
 }
 
-export interface AvatarPickerDialogProps {
+export interface CommonAvatarPickerDialogProps {
   /** This property is used to provide an array of pre-defined avatars. The **Avatar** object is a simple type with a single **dataURI: string** property. For convenience, this type is exported from the **@atlassian/media-avatar-picker** module along with the **AvatarPickerDialog** component. */
   avatars: Array<Avatar>;
   /** This property is used along with the **avatar** property. It allows you to set the currently selected pre-defined avatar. By default, there is no pre-defined avatar selected, even if the **avatars** property is set. */
   defaultSelectedAvatar?: Avatar;
-  /** This property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. An **Avatar** object with a **dataURI** property is passed. */
-  onAvatarPicked: (avatar: Avatar) => void;
   /** This optional property is used to set the selected image so that the component opens up with it visible already. The value should be a valid dataURI string. If an invalid dataURI is given, the bad format error state will be triggered and a message shown. */
   imageSource?: string;
-  /** This property is raised when the user clicks the **Save** button and there is a selected image.
-   * Two arguments are passed, the **file:File** which is a blob, and the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.
-   * This still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.
-   */
-  onImagePicked?: (file: File, crop: CropProperties) => void;
-  /** This property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string. */
-  onImagePickedDataURI?: (dataUri: string) => void;
   /** This property is raised when the user clicks **Cancel** button.
    *  **Note** this does not close the dialog.
    * It is up to the consumer to re-render and remove the dialog from the UI.
@@ -43,6 +34,41 @@ export interface AvatarPickerDialogProps {
   maxImageSize?: number;
 }
 
+export interface AvatarPickerDialogPropsNoAlt
+  extends CommonAvatarPickerDialogProps {
+  /** This property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. An **Avatar** object with a **dataURI** property is passed. */
+  onAvatarPicked: (avatar: Avatar) => void;
+  /** This property is raised when the user clicks the **Save** button and there is a selected image.
+   * Two arguments are passed, the **file:File** which is a blob, and the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.
+   * This still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.
+   */
+  onImagePicked?: (file: File, crop: CropProperties) => void;
+  /** This property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string. */
+  onImagePickedDataURI?: (dataUri: string) => void;
+  /** This property allows the consumer to specify whether or not the user should be required to enter alt text. */
+  requireAltText?: false | undefined;
+}
+
+export interface AvatarPickerDialogPropsAlt
+  extends CommonAvatarPickerDialogProps {
+  onAvatarPicked: (avatar: Avatar, altText: string) => void;
+  /** This optional property is used to set the alt text of the selected image so that the component opens up with it visible already. */
+  imageSourceAltText?: string;
+  /** This property is raised when the user clicks the **Save** button and there is a selected image.
+   * Three arguments are passed, the **file:File** which is a blob, the crop settings which is an object containing **x:number**,**y:number**, and **size:number** values, which are all relative to the coordinates of the selected image, and **altText:string**. **Note** due to limitations on Safari <= 10.0 and IE11, a **Blob** object will be returned instead of a **File**.
+   * This still allows access to the image byte data to facilitate uploads, essentially minus the filename and date attributes.
+   */
+  onImagePicked?: (file: File, crop: CropProperties, altText: string) => void;
+  /** This property is raised when the user clicks the **Save** button and there is a selected image. The selected image is provided as a dataURI string, and the user-specified alt text is provided as an altText string. */
+  onImagePickedDataURI?: (dataUri: string, altText: string) => void;
+  /** This property allows the consumer to specify whether or not the user should be required to enter alt text. */
+  requireAltText: true;
+}
+
+export type AvatarPickerDialogProps =
+  | AvatarPickerDialogPropsNoAlt
+  | AvatarPickerDialogPropsAlt;
+
 export interface AvatarPickerDialogState {
   mode: Mode;
   selectedAvatar?: Avatar;
@@ -50,4 +76,5 @@ export interface AvatarPickerDialogState {
   selectedImageSource?: string;
   errorMessage?: string;
   isSubmitted: boolean;
+  altText: string;
 }

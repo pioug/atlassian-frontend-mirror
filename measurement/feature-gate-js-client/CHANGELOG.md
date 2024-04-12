@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.15.2
+
+### Patch Changes
+
+- [#87981](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87981) [`2a138baa0014`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a138baa0014) - Updated the request timeout and ensure doc-comments match reality
+
 ## 4.15.1
 
 ### Patch Changes

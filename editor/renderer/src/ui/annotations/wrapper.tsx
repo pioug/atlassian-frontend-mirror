@@ -18,7 +18,7 @@ export const AnnotationsContextWrapper = (
   props: React.PropsWithChildren<Props>,
 ): JSX.Element => {
   const providers = useContext(ProvidersContext);
-  const { range } = useAnnotationRangeState();
+  const { range, type } = useAnnotationRangeState();
   const { setDraftRange, clearDraftRange } = useAnnotationRangeDispatch();
   const { rendererRef, createAnalyticsEvent, children } = props;
   const inlineCommentProvider = providers && providers.inlineComment;
@@ -29,8 +29,12 @@ export const AnnotationsContextWrapper = (
 
   // We want to set the draft to the range the user highlighted
   const setRangeForDraft = useCallback(() => {
-    setDraftRange(range);
-  }, [range, setDraftRange]);
+    setDraftRange(range, type);
+  }, [range, setDraftRange, type]);
+
+  const clearRangeForDraft = useCallback(() => {
+    clearDraftRange(type);
+  }, [type, clearDraftRange]);
 
   const render = useCallback(
     ({
@@ -77,7 +81,7 @@ export const AnnotationsContextWrapper = (
   return (
     <AnnotationsDraftContextWrapper
       setDraftRange={setRangeForDraft}
-      clearDraftRange={clearDraftRange}
+      clearDraftRange={clearRangeForDraft}
     >
       {render}
     </AnnotationsDraftContextWrapper>

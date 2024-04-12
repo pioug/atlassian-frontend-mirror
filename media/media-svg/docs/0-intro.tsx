@@ -27,9 +27,9 @@ ${(
   ${(
     <Example
       packageName="@atlaskit/media-svg"
-      Component={require('../examples/basic').default}
+      Component={require('../examples/00-basic').default}
       title="Basic example"
-      source={require('!!raw-loader!../examples/basic')}
+      source={require('!!raw-loader!../examples/00-basic')}
     />
   )}
 

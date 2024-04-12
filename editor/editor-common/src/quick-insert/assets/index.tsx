@@ -282,6 +282,16 @@ export const IconDatasourceAssetsObjects = Loadable({
   loading: () => null,
 });
 
+export const IconDatasourceConfluenceSearch = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_editor-icon-datasource-confluence-search" */ './datasource-confluence-search'
+    ).then((module) => module.default) as Promise<
+      React.ComponentType<React.PropsWithChildren<IconProps>>
+    >,
+  loading: () => null,
+});
+
 export const IconLoom = Loadable({
   loader: () =>
     import(

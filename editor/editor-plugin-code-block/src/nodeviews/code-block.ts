@@ -1,6 +1,7 @@
 import rafSchedule from 'raf-schd';
 
 import type {
+  ExtractInjectionAPI,
   getPosHandler,
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
@@ -10,12 +11,13 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { resetShouldIgnoreFollowingMutations } from '../actions';
+import type { CodeBlockPlugin } from '../index';
 import { getPluginState } from '../pm-plugins/main-state';
 import { codeBlockClassNames } from '../ui/class-names';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node) =>
+const toDOM = (node: Node, isViewOnly: boolean) =>
   [
     'div',
     { class: 'code-block' },
@@ -32,7 +34,7 @@ const toDOM = (node: Node) =>
           {
             'data-language': node.attrs.language || '',
             spellcheck: 'false',
-            contenteditable: 'true',
+            contenteditable: isViewOnly ? 'false' : 'true',
             'data-testid': 'code-block--code',
           },
           0,
@@ -49,9 +51,21 @@ export class CodeBlockView {
   lineNumberGutter: HTMLElement;
   getPos: getPosHandlerNode;
   view: EditorView;
+  api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
-  constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
-    const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
+  constructor(
+    node: Node,
+    view: EditorView,
+    getPos: getPosHandlerNode,
+    api?: ExtractInjectionAPI<CodeBlockPlugin>,
+  ) {
+    const isViewOnly =
+      api?.editorViewMode?.sharedState.currentState()?.mode === 'view' ||
+      !view.editable;
+    const { dom, contentDOM } = DOMSerializer.renderSpec(
+      document,
+      toDOM(node, isViewOnly),
+    );
     this.getPos = getPos;
     this.view = view;
     this.node = node;
@@ -60,6 +74,7 @@ export class CodeBlockView {
     this.lineNumberGutter = this.dom.querySelector(
       `.${codeBlockClassNames.gutter}`,
     ) as HTMLElement;
+    this.api = api;
 
     this.ensureLineNumbers();
   }
@@ -157,6 +172,15 @@ export class CodeBlockView {
         );
       }
     }
+    const editorViewModePluginState =
+      this.api?.editorViewMode?.sharedState.currentState();
+
+    this.contentDOM.setAttribute(
+      'contenteditable',
+      editorViewModePluginState?.mode === 'view' || !this.view.editable
+        ? 'false'
+        : 'true',
+    );
     return true;
   }
 
@@ -180,4 +204,5 @@ export const codeBlockNodeView = (
   node: Node,
   view: EditorView,
   getPos: getPosHandler,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode);
+  api?: ExtractInjectionAPI<CodeBlockPlugin>,
+) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api);

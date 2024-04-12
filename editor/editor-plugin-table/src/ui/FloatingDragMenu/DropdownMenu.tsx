@@ -11,6 +11,7 @@ import {
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { dragMenuDropdownWidth } from '../consts';
 
@@ -63,6 +64,13 @@ export const DropdownMenu = ({
   const handleRef = (ref: HTMLDivElement | null) => {
     setTargetRefDiv(ref);
   };
+
+  // more offsets calculation as offsets depend on the direction and updated placement here
+  let offsetY =
+    direction === 'row' ? (popupPlacement[0] === 'bottom' ? -8 : -34) : 0;
+  let offsetX =
+    direction === 'column' ? (popupPlacement[1] === 'left' ? 0 : -7) : 0;
+
   const innerMenu = () => {
     return (
       <DropListWithOutsideListeners
@@ -109,14 +117,37 @@ export const DropdownMenu = ({
   };
 
   if (disableKeyboardHandling) {
-    return innerMenu();
+    if (
+      getBooleanFF(
+        'platform.editor.table.background-color-flicker-in-drag-menu',
+      )
+    ) {
+      // This part need be refactor when clean up the ff, to reuse the wrapper
+      return (
+        <div className="drag-dropdown-menu-wrapper">
+          <div className="drag-dropdown-menu-popup-ref" ref={handleRef}></div>
+          <Popup
+            target={targetRefDiv as HTMLElement}
+            mountTo={mountPoint}
+            boundariesElement={boundariesElement}
+            scrollableElement={scrollableElement}
+            onPlacementChanged={(placement: [string, string]) => {
+              setPopupPlacement(placement);
+            }}
+            fitHeight={fitHeight}
+            fitWidth={fitWidth}
+            zIndex={akEditorFloatingPanelZIndex}
+            offset={[offsetX, offsetY]}
+            allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
+          >
+            {innerMenu()}
+          </Popup>
+        </div>
+      );
+    } else {
+      return innerMenu();
+    }
   }
-
-  // more offsets calculation as offsets depend on the direction and updated placement here
-  let offsetY =
-    direction === 'row' ? (popupPlacement[0] === 'bottom' ? -8 : -34) : 0;
-  let offsetX =
-    direction === 'column' ? (popupPlacement[1] === 'left' ? 0 : -7) : 0;
 
   return (
     <div className="drag-dropdown-menu-wrapper">
@@ -138,6 +169,7 @@ export const DropdownMenu = ({
         <ArrowKeyNavigationProvider
           closeOnTab
           type={ArrowKeyNavigationType.MENU}
+          handleClose={() => handleClose('handle')}
           onSelection={(index) => {
             const results = items.flatMap((item) =>
               'items' in item ? item.items : item,

@@ -25,7 +25,7 @@ export const dateCellStyles = (): CSSObject => ({
   color: token('color.text', N900),
   cursor: 'pointer',
   flexGrow: 1,
-  fontSize: token('font.size.100', '14px'),
+  font: token('font.body'),
   textAlign: 'center',
   '&[data-sibling]': {
     color: token('color.text.subtlest', N200),

@@ -64,7 +64,6 @@ import type { Provider } from '../';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { Channel } from '../../channel';
-import { catchup } from '../../document/catchup';
 import { catchupv2 } from '../../document/catchupv2';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import * as Utilities from '../../helpers/utils';
@@ -175,40 +174,11 @@ describe('Provider', () => {
         isBufferingEnabled: true,
       };
 
-      it('should successfully initialize provider and call catchup when channel connects', async (done) => {
-        expect.assertions(4);
-        const sid = 'expected-sid-123';
-        const provider = createSocketIOCollabProvider(
-          testProviderConfigWithDraft,
-        );
-        const sendStepsFromCurrentStateSpy = jest.spyOn(
-          // @ts-ignore
-          provider.documentService as any,
-          'sendStepsFromCurrentState',
-        );
-        provider.on('init', (data) => {
-          expect(data).toEqual({
-            doc: 'test-document',
-            version: 1,
-            metadata: { title: 'random-title' },
-          });
-        });
-        provider.setup({ getState: () => editorState });
-        channel.emit('connected', { sid, initialized: true });
-        expect((provider as any).isProviderInitialized).toEqual(true);
-        expect((provider as any).isBuffered).toEqual(true);
-        expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
-        done();
-      });
-
-      it('enableCatchupv2 = true: should successfully initialize provider and call catchupv2 when channel connects', async (done) => {
+      it('catchupv2 : should successfully initialize provider and call catchupv2 when channel connects', async (done) => {
         expect.assertions(4);
         const sid = 'expected-sid-123';
         const provider = createSocketIOCollabProvider({
           ...testProviderConfigWithDraft,
-          featureFlags: {
-            enableCatchupv2: true,
-          },
         });
         const sendStepsFromCurrentStateSpy = jest.spyOn(
           // @ts-ignore
@@ -805,45 +775,14 @@ describe('Provider', () => {
       channel.emit('error', noPermissionError);
     });
 
-    it('should emit catchup failed errors to consumer', (done) => {
-      const testProviderConfigWithAnalytics = {
-        url: `http://provider-url:66661`,
-        documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithAnalytics,
-      );
-      provider.on('error', (error) => {
-        expect(error).toEqual({
-          code: 'INTERNAL_SERVICE_ERROR',
-          message: 'Collab Provider experienced an unrecoverable error',
-          reason: 'CATCHUP_FAILED',
-          recoverable: true,
-          status: 500,
-        });
-        done();
-      });
-      const catchupError: InternalError = {
-        data: {
-          status: 500,
-          code: INTERNAL_ERROR_CODE.CATCHUP_FAILED,
-        },
-        message: 'Cannot fetch catchup from collab service',
-      };
-      provider.initialize(() => editorState);
-      channel.emit('error', catchupError);
-    });
-
-    it('enableCatchupv2 = true: should emit catchupv2 failed errors to consumer', (done) => {
+    it('catchupv2 : should emit catchupv2 failed errors to consumer', (done) => {
       const testProviderConfigWithAnalytics = {
         url: `http://provider-url:66661`,
         documentAri: 'ari:cloud:confluence:ABC:page/testpage',
       };
       const provider = createSocketIOCollabProvider({
         ...testProviderConfigWithAnalytics,
-        featureFlags: {
-          enableCatchupv2: true,
-        },
+        featureFlags: {},
       });
 
       provider.on('error', (error) => {
@@ -893,210 +832,6 @@ describe('Provider', () => {
     });
   });
 
-  describe('catch-up', () => {
-    let sendActionEventSpy: jest.SpyInstance;
-    const stepRejectedError: InternalError = {
-      data: {
-        code: NCS_ERROR_CODE.HEAD_VERSION_UPDATE_FAILED,
-        meta: {
-          currentVersion: 3,
-          incomingVersion: 4,
-        },
-        status: 409,
-      },
-      message: 'Version number does not match current head version.',
-    };
-
-    beforeEach(() => {
-      sendActionEventSpy = jest.spyOn(
-        AnalyticsHelper.prototype,
-        'sendActionEvent',
-      );
-    });
-
-    it('should be triggered when reconnecting after being disconnected for more than 3s', async () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      provider.initialize(() => editorState);
-
-      jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-      channel.emit('disconnect', {
-        reason:
-          'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
-      });
-
-      channel.emit('connected', {
-        sid: 'pweq3Q7NOPY4y88QAGyr',
-        initialized: true,
-      });
-
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(throttledCatchupSpy).toHaveBeenCalledWith();
-    });
-
-    it('should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
-      // ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
-      const testProviderConfigWithDraft = {
-        initialDraft: {
-          document: 'test-document' as any,
-          version: 1,
-          metadata: { title: 'random-title' },
-        },
-        ...testProviderConfig,
-      };
-      const provider = createSocketIOCollabProvider(
-        testProviderConfigWithDraft,
-      );
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      const updateDocumentSpy = jest.spyOn(
-        //@ts-ignore
-        provider.documentService as any,
-        'updateDocument',
-      );
-      provider.initialize(() => editorState);
-
-      jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
-      channel.emit('disconnect', {
-        reason:
-          'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
-      });
-
-      channel.emit('connected', {
-        sid: 'pweq3Q7NOPY4y88QAGyr',
-        initialized: true,
-      });
-
-      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
-      expect(updateDocumentSpy).toHaveBeenCalledWith({
-        doc: 'test-document',
-        metadata: { title: 'random-title' },
-        version: 1,
-      });
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(throttledCatchupSpy).toHaveBeenCalledWith();
-    });
-
-    it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-      provider.initialize(() => editorState);
-
-      channel.emit('steps:added', {
-        version: 9999, // High version, indicated we didn't get a ton of steps, expected version is 1
-        steps: [
-          {
-            stepType: 'replace',
-            from: 1479,
-            to: 1479,
-            slice: { content: [{ type: 'text', text: 'lol' }] },
-            clientId: 666950124,
-            userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
-            createdAt: 1679027507189,
-          },
-        ],
-      });
-
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(throttledCatchupSpy).toHaveBeenCalledWith();
-    });
-
-    it('should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-
-      provider.initialize(() => editorState);
-      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        channel.emit('error', stepRejectedError);
-      }
-
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(catchup).toHaveBeenCalledTimes(1);
-      expect(catchup).toHaveBeenCalledWith({
-        applyLocalSteps: expect.any(Function),
-        fetchCatchup: expect.any(Function),
-        filterQueue: expect.any(Function),
-        getCurrentPmVersion: expect.any(Function),
-        getUnconfirmedSteps: expect.any(Function),
-        updateDocument: expect.any(Function),
-        updateMetadata: expect.any(Function),
-        analyticsHelper: expect.any(Object),
-        clientId: 'some-random-prosemirror-client-Id',
-      });
-
-      await new Promise(process.nextTick);
-
-      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        channel.emit('error', stepRejectedError);
-      }
-
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(2);
-      expect(catchup).toHaveBeenCalledTimes(2);
-      expect(catchup).toHaveBeenNthCalledWith(2, {
-        applyLocalSteps: expect.any(Function),
-        fetchCatchup: expect.any(Function),
-        filterQueue: expect.any(Function),
-        getCurrentPmVersion: expect.any(Function),
-        getUnconfirmedSteps: expect.any(Function),
-        updateDocument: expect.any(Function),
-        updateMetadata: expect.any(Function),
-        analyticsHelper: expect.any(Object),
-        clientId: 'some-random-prosemirror-client-Id',
-      });
-    });
-
-    it('should reset the rejected step counter when catchup throws an error', async () => {
-      const catchupMock = (catchup as jest.Mock).mockImplementation(() => {
-        throw new Error('catchup error');
-      });
-
-      const provider = createSocketIOCollabProvider(testProviderConfig);
-
-      const throttledCatchupSpy = jest.spyOn(
-        // @ts-ignore
-        provider.documentService as any,
-        'throttledCatchup',
-      );
-
-      provider.initialize(() => editorState);
-      for (let i = 1; i <= MAX_STEP_REJECTED_ERROR; i++) {
-        channel.emit('error', stepRejectedError);
-      }
-
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(catchup).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(17);
-      expect(sendActionEventSpy).toHaveBeenNthCalledWith(
-        17,
-        'catchup',
-        'FAILURE',
-        {
-          latency: 0,
-        },
-      );
-      channel.emit('error', stepRejectedError);
-
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(18);
-      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
-      expect(catchupMock).toHaveBeenCalledTimes(1);
-    });
-  });
-
   describe('catch-up-v2', () => {
     let sendActionEventSpy: jest.SpyInstance;
     const stepRejectedError: InternalError = {
@@ -1118,12 +853,9 @@ describe('Provider', () => {
       );
     });
 
-    it('enableCatchupv2 = true: should be triggered when reconnecting after being disconnected for more than 3s', async () => {
+    it('catchupv2 : should be triggered when reconnecting after being disconnected for more than 3s', async () => {
       const provider = createSocketIOCollabProvider({
         ...testProviderConfig,
-        featureFlags: {
-          catchupv2: true,
-        },
       });
 
       const throttledCatchupv2Spy = jest.spyOn(
@@ -1148,7 +880,7 @@ describe('Provider', () => {
       expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
     });
 
-    it('enableCatchupv2 = true: should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
+    it('catchupv2 : should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
       // ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
       const testProviderConfigWithDraft = {
         initialDraft: {
@@ -1160,9 +892,6 @@ describe('Provider', () => {
       };
       const provider = createSocketIOCollabProvider({
         ...testProviderConfigWithDraft,
-        featureFlags: {
-          catchupv2: true,
-        },
       });
       const throttledCatchupv2Spy = jest.spyOn(
         // @ts-ignore
@@ -1197,12 +926,9 @@ describe('Provider', () => {
       expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
     });
 
-    it('enableCatchupv2 = true: should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
+    it('catchupv2 : should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
       const provider = createSocketIOCollabProvider({
         ...testProviderConfig,
-        featureFlags: {
-          catchupv2: true,
-        },
       });
       const throttledCatchupv2Spy = jest.spyOn(
         // @ts-ignore
@@ -1230,12 +956,9 @@ describe('Provider', () => {
       expect(throttledCatchupv2Spy).toHaveBeenCalledWith();
     });
 
-    it('enableCatchupv2 = true: should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
+    it('catchupv2 : should be triggered after 15 rejected steps and reset the rejected steps counter', async () => {
       const provider = createSocketIOCollabProvider({
         ...testProviderConfig,
-        featureFlags: {
-          catchupv2: true,
-        },
       });
       const throttledCatchupv2Spy = jest.spyOn(
         // @ts-ignore
@@ -1276,16 +999,14 @@ describe('Provider', () => {
         onStepsAdded: expect.any(Function),
       });
     });
-    it('enableCatchupv2 = true: should reset the rejected step counter when catchup throws an error', async () => {
+
+    it('catchupv2 : should reset the rejected step counter when catchup throws an error', async () => {
       const catchupv2Mock = (catchupv2 as jest.Mock).mockImplementation(() => {
         throw new Error('catchupv2 error');
       });
 
       const provider = createSocketIOCollabProvider({
         ...testProviderConfig,
-        featureFlags: {
-          catchupv2: true,
-        },
       });
 
       const throttledCatchupv2Spy = jest.spyOn(

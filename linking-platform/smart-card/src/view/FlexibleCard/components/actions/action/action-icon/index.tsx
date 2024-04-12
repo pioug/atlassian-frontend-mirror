@@ -35,10 +35,6 @@ const backgroundStyles = css({
   'span,svg,img': {
     lineHeight: 0,
   },
-  // Use !important to win over `style` prop specificity in DS Spinner. :(
-  circle: {
-    stroke: `${token('color.icon.brand')} !important`,
-  },
 });
 
 const ActionIcon: React.FC<ActionIconProps> = ({

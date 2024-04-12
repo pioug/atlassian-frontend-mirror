@@ -273,6 +273,31 @@ export class MediaStore implements MediaApi {
     return createUrl(`${auth.baseUrl}/file/${id}/image`, options);
   }
 
+  async getFileBinary(
+    id: string,
+    collectionName?: string,
+    maxAge: number = FILE_CACHE_MAX_AGE,
+  ): Promise<Blob> {
+    const headers: RequestHeaders = {};
+    const metadata: RequestMetadata = {
+      method: 'GET',
+      endpoint: '/file/{fileId}/binary',
+    };
+
+    const options: MediaStoreRequestOptions = {
+      ...metadata,
+      authContext: { collectionName },
+      headers,
+      params: {
+        'max-age': `${maxAge}`,
+      },
+    };
+
+    return this.request(`/file/${id}/binary`, options).then(
+      createMapResponseToBlob(metadata),
+    );
+  }
+
   async getFileBinaryURL(
     id: string,
     collectionName?: string,

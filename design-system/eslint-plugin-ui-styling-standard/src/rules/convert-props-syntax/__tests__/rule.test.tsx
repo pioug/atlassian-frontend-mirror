@@ -107,7 +107,7 @@ typescriptEslintTester.run(
         name: 'ignores styled(...).attrs() call',
         code: `
           import { styled } from 'styled-components';
-          
+
           const StyledMinimized = styled(Minimized).attrs({
             className: (props) => props.transitionClass,
           })\`
@@ -119,7 +119,7 @@ typescriptEslintTester.run(
         name: 'ignores styled.div.attrs<...>() call',
         code: `
           import { styled } from '@compiled/react';
-          
+
           export const ModalAnchorOld = styled.div.attrs<ModalAnchorProps>({
             style: ({ left, top }: ModalAnchorProps) => ({
               left,
@@ -153,6 +153,46 @@ typescriptEslintTester.run(
             min-height: 190px;
             max-width: 290px;
           \`;
+        `,
+      },
+      {
+        name: 'ignores options passed to base components',
+        code: `
+          import styled from '@emotion/styled';
+          import { token } from 'some-package';
+          import { someFallback } from 'other-package';
+
+          styled(BaseComponent, {
+            // This should not get flagged
+            shouldForwardProp: prop => prop !== 'seen'
+          })({
+            color: token('some-token', someFallback),
+          });
+        `,
+      },
+      {
+        name: 'ignores options passed to base components when using template string',
+        code: `
+          import styled from '@emotion/styled';
+          import { token } from 'some-package';
+          import { someFallback } from 'other-package';
+
+          styled(Link, {
+            // This should not get flagged
+            shouldForwardProp: prop => prop !== 'seen',
+          })<{ seen?: boolean }>\`
+            cursor: pointer;
+          \`;
+        `,
+      },
+      {
+        name: 'No error on TSAsExpression node type when using ESTraverse',
+        code: `
+          import styled from '@emotion/styled';
+
+          const Component = styled.div({
+            color: token('color.text') as string,
+          });
         `,
       },
     ],
@@ -495,6 +535,46 @@ typescriptEslintTester.run(
             padding: '5px',
             width: props.myWidth,
             margin: \`2px \${token('some-token')}\`
+          }));
+        `,
+        errors: [{ messageId: 'unsupported-prop-syntax' }],
+      },
+      {
+        name: 'converts styled-components props argument when extending existing component',
+        code: `
+          import styled from 'styled-components';
+
+          styled(BaseComponent)({
+            color: (props) => props.color,
+            backgroundColor: (props) => props.backgroundColor,
+          });
+        `,
+        output: `
+          import styled from 'styled-components';
+
+          styled(BaseComponent)((props) => ({
+            color: props.color,
+            backgroundColor: props.backgroundColor,
+          }));
+        `,
+        errors: [{ messageId: 'unsupported-prop-syntax' }],
+      },
+      {
+        name: 'converts styled-components props argument when using css function',
+        code: `
+          import { css } from 'styled-components';
+
+          css({
+            color: (props) => props.color,
+            backgroundColor: (props) => props.backgroundColor,
+          });
+        `,
+        output: `
+          import { css } from 'styled-components';
+
+          css((props) => ({
+            color: props.color,
+            backgroundColor: props.backgroundColor,
           }));
         `,
         errors: [{ messageId: 'unsupported-prop-syntax' }],

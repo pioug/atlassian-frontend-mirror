@@ -1,5 +1,11 @@
 # @atlaskit/css
 
+## 0.0.6
+
+### Patch Changes
+
+- [#89540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89540) [`1748b673d90d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1748b673d90d) - DSP-17890 Add media query types to createStrictAPI, just be aware that cascading media queries are not guaranteed to work with Compiled, refer to https://compiledcssinjs.com/docs/atomic-css#selector-specificity
+
 ## 0.0.5
 
 ### Patch Changes

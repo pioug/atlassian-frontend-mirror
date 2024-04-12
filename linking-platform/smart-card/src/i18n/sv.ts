@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Lägg till konto',
   'fabric.linking.ai_summarize': 'Sammanfatta',
   'fabric.linking.ai_summarized': 'Sammanfattat av Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Sammanfattat av AI',
   'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variera. <a>Läs mer</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbetar ...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Vi kan inte visa sammanfattningsresultaten eftersom det strider mot <a>Atlassians policy för godtagbar användning</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence kan inte ge något svar just nu. Läs mer <a>i vår supportdokumentation</a>.',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
   'fabric.linking.cannot_connect': 'Det går inte att ansluta, försök igen',
   'fabric.linking.cannot_find_link': 'Kan inte hitta länk',

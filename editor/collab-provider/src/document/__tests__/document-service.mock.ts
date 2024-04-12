@@ -38,7 +38,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
     metadataService,
     config.enableErrorOnFailedDocumentApply,
     config.featureFlags?.reconcileOnRecovery,
-    config.featureFlags?.enableCatchupv2,
   );
 
   // @ts-expect-error - jest mock class

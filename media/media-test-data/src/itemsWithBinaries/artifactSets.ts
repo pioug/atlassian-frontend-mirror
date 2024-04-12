@@ -1,6 +1,7 @@
 import { sampleBinaries } from './sampleBinaries';
+import { ArtifactsSets } from './types';
 
-export const artifactSets = {
+export const artifactSets: ArtifactsSets = {
   jpgCat: {
     binaryUri: sampleBinaries.jpgCat,
     // preview & any image* artifact
@@ -42,7 +43,7 @@ export const artifactSets = {
   },
 };
 
-export const defaultArtifactsUris: Record<string, Record<string, string>> = {
+export const defaultArtifactsUris: ArtifactsSets = {
   video: artifactSets.videoFire,
   image: artifactSets.jpgCat,
   doc: artifactSets.pdfAnatomy,

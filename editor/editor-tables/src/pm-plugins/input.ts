@@ -268,6 +268,7 @@ export function handleMouseDown(
     }
   }
   view.root.addEventListener('mouseup', stop);
+  // eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
   view.root.addEventListener('dragstart', stop);
   view.root.addEventListener('mousemove', move);
 

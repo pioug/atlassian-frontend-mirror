@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Добавить аккаунт',
   'fabric.linking.ai_summarize': 'Создать сводку',
   'fabric.linking.ai_summarized': 'Обобщено с помощью Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Обобщено с помощью AI',
   'fabric.linking.ai_summarized_info': 'Качество информации может быть разным. <a>Подробнее</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence работает…',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Невозможно показать результаты этой сводки, так как она противоречит <a>политике допустимого использования Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Сейчас Atlassian Intelligence не может дать ответ. Подробнее см. <a>в нашей справочной документации</a>.',
   'fabric.linking.assigned_to': 'Назначено пользователю {context}',
+  'fabric.linking.beta': 'Бета-версия',
   'fabric.linking.cancel': 'Отмена',
   'fabric.linking.cannot_connect': 'Не удается подключиться, повторите попытку',
   'fabric.linking.cannot_find_link': 'Не удается найти ссылку',

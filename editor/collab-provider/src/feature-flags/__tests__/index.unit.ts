@@ -11,7 +11,6 @@ describe('Feature flags', () => {
         blockViewOnly: true,
         reconcileOnRecovery: true,
         connectWebsocketFirst: true,
-        catchupv2: true,
       },
       'confluence',
     );
@@ -20,7 +19,6 @@ describe('Feature flags', () => {
       'confluence.frontend.ncs.block-view-only',
       'confluence.frontend.ncs.reconcile-on-recovery',
       'confluence.frontend.ncs.connect-websocket-first',
-      'confluence.frontend.ncs.catchupv2',
     ]);
   });
 

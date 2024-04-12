@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Account toevoegen',
   'fabric.linking.ai_summarize': 'Samenvatten',
   'fabric.linking.ai_summarized': 'Samengevat door Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Samengevat door AI',
   'fabric.linking.ai_summarized_info': 'De kwaliteit van de informatie kan verschillen. <a>Meer informatie</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence is bezig ...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'We kunnen de resultaten van dit overzicht niet weergeven, omdat deze in strijd is met het <a>Acceptabel Gebruiksbeleid van Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence kan momenteel geen antwoord geven. Lees meer <a>in onze supportdocumentatie</a>.',
   'fabric.linking.assigned_to': 'Toegewezen aan {context}',
+  'fabric.linking.beta': 'Bèta',
   'fabric.linking.cancel': 'Annuleren',
   'fabric.linking.cannot_connect': 'Geen verbinding, probeer het opnieuw',
   'fabric.linking.cannot_find_link': 'Kan link niet vinden',

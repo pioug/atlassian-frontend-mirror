@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */
 /**
  * We are listening directly to drag events instead of using a monitor from
  * `@atlaskit/pragmatic-drag-and-drop` to avoid the bundle size cost, as it

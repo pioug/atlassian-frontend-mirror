@@ -1,5 +1,5 @@
 import CardV2Loader from '../src/card/v2/cardV2Loader';
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { MediaClientConfig } from '@atlaskit/media-client';
 import {
   generateItemWithBinaries,
@@ -10,64 +10,104 @@ import {
 import { MainWrapper } from '../example-helpers';
 import { createMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
-const dummyMediaClientConfig = {} as MediaClientConfig;
-
-const processedItems: GeneratedItemWithBinaries[] = [
-  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
-  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
-  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
-  generateItemWithBinaries.workingVideo.videoFire(),
-  generateItemWithBinaries.workingVideo.videoTeacup(),
+type UseGenerateItemsWithBinariesState = [
+  GeneratedItemWithBinaries[],
+  GeneratedItemWithBinaries[],
+  GeneratedItemWithBinaries[],
 ];
-
-const processingItems: GeneratedItemWithBinaries[] = [
-  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
-  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
-  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
-  generateItemWithBinaries.workingVideo.videoFire(),
-  generateItemWithBinaries.workingVideo.videoTeacup(),
-];
-
-const uploadingItems: GeneratedItemWithBinaries[] = [
-  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
-  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
-  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
-  generateItemWithBinaries.workingVideo.videoFire(),
-  generateItemWithBinaries.workingVideo.videoTeacup(),
-];
-
-const initialItemsWithBinaries = [...processedItems, ...processingItems].map(
-  ([item]) => item,
-);
-const allItems = [...processedItems, ...processingItems, ...uploadingItems];
-
-const { MockedMediaClientProvider, processItem, uploadItem } =
-  createMockedMediaClientProviderWithBinaries({ initialItemsWithBinaries });
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-const simulateProcess = async (item: ItemWithBinaries) => {
-  processItem(item, 0);
-  await sleep(500);
-  processItem(item, 1);
+const dummyMediaClientConfig = {} as MediaClientConfig;
+
+const processedItemsPromise = [
+  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
+  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
+  generateItemWithBinaries.workingVideo.videoFire(),
+  generateItemWithBinaries.workingVideo.videoTeacup(),
+];
+
+const processingItemsPromise = [
+  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
+  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
+  generateItemWithBinaries.workingVideo.videoFire(),
+  generateItemWithBinaries.workingVideo.videoTeacup(),
+];
+
+const uploadingItemsPromise = [
+  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
+  generateItemWithBinaries.workingAudioWithoutRemotePreview.mp3Sonata(),
+  generateItemWithBinaries.workingVideo.videoFire(),
+  generateItemWithBinaries.workingVideo.videoTeacup(),
+];
+
+const useGenerateItemsWithBinaries = () => {
+  const [items, setItems] = useState<UseGenerateItemsWithBinariesState>([
+    [],
+    [],
+    [],
+  ]);
+
+  useEffect(() => {
+    Promise.all([
+      Promise.all(processedItemsPromise),
+      Promise.all(processingItemsPromise),
+      Promise.all(uploadingItemsPromise),
+    ]).then(setItems);
+  }, []);
+
+  return items;
 };
 
-const simulateUpload = async (item: ItemWithBinaries) => {
-  for (let i = 0; i <= 10; i++) {
-    uploadItem(item, i / 10);
-    await sleep(500);
-  }
-  simulateProcess(item);
-};
+const usePrepeMediaState = () => {
+  const [processedItems, processingItems, uploadingItems] =
+    useGenerateItemsWithBinaries();
 
-processingItems.forEach(([itemWithBinaries]) =>
-  simulateProcess(itemWithBinaries),
-);
-uploadingItems.forEach(([itemWithBinaries]) =>
-  simulateUpload(itemWithBinaries),
-);
+  const initialItemsWithBinaries = useMemo(
+    () => [...processedItems, ...processingItems].map(([item]) => item),
+    [processedItems, processingItems],
+  );
+
+  const allItems = [...processedItems, ...processingItems, ...uploadingItems];
+
+  const { MockedMediaClientProvider, processItem, uploadItem } = useMemo(
+    () =>
+      createMockedMediaClientProviderWithBinaries({ initialItemsWithBinaries }),
+    [initialItemsWithBinaries],
+  );
+
+  useEffect(() => {
+    const simulateProcess = async (item: ItemWithBinaries) => {
+      processItem(item, 0);
+      await sleep(500);
+      processItem(item, 1);
+    };
+
+    const simulateUpload = async (item: ItemWithBinaries) => {
+      for (let i = 0; i <= 10; i++) {
+        uploadItem(item, i / 10);
+        await sleep(500);
+      }
+      simulateProcess(item);
+    };
+
+    processingItems.forEach(([itemWithBinaries]) =>
+      simulateProcess(itemWithBinaries),
+    );
+    uploadingItems.forEach(([itemWithBinaries]) =>
+      simulateUpload(itemWithBinaries),
+    );
+  }, [processItem, processingItems, uploadItem, uploadingItems]);
+
+  return { allItems, MockedMediaClientProvider };
+};
 
 export default () => {
+  const { allItems, MockedMediaClientProvider } = usePrepeMediaState();
+
   return (
     <MainWrapper developmentOnly>
       <MockedMediaClientProvider>

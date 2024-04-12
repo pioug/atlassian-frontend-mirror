@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
@@ -17,88 +17,147 @@ interface FormData {
   preference: string;
 }
 
-const validateOnSubmit = (data: FormData) => {
-  let errors;
-  errors = requiredValidator(data, 'DOB', errors);
-  errors = requiredValidator(data, 'preference', errors);
-  return errors;
-};
+export default () => {
+  const [DOBfieldError, setDOBfieldError] = useState(false);
+  const [preferenceFieldError, setPreferenceFieldError] = useState(false);
 
-const requiredValidator = (
-  data: FormData,
-  key: string,
-  errors?: Record<string, string>,
-) => {
-  if (!data[key]) {
-    return {
-      ...errors,
-      [key]: `Please select a date to continue.`,
-    };
-  }
+  const DOBfieldRef = useRef<HTMLInputElement>(null);
+  const preferenceFieldRef = useRef<HTMLInputElement>(null);
 
-  return errors;
-};
+  const setFocusOnFirstInvalidField = () => {
+    if (DOBfieldError) {
+      DOBfieldRef.current?.focus();
+    }
+    if (preferenceFieldError && !DOBfieldError) {
+      preferenceFieldRef.current?.focus();
+    }
+  };
 
-export default () => (
-  <div
-    style={{
-      display: 'flex',
-      width: '400px',
-      margin: '0 auto',
-      flexDirection: 'column',
-    }}
-  >
-    <Form<FormData>
-      onSubmit={(data) => {
-        console.log('form data', data);
-        return Promise.resolve(validateOnSubmit(data));
+  return (
+    <div
+      style={{
+        display: 'flex',
+        width: '400px',
+        margin: '0 auto',
+        flexDirection: 'column',
       }}
     >
-      {({ formProps }) => (
-        <form {...formProps}>
-          <FormHeader title="Book an appointment">
-            <p aria-hidden="true">
-              Required fields are marked with an asterisk <RequiredAsterisk />
-            </p>
-          </FormHeader>
-          <Field name="DOB" label="Date of birth" defaultValue="" isRequired>
-            {({ fieldProps: { id, ...rest }, error }) => (
-              <Fragment>
-                <DatePicker selectProps={{ inputId: id }} {...rest} />
-                {error && <ErrorMessage>{error}</ErrorMessage>}
-              </Fragment>
-            )}
-          </Field>
-          <Field
-            name="preference"
-            label="Preferred appointment date & time"
-            defaultValue=""
-            isRequired
-          >
-            {({ fieldProps: { id, ...rest }, error }) => {
-              const validationState = error ? 'error' : 'none';
-              return (
-                <Fragment>
-                  <DateTimePicker
-                    datePickerSelectProps={{ validationState, inputId: id }}
-                    timePickerSelectProps={{
-                      validationState,
-                      'aria-labelledby': `${id}-label`,
-                    }}
-                    {...rest}
-                  />
-                  {error && <ErrorMessage>{error}</ErrorMessage>}
-                </Fragment>
-              );
-            }}
-          </Field>
-          <FormFooter>
-            <Button type="submit" appearance="primary">
-              Submit
-            </Button>
-          </FormFooter>
-        </form>
-      )}
-    </Form>
-  </div>
-);
+      <Form<FormData>
+        onSubmit={(data) => {
+          console.log('form data', data);
+        }}
+      >
+        {({ formProps }) => (
+          <form {...formProps}>
+            <FormHeader title="Book an appointment">
+              <p aria-hidden="true">
+                Required fields are marked with an asterisk
+                <RequiredAsterisk />
+              </p>
+            </FormHeader>
+            <Field
+              name="DOB"
+              label="Date of birth"
+              defaultValue={''}
+              isRequired
+              validate={(value) => {
+                if (value) {
+                  setDOBfieldError(false);
+                  return undefined;
+                }
+                if (!value) {
+                  setDOBfieldError(true);
+                }
+
+                return 'Please select a date to continue';
+              }}
+            >
+              {({
+                fieldProps: {
+                  id,
+                  ['aria-invalid']: ariaInvalid,
+                  ['aria-describedby']: ariaDescribedby,
+                  ...rest
+                },
+                error,
+              }) => {
+                return (
+                  <Fragment>
+                    <DatePicker
+                      selectProps={{
+                        ref: DOBfieldRef,
+                        inputId: id,
+                        'aria-invalid': ariaInvalid,
+                        'aria-describedby': ariaDescribedby,
+                      }}
+                      {...rest}
+                    />
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+                  </Fragment>
+                );
+              }}
+            </Field>
+            <Field
+              name="preference"
+              label="Preferred appointment date & time"
+              defaultValue=""
+              isRequired
+              validate={(value) => {
+                if (value) {
+                  setPreferenceFieldError(false);
+                  return undefined;
+                }
+                if (!value) {
+                  setPreferenceFieldError(true);
+                }
+
+                return 'Please select a date to continue';
+              }}
+            >
+              {({
+                fieldProps: {
+                  id,
+                  ['aria-invalid']: ariaInvalid,
+                  ['aria-describedby']: ariaDescribedby,
+                  ...rest
+                },
+                error,
+              }) => {
+                return (
+                  <Fragment>
+                    <DateTimePicker
+                      datePickerSelectProps={{
+                        'aria-invalid': ariaInvalid,
+                        'aria-describedby': `${id}-label ${
+                          error ? ariaDescribedby : ''
+                        }`,
+                        ref: preferenceFieldRef,
+                      }}
+                      timePickerSelectProps={{
+                        'aria-invalid': ariaInvalid,
+                        'aria-describedby': `${id}-label ${
+                          error ? ariaDescribedby : ''
+                        }`,
+                      }}
+                      {...rest}
+                    />
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+                  </Fragment>
+                );
+              }}
+            </Field>
+            <FormFooter>
+              <Button
+                type="submit"
+                appearance="primary"
+                onClick={setFocusOnFirstInvalidField}
+              >
+                Submit
+              </Button>
+            </FormFooter>
+          </form>
+        )}
+      </Form>
+    </div>
+  );
+};

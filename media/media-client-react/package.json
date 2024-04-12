@@ -35,7 +35,7 @@
     "./test-helpers": "./src/test-helpers/index.ts"
   },
   "dependencies": {
-    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-client": "^26.3.0",
     "@babel/runtime": "^7.0.0",
     "zustand": "^4.3.9"
   },

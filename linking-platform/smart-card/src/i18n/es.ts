@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Añadir cuenta',
   'fabric.linking.ai_summarize': 'Resumir',
   'fabric.linking.ai_summarized': 'Resumido por Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Resumido por AI',
   'fabric.linking.ai_summarized_info': 'La calidad de la información puede variar. <a>Más información</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence está trabajando en...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'No podemos mostrar los resultados de este resumen porque va en contra de la <a>política de uso aceptable de Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence no puede proporcionar una respuesta ahora mismo. Obtén más información en <a>nuestra documentación de soporte</a>.',
   'fabric.linking.assigned_to': 'Asignado a {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancelar',
   'fabric.linking.cannot_connect': 'No se podido establecer la conexión. Inténtalo de nuevo',
   'fabric.linking.cannot_find_link': 'No se ha podido encontrar el enlace',
@@ -41,7 +47,7 @@ export default {
   'fabric.linking.create_on_relative': 'Fecha de creación: {context}',
   'fabric.linking.created_by': 'Creado por {context}',
   'fabric.linking.delete': 'Eliminar',
-  'fabric.linking.direct_access': 'Unirse ahora',
+  'fabric.linking.direct_access': 'Unirme ahora',
   'fabric.linking.direct_access_description':
     'Tu equipo utiliza {product} para colaborar y tú puedes empezar a hacerlo ahora mismo.',
   'fabric.linking.direct_access_title': 'Únete a {product} para ver este contenido',

@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Thêm tài khoản',
   'fabric.linking.ai_summarize': 'Tóm tắt',
   'fabric.linking.ai_summarized': 'Do Atlassian Intelligence tóm tắt',
+  'fabric.linking.ai_summarized_abbreviation': 'Do AI tóm tắt',
   'fabric.linking.ai_summarized_info': 'Chất lượng thông tin có thể khác nhau. <a>Tìm hiểu thêm</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence đang xử lý...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Chúng tôi không thể hiển thị kết quả của bản tóm tắt này vì nội dung này đi ngược lại <a>Chính sách sử dụng được chấp nhận của Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence hiện không thể cung cấp phản hồi. Đọc thêm <a>trong tài liệu hỗ trợ của chúng tôi</a>.',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Hủy',
   'fabric.linking.cannot_connect': 'Không thể kết nối, hãy thử lại',
   'fabric.linking.cannot_find_link': 'Không tìm được liên kết',

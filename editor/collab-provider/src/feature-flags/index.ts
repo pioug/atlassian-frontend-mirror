@@ -10,7 +10,6 @@ const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   blockViewOnly: false,
   reconcileOnRecovery: false,
   connectWebsocketFirst: false,
-  catchupv2: false,
 };
 
 /**
@@ -22,7 +21,6 @@ const productKeys: ProductKeys = {
     blockViewOnly: 'confluence.frontend.ncs.block-view-only',
     reconcileOnRecovery: 'confluence.frontend.ncs.reconcile-on-recovery',
     connectWebsocketFirst: 'confluence.frontend.ncs.connect-websocket-first',
-    catchupv2: 'confluence.frontend.ncs.catchupv2',
   },
 };
 

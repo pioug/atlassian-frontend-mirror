@@ -39,6 +39,8 @@ export type MessageKey =
   | 'copy_url_to_clipboard'
   | 'could_not_load_link'
   | 'download'
+  | 'download_description'
+  | 'download_file'
   | 'follow'
   | 'go_back'
   | 'invalid_permissions'
@@ -166,9 +168,9 @@ export const messages: Messages = defineMessages({
   ai_summary_error_generic: {
     id: 'fabric.linking.ai_summary_error_generic',
     defaultMessage:
-      "Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.",
+      'Atlassian Intelligence (AI) isn’t responding. Try again later or <a>check the status of AI</a>.',
     description:
-      'Shown when AI summary is summarising the link resource content.',
+      'Shown when AI Summary encountered an unexpected error while summarizing the linked resource content.',
   },
   ai_summary_error_acceptable_use_violation: {
     id: 'fabric.linking.ai_summary_error_acceptable_use_violation',
@@ -322,6 +324,16 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.download',
     defaultMessage: 'Download',
     description: '',
+  },
+  download_description: {
+    id: 'fabric.linking.download_description.nonfinal',
+    defaultMessage: 'Download this file into your local storage',
+    description: 'Description on what Download does',
+  },
+  download_file: {
+    id: 'fabric.linking.download_file.nonfinal',
+    defaultMessage: 'Download file',
+    description: 'Allow a user to download a file',
   },
   edit: {
     id: 'fabric.linking.edit',

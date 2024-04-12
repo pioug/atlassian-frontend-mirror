@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Fiók hozzáadása',
   'fabric.linking.ai_summarize': 'Összefoglalás',
   'fabric.linking.ai_summarized': 'Az összefoglalót az Atlassian Intelligence készítette',
+  'fabric.linking.ai_summarized_abbreviation': 'Az AI által összefoglalva',
   'fabric.linking.ai_summarized_info': 'Az információk minősége változó lehet. <a>További információ</a>',
   'fabric.linking.ai_summarizing': 'Az Atlassian Intelligence dolgozik…',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Nem tudjuk megjeleníteni az összefoglaló eredményét, mert ellentmond az <a>Atlassian elfogadható használatra vonatkozó irányelveinek</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Az Atlassian Intelligence jelenleg nem tud válaszolni. További információkat a <a>támogatási dokumentációban</a> találsz.',
   'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
+  'fabric.linking.beta': 'Béta',
   'fabric.linking.cancel': 'Mégse',
   'fabric.linking.cannot_connect': 'Nem sikerült kapcsolódni, próbálkozz újra',
   'fabric.linking.cannot_find_link': 'A link nem található',

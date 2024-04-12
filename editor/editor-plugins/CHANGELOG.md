@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugins
 
+## 2.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.16
+
+### Patch Changes
+
+- [#87898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87898) [`6d4009f72e36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d4009f72e36) - [ux] [ED-22591] Fix pasting logic for lines with number and dot (but is not a list item) to retain formatting and correct list conversion.
+- Updated dependencies
+
+## 2.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.14
 
 ### Patch Changes

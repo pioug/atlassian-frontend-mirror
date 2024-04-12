@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-paste",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Paste plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,18 +36,18 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.23.0",
+    "@atlaskit/editor-common": "^78.26.0",
     "@atlaskit/editor-markdown-transformer": "^5.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-annotation": "^1.5.0",
     "@atlaskit/editor-plugin-better-type-history": "^1.0.0",
-    "@atlaskit/editor-plugin-card": "^1.4.0",
+    "@atlaskit/editor-plugin-card": "^1.5.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.0",
     "@atlaskit/editor-plugin-media": "^1.14.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-tables": "^2.6.0",
-    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-client": "^26.3.0",
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0",
@@ -137,6 +137,9 @@
       "type": "boolean"
     },
     "platform.editor.table.copy-paste-in-bodied-extension": {
+      "type": "boolean"
+    },
+    "platform.editor.extractlistfromparagraphv2": {
       "type": "boolean"
     }
   }

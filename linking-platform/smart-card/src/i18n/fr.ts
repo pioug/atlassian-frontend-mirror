@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Ajouter un compte',
   'fabric.linking.ai_summarize': 'Résumer',
   'fabric.linking.ai_summarized': 'Résumé par Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Résumé par AI',
   'fabric.linking.ai_summarized_info': 'La qualité des informations peut varier. <a>En savoir plus</a>',
   'fabric.linking.ai_summarizing': "Atlassian Intelligence est à l'œuvre…",
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    "Impossible d'afficher les résultats de ce résumé, car cela va à l'encontre de la <a>politique d'utilisation acceptable d'Atlassian</a>.",
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence ne peut pas fournir de réponse actuellement. Consultez <a>notre documentation de support</a> pour en savoir plus.',
   'fabric.linking.assigned_to': 'Assigné à {context}',
+  'fabric.linking.beta': 'Bêta',
   'fabric.linking.cancel': 'Annuler',
   'fabric.linking.cannot_connect': 'Connexion impossible, réessayez',
   'fabric.linking.cannot_find_link': 'Le lien est introuvable',

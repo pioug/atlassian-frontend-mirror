@@ -7,6 +7,9 @@
  */
 //Russian
 export default {
+  'linkDataSource.accessInstructions': 'Запросите доступ у администратора сайта.',
+  'linkDataSource.accessRequired': 'У вас нет доступа к этому контенту',
+  'linkDataSource.accessRequiredWithSite': 'У вас нет доступа к следующему сайту:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Описание синтаксиса',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Поиск с помощью AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Выберите схему',
@@ -17,7 +20,6 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Начните вводить текст или используйте AQL для поиска.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Поиск объектов',
-  'linkDataSource.assets.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Вставить объект} few {Вставить объекты} many {Вставить объекты} other {Вставить объекты}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставить объекты из',
@@ -33,17 +35,32 @@ export default {
   'linkDataSource.basic-filter.showMoreButton': 'Развернуть',
   'linkDataSource.basic-filter.status.label': 'Статус',
   'linkDataSource.basic-filter.type.label': 'Тип',
+  'linkDataSource.checkConnection':
+    'Проверьте подключение к Интернету и обновите страницу или повторите попытку позже.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1':
     'Ваш поисковый запрос дал слишком много результатов.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2':
     'Укажите более точные ключевые слова и повторите попытку.',
   'linkDataSource.column-picker.search': 'Поиск полей',
   'linkDataSource.column-picker.tooltip': 'Настроить столбцы',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
+  'linkDataSource.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Вставка списка Confluence',
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставить список Confluence с сайта',
+  'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Вставить результаты',
+  'linkDataSource.confluence-search.configmodal.searchLabel':
+    'Введите ключевые слова для поиска страниц, вложений и другого содержимого',
+  'linkDataSource.confluence-search.no.confluence.sites.access.description':
+    'Чтобы запросить доступ, обратитесь к администратору.',
+  'linkDataSource.confluence-search.no.confluence.sites.access.title': 'У вас нет доступа к сайтам Confluence',
   'linkDataSource.datasource.table.authConnectButtonText': 'Подключить',
   'linkDataSource.datasource.table.authScreenDescriptionText':
     'Подключите свой аккаунт {providerName} для совместной работы в продуктах Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Подключите свой аккаунт {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Подробнее об интеллектуальных ссылках.',
+  'linkDataSource.issue-line-table.unwrap-text': 'Не переносить текст',
+  'linkDataSource.issue-line-table.wrap-text': 'Переносить текст',
   'linkDataSource.jira-issues.accessInstructions': 'Запросите доступ у администратора сайта.',
   'linkDataSource.jira-issues.accessRequired': 'У вас нет доступа к этому контенту',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'У вас нет доступа к следующему сайту:',
@@ -55,7 +72,6 @@ export default {
     'Для этого запроса невозможно переключиться на базовый режим поиска.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Базовый',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
-  'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Выберите сайт',
   'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
     'Отображение количества результатов поиска или встроенной интеллектуальной ссылки',
@@ -68,24 +84,38 @@ export default {
   'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
     'Отображение результатов поиска в Jira в виде таблицы',
   'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Таблица',
+  'linkDataSource.jira-issues.learnMoreLink': 'Подробнее о поиске с помощью JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description': 'Чтобы запросить доступ, обратитесь к администратору.',
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'У вас нет доступа к сайтам Jira',
   'linkDataSource.jira-issues.noResultsFound': 'Ничего не найдено',
   'linkDataSource.jira-issues.refresh': 'Обновить',
+  'linkDataSource.jira-issues.searchDescription-basic': 'Поиск задач для вставки по ключевым словам.',
+  'linkDataSource.jira-issues.searchDescription-jql': 'Используйте JQL (Jira Query Language) для поиска задач.',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Поиск задач Jira',
   'linkDataSource.jira-issues.unableToLoadItems': 'Не удалось загрузить элементы',
   'linkDataSource.jira-issues.unableToLoadResults': 'Не удалось загрузить результаты',
   'linkDataSource.modal-initial-state.beta': 'Бета-версия',
+  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Поиск страниц Confluence',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Поиск задач Jira',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Подробнее о поиске с помощью JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic': 'Поиск задач для вставки по ключевым словам.',
+  'linkDataSource.modal-initial-state.searchDescription-confluence': 'Ищите страницы для вставки по ключевым словам.',
   'linkDataSource.modal-initial-state.searchDescription-jql': 'Используйте JQL (Jira Query Language) для поиска задач.',
   'linkDataSource.modal-initial-state.searchTitle': 'Поиск задач Jira',
+  'linkDataSource.no.jira.sites.access.description': 'Чтобы запросить доступ, обратитесь к администратору.',
+  'linkDataSource.no.jira.sites.access.title': 'У вас нет доступа к сайтам Jira',
+  'linkDataSource.noResultsFound': 'Ничего не найдено',
+  'linkDataSource.refresh': 'Обновить',
   'linkDataSource.render-type.boolean.false': 'Нет',
   'linkDataSource.render-type.boolean.true': 'Да',
   'linkDataSource.render-type.user.default.display.name': 'Не назначено',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Выберите сайт',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронизировано только что',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронизировано {date}',
   'linkDataSource.table-footer.item':
     '{itemCount, plural, one {элемент} few {элемента} many {элементов} other {элемента}}',
   'linkDataSource.table-footer.loading': 'Загрузка…',
   'linkDataSource.table-footer.refresh': 'Обновить',
+  'linkDataSource.unableToLoadItems': 'Не удалось загрузить элементы',
+  'linkDataSource.unableToLoadResults': 'Не удалось загрузить результаты',
 };

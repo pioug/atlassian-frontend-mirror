@@ -275,7 +275,7 @@ export default class Example extends React.Component<Props, State> {
         product: 'editor-core example',
         subProduct: 'collab provider example',
       },
-      featureFlags: { testFF: false, testAF: true, catchupv2: true },
+      featureFlags: { testFF: false, testAF: true },
       __livePage: this.state.__livePage,
     });
 
@@ -358,6 +358,7 @@ export default class Example extends React.Component<Props, State> {
               <FullPageComposableEditor
                 __livePage={this.state.__livePage}
                 appearance="full-page"
+                allowBreakout={true}
                 allowStatus={true}
                 allowAnalyticsGASV3={true}
                 allowExpand={{

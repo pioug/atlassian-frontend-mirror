@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 26.3.0
+
+### Minor Changes
+
+- [#87494](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87494) [`050f1e462e17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/050f1e462e17) - Added Get Binary endpoint to Media API class
+
 ## 26.2.3
 
 ### Patch Changes

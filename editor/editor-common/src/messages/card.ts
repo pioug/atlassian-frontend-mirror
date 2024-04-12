@@ -135,4 +135,17 @@ export const messages = defineMessages({
     description:
       'An overlay shown when hover over inline smart link to inform user that they can click the link to edit the links appearance.',
   },
+  datasourceConfluenceSearch: {
+    id: 'fabric.editor.datasource.confluenceSearch',
+    defaultMessage: 'Insert Confluence list',
+    description:
+      'Title shown for Confluence Search datasource on QuickInsert options',
+  },
+  datasourceConfluenceSearchDescription: {
+    id: 'fabric.editor.datasource.confluenceSearch.description',
+    defaultMessage:
+      'Insert list of search results from Confluence with enhanced search, filtering, and configuration.',
+    description:
+      'Description text displayed when selecting the type of data to include onto the page, in this case: Confluence Search objects',
+  },
 });

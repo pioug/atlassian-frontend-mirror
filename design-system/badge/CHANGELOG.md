@@ -1,5 +1,13 @@
 # @atlaskit/badge
 
+## 16.0.0
+
+### Major Changes
+
+- [#88033](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88033) [`8c3fac87dcc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c3fac87dcc9) - Badge now sets specific font size, line height, font style, and font family properties under the hood. If you previously had Badge wrapped with elements like `<em>` or `<strong>` that specify font style or font weight properties, there will be a visual difference as these styles are overriden within Badge. Avoid wrapping Badge in elements that modify text properties.
+
+  If you need to preserve these styles, wrap the children of Badge instead, for example: `<Badge><em>1</em></Badge>`. Please note however this is not fully supported and will not work with the `max` prop.
+
 ## 15.3.0
 
 ### Minor Changes

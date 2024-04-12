@@ -240,6 +240,8 @@ export interface MediaApi {
     params?: MediaStoreGetFileImageParams,
   ) => string;
 
+  getFileBinary: (id: string, collectionName?: string) => Promise<Blob>;
+
   getFileBinaryURL: (id: string, collectionName?: string) => Promise<string>;
 
   getArtifactURL: (

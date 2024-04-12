@@ -2,6 +2,7 @@ import * as mocks from './avatar-picker-dialogSpec.mock';
 import React from 'react';
 import { ModalFooter } from '@atlaskit/modal-dialog';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
+import Textfield from '@atlaskit/textfield';
 import { Avatar } from '../../avatar-list';
 import { ImageNavigator } from '../../image-navigator';
 import { PredefinedAvatarList } from '../../predefined-avatar-list';
@@ -13,12 +14,13 @@ import {
 import { PredefinedAvatarView } from '../../predefined-avatar-view';
 import {
   Mode,
-  AvatarPickerDialogProps,
+  AvatarPickerDialogPropsNoAlt,
   AvatarPickerDialogState,
+  AvatarPickerDialogPropsAlt,
 } from '../../avatar-picker-dialog/types';
 
 describe('Avatar Picker Dialog', () => {
-  const renderWithProps = (props: Partial<AvatarPickerDialogProps>) => {
+  const renderWithProps = (props: Partial<AvatarPickerDialogPropsNoAlt>) => {
     const component = mountWithIntlContext(
       <AvatarPickerDialog
         avatars={[{ dataURI: 'http://an.avatar.com/453' }]}
@@ -372,5 +374,187 @@ describe('Avatar Picker Dialog', () => {
     const heading = component.find('h1');
 
     expect(modal.prop('aria-labelledby')).toBe(heading.prop('id'));
+  });
+
+  describe('Alt text required', () => {
+    const renderWithPropsAlt = (props: Partial<AvatarPickerDialogPropsAlt>) => {
+      const component = mountWithIntlContext(
+        <AvatarPickerDialog
+          avatars={[{ dataURI: 'http://an.avatar.com/453' }]}
+          onAvatarPicked={jest.fn()}
+          onImagePicked={jest.fn()}
+          onImagePickedDataURI={jest.fn()}
+          onCancel={jest.fn()}
+          requireAltText={true}
+          {...props}
+        />,
+      );
+
+      // when you pass an image it normally renders the image (which triggers load event and selectedImage back-propagation)...
+      // since we are rendering in js-dom, we have to force the load mechanism
+
+      if (props.imageSource) {
+        updateComponentWithNewImage(component);
+      }
+      return component;
+    };
+
+    const testAltText: string = 'test alt text';
+
+    it('when alt text has been specified and save button is clicked, onImagePicked should be called', () => {
+      const onImagePicked = jest.fn();
+
+      const component: any = renderWithPropsAlt({
+        onImagePicked,
+        imageSource: smallImage,
+      });
+
+      // Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
+      const croppedImgDataURI = 'data:image/meme;based64:w0w';
+      component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
+
+      // Update alt text Textfield
+      const event = { currentTarget: { value: testAltText } };
+      component.find(Textfield).props().onChange(event);
+
+      component.find('form').simulate('submit');
+
+      expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
+      expect(onImagePicked.mock.calls[0][2]).toEqual(testAltText);
+    });
+
+    it('when save button is clicked, onImagePicked should be called with predefined alt text', () => {
+      const onImagePicked = jest.fn();
+
+      const component: any = renderWithPropsAlt({
+        onImagePicked,
+        imageSource: smallImage,
+        imageSourceAltText: testAltText,
+      });
+
+      // Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
+      const croppedImgDataURI = 'data:image/meme;based64:w0w';
+      component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
+
+      component.find('form').simulate('submit');
+
+      expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
+      expect(onImagePicked.mock.calls[0][2]).toEqual(testAltText);
+    });
+
+    it('when alt text has been specified and save button is clicked, onImagePickedDataURI should be called', () => {
+      const onImagePickedDataURI = jest.fn();
+
+      const component: any = renderWithPropsAlt({
+        onImagePickedDataURI,
+        imageSource: smallImage,
+      });
+
+      // Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
+      const croppedImgDataURI = 'data:image/meme;based64:w0w';
+      component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
+
+      // Update alt text Textfield
+      const event = { currentTarget: { value: testAltText } };
+      component.find(Textfield).props().onChange(event);
+
+      component.find('form').simulate('submit');
+
+      expect(onImagePickedDataURI.mock.calls[0][0]).toEqual(croppedImgDataURI);
+      expect(onImagePickedDataURI.mock.calls[0][1]).toEqual(testAltText);
+    });
+
+    it('when save button is clicked, onImagePickedDataURI should be called with predefined alt text', () => {
+      const onImagePickedDataURI = jest.fn();
+
+      const component: any = renderWithPropsAlt({
+        onImagePickedDataURI,
+        imageSource: smallImage,
+        imageSourceAltText: testAltText,
+      });
+
+      // Stub internal function to facilitate shallow testing of `onImagePickedDataURI`
+      const croppedImgDataURI = 'data:image/meme;based64:w0w';
+      component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
+
+      component.find('form').simulate('submit');
+
+      expect(onImagePickedDataURI.mock.calls[0][0]).toEqual(croppedImgDataURI);
+      expect(onImagePickedDataURI.mock.calls[0][1]).toEqual(testAltText);
+    });
+
+    it('when save button is clicked, onAvatarPicked should be called with predefined alt text', () => {
+      const selectedAvatar: Avatar = {
+        dataURI: 'http://an.avatar.com/453',
+        name: testAltText,
+      };
+      const avatars = [selectedAvatar];
+      const onAvatarPicked = jest.fn();
+
+      const component = renderWithPropsAlt({ avatars, onAvatarPicked });
+      const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
+      onAvatarSelected(selectedAvatar);
+
+      component.find('form').simulate('submit');
+
+      expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
+      expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
+    });
+
+    it('when custom alt text has been specified and save button is clicked, onAvatarPicked should be called with custom alt text', () => {
+      const predefinedAltText = 'avatar-453';
+      const selectedAvatar: Avatar = {
+        dataURI: 'http://an.avatar.com/453',
+        name: predefinedAltText,
+      };
+      const avatars = [selectedAvatar];
+      const onAvatarPicked = jest.fn();
+
+      const component = renderWithPropsAlt({ avatars, onAvatarPicked });
+      const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
+      onAvatarSelected(selectedAvatar);
+
+      // Update alt text Textfield
+      const event = { currentTarget: { value: testAltText } };
+      component.find(Textfield).props().onChange(event);
+
+      component.find('form').simulate('submit');
+
+      expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
+      expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
+    });
+
+    it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called with predefined alt text', () => {
+      const selectedAvatar: Avatar = {
+        dataURI: 'http://an.avatar.com/453',
+        name: testAltText,
+      };
+      const avatars = [selectedAvatar];
+      const onAvatarPicked = jest.fn();
+      const component = renderWithPropsAlt({
+        avatars,
+        defaultSelectedAvatar: selectedAvatar,
+        onAvatarPicked,
+      });
+      component.find('form').simulate('submit');
+
+      expect(onAvatarPicked.mock.calls[0][0]).toEqual(selectedAvatar);
+      expect(onAvatarPicked.mock.calls[0][1]).toEqual(testAltText);
+    });
+
+    it('should allow save with selected image passed as default', () => {
+      const onAvatarPicked = jest.fn();
+      const onImagePicked = jest.fn();
+      const onImagePickedDataURI = jest.fn();
+      const component = renderWithPropsAlt({
+        imageSource: smallImage,
+      });
+      component.find('form').simulate('submit');
+      expect(onAvatarPicked).not.toHaveBeenCalled();
+      expect(onImagePicked).not.toHaveBeenCalled();
+      expect(onImagePickedDataURI).not.toHaveBeenCalled();
+
+      expect(component.find('#avatar-picker-error')).toHaveLength(0);
+    });
   });
 });

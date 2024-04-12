@@ -1,6 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
-import Basic from '../../examples/basic';
+import Basic from '../../examples/test-vr-basic';
 
 snapshot(Basic, {
   variants: [

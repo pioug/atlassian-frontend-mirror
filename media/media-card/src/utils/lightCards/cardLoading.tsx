@@ -16,7 +16,7 @@ export class CardLoading extends Component<StaticCardProps, {}> {
         data-test-loading
         dimensions={dimensions}
       >
-        <SpinnerIcon />
+        <SpinnerIcon interactionName="media-card-loading" />
       </Wrapper>
     );
   }

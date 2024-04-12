@@ -80,9 +80,12 @@ describe('#sendData', () => {
     jest.runOnlyPendingTimers();
   });
 
-  it('triggers catchup on processSteps failure', () => {
-    // @ts-ignore
-    const catchupSpy = jest.spyOn(provider.documentService as any, 'catchup');
+  it('catchupv2 : triggers catchupv2 on processSteps failure', () => {
+    const catchupv2Spy = jest.spyOn(
+      // @ts-ignore
+      provider.documentService as any,
+      'catchupv2',
+    );
 
     //@ts-expect-error private method call but it's okay we're testing
     provider.documentService.processSteps({
@@ -113,8 +116,8 @@ describe('#sendData', () => {
       source: 'unknown',
       tags: ['editor'],
     });
-    expect(catchupSpy).toHaveBeenCalledTimes(1);
-    expect(catchupSpy).toBeCalledWith();
+    expect(catchupv2Spy).toHaveBeenCalledTimes(1);
+    expect(catchupv2Spy).toBeCalledWith();
   });
 
   it('broadcasts message to steps:commit when there are sendable steps', () => {

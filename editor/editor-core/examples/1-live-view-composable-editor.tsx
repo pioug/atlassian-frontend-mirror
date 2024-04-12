@@ -95,12 +95,7 @@ function ComposableEditorPage() {
 
   // Memoise the preset otherwise we will re-render the editor too often
   const { preset, editorApi } = usePreset(() => {
-    return universalPreset
-      .add([
-        editorViewModePlugin,
-        { mode: isLiveViewToggled ? 'edit' : 'view' },
-      ])
-      .add(selectionMarkerPlugin);
+    return universalPreset.add(editorViewModePlugin).add(selectionMarkerPlugin);
     // The only things that cause a re-creation of the preset is something in the
     // universal preset to be consistent with current behaviour (ie. this could
     // be a page width change via the `appearance` prop).

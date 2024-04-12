@@ -13,9 +13,15 @@ export default {
   'fabric.linking.add_account': 'アカウントを追加',
   'fabric.linking.ai_summarize': '要約',
   'fabric.linking.ai_summarized': 'Atlassian Intelligence による要約',
+  'fabric.linking.ai_summarized_abbreviation': 'AI による要約',
   'fabric.linking.ai_summarized_info': '情報の質は異なる場合があります。<a>詳細をご確認ください</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence が作動中...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'この要約の結果は、<a>アトラシアンの利用規定</a>に反するため、表示できません。',
+  'fabric.linking.ai_summary_error_generic':
+    '現在 Atlassian Intelligence は回答を提供できません。詳細は<a>サポート ドキュメント</a>でご確認ください。',
   'fabric.linking.assigned_to': '割り当て先: {context}',
+  'fabric.linking.beta': 'ベータ版',
   'fabric.linking.cancel': 'キャンセル',
   'fabric.linking.cannot_connect': '接続できません、もう一度お試しください。',
   'fabric.linking.cannot_find_link': 'リンクが見つかりません。',

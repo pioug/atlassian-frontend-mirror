@@ -1,16 +1,16 @@
 /**@jsx jsx */
 /* eslint-disable no-console */
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import { ModalTransition } from '@atlaskit/modal-dialog';
-import {
-  Avatar,
-  AvatarPickerDialog,
-  AsyncAvatarPickerDialogProps,
-} from '../src';
+import { Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
 import { layoutStyles } from './styles';
+import {
+  AvatarPickerDialogPropsAlt,
+  AvatarPickerDialogPropsNoAlt,
+} from '../src/avatar-picker-dialog/types';
 
 const avatars: Array<Avatar> = generateAvatars(30);
 
@@ -19,10 +19,32 @@ export interface State {
   imagePreviewSourceViaFileAPI: string;
   imagePreviewSourceViaDataURIAPI: string;
   isLoading: boolean;
+  altText: string;
 }
 
+type AsyncAvatarPickerDialogPropsNoAlt = AvatarPickerDialogPropsNoAlt & {
+  placeholder?: ReactNode;
+};
+
+type AsyncAvatarPickerDialogPropsAlt = AvatarPickerDialogPropsAlt & {
+  placeholder?: ReactNode;
+};
+
+type StatefulAvatarPickerDialogPropsToOmit =
+  | 'avatars'
+  | 'onAvatarPicked'
+  | 'onImagePicked'
+  | 'onImagePickedDataURI'
+  | 'onCancel'
+  | 'isLoading'
+  | 'predefinedAvatarsText';
+
 export default class StatefulAvatarPickerDialog extends React.Component<
-  Partial<AsyncAvatarPickerDialogProps>,
+  | Partial<AsyncAvatarPickerDialogPropsNoAlt>
+  | Omit<
+      AsyncAvatarPickerDialogPropsAlt,
+      StatefulAvatarPickerDialogPropsToOmit
+    >,
   State
 > {
   timeoutId: number = 0;
@@ -33,6 +55,7 @@ export default class StatefulAvatarPickerDialog extends React.Component<
     imagePreviewSourceViaFileAPI: '',
     imagePreviewSourceViaDataURIAPI: '',
     isLoading: false,
+    altText: '',
   };
 
   componentWillUnmount() {
@@ -75,40 +98,75 @@ export default class StatefulAvatarPickerDialog extends React.Component<
     }, 2000);
   };
 
+  setAltText = (altText: string) => {
+    this.setState({ altText });
+  };
+
   renderPicker() {
     const { isOpen, isLoading } = this.state;
-    return (
-      <ModalTransition>
-        {isOpen && (
-          <AvatarPickerDialog
-            avatars={avatars}
-            onAvatarPicked={(selectedAvatar) => {
-              console.log('onAvatarPicked:', selectedAvatar);
-              this.saveDataURI(selectedAvatar.dataURI);
-            }}
-            onImagePicked={(selectedImage, crop) => {
-              console.log('onImagePicked:', selectedImage, crop);
-              this.setIsLoading();
-              this.saveFileAndCrop(selectedImage);
-            }}
-            onImagePickedDataURI={(exportedImg) => {
-              console.log('onImagePickedDataURI: ', { dataURI: exportedImg });
-              this.setIsLoading();
-              this.saveDataURI(exportedImg);
-            }}
-            onCancel={this.closePicker}
-            isLoading={isLoading}
-            predefinedAvatarsText="Default icons"
-            {...this.props}
-          />
-        )}
-      </ModalTransition>
+    const { requireAltText } = this.props;
+
+    const avatarPickerDialog = requireAltText ? (
+      <AvatarPickerDialog
+        avatars={avatars}
+        onAvatarPicked={(selectedAvatar, altText) => {
+          console.log('onAvatarPicked:', selectedAvatar);
+          this.saveDataURI(selectedAvatar.dataURI);
+          this.setAltText(altText);
+        }}
+        onImagePicked={(selectedImage, crop, altText) => {
+          console.log('onImagePicked:', selectedImage, crop);
+          this.setIsLoading();
+          this.saveFileAndCrop(selectedImage);
+          this.setAltText(altText);
+        }}
+        onImagePickedDataURI={(exportedImg, altText) => {
+          console.log('onImagePickedDataURI: ', { dataURI: exportedImg });
+          this.setIsLoading();
+          this.saveDataURI(exportedImg);
+          this.setAltText(altText);
+        }}
+        onCancel={this.closePicker}
+        isLoading={isLoading}
+        predefinedAvatarsText="Default icons"
+        {...this.props}
+        requireAltText={true}
+      />
+    ) : (
+      <AvatarPickerDialog
+        avatars={avatars}
+        onAvatarPicked={(selectedAvatar) => {
+          console.log('onAvatarPicked:', selectedAvatar);
+          this.saveDataURI(selectedAvatar.dataURI);
+        }}
+        onImagePicked={(selectedImage, crop) => {
+          console.log('onImagePicked:', selectedImage, crop);
+          this.setIsLoading();
+          this.saveFileAndCrop(selectedImage);
+        }}
+        onImagePickedDataURI={(exportedImg) => {
+          console.log('onImagePickedDataURI: ', { dataURI: exportedImg });
+          this.setIsLoading();
+          this.saveDataURI(exportedImg);
+        }}
+        onCancel={this.closePicker}
+        isLoading={isLoading}
+        predefinedAvatarsText="Default icons"
+        {...this.props}
+      />
     );
+
+    return <ModalTransition>{isOpen && avatarPickerDialog}</ModalTransition>;
   }
 
   render() {
-    const { imagePreviewSourceViaDataURIAPI, imagePreviewSourceViaFileAPI } =
-      this.state;
+    const {
+      imagePreviewSourceViaDataURIAPI,
+      imagePreviewSourceViaFileAPI,
+      altText,
+    } = this.state;
+
+    const { requireAltText } = this.props;
 
     return (
       <div css={layoutStyles}>
@@ -120,12 +178,14 @@ export default class StatefulAvatarPickerDialog extends React.Component<
           <React.Fragment>
             <p>onImagePickedDataURI(dataUri: string)</p>
             <img src={imagePreviewSourceViaDataURIAPI} />
+            {requireAltText && <p>Alt text: {altText}</p>}
           </React.Fragment>
         ) : null}
         {imagePreviewSourceViaFileAPI !== '' ? (
           <React.Fragment>
             <p>onImagePicked(selectedImage: File, crop: CropProperties)</p>
             <img src={imagePreviewSourceViaFileAPI} />
+            {requireAltText && <p>Alt text: {altText}</p>}
           </React.Fragment>
         ) : null}
       </div>

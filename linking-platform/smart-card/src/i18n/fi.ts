@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Lisää tili',
   'fabric.linking.ai_summarize': 'Tee yhteenveto',
   'fabric.linking.ai_summarized': 'Atlassian Intelligence loi yhteenvedon',
+  'fabric.linking.ai_summarized_abbreviation': 'Yhteenvedon loi AI',
   'fabric.linking.ai_summarized_info': 'Tietojen laatu voi vaihdella. <a>Lue lisää.</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence työssä...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Tämän yhteenvedon tuloksia ei voida näyttää, sillä se ei noudata <a>Atlassianin hyväksyttävän käytön käytäntöä</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence ei pysty tarjoamaan vastausta juuri nyt. Lue lisää <a>tukidokumentaatiostamme</a>.',
   'fabric.linking.assigned_to': 'Määrätty käyttäjälle {context}',
+  'fabric.linking.beta': 'Beeta',
   'fabric.linking.cancel': 'Peruuta',
   'fabric.linking.cannot_connect': 'Ei voi muodostaa yhteyttä, yritä uudelleen',
   'fabric.linking.cannot_find_link': 'Linkkiä ei löydy',

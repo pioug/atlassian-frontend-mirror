@@ -2,7 +2,6 @@ import { ActionName } from '../../../../constants';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import React, { useContext } from 'react';
-import Action from './action';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../messages';
 import ViewAction from './action/view-action';
@@ -11,10 +10,6 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 const actionMappings: {
   [key in ActionName]?: { component: React.FC<any> | undefined; props?: any };
 } = {
-  [ActionName.CustomAction]: {
-    component: Action,
-    props: {},
-  },
   [ActionName.ViewAction]: {
     component: ViewAction,
     props: {
@@ -68,18 +63,5 @@ export const createDataAction = <P extends {}>(
     return data && typeof data === 'object' ? (
       <BaseAction {...props} {...data} {...overrides} url={context?.url} />
     ) : null;
-  };
-};
-
-export const createUIAction = <P extends {}>(name: ActionName): React.FC<P> => {
-  const { component: BaseAction, props } = actionMappings[name] || {};
-
-  if (!BaseAction) {
-    throw Error(`Action ${name} does not exist.`);
-  }
-
-  return (overrides: P) => {
-    const combinedProps = { ...props, ...overrides };
-    return <BaseAction {...combinedProps} />;
   };
 };

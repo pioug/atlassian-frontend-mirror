@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.4.1
+
+### Patch Changes
+
+- [#88717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88717) [`d92770eae702`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d92770eae702) - Adding internal eslint opt outs for a new rule `@atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop`.
+
 ## 66.4.0
 
 ### Minor Changes

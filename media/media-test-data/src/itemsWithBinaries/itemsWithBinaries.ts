@@ -2,20 +2,23 @@ import { FileItemGenerator, generateSampleFileItem } from '../sampleFileItems';
 
 import { artifactSets } from './artifactSets';
 import { createItemWithBinaries } from './createItemWithBinaries';
-import { GeneratedItemWithBinaries } from './types';
+import { ArtifactsSet, GeneratedItemWithBinaries } from './types';
 
 interface ItemWithBinariesGenerator {
-  (): GeneratedItemWithBinaries;
+  (): Promise<GeneratedItemWithBinaries>;
 }
 
 const createItemWithBinariesGenerator =
   (
     fileItemGenerator: FileItemGenerator,
-    artifactsUri: Record<string, string>,
+    artifactsSet: ArtifactsSet,
   ): ItemWithBinariesGenerator =>
-  () => {
+  async () => {
     const [fileItem, identifier] = fileItemGenerator();
-    const itemWithBinaries = createItemWithBinaries(fileItem, artifactsUri);
+    const itemWithBinaries = await createItemWithBinaries(
+      fileItem,
+      artifactsSet,
+    );
     return [itemWithBinaries, identifier];
   };
 

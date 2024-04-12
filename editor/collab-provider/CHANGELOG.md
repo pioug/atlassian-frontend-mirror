@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 9.26.0
+
+### Minor Changes
+
+- [#89336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89336) [`430f6dfcbd65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/430f6dfcbd65) - ESS-4579: add reason to cr fallback
+
+### Patch Changes
+
+- [#89223](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89223) [`0daf47d3f6d6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0daf47d3f6d6) - Remove catchupv2 FE FF
+
 ## 9.25.15
 
 ### Patch Changes

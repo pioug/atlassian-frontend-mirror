@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': '계정 추가',
   'fabric.linking.ai_summarize': '요약',
   'fabric.linking.ai_summarized': 'Atlassian Intelligence가 요약했습니다',
+  'fabric.linking.ai_summarized_abbreviation': 'AI로 요약',
   'fabric.linking.ai_summarized_info': '정보 품질은 다를 수 있습니다. <a>자세히 알아보기</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence가 작동하는 중입니다...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    '<a>Atlassian의 사용 제한 정책</a> 위반에 해당하므로 이 요약의 결과를 표시할 수 없습니다.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence가 지금 응답을 제공할 수 없습니다. <a>지원 설명서</a>에서 자세히 읽어보세요.',
   'fabric.linking.assigned_to': '{context} 님에게 할당',
+  'fabric.linking.beta': '베타',
   'fabric.linking.cancel': '취소',
   'fabric.linking.cannot_connect': '연결할 수 없습니다. 다시 시도하세요',
   'fabric.linking.cannot_find_link': '링크를 찾을 수 없음',

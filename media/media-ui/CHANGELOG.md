@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 25.7.0
+
+### Minor Changes
+
+- [#86221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86221) [`3d897cbc0397`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d897cbc0397) - [ux] Adds a mechanism for user to enter alt text in avatar picker
+
 ## 25.6.1
 
 ### Patch Changes

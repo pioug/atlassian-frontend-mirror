@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Aggiungi account',
   'fabric.linking.ai_summarize': 'Riassumi',
   'fabric.linking.ai_summarized': 'Riepilogo fornito da Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Sintetizzato da AI',
   'fabric.linking.ai_summarized_info': 'La qualità delle informazioni può variare. <a>Scopri di più</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence sta lavorando...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Non possiamo mostrare i risultati di questo riepilogo in quanto sono contrari ai <a>Termini di utilizzo accettabile di Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence non è in grado di fornire una risposta in questo momento. Scopri di più nella nostra <a>documentazione di assistenza</a>.',
   'fabric.linking.assigned_to': 'Assegnato a {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annulla',
   'fabric.linking.cannot_connect': 'Impossibile connettersi, riprova',
   'fabric.linking.cannot_find_link': 'Impossibile trovare il link',

@@ -29,6 +29,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./messages": "./src/messages.ts",
     "./types": "./src/types.ts"
   },

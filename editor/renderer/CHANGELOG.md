@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 109.16.1
+
+### Patch Changes
+
+- [#88763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88763) [`9fcd30347b0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcd30347b0c) - [ux] Removed annotation styling for media in editor and renderer
+- Updated dependencies
+
+## 109.16.0
+
+### Minor Changes
+
+- [#89299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89299) [`b462593ddae0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b462593ddae0) - [ED-22909] Update AnnotationRangeDispatchContext with actions to set and clear draft range for hover component
+
+### Patch Changes
+
+- [#89269](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89269) [`78ee8b68398b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78ee8b68398b) - Add onClick functionality to comment badge renderer
+- Updated dependencies
+
 ## 109.15.3
 
 ### Patch Changes

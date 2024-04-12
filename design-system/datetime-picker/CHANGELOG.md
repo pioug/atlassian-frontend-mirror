@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 13.3.1
+
+### Patch Changes
+
+- [#88752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88752) [`08f18fa02605`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08f18fa02605) - [ux] Update calendar dependency
+- Updated dependencies
+
+## 13.3.0
+
+### Minor Changes
+
+- [#68248](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68248) [`22e0fd4f6694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/22e0fd4f6694) - Move the onBlur event from the input to the input container in `DatePicker`.
+  Add the type `aria-describedby` in to Field component.
+
 ## 13.2.3
 
 ### Patch Changes

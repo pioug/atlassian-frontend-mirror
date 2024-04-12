@@ -3,12 +3,12 @@ import React from 'react';
 import { WithEditorActions } from '../src';
 
 const useDiffWorker = () => {
-  let workerFile: string | null;
+  let workerFile: URL | string | null = null;
 
-  try {
-    workerFile = require('worker-plugin/loader!prosemirror-dev-tools/json-diff.worker');
-  } catch (err) {
-    workerFile = null;
+  if (!process.env.IS_RSPACK) {
+    try {
+      workerFile = require('worker-plugin/loader!prosemirror-dev-tools/json-diff.worker');
+    } catch (err) {}
   }
 
   return React.useMemo(

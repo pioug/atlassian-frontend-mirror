@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Tilføj konto',
   'fabric.linking.ai_summarize': 'Opsummer',
   'fabric.linking.ai_summarized': 'Opsummeret af Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Opsummeret af AI',
   'fabric.linking.ai_summarized_info': 'Informationskvaliteten kan variere. <a>Få mere at vide</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence arbejder ...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Vi kan ikke vise resultaterne af denne oversigt, da det er i strid med <a>Atlassians politik for acceptabel brug</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence kan ikke give et svar lige nu. Læs mere <a>i vores supportdokumentation</a>.',
   'fabric.linking.assigned_to': 'Tildelt til {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annuller',
   'fabric.linking.cannot_connect': 'Kan ikke oprette forbindelse. Prøv igen.',
   'fabric.linking.cannot_find_link': 'Kan ikke finde linket',

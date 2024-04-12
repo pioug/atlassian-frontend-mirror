@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "78.24.1",
+  "version": "78.26.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -153,7 +153,8 @@
     "./indentation": "./src/indentation/index.ts",
     "./annotation": "./src/annotation/index.ts",
     "./constants": "./src/link/constants.ts",
-    "./doc-utils": "./src/doc-utils/index.ts"
+    "./doc-utils": "./src/doc-utils/index.ts",
+    "./i18n/*": "./src/i18n/*.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -178,13 +179,13 @@
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-datasource": "^1.26.0",
     "@atlaskit/link-picker": "^1.34.0",
-    "@atlaskit/media-card": "^77.10.0",
-    "@atlaskit/media-client": "^26.2.0",
+    "@atlaskit/media-card": "^77.11.0",
+    "@atlaskit/media-client": "^26.3.0",
     "@atlaskit/media-client-react": "^2.0.0",
     "@atlaskit/media-common": "^11.1.0",
     "@atlaskit/media-file-preview": "^0.5.0",
     "@atlaskit/media-picker": "^66.4.0",
-    "@atlaskit/media-ui": "^25.6.0",
+    "@atlaskit/media-ui": "^25.7.0",
     "@atlaskit/media-viewer": "48.4.4",
     "@atlaskit/mention": "^23.0.0",
     "@atlaskit/menu": "^2.1.0",
@@ -199,7 +200,7 @@
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.1.0",
+    "@atlaskit/tooltip": "^18.2.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",

@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Přidat účet',
   'fabric.linking.ai_summarize': 'Shrnout',
   'fabric.linking.ai_summarized': 'Shrnuto pomocí Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Shrnuto pomocí AI',
   'fabric.linking.ai_summarized_info': 'Kvalita informací se může různit. <a>Další informace</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence pracuje…',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Výsledky tohoto souhrnu nemůžeme zobrazit, protože jsou v rozporu se <a>Zásadami přijatelného používání společnosti Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence momentálně nemůže poskytnout odpověď. Další informace najdete <a>v naší podpůrné dokumentaci</a>.',
   'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Zrušit',
   'fabric.linking.cannot_connect': 'Nelze se připojit, zkuste to znovu.',
   'fabric.linking.cannot_find_link': 'Nepodařilo se najít odkaz.',

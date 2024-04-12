@@ -39,13 +39,19 @@ const DownloadAction: FC<DownloadActionProps> = ({
     }
   }, [analytics, data?.downloadUrl, invoke, onClickCallback]);
 
+  const isStackItem = props.as === 'stack-item';
+  const label = isStackItem ? messages.download_file : messages.download;
+  const tooltipMessage = isStackItem
+    ? messages.download_description
+    : messages.download;
+
   return data ? (
     <Action
-      content={<FormattedMessage {...messages.download} />}
+      content={<FormattedMessage {...label} />}
       icon={<DownloadIcon label="Download" />}
       onClick={onClick}
       testId="smart-action-download-action"
-      tooltipMessage={<FormattedMessage {...messages.download} />}
+      tooltipMessage={<FormattedMessage {...tooltipMessage} />}
       {...data}
       {...props}
     />

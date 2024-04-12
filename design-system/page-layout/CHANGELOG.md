@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 3.1.4
+
+### Patch Changes
+
+- [#89529](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89529) [`70c8a51f46c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70c8a51f46c6) - [ux] Fix grabber overlapping with add table row button for Confluence
+
 ## 3.1.3
 
 ### Patch Changes

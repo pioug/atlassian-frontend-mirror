@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.6.14
+
+### Patch Changes
+
+- [#89135](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89135) [`134b3db4945d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/134b3db4945d) - fix drag menu flicker issue
+
+## 7.6.13
+
+### Patch Changes
+
+- [#88770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88770) [`c86d9e7941f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c86d9e7941f1) - [ux] fixing the numbered columns blue insert line indicator with correct length
+
 ## 7.6.12
 
 ### Patch Changes

@@ -1,0 +1,7 @@
+# @atlaskit/ufo-interaction-ignore
+
+## 1.1.0
+
+### Minor Changes
+
+- [#88895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88895) [`a48b908e2bf6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a48b908e2bf6) - Add integration of React UFO to not hold react-ufo measurement when media is not in viewport

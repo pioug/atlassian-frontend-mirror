@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': '添加帐户',
   'fabric.linking.ai_summarize': '汇总',
   'fabric.linking.ai_summarized': '由 Atlassian Intelligence 汇总',
+  'fabric.linking.ai_summarized_abbreviation': '由 Atlassian Intelligence 汇总',
   'fabric.linking.ai_summarized_info': '信息质量可能有所不同。<a>了解更多</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence 正在运行...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    '无法显示此摘要的结果，因为它违反了 <a>Atlassian 可接受的使用政策</a>。',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence 目前无法提供回复。如需了解更多信息，请参阅<a>我们的支持文档</a>。',
   'fabric.linking.assigned_to': '已分配给 {context}',
+  'fabric.linking.beta': '测试版',
   'fabric.linking.cancel': '取消',
   'fabric.linking.cannot_connect': '无法连接，请重试',
   'fabric.linking.cannot_find_link': '未找到链接',

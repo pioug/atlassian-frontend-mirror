@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/badge",
-  "version": "15.3.0",
+  "version": "16.0.0",
   "description": "A badge is a visual indicator for numeric values such as tallies and scores.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,6 +45,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-explorations": "^3.4.0",
+    "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/primitives": "^5.5.0",
     "@babel/runtime": "^7.0.0"
   },
@@ -91,5 +92,10 @@
     }
   },
   "homepage": "https://atlassian.design/components/badge/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.design-system-team.remove-badge-text-style-inheritance_add9o": {
+      "type": "boolean"
+    }
+  }
 }

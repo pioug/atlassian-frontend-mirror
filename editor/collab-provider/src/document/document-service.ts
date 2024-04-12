@@ -94,6 +94,7 @@ export class DocumentService {
     ) => Promise<Catchupv2Response>,
     private fetchReconcile: (
       currentStateDoc: string,
+      reason: string,
     ) => Promise<ReconcileResponse>,
     private providerEmitCallback: (evt: keyof CollabEvents, data: any) => void,
     private broadcast: <K extends keyof ChannelEvent>(
@@ -106,7 +107,6 @@ export class DocumentService {
     private metadataService: MetadataService,
     private enableErrorOnFailedDocumentApply: boolean = false,
     private reconcileOnRecovery: boolean = false,
-    private enableCatchupv2: boolean = false,
     private options: { __livePage: boolean } = { __livePage: false },
   ) {
     this.stepQueue = new StepQueueState();
@@ -341,11 +341,7 @@ export class DocumentService {
           'Error while processing steps',
         );
 
-        if (this.enableCatchupv2) {
-          this.throttledCatchupv2();
-        } else {
-          this.throttledCatchup();
-        }
+        this.throttledCatchupv2();
       }
     }
   }
@@ -403,11 +399,7 @@ export class DocumentService {
         );
         this.stepQueue.queueSteps(data);
 
-        if (this.enableCatchupv2) {
-          this.throttledCatchupv2();
-        } else {
-          this.throttledCatchup();
-        }
+        this.throttledCatchupv2();
       }
       this.participantsService.updateLastActive(
         data.steps.map(({ userId }: StepJson) => userId),
@@ -457,7 +449,10 @@ export class DocumentService {
 
       // If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
       if (useReconcile && currentState) {
-        await this.fetchReconcile(JSON.stringify(currentState.content));
+        await this.fetchReconcile(
+          JSON.stringify(currentState.content),
+          'fe-restore',
+        );
       } else if (unconfirmedSteps?.length) {
         this.applyLocalSteps(unconfirmedSteps);
       }
@@ -506,6 +501,7 @@ export class DocumentService {
         const currentState = await this.getCurrentState();
         const reconcileResponse = await this.fetchReconcile(
           JSON.stringify(currentState.content),
+          'fe-final-ack',
         );
         finalAcknowledgedState = {
           content: JSON.parse(reconcileResponse.document),
@@ -799,11 +795,7 @@ export class DocumentService {
         EVENT_STATUS.INFO,
       );
 
-      if (this.enableCatchupv2) {
-        this.throttledCatchupv2();
-      } else {
-        this.throttledCatchup();
-      }
+      this.throttledCatchupv2();
     } else {
       // If committing steps failed try again automatically in 1s
       // This makes it more likely that unconfirmed steps trigger a catch-up

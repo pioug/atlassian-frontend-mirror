@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.14
+
+### Patch Changes
+
+- [#87898](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87898) [`6d4009f72e36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d4009f72e36) - [ux] [ED-22591] Fix pasting logic for lines with number and dot (but is not a list item) to retain formatting and correct list conversion.
+- Updated dependencies
+
 ## 1.0.13
 
 ### Patch Changes

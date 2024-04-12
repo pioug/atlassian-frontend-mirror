@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.0.14",
+  "version": "2.0.18",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -212,20 +212,20 @@
     "@atlaskit/editor-plugin-accessibility-utils": "1.0.1",
     "@atlaskit/editor-plugin-alignment": "1.1.5",
     "@atlaskit/editor-plugin-analytics": "1.0.6",
-    "@atlaskit/editor-plugin-annotation": "1.5.7",
+    "@atlaskit/editor-plugin-annotation": "1.5.8",
     "@atlaskit/editor-plugin-avatar-group": "1.0.6",
     "@atlaskit/editor-plugin-base": "1.0.5",
     "@atlaskit/editor-plugin-before-primary-toolbar": "1.0.2",
     "@atlaskit/editor-plugin-better-type-history": "1.0.6",
     "@atlaskit/editor-plugin-block-type": "3.0.33",
     "@atlaskit/editor-plugin-border": "1.0.7",
-    "@atlaskit/editor-plugin-breakout": "1.0.6",
+    "@atlaskit/editor-plugin-breakout": "1.0.7",
     "@atlaskit/editor-plugin-caption": "1.0.5",
-    "@atlaskit/editor-plugin-card": "1.4.4",
+    "@atlaskit/editor-plugin-card": "1.5.0",
     "@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.0.2",
     "@atlaskit/editor-plugin-clipboard": "1.0.2",
     "@atlaskit/editor-plugin-code-bidi-warning": "1.0.2",
-    "@atlaskit/editor-plugin-code-block": "1.1.6",
+    "@atlaskit/editor-plugin-code-block": "1.1.7",
     "@atlaskit/editor-plugin-collab-edit": "1.1.11",
     "@atlaskit/editor-plugin-composition": "1.0.1",
     "@atlaskit/editor-plugin-content-insertion": "1.0.6",
@@ -259,10 +259,10 @@
     "@atlaskit/editor-plugin-list": "3.1.16",
     "@atlaskit/editor-plugin-loom": "2.0.0",
     "@atlaskit/editor-plugin-max-content-size": "1.0.2",
-    "@atlaskit/editor-plugin-media": "1.14.2",
+    "@atlaskit/editor-plugin-media": "1.14.3",
     "@atlaskit/editor-plugin-mentions": "1.0.8",
     "@atlaskit/editor-plugin-panel": "1.0.9",
-    "@atlaskit/editor-plugin-paste": "1.0.13",
+    "@atlaskit/editor-plugin-paste": "1.0.14",
     "@atlaskit/editor-plugin-paste-options-toolbar": "1.0.3",
     "@atlaskit/editor-plugin-placeholder": "1.0.3",
     "@atlaskit/editor-plugin-placeholder-text": "1.0.7",
@@ -275,7 +275,7 @@
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.2",
     "@atlaskit/editor-plugin-status": "1.0.6",
     "@atlaskit/editor-plugin-submit-editor": "1.0.2",
-    "@atlaskit/editor-plugin-table": "7.6.12",
+    "@atlaskit/editor-plugin-table": "7.6.14",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.7",
     "@atlaskit/editor-plugin-text-color": "1.0.6",
     "@atlaskit/editor-plugin-text-formatting": "1.3.3",
@@ -523,9 +523,17 @@
       "type": "boolean",
       "referenceOnly": true
     },
+    "platform.editor.table.background-color-flicker-in-drag-menu": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
     "platform.editor.single-player-expand": {
       "type": "boolean",
       "referenceOnly": true
+    },
+    "platform.editor.extractlistfromparagraphv2": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

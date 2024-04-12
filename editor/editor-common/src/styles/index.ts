@@ -19,7 +19,6 @@ export {
   BlockAnnotationSharedClassNames,
   AnnotationSharedCSSByState,
   annotationSharedStyles,
-  mediaAnnotationStyles,
 } from './shared/annotation';
 export { columnLayoutSharedStyle } from './shared/column-layout';
 export {

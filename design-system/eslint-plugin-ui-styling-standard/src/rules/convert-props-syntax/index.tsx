@@ -14,6 +14,7 @@ import {
 } from '@atlaskit/eslint-utils/is-supported-import';
 import type { Rule, Scope, SourceCode } from 'eslint';
 import ESTraverse from 'estraverse';
+import { isNodeOfType } from 'eslint-codemod-utils';
 
 type PropInfo = {
   /**
@@ -227,6 +228,10 @@ const lintArguments = (
                 allProps.push(propNames);
               }
             },
+            /**
+             * This is needed to handle unknown node types. Otherwise an error is thrown.
+             */
+            fallback: 'iteration',
           });
         }
       }
@@ -390,9 +395,7 @@ export const rule = createLintRule({
   },
   create(context) {
     return {
-      'CallExpression[callee.type="MemberExpression"]': (
-        node: CallExpression,
-      ) => {
+      CallExpression: (node: CallExpression) => {
         const references = context.getScope().references;
 
         // Rule should ignore .attrs() calls
@@ -412,6 +415,22 @@ export const rule = createLintRule({
         if (
           !isStyledComponents(callee, references) &&
           !isEmotion(callee, references)
+        ) {
+          return;
+        }
+
+        /**
+         * We only want to lint the second set of arguments in the following cases:
+         *
+         * 1. styled(BaseComponent)({ ... })
+         * 2. styled(BaseComponent)``
+         */
+        if (
+          // Using this type assertion to cast into a more useful type
+          // For some reason the estree types are missing useful things like `parent`
+          isNodeOfType(node, 'CallExpression') &&
+          (node.parent?.type === 'CallExpression' ||
+            node.parent?.type === 'TaggedTemplateExpression')
         ) {
           return;
         }

@@ -330,7 +330,10 @@ export const CardViewV2Base = ({
         )}
         {renderSpinner && (
           <IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
-            <SpinnerIcon testId="media-card-loading" />
+            <SpinnerIcon
+              testId="media-card-loading"
+              interactionName="media-card-loading"
+            />
           </IconWrapper>
         )}
         {renderImageRenderer && !!cardPreview && (

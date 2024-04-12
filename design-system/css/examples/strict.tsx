@@ -20,6 +20,9 @@ const overridesStyles = cssMap({
     '&:active': {
       backgroundColor: 'var(--ds-background-success-bold-pressed)',
     },
+    '@media (min-width: 48rem)': {
+      backgroundColor: 'var(--ds-background-accent-magenta-bolder)',
+    },
   },
 });
 

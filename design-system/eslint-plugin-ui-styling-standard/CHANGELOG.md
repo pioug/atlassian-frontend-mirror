@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.8.3
+
+### Patch Changes
+
+- [#87496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87496) [`d5b439e94043`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5b439e94043) - Improve coverage of `convert-props-syntax` rule. Previously cases such as `css()` and `styled(BaseComponent)()` were not covered by the rule.
+
+## 0.8.2
+
+### Patch Changes
+
+- [#88753](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88753) [`df5cbd4957ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df5cbd4957ea) - Fixed no nested selectors rule to skip @ queries, cssMap and keyFrames calls
+
 ## 0.8.1
 
 ### Patch Changes

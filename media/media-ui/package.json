@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "25.6.1",
+  "version": "25.7.0",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,7 @@
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.1.0",
+    "@atlaskit/tooltip": "^18.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",
@@ -126,6 +126,7 @@
     "./types": "./src/types.ts",
     "./formatDate": "./src/formatDate.ts",
     "./locales": "./src/locales.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

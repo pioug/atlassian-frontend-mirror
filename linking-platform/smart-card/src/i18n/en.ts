@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Add account',
   'fabric.linking.ai_summarize': 'Summarize',
   'fabric.linking.ai_summarized': 'Summarized by Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Summarized by AI',
   'fabric.linking.ai_summarized_info': 'Information quality may vary. <a>Learn more</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence is working...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    "We cannot show the results of this summary as it goes against <a>Atlassian's Acceptable Use Policy</a>.",
+  'fabric.linking.ai_summary_error_generic':
+    "Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.",
   'fabric.linking.assigned_to': 'Assigned to {context}',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancel',
   'fabric.linking.cannot_connect': "Can't connect, try again",
   'fabric.linking.cannot_find_link': "Can't find link",
@@ -75,6 +81,7 @@ export default {
   'fabric.linking.owned_by': 'Owned by {context}',
   'fabric.linking.pending_request': 'Your access request is pending',
   'fabric.linking.preview_close': 'Close preview',
+  'fabric.linking.preview_description.nonfinal': 'Open a full screen preview of this link',
   'fabric.linking.preview_improved': 'Open preview',
   'fabric.linking.preview_max_size': 'View full screen',
   'fabric.linking.preview_min_size': 'Close full screen',

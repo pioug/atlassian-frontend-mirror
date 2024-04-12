@@ -94,6 +94,55 @@ typescriptEslintTester.run(
           });
         `,
       },
+      {
+        name: 'Skips @ queries',
+        code: `
+          import { css } from '@compiled/react';
+          const styles = css({
+            '@container (width > 400px)': {
+              fontSize: '1.5rem',
+            },
+            '@media (max-width: 1200px)': {
+              gridTemplateColumns: 'repeat(1, 1fr)',
+              justifyItems: 'center',
+            },
+          });
+        `,
+      },
+      {
+        name: 'Skip cssMap call',
+        code: `
+          import { cssMap } from '@atlaskit/css';
+
+          const styles = cssMap({
+            success: {
+              color: 'var(--ds-text-inverse)',
+              backgroundColor: 'var(--ds-background-success-bold)',
+              '&:hover': {
+                backgroundColor: 'var(--ds-background-success-bold-hovered)',
+              },
+              '&:active': {
+                backgroundColor: 'var(--ds-background-success-bold-pressed)',
+              },
+            },
+          });
+        `,
+      },
+      {
+        name: 'Skip keyframes call',
+        code: `
+          import { keyframes } from '@emotion/react';
+
+          const keyFrameStyles = keyframes({
+            'from, to': {
+              opacity: 0,
+            },
+            '50%': {
+              opacity: 1,
+            },
+          });
+        `,
+      },
     ],
     invalid: [
       {

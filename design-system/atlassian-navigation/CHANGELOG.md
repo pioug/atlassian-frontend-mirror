@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 3.4.0
+
+### Minor Changes
+
+- [#85960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/85960) [`529d60f091ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/529d60f091ea) - Add aria label prop for Create button
+
 ## 3.3.6
 
 ### Patch Changes

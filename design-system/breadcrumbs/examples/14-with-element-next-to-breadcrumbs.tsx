@@ -15,7 +15,7 @@ export default () => (
       </Breadcrumbs>
 
       <div style={{ marginLeft: token('space.050', '4px') }}>
-        <AtlassianIcon label="Test icon" />
+        <AtlassianIcon label="" />
       </div>
     </div>
   </div>

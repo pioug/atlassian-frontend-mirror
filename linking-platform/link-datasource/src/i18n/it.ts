@@ -7,6 +7,9 @@
  */
 //Italian (Italy)
 export default {
+  'linkDataSource.accessInstructions': "Per richiedere l'accesso, contatta l'amministratore del sito.",
+  'linkDataSource.accessRequired': 'Non hai accesso a questo contenuto',
+  'linkDataSource.accessRequiredWithSite': 'Non hai accesso al seguente sito:',
   'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText': 'Guida alla sintassi',
   'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Cerca tramite AQL',
   'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Seleziona lo schema',
@@ -17,7 +20,6 @@ export default {
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
     'Inizia a digitare o utilizza AQL per la ricerca.',
   'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': 'Cerca oggetti',
-  'linkDataSource.assets.configmodal.cancelButtonText': 'Annulla',
   'linkDataSource.assets.configmodal.insertIssuesButtonText':
     '{objectsCount, plural, one {Inserisci oggetto} other {Inserisci oggetti}}',
   'linkDataSource.assets.configmodal.insertObjectsTitle': 'Inserisci oggetti da',
@@ -33,16 +35,30 @@ export default {
   'linkDataSource.basic-filter.showMoreButton': 'Mostra altro',
   'linkDataSource.basic-filter.status.label': 'Stato',
   'linkDataSource.basic-filter.type.label': 'Tipo',
+  'linkDataSource.checkConnection': 'Verifica la tua connessione, quindi aggiorna o riprova più tardi.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-1':
     'La ricerca ha restituito un numero troppo elevato di risultati.',
   'linkDataSource.column-picker.no-all-items-shown-message.line-2': 'Riprova utilizzando parole chiave più precise.',
   'linkDataSource.column-picker.search': 'Cerca campi',
   'linkDataSource.column-picker.tooltip': 'Configura le colonne',
+  'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Cerca i ticket per parola chiave',
+  'linkDataSource.configmodal.cancelButtonText': 'Annulla',
+  'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annulla',
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': "Inserisci l'elenco Confluence",
+  'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': "Inserisci l'elenco Confluence da",
+  'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Inserisci i risultati',
+  'linkDataSource.confluence-search.configmodal.searchLabel':
+    'Inserisci le parole chiave per trovare pagine, allegati e altro',
+  'linkDataSource.confluence-search.no.confluence.sites.access.description':
+    "Per richiedere l'accesso, contatta l'amministratore.",
+  'linkDataSource.confluence-search.no.confluence.sites.access.title': 'Non hai accesso ad alcun sito Confluence',
   'linkDataSource.datasource.table.authConnectButtonText': 'Collega',
   'linkDataSource.datasource.table.authScreenDescriptionText':
     'Connetti il tuo account {providerName} per collaborare al lavoro con i prodotti Atlassian.',
   'linkDataSource.datasource.table.authScreenHeaderText': 'Connetti il tuo account {providerName}',
   'linkDataSource.datasource.table.learnMoreAboutSmartLinks': 'Scopri di più sui Link intelligenti.',
+  'linkDataSource.issue-line-table.unwrap-text': 'Non portare a capo il testo',
+  'linkDataSource.issue-line-table.wrap-text': 'Porta a capo il testo',
   'linkDataSource.jira-issues.accessInstructions': "Per richiedere l'accesso, contatta l'amministratore del sito.",
   'linkDataSource.jira-issues.accessRequired': 'Non hai accesso a questo contenuto',
   'linkDataSource.jira-issues.accessRequiredWithSite': 'Non hai accesso al seguente sito:',
@@ -53,7 +69,6 @@ export default {
     'Non puoi passare alla modalità di base per questa query.',
   'linkDataSource.jira-issues.configmodal.basicModeText': 'Base',
   'linkDataSource.jira-issues.configmodal.basicTextSearchPlaceholder': 'Cerca i ticket per parola chiave',
-  'linkDataSource.jira-issues.configmodal.cancelButtonText': 'Annulla',
   'linkDataSource.jira-issues.configmodal.chooseSite': 'Scegli il sito',
   'linkDataSource.jira-issues.configmodal.inlineLinkViewModeDescription':
     'Visualizza il numero di risultati della ricerca come link intelligente in linea',
@@ -65,24 +80,39 @@ export default {
   'linkDataSource.jira-issues.configmodal.tableViewModeDescription':
     'Visualizza i risultati della ricerca Jira come tabella',
   'linkDataSource.jira-issues.configmodal.tableViewModeLabel': 'Tabella',
+  'linkDataSource.jira-issues.learnMoreLink': 'Scopri come cercare con JQL',
   'linkDataSource.jira-issues.no.jira.sites.access.description': "Per richiedere l'accesso, contatta l'amministratore.",
   'linkDataSource.jira-issues.no.jira.sites.access.title': 'Non hai accesso ai siti Jira',
   'linkDataSource.jira-issues.noResultsFound': 'Nessun risultato trovato',
   'linkDataSource.jira-issues.refresh': 'Aggiorna',
+  'linkDataSource.jira-issues.searchDescription-basic': 'Cerca i ticket da inserire in base a una parola chiave.',
+  'linkDataSource.jira-issues.searchDescription-jql': 'Usa JQL (Jira Query Language) per cercare i ticket.',
+  'linkDataSource.jira-issues.searchJiraTitle': 'Cerca ticket Jira',
   'linkDataSource.jira-issues.unableToLoadItems': 'Impossibile caricare gli elementi',
   'linkDataSource.jira-issues.unableToLoadResults': 'Impossibile caricare i risultati',
   'linkDataSource.modal-initial-state.beta': 'Beta',
+  'linkDataSource.modal-initial-state.confluenceSearchTitle': 'Cerca nelle pagine Confluence',
+  'linkDataSource.modal-initial-state.jiraSearchTitle': 'Cerca nei ticket Jira',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Scopri come cercare con JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic':
     'Cerca i ticket da inserire in base a una parola chiave.',
+  'linkDataSource.modal-initial-state.searchDescription-confluence':
+    'Cerca mediante parole chiave le pagine da inserire.',
   'linkDataSource.modal-initial-state.searchDescription-jql': 'Usa JQL (Jira Query Language) per cercare i ticket.',
   'linkDataSource.modal-initial-state.searchTitle': 'Cerca ticket Jira',
+  'linkDataSource.no.jira.sites.access.description': "Per richiedere l'accesso, contatta l'amministratore.",
+  'linkDataSource.no.jira.sites.access.title': 'Non hai accesso ai siti Jira',
+  'linkDataSource.noResultsFound': 'Nessun risultato trovato',
+  'linkDataSource.refresh': 'Aggiorna',
   'linkDataSource.render-type.boolean.false': 'No',
   'linkDataSource.render-type.boolean.true': 'Sì',
   'linkDataSource.render-type.user.default.display.name': 'Non assegnato',
+  'linkDataSource.site-selector.configmodal.chooseSite': 'Scegli il sito',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronizzato proprio ora',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sincronizzato il {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {elemento} other {elementi}}',
   'linkDataSource.table-footer.loading': 'Caricamento in corso...',
   'linkDataSource.table-footer.refresh': 'Aggiorna',
+  'linkDataSource.unableToLoadItems': 'Impossibile caricare gli elementi',
+  'linkDataSource.unableToLoadResults': 'Impossibile caricare i risultati',
 };

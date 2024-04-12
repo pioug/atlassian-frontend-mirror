@@ -812,19 +812,25 @@ describe('useFilePreview', () => {
       expect(getImageSpy).toBeCalledTimes(1);
     });
 
+    const rotated = sampleBinaries.jpgRotated();
+    type BinaryKey = keyof Awaited<typeof rotated>;
+    type TestArgs = { binaryKey: BinaryKey; expected: number };
+
     it.each`
-      binary                                  | expected
-      ${sampleBinaries.jpgRotated.landscape1} | ${1}
-      ${sampleBinaries.jpgRotated.landscape2} | ${2}
-      ${sampleBinaries.jpgRotated.landscape3} | ${3}
-      ${sampleBinaries.jpgRotated.landscape4} | ${4}
-      ${sampleBinaries.jpgRotated.landscape5} | ${5}
-      ${sampleBinaries.jpgRotated.landscape6} | ${6}
-      ${sampleBinaries.jpgRotated.landscape7} | ${7}
-      ${sampleBinaries.jpgRotated.landscape8} | ${8}
+      binaryKey       | expected
+      ${'landscape1'} | ${1}
+      ${'landscape2'} | ${2}
+      ${'landscape3'} | ${3}
+      ${'landscape4'} | ${4}
+      ${'landscape5'} | ${5}
+      ${'landscape6'} | ${6}
+      ${'landscape7'} | ${7}
+      ${'landscape8'} | ${8}
     `(
       'should set the correct preview orientation (orientation: $expected)',
-      async ({ binary, expected }) => {
+      async ({ binaryKey, expected }: TestArgs) => {
+        const binary = (await rotated)[binaryKey];
+
         const [fileItem, identifier] =
           generateSampleFileItem.workingImgWithRemotePreview();
         const { MockedMediaClientProvider, uploadItem } =

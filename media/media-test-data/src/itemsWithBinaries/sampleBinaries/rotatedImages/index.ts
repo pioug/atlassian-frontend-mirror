@@ -8,7 +8,7 @@ import { landscape6 } from './landscape6';
 import { landscape7 } from './landscape7';
 import { landscape8 } from './landscape8';
 
-export const jpgRotated = {
+export default {
   landscape0,
   landscape1,
   landscape2,

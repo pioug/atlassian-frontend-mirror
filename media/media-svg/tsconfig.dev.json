@@ -45,10 +45,40 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
+      "path": "../media-client/tsconfig.app.json"
+    },
+    {
+      "path": "../media-client-react/tsconfig.app.json"
+    },
+    {
+      "path": "../media-state/tsconfig.app.json"
+    },
+    {
+      "path": "../media-test-data/tsconfig.app.json"
+    },
+    {
+      "path": "../media-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/range/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/section-message/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/select/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/toggle/tsconfig.app.json"
     }
   ]
 }

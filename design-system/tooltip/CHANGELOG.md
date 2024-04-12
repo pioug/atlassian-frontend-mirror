@@ -1,5 +1,17 @@
 # @atlaskit/tooltip
 
+## 18.2.1
+
+### Patch Changes
+
+- [#88717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88717) [`d92770eae702`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d92770eae702) - Adding internal eslint opt outs for a new rule `@atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop`.
+
+## 18.2.0
+
+### Minor Changes
+
+- [#87879](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87879) [`40c7b496eacd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40c7b496eacd) - [ux] Internal changes to typography, small visual change to tooltip text line height.
+
 ## 18.1.3
 
 ### Patch Changes

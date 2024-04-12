@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 14.1.0
+
+### Minor Changes
+
+- [#88752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88752) [`c164ec1faceb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c164ec1faceb) - [ux] Internal changes to typography, small visual change to calendar week header text.
+
 ## 14.0.13
 
 ### Patch Changes

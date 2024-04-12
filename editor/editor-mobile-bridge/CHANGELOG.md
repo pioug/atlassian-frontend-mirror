@@ -1,5 +1,36 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.9.9
+
+### Patch Changes
+
+- [#89138](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89138) [`9c1517076bde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c1517076bde) - make CodeBlockPlugin optional to solve a dependancy typecheck error
+- Updated dependencies
+
+## 193.9.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.9.4
 
 ### Patch Changes

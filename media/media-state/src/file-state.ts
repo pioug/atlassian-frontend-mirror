@@ -15,6 +15,7 @@ export interface MediaFileArtifacts {
   'image.png'?: MediaFileArtifact;
   'image.jpg'?: MediaFileArtifact;
   'image.gif'?: MediaFileArtifact;
+  'image.webp'?: MediaFileArtifact;
   'thumb.jpg'?: MediaFileArtifact;
   'thumb_120.jpg'?: MediaFileArtifact;
   'thumb_320.jpg'?: MediaFileArtifact;

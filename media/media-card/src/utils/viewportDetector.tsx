@@ -1,4 +1,12 @@
-import React, { PropsWithChildren, useEffect } from 'react';
+import React, {
+  PropsWithChildren,
+  useEffect,
+  useCallback,
+  useState,
+} from 'react';
+
+import UFOInteractionIgnore from '@atlaskit/ufo-interaction-ignore';
+
 import getDocument from './document';
 
 export type ViewportDetectorProps = PropsWithChildren<{
@@ -25,11 +33,19 @@ const ViewportObserver = ({
   cardEl,
   children,
 }: ViewportDetectorProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const onVisibleCallback = useCallback(() => {
+    setIsVisible(true);
+
+    onVisible();
+  }, [onVisible]);
+
   useEffect(() => {
     let intersectionObserver: IntersectionObserver;
     try {
       intersectionObserver = new IntersectionObserver(
-        createIntersectionObserverCallback(onVisible),
+        createIntersectionObserverCallback(onVisibleCallback),
         {
           root: getDocument(),
           rootMargin: `${ABS_VIEWPORT_ANCHOR_OFFSET_TOP}px`,
@@ -37,7 +53,7 @@ const ViewportObserver = ({
       );
     } catch (error: any) {
       intersectionObserver = new IntersectionObserver(
-        createIntersectionObserverCallback(onVisible),
+        createIntersectionObserverCallback(onVisibleCallback),
         {
           root: null,
           rootMargin: `${ABS_VIEWPORT_ANCHOR_OFFSET_TOP}px`,
@@ -50,9 +66,11 @@ const ViewportObserver = ({
     return () => {
       intersectionObserver.disconnect();
     };
-  }, [cardEl, onVisible]);
+  }, [cardEl, onVisibleCallback]);
 
-  return <>{children}</>;
+  return (
+    <UFOInteractionIgnore ignore={!isVisible}>{children}</UFOInteractionIgnore>
+  );
 };
 
 export const ViewportDetector = ({

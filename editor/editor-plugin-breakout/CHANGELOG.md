@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.0.7
+
+### Patch Changes
+
+- [#88938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88938) [`db547827ee45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db547827ee45) - [ux] Don't render LayoutButton when editor in 'view' mode
+- Updated dependencies
+
 ## 1.0.6
 
 ### Patch Changes

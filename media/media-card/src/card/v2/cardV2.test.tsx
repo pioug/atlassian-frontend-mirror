@@ -772,18 +772,24 @@ describe('Card V2', () => {
       expect(style.transform).not.toContain('rotate');
     });
 
+    const rotated = sampleBinaries.jpgRotated();
+    type BinaryKey = keyof Awaited<typeof rotated>;
+    type TestArgs = { binaryKey: BinaryKey; result: string };
+
     it.each`
-      binary                                  | rotation | result
-      ${sampleBinaries.jpgRotated.landscape2} | ${2}     | ${'rotateY(180deg)'}
-      ${sampleBinaries.jpgRotated.landscape3} | ${3}     | ${'rotate(180deg)'}
-      ${sampleBinaries.jpgRotated.landscape4} | ${4}     | ${'rotateY(180deg)'}
-      ${sampleBinaries.jpgRotated.landscape5} | ${5}     | ${'rotateY(180deg)'}
-      ${sampleBinaries.jpgRotated.landscape6} | ${6}     | ${'rotate(90deg)'}
-      ${sampleBinaries.jpgRotated.landscape7} | ${7}     | ${'rotateY(180deg)'}
-      ${sampleBinaries.jpgRotated.landscape8} | ${8}     | ${'rotate(270deg)'}
+      binaryKey       | rotation | result
+      ${'landscape2'} | ${2}     | ${'rotateY(180deg)'}
+      ${'landscape3'} | ${3}     | ${'rotate(180deg)'}
+      ${'landscape4'} | ${4}     | ${'rotateY(180deg)'}
+      ${'landscape5'} | ${5}     | ${'rotateY(180deg)'}
+      ${'landscape6'} | ${6}     | ${'rotate(90deg)'}
+      ${'landscape7'} | ${7}     | ${'rotateY(180deg)'}
+      ${'landscape8'} | ${8}     | ${'rotate(270deg)'}
     `(
       'should rotate the preview if it has an orientation equal to $rotation',
-      async ({ binary, result }) => {
+      async ({ binaryKey, result }: TestArgs) => {
+        const binary = (await rotated)[binaryKey];
+
         const [fileItem, identifier] =
           generateSampleFileItem.workingImgWithRemotePreview();
         const { MockedMediaClientProvider, uploadItem } =

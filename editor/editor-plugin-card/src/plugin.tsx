@@ -6,6 +6,7 @@ import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
   IconDatasourceAssetsObjects,
+  IconDatasourceConfluenceSearch,
   IconDatasourceJiraIssue,
 } from '@atlaskit/editor-common/quick-insert';
 import type {
@@ -20,7 +21,10 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  CONFLUENCE_SEARCH_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { createEventsQueue } from './analytics/create-events-queue';
@@ -41,6 +45,7 @@ import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
 import { EditorLinkingPlatformAnalytics } from './ui/EditorLinkingPlatformAnalytics';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import LayoutButton from './ui/LayoutButton';
+import { isDatasourceConfigEditable } from './utils';
 
 export type CardPlugin = NextEditorPlugin<
   'card',
@@ -221,6 +226,25 @@ export const cardPlugin: CardPlugin = ({ config: options, api }) => {
             action(insert) {
               const tr = insert(undefined);
               showDatasourceModal('assets')(tr);
+              return tr;
+            },
+          });
+        }
+
+        if (isDatasourceConfigEditable(CONFLUENCE_SEARCH_DATASOURCE_ID)) {
+          quickInsertArray.push({
+            id: 'datasource',
+            title: formatMessage(messages.datasourceConfluenceSearch),
+            description: formatMessage(
+              messages.datasourceConfluenceSearchDescription,
+            ),
+            categories: ['external-content', 'development'],
+            keywords: ['confluence'],
+            featured: true,
+            icon: () => <IconDatasourceConfluenceSearch />,
+            action(insert) {
+              const tr = insert(undefined);
+              showDatasourceModal('confluence-search')(tr);
               return tr;
             },
           });

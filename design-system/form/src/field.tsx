@@ -23,7 +23,7 @@ import { Label } from './label';
 import RequiredAsterisk from './required-asterisk';
 
 const fieldWrapperStyles = css({
-  marginTop: token('space.100', '8px'),
+  marginBlockStart: token('space.100', '8px'),
 });
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {
@@ -57,6 +57,7 @@ export interface FieldProps<
   'aria-invalid': 'true' | 'false';
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   'aria-labelledby': string;
+  'aria-describedby'?: string;
 }
 
 export interface Meta {

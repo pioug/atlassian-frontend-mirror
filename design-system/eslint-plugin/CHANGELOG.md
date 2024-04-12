@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.4.0
+
+### Minor Changes
+
+- [#88717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88717) [`5332c5b63887`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5332c5b63887) - Adding new eslint rule `@atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop` to block using web platform drag and drop directly.
+
 ## 9.3.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

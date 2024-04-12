@@ -7,6 +7,8 @@ import React, {
   useReducer,
 } from 'react';
 
+type RangeType = 'selection' | 'hover' | null;
+
 interface AnnotationRangeStateContext {
   /*
    * This range represents the selection that the user has made before they intend to save an annotation
@@ -17,22 +19,22 @@ interface AnnotationRangeStateContext {
    * If the user does not set allowDraftMode, this will be ignored as it only is set when we call applyAnnotationDraftAt()
    */
   draftRange: Range | null;
-  type: 'selection' | 'hover' | null;
+  type: RangeType;
 }
 interface AnnotationRangeDispatchContext {
   clearRange: () => void;
   clearSelectionRange: () => void;
-  clearDraftRange: () => void;
+  clearDraftRange: (type: RangeType) => void;
   clearHoverRange: () => void;
   setRange: (range: Range) => void;
-  setDraftRange: (draftRange: Range | null) => void;
+  setDraftRange: (draftRange: Range | null, type: RangeType) => void;
   setHoverTarget?: (target: HTMLElement) => void;
 }
 
 type State = {
   range: Range | null;
   draftRange: Range | null;
-  type: 'selection' | 'hover' | null;
+  type: RangeType;
 };
 
 type Action =
@@ -42,7 +44,9 @@ type Action =
   | { type: 'clearHover' }
   | { type: 'setSelection'; range: Range }
   | { type: 'setDraftSelection'; draftRange: Range | null }
-  | { type: 'setHover'; range: Range };
+  | { type: 'setHover'; range: Range }
+  | { type: 'setDraftHover'; draftRange: Range | null }
+  | { type: 'clearDraftHover' };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -61,6 +65,11 @@ function reducer(state: State, action: Action): State {
         return { ...state, draftRange: null };
       }
       return state;
+    case 'clearDraftHover':
+      if (state.type === 'hover') {
+        return { ...state, draftRange: null };
+      }
+      return state;
     case 'clearHover':
       if (state.type === 'hover') {
         return { range: null, draftRange: null, type: null };
@@ -71,6 +80,11 @@ function reducer(state: State, action: Action): State {
         return { ...state, range: action.range, type: 'selection' };
       }
       return state;
+    case 'setHover':
+      if (state.range !== action.range || state.type !== 'hover') {
+        return { ...state, range: action.range, type: 'hover' };
+      }
+      return state;
     case 'setDraftSelection':
       if (
         state.draftRange !== action.draftRange ||
@@ -79,13 +93,12 @@ function reducer(state: State, action: Action): State {
         return { range: null, draftRange: action.draftRange, type: null };
       }
       return state;
-    case 'setHover':
-      if (state.range !== action.range || state.type !== 'hover') {
-        return { ...state, range: action.range, type: 'hover' };
+    case 'setDraftHover':
+      if (state.draftRange !== action.draftRange || state.type !== 'hover') {
+        return { ...state, draftRange: action.draftRange };
       }
       return state;
   }
-  return state;
 }
 
 export const AnnotationRangeStateContext =
@@ -123,10 +136,13 @@ export const AnnotationRangeProvider = ({
     () => dispatch({ type: 'clearSelection' }),
     [],
   );
-  const clearDraftRange = useCallback(
-    () => dispatch({ type: 'clearDraftSelection' }),
-    [],
-  );
+  const clearDraftRange = useCallback((type: RangeType) => {
+    if (type === 'hover') {
+      dispatch({ type: 'clearDraftHover' });
+      return;
+    }
+    dispatch({ type: 'clearDraftSelection' });
+  }, []);
   const clearHoverRange = useCallback(
     () => dispatch({ type: 'clearHover' }),
     [],
@@ -137,7 +153,11 @@ export const AnnotationRangeProvider = ({
     [],
   );
 
-  const setDraftRange = useCallback((range: Range | null) => {
+  const setDraftRange = useCallback((range: Range | null, type: RangeType) => {
+    if (type === 'hover') {
+      dispatch({ type: 'setDraftHover', draftRange: range });
+      return;
+    }
     dispatch({ type: 'setDraftSelection', draftRange: range });
   }, []);
 

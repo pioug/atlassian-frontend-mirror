@@ -84,7 +84,7 @@ const Header = memo<HeaderProps>(function Header({
           testId={testId && `${testId}--current-month-year--container`}
         >
           <Heading
-            level="h400"
+            size="xsmall"
             as="h2"
             id={headerId}
             testId={testId && `${testId}--current-month-year`}

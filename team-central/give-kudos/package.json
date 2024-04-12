@@ -35,7 +35,8 @@
     ".": "./src/index.ts"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts"
   },
   "scripts": {
     "lint": "(cd ../../.. && yarn eslint 'packages/team-central/give-kudos/**/*.{ts,tsx}')",

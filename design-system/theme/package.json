@@ -107,7 +107,8 @@
     "./constants": "./src/constants.tsx",
     "./elevation": "./src/elevation.tsx",
     "./types": "./src/types.tsx",
-    "./typography": "./src/typography.tsx"
+    "./typography": "./src/typography.tsx",
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-plugin",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 1.5.0
+
+### Minor Changes
+
+- [#87262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87262) [`a30a91a62f03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a30a91a62f03) - Add slash command for confluence search datasource creation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.4
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/forge-react-types",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Component types for Forge UI Kit React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/badge": "^15.3.0",
+    "@atlaskit/badge": "^16.0.0",
     "@atlaskit/banner": "^12.2.0",
     "@atlaskit/button": "^17.11.0",
     "@atlaskit/checkbox": "^13.1.0",
@@ -52,7 +52,7 @@
     "@atlaskit/textarea": "^5.2.0",
     "@atlaskit/textfield": "^6.1.0",
     "@atlaskit/toggle": "^13.0.0",
-    "@atlaskit/tooltip": "^18.1.0",
+    "@atlaskit/tooltip": "^18.2.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

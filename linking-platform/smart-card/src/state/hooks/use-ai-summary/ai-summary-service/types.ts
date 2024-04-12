@@ -11,8 +11,11 @@ export type AISummaryServiceProps = {
   onStart?: (id: string) => void;
   onSuccess?: (id: string) => void;
   product?: ProductType;
+  /**
+   * we should always include the ARI if possible
+   */
+  ari?: string;
   url: string;
-  ari: string;
 };
 
 export type AISummaryServiceConfig = {
@@ -115,7 +118,11 @@ export type StreamAnswerPart = {
 
 export type StreamTrace = {
   type: 'TRACE';
-  message: { content: string };
+  message: {
+    message_template: string;
+    content: string;
+    user_query: string;
+  };
   millisOffset: number;
   metadata?: {
     run_id: string;

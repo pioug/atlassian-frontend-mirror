@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.5.8
+
+### Patch Changes
+
+- [#88763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88763) [`9fcd30347b0c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcd30347b0c) - [ux] Removed annotation styling for media in editor and renderer
+- Updated dependencies
+
 ## 1.5.7
 
 ### Patch Changes

@@ -18,17 +18,26 @@ const rowStyle = {
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-const [videoFileItem, videoFileId] =
-  generateItemWithBinaries.workingVideo.videoFire();
-const [imageFileItem, imageFileId] =
-  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat();
-const [pdfFileItem, pdfFileId] =
-  generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy();
+let MockedMediaClientProvider: any;
+let identifiers: FileIdentifier[] = [];
 
-const { MockedMediaClientProvider } =
-  createMockedMediaClientProviderWithBinaries({
-    initialItemsWithBinaries: [videoFileItem, imageFileItem, pdfFileItem],
-  });
+const prepareMediaState = async () => {
+  const items = await Promise.all([
+    generateItemWithBinaries.workingVideo.videoFire(),
+    generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+    generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
+  ]);
+
+  const initialItemsWithBinaries = items.map(
+    ([itemWithBinaries]) => itemWithBinaries,
+  );
+  identifiers = items.map(([, identifier]) => identifier);
+
+  const { MockedMediaClientProvider: localMockedMediaClientProvider } =
+    createMockedMediaClientProviderWithBinaries({ initialItemsWithBinaries });
+
+  MockedMediaClientProvider = localMockedMediaClientProvider;
+};
 
 const Page = ({
   ssr,
@@ -105,15 +114,17 @@ const SimulateSsrPage = ({
 
 export default () => {
   const [areModulesReady, setAreModulesReady] = useState(false);
+  const [isMediaStateReady, setIsMediaStateReady] = useState(false);
   useEffect(() => {
-    Loadable.preloadAll().then(async () => {
-      setAreModulesReady(true);
-    });
+    prepareMediaState().then(() => setIsMediaStateReady(true));
+    Loadable.preloadAll().then(() => setAreModulesReady(true));
   }, []);
 
-  if (!areModulesReady) {
+  if (!areModulesReady || !isMediaStateReady) {
     return <MainWrapper developmentOnly>LOADING MODULES</MainWrapper>;
   }
+
+  const [videoFileId, imageFileId, pdfFileId] = identifiers;
 
   return (
     <MainWrapper developmentOnly>

@@ -186,11 +186,19 @@ class DatePicker extends Component<DatePickerProps, State> {
     }
   };
 
-  onContainerBlur = (event: React.FocusEvent<HTMLElement>) => {
+  onContainerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     const newlyFocusedElement = event.relatedTarget as HTMLElement;
 
     if (!this.containerRef?.contains(newlyFocusedElement)) {
       this.setState({ isOpen: false });
+
+      if (
+        getBooleanFF(
+          'platform.design-system-team.move-onblur-event-to-input-container_3z82c',
+        )
+      ) {
+        this.props.onBlur(event);
+      }
     }
   };
 
@@ -205,7 +213,13 @@ class DatePicker extends Component<DatePickerProps, State> {
       // container. Makes keyboard accessibility of calendar possible
       this.setState({ isOpen: false, isFocused: false });
     }
-    this.props.onBlur(event);
+    if (
+      !getBooleanFF(
+        'platform.design-system-team.move-onblur-event-to-input-container_3z82c',
+      )
+    ) {
+      this.props.onBlur(event);
+    }
   };
 
   onSelectFocus = (event: React.FocusEvent<HTMLInputElement>) => {

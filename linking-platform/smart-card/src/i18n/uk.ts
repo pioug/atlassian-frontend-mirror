@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Додати обліковий запис',
   'fabric.linking.ai_summarize': 'Підсумок',
   'fabric.linking.ai_summarized': 'Узагальнено Atlassian Intelligence',
+  'fabric.linking.ai_summarized_abbreviation': 'Підсумок створено ШІ',
   'fabric.linking.ai_summarized_info': 'Якість інформації може бути різною. <a>Докладніше</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence узагальнює дані…',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    'Ми не можемо показати результати цього підсумку, оскільки вони суперечать <a>Політиці прийнятного використання Atlassian</a>.',
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence зараз не може надати відповідь. Докладні відомості дивіться <a>в нашій довідковій документації</a>.',
   'fabric.linking.assigned_to': 'Призначено для {context}',
+  'fabric.linking.beta': 'Бета-версія',
   'fabric.linking.cancel': 'Скасувати',
   'fabric.linking.cannot_connect': 'Не вдається підключитися, спробуйте ще раз',
   'fabric.linking.cannot_find_link': 'Не вдається знайти посилання',

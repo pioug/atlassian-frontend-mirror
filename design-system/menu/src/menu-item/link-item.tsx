@@ -97,6 +97,7 @@ const LinkItem = memo(
               className={className}
               href={isDisabled ? undefined : href}
               draggable={false}
+              // eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
               onDragStart={preventEvent}
               onMouseDown={isDisabled ? preventEvent : onMouseDownHandler}
               onClick={isDisabled ? preventEvent : onClick}

@@ -8,7 +8,11 @@ import {
   MediaApi,
   MediaClientConfig,
 } from '@atlaskit/media-client';
-import { generateItemWithBinaries } from '@atlaskit/media-test-data';
+import {
+  generateItemWithBinaries,
+  GeneratedItemWithBinaries,
+  ItemWithBinaries,
+} from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';
 import { SimulateSsr } from '../example-helpers/ssrHelpers';
@@ -22,11 +26,18 @@ const rowStyle = {
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-// Create n items with different Id
-const items = Array.from(Array(6)).map(
-  generateItemWithBinaries.workingImgWithRemotePreview.jpgCat,
-);
-const initialItemsWithBinaries = items.map(([item]) => item);
+let items: GeneratedItemWithBinaries[] = [];
+let initialItemsWithBinaries: ItemWithBinaries[] = [];
+
+const prepareMediaState = async () => {
+  items = await Promise.all(
+    // Create n items with different Id
+    Array.from(Array(6)).map(() =>
+      generateItemWithBinaries.workingImgWithRemotePreview.jpgCat(),
+    ),
+  );
+  initialItemsWithBinaries = items.map(([item]) => item);
+};
 
 type ThrowMediaApiError = 'getFileImageURLSync' | 'dataURI';
 const throwMediaApiError = (mediaApi: MediaApi, error: ThrowMediaApiError) => {
@@ -132,13 +143,15 @@ const SimulateSsrPage = ({
 
 export default () => {
   const [areModulesReady, setAreModulesReady] = useState(false);
+  const [isMediaStateReady, setIsMediaStateReady] = useState(false);
   useEffect(() => {
+    prepareMediaState().then(() => setIsMediaStateReady(true));
     Loadable.preloadAll().then(async () => {
       setAreModulesReady(true);
     });
   }, []);
 
-  if (!areModulesReady) {
+  if (!areModulesReady || !isMediaStateReady) {
     return <MainWrapper developmentOnly>LOADING MODULES</MainWrapper>;
   }
 

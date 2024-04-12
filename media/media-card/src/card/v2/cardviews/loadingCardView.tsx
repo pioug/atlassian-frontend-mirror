@@ -40,7 +40,10 @@ const LoadingCardViewBase = (props: LoadingCardViewProps) => {
       ref={divRef}
     >
       <IconWrapper breakpoint={breakpoint} hasTitleBox={hasTitleBox}>
-        <SpinnerIcon testId="media-card-loading" />
+        <SpinnerIcon
+          testId="media-card-loading"
+          interactionName="media-card-loading"
+        />
       </IconWrapper>
     </CardViewWrapper>
   );

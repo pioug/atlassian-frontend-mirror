@@ -89,6 +89,9 @@
     },
     {
       "path": "../../data/ufo-external/tsconfig.app.json"
+    },
+    {
+      "path": "../../react-ufo/ufo-interaction-ignore/tsconfig.app.json"
     }
   ]
 }

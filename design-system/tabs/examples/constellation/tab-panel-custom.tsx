@@ -17,8 +17,7 @@ const customPanelStyles = css({
   backgroundColor: token('color.background.neutral'),
   borderRadius: token('border.radius', '3px'),
   color: token('color.text.subtlest'),
-  fontSize: '4em',
-  fontWeight: 500,
+  font: token('font.heading.xxlarge'),
   marginBlockEnd: token('space.100', '8px'),
   marginBlockStart: token('space.200', '16px'),
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles

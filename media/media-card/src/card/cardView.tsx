@@ -186,7 +186,10 @@ export class CardViewBase extends React.Component<
   private renderSpinner(hasTitleBox: boolean) {
     return (
       <IconWrapper breakpoint={this.breakpoint} hasTitleBox={hasTitleBox}>
-        <SpinnerIcon testId={'media-card-loading'} />
+        <SpinnerIcon
+          testId={'media-card-loading'}
+          interactionName={'media-card-loading'}
+        />
       </IconWrapper>
     );
   }

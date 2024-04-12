@@ -131,6 +131,14 @@ const getMediaApi = ({
     return new Blob();
   },
 
+  getFileBinary: async (fileId) => {
+    const fileItem = getItem(fileId);
+    if (!fileItem) {
+      throw new Error('404 - MockedMediaApi.getFileBinary: file not found');
+    }
+    return new Blob();
+  },
+
   // --------------------------------------------------------
   // OTHER ENDPOINTS
   // --------------------------------------------------------

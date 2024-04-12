@@ -3,8 +3,6 @@ import type { Property } from 'estree';
 import {
   isStyled,
   isCss,
-  isKeyframes,
-  isCssMap,
   isXcss,
   getImportSources,
 } from '@atlaskit/eslint-utils/is-supported-import';
@@ -70,8 +68,6 @@ export const rule = createLintRule({
               !(
                 isCss(ancestor.callee, references, importSources) ||
                 isStyled(ancestor.callee, references, importSources) ||
-                isKeyframes(ancestor.callee, references, importSources) ||
-                isCssMap(ancestor.callee, references, importSources) ||
                 isXcss(ancestor.callee, references, importSources)
               ),
           )
@@ -92,6 +88,7 @@ export const rule = createLintRule({
         const tokens = cssSelector.split(/[, ]+/);
 
         if (
+          !cssSelector.includes('@') &&
           !tokens.every(
             (token) =>
               token.length === 0 ||

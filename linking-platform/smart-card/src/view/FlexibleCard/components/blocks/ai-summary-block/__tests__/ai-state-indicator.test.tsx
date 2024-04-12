@@ -213,7 +213,7 @@ describe('AIStateIndicator', () => {
       expect(icon).toBeInTheDocument();
       expect(msg).toBeInTheDocument();
       expect(msg.textContent).toBe(
-        "Atlassian Intelligence can't provide a response right now. Read more in our support documentation.",
+        'Atlassian Intelligence (AI) isn’t responding. Try again later or check the status of AI.',
       );
       expect(anchor).toHaveAttribute('href', CONTENT_URL_AI_TROUBLESHOOTING);
     });

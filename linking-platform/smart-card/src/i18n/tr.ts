@@ -12,9 +12,15 @@ export default {
   'fabric.linking.add_account': 'Hesap ekle',
   'fabric.linking.ai_summarize': 'Özetle',
   'fabric.linking.ai_summarized': 'Atlassian Intelligence tarafından özetlendi',
+  'fabric.linking.ai_summarized_abbreviation': 'AI tarafından özetlendi',
   'fabric.linking.ai_summarized_info': 'Bilgi kalitesi farklılık gösterebilir. <a>Daha fazla bilgi</a>',
   'fabric.linking.ai_summarizing': 'Atlassian Intelligence çalışıyor...',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    "<a>Atlassian Kabul Edilebilir Kullanım Politikası</a>'na uymadığından bu özetin sonuçları gösterilemiyor.",
+  'fabric.linking.ai_summary_error_generic':
+    'Atlassian Intelligence şu anda bir yanıt sağlayamıyor. <a>Destek belgelerimizden</a> daha fazla bilgi edinin.',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
+  'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'İptal',
   'fabric.linking.cannot_connect': 'Bağlanılamıyor, tekrar deneyin',
   'fabric.linking.cannot_find_link': 'Bağlantı bulunamıyor',

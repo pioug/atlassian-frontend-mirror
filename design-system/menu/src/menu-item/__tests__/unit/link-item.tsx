@@ -174,6 +174,7 @@ describe('<LinkItem />', () => {
     // Return if default was prevented which we will then assert later
     const dragStartEvent = jest.fn((e) => e.defaultPrevented);
     const { getByTestId } = render(
+      // eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
       <div onDragStart={dragStartEvent}>
         <LinkItem href="http://www.atlassian.com" testId="target">
           Atlassian

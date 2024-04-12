@@ -601,12 +601,13 @@ export class Channel extends Emitter<ChannelEvent> {
 
   fetchReconcile = async (
     currentStateDoc: string,
+    reason: string,
   ): Promise<ReconcileResponse> => {
     try {
       const reqBody = JSON.stringify({
         doc: currentStateDoc,
         productId: 'ccollab',
-        reason: 'UNKNOWN', // different reason here?
+        reason,
       });
       const reconcileResponse = await utils.requestService<any>(this.config, {
         path: `document/${encodeURIComponent(

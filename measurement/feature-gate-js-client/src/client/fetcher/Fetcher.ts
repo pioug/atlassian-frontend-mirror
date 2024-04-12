@@ -14,7 +14,7 @@ import {
   FrontendExperimentsResponse,
 } from './types';
 
-const DEFAULT_REQUEST_TIMEOUT_MS = 2000;
+const DEFAULT_REQUEST_TIMEOUT_MS = 5_000;
 
 const PROD_BASE_URL = 'https://api.atlassian.com/flags';
 const STAGING_BASE_URL = 'https://api.stg.atlassian.com/flags';

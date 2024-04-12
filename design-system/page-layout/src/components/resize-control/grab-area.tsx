@@ -35,7 +35,7 @@ export type GrabAreaProps = {
 const varLineColor = '--ds-line';
 
 const grabAreaStyles = css({
-  width: 24,
+  width: token('space.200', '16px'),
   height: '100%',
   padding: 0,
   backgroundColor: 'transparent',

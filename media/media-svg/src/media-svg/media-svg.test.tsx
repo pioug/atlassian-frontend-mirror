@@ -1,14 +1,129 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
 
+import { generateSampleFileItem } from '@atlaskit/media-test-data';
+
+import { createMockedMediaClientProvider } from './__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { MediaSVGError } from './errors';
 import MediaSvg from './media-svg';
 
 describe('MediaSvg', () => {
-  it('should find MediaSvg by its testid', async () => {
-    const testId = 'media-svg';
-    const { getByTestId } = render(<MediaSvg testId={testId} />);
+  it('should fetch and render the original contents of an SVG file', async () => {
+    const [fileItem, identifier] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider, mediaApi } =
+      createMockedMediaClientProvider({
+        initialItems: fileItem,
+      });
 
-    expect(getByTestId(testId)).toBeTruthy();
+    /* Delay the binary to observe the loading screen */
+    let resolveBinary: any;
+    const baseGetFileBinary = mediaApi.getFileBinary;
+    mediaApi.getFileBinary = jest.fn(async (...args) => {
+      await new Promise(resolve => {
+        resolveBinary = resolve;
+      });
+      return baseGetFileBinary(...args);
+    });
+
+    const testId = 'media-svg';
+
+    const { findByTestId, findByRole } = render(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier} />,
+      </MockedMediaClientProvider>,
+    );
+
+    const loading = await findByRole('status');
+    expect(loading).toBeTruthy();
+
+    resolveBinary();
+
+    const elem = await findByTestId(testId);
+    expect(elem.getAttribute('data-fileid')).toBe(identifier.id);
+    expect(elem.getAttribute('data-filecollection')).toBe(
+      identifier.collectionName,
+    );
+    expect(mediaApi.getFileBinary).toBeCalledTimes(1);
+  });
+
+  it('should refetch the file when the identifier changes', async () => {
+    const [fileItem1, identifier1] = generateSampleFileItem.svg();
+    const [fileItem2, identifier2] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider, mediaApi } =
+      createMockedMediaClientProvider({
+        initialItems: [fileItem1, fileItem2],
+      });
+
+    jest.spyOn(mediaApi, 'getFileBinary');
+
+    const testId = 'media-svg';
+
+    const { findByTestId, rerender } = render(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier1} />,
+      </MockedMediaClientProvider>,
+    );
+    const elem = await findByTestId(testId);
+    expect(elem.getAttribute('data-fileid')).toBe(identifier1.id);
+
+    rerender(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier2} />,
+      </MockedMediaClientProvider>,
+    );
+
+    await waitFor(() =>
+      expect(elem.getAttribute('data-fileid')).toBe(identifier2.id),
+    );
+    expect(mediaApi.getFileBinary).toBeCalledTimes(2);
+  });
+
+  it('should call onError prop with binary-fetch if binary fetch fails', async () => {
+    const [fileItem, identifier] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider, mediaApi } =
+      createMockedMediaClientProvider({
+        initialItems: fileItem,
+      });
+
+    jest
+      .spyOn(mediaApi, 'getFileBinary')
+      .mockRejectedValue(new Error('some-getFileBinary-error'));
+
+    const onError = jest.fn();
+    const error = new MediaSVGError('binary-fetch');
+
+    render(
+      <MockedMediaClientProvider>
+        <MediaSvg identifier={identifier} onError={onError} />,
+      </MockedMediaClientProvider>,
+    );
+
+    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    expect(onError).toHaveBeenCalledWith(error);
+  });
+
+  it('should call onError prop with img-error if IMG tag throws an error', async () => {
+    const [fileItem, identifier] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+      initialItems: fileItem,
+    });
+
+    const testId = 'media-svg';
+
+    const onError = jest.fn();
+    const error = new MediaSVGError('img-error');
+
+    const { findByTestId } = render(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier} onError={onError} />,
+      </MockedMediaClientProvider>,
+    );
+
+    const img = await findByTestId(testId);
+    fireEvent.error(img);
+
+    await waitFor(() => expect(onError).toBeCalledTimes(1));
+    expect(onError).toHaveBeenCalledWith(error);
   });
 });

@@ -7,6 +7,7 @@ import type { Node } from '@atlaskit/editor-prosemirror/dist/types/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
+  ConfluenceSearchDatasourceParameters,
   DatasourceAdfView,
   JiraIssueDatasourceParameters,
 } from '@atlaskit/link-datasource';
@@ -185,11 +186,11 @@ export const DatasourceModal = ({
     );
   }
 
+  // TODO: further refactor in https://product-fabric.atlassian.net/browse/EDM-9637
   if (modalType === 'confluence-search') {
     if (!ready) {
       return null;
     }
-
     const {
       id: datasourceId = CONFLUENCE_SEARCH_DATASOURCE_ID,
       parameters,
@@ -220,9 +221,8 @@ export const DatasourceModal = ({
       <div data-testid="confluence-search-config-modal">
         <ConfluenceSearchConfigModal
           datasourceId={datasourceId}
-          viewMode={'issue'}
           visibleColumnKeys={visibleColumnKeys}
-          parameters={parameters}
+          parameters={parameters as ConfluenceSearchDatasourceParameters}
           url={existingNode?.attrs.url}
           columnCustomSizes={columnCustomSizes}
           wrappedColumnKeys={wrappedColumnKeys}

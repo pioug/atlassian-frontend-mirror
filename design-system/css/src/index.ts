@@ -8,7 +8,17 @@ import {
 
 import { type DesignTokenStyles } from '@atlaskit/tokens/css-type-schema';
 
-const { XCSSProp, css, cssMap, cx } = createStrictAPI<DesignTokenStyles>();
+type MediaQuery =
+  | '(min-width: 30rem)'
+  | '(min-width: 48rem)'
+  | '(min-width: 64rem)'
+  | '(min-width: 90rem)'
+  | '(min-width: 110rem)';
+
+const { XCSSProp, css, cssMap, cx } = createStrictAPI<
+  DesignTokenStyles,
+  { media: MediaQuery }
+>();
 
 export { css, cssMap, cx, XCSSAllProperties, XCSSAllPseudos };
 
@@ -39,7 +49,7 @@ type LocalXCSSProp<
  * the styles!
  *
  * The {@link StrictXCSSProp} type has generics two of which must be defined — use to explicitly
- * set want you to maintain as API. Use {@link XCSSAllProperties} and {@link XCSSAllPseudos}
+ * set what you want to maintain as API. Use {@link XCSSAllProperties} and {@link XCSSAllPseudos}
  * to enable all properties and pseudos.
  *
  * The third generic is used to declare what properties and pseudos should be required.
@@ -49,7 +59,7 @@ type LocalXCSSProp<
  *   // Color is accepted, all other properties / pseudos are considered violations.
  *   xcss?: StrictXCSSProp<'color', never>;
  *
- *   // Only backgrond color and hover pseudo is accepted.
+ *   // Only background color and hover pseudo are accepted.
  *   xcss?: StrictXCSSProp<'backgroundColor', '&:hover'>;
  *
  *   // All properties are accepted, all pseudos are considered violations.

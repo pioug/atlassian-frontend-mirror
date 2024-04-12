@@ -41,13 +41,13 @@ const ButtonWithRouter = () => (
         />
         <BreadcrumbsItem
           href="/item"
-          iconBefore={<AtlassianIcon label="Test icon" size="small" />}
+          iconBefore={<AtlassianIcon label="" size="small" />}
           text="Icon Before"
           component={RouterLink}
         />
         <BreadcrumbsItem
           href="/item"
-          iconAfter={<AtlassianIcon label="Test icon" size="small" />}
+          iconAfter={<AtlassianIcon label="" size="small" />}
           text="Icon After"
           component={RouterLink}
         />

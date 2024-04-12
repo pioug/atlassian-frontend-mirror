@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.9.1",
+  "version": "193.9.9",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -45,21 +45,21 @@
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
     "@atlaskit/button": "^17.11.0",
-    "@atlaskit/editor-common": "^78.23.0",
+    "@atlaskit/editor-common": "^78.26.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-plugins": "^2.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-shared-styles": "^2.9.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/media-card": "^77.10.0",
+    "@atlaskit/media-card": "^77.11.0",
     "@atlaskit/mention": "^23.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/task-decision": "^17.9.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.1.0",
+    "@atlaskit/tooltip": "^18.2.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",
     "@babel/runtime": "^7.0.0",
@@ -87,10 +87,10 @@
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
     "@atlaskit/checkbox": "^13.1.0",
-    "@atlaskit/collab-provider": "9.25.15",
+    "@atlaskit/collab-provider": "9.26.0",
     "@atlaskit/dropdown-menu": "^12.8.0",
-    "@atlaskit/editor-plugin-annotation": "1.5.7",
-    "@atlaskit/editor-plugin-card": "^1.4.0",
+    "@atlaskit/editor-plugin-annotation": "1.5.8",
+    "@atlaskit/editor-plugin-card": "^1.5.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.5",
     "@atlaskit/editor-plugin-paste": "^1.0.0",
@@ -104,7 +104,7 @@
     "@atlaskit/media-test-helpers": "^33.0.27",
     "@atlaskit/modal-dialog": "^12.10.0",
     "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/renderer": "^109.15.0",
+    "@atlaskit/renderer": "^109.16.0",
     "@atlaskit/select": "^17.6.0",
     "@atlaskit/smart-card": "^26.52.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
@@ -114,7 +114,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.2.0",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.50",
+    "@atlassian/search-provider": "2.4.51",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -297,6 +297,10 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
+    "platform.editor.table.background-color-flicker-in-drag-menu": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
     "platform.editor.transform-slice-for-nested-expand": {
       "type": "boolean",
       "referenceOnly": "true"
@@ -315,6 +319,10 @@
     },
     "__live-view-toggle": {
       "type": "boolean"
+    },
+    "platform.editor.extractlistfromparagraphv2": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   },
   "stricter": {
@@ -342,6 +350,7 @@
     "./editor-context": "./src/editor-context.ts",
     "./editor": "./src/editor.tsx",
     "./element-browser": "./src/element-browser.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./labs-next": "./src/labs-next.ts",
     "./messages": "./src/messages.ts",
     "./preset-default": "./src/preset-default.ts",

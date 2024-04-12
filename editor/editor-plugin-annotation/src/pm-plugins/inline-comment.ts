@@ -3,7 +3,6 @@ import { RESOLVE_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { BlockAnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import type {
   CommandDispatch,
   FeatureFlags,
@@ -24,7 +23,6 @@ import {
 import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 import {
-  decorationKey,
   getAllAnnotations,
   getPluginState,
   inlineCommentPluginKey,
@@ -271,17 +269,12 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         const focusDecorations: Decoration[] = [];
 
         state.doc.descendants((node: PMNode, pos: number) => {
-          const isSupportedBlockNode =
-            node.isBlock &&
-            provider.supportedBlockNodes?.includes(node.type.name);
-
           node.marks
             .filter(mark => mark.type === state.schema.marks.annotation)
             .forEach(mark => {
               if (isVisible) {
                 const isUnresolved =
                   !!annotations && annotations[mark.attrs.id] === false;
-
                 const isSelected =
                   !isInlineCommentViewClosed &&
                   !!selectedAnnotations?.some(
@@ -289,30 +282,15 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
                       selectedAnnotation.id === mark.attrs.id,
                   );
 
-                if (isSupportedBlockNode) {
-                  const attrs = isUnresolved
-                    ? {
-                        class: isSelected
-                          ? `${BlockAnnotationSharedClassNames.focus}`
-                          : `${BlockAnnotationSharedClassNames.blur}`,
-                      }
-                    : {};
-                  focusDecorations.push(
-                    Decoration.node(pos, pos + node.nodeSize, attrs, {
-                      key: decorationKey.block,
-                    }),
-                  );
-                } else {
-                  focusDecorations.push(
-                    Decoration.inline(pos, pos + node.nodeSize, {
-                      class: `${getAnnotationViewClassname(
-                        isUnresolved,
-                        isSelected,
-                      )} ${isUnresolved}`,
-                      nodeName: 'span',
-                    }),
-                  );
-                }
+                focusDecorations.push(
+                  Decoration.inline(pos, pos + node.nodeSize, {
+                    class: `${getAnnotationViewClassname(
+                      isUnresolved,
+                      isSelected,
+                    )} ${isUnresolved}`,
+                    nodeName: 'span',
+                  }),
+                );
               }
             });
         });

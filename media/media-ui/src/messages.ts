@@ -55,6 +55,8 @@ export type MessageKey =
   | 'avatar_picker_back_btn_label'
   | 'drag_and_drop_images_here'
   | 'upload_image'
+  | 'alt_text'
+  | 'alt_text_description'
   | 'image_url_invalid_error'
   | 'image_format_invalid_error'
   | 'image_size_too_large_error'
@@ -439,6 +441,17 @@ export const messages: Messages = defineMessages({
     id: 'fabric.media.upload_image',
     defaultMessage: 'Upload image',
     description: 'Call to action for the user to upload a new image',
+  },
+  alt_text: {
+    id: 'fabric.media.alt_text',
+    defaultMessage: 'Alt text',
+    description: 'Shown above the alt text field',
+  },
+  alt_text_description: {
+    id: 'fabric.media.alt_text',
+    defaultMessage:
+      'How would you describe the selected image to someone with low vision?',
+    description: 'Shown below the alt text field',
   },
   image_url_invalid_error: {
     id: 'fabric.media.image_url_invalid_error',

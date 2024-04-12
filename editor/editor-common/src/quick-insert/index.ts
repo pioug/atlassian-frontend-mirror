@@ -25,6 +25,7 @@ export {
   IconFallback,
   IconDatasourceJiraIssue,
   IconDatasourceAssetsObjects,
+  IconDatasourceConfluenceSearch,
   IconLoom,
 } from './assets';
 export { memoProcessQuickInsertItems, find } from './utils';

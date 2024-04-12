@@ -70,7 +70,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private initialDraft?: InitialDraft;
   private isProviderInitialized: boolean = false;
   private isBuffered: boolean = false;
-  private enableCatchupv2: boolean = false;
   // User permit is used to determine if the user is allowed to view, comment or edit the document
   // Therefore, the initial value is false for all three
   private permit: UserPermitType = {
@@ -173,10 +172,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       'reconcileOnRecovery',
       this.config.featureFlags,
     );
-    this.enableCatchupv2 = getCollabProviderFeatureFlag(
-      'catchupv2',
-      this.config.featureFlags,
-    );
     this.documentService = new DocumentService(
       this.participantsService,
       this.analyticsHelper,
@@ -190,7 +185,6 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.metadataService,
       this.config.enableErrorOnFailedDocumentApply,
       reconcileOnRecovery,
-      this.enableCatchupv2,
       { __livePage: this.config.__livePage || false },
     );
     this.namespaceService = new NamespaceService();
@@ -242,11 +236,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           // Offline longer than `OUT_OF_SYNC_PERIOD`
           Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
         ) {
-          if (this.enableCatchupv2) {
-            this.documentService.throttledCatchupv2();
-          } else {
-            this.documentService.throttledCatchup();
-          }
+          this.documentService.throttledCatchupv2();
         }
         this.participantsService.startInactiveRemover(this.sessionId);
         this.disconnectedAt = undefined;

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { FormEvent, Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import ModalDialog, {
@@ -14,7 +14,10 @@ import {
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
+import { Field, HelperMessage } from '@atlaskit/form';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
+import { Box, xcss } from '@atlaskit/primitives';
+import Textfield from '@atlaskit/textfield';
 import { Avatar } from '../avatar-list';
 import ImageNavigator, { CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
@@ -22,7 +25,6 @@ import {
   formStyles,
   avatarPickerViewWrapperStyles,
   modalHeaderStyles,
-  croppingWrapperStyles,
 } from './styles';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
 import { LoadParameters } from '../image-navigator/index';
@@ -71,6 +73,21 @@ const HeaderContent = ({ title }: { title?: string }) => {
   );
 };
 
+const altTextFieldStyles = xcss({
+  paddingTop: 'space.100',
+  textAlign: 'left',
+});
+
+const croppingWrapperStyles = xcss({
+  display: 'inline-block',
+  userSelect: 'none',
+});
+
+const predefinedAvatarWrapperStyles = xcss({
+  display: 'inline-block',
+  userSelect: 'none',
+});
+
 export class AvatarPickerDialog extends PureComponent<
   AvatarPickerDialogWithIntlProps,
   AvatarPickerDialogState
@@ -88,6 +105,7 @@ export class AvatarPickerDialog extends PureComponent<
     selectedImage: undefined,
     errorMessage: this.props.errorMessage,
     isSubmitted: false,
+    altText: this.initialiseAltText(),
   };
 
   setSelectedImageState = async (selectedImage: File) => {
@@ -101,10 +119,20 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   setSelectedAvatarState = (avatar: Avatar) => {
-    this.setState({
-      selectedAvatar: avatar,
-      isSubmitted: false,
-    });
+    const { requireAltText } = this.props;
+
+    if (requireAltText) {
+      this.setState({
+        selectedAvatar: avatar,
+        altText: avatar.name ?? '',
+        isSubmitted: false,
+      });
+    } else {
+      this.setState({
+        selectedAvatar: avatar,
+        isSubmitted: false,
+      });
+    }
   };
 
   onImageNavigatorLoad = (loadParams: LoadParameters) => {
@@ -125,8 +153,9 @@ export class AvatarPickerDialog extends PureComponent<
       onAvatarPicked,
       outputSize,
       imageSource,
+      requireAltText,
     } = this.props;
-    const { selectedImage, selectedAvatar } = this.state;
+    const { selectedImage, selectedAvatar, altText } = this.state;
 
     if (!(imageSource || selectedImage || selectedAvatar)) {
       this.setState({ isSubmitted: true });
@@ -135,21 +164,31 @@ export class AvatarPickerDialog extends PureComponent<
 
     if (selectedImage) {
       const exportedCroppedImageURI = this.exportCroppedImage(outputSize);
-      if (onImagePicked) {
-        onImagePicked(dataURItoFile(exportedCroppedImageURI), fixedCrop);
-      }
-      if (onImagePickedDataURI) {
-        onImagePickedDataURI(exportedCroppedImageURI);
+      if (requireAltText) {
+        onImagePicked?.(
+          dataURItoFile(exportedCroppedImageURI),
+          fixedCrop,
+          altText,
+        );
+        onImagePickedDataURI?.(exportedCroppedImageURI, altText);
+      } else {
+        onImagePicked?.(dataURItoFile(exportedCroppedImageURI), fixedCrop);
+        onImagePickedDataURI?.(exportedCroppedImageURI);
       }
     } else if (selectedAvatar) {
-      onAvatarPicked(selectedAvatar);
+      requireAltText
+        ? onAvatarPicked(selectedAvatar, altText)
+        : onAvatarPicked(selectedAvatar);
     } else {
       this.setState({ isSubmitted: true });
     }
   };
 
   onShowMore = () => {
-    this.setState({ mode: Mode.PredefinedAvatars, isSubmitted: false });
+    this.setState({
+      mode: Mode.PredefinedAvatars,
+      isSubmitted: false,
+    });
   };
 
   onGoBack = () => {
@@ -157,10 +196,17 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   onRemoveImage = () => {
+    const { requireAltText } = this.props;
+    const { selectedAvatar } = this.state;
+
     this.setState({
       selectedImageSource: undefined,
       selectedImage: undefined,
       mode: Mode.Cropping,
+      altText:
+        requireAltText && selectedAvatar && selectedAvatar.name
+          ? selectedAvatar.name
+          : '',
     });
   };
 
@@ -180,6 +226,7 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   onImageUploaded = () => {
+    this.clearAltText();
     this.clearErrorState();
   };
 
@@ -203,7 +250,7 @@ export class AvatarPickerDialog extends PureComponent<
 
         {this.state.isSubmitted && <SubmitErrorDialog />}
 
-        <form noValidate onSubmit={this.onSave} css={formStyles}>
+        <form onSubmit={this.onSave} css={formStyles}>
           <ModalBody>
             <div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
           </ModalBody>
@@ -276,37 +323,100 @@ export class AvatarPickerDialog extends PureComponent<
     );
   }
 
+  initialiseAltText() {
+    const { requireAltText, errorMessage, imageSource, defaultSelectedAvatar } =
+      this.props;
+
+    if (requireAltText) {
+      if (!errorMessage && imageSource) {
+        // there is a default image
+        return this.props.imageSourceAltText ?? '';
+      } else {
+        // if there is a default avatar, return its name (if defined)
+        return defaultSelectedAvatar?.name ?? '';
+      }
+    } else {
+      return '';
+    }
+  }
+
+  updateAltText(altText: string) {
+    this.setState({ altText });
+  }
+
+  clearAltText() {
+    this.setState({ altText: '' });
+  }
+
+  renderAltTextField() {
+    const { altText } = this.state;
+
+    return (
+      <Box xcss={altTextFieldStyles}>
+        <Field
+          aria-required={true}
+          name="altText"
+          isRequired
+          label={<FormattedMessage {...messages.alt_text} />}
+        >
+          {({ fieldProps }) => (
+            <Fragment>
+              <Textfield
+                {...fieldProps}
+                id="altText"
+                onChange={(event: FormEvent<HTMLInputElement>) =>
+                  this.updateAltText(event.currentTarget.value)
+                }
+                value={altText || ''}
+              />
+              <HelperMessage>
+                <FormattedMessage {...messages.alt_text_description} />
+              </HelperMessage>
+            </Fragment>
+          )}
+        </Field>
+      </Box>
+    );
+  }
+
   renderBody() {
-    const { avatars, isLoading, predefinedAvatarsText } = this.props;
+    const { avatars, isLoading, predefinedAvatarsText, requireAltText } =
+      this.props;
     const { mode, selectedImageSource, selectedAvatar, errorMessage } =
       this.state;
 
     switch (mode) {
       case Mode.Cropping:
         return (
-          <div css={croppingWrapperStyles}>
-            <ImageNavigator
-              imageSource={selectedImageSource}
-              errorMessage={errorMessage}
-              onImageLoaded={this.setSelectedImageState}
-              onLoad={this.onImageNavigatorLoad}
-              onRemoveImage={this.onRemoveImage}
-              onImageUploaded={this.onImageUploaded}
-              onImageError={this.onImageError}
-              isLoading={isLoading}
-            />
-            {this.renderPredefinedAvatarList()}
-          </div>
+          <Box>
+            <Box xcss={croppingWrapperStyles}>
+              <ImageNavigator
+                imageSource={selectedImageSource}
+                errorMessage={errorMessage}
+                onImageLoaded={this.setSelectedImageState}
+                onLoad={this.onImageNavigatorLoad}
+                onRemoveImage={this.onRemoveImage}
+                onImageUploaded={this.onImageUploaded}
+                onImageError={this.onImageError}
+                isLoading={isLoading}
+              />
+              {this.renderPredefinedAvatarList()}
+            </Box>
+            {requireAltText && this.renderAltTextField()}
+          </Box>
         );
       case Mode.PredefinedAvatars:
         return (
-          <PredefinedAvatarView
-            avatars={avatars}
-            onAvatarSelected={this.setSelectedAvatarState}
-            onGoBack={this.onGoBack}
-            selectedAvatar={selectedAvatar}
-            predefinedAvatarsText={predefinedAvatarsText}
-          />
+          <Box xcss={predefinedAvatarWrapperStyles}>
+            <PredefinedAvatarView
+              avatars={avatars}
+              onAvatarSelected={this.setSelectedAvatarState}
+              onGoBack={this.onGoBack}
+              selectedAvatar={selectedAvatar}
+              predefinedAvatarsText={predefinedAvatarsText}
+            />
+            {requireAltText && this.renderAltTextField()}
+          </Box>
         );
     }
   }

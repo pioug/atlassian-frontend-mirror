@@ -16,6 +16,7 @@ export interface Props {
   showMacroInteractionDesignUpdates?: boolean;
   isNodeSelected?: boolean;
   isNodeHovered?: boolean;
+  isNodeNested?: boolean;
   customContainerStyles?: CSSProperties;
 }
 
@@ -53,6 +54,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
       showMacroInteractionDesignUpdates,
       isNodeSelected,
       isNodeHovered,
+      isNodeNested,
       customContainerStyles,
     } = this.props;
     const { parameters, extensionKey } = this.props.node.attrs;
@@ -69,6 +71,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
       <LozengeComponent
         isNodeHovered={isNodeHovered}
         isNodeSelected={isNodeSelected}
+        isNodeNested={isNodeNested}
         showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
         extensionName={name}
         lozengeData={lozengeData}

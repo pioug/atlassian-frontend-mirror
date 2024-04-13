@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
@@ -16,6 +16,7 @@ describe('a11y', () => {
         Your license is about to expire.
       </Banner>,
     );
+    expect(screen.getByRole('alert')).toBeInTheDocument();
     await axe(container);
   });
 
@@ -38,10 +39,5 @@ describe('a11y', () => {
       <Banner appearance="error">Simple error banner</Banner>,
     );
     await axe(container);
-  });
-
-  it('should have role=alert by default', () => {
-    const { getByRole } = render(<Banner />);
-    expect(getByRole('alert')).toBeInTheDocument();
   });
 });

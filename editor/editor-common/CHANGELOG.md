@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 78.26.1
+
+### Patch Changes
+
+- [#89487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89487) [`4aa7d85aa286`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4aa7d85aa286) - [ux] Fix extension label and opacity
+
 ## 78.26.0
 
 ### Minor Changes

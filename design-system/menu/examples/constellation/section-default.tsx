@@ -22,9 +22,9 @@ export default () => (
       <Section title="Actions">
         <ButtonItem>Create article</ButtonItem>
       </Section>
-      <Section aria-labelledby="actions" hasSeparator>
-        <HeadingItem id="actions">Actions</HeadingItem>
-        <ButtonItem>Create article</ButtonItem>
+      <Section aria-labelledby="settings" hasSeparator>
+        <HeadingItem id="settings">Settings</HeadingItem>
+        <ButtonItem>Manage account</ButtonItem>
       </Section>
     </MenuGroup>
   </div>

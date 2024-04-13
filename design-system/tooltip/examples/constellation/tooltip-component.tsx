@@ -7,16 +7,16 @@ import { token } from '@atlaskit/tokens';
 
 import Tooltip, { TooltipPrimitive } from '../../src';
 
-const InlineDialog = styled(TooltipPrimitive)`
-  background: white;
-  border-radius: ${token('border.radius', '4px')};
-  box-shadow: ${token('elevation.shadow.overlay')};
-  box-sizing: content-box; /* do not set this to border-box or it will break the overflow handling */
-  color: ${token('color.text')};
-  max-height: 300px;
-  max-width: 300px;
-  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
-`;
+const InlineDialog = styled(TooltipPrimitive)({
+  background: 'white',
+  borderRadius: token('border.radius', '4px'),
+  boxShadow: token('elevation.shadow.overlay'),
+  boxSizing: 'content-box',
+  color: token('color.text'),
+  maxHeight: '300px',
+  maxWidth: '300px',
+  padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+});
 
 export default () => (
   <Tooltip component={InlineDialog} content="This is a tooltip">

@@ -31,6 +31,11 @@ const labelStyles = css({
     '3px',
   )} 0 0`,
   lineHeight: 1,
+  '&.nested': {
+    // Need to add indent if the node is nested since we removed previous indentation styles to make it fit properly
+    // in the nested component
+    marginLeft: token('space.150', '12px'),
+  },
 });
 
 const textStyles = css({
@@ -43,6 +48,7 @@ type ExtensionLabelProps = {
   text: string;
   extensionName: string;
   isNodeHovered?: boolean;
+  isNodeNested?: boolean;
   customContainerStyles?: CSSProperties;
 };
 
@@ -51,10 +57,12 @@ export const ExtensionLabel = ({
   extensionName,
   isNodeHovered,
   customContainerStyles,
+  isNodeNested,
 }: ExtensionLabelProps) => {
   const classNames = classnames('extension-title', 'extension-label', {
     'inline-extension': extensionName === 'inlineExtension',
     hovered: isNodeHovered,
+    nested: isNodeNested,
   });
 
   return (

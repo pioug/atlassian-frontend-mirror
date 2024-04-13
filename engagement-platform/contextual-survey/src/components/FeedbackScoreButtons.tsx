@@ -6,6 +6,9 @@ import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+const styles = css({
+  textAlign: 'right',
+});
 interface Props {
   onChange: (value: number) => void;
   value: number | undefined;
@@ -24,22 +27,19 @@ const tooltipMessage = [
 export default ({ onChange, value }: Props) => (
   <div>
     <div
-      css={css`
-        display: flex;
-        justify-content: space-between;
-
-        & > * + * {
-          margin-left: ${token('space.100', '8px')};
-        }
-
-        & > * {
-          flex: 1;
-
-          & > button {
-            justify-content: center;
-          }
-        }
-      `}
+      css={css({
+        display: 'flex',
+        justifyContent: 'space-between',
+        '& > * + *': {
+          marginLeft: token('space.100', '8px'),
+        },
+        '& > *': {
+          flex: 1,
+          '& > button': {
+            justifyContent: 'center',
+          },
+        },
+      })}
     >
       {Array.from({ length: 7 }, (_, i) => {
         const score = i + 1;
@@ -62,37 +62,30 @@ export default ({ onChange, value }: Props) => (
       })}
     </div>
     <div
-      css={css`
-        font-size: 12px;
-        font-weight: 600;
-        color: ${token('color.text.subtlest', N200)};
-        display: flex;
-        margin-top: ${token('space.100', '8px')};
-        margin-bottom: ${token('space.300', '24px')};
-
-        & > span {
-          width: ${token('space.1000', '80px')};
-        }
-      `}
+      css={css({
+        fontSize: '12px',
+        fontWeight: 600,
+        color: token('color.text.subtlest', N200),
+        display: 'flex',
+        marginTop: token('space.100', '8px'),
+        marginBottom: token('space.300', '24px'),
+        '& > span': {
+          width: token('space.1000', '80px'),
+        },
+      })}
       aria-hidden
     >
       <span>Strongly disagree</span>
       <span
-        css={css`
-          text-align: center;
-          margin: 0 auto;
-          padding: 0 ${token('space.600', '48px')};
-        `}
+        css={css({
+          textAlign: 'center',
+          margin: '0 auto',
+          padding: `0 ${token('space.600', '48px')}`,
+        })}
       >
         Neutral
       </span>
-      <span
-        css={css`
-          text-align: right;
-        `}
-      >
-        Strongly agree
-      </span>
+      <span css={styles}>Strongly agree</span>
     </div>
   </div>
 );

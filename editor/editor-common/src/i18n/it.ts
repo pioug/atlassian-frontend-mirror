@@ -392,10 +392,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} per {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Selettore delle dimensioni della tabella',
   'fabric.editor.tables.adjustColumn': 'Regola colonna',
+  'fabric.editor.tables.columnResizeLast': 'Puoi ridimensionare questa colonna solo verso sinistra.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Puoi ridimensionare questa colonna solo se la tabella dispone di una barra di scorrimento.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {La larghezza della colonna è stata modificata in {width} pixel} other {La larghezza della colonna è stata modificata in {width} pixel}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     "L'eliminazione di {nodeName} comporterà l'interruzione di tutti i relativi collegamenti.",
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Elimina',
+  'fabric.editor.tables.resizeStop': 'Ridimensionamento interrotto',
   'fabric.editor.tables.resizeTable': 'Ridimensiona tabella',
+  'fabric.editor.tables.startedColumnResize': 'Ridimensionamento della colonna avviato',
   'fabric.editor.task': 'Task',
   'fabric.editor.taskPlaceholder': 'Digita la tua azione e usa “@” per assegnarla a qualcuno.',
   'fabric.editor.text.formatting.off': 'Formattazione del test disattivata',

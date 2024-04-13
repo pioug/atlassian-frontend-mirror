@@ -4,17 +4,16 @@ order: 2
 
 ## Usage
 
-Use Heading to create section and subsection titles on a page.
+Use the heading component to create section and subsection titles on a page.
 
 ## Accessibility
 
 Consistent and clear hierarchy helps people navigate the page. Use headings and titles to outline the page so people can understand the page structure.
 
-The most important heading has the rank 1 (`<h1>`), the least important heading rank 6 (`<h6>`).
-Headings with an equal or higher rank start a new section, headings with a lower rank start new subsections that are part of the higher ranked section.
-There should **only be one rank 1 (`<h1>`) heading per page** which explains main purpose of the page.
+The most important heading has the number 1 (`<h1>`), the least important heading number 6 (`<h6>`).
+Headings with an equal or higher number start a new section, headings with a lower number start new subsections that are part of the higher ranked section.
+There should only be one rank 1 (`<h1>`) heading per page. Use this to explain the main purpose of the page. Make sure that it is similar (or the same) as the page title.
 
-Never skip lower heading levels. For example, a `<h2>` should not be followed by an `<h4>`. It should be followed by an `<h3>` (for a lower section in the hierarchy), or another `<h2>` (for a section of the same level of importance).
-It is ok to skip ranks when closing subsections, for instance, a `<h2>` beginning a new section, can follow an `<h4>` as it closes the previous section.
+Never skip lower heading levels. For example, a `<h2>` shouldn't be followed by an `<h4>`. It should be followed by an `<h3>` (for a lower section in the hierarchy), or another `<h2>` (for a section of the same level of importance).
 
-Text should be a minimum of 3:1 color contrast when it is 24px or larger, and 4.5:1 color contrast when is under 24px. Use `color="inverse"` for headings placed on a dark surface for better color contrast.
+Text should be a minimum of 4.5:1 color contrast. Use `color="inverse"` for headings placed on a dark surface for better color contrast.

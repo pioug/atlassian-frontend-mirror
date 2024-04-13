@@ -17,23 +17,23 @@ interface Props {
 export default ({ children, onDismiss }: Props) => {
   return (
     <div
-      css={css`
-        background-color: ${token('elevation.surface.overlay', N0)};
-        border-radius: ${borderRadius()}px;
-        padding: ${token('space.300', '24px')};
-        box-shadow: ${token(
+      css={css({
+        backgroundColor: token('elevation.surface.overlay', N0),
+        borderRadius: `${borderRadius()}px`,
+        padding: token('space.300', '24px'),
+        boxShadow: token(
           'elevation.shadow.overlay',
           `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
-        )};
-        width: ${surveyInnerWidth}px;
-      `}
+        ),
+        width: `${surveyInnerWidth}px`,
+      })}
     >
       <div
-        css={css`
-          position: absolute;
-          top: ${token('space.200', '16px')};
-          right: ${token('space.200', '16px')};
-        `}
+        css={css({
+          position: 'absolute',
+          top: token('space.200', '16px'),
+          right: token('space.200', '16px'),
+        })}
       >
         <Button
           iconBefore={

@@ -11,16 +11,16 @@ interface Props {
 
 export default ({ children }: Props) => (
   <section
-    css={css`
-      margin-left: ${token('space.500', '40px')};
-    `}
+    css={css({
+      marginLeft: token('space.500', '40px'),
+    })}
   >
     <div
-      css={css`
-        position: absolute;
-        top: ${token('space.300', '24px')};
-        left: ${token('space.300', '24px')};
-      `}
+      css={css({
+        position: 'absolute',
+        top: token('space.300', '24px'),
+        left: token('space.300', '24px'),
+      })}
     >
       <CheckCircleIcon
         label=""

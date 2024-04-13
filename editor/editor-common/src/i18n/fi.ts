@@ -385,10 +385,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} x {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Taulukon koon valitsin',
   'fabric.editor.tables.adjustColumn': 'Säädä saraketta',
+  'fabric.editor.tables.columnResizeLast': 'Voit muuttaa tämän sarakkeen kokoa vain vasemmalla.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Voit muuttaa tämän sarakkeen kokoa vain, kun taulukossa on vierityspalkki.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Sarakeleveydeksi muutettiin {width} pikseli} other {Sarakeleveydeksi muutettiin {width} pikseliä}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Solmun {nodeName} poistaminen rikkoo kaiken siihen yhdistetyn.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Poista',
+  'fabric.editor.tables.resizeStop': 'Koon muuttaminen pysäytetty',
   'fabric.editor.tables.resizeTable': 'Muuta taulukon kokoa',
+  'fabric.editor.tables.startedColumnResize': 'Sarakkeen koon muuttaminen aloitettu',
   'fabric.editor.task': 'Tehtävä',
   'fabric.editor.taskPlaceholder': "Kirjoita toimintasi, käytä '@'-merkkiä määrätäksesi sen jollekin henkilölle.",
   'fabric.editor.text.formatting.off': 'Tekstin muotoilu pois käytöstä',

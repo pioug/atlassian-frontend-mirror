@@ -386,10 +386,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} af {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Vælger til tabelstørrelse',
   'fabric.editor.tables.adjustColumn': 'Tilpas kolonne',
+  'fabric.editor.tables.columnResizeLast': 'Du kan kun ændre størrelsen på denne kolonne til venstre.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Du kan kun ændre størrelsen på denne kolonne, mens tabellen har en rullebjælke.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Kolonnebredden blev ændret til {width} pixel} other {Kolonnebredden blev ændret til {width} pixels}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Hvis du sletter {nodeName}, brydes forbindelsen til alt, der er forbundet til den.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Slet',
+  'fabric.editor.tables.resizeStop': 'Stoppede med at ændre størrelse',
   'fabric.editor.tables.resizeTable': 'Tilpas størrelsen på tabellen',
+  'fabric.editor.tables.startedColumnResize': 'Startede med at ændre størrelsen på kolonne',
   'fabric.editor.task': 'Opgave',
   'fabric.editor.taskPlaceholder': 'Indtast din handling, og brug "@" for at tildele til nogen.',
   'fabric.editor.text.formatting.off': 'Tekstformatering fra',

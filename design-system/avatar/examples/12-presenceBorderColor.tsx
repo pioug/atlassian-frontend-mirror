@@ -8,15 +8,15 @@ import { token } from '@atlaskit/tokens';
 
 import { Presence } from '../src';
 
-const Container = styled.div`
-  display: flex;
-`;
+const Container = styled.div({
+  display: 'flex',
+});
 
-const PresenceWrapper = styled.div`
-  height: 30px;
-  width: 30px;
-  margin-right: ${token('space.100', '8px')};
-`;
+const PresenceWrapper = styled.div({
+  height: '30px',
+  width: '30px',
+  marginRight: token('space.100', '8px'),
+});
 
 export default () => (
   <div>

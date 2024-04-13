@@ -7,9 +7,9 @@ import Tag from '../src/tag/removable-tag';
 const cupcakeipsum =
   'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
 
-const TableHeading = styled.th`
-  font-weight: bold;
-`;
+const TableHeading = styled.th({
+  fontWeight: 'bold',
+});
 
 interface RowProps {
   name: string;

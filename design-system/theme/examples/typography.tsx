@@ -4,9 +4,7 @@ import styled from '@emotion/styled';
 
 import { typography } from '../src';
 
-const Heading = styled.div<{ mixin: any }>`
-  ${(props) => props.mixin()};
-`;
+const Heading = styled.div<{ mixin: any }>((props) => props.mixin());
 
 export default () => {
   return (

@@ -390,10 +390,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} de {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Selector de tamaño de tabla',
   'fabric.editor.tables.adjustColumn': 'Ajustar columna',
+  'fabric.editor.tables.columnResizeLast': 'Solo puedes cambiar el tamaño de la columna hacia la izquierda.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Solo puedes cambiar el tamaño de la columna mientras la tabla tiene una barra desplazamiento.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Ancho de columna cambiado a {width} píxel} other {Ancho de columna cambiado a {width} píxeles}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Al eliminar la extensión {nodeName}, se interrumpirá todo lo que se haya conectado a ella.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Eliminar',
+  'fabric.editor.tables.resizeStop': 'Cambio de tamaño detenido',
   'fabric.editor.tables.resizeTable': 'Cambiar tamaño de tabla',
+  'fabric.editor.tables.startedColumnResize': 'Cambio de tamaño de la columna comenzado',
   'fabric.editor.task': 'Tarea',
   'fabric.editor.taskPlaceholder': 'Escribe la acción y usa "@" para asignársela a alguien.',
   'fabric.editor.text.formatting.off': 'Formato de texto desactivado',

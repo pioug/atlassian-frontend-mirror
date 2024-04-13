@@ -392,10 +392,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} von {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Auswahl der Tabellengröße',
   'fabric.editor.tables.adjustColumn': 'Spalte anpassen',
+  'fabric.editor.tables.columnResizeLast': 'Sie können die Größe dieser Spalte nur nach links ändern.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Sie können die Größe dieser Spalte nur ändern, wenn die Tabelle eine Scrollleiste hat.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Die Spaltenbreite wurde auf {width} Pixel geändert} other {Die Spaltenbreite wurde auf {width} Pixel geändert}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Durch das Löschen von {nodeName} werden alle damit verbundenen Elemente unbrauchbar.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Löschen',
+  'fabric.editor.tables.resizeStop': 'Größenänderung beendet',
   'fabric.editor.tables.resizeTable': 'Tabellengröße ändern',
+  'fabric.editor.tables.startedColumnResize': 'Größenänderung der Spalte gestartet',
   'fabric.editor.task': 'Task',
   'fabric.editor.taskPlaceholder': 'Geben Sie Ihre Aktion ein und weisen Sie sie mithilfe von „@” jemandem zu.',
   'fabric.editor.text.formatting.off': 'Textformatierung aus',

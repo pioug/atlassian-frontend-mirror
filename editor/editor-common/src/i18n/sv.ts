@@ -387,10 +387,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} av {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Väljare för tabellstorlek',
   'fabric.editor.tables.adjustColumn': 'Justera kolumn',
+  'fabric.editor.tables.columnResizeLast': 'Du kan bara ändra storlek på kolumnen till vänster.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Du kan bara ändra storlek på kolumnen när tabellen har en rullningslist.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Kolumnbredden har ändrats till {width} pixel.} other {Kolumnbredden har ändrats till {width} pixlar}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Om du raderar {nodeName} bryts allt som är kopplat till den.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Radera',
+  'fabric.editor.tables.resizeStop': 'Storleksändring har avbrutits',
   'fabric.editor.tables.resizeTable': 'Ändra storlek på tabell',
+  'fabric.editor.tables.startedColumnResize': 'Storleksändring av kolumn har påbörjats',
   'fabric.editor.task': 'Uppgift',
   'fabric.editor.taskPlaceholder': 'Skriv din åtgärd och använd @ för att tilldela någon.',
   'fabric.editor.text.formatting.off': 'Textformatering av',

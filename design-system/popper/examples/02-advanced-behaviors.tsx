@@ -20,6 +20,7 @@ const REF_HEIGHT = 40;
 const POPUP_HEIGHT = 40;
 const SPACING = 35;
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 const Popup = styled.div`
   background: white;
   border: 2px solid red;
@@ -33,27 +34,27 @@ const Popup = styled.div`
   box-shadow: ${token('elevation.shadow.overlay')};
 `;
 
-const ReferenceBox = styled.div`
-  background: ${token('color.background.brand.bold')};
-  padding: ${token('space.100', '8px')};
-  border-radius: ${borderRadius}px;
-  color: white;
-  text-align: center;
-  width: ${REF_WIDTH - 20}px;
-  height: ${REF_HEIGHT - 20}px;
-  text-overflow: 'ellipsis';
-`;
+const ReferenceBox = styled.div({
+  background: token('color.background.brand.bold'),
+  padding: token('space.100', '8px'),
+  borderRadius: `${borderRadius()}px`,
+  color: 'white',
+  textAlign: 'center',
+  width: `${REF_WIDTH - 20}px`,
+  height: `${REF_HEIGHT - 20}px`,
+  textOverflow: "'ellipsis'",
+});
 
-const ReferenceBoundaries = styled.div`
-  background: lightblue;
-  border-radius: ${borderRadius}px;
-  padding: ${token('space.100', '8px')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: fit-content;
-  height: fit-content;
-`;
+const ReferenceBoundaries = styled.div({
+  background: 'lightblue',
+  borderRadius: `${borderRadius()}px`,
+  padding: token('space.100', '8px'),
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 'fit-content',
+  height: 'fit-content',
+});
 
 const BasicPopper = ({
   children,

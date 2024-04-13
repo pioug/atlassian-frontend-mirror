@@ -385,10 +385,15 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} x {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Tablo boyutu seçici',
   'fabric.editor.tables.adjustColumn': 'Sütunu ayarla',
+  'fabric.editor.tables.columnResizeLast': 'Bu sütunu yalnızca sola doğru yeniden boyutlandırabilirsiniz.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Bu sütunu yalnızca tabloda kaydırma çubuğu varken yeniden boyutlandırabilirsiniz.',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} düğümünün silinmesi, bu düğüme bağlı her şeyin bozulmasına neden olur.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Sil',
+  'fabric.editor.tables.resizeStop': 'Yeniden boyutlandırma durduruldu',
   'fabric.editor.tables.resizeTable': 'Tabloyu yeniden boyutlandır',
+  'fabric.editor.tables.startedColumnResize': 'Yeniden boyutlandırma başlatıldı',
   'fabric.editor.task': 'Görev',
   'fabric.editor.taskPlaceholder': "Yapılacak eylemi yazın, birine atamak için '@' kullanın.",
   'fabric.editor.text.formatting.off': 'Metin Biçimlendirmesi Kapalı',

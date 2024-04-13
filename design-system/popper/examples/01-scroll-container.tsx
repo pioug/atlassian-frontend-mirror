@@ -12,6 +12,7 @@ import { Manager, Popper, Reference } from '../src';
 interface PopupProps {
   isReferenceHidden: boolean | undefined;
 }
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 const Popup = styled.div`
   background: white;
   border: 2px solid red;

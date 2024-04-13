@@ -19,6 +19,7 @@ interface StyledProps {
   scroll: string;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 const Parent = styled.div<StyledProps>`
   background-color: ${token('elevation.surface.sunken')};
   border-radius: 5px;
@@ -31,22 +32,24 @@ const Parent = styled.div<StyledProps>`
     margin-bottom: ${token('space.0', '0px')};
   }
 `;
-const Shim = styled.div<StyledProps>`
-  display: flex;
-  justify-content: space-between;
-  ${(p) =>
+const Shim = styled.div<StyledProps>(
+  {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  (p) =>
     p.scroll === 'horizontal' &&
-    css`
-      width: 200%;
-      flex-direction: row;
-    `};
-  ${(p) =>
+    css({
+      width: '200%',
+      flexDirection: 'row',
+    }),
+  (p) =>
     p.scroll === 'vertical' &&
-    css`
-      height: 200%;
-      flex-direction: column;
-    `};
-`;
+    css({
+      height: '200%',
+      flexDirection: 'column',
+    }),
+);
 
 export default () => (
   <div>

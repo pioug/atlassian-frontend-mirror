@@ -396,10 +396,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} na {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Selektor rozmiaru tabeli',
   'fabric.editor.tables.adjustColumn': 'Dostosuj kolumnę',
+  'fabric.editor.tables.columnResizeLast': 'Rozmiar tej kolumny można zmienić tylko w lewo.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Rozmiar tej kolumny można zmienić tylko wtedy, gdy tabela ma pasek przewijania.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Szerokość kolumny została zmieniona na {width} piksel} few {Szerokość kolumny została zmieniona na {width} piksele} many {Szerokość kolumny została zmieniona na {width} pikseli} other {Szerokość kolumny została zmieniona na {width} piksela}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Usunięcie rozszerzenia {nodeName} spowoduje uszkodzenie wszystkiego, co jest z nim połączone.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Usuń',
+  'fabric.editor.tables.resizeStop': 'Zatrzymano zmianę rozmiaru',
   'fabric.editor.tables.resizeTable': 'Zmień rozmiar tabeli',
+  'fabric.editor.tables.startedColumnResize': 'Rozpoczęto zmianę rozmiaru kolumny',
   'fabric.editor.task': 'Zadanie',
   'fabric.editor.taskPlaceholder': 'Wprowadź swoją akcję, użyj „@”, aby przypisać ją do użytkownika.',
   'fabric.editor.text.formatting.off': 'Formatowanie tekstu wył.',

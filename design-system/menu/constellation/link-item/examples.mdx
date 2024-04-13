@@ -8,6 +8,10 @@ import LinkItemDefault from '../../examples/constellation/link-item-default';
 
 ## Default
 
-The `LinkItem` component renders an item wrapped in an anchor tag `<a>` - useful when wanting to transition to another page. If you need to use a specific router component for route transitions, you'll want to compose them together using `CustomItem`
+The link item component renders an item wrapped in an anchor tag `<a>`. This is the most common type of menu item, as most menu items are used to send people to another location.
+
+For menu items that do something else, use the button item component instead.
+
+If you need to use a specific router component for route transitions, you'll want to compose them together using the custom item component.
 
 <Example Component={LinkItemDefault} packageName="@atlaskit/menu" />

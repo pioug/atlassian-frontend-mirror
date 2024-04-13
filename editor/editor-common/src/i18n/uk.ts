@@ -395,10 +395,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} × {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Засіб вибору розміру таблиці',
   'fabric.editor.tables.adjustColumn': 'Налаштувати стовпець',
+  'fabric.editor.tables.columnResizeLast': 'Ви можете змінити розмір тільки цього стовпця зліва.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Ви можете змінити розмір тільки цього стовпця, оскільки таблиця має панель прокрутки.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Ширину стовпця змінено на {width} пікселя} few {Ширину стовпця змінено на {width} пікселі} many {Ширину стовпця змінено на {width} пікселів} other {Ширину стовпця змінено на {width} пікселів}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Видалення розширення {nodeName} порушить роботу всього, що з ним пов’язано.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Видалити',
+  'fabric.editor.tables.resizeStop': 'Змінення розміру зупинено',
   'fabric.editor.tables.resizeTable': 'Змінити розмір таблиці',
+  'fabric.editor.tables.startedColumnResize': 'Змінення розміру стовпця розпочато',
   'fabric.editor.task': 'Завдання',
   'fabric.editor.taskPlaceholder': 'Вкажіть задачу. Призначте її комусь за допомогою символу «@».',
   'fabric.editor.text.formatting.off': 'Форматування тексту вимкнуто',

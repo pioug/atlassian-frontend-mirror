@@ -8,7 +8,7 @@ import LoadingContainerAdvanced from '../../loading-container-advanced'; // Load
 
 const testId = 'dynamic--table--test--id';
 describe('LoadingContainerAdvanced', () => {
-  const Contents = styled.div``;
+  const Contents = styled.div({});
 
   // let wrappers: Array<
   //   | ReactWrapper<LoadingContainerAdvancedProps, {}, LoadingContainerAdvanced>
@@ -194,7 +194,7 @@ describe('LoadingContainerAdvanced', () => {
     it('should set styles to the target and revert them on loading mode change', () => {
       let target: HTMLTableSectionElement | null = null;
 
-      const InnerComponent = styled.div``;
+      const InnerComponent = styled.div({});
       const { rerender } = render(
         <LoadingContainerAdvanced targetRef={() => target}>
           <Contents>

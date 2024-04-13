@@ -10,21 +10,18 @@ import { Block } from '../examples-util/helpers';
 import Avatar from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const DivPresence = styled.div`
-  align-items: center;
-  background-color: ${token(
-    'color.background.discovery.bold',
-    'rebeccapurple',
-  )};
-  color: ${token('elevation.surface', 'white')};
-  display: flex;
-  font-size: 0.75em;
-  font-weight: 500;
-  height: 100%;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-`;
+const DivPresence = styled.div({
+  alignItems: 'center',
+  backgroundColor: token('color.background.discovery.bold', 'rebeccapurple'),
+  color: token('elevation.surface', 'white'),
+  display: 'flex',
+  fontSize: '0.75em',
+  fontWeight: 500,
+  height: '100%',
+  justifyContent: 'center',
+  textAlign: 'center',
+  width: '100%',
+});
 
 export default () => (
   <Block heading="Custom div as status">

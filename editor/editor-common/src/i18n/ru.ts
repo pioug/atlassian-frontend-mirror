@@ -398,10 +398,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} x {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Селектор размера таблицы',
   'fabric.editor.tables.adjustColumn': 'Скорректировать ширину столбца',
+  'fabric.editor.tables.columnResizeLast': 'Размер этого столбца можно изменить только слева.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Размер этого столбца можно изменить, только если у таблицы есть полоса прокрутки.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Ширина столбца теперь составляет {width} пиксель} few {Ширина столбца теперь составляет {width} пикселя} many {Ширина столбца теперь составляет {width} пикселей} other {Ширина столбца теперь составляет {width} пикселя}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'При удалении элемента «{nodeName}» нарушится работа всего, что с ним связано.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Удалить',
+  'fabric.editor.tables.resizeStop': 'Прекращено изменение размера',
   'fabric.editor.tables.resizeTable': 'Изменить размер таблицы',
+  'fabric.editor.tables.startedColumnResize': 'Начато изменение размера столбца',
   'fabric.editor.task': 'Задание',
   'fabric.editor.taskPlaceholder': 'Укажите задание и назначьте исполнителя с помощью значка «@».',
   'fabric.editor.text.formatting.off': 'Форматирование текста выкл.',

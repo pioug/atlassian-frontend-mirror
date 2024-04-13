@@ -26,6 +26,7 @@ type LozengeComponentProps = {
   showMacroInteractionDesignUpdates?: boolean;
   customContainerStyles?: CSSProperties;
   isNodeHovered?: boolean;
+  isNodeNested?: boolean;
 };
 
 export const LozengeComponent = ({
@@ -37,6 +38,7 @@ export const LozengeComponent = ({
   showMacroInteractionDesignUpdates,
   customContainerStyles,
   isNodeHovered,
+  isNodeNested,
 }: LozengeComponentProps) => {
   const capitalizedTitle = capitalizeFirstLetter(title);
   if (showMacroInteractionDesignUpdates) {
@@ -45,6 +47,7 @@ export const LozengeComponent = ({
         text={capitalizedTitle}
         extensionName={extensionName}
         isNodeHovered={isNodeHovered}
+        isNodeNested={isNodeNested}
         customContainerStyles={customContainerStyles}
       />
     );

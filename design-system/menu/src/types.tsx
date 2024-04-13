@@ -30,46 +30,46 @@ export type Dimension = string | number;
 
 export interface MenuGroupSizing {
   /**
-   * Useful to constrain the menu group minimum height to a specific value.
+   * Use this to constrain the menu group's minimum height to a specific value.
    */
   minHeight?: Dimension;
 
   /**
-   * Useful to constrain the menu groups height to a specific value.
-   * Needs to be set when wanting to have scrollable sections.
+   * Use this to constrain the menu group's height to a specific value.
+   * This must be set if you want to have scrollable sections.
    */
   maxHeight?: Dimension;
 
   /**
-   * Useful to constrain the menu group minimum width to a specific value.
+   * Use this to constrain the menu group's minimum width to a specific value.
    */
   minWidth?: Dimension;
 
   /**
-   * Useful to constrain the menu group width to a specific value.
+   * Use this to constrain the menu group's maximum width to a specific value.
    */
   maxWidth?: Dimension;
 }
 
 export interface MenuGroupProps extends MenuGroupSizing {
   /**
-   * Children of the menu group,
-   * should generally be `Section` components.
+   * Children of the menu group.
+   * This should generally be `Section` components.
    */
   children: React.ReactNode;
 
   /**
-   * Used for telling assistive technologies that the menu group is loading.
+   * Used this to tell assistive technologies that the menu group is loading.
    */
   isLoading?: boolean;
 
   /**
-   * Configure the density of the MenuGroup content.
+   * Configure the density of the menu group content.
    */
   spacing?: SpacingMode;
 
   /**
-   * Used to override the accessibility role for the element.
+   * Use this to override the accessibility role for the element.
    */
   role?: string;
 
@@ -96,19 +96,19 @@ export interface SectionProps {
 
   /**
    * Enables scrolling within the section.
-   * Make sure to set `maxHeight` on the parent `MenuGroup` component else it will not work.
+   * This won't work unless `maxHeight` is set on the parent `MenuGroup` component.
    */
   isScrollable?: boolean;
 
   /**
-   * Will render a border at the top of the section.
+   * Use this to render a border at the top of the section.
    */
   hasSeparator?: boolean;
 
   /**
-   * Children of the section,
-   * should generally be `Item` or `Heading` components,
-   * but can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s when wanting to render errors.
+   * Children of the section.
+   * This should generally be `Item` or `Heading` components,
+   * but can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.
    */
   children: React.ReactNode;
 
@@ -135,13 +135,13 @@ export interface SectionProps {
   };
 
   /**
-   * The text passed into the internal HeadingItem. If a title is not provided,
-   * the HeadingItem will not be rendered, and this component acts as a regular Section.
+   * The text passed into the internal `HeadingItem`. If a title isn't provided,
+   * the `HeadingItem` won't be rendered, and this component will act as a regular `Section`.
    */
   title?: string;
 
   /**
-   * Adds `<ul>` and `<li>` tags around the items for better semantic markup in a list of items.
+   * If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.
    */
   isList?: boolean;
 }
@@ -180,34 +180,34 @@ export interface MenuItemProps {
 
   /**
    * Element to render before the item text.
-   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   * Usually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
    */
   iconBefore?: React.ReactNode;
 
   /**
    * Element to render after the item text.
-   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   * Usually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
    */
   iconAfter?: React.ReactNode;
 
   /**
-   * Event that is triggered when the element is clicked.
+   * Event that's triggered when the element is clicked.
    */
   onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 
   /**
-   * Event that is triggered when the element has been pressed.
+   * Event that's triggered when the element has been pressed.
    */
   onMouseDown?: React.MouseEventHandler;
 
   /**
    * Description of the item.
-   * This will render smaller text below the primary text of the item as well as slightly increasing the height of the item.
+   * This will render smaller text below the primary text of the item, and slightly increase the height of the item.
    */
   description?: string | JSX.Element;
 
   /**
-   * Makes the element appear disabled as well as removing interactivity.
+   * Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.
    */
   isDisabled?: boolean;
 
@@ -237,12 +237,12 @@ export interface MenuItemProps {
   overrides?: Overrides;
 
   /**
-   * When `true` the title of the item will wrap multiple lines if it's long enough.
+   * When `true`, the title of the item will wrap multiple lines if it's long enough.
    */
   shouldTitleWrap?: boolean;
 
   /**
-   * When `true` the description of the item will wrap multiple lines if it's long enough.
+   * When `true`, the description of the item will wrap multiple lines if it's long enough.
    */
   shouldDescriptionWrap?: boolean;
 }
@@ -254,7 +254,7 @@ export interface ButtonItemProps extends MenuItemProps {
   id?: string;
 
   /**
-   * Used to override the accessibility role for the element.
+   * Use this to override the accessibility role for the element.
    */
   role?: string;
 }
@@ -278,7 +278,7 @@ export interface LinkItemProps extends MenuItemProps {
   rel?: string;
 
   /**
-   * Used to override the accessibility role for the element.
+   * Use this to override the accessibility role for the element.
    */
   role?: string;
 }
@@ -290,29 +290,29 @@ export interface CustomItemComponentProps {
   children: React.ReactNode;
 
   /**
-   * Class to apply to the root container of the custom component,
-   * ensure this has been applied so the consistent item styling is applied.
+   * Class to apply to the root container of the custom component.
+   * Ensure this has been applied so the item styling is consistent.
    */
   className: string;
 
   /**
-   * Test id that is passed through to the custom component.
+   * Test ID that's passed through to the custom component.
    */
   'data-testid'?: string;
 
   /**
-   * Event handler that is passed through to the custom component.
+   * Event handler that's passed through to the custom component.
    */
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 
   /**
-   * Event handler that is passed through to the custom component.
+   * Event handler that's passed through to the custom component.
    */
   onMouseDown?: (event: React.MouseEvent<HTMLElement>) => void;
 
   /**
-   * Event handler that is passed through to the custom component.
-   * Used to disable the element from being draggable.
+   * Event handler that's passed through to the custom component.
+   * Use this to disable the element from being draggable.
    */
   onDragStart?: (event: React.DragEvent) => void;
 
@@ -325,17 +325,17 @@ export interface CustomItemComponentProps {
 
   /**
    * React ref for the raw DOM element,
-   * make sure to place this on the outer most DOM element.
+   * make sure to place this on the outermost DOM element.
    */
   ref?: Ref<any>;
 
   /**
-   * Makes the element appear disabled as well as removing interactivity.
+   * If the tab is selected, the tab index is `0` and is focusable. Otherwise it is `-1` and is not focusable.
    */
   tabIndex?: number;
 
   /**
-   * Disabled attribute.
+   * Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.
    */
   // This needs to be the raw DOM attribute so we can't name it isXyz.
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
@@ -364,7 +364,7 @@ export interface CustomItemProps<
 export interface SkeletonItemProps {
   /**
    * Renders a skeleton circle in the `iconBefore` location.
-   * Takes priority over `hasIcon.
+   * Takes priority over `hasIcon`.
    */
   hasAvatar?: boolean;
 
@@ -376,7 +376,7 @@ export interface SkeletonItemProps {
   /**
    *
    * Width of the skeleton item.
-   * Generally you don't need to specify this as it has a staggered width based on `:nth-child` by default.
+   * You usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.
    */
   width?: Dimension;
 
@@ -418,7 +418,7 @@ export interface HeadingItemProps {
 
   /**
    * A unique identifier that can be referenced in the `labelledby` prop of a
-   * section to allow screen readers to announce the name of groups.
+   * section to allow assistive technology to announce the name of groups.
    */
   id?: string;
 
@@ -430,7 +430,7 @@ export interface HeadingItemProps {
   testId?: string;
   /**
    * Specifies the heading level in the document structure.
-   * If not specified, level 2 will be applied by default.
+   * If not specified, the default is `h2`.
    */
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
 }
@@ -439,7 +439,7 @@ export interface SkeletonHeadingItemProps {
   /**
    *
    * Width of the skeleton heading item.
-   * Generally you don't need to specify this as it has a staggered width based on `:nth-child` by default.
+   * You usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.
    */
   width?: Dimension;
 

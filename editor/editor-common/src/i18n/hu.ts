@@ -390,10 +390,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} × {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Táblázatméret-választó',
   'fabric.editor.tables.adjustColumn': 'Oszlop igazítása',
+  'fabric.editor.tables.columnResizeLast': 'Csak bal oldali irányba méretezheted át ezt az oszlopot.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Csak akkor méretezheted át ezt az oszlopot, ha a táblázatnak van görgetősávja.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Oszlopszélesség módosítva {width} pixelre} other {Oszlopszélesség módosítva {width} pixelre}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Ha törlöd a(z) {nodeName} csomópontot, a hozzá kapcsolódó elemek sem fognak működni.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Törlés',
+  'fabric.editor.tables.resizeStop': 'Átméretezés leállítva',
   'fabric.editor.tables.resizeTable': 'Táblázat átméretezése',
+  'fabric.editor.tables.startedColumnResize': 'Oszlop átméretezése elkezdve',
   'fabric.editor.task': 'Feladat',
   'fabric.editor.taskPlaceholder': 'Írja be a műveletet. Az „@” jellel hozzárendelheti valakihez.',
   'fabric.editor.text.formatting.off': 'Szövegformázás kikapcsolva',

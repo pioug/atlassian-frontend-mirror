@@ -386,10 +386,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} av {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Velger for tabellstørrelse',
   'fabric.editor.tables.adjustColumn': 'Juster kolonnen',
+  'fabric.editor.tables.columnResizeLast': 'Du kan bare endre størrelsen på denne kolonnen mot venstre.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Du kan bare endre størrelsen på denne kolonnen mens tabellen har et rullefelt.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Kolonnebredden ble endret til {width} piksel} other {Kolonnebredden ble endret til {width} piksler}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Hvis du sletter {nodeName}, ødelegges alt som er koblet til den.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Slett',
+  'fabric.editor.tables.resizeStop': 'Stoppet størrelsesendring',
   'fabric.editor.tables.resizeTable': 'Endre størrelse på tabellen',
+  'fabric.editor.tables.startedColumnResize': 'Startet størrelsesendring av kolonne',
   'fabric.editor.task': 'Oppgave',
   'fabric.editor.taskPlaceholder': 'Skriv inn handlingen. Bruk @ for å tilordne den til noen.',
   'fabric.editor.text.formatting.off': 'Tekstformatering av',

@@ -389,10 +389,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} keer {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Selectie voor tabelgrootte',
   'fabric.editor.tables.adjustColumn': 'Kolom aanpassen',
+  'fabric.editor.tables.columnResizeLast': 'Je kunt het formaat van deze kolom alleen naar links aanpassen.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Je kunt het formaat van deze kolom alleen wijzigen als de tabel een schuifbalk heeft.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Kolombreedte is gewijzigd naar {width} pixel} other {Kolombreedte is gewijzigd naar {width} pixels}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Als je {nodeName} verwijdert, worden alle koppelingen ernaar verbroken.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Verwijderen',
+  'fabric.editor.tables.resizeStop': 'Formaat wijzigen is gestopt',
   'fabric.editor.tables.resizeTable': 'Formaat van tabel wijzigen',
+  'fabric.editor.tables.startedColumnResize': 'Wijzigen van het formaat van de kolom is gestart',
   'fabric.editor.task': 'Taak',
   'fabric.editor.taskPlaceholder': "Geef je actie in en gebruik een '@' om de actie aan iemand toe te wijzen.",
   'fabric.editor.text.formatting.off': 'Tekst formatteren uit',

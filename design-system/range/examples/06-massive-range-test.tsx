@@ -6,9 +6,9 @@ import { Label } from '@atlaskit/form';
 
 import Range from '../src';
 
-const Container = styled.div`
-  width: 500px;
-`;
+const Container = styled.div({
+  width: '500px',
+});
 
 const max = 100000;
 

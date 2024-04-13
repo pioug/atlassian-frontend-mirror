@@ -172,6 +172,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
         <ExtensionLozenge
           isNodeSelected={isNodeSelected}
           isNodeHovered={isNodeHovered}
+          isNodeNested={isNodeNested}
           node={node}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
           customContainerStyles={customContainerStyles}

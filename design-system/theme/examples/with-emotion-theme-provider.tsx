@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { colors } from '../src';
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 const Description = styled.p`
   padding: ${token('space.100', '8px')};
   margin: ${token('space.500', '40px')} 0 ${token('space.100', '8px')};

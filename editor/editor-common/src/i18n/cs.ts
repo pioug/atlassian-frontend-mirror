@@ -392,10 +392,17 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} × {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': 'Výběr velikosti tabulky',
   'fabric.editor.tables.adjustColumn': 'Upravit sloupec',
+  'fabric.editor.tables.columnResizeLast': 'Velikost tohoto sloupce můžete změnit pouze směrem doleva.',
+  'fabric.editor.tables.columnResizeOverflow':
+    'Velikost tohoto sloupce můžete změnit pouze v případě, že má tabulka posuvník.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Šířka sloupce byla změněna na {width} pixel.} few {Šířka sloupce byla změněna na {width} pixely.} many {Šířka sloupce byla změněna na {width} pixelu.} other {Šířka sloupce byla změněna na {width} pixelů.}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     'Odstranění uzlu {nodeName} způsobí, že všechny k němu připojené položky přestanou fungovat.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Odstranit',
+  'fabric.editor.tables.resizeStop': 'Změna velikosti byla zastavena.',
   'fabric.editor.tables.resizeTable': 'Změnit velikost tabulky',
+  'fabric.editor.tables.startedColumnResize': 'Změna velikosti sloupce byla zahájena.',
   'fabric.editor.task': 'Úkol',
   'fabric.editor.taskPlaceholder': 'Napište svou akci a použitím „@“ ji někomu přidělte.',
   'fabric.editor.text.formatting.off': 'Formátování textu vypnuto',

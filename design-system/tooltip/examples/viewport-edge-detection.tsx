@@ -25,29 +25,29 @@ const VIEWPORT_POSITIONS = [
   { top: `calc(50% - ${targetHeight / 2}px)`, left: 0 },
 ];
 
-const ContainerDiv = styled.div`
-  height: calc(100vh - 32px);
-  width: calc(100vw - 32px);
-  position: relative;
-`;
+const ContainerDiv = styled.div({
+  height: 'calc(100vh - 32px)',
+  width: 'calc(100vw - 32px)',
+  position: 'relative',
+});
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const CenterDiv = styled.div`
-  top: calc(50% - 100px);
-  left: calc(50% - 250px);
-  position: absolute;
-  width: 500px;
-  height: 200px;
-  z-index: 1;
-  text-align: center;
-`;
+const CenterDiv = styled.div({
+  top: 'calc(50% - 100px)',
+  left: 'calc(50% - 250px)',
+  position: 'absolute',
+  width: '500px',
+  height: '200px',
+  zIndex: 1,
+  textAlign: 'center',
+});
 
-const ButtonDiv = styled.p`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-`;
+const ButtonDiv = styled.p({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  textAlign: 'center',
+});
 
 type CustomPositionType = 'standard' | 'mouse';
 

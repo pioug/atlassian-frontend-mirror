@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 
 import Tag from '../src/tag/simple-tag';
 
-const A = styled.a`
-  color: red;
-`;
+const A = styled.a({
+  color: 'red',
+});
 
 const StyledExample = (props: HTMLAttributes<HTMLAnchorElement>) => {
   // eslint-disable-next-line styled-components-a11y/anchor-has-content, @repo/internal/react/no-unsafe-spread-props

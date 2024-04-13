@@ -220,6 +220,7 @@ const MultiBodiedExtensionWithWidth = ({
           showMacroInteractionDesignUpdates={true}
           customContainerStyles={mbeWrapperStyles}
           isNodeHovered={isNodeHovered}
+          isNodeNested={isNodeNested}
         />
       )}
       <div

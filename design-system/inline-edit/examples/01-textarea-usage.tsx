@@ -13,12 +13,12 @@ const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const ReadViewContainer = styled.div`
-  line-height: ${(gridSize() * textAreaLineHeightFactor) / fontSize()};
-  min-height: ${gridSize() * textAreaLineHeightFactor * minRows}px;
-  padding: ${token('space.075', '6px')} ${token('space.075', '6px')};
-  word-break: break-word;
-`;
+const ReadViewContainer = styled.div({
+  lineHeight: (gridSize() * textAreaLineHeightFactor) / fontSize(),
+  minHeight: `${gridSize() * textAreaLineHeightFactor * minRows}px`,
+  padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
+  wordBreak: 'break-word',
+});
 
 const InlineEditExample = () => {
   const [editValue, setEditValue] = useState('Field value');

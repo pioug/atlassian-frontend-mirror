@@ -15,26 +15,25 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '../src';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const Toolbar = styled.div`
-  background-color: ${token('color.background.neutral')};
-  border-radius: ${borderRadius}px;
-  display: flex;
-  padding: 5px;
-`;
+const Toolbar = styled.div({
+  backgroundColor: token('color.background.neutral'),
+  borderRadius: `${borderRadius}px`,
+  display: 'flex',
+  padding: '5px',
+});
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const Action = styled.button`
-  align-items: center;
-  border-radius: 3px;
-  display: flex;
-  height: 24px;
-  justify-content: center;
-  margin-right: 3px;
-  width: 36px;
-
-  &:hover {
-    background-color: ${token('color.background.neutral.hovered')};
-  }
-`;
+const Action = styled.button({
+  alignItems: 'center',
+  borderRadius: '3px',
+  display: 'flex',
+  height: '24px',
+  justifyContent: 'center',
+  marginRight: '3px',
+  width: '36px',
+  '&:hover': {
+    backgroundColor: token('color.background.neutral.hovered'),
+  },
+});
 
 const ACTIONS: { [key: string]: React.ReactElement } = {
   Bold: <BoldIcon label="Bold" />,

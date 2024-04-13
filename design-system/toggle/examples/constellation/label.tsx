@@ -8,16 +8,16 @@ import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-const LabelElement = styled.label`
-  font-size: ${headingSizes.h200.size / fontSize()}em;
-  font-style: inherit;
-  line-height: ${headingSizes.h200.lineHeight / headingSizes.h200.size};
-  color: ${token('color.text.subtle', N200)};
-  font-weight: 600;
-  display: inline-block;
-  margin-bottom: ${token('space.050', '4px')};
-  margin-top: 0;
-`;
+const LabelElement = styled.label({
+  fontSize: `${headingSizes.h200.size / fontSize()}em`,
+  fontStyle: 'inherit',
+  lineHeight: headingSizes.h200.lineHeight / headingSizes.h200.size,
+  color: token('color.text.subtle', N200),
+  fontWeight: 600,
+  display: 'inline-block',
+  marginBottom: token('space.050', '4px'),
+  marginTop: 0,
+});
 
 export function Label(
   props: React.DetailedHTMLProps<

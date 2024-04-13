@@ -91,48 +91,30 @@ Use "defaultValue" or "value" happy days :-).
   return (
     <div
       data-testid={testId && `${testId}--root`}
-      css={css`
-        display: inline-flex;
-        /* Because some children are inline-block we make the font-size zero to eliminate the implicit space between them. */
-        font-size: 0;
-
-        /* This implementation does some interesting tricks to keep it flowing LTR and ensuring accessibility. */
-        /* Instead of it starting in an empty state - it starts filled - and then uses the CSS sibling select "~" */
-        /* to then display the empty state for the star rating. */
-
-        // By default, filled in icon is shown
-        [data-rating-icon-checked] {
-          display: inline-block;
-        }
-
-        // By default, empty icon is NOT shown
-        [data-rating-icon] {
-          display: none;
-        }
-
-        label:hover
-          ~ label
-          [data-rating-icon-checked][data-rating-icon-checked],
-        [data-testid='input-container-checked']
-          ~ label
-          [data-rating-icon-checked] {
-          display: none;
-        }
-
-        label:hover ~ label [data-rating-icon][data-rating-icon],
-        [data-testid='input-container-checked'] ~ label [data-rating-icon] {
-          display: inline-block;
-        }
-
-        /* When hovering reset all elements back to filled state. */
-        &:hover [data-rating-icon-checked][data-rating-icon-checked] {
-          display: inline-block;
-        }
-
-        &:hover [data-rating-icon][data-rating-icon] {
-          display: none;
-        }
-      `}
+      css={css({
+        display: 'inline-flex',
+        fontSize: 0,
+        '[data-rating-icon-checked]': {
+          display: 'inline-block',
+        },
+        '[data-rating-icon]': {
+          display: 'none',
+        },
+        "label:hover ~ label [data-rating-icon-checked][data-rating-icon-checked], [data-testid='input-container-checked'] ~ label [data-rating-icon-checked]":
+          {
+            display: 'none',
+          },
+        "label:hover ~ label [data-rating-icon][data-rating-icon], [data-testid='input-container-checked'] ~ label [data-rating-icon]":
+          {
+            display: 'inline-block',
+          },
+        '&:hover [data-rating-icon-checked][data-rating-icon-checked]': {
+          display: 'inline-block',
+        },
+        '&:hover [data-rating-icon][data-rating-icon]': {
+          display: 'none',
+        },
+      })}
     >
       {!firstSelectionMade && (
         <Fragment>

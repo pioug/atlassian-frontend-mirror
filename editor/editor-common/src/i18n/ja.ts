@@ -386,10 +386,15 @@ export default {
   'fabric.editor.tableSizeSelectorButton': '{numberOfColumns} x {numberOfRows}',
   'fabric.editor.tableSizeSelectorPopup': '表サイズ セレクター',
   'fabric.editor.tables.adjustColumn': '列を調整する',
+  'fabric.editor.tables.columnResizeLast': 'この列は左側方向のみサイズを変更できます。',
+  'fabric.editor.tables.columnResizeOverflow':
+    'この列のサイズを変更できるのは、表にスクロール バーがあるときのみです。',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} を削除すると、接続されているすべてが破棄されます。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '削除',
+  'fabric.editor.tables.resizeStop': 'リサイズを中止しました',
   'fabric.editor.tables.resizeTable': 'テーブルのサイズを変更する',
+  'fabric.editor.tables.startedColumnResize': '列のサイズ変更を開始しました',
   'fabric.editor.task': 'タスク',
   'fabric.editor.taskPlaceholder': 'アクションを入力し、「@」を使用して担当者を割り当てます。',
   'fabric.editor.text.formatting.off': 'テキスト書式設定オフ',

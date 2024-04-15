@@ -46,6 +46,21 @@ export const helpDialogMessages = defineMessages({
     defaultMessage: 'Select table column',
     description: 'Hint for selecting a table column using a shortcut',
   },
+  selectColumnResize: {
+    id: 'fabric.editor.selectColumnResize',
+    defaultMessage: 'Select column resize',
+    description: 'Hint for selecting a column resize a shortcut',
+  },
+  increaseColumnSize: {
+    id: 'fabric.editor.increaseColumnSize',
+    defaultMessage: 'Increase column size',
+    description: 'Hint for increasing a column size shortcut',
+  },
+  decreaseColumnSize: {
+    id: 'fabric.editor.decreaseColumnSize',
+    defaultMessage: 'Decrease column size',
+    description: 'Hint for decreasing a column size shortcut',
+  },
   increaseSize: {
     id: 'fabric.editor.increaseSize',
     defaultMessage: 'Increase size',

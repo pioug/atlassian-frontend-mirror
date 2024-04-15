@@ -2,8 +2,6 @@ import { traverse } from '@atlaskit/adf-utils/traverse';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { clickOnDate } from '@atlaskit/editor-test-helpers/page-objects/date';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   animationFrame,
   scrollToBottom,
@@ -43,7 +41,6 @@ import { waitForResolvedInlineCard } from '@atlaskit/media-integration-test-help
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import floatsAdf2 from './__fixtures__/action-decision-lists-adjacent-floats-adf.json';
-import dateAdf from './__fixtures__/date-inside-lists.adf.json';
 import extensionAdf from './__fixtures__/inline-extension-inside-lists.adf.json';
 import floatsAdf from './__fixtures__/lists-adjacent-floats-adf.json';
 import listsOlUlAdf from './__fixtures__/lists-ordered-unordered-adf.json';
@@ -118,11 +115,6 @@ describe('Lists', () => {
     await initEditor(page, statusAdf, { width: 800, height: 400 });
     await clickOnStatus(page);
     await waitForStatusToolbar(page);
-  });
-
-  it('should render date picker on click when its nested inside lists', async () => {
-    await initEditor(page, dateAdf);
-    await clickOnDate(page);
   });
 
   // TODO: Add back 9999 case (flaky timing out VR test: https://product-fabric.atlassian.net/browse/ED-16361)

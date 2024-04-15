@@ -63,7 +63,9 @@ const getMedia = (wrapper: ReactWrapper<any, any, any>) => {
 const getMediaSingle = (wrapper: ReactWrapper<any, any, any>) => {
   return wrapper.findWhere(
     (item: ReactWrapper) =>
-      item.prop('nodeType') === 'mediaSingle' && !!item.prop('intl'),
+      item.prop('nodeType') === 'mediaSingle' &&
+      !!item.prop('intl') &&
+      !item.prop('media'),
   );
 };
 
@@ -481,7 +483,6 @@ describe('Renderer - ReactSerializer', () => {
       describe('layoutSection -> layoutColumn', () => {
         it('media node has isInsideOfBlockNode as true', async () => {
           const reactSerializer = new ReactSerializer({});
-
           const wrapper = mountWithIntl(
             reactSerializer.serializeFragment(
               schema.nodeFromJSON(layoutWithMedia).content,

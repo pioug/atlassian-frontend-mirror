@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 export type BasicFilterFieldType = 'project' | 'assignee' | 'type' | 'status';
 
 export interface OptionBase {
@@ -40,8 +38,6 @@ export type SelectOption =
 export type SelectedOptionsMap = {
   [key in BasicFilterFieldType]?: SelectOption[];
 };
-
-export type FormatOptionLabel = (option: SelectOption) => ReactElement;
 
 // these types have been taken from jira-frontend to ensure the colour data return gets mapped correctly for the lozenge
 export const appearanceMap = {

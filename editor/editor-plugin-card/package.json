@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -57,7 +57,7 @@
     "@atlaskit/linking-types": "^8.8.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/smart-card": "^26.52.0",
+    "@atlaskit/smart-card": "^26.54.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
@@ -108,9 +108,6 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.linking-platform.smart-card.inline-switcher": {
-      "type": "boolean"
-    },
-    "platform.editor.show-embed-card-frame-renderer": {
       "type": "boolean"
     },
     "platform.linking-platform.datasource-word_wrap": {

@@ -95,14 +95,6 @@ export const makePreviewActionItem = (
   ...options,
 });
 
-export const makeViewActionItem = (
-  options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
-): NamedDataActionItem => ({
-  name: ActionName.ViewAction,
-  onClick: () => console.log('View action!'),
-  ...options,
-});
-
 export const makeDownloadActionItem = (
   options: Pick<NamedActionItem, 'hideContent' | 'hideIcon' | 'testId'> = {},
 ): NamedDataActionItem => ({
@@ -150,6 +142,14 @@ export const metadataElements = Object.values(ElementName).filter(
 );
 
 export const actionNames: Exclude<ActionName, ActionName.CustomAction>[] =
+  /**
+   * Remove the filter for ActionName.ViewAction once it is retired
+   * https://product-fabric.atlassian.net/browse/EDM-9665
+   */
   Object.values(ActionName).filter(
-    (name) => name !== ActionName.CustomAction,
-  ) as unknown as Exclude<ActionName, ActionName.CustomAction>[];
+    (name) =>
+      name !== ActionName.CustomAction && name !== ActionName.ViewAction,
+  ) as unknown as Exclude<
+    ActionName,
+    ActionName.CustomAction | ActionName.ViewAction
+  >[];

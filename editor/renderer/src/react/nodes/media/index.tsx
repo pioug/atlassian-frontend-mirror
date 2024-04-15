@@ -1,6 +1,12 @@
 /** @jsx jsx */
-import type { SyntheticEvent } from 'react';
-import React, { PureComponent, Fragment } from 'react';
+import type { PropsWithChildren, SyntheticEvent } from 'react';
+import React, {
+  PureComponent,
+  Fragment,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { jsx } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
@@ -33,6 +39,7 @@ import {
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
+import { AnnotationsDraftContext } from '../../../ui/annotations/context';
 import { linkStyle, borderStyle } from './styles';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
@@ -58,6 +65,7 @@ export type MediaProps = MediaCardProps & {
   featureFlags?: MediaFeatureFlags;
   eventHandlers?: EventHandlers;
   enableDownloadButton?: boolean;
+  allowAnnotationsDraftMode?: boolean;
   // only used for comment badge, is injected via nodes/mediaSingle
   mediaSingleElement?: HTMLElement | null;
   // attributes for media node
@@ -213,7 +221,7 @@ const CommentBadgeWrapper = ({
   return <CommentBadge onClick={onClick} {...rest} />;
 };
 
-export default class Media extends PureComponent<MediaProps, {}> {
+class Media extends PureComponent<MediaProps, {}> {
   constructor(props: MediaProps) {
     super(props);
     this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
@@ -332,3 +340,51 @@ export default class Media extends PureComponent<MediaProps, {}> {
     );
   }
 }
+
+const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
+  const draftPosition = React.useContext(AnnotationsDraftContext);
+
+  const { dataAttributes } = props;
+  const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];
+
+  const [position, setPosition] = useState<number | undefined>();
+  const [shouldApplyDraftAnnotation, setShouldApplyDraftAnnotation] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    if (pos === undefined) {
+      return;
+    }
+
+    if (draftPosition !== null && draftPosition.from === pos) {
+      setShouldApplyDraftAnnotation(true);
+      setPosition(draftPosition?.from);
+    } else if (draftPosition === null && shouldApplyDraftAnnotation) {
+      setShouldApplyDraftAnnotation(false);
+      setPosition(undefined);
+    }
+  }, [draftPosition, pos, shouldApplyDraftAnnotation]);
+
+  const applyDraftAnnotation =
+    props.allowAnnotationsDraftMode &&
+    shouldApplyDraftAnnotation &&
+    position !== undefined;
+
+  const dataAttributesWithDraftAnnotation = useMemo(
+    () =>
+      applyDraftAnnotation
+        ? {
+            ...dataAttributes,
+            'data-annotation-draft-mark': true,
+            'data-renderer-mark': true,
+          }
+        : dataAttributes,
+    [applyDraftAnnotation, dataAttributes],
+  );
+
+  return (
+    <Media {...props} dataAttributes={dataAttributesWithDraftAnnotation} />
+  );
+};
+
+export default MediaWithDraftAnnotation;

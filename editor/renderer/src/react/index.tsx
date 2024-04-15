@@ -546,6 +546,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       featureFlags: this.media && this.media.featureFlags,
       shouldOpenMediaViewer: this.shouldOpenMediaViewer,
       ssr: this.media?.ssr,
+      // surroundTextNodesWithTextWrapper checks inlineComment.allowDraftMode
+      allowAnnotationsDraftMode: this.surroundTextNodesWithTextWrapper,
     };
   }
 

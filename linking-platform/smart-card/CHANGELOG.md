@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 26.54.0
+
+### Minor Changes
+
+- [#88849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88849) [`45f940ac839e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45f940ac839e) - [ux] Deprecate ActionName.ViewAction for FlexibleCard and remove usage except for public API
+
+## 26.53.0
+
+### Minor Changes
+
+- [#88000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88000) [`61b44e565851`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61b44e565851) - [ux] FF clean up platform.editor.show-embed-card-frame-renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.52.9
+
+### Patch Changes
+
+- [#89533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89533) [`ed9da9ea0935`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed9da9ea0935) - Fix for the undefined link data while extracting dataUrl or ARI for the AI Summary Service
+
 ## 26.52.8
 
 ### Patch Changes

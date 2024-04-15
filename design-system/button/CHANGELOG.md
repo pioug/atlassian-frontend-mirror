@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.12.0
+
+### Minor Changes
+
+- [#89657](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89657) [`aa76565f1f5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa76565f1f5b) - New buttons now accept render props for icon properties. This can be useful when setting props on icons directly.
+
 ## 17.11.0
 
 ### Minor Changes

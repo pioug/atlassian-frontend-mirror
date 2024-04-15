@@ -34,6 +34,12 @@ export default function IconButtonExample() {
         tooltip={{ position: 'right' }}
         testId="position-right"
       />
+      <IconButton
+        label="Overrides"
+        UNSAFE_size="xlarge"
+        icon={(iconProps) => <StarFilledIcon {...iconProps} size="small" />}
+        testId="deprecation"
+      />
       <LinkIconButton
         icon={StarFilledIcon}
         label="Link icon button"

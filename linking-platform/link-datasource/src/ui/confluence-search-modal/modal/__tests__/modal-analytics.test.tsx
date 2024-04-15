@@ -1,8 +1,65 @@
+import { EVENT_CHANNEL } from '../../../../analytics';
+import { DatasourceSearchMethod } from '../../../../analytics/types';
+
 import { setup } from './_utils';
 
 describe('Analytics: ConfluenceSearchConfigModal', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  it('should fire "screen.datasourceModalDialog.viewed" when the confluence modal is rendered', async () => {
+    const { onAnalyticFireEvent } = await setup({
+      dontWaitForSitesToLoad: true,
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'screen',
+          name: 'datasourceModalDialog',
+          action: 'viewed',
+          attributes: {},
+        },
+        context: [
+          {
+            component: 'datasourceConfigModal',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'confluence-search' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.modal.ready.datasource" when modal is ready for the user to search and display data', async () => {
+    const { onAnalyticFireEvent } = await setup({
+      dontWaitForSitesToLoad: false,
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'ready',
+          actionSubject: 'modal',
+          actionSubjectId: 'datasource',
+          attributes: {
+            instancesCount: 8,
+            schemasCount: null,
+          },
+        },
+        context: [
+          {
+            component: 'datasourceConfigModal',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'confluence-search' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
   });
 
   describe('button clicked events', () => {
@@ -106,10 +163,19 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
       });
 
       describe('with search attributes', () => {
-        it('should not fire the event if a user did not search', async () => {
-          const { onAnalyticFireEvent } = await setup();
+        it('should fire the event with searchCount = 0 if a user did not search', async () => {
+          const expectedPayload = getEventPayload('insert', defaultAttributes, {
+            actions: [],
+            searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
+            searchCount: 0,
+          });
 
-          expect(onAnalyticFireEvent).not.toHaveBeenCalled();
+          const { assertAnalyticsAfterButtonClick } = await setup();
+
+          await assertAnalyticsAfterButtonClick(
+            INSERT_BUTTON_NAME,
+            expectedPayload,
+          );
         });
 
         it('should fire the event with searchMethod = "datasource_search_query" when the user searched using jql search and set searchCount to 1', async () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -221,7 +221,7 @@
     "@atlaskit/editor-plugin-border": "1.0.7",
     "@atlaskit/editor-plugin-breakout": "1.0.7",
     "@atlaskit/editor-plugin-caption": "1.0.5",
-    "@atlaskit/editor-plugin-card": "1.5.0",
+    "@atlaskit/editor-plugin-card": "1.6.0",
     "@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.0.2",
     "@atlaskit/editor-plugin-clipboard": "1.0.2",
     "@atlaskit/editor-plugin-code-bidi-warning": "1.0.2",
@@ -356,10 +356,6 @@
       "referenceOnly": true
     },
     "platform.linking-platform.smart-card.inline-switcher": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.show-embed-card-frame-renderer": {
       "type": "boolean",
       "referenceOnly": true
     },

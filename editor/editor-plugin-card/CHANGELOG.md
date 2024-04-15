@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 1.6.0
+
+### Minor Changes
+
+- [#88000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88000) [`61b44e565851`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61b44e565851) - [ux] FF clean up platform.editor.show-embed-card-frame-renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

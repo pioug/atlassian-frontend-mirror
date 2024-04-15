@@ -161,8 +161,6 @@ describe('actions', () => {
         return jest.spyOn(utils, 'downloadUrl');
       case 'PreviewAction':
         return jest.spyOn(modalUtils, 'openEmbedModal');
-      case 'ViewAction':
-        return jest.spyOn(utils, 'openUrl');
       default:
         return jest.fn();
     }
@@ -201,7 +199,6 @@ describe('actions', () => {
                 { name: ActionName.FollowAction },
                 { name: ActionName.DownloadAction },
                 { name: ActionName.PreviewAction },
-                { name: ActionName.ViewAction },
               ]}
             />
           ),
@@ -249,24 +246,6 @@ describe('actions', () => {
             testId: isFlexibleComponent
               ? 'smart-action-download-action'
               : 'button-download-content',
-          },
-        ],
-        [
-          'open link in new tab',
-          {
-            actionSubjectId: 'shortcutGoToLink',
-            actionType: 'ViewAction',
-            response: toJsonLdResponse({
-              'schema:potentialAction': {
-                '@id': 'view',
-                '@type': 'ViewAction',
-                identifier: 'object-provider',
-                name: 'View',
-              },
-            }),
-            testId: isFlexibleComponent
-              ? 'smart-action-view-action'
-              : 'button-view-content',
           },
         ],
         [

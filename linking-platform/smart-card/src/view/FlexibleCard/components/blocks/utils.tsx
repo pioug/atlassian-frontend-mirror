@@ -174,13 +174,16 @@ export const filterActionItems = (
       case ActionName.CustomAction:
         // Named and custom actions that user defines.
         return Boolean(ActionName[item.name]);
-      // Remove once ViewAction is retired
-      // https://product-fabric.atlassian.net/browse/EDM-9547
-      case ActionName.ViewAction:
-        return Boolean(context?.viewAction);
       default:
         // Action that require data from the data context to render.
-        return Boolean(context?.actions?.[item.name]);
+        if (context?.actions === undefined) {
+          return false;
+        }
+        return Boolean(
+          item.name in context.actions
+            ? context.actions[item.name as keyof typeof context.actions]
+            : undefined,
+        );
     }
   });
 };

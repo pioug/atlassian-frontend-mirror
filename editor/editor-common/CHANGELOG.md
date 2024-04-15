@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 78.26.3
+
+### Patch Changes
+
+- [#89712](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89712) [`4a94bc155219`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a94bc155219) - Improve error messaging for SafePresetCheck
+
+## 78.26.2
+
+### Patch Changes
+
+- [#89760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89760) [`f3844f76fad9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3844f76fad9) - [ux] Fix date not showing as selected for less than 10.
+- Updated dependencies
+
 ## 78.26.1
 
 ### Patch Changes

@@ -6,9 +6,8 @@ import Button from '../../../../src/new';
 const ButtonIconBeforeSizeExample = () => {
   return (
     <Button
-      iconBefore={LinkIcon}
+      iconBefore={(iconProps) => <LinkIcon {...iconProps} size="small" />}
       appearance="warning"
-      UNSAFE_iconBefore_size="small"
     >
       Icon with size override
     </Button>

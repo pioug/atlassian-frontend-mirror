@@ -1,12 +1,10 @@
 /** @jsx jsx */
-import { useMemo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -61,22 +59,9 @@ export const BasicSearchInput = ({
     handleSearchWithAnalytics();
   };
 
-  const showBasicFilters = useMemo(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.datasource.show-jlol-basic-filters',
-      )
-    ) {
-      return true;
-    }
-    return false;
-  }, []);
-
-  const isFullWidth = fullWidth || !showBasicFilters;
-
   return (
     <form
-      css={isFullWidth ? formStyles : formWithMaxWidthStyles}
+      css={fullWidth ? formStyles : formWithMaxWidthStyles}
       onSubmit={handleFormSubmit}
     >
       <Textfield

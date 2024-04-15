@@ -81,7 +81,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./element": "./src/element.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     "./picker": "./src/picker.ts"
   }
 }

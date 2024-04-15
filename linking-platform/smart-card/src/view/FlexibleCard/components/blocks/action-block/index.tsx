@@ -43,7 +43,8 @@ const ActionBlock: React.FC<ActionBlockProps> = ({
     }
 
     return arr.map((name: ActionName) => {
-      const Action = Actions[name];
+      const Action =
+        name in Actions ? Actions[name as keyof typeof Actions] : undefined;
       return Action ? (
         <Action
           as="stack-item"
@@ -51,13 +52,6 @@ const ActionBlock: React.FC<ActionBlockProps> = ({
           key={name}
           onClick={() => onClickCallback?.(name)}
           size={size}
-          // Remove url once ViewAction is retired.
-          // This seems to be a typescript workaround
-          // because ViewAction marks it as required,
-          // which does not reflect actual implementation as the url
-          // came from data context and not all actions require url.
-          // https://product-fabric.atlassian.net/browse/EDM-9547
-          url=""
           xcss={xcss({ paddingInline: padding })}
         />
       ) : null;

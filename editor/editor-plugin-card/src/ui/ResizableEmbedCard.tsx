@@ -4,7 +4,6 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import { embedSpacingStyles } from '@atlaskit/editor-common/styles';
 import type { EnabledHandles, ResizerProps } from '@atlaskit/editor-common/ui';
 import {
   calcColumnsFromPx,
@@ -25,13 +24,11 @@ import {
 import {
   akEditorBreakoutPadding,
   akEditorMediaResizeHandlerPadding,
-  akEditorMediaResizeHandlerPaddingWide,
   akEditorWideLayoutWidth,
   breakoutWideScaleRatio,
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
@@ -373,17 +370,10 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
     const { layout, pctWidth, containerWidth, fullWidthMode, children } =
       this.props;
 
-    const resizerProps = getBooleanFF(
-      'platform.editor.show-embed-card-frame-renderer',
-    )
-      ? {
-          width: this.calcPxWidth(),
-          innerPadding: akEditorMediaResizeHandlerPadding,
-        }
-      : {
-          width: this.calcPxWidth() - akEditorMediaResizeHandlerPaddingWide,
-          innerPadding: akEditorMediaResizeHandlerPaddingWide,
-        };
+    const resizerProps = {
+      width: this.calcPxWidth(),
+      innerPadding: akEditorMediaResizeHandlerPadding,
+    };
 
     const enable: EnabledHandles = {};
     handleSides.forEach(side => {
@@ -417,14 +407,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
     /* eslint-disable  @atlaskit/design-system/consistent-css-prop-usage */
     return (
-      <div
-        css={
-          getBooleanFF('platform.editor.show-embed-card-frame-renderer')
-            ? {}
-            : embedSpacingStyles
-        }
-        data-testid="resizable-embed-card-spacing"
-      >
+      <div data-testid="resizable-embed-card-spacing">
         <div
           css={wrapperStyle({
             layout,

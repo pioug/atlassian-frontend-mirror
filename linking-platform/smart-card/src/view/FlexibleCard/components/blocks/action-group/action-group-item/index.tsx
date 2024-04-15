@@ -26,7 +26,9 @@ const ActionGroupItem: React.FC<{
     }
   }, [onActionItemClick, onClick]);
 
-  const Action = Actions[name];
+  const Action =
+    name in Actions ? Actions[name as keyof typeof Actions] : undefined;
+
   if (!Action) {
     return null;
   }
@@ -43,13 +45,6 @@ const ActionGroupItem: React.FC<{
 
   return (
     <Action
-      // Remove url once ViewAction is retired.
-      // This seems to be a typescript workaround
-      // because ViewAction marks it as required,
-      // which does not reflect actual implementation as the url
-      // came from data context and not all actions require url.
-      // https://product-fabric.atlassian.net/browse/EDM-9547
-      url=""
       asDropDownItem={asDropDownItems}
       size={size}
       appearance={appearance}

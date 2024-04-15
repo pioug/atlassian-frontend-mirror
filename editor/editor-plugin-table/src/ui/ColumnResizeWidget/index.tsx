@@ -2,6 +2,10 @@
 import { jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import {
+  startColumnResizing,
+  ToolTipContent,
+} from '@atlaskit/editor-common/keymaps';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -32,7 +36,12 @@ export const ColumnResizeWidget = ({
 
   return (
     <Tooltip
-      content={formatMessage(messages.adjustColumns)}
+      content={
+        <ToolTipContent
+          description={formatMessage(messages.adjustColumns)}
+          keymap={startColumnResizing}
+        />
+      }
       hideTooltipOnClick
       hideTooltipOnMouseDown
       position="mouse"

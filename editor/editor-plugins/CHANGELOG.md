@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugins
 
+## 2.0.19
+
+### Patch Changes
+
+- [#88000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88000) [`55aa8a23a899`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55aa8a23a899) - FF cleanup platform.editor.show-embed-card-frame-renderer
+- Updated dependencies
+
 ## 2.0.18
 
 ### Patch Changes

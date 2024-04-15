@@ -42,9 +42,11 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await page.getByTestId('mode-toggle-basic').click();
     await page.getByTestId('jlol-basic-filter-project-trigger').click();
 
-    const popupMenu = page.getByTestId('jlol-basic-filter-popup-select--menu');
+    const popupMenu = page.getByTestId(
+      'jlol-basic-filter-project-popup-select--menu',
+    );
     const popupSearchInput = page.locator(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-project-popup-select--input',
     );
     const popupFooter = page.getByTestId(
       'jlol-basic-filter-popup-select--footer',
@@ -108,13 +110,13 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
       'Unassigned',
     );
 
-    await page.type('#jlol-basic-filter-popup-select--input', `empty`);
+    await page.type('#jlol-basic-filter-assignee-popup-select--input', `empty`);
 
     await expect(
       page.getByTestId('jlol-basic-filter-popup-select--no-options-message'),
     ).toBeVisible();
 
-    await page.type('#jlol-basic-filter-popup-select--input', ``);
+    await page.type('#jlol-basic-filter-assignee-popup-select--input', ``);
     await page.keyboard.press('Backspace');
     await page.waitForSelector('#react-select-3-option-0');
 

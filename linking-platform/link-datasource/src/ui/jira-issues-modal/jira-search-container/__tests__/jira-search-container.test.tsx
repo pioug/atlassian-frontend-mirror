@@ -829,7 +829,7 @@ describe('JiraSearchContainer', () => {
         const { triggerButton } = setupBasicFilter(renderResult);
 
         const selectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
 
         const initialLozengeOptions = within(selectMenu).queryAllByTestId(
@@ -862,7 +862,7 @@ describe('JiraSearchContainer', () => {
         fireEvent.click(triggerButton!);
 
         const selectMenu2 = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
         const updatedLozengeOptions = within(selectMenu2).queryAllByTestId(
           'jlol-basic-filter-popup-select-option--lozenge',
@@ -902,7 +902,7 @@ describe('JiraSearchContainer', () => {
         setupBasicFilter(renderResult);
 
         const statusSelectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
 
         const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
@@ -926,7 +926,7 @@ describe('JiraSearchContainer', () => {
         fireEvent.click(projectTriggerButton);
 
         const projectSelectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-project-popup-select--menu',
         );
 
         const [firstProject] = within(projectSelectMenu).queryAllByTestId(
@@ -960,7 +960,7 @@ describe('JiraSearchContainer', () => {
         setupBasicFilter(renderResult);
 
         const statusSelectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
 
         const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
@@ -1060,7 +1060,7 @@ describe('JiraSearchContainer', () => {
         const { triggerButton } = setupBasicFilter(renderResult);
 
         const input = container.parentElement?.querySelector(
-          '#jlol-basic-filter-popup-select--input',
+          '#jlol-basic-filter-status-popup-select--input',
         );
         invariant(input);
 
@@ -1305,7 +1305,7 @@ describe('JiraSearchContainer', () => {
         });
 
         const selectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
 
         const [firstOption] = within(selectMenu).queryAllByTestId(
@@ -1388,7 +1388,7 @@ describe('JiraSearchContainer', () => {
         });
 
         const selectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
 
         const [firstOption] = within(selectMenu).queryAllByTestId(

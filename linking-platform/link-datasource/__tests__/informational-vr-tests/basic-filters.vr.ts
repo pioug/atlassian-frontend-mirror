@@ -161,7 +161,10 @@ filters.forEach(filter => {
       await component
         .getByTestId(`jlol-basic-filter-${filter}-trigger`)
         .click();
-      await page.type('#jlol-basic-filter-popup-select--input', `my ${filter}`);
+      await page.type(
+        `#jlol-basic-filter-${filter}-popup-select--input`,
+        `my ${filter}`,
+      );
     },
     description: `${filter} open and search text entered`,
     featureFlags: {
@@ -179,7 +182,7 @@ filters.forEach(filter => {
         .click();
 
       await page.type(
-        '#jlol-basic-filter-popup-select--input',
+        `#jlol-basic-filter-${filter}-popup-select--input`,
         `loading-message`,
       );
 
@@ -203,7 +206,7 @@ filters.forEach(filter => {
         .click();
 
       await page.type(
-        '#jlol-basic-filter-popup-select--input',
+        `#jlol-basic-filter-${filter}-popup-select--input`,
         `empty-message`,
       );
 
@@ -227,7 +230,7 @@ filters.forEach(filter => {
         .click();
 
       await page.type(
-        '#jlol-basic-filter-popup-select--input',
+        `#jlol-basic-filter-${filter}-popup-select--input`,
         `error-message`,
       );
 

@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.5.0
+
+### Minor Changes
+
+- [#88739](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88739) [`b2e3ccf36c56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2e3ccf36c56) - Add export types to feature flag client
+
 ## 5.4.2
 
 ### Patch Changes

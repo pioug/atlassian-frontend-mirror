@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.52.8",
+  "version": "26.54.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,7 +33,7 @@
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
     "@atlaskit/badge": "^16.0.0",
-    "@atlaskit/button": "^17.11.0",
+    "@atlaskit/button": "^17.12.0",
     "@atlaskit/dropdown-menu": "^12.8.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
@@ -153,14 +153,10 @@
     "./hooks": "./src/hooks.ts",
     "./hover-card": "./src/hoverCard.ts",
     "./link-url": "./src/linkUrl.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     ".": "./src/index.ts"
   },
   "platform-feature-flags": {
     "platform.linking-platform.smart-card.enable-hover-card-related-urls": {
-      "type": "boolean"
-    },
-    "platform.editor.show-embed-card-frame-renderer": {
       "type": "boolean"
     },
     "platform.linking-platform.extractor.improve-bitbucket-file-links": {

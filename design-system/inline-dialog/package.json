@@ -61,7 +61,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/button": "^17.11.0",
+    "@atlaskit/button": "^17.12.0",
     "@atlaskit/datetime-picker": "^13.3.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.10.0",

@@ -38,12 +38,11 @@
     ".": "./src/index.ts"
   },
   "exports": {
-    ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
+    ".": "./src/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.11.0",
+    "@atlaskit/button": "^17.12.0",
     "@atlaskit/empty-state": "^7.7.0",
     "@atlaskit/form": "^9.1.0",
     "@atlaskit/icon": "^22.1.0",

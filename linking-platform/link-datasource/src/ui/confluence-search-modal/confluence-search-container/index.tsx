@@ -1,6 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { Flex, xcss } from '@atlaskit/primitives';
 
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
+import BasicFilters from '../basic-filters';
 
 import { searchMessages } from './messages';
 
@@ -10,6 +20,10 @@ interface Props {
   isSearching: boolean;
   onSearch: (searchTerm: string) => void;
 }
+
+const basicSearchInputContainerStyles = xcss({
+  flexGrow: 1,
+});
 
 const ConfluenceSearchContainer = ({
   cloudId,
@@ -39,16 +53,30 @@ const ConfluenceSearchContainer = ({
     }
   }, [cloudId]);
 
+  const showBasicFilters = useMemo(() => {
+    if (
+      getBooleanFF(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+      )
+    ) {
+      return true;
+    }
+    return false;
+  }, []);
+
   return (
-    <BasicSearchInput
-      testId="confluence-search-datasource-modal"
-      isSearching={isSearching}
-      onChange={handleSearchChange}
-      onSearch={onSearch}
-      searchTerm={searchBarSearchString}
-      placeholder={searchMessages.searchLabel}
-      fullWidth
-    />
+    <Flex alignItems="center" xcss={basicSearchInputContainerStyles}>
+      <BasicSearchInput
+        testId="confluence-search-datasource-modal"
+        isSearching={isSearching}
+        onChange={handleSearchChange}
+        onSearch={onSearch}
+        searchTerm={searchBarSearchString}
+        placeholder={searchMessages.searchLabel}
+        fullWidth={!showBasicFilters}
+      />
+      {showBasicFilters && <BasicFilters />}
+    </Flex>
   );
 };
 

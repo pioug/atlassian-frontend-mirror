@@ -32,10 +32,17 @@ const listStyles = css({
   paddingLeft: '0.5rem',
 });
 
-const options = Object.values(ActionName).map((name) => ({
-  label: name,
-  value: name,
-}));
+const options = Object.values(ActionName)
+  /**
+   * Remove filter once ActionName.ViewAction is retired
+   * This has been done to prevent ViewAction being an option
+   * https://product-fabric.atlassian.net/browse/EDM-9665
+   */
+  .filter((x) => x !== ActionName.ViewAction)
+  .map((name) => ({
+    label: name,
+    value: name,
+  }));
 
 const ActionOption: React.FC<{
   name: string;

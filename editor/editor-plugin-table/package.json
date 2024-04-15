@@ -83,8 +83,7 @@
     "./ui/common-styles": "./src/ui/common-styles.ts",
     "./ui/consts": "./src/ui/consts.ts",
     "./plugin-key": "./src/pm-plugins/plugin-key.ts",
-    "./commands": "./src/commands/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
+    "./commands": "./src/commands/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {

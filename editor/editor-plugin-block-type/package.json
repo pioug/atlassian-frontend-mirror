@@ -37,7 +37,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./consts": "./src/consts.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     "./styles": "./src/styles.ts"
   },
   "dependencies": {

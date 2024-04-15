@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.11.0",
+    "@atlaskit/button": "^17.12.0",
     "@atlaskit/code": "^15.1.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
@@ -126,7 +126,6 @@
     "./types": "./src/types.ts",
     "./formatDate": "./src/formatDate.ts",
     "./locales": "./src/locales.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     ".": "./src/index.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

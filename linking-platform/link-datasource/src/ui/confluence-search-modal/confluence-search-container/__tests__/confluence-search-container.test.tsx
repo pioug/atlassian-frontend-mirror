@@ -5,9 +5,11 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import ConfluenceSearchContainer from '../index';
+
 import '@atlaskit/link-test-helpers/jest';
 
 type MockConfluenceSearchContainerProps = Partial<
@@ -166,3 +168,33 @@ describe('Analytics: ConfluenceSearchContainer', () => {
     });
   });
 });
+
+ffTest.on(
+  'platform.linking-platform.datasource.show-clol-basic-filters',
+  'view basic filters',
+  () => {
+    it('should show basic filter container', () => {
+      const {
+        container: { queryByTestId },
+      } = setup();
+
+      expect(queryByTestId('clol-basic-filter-container')).toBeInTheDocument();
+    });
+  },
+);
+
+ffTest.off(
+  'platform.linking-platform.datasource.show-clol-basic-filters',
+  'view basic filters',
+  () => {
+    it('should not show basic filter container', () => {
+      const {
+        container: { queryByTestId },
+      } = setup();
+
+      expect(
+        queryByTestId('clol-basic-filter-container'),
+      ).not.toBeInTheDocument();
+    });
+  },
+);

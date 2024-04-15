@@ -83,43 +83,16 @@ snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
   states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
 });
 
-snapshot(EmbedCardFrameStyleHide, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
-snapshot(EmbedCardFrameStyleHideAndSelected, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
-snapshot(EmbedCardFrameStyleShow, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
-snapshot(EmbedCardFrameStyleShowAndSelected, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
-snapshot(EmbedCardFrameStyleShowOnHover, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
+snapshot(EmbedCardFrameStyleHide);
+snapshot(EmbedCardFrameStyleHideAndSelected);
+snapshot(EmbedCardFrameStyleShow);
+snapshot(EmbedCardFrameStyleShowAndSelected);
+snapshot(EmbedCardFrameStyleShowOnHover);
 snapshot(EmbedCardFrameStyleShowOnHover, {
   description: 'embed card frame style show on hover when hover',
   states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
 });
-snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
-  featureFlags: {
-    'platform.editor.show-embed-card-frame-renderer': [true, false],
-  },
-});
+snapshot(EmbedCardFrameStyleShowOnHoverAndSelected);
 snapshot(EmbedCardForbiddenViewFrameHide);
 snapshot(EmbedCardNotFoundViewFrameHide);
 snapshot(EmbedCardUnauthorisedViewFrameHide);

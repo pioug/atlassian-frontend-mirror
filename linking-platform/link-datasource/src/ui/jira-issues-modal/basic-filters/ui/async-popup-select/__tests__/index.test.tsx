@@ -121,7 +121,7 @@ describe('Testing AsyncPopupSelect', () => {
       });
 
       expect(
-        queryByTestId('jlol-basic-filter-popup-select--menu'),
+        queryByTestId('jlol-basic-filter-project-popup-select--menu'),
       ).toBeInTheDocument();
     });
 
@@ -244,7 +244,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
     invariant(input);
 
@@ -265,7 +265,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
     invariant(input);
 
@@ -359,7 +359,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-assignee-popup-select--input',
     );
     invariant(input);
 
@@ -388,7 +388,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
     invariant(input);
 
@@ -414,7 +414,7 @@ describe('Testing AsyncPopupSelect', () => {
     invariant(triggerButton);
 
     const inputBeforeClose = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
     invariant(inputBeforeClose);
 
@@ -430,7 +430,7 @@ describe('Testing AsyncPopupSelect', () => {
     fireEvent.click(triggerButton);
 
     const inputAfterClose = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
     invariant(inputAfterClose);
     expect(inputAfterClose).toHaveValue('');
@@ -468,7 +468,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const selectMenu = await findByTestId(
-      'jlol-basic-filter-popup-select--menu',
+      'jlol-basic-filter-status-popup-select--menu',
     );
     const optionLozenges = within(selectMenu).queryAllByTestId(
       'jlol-basic-filter-popup-select-option--lozenge',
@@ -496,7 +496,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
 
     expect(input).toBeVisible();
@@ -511,7 +511,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const input = container.parentElement?.querySelector(
-      '#jlol-basic-filter-popup-select--input',
+      '#jlol-basic-filter-status-popup-select--input',
     );
 
     await waitFor(() => {
@@ -630,7 +630,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'emptyResult',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'status',
           },
         },
       },
@@ -656,7 +656,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'status',
             reason: 'unknown',
           },
         },
@@ -684,7 +684,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'status',
             reason: 'agg',
           },
         },
@@ -714,7 +714,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'status',
             reason: 'network',
           },
         },
@@ -739,7 +739,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'dropdown',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'jlol-basic-filter-status',
             selectionCount: 0,
           },
         },
@@ -780,7 +780,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'dropdown',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'jlol-basic-filter-status',
             selectionCount: 2,
           },
         },
@@ -810,7 +810,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'dropdown',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'jlol-basic-filter-status',
             selectionCount: 0,
           },
         },
@@ -856,7 +856,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'dropdown',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'status',
+            filterName: 'jlol-basic-filter-status',
             selectionCount: 2,
           },
         },
@@ -887,7 +887,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'button',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterType: 'assignee',
+            filterName: 'assignee',
             type: 'showMore',
           },
         },

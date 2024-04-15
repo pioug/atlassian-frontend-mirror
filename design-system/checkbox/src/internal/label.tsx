@@ -21,15 +21,13 @@ import { token } from '@atlaskit/tokens';
 
 import { LabelProps } from '../types';
 
-import { fontFamily } from './constants';
-
 const baseStyles = css({
   display: 'grid',
   gridAutoColumns: '1fr',
   gridAutoRows: 'min-content',
   color: token('color.text', N900),
   cursor: 'default',
-  fontFamily: token('font.family.sans', fontFamily),
+  font: token('font.body'),
 });
 
 const textLabelLayoutStyles = css({

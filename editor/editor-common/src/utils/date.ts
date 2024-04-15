@@ -68,7 +68,7 @@ export const timestampToIsoFormat = (timestamp: string | number): string => {
   const date = new Date(Number(timestamp));
   return `${date.getUTCFullYear()}-${addLeadingZero(
     date.getUTCMonth() + 1,
-  )}-${date.getUTCDate()}`;
+  )}-${addLeadingZero(date.getUTCDate())}`;
 };
 
 export const isPastDate = (timestamp: string | number): boolean => {

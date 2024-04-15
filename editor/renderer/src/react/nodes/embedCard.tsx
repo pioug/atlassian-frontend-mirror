@@ -5,7 +5,6 @@ import type { ComponentProps } from 'react';
 import { Card, EmbedResizeMessageListener } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import type { SmartLinksOptions } from '../../types/smartLinksOptions';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   WidthConsumer,
@@ -89,11 +88,7 @@ export default function EmbedCard(props: {
     onClick,
     container: portal,
     platform,
-    frameStyle:
-      smartLinks?.frameStyle ??
-      (getBooleanFF('platform.editor.show-embed-card-frame-renderer')
-        ? 'show'
-        : undefined),
+    frameStyle: smartLinks?.frameStyle ?? 'show',
     actionOptions,
     showServerActions,
   };

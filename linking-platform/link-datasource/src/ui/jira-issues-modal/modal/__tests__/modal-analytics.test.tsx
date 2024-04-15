@@ -26,7 +26,9 @@ describe('Analytics: JiraIssuesConfigModal', () => {
   });
 
   it('should fire "screen.datasourceModalDialog.viewed" when the modal is rendered', async () => {
-    const { onAnalyticFireEvent } = await setup();
+    const { onAnalyticFireEvent } = await setup({
+      dontWaitForSitesToLoad: true,
+    });
 
     expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
       {
@@ -49,7 +51,9 @@ describe('Analytics: JiraIssuesConfigModal', () => {
   });
 
   it('should fire "ui.modal.ready.datasource" when modal is ready for the user to search and display data', async () => {
-    const { onAnalyticFireEvent } = await setup();
+    const { onAnalyticFireEvent } = await setup({
+      dontWaitForSitesToLoad: false,
+    });
 
     expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
       {

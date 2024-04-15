@@ -312,6 +312,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
             searchTerm={basicSearchTerm}
             placeholder={basicSearchInputMessages.basicTextSearchLabel}
             testId="jira-datasource-modal"
+            fullWidth={!showBasicFilters}
           />
           {showBasicFilters && (
             <BasicFilters

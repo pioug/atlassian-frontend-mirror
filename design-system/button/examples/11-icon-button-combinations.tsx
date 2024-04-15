@@ -125,7 +125,9 @@ export default function IconButtonExample() {
                           <td>
                             <Component
                               appearance={appearance}
-                              UNSAFE_size={size}
+                              icon={(iconProps) => (
+                                <StarFilledIcon {...iconProps} size={size} />
+                              )}
                             />
                           </td>
                         ))}

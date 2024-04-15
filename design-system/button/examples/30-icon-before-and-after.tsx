@@ -58,17 +58,19 @@ export default function ButtonsWithIconBeforeOrAfterExample() {
       <h2>Unsafe icon sizing</h2>
       {iconSizes.map((size) => (
         <ButtonGroup key={size}>
-          <Button iconBefore={AddIcon} UNSAFE_iconBefore_size={size}>
+          <Button
+            iconBefore={(iconProps) => <AddIcon {...iconProps} size={size} />}
+          >
             Icon before
           </Button>
-          <Button iconAfter={AddIcon} UNSAFE_iconAfter_size={size}>
+          <Button
+            iconAfter={(iconProps) => <AddIcon {...iconProps} size={size} />}
+          >
             Icon after
           </Button>
           <Button
-            iconBefore={AddIcon}
-            UNSAFE_iconBefore_size={size}
-            iconAfter={AddIcon}
-            UNSAFE_iconAfter_size={size}
+            iconBefore={(iconProps) => <AddIcon {...iconProps} size={size} />}
+            iconAfter={(iconProps) => <AddIcon {...iconProps} size={size} />}
           >
             Icon before and after
           </Button>

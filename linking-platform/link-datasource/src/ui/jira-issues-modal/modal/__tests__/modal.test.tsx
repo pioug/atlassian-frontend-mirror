@@ -270,7 +270,7 @@ describe('JiraIssuesConfigModal', () => {
         fireEvent.click(triggerButton);
 
         const statusSelectMenu = await findByTestId(
-          'jlol-basic-filter-popup-select--menu',
+          'jlol-basic-filter-status-popup-select--menu',
         );
         const [firstStatus, secondStatus] = within(
           statusSelectMenu,

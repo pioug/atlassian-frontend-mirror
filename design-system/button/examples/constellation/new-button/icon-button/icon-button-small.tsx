@@ -7,8 +7,7 @@ import { IconButton } from '../../../../src/new';
 const IconButtonSmallExample = () => {
   return (
     <IconButton
-      UNSAFE_size="small"
-      icon={StarFilledIcon}
+      icon={(iconProps) => <StarFilledIcon {...iconProps} size="small" />}
       label="Add to favorites"
     />
   );

@@ -31,7 +31,6 @@
   "exports": {
     ".": "./src/index.ts",
     "./analytics": "./src/analytics.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     "./option": "./src/option.ts",
     "./types": "./src/types.ts"
   },

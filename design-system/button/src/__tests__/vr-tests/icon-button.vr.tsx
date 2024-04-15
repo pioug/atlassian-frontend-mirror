@@ -5,6 +5,11 @@ import IconButtonExample from '../../../examples/07-icon-button';
 import { themeVariants } from './utils';
 
 snapshot(IconButtonExample, {
+  description: 'Default',
+  variants: themeVariants,
+});
+
+snapshot(IconButtonExample, {
   description: 'Standard tooltip',
   variants: themeVariants,
   states: [

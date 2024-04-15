@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::e9179418960d1cbfd58428448cf63c82>>
+ * @codegen <<SignedSource::6518dea178189cd102e0ca6ce7eae059>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type ComponentMetaDataType = {
@@ -130,22 +130,22 @@ export type LinkViewedCountAttributesType = {
   extensionKey: string | null;
 };
 export type EmptyResultShownBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'type' | 'status';
+  filterName: string;
 };
 export type ErrorShownBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'type' | 'status';
+  filterName: string;
   reason: 'agg' | 'network' | 'unknown';
 };
 export type DropdownOpenedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'type' | 'status';
+  filterName: string;
   selectionCount: number;
 };
 export type DropdownClosedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'type' | 'status';
+  filterName: string;
   selectionCount: number;
 };
 export type ButtonClickedBasicSearchDropdownAttributesType = {
-  filterType: 'project' | 'assignee' | 'type' | 'status';
+  filterName: string;
   type: 'showMore';
 };
 export type AqlEditorSearchedAttributesType = {};

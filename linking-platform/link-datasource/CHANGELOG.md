@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.26.3
+
+### Patch Changes
+
+- [#88851](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88851) [`236a86f49825`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/236a86f49825) - The changes here extracts the popup dropdown component into the common folder to be used by mulitple datasource providers, along with adding feature flag for CLOL basic filter rollout.
+
+## 1.26.2
+
+### Patch Changes
+
+- [#89277](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89277) [`9dc291ef49c4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9dc291ef49c4) - Add analytics events for when confluence config modal is viewed and is ready for interaction
+
 ## 1.26.1
 
 ### Patch Changes

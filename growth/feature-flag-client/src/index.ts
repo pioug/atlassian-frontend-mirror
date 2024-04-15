@@ -1,2 +1,6 @@
 export { default } from './client';
-export { ExposureTriggerReason } from './types';
+export {
+  ExposureTriggerReason,
+  type CustomAttributes,
+  type FlagValue,
+} from './types';

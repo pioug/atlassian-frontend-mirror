@@ -458,6 +458,63 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
       </span>
     ),
   },
+  ...(getBooleanFF('platform.editor.a11y-column-resizing_emcvz')
+    ? [
+        {
+          name: formatMessage(messages.selectColumnResize),
+          type: 'table',
+          autoFormatting: () => (
+            <span css={shortcutsArray}>
+              <span>
+                <span css={browser.mac ? codeSm : codeMd}>
+                  {browser.mac ? '⌘' : 'Ctrl'}
+                </span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>Shift</span>
+                {' + '}
+                <span css={codeSm}>C</span>
+              </span>
+            </span>
+          ),
+        },
+        {
+          name: formatMessage(messages.increaseColumnSize),
+          type: 'table',
+          autoFormatting: () => (
+            <span css={shortcutsArray}>
+              <span>
+                <span css={browser.mac ? codeSm : codeMd}>
+                  {browser.mac ? '⌘' : 'Ctrl'}
+                </span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>[</span>
+              </span>
+            </span>
+          ),
+        },
+        {
+          name: formatMessage(messages.decreaseColumnSize),
+          type: 'table',
+          autoFormatting: () => (
+            <span css={shortcutsArray}>
+              <span>
+                <span css={browser.mac ? codeSm : codeMd}>
+                  {browser.mac ? '⌘' : 'Ctrl'}
+                </span>
+                {' + '}
+                <span css={codeMd}>{browser.mac ? 'Opt' : 'Alt'}</span>
+                {' + '}
+                <span css={codeMd}>]</span>
+              </span>
+            </span>
+          ),
+        },
+      ]
+    : []),
 ];
 
 const resizeInformationFormatting: (intl: IntlShape) => Format[] = ({

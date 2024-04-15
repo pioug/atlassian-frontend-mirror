@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 13.1.5
+
+### Patch Changes
+
+- [#89923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89923) [`32bc9f9f09b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32bc9f9f09b3) - Internal changes to typography, no visual change.
+
 ## 13.1.4
 
 ### Patch Changes

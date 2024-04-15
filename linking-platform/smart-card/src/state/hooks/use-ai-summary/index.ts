@@ -42,7 +42,9 @@ export const useAISummary = (props: AISummaryServiceProps) => {
   );
 
   useEffect(() => {
-    if (!AISummariesStore.get(url)) {
+    //do not create a service for the empty URL string when the link data is not yet available,
+    //or the service has already been created and cached.
+    if (url && !AISummariesStore.get(url)) {
       AISummariesStore.set(
         url,
         new AISummaryService({

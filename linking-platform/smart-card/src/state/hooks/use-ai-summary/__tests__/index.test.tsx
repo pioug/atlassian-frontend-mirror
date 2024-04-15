@@ -5,7 +5,6 @@ import { renderHook } from '@testing-library/react-hooks';
 import uuid from 'uuid';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import '@atlaskit/link-test-helpers/jest';
-
 import { useAISummary } from '../index';
 import { AISummariesStore } from '../ai-summary-service/store';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
@@ -79,6 +78,19 @@ describe('useAISummary', () => {
     jest.resetAllMocks();
   });
 
+  it('should not try to initiate AI Summary Service when URL is an empty string', async () => {
+    const storeSetSpy = jest.spyOn(AISummariesStore, 'set');
+
+    renderHook(() =>
+      useAISummary({
+        url: '',
+      }),
+    );
+
+    expect(storeSetSpy).toHaveBeenCalledTimes(0);
+    storeSetSpy.mockRestore();
+  });
+
   it('sets status on successful response', async () => {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200 } as Response);
     (readStream as jest.Mock).mockImplementationOnce(mockReadStreamSuccess);
@@ -87,6 +99,7 @@ describe('useAISummary', () => {
     await act(async () => {
       await result.current.summariseUrl();
     });
+
     expect(result.current.state?.status).toBe('done');
     expect(result.current.state?.content).toBe('something');
   });

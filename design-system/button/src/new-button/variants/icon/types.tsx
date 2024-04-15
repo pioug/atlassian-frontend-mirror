@@ -1,4 +1,4 @@
-import { TooltipProps } from '@atlaskit/tooltip';
+import { type TooltipProps } from '@atlaskit/tooltip';
 
 import {
   type IconButtonAppearance,
@@ -43,6 +43,8 @@ export type CommonIconButtonProps = {
    */
   tooltip?: Partial<Omit<TooltipProps, 'children'>>;
   /**
+   * @deprecated Prefer `icon` render prop for icon customizations.
+   *
    * Set the size of the icon. `medium` is default, so it does not need to be specified.
    * This is UNSAFE as it will be removed in future in favor of a 100% bounded API.
    */

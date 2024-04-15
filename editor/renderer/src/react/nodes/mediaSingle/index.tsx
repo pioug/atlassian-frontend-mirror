@@ -1,6 +1,12 @@
 /** @jsx jsx */
 import type { ReactElement } from 'react';
-import { default as React, Fragment } from 'react';
+import {
+  default as React,
+  Fragment,
+  useCallback,
+  useContext,
+  useMemo,
+} from 'react';
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -12,7 +18,7 @@ import type {
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import {
   MediaSingle as UIMediaSingle,
-  WidthConsumer,
+  WidthContext,
 } from '@atlaskit/editor-common/ui';
 import type {
   EventHandlers,
@@ -43,6 +49,11 @@ export interface Props {
   allowCaptions?: boolean;
   isInsideOfInlineExtension?: boolean;
   dataAttributes?: Record<string, any>;
+}
+
+interface ChildElements {
+  media: ReactElement<MediaProps & MediaADFAttrs>;
+  caption: React.ReactNode;
 }
 
 const DEFAULT_WIDTH = 250;
@@ -94,18 +105,21 @@ export const getMediaContainerWidth = (
   return currentContainerWidth;
 };
 
-const MediaSingle = (props: Props & WrappedComponentProps) => {
+const MediaSingleWithChildren = (
+  props: Props & ChildElements & WrappedComponentProps,
+) => {
   const {
     rendererAppearance,
     featureFlags,
     isInsideOfBlockNode,
     layout,
-    children,
     width: widthAttr,
     widthType,
     allowCaptions = false,
     isInsideOfInlineExtension = false,
     dataAttributes,
+    media,
+    caption,
   } = props;
 
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
@@ -122,19 +136,6 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     },
     [],
   );
-
-  let media: ReactElement<MediaProps & MediaADFAttrs>;
-  const [node, caption] = React.Children.toArray(children);
-
-  if (!isMediaElement(node)) {
-    const mediaElement = checkForMediaElement((node as any).props.children);
-    if (!mediaElement) {
-      return node as React.ReactElement<MediaProps>;
-    }
-    media = mediaElement;
-  } else {
-    media = node;
-  }
 
   let { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, type } = media.props;
 
@@ -158,47 +159,68 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
   const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
   const isFullWidth = rendererAppearance === 'full-width';
 
-  const calcDimensions = (mediaContainerWidth: number) => {
-    const containerWidth = getMediaContainerWidth(mediaContainerWidth, layout);
+  const calcDimensions = useCallback(
+    (mediaContainerWidth: number) => {
+      const containerWidth = getMediaContainerWidth(
+        mediaContainerWidth,
+        layout,
+      );
 
-    const maxWidth = containerWidth;
-    const maxHeight = (height / width) * maxWidth;
-    const cardDimensions = {
-      width: `${maxWidth}px`,
-      height: `${maxHeight}px`,
-    };
-    let nonFullWidthSize = containerWidth;
-    if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
-      const isContainerSizeGreaterThanMaxFullPageWidth =
-        containerWidth - padding >= akEditorDefaultLayoutWidth;
+      const maxWidth = containerWidth;
+      const maxHeight = (height / width) * maxWidth;
+      const cardDimensions = {
+        width: `${maxWidth}px`,
+        height: `${maxHeight}px`,
+      };
+      let nonFullWidthSize = containerWidth;
+      if (!isInsideOfBlockNode && rendererAppearance !== 'comment') {
+        const isContainerSizeGreaterThanMaxFullPageWidth =
+          containerWidth - padding >= akEditorDefaultLayoutWidth;
 
-      if (isContainerSizeGreaterThanMaxFullPageWidth) {
-        nonFullWidthSize = akEditorDefaultLayoutWidth;
-      } else {
-        nonFullWidthSize = containerWidth - padding;
+        if (isContainerSizeGreaterThanMaxFullPageWidth) {
+          nonFullWidthSize = akEditorDefaultLayoutWidth;
+        } else {
+          nonFullWidthSize = containerWidth - padding;
+        }
       }
-    }
-    const minWidth = Math.min(
-      akEditorFullWidthLayoutWidth,
-      containerWidth - padding,
-    );
+      const minWidth = Math.min(
+        akEditorFullWidthLayoutWidth,
+        containerWidth - padding,
+      );
 
-    const lineLength = isFullWidth ? minWidth : nonFullWidthSize;
-    return {
-      cardDimensions,
-      lineLength,
-    };
-  };
+      const lineLength = isFullWidth ? minWidth : nonFullWidthSize;
+      return {
+        cardDimensions,
+        lineLength,
+      };
+    },
+    [
+      height,
+      isFullWidth,
+      isInsideOfBlockNode,
+      layout,
+      padding,
+      rendererAppearance,
+      width,
+    ],
+  );
 
-  const originalDimensions = {
-    height,
-    width,
-  };
+  const originalDimensions = useMemo(
+    () => ({ width, height }),
+    [height, width],
+  );
 
-  const renderMediaSingle = (renderWidth: number) => {
-    const containerWidth = getMediaContainerWidth(renderWidth, layout);
-    const { cardDimensions, lineLength } = calcDimensions(containerWidth);
+  // Note: in SSR mode the `window` object is not defined,
+  // therefore width here is 0, see:
+  // packages/editor/editor-common/src/ui/WidthProvider/index.tsx
+  const { width: renderWidth } = useContext(WidthContext);
+  const containerWidth = getMediaContainerWidth(renderWidth, layout);
+  const { cardDimensions, lineLength } = useMemo(
+    () => calcDimensions(containerWidth),
+    [calcDimensions, containerWidth],
+  );
 
+  const renderMediaSingle = () => {
     const mediaComponent = React.cloneElement(media, {
       resizeMode: 'stretchy-fit',
       cardDimensions,
@@ -237,16 +259,24 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     );
   };
 
-  return (
-    <WidthConsumer>
-      {({ width }) => {
-        // Note: in SSR mode the `window` object is not defined,
-        // therefore width here is 0, see:
-        // packages/editor/editor-common/src/ui/WidthProvider/index.tsx
-        return renderMediaSingle(width);
-      }}
-    </WidthConsumer>
-  );
+  return renderMediaSingle();
+};
+
+const MediaSingle = (props: Props & WrappedComponentProps) => {
+  const { children } = props;
+  let media: ReactElement<MediaProps & MediaADFAttrs>;
+  const [node, caption] = React.Children.toArray(children);
+
+  if (!isMediaElement(node)) {
+    const mediaElement = checkForMediaElement((node as any).props.children);
+    if (!mediaElement) {
+      return node as React.ReactElement<MediaProps>;
+    }
+    media = mediaElement;
+  } else {
+    media = node;
+  }
+  return <MediaSingleWithChildren {...props} media={media} caption={caption} />;
 };
 
 export default injectIntl(MediaSingle);

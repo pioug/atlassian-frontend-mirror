@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.34.9
+
+### Patch Changes
+
+- [#90153](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90153) [`a679d89ed314`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a679d89ed314) - Converts lazy translations import from dynamic import to static map of imports, behind ff platform.linking-platform.link-picker.translations-map
+
 ## 1.34.8
 
 ### Patch Changes

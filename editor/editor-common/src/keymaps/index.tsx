@@ -152,7 +152,7 @@ export const deleteRow = makeKeyMapWithCommon('Delete Row', 'Ctrl-Backspace');
 
 export const startColumnResizing = makeKeyMapWithCommon(
   'Activate Column Resize',
-  'Mod-Alt-Shift-C',
+  'Mod-Alt-Shift-c',
 );
 export const cut = makeKeyMapWithCommon('Cut', 'Mod-x');
 export const copy = makeKeyMapWithCommon('Copy', 'Mod-c');

@@ -53,7 +53,6 @@ const FlexibleResolvedView = ({
     () => [
       { name: ActionName.FollowAction, hideIcon: true },
       { name: ActionName.PreviewAction, hideIcon: true },
-      { name: ActionName.ViewAction, hideIcon: true },
       { name: ActionName.DownloadAction, hideIcon: true },
     ],
     [],

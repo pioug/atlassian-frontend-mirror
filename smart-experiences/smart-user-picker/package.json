@@ -27,7 +27,6 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./i18n/*": "./src/i18n/*.ts",
     "./option": "./src/option.ts"
   },
   "atlassian": {

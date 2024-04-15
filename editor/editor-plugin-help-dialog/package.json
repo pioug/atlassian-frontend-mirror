@@ -97,6 +97,9 @@
     },
     "platform.editor.text-alignment-keyboard-shortcuts": {
       "type": "boolean"
+    },
+    "platform.editor.a11y-column-resizing_emcvz": {
+      "type": "boolean"
     }
   }
 }

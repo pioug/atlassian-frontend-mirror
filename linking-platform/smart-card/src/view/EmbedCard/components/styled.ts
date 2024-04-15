@@ -5,7 +5,6 @@ import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
 import { FrameStyle } from '../types';
 import { N40 } from '@atlaskit/theme/colors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const className = 'media-card-frame';
 
@@ -137,7 +136,6 @@ const wrapperStyles = (props: WrapperProps) => `
 // 100% of the content +16px and position it left -8px to make it appear
 // outside the container
 const wrapperSizing = ({ frameStyle }: WrapperProps) =>
-  getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
   frameStyle === 'show'
     ? `
     box-sizing: border-box;
@@ -194,7 +192,6 @@ export const Header = styled.div(
     transition: '300ms opacity cubic-bezier(0.15, 1, 0.3, 1)',
   },
   ({ frameStyle }: HeaderProps) =>
-    getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
     frameStyle === 'show'
       ? `
         box-sizing: border-box;
@@ -283,7 +280,6 @@ export const Content = styled.div`
     allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;'}
 
   ${({ frameStyle }: ContentProps) =>
-    getBooleanFF('platform.editor.show-embed-card-frame-renderer') &&
     frameStyle === 'show'
       ? `
         width: calc(100% - ${token('space.200', '16px')} - 2px);

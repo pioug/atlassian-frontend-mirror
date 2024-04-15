@@ -30,7 +30,10 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { EVENT_CHANNEL } from '../../../analytics';
+import {
+  EVENT_CHANNEL,
+  useDatasourceAnalyticsEvents,
+} from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
 import type {
   AnalyticsContextAttributesType,
@@ -163,6 +166,8 @@ export const PlainConfluenceSearchConfigModal = (
     fieldKeys: visibleColumnKeys,
   });
 
+  const { fireEvent } = useDatasourceAnalyticsEvents();
+
   const hasNoConfluenceSites = availableSites && availableSites.length === 0;
 
   const selectedConfluenceSite = useMemo<Site | undefined>(() => {
@@ -182,6 +187,10 @@ export const PlainConfluenceSearchConfigModal = (
       );
     }
   }, [availableSites, cloudId]);
+
+  useEffect(() => {
+    fireEvent('screen.datasourceModalDialog.viewed', {});
+  }, [fireEvent]);
 
   // TODO: further refactoring in EDM-9573
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828283
@@ -212,10 +221,15 @@ export const PlainConfluenceSearchConfigModal = (
         a.displayName.localeCompare(b.displayName),
       );
       setAvailableSites(sortedAvailableSites);
+
+      fireEvent('ui.modal.ready.datasource', {
+        instancesCount: sortedAvailableSites.length,
+        schemasCount: null,
+      });
     };
 
     void fetchSiteDisplayNames();
-  }, []);
+  }, [fireEvent]);
 
   useEffect(() => {
     const newVisibleColumnKeys =

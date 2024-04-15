@@ -13,7 +13,6 @@ import {
   makeDeleteActionItem,
   makeDownloadActionItem,
   makeEditActionItem,
-  makeViewActionItem,
 } from '../utils/flexible-ui';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { ActionItem } from '../../src';
@@ -29,10 +28,7 @@ const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
     },
     'atlassian:downloadUrl':
       'https://www.dropbox.com/s/0ebs1wkexeta5ml/Get%20Started%20with%20Dropbox.pdf?dl=1',
-    'schema:potentialAction': [
-      { '@type': 'DownloadAction', name: 'Download' },
-      { '@type': 'ViewAction', name: 'View' },
-    ],
+    'schema:potentialAction': [{ '@type': 'DownloadAction', name: 'Download' }],
   };
   const cardState = getCardState({ data: actionData });
   return (
@@ -64,7 +60,6 @@ export default () => (
           content: 'Magic!',
         }),
         makeDownloadActionItem(),
-        makeViewActionItem(),
       ])}
       <h5>Hide provider</h5>
       <FlexibleCard cardState={getCardState()} url="link-url">

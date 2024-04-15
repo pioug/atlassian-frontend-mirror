@@ -96,14 +96,26 @@ describe('TitleBlock', () => {
     ];
 
     for (const [status, allowedActionNames] of [
-      [SmartLinkStatus.Resolved, Object.values(ActionName)],
+      [
+        SmartLinkStatus.Resolved,
+        /**
+         * Remove filter once ActionName.ViewAction is retired
+         * https://product-fabric.atlassian.net/browse/EDM-9665
+         */
+        Object.values(ActionName).filter((x) => x !== ActionName.ViewAction),
+      ],
       [SmartLinkStatus.Resolving, nonResolvedAllowedActions],
       [SmartLinkStatus.Forbidden, nonResolvedAllowedActions],
       [SmartLinkStatus.Errored, nonResolvedAllowedActions],
       [SmartLinkStatus.NotFound, nonResolvedAllowedActions],
       [SmartLinkStatus.Unauthorized, nonResolvedAllowedActions],
       [SmartLinkStatus.Fallback, nonResolvedAllowedActions],
-    ] as [SmartLinkStatus, ActionName[]][]) {
+      /**
+       * Change Exclude<...>[] to ActionName[] once ActionName.ViewAction is retired
+       * This is a typescript workaround
+       * https://product-fabric.atlassian.net/browse/EDM-9665
+       */
+    ] as [SmartLinkStatus, Exclude<ActionName, ActionName.ViewAction>[]][]) {
       for (const allowedActionName of allowedActionNames) {
         it(`should render ${allowedActionName} action in ${status} view `, async () => {
           const testId = 'smart-element-test';
@@ -518,9 +530,9 @@ describe('TitleBlock', () => {
     ])(
       'renders %s view with override value',
       async (status: SmartLinkStatus, viewTestId: string) => {
-        const overrideCss = css`
-          background-color: blue;
-        `;
+        const overrideCss = css({
+          backgroundColor: 'blue',
+        });
         const { findByTestId } = renderTitleBlock({
           overrideCss,
           status,

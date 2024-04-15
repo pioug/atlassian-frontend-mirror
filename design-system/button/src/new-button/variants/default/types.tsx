@@ -10,6 +10,8 @@ export type CommonDefaultButtonProps = {
    */
   iconAfter?: IconProp;
   /**
+   * @deprecated Prefer `iconAfter` render prop for icon customizations.
+   *
    * Set the size of the icon after. `medium` is default, so it does not need to be specified.
    * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
    */
@@ -19,6 +21,8 @@ export type CommonDefaultButtonProps = {
    */
   iconBefore?: IconProp;
   /**
+   * @deprecated Prefer `iconBefore` render prop for icon customizations.
+   *
    * Set the size of the icon before. `medium` is default, so it does not need to be specified.
    * This is UNSAFE as it will be removed in future in favor of a 100% bounded API
    */

@@ -309,6 +309,52 @@ export type VerifyPluginDependencies<
   ? Plugin
   : never;
 
+type FilterExistingPlugins<
+  T extends DependencyPlugin[],
+  PluginsStack extends AllEditorPresetPluginTypes[],
+> = T extends [
+  infer CurrentPluginDependency,
+  ...infer RemainingPluginDependencies,
+]
+  ? RemainingPluginDependencies extends DependencyPlugin[]
+    ? CurrentPluginDependency extends PluginsStack[number]
+      ? FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>
+      : [
+          CurrentPluginDependency,
+          ...FilterExistingPlugins<RemainingPluginDependencies, PluginsStack>,
+        ]
+    : T
+  : T;
+
+type DependencyErrorMessage<Message extends string> = { errorMessage: Message };
+
+// Used to create a more informative message if you are missing dependencies
+type ExtractRequiredDependencies<
+  Plugin,
+  PluginsStack extends AllEditorPresetPluginTypes[],
+> = Plugin extends NextEditorPlugin<infer PluginName, infer Metadata>
+  ? Metadata['dependencies'] extends undefined
+    ? DependencyErrorMessage<'No found dependencies'>
+    : Metadata['dependencies'] extends DependencyPlugin[]
+    ? FilterOptionalPlugins<
+        FilterExistingPlugins<Metadata['dependencies'], PluginsStack>
+      >[number] extends NextEditorPlugin<infer Name, any>
+      ? Name
+      : DependencyErrorMessage<`Invalid dependency for ${PluginName}`>
+    : DependencyErrorMessage<`Invalid dependencies for ${PluginName}`>
+  : DependencyErrorMessage<'Plugin is not NextEditorPlugin'>;
+
+// Check if we have missing dependencies or some other error
+type GetDependencyErrorMessage<
+  Plugin,
+  StackPlugins extends AllEditorPresetPluginTypes[],
+> = ExtractRequiredDependencies<Plugin, StackPlugins> extends string
+  ? DependencyErrorMessage<`Missing dependency: ${ExtractRequiredDependencies<
+      Plugin,
+      StackPlugins
+    >}Plugin`>
+  : ExtractRequiredDependencies<Plugin, StackPlugins>;
+
 /**
  * Used to check if a plugin being added can be added to a Preset/builder
  */
@@ -319,7 +365,7 @@ export type SafePresetCheck<
   ? Plugin extends NextEditorPlugin<any, any>
     ? CheckBasicPlugin<Plugin>
     : never
-  : never;
+  : GetDependencyErrorMessage<Plugin, StackPlugins>;
 
 type CheckTupleRequirements<Plugin, Config, ArrayType> = unknown extends Config
   ? Plugin | ArrayType

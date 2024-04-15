@@ -22,13 +22,16 @@ const ConnectedAIPrismContainer = ({
   di(useAISummary, AIPrism);
 
   const cardState = useSmartCardState(url);
+
   const data = cardState?.details?.data as JsonLd.Data.BaseData;
-  const dataUrl = extractLink(data) ?? '';
-  const dataAri = extractAri(data) ?? '';
+
+  //The data is undefined while the link is resolving.
+  const dataUrl = data ? extractLink(data) : null;
+  const dataAri = data ? extractAri(data) : null;
 
   const {
     state: { status },
-  } = useAISummary({ url: dataUrl, ari: dataAri });
+  } = useAISummary({ url: dataUrl || '', ari: dataAri || '' });
 
   const [showPrism, setShowPrism] = useState(status === 'loading');
 

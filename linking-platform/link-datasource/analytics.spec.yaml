@@ -58,17 +58,17 @@ attributes:
       type: []
       description: The type of update made to datasource config.
   BasicFilterFieldTypes: &BasicFilterFieldTypes
-    filterType:
-      type: ["project", "assignee", "type", "status"]
+    filterName:
+      type: "string"
       description: The basic filters available in jlol config modal
   StatusCodeGroup: &StatusCodeGroup
     statusCodeGroup:
-      type: ["1xx", "3xx", "4xx", '5xx', 'unknown']
+      type: ["1xx", "3xx", "4xx", "5xx", "unknown"]
       description: The fetch request error response code group.
   IsQueryComplex: &IsQueryComplex
     isQueryComplex:
-          type: "boolean"
-          description: Indicates if the JQL query was complex.
+      type: "boolean"
+      description: Indicates if the JQL query was complex.
 
 events:
   # actionSubject action (actionSubjectId)
@@ -242,7 +242,7 @@ events:
             *AnalyticsContextAttributes,
           ]
       reason:
-        type: [ "internal" ]
+        type: ["internal"]
         description: The reason why datasource failed to render.
   - datasource operationFailed:
       type: operational
@@ -293,7 +293,18 @@ events:
             *ExtensionKey,
           ]
         reason:
-          type: ["auth_window_closed","invalid_request","unauthorized_client","access_denied","unsupported_response_type","invalid_scope","server_error","temporarily_unavailable","authclientoauth2.autherror"]
+          type:
+            [
+              "auth_window_closed",
+              "invalid_request",
+              "unauthorized_client",
+              "access_denied",
+              "unsupported_response_type",
+              "invalid_scope",
+              "server_error",
+              "temporarily_unavailable",
+              "authclientoauth2.autherror",
+            ]
           required: false
           description: Reason for provider auth failure.
         experience:
@@ -380,7 +391,7 @@ events:
             *BasicFilterFieldTypes,
           ]
         reason:
-          type: [ "agg", "network", "unknown" ]
+          type: ["agg", "network", "unknown"]
           description: The reason why basic filter search dropdown shows an error UI.
   - dropdown opened (basicSearchDropdown):
       type: ui
@@ -422,7 +433,7 @@ events:
             *BasicFilterFieldTypes,
           ]
         type:
-          type: ['showMore']
+          type: ["showMore"]
           description: The type of the button
   # Assets Events
   - aqlEditor searched:

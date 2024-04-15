@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 109.17.1
+
+### Patch Changes
+
+- [#89893](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89893) [`8103423f9266`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8103423f9266) - [ED-22909] Update media content wrap dom with annotation draft related data attributes so that create dialog can be correctly positioned next to media
+
+## 109.17.0
+
+### Minor Changes
+
+- [#88000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88000) [`61b44e565851`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61b44e565851) - [ux] FF clean up platform.editor.show-embed-card-frame-renderer
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 109.16.1
 
 ### Patch Changes

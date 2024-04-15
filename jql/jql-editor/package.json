@@ -37,14 +37,13 @@
   },
   "exports": {
     ".": "./src/index.ts",
-    "./i18n": "./src/i18n/index.ts",
-    "./i18n/*": "./src/i18n/*.ts"
+    "./i18n": "./src/i18n/index.ts"
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
-    "@atlaskit/button": "^17.11.0",
+    "@atlaskit/button": "^17.12.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/form": "^9.1.0",
     "@atlaskit/icon": "^22.1.0",

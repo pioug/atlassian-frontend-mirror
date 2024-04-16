@@ -22,6 +22,7 @@ export default () => {
         testId="dropdown"
         isLoading={isLoading}
         placement="bottom-end"
+        shouldRenderToParent
       >
         <DropdownItemGroup>
           <DropdownItem>Move</DropdownItem>

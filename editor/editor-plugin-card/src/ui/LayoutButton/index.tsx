@@ -105,9 +105,11 @@ const LayoutButtonWrapper = ({
     }
 
     const { state, dispatch } = editorView;
+    // If the button does not re-render due to no card state change, node reference will be stale
+    const datasourceNode = getDatasource(editorView).node ?? node;
 
     const tr = state.tr.setNodeMarkup(pos, undefined, {
-      ...node?.attrs,
+      ...datasourceNode?.attrs,
       layout,
     });
 

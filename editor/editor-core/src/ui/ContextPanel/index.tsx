@@ -21,7 +21,6 @@ import {
   akEditorWideLayoutWidth,
   ATLASSIAN_NAVIGATION_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -74,7 +73,7 @@ export const shouldPanelBePositionedOverEditor = (
     !contentBreakoutModes.includes(FULLWIDTH_MODE) &&
     contentBreakoutModes.includes(WIDE_MODE) &&
     containerWidth >= panelWidth * 2 + WIDE_EDITOR_WIDTH;
-  if (!getBooleanFF('platform.editor.custom-table-width') || !editorView) {
+  if (!editorView) {
     return (
       editorNotFullWidth &&
       (hasSpaceForPanel || hasSpaceForWideBreakoutsAndPanel)

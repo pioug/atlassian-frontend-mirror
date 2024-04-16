@@ -6,6 +6,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
   <DropdownMenu
+    shouldRenderToParent
     trigger={(providedProps) => (
       <Button isDisabled {...providedProps}>
         Disabled button

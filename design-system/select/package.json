@@ -73,7 +73,10 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
+    "@atlaskit/checkbox": "*",
     "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/modal-dialog": "*",
+    "@atlaskit/radio": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

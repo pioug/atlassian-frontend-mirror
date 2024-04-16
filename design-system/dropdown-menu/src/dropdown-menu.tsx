@@ -16,7 +16,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
@@ -155,35 +154,20 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
   const handleOnClose = useCallback(
     (event: any) => {
       if (
-        getBooleanFF(
-          'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-        )
+        event.key !== 'Escape' &&
+        event.key !== 'Tab' &&
+        event.target.closest(`[id^=${PREFIX}] [aria-haspopup]`)
       ) {
-        if (
-          event.key !== 'Escape' &&
-          event.key !== 'Tab' &&
-          event.target.closest(`[id^=${PREFIX}] [aria-haspopup]`)
-        ) {
-          // Check if it is within dropdown and it is a trigger button
-          // if it is a nested dropdown, clicking trigger won't close the dropdown
-          // Dropdown can be closed by pressing Escape, Tab or Shift + Tab
-          return;
-        }
+        // Check if it is within dropdown and it is a trigger button
+        // if it is a nested dropdown, clicking trigger won't close the dropdown
+        // Dropdown can be closed by pressing Escape, Tab or Shift + Tab
+        return;
+      }
 
-        if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
-          requestAnimationFrame(() => {
-            itemRef.current?.focus();
-          });
-        }
-      } else {
-        if (
-          event.key !== 'Escape' &&
-          event.target.closest(`[id^=${PREFIX}] [aria-haspopup]`)
-        ) {
-          // Check if it is within dropdown and it is a trigger button
-          // if it is a nested dropdown, clicking trigger won't close the dropdown
-          return;
-        }
+      if ((event.key === 'Tab' && event.shiftKey) || event.key === 'Escape') {
+        requestAnimationFrame(() => {
+          itemRef.current?.focus();
+        });
       }
 
       const newValue = false;
@@ -213,44 +197,26 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
     return bind(window, {
       type: 'keydown',
       listener: function openOnKeyDown(e: KeyboardEvent) {
-        if (
-          getBooleanFF(
-            'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-          )
-        ) {
-          let isNestedTriggerButton;
-          if (e.target instanceof HTMLElement) {
-            isNestedTriggerButton = e.target.closest(
-              `[id^=${PREFIX}] [aria-haspopup]`,
-            );
-          }
+        let isNestedTriggerButton;
+        if (e.target instanceof HTMLElement) {
+          isNestedTriggerButton = e.target.closest(
+            `[id^=${PREFIX}] [aria-haspopup]`,
+          );
+        }
 
-          if (e.key === KEY_DOWN && !isNestedTriggerButton) {
-            // prevent page scroll
-            e.preventDefault();
-            handleTriggerClicked(e);
-          } else if (
-            (e.code === KEY_SPACE || e.key === KEY_ENTER) &&
-            e.detail === 0
-          ) {
-            // This allows us to focus on the first element if the dropdown was triggered by a custom trigger with a custom onClick
-            setTriggeredUsingKeyboard(true);
-          } else if (e.key === KEY_TAB && isNestedTriggerButton) {
-            // This closes dropdown if it is a nested dropdown
-            handleOnClose(e);
-          }
-        } else {
-          if (e.key === KEY_DOWN) {
-            // prevent page scroll
-            e.preventDefault();
-            handleTriggerClicked(e);
-          } else if (
-            (e.code === KEY_SPACE || e.key === KEY_ENTER) &&
-            e.detail === 0
-          ) {
-            // This allows us to focus on the first element if the dropdown was triggered by a custom trigger with a custom onClick
-            setTriggeredUsingKeyboard(true);
-          }
+        if (e.key === KEY_DOWN && !isNestedTriggerButton) {
+          // prevent page scroll
+          e.preventDefault();
+          handleTriggerClicked(e);
+        } else if (
+          (e.code === KEY_SPACE || e.key === KEY_ENTER) &&
+          e.detail === 0
+        ) {
+          // This allows us to focus on the first element if the dropdown was triggered by a custom trigger with a custom onClick
+          setTriggeredUsingKeyboard(true);
+        } else if (e.key === KEY_TAB && isNestedTriggerButton) {
+          // This closes dropdown if it is a nested dropdown
+          handleOnClose(e);
         }
       },
     });
@@ -269,13 +235,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
         testId={testId && `${testId}--content`}
         shouldUseCaptureOnOutsideClick
         shouldRenderToParent={shouldRenderToParent}
-        shouldDisableFocusLock={
-          getBooleanFF(
-            'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-          )
-            ? true
-            : false
-        }
+        shouldDisableFocusLock
         trigger={({
           ref,
           'aria-controls': ariaControls,

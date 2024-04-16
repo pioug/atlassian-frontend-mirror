@@ -11,6 +11,8 @@ export interface Site {
 }
 
 export type IssueViewModes = 'issue' | 'count';
+export type ViewModes = 'table' | 'inline';
+export type DisplayViewModes = IssueViewModes | ViewModes;
 
 export type ConfigModalProps<ADF, Parameters> = {
   /** Unique identifier for which type of datasource is being rendered and for making its requests */
@@ -25,11 +27,9 @@ export type ConfigModalProps<ADF, Parameters> = {
   onInsert: (adf: ADF, analyticsEvent?: UIAnalyticsEvent) => void;
   /** The view mode that the modal will show on open:
    * - Table = Displays a list of links in table format
-   * - Inline link = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.
-
-   * The view modes in 'IssueViewModes' have not been changed from 'count' to 'inline link' and 'issue' to 'table'
-   * because it will introduce breaking changes to the public API requiring a major version bump*/
-  viewMode?: IssueViewModes;
+   * - Inline = Presents a smart link that shows the count of query results. However, if there's only one result, it converts to an inline smart link of that issue.
+   * The view modes in 'DisplayViewModes' includes IssueViewModes which has not been changed from 'count' to 'inline' and 'issue' to 'table' */
+  viewMode?: DisplayViewModes;
 } & Partial<
   Pick<
     IssueLikeDataTableViewProps,

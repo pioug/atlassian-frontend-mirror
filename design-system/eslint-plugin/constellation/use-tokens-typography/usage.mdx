@@ -36,7 +36,11 @@ css({
 ```js
 import { token } from '@atlaskit/tokens';
 
-css({ fontSize: token('font.heading.large') });
+css({ font: token('font.heading.large') });
 
-css({ fontSize: token('font.body') });
+css({ font: token('font.body') });
 ```
+
+## Options
+
+`shouldEnforceFallbacks`: Set to `false` to ensure token fallback values are not added. Defaults to `true`.

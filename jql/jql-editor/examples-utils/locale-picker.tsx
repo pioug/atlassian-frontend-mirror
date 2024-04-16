@@ -10,11 +10,11 @@ import { token } from '@atlaskit/tokens';
 
 import { Locale } from './locales';
 
-const DropdownContainer = styled.div`
-  display: flex;
-  min-width: 200px;
-  margin-bottom: ${token('space.200', '16px')};
-`;
+const DropdownContainer = styled.div({
+  display: 'flex',
+  minWidth: '200px',
+  marginBottom: token('space.200', '16px'),
+});
 
 export interface Props {
   currentLocale: string;

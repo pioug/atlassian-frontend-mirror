@@ -1,4 +1,4 @@
-import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -7,14 +7,12 @@ import {
   TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -30,7 +28,6 @@ import { evenColumns, setDragging, stopResizing } from './commands';
 import { getPluginState } from './plugin-factory';
 import {
   currentColWidth,
-  getLayoutSize,
   getResizeState,
   getTableMaxWidth,
   pointsAtCell,
@@ -80,39 +77,13 @@ export const handleMouseDown = (
     dom = dom.closest('table') as HTMLTableElement;
   }
 
-  let maxSize;
-  if (!getBooleanFF('platform.editor.a11y-column-resizing_emcvz')) {
-    const containerWidth = getEditorContainerWidth();
-    const parentWidth = getParentNodeWidth(start, state, containerWidth);
-
-    maxSize = getBooleanFF('platform.editor.custom-table-width')
-      ? parentWidth ||
-        // its safe to reference table width from node as this will not have changed
-        originalTable.attrs.width ||
-        getLayoutSize(
-          dom.getAttribute('data-layout') as TableLayout,
-          containerWidth.width,
-          {},
-        )
-      : parentWidth ||
-        getLayoutSize(
-          dom.getAttribute('data-layout') as TableLayout,
-          containerWidth.width,
-          {},
-        );
-
-    if (originalTable.attrs.isNumberColumnEnabled) {
-      maxSize -= akEditorTableNumberColumnWidth;
-    }
-  } else {
-    maxSize = getTableMaxWidth({
-      table: originalTable,
-      tableStart: start,
-      state,
-      layout: originalTable.attrs.layout,
-      getEditorContainerWidth,
-    });
-  }
+  const maxSize = getTableMaxWidth({
+    table: originalTable,
+    tableStart: start,
+    state,
+    layout: originalTable.attrs.layout,
+    getEditorContainerWidth,
+  });
 
   const shouldScale = tableDepth === 0 && isTableScalingEnabled;
   const resizeState = getResizeState({

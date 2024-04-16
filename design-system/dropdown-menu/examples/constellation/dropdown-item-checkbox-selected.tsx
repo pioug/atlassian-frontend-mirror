@@ -17,7 +17,7 @@ const DropdownItemCheckboxExample = () => {
   };
 
   return (
-    <DropdownMenu trigger="Status">
+    <DropdownMenu trigger="Status" shouldRenderToParent>
       <DropdownItemCheckboxGroup title="Categories" id="actions">
         <DropdownItemCheckbox
           id="todo"

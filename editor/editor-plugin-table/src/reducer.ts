@@ -27,9 +27,6 @@ export default (
     case 'SET_TARGET_CELL_POSITION':
       return { ...pluginState, ...action.data, isContextualMenuOpen: false };
 
-    case 'SET_TABLE_LAYOUT':
-      return { ...pluginState, ...action.data };
-
     case 'TOGGLE_CONTEXTUAL_MENU':
       return {
         ...pluginState,

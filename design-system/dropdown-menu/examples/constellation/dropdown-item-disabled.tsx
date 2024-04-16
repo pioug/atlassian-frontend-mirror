@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemDisabledExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
+    <DropdownMenu trigger="Page actions" shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem isDisabled>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

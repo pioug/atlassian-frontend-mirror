@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react';
 import React from 'react';
-import type { TableLayout } from '@atlaskit/adf-schema';
 
 import {
   tableCellBorderWidth,
@@ -8,10 +7,7 @@ import {
 } from '@atlaskit/editor-common/styles';
 import {
   akEditorTableNumberColumnWidth,
-  akEditorWideLayoutWidth,
-  akEditorFullWidthLayoutWidth,
   akEditorTableLegacyCellMinWidth,
-  akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
@@ -22,17 +18,6 @@ import { isTableResizingEnabled } from '../table';
 // User A creates a table with column widths → User B views it on a smaller screen
 // User A creates a table with column widths → User A views it with reduced viewport space (eg. Confluence sidebar is open)
 const MAX_SCALING_PERCENT = 0.3;
-
-const getTableLayoutWidth = (layout: TableLayout) => {
-  switch (layout) {
-    case 'full-width':
-      return akEditorFullWidthLayoutWidth;
-    case 'wide':
-      return akEditorWideLayoutWidth;
-    default:
-      return akEditorDefaultLayoutWidth;
-  }
-};
 
 const isTableResized = (columnWidths: Array<number>) => {
   const filteredWidths = columnWidths.filter((width) => width !== 0);
@@ -85,7 +70,6 @@ const renderScaleDownColgroup = (
 ): CSSProperties[] | null => {
   let {
     columnWidths,
-    layout,
     isNumberColumnEnabled,
     renderWidth,
     tableNode,
@@ -98,17 +82,11 @@ const renderScaleDownColgroup = (
     return [];
   }
 
-  let tableContainerWidth: number;
-
   const tableResized = isTableResized(columnWidths);
   const noOfColumns = columnWidths.length;
   let targetWidths;
 
-  if (isTableResizingEnabled(rendererAppearance) && tableNode) {
-    tableContainerWidth = getTableContainerWidth(tableNode);
-  } else {
-    tableContainerWidth = getTableLayoutWidth(layout);
-  }
+  const tableContainerWidth = getTableContainerWidth(tableNode);
 
   if (
     isTableResizingEnabled(rendererAppearance) &&

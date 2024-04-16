@@ -17,6 +17,7 @@ export default () => (
     trigger="Page actions"
     onOpenChange={(e) => console.log('dropdown opened', e)}
     testId="dropdown"
+    shouldRenderToParent
   >
     <DropdownItemGroup>
       <DropdownItem component={CustomComponent}>Move</DropdownItem>

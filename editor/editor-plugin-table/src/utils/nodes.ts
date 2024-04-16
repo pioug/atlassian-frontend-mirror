@@ -4,11 +4,8 @@ import type {
   EditorState,
   Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
-
-import { pluginKey } from '../pm-plugins/plugin-key';
 
 export const isIsolating = (node: PmNode): boolean => {
   return !!node.type.spec.isolating;
@@ -62,26 +59,6 @@ export const checkIfNumberColumnEnabled = (selection: Selection): boolean =>
     (table) => !!table.attrs.isNumberColumnEnabled,
     false,
   );
-
-export const isLayoutSupported = (state: EditorState): boolean => {
-  const { permittedLayouts } = pluginKey.getState(state)?.pluginConfig || {};
-  const { bodiedExtension, layoutSection, expand, extensionFrame } =
-    state.schema.nodes;
-
-  return (
-    !hasParentNodeOfType([
-      expand,
-      layoutSection,
-      bodiedExtension,
-      extensionFrame,
-    ])(state.selection) &&
-    !!permittedLayouts &&
-    (permittedLayouts === 'all' ||
-      (permittedLayouts.indexOf('default') > -1 &&
-        permittedLayouts.indexOf('wide') > -1 &&
-        permittedLayouts.indexOf('full-width') > -1))
-  );
-};
 
 export const getTableWidth = (node: PmNode) => {
   return getTableWidths(node).reduce((acc, current) => acc + current, 0);

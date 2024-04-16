@@ -31,7 +31,6 @@ import {
   editorWithWideBreakoutAndSidebarWidth,
   isPushingEditorContent,
 } from '@atlaskit/editor-test-helpers/page-objects/context-panel';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import EditorActions from '../../../actions';
 import { EventDispatcher } from '../../../event-dispatcher';
@@ -439,57 +438,27 @@ describe('shouldPanelBePositionedOverEditor', () => {
       tr(tdEmpty, tdEmpty, tdEmpty),
     ),
   );
-  const docCustomTableWidthDisabled = doc(
-    table({ localId: 'local-id', layout: 'full-width' })(
-      tr(thEmpty, thEmpty, thEmpty),
-      tr(tdEmpty, tdEmpty, tdEmpty),
-      tr(tdEmpty, tdEmpty, tdEmpty),
-    ),
-  );
 
   const contextPanelWidth = 320;
 
-  ffTest(
-    'platform.editor.custom-table-width',
-    () => {
-      const editorTableWidthEnabled = editorFactory({
-        doc: docCustomTableWidthEnabled,
-        editorProps: {
-          allowTables: true,
-        },
-      });
-      const { editorView: view } = editorTableWidthEnabled;
-      const editorWidthEnabled = {
-        width: 1920,
-        containerWidth: 1920,
-        contentBreakoutModes: [],
-      };
-      const result = shouldPanelBePositionedOverEditor(
-        editorWidthEnabled,
-        contextPanelWidth,
-        view,
-      );
-      expect(result).toBeFalsy();
-    },
-    () => {
-      const editorTableWidthDisabled = editorFactory({
-        doc: docCustomTableWidthDisabled,
-        editorProps: {
-          allowTables: true,
-        },
-      });
-      const { editorView: view } = editorTableWidthDisabled;
-      const editorWidthDisabled = {
-        width: 1920,
-        containerWidth: 1920,
-        contentBreakoutModes: ['full-width'] as ('full-width' | 'wide')[],
-      };
-      const result = shouldPanelBePositionedOverEditor(
-        editorWidthDisabled,
-        contextPanelWidth,
-        view,
-      );
-      expect(result).toBeFalsy();
-    },
-  );
+  it('should return false when table with custom width', () => {
+    const editorTableWidthEnabled = editorFactory({
+      doc: docCustomTableWidthEnabled,
+      editorProps: {
+        allowTables: true,
+      },
+    });
+    const { editorView: view } = editorTableWidthEnabled;
+    const editorWidthEnabled = {
+      width: 1920,
+      containerWidth: 1920,
+      contentBreakoutModes: [],
+    };
+    const result = shouldPanelBePositionedOverEditor(
+      editorWidthEnabled,
+      contextPanelWidth,
+      view,
+    );
+    expect(result).toBeFalsy();
+  });
 });

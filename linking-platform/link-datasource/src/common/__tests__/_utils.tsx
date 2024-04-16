@@ -14,7 +14,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import { EVENT_CHANNEL } from '../../analytics';
 import { succeedUfoExperience } from '../../analytics/ufoExperiences';
-import { ConfigModalProps, IssueViewModes } from '../../common/types';
+import { ConfigModalProps, DisplayViewModes } from '../../common/types';
 import {
   DatasourceTableState,
   useDatasourceTableState,
@@ -240,7 +240,7 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
         Parameters
       >['wrappedColumnKeys'];
       url?: ConfigModalProps<ADF, Parameters>['url'];
-      viewMode?: IssueViewModes;
+      viewMode?: DisplayViewModes;
     } = {},
   ) => {
     asMock(getAvailableSites).mockResolvedValue(
@@ -334,14 +334,9 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
       );
     }
 
-    /** TODO[mdao]: Confluence doesn't really have this... */
-    const switchMode = (viewMode: IssueViewModes) => {
-      fireEvent.click(
-        getByTestId(
-          `${providerType}-datasource-modal--view-drop-down--trigger`,
-        ),
-      );
-      viewMode === 'issue'
+    const switchMode = (viewMode: DisplayViewModes) => {
+      fireEvent.click(getByTestId(`datasource-modal--view-drop-down--trigger`));
+      viewMode === 'issue' || viewMode === 'table'
         ? fireEvent.click(getByTestId('dropdown-item-table'))
         : fireEvent.click(getByTestId('dropdown-item-inline-link'));
     };

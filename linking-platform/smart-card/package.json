@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.54.0",
+  "version": "26.55.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -178,6 +178,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.hover-card-action-redesign": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.enable-theme-state-url": {
       "type": "boolean"
     }
   },

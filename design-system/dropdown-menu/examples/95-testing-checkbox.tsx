@@ -8,7 +8,12 @@ import DropdownMenu, {
 } from '../src';
 
 const DropdownMenuCheckbox = () => (
-  <DropdownMenu trigger="Choices" onOpenChange={__noop} testId="lite-mode-ddm">
+  <DropdownMenu
+    trigger="Choices"
+    onOpenChange={__noop}
+    testId="lite-mode-ddm"
+    shouldRenderToParent
+  >
     <DropdownItemCheckboxGroup id="cities" title="Some cities">
       <DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
 

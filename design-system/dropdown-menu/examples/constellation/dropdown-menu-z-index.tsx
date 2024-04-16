@@ -23,7 +23,12 @@ const DropdownMenuZIndex = () => {
       zIndex={600}
       content={() => (
         <Box padding="space.100" xcss={containerStyles}>
-          <DropdownMenu trigger="Page actions" zIndex={610} testId="dropdown">
+          <DropdownMenu
+            trigger="Page actions"
+            zIndex={610}
+            testId="dropdown"
+            shouldRenderToParent
+          >
             <DropdownItemGroup>
               <DropdownItem>Move</DropdownItem>
               <DropdownItem>Clone</DropdownItem>

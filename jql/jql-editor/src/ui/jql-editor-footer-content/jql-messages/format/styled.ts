@@ -4,12 +4,13 @@ import { token } from '@atlaskit/tokens';
 
 export const MessageContainer = styled.div<{
   isSearch: boolean;
-}>`
-  padding-left: ${props =>
-    props.isSearch ? token('space.100', '8px') : token('space.0', '0px')};
-`;
+}>(props => ({
+  paddingLeft: props.isSearch
+    ? token('space.100', '8px')
+    : token('space.0', '0px'),
+}));
 
-export const MessageList = styled.ul`
-  margin: 0;
-  padding-left: ${token('space.300', '24px')};
-`;
+export const MessageList = styled.ul({
+  margin: 0,
+  paddingLeft: token('space.300', '24px'),
+});

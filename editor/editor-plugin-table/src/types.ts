@@ -157,7 +157,6 @@ export interface TablePluginState {
   insertColumnButtonIndex?: number;
   insertRowButtonIndex?: number;
   isFullWidthModeEnabled?: boolean;
-  layout?: TableLayout;
   ordering?: TableColumnOrdering;
   isResizeHandleWidgetAdded?: boolean;
   resizeHandleRowIndex?: number;
@@ -171,7 +170,6 @@ export interface TablePluginState {
 
   getIntl: () => IntlShape;
 
-  isBreakoutEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
   isDragAndDropEnabled?: boolean;
@@ -190,7 +188,6 @@ export type TablePluginAction =
         tableRef?: HTMLTableElement;
         tableNode?: PmNode;
         tableWrapperTarget?: HTMLElement;
-        layout: TableLayout;
         isHeaderRowEnabled: boolean;
         isHeaderColumnEnabled: boolean;
       };
@@ -289,10 +286,6 @@ export type TablePluginAction =
       type: 'SELECT_COLUMN';
       data: { targetCellPosition: number; decorationSet: DecorationSet };
     }
-  | {
-      type: 'SET_TABLE_LAYOUT';
-      data: { layout: TableLayout };
-    }
   | { type: 'SHOW_INSERT_ROW_BUTTON'; data: { insertRowButtonIndex: number } }
   | {
       type: 'SHOW_INSERT_COLUMN_BUTTON';
@@ -361,7 +354,6 @@ export const TableCssClassName = {
   CONTROLS_INSERT_BUTTON_WRAP: `${tablePrefixSelector}-controls__insert-button-wrap`,
   CONTROLS_INSERT_LINE: `${tablePrefixSelector}-controls__insert-line`,
   CONTROLS_BUTTON_OVERLAY: `${tablePrefixSelector}-controls__button-overlay`,
-  LAYOUT_BUTTON: `${tablePrefixSelector}-layout-button`,
 
   DRAG_CONTROLS_INSERT_BUTTON: `${tablePrefixSelector}-controls__drag-insert-button`,
   DRAG_CONTROLS_INSERT_BUTTON_INNER: `${tablePrefixSelector}-controls__drag-insert-button-inner`,

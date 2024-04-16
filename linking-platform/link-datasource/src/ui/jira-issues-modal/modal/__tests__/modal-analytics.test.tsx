@@ -355,6 +355,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
             {
               totalItemCount: 1,
               display: 'inline',
+              actions: ['display view changed'],
             },
             {
               eventType: 'track',
@@ -410,7 +411,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         });
 
-        it('should fire "ui.button.clicked.insert" with display "datasource_inline" when the insert button is clicked and results are presented as a count issue', async () => {
+        it('should fire "ui.button.clicked.insert" with display "datasource_inline" when the insert button is clicked and results are presented as an inline issue', async () => {
           const expectedPayload = getEventPayload('insert', defaultAttributes, {
             actions: ['display view changed'],
             display: 'datasource_inline',
@@ -426,7 +427,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
         });
 
-        it('should fire "macro inserted" when the insert button is clicked and results are presented as a count issue', async () => {
+        it('should fire "macro inserted" when the insert button is clicked and results are presented as an inline issue', async () => {
           const expectedPayload = getEventPayload(
             'insert',
             defaultAttributes,

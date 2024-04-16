@@ -7,7 +7,7 @@ import DropdownMenu, {
 
 const DropdownItemRadioExample = () => {
   return (
-    <DropdownMenu trigger="Views">
+    <DropdownMenu trigger="Views" shouldRenderToParent>
       <DropdownItemRadioGroup title="Views" id="actions">
         <DropdownItemRadio id="detail" defaultSelected>
           Detail view

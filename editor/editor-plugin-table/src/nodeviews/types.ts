@@ -11,7 +11,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { PluginInjectionAPI } from '../types';
 
 export type TableOptions = {
-  isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
   wasFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;

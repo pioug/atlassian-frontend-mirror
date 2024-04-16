@@ -12,7 +12,7 @@ const jiraItemStyles = xcss({
 });
 
 export default () => (
-  <DropdownMenu defaultOpen trigger="To do">
+  <DropdownMenu defaultOpen trigger="To do" shouldRenderToParent>
     <DropdownItemGroup>
       <DropdownItem
         elemAfter={

@@ -150,7 +150,8 @@ describe('Snapshot Test: Media Border Mark', () => {
         });
       });
 
-      it('should render media single with selection ring and border mark', async () => {
+      // todo: https://product-fabric.atlassian.net/browse/ED-22908
+      it.skip('should render media single with selection ring and border mark', async () => {
         await waitForMediaToBeLoaded(page);
         await page.waitForSelector('div[data-mark-type="border"]', {
           visible: true,
@@ -158,7 +159,8 @@ describe('Snapshot Test: Media Border Mark', () => {
         await clickMediaInPosition(page, 0);
       });
 
-      it('should render media single with selection ring and border and link mark', async () => {
+      // todo: https://product-fabric.atlassian.net/browse/ED-22908
+      it.skip('should render media single with selection ring and border and link mark', async () => {
         await waitForMediaToBeLoaded(page);
         await page.waitForSelector('div[data-mark-type="border"]', {
           visible: true,

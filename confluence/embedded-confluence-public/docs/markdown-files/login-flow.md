@@ -26,9 +26,13 @@ NOTE:
   ```
   This error is expected since Storage Access API is not supported on Chrome. So enabling 3P cookies is a requirement in this case.
 - Reopening EP on a new tab/window on Safari after going through the flow will land a user on the Allow page again. This is expected, and not an error state. If logged in successfully, clicking on `'Allow'` button again should load the Embedded Page.
-- The browser's native pop-up window may not show up all the time or on all browsers. For Microsoft Edge, a user is required to manually allow the cookies through this pop-up.
+- The browser's permissions dialog to allow cookies may not show up all the time or on all browsers.
+  - In Firefox and Safari, selecting `'Allow'` on the storage-access page should trigger this dialog. However, in Microsoft Edge, clicking the `'Allow'` button might not prompt the dialog to appear, requiring users to manually access it in order to allow access to third-party cookies.
+  - Additionally, certain browsing modes could prevent this dialog from appearing. For example, in Firefox, the `'Custom'` browsing mode with cookie partitioning may block it.
+- When using Microsoft Edge version 123.x, users may encounter issues with requesting storage access. The request for storage access gets rejected when interacting with embedded sites as a top-level context. This behavior is consistent across `'Basic'`, `'Balanced'`, and `'Strict'` browsing modes on Edge. To work around this issue, users need to manually allow cookies through the 'View site information' icon located at the top left corner near the address bar.
+- In Firefox (v124.x and above), there might be an issue allowing access to third-party cookies when using the 'Custom' browsing mode with 'All cross-site cookies' blocked. It's generally recommended to enable either the `'Standard'` or `'Strict'` mode to ensure that Embedded Confluence Login works. However, if these modes are not effective or if users must rely on the `'Custom'` browsing mode, then allowing all cross-site cookies without isolation would be advisable.
 
-## Experience tracking for the new Login/Authentication Flow within Embedded Pages
+## Experience tracking for the new Login/Authentication Flow within Embedded Confluence
 
 ### Implementation BEFORE v2.0.0
 

@@ -3,23 +3,22 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { IssueViewModes } from '../../../../common/types';
+import { DisplayViewModes } from '../../../../common/types';
 
-import { JiraDisplayViewDropDown } from './jira-display-view-drop-down';
+import { DisplayViewDropDown } from './display-view-drop-down';
 
 describe('DisplayViewDropDown', () => {
   type SetupProps = {
     openDropDownByDefault: boolean;
-    defaultViewMode: IssueViewModes;
+    defaultViewMode: DisplayViewModes;
   };
 
   const setup = (props: Partial<SetupProps> = {}) => {
-    const { openDropDownByDefault = true, defaultViewMode = 'issue' } = props;
-
+    const { openDropDownByDefault = true, defaultViewMode = 'table' } = props;
     const mockOnViewModeChange = jest.fn();
     const component = render(
       <IntlProvider locale="en">
-        <JiraDisplayViewDropDown
+        <DisplayViewDropDown
           onViewModeChange={mockOnViewModeChange}
           viewMode={defaultViewMode}
         />
@@ -28,7 +27,7 @@ describe('DisplayViewDropDown', () => {
 
     const openDropdown = () => {
       fireEvent.click(
-        component.getByTestId('jira-datasource-modal--view-drop-down--trigger'),
+        component.getByTestId('datasource-modal--view-drop-down--trigger'),
       );
     };
 
@@ -66,7 +65,7 @@ describe('DisplayViewDropDown', () => {
     const { getByTestId } = setup();
 
     expect(getByTestId('dropdown-item-table')).toHaveTextContent(
-      'Display Jira search results as a table',
+      'Display search results as a table',
     );
     expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
       'Display the number of search results or as an inline smart link',
@@ -89,11 +88,11 @@ describe('DisplayViewDropDown', () => {
     const { getByTestId, openDropdown, mockOnViewModeChange } = setup();
 
     fireEvent.click(getByTestId('dropdown-item-inline-link'));
-    expect(mockOnViewModeChange).toHaveBeenCalledWith('count');
+    expect(mockOnViewModeChange).toHaveBeenCalledWith('inline');
 
     openDropdown();
 
     fireEvent.click(getByTestId('dropdown-item-table'));
-    expect(mockOnViewModeChange).toHaveBeenCalledWith('issue');
+    expect(mockOnViewModeChange).toHaveBeenCalledWith('table');
   });
 });

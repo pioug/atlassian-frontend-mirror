@@ -5,7 +5,6 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import type { TableLayout } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
@@ -37,7 +36,6 @@ export interface Props {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
-  layout?: TableLayout;
   isNumberColumnEnabled?: boolean;
   stickyHeader?: RowStickyState;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;

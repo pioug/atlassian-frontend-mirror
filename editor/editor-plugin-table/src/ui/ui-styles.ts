@@ -374,9 +374,7 @@ export const OverflowShadow = (
         ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
         transparent 1px
       );
-    left: ${getBooleanFF('platform.editor.custom-table-width')
-      ? `calc(100% - ${tableOverflowShadowWidthWide}px)`
-      : `calc(100% - ${tableOverflowShadowWidthWide - 10}px)`};
+    left: calc(100% - ${tableOverflowShadowWidthWide}px);
   }
   .${ClassName.WITH_CONTROLS} {
     ${overflowShadowWidhoutDnD(isDragAndDropEnabled)}
@@ -439,26 +437,24 @@ const columnHeaderButtonSelected = () =>
   });
 
 const getFloatingDotOverrides = () => {
-  return getBooleanFF('platform.editor.custom-table-width')
-    ? css`
-        tr
-          th:last-child
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before,
-          tr
-          td:last-child
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before {
-          content: '';
-          background-color: ${tableBorderColor};
-          position: absolute;
-          height: ${lineMarkerSize}px;
-          width: ${lineMarkerSize}px;
-          border-radius: 50%;
-          pointer-events: none;
-          top: ${token('space.025', '2px')};
-          right: 0px;
-        }
-      `
-    : '';
+  return css`
+    tr
+      th:last-child
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before,
+      tr
+      td:last-child
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before {
+      content: '';
+      background-color: ${tableBorderColor};
+      position: absolute;
+      height: ${lineMarkerSize}px;
+      width: ${lineMarkerSize}px;
+      border-radius: 50%;
+      pointer-events: none;
+      top: ${token('space.025', '2px')};
+      right: 0px;
+    }
+  `;
 };
 
 export const floatingColumnControls = () => {
@@ -755,29 +751,6 @@ export const hoveredWarningCell = css`
   }
 `;
 
-// move the resize handle zone completely inside the table cell to avoid overflow
-const getLastColumnResizerOverrides = () => {
-  return getBooleanFF('platform.editor.custom-table-width')
-    ? css`
-        tr
-          th:last-child
-          .${ClassName.RESIZE_HANDLE_DECORATION},
-          tr
-          td:last-child
-          .${ClassName.RESIZE_HANDLE_DECORATION} {
-          background-color: transparent;
-          position: absolute;
-          width: ${resizeHandlerAreaWidth / 2}px;
-          height: 100%;
-          top: 0;
-          right: 0;
-          cursor: col-resize;
-          z-index: ${resizeHandlerZIndex};
-        }
-      `
-    : '';
-};
-
 // Explicit pixel values required here to ensure correct positioning and sizes of column resize handle
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 const resizeHandleOverrides = (isDragAndDropEnabled: boolean | undefined) => {
@@ -868,7 +841,21 @@ export const resizeHandle = (isDragAndDropEnabled: boolean | undefined) => css`
       z-index: ${resizeHandlerZIndex};
     }
 
-    ${getLastColumnResizerOverrides()}
+    tr
+      th:last-child
+      .${ClassName.RESIZE_HANDLE_DECORATION},
+      tr
+      td:last-child
+      .${ClassName.RESIZE_HANDLE_DECORATION} {
+      background-color: transparent;
+      position: absolute;
+      width: ${resizeHandlerAreaWidth / 2}px;
+      height: 100%;
+      top: 0;
+      right: 0;
+      cursor: col-resize;
+      z-index: ${resizeHandlerZIndex};
+    }
 
     ${resizeHandleOverrides(isDragAndDropEnabled)}
 

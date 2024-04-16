@@ -18,7 +18,6 @@ snapshotInformational(EditorWithTable, {
     byTestId: CONTENT_AREA_TEST_ID,
   },
   featureFlags: {
-    'platform.editor.custom-table-width': true,
     'platform.editor.table.shift-arrowup-fix': true,
   },
   prepare: async (page: Page, component: Locator) => {

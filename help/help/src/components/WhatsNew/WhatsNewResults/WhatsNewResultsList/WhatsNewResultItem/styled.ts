@@ -51,26 +51,26 @@ export const WhatsNewResultListItemWrapper =
     (props: any) => props.styles,
   );
 
-export const WhatsNewResultListItemTitleContainer = styled.div`
-  width: 100%;
-  white-space: nowrap;
-  margin-bottom: ${token('space.050', '4px')};
-`;
+export const WhatsNewResultListItemTitleContainer = styled.div({
+  width: '100%',
+  whiteSpace: 'nowrap',
+  marginBottom: token('space.050', '4px'),
+});
 
-export const WhatsNewResultListItemTitleText = styled.span`
-  font-size: ${fontSizeSmall()}px;
-  line-height: ${fontSize()}px;
-  display: inline-block;
-  vertical-align: middle;
-  margin: 0;
-  padding-left: ${token('space.050', '4px')};
-  white-space: normal;
-  overflow-x: hidden;
-`;
+export const WhatsNewResultListItemTitleText = styled.span({
+  fontSize: `${fontSizeSmall()}px`,
+  lineHeight: `${fontSize()}px`,
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  margin: 0,
+  paddingLeft: token('space.050', '4px'),
+  whiteSpace: 'normal',
+  overflowX: 'hidden',
+});
 
-export const WhatsNewResultListItemDescription = styled.p`
-  display: block;
-  line-height: 20px;
-  color: ${token('color.text', colors.N800)};
-  margin: 0;
-`;
+export const WhatsNewResultListItemDescription = styled.p({
+  display: 'block',
+  lineHeight: '20px',
+  color: token('color.text', colors.N800),
+  margin: 0,
+});

@@ -8,6 +8,7 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { withReactEditorViewOuterListeners as withOuterListeners } from '@atlaskit/editor-common/ui-react';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
@@ -47,6 +48,7 @@ export interface Props {
   mountTo?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
+  editorView: EditorView;
 }
 
 export interface State {
@@ -84,6 +86,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
     super(props);
 
     this.state = this.extractStateFromProps(props);
+
     this.createStatusAnalyticsAndFireFunc = createStatusAnalyticsAndFire(
       props.createAnalyticsEvent,
     );
@@ -239,8 +242,14 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
       boundariesElement,
       scrollableElement,
       focusStatusInput,
+      editorView,
     } = this.props;
     const { color, text } = this.state;
+
+    if (!editorView?.editable) {
+      return null;
+    }
+
     return (
       target && (
         <PopupWithListeners

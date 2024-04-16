@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugins",
-  "version": "2.0.19",
+  "version": "2.0.22",
   "description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -221,7 +221,7 @@
     "@atlaskit/editor-plugin-border": "1.0.7",
     "@atlaskit/editor-plugin-breakout": "1.0.7",
     "@atlaskit/editor-plugin-caption": "1.0.5",
-    "@atlaskit/editor-plugin-card": "1.6.0",
+    "@atlaskit/editor-plugin-card": "1.6.1",
     "@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.0.2",
     "@atlaskit/editor-plugin-clipboard": "1.0.2",
     "@atlaskit/editor-plugin-code-bidi-warning": "1.0.2",
@@ -239,7 +239,7 @@
     "@atlaskit/editor-plugin-editor-disabled": "1.0.2",
     "@atlaskit/editor-plugin-editor-viewmode": "1.0.60",
     "@atlaskit/editor-plugin-emoji": "1.1.11",
-    "@atlaskit/editor-plugin-expand": "1.3.0",
+    "@atlaskit/editor-plugin-expand": "1.3.1",
     "@atlaskit/editor-plugin-extension": "1.1.6",
     "@atlaskit/editor-plugin-feature-flags": "1.0.5",
     "@atlaskit/editor-plugin-feedback-dialog": "1.0.2",
@@ -273,9 +273,9 @@
     "@atlaskit/editor-plugin-selection": "1.1.2",
     "@atlaskit/editor-plugin-selection-marker": "1.1.3",
     "@atlaskit/editor-plugin-selection-toolbar": "1.0.2",
-    "@atlaskit/editor-plugin-status": "1.0.6",
+    "@atlaskit/editor-plugin-status": "1.0.7",
     "@atlaskit/editor-plugin-submit-editor": "1.0.2",
-    "@atlaskit/editor-plugin-table": "7.6.14",
+    "@atlaskit/editor-plugin-table": "7.7.0",
     "@atlaskit/editor-plugin-tasks-and-decisions": "1.0.7",
     "@atlaskit/editor-plugin-text-color": "1.0.6",
     "@atlaskit/editor-plugin-text-formatting": "1.3.3",
@@ -464,10 +464,6 @@
       "referenceOnly": true
     },
     "platform.editor.change-navigation-for-atom-nodes": {
-      "type": "boolean",
-      "referenceOnly": true
-    },
-    "platform.editor.custom-table-width": {
       "type": "boolean",
       "referenceOnly": true
     },

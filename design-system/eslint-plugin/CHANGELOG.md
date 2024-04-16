@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 9.4.1
+
+### Patch Changes
+
+- [#90125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90125) [`3ee5bf94b4fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee5bf94b4fd) - Added the `shouldEnforceFallbacks` option to the `use-tokens-typography` rule which can be used to prevent token fallback values being added automatically.
+
 ## 9.4.0
 
 ### Minor Changes

@@ -5,7 +5,6 @@ import {
   KEY_TAB,
   KEY_UP,
 } from '@atlaskit/ds-lib/keycodes';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { Action, FocusableElement } from '../../types';
 
@@ -67,15 +66,9 @@ export default function handleFocus(
         document.activeElement?.isSameNode(el),
     );
     if (isLayerDisabled()) {
-      if (
-        getBooleanFF(
-          'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-        )
-      ) {
-        // if nested dropdown isOpen we need to close on Tab key press
-        if (e.key === KEY_TAB && !e.shiftKey) {
-          onClose(e);
-        }
+      // if nested dropdown isOpen we need to close on Tab key press
+      if (e.key === KEY_TAB && !e.shiftKey) {
+        onClose(e);
       }
 
       // if it is a nested dropdown and the level of the given dropdown is not the current level,
@@ -95,14 +88,8 @@ export default function handleFocus(
           );
           nextFocusableElement?.focus();
         } else {
-          if (
-            getBooleanFF(
-              'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-            )
-          ) {
-            const firstFocusableElement = getNextFocusableElement(refs, -1);
-            firstFocusableElement?.focus();
-          }
+          const firstFocusableElement = getNextFocusableElement(refs, -1);
+          firstFocusableElement?.focus();
         }
         break;
 
@@ -117,17 +104,11 @@ export default function handleFocus(
 
           prevFocusableElement?.focus();
         } else {
-          if (
-            getBooleanFF(
-              'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-            )
-          ) {
-            const lastFocusableElement = getPrevFocusableElement(
-              refs,
-              refs.length,
-            );
-            lastFocusableElement?.focus();
-          }
+          const lastFocusableElement = getPrevFocusableElement(
+            refs,
+            refs.length,
+          );
+          lastFocusableElement?.focus();
         }
         break;
 

@@ -4,17 +4,18 @@ import {
   CallExpression,
   Directive,
   EslintNode,
+  Expression,
   Identifier,
   identifier,
   ImportDeclaration,
   isNodeOfType,
-  Literal,
   literal,
   MemberExpression,
   memberExpression,
   ModuleDeclaration,
   property,
   Property,
+  SpreadElement,
   Statement,
   StringableASTNode,
 } from 'eslint-codemod-utils';
@@ -172,25 +173,26 @@ export function isValidPropertyNode(node: Property) {
 
 function getTokenNode(
   tokenName: string,
-  tokenValue: string,
-  isFallbackMember: boolean,
+  fallbackValue?: string,
+  isFallbackMember: boolean = false,
 ) {
-  let fallback: StringableASTNode<MemberExpression | Identifier | Literal>;
+  const callExpressionArgs: (Expression | SpreadElement)[] = [
+    literal({
+      value: `'${tokenName}'`,
+    }),
+  ];
 
-  if (isFallbackMember) {
-    fallback = createMemberExpressionFromArray(tokenValue.split('.'));
-  } else {
-    fallback = literal(tokenValue);
+  if (fallbackValue) {
+    const fallback = isFallbackMember
+      ? createMemberExpressionFromArray(fallbackValue.split('.'))
+      : literal(fallbackValue);
+
+    callExpressionArgs.push(fallback);
   }
 
   return callExpression({
     callee: identifier({ name: 'token' }),
-    arguments: [
-      literal({
-        value: `'${tokenName}'`,
-      }),
-      fallback,
-    ],
+    arguments: callExpressionArgs,
     optional: false,
   });
 }
@@ -212,7 +214,7 @@ function createMemberExpressionFromArray(
 export function getTokenProperty(
   propertyName: string,
   tokenName: string,
-  tokenFallback: string,
+  tokenFallback?: string,
   isFallbackMember: boolean = false,
 ) {
   return property({

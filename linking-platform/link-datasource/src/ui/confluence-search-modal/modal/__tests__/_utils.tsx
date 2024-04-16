@@ -1,4 +1,5 @@
 import { setupFactory } from '../../../../common/__tests__/_utils';
+import { ConfigModalProps } from '../../../../common/types';
 import {
   ConfluenceSearchDatasourceAdf,
   ConfluenceSearchDatasourceParameters,
@@ -35,7 +36,12 @@ const {
   ConfluenceSearchDatasourceAdf
 >(
   'confluence-search',
-  ConfluenceSearchConfigModal,
+  ConfluenceSearchConfigModal as React.ForwardRefExoticComponent<
+    ConfigModalProps<
+      ConfluenceSearchDatasourceAdf,
+      ConfluenceSearchDatasourceParameters
+    >
+  >,
   getDefaultParameters,
   args => {
     const adf: ConfluenceSearchDatasourceAdf = {

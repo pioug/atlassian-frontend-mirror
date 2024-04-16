@@ -6,7 +6,6 @@ import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
 import {
@@ -17,7 +16,6 @@ import {
 import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
 import { getResizeState } from '../pm-plugins/table-resizing/utils/resize-state';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
-import { insertColumnButtonOffset } from '../ui/common-styles';
 
 /**
  * Given a new ResizeState object, create a transaction that replaces and updates the table node based on new state.
@@ -141,10 +139,7 @@ export const rescaleColumns =
     if (shouldScale) {
       previousTableInfo = {
         width: getTableElementWidth(table.node),
-        possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
-          ? getTableContainerElementWidth(table.node)
-          : getTableContainerElementWidth(table.node) -
-            insertColumnButtonOffset,
+        possibleMaxWidth: getTableContainerElementWidth(table.node),
         isResized,
       };
     } else {
@@ -152,10 +147,7 @@ export const rescaleColumns =
         // when table is resized the tableRef client width will be 1px larger than colGroup, which is used in calculations
         width: isResized ? tableRef.clientWidth - 1 : tableRef.clientWidth,
         /** the is the width the table can reach before overflowing */
-        possibleMaxWidth: getBooleanFF('platform.editor.custom-table-width')
-          ? tableRef?.parentElement?.clientWidth || 0
-          : (tableRef?.parentElement?.clientWidth || 0) -
-            insertColumnButtonOffset,
+        possibleMaxWidth: tableRef?.parentElement?.clientWidth || 0,
         isResized,
       };
     }

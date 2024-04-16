@@ -52,8 +52,8 @@ export default () => {
       setVisibleColumnKeys(
         adf.attrs.datasource.views[0].properties?.columns.map(c => c.key),
       );
-      setGeneratedAdf(adf);
     }
+    setGeneratedAdf(adf);
     closeModal();
   };
 

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.8.4
+
+### Patch Changes
+
+- [#89936](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89936) [`eb8f66c5d0f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb8f66c5d0f3) - Add @atlaskit/eslint-plugin-ui-styling-standard to the internal Atlassian push model.
+
 ## 0.8.3
 
 ### Patch Changes

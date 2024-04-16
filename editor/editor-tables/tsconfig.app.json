@@ -32,10 +32,6 @@
     "composite": true,
     "outDir": "../../../tsDist/@atlaskit__editor-tables/app"
   },
-  "references": [
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
-    }
-  ],
+  "references": [],
   "files": []
 }

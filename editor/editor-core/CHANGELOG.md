@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.10.0
+
+### Minor Changes
+
+- [#86368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86368) [`d07ec8d13230`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d07ec8d13230) - [ux] Remove the custom table width platform flag and remove Layout/Breakout button
+
 ## 193.9.9
 
 ### Patch Changes

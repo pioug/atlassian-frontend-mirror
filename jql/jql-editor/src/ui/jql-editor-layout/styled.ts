@@ -32,27 +32,26 @@ import {
   TOOLTIP_EXIT_CLASSNAME,
 } from '../../plugins/validation-tooltip/constants';
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
+const fadeIn = keyframes({
+  from: {
+    opacity: 0,
+  },
+  to: {
+    opacity: 1,
+  },
+});
 
-  to {
-    opacity: 1;
-  }
-`;
+const fadeOut = keyframes({
+  from: {
+    visibility: 'visible',
+    opacity: 1,
+  },
+  to: {
+    opacity: 0,
+  },
+});
 
-const fadeOut = keyframes`
-  from {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-`;
-
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const EditorMain = styled.div`
   /* CSS reset */
   font-family: ${fontFamily};
@@ -91,12 +90,11 @@ export const EditorMain = styled.div`
   }
 `;
 
-export const EditorFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  /* We always have at least 1 row of space allocated to the footer */
-  min-height: 20px;
-`;
+export const EditorFooter = styled.div({
+  display: 'flex',
+  justifyContent: 'space-between',
+  minHeight: '20px',
+});
 
 // Height (in px) for a single row in the editor
 const rowHeight = gridSize() * 2.75;
@@ -109,60 +107,63 @@ type EditorViewContainerProps = {
   editorViewHasFocus?: boolean;
   editorViewIsInvalid?: boolean;
 };
-export const EditorViewContainer = styled.div<EditorViewContainerProps>`
-  background-color: ${token('color.background.input', N10)};
-  border-style: solid;
-  border-width: 2px;
-  border-color: ${token('color.border', N40)};
-  border-radius: ${token('border.radius.100', '3px')};
-  box-sizing: border-box;
-  color: ${token('color.text', N900)};
-  display: flex;
-  overflow: auto;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-
-  ${props =>
+export const EditorViewContainer = styled.div<EditorViewContainerProps>(
+  {
+    backgroundColor: token('color.background.input', N10),
+    borderStyle: 'solid',
+    borderWidth: '2px',
+    borderColor: token('color.border', N40),
+    borderRadius: token('border.radius.100', '3px'),
+    boxSizing: 'border-box',
+    color: token('color.text', N900),
+    display: 'flex',
+    overflow: 'auto',
+    transition:
+      'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
+  },
+  props =>
     props.editorViewHasFocus
-      ? css`
-          background-color: ${token('elevation.surface', N0)};
-          border-color: ${token('color.border.focused', B100)};
-        `
-      : css`
-          :hover {
-            background-color: ${token('color.background.input.hovered', N30)};
-          }
-        `}
-
-  ${props =>
+      ? css({
+          backgroundColor: token('elevation.surface', N0),
+          borderColor: token('color.border.focused', B100),
+        })
+      : css({
+          ':hover': {
+            backgroundColor: token('color.background.input.hovered', N30),
+          },
+        }),
+  props =>
     props.editorViewIsInvalid &&
-    css`
-      border-color: ${token('color.border.danger', R400)};
-    `}
-`;
+    css({
+      borderColor: token('color.border.danger', R400),
+    }),
+);
 
-export const ReadOnlyEditorViewContainer = styled(EditorViewContainer)`
-  background-color: ${token('color.background.disabled', N30)};
-  color: ${token('color.text.disabled', N100)};
-  pointer-events: none;
-`;
+export const ReadOnlyEditorViewContainer = styled(EditorViewContainer)({
+  backgroundColor: token('color.background.disabled', N30),
+  color: token('color.text.disabled', N100),
+  pointerEvents: 'none',
+});
 
-export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>`
-  background-color: ${token('color.background.neutral', N30)};
-  flex-shrink: 0;
-  width: 30px;
-  position: sticky;
-  top: 0;
-
-  ${props =>
+export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
+  {
+    backgroundColor: token('color.background.neutral', N30),
+    flexShrink: 0,
+    width: '30px',
+    position: 'sticky',
+    top: 0,
+  },
+  props =>
     !props.lineNumbersVisible &&
-    css`
-      display: none;
-    `}
-`;
+    css({
+      display: 'none',
+    }),
+);
 
 /**
  * The main div which the Prosemirror editor will be rendered into.
  */
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const EditorView = styled.div<{
   defaultMaxRows: number;
   expandedRows: number;
@@ -249,6 +250,7 @@ export const EditorView = styled.div<{
 
       ${props =>
         !props.lineNumbersVisible &&
+        // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
         css`
           display: none;
         `}
@@ -274,18 +276,18 @@ export const ReadOnlyEditorView = styled(EditorView)`
 export const EditorControls = styled.div<{
   isSearch: boolean;
   isCompact: boolean;
-}>`
-  align-items: center;
-  display: flex;
-  flex-shrink: 0;
-  margin-left: auto;
-  margin-right: ${props =>
+}>(props => ({
+  alignItems: 'center',
+  display: 'flex',
+  flexShrink: 0,
+  marginLeft: 'auto',
+  marginRight: `${
     props.isSearch
       ? getEditorInputVerticalPadding(props.isCompact) - 1 // the search button needs the same vertical & horizontal spacing
-      : editorInputHorizontalPadding - 3}px;
-  line-height: normal;
-  position: sticky;
-  top: 0;
-  height: ${props =>
-    rowHeight + 2 * getEditorInputVerticalPadding(props.isCompact)}px;
-`;
+      : editorInputHorizontalPadding - 3
+  }px`,
+  lineHeight: 'normal',
+  position: 'sticky',
+  top: 0,
+  height: `${rowHeight + 2 * getEditorInputVerticalPadding(props.isCompact)}px`,
+}));

@@ -1,5 +1,15 @@
 # @atlaskit/link-datasource
 
+## 1.27.0
+
+### Minor Changes
+
+- [#89218](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89218) [`008bd3703560`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/008bd3703560) - Adds DisplayViewDropdown to Confluence Search modal as a common component.
+
+### Patch Changes
+
+- [#89986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89986) [`73821c4958bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73821c4958bb) - Add display view dropdown analytics events
+
 ## 1.26.3
 
 ### Patch Changes

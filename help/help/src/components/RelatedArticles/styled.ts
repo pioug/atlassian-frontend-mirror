@@ -12,39 +12,39 @@ const baseHeading = (size: number, lineHeight: number) => `
   line-height: ${lineHeight / size};
 `;
 
-export const truncate = (width: string = '100%') => css`
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: ${width};
-`;
+export const truncate = (width: string = '100%') =>
+  css({
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    width: width,
+  });
 
-export const RelatedArticlesTitle = styled.div`
-  ${baseHeading(16, 20)}
-  color: ${token('color.text', colors.N800)};
-  font-weight: 600;
-  letter-spacing: -0.006em;
-  padding: ${token('space.200', '16px')} 0;
-`;
+export const RelatedArticlesTitle = styled.div(baseHeading(16, 20), {
+  color: token('color.text', colors.N800),
+  fontWeight: 600,
+  letterSpacing: '-0.006em',
+  padding: `${token('space.200', '16px')} 0`,
+});
 
 /**
  * Loading styled-components
  */
-export const LoadignRelatedArticleSection = styled.div`
-  margin-top: ${token('space.100', '8px')};
-`;
+export const LoadignRelatedArticleSection = styled.div({
+  marginTop: token('space.100', '8px'),
+});
 
-export const LoadignRelatedArticleList = styled.ul`
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-`;
+export const LoadignRelatedArticleList = styled.ul({
+  width: '100%',
+  margin: 0,
+  padding: 0,
+  boxSizing: 'border-box',
+});
 
-export const LoadignRelatedArticleListItem = styled.li`
-  display: block;
-  width: 100%;
-  padding: ${token('space.100', '8px')};
-  margin-bottom: ${token('space.200', '16px')};
-  box-sizing: border-box;
-`;
+export const LoadignRelatedArticleListItem = styled.li({
+  display: 'block',
+  width: '100%',
+  padding: token('space.100', '8px'),
+  marginBottom: token('space.200', '16px'),
+  boxSizing: 'border-box',
+});

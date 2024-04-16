@@ -54,7 +54,7 @@
     "@atlaskit/editor-plugin-quick-insert": "^1.0.0",
     "@atlaskit/editor-plugin-rule": "^1.1.0",
     "@atlaskit/editor-plugin-status": "^1.0.0",
-    "@atlaskit/editor-plugin-table": "^7.6.0",
+    "@atlaskit/editor-plugin-table": "^7.7.0",
     "@atlaskit/editor-plugin-tasks-and-decisions": "^1.0.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
     "@atlaskit/editor-prosemirror": "3.0.0",

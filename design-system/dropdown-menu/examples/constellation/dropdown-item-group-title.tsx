@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemGroupTitleExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
+    <DropdownMenu trigger="Page actions" shouldRenderToParent>
       <DropdownItemGroup title="Edit page">
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

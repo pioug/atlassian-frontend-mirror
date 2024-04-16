@@ -144,8 +144,9 @@ export interface DropdownMenuProps<
   shouldFlip?: boolean;
 
   /**
-   * The root element where the DropdownMenu content should be rendered.
-   * `true` - rendering in the DOM node closest to the trigger. `false` - rendering in React.Portal.
+   * The root element where the dropdown menu content should be rendered.
+   * `true` renders the dropdown menu in the DOM node closest to the trigger and avoids focus trap with tab keys.
+   * `false` renders the dropdown menu in React.Portal.
    * Defaults to `false`.
    */
   shouldRenderToParent?: boolean;

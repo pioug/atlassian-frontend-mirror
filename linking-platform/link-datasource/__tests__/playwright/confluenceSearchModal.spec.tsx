@@ -19,6 +19,10 @@ test.describe('ConfluenceSearchModal', () => {
     );
   }
 
+  async function openDropDown(page: Page) {
+    await page.getByTestId('datasource-modal--view-drop-down--trigger').click();
+  }
+
   test('should change site by choosing different site in site selector dropdown', async ({
     page,
   }) => {
@@ -91,5 +95,37 @@ test.describe('ConfluenceSearchModal', () => {
     await expect(
       page.getByTestId('confluence-search-datasource-modal--body'),
     ).toBeHidden();
+  });
+
+  test('table and table text in display view dropdown render correctly when table view is selected', async ({
+    page,
+  }) => {
+    await setup(page);
+    await page
+      .getByTestId('confluence-search-datasource-modal--basic-search-button')
+      .click();
+    await expect(
+      page.getByTestId('datasource-modal--view-drop-down--trigger'),
+    ).toHaveText('Table');
+    await expect(
+      page.getByTestId('confluence-search-datasource-table'),
+    ).toBeVisible();
+  });
+
+  test('Inline smart card for inline view and Inline link text in dropdown render correctly when Inline link view is selected', async ({
+    page,
+  }) => {
+    await setup(page);
+    await page
+      .getByTestId('confluence-search-datasource-modal--basic-search-button')
+      .click();
+    await openDropDown(page);
+    await page.getByTestId('dropdown-item-inline-link').click();
+    await expect(
+      page.getByTestId('datasource-modal--view-drop-down--trigger'),
+    ).toHaveText('Inline link');
+    await expect(
+      page.getByRole('link', { name: 'https://hello.atlassian.net/' }),
+    ).toBeVisible();
   });
 });

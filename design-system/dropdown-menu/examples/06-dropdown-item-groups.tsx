@@ -6,7 +6,7 @@ import DropdownMenu, {
 } from '../src';
 
 const DropdownMenuMultipleCheckboxGroup = () => (
-  <DropdownMenu trigger="Choices" testId="lite-mode-ddm">
+  <DropdownMenu trigger="Choices" testId="lite-mode-ddm" shouldRenderToParent>
     <DropdownItemCheckboxGroup id="cities" title="Some cities">
       <DropdownItemCheckbox id="sydney">Sydney</DropdownItemCheckbox>
       <DropdownItemCheckbox id="melbourne" defaultSelected>

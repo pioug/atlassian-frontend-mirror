@@ -26,7 +26,6 @@ import {
   akEditorGutterPadding,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { TableOptions } from '../../../nodeviews/types';
 
@@ -127,11 +126,10 @@ export const getTableMaxWidth = ({
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
-  let maxWidth = getBooleanFF('platform.editor.custom-table-width')
-    ? parentWidth ||
-      table.attrs.width ||
-      getLayoutSize(layout, containerWidth.width, {})
-    : parentWidth || getLayoutSize(layout, containerWidth.width, {});
+  let maxWidth =
+    parentWidth ||
+    table.attrs.width ||
+    getLayoutSize(layout, containerWidth.width, {});
 
   if (table.attrs.isNumberColumnEnabled) {
     maxWidth -= akEditorTableNumberColumnWidth;

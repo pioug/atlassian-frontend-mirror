@@ -10,7 +10,6 @@ import {
 import { jsx } from '@emotion/react';
 
 import MenuGroup from '@atlaskit/menu/menu-group';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 
@@ -91,14 +90,8 @@ const MenuWrapper = ({
     const firstFocusableRef =
       menuItemRefs.find((ref) => !ref.hasAttribute('disabled')) ?? null;
 
-    if (
-      getBooleanFF(
-        'platform.design-system-team.disable-focus-lock-in-popup_7kb4d',
-      )
-    ) {
-      if (shouldRenderToParent && (isTriggeredUsingKeyboard || autoFocus)) {
-        firstFocusableRef?.focus();
-      }
+    if (shouldRenderToParent && (isTriggeredUsingKeyboard || autoFocus)) {
+      firstFocusableRef?.focus();
     }
 
     setInitialFocusRef?.(firstFocusableRef);

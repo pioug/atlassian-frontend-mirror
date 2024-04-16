@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  table,
-  tableCell,
-  tableHeader,
-  tableRow,
-  tableWithCustomWidth,
-} from '@atlaskit/adf-schema';
+import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -86,16 +80,12 @@ import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
-import LayoutButton from './ui/LayoutButton';
-import { createTableWithWidth, isLayoutSupported } from './utils';
+import { createTableWithWidth } from './utils';
 
 export interface TablePluginOptions {
   tableOptions: PluginConfig;
-  // experimental custom table resizing experience, set inside editor-core behind a feature flag
-  // will eventually replace breakoutEnabled
   tableResizingEnabled?: boolean;
   dragAndDropEnabled?: boolean;
-  breakoutEnabled?: boolean;
   allowContextualMenu?: boolean;
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
@@ -233,12 +223,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
     },
 
     nodes() {
-      const tableNode = options?.tableResizingEnabled
-        ? tableWithCustomWidth
-        : table;
-
       return [
-        { name: 'table', node: tableNode },
+        { name: 'table', node: table },
         { name: 'tableHeader', node: tableHeader },
         { name: 'tableRow', node: tableRow },
         { name: 'tableCell', node: tableCell },
@@ -260,7 +246,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               fullWidthEnabled,
               wasFullWidthEnabled,
               tableResizingEnabled,
-              breakoutEnabled,
+
               tableOptions,
               getEditorFeatureFlags,
               dragAndDropEnabled,
@@ -275,7 +261,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               defaultGetEditorContainerWidth,
               getEditorFeatureFlags || defaultGetEditorFeatureFlags,
               getIntl,
-              breakoutEnabled,
               tableResizingEnabled,
               fullWidthEnabled,
               wasFullWidthEnabled,
@@ -466,7 +451,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               tableWidthPluginState,
               dragAndDropState,
             }) => {
-              const { state } = editorView;
               const isColumnResizing = resizingPluginState?.dragging;
               const isTableResizing = tableWidthPluginState?.resizing;
               const isResizing = isColumnResizing || isTableResizing;
@@ -476,7 +460,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                 tablePos,
                 targetCellPosition,
                 isContextualMenuOpen,
-                layout,
                 tableRef,
                 pluginConfig,
                 insertColumnButtonIndex,
@@ -492,26 +475,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               const stickyHeader = stickyHeadersState
                 ? findStickyHeaderForTable(stickyHeadersState, tablePos)
                 : undefined;
-
-              const LayoutContent =
-                options &&
-                !options.tableResizingEnabled &&
-                isLayoutSupported(state) &&
-                options.breakoutEnabled ? (
-                  <LayoutButton
-                    editorView={editorView}
-                    mountPoint={popupsMountPoint}
-                    boundariesElement={popupsBoundariesElement}
-                    scrollableElement={popupsScrollableElement}
-                    targetRef={tableWrapperTarget!}
-                    layout={layout}
-                    isResizing={
-                      !!resizingPluginState && !!resizingPluginState.dragging
-                    }
-                    stickyHeader={stickyHeader}
-                    editorAnalyticsAPI={editorAnalyticsAPI}
-                  />
-                ) : null;
 
               return (
                 <>
@@ -531,7 +494,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                         scrollableElement={popupsScrollableElement}
                         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                         isContextualMenuOpen={isContextualMenuOpen}
-                        layout={layout}
                         stickyHeader={stickyHeader}
                         tableWrapper={tableWrapperTarget}
                       />
@@ -603,7 +565,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       editorAnalyticsAPI={editorAnalyticsAPI}
                     />
                   )}
-                  {LayoutContent}
                 </>
               );
             }}

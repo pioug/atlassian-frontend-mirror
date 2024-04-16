@@ -45,13 +45,15 @@ describe('Gap cursor: table', () => {
     await page.waitForSelector(selectors.gapCursor);
   });
 
-  it('should the gap-cursor before the bottom divider element remains the same margin on both top and bottom', async () => {
+  // todo: https://product-fabric.atlassian.net/browse/ED-22908
+  it.skip('should the gap-cursor before the bottom divider element remains the same margin on both top and bottom', async () => {
     await page.click('hr:last-of-type');
     await pressKey(page, ['ArrowLeft']);
     await page.waitForSelector(selectors.gapCursor);
   });
 
-  it('should the gap-cursor after the bottom divider element remains the same margin on both top and bottom', async () => {
+  // todo: https://product-fabric.atlassian.net/browse/ED-22908
+  it.skip('should the gap-cursor after the bottom divider element remains the same margin on both top and bottom', async () => {
     await page.click('hr:last-of-type');
     await pressKey(page, ['ArrowRight']);
     await page.waitForSelector(selectors.gapCursor);

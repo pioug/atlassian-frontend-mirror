@@ -6,9 +6,16 @@ import { APIError } from '@atlaskit/linking-common';
 import { mockJqlSmartLinkData } from './mockJqlSmartLinkData';
 import { mocks } from './mockSmartLinkData';
 
-const jqlUrlRegExp = /.+[jql=].+/;
+const jqlUrlRegExp = /.*[?&]jql=.*/;
+const confluenceSearchRegExp = /^https?:\/\/[^\/]+\/wiki\/spaces\/.*/;
 
 const mockedFetch = (url: string): Promise<JsonLd.Response> => {
+  if (confluenceSearchRegExp.test(url)) {
+    return Promise.resolve(mocks.confluenceSearchResolved);
+  }
+  if (jqlUrlRegExp.test(url)) {
+    return Promise.resolve(mockJqlSmartLinkData.resolved);
+  }
   switch (url) {
     case 'https://product-fabric.atlassian.net/browse/EDM-5941':
     case 'https://product-fabric.atlassian.net/browse/EDM-5591':
@@ -30,8 +37,6 @@ const mockedFetch = (url: string): Promise<JsonLd.Response> => {
         'received unsupported error',
         'ResolveUnsupportedError',
       );
-    case jqlUrlRegExp.test(url) ? url : undefined:
-      return Promise.resolve(mockJqlSmartLinkData.resolved);
     default:
       return Promise.resolve(mocks.unauthorized);
   }

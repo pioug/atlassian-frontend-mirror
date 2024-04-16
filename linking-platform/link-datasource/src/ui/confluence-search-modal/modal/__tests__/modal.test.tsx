@@ -1,15 +1,17 @@
 import React from 'react';
 
-import { act, waitFor } from '@testing-library/react';
+import { act, fireEvent, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { InlineCardAdf } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
 import type { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
+import { ConfluenceSearchDatasourceAdf } from '../../types';
 
 import {
   getAvailableSites,
@@ -290,6 +292,44 @@ describe('ConfluenceSearchConfigModal', () => {
         },
       );
     });
+
+    it('should show a placeholder smart link in inline view with no search string', async () => {
+      const { findByTestId } = await setup({
+        viewMode: 'inline',
+      });
+
+      const card = await findByTestId(`lazy-render-placeholder`);
+      expect(card).toHaveAttribute(
+        'href',
+        'https://hello.atlassian.net/wiki/search?text=',
+      );
+    });
+
+    it('should show a smart link in inline view with search string', async () => {
+      const { findByTestId, searchWithNewBasic } = await setup({
+        viewMode: 'inline',
+      });
+
+      searchWithNewBasic('test');
+
+      const card = await findByTestId(`lazy-render-placeholder`);
+      expect(card).toHaveAttribute(
+        'href',
+        'https://hello.atlassian.net/wiki/search?text=test',
+      );
+    });
+
+    it('should not show footer issue count in count view', async () => {
+      const { searchWithNewBasic, queryByTestId } = await setup({
+        viewMode: 'count',
+      });
+
+      searchWithNewBasic('some query');
+
+      expect(
+        queryByTestId('confluence-search-datasource-modal-total-results-count'),
+      ).toBeNull();
+    });
   });
 
   describe('when onNextPage is called from IssueLikeDataTableView', () => {
@@ -535,7 +575,7 @@ describe('ConfluenceSearchConfigModal', () => {
       expect(searchResultsCountLink).toHaveAttribute('target', '_blank');
       expect(searchResultsCountLink).toHaveAttribute(
         'href',
-        'https://hello.atlassian.net/wiki/search/?text=',
+        'https://hello.atlassian.net/wiki/search?text=',
       );
     });
 
@@ -543,6 +583,54 @@ describe('ConfluenceSearchConfigModal', () => {
       const { getByTestId } = await setup();
       const button = getByTestId(testIds.insertButton);
       expect(button).not.toBeDisabled();
+    });
+
+    it('should call onInsert with datasource ADF upon Insert button press', async () => {
+      const { onInsert, getByRole } = await setup();
+      const button = getByRole('button', { name: 'Insert results' });
+      button.click();
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'blockCard',
+          attrs: {
+            datasource: {
+              id: 'some-confluence-search-datasource-id',
+              parameters: {
+                cloudId: '67899',
+                searchString: '',
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [{ key: 'myColumn' }],
+                  },
+                },
+              ],
+            },
+          },
+        } as ConfluenceSearchDatasourceAdf,
+        expect.objectContaining({}),
+      );
+    });
+
+    it('should call onInsert with inlineCard ADF upon Insert button press in inline view mode', async () => {
+      const { onInsert, findByRole } = await setup({ viewMode: 'inline' });
+
+      const insertIssuesButton = await findByRole('button', {
+        name: 'Insert results',
+      });
+      insertIssuesButton.click();
+
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://hello.atlassian.net/wiki/search?text=',
+          },
+        } as InlineCardAdf,
+        expect.objectContaining({}),
+      );
     });
 
     it('should not call onNextPage automatically', async () => {
@@ -962,13 +1050,27 @@ describe('ConfluenceSearchConfigModal', () => {
   });
 
   describe('when no issues are returned', () => {
-    it('should show no results screen in issue view mode', async () => {
-      const { getByTestId, getByText /** onInsert */ } = await setup({
+    it('should show no results screen in table view mode', async () => {
+      const { getByTestId, getByText } = await setup({
         hookState: { ...getDefaultHookState(), responseItems: [] },
       });
 
       expect(getByText('No results found')).toBeInTheDocument();
       expect(getByTestId(testIds.insertButton)).not.toBeDisabled();
+    });
+
+    it('should not show no results screen in inline view mode', async () => {
+      const { getByRole, queryByText, onInsert } = await setup({
+        hookState: { ...getDefaultHookState(), responseItems: [] },
+        viewMode: 'inline',
+      });
+
+      expect(queryByText('No results found')).not.toBeInTheDocument();
+      expect(
+        getByRole('button', { name: 'Insert results' }),
+      ).not.toBeDisabled();
+      fireEvent.click(getByRole('button', { name: 'Insert results' }));
+      expect(onInsert).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -980,6 +1082,15 @@ describe('ConfluenceSearchConfigModal', () => {
 
       expect(getByText('Unable to load results')).toBeInTheDocument();
       expect(getByTestId(testIds.insertButton)).toBeDisabled();
+    });
+
+    it('should not show network error message in inline view mode', async () => {
+      const { queryByText } = await setup({
+        hookState: { ...getErrorHookState() },
+        viewMode: 'inline',
+      });
+
+      expect(queryByText('Unable to load results')).not.toBeInTheDocument();
     });
 
     it('should show no results message on a 403 aka forbidden status', async () => {

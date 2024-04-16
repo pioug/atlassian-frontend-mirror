@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugins
 
+## 2.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.20
+
+### Patch Changes
+
+- [#86368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86368) [`ecf368bbb0d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ecf368bbb0d4) - Remove table layout model and fix tests
+- Updated dependencies
+
 ## 2.0.19
 
 ### Patch Changes

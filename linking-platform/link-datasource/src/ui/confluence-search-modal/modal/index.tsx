@@ -18,6 +18,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
+import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import Modal, {
   ModalBody,
   ModalFooter,
@@ -45,7 +46,7 @@ import {
   DatasourceDisplay,
   DatasourceSearchMethod,
 } from '../../../analytics/types';
-import { Site } from '../../../common/types';
+import { DisplayViewModes, Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -58,6 +59,11 @@ import { NoResults } from '../../common/error-state/no-results';
 import { InitialStateView } from '../../common/initial-state-view';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
+import {
+  SmartCardPlaceholder,
+  SmartLink,
+} from '../../common/modal/count-view-smart-link';
+import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import { ColumnSizesMap } from '../../issue-like-table/types';
@@ -109,6 +115,7 @@ export const PlainConfluenceSearchConfigModal = (
     wrappedColumnKeys: initialWrappedColumnKeys,
     onCancel,
     onInsert,
+    viewMode = 'table',
     parameters: initialParameters,
     url: urlBeingEdited,
     visibleColumnKeys: initialVisibleColumnKeys,
@@ -117,6 +124,8 @@ export const PlainConfluenceSearchConfigModal = (
   const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
     undefined,
   );
+  const [currentViewMode, setCurrentViewMode] =
+    useState<DisplayViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
   const [searchString, setSearchString] = useState<string | undefined>(
     initialParameters?.searchString,
@@ -207,6 +216,7 @@ export const PlainConfluenceSearchConfigModal = (
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829171
   const onSiteSelection = useCallback(
     (site: Site) => {
+      userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
       setSearchString(undefined);
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
@@ -344,7 +354,7 @@ export const PlainConfluenceSearchConfigModal = (
   const confluenceSearchUrl =
     selectedConfluenceSiteUrl &&
     searchString !== undefined &&
-    `${selectedConfluenceSiteUrl}/wiki/search/?text=${encodeURI(searchString)}`;
+    `${selectedConfluenceSiteUrl}/wiki/search?text=${encodeURI(searchString)}`;
 
   const analyticsPayload = useMemo(
     () => ({
@@ -356,7 +366,46 @@ export const PlainConfluenceSearchConfigModal = (
     [destinationObjectTypes, extensionKey],
   );
 
-  const renderModalContent = useCallback(() => {
+  const isDataReady = (visibleColumnKeys || []).length > 0;
+
+  const fireInlineViewedEvent = useCallback(() => {
+    fireEvent('ui.link.viewed.count', {
+      ...analyticsPayload,
+      searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
+      totalItemCount: totalCount || 0,
+    });
+  }, [analyticsPayload, fireEvent, totalCount]);
+
+  const fireTableViewedEvent = useCallback(() => {
+    if (isDataReady) {
+      fireEvent('ui.table.viewed.datasourceConfigModal', {
+        ...analyticsPayload,
+        totalItemCount: totalCount || 0,
+        searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
+        displayedColumnCount: visibleColumnCount.current,
+      });
+    }
+  }, [analyticsPayload, fireEvent, totalCount, isDataReady]);
+
+  useEffect(() => {
+    const isResolved = status === 'resolved';
+    const isTableViewMode =
+      currentViewMode === 'issue' || currentViewMode === 'table';
+    const isInlineViewMode =
+      currentViewMode === 'count' || currentViewMode === 'inline';
+
+    if (!isResolved) {
+      return;
+    }
+
+    if (isTableViewMode) {
+      fireTableViewedEvent();
+    } else if (isInlineViewMode) {
+      fireInlineViewedEvent();
+    }
+  }, [currentViewMode, fireInlineViewedEvent, fireTableViewedEvent, status]);
+
+  const renderTableModalContent = useCallback(() => {
     if (status === 'rejected') {
       return <ModalLoadingError />;
     } else if (status === 'unauthorized') {
@@ -397,7 +446,25 @@ export const PlainConfluenceSearchConfigModal = (
     hasConfluenceSearchParams,
   ]);
 
-  const shouldShowResultsCount = !!totalCount && totalCount !== 1;
+  const renderInlineLinkModalContent = useCallback(() => {
+    if (status === 'unauthorized') {
+      return (
+        <AccessRequired url={selectedConfluenceSiteUrl || urlBeingEdited} />
+      );
+    } else if (status === 'empty' || !selectedConfluenceSiteUrl) {
+      return (
+        <SmartCardPlaceholder
+          placeholderText={
+            confluenceSearchModalMessages.resultsCountSmartCardPlaceholderText
+          }
+        />
+      );
+    } else {
+      return confluenceSearchUrl && <SmartLink url={confluenceSearchUrl} />;
+    }
+  }, [confluenceSearchUrl, selectedConfluenceSiteUrl, status, urlBeingEdited]);
+
+  const shouldShowResultsCount = !!totalCount && currentViewMode === 'table';
 
   const onInsertPressed = useCallback(
     (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
@@ -411,7 +478,10 @@ export const PlainConfluenceSearchConfigModal = (
           ...analyticsPayload,
           totalItemCount: totalCount || 0,
           displayedColumnCount: visibleColumnCount.current,
-          display: DatasourceDisplay.DATASOURCE_TABLE,
+          display:
+            currentViewMode === 'inline'
+              ? DatasourceDisplay.DATASOURCE_INLINE
+              : DatasourceDisplay.DATASOURCE_TABLE,
           searchCount: searchCount.current,
           searchMethod: DatasourceSearchMethod.DATASOURCE_SEARCH_QUERY,
           actions: Array.from(userInteractionActions.current),
@@ -422,39 +492,53 @@ export const PlainConfluenceSearchConfigModal = (
       const consumerEvent = insertButtonClickedEvent.clone() ?? undefined;
       insertButtonClickedEvent.fire(EVENT_CHANNEL);
 
-      onInsert(
-        buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
-          id: datasourceId,
-          parameters: {
-            ...parameters,
-            cloudId,
-          },
-          views: [
-            {
-              type: 'table',
-              properties: {
-                columns: (visibleColumnKeys || []).map(key => {
-                  const width = columnCustomSizes?.[key];
-                  const isWrapped = wrappedColumnKeys?.includes(key);
-                  return {
-                    key,
-                    ...(width ? { width } : {}),
-                    ...(isWrapped ? { isWrapped } : {}),
-                  };
-                }),
-              },
+      if (currentViewMode === 'inline') {
+        onInsert(
+          {
+            type: 'inlineCard',
+            attrs: {
+              url: confluenceSearchUrl,
             },
-          ],
-        }),
-        consumerEvent,
-      );
+          } as InlineCardAdf,
+          consumerEvent,
+        );
+      } else {
+        onInsert(
+          buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
+            id: datasourceId,
+            parameters: {
+              ...parameters,
+              cloudId,
+            },
+            views: [
+              {
+                type: 'table',
+                properties: {
+                  columns: (visibleColumnKeys || []).map(key => {
+                    const width = columnCustomSizes?.[key];
+                    const isWrapped = wrappedColumnKeys?.includes(key);
+                    return {
+                      key,
+                      ...(width ? { width } : {}),
+                      ...(isWrapped ? { isWrapped } : {}),
+                    };
+                  }),
+                },
+              },
+            ],
+          }),
+          consumerEvent,
+        );
+      }
     },
     [
       isParametersSet,
       cloudId,
       analyticsPayload,
       totalCount,
+      currentViewMode,
       onInsert,
+      confluenceSearchUrl,
       datasourceId,
       parameters,
       visibleColumnKeys,
@@ -462,6 +546,11 @@ export const PlainConfluenceSearchConfigModal = (
       wrappedColumnKeys,
     ],
   );
+
+  const handleViewModeChange = (selectedMode: DisplayViewModes) => {
+    userInteractionActions.current.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
+    setCurrentViewMode(selectedMode);
+  };
 
   const onSearch = useCallback(
     (newSearchString: string) => {
@@ -509,6 +598,12 @@ export const PlainConfluenceSearchConfigModal = (
               label={siteSelectorLabel}
             />
           </ModalTitle>
+          {!hasNoConfluenceSites && (
+            <DisplayViewDropDown
+              onViewModeChange={handleViewModeChange}
+              viewMode={currentViewMode}
+            />
+          )}
         </ModalHeader>
         <ModalBody>
           {!hasNoConfluenceSites ? (
@@ -521,7 +616,9 @@ export const PlainConfluenceSearchConfigModal = (
                   initialSearchValue={initialParameters?.searchString}
                 />
               </Box>
-              {renderModalContent()}
+              {currentViewMode === 'inline'
+                ? renderInlineLinkModalContent()
+                : renderTableModalContent()}
             </Fragment>
           ) : (
             <NoInstancesView

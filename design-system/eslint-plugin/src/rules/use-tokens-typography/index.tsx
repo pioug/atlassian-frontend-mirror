@@ -14,7 +14,7 @@ const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
     ObjectExpression: (node: Rule.Node) =>
       errorBoundary(
         () => {
-          return StyleObject.lint(node, { context });
+          return StyleObject.lint(node, { context, config });
         },
         { config },
       ),

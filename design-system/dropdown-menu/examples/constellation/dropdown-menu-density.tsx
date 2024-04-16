@@ -12,7 +12,12 @@ import DropdownMenu, {
 
 export default () => (
   <Inline space="space.600">
-    <DropdownMenu trigger="Compact density" testId="dropdown" spacing="compact">
+    <DropdownMenu
+      trigger="Compact density"
+      testId="dropdown"
+      spacing="compact"
+      shouldRenderToParent
+    >
       <DropdownItemGroup>
         <DropdownItem>Copy issue link</DropdownItem>
         <DropdownItem>Add flag</DropdownItem>

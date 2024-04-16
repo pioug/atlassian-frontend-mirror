@@ -242,9 +242,6 @@
       "path": "../../design-system/width-detector/tsconfig.app.json"
     },
     {
-      "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
-    },
-    {
       "path": "../../linking-platform/link-picker-plugins/tsconfig.app.json"
     },
     {

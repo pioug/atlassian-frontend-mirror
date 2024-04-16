@@ -52,4 +52,10 @@ export const confluenceSearchModalMessages = defineMessages({
       'Description that shows in the modal when user has no access to any Confluence sites',
     defaultMessage: 'To request access, contact your admin.',
   },
+  resultsCountSmartCardPlaceholderText: {
+    id: 'linkDataSource.confluence-search.configmodal.placeholder.issues',
+    description:
+      'Placeholder text that will be placed next to a count of confluence search results',
+    defaultMessage: '### Results',
+  },
 });

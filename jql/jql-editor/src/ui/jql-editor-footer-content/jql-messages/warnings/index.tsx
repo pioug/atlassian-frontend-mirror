@@ -91,7 +91,7 @@ export const useFormattedWarningMessage = (): ReactNode => {
   } else if (epicLinkDeprecationTerm && parentLinkDeprecationTerm) {
     return formatWarnings(
       formatMessage(messages.deprecatedBothParentReplacementMessage, {
-        link: (chunks: string) => (
+        link: (chunks: React.ReactNode[]) => (
           <a
             href={softDeprecateEpicParentDocsLink}
             target="_blank"
@@ -109,7 +109,7 @@ export const useFormattedWarningMessage = (): ReactNode => {
   } else if (epicLinkDeprecationTerm || parentLinkDeprecationTerm) {
     return formatWarnings(
       formatMessage(messages.deprecatedParentReplacementMessage, {
-        link: (chunks: string) => (
+        link: (chunks: React.ReactNode[]) => (
           <a
             href={softDeprecateEpicParentDocsLink}
             target="_blank"

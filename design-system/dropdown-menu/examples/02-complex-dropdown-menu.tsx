@@ -6,7 +6,11 @@ import DropdownMenu, {
 } from '../src';
 
 const DropdownMenuRadio = () => (
-  <DropdownMenu trigger="Filter cities" testId="lite-mode-ddm">
+  <DropdownMenu
+    trigger="Filter cities"
+    testId="lite-mode-ddm"
+    shouldRenderToParent
+  >
     <DropdownItemRadioGroup id="cities" title="Some cities">
       <DropdownItemRadio id="sydney">Sydney</DropdownItemRadio>
       <DropdownItemRadio id="melbourne" defaultSelected>

@@ -15,7 +15,7 @@ const CustomComponent = forwardRef<
 ));
 
 export default () => (
-  <DropdownMenu trigger="Filter cities">
+  <DropdownMenu trigger="Filter cities" shouldRenderToParent>
     <DropdownItemGroup>
       <DropdownItem>Not visible</DropdownItem>
       <DropdownItem>Adelaide</DropdownItem>

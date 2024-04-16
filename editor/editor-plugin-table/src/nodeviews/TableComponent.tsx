@@ -700,7 +700,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         node={node}
         tableRef={tableRef!}
         containerWidth={containerWidth}
-        isBreakoutEnabled={options?.isBreakoutEnabled}
         isNested={isNested}
         pluginInjectionApi={pluginInjectionApi}
         tableWrapperHeight={this.state.tableWrapperHeight}
@@ -795,12 +794,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           <div
             style={{
               position: 'absolute',
-              right: getBooleanFF('platform.editor.custom-table-width')
-                ? `${
-                    token('space.400', '32px') // tableOverflowShadowWidthWide
-                  }`
-                : // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-                  '22px',
+              right: token('space.400', '32px'), // tableOverflowShadowWidthWide
             }}
           >
             <div
@@ -866,10 +860,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const prevAttrs = prevNode.attrs;
 
     const isNested = isTableNested(this.props.view.state, this.props.getPos());
-    // We only consider a layout change valid if it's done outside of an autoSize.
-    const layoutChanged =
-      prevAttrs.layout !== node.attrs.layout &&
-      prevAttrs.__autoSize === node.attrs.__autoSize;
 
     const parentWidth = this.getParentNodeWidth();
     const parentWidthChanged =
@@ -887,8 +877,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const noOfColumnsChanged = tablesHaveDifferentNoOfColumns(node, prevNode);
 
     if (
-      // Breakout mode/layout changed
-      layoutChanged ||
       // We need to react if our parent changes
       // Scales the cols widths relative to the new parent width.
       parentWidthChanged ||
@@ -909,7 +897,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       if (shouldScaleTable) {
         this.scaleTable({
           parentWidth,
-          layoutChanged,
         });
       }
 
@@ -918,7 +905,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         if (!hasTableBeenResized(prevNode)) {
           this.scaleTable({
             parentWidth: node.attrs.width,
-            layoutChanged,
           });
         }
       }
@@ -931,10 +917,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     this.layoutSize = layoutSize;
   };
 
-  private scaleTable = (scaleOptions: {
-    layoutChanged: boolean;
-    parentWidth?: number;
-  }) => {
+  private scaleTable = (scaleOptions: { parentWidth?: number }) => {
     const { view, getNode, getPos, containerWidth, options } = this.props;
     const node = getNode();
     const { state, dispatch } = view;
@@ -1006,12 +989,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private handleWindowResize = () => {
     const { getNode, containerWidth } = this.props;
     const node = getNode();
-    const prevNode = this.node;
     const layoutSize = this.tableNodeLayoutSize(node);
-    const prevAttrs = prevNode?.attrs;
-    const layoutChanged =
-      prevAttrs?.layout !== node?.attrs?.layout &&
-      prevAttrs?.__autoSize === node?.attrs?.__autoSize;
 
     if (containerWidth.width > layoutSize) {
       return;
@@ -1019,7 +997,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     const parentWidth = this.getParentNodeWidth();
     this.scaleTableDebounced({
-      layoutChanged: layoutChanged,
       parentWidth: parentWidth,
     });
   };

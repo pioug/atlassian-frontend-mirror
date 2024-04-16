@@ -34,14 +34,11 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({
 });
 
 test.describe('Keyboard navigation', () => {
-  const triggerDataId = 'dropdown--trigger';
-  const contentDataId = 'dropdown--content';
+  const triggerTestId = 'dropdown--trigger';
+  const contentTestId = 'dropdown--content';
   const firstToggleId = 'toggle-1';
 
-  // TODO DSP-16638
-  // Enable this testcase after cleaning up the feature flag.
-  // Currently feature flag conditional flow is not supported for Playwright.
-  test.skip('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
+  test('Verify that Dropdown Menu is closing on Tab press and focus on the next interactive element', async ({
     page,
   }) => {
     await page.visitExample(
@@ -50,18 +47,15 @@ test.describe('Keyboard navigation', () => {
       'testing-keyboard-navigation',
     );
 
-    await page.getByTestId(triggerDataId).press('Enter');
-    await expect(page.getByTestId(contentDataId)).toBeVisible();
+    await page.getByTestId(triggerTestId).press('Enter');
+    await expect(page.getByTestId(contentTestId)).toBeVisible();
 
-    await page.getByTestId(contentDataId).press('Tab');
-    await expect(page.getByTestId(contentDataId)).toBeHidden();
+    await page.getByTestId(contentTestId).press('Tab');
+    await expect(page.getByTestId(contentTestId)).toBeHidden();
     await expect(page.locator(`#${firstToggleId}`)).toBeFocused();
   });
 
-  // TODO DSP-16638
-  // Enable this testcase after cleaning up the feature flag.
-  // Currently feature flag conditional flow is not supported for Playwright.
-  test.skip('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
+  test('Verify that Dropdown Menu is closing on Shift+Tab press and focus on trigger', async ({
     page,
   }) => {
     await page.visitExample(
@@ -70,17 +64,14 @@ test.describe('Keyboard navigation', () => {
       'testing-keyboard-navigation',
     );
 
-    await page.getByTestId(triggerDataId).press('Enter');
-    await page.getByTestId(contentDataId).press('Shift+Tab');
+    await page.getByTestId(triggerTestId).press('Enter');
+    await page.getByTestId(contentTestId).press('Shift+Tab');
 
-    await expect(page.getByTestId(contentDataId)).toBeHidden();
-    await expect(page.getByTestId(triggerDataId)).toBeFocused();
+    await expect(page.getByTestId(contentTestId)).toBeHidden();
+    await expect(page.getByTestId(triggerTestId)).toBeFocused();
   });
 
-  // TODO DSP-16638
-  // Enable this testcase after cleaning up the feature flag.
-  // Currently feature flag conditional flow is not supported for Playwright.
-  test.skip('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
+  test('Verify that Dropdown Menu items navigation works on keyUp and keyDown', async ({
     page,
   }) => {
     await page.visitExample(
@@ -89,7 +80,7 @@ test.describe('Keyboard navigation', () => {
       'testing-keyboard-navigation',
     );
 
-    await page.getByTestId(triggerDataId).press('Enter');
+    await page.getByTestId(triggerTestId).press('Enter');
     // Should set focus on the first element
     await expect(page.getByRole('menuitem', { name: 'Move' })).toBeFocused();
 
@@ -104,5 +95,62 @@ test.describe('Keyboard navigation', () => {
     await page.getByRole('menuitem', { name: 'Move' }).press('ArrowUp');
     // Should move focus to the last element
     await expect(page.getByRole('menuitem', { name: 'Clone' })).toBeFocused();
+  });
+});
+
+test.describe('Nested keyboard navigation', () => {
+  const getTriggerTestId = (level: number) => `nested-${level}--trigger`;
+  const getContentTestId = (level: number) => `nested-${level}--content`;
+  const getItemTestId = (level: number, id: number) =>
+    `nested-item${id}-${level}`;
+
+  test('Verify that navigation works correctly', async ({ page }) => {
+    await page.visitExample(
+      'design-system',
+      'dropdown-menu',
+      'testing-nested-keyboard-navigation',
+    );
+
+    // Should open a nested dropdown level 0
+    await page.getByTestId(getTriggerTestId(0)).focus();
+    await page.getByTestId(getTriggerTestId(0)).press('Enter');
+
+    await expect(page.getByTestId(getContentTestId(0))).toBeVisible();
+    await expect(page.getByTestId(getTriggerTestId(1))).toBeFocused();
+
+    // Should open a nested dropdown level 1 and focus the first item
+    await page.getByTestId(getTriggerTestId(1)).press('Enter');
+    await expect(page.getByTestId(getContentTestId(1))).toBeVisible();
+    await expect(page.getByTestId(getTriggerTestId(2))).toBeFocused();
+
+    // Should open a nested dropdown level 2 and focus the first item
+    await page.getByTestId(getTriggerTestId(2)).press('Enter');
+    await expect(page.getByTestId(getContentTestId(2))).toBeVisible();
+    await expect(page.getByTestId(getTriggerTestId(3))).toBeFocused();
+
+    // Should move focus to the second item in dropdown content level 2
+    await page.getByTestId(getTriggerTestId(3)).press('ArrowDown');
+    await expect(page.getByTestId(getItemTestId(3, 1))).toBeFocused();
+
+    // Should move focus to the third (last) item in dropdown content level 2
+    await page.getByTestId(getItemTestId(3, 1)).press('ArrowDown');
+    await expect(page.getByTestId(getItemTestId(3, 2))).toBeFocused();
+
+    // Should move focus to the first item in dropdown content level 2
+    await page.getByTestId(getItemTestId(3, 2)).press('ArrowDown');
+    await expect(page.getByTestId(getTriggerTestId(3))).toBeFocused();
+
+    // Should close a nested dropdown level 2 and focus on the nested dropdown level 1 first element
+    await page.getByTestId(getTriggerTestId(3)).press('Shift+Tab');
+    await expect(page.getByTestId(getTriggerTestId(2))).toBeFocused();
+
+    // Should close a nested dropdown level 1 and focus on the nested dropdown level 0 first element
+    await page.getByTestId(getTriggerTestId(2)).press('Shift+Tab');
+    await expect(page.getByTestId(getTriggerTestId(1))).toBeFocused();
+
+    // Should close a nested dropdown and focus on trigger
+    await page.getByTestId(getTriggerTestId(1)).press('Shift+Tab');
+    await expect(page.getByTestId(getContentTestId(0))).toBeHidden();
+    await expect(page.getByTestId(getTriggerTestId(0))).toBeFocused();
   });
 });

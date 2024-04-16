@@ -18,9 +18,7 @@ test.describe('JiraIssuesModal', () => {
     );
   }
   async function openDropDown(page: Page) {
-    await page
-      .getByTestId('jira-datasource-modal--view-drop-down--trigger')
-      .click();
+    await page.getByTestId('datasource-modal--view-drop-down--trigger').click();
   }
 
   test('should change site by choosing different site in site selector dropdown', async ({
@@ -163,7 +161,7 @@ test.describe('JiraIssuesModal', () => {
     await setup(page);
     await page.getByTestId('jql-editor-search').click();
     await expect(
-      page.getByTestId('jira-datasource-modal--view-drop-down--trigger'),
+      page.getByTestId('datasource-modal--view-drop-down--trigger'),
     ).toHaveText('Table');
     await expect(page.getByTestId('jira-datasource-table')).toBeVisible();
   });
@@ -176,7 +174,7 @@ test.describe('JiraIssuesModal', () => {
     await openDropDown(page);
     await page.getByTestId('dropdown-item-inline-link').click();
     await expect(
-      page.getByTestId('jira-datasource-modal--view-drop-down--trigger'),
+      page.getByTestId('datasource-modal--view-drop-down--trigger'),
     ).toHaveText('Inline link');
     await expect(
       page.getByTestId('link-datasource-render-type--link-resolved-view'),

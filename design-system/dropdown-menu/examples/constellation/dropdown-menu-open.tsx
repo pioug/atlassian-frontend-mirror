@@ -16,6 +16,7 @@ const DropdownOpenExample = () => {
         setIsOpen(attrs.isOpen);
       }}
       trigger="Page actions"
+      shouldRenderToParent
     >
       <DropdownItemRadioGroup id="actions">
         <DropdownItemRadio id="edit">Edit</DropdownItemRadio>

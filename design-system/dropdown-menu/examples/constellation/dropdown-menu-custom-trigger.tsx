@@ -10,6 +10,7 @@ const DropdownMenuCustomTriggerExample = () => {
           &lt;button/&gt; trigger{' '}
         </button>
       )}
+      shouldRenderToParent
     >
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>

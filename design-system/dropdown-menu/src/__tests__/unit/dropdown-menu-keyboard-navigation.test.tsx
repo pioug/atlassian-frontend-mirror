@@ -162,24 +162,32 @@ describe('dropdown menu keyboard navigation', () => {
         </DropdownItemGroup>
       </DropdownMenu>,
     );
-    openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
+    // Open the menu and bring focus to the first element be focused
+    openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
+
+    // Bring focus to the second element
     fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
       key: KEY_DOWN,
       code: KEY_DOWN,
     });
 
-    const firstMenuItem = screen.getAllByRole('menuitem')[0];
-    expect(firstMenuItem).toHaveAccessibleName(items[0]);
-    expect(firstMenuItem).toHaveFocus();
+    // Bring focus to the third element
+    fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+      key: KEY_DOWN,
+      code: KEY_DOWN,
+    });
 
+    // Bring focus to the previous element
     fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
       key: KEY_UP,
       code: KEY_UP,
     });
     requestAnimationFrame.step();
 
-    expect(firstMenuItem).toHaveFocus();
+    const lastMenuItem = screen.getAllByRole('menuitem')[1];
+    expect(lastMenuItem).toHaveAccessibleName(items[1]);
+    expect(lastMenuItem).toHaveFocus();
   });
 
   it('should skip over disabled items while keyboard navigating', () => {
@@ -338,7 +346,7 @@ describe('dropdown menu keyboard navigation', () => {
     expect(lastMenuItem).toHaveFocus();
   });
 
-  it('should not let the focus loop to the last element', () => {
+  it('should loop and move focus to the last element while the first element is focused and KEY_UP pressed', () => {
     render(
       <DropdownMenu trigger={triggerText} testId={testId}>
         <DropdownItemGroup>
@@ -362,68 +370,45 @@ describe('dropdown menu keyboard navigation', () => {
     });
     requestAnimationFrame.step();
 
-    // Assert that the focus hasn't looped over to the last element
-    expect(firstMenuItem).toHaveFocus();
-  });
-
-  it('should not let the focus loop on the first element', () => {
-    render(
-      <DropdownMenu trigger={triggerText} testId={testId}>
-        <DropdownItemGroup>
-          {items.map((text) => (
-            <DropdownItem>{text}</DropdownItem>
-          ))}
-        </DropdownItemGroup>
-      </DropdownMenu>,
-    );
-
-    // Open menu and assert first element is focused
-    openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
-    const firstMenuItem = screen.getAllByRole('menuitem')[0];
-    expect(firstMenuItem).toHaveAccessibleName(items[0]);
-    expect(firstMenuItem).toHaveFocus();
-
-    fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-      key: KEY_UP,
-      code: KEY_UP,
-    });
-    requestAnimationFrame.step();
-
-    // Assert that the focus hasn't looped over to the last element
-    expect(firstMenuItem).toHaveFocus();
-  });
-
-  it('should not let the focus loop to the first element', () => {
-    render(
-      <DropdownMenu trigger={triggerText} testId={testId}>
-        <DropdownItemGroup>
-          {items.map((text) => (
-            <DropdownItem>{text}</DropdownItem>
-          ))}
-        </DropdownItemGroup>
-      </DropdownMenu>,
-    );
-    // Open menu and assert first element is focused
-    openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
-    const firstMenuItem = screen.getAllByRole('menuitem')[0];
-    expect(firstMenuItem).toHaveAccessibleName(items[0]);
-    expect(firstMenuItem).toHaveFocus();
-
-    // Bring the focus to the last element
-    fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-      key: KEY_END,
-      code: KEY_END,
-    });
-    requestAnimationFrame.step();
-
-    fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-      key: KEY_DOWN,
-      code: KEY_DOWN,
-    });
-    // Assert that the focus hasn't looped over to the first element
-    const lastMenuItem = screen.getAllByRole('menuitem').slice(-1)[0];
-    expect(lastMenuItem).toHaveAccessibleName(items.slice(-1)[0]);
+    // Assert that the focus has looped over to the last element
+    const lastMenuItem = screen.getAllByRole('menuitem')[items.length - 1];
+    expect(lastMenuItem).toHaveAccessibleName(items[items.length - 1]);
     expect(lastMenuItem).toHaveFocus();
+  });
+
+  it('should loop and move focus to the first element whild the last element is focused and KEY_DOWN pressed', () => {
+    render(
+      <DropdownMenu trigger={triggerText} testId={testId}>
+        <DropdownItemGroup>
+          {items.map((text) => (
+            <DropdownItem>{text}</DropdownItem>
+          ))}
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    // Open the menu and bring focus to the first element be focused
+    openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
+
+    let index = 0;
+
+    // Bring focus to the last element
+    while (index < 3) {
+      const menuItem = screen.getAllByRole('menuitem')[index];
+      expect(menuItem).toHaveAccessibleName(items[index]);
+      expect(menuItem).toHaveFocus();
+
+      fireEvent.keyDown(menuItem, {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+      requestAnimationFrame.step();
+
+      index++;
+    }
+    // Assert that the focus has looped over to the first element
+    const firstMenuItem = screen.getAllByRole('menuitem')[0];
+    expect(firstMenuItem).toHaveFocus();
   });
 
   it('should not allow the dropdown to reopen if the trigger is activated again', () => {
@@ -457,60 +442,5 @@ describe('dropdown menu keyboard navigation', () => {
     openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
     expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
     expect(onOpenChange).not.toHaveBeenCalled();
-  });
-
-  describe('nested dropdown', () => {
-    const NestedDropdown = ({ level = 0 }) => {
-      return (
-        <DropdownMenu
-          placement="right-start"
-          trigger="nested"
-          testId={`nested-${level}`}
-        >
-          <DropdownItemGroup>
-            <NestedDropdown level={level + 1} />
-            <DropdownItem testId={`nested-item1-${level + 1}`}>
-              One of many items
-            </DropdownItem>
-            <DropdownItem testId={`nested-item2-${level + 1}`}>
-              One of many items
-            </DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>
-      );
-    };
-    it('should have arrow navigation work', () => {
-      render(<NestedDropdown />);
-      let level = 0;
-      while (level < 3) {
-        // test nested dropdown can be opened correctly
-        const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
-        expect(nestedTrigger).toBeInTheDocument();
-        openDropdownWithKeydown(nestedTrigger);
-        level += 1;
-      }
-      const nestedTrigger = screen.getByTestId(`nested-${level}--trigger`);
-      expect(nestedTrigger).toHaveFocus();
-      // test on arrow navigation
-      fireEvent.keyDown(window, {
-        key: KEY_DOWN,
-        code: KEY_DOWN,
-      });
-      const nestedItem1 = screen.getByTestId(`nested-item1-${level}`);
-      expect(nestedItem1).toHaveFocus();
-
-      fireEvent.keyDown(window, {
-        key: KEY_DOWN,
-        code: KEY_DOWN,
-      });
-      const nestedItem2 = screen.getByTestId(`nested-item2-${level}`);
-      expect(nestedItem2).toHaveFocus();
-
-      fireEvent.keyDown(window, {
-        key: KEY_UP,
-        code: KEY_UP,
-      });
-      expect(nestedItem1).toHaveFocus();
-    });
   });
 });

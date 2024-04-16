@@ -39,13 +39,6 @@ import {
   SetUpParams,
   userEventOptionsWithAdvanceTimers,
 } from './common/setup.test-utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-jest.mock('@atlaskit/platform-feature-flags');
-
-afterEach(() => {
-  (getBooleanFF as jest.Mock).mockReset();
-});
 
 describe('HoverCard', () => {
   let mockClient: CardClient;

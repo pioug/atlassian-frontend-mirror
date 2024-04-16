@@ -221,12 +221,11 @@ export default function createUniversalPreset(
             !props.allowTables || typeof props.allowTables === 'boolean'
               ? {}
               : props.allowTables,
-          tableResizingEnabled:
-            getBooleanFF('platform.editor.custom-table-width') &&
-            ['full-page', 'full-width'].includes(appearance || ''),
+          tableResizingEnabled: ['full-page', 'full-width'].includes(
+            appearance || '',
+          ),
           dragAndDropEnabled: featureFlags?.tableDragAndDrop && isFullPage,
           isTableScalingEnabled: featureFlags?.tablePreserveWidth && isFullPage,
-          breakoutEnabled: appearance === 'full-page',
           allowContextualMenu: !isMobile,
           fullWidthEnabled: appearance === 'full-width',
           wasFullWidthEnabled:

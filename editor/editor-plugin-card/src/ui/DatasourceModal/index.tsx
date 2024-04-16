@@ -221,6 +221,7 @@ export const DatasourceModal = ({
       <div data-testid="confluence-search-config-modal">
         <ConfluenceSearchConfigModal
           datasourceId={datasourceId}
+          viewMode={isRegularCardNode ? 'inline' : 'table'}
           visibleColumnKeys={visibleColumnKeys}
           parameters={parameters as ConfluenceSearchDatasourceParameters}
           url={existingNode?.attrs.url}

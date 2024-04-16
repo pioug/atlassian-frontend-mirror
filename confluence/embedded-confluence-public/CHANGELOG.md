@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.16.1
+
+### Patch Changes
+
+- [#89001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89001) [`15de6b4d1879`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15de6b4d1879) - Update Login flow documentation
+
 ## 2.16.0
 
 ### Minor Changes

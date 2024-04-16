@@ -97,6 +97,7 @@ export function ContentComponent({
       onTextChanged={onTextChanged}
       closeStatusPicker={closeStatusPicker}
       onEnter={onEnter}
+      editorView={editorView}
     />
   );
 }

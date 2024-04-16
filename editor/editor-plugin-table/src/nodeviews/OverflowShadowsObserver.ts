@@ -1,9 +1,6 @@
 import rafSchedule from 'raf-schd';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
-import { tableInsertColumnButtonSize } from '../ui/consts';
 
 import { updateShadowListForStickyStyles } from './update-overflow-shadows';
 
@@ -67,9 +64,7 @@ export class OverflowShadowsObserver {
         {
           threshold: [0, 1],
           root: this.wrapper,
-          rootMargin: getBooleanFF('platform.editor.custom-table-width')
-            ? '0px'
-            : `0px ${tableInsertColumnButtonSize / 2}px 0px 0px`,
+          rootMargin: '0px',
         },
       );
       return;

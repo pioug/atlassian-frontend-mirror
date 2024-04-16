@@ -38,7 +38,7 @@
     "@atlaskit/editor-plugin-editor-disabled": "^1.0.0",
     "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-extension": "^1.1.0",
-    "@atlaskit/editor-plugin-table": "^7.6.0",
+    "@atlaskit/editor-plugin-table": "^7.7.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.1.0",

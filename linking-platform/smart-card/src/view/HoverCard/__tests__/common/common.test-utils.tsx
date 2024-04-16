@@ -15,6 +15,7 @@ import {
   getEventPayload,
 } from './analytics.test-utils';
 import { CardAction, CardActionOptions } from '../../../../view/Card/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
   advanceTimers: jest.advanceTimersByTime,
@@ -423,42 +424,101 @@ export const runCommonHoverCardTests = (
       expect(hoverCard).toBeNull();
     });
 
-    it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
-      'should add themMode query param if theming is supported',
-      async (providerKey) => {
-        const expectedPreviewUrl = 'http://some-preview-url-test.com';
+    describe('FF enableThemeStateUrl', () => {
+      ffTest.on(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF on',
+        () => {
+          it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
+            'should add themeState query param if theming is supported',
+            async (providerKey) => {
+              const expectedPreviewUrl = 'http://some-preview-url-test.com';
 
-        let mock = {
-          ...mockConfluenceResponse,
-          meta: { ...mockConfluenceResponse.meta, key: providerKey },
-          data: {
-            ...mockConfluenceResponse.data,
-            preview: {
-              '@type': 'Link',
-              href: expectedPreviewUrl,
+              let mock = {
+                ...mockConfluenceResponse,
+                meta: { ...mockConfluenceResponse.meta, key: providerKey },
+                data: {
+                  ...mockConfluenceResponse.data,
+                  preview: {
+                    '@type': 'Link',
+                    href: expectedPreviewUrl,
+                  },
+                },
+              };
+
+              const { findByTestId, event } = await setup({
+                mock,
+                extraCardProps: { url: 'http://some-preview-url-test.com' },
+              });
+
+              const previewButton = await findByTestId('preview-content');
+              await event.click(previewButton);
+              const iframeEl = await findByTestId(
+                `smart-embed-preview-modal-embed`,
+              );
+              expect(iframeEl).toBeTruthy();
+
+              if (providerKey !== 'not-supported-provider') {
+                expect(iframeEl.getAttribute('src')).toEqual(
+                  `${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
+                );
+              } else {
+                expect(iframeEl.getAttribute('src')).toEqual(
+                  expectedPreviewUrl,
+                );
+              }
             },
-          },
-        };
-
-        const { findByTestId, event } = await setup({
-          mock,
-          extraCardProps: { url: 'http://some-preview-url-test.com' },
-        });
-
-        const previewButton = await findByTestId('preview-content');
-        await event.click(previewButton);
-        const iframeEl = await findByTestId(`smart-embed-preview-modal-embed`);
-        expect(iframeEl).toBeTruthy();
-
-        if (providerKey !== 'not-supported-provider') {
-          expect(iframeEl.getAttribute('src')).toEqual(
-            `${expectedPreviewUrl}?themeMode=dark`,
           );
-        } else {
-          expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
-        }
-      },
-    );
+        },
+      );
+
+      ffTest.off(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF off',
+        () => {
+          it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
+            'should add themeMode query param if theming is supported',
+            async (providerKey) => {
+              const expectedPreviewUrl = 'http://some-preview-url-test.com';
+
+              let mock = {
+                ...mockConfluenceResponse,
+                meta: { ...mockConfluenceResponse.meta, key: providerKey },
+                data: {
+                  ...mockConfluenceResponse.data,
+                  preview: {
+                    '@type': 'Link',
+                    href: expectedPreviewUrl,
+                  },
+                },
+              };
+
+              const { findByTestId, event } = await setup({
+                mock,
+                extraCardProps: { url: 'http://some-preview-url-test.com' },
+              });
+
+              const previewButton = await findByTestId('preview-content');
+              await event.click(previewButton);
+              const iframeEl = await findByTestId(
+                `smart-embed-preview-modal-embed`,
+              );
+              expect(iframeEl).toBeTruthy();
+
+              if (providerKey !== 'not-supported-provider') {
+                expect(iframeEl.getAttribute('src')).toEqual(
+                  `${expectedPreviewUrl}?themeMode=dark`,
+                );
+              } else {
+                expect(iframeEl.getAttribute('src')).toEqual(
+                  expectedPreviewUrl,
+                );
+              }
+            },
+          );
+        },
+      );
+    });
   });
 
   describe('server-side actions', () => {

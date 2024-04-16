@@ -18,6 +18,7 @@ const DropdownMenuStatelessExample = () => {
       trigger="Filter city"
       appearance="default"
       testId="lite-mode-ddm"
+      shouldRenderToParent
     >
       <DropdownItemRadioGroup id="cities">
         <DropdownItemRadio id="sydney" defaultSelected>

@@ -32,7 +32,7 @@ const MessageWithAnchor = ({
   <FormattedMessage
     {...message}
     values={{
-      a: (chunks: string) => (
+      a: (chunks: React.ReactNode[]) => (
         <AILearnMoreAnchor href={url}>{chunks}</AILearnMoreAnchor>
       ),
     }}

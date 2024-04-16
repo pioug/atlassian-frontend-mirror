@@ -23,7 +23,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { B300, N0, N20A, N300, N40A, R500 } from '@atlaskit/theme/colors';
+import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -254,36 +254,6 @@ const tableStickyHeaderFirefoxFixStyle = () => {
     return css`
       .${ClassName.TABLE_STICKY} > tbody::before {
         content: '';
-      }
-    `;
-  }
-};
-
-const tableWrapperStyles = () => {
-  if (getBooleanFF('platform.editor.custom-table-width')) {
-    return css`
-      .${ClassName.TABLE_NODE_WRAPPER} {
-        padding-bottom: 0px;
-        /* fixes gap cursor height */
-        overflow: auto;
-        overflow-y: hidden;
-        position: relative;
-
-        > table[data-number-column='true'] {
-          width: calc(100% - 1px);
-        }
-      }
-    `;
-  } else {
-    return css`
-      .${ClassName.TABLE_NODE_WRAPPER} {
-        padding-right: ${insertColumnButtonOffset}px;
-        margin-right: -${insertColumnButtonOffset}px;
-        padding-bottom: 0px;
-        /* fixes gap cursor height */
-        overflow: auto;
-        overflow-y: hidden;
-        position: relative;
       }
     `;
   }
@@ -608,9 +578,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 
   .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
     .${ClassName.CORNER_CONTROLS}, .${ClassName.CONTROLS_CORNER_BUTTON} {
-      width: ${getBooleanFF('platform.editor.custom-table-width')
-        ? akEditorTableToolbarSize + akEditorTableNumberColumnWidth + 1
-        : akEditorTableToolbarSize + akEditorTableNumberColumnWidth}px;
+      width: ${akEditorTableToolbarSize + akEditorTableNumberColumnWidth + 1}px;
     }
     .${ClassName.ROW_CONTROLS} .${ClassName.CONTROLS_BUTTON} {
       border-right-width: 0;
@@ -861,9 +829,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
   .${ClassName.NUMBERED_COLUMN} {
     position: relative;
     float: right;
-    margin-left: ${getBooleanFF('platform.editor.custom-table-width')
-      ? akEditorTableToolbarSize
-      : akEditorTableToolbarSize - 1}px;
+    margin-left: ${akEditorTableToolbarSize}px;
     top: ${props.featureFlags?.tableDragAndDrop
       ? 0
       : akEditorTableToolbarSize}px;
@@ -914,9 +880,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
       display: block;
     }
     .${ClassName.NUMBERED_COLUMN} {
-      padding-left: ${getBooleanFF('platform.editor.custom-table-width')
-        ? 0
-        : 1}px;
+      padding-left: 0px;
 
       .${ClassName.NUMBERED_COLUMN_BUTTON} {
         border-left: 0 none;
@@ -1082,23 +1046,21 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
     z-index: ${akEditorTableCellOnStickyHeaderZIndex - 4};
   }
 
-  ${tableWrapperStyles()}
+  .${ClassName.TABLE_NODE_WRAPPER} {
+    padding-bottom: 0px;
+    /* fixes gap cursor height */
+    overflow: auto;
+    overflow-y: hidden;
+    position: relative;
+
+    > table[data-number-column='true'] {
+      width: calc(100% - 1px);
+    }
+  }
 `;
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4139
 export const tableStyles = (props: { featureFlags?: FeatureFlags }) => css`
-  .${ClassName.LAYOUT_BUTTON} button {
-    background: ${token('color.background.neutral', N20A)};
-    color: ${token('color.icon', N300)};
-    cursor: none;
-  }
-
-  .${ClassName.LAYOUT_BUTTON}:not(.${ClassName.IS_RESIZING}) button:hover {
-    background: ${token('color.background.neutral.hovered', B300)};
-    color: ${token('color.icon', 'white')} !important;
-    cursor: pointer;
-  }
-
   .ProseMirror {
     ${baseTableStyles(props)}
   }

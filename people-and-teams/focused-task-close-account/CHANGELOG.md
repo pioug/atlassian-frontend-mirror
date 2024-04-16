@@ -1,5 +1,11 @@
 # @atlaskit/focused-task-close-account
 
+## 2.1.10
+
+### Patch Changes
+
+- [#90546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90546) [`e3e2542b4963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3e2542b4963) - Update TypeScript type parameters when using `FormattedMessage` from `react-intl` to improve compatibility with React 18
+
 ## 2.1.9
 
 ### Patch Changes

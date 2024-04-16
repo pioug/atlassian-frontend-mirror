@@ -120,7 +120,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               <FormattedMessage
                 {...messages.kudosCreatedDescriptionFlag}
                 values={{
-                  a: (s: string) => (
+                  a: (s: React.ReactNode[]) => (
                     <a
                       href={`${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`}
                     >
@@ -173,7 +173,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               <FormattedMessage
                 {...messages.JiraKudosCreationFailedDescriptionFlag}
                 values={{
-                  a: (s: string) => (
+                  a: (s: React.ReactNode[]) => (
                     <a href={flagEvent.jiraKudosFormUrl}>{s}</a>
                   ),
                 }}
@@ -230,7 +230,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
                 <FormattedMessage
                   {...messages.kudosCreatedDescriptionFlag}
                   values={{
-                    a: (s: string) => (
+                    a: (s: React.ReactNode[]) => (
                       <a href={`${teamCentralBaseUrl}/people/kudos/${uuid}`}>
                         {s}
                       </a>

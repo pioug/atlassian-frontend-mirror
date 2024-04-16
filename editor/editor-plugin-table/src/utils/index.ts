@@ -23,7 +23,6 @@ export {
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
   checkIfNumberColumnEnabled,
-  isLayoutSupported,
   getTableWidth,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,

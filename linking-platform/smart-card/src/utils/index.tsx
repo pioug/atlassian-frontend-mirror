@@ -3,6 +3,9 @@ import Loadable from 'react-loadable';
 
 import type { CardProps } from '../view/Card';
 import { FrameStyle } from '../view/EmbedCard/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
+import { themeObjectToString } from '@atlaskit/tokens';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
 
@@ -362,4 +365,28 @@ export const combineFrameStyle = (
   if (isFrameVisible) {
     return 'show';
   }
+};
+
+/**
+ * Append a theme to the URL if it exists
+ * @param previewUrl
+ * @param themeState
+ */
+export const getPreviewUrlWithTheme = (
+  previewUrl: string,
+  themeState: Partial<ActiveThemeState>,
+): string => {
+  if (
+    getBooleanFF('platform.linking-platform.smart-card.enable-theme-state-url')
+  ) {
+    const themeStateQueryString = encodeURIComponent(
+      themeObjectToString(themeState),
+    );
+    return `${previewUrl}${
+      previewUrl.includes('?') ? '&' : '?'
+    }themeState=${themeStateQueryString}`;
+  }
+  return `${previewUrl}${previewUrl.includes('?') ? '&' : '?'}themeMode=${
+    themeState.colorMode
+  }`;
 };

@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownItemMultilineExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
+    <DropdownMenu trigger="Page actions" shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem
           description="This is a really long description that is associated with the Edit menu item.

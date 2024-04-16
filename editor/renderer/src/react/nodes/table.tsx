@@ -4,7 +4,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { TableLayout, UrlType } from '@atlaskit/adf-schema';
 import {
-  calcTableWidth,
   TableSharedCssClassName,
   tableMarginTop,
 } from '@atlaskit/editor-common/styles';
@@ -22,7 +21,6 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 
 import type {
@@ -50,7 +48,6 @@ type TableArrayMapped = {
 };
 
 export const isTableResizingEnabled = (appearance: RendererAppearance) =>
-  getBooleanFF('platform.editor.custom-table-width') &&
   isFullWidthOrFullPageAppearance(appearance);
 
 const orderChildren = (
@@ -388,7 +385,6 @@ export class TableContainer extends React.Component<
     const { stickyMode } = this.state;
 
     const lineLength = akEditorDefaultLayoutWidth;
-    let tableWidth: number | 'inherit';
     let left: number | undefined;
     let updatedLayout: TableLayout | 'custom';
 
@@ -398,10 +394,10 @@ export class TableContainer extends React.Component<
     const isRenderWidthValid = !!renderWidth && renderWidth > 0;
 
     const calcDefaultLayoutWidthByAppearance = (
-      tableNode: PMNode,
       rendererAppearance: RendererAppearance,
+      tableNode?: PMNode,
     ) => {
-      if (rendererAppearance === 'full-width' && !tableNode.attrs.width) {
+      if (rendererAppearance === 'full-width' && !tableNode?.attrs.width) {
         return isRenderWidthValid
           ? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
           : akEditorFullWidthLayoutWidth;
@@ -414,20 +410,12 @@ export class TableContainer extends React.Component<
       }
     };
 
-    if (isTableResizingEnabled(rendererAppearance) && tableNode) {
-      tableWidth = calcDefaultLayoutWidthByAppearance(
-        tableNode,
-        rendererAppearance,
-      );
-    } else {
-      tableWidth = calcTableWidth(layout, renderWidth, false);
-    }
+    const tableWidth = calcDefaultLayoutWidthByAppearance(
+      rendererAppearance,
+      tableNode,
+    );
 
-    if (
-      canUseLinelength(rendererAppearance) &&
-      tableWidth !== 'inherit' &&
-      tableWidth > lineLength
-    ) {
+    if (canUseLinelength(rendererAppearance) && tableWidth > lineLength) {
       left = lineLength / 2 - tableWidth / 2;
     }
 
@@ -440,11 +428,10 @@ export class TableContainer extends React.Component<
       rendererAppearance === 'full-width' &&
       layout !== 'full-width';
 
-    const hasCustomWidth =
-      isTableResizingEnabled(rendererAppearance) && tableNode?.attrs.width;
     if (isFullWidth) {
       updatedLayout = 'full-width';
-    } else if (hasCustomWidth) {
+      // if table has width explicity set, ensure SSR is handled
+    } else if (tableNode?.attrs.width) {
       updatedLayout = 'custom';
     } else {
       updatedLayout = layout;
@@ -452,28 +439,6 @@ export class TableContainer extends React.Component<
 
     return (
       <>
-        {!getBooleanFF('platform.editor.custom-table-width') &&
-          stickyHeaders &&
-          tableCanBeSticky(tableNode, children) && (
-            <StickyTable
-              isNumberColumnEnabled={isNumberColumnEnabled}
-              tableWidth={tableWidth}
-              layout={layout}
-              renderWidth={renderWidth}
-              handleRef={this.props.handleRef}
-              shadowClassNames={this.props.shadowClassNames}
-              top={this.stickyTop}
-              left={left}
-              mode={stickyMode}
-              innerRef={this.stickyWrapperRef}
-              wrapperWidth={this.state.wrapperWidth}
-              columnWidths={columnWidths}
-              rowHeight={this.state.headerRowHeight}
-              rendererAppearance={rendererAppearance}
-            >
-              {[children && children[0]]}
-            </StickyTable>
-          )}
         <div
           className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
             this.props.shadowClassNames || ''
@@ -486,28 +451,26 @@ export class TableContainer extends React.Component<
             left,
           }}
         >
-          {getBooleanFF('platform.editor.custom-table-width') &&
-            stickyHeaders &&
-            tableCanBeSticky(tableNode, children) && (
-              <StickyTable
-                isNumberColumnEnabled={isNumberColumnEnabled}
-                tableWidth={tableWidth}
-                layout={layout}
-                renderWidth={renderWidth}
-                handleRef={this.props.handleRef}
-                shadowClassNames={this.props.shadowClassNames}
-                top={this.stickyTop}
-                mode={stickyMode}
-                innerRef={this.stickyWrapperRef}
-                wrapperWidth={this.state.wrapperWidth}
-                columnWidths={columnWidths}
-                rowHeight={this.state.headerRowHeight}
-                tableNode={tableNode}
-                rendererAppearance={rendererAppearance}
-              >
-                {[children && children[0]]}
-              </StickyTable>
-            )}
+          {stickyHeaders && tableCanBeSticky(tableNode, children) && (
+            <StickyTable
+              isNumberColumnEnabled={isNumberColumnEnabled}
+              tableWidth={tableWidth}
+              layout={layout}
+              renderWidth={renderWidth}
+              handleRef={this.props.handleRef}
+              shadowClassNames={this.props.shadowClassNames}
+              top={this.stickyTop}
+              mode={stickyMode}
+              innerRef={this.stickyWrapperRef}
+              wrapperWidth={this.state.wrapperWidth}
+              columnWidths={columnWidths}
+              rowHeight={this.state.headerRowHeight}
+              tableNode={tableNode}
+              rendererAppearance={rendererAppearance}
+            >
+              {[children && children[0]]}
+            </StickyTable>
+          )}
           <div
             className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
             ref={this.wrapperRef}
@@ -647,6 +610,7 @@ const TableWithWidth = (
           : width;
       const colWidthsSum =
         props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
+
       if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {
         return <TableWithShadows renderWidth={renderWidth} {...props} />;
       }

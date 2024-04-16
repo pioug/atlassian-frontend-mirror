@@ -3,7 +3,6 @@ import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getTableScalingPercent } from './misc';
 
@@ -21,70 +20,50 @@ export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
 export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
   const cols: Col[] = [];
 
-  if (getBooleanFF('platform.editor.custom-table-width')) {
-    const map = TableMap.get(table);
-    table.content.firstChild!.content.forEach((cell) => {
-      const colspan = cell.attrs.colspan || 1;
-      if (Array.isArray(cell.attrs.colwidth)) {
-        // We slice here to guard against our colwidth array having more entries
-        // Than the we actually span. We'll patch the document at a later point.
-        if (tableRef) {
-          const scalePercent = getTableScalingPercent(table, tableRef);
-          cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-            const fixedColWidth = getColWidthFix(width, map.width);
-            const scaledWidth = fixedColWidth * scalePercent;
-            const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
-            cols.push([
-              'col',
-              {
-                style: `width: ${finalWidth}px;`,
-              },
-            ]);
-          });
-        } else {
-          cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-            cols.push([
-              'col',
-              {
-                style: `width: ${getColWidthFix(
-                  width
-                    ? Math.max(width, tableCellMinWidth)
-                    : tableCellMinWidth,
-                  map.width,
-                )}px;`,
-              },
-            ]);
-          });
-        }
-      } else {
-        // When we have merged cells on the first row (firstChild),
-        // We want to ensure we're creating the appropriate amount of
-        // cols the table still has.
-        cols.push(
-          ...Array.from({ length: colspan }, (_) => [
-            'col',
-            { style: `width: ${tableCellMinWidth}px;` },
-          ]),
-        );
-      }
-    });
-  } else {
-    table.content.firstChild!.content.forEach((cell) => {
-      const colspan = cell.attrs.colspan || 1;
-      if (Array.isArray(cell.attrs.colwidth)) {
-        // We slice here to guard against our colwidth array having more entries
-        // Than the we actually span. We'll patch the document at a later point.
+  const map = TableMap.get(table);
+  table.content.firstChild!.content.forEach((cell) => {
+    const colspan = cell.attrs.colspan || 1;
+    if (Array.isArray(cell.attrs.colwidth)) {
+      // We slice here to guard against our colwidth array having more entries
+      // Than the we actually span. We'll patch the document at a later point.
+      if (tableRef) {
+        const scalePercent = getTableScalingPercent(table, tableRef);
         cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
-          cols.push(['col', width ? { style: `width: ${width}px;` } : {}]);
+          const fixedColWidth = getColWidthFix(width, map.width);
+          const scaledWidth = fixedColWidth * scalePercent;
+          const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
+          cols.push([
+            'col',
+            {
+              style: `width: ${finalWidth}px;`,
+            },
+          ]);
         });
       } else {
-        // When we have merged cells on the first row (firstChild),
-        // We want to ensure we're creating the appropriate amount of
-        // cols the table still has.
-        cols.push(...Array.from({ length: colspan }, (_) => ['col', {}]));
+        cell.attrs.colwidth.slice(0, colspan).forEach((width) => {
+          cols.push([
+            'col',
+            {
+              style: `width: ${getColWidthFix(
+                width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth,
+                map.width,
+              )}px;`,
+            },
+          ]);
+        });
       }
-    });
-  }
+    } else {
+      // When we have merged cells on the first row (firstChild),
+      // We want to ensure we're creating the appropriate amount of
+      // cols the table still has.
+      cols.push(
+        ...Array.from({ length: colspan }, (_) => [
+          'col',
+          { style: `width: ${tableCellMinWidth}px;` },
+        ]),
+      );
+    }
+  });
 
   return cols;
 };

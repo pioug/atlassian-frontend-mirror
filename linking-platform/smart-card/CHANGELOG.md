@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.55.1
+
+### Patch Changes
+
+- [#90546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90546) [`e3e2542b4963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3e2542b4963) - Update TypeScript type parameters when using `FormattedMessage` from `react-intl` to improve compatibility with React 18
+
+## 26.55.0
+
+### Minor Changes
+
+- [#89962](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89962) [`56ed342d14f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56ed342d14f6) - EDM-9541: append embedded smart-cards with themeState query parameter under FF `platform.linking-platform.smart-card.enable-theme-state-url`
+
 ## 26.54.0
 
 ### Minor Changes

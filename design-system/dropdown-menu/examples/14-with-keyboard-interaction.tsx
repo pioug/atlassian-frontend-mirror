@@ -27,6 +27,7 @@ export default () => {
           trigger="Open dropdown"
           testId="dropdown"
           onOpenChange={(e) => console.log('dropdown opened', e)}
+          shouldRenderToParent
         >
           <DropdownItemGroup>
             <DropdownItem
@@ -56,6 +57,7 @@ export default () => {
                   trigger="Open dropdown"
                   testId="dropdown"
                   onOpenChange={(e) => console.log('dropdown opened', e)}
+                  shouldRenderToParent
                 >
                   <DropdownItemGroup>
                     <DropdownItem

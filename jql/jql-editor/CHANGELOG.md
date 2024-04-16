@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 4.0.5
+
+### Patch Changes
+
+- [#90546](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90546) [`e3e2542b4963`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3e2542b4963) - Update TypeScript type parameters when using `FormattedMessage` from `react-intl` to improve compatibility with React 18
+
 ## 4.0.4
 
 ### Patch Changes

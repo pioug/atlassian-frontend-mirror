@@ -158,12 +158,15 @@ const calcBreakoutNodeWidth = (
     : absoluteBreakoutWidth(layout, containerWidth.width);
 };
 
-export const getTableContainerWidth = (node: PMNode): number => {
-  if (node.attrs.width) {
+export const getTableContainerWidth = (node?: PMNode): number => {
+  if (node?.attrs.width) {
     return node.attrs.width;
   }
 
-  return layoutToWidth[node.attrs.layout as TableLayout];
+  return (
+    layoutToWidth[node?.attrs.layout as TableLayout] ||
+    akEditorDefaultLayoutWidth
+  );
 };
 
 export const getTableWidthWithNumberColumn = (

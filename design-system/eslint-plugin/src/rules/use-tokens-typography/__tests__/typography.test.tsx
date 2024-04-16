@@ -112,6 +112,24 @@ export const typographyTests: Tests = {
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
+    // fontSize and fontWeight - 1 token match
+    // No fallbacks
+    {
+      options: [{ shouldEnforceFallbacks: false }],
+      code: outdent`
+        const styles = css({
+          fontSize: '14px',
+          fontWeight: 600,
+          padding: '8px'
+        })`,
+      output: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.heading.xsmall'),
+          padding: '8px'
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
     {
       code: outdent`
         const styles = css({
@@ -375,6 +393,29 @@ export const typographyTests: Tests = {
           font: token('font.body.large', fontFallback.body.large),
         fontWeight: token('font.weight.medium', '500'),
         fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+        fontStyle: 'italic',
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    // Font weight, Font family uses Charlie Text, font style italic, letterSpacing
+    // No fallbacks
+    {
+      options: [{ shouldEnforceFallbacks: false }],
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontSize: '16px',
+          fontWeight: 500,
+          fontFamily: 'Charlie Text',
+          fontStyle: 'italic',
+          letterSpacing: '-0.008em',
+        })`,
+      output: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body.large'),
+        fontWeight: token('font.weight.medium'),
+        fontFamily: token('font.family.brand.body'),
         fontStyle: 'italic',
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],

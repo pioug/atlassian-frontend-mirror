@@ -12,7 +12,7 @@ import withAnalytics from './components/analytics';
 import { useThemeObserver } from '@atlaskit/tokens';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
 import { ActionName, CardDisplay } from '../../constants';
-import { downloadUrl, openUrl } from '../../utils';
+import { downloadUrl, getPreviewUrlWithTheme, openUrl } from '../../utils';
 
 const toSize = (width: string) =>
   width === MAX_MODAL_SIZE ? EmbedModalSize.Large : EmbedModalSize.Small;
@@ -71,7 +71,8 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
     }
   }, [onResize, width]);
 
-  const { colorMode } = useThemeObserver();
+  const themeState = useThemeObserver();
+  const colorMode = themeState?.colorMode;
   let previewUrl = src;
 
   const handleOnViewActionClick = useCallback(() => {
@@ -93,9 +94,7 @@ const EmbedModal: React.FC<EmbedModalProps> = ({
   }, [download, extensionKey, invoke]);
 
   if (previewUrl && isSupportTheming && colorMode) {
-    previewUrl = `${previewUrl}${
-      previewUrl.includes('?') ? '&' : '?'
-    }themeMode=${colorMode}`;
+    previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
   }
 
   return (

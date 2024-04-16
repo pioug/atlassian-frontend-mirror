@@ -28,7 +28,6 @@ export interface ScaleOptions {
   previousContainerWidth?: number;
   parentWidth?: number;
   layoutChanged?: boolean;
-  isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
   isTableResizingEnabled?: boolean;
 }
@@ -41,34 +40,24 @@ export const scale = (
   domAtPos: DomAtPos,
   isTableScalingEnabled = false,
 ): ResizeState | undefined => {
-  /**
-   * isBreakoutEnabled === true -> default center aligned
-   * isBreakoutEnabled === false -> full width mode
-   */
-
   const {
     node,
     containerWidth,
     previousContainerWidth,
     prevNode,
     start,
-    isBreakoutEnabled,
     layoutChanged,
     isTableResizingEnabled,
   } = options;
 
   const maxSize = isTableResizingEnabled
     ? getTableContainerWidth(node)
-    : getLayoutSize(node.attrs.layout, containerWidth, {
-        isBreakoutEnabled,
-      });
+    : getLayoutSize(node.attrs.layout, containerWidth, {});
 
   const prevTableWidth = getTableWidth(prevNode);
   const previousMaxSize = isTableResizingEnabled
     ? getTableContainerWidth(node)
-    : getLayoutSize(prevNode.attrs.layout, previousContainerWidth, {
-        isBreakoutEnabled,
-      });
+    : getLayoutSize(prevNode.attrs.layout, previousContainerWidth, {});
 
   let newWidth = maxSize;
 

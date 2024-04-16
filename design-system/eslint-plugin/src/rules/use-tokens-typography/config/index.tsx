@@ -2,6 +2,7 @@ import { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 export type RuleConfig = {
   failSilently?: boolean;
+  shouldEnforceFallbacks?: boolean;
 };
 
 export const ruleSchema: JSONSchema4 = {
@@ -12,12 +13,16 @@ export const ruleSchema: JSONSchema4 = {
       failSilently: {
         type: 'boolean',
       },
+      shouldEnforceFallbacks: {
+        type: 'boolean',
+      },
     },
   },
 };
 
 const defaultConfig: RuleConfig = {
   failSilently: false,
+  shouldEnforceFallbacks: true,
 };
 
 export const getConfig = (overrides: RuleConfig): RuleConfig => {

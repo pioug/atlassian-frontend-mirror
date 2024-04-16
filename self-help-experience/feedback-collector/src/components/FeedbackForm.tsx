@@ -276,7 +276,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                                 <FormattedMessage
                                   {...messages.canBeContactedLabel}
                                   values={{
-                                    a: (chunks: string) => (
+                                    a: (chunks: React.ReactNode[]) => (
                                       <a
                                         href="https://www.atlassian.com/legal/privacy-policy"
                                         target="_blank"

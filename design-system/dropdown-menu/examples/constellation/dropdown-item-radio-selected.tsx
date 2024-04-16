@@ -9,7 +9,7 @@ const DropdownItemRadioExample = () => {
   const [selected, setSelected] = useState<string>('detail');
 
   return (
-    <DropdownMenu trigger="Views">
+    <DropdownMenu trigger="Views" shouldRenderToParent>
       <DropdownItemRadioGroup title="Views" id="actions">
         <DropdownItemRadio
           id="detail"

@@ -9,6 +9,7 @@ const NestedDropdown = () => {
   return (
     <DropdownMenu
       placement="right-start"
+      shouldRenderToParent
       trigger={({ triggerRef, ...triggerProps }) => (
         <DropdownItem
           {...triggerProps}
@@ -34,7 +35,7 @@ const NestedDropdown = () => {
 };
 const NestedDropdownMenuExample = () => {
   return (
-    <DropdownMenu trigger="Nested">
+    <DropdownMenu trigger="Nested" shouldRenderToParent>
       <DropdownItemGroup>
         <NestedDropdown />
         <DropdownItem>One of many items</DropdownItem>

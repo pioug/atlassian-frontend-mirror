@@ -24,7 +24,7 @@ const CustomComponentButton = forwardRef<
 
 const DropdownItemDescriptionExample = () => {
   return (
-    <DropdownMenu trigger="Page actions">
+    <DropdownMenu trigger="Page actions" shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem href="#test" component={CustomComponentLink}>
           Edit

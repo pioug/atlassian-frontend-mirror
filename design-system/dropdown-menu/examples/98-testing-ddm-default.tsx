@@ -8,6 +8,7 @@ const DropdownMenuDefault = () => {
       placement="bottom-start"
       testId="lite-mode-ddm"
       trigger="Click to open"
+      shouldRenderToParent
     >
       <DropdownItemGroup title="bleh">
         <DropdownItem>Move</DropdownItem>

@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuLabelExample = () => {
   return (
-    <DropdownMenu trigger="More" label="More actions">
+    <DropdownMenu trigger="More" label="More actions" shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Share</DropdownItem>

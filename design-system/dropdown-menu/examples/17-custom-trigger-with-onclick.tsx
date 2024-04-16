@@ -20,6 +20,7 @@ const DropdownMenuCustomTriggerWithOnClick = () => {
     <DropdownMenu<HTMLButtonElement>
       placement="bottom-end"
       testId="lite-mode-ddm"
+      shouldRenderToParent
       trigger={({ triggerRef, ...triggerProps }) => {
         return (
           <Button ref={triggerRef} {...triggerProps} onClick={onClick}>

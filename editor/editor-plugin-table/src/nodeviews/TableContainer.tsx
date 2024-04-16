@@ -7,7 +7,6 @@ import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -25,22 +24,6 @@ import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
 import type { TableResizerImprovementProps } from './TableResizer';
-
-const getMarginLeft = (
-  lineLength: number | undefined,
-  tableWidth: number | 'inherit',
-) => {
-  let marginLeft;
-  if (tableWidth !== 'inherit' && lineLength) {
-    const containerWidth = tableWidth;
-
-    if (containerWidth) {
-      marginLeft = (lineLength - containerWidth) / 2;
-    }
-  }
-
-  return marginLeft;
-};
 
 type InnerContainerProps = {
   className: string;
@@ -265,7 +248,6 @@ type TableContainerProps = {
   className: string;
   containerWidth: EditorContainerWidth;
   isTableResizingEnabled: boolean | undefined;
-  isBreakoutEnabled: boolean | undefined;
   editorView: EditorView;
   getPos: () => number | undefined;
   tableRef: HTMLTableElement;
@@ -281,9 +263,8 @@ export const TableContainer = ({
   children,
   node,
   className,
-  containerWidth: { lineLength, width: editorWidth },
+  containerWidth: { width: editorWidth },
   isTableResizingEnabled,
-  isBreakoutEnabled,
   editorView,
   getPos,
   tableRef,
@@ -314,10 +295,6 @@ export const TableContainer = ({
     );
   }
 
-  const tableWidth = isBreakoutEnabled
-    ? calcTableWidth(node.attrs.layout, editorWidth)
-    : 'inherit';
-
   return (
     <InnerContainer
       node={node}
@@ -325,8 +302,7 @@ export const TableContainer = ({
         'less-padding': editorWidth < akEditorMobileBreakoutPoint && !isNested,
       })}
       style={{
-        width: tableWidth,
-        marginLeft: getMarginLeft(lineLength!, tableWidth),
+        width: 'inherit',
       }}
     >
       {children}

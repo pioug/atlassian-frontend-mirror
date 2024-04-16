@@ -7,14 +7,14 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
-export const DividerLine = styled.div`
-  background-color: ${token('color.border', colors.N30A)};
-  height: 2px;
-  width: 100%;
-  padding: 0 ${token('space.200', '16px')};
-  margin-top: ${token('space.200', '16px')};
-  box-sizing: border-box;
-`;
+export const DividerLine = styled.div({
+  backgroundColor: token('color.border', colors.N30A),
+  height: '2px',
+  width: '100%',
+  padding: `0 ${token('space.200', '16px')}`,
+  marginTop: token('space.200', '16px'),
+  boxSizing: 'border-box',
+});
 
 /**
  * Loading container
@@ -26,38 +26,38 @@ type LoadingRectangleProps = {
   marginTop?: string;
 };
 
-const shimmer = keyframes`
-    0% {
-        background-position: -300px 0;
-    }
-    100% {
-        background-position: 1000px 0;
-    }
-`;
+const shimmer = keyframes({
+  '0%': {
+    backgroundPosition: '-300px 0',
+  },
+  '100%': {
+    backgroundPosition: '1000px 0',
+  },
+});
 
-export const LoadingRectangle = styled.div<LoadingRectangleProps>`
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: ${(props) => (props.contentHeight ? props.contentHeight : '1rem')};
-  margin-top: ${(props) =>
-    props.marginTop ? props.marginTop : gridSize() + 'px'};
-  width: ${(props) => (props.contentWidth ? props.contentWidth : '100%')};
-  border-radius: 2px;
-  animation-duration: 1.2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: ${shimmer};
-  animation-timing-function: linear;
-  background-color: ${token('color.background.neutral', colors.N30)};
-  background-image: linear-gradient(
-    to right,
-    ${token('color.background.neutral.subtle', colors.N30)} 10%,
-    ${token('color.background.neutral', colors.N40)} 20%,
-    ${token('color.background.neutral.subtle', colors.N30)} 30%
-  );
-  background-repeat: no-repeat;
-`;
+export const LoadingRectangle = styled.div<LoadingRectangleProps>((props) => ({
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  position: 'relative',
+  height: props.contentHeight ? props.contentHeight : '1rem',
+  marginTop: props.marginTop ? props.marginTop : gridSize() + 'px',
+  width: props.contentWidth ? props.contentWidth : '100%',
+  borderRadius: '2px',
+  animationDuration: '1.2s',
+  animationFillMode: 'forwards',
+  animationIterationCount: 'infinite',
+  animationName: shimmer,
+  animationTimingFunction: 'linear',
+  backgroundColor: token('color.background.neutral', colors.N30),
+  backgroundImage: `linear-gradient( to right, ${token(
+    'color.background.neutral.subtle',
+    colors.N30,
+  )} 10%, ${token('color.background.neutral', colors.N40)} 20%, ${token(
+    'color.background.neutral.subtle',
+    colors.N30,
+  )} 30% )`,
+  backgroundRepeat: 'no-repeat',
+}));
 
 /**
  * Loading Circle
@@ -67,28 +67,29 @@ type LoadingCircleProps = {
   marginTop?: string;
 };
 
-export const LoadingCircle = styled.div<LoadingCircleProps>`
-  display: inline-block;
-  vertical-align: middle;
-  position: relative;
-  height: ${(props) => (props.radius ? props.radius : `${gridSize() * 4}px`)};
-  margin-top: ${(props) => (props.marginTop ? props.marginTop : '')};
-  width: ${(props) => (props.radius ? props.radius : `${gridSize() * 4}px`)};
-  border-radius: 50%;
-  animation-duration: 1.2s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: infinite;
-  animation-name: ${shimmer};
-  animation-timing-function: linear;
-  background-color: ${token('color.background.neutral', colors.N30)};
-  background-image: linear-gradient(
-    to right,
-    ${token('color.background.neutral.subtle', colors.N30)} 10%,
-    ${token('color.background.neutral', colors.N40)} 20%,
-    ${token('color.background.neutral.subtle', colors.N30)} 30%
-  );
-  background-repeat: no-repeat;
-`;
+export const LoadingCircle = styled.div<LoadingCircleProps>((props) => ({
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  position: 'relative',
+  height: props.radius ? props.radius : `${gridSize() * 4}px`,
+  marginTop: props.marginTop ? props.marginTop : '',
+  width: props.radius ? props.radius : `${gridSize() * 4}px`,
+  borderRadius: '50%',
+  animationDuration: '1.2s',
+  animationFillMode: 'forwards',
+  animationIterationCount: 'infinite',
+  animationName: shimmer,
+  animationTimingFunction: 'linear',
+  backgroundColor: token('color.background.neutral', colors.N30),
+  backgroundImage: `linear-gradient( to right, ${token(
+    'color.background.neutral.subtle',
+    colors.N30,
+  )} 10%, ${token('color.background.neutral', colors.N40)} 20%, ${token(
+    'color.background.neutral.subtle',
+    colors.N30,
+  )} 30% )`,
+  backgroundRepeat: 'no-repeat',
+}));
 
 /**
  * What's new icon
@@ -97,6 +98,7 @@ type WhatsNewTypeIconProps = {
   type?: WHATS_NEW_ITEM_TYPES;
 };
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   display: inline-block;
   vertical-align: middle;

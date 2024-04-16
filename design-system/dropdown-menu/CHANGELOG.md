@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 12.8.5
+
+### Patch Changes
+
+- [#84970](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84970) [`ad0e069e2829`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad0e069e2829) - This removes the `platform.design-system-team.disable-focus-lock-in-popup_7kb4d` feature flag. The dropdown menu can be closed by pressing Tab or Shift + Tab if `shouldRenderToParent` is true.
+
 ## 12.8.4
 
 ### Patch Changes

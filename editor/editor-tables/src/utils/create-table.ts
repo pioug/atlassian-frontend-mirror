@@ -3,7 +3,6 @@ import type {
   Node as PMNode,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { tableNodeTypes } from './table-node-types';
 import { uuid } from './uuid';
@@ -73,11 +72,8 @@ export const createTable = ({
       ),
     );
   }
-  if (getBooleanFF('platform.editor.custom-table-width')) {
-    return table.createChecked(
-      { localId: uuid.generate(), width: tableWidth ?? 760 },
-      rows,
-    );
-  }
-  return table.createChecked({ localId: uuid.generate() }, rows);
+  return table.createChecked(
+    { localId: uuid.generate(), width: tableWidth ?? 760 },
+    rows,
+  );
 };

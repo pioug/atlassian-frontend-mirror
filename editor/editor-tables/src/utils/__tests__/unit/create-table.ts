@@ -72,7 +72,7 @@ describe('createTable', () => {
       expect(tableResult.content.childCount).toEqual(3);
 
       expect(tableResult).toEqualDocument(
-        table({ localId: TABLE_LOCAL_ID })(
+        table({ localId: TABLE_LOCAL_ID, width: 760 })(
           row(thWithRandomText, thWithRandomText, thWithRandomText),
           row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
           row(tdWithRandomText, tdWithRandomText, tdWithRandomText),
@@ -91,7 +91,7 @@ describe('createTable', () => {
       });
       expect(tableResult.content.childCount).toEqual(3);
       expect(tableResult).toEqualDocument(
-        table({ localId: TABLE_LOCAL_ID })(
+        table({ localId: TABLE_LOCAL_ID, width: 760 })(
           row(hEmpty, hEmpty, hEmpty),
           row(cEmpty, cEmpty, cEmpty),
           row(cEmpty, cEmpty, cEmpty),
@@ -107,7 +107,7 @@ describe('createTable', () => {
       });
 
       expect(table.attrs).toEqual(
-        expect.objectContaining({ localId: TABLE_LOCAL_ID }),
+        expect.objectContaining({ localId: TABLE_LOCAL_ID, width: 760 }),
       );
     });
   });

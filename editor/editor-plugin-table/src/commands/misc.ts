@@ -79,7 +79,6 @@ export const setTableRef = (ref?: HTMLTableElement) =>
       const tableWrapperTarget =
         closestElement(tableRef, `.${ClassName.TABLE_NODE_WRAPPER}`) ||
         undefined;
-      const layout = tableNode ? tableNode.attrs.layout : undefined;
       const { isDragAndDropEnabled } = getPluginState(state);
 
       return {
@@ -89,7 +88,6 @@ export const setTableRef = (ref?: HTMLTableElement) =>
           tableNode,
           tablePos,
           tableWrapperTarget,
-          layout: layout || 'default',
           isNumberColumnEnabled: checkIfNumberColumnEnabled(state.selection),
           isHeaderRowEnabled: checkIfHeaderRowEnabled(state.selection),
           isHeaderColumnEnabled: checkIfHeaderColumnEnabled(state.selection),

@@ -21,13 +21,7 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import '@atlaskit/link-test-helpers/jest';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-jest.mock('@atlaskit/platform-feature-flags');
-
-afterEach(() => {
-  (getBooleanFF as jest.Mock).mockReset();
-});
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const baseData: JsonLd.Response['data'] = {
   '@type': 'Object',
@@ -131,30 +125,89 @@ describe('EmbedCard view component', () => {
       ).toEqual('100%');
     });
 
-    it.each([...PROVIDER_KEYS_WITH_THEMING, 'not-supported-provider'])(
-      'should add themMode query param if theming is supported',
-      (providerKey) => {
+    describe('FF enableThemeStateUrl', () => {
+      ffTest.on(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl on',
+        () => {
+          it.each([PROVIDER_KEYS_WITH_THEMING])(
+            'should add themeState query param if theming is supported',
+            (providerKey) => {
+              const cardStateOverrideWithThemeSupport: any = {
+                ...cardStateOverride,
+                details: {
+                  ...cardStateOverride.details,
+                  meta: {
+                    key: providerKey,
+                    access: 'granted',
+                    visibility: 'public',
+                  },
+                },
+              };
+              const { iframeEl } = setup(
+                cardStateOverrideWithThemeSupport,
+                expectedUrl,
+              );
+
+              expect(iframeEl.getAttribute('src')).toEqual(
+                `${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
+              );
+            },
+          );
+        },
+      );
+
+      ffTest.off(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl on',
+        () => {
+          it.each([PROVIDER_KEYS_WITH_THEMING])(
+            'should add themeMode query param if theming is supported',
+            (providerKey) => {
+              const cardStateOverrideWithThemeSupport: any = {
+                ...cardStateOverride,
+                details: {
+                  ...cardStateOverride.details,
+                  meta: {
+                    key: providerKey,
+                    access: 'granted',
+                    visibility: 'public',
+                  },
+                },
+              };
+              const { iframeEl } = setup(
+                cardStateOverrideWithThemeSupport,
+                expectedUrl,
+              );
+
+              expect(iframeEl.getAttribute('src')).toEqual(
+                `${expectedPreviewUrl}?themeMode=dark`,
+              );
+            },
+          );
+        },
+      );
+
+      // 'not-supported-provider' errors in FFTest as it does not reach FF code
+      it('should not add theme query param if theming is not supported', () => {
         const cardStateOverrideWithThemeSupport: any = {
           ...cardStateOverride,
           details: {
             ...cardStateOverride.details,
-            meta: { key: providerKey, access: 'granted', visibility: 'public' },
+            meta: {
+              key: 'not-supported-provider',
+              access: 'granted',
+              visibility: 'public',
+            },
           },
         };
         const { iframeEl } = setup(
           cardStateOverrideWithThemeSupport,
           expectedUrl,
         );
-
-        if (providerKey !== 'not-supported-provider') {
-          expect(iframeEl.getAttribute('src')).toEqual(
-            `${expectedPreviewUrl}?themeMode=dark`,
-          );
-        } else {
-          expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
-        }
-      },
-    );
+        expect(iframeEl.getAttribute('src')).toEqual(expectedPreviewUrl);
+      });
+    });
 
     it('should call handleFrameClick when title is clicked', () => {
       const { getByText, handleFrameClickMock } = setup(

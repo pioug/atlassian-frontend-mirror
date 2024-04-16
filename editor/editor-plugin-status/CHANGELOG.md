@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-status
 
+## 1.0.7
+
+### Patch Changes
+
+- [#89995](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89995) [`997eaf79583d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/997eaf79583d) - Disable status popup when Editor not in editable mode
+
 ## 1.0.6
 
 ### Patch Changes

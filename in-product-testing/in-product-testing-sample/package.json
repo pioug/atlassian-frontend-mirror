@@ -34,7 +34,7 @@
   "devDependencies": {
     "@atlaskit/editor-common": "^78.26.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@atlassian/notification-common": "^6.4.0",
+    "@atlassian/notification-common": "^6.5.0",
     "@atlassian/people-menu": "^56.7.0",
     "@atlassian/recent-work": "^2.6.0",
     "@testing-library/react": "^12.1.5",

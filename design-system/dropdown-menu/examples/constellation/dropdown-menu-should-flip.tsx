@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuShouldFlipExample = () => {
   return (
-    <DropdownMenu trigger="Page actions" shouldFlip>
+    <DropdownMenu trigger="Page actions" shouldFlip shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>
         <DropdownItem>Move</DropdownItem>

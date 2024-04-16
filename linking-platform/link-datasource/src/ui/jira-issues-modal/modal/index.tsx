@@ -29,7 +29,7 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import LinkUrl from '@atlaskit/smart-card/link-url';
-import { B400, N0, N800 } from '@atlaskit/theme/colors';
+import { N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -48,7 +48,7 @@ import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/u
 import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useDataRenderedUfoExperience';
 import { mapSearchMethod } from '../../../analytics/utils';
 import type {
-  IssueViewModes,
+  DisplayViewModes,
   JiraSearchMethod,
   Site,
 } from '../../../common/types';
@@ -69,9 +69,13 @@ import { InitialStateView } from '../../common/initial-state-view';
 import { initialStateViewMessages } from '../../common/initial-state-view/messages';
 import { CancelButton } from '../../common/modal/cancel-button';
 import { ContentContainer } from '../../common/modal/content-container';
+import {
+  SmartCardPlaceholder,
+  SmartLink,
+} from '../../common/modal/count-view-smart-link';
+import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import LinkRenderType from '../../issue-like-table/render-type/link';
 import { ColumnSizesMap } from '../../issue-like-table/types';
 import { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
@@ -83,30 +87,16 @@ import {
   JiraIssueDatasourceParametersQuery,
 } from '../types';
 
-import { JiraDisplayViewDropDown } from './jira-display-view-dropdown/jira-display-view-drop-down';
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
-
-const placeholderSmartLinkStyles = css({
-  backgroundColor: token('elevation.surface.raised', N0),
-  borderRadius: token('border.radius.200', '3px'),
-  boxShadow:
-    '0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-  color: token('color.text.brand', B400),
-  padding: `${token('space.0', '0px')} ${token('space.025', '2px')}`,
-});
 
 const issueCountStyles = css({
   flex: 1,
   fontWeight: 600,
 });
 
-const smartLinkContainerStyles = css({
-  paddingLeft: token('space.025', '2px'),
-});
-
 const getDisplayValue = (
-  currentViewMode: IssueViewModes,
+  currentViewMode: DisplayViewModes,
   itemCount: number,
 ) => {
   if (currentViewMode === 'issue') {
@@ -157,7 +147,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     undefined,
   );
   const [currentViewMode, setCurrentViewMode] =
-    useState<IssueViewModes>(viewMode);
+    useState<DisplayViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
   const [jql, setJql] = useState(initialParameters?.jql);
   const [searchBarJql, setSearchBarJql] = useState<string | undefined>(
@@ -582,9 +572,9 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     ],
   );
 
-  const handleViewModeChange = (selectedMode: string) => {
+  const handleViewModeChange = (selectedMode: DisplayViewModes) => {
     userInteractionActions.current.add(DatasourceAction.DISPLAY_VIEW_CHANGED);
-    setCurrentViewMode(selectedMode as IssueViewModes);
+    setCurrentViewMode(selectedMode);
   };
 
   const handleOnNextPage = useCallback(
@@ -660,16 +650,9 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
     } else if (status === 'empty' || !jql || !selectedJiraSiteUrl) {
       return (
-        <div css={smartLinkContainerStyles}>
-          <span
-            data-testid={`jira-datasource-modal--smart-card-placeholder`}
-            css={placeholderSmartLinkStyles}
-          >
-            <FormattedMessage
-              {...modalMessages.issuesCountSmartCardPlaceholderText}
-            />
-          </span>
-        </div>
+        <SmartCardPlaceholder
+          placeholderText={modalMessages.issuesCountSmartCardPlaceholderText}
+        />
       );
     } else {
       let url;
@@ -684,12 +667,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
             : encodeURI(jql)
         }`;
       }
-
-      return (
-        <div css={smartLinkContainerStyles}>
-          <LinkRenderType url={url} />
-        </div>
-      );
+      return <SmartLink url={url} />;
     }
   }, [
     jql,
@@ -804,7 +782,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
               />
             </ModalTitle>
             {!hasNoJiraSites && (
-              <JiraDisplayViewDropDown
+              <DisplayViewDropDown
                 onViewModeChange={handleViewModeChange}
                 viewMode={currentViewMode}
               />

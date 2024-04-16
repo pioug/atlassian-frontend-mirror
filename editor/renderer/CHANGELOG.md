@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 109.17.2
+
+### Patch Changes
+
+- [#86368](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86368) [`8499e6f0fef4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8499e6f0fef4) - Remove custom-table-width feature flag
+- Updated dependencies
+
 ## 109.17.1
 
 ### Patch Changes

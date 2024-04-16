@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.3.1
+
+### Patch Changes
+
+- [#89499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89499) [`1a3ac47ce689`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a3ac47ce689) - ED-22666 Disable editing when editor in view mode or edtable is false
+
 ## 1.3.0
 
 ### Minor Changes

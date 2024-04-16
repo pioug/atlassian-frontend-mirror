@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.6.14",
+  "version": "7.7.0",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -111,9 +111,6 @@
     }
   },
   "platform-feature-flags": {
-    "platform.editor.custom-table-width": {
-      "type": "boolean"
-    },
     "platform.editor.table.column-controls-styles-updated": {
       "type": "boolean"
     },

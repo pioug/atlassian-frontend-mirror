@@ -28,7 +28,12 @@ const ExampleDropdown = ({
   return (
     <Box>
       <Text as="p">{description}</Text>
-      <DropdownMenu trigger={placement} defaultOpen placement={placement}>
+      <DropdownMenu
+        trigger={placement}
+        defaultOpen
+        placement={placement}
+        shouldRenderToParent
+      >
         <DropdownItemGroup>{dropdownItems}</DropdownItemGroup>
       </DropdownMenu>
     </Box>

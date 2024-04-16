@@ -17,7 +17,7 @@ const DropdownMenuCheckboxStateless = () => {
   };
 
   return (
-    <DropdownMenu trigger="Choices" testId="lite-mode-ddm">
+    <DropdownMenu trigger="Choices" testId="lite-mode-ddm" shouldRenderToParent>
       <DropdownItemCheckboxGroup id="cities" title="Some cities">
         <DropdownItemCheckbox
           id="sydney"

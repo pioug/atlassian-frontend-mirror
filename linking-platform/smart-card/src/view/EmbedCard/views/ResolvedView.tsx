@@ -9,6 +9,7 @@ import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel, FrameStyle } from '../types';
 import { Frame } from '../components/Frame';
 import { useThemeObserver } from '@atlaskit/tokens';
+import { getPreviewUrlWithTheme } from '../../../utils';
 
 export interface EmbedCardResolvedViewProps {
   /** The title of the link */
@@ -81,13 +82,12 @@ export const EmbedCardResolvedView = React.forwardRef<
       return <ImageIcon src={src} default={linkGlyph} />;
     }, [src, linkGlyph, iconFromContext]);
 
-    const { colorMode } = useThemeObserver();
+    const themeState = useThemeObserver();
+    const colorMode = themeState?.colorMode;
     let previewUrl = preview?.src;
 
     if (previewUrl && isSupportTheming && colorMode) {
-      previewUrl = `${previewUrl}${
-        previewUrl.includes('?') ? '&' : '?'
-      }themeMode=${colorMode}`;
+      previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
     }
 
     return (

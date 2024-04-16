@@ -42,7 +42,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
             )}
             values={{
               fullName: user.fullName,
-              b: (s: string) => <b>{s}</b>,
+              b: (s: React.ReactNode[]) => <b>{s}</b>,
             }}
           />
         )}
@@ -55,7 +55,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
               )}
               values={{
                 fullName: user.fullName,
-                b: (s: string) => <b>{s}</b>,
+                b: (s: React.ReactNode[]) => <b>{s}</b>,
               }}
               tagName={'p'}
             />
@@ -75,7 +75,7 @@ export class DeleteUserOverviewScreen extends React.Component<DeleteUserOverview
             overviewMessages.paragraphPersonalDataWillBeDeletedSelf,
           )}
           values={{
-            b: (s: string) => <b>{s}</b>,
+            b: (s: React.ReactNode[]) => <b>{s}</b>,
           }}
         />
         <Styled.IconHoverWrapper>

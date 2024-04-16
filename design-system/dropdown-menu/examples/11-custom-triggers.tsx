@@ -10,6 +10,7 @@ const DropdownMenuCustomTrigger = () => {
     <DropdownMenu<HTMLButtonElement>
       placement="bottom-end"
       testId="lite-mode-ddm"
+      shouldRenderToParent
       trigger={({ triggerRef, ...triggerProps }) => (
         <Button ref={triggerRef} {...triggerProps} iconBefore={MoreIcon}>
           Click to open

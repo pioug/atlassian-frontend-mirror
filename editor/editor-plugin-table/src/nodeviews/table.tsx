@@ -376,7 +376,6 @@ export const createTableView = (
 ): NodeView => {
   const {
     pluginConfig,
-    isBreakoutEnabled,
     isFullWidthModeEnabled,
     wasFullWidthModeEnabled,
     isTableResizingEnabled,
@@ -395,7 +394,6 @@ export const createTableView = (
     eventDispatcher,
     getPos: getPos as getPosHandlerNode,
     options: {
-      isBreakoutEnabled,
       isFullWidthModeEnabled,
       wasFullWidthModeEnabled,
       isTableResizingEnabled,

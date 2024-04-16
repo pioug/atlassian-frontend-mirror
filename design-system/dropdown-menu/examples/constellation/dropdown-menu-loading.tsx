@@ -4,7 +4,7 @@ import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
 const DropdownMenuLoadingExample = () => {
   return (
-    <DropdownMenu isLoading trigger="Page actions">
+    <DropdownMenu isLoading trigger="Page actions" shouldRenderToParent>
       <DropdownItemGroup>
         <DropdownItem>Loaded action</DropdownItem>
       </DropdownItemGroup>

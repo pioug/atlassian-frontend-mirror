@@ -105,7 +105,7 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
                   <FormattedMessage
                     {...messages.ai_summarized_info}
                     values={{
-                      a: (chunks: string) => (
+                      a: (chunks: React.ReactNode[]) => (
                         <AILearnMoreAnchor css={iconTooltipLinkStyles}>
                           {chunks}
                         </AILearnMoreAnchor>
@@ -136,7 +136,7 @@ const AIStateDone: React.FC<Partial<AIStateIndicatorProps>> = ({
                     <FormattedMessage
                       {...messages.ai_summarized_info}
                       values={{
-                        a: (chunks: string) => (
+                        a: (chunks: React.ReactNode[]) => (
                           <AILearnMoreAnchor>{chunks}</AILearnMoreAnchor>
                         ),
                       }}

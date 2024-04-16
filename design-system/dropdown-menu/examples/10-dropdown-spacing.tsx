@@ -15,6 +15,7 @@ export default () => (
       trigger="Page actions"
       testId="dropdown"
       spacing="compact"
+      shouldRenderToParent
     >
       <DropdownItemGroup>
         <DropdownItem>Copy issue link</DropdownItem>
@@ -32,7 +33,12 @@ export default () => (
         <DropdownItemCheckbox id="filter">Filter</DropdownItemCheckbox>
       </DropdownItemGroup>
     </DropdownMenu>
-    <DropdownMenu isOpen trigger="Page actions" testId="dropdown">
+    <DropdownMenu
+      isOpen
+      trigger="Page actions"
+      testId="dropdown"
+      shouldRenderToParent
+    >
       <DropdownItemGroup>
         <DropdownItem>Copy issue link</DropdownItem>
         <DropdownItem>Add flag</DropdownItem>

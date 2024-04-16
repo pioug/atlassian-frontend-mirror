@@ -33,7 +33,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
             )}
             values={{
               fullName: user.fullName,
-              b: (s: string) => <b>{s}</b>,
+              b: (s: React.ReactNode[]) => <b>{s}</b>,
             }}
           />
         )}
@@ -46,7 +46,7 @@ export class DeactivateUserOverviewScreen extends React.Component<DeactivateUser
               )}
               values={{
                 fullName: user.fullName,
-                b: (s: string) => <b>{s}</b>,
+                b: (s: React.ReactNode[]) => <b>{s}</b>,
               }}
               tagName={'p'}
             />

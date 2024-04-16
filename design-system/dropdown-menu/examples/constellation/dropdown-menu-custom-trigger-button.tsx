@@ -11,6 +11,7 @@ const DropdownMenuCustomTriggerButtonExample = () => {
       trigger={({ triggerRef, ...props }) => (
         <IconButton {...props} icon={MoreIcon} label="more" ref={triggerRef} />
       )}
+      shouldRenderToParent
     >
       <DropdownItemGroup>
         <DropdownItem>Edit</DropdownItem>

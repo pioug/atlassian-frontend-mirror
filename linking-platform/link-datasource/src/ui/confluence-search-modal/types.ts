@@ -1,10 +1,10 @@
-import { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import { ConfigModalProps } from '../../common/types';
 
 export interface ConfluenceSearchConfigModalProps
   extends ConfigModalProps<
-    ConfluenceSearchDatasourceAdf,
+    InlineCardAdf | ConfluenceSearchDatasourceAdf,
     ConfluenceSearchDatasourceParameters
   > {}
 

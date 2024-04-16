@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 1.6.1
+
+### Patch Changes
+
+- [#88724](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88724) [`df44cd13bfac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df44cd13bfac) - Fix datasources breakout layout button to refresh node reference when making a layout change transaction
+
 ## 1.6.0
 
 ### Minor Changes

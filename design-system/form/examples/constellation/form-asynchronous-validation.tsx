@@ -92,7 +92,7 @@ export default () => (
               );
             }}
           </Field>
-          <CheckboxField name="remember" label="Remember me" defaultIsChecked>
+          <CheckboxField name="remember" defaultIsChecked>
             {({ fieldProps }) => (
               <Checkbox {...fieldProps} label="Always sign in on this device" />
             )}

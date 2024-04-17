@@ -90,6 +90,7 @@ function ComposableEditorPage() {
           allowResizing: true,
         },
       },
+      __livePage: isLiveViewToggled,
     },
   });
 

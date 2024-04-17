@@ -201,6 +201,11 @@ export const toolbarInsertBlockMessages = defineMessages({
     defaultMessage: 'Record video',
     description: 'Record video using Loom',
   },
+  addLoomVideo: {
+    id: 'fabric.editor.addLoomVideo',
+    defaultMessage: 'Add Loom Video',
+    description: 'Record a new Loom video',
+  },
   recordVideoDescription: {
     id: 'fabric.editor.recordVideo.description',
     defaultMessage: 'Record video using Loom',

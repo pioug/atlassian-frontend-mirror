@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugins
 
+## 2.1.0
+
+### Minor Changes
+
+- [#89386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89386) [`567378286049`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/567378286049) - Adds `addToolbarItems` action to hyperlink toolbar plugin in order to support adding addition toolbar items to the end of the floating toolbar for blue links. Requires platform.editor.card.inject-settings-button platform feature flag for usage.
+- [#89386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89386) [`91d0fdc31828`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d0fdc31828) - Updates card plugin to leverage hyperlink plugins addToolbarItems action in order to inject link preferences button into the hyperlink floating toolbar. Also adds support to configure the link via card plugin options (smart links). Requires platform feature flag `platform.editor.card.inject-settings-button`.
+
+  Example usage:
+
+  ```tsx
+  <Editor
+    linking={{ smartLinks: { userPreferencesLink: 'https://example.com' } }}
+    {...restProps}
+  />
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.24
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.22
 
 ### Patch Changes

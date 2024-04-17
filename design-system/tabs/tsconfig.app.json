@@ -39,7 +39,7 @@
       "path": "../ds-explorations/tsconfig.app.json"
     },
     {
-      "path": "../primitives/tsconfig.app.json"
+      "path": "../focus-ring/tsconfig.app.json"
     },
     {
       "path": "../theme/tsconfig.app.json"

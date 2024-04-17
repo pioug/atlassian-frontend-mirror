@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 78.27.0
+
+### Minor Changes
+
+- [#89386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89386) [`91d0fdc31828`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d0fdc31828) - Updates card plugin to leverage hyperlink plugins addToolbarItems action in order to inject link preferences button into the hyperlink floating toolbar. Also adds support to configure the link via card plugin options (smart links). Requires platform feature flag `platform.editor.card.inject-settings-button`.
+
+  Example usage:
+
+  ```tsx
+  <Editor
+    linking={{ smartLinks: { userPreferencesLink: 'https://example.com' } }}
+    {...restProps}
+  />
+  ```
+
+## 78.26.5
+
+### Patch Changes
+
+- [#90526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90526) [`4a69141dc364`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a69141dc364) - Add new toolbar tooltip copy for Loom
+
 ## 78.26.4
 
 ### Patch Changes

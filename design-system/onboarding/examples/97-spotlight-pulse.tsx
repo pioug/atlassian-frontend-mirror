@@ -18,12 +18,12 @@ const SpotlightPulseExample = () => {
         <ButtonGroup label="Pulse spotlight options">
           <SpotlightTarget name="pulse-true">
             <SpotlightPulse radius={3}>
-              <Button>This displays a pulse</Button>
+              <Button>This has a pulsing animation</Button>
             </SpotlightPulse>
           </SpotlightTarget>
           <SpotlightTarget name="pulse-false">
             <SpotlightPulse pulse={false} radius={3}>
-              <Button>This does not display a pulse</Button>
+              <Button>This has no animation</Button>
             </SpotlightPulse>
           </SpotlightTarget>
         </ButtonGroup>

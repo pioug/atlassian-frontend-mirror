@@ -1,4 +1,4 @@
-import type { ExpandPluginAction, ExpandPluginState } from './types';
+import type { ExpandPluginAction, ExpandPluginState } from '../types';
 
 export default (
   pluginState: ExpandPluginState,

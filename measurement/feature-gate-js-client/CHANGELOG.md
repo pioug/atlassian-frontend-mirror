@@ -1,5 +1,19 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.16.1
+
+### Patch Changes
+
+- [#90633](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90633) [`11fe9dfc5d0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11fe9dfc5d0a) - Make the check for an existing FeatureGate client on the window safer. Only log warn when there is a version mismatch found between the existing FeatureGate client and the current one.
+
+## 4.16.0
+
+### Minor Changes
+
+- [#89773](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89773) [`654f882d8efe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/654f882d8efe) - - Add optional `fireGateExposure` option to `checkGate` in order to allow suppression of gate exposure events.
+  - Expose `manuallyLogGateExposure` from `Statsig` class.
+  - Expose `getOverrides` from `Statsig` class.
+
 ## 4.15.2
 
 ### Patch Changes

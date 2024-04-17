@@ -34,13 +34,13 @@ import type {
 } from '@atlaskit/editor-prosemirror/view';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type { ExpandPlugin } from '../../types';
 import {
   deleteExpandAtPos,
   setSelectionInsideExpand,
   toggleExpandExpanded,
   updateExpandTitle,
 } from '../commands';
-import type { ExpandPlugin } from '../types';
 import { ExpandIconButton } from '../ui/ExpandIconButton';
 
 function buildExpandClassName(type: string, expanded: boolean) {
@@ -53,7 +53,6 @@ const toDOM = (
   node: PmNode,
   __livePage: boolean,
   intl?: IntlShape,
-  editable?: boolean,
 ): DOMOutputSpec => [
   'div',
   {
@@ -98,13 +97,12 @@ const toDOM = (
               intl.formatMessage(expandMessages.expandPlaceholderText)) ||
             expandMessages.expandPlaceholderText.defaultMessage,
           type: 'text',
-          readonly: !editable ? 'true' : undefined,
         },
       ],
     ],
   ],
   // prettier-ignore
-  ['div', { 'class': expandClassNames.content, contenteditable: editable }, 0],
+  ['div', { 'class': expandClassNames.content }, 0],
 ];
 
 export class ExpandNodeView implements NodeView {
@@ -135,7 +133,7 @@ export class ExpandNodeView implements NodeView {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
       document,
-      toDOM(node, this.__livePage, this.intl, view.editable),
+      toDOM(node, this.__livePage, this.intl),
     );
     this.allowInteractiveExpand = allowInteractiveExpand;
     this.getPos = getPos;
@@ -157,7 +155,6 @@ export class ExpandNodeView implements NodeView {
     this.content = this.dom.querySelector<HTMLElement>(
       `.${expandClassNames.content}`,
     );
-
     this.renderIcon(this.intl);
 
     this.initHandlers();
@@ -558,27 +555,11 @@ export class ExpandNodeView implements NodeView {
           // Disallow interaction/selection inside when collapsed.
           this.content.setAttribute(
             'contenteditable',
-            this.view.editable &&
-              (getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+            getBooleanFF('platform.editor.live-pages-expand-divergence') &&
               this.__livePage
-                ? !node.attrs.__expanded
-                : node.attrs.__expanded),
+              ? !node.attrs.__expanded
+              : node.attrs.__expanded,
           );
-        }
-      } else {
-        if (this.content) {
-          this.content.setAttribute(
-            'contenteditable',
-            this.view.editable ? 'true' : 'false',
-          );
-        }
-      }
-
-      if (this.input) {
-        if (!this.view.editable) {
-          this.input.setAttribute('readonly', 'true');
-        } else {
-          this.input.removeAttribute('readonly');
         }
       }
 

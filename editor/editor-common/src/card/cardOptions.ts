@@ -20,4 +20,8 @@ export interface CardOptions {
   allowAlignment?: boolean;
   allowWrapping?: boolean;
   showUpgradeDiscoverability?: boolean;
+  /**
+   * Customises the outbound link to configure user preferences
+   */
+  userPreferencesLink?: string;
 }

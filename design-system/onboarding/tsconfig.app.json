@@ -48,6 +48,9 @@
       "path": "../modal-dialog/tsconfig.app.json"
     },
     {
+      "path": "../motion/tsconfig.app.json"
+    },
+    {
       "path": "../popper/tsconfig.app.json"
     },
     {

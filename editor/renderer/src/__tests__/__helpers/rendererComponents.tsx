@@ -20,6 +20,8 @@ import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf
 import listInBlockquote from '../__fixtures__/list-in-blockquote.adf.json';
 import panelWithMedia from '../__fixtures__/panel-with-media.json';
 
+import { overflowTable } from '../__fixtures__/overflow.adf';
+
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -84,6 +86,30 @@ export const generateRendererComponent = (
     );
   };
 };
+
+export const TableRendererOverflow = generateRendererComponent({
+  document: overflowTable,
+  appearance: 'full-page',
+});
+
+export const TableRendererWithInlineComments = () => (
+  <>
+    <TableRendererOverflow />
+    <div
+      style={{
+        position: 'absolute',
+        right: '200px',
+        top: '70px',
+        width: '300px',
+        height: '50px',
+        background: 'white',
+        border: '1px solid red',
+      }}
+    >
+      Inline comments
+    </div>
+  </>
+);
 
 export const PixelWidthGreaterThenDefault = generateRendererComponent({
   document: pixelWidthGreaterThenDefault,

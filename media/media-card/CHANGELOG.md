@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 77.11.1
+
+### Patch Changes
+
+- [#90872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90872) [`ac8e7b44549a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ac8e7b44549a) - The internal composition of this package has changed. There is no expected change in behavior.
+
 ## 77.11.0
 
 ### Minor Changes

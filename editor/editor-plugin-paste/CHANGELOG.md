@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.0.15
+
+### Patch Changes
+
+- [#89978](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89978) [`6e7143622425`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e7143622425) - fix paste markdown table into a table issue
+
 ## 1.0.14
 
 ### Patch Changes

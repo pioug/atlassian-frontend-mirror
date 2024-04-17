@@ -1,3 +1,4 @@
+import type { ProductType } from '@atlaskit/linking-common';
 export interface AISummaryServiceInt {
   summariseUrl: () => Promise<void>;
   state: AISummaryState;
@@ -24,16 +25,6 @@ export type AISummaryServiceConfig = {
 };
 
 export type AISummaryStatus = 'ready' | 'loading' | 'error' | 'done';
-
-export type ProductType =
-  | 'confluence'
-  | 'atlas'
-  | 'jpd'
-  | 'jsm'
-  | 'jsw'
-  | 'jwm'
-  | 'bitbucket'
-  | 'trello';
 
 export type PostAgentPayload = {
   recipient_agent_named_id: string;

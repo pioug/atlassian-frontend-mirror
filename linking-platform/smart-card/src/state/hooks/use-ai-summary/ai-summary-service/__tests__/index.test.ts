@@ -1,12 +1,12 @@
 import { AISummaryService } from '../';
 import {
-  ProductType,
   StreamAnswerPart,
   StreamResponse,
   AISummaryServiceConfig,
 } from '../types';
 import { readStream } from '../readStream';
 import { streamAnswer } from './__mocks__/streamAnswer';
+import type { ProductType } from '@atlaskit/linking-common';
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 
@@ -37,7 +37,7 @@ const customConfig = {
   ari: 'test-ari',
   baseUrl: 'custom/base/url',
   headers: { 'custom-header': 'custom-value' },
-  product: 'bitbucket' as ProductType,
+  product: 'BITBUCKET' as ProductType,
 };
 
 describe('AI Summary Service', () => {
@@ -84,7 +84,7 @@ describe('AI Summary Service', () => {
         headers: {
           ...aiSummaryServiceDefaultConfig.headers,
           ...customConfig.headers,
-          'x-product': customConfig.product,
+          'x-product': customConfig.product.toLowerCase(),
         },
         body: JSON.stringify({
           recipient_agent_named_id: 'summary_agent',

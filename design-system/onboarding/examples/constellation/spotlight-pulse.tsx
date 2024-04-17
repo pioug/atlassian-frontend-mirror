@@ -20,7 +20,7 @@ const SpotlightPulseExample = () => {
     <SpotlightManager>
       <ButtonGroup label="Choose spotlight options">
         <SpotlightTarget name="new">
-          <SpotlightPulse radius={3}>
+          <SpotlightPulse radius={3} pulse={isSpotlightActive ? false : true}>
             <Button onClick={() => start()}>New feature</Button>
           </SpotlightPulse>
         </SpotlightTarget>

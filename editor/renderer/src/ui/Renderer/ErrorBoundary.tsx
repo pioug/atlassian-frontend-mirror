@@ -19,6 +19,7 @@ interface ErrorBoundaryProps {
   fallbackComponent?: React.ReactNode;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   rethrowError?: boolean;
+  additionalInfo?: string;
 }
 
 interface ErrorBoundaryState {
@@ -51,6 +52,8 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    const additionalInfo = this.props.additionalInfo ?? '';
+
     this.fireAnalyticsEvent({
       action: ACTION.CRASHED,
       actionSubject: this.props.component,
@@ -58,7 +61,7 @@ export class ErrorBoundary extends React.Component<
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: {
         platform: PLATFORM.WEB,
-        errorMessage: error?.message,
+        errorMessage: `${additionalInfo}${error?.message}`,
         componentStack: errorInfo?.componentStack,
         errorRethrown: Boolean(this.props.rethrowError),
       },
@@ -78,7 +81,7 @@ export class ErrorBoundary extends React.Component<
           eventType: EVENT_TYPE.OPERATIONAL,
           attributes: {
             platform: PLATFORM.WEB,
-            errorMessage: error?.message,
+            errorMessage: `${additionalInfo}${error?.message}`,
           },
         });
         this.setState(() => ({

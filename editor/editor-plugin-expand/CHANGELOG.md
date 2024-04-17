@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-expand
 
+## 1.3.4
+
+### Patch Changes
+
+- [#91146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91146) [`c982f92adfee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c982f92adfee) - [ux] Revert changes from ED-22666 as expand is not editable when not selected initially
+- Updated dependencies
+
+## 1.3.3
+
+### Patch Changes
+
+- [#90914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90914) [`a4a9d317e5b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4a9d317e5b8) - [ux] [ED-23013] Fix bug in single player expand where backspace in the title would delete entire expand even if the title had content.
+
+## 1.3.2
+
+### Patch Changes
+
+- [#89345](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89345) [`80a9a5da9ce4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80a9a5da9ce4) - [ED-22840] Build the base functionality of the new single player expand which will be used for live view pages. Single player expand will only be used if `platform.editor.single-player-expand` is true and livePage is enabled.
+
 ## 1.3.1
 
 ### Patch Changes

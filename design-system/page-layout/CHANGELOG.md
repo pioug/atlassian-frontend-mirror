@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 3.1.5
+
+### Patch Changes
+
+- [#91041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91041) [`c5634a5ddf4f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5634a5ddf4f) - Fix a11y failure in ResizeButton by replacing empty div with span element.
+
 ## 3.1.4
 
 ### Patch Changes

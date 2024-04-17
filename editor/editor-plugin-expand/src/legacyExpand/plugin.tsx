@@ -17,11 +17,12 @@ import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type { ExpandPlugin } from '../types';
+
 import { createExpandNode, insertExpand } from './commands';
 import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
-import type { ExpandPlugin } from './types';
 
 export { pluginKey } from './pm-plugins/plugin-factory';
 

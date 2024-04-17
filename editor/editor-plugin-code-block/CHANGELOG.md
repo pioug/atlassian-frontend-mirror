@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-code-block
 
+## 1.1.8
+
+### Patch Changes
+
+- [#91080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91080) [`ef9f3c4ad482`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef9f3c4ad482) - Revert change for disable code block in live view
+- Updated dependencies
+
 ## 1.1.7
 
 ### Patch Changes

@@ -152,12 +152,17 @@ export const visitCardLink =
   };
 
 export const openLinkSettings =
-  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+    userPreferencesLink: string | undefined,
+  ): Command =>
   (state, dispatch) => {
     if (!(state.selection instanceof NodeSelection)) {
       return false;
     }
-    window.open(getLinkPreferencesURLFromENV());
+
+    window.open(userPreferencesLink || getLinkPreferencesURLFromENV());
+
     if (dispatch) {
       const {
         tr,
@@ -433,7 +438,11 @@ const generateToolbarItems =
             { type: 'separator' },
           ],
         },
-        ...getSettingsButtonGroup(intl, editorAnalyticsApi),
+        ...getSettingsButtonGroup(
+          intl,
+          editorAnalyticsApi,
+          cardOptions.userPreferencesLink,
+        ),
         {
           id: 'editor.link.delete',
           focusEditoronEnter: true,
@@ -574,18 +583,49 @@ const getUnlinkButtonGroup = (
     : [];
 };
 
-const getSettingsButtonGroup = (
+export const getHyperlinkToolbarSettingsButton = (
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  userPreferencesLink?: string,
+): FloatingToolbarItem<Command> => {
+  return {
+    id: 'editor.link.settings',
+    type: 'button',
+    icon: CogIcon,
+    title: intl.formatMessage(linkToolbarMessages.settingsLink),
+    onClick: getBooleanFF('platform.editor.card.inject-settings-button')
+      ? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
+      : openLinkSettings(editorAnalyticsApi, undefined),
+    href: getBooleanFF('platform.editor.card.inject-settings-button')
+      ? userPreferencesLink || getLinkPreferencesURLFromENV()
+      : getLinkPreferencesURLFromENV(),
+    target: '_blank',
+  };
+};
+
+export const getSettingsButton = (
+  intl: IntlShape,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  userPreferencesLink: string | undefined,
+): FloatingToolbarItem<Command> => {
+  return {
+    id: 'editor.link.settings',
+    type: 'button',
+    icon: CogIcon,
+    title: intl.formatMessage(linkToolbarMessages.settingsLink),
+    onClick: getBooleanFF('platform.editor.card.inject-settings-button')
+      ? openLinkSettings(editorAnalyticsApi, userPreferencesLink)
+      : openLinkSettings(editorAnalyticsApi, undefined),
+  };
+};
+
+export const getSettingsButtonGroup = (
+  intl: IntlShape,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  userPreferencesLink: string | undefined,
 ): FloatingToolbarItem<Command>[] => {
   return [
-    {
-      id: 'editor.link.settings',
-      type: 'button',
-      icon: CogIcon,
-      title: intl.formatMessage(linkToolbarMessages.settingsLink),
-      onClick: openLinkSettings(editorAnalyticsApi),
-    },
+    getSettingsButton(intl, editorAnalyticsApi, userPreferencesLink),
     { type: 'separator' },
   ];
 };
@@ -598,7 +638,7 @@ const getDatasourceButtonGroup = (
   hoverDecoration: HoverDecorationHandler | undefined,
   datasourceId: string,
   state: EditorState,
-  cardOptions: CardOptions | undefined,
+  cardOptions: CardOptions,
   currentAppearance: CardAppearance | undefined,
   platform?: CardPlatform,
   cardActions?: CardPluginActions | undefined,
@@ -621,14 +661,25 @@ const getDatasourceButtonGroup = (
     );
   }
 
-  // Smart card view buttons only allowed for non-config datasources
-  if (
-    getBooleanFF(
-      'platform.linking-platform.enable-datasource-appearance-toolbar',
-    ) &&
-    !isDatasourceConfigEditable(datasourceId) &&
-    cardOptions
-  ) {
+  const canShowMainToolbar = () => {
+    if (
+      // FF that controls visibily of the additional toolbar buttons
+      !getBooleanFF(
+        'platform.linking-platform.enable-datasource-appearance-toolbar',
+      )
+    ) {
+      return false;
+    }
+
+    // FF to enable additional toolbar buttons based on if the datasource is configurable or not
+    return getBooleanFF(
+      'platform.linking-platform.datasource-enable-toolbar-buttons-for-all-datasources',
+    )
+      ? true
+      : !isDatasourceConfigEditable(datasourceId);
+  };
+
+  if (canShowMainToolbar()) {
     const { allowBlockCards, allowEmbeds, showUpgradeDiscoverability } =
       cardOptions;
 
@@ -704,7 +755,11 @@ const getDatasourceButtonGroup = (
         { type: 'separator' },
       ],
     },
-    ...getSettingsButtonGroup(intl, editorAnalyticsApi),
+    ...getSettingsButtonGroup(
+      intl,
+      editorAnalyticsApi,
+      cardOptions?.userPreferencesLink,
+    ),
     {
       id: 'editor.link.delete',
       focusEditoronEnter: true,

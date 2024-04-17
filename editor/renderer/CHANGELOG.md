@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 109.17.3
+
+### Patch Changes
+
+- [#89790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89790) [`38cbee5b6ee4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38cbee5b6ee4) - Adds errorboundary around bodiedExtension to try to get more error info
+
 ## 109.17.2
 
 ### Patch Changes

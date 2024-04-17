@@ -36,8 +36,12 @@ import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
-import type { PrependToolbarButtons } from './pm-plugins/toolbar-buttons';
+import type {
+  AddToolbarItems,
+  PrependToolbarButtons,
+} from './pm-plugins/toolbar-buttons';
 import {
+  addToolbarItems,
   prependToolbarButtons,
   toolbarButtonsPlugin,
 } from './pm-plugins/toolbar-buttons';
@@ -58,6 +62,10 @@ export type HyperlinkPlugin = NextEditorPlugin<
        * - onInsertLinkCallback (optional): To be called when a link is inserted and it can be changed into a card.
        */
       prependToolbarButtons: PrependToolbarButtons;
+      /**
+       * Add items before or after any default hyperlink floating toolbar items
+       */
+      addToolbarItems: AddToolbarItems;
       hideLinkToolbar: HideLinkToolbar;
       insertLink: InsertLink;
       updateLink: UpdateLink;
@@ -102,6 +110,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({
 
     actions: {
       prependToolbarButtons,
+      addToolbarItems,
       hideLinkToolbar: hideLinkToolbarSetMeta,
       insertLink: (
         inputMethod,

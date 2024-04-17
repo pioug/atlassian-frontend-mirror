@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-card
 
+## 1.7.0
+
+### Minor Changes
+
+- [#89386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89386) [`91d0fdc31828`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/91d0fdc31828) - Updates card plugin to leverage hyperlink plugins addToolbarItems action in order to inject link preferences button into the hyperlink floating toolbar. Also adds support to configure the link via card plugin options (smart links). Requires platform feature flag `platform.editor.card.inject-settings-button`.
+
+  Example usage:
+
+  ```tsx
+  <Editor
+    linking={{ smartLinks: { userPreferencesLink: 'https://example.com' } }}
+    {...restProps}
+  />
+  ```
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.2
+
+### Patch Changes
+
+- [#89921](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89921) [`411822b4d808`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/411822b4d808) - The changes here updates the datasource toolbar to display smart-link icons for config and non-config based datasources.
+
 ## 1.6.1
 
 ### Patch Changes

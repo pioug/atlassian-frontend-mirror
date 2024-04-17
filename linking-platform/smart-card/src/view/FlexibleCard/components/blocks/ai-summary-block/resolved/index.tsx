@@ -12,6 +12,7 @@ import {
 import ActionGroup from '../../action-group';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
+import AIMotionWrapper from '../ai-motion-wrapper';
 import AIStateIndicator from '../ai-state-indicator';
 import { renderElementItems } from '../../utils';
 import type { ActionItem } from '../../types';
@@ -19,6 +20,7 @@ import type { AISummaryBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import AIIcon from '../../../../../common/ai-icon';
 import AISummary from '../../../../../common/ai-summary';
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
@@ -33,18 +35,22 @@ import type {
 export const AISummaryBlockErrorIndicator = ({
   showErrorIndicator,
   error,
+  showTransition,
   testId,
 }: {
   showErrorIndicator: boolean;
   error?: ErrorMessage;
-} & Pick<AISummaryBlockProps, 'testId'>) => {
-  return showErrorIndicator ? (
-    <Inline grow="fill">
-      <AIEventErrorViewed reason={error} />
-      <AIStateIndicator error={error} state={'error'} testId={testId} />
-    </Inline>
-  ) : null;
-};
+  showTransition: boolean;
+} & Pick<AISummaryBlockProps, 'testId'>) => (
+  <AIMotionWrapper
+    isFadeIn={true}
+    show={showErrorIndicator}
+    showTransition={showTransition}
+  >
+    <AIEventErrorViewed reason={error} />
+    <AIStateIndicator error={error} state="error" testId={testId} />
+  </AIMotionWrapper>
+);
 
 export const AISummaryBlockStatusIndicator = ({
   showStatusIndicator,
@@ -82,7 +88,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
     onActionMenuOpenChange,
     size = SmartLinkSize.Medium,
     testId,
-    aiSummaryMinHeight,
+    aiSummaryMinHeight = 0,
     metadata,
   } = props;
 
@@ -90,11 +96,12 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
   const context = useFlexibleUiContext();
   const url = context?.url || '';
   const ari = context?.ari || '';
+  const { product } = useSmartLinkContext();
 
   const {
     summariseUrl,
     state: { content, status, error },
-  } = useAISummary({ url, ari });
+  } = useAISummary({ url, ari, product });
 
   const showAISummary =
     status === 'done' ||
@@ -153,14 +160,18 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
       {status === 'done' && (
         <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />
       )}
-      {showAISummary && (
+      <AIMotionWrapper
+        minHeight={aiSummaryMinHeight}
+        show={showAISummary}
+        showTransition={!isSummarisedOnMountRef.current}
+      >
         <AISummary
           testId={`${testId}-ai-summary`}
           minHeight={aiSummaryMinHeight}
           content={content}
           showIcon={isSummarisedOnMountRef.current}
         />
-      )}
+      </AIMotionWrapper>
       <Inline
         alignBlock="center"
         alignInline="end"
@@ -189,6 +200,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
       </Inline>
       <AISummaryBlockErrorIndicator
         showErrorIndicator={!isErroredOnMountRef.current && status === 'error'}
+        showTransition={!isErroredOnMountRef.current}
         error={error}
         testId={testId}
       />

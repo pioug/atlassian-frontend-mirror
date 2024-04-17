@@ -18,6 +18,7 @@ jest.mock('statsig-js-lite', () => {
     default: {
       initialize: jest.fn(),
       checkGate: jest.fn(),
+      checkGateWithExposureLoggingDisabled: jest.fn(),
       getExperiment: jest.fn(),
       getExperimentWithExposureLoggingDisabled: jest.fn(),
       setOverrides: jest.fn(),
@@ -1237,6 +1238,23 @@ describe('FeatureGate client', () => {
   });
 
   describe('checkGate', () => {
+    test('calls Statsig.checkGate with the provided gate name', () => {
+      FeatureGatesClass.checkGate('myGate');
+      expect(StatsigMocked.checkGate).toHaveBeenCalledWith('myGate');
+    });
+
+    test('calls Statsig.checkGate with the provided gate name when fireGateExposure is explicitly true', () => {
+      FeatureGatesClass.checkGate('myGate', { fireGateExposure: true });
+      expect(StatsigMocked.checkGate).toHaveBeenCalledWith('myGate');
+    });
+
+    test('calls Statsig.checkGateWithExposureLoggingDisabled with the provided gate name when fireGateExposure is false', () => {
+      FeatureGatesClass.checkGate('myGate', { fireGateExposure: false });
+      expect(
+        StatsigMocked.checkGateWithExposureLoggingDisabled,
+      ).toHaveBeenCalledWith('myGate');
+    });
+
     test('catches any exception and logs a warning on the first occurrences of an error', () => {
       console.warn = jest.fn();
 

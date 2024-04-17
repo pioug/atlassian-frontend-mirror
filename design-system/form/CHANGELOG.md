@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 9.2.0
+
+### Minor Changes
+
+- [#89977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89977) [`4922acfee53b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4922acfee53b) - Typography tokens for RequiredAsterisk.
+
 ## 9.1.2
 
 ### Patch Changes

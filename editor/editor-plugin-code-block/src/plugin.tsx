@@ -19,7 +19,6 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CompositionPlugin } from '@atlaskit/editor-plugin-composition';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 
 import {
   createInsertCodeBlockTransaction,
@@ -42,7 +41,6 @@ export type CodeBlockPlugin = NextEditorPlugin<
       DecorationsPlugin,
       CompositionPlugin,
       OptionalPlugin<AnalyticsPlugin>,
-      OptionalPlugin<EditorViewModePlugin>,
     ];
     actions: {
       insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
@@ -66,7 +64,6 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => ({
             ...options,
             getIntl,
             appearance: options?.appearance ?? 'comment',
-            api,
           }),
       },
       {

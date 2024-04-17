@@ -1,5 +1,11 @@
 # @atlaskit/css
 
+## 0.1.0
+
+### Minor Changes
+
+- [#90242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90242) [`aff0087405c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aff0087405c1) - Add support for React 18.
+
 ## 0.0.6
 
 ### Patch Changes

@@ -22,8 +22,8 @@ export type TriggerRef = HTMLElement | HTMLButtonElement | null;
 
 export interface ContentProps {
   /**
-   * Will reposition the popup if any of the content has changed.
-   * Useful for when positions change and the popup was not aware.
+   * This will reposition the popup if any of the content has changed.
+   * This is useful when positions change, and the popup wasn't aware.
    */
   update: PopperChildrenProps['update'];
 
@@ -38,14 +38,14 @@ export interface ContentProps {
   onClose?: BaseProps['onClose'];
 
   /**
-   * Escape hatch to set the initial focus for a specific element when the popup is opened.
+   * Escape hatch to set the initial focus for a specific element, when the popup is opened.
    */
   setInitialFocusRef: Dispatch<SetStateAction<HTMLElement | null>>;
 }
 
 export interface PopupComponentProps {
   /**
-   * Children passed passed through by the parent popup.
+   * Children passed through by the parent popup.
    */
   children: ReactNode;
 
@@ -55,12 +55,12 @@ export interface PopupComponentProps {
   'data-placement': Placement;
 
   /**
-   * Test id passed through by the parent popup.
+   * Test ID passed through by the parent popup.
    */
   'data-testid'?: string;
 
   /**
-   * Id passed through by the parent popup.
+   * ID passed through by the parent popup.
    */
   id?: string;
 
@@ -81,15 +81,15 @@ export interface PopupComponentProps {
 
   /**
    * The root element where the popup should be rendered.
-   * Defaults to `false`.
+   * The default is `false`.
    */
   shouldRenderToParent?: boolean;
 }
 
 interface BaseProps {
   /**
-   * Used to either show or hide the popup.
-   * When set to `false` popup will not render anything to the DOM.
+   * Use this to either show or hide the popup.
+   * When set to `false` the popup will not render anything to the DOM.
    */
   isOpen: boolean;
 
@@ -99,26 +99,26 @@ interface BaseProps {
   content: (props: ContentProps) => React.ReactNode;
 
   /**
-   * Id that is assigned to the popup container element.
+   * ID that is assigned to the popup container element.
    */
   id?: string;
 
   /**
-   * Distance the popup should be offset from the reference in the format of [along, away] (units in px).
-   * Defaults to [0, 8] - which means the popup will be 8px away from the edge of the reference specified
+   * The distance the popup should be offset from the reference in the format of [along, away] (units in px).
+   * The default is `[0, 8]`, which means the popup will be `8px` away from the edge of the reference specified
    * by the `placement` prop.
    */
   offset?: [number, number];
 
   /**
    * Placement of where the popup should be displayed relative to the trigger element.
-   * Defaults to `"auto"`.
+   * The default is `"auto"`.
    */
   placement?: Placement;
 
   /**
-   * Defines a list of placements to try.
-   * When no space is available on the preferred placement,
+   * This is a list of backup placements for the popup to try.
+   * When the preferred placement doesn't have enough space,
    * the modifier will test the ones provided in the list, and use the first suitable one.
    * If no fallback placements are suitable, it reverts back to the original placement.
    */
@@ -126,20 +126,20 @@ interface BaseProps {
 
   /**
    * The boundary element that the popup will check for overflow.
-   * Defaults to `"clippingParents"` which are parent scroll containers,
+   * The default is `"clippingParents"` which are parent scroll containers,
    * but can be set to any element.
    */
   boundary?: 'clippingParents' | HTMLElement;
 
   /**
    * The root boundary that the popup will check for overflow.
-   * Defaults to `"viewport"` but can be set to `"document"`.
+   * The default is `"viewport"` but it can be set to `"document"`.
    */
   rootBoundary?: 'viewport' | 'document';
 
   /**
-   * Allows the Popup to be placed on the opposite side of its trigger if it does not fit in the viewport.
-   * Defaults to `true`.
+   * Allows the popup to be placed on the opposite side of its trigger if it doesn't fit in the viewport.
+   * The default is `true`.
    */
   shouldFlip?: boolean;
 
@@ -152,27 +152,27 @@ interface BaseProps {
 
   /**
    * Handler that is called when the popup wants to close itself.
-   * Generally this will be either when clicking away from the popup or pressing the escape key.
-   * You'll want to use this to set open state accordingly and then pump it back into the `isOpen` prop.
+   * This happens either when clicking away from the popup or pressing the escape key.
+   * You'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.
    */
   onClose?(event: Event | React.MouseEvent | React.KeyboardEvent): void;
 
   /**
    * The element that is shown when `isOpen` prop is `true`.
    * The result of the `content` prop will be placed as children here.
-   * Defaults to an element with an elevation of `e200` with _no padding_.
+   * The default is an element with an elevation of `e200` with _no padding_.
    */
   popupComponent?: ComponentType<PopupComponentProps>;
 
   /**
-   * Controls whether the popup takes focus when opening.
+   * This controls whether the popup takes focus when opening.
    * This changes the `popupComponent` component tabIndex to `null`.
-   * Defaults to `true`.
+   * The default is `true`.
    */
   autoFocus?: boolean;
 
   /**
-   * Controls if the event which handles clicks outside the popup is be bound with
+   * This controls if the event which handles clicks outside the popup is be bound with
    *  `capture: true`.
    */
   shouldUseCaptureOnOutsideClick?: boolean;
@@ -184,14 +184,14 @@ interface BaseProps {
   shouldRenderToParent?: boolean;
 
   /**
-   * Allows the Popup disable focus lock. Will only work when shouldRenderToParent is true.
-   * Defaults to `false`.
+   * This allows the Popup disable focus lock. It will only work when `shouldRenderToParent` is `true`.
+   * The default is `false`.
    */
   shouldDisableFocusLock?: boolean;
 
   /**
-   * Controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
-   * Defaults to `fixed`
+   * This controls the positioning strategy to use. Can vary between `absolute` and `fixed`.
+   * The default is `fixed`.
    */
   strategy?: 'absolute' | 'fixed';
 }
@@ -207,7 +207,7 @@ export interface PopupProps extends BaseProps {
   /**
    * Z-index that the popup should be displayed in.
    * This is passed to the portal component.
-   * Defaults to `layers.layer()` from `@atlaskit/theme`.
+   * The default is `layers.layer()` from `@atlaskit/theme`.
    */
   zIndex?: number;
 }

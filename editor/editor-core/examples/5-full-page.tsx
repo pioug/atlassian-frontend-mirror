@@ -367,6 +367,7 @@ export class ExampleEditorComponent extends React.Component<
                     allowEmbeds: true,
                     allowResizing: true,
                     useAlternativePreloader: false,
+                    userPreferencesLink: '/user-preferences',
                   },
                 }}
                 allowExpand={{

@@ -143,6 +143,10 @@ export const FilterPopupSelect = ({
      */
     if (searchTerm) {
       setSearchTerm('');
+      onInputChange('', {
+        action: 'input-change',
+        prevInputValue: searchTerm,
+      });
     }
 
     onMenuClose?.();
@@ -151,7 +155,14 @@ export const FilterPopupSelect = ({
       filterName,
       selectionCount: selectedOptions.length,
     });
-  }, [filterName, fireEvent, onMenuClose, searchTerm, selectedOptions.length]);
+  }, [
+    filterName,
+    fireEvent,
+    onInputChange,
+    onMenuClose,
+    searchTerm,
+    selectedOptions.length,
+  ]);
 
   const handleInputChange = useCallback(
     async (newSearchTerm: string, actionMeta: InputActionMeta) => {

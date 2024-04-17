@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.10.5
+
+### Patch Changes
+
+- [#91080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91080) [`ef9f3c4ad482`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef9f3c4ad482) - Revert change for disable code block in live view
+- Updated dependencies
+
+## 193.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 193.10.2
 
 ### Patch Changes

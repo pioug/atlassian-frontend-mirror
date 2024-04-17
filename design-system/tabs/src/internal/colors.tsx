@@ -15,5 +15,3 @@ export const tabLineColors = {
   activeColor: token('color.border', 'transparent'),
   selectedColor: token('color.border.selected', B400),
 };
-
-export const tabPanelFocusColor = token('color.border.focused', B100);

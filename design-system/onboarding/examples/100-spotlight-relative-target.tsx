@@ -20,14 +20,13 @@ interface State {
 const relativeDivStyles = css({
   width: '200px',
   height: '200px',
-  marginTop: token('space.100', '8px'),
-  marginLeft: token('space.100', '8px'),
   position: 'relative',
-  top: token('space.500', '40px'),
-  left: token('space.500', '40px'),
-
   backgroundColor: 'PaleVioletRed',
   borderRadius: token('border.radius.100', '3px'),
+  insetBlockStart: token('space.500', '40px'),
+  insetInlineStart: token('space.500', '40px'),
+  marginBlockStart: token('space.100', '8px'),
+  marginInlineStart: token('space.100', '8px'),
   transform: 'translate(10px, 10px)',
 });
 

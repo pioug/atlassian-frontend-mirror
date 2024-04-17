@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.5.0
+
+### Minor Changes
+
+- [#89386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89386) [`567378286049`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/567378286049) - Adds `addToolbarItems` action to hyperlink toolbar plugin in order to support adding addition toolbar items to the end of the floating toolbar for blue links. Requires platform.editor.card.inject-settings-button platform feature flag for usage.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

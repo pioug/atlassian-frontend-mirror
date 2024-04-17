@@ -436,6 +436,42 @@ describe('Testing AsyncPopupSelect', () => {
     expect(inputAfterClose).toHaveValue('');
   });
 
+  it('should call fetchFilterOptions when after the dropdown is closed', async () => {
+    const mockFetchFilterOptions = jest.fn();
+
+    const { container, triggerButton } = setup({
+      filterType: 'status',
+      openPicker: true,
+      fetchFilterOptions: mockFetchFilterOptions,
+      status: 'empty',
+    });
+    invariant(triggerButton);
+
+    const inputBeforeClose = container.parentElement?.querySelector(
+      '#jlol-basic-filter-status-popup-select--input',
+    );
+    invariant(inputBeforeClose);
+
+    fireEvent.change(inputBeforeClose, { target: { value: 'my search term' } });
+    jest.advanceTimersByTime(350);
+
+    // close dropdown
+    fireEvent.click(triggerButton);
+    jest.advanceTimersByTime(350);
+
+    expect(mockFetchFilterOptions).toHaveBeenCalledTimes(3);
+
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(1, {
+      searchString: '', // first time when you open the dropdown
+    });
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(2, {
+      searchString: 'my search term', // second time when you search
+    });
+    expect(mockFetchFilterOptions).toHaveBeenNthCalledWith(3, {
+      searchString: '', // thrid time when you close the dropdown
+    });
+  });
+
   it('should render the correct options', () => {
     const { getByText } = setup({
       filterType: 'status',

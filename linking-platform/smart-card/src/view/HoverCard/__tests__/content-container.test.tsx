@@ -6,6 +6,7 @@ import { hoverCardClassName } from '../components/HoverCardContent';
 import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import type { ProductType } from '@atlaskit/linking-common';
 
 jest.mock('../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -16,7 +17,13 @@ describe('ContentContainer', () => {
   const testId = 'test-id';
   const url = 'https://some.url';
 
-  const setup = (props: Partial<ContentContainerProps> = {}) =>
+  const setup = (
+    props: Partial<
+      ContentContainerProps & {
+        product: ProductType | undefined;
+      }
+    > = {},
+  ) =>
     render(
       <SmartCardProvider
         storeOptions={{
@@ -29,6 +36,7 @@ describe('ContentContainer', () => {
             },
           },
         }}
+        product={props.product}
       >
         <ContentContainer testId={testId} url={url} {...props}>
           {content}
@@ -94,6 +102,32 @@ describe('ContentContainer', () => {
           const { queryByTestId } = setup({ isAIEnabled: true });
           const prism = await queryByTestId(`${testId}-prism`);
           expect(prism).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-ai-summaries',
+        async () => {
+          const productName: ProductType = 'ATLAS';
+          await setup({
+            isAIEnabled: true,
+            product: productName,
+          });
+
+          expect(useAISummary).toHaveBeenCalledWith(
+            expect.objectContaining({
+              product: productName,
+            }),
+          );
+          (useAISummary as jest.Mock).mockClear();
+        },
+        async () => {
+          await setup({
+            isAIEnabled: false,
+          });
+          expect(useAISummary).toHaveBeenCalledTimes(0);
         },
       );
     });

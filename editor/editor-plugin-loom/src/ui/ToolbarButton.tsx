@@ -8,7 +8,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
-import VideoCircleIcon from '@atlaskit/icon/glyph/video-circle';
+import { LoomIcon } from '@atlaskit/logo';
 
 import { recordVideo } from '../commands';
 import type { LoomPlugin } from '../plugin';
@@ -25,7 +25,7 @@ const LoomToolbarButton = ({
   if (!loomState) {
     return null;
   }
-  const label = formatMessage(toolbarInsertBlockMessages.recordVideo);
+  const label = formatMessage(toolbarInsertBlockMessages.addLoomVideo);
 
   return (
     <ToolbarButton
@@ -41,7 +41,7 @@ const LoomToolbarButton = ({
       // Disable the icon while the SDK isn't initialised
       disabled={disabled || !loomState?.isEnabled}
       title={label}
-      iconBefore={<VideoCircleIcon label={label} />}
+      iconBefore={<LoomIcon label={label} size="small" />}
     />
   );
 };

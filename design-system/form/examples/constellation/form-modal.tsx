@@ -59,16 +59,11 @@ const FormModalDialogExample = () => {
                       )}
                     </Field>
 
-                    <CheckboxField
-                      label="A single checkbox"
-                      name="checkbox"
-                      defaultIsChecked
-                    >
+                    <CheckboxField name="remember" defaultIsChecked>
                       {({ fieldProps }) => (
                         <Checkbox
                           {...fieldProps}
-                          value="example"
-                          label="Checkbox"
+                          label="Always sign in on this device"
                         />
                       )}
                     </CheckboxField>

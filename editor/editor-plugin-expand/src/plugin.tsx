@@ -1,8 +1,8 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { expandPlugin as legacyExpandPlugin } from './legacyExpand/plugin';
-import type { ExpandPlugin } from './legacyExpand/types';
 import { expandPlugin as singlePlayerExpandPlugin } from './singlePlayerExpand/plugin';
+import type { ExpandPlugin } from './types';
 
 export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
   if (

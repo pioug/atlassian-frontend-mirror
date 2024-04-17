@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 14.1.0
+
+### Minor Changes
+
+- [#90584](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90584) [`fccb64237f6c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fccb64237f6c) - [ux] Internal changes to focus styles
+
 ## 14.0.5
 
 ### Patch Changes

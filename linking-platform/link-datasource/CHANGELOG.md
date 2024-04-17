@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 1.27.2
+
+### Patch Changes
+
+- [#90953](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90953) [`d1d4bbc1afeb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1d4bbc1afeb) - The change here fixes a bug where basic filter dropdown does not show initial options after menu close.
+
+## 1.27.1
+
+### Patch Changes
+
+- [#89629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89629) [`cb82b58b4ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb82b58b4ae2) - Update xcss usages to align to new types.
+
 ## 1.27.0
 
 ### Minor Changes

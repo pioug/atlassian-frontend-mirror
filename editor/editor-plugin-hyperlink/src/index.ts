@@ -6,4 +6,7 @@ export type {
   InsertLink,
   UpdateLink,
 } from './commands';
-export type { PrependToolbarButtons } from './pm-plugins/toolbar-buttons';
+export type {
+  PrependToolbarButtons,
+  AddToolbarItems,
+} from './pm-plugins/toolbar-buttons';

@@ -34,6 +34,21 @@
   "references": [
     {
       "path": "tsconfig.app.json"
+    },
+    {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-core/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-hyperlink/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-type-ahead/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugins/tsconfig.app.json"
     }
   ]
 }

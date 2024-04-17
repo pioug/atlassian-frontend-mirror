@@ -8,6 +8,7 @@ import { hoverCardClassName } from './HoverCardContent';
 import type { ContentContainerProps } from '../types';
 import { useAISummary } from '../../../state/hooks/use-ai-summary';
 import { useSmartCardState } from '../../../state/store';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
 import { di } from 'react-magnetic-di';
@@ -22,16 +23,20 @@ const ConnectedAIPrismContainer = ({
   di(useAISummary, AIPrism);
 
   const cardState = useSmartCardState(url);
-
   const data = cardState?.details?.data as JsonLd.Data.BaseData;
 
   //The data is undefined while the link is resolving.
   const dataUrl = data ? extractLink(data) : null;
   const dataAri = data ? extractAri(data) : null;
+  const { product } = useSmartLinkContext();
 
   const {
     state: { status },
-  } = useAISummary({ url: dataUrl || '', ari: dataAri || '' });
+  } = useAISummary({
+    url: dataUrl || '',
+    ari: dataAri || '',
+    product: product,
+  });
 
   const [showPrism, setShowPrism] = useState(status === 'loading');
 

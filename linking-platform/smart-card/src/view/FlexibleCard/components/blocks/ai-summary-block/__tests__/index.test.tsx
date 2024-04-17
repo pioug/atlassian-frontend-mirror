@@ -18,6 +18,7 @@ import { IntlProvider } from 'react-intl-next';
 import AISummaryBlock from '../index';
 import { ActionItem } from '../../types';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
+import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -25,11 +26,13 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
 
 const TestComponent = (props: AISummaryBlockProps & { spy: jest.Mock }) => (
   <AnalyticsListener onEvent={props.spy} channel={ANALYTICS_CHANNEL}>
-    <IntlProvider locale="en">
-      <FlexibleUiContext.Provider value={context}>
-        <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
-      </FlexibleUiContext.Provider>
-    </IntlProvider>
+    <SmartCardProvider>
+      <IntlProvider locale="en">
+        <FlexibleUiContext.Provider value={context}>
+          <AISummaryBlock status={SmartLinkStatus.Resolved} {...props} />
+        </FlexibleUiContext.Provider>
+      </IntlProvider>
+    </SmartCardProvider>
   </AnalyticsListener>
 );
 

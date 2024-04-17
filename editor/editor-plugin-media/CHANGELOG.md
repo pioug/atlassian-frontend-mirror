@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-media
 
+## 1.14.4
+
+### Patch Changes
+
+- [#90865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90865) [`bffb7089e74e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bffb7089e74e) - This changeset exists because a PR touches these packages in a way that doesn't require a release
+- Updated dependencies
+
 ## 1.14.3
 
 ### Patch Changes

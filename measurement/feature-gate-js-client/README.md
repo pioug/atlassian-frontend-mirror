@@ -515,15 +515,9 @@ The easiest way to get set up is to use the `FeatureGatesInitializationWithDefau
     * Run `yarn install` in the root directory to set up your git hooks.
     * In order to get started run `yarn` to install the dependencies
 * How to run tests
-    * In order to run all tests simply run `yarn test`
+    * In order to run all tests simply run `yarn test packages/measurement/feature-gate-js-client` from the platform directory
     * In order to run jest tests in watch mode while doing development run `yarn test:jest --watch`
-    * NOTE: You may need to run `yarn build` to create a version.ts file thats required for some tests
-* Deployment instructions
-    * run `yarn build`
-        * this should create a dist directory
-        * there are two tsconfig files, one for the dev loop and some additional settings for the final dist build
-    * run `yarn publish`
-        * the "new version" in the CLI is the version that will be published
+    * NOTE: You may need to run `yarn build @atlaskit/feature-gate-js-client` to create a version.ts file thats required for some tests
 
 ### Contribution guidelines
 
@@ -536,17 +530,7 @@ The easiest way to get set up is to use the `FeatureGatesInitializationWithDefau
 
 ### Releasing
 
-Before you release please ensure that the appropriate `CHANGELOG.md` entry is in place for your changes.
-If your change is `minor` or `major` change in terms of semantic versioning then you will need to manually update the version number in the package.json.
-
-In order to release a new version of this package you will need to use [Bitbucket Pipelines](https://bitbucket.org/atlassian/feature-gate-clients/pipelines).
-Once your change has been deployed to the `main` branch, you can run the `release-js-client` custom pipeline to deploy it to Artifactory.
-Hit "Run pipeline", and select the following:
-
-* `Branch`: main
-* `Pipeline`: custom: release-js-client
-
-After a release the version will automatically be incremented by one patch version on the main branch.
+This package is part of the AFP monorepo. Create a changeset using `yarn changeset` and commit. [Documentation](https://hello.atlassian.net/wiki/spaces/AF/pages/2630205905/Releasing+Packages)
 
 ### Who do I talk to?
 This repo is owned by the experimentation platform team,

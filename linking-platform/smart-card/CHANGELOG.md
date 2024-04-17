@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.55.2
+
+### Patch Changes
+
+- [#90354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90354) [`3a735d1c33fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a735d1c33fb) - Call the useAISummary hook with a product name when it`s available in SmartLinkContext
+- [#87479](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87479) [`d2e75f4df537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2e75f4df537) - AI summary: Add transition animation
+
 ## 26.55.1
 
 ### Patch Changes

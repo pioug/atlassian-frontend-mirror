@@ -18,7 +18,7 @@ const descriptionStyles = css({
 });
 
 const containerStyles = xcss({
-  marginTop: '60px',
+  marginTop: 'space.800',
 });
 
 interface NoInstanceViewProps {

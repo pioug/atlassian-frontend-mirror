@@ -39,6 +39,7 @@ export default class SpotlightBasicExample extends Component<Object, State> {
         heading="Green"
         target="green"
         key="green"
+        pulse={false}
       >
         <Lorem count={1} />
       </Spotlight>,

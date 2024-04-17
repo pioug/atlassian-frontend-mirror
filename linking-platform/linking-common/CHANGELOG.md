@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 5.6.2
+
+### Patch Changes
+
+- [#89925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89925) [`33868d562087`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/33868d562087) - Stopped emitting Sentry events until we re-factor this to detect fedramp environment.
+
 ## 5.6.1
 
 ### Patch Changes

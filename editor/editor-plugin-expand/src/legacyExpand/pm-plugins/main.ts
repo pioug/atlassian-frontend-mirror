@@ -11,9 +11,9 @@ import type {
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { ExpandPlugin } from '../../types';
 import { setExpandRef } from '../commands';
 import ExpandNodeView from '../nodeviews';
-import type { ExpandPlugin } from '../types';
 import { findExpand } from '../utils';
 
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';

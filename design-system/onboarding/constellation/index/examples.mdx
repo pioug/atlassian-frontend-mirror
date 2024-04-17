@@ -9,6 +9,7 @@ import SpotlightActionsBefore from '../../examples/constellation/spotlight-actio
 import SpotlightHeadingAfterElement from '../../examples/constellation/spotlight-heading-after-element';
 import SpotlightImage from '../../examples/constellation/spotlight-image';
 import SpotlightPulse from '../../examples/constellation/spotlight-pulse';
+import SpotlightPulseFalse from '../../examples/constellation/spotlight-pulse-false';
 import SpotlightDialogPlacement from '../../examples/constellation/spotlight-dialog-placement';
 import SpotlightDialogWidth from '../../examples/constellation/spotlight-dialog-width';
 import SpotlightTargetRadius from '../../examples/constellation/spotlight-target-radius';
@@ -84,6 +85,12 @@ You can add an image to a spotlight with the `image` prop. Most Atlassian illust
 When spotlights are active, a pulsing outline helps draw attention to the target. It's possible for you to use this spotlight pulse in custom ways. For example, you can apply the pulse on the target element _before_ the spotlight is active, and trigger the spotlight the first time a person interacts with it.
 
 <Example Component={SpotlightPulse} packageName="@atlaskit/onboarding" />
+
+### Turning off the pulse
+
+You can turn off the pulsing animation by setting the `pulse` prop to `false`.
+
+<Example Component={SpotlightPulseFalse} packageName="@atlaskit/onboarding" />
 
 ## Dialog placement
 

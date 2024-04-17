@@ -142,7 +142,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       OptionalPlugin<AnalyticsPlugin>,
       HyperlinkPlugin,
       BlockTypePlugin,
-      OptionalPlugin<CodeBlockPlugin>,
+      CodeBlockPlugin,
       PanelPlugin,
       TextFormattingPlugin,
       ListPlugin,

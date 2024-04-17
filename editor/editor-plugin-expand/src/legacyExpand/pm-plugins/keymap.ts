@@ -16,8 +16,10 @@ import {
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isPositionNearTableRow } from '@atlaskit/editor-common/utils';
-import { isEmptyNode } from '@atlaskit/editor-common/utils';
+import {
+  isEmptyNode,
+  isPositionNearTableRow,
+} from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
@@ -27,8 +29,8 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusTitle } from '../commands';
-import type { ExpandPlugin } from '../types';
 import { findExpand } from '../utils';
 
 const isExpandNode = (node: PMNode) => {

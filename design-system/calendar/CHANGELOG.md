@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 14.2.0
+
+### Minor Changes
+
+- [#90213](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90213) [`aa06d98a6384`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa06d98a6384) - Add support for React 18.
+
 ## 14.1.0
 
 ### Minor Changes

@@ -810,7 +810,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     // @see https://product-fabric.atlassian.net/browse/MEX-2457
     // If the media node is the last selectable item in the current cursor position and it is located within a mediaGroup,
     // we relocate the cursor to the first child of the mediaGroup.
-    const sel = Selection.findFrom(doc.resolve(selection.$from.pos - 1), -1);
+    const pos = Math.max(0, selection.$from.pos - 1);
+    const sel = Selection.findFrom(doc.resolve(pos), -1);
+
     if (sel && findSelectedNodeOfType(media)(sel)) {
       const parent = findParentNodeOfType(mediaGroup)(sel);
       if (parent) {

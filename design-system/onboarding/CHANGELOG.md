@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 11.3.0
+
+### Minor Changes
+
+- [#84838](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84838) [`e3dc0b4099fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3dc0b4099fe) - [ux] Now the pulsing animations in both the standard Spotlight and the dedicated Pulse component respect `prefers-reduced-motion` user preferences. If a user sets their system preferences to reduce motion, instead of a pulsing animation we will show a static 'discovery' outline.
+
 ## 11.2.7
 
 ### Patch Changes

@@ -8,6 +8,7 @@ import { renderHook } from '@testing-library/react-hooks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
+import type { ProductType } from '@atlaskit/linking-common';
 
 import {
   mockBaseResponseWithErrorPreview,
@@ -74,15 +75,17 @@ jest.mock('../../../../../../state/hooks/use-ai-summary', () => {
     '../../../../../../state/hooks/use-ai-summary',
   );
   return {
-    useAISummary: jest.fn().mockImplementation((url) => {
+    useAISummary: jest.fn().mockImplementation(({ url, ari, product }) => {
       return {
-        summariseUrl: original.useAISummary(url).summariseUrl,
+        summariseUrl: original.useAISummary({ url, ari, product }).summariseUrl,
         state: { status: 'ready', content: '' },
       };
     }),
   };
 });
 
+//must be similar to the product name we use inside of the mocked module below.
+const productName: ProductType = 'ATLAS';
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
     ...mockGetContext(),
@@ -90,6 +93,8 @@ jest.mock('@atlaskit/link-provider', () => ({
       getState: () => ({ 'test-url': mocks.analytics }),
       dispatch: jest.fn(),
     },
+    //it is not allowed to reference any out-of-scope variables e.g. productName above
+    product: 'ATLAS' as ProductType,
   }),
   useFeatureFlag: jest.fn(),
 }));
@@ -412,6 +417,21 @@ describe('HoverCardResolvedView', () => {
           expect(
             AISummariesStore.get('http://data-link-url.com'),
           ).toBeDefined();
+        });
+
+        it('should call the useAISummary hook with a product name when it`s available in SmartLinkContext', async () => {
+          await setup({
+            mockResponse: {
+              ...mockAtlasProjectWithAiSummary,
+            },
+            isAISummaryEnabled: true,
+          });
+
+          expect(useAISummary).toHaveBeenCalledWith(
+            expect.objectContaining({
+              product: productName,
+            }),
+          );
         });
       });
 

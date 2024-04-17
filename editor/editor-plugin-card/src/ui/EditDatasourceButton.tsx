@@ -10,16 +10,14 @@ import {
   FloatingToolbarSeparator as Separator,
   SmallerEditIcon,
 } from '@atlaskit/editor-common/ui';
-import {
-  canRenderDatasource,
-  getDatasourceType,
-} from '@atlaskit/editor-common/utils';
+import { getDatasourceType } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
 import { Flex } from '@atlaskit/primitives';
 
 import { showDatasourceModal } from '../pm-plugins/actions';
+import { isDatasourceConfigEditable } from '../utils';
 
 import { CardContextProvider } from './CardContextProvider';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
@@ -53,7 +51,7 @@ const EditDatasourceButtonWithCardContext = ({
     cardContext,
   });
 
-  if (!datasourceId || !canRenderDatasource(datasourceId, false)) {
+  if (!datasourceId || !isDatasourceConfigEditable(datasourceId)) {
     return null;
   }
 

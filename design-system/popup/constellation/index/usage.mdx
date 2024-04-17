@@ -1,0 +1,31 @@
+---
+order: 2
+---
+
+## Usage
+
+Use the popup component to display a brief message in an overlay.
+
+While you can use popups to build compact interactive experiences like a menu, if it's intended to help someone complete a small task, use a [modal dialog](/components/modal-dialog) instead.
+
+## Accessibility
+
+- Don’t make popups that scroll. There isn't enough visual affordance to show that there's hidden content.
+- Avoid nesting popups wherever possible.
+
+## Behavior
+
+The popup can be opened using the enter key, and dismissed with the escape key.
+
+The popup is always dismissed when the user clicks outside of the popup area. Avoid putting required fields inside popups in case the popup is dismissed on click.
+
+### Popup placement
+
+- Use the placement prop to set your preferred position (`auto`, `top`, `right`, `left`, or `bottom`). The popup will move automatically if it's near the edge of the screen.
+- Using the `auto` placement will put the popup on the side with the most space available.
+- If you provide `fallbackPlacements`, the popup will use backup positions when your preferred position isn’t available.
+
+## Related
+
+- For interactive overlays, use the [modal dialog](/components/modal-dialog) component.
+- For non-essential, non-interactive messages, use the [tooltip](/components/tooltip/) component.

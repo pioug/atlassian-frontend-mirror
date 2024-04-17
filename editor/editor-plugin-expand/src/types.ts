@@ -8,7 +8,7 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 
-import type { insertExpand } from './commands';
+import type { insertExpand } from './legacyExpand/commands';
 
 export interface ExpandPluginState {
   expandRef?: HTMLDivElement | null;

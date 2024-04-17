@@ -8,6 +8,7 @@ import Statsig, {
 
 import Fetcher, { FetcherOptions } from './fetcher';
 import {
+  CheckGateOptions,
   ClientOptions,
   CustomAttributes,
   FeatureGateEnvironment,
@@ -261,11 +262,20 @@ class FeatureGates {
 
   /**
    * Returns the value for a feature gate. Returns false if there are errors.
-   * @param gateName - The name of the feature gate.
+   * @param {string} gateName - The name of the feature gate.
+   * @param {Object} options
+   * @param {boolean} options.fireGateExposure
+   *        Whether or not to fire the exposure event for the gate. Defaults to true.
+   *        To log an exposure event manually at a later time, use {@link FeatureGates.manuallyLogGateExposure}
+   *        (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
    */
-  static checkGate(gateName: string): boolean {
+  static checkGate(gateName: string, options: CheckGateOptions = {}): boolean {
     try {
-      return Statsig.checkGate(gateName);
+      const { fireGateExposure = true } = options;
+      const evalMethod = fireGateExposure
+        ? Statsig.checkGate.bind(Statsig)
+        : Statsig.checkGateWithExposureLoggingDisabled.bind(Statsig);
+      return evalMethod(gateName);
     } catch (error: unknown) {
       // Log the first occurrence of the error
       if (!FeatureGates.hasCheckGateErrorOccurred) {
@@ -280,6 +290,15 @@ class FeatureGates {
 
       return false;
     }
+  }
+
+  /**
+   * Manually log a gate exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+   * This is useful if you have evaluated a gate earlier via {@link FeatureGates.checkGate} where <code>options.fireGateExposure</code> is false.
+   * @param gateName
+   */
+  static manuallyLogGateExposure(gateName: string): void {
+    Statsig.manuallyLogGateExposure(gateName);
   }
 
   /**
@@ -472,6 +491,13 @@ class FeatureGates {
       layers: {},
       ...overrides,
     });
+  }
+
+  /**
+   * @returns The current overrides for gates, configs (including experiments) and layers.
+   */
+  static getOverrides(): LocalOverrides {
+    return Statsig.getOverrides();
   }
 
   /**
@@ -860,11 +886,14 @@ if (typeof window !== 'undefined') {
     window.__FEATUREGATES_JS__ = FeatureGates;
   } else {
     boundFGJS = window.__FEATUREGATES_JS__ as typeof FeatureGates;
-    const boundVersion = boundFGJS?.getPackageVersion() || '4.10.0 or earlier';
-    const message = `Multiple versions of FeatureGateClients found on the current page.
+    const boundVersion =
+      boundFGJS?.getPackageVersion?.() || '4.10.0 or earlier';
+    if (boundVersion !== CLIENT_VERSION) {
+      const message = `Multiple versions of FeatureGateClients found on the current page.
       The currently bound version is ${boundVersion} when module version ${CLIENT_VERSION} was loading.`;
-    // eslint-disable-next-line no-console
-    console.warn(message);
+      // eslint-disable-next-line no-console
+      console.warn(message);
+    }
   }
 }
 

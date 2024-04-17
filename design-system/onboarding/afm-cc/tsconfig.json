@@ -34,6 +34,9 @@
             "path": "../../modal-dialog/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../motion/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../popper/afm-cc/tsconfig.json"
         },
         {

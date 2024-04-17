@@ -6,8 +6,10 @@ import type {
   ExtractInjectionAPI,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { cardPlugin } from '../index';
+import { getHyperlinkToolbarSettingsButton } from '../toolbar';
 import type { CardPluginOptions } from '../types';
 import { HyperlinkToolbarAppearance } from '../ui/HyperlinkToolbarAppearance';
 import { ToolbarViewedEvent } from '../ui/ToolbarViewedEvent';
@@ -66,6 +68,27 @@ export const mountHyperlinkPlugin = (
           view: editorView,
           skipAnalytics: true,
         });
+
+        if (getBooleanFF('platform.editor.card.inject-settings-button')) {
+          /**
+           * Require either provider to be supplied (controls link preferences)
+           * Or explicit user preferences config in order to enable button
+           */
+          if (options.provider || options.userPreferencesLink) {
+            pluginInjectionApi?.hyperlink?.actions.addToolbarItems({
+              items: (_, intl) => [
+                { type: 'separator' },
+                getHyperlinkToolbarSettingsButton(
+                  intl,
+                  pluginInjectionApi?.analytics?.actions,
+                  options.userPreferencesLink,
+                ),
+              ],
+              placement: 'end',
+              view: editorView,
+            });
+          }
+        }
       });
       return {};
     },

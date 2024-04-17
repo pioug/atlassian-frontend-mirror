@@ -523,8 +523,27 @@ export function createPlugin(
           return true;
         }
 
+        let isNestedMarkdownTable = false;
+
+        if (getBooleanFF('platform.editor.paste-markdown-table-in-a-table')) {
+          // if paste a markdown table inside a table cell, we should treat it as a table slice
+          const isParentNodeTdOrTh =
+            selectionParentType === schema.nodes.tableCell ||
+            selectionParentType === schema.nodes.tableHeader;
+
+          isNestedMarkdownTable = !!(
+            markdownSlice &&
+            isPlainText &&
+            isParentNodeTdOrTh &&
+            getContentNodeTypes(markdownSlice.content).includes(
+              schema.nodes.table.name,
+            )
+          );
+          slice = isNestedMarkdownTable ? (markdownSlice as Slice) : slice;
+        }
+
         // If the clipboard only contains plain text, attempt to parse it as Markdown
-        if (isPlainText && markdownSlice) {
+        if (isPlainText && markdownSlice && !isNestedMarkdownTable) {
           if (
             handlePastePreservingMarksWithAnalytics(
               view,
@@ -573,7 +592,7 @@ export function createPlugin(
         }
 
         // finally, handle rich-text copy-paste
-        if (isRichText) {
+        if (isRichText || isNestedMarkdownTable) {
           // linkify the text where possible
           slice = linkifyContent(state.schema)(slice);
 

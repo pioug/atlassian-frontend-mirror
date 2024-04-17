@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 17.12.1
+
+### Patch Changes
+
+- [#90619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90619) [`acbd9680ed68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/acbd9680ed68) - Replaces internal ref merge with one from our util set
+
 ## 17.12.0
 
 ### Minor Changes

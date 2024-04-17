@@ -53,6 +53,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   editInsertedLink,
@@ -63,7 +64,10 @@ import {
   updateLink,
 } from './commands';
 import { stateKey } from './pm-plugins/main';
-import { toolbarKey } from './pm-plugins/toolbar-buttons';
+import {
+  type HyperlinkToolbarItemsState,
+  toolbarKey,
+} from './pm-plugins/toolbar-buttons';
 
 import type { hyperlinkPlugin } from './index';
 
@@ -186,6 +190,30 @@ const getSettingsButtonGroup = (
   },
 ];
 
+export const mergeAddedItems =
+  (link: string, ...handlerParams: Parameters<FloatingToolbarHandler>) =>
+  (
+    items: Array<FloatingToolbarItem<Command>>,
+    toolbarItemsState: HyperlinkToolbarItemsState | undefined,
+  ): Array<FloatingToolbarItem<Command>> => {
+    const positions = toolbarItemsState?.items_next;
+
+    if (!positions) {
+      return items;
+    }
+
+    const start = positions.start;
+    const end = positions.end;
+
+    const reduceItems = (items: typeof start = []) =>
+      items.reduce<Array<FloatingToolbarItem<Command>>>(
+        (acc, fn) => [...acc, ...fn(...handlerParams, link)],
+        [],
+      );
+
+    return [...reduceItems(start), ...items, ...reduceItems(end)];
+  };
+
 export const getToolbarConfig =
   (
     options: HyperlinkPluginOptions,
@@ -244,70 +272,85 @@ export const getToolbarConfig =
             metadata.title = activeLinkMark.node.text;
           }
 
+          const baseItems: Array<FloatingToolbarItem<Command>> = [
+            ...(toolbarKey
+              .getState(state)
+              ?.items(state, intl, providerFactory, link) ?? []),
+            {
+              id: 'editor.link.edit',
+              testId: 'editor.link.edit',
+              type: 'button',
+              onClick: editInsertedLink(editorAnalyticsApi),
+              title: editLink,
+              showTitle: true,
+              metadata: metadata,
+            },
+            {
+              type: 'separator',
+            },
+            {
+              id: 'editor.link.openLink',
+              testId: 'editor.link.openLink',
+              type: 'button',
+              disabled: !isValidUrl,
+              target: '_blank',
+              href: isValidUrl ? link : undefined,
+              onClick: visitHyperlink(editorAnalyticsApi),
+              title: labelOpenLink,
+              icon: OpenIcon,
+              className: 'hyperlink-open-link',
+              metadata: metadata,
+              tabIndex: null,
+            },
+            {
+              type: 'separator',
+            },
+            {
+              id: 'editor.link.unlink',
+              testId: 'editor.link.unlink',
+              type: 'button',
+              onClick: commandWithMetadata(
+                removeLink(pos, editorAnalyticsApi),
+                {
+                  inputMethod: INPUT_METHOD.FLOATING_TB,
+                },
+              ),
+              title: labelUnlink,
+              icon: UnlinkIcon,
+              tabIndex: null,
+            },
+            {
+              type: 'copy-button',
+              items: [
+                { type: 'separator' },
+                {
+                  state,
+                  formatMessage: formatMessage,
+                  markType: state.schema.marks.link,
+                },
+              ],
+            },
+            ...(getBooleanFF('platform.editor.card.inject-settings-button')
+              ? []
+              : getSettingsButtonGroup(intl, editorAnalyticsApi)),
+          ];
+
+          const items = getBooleanFF(
+            'platform.editor.card.inject-settings-button',
+          )
+            ? mergeAddedItems(
+                link,
+                state,
+                intl,
+                providerFactory,
+              )(baseItems, toolbarKey.getState(state))
+            : baseItems;
+
           return {
             ...hyperLinkToolbar,
             height: 32,
             width: 250,
-            items: [
-              ...(toolbarKey
-                .getState(state)
-                ?.items(state, intl, providerFactory, link) ?? []),
-              {
-                id: 'editor.link.edit',
-                testId: 'editor.link.edit',
-                type: 'button',
-                onClick: editInsertedLink(editorAnalyticsApi),
-                title: editLink,
-                showTitle: true,
-                metadata: metadata,
-              },
-              {
-                type: 'separator',
-              },
-              {
-                id: 'editor.link.openLink',
-                testId: 'editor.link.openLink',
-                type: 'button',
-                disabled: !isValidUrl,
-                target: '_blank',
-                href: isValidUrl ? link : undefined,
-                onClick: visitHyperlink(editorAnalyticsApi),
-                title: labelOpenLink,
-                icon: OpenIcon,
-                className: 'hyperlink-open-link',
-                metadata: metadata,
-                tabIndex: null,
-              },
-              {
-                type: 'separator',
-              },
-              {
-                id: 'editor.link.unlink',
-                testId: 'editor.link.unlink',
-                type: 'button',
-                onClick: commandWithMetadata(
-                  removeLink(pos, editorAnalyticsApi),
-                  {
-                    inputMethod: INPUT_METHOD.FLOATING_TB,
-                  },
-                ),
-                title: labelUnlink,
-                icon: UnlinkIcon,
-                tabIndex: null,
-              },
-              {
-                type: 'copy-button',
-                items: [
-                  { type: 'separator' },
-                  {
-                    state,
-                    formatMessage: formatMessage,
-                    markType: state.schema.marks.link,
-                  },
-                ],
-              },
-              ...getSettingsButtonGroup(intl, editorAnalyticsApi),
-            ],
+            items,
             scrollable: true,
           };
         }

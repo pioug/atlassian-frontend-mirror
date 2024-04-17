@@ -468,7 +468,7 @@ export const PlainConfluenceSearchConfigModal = (
 
   const onInsertPressed = useCallback(
     (e: React.MouseEvent<HTMLElement>, analyticsEvent: UIAnalyticsEvent) => {
-      if (!isParametersSet || !cloudId) {
+      if (!isParametersSet || !cloudId || !confluenceSearchUrl) {
         return;
       }
 
@@ -504,29 +504,32 @@ export const PlainConfluenceSearchConfigModal = (
         );
       } else {
         onInsert(
-          buildDatasourceAdf<ConfluenceSearchDatasourceParameters>({
-            id: datasourceId,
-            parameters: {
-              ...parameters,
-              cloudId,
-            },
-            views: [
-              {
-                type: 'table',
-                properties: {
-                  columns: (visibleColumnKeys || []).map(key => {
-                    const width = columnCustomSizes?.[key];
-                    const isWrapped = wrappedColumnKeys?.includes(key);
-                    return {
-                      key,
-                      ...(width ? { width } : {}),
-                      ...(isWrapped ? { isWrapped } : {}),
-                    };
-                  }),
-                },
+          buildDatasourceAdf<ConfluenceSearchDatasourceParameters>(
+            {
+              id: datasourceId,
+              parameters: {
+                ...parameters,
+                cloudId,
               },
-            ],
-          }),
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: (visibleColumnKeys || []).map(key => {
+                      const width = columnCustomSizes?.[key];
+                      const isWrapped = wrappedColumnKeys?.includes(key);
+                      return {
+                        key,
+                        ...(width ? { width } : {}),
+                        ...(isWrapped ? { isWrapped } : {}),
+                      };
+                    }),
+                  },
+                },
+              ],
+            },
+            confluenceSearchUrl,
+          ),
           consumerEvent,
         );
       }

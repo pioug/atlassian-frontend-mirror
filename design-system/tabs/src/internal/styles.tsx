@@ -2,33 +2,12 @@ import { css, CSSObject, SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { tabColors, tabLineColors, tabPanelFocusColor } from './colors';
+import { tabColors, tabLineColors } from './colors';
 
 const tabLeftRightPadding = token('space.100', '8px');
 const tabTopBottomPadding = token('space.050', '4px');
 // TODO this should probably be `border.width.indicator`
 const underlineHeight = token('border.width.outline', '2px');
-
-const highContrastFocusStyles: CSSObject = {
-  outline: `${token('border.width', '1px')} solid`,
-};
-
-// Required so the focus ring is visible in high contrast mode
-const highContrastFocusRing = {
-  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)':
-    {
-      '&:focus-visible': highContrastFocusStyles,
-      '@supports not selector(*:focus-visible)': {
-        '&:focus': highContrastFocusStyles,
-      },
-    },
-};
-
-const tabFocusStyles = (): CSSObject => ({
-  boxShadow: `0 0 0 2px ${tabPanelFocusColor} inset`,
-  borderRadius: token('border.radius', '3px'),
-  outline: 'none',
-});
 
 const getTabPanelStyles = (): CSSObject => ({
   flexGrow: 1,
@@ -39,11 +18,6 @@ const getTabPanelStyles = (): CSSObject => ({
   minHeight: '0%',
   display: 'flex',
   padding: `0 ${tabLeftRightPadding}`,
-  '&:focus-visible': tabFocusStyles(),
-  '@supports not selector(*:focus-visible)': {
-    '&:focus': tabFocusStyles(),
-  },
-  ...highContrastFocusRing,
 });
 
 export const getTabsStyles = (): SerializedStyles =>
@@ -82,19 +56,6 @@ export const getTabListStyles = (): SerializedStyles =>
     },
   });
 
-const tabPanelFocusStyles = (): CSSObject => {
-  const colors = tabColors;
-  return {
-    boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
-    borderRadius: token('border.radius', '3px'),
-    outline: 'none',
-    // Hide TabLine on focus
-    '&::after': {
-      opacity: 0,
-    },
-  };
-};
-
 export const getTabStyles = (): CSSObject => {
   const colors = tabColors;
   return {
@@ -127,12 +88,6 @@ export const getTabStyles = (): CSSObject => {
         height: 0,
       },
     },
-
-    '&:focus-visible': tabPanelFocusStyles(),
-    '@supports not selector(*:focus-visible)': {
-      '&:focus': tabPanelFocusStyles(),
-    },
-    ...highContrastFocusRing,
 
     '&[aria-selected="true"]': {
       color: colors.selectedColor,

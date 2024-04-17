@@ -5,9 +5,10 @@ import type {
 } from '@atlaskit/editor-common/types';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
+import type { ExpandPlugin } from '../types';
+
 import { deleteExpand } from './commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
-import type { ExpandPlugin } from './types';
 
 export const getToolbarConfig =
   (

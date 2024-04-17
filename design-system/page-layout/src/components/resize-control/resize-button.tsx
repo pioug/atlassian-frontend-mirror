@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs, smallDurationMs } from '@atlaskit/motion/durations';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -97,7 +98,13 @@ const ResizeButton = ({
     {...props}
   >
     <ChevronRight label="" />
-    <div css={increaseHitAreaStyles} />
+    {getBooleanFF(
+      'platform.design-system-team.page-layout-remove-empty-div_4jg0j',
+    ) ? (
+      <span css={increaseHitAreaStyles} />
+    ) : (
+      <div css={increaseHitAreaStyles} />
+    )}
   </button>
 );
 

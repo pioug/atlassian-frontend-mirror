@@ -1,5 +1,6 @@
-import React, { Fragment, useCallback, useMemo, useRef } from 'react';
+import React, { Fragment, useMemo, useRef } from 'react';
 
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { Box, xcss } from '@atlaskit/primitives';
 
@@ -113,7 +114,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   shouldFitContainer = false,
   spacing: propSpacing = 'default',
 }: UseButtonBaseArgs<TagName>): UseButtonBaseReturn<TagName> => {
-  const ourRef = useRef<TagName | null>();
+  const localRef = useRef<TagName | null>(null);
   const splitButtonContext = useSplitButtonContext();
 
   const isSplitButton = Boolean(splitButtonContext);
@@ -127,26 +128,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   const isActiveOverSelected =
     splitButtonContext?.isActiveOverSelected || false;
 
-  const setRef = useCallback(
-    (node: TagName | null) => {
-      ourRef.current = node;
-
-      if (ref === null) {
-        return;
-      }
-
-      if (typeof ref === 'function') {
-        ref(node);
-        return;
-      }
-
-      // @ts-ignore
-      ref.current = node;
-    },
-    [ourRef, ref],
-  );
-
-  useAutoFocus(ourRef, autoFocus);
+  useAutoFocus(localRef, autoFocus);
 
   const buttonXCSS: ReturnType<typeof xcss> = useMemo(
     () =>
@@ -191,7 +173,7 @@ const useButtonBase = <TagName extends HTMLElement>({
   const isEffectivelyDisabled = isDisabled || Boolean(overlay);
 
   return {
-    ref: setRef,
+    ref: mergeRefs([localRef, ref]),
     xcss: buttonXCSS,
     // Consider overlay buttons to be effectively disabled
     isDisabled: isEffectivelyDisabled,

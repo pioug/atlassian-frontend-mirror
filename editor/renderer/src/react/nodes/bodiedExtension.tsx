@@ -6,10 +6,14 @@ import type {
 import type { RendererContext } from '../types';
 import type { Serializer } from '../..';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderExtension } from './extension';
+import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
+import { ACTION_SUBJECT } from '../../analytics/enums';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 
 export interface Props {
   serializer: Serializer<any>;
@@ -28,7 +32,14 @@ export interface Props {
 }
 
 const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
-  const { children, layout = 'default', path = [] } = props;
+  const {
+    children,
+    layout = 'default',
+    path = [],
+    extensionKey,
+    extensionType,
+  } = props;
+  const { createAnalyticsEvent } = useAnalyticsEvents();
 
   const removeOverflow = React.Children.toArray(children)
     .map((child) =>
@@ -39,36 +50,43 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
     .every(Boolean);
 
   return (
-    <ExtensionRenderer {...props} type="bodiedExtension">
-      {({ result }) => {
-        try {
-          if (result && React.isValidElement(result)) {
-            // Return the content directly if it's a valid JSX.Element
-            return renderExtension(
-              result,
-              layout,
-              {
-                isTopLevel: path.length < 1,
-              },
-              removeOverflow,
-            );
+    <ErrorBoundary
+      component={ACTION_SUBJECT.RENDERER}
+      componentId={ACTION_SUBJECT_ID.EXTENSION_BODIED}
+      createAnalyticsEvent={createAnalyticsEvent}
+      additionalInfo={`${extensionType}: ${extensionKey} `}
+    >
+      <ExtensionRenderer {...props} type="bodiedExtension">
+        {({ result }) => {
+          try {
+            if (result && React.isValidElement(result)) {
+              // Return the content directly if it's a valid JSX.Element
+              return renderExtension(
+                result,
+                layout,
+                {
+                  isTopLevel: path.length < 1,
+                },
+                removeOverflow,
+              );
+            }
+          } catch (e) {
+            /** We don't want this error to block renderer */
+            /** We keep rendering the default content */
           }
-        } catch (e) {
-          /** We don't want this error to block renderer */
-          /** We keep rendering the default content */
-        }
 
-        // Always return default content if anything goes wrong
-        return renderExtension(
-          children,
-          layout,
-          {
-            isTopLevel: path.length < 1,
-          },
-          removeOverflow,
-        );
-      }}
-    </ExtensionRenderer>
+          // Always return default content if anything goes wrong
+          return renderExtension(
+            children,
+            layout,
+            {
+              isTopLevel: path.length < 1,
+            },
+            removeOverflow,
+          );
+        }}
+      </ExtensionRenderer>
+    </ErrorBoundary>
   );
 };
 

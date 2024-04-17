@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/css",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "Style components backed by Atlassian Design System design tokens powered by Compiled CSS-in-JS.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -11,6 +11,7 @@
     "team": "Design System Team",
     "inPublicMirror": false,
     "releaseModel": "continuous",
+    "runReact18": true,
     "website": {
       "name": "CSS",
       "category": "Components"
@@ -43,7 +44,7 @@
     "@compiled/react": "^0.17.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/integration-testing": "*",

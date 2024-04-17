@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { Box } from '@atlaskit/primitives';
+import FocusRing from '@atlaskit/focus-ring';
 
 import { useTabPanel } from '../hooks';
 import { TabPanelAttributesType, TabPanelProps } from '../types';
@@ -28,18 +28,21 @@ const TabPanel = ({ children, testId }: TabPanelProps) => {
     tabIndex,
   }: TabPanelAttributesType = useTabPanel();
   return (
-    <Box
-      testId={testId}
-      role={role}
-      id={id}
-      hidden={hidden}
-      aria-labelledby={ariaLabelledBy}
-      onMouseDown={onMouseDown}
-      tabIndex={tabIndex}
-    >
-      {/* Fragment is a workaround as Box types don't allow ReactNode children */}
-      <Fragment>{children}</Fragment>
-    </Box>
+    <FocusRing isInset>
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
+      <div
+        data-testid={testId}
+        role={role}
+        id={id}
+        hidden={hidden}
+        aria-labelledby={ariaLabelledBy}
+        onMouseDown={onMouseDown}
+        tabIndex={tabIndex}
+      >
+        {/* Fragment is a workaround as Box types don't allow ReactNode children */}
+        <Fragment>{children}</Fragment>
+      </div>
+    </FocusRing>
   );
 };
 

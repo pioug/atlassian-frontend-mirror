@@ -33,7 +33,7 @@ export class AISummaryService implements AISummaryServiceInt {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'x-experience-id': 'smart-link',
-        'x-product': props.product || 'confluence',
+        'x-product': props.product?.toLowerCase() || 'confluence',
         ...props.headers,
       },
     };

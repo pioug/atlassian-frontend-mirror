@@ -99,6 +99,10 @@ export enum PerimeterType {
   FEDRAMP_MODERATE = 'fedramp-moderate',
 }
 
+export type CheckGateOptions = {
+  fireGateExposure?: boolean;
+};
+
 export type GetExperimentOptions = {
   fireExperimentExposure?: boolean;
 };

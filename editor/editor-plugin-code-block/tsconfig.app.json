@@ -48,9 +48,6 @@
       "path": "../editor-plugin-decorations/tsconfig.app.json"
     },
     {
-      "path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {

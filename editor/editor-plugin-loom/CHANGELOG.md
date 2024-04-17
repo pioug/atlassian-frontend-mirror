@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.0.1
+
+### Patch Changes
+
+- [#90526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90526) [`2f75eb73984f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f75eb73984f) - [ux] Update toolbar icon to Loom
+
 ## 2.0.0
 
 ### Major Changes

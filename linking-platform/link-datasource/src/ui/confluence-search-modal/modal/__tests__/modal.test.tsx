@@ -184,6 +184,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some keywords',
             },
+            url: 'https://hello.atlassian.net/wiki/search?text=some%20keywords',
           },
           {
             attributes: {
@@ -214,6 +215,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some keywords',
             },
+            url: 'https://hello.atlassian.net/wiki/search?text=some%20keywords',
           },
           {
             attributes: {
@@ -239,6 +241,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -282,6 +285,7 @@ describe('ConfluenceSearchConfigModal', () => {
             shouldMatchTitleOnly: true,
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -593,6 +597,7 @@ describe('ConfluenceSearchConfigModal', () => {
         {
           type: 'blockCard',
           attrs: {
+            url: 'https://hello.atlassian.net/wiki/search?text=',
             datasource: {
               id: 'some-confluence-search-datasource-id',
               parameters: {
@@ -657,6 +662,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -685,6 +691,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -737,6 +744,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -793,6 +801,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some query',
             },
+            url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
           },
           {
             attributes: {
@@ -853,6 +862,7 @@ describe('ConfluenceSearchConfigModal', () => {
                 cloudId: '67899',
                 searchString: 'some query',
               },
+              url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
             },
             {
               attributes: {
@@ -964,6 +974,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -1000,6 +1011,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
+          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
         },
         {
           attributes: {
@@ -1035,6 +1047,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some query',
             },
+            url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
           },
           {
             attributes: {

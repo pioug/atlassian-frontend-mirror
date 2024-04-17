@@ -22,7 +22,7 @@ const userWrapperStyles = xcss({
 });
 
 const avatarWrapperStyles = xcss({
-  marginRight: '5px',
+  marginRight: 'space.100',
 });
 
 const widthObserverWrapperStyles = xcss({

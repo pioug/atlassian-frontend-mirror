@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-card
 
+## 1.8.0
+
+### Minor Changes
+
+- [#89840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89840) [`9f256dde75e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f256dde75e9) - [ux] Implement onClickCallback plugin option to editor-plugin-card, allowing a callback to be executed when a smartlink is clicked, used by CCFE for live view to open smartlinks on-click
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

@@ -79,6 +79,7 @@ export const createPlugin =
       showUpgradeDiscoverability,
       allowEmbeds,
       allowBlockCards,
+      onClickCallback,
     } = options;
 
     const enableInlineUpgradeFeatures =
@@ -99,6 +100,7 @@ export const createPlugin =
         allowEmbeds,
         allowBlockCards,
         pluginInjectionApi,
+        onClickCallback,
       },
     });
 
@@ -324,6 +326,8 @@ export const createPlugin =
               platform,
               actionOptions,
               showServerActions,
+              pluginInjectionApi,
+              onClickCallback: options.onClickCallback,
             };
             const hasIntlContext = true;
             const isDatasource = !!node?.attrs?.datasource;
@@ -389,6 +393,7 @@ export const createPlugin =
               pluginInjectionApi,
               actionOptions,
               showServerActions,
+              onClickCallback: options.onClickCallback,
             };
             const hasIntlContext = true;
             return new EmbedCard(

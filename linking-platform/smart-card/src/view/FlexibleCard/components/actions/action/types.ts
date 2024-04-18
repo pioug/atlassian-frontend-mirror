@@ -3,6 +3,7 @@ import type { Space, XCSS } from '@atlaskit/primitives';
 import type { SerializedStyles } from '@emotion/react';
 import type { ReactChild, ReactNode } from 'react';
 import type { SmartLinkSize } from '../../../../../constants';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type ActionProps = {
   /**
@@ -52,6 +53,11 @@ export type ActionProps = {
   tooltipMessage?: ReactNode;
 
   /**
+   * Determines the onHide behaviour of the Tooltip
+   */
+  tooltipOnHide?: (analyticsEvent: UIAnalyticsEvent) => any;
+
+  /**
    * @deprecated Use 'as' instead
    * Used to determine whether the Action is in a Dropdown.
    */
@@ -84,4 +90,21 @@ export type ActionProps = {
    * Additional styling properties for Primitives based component
    */
   xcss?: XCSS;
+
+  /**
+   * Allows the use of hyperlinks as buttons via the atlaskit component
+   */
+  href?: string;
+
+  /**
+   * Additional text properties for accessibility of actions
+   */
+  ariaLabel?: string;
+
+  /**
+   * Optional wrapper component to wrap the action
+   * E.g., Feature discovery pulse
+   * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
+   */
+  wrapper?: React.ElementType;
 };

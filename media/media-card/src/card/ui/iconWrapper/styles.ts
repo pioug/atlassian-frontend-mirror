@@ -17,14 +17,15 @@ export function titleBoxHeight(hasTitleBox: boolean, breakpoint: Breakpoint) {
 export const iconWrapperStyles = ({
   hasTitleBox,
   breakpoint,
-}: IconWrapperProps) => css`
-  position: absolute;
-  width: 100%;
-  height: calc(100% - ${titleBoxHeight(hasTitleBox, breakpoint)});
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+}: IconWrapperProps) =>
+  css({
+    position: 'absolute',
+    width: '100%',
+    height: `calc(100% - ${titleBoxHeight(hasTitleBox, breakpoint)})`,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  });
 
 iconWrapperStyles.displayName = 'MediaIconWrapper';

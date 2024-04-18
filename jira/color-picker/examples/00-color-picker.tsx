@@ -5,6 +5,8 @@ import { simplePalette } from '../mock-data';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+
 class ColorPickerExample extends React.Component<{}, { color: string }> {
   state = {
     color: token('color.background.accent.purple.subtle', colors.P200),
@@ -22,4 +24,13 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
   }
 }
 
-export default () => <ColorPickerExample />;
+const Story = () => <ColorPickerExample />;
+
+Story.decorators = [
+  withPlatformFeatureFlags({
+    'platform.color-picker-radio-button-functionality_6hkcy': true,
+    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl': true,
+  }),
+];
+
+export default Story;

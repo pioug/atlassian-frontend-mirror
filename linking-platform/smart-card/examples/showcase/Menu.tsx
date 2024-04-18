@@ -35,16 +35,16 @@ const environmentOptions: OptionsType<EnvironmentOption> = [
   { label: 'Production', value: 'prod' },
 ];
 
-const menuWrapperStyles = css`
-  display: flex;
-  flex-direction: column;
-  width: 240px;
-  margin-right: ${token('space.300', '24px')};
-`;
-const menuTitleStyles = css`
-  margin-bottom: ${token('space.100', '8px')};
-  color: ${token('color.text.subtlest', N200)};
-`;
+const menuWrapperStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '240px',
+  marginRight: token('space.300', '24px'),
+});
+const menuTitleStyles = css({
+  marginBottom: token('space.100', '8px'),
+  color: token('color.text.subtlest', N200),
+});
 
 interface ShowcaseMenuProps {
   onViewTypeChange: (appearance: CardAppearance) => void;

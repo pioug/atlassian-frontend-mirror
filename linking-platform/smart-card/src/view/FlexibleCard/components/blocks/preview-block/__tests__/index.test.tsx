@@ -103,9 +103,9 @@ describe('PreviewBlock', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = renderPreviewBlock({
       overrideCss,
       testId,

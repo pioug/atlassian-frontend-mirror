@@ -44,7 +44,7 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/calendar": "^14.2.0",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/layering": "^0.2.0",
     "@atlaskit/locale": "^2.6.0",

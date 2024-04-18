@@ -3,6 +3,7 @@ import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type {
   CardOptions,
   CardReplacementInputMethod,
+  OnClickCallback,
 } from '@atlaskit/editor-common/card';
 import type {
   CardAppearance,
@@ -114,6 +115,7 @@ export type CardPluginOptions = CardOptions & {
   cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
   lpLinkPicker?: boolean;
   disableFloatingToolbar?: boolean;
+  onClickCallback?: OnClickCallback;
 };
 
 // actions

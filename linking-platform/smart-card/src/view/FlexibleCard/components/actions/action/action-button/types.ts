@@ -7,4 +7,6 @@ export type ActionButtonProps = ActionProps & {
   isLoading?: boolean;
   size: SmartLinkSize;
   isDisabled?: boolean;
+  href?: string;
+  ariaLabel?: string;
 };

@@ -41,6 +41,7 @@ describe('ConfluenceSearchConfigModal', () => {
     noResults: 'datasource-modal--no-results',
     emptyState: 'confluence-search-datasource-modal--empty-state',
     totalResultsCount: 'confluence-search-datasource-modal-total-results-count',
+    displayViewDropdown: 'datasource-modal--view-drop-down--trigger',
   };
 
   beforeEach(() => {
@@ -619,6 +620,41 @@ describe('ConfluenceSearchConfigModal', () => {
       );
     });
 
+    it('should call onInsert with datasource ADF with overridable parameters upon Insert button press', async () => {
+      const { onInsert, getByRole } = await setup({
+        overrideParameters: {
+          entityTypes: ['parameter1', 'parameter2'],
+        },
+      });
+      const button = getByRole('button', { name: 'Insert results' });
+      button.click();
+      expect(onInsert).toHaveBeenCalledWith(
+        {
+          type: 'blockCard',
+          attrs: {
+            url: 'https://hello.atlassian.net/wiki/search?text=',
+            datasource: {
+              id: 'some-confluence-search-datasource-id',
+              parameters: {
+                cloudId: '67899',
+                searchString: '',
+                entityTypes: ['parameter1', 'parameter2'],
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [{ key: 'myColumn' }],
+                  },
+                },
+              ],
+            },
+          },
+        } as ConfluenceSearchDatasourceAdf,
+        expect.objectContaining({}),
+      );
+    });
+
     it('should call onInsert with inlineCard ADF upon Insert button press in inline view mode', async () => {
       const { onInsert, findByRole } = await setup({ viewMode: 'inline' });
 
@@ -1168,6 +1204,127 @@ describe('ConfluenceSearchConfigModal', () => {
           getByText("You don't have access to this content"),
         ).toBeInTheDocument();
       });
+    });
+  });
+
+  it('should show DisplayViewDropdown when disableDisplayDropdown is false', async () => {
+    const { getByTestId } = await setup({
+      disableDisplayDropdown: false,
+      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      url: '',
+    });
+
+    expect(getByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
+  });
+
+  it('should show DisplayViewDropdown when disableDisplayDropdown is undefined', async () => {
+    const { getByTestId } = await setup({
+      disableDisplayDropdown: undefined,
+      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      url: '',
+    });
+
+    expect(getByTestId(testIds.displayViewDropdown)).toBeInTheDocument();
+  });
+
+  it('should not show DisplayViewDropdown when disableDisplayDropdown is true', async () => {
+    const { queryByTestId } = await setup({
+      disableDisplayDropdown: true,
+      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      url: '',
+    });
+
+    expect(queryByTestId(testIds.displayViewDropdown)).toBeNull();
+  });
+
+  it('should pass parameters to the useDatasourceTableState hook as normal, when `overrideParameters` are not provided', async () => {
+    await setup({
+      overrideParameters: undefined,
+      mockSiteDataOverride: mockSiteData.slice(3),
+      parameters: {
+        cloudId: mockSiteData[0].cloudId,
+        searchString: '',
+        entityTypes: ['original1'],
+      },
+      url: '',
+    });
+
+    expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+      datasourceId: 'some-confluence-search-datasource-id',
+      fieldKeys: ['myColumn'],
+      parameters: {
+        cloudId: '67899',
+        entityTypes: ['original1'],
+        searchString: '',
+      },
+    });
+  });
+
+  it('should pass parameters plus `overrideParameters` to the useDatasourceTableState hook', async () => {
+    await setup({
+      overrideParameters: {
+        entityTypes: ['entity1', 'entity2', 'entity3', 'entity4'],
+      },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      parameters: { cloudId: mockSiteData[0].cloudId, searchString: '' },
+      url: '',
+    });
+
+    expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+      datasourceId: 'some-confluence-search-datasource-id',
+      fieldKeys: ['myColumn'],
+      parameters: {
+        cloudId: '67899',
+        entityTypes: ['entity1', 'entity2', 'entity3', 'entity4'],
+        searchString: '',
+      },
+    });
+  });
+
+  it('should pass parameters, and replace original `entityTypes` with the ones from `overrideParameters` to the useDatasourceTableState hook', async () => {
+    await setup({
+      overrideParameters: {
+        entityTypes: ['entity1', 'entity2', 'entity3', 'entity4'],
+      },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      parameters: {
+        cloudId: mockSiteData[0].cloudId,
+        searchString: '',
+        entityTypes: ['originalType1', 'originalType2'],
+      },
+      url: '',
+    });
+
+    expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+      datasourceId: 'some-confluence-search-datasource-id',
+      fieldKeys: ['myColumn'],
+      parameters: {
+        cloudId: '67899',
+        entityTypes: ['entity1', 'entity2', 'entity3', 'entity4'],
+        searchString: '',
+      },
+    });
+  });
+
+  it('should pass `undefined` parameters even with provided `overrideParameters` to the useDatasourceTableState hook, when there are not enough provided parameters to call API', async () => {
+    await setup({
+      overrideParameters: {
+        entityTypes: ['entity1', 'entity2', 'entity3', 'entity4'],
+      },
+      mockSiteDataOverride: mockSiteData.slice(3),
+      parameters: {
+        cloudId: mockSiteData[0].cloudId,
+      },
+      url: '',
+    });
+
+    expect(useDatasourceTableState).toHaveBeenLastCalledWith({
+      datasourceId: 'some-confluence-search-datasource-id',
+      fieldKeys: ['myColumn'],
+      parameters: undefined,
     });
   });
 });

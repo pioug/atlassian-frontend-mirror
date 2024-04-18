@@ -15,7 +15,6 @@ import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { sizeToButtonSpacing } from '../../utils';
 import { messages } from '../../../../../messages';
-import { ActionItem } from '../types';
 import {
   useFlexibleUiContext,
   useFlexibleUiOptionContext,
@@ -23,6 +22,7 @@ import {
 import ActionGroupItem from './action-group-item';
 import { filterActionItems } from '../utils';
 import { di } from 'react-magnetic-di';
+import type { ActionItem } from '../types';
 
 const styles = css({
   display: 'inline-flex',
@@ -42,7 +42,7 @@ const renderActionItems = (
   asDropDownItems?: boolean,
   onActionItemClick?: () => void,
 ): React.ReactElement[] | undefined =>
-  items.map((item: ActionItem, idx: number) => (
+  items.map((item, idx) => (
     <ActionGroupItem
       item={item}
       key={idx}

@@ -6,7 +6,7 @@
  */
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import type { CorePlugin } from '../preset/core-plugin';
+import type { CorePlugin } from '../preset/core-plugin/types';
 
 import type {
   EditorCommand,
@@ -261,6 +261,9 @@ export type CreatePluginDependenciesAPI<
     NextEditorPlugin<any, any>
   >
     ? PluginDependenciesAPI<Plugin> | undefined
+    : // Special case for core as it is always included
+    Plugin extends NextEditorPlugin<'core', any>
+    ? PluginDependenciesAPI<Plugin>
     : Plugin extends NextEditorPlugin<any, any>
     ? PluginDependenciesAPI<Plugin> | undefined
     : never;

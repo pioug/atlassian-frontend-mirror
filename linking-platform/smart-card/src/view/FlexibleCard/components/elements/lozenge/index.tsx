@@ -6,10 +6,10 @@ import LozengeAction from './lozenge-action';
 import type { LozengeProps } from './types';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
-const styles = css`
-  display: inline-flex;
-  line-height: inherit;
-`;
+const styles = css({
+  display: 'inline-flex',
+  lineHeight: 'inherit',
+});
 
 /**
  * A base element that displays a Lozenge.

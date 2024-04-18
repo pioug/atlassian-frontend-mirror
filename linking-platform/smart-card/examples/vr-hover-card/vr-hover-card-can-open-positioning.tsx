@@ -15,26 +15,18 @@ class CustomClient extends Client {
   }
 }
 
-const styles = css`
-  display: flex;
-  gap: 1rem;
-
-  > div {
-    flex-grow: 1;
-    padding: 1rem;
-    background-color: ${token(
-      'color.background.accent.lime.subtlest',
-      '#eefbda',
-    )};
-
-    &:hover {
-      background-color: ${token(
-        'color.background.accent.lime.bolder',
-        '#5b7f24',
-      )};
-    }
-  }
-`;
+const styles = css({
+  display: 'flex',
+  gap: '1rem',
+  '> div': {
+    flexGrow: 1,
+    padding: '1rem',
+    backgroundColor: token('color.background.accent.lime.subtlest', '#eefbda'),
+    '&:hover': {
+      backgroundColor: token('color.background.accent.lime.bolder', '#5b7f24'),
+    },
+  },
+});
 
 export default () => {
   const [canOpen, setCanOpen] = useState(true);

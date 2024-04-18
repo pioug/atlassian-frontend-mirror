@@ -14,16 +14,16 @@ import { MainWrapper } from '../example-helpers';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 
-const wrapperStyles = css`
-  max-width: 800px;
-  margin: ${token('space.250', '20px')} auto;
-`;
+const wrapperStyles = css({
+  maxWidth: '800px',
+  margin: `${token('space.250', '20px')} auto`,
+});
 
-const cardContainerStyles = css`
-  display: inline-block;
-  margin-right: ${token('space.250', '20px')};
-  margin-top: ${token('space.250', '20px')};
-`;
+const cardContainerStyles = css({
+  display: 'inline-block',
+  marginRight: token('space.250', '20px'),
+  marginTop: token('space.250', '20px'),
+});
 
 const cardDimensions = [
   { width: '156px', height: '108px' },

@@ -81,7 +81,7 @@ describe('steps', () => {
     });
 
     describe('when a part of paragraph is selected', () => {
-      it('should calc the position', () => {
+      it('should calc the position of a plain text range', () => {
         const myRange = new Range();
         const PARENT_OFFSET = 1;
         myRange.setStart(firstValidParagraph, 0);
@@ -93,6 +93,36 @@ describe('steps', () => {
         expect(getPosFromRange(myRange)).toEqual({
           from: firstValidParagraphPosition,
           to: firstValidParagraphPosition + textNode.nodeSize,
+        });
+      });
+
+      it('should calc the position of a range with an inline card with a mark', () => {
+        const prefix = 'range-with-inline-card-with-mark';
+        const inlineCardWithMarkParagraph = [
+          ...document.querySelectorAll('p'),
+        ].filter((paragraph) => paragraph.textContent!.includes(prefix))![0];
+
+        const myRange = new Range();
+        // This is a fragile, but sets a start position inside the paragraph
+        // see the test document for full structure
+        myRange.setStart(
+          inlineCardWithMarkParagraph.childNodes[0],
+          prefix.length,
+        );
+        myRange.setEnd(
+          // The third item in the document for this paragraph is a text node with a comment on it
+          // which means the html will be a span (for the comment), and then a text node
+          // so we reach in twice to get the text node
+          inlineCardWithMarkParagraph.childNodes[3]
+            .childNodes[0] as HTMLElement,
+          5,
+        );
+
+        const posFromRange = getPosFromRange(myRange);
+
+        expect(posFromRange).toEqual({
+          from: 1843,
+          to: 1872,
         });
       });
     });

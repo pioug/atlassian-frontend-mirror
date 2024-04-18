@@ -59,6 +59,9 @@
       "path": "../../design-system/dropdown-menu/tsconfig.app.json"
     },
     {
+      "path": "../../helpers/frontend-utilities/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {

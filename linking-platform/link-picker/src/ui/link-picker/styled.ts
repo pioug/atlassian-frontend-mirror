@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const rootContainerStyles = css`
   width: ${getBooleanFF(
     'platform.linking-platform.link-picker.fixed-height-search-results',
@@ -18,6 +19,6 @@ export const rootContainerStyles = css`
   display: block !important;
 `;
 
-export const formFooterMargin = css`
-  margin-top: ${token('space.200', '16px')};
-`;
+export const formFooterMargin = css({
+  marginTop: token('space.200', '16px'),
+});

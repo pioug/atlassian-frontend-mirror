@@ -19,6 +19,7 @@ import {
 const getBlockStyles = (
   direction: SmartLinkDirection,
   size: SmartLinkSize,
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 ): SerializedStyles => css`
   ${getBaseStyles(direction, size)}
   ${highlightRemoveStyles}

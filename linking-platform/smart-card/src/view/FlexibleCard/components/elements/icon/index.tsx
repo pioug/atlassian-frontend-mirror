@@ -21,39 +21,37 @@ import {
 const getPositionStyles = (position: SmartLinkPosition): SerializedStyles => {
   switch (position) {
     case SmartLinkPosition.Center:
-      return css`
-        align-self: center;
-      `;
+      return css({
+        alignSelf: 'center',
+      });
     case SmartLinkPosition.Top:
     default:
-      return css`
-        align-self: flex-start;
-        margin: 0;
-      `;
+      return css({
+        alignSelf: 'flex-start',
+        margin: 0,
+      });
   }
 };
 
 const getIconStyles = (
   position: SmartLinkPosition,
   width: string,
-): SerializedStyles => css`
-  ${getPositionStyles(position)}
-  ${getIconSizeStyles(width)}
-`;
+): SerializedStyles =>
+  css(getPositionStyles(position), getIconSizeStyles(width));
 
-const getCustomRenderStyles = (value: string): SerializedStyles => css`
-  ${getTruncateStyles(1, value)}
-  line-height: ${value};
-  font-size: ${value};
-  text-align: center;
-  text-overflow: clip;
-  -webkit-box-orient: unset;
-  span {
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline;
-  }
-`;
+const getCustomRenderStyles = (value: string): SerializedStyles =>
+  css(getTruncateStyles(1, value), {
+    lineHeight: value,
+    fontSize: value,
+    textAlign: 'center',
+    textOverflow: 'clip',
+    WebkitBoxOrient: 'unset',
+    span: {
+      margin: 0,
+      padding: 0,
+      verticalAlign: 'baseline',
+    },
+  });
 
 const renderAtlaskitIcon = (
   icon?: IconType,
@@ -112,6 +110,7 @@ const Icon: React.FC<IconProps> = ({
 
   return (
     <div
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
       css={[styles, renderStyles, overrideCss]}
       data-fit-to-content
       data-smart-element={name}

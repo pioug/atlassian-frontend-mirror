@@ -3,6 +3,7 @@ import { separatorCss } from '../../../styled';
 
 const elementGap = '0.5rem';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const metadataBlockCss = css`
   gap: 0px;
   /* primary element group */
@@ -31,11 +32,11 @@ export const metadataBlockCss = css`
   }
 `;
 
-export const footerBlockCss = css`
-  height: 1.5rem;
-`;
+export const footerBlockCss = css({
+  height: '1.5rem',
+});
 
-export const hiddenSnippetStyles = css`
-  visibility: hidden;
-  position: absolute;
-`;
+export const hiddenSnippetStyles = css({
+  visibility: 'hidden',
+  position: 'absolute',
+});

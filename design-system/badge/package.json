@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-explorations": "^3.4.0",
+    "@atlaskit/ds-explorations": "^3.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.5",
     "@atlaskit/primitives": "^5.5.0",
     "@babel/runtime": "^7.0.0"
@@ -56,7 +56,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",

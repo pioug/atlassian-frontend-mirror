@@ -106,9 +106,9 @@ describe('SnippetBlock', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = render(
       <FlexibleUiContext.Provider value={context}>
         <SnippetBlock

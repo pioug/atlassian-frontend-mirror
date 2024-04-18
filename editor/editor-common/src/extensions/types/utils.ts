@@ -1,6 +1,7 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-import {
+import type {
+  ExtensionKey,
   ExtensionModuleActionHandler,
   ExtensionType,
   Icon,
@@ -9,6 +10,7 @@ import {
 export type MenuItem = {
   key: string;
   extensionType: ExtensionType;
+  extensionKey: ExtensionKey;
   title: string;
   description?: string;
   summary?: string;

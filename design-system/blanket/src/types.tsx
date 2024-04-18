@@ -4,11 +4,11 @@ import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 export interface BlanketProps {
   /**
-   * Whether mouse events can pierce the blanket. If true, onBlanketClicked will not be fired.
+   * Whether mouse events can pass through the blanket. If `true`, `onBlanketClicked` will not be called.
    */
   shouldAllowClickThrough?: boolean;
   /**
-   * Whether the blanket has a tinted background color.
+   * Sets whether the blanket has a tinted background color.
    */
   isTinted?: boolean;
   /**
@@ -29,7 +29,7 @@ export interface BlanketProps {
    */
   testId?: string;
   /**
-   * The children to be rendered within Blanket.
+   * The children to be rendered within the blanket.
    */
   children?: ReactNode;
 }

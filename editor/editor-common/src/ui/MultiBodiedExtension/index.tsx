@@ -2,7 +2,6 @@
 
 import { css } from '@emotion/react';
 
-import { N30, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // Wraps the navigation bar and extensionFrames
@@ -40,7 +39,6 @@ const mbeNavigation = css({
   borderTopRightRadius: token('border.radius', '3px'),
   userSelect: 'none',
   WebkitUserModify: 'read-only',
-  border: `1px solid ${token('color.border', N40)}`,
   borderBottom: 'none !important',
   background: token('elevation.surface', 'white'),
   marginLeft: token('space.100', '8px'),
@@ -56,7 +54,6 @@ const mbeNavigation = css({
 
 const extensionFrameContent = css({
   padding: `${token('space.100', '8px')} !important`,
-  border: `1px solid ${token('color.border', N30)}`,
   display: 'block',
   minHeight: '100px',
   background: token('elevation.surface', 'white'),

@@ -3,11 +3,11 @@ import { css, jsx } from '@emotion/react';
 import { ActionName, FooterBlock, SmartLinkSize } from '../../src';
 import ExampleContainer from './example-container';
 
-const styles = css`
-  [data-smart-element-badge] {
-    opacity: 0.2;
-  }
-`;
+const styles = css({
+  '[data-smart-element-badge]': {
+    opacity: 0.2,
+  },
+});
 
 export default () => (
   <ExampleContainer>

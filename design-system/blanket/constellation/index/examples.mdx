@@ -10,13 +10,13 @@ import BlanketWithChildren from '../../examples/constellation/blanket-children';
 
 A blanket overlays the rest of the page with a transparent grey when used with a modal or popup.
 
-An `onBlanketClicked` prop is provided to catch clicks elsewhere on the page other than the modal or popup. Blanket does not have its own show/hide functionality, as it should be controlled with its parent element.
+An `onBlanketClicked` prop is provided to catch clicks elsewhere on the page other than the modal or popup. Blanket doesn't have its' own show/hide functionality, it should be controlled with its' parent element.
 
 <Example Component={BlanketBasic} packageName="@atlaskit/blanket" />
 
 ## Clickthrough
 
-With the `shouldAllowClickThrough` prop enabled, `onBlanketClicked` does not get called and the elements underneath the blanket can be interacted with directly.
+If you enable the `shouldAllowClickThrough` prop, `onBlanketClicked` doesn't get called and the elements underneath the blanket can be interacted with directly.
 
 <Example Component={BlanketClickthrough} packageName="@atlaskit/blanket" />
 
@@ -24,7 +24,7 @@ With the `shouldAllowClickThrough` prop enabled, `onBlanketClicked` does not get
 
 A blanket with children will exclude the children from being tinted by the blanket.
 
-This example should be opened in [CodeSandbox](https://codesandbox.io/s/atlaskit-blanket-03-blanket-with-children-forked-3ufhkb?file=/example.tsx) for a full-page experience.
+[Open this example in CodeSandbox](https://codesandbox.io/s/atlaskit-blanket-03-blanket-with-children-forked-3ufhkb?file=/example.tsx) for a full-page experience.
 
 <Example
   Component={BlanketWithChildren}

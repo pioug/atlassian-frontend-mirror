@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
@@ -10,6 +10,7 @@ import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles';
 import CommentIcon from '@atlaskit/icon/glyph/comment';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { commentMessages as messages } from '../media';
 
@@ -36,8 +37,11 @@ export type CommentBadgeProps = {
   intl: IntlShape;
   width?: number;
   height?: number;
+  status?: 'default' | 'entered' | 'active';
   mediaElement?: HTMLElement | null;
   onClick: (e: React.MouseEvent) => void;
+  onMouseEnter?: (e: React.MouseEvent) => void;
+  onMouseLeave?: (e: React.MouseEvent) => void;
   isEditor?: boolean;
 };
 
@@ -45,14 +49,17 @@ export const CommentBadge = ({
   intl,
   width,
   height,
+  status = 'default',
   mediaElement,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
   isEditor = false,
 }: CommentBadgeProps) => {
   const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
     getBadgeSize(width, height),
   );
-  const title = intl.formatMessage(messages.viewAndAddCommentsOnMedia);
+  const title = intl.formatMessage(messages.viewCommentsOnMedia);
 
   useEffect(() => {
     const observer = new ResizeObserver(
@@ -73,6 +80,23 @@ export const CommentBadge = ({
 
   const badgeDimensions = badgeSize === 'medium' ? '24px' : '16px';
 
+  const colourToken = useMemo(() => {
+    switch (status) {
+      case 'active':
+        return token(
+          'color.background.accent.yellow.subtlest.pressed',
+          '#F5CD47',
+        );
+      case 'entered':
+        return token(
+          'color.background.accent.yellow.subtlest.hovered',
+          '#F8E6A0',
+        );
+      default:
+        return token('color.background.accent.yellow.subtlest', '#FFF7D6');
+    }
+  }, [status]);
+
   return (
     <div
       css={
@@ -81,21 +105,22 @@ export const CommentBadge = ({
           : commentBadgeWrapper
       }
     >
-      <CustomThemeButton
-        style={{
-          height: badgeDimensions,
-          width: badgeDimensions,
-          background: token(
-            'color.background.accent.yellow.subtler',
-            '#F8E6A0',
-          ),
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        onClick={onClick}
-        iconAfter={<CommentIcon label={title} size={badgeSize} />}
-      />
+      <Tooltip position="top" content={title}>
+        <CustomThemeButton
+          style={{
+            height: badgeDimensions,
+            width: badgeDimensions,
+            background: colourToken,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onClick={onClick}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          iconAfter={<CommentIcon label={title} size={badgeSize} />}
+        />
+      </Tooltip>
     </div>
   );
 };

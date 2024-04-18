@@ -25,6 +25,9 @@ const context: FlexibleUiDataContext = {
       },
       value: true,
     },
+    CopyLinkAction: {
+      url: 'https://www.link-url.com',
+    },
   },
   attachmentCount: 3,
   authorGroup: [

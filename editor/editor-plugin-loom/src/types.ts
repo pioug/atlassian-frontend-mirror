@@ -32,8 +32,10 @@ export type GetClientResult =
 
 export type GetClient = Promise<GetClientResult>;
 
+export type LoomProviderOptions = {
+  getClient: () => GetClient;
+};
 export type LoomPluginOptions = {
-  loomProvider: {
-    getClient: () => GetClient;
-  };
+  loomProvider: LoomProviderOptions;
+  shouldShowToolbarButton?: boolean;
 };

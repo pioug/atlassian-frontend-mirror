@@ -11,26 +11,26 @@ import {
 import JsonldEditor from './jsonld-editor/jsonld-editor';
 import EditLink from './flexible-builder/edit-link';
 
-const containerStyles = css`
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px;
-  min-width: 30rem;
-  padding: 1rem;
-`;
+const containerStyles = css({
+  display: 'flex',
+  gap: '1rem',
+  justifyContent: 'center',
+  margin: '0 auto',
+  maxWidth: '1200px',
+  minWidth: '30rem',
+  padding: '1rem',
+});
 
-const leftPanelStyles = css`
-  flex: 1 1 70%;
-  display: flex;
-  flex-direction: column;
-  gap: 0 1rem;
-`;
+const leftPanelStyles = css({
+  flex: '1 1 70%',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '0 1rem',
+});
 
-const rightPanelStyles = css`
-  flex: 0 1 30%;
-`;
+const rightPanelStyles = css({
+  flex: '0 1 30%',
+});
 
 export default () => {
   const [template, setTemplate] = useState<FlexibleTemplate>(

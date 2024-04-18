@@ -31,6 +31,11 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        CopyLinkAction: {
+          url: 'https://link-url',
+        },
+      },
       authorGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
       collaboratorGroup: [
         { name: 'Angie Mccarthy', src: 'https://person-url' },
@@ -61,6 +66,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+        },
         PreviewAction: {
           linkIcon: {
             icon: 'FileType:Document',
@@ -100,6 +108,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
+        },
         PreviewAction: {
           linkIcon: {
             icon: 'FileType:Blog',
@@ -141,6 +152,11 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        CopyLinkAction: {
+          url: 'https://confluence-url/wiki/spaces/space-id',
+        },
+      },
       linkIcon: { label: 'ShipIt', url: 'https://icon-url' },
       title: 'ShipIt',
       url: 'https://confluence-url/wiki/spaces/space-id',
@@ -154,6 +170,11 @@ describe('extractFlexibleUiContext', () => {
     });
 
     expect(data).toEqual({
+      actions: {
+        CopyLinkAction: {
+          url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+        },
+      },
       linkIcon: {
         icon: 'FileType:Template',
         label: 'templateName_4815162342',
@@ -201,6 +222,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
+        },
         PreviewAction: {
           download: undefined,
           linkIcon: {
@@ -228,6 +252,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
+        },
         PreviewAction: {
           download: undefined,
           linkIcon: {
@@ -255,6 +282,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://link-url',
+        },
         PreviewAction: {
           isSupportTheming: true,
           linkIcon: {
@@ -318,6 +348,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://figma-url/Flexible-Links?node-id=node-id',
+        },
         PreviewAction: {
           linkIcon: {
             label: 'Figma',
@@ -355,6 +388,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://youtube-url/watch?v=video-id',
+        },
         PreviewAction: {
           linkIcon: {
             label: 'YouTube',
@@ -394,6 +430,9 @@ describe('extractFlexibleUiContext', () => {
 
     expect(data).toEqual({
       actions: {
+        CopyLinkAction: {
+          url: 'https://link-url',
+        },
         DownloadAction: {
           downloadUrl: 'https://download-url',
         },

@@ -6,10 +6,10 @@ import { getIframeSandboxAttribute } from '../../../../utils';
 import { EmbedProps } from './types';
 import { IFrame } from '../../../EmbedCard/components/IFrame';
 
-const iframeCss = css`
-  width: 100%;
-  height: calc(100vh - 208px);
-`;
+const iframeCss = css({
+  width: '100%',
+  height: 'calc(100vh - 208px)',
+});
 
 const EmbedContent: FC<EmbedProps> = ({ isTrusted, name, src, testId }) => {
   di(IFrame);

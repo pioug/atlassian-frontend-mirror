@@ -113,9 +113,9 @@ describe('Element: Badge', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = render(
       <Badge icon={IconType.Comment} label="99" overrideCss={overrideCss} />,
     );

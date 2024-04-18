@@ -79,6 +79,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
         actionSubjectId: 'extension',
         attributes: {
           extensionType: 'com.atlassian.forge',
+          extensionKey: 'first',
           key: 'first:default',
           inputMethod: 'quickInsert',
         },
@@ -129,6 +130,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
           actionSubject: 'document',
           actionSubjectId: 'extension',
           attributes: {
+            extensionKey: 'async',
             extensionType: 'com.atlassian.forge',
             key: 'async:default-async',
             inputMethod: 'quickInsert',

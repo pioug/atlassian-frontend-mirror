@@ -11,11 +11,11 @@ const context = getContext({
   storyPoints: 3,
 });
 
-const overrideCss = css`
-  > span {
-    background-color: ${exampleTokens.overrideColor};
-  }
-`;
+const overrideCss = css({
+  '> span': {
+    backgroundColor: exampleTokens.overrideColor,
+  },
+});
 
 export default () => (
   <VRTestWrapper>

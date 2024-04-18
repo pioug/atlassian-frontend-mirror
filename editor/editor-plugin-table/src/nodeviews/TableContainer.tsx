@@ -16,7 +16,6 @@ import {
   akEditorMediaResizeHandlerPaddingWide,
   akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 import type { PluginInjectionAPI } from '../types';
@@ -201,13 +200,11 @@ export const ResizableTableContainer = React.memo(
       pluginInjectionApi,
     };
 
-    if (getBooleanFF('platform.editor.resizing-table-height-improvement')) {
-      tableResizerProps = {
-        ...tableResizerProps,
-        onResizeStart: onResizeStart,
-        onResizeStop: onResizeStop,
-      };
-    }
+    tableResizerProps = {
+      ...tableResizerProps,
+      onResizeStart: onResizeStart,
+      onResizeStop: onResizeStop,
+    };
 
     return (
       <div

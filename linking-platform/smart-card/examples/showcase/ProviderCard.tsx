@@ -16,47 +16,47 @@ import { ExampleUrl, ExampleUIConfig, ExampleRolloutStatus } from './types';
 import { ProviderCardExampleList } from './ProviderCardExampleList';
 
 const getWrapperStyles = ({ disabled }: { disabled: boolean }) => {
-  const base = css`
-    padding: ${token('space.300', '24px')};
-    margin-bottom: ${token('space.300', '24px')};
-    box-shadow: ${token(
+  const base = css({
+    padding: token('space.300', '24px'),
+    marginBottom: token('space.300', '24px'),
+    boxShadow: token(
       'elevation.shadow.raised',
       `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`,
-    )};
-    width: calc(85% - 48px);
-    border-radius: ${borderRadius()}px;
-    background-color: ${token('elevation.surface.raised', 'white')};
-    cursor: pointer;
-    transition: 0.3s ease-in-out all;
-    &:hover {
-      background-color: ${token(
+    ),
+    width: 'calc(85% - 48px)',
+    borderRadius: `${borderRadius()}px`,
+    backgroundColor: token('elevation.surface.raised', 'white'),
+    cursor: 'pointer',
+    transition: '0.3s ease-in-out all',
+    '&:hover': {
+      backgroundColor: token(
         'color.background.neutral.subtle.hovered',
         'rgba(0, 0, 0, 0.03)',
-      )};
-    }
-  `;
+      ),
+    },
+  });
   const disabledCss = disabled
-    ? css`
-        cursor: none;
-        opacity: 0.5;
-        pointer-events: none;
-      `
-    : css``;
+    ? css({
+        cursor: 'none',
+        opacity: 0.5,
+        pointerEvents: 'none',
+      })
+    : css({});
 
   return [base, disabledCss];
 };
 
-const headerStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-const lozengeWrapperStyles = css`
-  margin: 0;
-  margin-left: ${token('space.100', '8px')};
-  display: flex;
-  align-items: center;
-`;
+const headerStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+});
+const lozengeWrapperStyles = css({
+  margin: 0,
+  marginLeft: token('space.100', '8px'),
+  display: 'flex',
+  alignItems: 'center',
+});
 
 const tierToAppearanceMapping: Record<number, ThemeAppearance> = {
   1: 'success',

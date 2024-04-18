@@ -4,36 +4,38 @@ import { token } from '@atlaskit/tokens';
 
 const inputRightPadding = token('space.200', '16px');
 
-export const SearchBox = styled.div`
-  position: sticky;
-  top: 0;
-  background-color: ${N0};
-  color: ${N500};
-  display: flex;
-  height: 36px;
-  z-index: 10; /* required to keep the search box on top of icons in results when sticky */
-`;
+export const SearchBox = styled.div({
+  position: 'sticky',
+  top: 0,
+  backgroundColor: N0,
+  color: N500,
+  display: 'flex',
+  height: '36px',
+  zIndex: 10 /* required to keep the search box on top of icons in results when sticky */,
+});
 
-export const SearchFieldBaseOuter = styled.div`
-  display: flex;
-  flex: 1;
-  margin-right: auto;
-  padding-bottom: ${token('space.025', '2px')};
-  border-bottom: 2px solid ${B200};
-`;
+export const SearchFieldBaseOuter = styled.div({
+  display: 'flex',
+  flex: 1,
+  marginRight: 'auto',
+  paddingBottom: token('space.025', '2px'),
+  borderBottom: `2px solid ${B200}`,
+});
 
-export const SearchFieldBaseInner = styled.div`
-  position: relative;
-  align-items: center;
-  padding-right: ${inputRightPadding}; /* pad search text from FieldBase's isLoading spinner */
-  display: flex;
-  flex-grow: 1;
-`;
+export const SearchFieldBaseInner = styled.div({
+  position: 'relative',
+  alignItems: 'center',
+  paddingRight:
+    inputRightPadding /* pad search text from FieldBase's isLoading spinner */,
+  display: 'flex',
+  flexGrow: 1,
+});
 
-export const SearchInner = styled.div`
-  padding-right: ${token('space.300', '24px')};
-`;
+export const SearchInner = styled.div({
+  paddingRight: token('space.300', '24px'),
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const getPlaceholderStyle = (style: any) => css`
   &::-webkit-input-placeholder {
     ${style};
@@ -56,10 +58,11 @@ export const getPlaceholderStyle = (style: any) => css`
   }
 `;
 
-export const getPlaceholderColor = css`
-  color: ${token('color.text.subtlest', N200)};
-`;
+export const getPlaceholderColor = css({
+  color: token('color.text.subtlest', N200),
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const SearchInput = styled.input`
   background-color: transparent;
   border: 0;
@@ -72,14 +75,14 @@ export const SearchInput = styled.input`
   ${getPlaceholderStyle(getPlaceholderColor)};
 `;
 
-export const SearchInputTypeAhead = styled(SearchInput)`
-  color: ${N50};
-  position: absolute;
-  width: calc(100% - ${inputRightPadding});
-  z-index: -1;
-`;
+export const SearchInputTypeAhead = styled(SearchInput)({
+  color: N50,
+  position: 'absolute',
+  width: `calc(100% - ${inputRightPadding})`,
+  zIndex: -1,
+});
 
-export const SearchInputControlsContainer = styled.span`
-  padding-left: ${token('space.300', '24px')};
-`;
+export const SearchInputControlsContainer = styled.span({
+  paddingLeft: token('space.300', '24px'),
+});
 SearchInputControlsContainer.displayName = 'SearchInputControlsContainer'; // required for testing

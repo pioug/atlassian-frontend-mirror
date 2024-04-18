@@ -23,16 +23,15 @@ const plugins = [
 ];
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const borderStyle = css`
-  display: inline-flex;
-  align-items: flex-start;
-
-  & > div {
-    border: 1px solid red;
-    margin-right: 5px;
-    width: ${LINK_PICKER_WIDTH_IN_PX}px;
-  }
-`;
+const borderStyle = css({
+  display: 'inline-flex',
+  alignItems: 'flex-start',
+  '& > div': {
+    border: '1px solid red',
+    marginRight: '5px',
+    width: `${LINK_PICKER_WIDTH_IN_PX}px`,
+  },
+});
 
 export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
   <div

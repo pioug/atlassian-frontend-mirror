@@ -4,19 +4,19 @@ const blockGap = '0.5rem';
 const iconGap = '0.5rem';
 const titleFontWeight = '500';
 
-export const connectButtonStyles = css`
-  justify-content: flex-end;
-  margin-top: ${blockGap};
-`;
+export const connectButtonStyles = css({
+  justifyContent: 'flex-end',
+  marginTop: blockGap,
+});
 
-export const titleBlockStyles = css`
-  gap: ${blockGap} ${iconGap};
-  a {
-    font-weight: ${titleFontWeight};
-  }
-`;
+export const titleBlockStyles = css({
+  gap: `${blockGap} ${iconGap}`,
+  a: {
+    fontWeight: titleFontWeight,
+  },
+});
 
-export const mainTextStyles = css`
-  margin-top: ${blockGap};
-  font-size: 0.75rem;
-`;
+export const mainTextStyles = css({
+  marginTop: blockGap,
+  fontSize: '0.75rem',
+});

@@ -29,6 +29,7 @@ export enum CardAction {
   ViewAction = 'ViewAction',
   ChangeStatusAction = 'ChangeStatusAction',
   FollowAction = 'FollowAction',
+  CopyLinkAction = 'CopyLinkAction',
 }
 
 export type CardActionOptions =

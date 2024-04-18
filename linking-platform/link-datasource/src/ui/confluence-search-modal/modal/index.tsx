@@ -119,6 +119,8 @@ export const PlainConfluenceSearchConfigModal = (
     parameters: initialParameters,
     url: urlBeingEdited,
     visibleColumnKeys: initialVisibleColumnKeys,
+    disableDisplayDropdown = false,
+    overrideParameters,
   } = props;
 
   const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
@@ -157,6 +159,13 @@ export const PlainConfluenceSearchConfigModal = (
     [cloudId, parameters],
   );
 
+  const parametersToSend = useMemo(() => {
+    if (!isParametersSet) {
+      return undefined;
+    }
+    return { ...parameters, ...(overrideParameters ?? {}) };
+  }, [parameters, overrideParameters, isParametersSet]);
+
   const {
     reset,
     status,
@@ -171,7 +180,7 @@ export const PlainConfluenceSearchConfigModal = (
     destinationObjectTypes,
   } = useDatasourceTableState({
     datasourceId,
-    parameters: isParametersSet ? parameters : undefined,
+    parameters: parametersToSend,
     fieldKeys: visibleColumnKeys,
   });
 
@@ -508,7 +517,7 @@ export const PlainConfluenceSearchConfigModal = (
             {
               id: datasourceId,
               parameters: {
-                ...parameters,
+                ...parametersToSend,
                 cloudId,
               },
               views: [
@@ -543,7 +552,7 @@ export const PlainConfluenceSearchConfigModal = (
       onInsert,
       confluenceSearchUrl,
       datasourceId,
-      parameters,
+      parametersToSend,
       visibleColumnKeys,
       columnCustomSizes,
       wrappedColumnKeys,
@@ -601,7 +610,7 @@ export const PlainConfluenceSearchConfigModal = (
               label={siteSelectorLabel}
             />
           </ModalTitle>
-          {!hasNoConfluenceSites && (
+          {!hasNoConfluenceSites && !disableDisplayDropdown && (
             <DisplayViewDropDown
               onViewModeChange={handleViewModeChange}
               viewMode={currentViewMode}

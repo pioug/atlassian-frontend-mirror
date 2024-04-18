@@ -270,10 +270,7 @@ export const TableResizer = ({
     );
 
     setSnappingEnabled(displayGuideline(visibleGuidelines));
-    if (
-      getBooleanFF('platform.editor.resizing-table-height-improvement') &&
-      onResizeStart
-    ) {
+    if (onResizeStart) {
       onResizeStart();
     }
   }, [
@@ -443,10 +440,7 @@ export const TableResizer = ({
       updateWidth(newWidth);
       scheduleResize.cancel();
 
-      if (
-        getBooleanFF('platform.editor.resizing-table-height-improvement') &&
-        onResizeStop
-      ) {
+      if (onResizeStop) {
         onResizeStop();
       }
 

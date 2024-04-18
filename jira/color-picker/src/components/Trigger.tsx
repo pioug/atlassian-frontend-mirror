@@ -44,7 +44,64 @@ const ColorCard = ({
     [onClick],
   );
 
-  return (
+  return getBooleanFF(
+    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
+  ) ? (
+    <Tooltip content={label}>
+      <button
+        {...(getBooleanFF(
+          'platform.color-picker-radio-button-functionality_6hkcy',
+        )
+          ? {
+              css: [
+                sharedColorContainerStyles,
+                swatchSize === 'small'
+                  ? smallColorContainerSizeNew
+                  : defaultColorContainerSizeNew,
+                colorCardButtonStyles,
+                expanded && colorCardButtonFocusedStyles,
+              ],
+              disabled: isDisabled,
+            }
+          : {
+              css: [
+                sharedColorContainerStyles,
+                defaultColorContainerSizeNew,
+                colorCardButtonStyles,
+                expanded && colorCardButtonFocusedStyles,
+              ],
+            })}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
+        aria-label={label}
+        aria-expanded={expanded}
+        aria-haspopup
+        type="button"
+      >
+        <span css={colorCardWrapperStylesNew}>
+          <span
+            {...(getBooleanFF(
+              'platform.color-picker-radio-button-functionality_6hkcy',
+            )
+              ? {
+                  css: [
+                    colorCardContentStylesNew,
+                    swatchSize === 'small'
+                      ? smallColorCardContentSize
+                      : defaultColorCardContentSize,
+                  ],
+                }
+              : {
+                  css: [colorCardContentStylesNew, defaultColorCardContentSize],
+                })}
+            style={{
+              background: value || 'transparent',
+            }}
+          />
+        </span>
+      </button>
+    </Tooltip>
+  ) : (
     <Tooltip content={label}>
       <button
         {...(getBooleanFF(
@@ -120,9 +177,20 @@ const smallColorContainerSize = css({
   top: token('space.negative.025', '-2px'),
 });
 
+const smallColorContainerSizeNew = css({
+  width: token('space.300', '24px'),
+  height: token('space.300', '24px'),
+  top: token('space.negative.025', '-2px'),
+});
+
 const defaultColorContainerSize = css({
   width: `${COLOR_CARD_SIZE}px`,
   height: `${COLOR_CARD_SIZE}px`,
+});
+
+const defaultColorContainerSizeNew = css({
+  width: token('space.400', '32px'),
+  height: token('space.400', '32px'),
 });
 
 const colorCardButtonStyles = css({
@@ -144,6 +212,22 @@ const colorCardContentStyles = css({
   position: 'absolute',
   top: '1px',
   left: '1px',
+  borderRadius: token('border.radius.100', '3px'),
+  boxShadow: `inset 0px 0px 0px 1px ${token(
+    'color.background.inverse.subtle',
+    DN600A,
+  )}`,
+});
+
+const colorCardWrapperStylesNew = css({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const colorCardContentStylesNew = css({
   borderRadius: token('border.radius.100', '3px'),
   boxShadow: `inset 0px 0px 0px 1px ${token(
     'color.background.inverse.subtle',

@@ -8,6 +8,7 @@ import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { MouseEventHandler, ReactElement } from 'react';
 import { JsonLd } from 'json-ld-types';
 import type { CardActionOptions } from '../Card/types';
+import type { ActionName } from '../../constants';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
   /**
@@ -109,7 +110,7 @@ export type HoverCardContentProps = {
   cardActions?: LinkAction[];
   cardState: CardState;
   renderers?: CardProviderRenderers;
-  onActionClick: (actionId: string) => void;
+  onActionClick: (actionId: string | ActionName) => void;
   onResolve: () => void;
   url: string;
   onMouseEnter?: MouseEventHandler;

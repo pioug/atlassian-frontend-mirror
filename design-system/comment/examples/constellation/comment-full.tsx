@@ -18,13 +18,14 @@ const CommentFullExample = () => {
       type="author"
       edited={<CommentEdited>Edited</CommentEdited>}
       restrictedTo="Restricted to Admins Only"
-      time={<CommentTime>Mar 14, 2022</CommentTime>}
+      time={<CommentTime>Mar 14, 2024</CommentTime>}
       content={
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          During COVID we took a big bet on remote work. It made sense, as we
+          already had employees in 10+ countries. Today, the majority of hires
+          live over 2hrs from an office and these amazing, talented people
+          couldn't work for us otherwise. Proud to be recognized as a great
+          place to work.
         </p>
       }
       actions={[

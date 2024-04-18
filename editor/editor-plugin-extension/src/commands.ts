@@ -3,6 +3,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
+  ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type {
@@ -13,9 +14,10 @@ import type {
 import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type {
-  EditorState,
-  Transaction,
+import {
+  type EditorState,
+  NodeSelection,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
@@ -111,7 +113,7 @@ export const removeExtension = (editorAnalyticsAPI?: EditorAnalyticsAPI) =>
     },
     (tr, state) => {
       if (getSelectedExtension(state)) {
-        return removeSelectedNode(tr);
+        return removeSelectedNodeWithAnalytics(state, tr, editorAnalyticsAPI);
       } else {
         return checkAndRemoveExtensionNode(state, tr, editorAnalyticsAPI);
       }
@@ -129,12 +131,38 @@ export const removeDescendantNodes = (sourceNode?: PMNode) =>
     },
   );
 
+export const removeSelectedNodeWithAnalytics = (
+  state: EditorState,
+  tr: Transaction,
+  analyticsApi?: EditorAnalyticsAPI,
+) => {
+  if (state.selection instanceof NodeSelection) {
+    const node = state.selection.node;
+    if (analyticsApi) {
+      analyticsApi.attachAnalyticsEvent({
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.EXTENSION,
+        actionSubjectId: ACTION_SUBJECT_ID.EXTENSION,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          extensionType: node.attrs.extensionType,
+          extensionKey: node.attrs.extensionKey,
+          localId: node.attrs.localId,
+        },
+      })(tr);
+    }
+  }
+
+  return removeSelectedNode(tr);
+};
+
 export const checkAndRemoveExtensionNode = (
   state: EditorState,
   tr: Transaction,
   analyticsApi?: EditorAnalyticsAPI,
 ) => {
   let nodeType = state.schema.nodes.bodiedExtension;
+
   const maybeMBENode = findParentNodeOfType(
     state.schema.nodes.multiBodiedExtension,
   )(state.selection);
@@ -154,5 +182,25 @@ export const checkAndRemoveExtensionNode = (
       })(tr);
     }
   }
+
+  const bodiedExtensionNode = findParentNodeOfType(
+    state.schema.nodes.bodiedExtension,
+  )(state.selection);
+  if (bodiedExtensionNode) {
+    if (analyticsApi) {
+      analyticsApi.attachAnalyticsEvent({
+        action: ACTION.DELETED,
+        actionSubject: ACTION_SUBJECT.EXTENSION,
+        actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_BODIED,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          extensionType: bodiedExtensionNode.node.attrs.extensionType,
+          extensionKey: bodiedExtensionNode.node.attrs.extensionKey,
+          localId: bodiedExtensionNode.node.attrs.localId,
+        },
+      })(tr);
+    }
+  }
+
   return removeParentNodeOfType(nodeType)(tr);
 };

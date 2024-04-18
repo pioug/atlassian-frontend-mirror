@@ -17,11 +17,11 @@ import { messages } from '../../../../messages';
 import UnresolvedView from './unresolved-view';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
-const contentStyles = css`
-  color: ${token('color.text.subtlest', '#626F86')};
-  margin-top: 0.5rem;
-  font-size: 0.75rem;
-`;
+const contentStyles = css({
+  color: token('color.text.subtlest', '#626F86'),
+  marginTop: token('space.100', '0.5rem'),
+  fontSize: '0.75rem',
+});
 
 /**
  * This view represents a Block card that has an 'Unauthorized' status .

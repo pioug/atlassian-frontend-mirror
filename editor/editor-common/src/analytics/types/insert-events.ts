@@ -270,6 +270,7 @@ type InsertExtensionAEP = InsertAEP<
   ACTION_SUBJECT_ID.EXTENSION,
   {
     extensionType: string;
+    extensionKey: string;
     key: string;
     inputMethod: INPUT_METHOD.QUICK_INSERT;
   },

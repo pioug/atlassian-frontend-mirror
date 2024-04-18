@@ -193,10 +193,13 @@ const CommentBadge = injectIntl(CommentBadgeComponent);
 
 const CommentBadgeWrapper = ({
   marks,
+  mediaElement,
   ...rest
 }: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
   marks?: AnnotationMarkDefinition[];
 }) => {
+  const [status, setStatus] = useState<'default' | 'active'>('default');
+  const [entered, setEntered] = useState(false);
   const updateSubscriber = useInlineCommentSubscriberContext();
   const activeParentIds = useInlineCommentsFilter({
     annotationIds: marks?.map((mark) => mark.attrs.id) ?? [''],
@@ -204,6 +207,31 @@ const CommentBadgeWrapper = ({
       state: AnnotationMarkStates.ACTIVE,
     },
   });
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutationList) => {
+      mutationList.forEach((mutation) => {
+        if (mutation.attributeName === 'data-has-focus') {
+          const elementHasFocus = !!mutation.target.parentNode?.querySelector(
+            '[data-has-focus="true"]',
+          );
+          elementHasFocus ? setStatus('active') : setStatus('default');
+        }
+      });
+    });
+
+    if (mediaElement) {
+      observer.observe(mediaElement, {
+        attributes: true,
+        subtree: true,
+        attributeFilter: ['data-has-focus'],
+      });
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [mediaElement, setStatus]);
 
   if (!activeParentIds.length) {
     return null;
@@ -218,7 +246,15 @@ const CommentBadgeWrapper = ({
     }
   };
 
-  return <CommentBadge onClick={onClick} {...rest} />;
+  return (
+    <CommentBadge
+      onMouseEnter={() => setEntered(true)}
+      onMouseLeave={() => setEntered(false)}
+      status={entered ? 'entered' : status}
+      onClick={onClick}
+      {...rest}
+    />
+  );
 };
 
 class Media extends PureComponent<MediaProps, {}> {

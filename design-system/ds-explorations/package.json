@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,7 +17,8 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
-    "releaseModel": "continuous"
+    "releaseModel": "continuous",
+    "runReact18": true
   },
   "scripts": {
     "ak-postbuild": "cd ../../../ && yarn build @atlassian/codegen -d cjs,esm,es2019 && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
@@ -31,7 +32,7 @@
     "tiny-invariant": "^1.2.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@atlaskit/ds-lib": "*",

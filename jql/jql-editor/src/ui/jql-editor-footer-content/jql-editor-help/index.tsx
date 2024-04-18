@@ -17,7 +17,7 @@ export const JQLEditorHelp = () => {
   const SearchMessage = (
     <span>
       {formatMessage(messages.searchCommand, {
-        b: (text: string) => <b>{text}</b>,
+        b: (text: React.ReactNode[]) => <b>{text}</b>,
       })}
     </span>
   );
@@ -26,7 +26,7 @@ export const JQLEditorHelp = () => {
       {formatMessage(
         isSearch ? messages.newLineCommand : messages.fieldNewLineCommand,
         {
-          b: (text: string) => <b>{text}</b>,
+          b: (text: React.ReactNode[]) => <b>{text}</b>,
         },
       )}
     </span>

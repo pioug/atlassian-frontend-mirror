@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
 
 import PropTypes from 'prop-types';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { OnClickCallback } from '@atlaskit/editor-common/card';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   getPosHandler,
@@ -15,7 +18,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CardContext } from '@atlaskit/link-provider';
+import { type CardContext } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type {
   APIError,
   CardProps as BaseCardProps,
@@ -23,6 +27,7 @@ import type {
 } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
+import type { CardPlugin } from '../plugin';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
 import { getPluginState } from '../pm-plugins/util/state';
 import { titleUrlPairFromNode } from '../utils';
@@ -58,11 +63,58 @@ export interface CardProps extends CardNodeViewProps {
   isPulseEnabled?: boolean;
   linkPosition?: number;
   isSelected?: boolean;
+  onClickCallback?: OnClickCallback;
 }
 
 export interface SmartCardProps extends CardProps {
+  pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>;
   cardContext?: EditorContext<CardContext | undefined>;
+  onClick?: EventHandler<MouseEvent | KeyboardEvent> | undefined;
 }
+
+const WithClickHandler = ({
+  pluginInjectionApi,
+  url,
+  onClickCallback,
+  children,
+}: {
+  pluginInjectionApi: ExtractInjectionAPI<CardPlugin> | undefined;
+  onClickCallback?: OnClickCallback;
+  url?: string;
+  children: (props: {
+    onClick: ((e: React.MouseEvent<HTMLAnchorElement>) => void) | undefined;
+  }) => React.ReactNode;
+}) => {
+  const { editorViewModeState } = useSharedPluginState(pluginInjectionApi, [
+    'editorViewMode',
+  ]);
+
+  const onClick = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (typeof onClickCallback === 'function') {
+        try {
+          onClickCallback({
+            event,
+            url,
+          });
+        } catch {}
+      }
+    },
+    [url, onClickCallback],
+  );
+
+  // Setting `onClick` to `undefined` ensures clicks on smartcards navigate to the URL.
+  // If in view mode and not overriding with onClickCallback option, then allow smartlinks to navigate on click.
+  const allowNavigation =
+    editorViewModeState?.mode === 'view' && !onClickCallback;
+  return (
+    <>
+      {children({
+        onClick: allowNavigation ? undefined : onClick,
+      })}
+    </>
+  );
+};
 
 export function Card(
   SmartCardComponent: React.ComponentType<
@@ -82,7 +134,11 @@ export function Card(
       isError: false,
     };
 
+    private onClick = () => {};
+
     render() {
+      const { pluginInjectionApi, onClickCallback } = this.props;
+
       const { url } = titleUrlPairFromNode(this.props.node);
       if (url && !isSafeUrl(url)) {
         return <UnsupportedComponent />;
@@ -122,11 +178,31 @@ export function Card(
             location: analyticsEditorAppearance,
           }}
         >
-          <SmartCardComponent
-            key={url}
-            cardContext={cardContext}
-            {...this.props}
-          />
+          {getBooleanFF(
+            'platform.linking-platform.smart-card.on-click-callback',
+          ) ? (
+            <WithClickHandler
+              pluginInjectionApi={pluginInjectionApi}
+              onClickCallback={onClickCallback}
+              url={url}
+            >
+              {({ onClick }) => (
+                <SmartCardComponent
+                  key={url}
+                  cardContext={cardContext}
+                  {...this.props}
+                  onClick={onClick}
+                />
+              )}
+            </WithClickHandler>
+          ) : (
+            <SmartCardComponent
+              key={url}
+              cardContext={cardContext}
+              {...this.props}
+              onClick={this.onClick}
+            />
+          )}
         </AnalyticsContext>
       );
     }

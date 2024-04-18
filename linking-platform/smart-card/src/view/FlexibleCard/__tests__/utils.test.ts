@@ -58,6 +58,11 @@ describe('getContextByStatus', () => {
     });
 
     expect(context).toEqual({
+      actions: {
+        CopyLinkAction: {
+          url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+        },
+      },
       linkIcon: {
         icon: 'FileType:Document',
         label: 'Everything you need to know about ShipIt53!',

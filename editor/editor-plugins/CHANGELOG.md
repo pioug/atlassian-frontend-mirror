@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugins
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.2.0
+
+### Minor Changes
+
+- [#89840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89840) [`9f256dde75e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f256dde75e9) - [ux] Implement onClickCallback plugin option to editor-plugin-card, allowing a callback to be executed when a smartlink is clicked, used by CCFE for live view to open smartlinks on-click
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

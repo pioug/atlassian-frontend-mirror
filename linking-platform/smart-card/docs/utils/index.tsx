@@ -21,15 +21,14 @@ export const overrideActionsProps = (props: Object) => (
     {...props}
     shapeComponent={() => (
       <div
-        css={css`
-          > div,
-          > div > div {
-            margin-top: 0;
-          }
-          h3 {
-            display: none;
-          }
-        `}
+        css={css({
+          '> div, > div > div': {
+            marginTop: 0,
+          },
+          h3: {
+            display: 'none',
+          },
+        })}
       >
         <Props
           heading=""

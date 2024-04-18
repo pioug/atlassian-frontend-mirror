@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-export const breakWordsCss = css`
-  white-space: pre-line;
-  word-break: break-all;
-`;
+export const breakWordsCss = css({
+  whiteSpace: 'pre-line',
+  wordBreak: 'break-all',
+});

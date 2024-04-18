@@ -31,6 +31,7 @@ export const separatorCss = css({
   },
 });
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const HoverCardContainer = css`
   background: none;
   border-width: 0;
@@ -46,6 +47,7 @@ export const HoverCardContainer = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const titleBlockCss = css`
   gap: ${blockGap};
 

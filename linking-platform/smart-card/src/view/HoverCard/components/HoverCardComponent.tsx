@@ -9,7 +9,7 @@ import HoverCardContent from '../components/HoverCardContent';
 import CustomPopupContainer from '../components/CustomPopupContainer';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { HoverCardComponentProps, HoverCardContentProps } from '../types';
-import { CardDisplay } from '../../../constants';
+import { ActionName, CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { combineActionOptions } from '../../../utils/actions/combine-action-options';
 import { useSmartCardActions } from '../../../state/actions';
@@ -182,7 +182,10 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const onActionClick = useCallback(
     (actionId: any) => {
-      if (actionId === 'preview-content') {
+      if (
+        actionId === 'preview-content' ||
+        actionId === ActionName.PreviewAction
+      ) {
         hideCard();
       }
     },

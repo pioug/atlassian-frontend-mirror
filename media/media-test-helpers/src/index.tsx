@@ -20,6 +20,7 @@ export {
   tallImage,
   wideImage,
   wideTransparentImage,
+  VRTestSmallImage,
 } from './images';
 export { videoURI } from './dataURIs/videoURI';
 export { videoPreviewURI } from './dataURIs/videoPreviewURI';

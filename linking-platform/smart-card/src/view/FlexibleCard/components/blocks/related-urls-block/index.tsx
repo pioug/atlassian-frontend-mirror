@@ -70,9 +70,9 @@ const RelatedUrlsBlock: React.FC<RelatedUrlBlockProps> = ({
     return (
       <RelatedUrlsResolvedView
         renderers={renderers}
-        overrideCss={css`
-          min-height: 1.55rem;
-        `}
+        overrideCss={css({
+          minHeight: '1.55rem',
+        })}
         testId={`${testId}-resolved-view`}
         relatedUrlsResponse={relatedUrls}
         {...blockProps}

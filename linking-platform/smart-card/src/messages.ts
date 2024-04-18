@@ -27,6 +27,7 @@ export type MessageKey =
   | 'ai_summarizing'
   | 'ai_summary_error_generic'
   | 'ai_summary_error_acceptable_use_violation'
+  | 'ai_summary_error_hipaa_content_detected'
   | 'beta'
   | 'cannot_find_link'
   | 'connect_link_account_card'
@@ -37,6 +38,7 @@ export type MessageKey =
   | 'connect_unauthorised_account_description_no_provider'
   | 'continue'
   | 'copy_url_to_clipboard'
+  | 'copied_url_to_clipboard'
   | 'could_not_load_link'
   | 'download'
   | 'download_description'
@@ -179,6 +181,13 @@ export const messages: Messages = defineMessages({
     description:
       'Shown when AI summary is summarising the link resource content and the content violates atlassians acceptable use policy.',
   },
+  ai_summary_error_hipaa_content_detected: {
+    id: 'fabric.linking.ai_summary_error_hipaa_content_detected',
+    defaultMessage:
+      'Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content.',
+    description:
+      'Shown when the AI summary is summarising the link resource content and the content contains HIPAA restricted content.',
+  },
   assigned_to: {
     id: 'fabric.linking.assigned_to',
     defaultMessage: 'Assigned to {context}',
@@ -294,6 +303,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.copy_url_to_clipboard',
     defaultMessage: 'Copy link',
     description: '',
+  },
+  copied_url_to_clipboard: {
+    id: 'fabric.linking.copied_url_to_clipboard.nonfinal',
+    defaultMessage: 'Copied!',
+    description: 'Url has been copied to the clipboard',
   },
   could_not_load_link: {
     id: 'fabric.linking.couldnt_load_link',

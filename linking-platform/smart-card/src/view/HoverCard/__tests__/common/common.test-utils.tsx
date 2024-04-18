@@ -409,19 +409,40 @@ export const runCommonHoverCardTests = (
       expect(queryByTestId('preview-content')).toBeDefined();
     });
 
-    it('should open preview modal after clicking preview button', async () => {
-      const { findByTestId, queryByTestId, event } = await setup();
-      const previewButton = await findByTestId('preview-content');
-      event.click(previewButton);
-      const previewModal = await findByTestId('smart-embed-preview-modal');
+    describe('should open preview modal after clicking preview button', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+        async () => {
+          const { findByTestId, queryByTestId, event } = await setup();
 
-      expect(previewModal).toBeTruthy();
+          const previewButton = await findByTestId(
+            'smart-action-preview-action',
+          );
+          event.click(previewButton);
 
-      const icon = await findByTestId('block-card-icon');
-      expect(icon).toBeTruthy();
+          const previewModal = await findByTestId('smart-embed-preview-modal');
+          expect(previewModal).toBeInTheDocument();
 
-      const hoverCard = queryByTestId('hover-card');
-      expect(hoverCard).toBeNull();
+          await findByTestId('block-card-icon');
+
+          const hoverCard = queryByTestId('hover-card');
+          expect(hoverCard).not.toBeInTheDocument();
+        },
+        async () => {
+          const { findByTestId, queryByTestId, event } = await setup();
+          const previewButton = await findByTestId('preview-content');
+          event.click(previewButton);
+          const previewModal = await findByTestId('smart-embed-preview-modal');
+
+          expect(previewModal).toBeTruthy();
+
+          const icon = await findByTestId('block-card-icon');
+          expect(icon).toBeTruthy();
+
+          const hoverCard = queryByTestId('hover-card');
+          expect(hoverCard).toBeNull();
+        },
+      );
     });
 
     describe('FF enableThemeStateUrl', () => {

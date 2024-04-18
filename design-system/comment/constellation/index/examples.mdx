@@ -13,14 +13,14 @@ import CommentCustomHeadingLevelExample from '../../examples/constellation/comme
 
 ## Default
 
-The simplest form of a comment.
+The simplest form of a comment contains an avatar and text.
 
 <Example Component={CommentDefault} packageName="@atlaskit/comment" />
 
 ## Full
 
 Many features are available to customize the display of the comment.
-The package exports a wrapper component, as well as several smaller components which are designed to be passed through to display a richer comment.
+The package exports a wrapper component, as well as smaller components which can be passed through to display a richer comment.
 
 <Example Component={CommentFull} packageName="@atlaskit/comment" />
 
@@ -32,31 +32,33 @@ Comments can be nested inside of each other by passing comments as `children`.
 
 ## Saving
 
-An "optimistic saving" mode can be enabled using `isSaving`, which hides actions and shows text from the `savingText` prop.
+An "optimistic saving" mode can be enabled using `isSaving`, which hides actions and lets people know the comment is saving, by showing text from the `savingText` prop.
+
+Using the optimistic UI technique means that people receive a fast, responsive experience even on limited connections.
 
 <Example Component={CommentSaving} packageName="@atlaskit/comment" />
 
 ## Edited
 
-A comment can be marked as edited by passing a `CommentEdited` component to the the `edited` prop.
+Mark a comment as edited by passing a `CommentEdited` component to the the `edited` prop.
 
 <Example Component={CommentEdited} packageName="@atlaskit/comment" />
 
 ## Restricted
 
-A message can be displayed in the comment header by using the `restrictedTo` prop.
+Display a message in the comment header by using the `restrictedTo` prop.
 
 <Example Component={CommentRestricted} packageName="@atlaskit/comment" />
 
 ## Highlighted
 
-A comment can be highlighted using the `highlighted` prop.
+Highlight a comment using the `highlighted` prop.
 
 <Example Component={CommentHighlighted} packageName="@atlaskit/comment" />
 
 ## Custom heading level
 
-The default header has a `h3` tag. Heading level can be changed using the `headingLevel` prop.
+Change the heading level using the `headingLevel` prop. The default heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels. For example, an `h3` should follow an `h2` or lower, never an `h1`.
 
 <Example
   Component={CommentCustomHeadingLevelExample}

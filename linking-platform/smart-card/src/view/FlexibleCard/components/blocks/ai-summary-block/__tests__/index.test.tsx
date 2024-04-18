@@ -288,6 +288,40 @@ describe('AISummaryBlock', () => {
       expect(indicatorA).toBeInTheDocument();
     });
 
+    it('shows HIPAA content detected error state indicator on HIPAA content detected error', async () => {
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: { status: 'loading', content: '' },
+        summariseUrl: jest.fn(),
+      });
+
+      const { queryByTestId, findByTestId, rerenderTestComponent } =
+        renderAISummaryBlock({
+          testId: testIdBase,
+        });
+
+      const indicator = queryByTestId(`${testIdBase}-error`);
+      expect(indicator).not.toBeInTheDocument();
+
+      (useAISummary as jest.Mock).mockReturnValue({
+        state: {
+          status: 'error',
+          content: '',
+          error: 'HIPAA_CONTENT_DETECTED',
+        },
+        summariseUrl: jest.fn(),
+      });
+
+      rerenderTestComponent();
+      const indicatorA = queryByTestId(`${testIdBase}-error`);
+      expect(
+        (await findByTestId(`${testIdBase}-error-message`)).textContent,
+      ).toBe(
+        'Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content.',
+      );
+
+      expect(indicatorA).toBeInTheDocument();
+    });
+
     it('fires a error viewed event on error', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
         state: { status: 'loading', content: '' },

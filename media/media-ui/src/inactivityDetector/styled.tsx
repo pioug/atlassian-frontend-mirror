@@ -12,6 +12,7 @@ const handleControlsVisibility = ({
   opacity: ${controlsAreVisible ? '1' : '0'};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const InactivityDetectorWrapper = styled.div`
   width: 100%;
   height: 100%;

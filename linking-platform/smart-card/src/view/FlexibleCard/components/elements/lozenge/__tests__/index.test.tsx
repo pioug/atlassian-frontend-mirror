@@ -64,9 +64,9 @@ describe('Element: Lozenge', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      font-style: italic;
-    `;
+    const overrideCss = css({
+      fontStyle: 'italic',
+    });
     const { findByTestId } = render(
       <Lozenge appearance={appearance} overrideCss={overrideCss} text={text} />,
     );

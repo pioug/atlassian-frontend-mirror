@@ -5,6 +5,7 @@ import { extendedPalette } from '../mock-data';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
 class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
   state = {
@@ -24,4 +25,13 @@ class ColorPaletteMenuExample extends React.Component<{}, { color: string }> {
   }
 }
 
-export default () => <ColorPaletteMenuExample />;
+const Story = () => <ColorPaletteMenuExample />;
+
+Story.decorators = [
+  withPlatformFeatureFlags({
+    'platform.color-picker-radio-button-functionality_6hkcy': true,
+    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl': true,
+  }),
+];
+
+export default Story;

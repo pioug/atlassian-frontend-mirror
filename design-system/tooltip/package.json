@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/motion": "^1.5.0",
     "@atlaskit/popper": "^5.5.0",
     "@atlaskit/portal": "^4.4.0",

@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-export const flexColumn = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-`;
+export const flexColumn = css({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  width: '100%',
+});

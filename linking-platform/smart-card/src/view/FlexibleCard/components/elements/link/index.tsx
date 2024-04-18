@@ -24,9 +24,9 @@ const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
 const MINIMUM_MAX_LINES = 1;
 
-const containerStyles = css`
-  flex: 1 1 auto;
-`;
+const containerStyles = css({
+  flex: '1 1 auto',
+});
 
 const getThemeStyles = (
   theme: SmartLinkTheme | SmartLinkInternalTheme,
@@ -35,43 +35,40 @@ const getThemeStyles = (
     case SmartLinkInternalTheme.Grey:
       // We are being specifc with the CSS selectors to ensure that Confluence overrides
       // do not affect our internal Smart Card styles
-      return css`
-        a& {
-          color: ${token('color.text.subtlest', '#626F86')};
-          &:active,
-          &:visited,
-          &:focus,
-          &:hover {
-            color: ${token('color.text.subtlest', '#626F86')};
-            text-decoration: underline;
-          }
-          font-size: 12px;
-        }
-      `;
+      return css({
+        'a&': {
+          color: token('color.text.subtlest', '#626F86'),
+          '&:active, &:visited, &:focus, &:hover': {
+            color: token('color.text.subtlest', '#626F86'),
+            textDecoration: 'underline',
+          },
+          fontSize: '12px',
+        },
+      });
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     case SmartLinkTheme.Black:
-      return css`
-        color: ${token('color.text.subtle', '#44546F')};
-        :active {
-          color: ${token('color.text', '#172B4D')};
-        }
-        :hover {
-          color: ${token('color.text.subtle', '#44546F')};
-          text-decoration: underline;
-        }
-      `;
+      return css({
+        color: token('color.text.subtle', '#44546F'),
+        ':active': {
+          color: token('color.text', '#172B4D'),
+        },
+        ':hover': {
+          color: token('color.text.subtle', '#44546F'),
+          textDecoration: 'underline',
+        },
+      });
     case SmartLinkTheme.Link:
     default:
-      return css`
-        color: ${token('color.link', '#0C66E4')};
-        :active {
-          color: ${token('color.link.pressed', '#0055CC')};
-        }
-        :hover {
-          color: ${token('color.link', '#0C66E4')};
-          text-decoration: underline;
-        }
-      `;
+      return css({
+        color: token('color.link', '#0C66E4'),
+        ':active': {
+          color: token('color.link.pressed', '#0055CC'),
+        },
+        ':hover': {
+          color: token('color.link', '#0C66E4'),
+          textDecoration: 'underline',
+        },
+      });
   }
 };
 
@@ -82,17 +79,18 @@ const getAnchorStyles = (
   hasSpace: boolean,
 ): SerializedStyles => {
   const sizeStyles = getLinkSizeStyles(size);
-  return css`
-    flex: 1 1 auto;
-    ${sizeStyles}
-    ${getTruncateStyles(
+  return css(
+    {
+      flex: '1 1 auto',
+    },
+    sizeStyles,
+    getTruncateStyles(
       maxLines,
       getLinkLineHeight(size),
       hasSpace ? 'break-word' : 'break-all',
-    )}
-    // Theme should be last to be spread because it contains override values
-    ${getThemeStyles(theme)}
-  `;
+    ),
+    getThemeStyles(theme),
+  );
 };
 
 const getMaxLines = (maxLines: number) => {

@@ -120,6 +120,7 @@ export const getBaseStyles = (
     },
   );
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const highlightRemoveStyles = css`
   outline: none !important;
   outline-color: inherit;

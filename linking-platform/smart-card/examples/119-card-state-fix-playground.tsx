@@ -7,21 +7,21 @@ import { Provider, Card, Client } from '../src';
 
 const client = new Client('stg');
 
-const Button = styled.button`
-  width: 150px;
-  height: 60px;
-  margin: ${token('space.250', '20px')};
-  font-size: 16px;
-  background-color: token('color.background.neutral.subtle.hovered', n20a);
-  border: 2px solid transparent;
-  color: #a0a09d;
-  border-radius: 5px;
-  cursor: pointer;
-`;
+const Button = styled.button({
+  width: '150px',
+  height: '60px',
+  margin: token('space.250', '20px'),
+  fontSize: '16px',
+  backgroundColor: "token('color.background.neutral.subtle.hovered', n20a)",
+  border: '2px solid transparent',
+  color: '#a0a09d',
+  borderRadius: '5px',
+  cursor: 'pointer',
+});
 
-const Buttons = styled.div`
-  display: flex;
-`;
+const Buttons = styled.div({
+  display: 'flex',
+});
 
 export default () => {
   const [url, setUrl] = useState('https://google.com');

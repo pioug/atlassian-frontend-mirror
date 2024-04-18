@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 2.3.0
+
+### Minor Changes
+
+- [#91155](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91155) [`4d208db71d4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d208db71d4c) - Add support for React 18.
+
 ## 2.2.5
 
 ### Patch Changes

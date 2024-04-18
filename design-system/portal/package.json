@@ -52,7 +52,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/modal-dialog": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/tokens": "^1.43.0",

@@ -206,7 +206,8 @@ export type NamedDataActionItem = BaseDataActionItem & {
      * Currently left in to maintain backwards compatibility with public API
      * https://product-fabric.atlassian.net/browse/EDM-9665
      */
-    | ActionName.ViewAction;
+    | ActionName.ViewAction
+    | ActionName.CopyLinkAction;
 };
 
 /**
@@ -223,6 +224,8 @@ export type NamedActionItem = BaseActionItem & {
  */
 export type CustomActionItem = BaseActionItem & {
   name: ActionName.CustomAction;
+  href?: string;
+  ariaLabel?: string;
 } & (
     | (Required<Pick<ActionProps, 'icon' | 'iconPosition'>> &
         Pick<ActionProps, 'content'>)

@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.2.7
+
+### Patch Changes
+
+- [#91022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91022) [`bb3ea561f66a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb3ea561f66a) - [ux] Refactored UI to align with spacing token adoption
+
 ## 3.2.6
 
 ### Patch Changes

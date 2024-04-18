@@ -30,9 +30,9 @@ describe('Element: Avatar Group', () => {
   });
 
   it('renders override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { getByTestId } = renderWithIntl(
       <AvatarGroup items={authorsWithNoImages} overrideCss={overrideCss} />,
     );

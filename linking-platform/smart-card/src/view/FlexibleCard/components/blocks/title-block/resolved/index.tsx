@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { css } from '@emotion/react';
 import { LinkIcon } from '../../../elements';
@@ -37,9 +38,9 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
       <ElementGroup
         direction={SmartLinkDirection.Vertical}
         width={SmartLinkWidth.Flexible}
-        overrideCss={css`
-          gap: 0.25rem;
-        `}
+        overrideCss={css({
+          gap: token('space.050', '0.25rem'),
+        })}
       >
         {title}
         {subtitleElements && (

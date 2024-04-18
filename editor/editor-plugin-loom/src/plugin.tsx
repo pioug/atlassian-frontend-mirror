@@ -3,13 +3,13 @@ import React from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { IconLoom } from '@atlaskit/editor-common/quick-insert';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { HyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+import { LoomIcon } from '@atlaskit/logo';
 
 import { recordVideo, recordVideoFailed } from './commands';
 import type { LoomPluginState } from './pm-plugin';
@@ -61,7 +61,7 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
           ),
           keywords: ['loom', 'record', 'video'],
           priority: 800,
-          icon: () => <IconLoom />,
+          icon: () => <LoomIcon appearance="brand" />,
           action(insert, editorState) {
             const tr = insert(undefined);
 
@@ -97,6 +97,9 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 
     // Enable inserting Loom recordings through main toolbar
     primaryToolbarComponent({ disabled }) {
+      if (!config.shouldShowToolbarButton) {
+        return null;
+      }
       return <LoomToolbarButton disabled={disabled} api={api} />;
     },
   };

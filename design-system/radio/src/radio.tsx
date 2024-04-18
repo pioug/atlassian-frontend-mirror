@@ -21,15 +21,12 @@ import {
   N900,
   R300,
 } from '@atlaskit/theme/colors';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { RadioProps } from './types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-const fontFamily = getFontFamily();
 
 const noop = __noop;
 
@@ -43,7 +40,7 @@ const labelStyles = css({
   position: 'relative',
   alignItems: 'flex-start',
   color: token('color.text', N900),
-  fontFamily: fontFamily,
+  font: token('font.body'),
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&[data-disabled]': {
     color: token('color.text.disabled', N80),

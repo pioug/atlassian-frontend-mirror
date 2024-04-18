@@ -11,13 +11,11 @@ const CommentNestedExample = () => {
       avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}
       author={<CommentAuthor>Scott Farquhar</CommentAuthor>}
       type="author"
-      time={<CommentTime>Mar 14, 2022</CommentTime>}
+      time={<CommentTime>Jun 3, 2022</CommentTime>}
       content={
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          Hard to believe it’s been 20 years since we started Atlassian, but
+          we’re just getting started!
         </p>
       }
       actions={[
@@ -29,13 +27,8 @@ const CommentNestedExample = () => {
       <Comment
         avatar={<Avatar name="John Smith" />}
         author={<CommentAuthor>John Smith</CommentAuthor>}
-        time={<CommentTime>Mar 15, 2022</CommentTime>}
-        content={
-          <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur
-          </p>
-        }
+        time={<CommentTime>Jun 3, 2022</CommentTime>}
+        content={<p>Congratulations!</p>}
         actions={[
           <CommentAction>Reply</CommentAction>,
           <CommentAction>Like</CommentAction>,
@@ -44,12 +37,9 @@ const CommentNestedExample = () => {
         <Comment
           avatar={<Avatar name="Sabina Vu" />}
           author={<CommentAuthor>Sabina Vu</CommentAuthor>}
-          time={<CommentTime>Mar 15, 2022</CommentTime>}
+          time={<CommentTime>Jun 4, 2022</CommentTime>}
           content={
-            <p>
-              Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur
-            </p>
+            <p>I wonder what Atlassian will be like 20 years from now?</p>
           }
           actions={[
             <CommentAction>Reply</CommentAction>,

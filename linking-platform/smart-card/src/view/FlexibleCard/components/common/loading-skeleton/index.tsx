@@ -10,35 +10,36 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({
   width,
   height,
 }) => {
-  const animationNameStyles = keyframes`
-    0% { background-position: 50%  0; }
-    100% { background-position: -50% 0; }
-  `;
+  const animationNameStyles = keyframes({
+    '0%': {
+      backgroundPosition: '50% 0',
+    },
+    '100%': {
+      backgroundPosition: '-50% 0',
+    },
+  });
 
-  const styles = css`
-    width: ${width}rem;
-    height: ${height}rem;
-    border-radius: 2px;
-    user-select: none;
-    background: ${token('color.skeleton.subtle', '#f6f7f8')};
-    background-image: linear-gradient(
-      to right,
-      transparent 0%,
-      ${token('color.skeleton', '#edeef1')} 20%,
-      transparent 40%,
-      transparent 100%
-    );
-    background-repeat: no-repeat;
-    background-size: 280% 100%;
-    display: inline-block;
+  const styles = css({
+    width: `${width}rem`,
+    height: `${height}rem`,
+    borderRadius: '2px',
+    userSelect: 'none',
+    background: token('color.skeleton.subtle', '#f6f7f8'),
+    backgroundImage: `linear-gradient( to right, transparent 0%, ${token(
+      'color.skeleton',
+      '#edeef1',
+    )} 20%, transparent 40%, transparent 100% )`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: '280% 100%',
+    display: 'inline-block',
+    animationDuration: '1s',
+    animationFillMode: 'forwards',
+    animationIterationCount: 'infinite',
+    animationName: animationNameStyles,
+    animationTimingFunction: 'linear',
+  });
 
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    animation-iteration-count: infinite;
-    animation-name: ${animationNameStyles};
-    animation-timing-function: linear;
-  `;
-
+  // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
   return <span css={styles} data-testid={testId} />;
 };
 

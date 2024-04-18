@@ -195,6 +195,11 @@ export const handleMouseDown = (
         const resizedDelta = clientX - startX;
 
         tr = updateColumnWidths(newResizeState, table, start)(tr);
+
+        // console.log('debug newResizeState=', newResizeState);
+        if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
+          tr.setNodeAttribute(tablePos, 'width', newResizeState.tableWidth);
+        }
         if (colIndex === map.width - 1) {
           const mouseUpTime = event.timeStamp;
 

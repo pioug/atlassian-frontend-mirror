@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 26.56.1
+
+### Patch Changes
+
+- [#91413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91413) [`4aac6aa61313`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4aac6aa61313) - Hide HoverCard when clicking on PreviewAction from ActionBlock
+- Updated dependencies
+
+## 26.56.0
+
+### Minor Changes
+
+- [#89847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89847) [`6dcb5cb39c7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6dcb5cb39c7c) - "Adding accessibility option for flexible link card custom action"
+- [#90020](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90020) [`4772c11ddb2a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4772c11ddb2a) - Add HIPAA content detected error message to AI Summary within hovercard
+- [#90445](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90445) [`88f0e72ecc1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88f0e72ecc1e) - [ux] Create CopyLinkAction for ActionBlock
+
+### Patch Changes
+
+- [#90431](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90431) [`8e9354e9cdfe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e9354e9cdfe) - [ux] Add purple pulse to AI summarise on hover card
+- [#91203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91203) [`3c8348468618`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c8348468618) - Minor Typescript changes to improve compatibility with React 18
+
 ## 26.55.2
 
 ### Patch Changes

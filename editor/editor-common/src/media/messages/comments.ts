@@ -8,7 +8,7 @@ export const commentMessages = defineMessages({
   },
   viewCommentsOnMedia: {
     id: 'fabric.editor.viewCommentOnMedia',
-    defaultMessage: 'View comment',
+    defaultMessage: 'View comments',
     description: 'View a existing comment for this media (image/video)',
   },
   viewAndAddCommentsOnMedia: {

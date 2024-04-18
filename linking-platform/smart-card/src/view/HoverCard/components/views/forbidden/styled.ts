@@ -3,21 +3,21 @@ import { css } from '@emotion/react';
 
 const titleFontWeight = '600';
 
-export const titleBlockStyles = css`
-  justify-content: center;
-  font-weight: ${titleFontWeight};
-  margin-top: ${token('space.100', '8px')};
-`;
+export const titleBlockStyles = css({
+  justifyContent: 'center',
+  fontWeight: titleFontWeight,
+  marginTop: token('space.100', '8px'),
+});
 
-export const mainTextStyles = css`
-  display: inline;
-  justify-content: center;
-  margin-top: ${token('space.0', '0px')};
-  font-size: 0.75rem;
-  text-align: center;
-`;
+export const mainTextStyles = css({
+  display: 'inline',
+  justifyContent: 'center',
+  marginTop: token('space.0', '0px'),
+  fontSize: '0.75rem',
+  textAlign: 'center',
+});
 
-export const connectButtonStyles = css`
-  justify-content: center;
-  margin-top: ${token('space.100', '8px')};
-`;
+export const connectButtonStyles = css({
+  justifyContent: 'center',
+  marginTop: token('space.100', '8px'),
+});

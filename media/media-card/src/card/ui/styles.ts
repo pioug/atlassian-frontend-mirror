@@ -101,16 +101,18 @@ export const getSelectableTickBoxStyles = (isTickBoxSelectable: boolean) => {
   `;
 };
 
-export const cardImageContainerStyles = css`
-  display: flex;
-  position: relative;
-  max-width: 100%;
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  overflow: hidden;
-  ${borderRadius}
-`;
+export const cardImageContainerStyles = css(
+  {
+    display: 'flex',
+    position: 'relative',
+    maxWidth: '100%',
+    width: '100%',
+    height: '100%',
+    maxHeight: '100%',
+    overflow: 'hidden',
+  },
+  borderRadius,
+);
 
 const defaultTransitionDuration = '.3s';
 

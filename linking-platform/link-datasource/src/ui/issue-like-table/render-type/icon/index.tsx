@@ -9,11 +9,11 @@ interface IconProps extends Icon {
   testId?: string;
 }
 
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: left;
-`;
+const IconWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'left',
+});
 
 export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
 

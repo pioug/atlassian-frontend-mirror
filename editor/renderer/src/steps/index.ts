@@ -59,6 +59,26 @@ function isElementInlineMark(
   return !!element && Boolean(element.dataset.rendererMark);
 }
 
+/**
+ * This returns the text content of a node excluding content
+ * inside inline cards (spans with data-inline-card="true").
+ */
+function getPMTextContent(node: ChildNode): string {
+  if (isTextNode(node)) {
+    return node.textContent!;
+  }
+
+  if (isElementNode(node)) {
+    if (node.dataset.inlineCard === 'true') {
+      return '';
+    }
+
+    return Array.from(node.childNodes).map(getPMTextContent).join('');
+  }
+
+  return '';
+}
+
 function resolveNodePos(node: Node) {
   let resolvedPos = 0;
   let prev = node.previousSibling;
@@ -67,7 +87,7 @@ function resolveNodePos(node: Node) {
       resolvedPos += (prev.textContent || '').length;
     } else if (prev) {
       if (isNodeInlineMark(prev) && prev.textContent) {
-        resolvedPos += prev.textContent.length;
+        resolvedPos += getPMTextContent(prev).length;
       } else {
         resolvedPos += 1;
       }
@@ -124,7 +144,8 @@ export function resolvePos(node: Node | null, offset: number) {
     while (current && current.parentElement !== parent) {
       current = current.parentNode;
       if (current) {
-        resolvedPos += resolveNodePos(current);
+        const nodePos = resolveNodePos(current);
+        resolvedPos += nodePos;
       }
     }
   } else {

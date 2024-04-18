@@ -1,0 +1,39 @@
+---
+title: Comment
+description: A comment displays discussions and user feedback.
+order: 2
+---
+
+## Usage
+
+Use the comment component to let people give feedback or have discussions on a particular page, task or project.
+
+## Accessibility
+
+Including headings with comments is strongly recommended. Use the `headingLevel` prop to configure the heading level. The default heading has an `h3` tag. Make sure that headings are in the correct order and don’t skip levels. For example, an `h3` should follow an `h2` or lower, never an `h1`.
+
+Place the comment area within a named `<section>`, so that people can return to the comments section easily using skip links.
+
+## Behavior
+
+You can configure the comment component to show extra information and features:
+
+- Comments can be restricted so that only a specific group of people can view or reply. This is represented by a lock icon.
+- You can use lozenges to help people identify the type of comment. For example, when the comment comes from an author, or an external user.
+- Actions below the comment help people interact. For example, "Reply", "Edit", or "Like".
+- You can show if the comment has been edited. This is recommended when offering an edit feature.
+
+### Nesting comments
+
+Comment threads can be flat or nested.
+
+- Use flat comments sections for areas where the conversation is likely to be short and focused.
+- Use nested comments when broad discussions can happen among multiple participants, and people are more likely to need to differentiate between conversation threads.
+
+### Localization
+
+Ensure that the locale is appropriately set so that people see dates and times in a familiar format.
+
+## Related
+
+For more guidance on avatars, see the [avatar component](/components/avatar/examples).

@@ -22,6 +22,7 @@ const InlineCard = ({
   isPulseEnabled,
   pluginInjectionApi,
   isSelected = false,
+  onClick,
 }: SmartCardProps) => {
   const { url, data } = node.attrs;
 
@@ -109,7 +110,7 @@ const InlineCard = ({
         url={url}
         data={data}
         appearance="inline"
-        onClick={() => {}}
+        onClick={onClick}
         container={scrollContainer}
         onResolve={onResolve}
         onError={onError}
@@ -131,6 +132,7 @@ const InlineCard = ({
       useAlternativePreloader,
       actionOptions,
       showServerActions,
+      onClick,
     ],
   );
 

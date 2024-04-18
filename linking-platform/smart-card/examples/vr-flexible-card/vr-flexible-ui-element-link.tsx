@@ -8,10 +8,10 @@ import { exampleTokens, getContext } from '../utils/flexible-ui';
 import { Title } from '../../src/view/FlexibleCard/components/elements';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const overrideCss = css`
-  color: ${exampleTokens.overrideColor};
-  font-style: italic;
-`;
+const overrideCss = css({
+  color: exampleTokens.overrideColor,
+  fontStyle: 'italic',
+});
 const context = getContext();
 const renderTitle = (
   maxLines = 2,

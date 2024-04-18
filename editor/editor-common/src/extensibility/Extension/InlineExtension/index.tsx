@@ -14,7 +14,7 @@ import type { ExtensionsPluginInjectionAPI } from '../../types';
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
-import { inlineWrapperStyels, wrapperStyle } from './styles';
+import { inlineWrapperStyles, wrapperStyle } from './styles';
 
 export interface Props {
   node: PmNode;
@@ -40,15 +40,13 @@ const InlineExtension = (props: Props) => {
 
   const hasChildren = !!children;
 
-  const classNames = classnames(
-    'extension-container',
-    'inline',
-    'with-overlay',
-    {
-      'with-children': hasChildren,
-      'with-danger-overlay': showMacroInteractionDesignUpdates,
-    },
-  );
+  const classNames = classnames('extension-container', 'inline', {
+    'with-overlay': !showMacroInteractionDesignUpdates,
+    'with-children': hasChildren,
+    'with-danger-overlay': showMacroInteractionDesignUpdates,
+    'with-border': showMacroInteractionDesignUpdates,
+    'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
+  });
 
   const rendererContainerWidth = widthState
     ? widthState.width - akEditorGutterPadding * 2
@@ -75,7 +73,7 @@ const InlineExtension = (props: Props) => {
       )}
       <div
         data-testid="inline-extension-wrapper"
-        css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyels]}
+        css={[wrapperStyle, extendedInlineExtension && inlineWrapperStyles]}
         className={classNames}
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}

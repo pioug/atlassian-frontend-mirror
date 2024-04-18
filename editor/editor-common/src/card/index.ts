@@ -1,4 +1,4 @@
-export type { CardOptions } from './cardOptions';
+export type { CardOptions, OnClickCallback } from './cardOptions';
 export {
   addLinkMetadata,
   getLinkMetadataFromTransaction,

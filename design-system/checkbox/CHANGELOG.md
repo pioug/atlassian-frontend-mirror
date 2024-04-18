@@ -10,7 +10,7 @@
 
 ### Patch Changes
 
-- [#84905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84905) [`f03cb7163ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f03cb7163ffc) - Remove input focus style on `Checkbox` component
+- [#84905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/84905) [`f03cb7163ffc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f03cb7163ffc) - Fixes a bug with input focus styles.
 
 ## 13.1.3
 
@@ -44,7 +44,7 @@
 
 ### Patch Changes
 
-- [#78598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78598) [`cabae83473c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabae83473c3) - [ux] Focus styles for Checkbox and Radio components
+- [#78598](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/78598) [`cabae83473c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cabae83473c3) - [ux] Improved visibility of focus styles by adding a gap between the checkbox and focus ring. This makes the focus ring easier to distinguish to a selected checkbox, which is also blue.
 
 ## 13.0.1
 

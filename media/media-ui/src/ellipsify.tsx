@@ -5,9 +5,9 @@ export interface WrapperProps {
   inline?: boolean;
 }
 
-const Wrapper = styled.div<WrapperProps>`
-  ${({ inline }) => (inline && 'display: inline;') || ''};
-`;
+const Wrapper = styled.div<WrapperProps>(({ inline }) => ({
+  display: inline ? 'inline' : undefined,
+}));
 
 Wrapper.displayName = 'Ellipsify';
 

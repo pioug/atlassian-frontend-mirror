@@ -188,9 +188,9 @@ describe('Element: Icon', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = render(<Icon overrideCss={overrideCss} />);
 
     const element = await findByTestId('smart-element-icon');

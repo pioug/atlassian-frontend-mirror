@@ -27,10 +27,12 @@ const getElementGroupStyles = (
   // We need the height of the line to be equal on both left and right
   // sides so they line up nicely.
   const lineHeight = getMaxLineHeight(size);
-  return css`
-    line-height: ${lineHeight}rem;
-    ${getTruncateStyles(maxLines, lineHeight + 'rem')}
-  `;
+  return css(
+    {
+      lineHeight: `${lineHeight}rem`,
+    },
+    getTruncateStyles(maxLines, lineHeight + 'rem'),
+  );
 };
 
 const getMaxLines = (maxLines: number) => {

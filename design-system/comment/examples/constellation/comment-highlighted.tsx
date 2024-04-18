@@ -11,11 +11,11 @@ const CommentHighlightedExample = () => {
       highlighted
       avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}
       author={<CommentAuthor>Scott Farquhar</CommentAuthor>}
-      time={<CommentTime>Mar 14, 2022</CommentTime>}
+      time={<CommentTime>Mar 14, 2024</CommentTime>}
       content={
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Atlassian employees choose everyday where and how they want to work -
+          we call it Team Anywhere. This has been key for our continued growth.
         </p>
       }
     />

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-loom
 
+## 2.1.0
+
+### Minor Changes
+
+- [#90626](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90626) [`8efec4489602`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8efec4489602) - show/hide loom button in toolbar via editor plugin config
+
+### Patch Changes
+
+- [#90878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90878) [`962275ee0910`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962275ee0910) - [ux] [ED-22852] Update loom quick insert title, description and logo
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 7.7.1
+
+### Patch Changes
+
+- [#90896](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90896) [`ee5dc6f04816`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee5dc6f04816) - Add new column resize functionality behind LD ff platform.editor.table.colum-resizing-improvements
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 7.7.0
 
 ### Minor Changes

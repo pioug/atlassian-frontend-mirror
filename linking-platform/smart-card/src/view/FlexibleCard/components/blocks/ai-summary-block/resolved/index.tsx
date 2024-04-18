@@ -31,6 +31,8 @@ import type {
   AISummaryStatus,
   ErrorMessage,
 } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+import { css } from '@emotion/react';
+import FeatureDiscovery from '../feature-discovery';
 
 export const AISummaryBlockErrorIndicator = ({
   showErrorIndicator,
@@ -135,6 +137,11 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
         },
         testId: `${testId}-ai-summary-action`,
         icon: <AIIcon label="AIIcon" />,
+        /**
+         * Enabling feature discovery pulse
+         * Cleanup: https://product-fabric.atlassian.net/browse/EDM-9693
+         */
+        wrapper: FeatureDiscovery,
       } as ActionItem;
 
       return [aiAction, ...actions];
@@ -156,6 +163,16 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
       {...props}
       direction={SmartLinkDirection.Vertical}
       testId={`${testId}-resolved-view`}
+      /**
+       * Enabled for feature discovery to allow box shadow to overflow
+       * Cleanup: https://product-fabric.atlassian.net/browse/EDM-8681
+       */
+      overrideCss={css(
+        {
+          overflow: 'visible',
+        },
+        props.overrideCss,
+      )}
     >
       {status === 'done' && (
         <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />

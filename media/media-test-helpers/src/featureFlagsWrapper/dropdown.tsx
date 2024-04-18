@@ -22,11 +22,11 @@ const camelCaseToSentenceCase = (text: string) => {
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: ${token('space.250', '20px')} auto;
-`;
+const Container = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+  margin: `${token('space.250', '20px')} auto`,
+});
 
 const ItemWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div style={{ padding: `10px ${token('space.250', '20px')}` }}>

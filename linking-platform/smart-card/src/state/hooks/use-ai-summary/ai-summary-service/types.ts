@@ -53,6 +53,7 @@ export const errorMessages = [
   'ACCEPTABLE_USE_VIOLATIONS',
   'AI_DISABLED',
   'UNEXPECTED',
+  'HIPAA_CONTENT_DETECTED',
 ] as const;
 
 export type ErrorMessage = (typeof errorMessages)[number];

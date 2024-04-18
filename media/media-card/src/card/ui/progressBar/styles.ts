@@ -61,9 +61,7 @@ ${generateResponsiveStyles(breakpoint, positionBottom, showOnTop)}
 /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 
 export const styledBarStyles = (props: StyledBarProps) => {
-  return css`
-    ${getStyledBarStylesBasedOnProps(props)}
-  `;
+  return css(getStyledBarStylesBasedOnProps(props));
 };
 
 styledBarStyles.displayName = 'StyledProgressBar';

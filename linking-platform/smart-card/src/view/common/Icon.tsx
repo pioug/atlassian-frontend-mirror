@@ -30,23 +30,23 @@ const getImageStyles = (isFlexibleUi: boolean) => {
   if (isFlexibleUi) {
     return;
   }
-  return css`
-    height: ${gs(2)};
-    width: ${gs(2)};
-  `;
+  return css({
+    height: gs(2),
+    width: gs(2),
+  });
 };
 
 const getSpanStyles = (isFlexibleUi: boolean) => {
   if (isFlexibleUi) {
     return;
   }
-  return css`
-    height: ${gs(2.5)};
-    width: ${gs(2)};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
+  return css({
+    height: gs(2.5),
+    width: gs(2),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  });
 };
 
 export const Icon = ({

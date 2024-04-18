@@ -11,10 +11,13 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-helpers';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 import type { EditorProps } from '../src/types/editor-props';
 
@@ -99,6 +102,15 @@ const CollabEditor = ({
       appearance: 'full-page',
       collabEdit,
       annotationProviders,
+      linking: {
+        smartLinks: {
+          provider: Promise.resolve(cardProviderStaging),
+          allowBlockCards: true,
+          allowEmbeds: true,
+          allowResizing: true,
+          useAlternativePreloader: false,
+        },
+      },
     };
   }, [collabEdit]);
 
@@ -144,19 +156,26 @@ const CollabEditor = ({
     (window as WindowForTesting).__setViewMode = null;
   }, []);
 
+  const smartCardClient = new CardClient('staging');
+
   return (
-    <ComposableEditor
-      {...props}
-      preset={preset}
-      onEditorReady={onEditorReady}
-      onDestroy={onDestroy}
-    />
+    <SmartCardProvider client={smartCardClient}>
+      <ComposableEditor
+        {...props}
+        preset={preset}
+        onEditorReady={onEditorReady}
+        onDestroy={onDestroy}
+      />
+    </SmartCardProvider>
   );
 };
 
 const style = { height: '100%', width: '100%' };
 const urlParams = new URLSearchParams(window.location.search);
 export default function EditorExampleForIntegrationTests() {
+  setBooleanFeatureFlagResolver((flagKey) => {
+    return flagKey === 'platform.linking-platform.smart-card.on-click-callback';
+  });
   const options = React.useMemo(() => {
     const fakeAri = `ari:cloud:confluence:collab-test:blog/${crypto.randomUUID()}`;
     const documentAri = urlParams.get('documentAri') || fakeAri;

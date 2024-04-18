@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 
-export const minHeightComponentStyles = css`
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  min-height: var(--link-picker-min-height);
-`;
+export const minHeightComponentStyles = css({
+  display: 'flex',
+  alignItems: 'stretch',
+  justifyContent: 'center',
+  minHeight: 'var(--link-picker-min-height)',
+});

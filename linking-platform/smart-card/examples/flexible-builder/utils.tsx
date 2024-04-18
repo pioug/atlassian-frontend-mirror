@@ -85,10 +85,8 @@ export const setExampleToLocalStorage = (template: FlexibleTemplate) => {
   );
 };
 
-export const excludeStyles = css`
-  label,
-  label > span,
-  div {
-    color: ${token('color.text.disabled', '#091E424F')};
-  }
-`;
+export const excludeStyles = css({
+  'label, label > span, div': {
+    color: token('color.text.disabled', '#091E424F'),
+  },
+});

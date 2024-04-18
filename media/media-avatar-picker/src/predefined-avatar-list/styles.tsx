@@ -6,6 +6,7 @@ import {
   focusedShadow,
 } from '../styles';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const predefinedAvatarsWrapperStyles = css`
   display: flex;
 

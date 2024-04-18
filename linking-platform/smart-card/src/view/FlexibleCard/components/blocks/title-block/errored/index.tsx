@@ -19,30 +19,34 @@ import {
 } from '../../../utils';
 import ElementGroup from '../../element-group';
 
-const actionStyles: SerializedStyles = css`
-  cursor: pointer;
-  :hover {
-    color: ${token('color.text.subtle', '#8993A4')};
-    text-decoration: underline;
-  }
-`;
+const actionStyles: SerializedStyles = css({
+  cursor: 'pointer',
+  ':hover': {
+    color: token('color.text.subtle', '#8993A4'),
+    textDecoration: 'underline',
+  },
+});
 
 const getMessageStyles = (
   size: SmartLinkSize,
   hasAction: boolean,
 ): SerializedStyles => {
   const sizeStyles = getLinkSizeStyles(size);
-  return css`
-    flex: 1 1 auto;
-    justify-content: flex-end;
-    ${hasAction ? actionStyles : ''}
-    ${sizeStyles}
-    ${getTruncateStyles(1, getLinkLineHeight(size))}
-    color: ${token('color.text.disabled', '#6B778C')};
-    :focus {
-      outline: ${token('color.border.focused', '#388BFF')} solid 2px;
-    }
-  `;
+  return css(
+    {
+      flex: '1 1 auto',
+      justifyContent: 'flex-end',
+    },
+    hasAction ? actionStyles : '',
+    sizeStyles,
+    getTruncateStyles(1, getLinkLineHeight(size)),
+    {
+      color: token('color.text.disabled', '#6B778C'),
+      ':focus': {
+        outline: `${token('color.border.focused', '#388BFF')} solid 2px`,
+      },
+    },
+  );
 };
 
 /**

@@ -166,7 +166,7 @@ const AutocompleteOption = forwardRef<HTMLLIElement, Props>((props, ref) => {
   const deprecatedTooltipContent = (
     <TooltipContent>
       {formatMessage(getDeprecatedTooltipMessage(deprecatedSearcherKey), {
-        b: (text: string) => <b>{text}</b>,
+        b: (text: React.ReactNode[]) => <b>{text}</b>,
         received: name,
         parentReplacement: 'Parent',
       })}

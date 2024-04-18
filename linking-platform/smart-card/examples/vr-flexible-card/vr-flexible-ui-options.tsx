@@ -10,12 +10,12 @@ import { exampleTokens, getCardState } from '../utils/flexible-ui';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const clickableContainerStyles = css`
-  .layered-link {
-    background-color: ${exampleTokens.iconBackgroundColor};
-    opacity: 0.2;
-  }
-`;
+const clickableContainerStyles = css({
+  '.layered-link': {
+    backgroundColor: exampleTokens.iconBackgroundColor,
+    opacity: 0.2,
+  },
+});
 
 const cardState = getCardState();
 const render = (

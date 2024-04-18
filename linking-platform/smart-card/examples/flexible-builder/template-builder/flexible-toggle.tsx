@@ -8,17 +8,16 @@ import { token } from '@atlaskit/tokens';
 import Toggle from '@atlaskit/toggle';
 import { TemplateDisplay } from '../types';
 
-const containerStyles = css`
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid ${token('color.border', '#091E4224')};
-  gap: 0.3rem;
-  padding-bottom: 0.5rem;
-
-  h5 {
-    margin-top: inherit;
-  }
-`;
+const containerStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  borderBottom: `1px solid ${token('color.border', '#091E4224')}`,
+  gap: '0.3rem',
+  paddingBottom: '0.5rem',
+  h5: {
+    marginTop: 'inherit',
+  },
+});
 
 const FlexibleToggle: React.FC<{
   display?: TemplateDisplay;

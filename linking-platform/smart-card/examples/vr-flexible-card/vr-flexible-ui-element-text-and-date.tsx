@@ -18,10 +18,10 @@ import {
   SentOn,
 } from '../../src/view/FlexibleCard/components/elements';
 
-const overrideCss = css`
-  color: ${exampleTokens.overrideColor};
-  font-style: italic;
-`;
+const overrideCss = css({
+  color: exampleTokens.overrideColor,
+  fontStyle: 'italic',
+});
 
 const context = getContext({
   modifiedOn: '2022-01-22T16:44:00.000+1000',

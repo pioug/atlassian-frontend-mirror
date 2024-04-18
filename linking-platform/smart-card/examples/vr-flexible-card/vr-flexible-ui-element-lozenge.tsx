@@ -23,9 +23,9 @@ const appearances: LozengeAppearance[] = [
   'removed',
   'success',
 ];
-const overrideCss = css`
-  font-style: italic;
-`;
+const overrideCss = css({
+  fontStyle: 'italic',
+});
 
 export default () => (
   <VRTestWrapper>

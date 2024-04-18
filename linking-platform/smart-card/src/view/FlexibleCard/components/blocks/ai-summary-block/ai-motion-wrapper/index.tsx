@@ -1,14 +1,14 @@
 import { Box } from '@atlaskit/primitives';
-import React, { type FC, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { AIMotionWrapperProps } from './types';
 
-export const AIMotionWrapper: FC<AIMotionWrapperProps> = ({
+export const AIMotionWrapper = ({
   children,
   isFadeIn = false,
   minHeight = 0,
   show,
   showTransition = false,
-}) => {
+}: AIMotionWrapperProps) => {
   const [height, setHeight] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const transition = isFadeIn ? 'height, opacity' : 'height';

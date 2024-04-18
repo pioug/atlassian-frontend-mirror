@@ -40,7 +40,7 @@
     "@af/accessibility-testing": "*",
     "@af/icon-build-process": "^0.5.0",
     "@af/visual-regression": "*",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/logo": "^13.15.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^12.7.0",

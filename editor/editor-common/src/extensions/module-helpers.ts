@@ -43,6 +43,7 @@ export function buildMenuItem<T extends Parameters>(
     key,
     title,
     extensionType: manifest.type,
+    extensionKey: manifest.key,
     keywords: extensionModule.keywords || manifest.keywords || [],
     featured: extensionModule.featured || false,
     categories: extensionModule.categories || manifest.categories || [],

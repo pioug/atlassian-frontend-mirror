@@ -10,15 +10,15 @@ import { exampleTokens, getContext } from '../utils/flexible-ui';
 import { LinkIcon } from '../../src/view/FlexibleCard/components/elements';
 import { smallImage } from '@atlaskit/media-test-helpers';
 
-const boxStyles = css`
-  color: ${exampleTokens.iconColor};
-  background-color: ${exampleTokens.iconBackgroundColor};
-  border-radius: 5px;
-`;
-const overrideCss = css`
-  background-color: ${exampleTokens.overrideColor};
-  border-radius: 15px;
-`;
+const boxStyles = css({
+  color: exampleTokens.iconColor,
+  backgroundColor: exampleTokens.iconBackgroundColor,
+  borderRadius: '5px',
+});
+const overrideCss = css({
+  backgroundColor: exampleTokens.overrideColor,
+  borderRadius: '15px',
+});
 const context = getContext();
 
 export default () => {

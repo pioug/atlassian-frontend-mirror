@@ -13,8 +13,9 @@ const CommentDefaultExample = () => {
       author={<CommentAuthor>Scott Farquhar</CommentAuthor>}
       content={
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          I’ve seen first-hand how making it easy for employees to volunteer
+          builds a stronger culture. It’s a great way to invest in your company
+          and your community at the same time.
         </p>
       }
     />

@@ -45,6 +45,13 @@ export interface ModalDialogProps {
   children?: React.ReactNode;
 
   /**
+   * Callback function which lets you allowlist nodes so they can be interacted with outside of the focus lock.
+   * Return `true` if focus lock should handle element, `false` if not.
+   * Works when `platform.design-system-team.multiple-modal-inappropriate-focus_z5u4j` feature flag is enabled.
+   */
+  focusLockAllowlist?: (element: HTMLElement) => boolean;
+
+  /**
    * Height of the modal dialog.
    * When unset the modal dialog will grow to fill the viewport and then start overflowing its contents.
    */

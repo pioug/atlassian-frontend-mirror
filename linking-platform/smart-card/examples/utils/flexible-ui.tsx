@@ -112,7 +112,10 @@ export const makeEditActionItem = (
 });
 
 export const makeCustomActionItem = (
-  options: Pick<CustomActionItem, 'icon' | 'content' | 'testId'> = {},
+  options: Pick<
+    CustomActionItem,
+    'icon' | 'content' | 'testId' | 'href' | 'ariaLabel'
+  > = {},
 ): CustomActionItem => ({
   name: ActionName.CustomAction,
   onClick: () => console.log('Custom action!'),

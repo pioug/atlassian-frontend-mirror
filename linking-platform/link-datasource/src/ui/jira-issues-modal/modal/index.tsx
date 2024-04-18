@@ -688,7 +688,9 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
               <FormattedMessage
                 {...modalMessages.checkConnectionWithSource}
                 values={{
-                  a: (urlText: string) => <a href={jqlUrl}>{urlText}</a>,
+                  a: (urlText: React.ReactNode[]) => (
+                    <a href={jqlUrl}>{urlText}</a>
+                  ),
                 }}
               />
             ) : undefined

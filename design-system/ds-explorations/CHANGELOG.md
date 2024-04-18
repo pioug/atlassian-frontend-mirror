@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 3.5.0
+
+### Minor Changes
+
+- [#91140](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91140) [`2afd28c5e0b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2afd28c5e0b2) - Add support for React 18.
+
 ## 3.4.0
 
 ### Minor Changes

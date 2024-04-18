@@ -6,22 +6,22 @@ import styled from '@emotion/styled';
 
 const overlayZindex = layers.modal() + 10;
 
-export const Blanket = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  z-index: ${overlayZindex};
-`;
+export const Blanket = styled.div({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  right: 0,
+  zIndex: overlayZindex,
+});
 Blanket.displayName = 'Blanket';
 
-export const SpinnerWrapper = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+export const SpinnerWrapper = styled.div({
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 SpinnerWrapper.displayName = 'SpinnerWrapper';
 
 interface Props {

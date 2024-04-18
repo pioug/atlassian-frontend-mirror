@@ -1,5 +1,18 @@
 # @atlaskit/collab-provider
 
+## 9.26.2
+
+### Patch Changes
+
+- [#90942](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90942) [`30e989b2e4bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30e989b2e4bb) - catchupV2 is a noop when document is locked
+
+## 9.26.1
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 9.26.0
 
 ### Minor Changes

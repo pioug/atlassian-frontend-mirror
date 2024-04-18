@@ -91,10 +91,16 @@
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/radio/tsconfig.app.json"
+    },
+    {
       "path": "../smart-card/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
     },
     {
       "path": "../../design-system/textfield/tsconfig.app.json"

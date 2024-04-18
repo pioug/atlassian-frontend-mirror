@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-paste",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "Paste plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,15 +36,15 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.27.0",
+    "@atlaskit/editor-common": "^78.28.0",
     "@atlaskit/editor-markdown-transformer": "^5.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-annotation": "^1.5.0",
     "@atlaskit/editor-plugin-better-type-history": "^1.0.0",
-    "@atlaskit/editor-plugin-card": "^1.7.0",
+    "@atlaskit/editor-plugin-card": "^1.8.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-list": "^3.1.0",
-    "@atlaskit/editor-plugin-media": "^1.14.0",
+    "@atlaskit/editor-plugin-media": "^1.15.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
     "@atlaskit/editor-tables": "^2.6.0",
     "@atlaskit/media-client": "^26.3.0",
@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/adf-schema": "^35.8.0",
+    "@atlaskit/adf-schema": "^35.9.0",
     "@atlaskit/editor-plugin-block-type": "^3.0.0",
     "@atlaskit/editor-plugin-history": "^1.0.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.0.0",

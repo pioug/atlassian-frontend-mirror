@@ -10,9 +10,9 @@ import {
   type ExpandedFrameProps,
 } from '../../src/view/EmbedCard/components/ExpandedFrame';
 
-const wrapperStyles = css`
-  padding: ${token('space.250', '20px')};
-`;
+const wrapperStyles = css({
+  padding: token('space.250', '20px'),
+});
 
 const VREmbedFrame: React.FC<Partial<ExpandedFrameProps>> = (props) => (
   <VRTestWrapper overrideCss={wrapperStyles}>

@@ -26,9 +26,9 @@ describe('ElementGroup', () => {
   });
 
   it('renders element group with custom css', async () => {
-    const customStyles = css`
-      line-height: 20rem;
-    `;
+    const customStyles = css({
+      lineHeight: '20rem',
+    });
     const { getByTestId } = render(
       <ElementGroup overrideCss={customStyles}>
         I am an element group.

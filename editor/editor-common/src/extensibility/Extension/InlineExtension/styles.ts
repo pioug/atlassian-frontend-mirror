@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 
+import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { wrapperDefault } from '../styles';
@@ -21,9 +22,15 @@ export const wrapperStyle = css(wrapperDefault, {
     padding: 0,
     background: token('color.background.neutral.subtle', 'white'),
   },
+  '&.with-border': {
+    border: `1px solid transparent`, // adding this so macro doesn't jump when hover border is shown
+  },
+  '&.with-hover-border': {
+    border: `1px solid ${token('color.border.input', N500)}`,
+  },
 });
 
-export const inlineWrapperStyels = css({
+export const inlineWrapperStyles = css({
   maxWidth: '100%',
   'tr &': {
     maxWidth: 'inherit',

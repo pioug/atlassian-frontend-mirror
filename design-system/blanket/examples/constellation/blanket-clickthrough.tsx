@@ -13,7 +13,7 @@ const BlanketClickthroughExample = () => {
   return (
     <Box>
       <Button appearance="default" onClick={showBlanketClick}>
-        {!isBlanketVisible ? 'Show Blanket' : 'Hide Blanket'}
+        {!isBlanketVisible ? 'Show blanket' : 'Hide blanket'}
       </Button>
 
       <Blanket isTinted={isBlanketVisible} shouldAllowClickThrough />

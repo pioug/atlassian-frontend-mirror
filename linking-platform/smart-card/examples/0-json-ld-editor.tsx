@@ -6,16 +6,15 @@ import LoadLinkForm from './jsonld-editor/load-link-form';
 import JsonldEditorInput from './jsonld-editor/jsonld-editor-input';
 import JsonldEditor from './jsonld-editor/jsonld-editor';
 
-const styles = css`
-  display: flex;
-  gap: 1rem;
-  height: fit-content;
-  padding: 2rem;
-
-  > div {
-    width: 50%;
-  }
-`;
+const styles = css({
+  display: 'flex',
+  gap: '1rem',
+  height: 'fit-content',
+  padding: '2rem',
+  '> div': {
+    width: '50%',
+  },
+});
 
 const Example = () => {
   return (

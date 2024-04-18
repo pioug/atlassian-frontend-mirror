@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.32
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+
 ## 8.10.31
 
 ### Patch Changes

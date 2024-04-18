@@ -5,6 +5,7 @@ import type { CardActionOptions } from '../../../view/Card/types';
 import { extractDownloadAction } from './extract-download-action';
 import { extractPreviewAction } from './extract-preview-action';
 import extractFollowAction from './extract-follow-action';
+import { extractCopyLinkAction } from './extract-copy-link-action';
 
 const extractActions = (
   response: JsonLd.Response,
@@ -13,6 +14,7 @@ const extractActions = (
   id?: string,
 ): FlexibleUiActions | undefined => {
   const action = {
+    [ActionName.CopyLinkAction]: extractCopyLinkAction(data, actionOptions),
     [ActionName.DownloadAction]: extractDownloadAction(data, actionOptions),
     [ActionName.FollowAction]: extractFollowAction(response, actionOptions, id),
     [ActionName.PreviewAction]: extractPreviewAction(response, actionOptions),

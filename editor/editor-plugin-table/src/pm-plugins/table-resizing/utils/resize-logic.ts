@@ -278,3 +278,28 @@ function getCandidates(
     ? candidates.slice(0, destIdx)
     : candidates.slice(destIdx + 1);
 }
+
+/**
+ * Update the given column based on resizeAmount, maintaining all other columns
+ */
+export function updateAffectedColumn(
+  resizeState: ResizeState,
+  colIndex: number,
+  resizeAmount: number,
+): ResizeState {
+  const updatedCols = resizeState.cols.map((col, index) => {
+    if (index === colIndex) {
+      const newWidth = Math.max(col.width + resizeAmount, col.minWidth);
+      return {
+        ...col,
+        width: newWidth,
+      };
+    }
+    return col;
+  });
+
+  return {
+    ...resizeState,
+    cols: updatedCols,
+  };
+}

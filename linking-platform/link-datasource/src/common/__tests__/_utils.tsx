@@ -20,6 +20,7 @@ import {
   useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
 import { getAvailableSites } from '../../services/getAvailableSites';
+import { ConfluenceSearchConfigModalProps } from '../../ui/confluence-search-modal/types';
 import { IssueLikeDataTableView } from '../../ui/issue-like-table';
 import { IssueLikeDataTableViewProps } from '../../ui/issue-like-table/types';
 
@@ -75,15 +76,18 @@ type AnalyticsPayloadOverride = {
   attributes?: object;
 };
 
-type ConfigModalFC<ADF, Parameters> = (
-  props: ConfigModalProps<ADF, Parameters>,
-) => JSX.Element;
+interface ModalProps<ADF, Parameters>
+  extends ConfigModalProps<ADF, Parameters>,
+    Pick<
+      ConfluenceSearchConfigModalProps,
+      'disableDisplayDropdown' | 'overrideParameters'
+    > {}
 
 export const setupFactory = <Parameters, InsertArgs, ADF>(
   providerType: ProviderType,
   Component:
-    | ConfigModalFC<ADF, Parameters>
-    | React.ForwardRefExoticComponent<ConfigModalProps<ADF, Parameters>>,
+    | ((props: ModalProps<ADF, Parameters>) => JSX.Element)
+    | React.ForwardRefExoticComponent<ModalProps<ADF, Parameters>>,
   getDefaultParameters: () => Parameters,
   insertArgs: (args: InsertArgs) => object,
 ) => {
@@ -241,6 +245,8 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
       >['wrappedColumnKeys'];
       url?: ConfigModalProps<ADF, Parameters>['url'];
       viewMode?: DisplayViewModes;
+      disableDisplayDropdown?: ConfluenceSearchConfigModalProps['disableDisplayDropdown'];
+      overrideParameters?: ConfluenceSearchConfigModalProps['overrideParameters'];
     } = {},
   ) => {
     asMock(getAvailableSites).mockResolvedValue(
@@ -293,6 +299,8 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
                     : undefined
                 }
                 url={args.url}
+                disableDisplayDropdown={args.disableDisplayDropdown}
+                overrideParameters={args.overrideParameters}
               />
             </SmartCardProvider>
           </IntlProvider>

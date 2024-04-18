@@ -24,6 +24,9 @@ export const createMockService = (config: Partial<Config> = {}) => {
     providerEmitCallbackMock,
     sendMetadataMock,
   );
+  const isNameSpaceLockedMock = jest.fn().mockReturnValue(false);
+  const options = { __livePage: config.__livePage ?? false };
+
   const service = new DocumentService(
     participantsServiceMock,
     // @ts-expect-error - mock class
@@ -36,8 +39,10 @@ export const createMockService = (config: Partial<Config> = {}) => {
     getUserIdMock,
     onErrorHandledMock,
     metadataService,
+    isNameSpaceLockedMock,
     config.enableErrorOnFailedDocumentApply,
     config.featureFlags?.reconcileOnRecovery,
+    options,
   );
 
   // @ts-expect-error - jest mock class
@@ -58,5 +63,6 @@ export const createMockService = (config: Partial<Config> = {}) => {
     getUserIdMock,
     stepQueue,
     onErrorHandledMock,
+    isNameSpaceLockedMock,
   };
 };

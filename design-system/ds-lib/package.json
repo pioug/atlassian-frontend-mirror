@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "2.2.5",
+  "version": "2.3.0",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,7 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "runReact18": true,
     "website": {
       "deprecated": "This is an internal package and should not be used directly.",
       "name": "DSLib",
@@ -68,7 +69,7 @@
     "bind-event-listener": "^2.1.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

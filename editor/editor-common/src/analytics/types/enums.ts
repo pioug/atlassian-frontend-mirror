@@ -232,6 +232,7 @@ export enum ACTION_SUBJECT {
   TOOLTIP = 'tooltip',
   LOOM = 'loom',
   MULTI_BODIED_EXTENSION = 'multiBodiedExtension',
+  BODIED_EXTENSION = 'bodiedExtension',
 }
 
 export enum ACTION_SUBJECT_ID {

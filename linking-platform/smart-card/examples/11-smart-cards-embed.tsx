@@ -3,13 +3,12 @@ import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 import { Provider, Card, Client } from '../src';
 
-const InheritDimensionWrapper = styled.div`
-  height: 300px;
-
-  .loader-wrapper {
-    height: 100%;
-  }
-`;
+const InheritDimensionWrapper = styled.div({
+  height: '300px',
+  '.loader-wrapper': {
+    height: '100%',
+  },
+});
 
 export default () => (
   <Provider client={new Client('stg')}>

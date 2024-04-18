@@ -10,9 +10,9 @@ import { css } from '@emotion/react';
 
 export default () => (
   <VRTestWrapper
-    overrideCss={css`
-      height: 700px;
-    `}
+    overrideCss={css({
+      height: '700px',
+    })}
   >
     <EmbedModal
       analytics={mockAnalytics}

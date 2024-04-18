@@ -4,10 +4,10 @@ import AKBadge from '@atlaskit/badge';
 import { css, jsx } from '@emotion/react';
 import { AtlaskitBadgeProps } from './types';
 
-const badgeStyles = css`
-  align-items: center;
-  display: inline-flex;
-`;
+const badgeStyles = css({
+  alignItems: 'center',
+  display: 'inline-flex',
+});
 
 /**
  * A base element that displays a visual indicator for a numeric value

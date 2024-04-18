@@ -11,38 +11,34 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
   switch (size) {
     case SmartLinkSize.Large:
       return iconOnly
-        ? css`
-            button,
-            button:hover,
-            button:focus,
-            button:active {
-              padding: 0;
-              > span {
-                margin: 0;
-              }
-            }
-          `
+        ? css({
+            'button, button:hover, button:focus, button:active': {
+              padding: 0,
+              '> span': {
+                margin: 0,
+              },
+            },
+          })
         : '';
     case SmartLinkSize.Small:
-      return css`
-        font-size: 0.75rem;
-        font-weight: 500;
-        line-height: 1rem;
-        button,
-        button:hover,
-        button:focus,
-        button:active {
-          line-height: 1rem;
-          ${iconOnly
+      return css({
+        fontSize: '0.75rem',
+        fontWeight: 500,
+        lineHeight: '1rem',
+        'button, button:hover, button:focus, button:active': [
+          {
+            lineHeight: '1rem',
+          },
+          iconOnly
             ? `
             padding: 0.125rem;
           `
             : `
             padding-left: 0.25rem;
             padding-right: 0.25rem;
-          `}
-        }
-      `;
+          `,
+        ],
+      });
     case SmartLinkSize.XLarge:
     case SmartLinkSize.Medium:
     default:
@@ -62,6 +58,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({
   testId,
   tooltipMessage,
   isDisabled,
+  href,
+  ariaLabel,
 }) => {
   const iconOnly = !content;
 
@@ -92,6 +90,8 @@ const ActionButton: React.FC<ActionButtonProps> = ({
           onClick={onButtonClick(onClick)}
           spacing={sizeToButtonSpacing[size]}
           testId={testId}
+          href={href}
+          aria-label={ariaLabel}
         >
           {content}
         </LoadingButton>

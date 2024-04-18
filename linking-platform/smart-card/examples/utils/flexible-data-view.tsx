@@ -18,27 +18,31 @@ import { actionNames, metadataElements } from './flexible-ui';
  * We are hacking flexible smart links styling here to display the information
  * about elements.
  */
-const codeStyles = css`
-  font-family: 'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono',
-    'Ubuntu Mono', Menlo, Consolas, Courier, monospace;
-  font-size: 0.75rem;
-  line-height: 0.75rem;
-`;
+const codeStyles = css({
+  fontFamily:
+    "'SFMono-Medium', 'SF Mono', 'Segoe UI Mono', 'Roboto Mono', 'Ubuntu Mono', Menlo, Consolas, Courier, monospace",
+  fontSize: '0.75rem',
+  lineHeight: '0.75rem',
+});
 
-const labelStyles = css`
-  align-items: center;
-  background-color: ${token('color.background.neutral', '#091E420F')};
-  border-radius: 3px;
-  color: ${token('color.text', '#172B4D')};
-  justify-content: center;
-  padding: 0.125rem 0;
-  ${codeStyles}
-`;
+const labelStyles = css(
+  {
+    alignItems: 'center',
+    backgroundColor: token('color.background.neutral', '#091E420F'),
+    borderRadius: '3px',
+    color: token('color.text', '#172B4D'),
+    justifyContent: 'center',
+    padding: '0.125rem 0',
+  },
+  codeStyles,
+);
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const flexStyles = css`
   [data-smart-block] {
     // MetadataBlock: Element showcase
     ${metadataElements.map(
+      // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
       (name) => css`
         &[data-testid^='${name}'] {
           display: flex; // Force block to show even when the element has no data

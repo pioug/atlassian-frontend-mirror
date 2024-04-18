@@ -1,5 +1,12 @@
 # @atlaskit/email-renderer
 
+## 8.5.19
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- [#89296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89296) [`14a5e5877b97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14a5e5877b97) - [ED-22875] Made a type import explicit in bodied extensions
+
 ## 8.5.18
 
 ### Patch Changes

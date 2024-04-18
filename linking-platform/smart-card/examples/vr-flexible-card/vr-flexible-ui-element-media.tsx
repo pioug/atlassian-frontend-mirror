@@ -12,17 +12,17 @@ const context = getContext({
   preview: { type: MediaType.Image, url: smallImage },
 });
 
-const containerStyles = css`
-  margin: 1rem 0;
-  width: 300px;
-`;
-const overrideCss = css`
-  background-color: ${exampleTokens.overrideColor};
-  border-radius: 0.5rem;
-  > img {
-    object-fit: contain;
-  }
-`;
+const containerStyles = css({
+  margin: '1rem 0',
+  width: '300px',
+});
+const overrideCss = css({
+  backgroundColor: exampleTokens.overrideColor,
+  borderRadius: '0.5rem',
+  '> img': {
+    objectFit: 'contain',
+  },
+});
 
 export default () => (
   <VRTestWrapper>

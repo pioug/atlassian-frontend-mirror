@@ -33,7 +33,8 @@ export const inlinePlayerClassName = 'media-card-inline-player';
 export const inlinePlayerWrapperStyles = ({
   dimensions,
   selected,
-}: InlinePlayerWrapperProps) => css`
+}: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+InlinePlayerWrapperProps) => css`
   width: ${getDimensionsWithDefault(dimensions).width || '100%'};
   height: ${getDimensionsWithDefault(dimensions).height || 'auto'};
   overflow: hidden;

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "1.27.2",
+  "version": "1.27.3",
   "description": "UI Components to support linking platform dataset feature",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,15 +31,15 @@
     "analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.8.0",
+    "@atlaskit/adf-schema": "^35.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/avatar": "^21.5.0",
     "@atlaskit/avatar-group": "^9.5.0",
     "@atlaskit/badge": "^16.0.0",
     "@atlaskit/button": "^17.12.0",
-    "@atlaskit/dropdown-menu": "^12.8.0",
+    "@atlaskit/dropdown-menu": "^12.9.0",
     "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/empty-state": "^7.7.0",
+    "@atlaskit/empty-state": "^7.8.0",
     "@atlaskit/form": "^9.2.0",
     "@atlaskit/heading": "^2.1.0",
     "@atlaskit/icon": "^22.1.0",
@@ -62,7 +62,7 @@
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
     "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/select": "^17.6.0",
-    "@atlaskit/smart-card": "^26.55.0",
+    "@atlaskit/smart-card": "^26.56.0",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/tag": "^12.0.0",
     "@atlaskit/textfield": "6.1.3",

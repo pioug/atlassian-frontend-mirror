@@ -25,10 +25,14 @@ const Action: FC<ActionProps> = ({
   iconPosition = 'before',
   spaceInline,
   tooltipMessage,
+  tooltipOnHide,
   xcss,
   asDropDownItem,
   overrideCss,
   isDisabled,
+  href,
+  ariaLabel,
+  wrapper: Wrapper,
 }: ActionProps) => {
   if (!onClick) {
     return null;
@@ -62,6 +66,7 @@ const Action: FC<ActionProps> = ({
         testId={testId}
         tooltipMessage={tooltipMessage || content}
         xcss={xcss}
+        tooltipOnHide={tooltipOnHide}
       />
     );
   }
@@ -79,7 +84,7 @@ const Action: FC<ActionProps> = ({
     );
   }
 
-  return (
+  const button = (
     <ActionButton
       appearance={appearance}
       content={content}
@@ -92,8 +97,11 @@ const Action: FC<ActionProps> = ({
       testId={testId}
       tooltipMessage={tooltipMessage || content}
       isDisabled={isDisabled}
+      href={href}
+      ariaLabel={ariaLabel}
     />
   );
+  return Wrapper !== undefined ? <Wrapper>{button}</Wrapper> : button;
 };
 
 export default Action;

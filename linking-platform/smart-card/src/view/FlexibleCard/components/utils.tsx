@@ -46,6 +46,7 @@ const getIconDimensionStyles = (value: string): SerializedStyles =>
 
 export const getIconSizeStyles = (width: string): SerializedStyles => {
   const sizeStyles = getIconDimensionStyles(width);
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     flex: 0 0 auto;
     ${sizeStyles}

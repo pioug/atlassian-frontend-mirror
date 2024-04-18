@@ -26,7 +26,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@babel/runtime": "^7.0.0",
     "bind-event-listener": "^2.1.1"
   },

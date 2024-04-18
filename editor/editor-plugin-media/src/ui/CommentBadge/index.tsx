@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
@@ -27,6 +27,7 @@ const CommentBadgeWrapper = ({
   getPos,
   intl,
 }: CommentBadgeProps) => {
+  const [entered, setEntered] = useState(false);
   const { annotationState } = useSharedPluginState(api, ['annotation']);
   const {
     state: {
@@ -39,6 +40,19 @@ const CommentBadgeWrapper = ({
     dispatch,
   } = view;
 
+  const status = useMemo(() => {
+    if (!annotationState || !mediaNode) {
+      return 'default';
+    }
+
+    return annotationState.selectedAnnotations.some(
+      annotation =>
+        !!mediaNode.marks.find(mark => mark.attrs.id === annotation.id),
+    ) && !annotationState.isInlineCommentViewClosed
+      ? 'active'
+      : 'default';
+  }, [annotationState, mediaNode]);
+
   const onClick = useCallback(() => {
     if (api.annotation && mediaNode) {
       const { showCommentForBlockNode } = api.annotation.actions;
@@ -50,7 +64,7 @@ const CommentBadgeWrapper = ({
 
   if (
     !Number.isFinite(pos) ||
-    !annotationState ||
+    !annotationState?.annotations ||
     !mediaNode ||
     mediaNode.type !== media ||
     mediaNode.marks.every(
@@ -73,6 +87,9 @@ const CommentBadgeWrapper = ({
       mediaElement={mediaElement}
       intl={intl}
       isEditor
+      status={entered ? 'entered' : status}
+      onMouseEnter={() => setEntered(true)}
+      onMouseLeave={() => setEntered(false)}
     />
   );
 };

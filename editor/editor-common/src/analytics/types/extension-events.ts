@@ -55,6 +55,18 @@ type ExtensionUpdateAEP = TrackAEP<
   INPUT_METHOD.MACRO_BROWSER | INPUT_METHOD.CONFIG_PANEL | INPUT_METHOD.TOOLBAR
 >;
 
+type ExtensionDeletedAEP = TrackAEP<
+  ACTION.DELETED,
+  ACTION_SUBJECT.EXTENSION,
+  ExtensionType,
+  {
+    extensionType: string;
+    extensionKey: string;
+    localId: string;
+  },
+  INPUT_METHOD.TOOLBAR
+>;
+
 type ExtensionAPICalledPayload = TrackAEP<
   ACTION.INVOKED,
   ACTION_SUBJECT.EXTENSION,
@@ -67,4 +79,5 @@ type ExtensionAPICalledPayload = TrackAEP<
 
 export type ExtensionEventPayload =
   | ExtensionUpdateAEP
+  | ExtensionDeletedAEP
   | ExtensionAPICalledPayload;

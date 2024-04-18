@@ -6,7 +6,13 @@ export interface ConfluenceSearchConfigModalProps
   extends ConfigModalProps<
     InlineCardAdf | ConfluenceSearchDatasourceAdf,
     ConfluenceSearchDatasourceParameters
-  > {}
+  > {
+  disableDisplayDropdown?: boolean;
+  overrideParameters?: Pick<
+    ConfluenceSearchDatasourceParameters,
+    'entityTypes'
+  >;
+}
 
 export type ConfluenceSearchDatasourceParameters = {
   cloudId: string;

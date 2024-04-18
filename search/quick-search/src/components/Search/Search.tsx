@@ -20,11 +20,11 @@ export const controlKeys = [
   'ArrowRight',
 ];
 
-const SpinnerParent = styled.div`
-  height: ${token('space.250', '20px')};
-  margin-left: ${token('space.150', '12px')};
-  margin-top: ${token('space.150', '12px')};
-`;
+const SpinnerParent = styled.div({
+  height: token('space.250', '20px'),
+  marginLeft: token('space.150', '12px'),
+  marginTop: token('space.150', '12px'),
+});
 
 type Props = {
   /** The elements to render as options to search from. */

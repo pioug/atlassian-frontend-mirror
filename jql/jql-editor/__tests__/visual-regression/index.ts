@@ -1,4 +1,5 @@
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const loadExample = async (
   example: string,
@@ -12,39 +13,57 @@ const loadExample = async (
 };
 
 describe('Snapshot Test', () => {
-  it('Basic editor should match snapshot', async () => {
-    const page = await loadExample('basic-editor');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('basic-editor');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('Editor with user nodes should match snapshot', async () => {
-    const page = await loadExample('user-nodes');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('user-nodes');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('Editor with external errors should match snapshot', async () => {
-    const page = await loadExample('external-errors');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('external-errors');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('Editor without search button should match snapshot', async () => {
-    const page = await loadExample('no-search-button');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('no-search-button');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('Compact editor should match snapshot', async () => {
-    const page = await loadExample('compact-editor');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('compact-editor');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
-  it('Read only editor should match snapshot', async () => {
-    const page = await loadExample('read-only', 'jql-editor-read-only');
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+  ffTest(
+    'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+    async () => {
+      const page = await loadExample('read-only', 'jql-editor-read-only');
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 });

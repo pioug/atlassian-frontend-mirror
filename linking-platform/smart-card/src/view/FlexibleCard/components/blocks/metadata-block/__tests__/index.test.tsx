@@ -115,9 +115,9 @@ describe('MetadataBlock', () => {
 
   it('renders with override css', async () => {
     const testId = 'test-smart-block-metadata';
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = renderMetadataBlock({
       primary: [{ name: ElementName.ProgrammingLanguage }],
       overrideCss,

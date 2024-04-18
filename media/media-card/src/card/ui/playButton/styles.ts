@@ -16,27 +16,27 @@ export const fixedPlayButtonStyles = `
   }
 `;
 
-export const playButtonWrapperStyles = css`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${token('color.icon.inverse', N0)};
-  span {
-    position: absolute;
-  }
-`;
+export const playButtonWrapperStyles = css({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: token('color.icon.inverse', N0),
+  span: {
+    position: 'absolute',
+  },
+});
 
-export const backgroundStyles = css`
-  transition-property: width, height;
-  transition-duration: 0.1s;
-  position: absolute;
-  width: ${discSize}px;
-  height: ${discSize}px;
-  background: ${token('color.background.neutral.bold', N90A)};
-  border-radius: 100%;
-`;
+export const backgroundStyles = css({
+  transitionProperty: 'width, height',
+  transitionDuration: '0.1s',
+  position: 'absolute',
+  width: `${discSize}px`,
+  height: `${discSize}px`,
+  background: token('color.background.neutral.bold', N90A),
+  borderRadius: '100%',
+});

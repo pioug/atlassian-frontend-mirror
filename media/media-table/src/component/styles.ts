@@ -1,30 +1,28 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
-export const nameCellWrapperStyles = css`
-  display: flex;
-  align-content: center;
-  align-items: center;
-`;
+export const nameCellWrapperStyles = css({
+  display: 'flex',
+  alignContent: 'center',
+  alignItems: 'center',
+});
 
-export const truncateWrapperStyles = css`
-  min-width: 0;
-  width: 100%;
-  margin-left: ${token('space.050', '4px')};
+export const truncateWrapperStyles = css({
+  minWidth: 0,
+  width: '100%',
+  marginLeft: token('space.050', '4px'),
+  'span:first-of-type': {
+    '&::first-letter': {
+      textTransform: 'capitalize',
+    },
+  },
+});
 
-  span:first-of-type {
-    &::first-letter {
-      text-transform: capitalize;
-    }
-  }
-`;
-
-export const mediaTableWrapperStyles = css`
-  tr {
-    cursor: pointer;
-
-    td:empty {
-      padding: 0;
-    }
-  }
-`;
+export const mediaTableWrapperStyles = css({
+  tr: {
+    cursor: 'pointer',
+    'td:empty': {
+      padding: 0,
+    },
+  },
+});

@@ -43,6 +43,12 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
+      "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/theme/tsconfig.app.json"
     },
     {
@@ -50,6 +56,9 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../../platform/feature-flag-storybook-utils/tsconfig.app.json"
     }
   ]
 }

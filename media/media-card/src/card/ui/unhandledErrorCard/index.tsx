@@ -50,25 +50,28 @@ const wrapperStyles = (
   dimensions: CardDimensions = defaultImageCardDimensions,
 ) => {
   try {
-    return css`
-      ${center};
-      ${borderRadius};
-      background: ${token('color.background.neutral', N20)};
-      color: ${token('color.text.subtle', N800)};
-      max-height: 100%;
-      max-width: 100%;
-      ${getConvertedDimension(dimensions)};
-      display: flex;
-      flex-direction: column;
-
-      p {
-        font-size: ${fontSize()}px;
-        text-align: center;
-        display: ${shouldShowText(getConvertedDimension(dimensions))
-          ? 'block'
-          : 'none'};
-      }
-    `;
+    return css(
+      center,
+      borderRadius,
+      {
+        background: token('color.background.neutral', N20),
+        color: token('color.text.subtle', N800),
+        maxHeight: '100%',
+        maxWidth: '100%',
+      },
+      getConvertedDimension(dimensions),
+      {
+        display: 'flex',
+        flexDirection: 'column',
+        p: {
+          fontSize: `${fontSize()}px`,
+          textAlign: 'center',
+          display: shouldShowText(getConvertedDimension(dimensions))
+            ? 'block'
+            : 'none',
+        },
+      },
+    );
   } catch (e) {
     return null;
   }

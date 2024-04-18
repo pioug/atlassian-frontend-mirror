@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/jql-editor",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "This package allows consumers to render an advanced JQL editor component to enable autocomplete-assisted authoring and validation of JQL queries.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -51,6 +51,7 @@
     "@atlaskit/jql-autocomplete": "^2.0.0",
     "@atlaskit/jql-editor-common": "^2.0.0",
     "@atlaskit/jql-parser": "^2.0.0",
+    "@atlaskit/platform-feature-flags": "^0.2.4",
     "@atlaskit/spinner": "^16.0.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
@@ -80,6 +81,7 @@
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@atlassian/feature-flags-test-utils": "*",
     "@storybook/addon-actions": "^5.2.5",
     "@storybook/addon-knobs": "^5.3.18",
     "@testing-library/jest-dom": "^5.16.5",
@@ -125,6 +127,11 @@
         "assert",
         "util"
       ]
+    }
+  },
+  "platform-feature-flags": {
+    "platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk": {
+      "type": "boolean"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

@@ -1,5 +1,11 @@
 # @atlaskit/blanket
 
+## 13.1.0
+
+### Minor Changes
+
+- [#90157](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90157) [`bb32e67d8926`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb32e67d8926) - Add support for React 18.
+
 ## 13.0.1
 
 ### Patch Changes

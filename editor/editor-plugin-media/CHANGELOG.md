@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-media
 
+## 1.15.1
+
+### Patch Changes
+
+- [#91420](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91420) [`6d0d6452a5a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d0d6452a5a0) - [ED-23025] Check for undefined annotations to avoid exceptions in embedded editor
+
+## 1.15.0
+
+### Minor Changes
+
+- [#90742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90742) [`f893b885cc0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f893b885cc0a) - [ux] Add comment on media badge states
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 1.14.4
 
 ### Patch Changes

@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 78.28.1
+
+### Patch Changes
+
+- [#87119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87119) [`0cea7cb799c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cea7cb799c3) - [EDF-462] Add analytics for AI Blocks
+
+## 78.28.0
+
+### Minor Changes
+
+- [#90742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90742) [`f893b885cc0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f893b885cc0a) - [ux] Add comment on media badge states
+- [#88342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88342) [`104d7d1b8191`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104d7d1b8191) - Introducing requestDocument API on core plugin which can be used to get the document using the editor API.
+
+  This is intended to replace the `editorActions.getValue()`.
+
+  Using the editor API you can do:
+
+  ```ts
+  const { editorApi, preset } = usePreset(() => createDefaultPreset({}));
+
+  //
+  editorApi?.core?.actions.requestDocument((doc) => {
+    // Use the document as you require
+  });
+  ```
+
+  See: Editor RFC 51 for more details.
+
+- [#89840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89840) [`9f256dde75e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f256dde75e9) - [ux] Implement onClickCallback plugin option to editor-plugin-card, allowing a callback to be executed when a smartlink is clicked, used by CCFE for live view to open smartlinks on-click
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- [#89296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89296) [`14a5e5877b97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14a5e5877b97) - [ux] [ED-22875] - Removed borders from multi-bodied extensions
+- [#90878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90878) [`962275ee0910`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962275ee0910) - [ux] [ED-22852] Update loom quick insert title, description and logo
+- Updated dependencies
+
+## 78.27.1
+
+### Patch Changes
+
+- [#90864](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90864) [`c8a41fe8962b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8a41fe8962b) - [ux] Removes hover overlay and adds hover border for inline macros for macro interaction design update
+
 ## 78.27.0
 
 ### Minor Changes

@@ -30,6 +30,7 @@ const getPreviewBlockStyles = (
     const containerPadding = ignoreContainerPadding
       ? '0rem'
       : 'var(--container-padding)';
+    // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
     return css`
       position: absolute;
       top: ${containerPadding};
@@ -50,16 +51,16 @@ const getPreviewBlockStyles = (
   }
 
   if (ignoreContainerPadding) {
-    return css`
-      margin-left: calc(var(--container-gap-left) * -1);
-      margin-right: calc(var(--container-gap-right) * -1);
-      &:first-of-type {
-        margin-top: calc(var(--container-padding) * -1);
-      }
-      &:last-of-type {
-        margin-bottom: calc(var(--container-padding) * -1);
-      }
-    `;
+    return css({
+      marginLeft: 'calc(var(--container-gap-left) * -1)',
+      marginRight: 'calc(var(--container-gap-right) * -1)',
+      '&:first-of-type': {
+        marginTop: 'calc(var(--container-padding) * -1)',
+      },
+      '&:last-of-type': {
+        marginBottom: 'calc(var(--container-padding) * -1)',
+      },
+    });
   }
 };
 
@@ -83,10 +84,12 @@ const PreviewBlockResolvedView: React.FC<PreviewBlockProps> = ({
   );
 
   const updateStyles = useCallback(() => {
-    setStyles(css`
-      ${getPreviewBlockStyles(placement, ignoreContainerPadding)}
-      ${overrideCss}
-    `);
+    setStyles(
+      css(
+        getPreviewBlockStyles(placement, ignoreContainerPadding),
+        overrideCss,
+      ),
+    );
   }, [ignoreContainerPadding, overrideCss, placement]);
 
   useEffect(() => {

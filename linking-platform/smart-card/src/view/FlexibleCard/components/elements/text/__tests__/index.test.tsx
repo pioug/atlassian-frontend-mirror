@@ -73,9 +73,9 @@ describe('Element: Text', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      color: black;
-    `;
+    const overrideCss = css({
+      color: 'black',
+    });
     const { findByTestId } = render(
       <Text content="random text" overrideCss={overrideCss} />,
     );

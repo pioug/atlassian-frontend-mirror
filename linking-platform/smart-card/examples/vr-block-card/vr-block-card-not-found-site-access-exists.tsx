@@ -4,9 +4,9 @@ import React from 'react';
 import { NotFoundWithSiteAccessExistsClient } from '../utils/custom-client';
 import VRCardView from '../utils/vr-card-view';
 
-const containerStyles = css`
-  width: 760px;
-`;
+const containerStyles = css({
+  width: '760px',
+});
 export const BlockCardNotFoundSiteAccessExists = () => (
   <VRCardView
     appearance="block"

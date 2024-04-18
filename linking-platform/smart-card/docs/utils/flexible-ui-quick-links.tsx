@@ -3,10 +3,10 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import customMd from './custom-md';
 
-const styles = css`
-  margin-top: 1rem;
-  text-align: center;
-`;
+const styles = css({
+  marginTop: '1rem',
+  textAlign: 'center',
+});
 
 const links = customMd`
 [Introduction](./flexible)

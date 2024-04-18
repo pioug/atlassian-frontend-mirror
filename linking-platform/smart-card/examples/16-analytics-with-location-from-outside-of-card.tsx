@@ -8,18 +8,18 @@ import { Provider, Client, Card } from '../src';
 
 const url = 'https://www.google.com';
 
-const ExampleWrapper = styled.div`
-  width: 80%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+const ExampleWrapper = styled.div({
+  width: '80%',
+  height: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 
 const CardWithLocationAnalytics = () => {
   const id = 'test-id';

@@ -34,7 +34,7 @@ function getDecorations(
     case 'highlight':
       return DecorationSet.create(tr.doc, [
         ...createWidgetDecoration(selection.$anchor, 'anchor', selection, true),
-        selectionDecoration(selection, true),
+        ...selectionDecoration(tr.doc, selection, true),
         ...createWidgetDecoration(selection.$head, 'head', selection, true),
       ]);
     case 'blur':
@@ -45,7 +45,7 @@ function getDecorations(
           selection,
           false,
         ),
-        selectionDecoration(selection, false),
+        ...selectionDecoration(tr.doc, selection, false),
       ]);
   }
 }

@@ -263,7 +263,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
       )}
       {getBooleanFF(
         'platform.linking-platform.smart-card.hover-card-action-redesign',
-      ) && <ActionBlock spaceInline="space.150" />}
+      ) && <ActionBlock spaceInline="space.150" onClick={onActionClick} />}
     </FlexibleCard>
   );
 };

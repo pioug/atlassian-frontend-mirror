@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.2.0
+
+### Minor Changes
+
+- [#90866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90866) [`519e3bd71a35`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/519e3bd71a35) - [ux] [ED-22985] - Limit selection-marker plugin to only decorate text nodes
+
 ## 1.1.3
 
 ### Patch Changes

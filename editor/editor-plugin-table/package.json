@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "7.7.0",
+  "version": "7.7.1",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,9 +28,9 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.8.0",
-    "@atlaskit/custom-steps": "^0.0.17",
-    "@atlaskit/editor-common": "^78.27.0",
+    "@atlaskit/adf-schema": "^35.9.0",
+    "@atlaskit/custom-steps": "^0.0.18",
+    "@atlaskit/editor-common": "^78.28.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-accessibility-utils": "^1.0.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
@@ -120,9 +120,6 @@
     "platform.editor.table.drag-move-options-logic-update_fp7xw": {
       "type": "boolean"
     },
-    "platform.editor.resizing-table-height-improvement": {
-      "type": "boolean"
-    },
     "platform.editor.table.shift-arrowup-fix": {
       "type": "boolean"
     },
@@ -151,6 +148,9 @@
       "type": "boolean"
     },
     "platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33": {
+      "type": "boolean"
+    },
+    "platform.editor.table.colum-resizing-improvements": {
       "type": "boolean"
     }
   }

@@ -35,9 +35,19 @@ const fillScreenStyles = css({
   WebkitOverflowScrolling: 'touch',
 });
 
-const whiteListElements = (element: HTMLElement) => {
+const allowlistElements = (
+  element: HTMLElement,
+  callback?: (element: HTMLElement) => boolean,
+) => {
   // allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute
-  return !element.hasAttribute('data-atlas-extension');
+  if (element.hasAttribute('data-atlas-extension')) {
+    return false;
+  }
+  // allows to pass a callback function to allow elements be ignored by focus lock
+  if (typeof callback === 'function') {
+    return callback(element);
+  }
+  return true;
 };
 
 /**
@@ -53,6 +63,7 @@ const whiteListElements = (element: HTMLElement) => {
 const ModalWrapper = (props: ModalDialogProps) => {
   const {
     autoFocus = true,
+    focusLockAllowlist,
     shouldCloseOnEscapePress = true,
     shouldCloseOnOverlayClick = true,
     shouldScrollInViewport = false,
@@ -160,7 +171,9 @@ const ModalWrapper = (props: ModalDialogProps) => {
                 }
                 returnFocus={returnFocus}
                 onDeactivation={onDeactivation}
-                whiteList={whiteListElements}
+                whiteList={(element) =>
+                  allowlistElements(element, focusLockAllowlist)
+                }
               >
                 {/* Ensures scroll events are blocked on the document body and locked */}
                 <ScrollLock />

@@ -6,7 +6,7 @@ export type ActionBlockProps = {
   /**
    * Callback once action is executed.
    */
-  onClick?: (name: ActionName) => {};
+  onClick?: (name: ActionName) => void;
   /**
    * Array.Sort function to order the actions
    */

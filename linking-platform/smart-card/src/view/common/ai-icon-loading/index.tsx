@@ -13,21 +13,17 @@ import { aiThemeTokens } from '../ai-prism/constants';
  * with modifications
  */
 
-const bounce = keyframes`
-  from {
-    transform: translateY(0);
-  }
-
-  // 200ms of 1200ms = 16.67%
-  16.67% {
-    transform: translateY(-2px);
-  }
-
-  // 400ms of 1200ms = 33.33%
-  33.33% {
-    transform: translateY(0px);
-  }
-`;
+const bounce = keyframes({
+  from: {
+    transform: 'translateY(0)',
+  },
+  '16.67%': {
+    transform: 'translateY(-2px)',
+  },
+  '33.33%': {
+    transform: 'translateY(0px)',
+  },
+});
 
 const BASE_DELAY = 400;
 const QUEUE_DELAY = 200;

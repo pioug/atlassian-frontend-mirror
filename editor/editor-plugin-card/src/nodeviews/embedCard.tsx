@@ -188,8 +188,6 @@ export class EmbedCardComponent extends React.PureComponent<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: any;
 
-  onClick = () => {};
-
   static contextTypes = {
     contextAdapter: PropTypes.object,
   };
@@ -391,6 +389,7 @@ export class EmbedCardComponent extends React.PureComponent<
       pluginInjectionApi,
       actionOptions,
       showServerActions,
+      onClick,
     } = this.props;
 
     let {
@@ -427,7 +426,7 @@ export class EmbedCardComponent extends React.PureComponent<
         key={url}
         url={url}
         appearance="embed"
-        onClick={this.onClick}
+        onClick={onClick}
         onResolve={this.onResolve}
         onError={this.onError}
         frameStyle="show"
@@ -489,6 +488,7 @@ export type EmbedCardNodeViewProps = Pick<
   | 'pluginInjectionApi'
   | 'actionOptions'
   | 'showServerActions'
+  | 'onClickCallback'
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
@@ -526,6 +526,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
       fullWidthMode,
       dispatchAnalyticsEvent,
       pluginInjectionApi,
+      onClickCallback,
     } = this.reactComponentProps;
 
     return (
@@ -539,6 +540,7 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
         fullWidthMode={fullWidthMode}
         dispatchAnalyticsEvent={dispatchAnalyticsEvent}
         pluginInjectionApi={pluginInjectionApi}
+        onClickCallback={onClickCallback}
       />
     );
   }

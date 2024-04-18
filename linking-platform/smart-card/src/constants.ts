@@ -149,6 +149,7 @@ export enum ElementName {
  * Flexible UI action (button)
  */
 export enum ActionName {
+  CopyLinkAction = 'CopyLinkAction',
   DeleteAction = 'DeleteAction',
   EditAction = 'EditAction',
   FollowAction = 'FollowAction',

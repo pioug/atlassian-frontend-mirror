@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.8.0
+
+### Minor Changes
+
+- [#91189](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91189) [`cd9ca014951a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd9ca014951a) - Add support for React 18.
+
 ## 7.7.2
 
 ### Patch Changes

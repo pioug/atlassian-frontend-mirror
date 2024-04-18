@@ -51,6 +51,7 @@ const ActionStackItem: FC<ActionStackItemProps> = ({
   testId,
   tooltipMessage,
   xcss,
+  tooltipOnHide,
 }) => {
   const space = spaceOption ?? getPrimitivesInlineSpaceBySize(size);
 
@@ -73,15 +74,20 @@ const ActionStackItem: FC<ActionStackItemProps> = ({
 
   // Replace Box with Pressable once it becomes stable (currently beta)
   return (
-    <Tooltip content={tooltipMessage || content} hideTooltipOnMouseDown>
+    <Tooltip
+      content={tooltipMessage || content}
+      onHide={tooltipOnHide}
+      hideTooltipOnMouseDown
+    >
       {(tooltipProps) => (
         <Box
           as="button"
           xcss={[buttonStyles, xcss]}
           {...tooltipProps}
           onClick={onClick}
+          testId={testId}
         >
-          <Inline alignBlock="center" grow="fill" space={space} testId={testId}>
+          <Inline alignBlock="center" grow="fill" space={space}>
             {icon}
             <Box xcss={contentStyles}>{content}</Box>
           </Inline>

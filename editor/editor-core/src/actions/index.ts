@@ -178,7 +178,16 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
     );
   }
 
-  // WARNING: this may be called repeatedly, async with care
+  /**
+   * @deprecated This is deprecated and is no longer maintained.
+   *
+   * Use the `requestDocument` API from `editorAPI` (ie. `editorApi?.core?.actions.requestDocument( ... ))
+   * it has inbuilt throttling and is designed for use with `ComposableEditor`.
+   *
+   * Docs on its usage are available from: https://atlaskit.atlassian.com/packages/editor/editor-core
+   *
+   * WARNING: this may be called repeatedly, async with care
+   */
   async getValue() {
     const { editorView } = this;
     if (!editorView) {

@@ -33,7 +33,8 @@ export const wrapperStyles = ({
   isTickBoxSelectable,
   shouldDisplayTooltip,
   mediaCardCursor,
-}: WrapperProps) => css`
+}: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
+WrapperProps) => css`
   ${transition()}
   box-sizing: border-box;
   * {

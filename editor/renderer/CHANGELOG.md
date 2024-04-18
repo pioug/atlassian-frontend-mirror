@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 109.18.0
+
+### Minor Changes
+
+- [#90742](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90742) [`f893b885cc0a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f893b885cc0a) - [ux] Add comment on media badge states
+
+### Patch Changes
+
+- [#90680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90680) [`876804648156`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/876804648156) - ED-22917 fix comment positioning logic to account for inline-card comments
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- [#89296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89296) [`14a5e5877b97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14a5e5877b97) - [ux] [ED-22875] - Removed borders from multi-bodied extensions
+- Updated dependencies
+
 ## 109.17.3
 
 ### Patch Changes

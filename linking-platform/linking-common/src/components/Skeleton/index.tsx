@@ -7,15 +7,14 @@ import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { SkeletonProps } from './types';
 
-const placeholderShimmer = keyframes`
-  0% {
-    background-position: -20px 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-`;
+const placeholderShimmer = keyframes({
+  '0%': {
+    backgroundPosition: '-20px 0',
+  },
+  '100%': {
+    backgroundPosition: '60px 0',
+  },
+});
 
 const appearanceValues = {
   darkGray: {
@@ -32,6 +31,7 @@ const appearanceValues = {
   },
 };
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 const ShimmerSkeleton = styled.div<SkeletonProps>`
   height: ${({ height }) => height || 'auto'};
   width: ${({ width }) => width || 'auto'};

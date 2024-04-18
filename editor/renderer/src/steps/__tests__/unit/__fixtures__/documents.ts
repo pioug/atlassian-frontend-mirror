@@ -996,6 +996,63 @@ export const complexDocument = {
         { type: 'text', text: '  ipsum dolor sit amet.' },
       ],
     },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          // the string at the start helps gives us a range to test with
+          text: 'range-with-inline-card-with-mark This is ',
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                // this id helps gives us a range to test with
+                id: 'range-with-inline-card-with-mark',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+          text: 'an inline card ',
+        },
+        {
+          type: 'inlineCard',
+          attrs: {
+            url: 'https://trello.com/c/gfrst89H/4-much-muffins',
+            data: null,
+          },
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'range-with-inline-card-with-mark',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'range-with-inline-card-with-mark',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+          text: ' with comment',
+        },
+        {
+          type: 'text',
+          text: ' test.',
+        },
+      ],
+    },
     { type: 'paragraph' },
   ],
 };

@@ -134,6 +134,7 @@ export const getContainerStyles = (
     childrenOptions,
   );
 
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     display: flex;
     gap: ${getGap(size)} 0;

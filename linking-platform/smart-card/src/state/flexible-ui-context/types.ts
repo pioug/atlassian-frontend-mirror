@@ -253,6 +253,7 @@ export type FlexibleUiActions = {
   [ActionName.PreviewAction]?: PreviewActionData;
   [ActionName.DownloadAction]?: DownloadActionData;
   [ActionName.FollowAction]?: ServerActionProp<boolean>;
+  [ActionName.CopyLinkAction]?: CopyLinkActionData;
 };
 
 export type PreviewActionData = {
@@ -280,6 +281,11 @@ export type ViewActionData = {
 export type DownloadActionData = {
   /* A URL that will be download upon clicking download actions */
   downloadUrl?: string;
+};
+
+export type CopyLinkActionData = {
+  /* A URL that will be copied upon clicking copy actions */
+  url: string;
 };
 
 export type FlexibleAnalyticsContextType = AnalyticsFacade & {

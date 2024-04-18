@@ -24,11 +24,11 @@ const CommentDefaultExample = () => {
         savingText="Saving..."
         avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}
         author={<CommentAuthor>Scott Farquhar</CommentAuthor>}
-        time={<CommentTime>Mar 14, 2022</CommentTime>}
+        time={<CommentTime>Mar 14, 2024</CommentTime>}
         content={
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Building “soft skills,” like effective communication and
+            collaboration, are vital to a team’s success.
           </p>
         }
         actions={[

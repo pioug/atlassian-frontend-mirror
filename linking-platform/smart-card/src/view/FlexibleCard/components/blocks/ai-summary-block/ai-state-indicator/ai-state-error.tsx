@@ -22,12 +22,12 @@ const contentStyles = xcss({
   lineHeight: '14px',
 });
 
-const MessageWithAnchor = ({
+const FormattedErrorMessage = ({
   message,
   url,
 }: {
   message: MessageDescriptor;
-  url: string;
+  url?: string;
 }) => (
   <FormattedMessage
     {...message}
@@ -41,12 +41,16 @@ const MessageWithAnchor = ({
 
 const getErrorMesssageProps = (
   error?: ErrorMessage,
-): { message: MessageDescriptor; url: string } => {
+): { message: MessageDescriptor; url?: string } => {
   switch (error) {
     case 'ACCEPTABLE_USE_VIOLATIONS':
       return {
         message: messages.ai_summary_error_acceptable_use_violation,
         url: CONTENT_URL_ACCEPTABLE_USE_POLICY,
+      };
+    case 'HIPAA_CONTENT_DETECTED':
+      return {
+        message: messages.ai_summary_error_hipaa_content_detected,
       };
     default:
       return {
@@ -79,7 +83,7 @@ const AIStateError: React.FC<Partial<AIStateIndicatorProps>> = ({
           }
           content={
             <Box testId={`${testId}-error-message`} xcss={contentStyles}>
-              <MessageWithAnchor message={message} url={url} />
+              <FormattedErrorMessage message={message} url={url} />
             </Box>
           }
           testId={`${testId}-error`}

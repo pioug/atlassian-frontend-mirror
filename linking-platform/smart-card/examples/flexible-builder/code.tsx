@@ -6,10 +6,10 @@ import { CodeBlock } from '@atlaskit/code';
 import { BlockTemplate, FlexibleTemplate } from './types';
 import { toComponentProps, toObjectString } from '../utils/common';
 
-const codeStyles = css`
-  display: inline-grid;
-  tab-size: 2;
-`;
+const codeStyles = css({
+  display: 'inline-grid',
+  tabSize: 2,
+});
 
 const toBlockCode = (blockTemplate: BlockTemplate): string => {
   const { name, ...props } = blockTemplate;

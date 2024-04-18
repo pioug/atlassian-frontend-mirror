@@ -20,15 +20,14 @@ import {
 import { IconType, SmartLinkSize } from '../../src/constants';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const overrideCss = css`
-  background-color: ${exampleTokens.overrideColor};
-  border-radius: 1rem;
-  padding: 0.2rem;
-
-  > span {
-    color: ${exampleTokens.iconColor};
-  }
-`;
+const overrideCss = css({
+  backgroundColor: exampleTokens.overrideColor,
+  borderRadius: '1rem',
+  padding: '0.2rem',
+  '> span': {
+    color: exampleTokens.iconColor,
+  },
+});
 const context = getContext({
   commentCount: 1,
   viewCount: 2,

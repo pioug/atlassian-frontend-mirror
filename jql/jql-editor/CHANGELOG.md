@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 4.0.6
+
+### Patch Changes
+
+- [#91203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91203) [`3c8348468618`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c8348468618) - Minor Typescript changes to improve compatibility with React 18
+
 ## 4.0.5
 
 ### Patch Changes

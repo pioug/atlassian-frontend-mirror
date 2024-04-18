@@ -2,30 +2,27 @@
 import { css, jsx } from '@emotion/react';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
-const styles = css`
-  padding-top: 1rem;
-
-  > div {
-    > [role='tablist']:before {
-      left: 0;
-      right: 0;
-    }
-
-    [role='tab']:first-of-type {
-      padding-left: 0;
-      &[aria-selected='true']::after {
-        left: 0;
-      }
-    }
-
-    > [role='tabpanel'] {
-      padding: 2rem 0;
-      > div {
-        width: 100%;
-      }
-    }
-  }
-`;
+const styles = css({
+  paddingTop: '1rem',
+  '> div': {
+    "> [role='tablist']:before": {
+      left: 0,
+      right: 0,
+    },
+    "[role='tab']:first-of-type": {
+      paddingLeft: 0,
+      "&[aria-selected='true']::after": {
+        left: 0,
+      },
+    },
+    "> [role='tabpanel']": {
+      padding: '2rem 0',
+      '> div': {
+        width: '100%',
+      },
+    },
+  },
+});
 
 type TabItems = {
   name: string;

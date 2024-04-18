@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.1.8
+
+### Patch Changes
+
+- [#87119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87119) [`0cea7cb799c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cea7cb799c3) - [EDF-462] Add analytics for AI Blocks
+- Updated dependencies
+
+## 1.1.7
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

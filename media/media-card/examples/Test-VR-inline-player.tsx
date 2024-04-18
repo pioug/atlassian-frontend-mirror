@@ -18,11 +18,12 @@ type WrapperDimensions = {
 const wrapperDimensions = { width: '500px', height: '500px' };
 const dimensions = { width: '100%', height: '100%' };
 
-const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) => css`
-  width: ${width};
-  height: ${height};
-  margin: ${token('space.250', '20px')} ${token('space.250', '20px')};
-`;
+const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) =>
+  css({
+    width: width,
+    height: height,
+    margin: `${token('space.250', '20px')} ${token('space.250', '20px')}`,
+  });
 
 export default () => {
   const urlParams = new URLSearchParams(window.location.search);

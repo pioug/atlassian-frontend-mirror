@@ -22,10 +22,10 @@ import { ActionItem, CardType } from '../../src';
 import { TitleBlockProps } from '../../src/view/FlexibleCard/components/blocks/title-block/types';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-const gridStyles = css`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`;
+const gridStyles = css({
+  display: 'grid',
+  gridTemplateColumns: 'repeat(2, 1fr)',
+});
 
 const renderResolvedView = ({
   actions,

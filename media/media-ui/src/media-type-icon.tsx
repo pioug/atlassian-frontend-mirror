@@ -26,11 +26,13 @@ export interface FileIconProps {
   className?: string;
 }
 
-export const IconWrapper = styled.span`
-  display: inline-flex;
-  ${({ size }: { size: Required<FileIconProps['size']> }) =>
-    size === 'large' ? `padding: 4px;` : ''}
-`;
+export const IconWrapper = styled.span(
+  {
+    display: 'inline-flex',
+  },
+  ({ size }: { size: Required<FileIconProps['size']> }) =>
+    size === 'large' ? `padding: 4px;` : '',
+);
 IconWrapper.displayName = 'IconWrapper';
 
 const largeIcons = {

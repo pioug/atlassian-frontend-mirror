@@ -9,12 +9,14 @@ import { token } from '@atlaskit/tokens';
 import { selectUnit } from '@formatjs/intl-utils';
 import { messages } from '../../../../../messages';
 
-const styles = css`
-  color: ${token('color.text.subtlest', '#626F86')};
-  font-size: 0.75rem;
-  line-height: 1rem;
-  ${getTruncateStyles(1)}
-`;
+const styles = css(
+  {
+    color: token('color.text.subtlest', '#626F86'),
+    fontSize: '0.75rem',
+    lineHeight: '1rem',
+  },
+  getTruncateStyles(1),
+);
 
 type DateTypeVariation = 'relative' | 'absolute';
 

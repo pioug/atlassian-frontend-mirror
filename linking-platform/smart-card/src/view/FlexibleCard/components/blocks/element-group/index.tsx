@@ -15,20 +15,20 @@ import { getMaxLineHeight, getTruncateStyles } from '../../utils';
 const getAlignmentStyles = (align?: SmartLinkAlignment) => {
   switch (align) {
     case SmartLinkAlignment.Right:
-      return css`
-        -webkit-box-align: end;
-        -ms-flex-align: end;
-        justify-content: flex-end;
-        text-align: right;
-      `;
+      return css({
+        WebkitBoxAlign: 'end',
+        MsFlexAlign: 'end',
+        justifyContent: 'flex-end',
+        textAlign: 'right',
+      });
     case SmartLinkAlignment.Left:
     default:
-      return css`
-        -webkit-box-align: start;
-        -ms-flex-align: start;
-        justify-content: flex-start;
-        text-align: left;
-      `;
+      return css({
+        WebkitBoxAlign: 'start',
+        MsFlexAlign: 'start',
+        justifyContent: 'flex-start',
+        textAlign: 'left',
+      });
   }
 };
 
@@ -38,25 +38,24 @@ const getGapStyles = (
 ): SerializedStyles => {
   const gap = getGapSize(size);
   if (align === SmartLinkAlignment.Right) {
-    return css`
-      > span {
-        margin-left: ${gap}rem;
-      }
-
-      > span:first-child {
-        margin-left: initial;
-      }
-    `;
+    return css({
+      '> span': {
+        marginLeft: `${gap}rem`,
+      },
+      '> span:first-child': {
+        marginLeft: 'initial',
+      },
+    });
   }
 
-  return css`
-    > span {
-      margin-right: ${gap}rem;
-      &:last-child {
-        margin-right: initial;
-      }
-    }
-  `;
+  return css({
+    '> span': {
+      marginRight: `${gap}rem`,
+      '&:last-child': {
+        marginRight: 'initial',
+      },
+    },
+  });
 };
 
 const getHorizontalDirectionStyles = (
@@ -64,6 +63,7 @@ const getHorizontalDirectionStyles = (
   align: SmartLinkAlignment,
 ) => {
   const lineHeight = getMaxLineHeight(size);
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     display: block;
     vertical-align: middle;
@@ -89,16 +89,19 @@ export const getElementGroupStyles = (
   align: SmartLinkAlignment,
   width: SmartLinkWidth,
   position: SmartLinkPosition,
-): SerializedStyles => css`
-  ${getBaseStyles(direction, size)}
-  ${getAlignmentStyles(align)}
-  min-width: 10%;
-  ${width === SmartLinkWidth.Flexible ? `flex: 1 3;` : ''}
-  ${direction === SmartLinkDirection.Horizontal
-    ? getHorizontalDirectionStyles(size, align)
-    : ''}
-  ${position === SmartLinkPosition.Top ? 'align-self: flex-start;' : ''}
-`;
+): SerializedStyles =>
+  css(
+    getBaseStyles(direction, size),
+    getAlignmentStyles(align),
+    {
+      minWidth: '10%',
+    },
+    width === SmartLinkWidth.Flexible ? `flex: 1 3;` : '',
+    direction === SmartLinkDirection.Horizontal
+      ? getHorizontalDirectionStyles(size, align)
+      : '',
+    position === SmartLinkPosition.Top ? 'align-self: flex-start;' : '',
+  );
 
 /**
  * Creates a group of Action components. Accepts an array of Actions, in addition to some styling

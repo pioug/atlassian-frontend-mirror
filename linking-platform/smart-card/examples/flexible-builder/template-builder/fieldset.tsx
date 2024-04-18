@@ -5,19 +5,18 @@ import { useCallback, useState } from 'react';
 import Button from '@atlaskit/button';
 import ChevronIcon from './chevron-icon';
 
-const containerStyles = css`
-  margin-top: 0.5rem;
-  padding: 0.1rem 0;
-`;
-const headerStyles = css`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-
-  h6 {
-    flex: 2 0 auto;
-  }
-`;
+const containerStyles = css({
+  marginTop: '0.5rem',
+  padding: '0.1rem 0',
+});
+const headerStyles = css({
+  display: 'flex',
+  alignItems: 'center',
+  cursor: 'pointer',
+  h6: {
+    flex: '2 0 auto',
+  },
+});
 const Fieldset = ({
   children,
   defaultOpen = true,

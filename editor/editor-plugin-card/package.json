@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,12 +35,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.8.0",
+    "@atlaskit/adf-schema": "^35.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/custom-steps": "^0.0.17",
-    "@atlaskit/editor-common": "^78.27.0",
+    "@atlaskit/custom-steps": "^0.0.18",
+    "@atlaskit/editor-common": "^78.28.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-decorations": "^1.0.0",
+    "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
     "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
     "@atlaskit/editor-plugin-floating-toolbar": "^1.2.0",
     "@atlaskit/editor-plugin-grid": "^1.0.0",
@@ -57,7 +58,7 @@
     "@atlaskit/linking-types": "^8.8.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/smart-card": "^26.55.0",
+    "@atlaskit/smart-card": "^26.56.0",
     "@atlaskit/theme": "^12.7.0",
     "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
@@ -129,6 +130,9 @@
       "type": "boolean"
     },
     "platform.editor.card.inject-settings-button": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.on-click-callback": {
       "type": "boolean"
     }
   },

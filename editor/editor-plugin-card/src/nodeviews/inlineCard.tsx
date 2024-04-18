@@ -1,4 +1,3 @@
-import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
 import React from 'react';
 
 import PropTypes from 'prop-types';
@@ -27,7 +26,6 @@ import { InlineCardWithAwareness } from './inlineCardWithAwareness';
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
-  private onClick: EventHandler<MouseEvent | KeyboardEvent> = () => {};
 
   static contextTypes = {
     contextAdapter: PropTypes.object,
@@ -81,6 +79,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
       actionOptions,
       showServerActions,
       useAlternativePreloader,
+      onClick,
     } = this.props;
 
     const { url, data } = node.attrs;
@@ -91,7 +90,7 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
           url={url}
           data={data}
           appearance="inline"
-          onClick={this.onClick}
+          onClick={onClick}
           container={this.scrollContainer}
           onResolve={this.onResolve}
           onError={this.onError}
@@ -130,6 +129,7 @@ export type InlineCardNodeViewProps = Pick<
   | 'allowBlockCards'
   | 'enableInlineUpgradeFeatures'
   | 'pluginInjectionApi'
+  | 'onClickCallback'
 >;
 
 type InlineCardWithAwarenessProps = {
@@ -154,6 +154,7 @@ export function InlineCardNodeView(
     allowBlockCards,
     enableInlineUpgradeFeatures,
     pluginInjectionApi,
+    onClickCallback,
   } = props;
 
   if (!getBooleanFF('platform.linking-platform.smart-card.inline-switcher')) {
@@ -165,6 +166,8 @@ export function InlineCardNodeView(
         actionOptions={actionOptions}
         showServerActions={showServerActions}
         useAlternativePreloader={useAlternativePreloader}
+        pluginInjectionApi={pluginInjectionApi}
+        onClickCallback={onClickCallback}
       />
     );
   }
@@ -178,6 +181,7 @@ export function InlineCardNodeView(
       showServerActions={showServerActions}
       useAlternativePreloader={useAlternativePreloader}
       pluginInjectionApi={pluginInjectionApi}
+      onClickCallback={onClickCallback}
       {...(enableInlineUpgradeFeatures &&
         getAwarenessProps(view.state, getPos, allowEmbeds, allowBlockCards))}
     />

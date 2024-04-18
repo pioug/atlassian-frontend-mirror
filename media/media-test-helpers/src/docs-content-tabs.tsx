@@ -3,11 +3,11 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 
-const panelStyle = css`
-  > div {
-    width: 100%;
-  }
-`;
+const panelStyle = css({
+  '> div': {
+    width: '100%',
+  },
+});
 
 type TabItems = {
   name: string;

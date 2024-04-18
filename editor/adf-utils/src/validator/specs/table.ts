@@ -11,6 +11,11 @@ export default {
         },
         localId: { type: 'string', minLength: 1, optional: true },
         width: { type: 'number', optional: true },
+        displayMode: {
+          type: 'enum',
+          values: ['default', 'fixed'],
+          optional: true,
+        },
       },
       optional: true,
     },

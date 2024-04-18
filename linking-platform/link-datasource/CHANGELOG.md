@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 1.27.3
+
+### Patch Changes
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- [#91203](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91203) [`3c8348468618`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c8348468618) - Minor Typescript changes to improve compatibility with React 18
+- Updated dependencies
+
 ## 1.27.2
 
 ### Patch Changes

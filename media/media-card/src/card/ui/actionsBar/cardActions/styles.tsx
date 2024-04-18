@@ -9,21 +9,16 @@ import { borderRadius, size, center } from '@atlaskit/media-ui';
 import { rgba } from '../../styles';
 import { fontFamily } from '@atlaskit/theme/constants';
 
-const rootStyles = () => css`
-  box-sizing: border-box;
-  font-family: ${fontFamily()};
-
-  * {
-    box-sizing: border-box;
-  }
-`;
-
-export const wrapperStyles = css`
-  ${rootStyles()}
-  display: flex;
-  position: relative;
-  line-height: 0;
-`;
+export const wrapperStyles = css({
+  boxSizing: 'border-box',
+  fontFamily: fontFamily(),
+  '*': {
+    boxSizing: 'border-box',
+  },
+  display: 'flex',
+  position: 'relative',
+  lineHeight: 0,
+});
 
 export enum CardActionIconButtonVariant {
   default = 'default',
@@ -71,19 +66,20 @@ const getVariantStyles = (variant?: 'default' | 'filled'): string => {
   `;
 };
 
-export const cardActionButtonStyles = ({
-  variant,
-}: CardActionButtonProps) => css`
-  appearance: none;
-  border: none;
-  ${center}
-  ${borderRadius}
-    ${size(26)}
-    color: ${token('color.icon', N500)};
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  ${getVariantStyles(variant)}
-`;
+export const cardActionButtonStyles = ({ variant }: CardActionButtonProps) =>
+  css(
+    {
+      appearance: 'none',
+      border: 'none',
+    },
+    center,
+    borderRadius,
+    size(26),
+    {
+      color: token('color.icon', N500),
+      '&:hover': {
+        cursor: 'pointer',
+      },
+    },
+    getVariantStyles(variant),
+  );

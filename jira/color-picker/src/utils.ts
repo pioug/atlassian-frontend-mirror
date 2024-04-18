@@ -1,13 +1,20 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { gridSize } from '@atlaskit/theme';
-import { COLOR_CARD_SIZE } from './constants';
+import { COLOR_CARD_SIZE, COLOR_CARD_SIZE_NEW } from './constants';
 import memoizeOne from 'memoize-one';
 import { Mode, Palette } from './types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const getWidth = (cols: number, mode?: Mode) => {
-  const width = cols * (COLOR_CARD_SIZE + gridSize() / 2);
+  const width =
+    cols *
+    ((getBooleanFF(
+      'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
+    )
+      ? COLOR_CARD_SIZE_NEW
+      : COLOR_CARD_SIZE) +
+      gridSize() / 2);
 
   return mode === Mode.Standard ? width + gridSize() : width;
 };

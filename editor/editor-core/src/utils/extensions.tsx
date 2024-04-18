@@ -42,6 +42,7 @@ function sendExtensionQuickInsertAnalytics(
         actionSubjectId: ACTION_SUBJECT_ID.EXTENSION,
         attributes: {
           extensionType: item.extensionType,
+          extensionKey: item.extensionKey,
           key: item.key,
           inputMethod: INPUT_METHOD.QUICK_INSERT,
         },

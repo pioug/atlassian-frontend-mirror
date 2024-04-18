@@ -15,45 +15,43 @@ const url =
   'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0';
 const analytics = () => {};
 
-const ExampleWrapper = styled.div`
-  width: 80%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-`;
+const ExampleWrapper = styled.div({
+  width: '80%',
+  height: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+});
 
-const ExampleToolbarWrapper = styled.div`
-  box-shadow: 0 0 16px 0 #ccc;
-  border-radius: 4px;
-  margin-bottom: ${token('space.150', '12px')};
-  border-right: 1px solid #ccc;
-  display: flex;
-  margin: ${token('space.200', '16px')} 0px;
-`;
+const ExampleToolbarWrapper = styled.div({
+  boxShadow: '0 0 16px 0 #ccc',
+  borderRadius: '4px',
+  marginBottom: token('space.150', '12px'),
+  borderRight: '1px solid #ccc',
+  display: 'flex',
+  margin: `${token('space.200', '16px')} 0px`,
+});
 
-const ExampleToolbarItem = styled.div`
-  padding: ${token('space.100', '8px')} ${token('space.150', '12px')};
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 10px;
-  border-right: 1px solid #ccc;
-  transition: 0.3s ease-in-out all;
-
-  &:hover {
-    cursor: pointer;
-    background-color: #eee;
-  }
-
-  &:last-child {
-    border-right: none;
-  }
-`;
+const ExampleToolbarItem = styled.div({
+  padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+  textAlign: 'center',
+  textTransform: 'uppercase',
+  fontSize: '10px',
+  borderRight: '1px solid #ccc',
+  transition: '0.3s ease-in-out all',
+  '&:hover': {
+    cursor: 'pointer',
+    backgroundColor: '#eee',
+  },
+  '&:last-child': {
+    borderRight: 'none',
+  },
+});
 
 const idToIcon: Record<string, JSX.Element> = {
   'download-content': <DownloadIcon label="download" />,

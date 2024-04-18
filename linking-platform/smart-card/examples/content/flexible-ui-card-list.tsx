@@ -13,18 +13,18 @@ import {
 } from '../../src';
 import { response1, response2, response3 } from './example-responses';
 
-const styles = css`
-  list-style: none;
-  padding-left: 0;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: ${token('space.100', '8px')};
-  > li {
-    margin: 0;
-    width: 190px;
-  }
-`;
+const styles = css({
+  listStyle: 'none',
+  paddingLeft: 0,
+  display: 'flex',
+  alignItems: 'stretch',
+  justifyContent: 'center',
+  gap: token('space.100', '8px'),
+  '> li': {
+    margin: 0,
+    width: '190px',
+  },
+});
 
 const examples = {
   'https://examples/01': response2,

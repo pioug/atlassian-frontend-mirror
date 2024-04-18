@@ -172,6 +172,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       'reconcileOnRecovery',
       this.config.featureFlags,
     );
+    this.namespaceService = new NamespaceService();
     this.documentService = new DocumentService(
       this.participantsService,
       this.analyticsHelper,
@@ -183,11 +184,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       () => this.userId,
       this.onErrorHandled,
       this.metadataService,
+      this.namespaceService.getIsNamespaceLocked.bind(this.namespaceService),
       this.config.enableErrorOnFailedDocumentApply,
       reconcileOnRecovery,
       { __livePage: this.config.__livePage || false },
     );
-    this.namespaceService = new NamespaceService();
     this.api = new Api(config, this.documentService, this.channel);
 
     this.sendStepsTimer = setInterval(() => {

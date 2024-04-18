@@ -105,6 +105,7 @@ export class DocumentService {
     private getUserId: () => string | undefined,
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
+    private isNameSpaceLocked: () => boolean,
     private enableErrorOnFailedDocumentApply: boolean = false,
     private reconcileOnRecovery: boolean = false,
     private options: { __livePage: boolean } = { __livePage: false },
@@ -190,6 +191,22 @@ export class DocumentService {
       logger(`Queue is paused. Aborting.`);
       return;
     }
+
+    /**
+     * If the database is in a transitionary state (i.e locked),
+     * it likely that another user may already be in the process of catching up.
+     *
+     * If multiple users are trying to catch up at the same time, it can lead to
+     * the database being stuck in a transitionary state due to duplicated page recovery requests.
+     * We don't wanna be stuck in a transitionary state as that will cause issues with
+     * content reconciliation and other operations.
+     */
+    // check if the document is locked -> noop
+    if (this.isNameSpaceLocked()) {
+      logger(`catchupv2: Document is locked. Aborting.`);
+      return;
+    }
+
     this.stepQueue.pauseQueue();
     try {
       await catchupv2({

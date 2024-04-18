@@ -10,13 +10,13 @@ import { MainWrapper } from '../example-helpers';
 
 const dimensions = { width: 500, height: 400 };
 
-const cardWrapperStyles = css`
-  width: ${dimensions.width}px;
-  margin: auto;
-`;
-const dummyContentStyles = css`
-  height: 300vh;
-`;
+const cardWrapperStyles = css({
+  width: `${dimensions.width}px`,
+  margin: 'auto',
+});
+const dummyContentStyles = css({
+  height: '300vh',
+});
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 

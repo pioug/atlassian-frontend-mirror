@@ -24,6 +24,15 @@ describe('catchupv2 trigged in document service', () => {
     expect(catchupv2).not.toBeCalled();
   });
 
+  it('catchupv2 is noop when namespace is locked', async () => {
+    const { service, isNameSpaceLockedMock } = createMockService();
+    isNameSpaceLockedMock.mockReturnValue(true);
+    // @ts-ignore - testing private function
+    await service.catchupv2();
+    expect(isNameSpaceLockedMock).toBeCalledTimes(1);
+    expect(catchupv2).not.toBeCalled();
+  });
+
   it('Calls catchupv2 when process queue is not paused', async () => {
     const { service, analyticsHelperMock, fetchCatchupv2Mock, stepQueue } =
       createMockService();

@@ -1,4 +1,5 @@
 export const COLOR_CARD_SIZE = 30;
+export const COLOR_CARD_SIZE_NEW = 32;
 
 export const KEY_SPACE = ' ';
 export const KEY_ENTER = 'Enter';

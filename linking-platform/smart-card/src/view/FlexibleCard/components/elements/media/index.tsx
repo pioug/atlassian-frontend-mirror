@@ -15,40 +15,35 @@ import { MediaProps } from './types';
  * [object-position] Center alignment of the selected replaced element's
  * contents within the element's box.
  */
-const styles = css`
-  aspect-ratio: 16 / 9;
-  display: flex;
-  width: 100%;
-  height: fit-content; // Fix Safari height not respecting aspect-ratio
-
-  // fallback
-  @supports not (aspect-ratio: auto) {
-    padding-top: 56.25%; // 16:9 ratio (9 / 16 = 0.5625)
-    height: 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  > img,
-  > span {
-    min-height: 100%;
-    min-width: 100%;
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: cover;
-    object-position: center center;
-
-    // fallback
-    @supports not (aspect-ratio: auto) {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      left: 50%;
-      top: 50%;
-      width: auto;
-      height: auto;
-    }
-  }
-`;
+const styles = css({
+  aspectRatio: '16 / 9',
+  display: 'flex',
+  width: '100%',
+  height: 'fit-content',
+  '@supports not (aspect-ratio: auto)': {
+    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
+    paddingTop: '56.25%', // 16:9 ratio (9 / 16 = 0.5625)
+    height: 0,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  '> img, > span': {
+    minHeight: '100%',
+    minWidth: '100%',
+    maxHeight: '100%',
+    maxWidth: '100%',
+    objectFit: 'cover',
+    objectPosition: 'center center',
+    '@supports not (aspect-ratio: auto)': {
+      position: 'absolute',
+      transform: 'translate(-50%, -50%)',
+      left: '50%',
+      top: '50%',
+      width: 'auto',
+      height: 'auto',
+    },
+  },
+});
 
 /**
  * A base element that displays a Media.

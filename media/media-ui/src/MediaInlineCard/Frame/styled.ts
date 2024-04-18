@@ -37,21 +37,26 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // NB: `padding` consistent with @mentions.
 // NB: `display: inline` required for `box-decoration-break` to work.
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
-export const Wrapper = styled.span<WrapperProps>`
-  line-height: 16px;
-  padding: ${token('space.025', '2px')} ${token('space.050', '4px')}
-    ${token('space.025', '2px')} ${token('space.050', '4px')};
-  box-decoration-break: clone;
-  display: inline;
-  border-radius: ${token('border.radius', '3px')};
-  color: ${token('color.text', N900)};
-  background-color: ${token('color.background.neutral', N30A)};
-  ${(props) => isSelected(props)};
-  transition: 0.1s all ease-in-out;
-  -moz-user-select: none;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${token('color.background.neutral.hovered', N40A)};
-  }
-`;
+export const Wrapper = styled.span<WrapperProps>(
+  {
+    lineHeight: '16px',
+    padding: `${token('space.025', '2px')} ${token('space.050', '4px')} ${token(
+      'space.025',
+      '2px',
+    )} ${token('space.050', '4px')}`,
+    boxDecorationBreak: 'clone',
+    display: 'inline',
+    borderRadius: token('border.radius', '3px'),
+    color: token('color.text', N900),
+    backgroundColor: token('color.background.neutral', N30A),
+  },
+  (props) => isSelected(props),
+  {
+    transition: '0.1s all ease-in-out',
+    MozUserSelect: 'none',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: token('color.background.neutral.hovered', N40A),
+    },
+  },
+);

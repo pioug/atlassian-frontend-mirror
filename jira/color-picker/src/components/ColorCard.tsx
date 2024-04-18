@@ -91,7 +91,47 @@ const ColorCard = (props: Props) => {
     }
   }, []);
 
-  return (
+  return getBooleanFF(
+    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
+  ) ? (
+    <Tooltip content={label}>
+      <div
+        css={[
+          sharedColorContainerStylesNew,
+          (isTabbing === undefined || isTabbing) &&
+            colorCardOptionTabbingStyles,
+          focused && !isTabbing && colorCardOptionFocusedStyles,
+        ]}
+        onClick={handleClick}
+        onMouseDown={handleMouseDown}
+        onKeyDown={handleKeyDown}
+        role="radio"
+        aria-checked={selected}
+        aria-label={label}
+        tabIndex={0}
+        {...(getBooleanFF(
+          'platform.color-picker-radio-button-functionality_6hkcy',
+        ) && {
+          ref: ref,
+        })}
+      >
+        <div css={colorCardWrapperStylesNew}>
+          <div
+            css={colorCardContentStylesNew}
+            style={{
+              background: value || 'transparent',
+            }}
+          >
+            {selected && (
+              <div css={colorCardContentCheckMarkStyles}>
+                <EditorDoneIcon primaryColor={checkMarkColor} label="" />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </Tooltip>
+  ) : (
     <Tooltip content={label}>
       <div
         css={[
@@ -174,4 +214,38 @@ const colorCardContentStyles = css({
 const colorCardContentCheckMarkStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   margin: '1px',
+});
+
+const sharedColorContainerStylesNew = css({
+  display: 'inline-block',
+  position: 'relative',
+  width: token('space.300', '32px'),
+  height: token('space.300', '32px'),
+  border: '2px solid transparent',
+  boxSizing: 'border-box',
+  borderRadius: token('border.radius.200', '6px'),
+  transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+  backgroundColor: token('color.background.neutral.subtle', N0),
+  borderColor: token('color.background.neutral.subtle', N0),
+  padding: token('space.0', '0px'),
+  cursor: 'pointer',
+  outline: 'none',
+});
+
+const colorCardWrapperStylesNew = css({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
+
+const colorCardContentStylesNew = css({
+  width: token('space.300', '24px'),
+  height: token('space.300', '24px'),
+  borderRadius: token('border.radius.100', '3px'),
+  boxShadow: `inset 0px 0px 0px 1px ${token(
+    'color.background.inverse.subtle',
+    DN600A,
+  )}`,
 });

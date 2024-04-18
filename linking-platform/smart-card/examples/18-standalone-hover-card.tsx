@@ -26,10 +26,10 @@ const defaultURL = param
   ? param
   : 'https://pug.jira-dev.com/wiki/spaces/~6360339afe5ff375235b4167/pages/452478435635/Sample+Pages';
 
-const codeStyles = css`
-  display: inline-grid;
-  tab-size: 2;
-`;
+const codeStyles = css({
+  display: 'inline-grid',
+  tabSize: 2,
+});
 
 export interface ExampleState {
   url: string;

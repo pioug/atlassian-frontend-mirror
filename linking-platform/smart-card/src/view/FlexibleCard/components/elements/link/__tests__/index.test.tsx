@@ -188,9 +188,9 @@ describe('Element: Link', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = render(
       <Link overrideCss={overrideCss} text={text} url={url} />,
     );

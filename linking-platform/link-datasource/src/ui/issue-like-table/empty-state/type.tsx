@@ -11,11 +11,11 @@ import Task16Icon from '@atlaskit/icon-object/glyph/task/16';
 
 import { IssueType } from './types';
 
-const IconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: left;
-`;
+const IconWrapper = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'left',
+});
 
 export default ({ type }: { type: IssueType }) => {
   const TypeIcon = () => {

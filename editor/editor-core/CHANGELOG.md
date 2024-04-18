@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 193.10.8
+
+### Patch Changes
+
+- [#87119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/87119) [`0cea7cb799c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0cea7cb799c3) - [EDF-462] Add analytics for AI Blocks
+
+## 193.10.7
+
+### Patch Changes
+
+- [#88342](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/88342) [`104d7d1b8191`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/104d7d1b8191) - Introducing requestDocument API on core plugin which can be used to get the document using the editor API.
+
+  This is intended to replace the `editorActions.getValue()`.
+
+  Using the editor API you can do:
+
+  ```ts
+  const { editorApi, preset } = usePreset(() => createDefaultPreset({}));
+
+  //
+  editorApi?.core?.actions.requestDocument((doc) => {
+    // Use the document as you require
+  });
+  ```
+
+  See: Editor RFC 51 for more details.
+
+- [#91106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91106) [`b6ffa30186b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6ffa30186b9) - Bump ADF-schema package to version 35.0.0
+- Updated dependencies
+
 ## 193.10.4
 
 ### Patch Changes

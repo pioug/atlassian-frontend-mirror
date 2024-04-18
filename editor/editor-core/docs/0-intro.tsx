@@ -305,6 +305,93 @@ const CommentEditorWithMentions = () => {
 };
 `}
 
+  ## Getting the editor value
+
+  The \`core\` API on the \`editorApi\` can be used to request the document of the editor.
+
+  Here is an example of a simple editor requesting the document when the content changes:
+
+  ${code`
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { EditorContext } from '@atlaskit/editor-core/editor-context';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
+import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
+import { listPlugin } from '@atlaskit/editor-plugins/list';
+import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+
+const createPreset = () =>
+    new EditorPresetBuilder()
+      .add(basePlugin)
+      .add(analyticsPlugin)
+      .add(blockTypePlugin)
+      .add(listPlugin)
+
+function EditorInternal() {
+  const { editorApi, preset } = usePreset(createPreset);
+  return (
+    <ComposableEditor
+      preset={preset}
+      onChange={() => {
+        editorApi?.core?.actions.requestDocument(doc => {
+          // Use the document as you require
+        })
+      }}
+    />
+  );
+};
+
+export function Editor() {
+  return (
+    <EditorContext
+      <Editor />
+    </EditorContext>
+  );
+};
+`}
+
+  #### When does the document return?
+
+  For performance reasons we throttle calls to \`requestDocument\` and will return the document when there is idle time.
+
+  There is a timeout however which will start the document request to ensure the callback doesn't take seconds to fire.
+
+  ### Transforming the value
+
+  By default the requested document is returned as \`JSONDocNode\` (see \`@atlaskit/editor-json-transformer\`).
+
+  However, oftentimes you may want the document in a different format. The \`core\` API also provides a method to
+  create a transformer based on a schema.
+
+  The \`requestDocument\` callback will be typed appropriately based on the transformer passed to it.
+
+  Example using the \`BitbucketTransformer\` (which transforms to markdown):
+
+  ${code`
+
+function EditorInternal() {
+  const { editorApi, preset } = usePreset(createPreset);
+
+  // We memoise the transformer in case this component renders frequently
+  const transformer = useMemo(() => 
+    editorApi?.core?.actions?.createTransformer((schema) => new BitbucketTransformer(schema))
+  , [editorApi])
+
+  return (
+    <ComposableEditor
+      preset={preset}
+      onChange={() => {
+        editorApi?.core?.actions.requestDocument(doc => {
+          // Use the document as you require - it will be typed as "string | undefined" due to the transformer type
+        }, { transformer })
+      }}
+    />
+  );
+};
+`}
+
+
 ${(
   <Example
     packageName="@atlaskit/editor-core/composable-editor"

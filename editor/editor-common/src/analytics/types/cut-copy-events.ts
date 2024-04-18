@@ -1,5 +1,5 @@
-import { ACTION, ACTION_SUBJECT } from './enums';
-import { TrackAEP } from './utils';
+import type { ACTION, ACTION_SUBJECT } from './enums';
+import type { TrackAEP } from './utils';
 
 type CopyAEP = TrackAEP<
   ACTION.COPIED,
@@ -9,6 +9,8 @@ type CopyAEP = TrackAEP<
     content: string[];
     inputMethod?: string;
     nodeType?: string;
+    extensionType?: string;
+    extensionKey?: string;
   },
   undefined
 >;
@@ -19,6 +21,9 @@ type CutAEP = TrackAEP<
   undefined,
   {
     content: string[];
+    nodeType?: string;
+    extensionType?: string;
+    extensionKey?: string;
   },
   undefined
 >;

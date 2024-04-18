@@ -50,9 +50,9 @@ describe('Element: Media', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      background-color: blue;
-    `;
+    const overrideCss = css({
+      backgroundColor: 'blue',
+    });
     const { findByTestId } = render(
       <Media
         overrideCss={overrideCss}

@@ -11,11 +11,11 @@ const CommentEditedExample = () => {
       edited={<CommentEdited>Edited</CommentEdited>}
       avatar={<Avatar name="Scott Farquhar" src={sampleAvatar} />}
       author={<CommentAuthor>Scott Farquhar</CommentAuthor>}
-      time={<CommentTime>Mar 14, 2022</CommentTime>}
+      time={<CommentTime>Jul 3, 2020</CommentTime>}
       content={
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          I'm super proud that 69% of our almost 5,000 Atlassian employees
+          donated their time for volunteering in the last year. Thanks team!
         </p>
       }
     />

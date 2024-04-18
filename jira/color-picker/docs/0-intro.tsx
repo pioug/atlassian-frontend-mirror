@@ -7,18 +7,41 @@ import {
   AtlassianInternalWarning,
   DevPreviewWarning,
 } from '@atlaskit/docs';
+import { Box, xcss } from '@atlaskit/primitives';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+const marginBottomStyles = xcss({
+  marginBottom: 'space.100',
+});
+
+const marginTopStyles = xcss({
+  marginBottom: 'space.100',
+});
 
 export default md`
-${(
-  <>
-    <div style={{ marginBottom: '0.5rem' }}>
-      <AtlassianInternalWarning />
-    </div>
-    <div style={{ marginTop: '0.5rem' }}>
-      <DevPreviewWarning />
-    </div>
-  </>
-)}
+${
+  getBooleanFF(
+    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
+  ) ? (
+    <>
+      <Box xcss={marginBottomStyles}>
+        <AtlassianInternalWarning />
+      </Box>
+      <Box xcss={marginTopStyles}>
+        <DevPreviewWarning />
+      </Box>
+    </>
+  ) : (
+    <>
+      <div style={{ marginBottom: '0.5rem' }}>
+        <AtlassianInternalWarning />
+      </div>
+      <div style={{ marginTop: '0.5rem' }}>
+        <DevPreviewWarning />
+      </div>
+    </>
+  )
+}
 
 This component allows to pick colors from color palette.
 

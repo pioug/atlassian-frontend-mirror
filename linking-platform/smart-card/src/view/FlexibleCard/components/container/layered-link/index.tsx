@@ -5,23 +5,23 @@ import { jsx, css } from '@emotion/react';
 import { LayeredLinkProps } from './types';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 
-const styles = css`
+const styles = css({
   // Stretch the invisible link over the whole of the post.
   // Hide the link’s text.
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  overflow: 'hidden',
+  textIndent: '100%',
+  whiteSpace: 'nowrap',
 
   // Needs a heightened specificity to trump other anchor.
   // Stack it under all other links in the post text.
-  a&.layered-link {
-    position: absolute;
-    z-index: 0;
-  }
+  'a&.layered-link': {
+    position: 'absolute',
+    zIndex: 0,
+  },
 
   // When hovering over the layered link, any hidden action buttons inside
   // the Container should become visible.
@@ -33,12 +33,12 @@ const styles = css`
   // iterations of the second element, that are following the first element
   // (though not necessarily immediately), and are children of the same parent
   // element.
-  &:hover ~ * {
-    .actions-button-group {
-      opacity: 1;
-    }
-  }
-`;
+  '&:hover ~ *': {
+    '.actions-button-group': {
+      opacity: 1,
+    },
+  },
+});
 
 /**
  * An anchor component to cover the entire container creating a clickable area.

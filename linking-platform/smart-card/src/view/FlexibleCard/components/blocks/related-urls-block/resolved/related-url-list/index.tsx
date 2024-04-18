@@ -37,9 +37,9 @@ const RelatedUrlList: React.FC<ResolvedResultProps> = ({
       >
         <Inline alignBlock="center" spread="space-between">
           <Text
-            overrideCss={css`
-              font-weight: ${token('font.weight.medium', '500')};
-            `}
+            overrideCss={css({
+              fontWeight: token('font.weight.medium', '500'),
+            })}
             message={{ descriptor: title }}
           />
           <ChevronComponent

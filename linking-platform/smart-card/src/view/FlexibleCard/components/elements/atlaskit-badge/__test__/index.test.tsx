@@ -20,9 +20,9 @@ describe('Element: AtlaskitBadge', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      color: black;
-    `;
+    const overrideCss = css({
+      color: 'black',
+    });
     const { findByTestId } = render(
       <AtlaskitBadge value={5} overrideCss={overrideCss} />,
     );

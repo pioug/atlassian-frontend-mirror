@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import React, { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
@@ -13,14 +14,13 @@ import { getFormattedMessageAsString } from '../../utils';
 const MAX_COUNT = 4;
 
 const getStyles = (size: SmartLinkSize) => {
-  const styles = css`
-    display: inline-flex;
-    ul,
-    ul {
-      margin-right: 0.5rem;
-      margin-top: 0;
-    }
-  `;
+  const styles = css({
+    display: 'inline-flex',
+    ul: {
+      marginRight: token('space.100', '0.5rem'),
+      marginTop: 0,
+    },
+  });
   switch (size) {
     case SmartLinkSize.XLarge:
     case SmartLinkSize.Large:
@@ -29,6 +29,7 @@ const getStyles = (size: SmartLinkSize) => {
     case SmartLinkSize.Medium:
     case SmartLinkSize.Small:
     default:
+      // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
       return css`
         ${styles}
         li {

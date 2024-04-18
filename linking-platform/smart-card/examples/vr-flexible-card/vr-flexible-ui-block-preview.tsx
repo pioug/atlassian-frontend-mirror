@@ -16,6 +16,9 @@ import preview from '../images/rectangle.svg';
 import { css, jsx } from '@emotion/react';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+const styles = css({
+  maxWidth: '400px',
+});
 const cardState = getCardState({
   data: {
     image: { '@type': 'Image', url: preview },
@@ -57,11 +60,7 @@ export default () => (
           idx: React.Key | undefined,
         ) => (
           <React.Fragment key={idx}>
-            <div
-              css={css`
-                max-width: 400px;
-              `}
-            >
+            <div css={styles}>
               <h5>
                 Size: {size}, Placement: {placement || 'Default'},
                 IgnoreContainerPadding: {ignorePadding ? 'True' : 'False'}

@@ -16,6 +16,7 @@ import type {
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { GridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -54,6 +55,7 @@ export type CardPlugin = NextEditorPlugin<
     dependencies: [
       OptionalPlugin<FeatureFlagsPlugin>,
       OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<EditorViewModePlugin>,
       WidthPlugin,
       DecorationsPlugin,
       GridPlugin,

@@ -24,7 +24,6 @@ import { Card } from './genericCard';
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   private scrollContainer?: HTMLElement;
-  onClick = () => {};
 
   static contextTypes = {
     contextAdapter: PropTypes.object,
@@ -82,8 +81,14 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
   };
 
   render() {
-    const { node, cardContext, platform, actionOptions, showServerActions } =
-      this.props;
+    const {
+      node,
+      cardContext,
+      platform,
+      actionOptions,
+      showServerActions,
+      onClick,
+    } = this.props;
     const { url, data } = node.attrs;
 
     const cardInner = (
@@ -94,7 +99,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           data={data}
           container={this.scrollContainer}
           appearance="block"
-          onClick={this.onClick}
+          onClick={onClick}
           onResolve={this.onResolve}
           onError={this.onError}
           platform={platform}
@@ -124,7 +129,11 @@ const WrappedBlockCard = Card(BlockCardComponent, UnsupportedBlock);
 
 export type BlockCardNodeViewProps = Pick<
   SmartCardProps,
-  'platform' | 'actionOptions' | 'showServerActions'
+  | 'platform'
+  | 'actionOptions'
+  | 'showServerActions'
+  | 'pluginInjectionApi'
+  | 'onClickCallback'
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
@@ -159,8 +168,13 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   }
 
   render() {
-    const { platform, actionOptions, showServerActions } =
-      this.reactComponentProps;
+    const {
+      platform,
+      actionOptions,
+      showServerActions,
+      pluginInjectionApi,
+      onClickCallback,
+    } = this.reactComponentProps;
 
     return (
       <WrappedBlockCard
@@ -170,6 +184,8 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
         platform={platform}
         actionOptions={actionOptions}
         showServerActions={showServerActions}
+        pluginInjectionApi={pluginInjectionApi}
+        onClickCallback={onClickCallback}
       />
     );
   }

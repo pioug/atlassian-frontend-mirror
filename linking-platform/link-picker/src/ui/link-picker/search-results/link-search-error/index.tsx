@@ -45,7 +45,7 @@ export const LinkSearchError = () => {
         <FormattedMessage
           {...messages.searchErrorDescription}
           values={{
-            a: (label: string) => (
+            a: (label: React.ReactNode[]) => (
               <Button
                 appearance="link"
                 spacing="none"

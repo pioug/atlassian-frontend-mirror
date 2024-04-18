@@ -11,12 +11,13 @@ import { messages } from '../../../../../messages';
 import ImageIcon from '../../common/image-icon';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 
-const badgeStyles = css`
-  align-items: center;
-  display: inline-flex;
-  min-width: fit-content;
-`;
+const badgeStyles = css({
+  alignItems: 'center',
+  display: 'inline-flex',
+  minWidth: 'fit-content',
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const iconStyles = css`
   color: ${token('color.icon.subtle', '#626F86')};
   line-height: 0;
@@ -30,13 +31,13 @@ const iconStyles = css`
   }
 `;
 
-const labelStyles = css`
-  color: ${token('color.text.subtlest', '#626F86')};
-  font-size: 0.75rem;
-  line-height: 1rem;
-  padding-left: 0.125rem;
-  vertical-align: middle;
-`;
+const labelStyles = css({
+  color: token('color.text.subtlest', '#626F86'),
+  fontSize: '0.75rem',
+  lineHeight: '1rem',
+  paddingLeft: token('space.025', '0.125rem'),
+  verticalAlign: 'middle',
+});
 
 const messageMapper: {
   [key in Partial<IconType>]?: MessageDescriptor | undefined;

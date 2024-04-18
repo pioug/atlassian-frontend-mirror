@@ -24,7 +24,7 @@ export const ErrorBoundaryUI = () => {
         <FormattedMessage
           {...messages.description}
           values={{
-            a: (label: string) => (
+            a: (label: React.ReactNode[]) => (
               <Button
                 appearance="link"
                 spacing="none"

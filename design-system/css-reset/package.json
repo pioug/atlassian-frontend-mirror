@@ -19,6 +19,7 @@
       "jira"
     ],
     "releaseModel": "continuous",
+    "runReact18": true,
     "website": {
       "name": "CSS reset",
       "category": "Libraries"
@@ -35,7 +36,7 @@
     "fbjs": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@atlaskit/visual-regression": "*",

@@ -74,7 +74,7 @@
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@atlaskit/checkbox": "*",
-    "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/modal-dialog": "*",
     "@atlaskit/radio": "*",
     "@atlaskit/ssr": "*",

@@ -6,9 +6,9 @@ import {
   EditAction,
 } from '../../src/view/FlexibleCard/components/actions';
 
-const styles = css`
-  display: flex;
-`;
+const styles = css({
+  display: 'flex',
+});
 export default () => (
   <ExampleContainer>
     <div css={styles}>

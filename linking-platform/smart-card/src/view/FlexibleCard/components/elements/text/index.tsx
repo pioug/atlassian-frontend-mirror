@@ -6,13 +6,16 @@ import { TextProps } from './types';
 import { getFormattedMessage, getTruncateStyles } from '../../utils';
 import { token } from '@atlaskit/tokens';
 
-const getStyles = (maxLines: number) => css`
-  color: ${token('color.text.subtlest', '#626F86')};
-  font-size: 0.75rem;
-  line-height: 1rem;
-  white-space: normal;
-  ${getTruncateStyles(maxLines)}
-`;
+const getStyles = (maxLines: number) =>
+  css(
+    {
+      color: token('color.text.subtlest', '#626F86'),
+      fontSize: '0.75rem',
+      lineHeight: '1rem',
+      whiteSpace: 'normal',
+    },
+    getTruncateStyles(maxLines),
+  );
 
 /**
  * A base element that displays some Text.

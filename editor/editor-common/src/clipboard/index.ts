@@ -1,7 +1,10 @@
 import type ClipboardPolyfill from 'clipboard-polyfill';
 import * as clipboard from 'clipboard-polyfill';
 
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type {
@@ -25,6 +28,18 @@ const isClipboardApiSupported = () =>
 const isIEClipboardApiSupported = () =>
   (window as any).clipboardData &&
   typeof (window as any).clipboardData.setData === 'function';
+
+const isExtensionNode = (node?: string) => {
+  if (
+    node === 'extension' ||
+    node === 'bodiedExtension' ||
+    node === 'inlineExtension' ||
+    node === 'multiBodiedExtension'
+  ) {
+    return true;
+  }
+  return false;
+};
 
 export const copyToClipboard = async (textToCopy: string) => {
   if (isClipboardApiSupported()) {
@@ -99,12 +114,20 @@ export const getAnalyticsPayload = (
     const { actionSubjectId: selectionActionSubjectId } =
       selectionAnalyticsPayload;
 
+    const node = (selectionAnalyticsPayload as SelectNodeAEP).attributes?.node;
     let content: string[] = [];
+    let extensionType: string | undefined;
+    let extensionKey: string | undefined;
     switch (selectionActionSubjectId) {
       case ACTION_SUBJECT_ID.NODE:
-        content.push(
-          (selectionAnalyticsPayload as SelectNodeAEP).attributes!.node,
-        );
+        if (node) {
+          content.push(node);
+          if (isExtensionNode(node)) {
+            extensionType = (selection as NodeSelection).node.attrs
+              .extensionType;
+            extensionKey = (selection as NodeSelection).node.attrs.extensionKey;
+          }
+        }
         break;
       case ACTION_SUBJECT_ID.RANGE:
         content.push(
@@ -120,6 +143,19 @@ export const getAnalyticsPayload = (
         content.push(...Array(selectedCells).fill('tableCell'));
         break;
       }
+    }
+
+    if (isExtensionNode(node)) {
+      return {
+        eventType: EVENT_TYPE.TRACK,
+        action,
+        actionSubject: ACTION_SUBJECT.DOCUMENT,
+        attributes: {
+          content,
+          extensionKey,
+          extensionType,
+        },
+      };
     }
 
     return {

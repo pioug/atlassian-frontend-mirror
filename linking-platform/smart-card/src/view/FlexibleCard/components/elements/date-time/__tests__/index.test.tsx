@@ -71,9 +71,9 @@ describe('Element: Text', () => {
   });
 
   it('renders with override css', async () => {
-    const overrideCss = css`
-      font-weight: bold;
-    `;
+    const overrideCss = css({
+      fontWeight: 'bold',
+    });
     const { findByTestId } = render(
       <IntlProvider locale="en">
         <DateTime

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
 import React from 'react';
 
 import { keyframes } from '@emotion/react';
@@ -50,6 +51,7 @@ export const ActionsFlexSpacer = styled.div`
   flex: 1 0 auto;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/no-keyframes-tagged-template-expression -- needs manual remediation
 const kudosButtonAnimationTransformation = keyframes`
   0%   { transform: translate(-80px, -50px); }
   100% { transform: translate(90px, -70px); }

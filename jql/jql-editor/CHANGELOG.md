@@ -1,5 +1,11 @@
 # @atlaskit/jql-editor
 
+## 4.1.0
+
+### Minor Changes
+
+- [#89393](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89393) [`a15c11c0b011`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a15c11c0b011) - [ux] We are testing a fix for JQL editor textarea that reduces the border width from 2px to 1px and uses a darker color to meet 3:1 color contrast ratio. If this fix is successful, it will be available in a later release.
+
 ## 4.0.6
 
 ### Patch Changes

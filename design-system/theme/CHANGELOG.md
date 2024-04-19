@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.7.1
+
+### Patch Changes
+
+- [#91429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91429) [`042d4fd3bc81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/042d4fd3bc81) - Updated the `children` prop in the `Consumer` component to always be of type `(tokens: ThemeTokens) => ReactNode` which improves compatibility with React 18
+
 ## 12.7.0
 
 ### Minor Changes

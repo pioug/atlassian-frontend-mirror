@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.9.0
+
+### Minor Changes
+
+- [#91840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91840) [`997a3d2d0ca0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/997a3d2d0ca0) - Add `no-array-arguments` rule which prevents passing array arguments to style declaration functions.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.8.4
 
 ### Patch Changes

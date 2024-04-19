@@ -39,9 +39,9 @@
     }
   },
   "dependencies": {
-    "@atlaskit/css-reset": "^6.8.0",
+    "@atlaskit/css-reset": "^6.9.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/renderer": "^109.18.0",
+    "@atlaskit/renderer": "^109.19.0",
     "@atlaskit/tokens": "^1.43.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",

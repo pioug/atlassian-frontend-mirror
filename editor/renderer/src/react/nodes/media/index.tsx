@@ -71,6 +71,7 @@ export type MediaProps = MediaCardProps & {
   // attributes for media node
   width?: number;
   height?: number;
+  isDrafting: boolean;
 };
 
 type Providers = {
@@ -194,6 +195,7 @@ const CommentBadge = injectIntl(CommentBadgeComponent);
 const CommentBadgeWrapper = ({
   marks,
   mediaElement,
+  isDrafting = false,
   ...rest
 }: Omit<CommentBadgeProps, 'onClick' | 'intl'> & {
   marks?: AnnotationMarkDefinition[];
@@ -233,7 +235,7 @@ const CommentBadgeWrapper = ({
     };
   }, [mediaElement, setStatus]);
 
-  if (!activeParentIds.length) {
+  if (!isDrafting && !activeParentIds.length) {
     return null;
   }
 
@@ -277,6 +279,7 @@ class Media extends PureComponent<MediaProps, {}> {
       width,
       height,
       mediaSingleElement,
+      isDrafting = false,
     } = this.props;
 
     const annotationMarks = (
@@ -314,6 +317,7 @@ class Media extends PureComponent<MediaProps, {}> {
                   mediaElement={mediaSingleElement}
                   width={width}
                   height={height}
+                  isDrafting={isDrafting}
                 />
               )}
               <MediaCard
@@ -363,7 +367,6 @@ class Media extends PureComponent<MediaProps, {}> {
 
   render() {
     const { providers } = this.props;
-
     if (!providers) {
       return this.renderCard();
     }
@@ -419,7 +422,11 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
   );
 
   return (
-    <Media {...props} dataAttributes={dataAttributesWithDraftAnnotation} />
+    <Media
+      {...props}
+      dataAttributes={dataAttributesWithDraftAnnotation}
+      isDrafting={shouldApplyDraftAnnotation}
+    />
   );
 };
 

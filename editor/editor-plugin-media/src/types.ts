@@ -68,6 +68,7 @@ export interface MediaOptions {
   featureFlags?: MediaFeatureFlags;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   allowCaptions?: boolean;
+  allowCommentsOnMedia?: boolean;
 }
 
 export interface MediaSingleOptions {
@@ -139,6 +140,7 @@ export type MediaFloatingToolbarOptions = {
   altTextValidator?: (value: string) => string[];
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   fullWidthEnabled?: boolean;
+  allowCommentsOnMedia?: boolean;
 };
 
 export type MediaDecorationSpec = {

@@ -13,13 +13,13 @@ import teamData from '../src/mocks/team-data';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient, getMockTeamClient } from './helper/util';
 
-export const Wrap = styled.div`
-  margin-bottom: ${token('space.250', '20px')};
-`;
+export const Wrap = styled.div({
+  marginBottom: token('space.250', '20px'),
+});
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
 export default function Example() {
   const [flags, setFlags] = useState<Array<FlagProps>>([]);

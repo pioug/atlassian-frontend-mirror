@@ -54,31 +54,30 @@ const profileClient = new ProfileCardClient(clientArgs, {
   teamClient: mockTeamClient,
 });
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
-export const Section = styled.div`
-  margin: ${token('space.200', '16px')} 0;
+export const Section = styled.div({
+  margin: `${token('space.200', '16px')} 0`,
+  h4: {
+    margin: `${token('space.100', '8px')} 0`,
+  },
+});
 
-  h4 {
-    margin: ${token('space.100', '8px')} 0;
-  }
-`;
+export const BlankSpace = styled.div({
+  height: '800px',
+});
 
-export const BlankSpace = styled.div`
-  height: 800px;
-`;
-
-const Container = styled.div`
-  border: 1px solid ${token('color.border', '#ccc')};
-  border-radius: 3px;
-  margin: ${token('space.100', '8px')};
-  padding: ${token('space.100', '8px')};
-  strong {
-    color: ${token('color.text', 'black')};
-  }
-`;
+const Container = styled.div({
+  border: `1px solid ${token('color.border', '#ccc')}`,
+  borderRadius: '3px',
+  margin: token('space.100', '8px'),
+  padding: token('space.100', '8px'),
+  strong: {
+    color: token('color.text', 'black'),
+  },
+});
 
 const defaultProps = {
   teamId: '4ecf4119-dcc4-43a0-a60b-94ed7b7446b0',

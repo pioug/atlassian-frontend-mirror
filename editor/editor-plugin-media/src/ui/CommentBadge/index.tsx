@@ -18,6 +18,7 @@ type CommentBadgeProps = {
   mediaNode: PMNode | null;
   view: EditorView;
   getPos: getPosHandler;
+  isDrafting: boolean;
 };
 
 const CommentBadgeWrapper = ({
@@ -26,6 +27,7 @@ const CommentBadgeWrapper = ({
   view,
   getPos,
   intl,
+  isDrafting,
 }: CommentBadgeProps) => {
   const [entered, setEntered] = useState(false);
   const { annotationState } = useSharedPluginState(api, ['annotation']);
@@ -41,7 +43,7 @@ const CommentBadgeWrapper = ({
   } = view;
 
   const status = useMemo(() => {
-    if (!annotationState || !mediaNode) {
+    if (!annotationState?.selectedAnnotations || !mediaNode) {
       return 'default';
     }
 
@@ -62,7 +64,7 @@ const CommentBadgeWrapper = ({
 
   const pos = getPos();
 
-  if (
+  const hasNoComments =
     !Number.isFinite(pos) ||
     !annotationState?.annotations ||
     !mediaNode ||
@@ -72,8 +74,9 @@ const CommentBadgeWrapper = ({
         maybeAnnotation.type !== annotation ||
         !(maybeAnnotation.attrs.id in annotationState.annotations) ||
         annotationState.annotations[maybeAnnotation.attrs.id],
-    )
-  ) {
+    );
+
+  if ((!isDrafting && hasNoComments) || !mediaNode) {
     return null;
   }
 

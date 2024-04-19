@@ -1,5 +1,11 @@
 # @atlaskit/eslint-utils
 
+## 1.2.0
+
+### Minor Changes
+
+- [#91840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91840) [`8f3a2e3995aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f3a2e3995aa) - Add `hasStyleObjectArguments` util to `is-supported-import` entrypoint. This util simplifies checking if a `CallExpression` should have style declaration linting applied to its arguments.
+
 ## 1.1.0
 
 ### Minor Changes

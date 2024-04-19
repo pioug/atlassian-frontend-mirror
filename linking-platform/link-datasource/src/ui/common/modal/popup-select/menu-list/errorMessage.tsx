@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
 import { ErrorShownBasicSearchDropdownAttributesType } from '../../../../../analytics/generated/analytics.types';
-import { SEARCH_DEBOUNCE_MS } from '../../../../jira-issues-modal/basic-filters/ui/async-popup-select';
+import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
@@ -61,7 +61,7 @@ const CustomErrorMessage = ({
         />
       }
       message={asyncPopupSelectMessages.errorMessage}
-      testId="jlol-basic-filter-popup-select--error-message"
+      testId={`${filterName}--error-message`}
     />
   );
 };

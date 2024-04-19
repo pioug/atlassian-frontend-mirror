@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 109.19.1
+
+### Patch Changes
+
+- [#91808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91808) [`00e5dcfdf240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00e5dcfdf240) - [ux] Does not add comment button on hover on media that is inside comment or inline comment rendereres
+
+## 109.19.0
+
+### Minor Changes
+
+- [#90964](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90964) [`6e7df33eb280`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e7df33eb280) - [ux] [ED-22992] Auto-dismiss comment button on media if mouse rolling away from media and comment popup, remove popup position transition so that popup does not appear sliding across the page when mouse moving from one media to another
+
+### Patch Changes
+
+- Updated dependencies
+
+## 109.18.1
+
+### Patch Changes
+
+- [#90969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90969) [`e6b63a9cbe78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6b63a9cbe78) - Fix issues with comment hover for media nodes
+
 ## 109.18.0
 
 ### Minor Changes

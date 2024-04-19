@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-media",
-  "version": "1.15.1",
+  "version": "1.15.2",
   "description": "Media plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.2.0",
     "@atlaskit/button": "^17.12.0",
-    "@atlaskit/editor-common": "^78.28.0",
+    "@atlaskit/editor-common": "^78.29.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",
     "@atlaskit/editor-plugin-annotation": "1.5.9",

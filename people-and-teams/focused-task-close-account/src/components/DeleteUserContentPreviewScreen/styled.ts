@@ -13,18 +13,18 @@ const getSelectedCardColor = (props: SectionCardProps) => {
   return props.isSelected && `${token('color.background.selected', B50)}`;
 };
 
-export const Screen = styled.div`
-  width: 100%;
-  max-width: 640px;
-  margin-bottom: ${gridSizeTimes(4)}px;
-`;
+export const Screen = styled.div({
+  width: '100%',
+  maxWidth: '640px',
+  marginBottom: `${gridSizeTimes(4)}px`,
+});
 
-export const Title = styled.div`
-  ${h700};
-  margin-bottom: ${gridSizeTimes(4)}px;
-  margin-top: 0;
-`;
+export const Title = styled.div(h700, {
+  marginBottom: `${gridSizeTimes(4)}px`,
+  marginTop: 0,
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const SectionCard = styled.div`
   position: relative;
   display: flex;
@@ -39,17 +39,17 @@ export const SectionCard = styled.div`
   margin-top: ${gridSizeTimes(2)}px;
 `;
 
-export const Avatar = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: ${gridSizeTimes(2.5)}px;
-  margin-right: ${gridSizeTimes(1)}px;
-`;
+export const Avatar = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  marginLeft: `${gridSizeTimes(2.5)}px`,
+  marginRight: `${gridSizeTimes(1)}px`,
+});
 
-export const UserDetails = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: ${gridSizeTimes(1.5)}px;
-  font-weight: 600;
-  color: ${token('color.text.accent.blue', B400)};
-`;
+export const UserDetails = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: `${gridSizeTimes(1.5)}px`,
+  fontWeight: 600,
+  color: token('color.text.accent.blue', B400),
+});

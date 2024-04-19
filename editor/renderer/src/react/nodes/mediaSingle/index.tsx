@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useEffect,
 } from 'react';
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
@@ -35,6 +36,8 @@ import { FullPagePadding } from '../../../ui/Renderer/style';
 import type { RendererAppearance } from '../../../ui/Renderer/types';
 import type { MediaProps } from '../media';
 import { uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles } from './styles';
+import { useAnnotationRangeDispatch } from '../../../ui/annotations/contexts/AnnotationRangeContext';
+import { useAnnotationHoverDispatch } from '../../../ui/annotations/contexts/AnnotationHoverContext';
 
 export interface Props {
   children: React.ReactNode;
@@ -156,8 +159,9 @@ const MediaSingleWithChildren = (
 
   // TODO: put appearance-based padding into theme instead
 
-  const padding = rendererAppearance === 'full-page' ? FullPagePadding * 2 : 0;
+  const isFullPage = rendererAppearance === 'full-page';
   const isFullWidth = rendererAppearance === 'full-width';
+  const padding = isFullPage ? FullPagePadding * 2 : 0;
 
   const calcDimensions = useCallback(
     (mediaContainerWidth: number) => {
@@ -210,6 +214,44 @@ const MediaSingleWithChildren = (
     [height, width],
   );
 
+  const { setHoverTarget } = useAnnotationRangeDispatch();
+  const { cancelTimeout, initiateTimeout, setIsWithinRange } =
+    useAnnotationHoverDispatch();
+
+  const isFullPageRenderer = isFullPage || isFullWidth;
+
+  useEffect(() => {
+    const mediaSingleElement = ref.current;
+    const handleMouseEnter = (event: MouseEvent) => {
+      cancelTimeout();
+      if (event.buttons === 0) {
+        setHoverTarget && setHoverTarget(event.target as HTMLElement);
+        setIsWithinRange(true);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      initiateTimeout();
+    };
+
+    if (mediaSingleElement && isFullPageRenderer) {
+      mediaSingleElement.addEventListener('mouseenter', handleMouseEnter);
+      mediaSingleElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+    return () => {
+      if (mediaSingleElement && isFullPageRenderer) {
+        mediaSingleElement.removeEventListener('mouseenter', handleMouseEnter);
+        mediaSingleElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, [
+    setHoverTarget,
+    isFullPageRenderer,
+    cancelTimeout,
+    initiateTimeout,
+    setIsWithinRange,
+  ]);
+
   // Note: in SSR mode the `window` object is not defined,
   // therefore width here is 0, see:
   // packages/editor/editor-common/src/ui/WidthProvider/index.tsx
@@ -229,7 +271,7 @@ const MediaSingleWithChildren = (
       disableOverlay: true,
       featureFlags,
       mediaSingleElement: ref.current,
-    } as MediaProps & ImageLoaderProps);
+    } as unknown as MediaProps & ImageLoaderProps);
 
     const uiMediaSingleStyles =
       layout === 'full-width' || layout === 'wide'

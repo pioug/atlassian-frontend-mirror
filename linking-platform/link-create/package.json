@@ -48,7 +48,7 @@
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/intl-messages-provider": "^1.0.2",
     "@atlaskit/linking-common": "^5.6.0",
-    "@atlaskit/modal-dialog": "^12.10.0",
+    "@atlaskit/modal-dialog": "^12.11.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/select": "^17.6.0",

@@ -46,9 +46,7 @@ const selectOption = async (
   }
 
   const components = await page
-    .locator(
-      `[data-testid="jlol-basic-filter-popup-select-option--${optionType}"]`,
-    )
+    .locator(`[data-testid="basic-filter-popup-select-option--${optionType}"]`)
     .all();
 
   for (let i = 0; i < optionsToClick; i++) {
@@ -187,7 +185,7 @@ filters.forEach(filter => {
       );
 
       await component.getByTestId(
-        'jlol-basic-filter-popup-select--loading-message',
+        `jlol-basic-filter-${filter}--loading-message`,
       );
     },
     description: `${filter} open and view loading state`,
@@ -211,7 +209,7 @@ filters.forEach(filter => {
       );
 
       await component.getByTestId(
-        'jlol-basic-filter-popup-select--no-options-message',
+        `jlol-basic-filter-${filter}--no-options-message`,
       );
     },
     description: `${filter} open and view empty state`,
@@ -234,9 +232,7 @@ filters.forEach(filter => {
         `error-message`,
       );
 
-      await component.getByTestId(
-        'jlol-basic-filter-popup-select--error-message',
-      );
+      await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
     },
     description: `${filter} open and view error state`,
     featureFlags: {
@@ -254,13 +250,11 @@ filters.forEach(filter => {
         .click();
 
       const showMoreButton = page.locator(
-        '[data-testid="jlol-basic-filter-popup-select--show-more-button"]',
+        `[data-testid="jlol-basic-filter-${filter}--show-more-button"]`,
       );
       showMoreButton.scrollIntoViewIfNeeded();
 
-      await page.getByTestId(
-        'jlol-basic-filter-popup-select--show-more-button',
-      );
+      await page.getByTestId(`jlol-basic-filter-${filter}--show-more-button`);
     },
     description: `${filter} open and view show more button`,
     featureFlags: {

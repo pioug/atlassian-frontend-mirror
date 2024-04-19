@@ -15,11 +15,12 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { token } from '@atlaskit/tokens';
 
 import { EVENT_CHANNEL } from '../../../../../../analytics/constants';
+import { SelectOption } from '../../../../../common/modal/popup-select/types';
 import {
   FilterOptionsState,
   useFilterOptions,
 } from '../../../hooks/useFilterOptions';
-import { BasicFilterFieldType, SelectOption } from '../../../types';
+import { BasicFilterFieldType } from '../../../types';
 import AsyncPopupSelect, { AsyncPopupSelectProps } from '../index';
 
 jest.mock('../../../hooks/useFilterOptions');
@@ -204,7 +205,7 @@ describe('Testing AsyncPopupSelect', () => {
         status: 'resolved',
       });
 
-      const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
+      const footer = queryByTestId('jlol-basic-filter-project--footer');
       expect(footer).toBeInTheDocument();
     });
 
@@ -215,7 +216,7 @@ describe('Testing AsyncPopupSelect', () => {
         status: 'rejected',
       });
 
-      const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
+      const footer = queryByTestId('jlol-basic-filter-project--footer');
       expect(footer).not.toBeInTheDocument();
     });
 
@@ -227,7 +228,7 @@ describe('Testing AsyncPopupSelect', () => {
         status: 'resolved',
       });
 
-      const footer = queryByTestId('jlol-basic-filter-popup-select--footer');
+      const footer = queryByTestId('jlol-basic-filter-project--footer');
 
       expect(footer).toHaveTextContent('10 of 10');
     });
@@ -284,7 +285,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select--loading-message'),
+      queryByTestId('jlol-basic-filter-status--loading-message'),
     ).toBeInTheDocument();
     expect(getByText('Loading...')).toBeInTheDocument();
   });
@@ -298,7 +299,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select--no-options-message'),
+      queryByTestId('jlol-basic-filter-status--no-options-message'),
     ).toBeInTheDocument();
     expect(getByText('No matches found')).toBeInTheDocument();
   });
@@ -312,7 +313,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select--error-message'),
+      queryByTestId('jlol-basic-filter-status--error-message'),
     ).toBeInTheDocument();
 
     expect(getByText('Something went wrong')).toBeInTheDocument();
@@ -334,7 +335,7 @@ describe('Testing AsyncPopupSelect', () => {
     expect(getByText('10 of 21')).toBeInTheDocument();
 
     const showMoreButton = getByTestId(
-      'jlol-basic-filter-popup-select--show-more-button',
+      'jlol-basic-filter-assignee--show-more-button',
     );
     fireEvent.click(showMoreButton);
 
@@ -366,7 +367,7 @@ describe('Testing AsyncPopupSelect', () => {
     fireEvent.change(input, { target: { value: 'a' } });
 
     const showMoreButton = getByTestId(
-      'jlol-basic-filter-popup-select--show-more-button',
+      'jlol-basic-filter-assignee--show-more-button',
     );
     fireEvent.click(showMoreButton);
 
@@ -507,7 +508,7 @@ describe('Testing AsyncPopupSelect', () => {
       'jlol-basic-filter-status-popup-select--menu',
     );
     const optionLozenges = within(selectMenu).queryAllByTestId(
-      'jlol-basic-filter-popup-select-option--lozenge',
+      'basic-filter-popup-select-option--lozenge',
     );
 
     // Check that the ordering of optionLozenges is correct
@@ -566,7 +567,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const [firstOption] = queryAllByTestId(
-      'jlol-basic-filter-popup-select-option--lozenge',
+      'basic-filter-popup-select-option--lozenge',
     );
 
     expect(
@@ -596,7 +597,7 @@ describe('Testing AsyncPopupSelect', () => {
     });
 
     const [firstOption] = queryAllByTestId(
-      'jlol-basic-filter-popup-select-option--lozenge',
+      'basic-filter-popup-select-option--lozenge',
     );
 
     fireEvent.click(firstOption);
@@ -630,7 +631,7 @@ describe('Testing AsyncPopupSelect', () => {
     fireEvent.click(triggerButton);
 
     const [_, secondOption] = queryAllByTestId(
-      'jlol-basic-filter-popup-select-option--lozenge',
+      'basic-filter-popup-select-option--lozenge',
     );
 
     fireEvent.click(secondOption);
@@ -666,7 +667,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'emptyResult',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterName: 'status',
+            filterName: 'jlol-basic-filter-status',
           },
         },
       },
@@ -692,7 +693,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterName: 'status',
+            filterName: 'jlol-basic-filter-status',
             reason: 'unknown',
           },
         },
@@ -720,7 +721,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterName: 'status',
+            filterName: 'jlol-basic-filter-status',
             reason: 'agg',
           },
         },
@@ -750,7 +751,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'error',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterName: 'status',
+            filterName: 'jlol-basic-filter-status',
             reason: 'network',
           },
         },
@@ -911,7 +912,7 @@ describe('Analytics: AsyncPopupSelect', () => {
     });
 
     const showMoreButton = getByTestId(
-      'jlol-basic-filter-popup-select--show-more-button',
+      'jlol-basic-filter-assignee--show-more-button',
     );
     fireEvent.click(showMoreButton);
 
@@ -923,7 +924,7 @@ describe('Analytics: AsyncPopupSelect', () => {
           actionSubject: 'button',
           actionSubjectId: 'basicSearchDropdown',
           attributes: {
-            filterName: 'assignee',
+            filterName: 'jlol-basic-filter-assignee',
             type: 'showMore',
           },
         },

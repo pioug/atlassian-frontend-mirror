@@ -178,6 +178,7 @@ export default function createUniversalPreset(
             typeof props.media?.allowAdvancedToolBarOptions !== 'undefined'
               ? props.media?.allowAdvancedToolBarOptions
               : isFullPage || isComment,
+          allowCommentsOnMedia: isFullPage,
           allowDropzoneDropLine: isFullPage,
           allowMediaSingleEditable: !isMobile,
           allowRemoteDimensionsFetch: !isMobile,

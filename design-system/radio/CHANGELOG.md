@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 6.1.3
+
+### Patch Changes
+
+- [#90003](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90003) [`31fa4f46303a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31fa4f46303a) - Internal changes to typography, no visual change.
+
 ## 6.1.2
 
 ### Patch Changes

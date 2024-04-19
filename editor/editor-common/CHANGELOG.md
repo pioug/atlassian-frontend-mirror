@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 78.29.0
+
+### Minor Changes
+
+- [#90964](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90964) [`6e7df33eb280`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e7df33eb280) - [ux] [ED-22992] Auto-dismiss comment button on media if mouse rolling away from media and comment popup, remove popup position transition so that popup does not appear sliding across the page when mouse moving from one media to another
+
 ## 78.28.1
 
 ### Patch Changes

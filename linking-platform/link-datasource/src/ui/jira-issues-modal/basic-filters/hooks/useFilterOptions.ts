@@ -6,10 +6,9 @@ import type { Site } from '../../../../common/types';
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
 import {
   AvatarLabelOption,
-  BasicFilterFieldType,
-  FieldValuesResponse,
   SelectOption,
-} from '../types';
+} from '../../../common/modal/popup-select/types';
+import { BasicFilterFieldType, FieldValuesResponse } from '../types';
 import {
   mapFieldValuesToFilterOptions,
   mapFieldValuesToPageCursor,

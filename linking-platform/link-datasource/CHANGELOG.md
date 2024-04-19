@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 1.27.4
+
+### Patch Changes
+
+- [#91584](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91584) [`4d0c2f61a927`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d0c2f61a927) - The changes here updates the testIds in the common filter component along with some code refactoring
+
 ## 1.27.3
 
 ### Patch Changes

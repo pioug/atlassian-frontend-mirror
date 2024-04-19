@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-utils",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Shared utilities for ESLint rules",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,7 +41,8 @@
     "./is-supported-import": "./src/is-supported-import.tsx"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0"
+    "@babel/runtime": "^7.0.0",
+    "eslint-codemod-utils": "^1.8.6"
   },
   "peerDependencies": {
     "react": "^16.8.0"

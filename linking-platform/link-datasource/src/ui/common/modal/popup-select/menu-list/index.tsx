@@ -26,7 +26,7 @@ export type CustomMenuListProps = {
   isLoadingMore?: boolean;
   isEmpty?: boolean;
   showMore?: boolean;
-  handleShowMore: () => void;
+  handleShowMore?: () => void;
   filterName: string;
   errors?: unknown[];
 };
@@ -57,7 +57,7 @@ const CustomMenuList = ({
 
   const renderChildren = () => {
     if (isLoading) {
-      return <CustomDropdownLoadingMessage />;
+      return <CustomDropdownLoadingMessage filterName={filterName} />;
     }
 
     if (isError) {
@@ -72,7 +72,7 @@ const CustomMenuList = ({
       <>
         {children}
 
-        {shouldDisplayShowMore && (
+        {shouldDisplayShowMore && handleShowMore && (
           <Box xcss={showMoreButtonBoxStyles}>
             <ShowMoreButton
               onShowMore={handleShowMore}

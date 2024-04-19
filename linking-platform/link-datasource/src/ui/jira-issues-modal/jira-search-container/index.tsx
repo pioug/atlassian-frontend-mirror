@@ -12,12 +12,13 @@ import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import type { JiraSearchMethod, Site } from '../../../common/types';
 import { BasicSearchInput } from '../../common/modal/basic-search-input';
 import { basicSearchInputMessages } from '../../common/modal/basic-search-input/messages';
+import { FILTER_SELECTION_DEBOUNCE_MS } from '../../common/modal/popup-select/constants';
+import { SelectOption } from '../../common/modal/popup-select/types';
 import { BasicFilters } from '../basic-filters';
 import { useHydrateJqlQuery } from '../basic-filters/hooks/useHydrateJqlQuery';
 import {
   BasicFilterFieldType,
   SelectedOptionsMap,
-  SelectOption,
 } from '../basic-filters/types';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraJQLEditor } from '../jql-editor';
@@ -48,8 +49,6 @@ export const ALLOWED_ORDER_BY_KEYS = [
   'status',
   'created',
 ];
-
-export const FILTER_SELECTION_DEBOUNCE_MS = 500;
 
 export interface SearchContainerProps {
   isSearching?: boolean;

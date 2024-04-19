@@ -8,8 +8,10 @@ import { ValueType } from '@atlaskit/select';
 
 import type { Site } from '../../../../../common/types';
 import { FilterPopupSelect } from '../../../../common/modal/popup-select';
+import { SEARCH_DEBOUNCE_MS } from '../../../../common/modal/popup-select/constants';
+import { SelectOption } from '../../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../hooks/useFilterOptions';
-import { BasicFilterFieldType, SelectOption } from '../../types';
+import { BasicFilterFieldType } from '../../types';
 
 import { asyncPopupSelectMessages } from './messages';
 
@@ -24,8 +26,6 @@ export interface AsyncPopupSelectProps {
   isDisabled?: boolean;
   site?: Site;
 }
-
-export const SEARCH_DEBOUNCE_MS = 350;
 
 const AsyncPopupSelect = ({
   filterType,
@@ -120,6 +120,7 @@ const AsyncPopupSelect = ({
   const isEmpty = status === 'resolved' && filterOptionsLength === 0;
   const popupSelectOptions = isLoading || isError ? [] : filterOptions; // if not set to [], then on loading, no loading UI will be shown
   const areAllResultsLoaded = filterOptionsLength === totalCount;
+  const filterName = `jlol-basic-filter-${filterType}`;
 
   const shouldShowFooter =
     (status === 'resolved' || isLoadingMore) && filterOptionsLength > 0; // footer should not disappear when there is an inline spinner for loading more data
@@ -131,7 +132,7 @@ const AsyncPopupSelect = ({
 
   return (
     <FilterPopupSelect
-      filterName={`jlol-basic-filter-${filterType}`}
+      filterName={filterName}
       status={status}
       showLoading={isLoading}
       showHydrating={isJQLHydrating}
@@ -145,7 +146,7 @@ const AsyncPopupSelect = ({
       onSelectionChange={handleOptionSelection}
       onMenuOpen={handleMenuOpen}
       menuListProps={{
-        filterName: filterType,
+        filterName,
         isError,
         isEmpty,
         isLoading,

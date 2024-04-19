@@ -204,6 +204,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           collection={mediaNode.attrs.collection}
           providers={providerFactory}
+          isDrafting={false}
         />
       </MediaClientProvider>,
     );
@@ -230,6 +231,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           allowAltTextOnImages={true}
           providers={providerFactory}
+          isDrafting={false}
         />
       </MediaClientProvider>,
     );
@@ -254,6 +256,7 @@ describe('Media', () => {
         isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ media: { onClick: mediaOnClick } }}
+        isDrafting={false}
       />,
     );
 
@@ -275,6 +278,7 @@ describe('Media', () => {
         isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ link: { onClick: linkOnClick } }}
+        isDrafting={false}
       />,
     );
 
@@ -300,6 +304,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           eventHandlers={{ media: { onClick: mediaOnClick } }}
           providers={providerFactory}
+          isDrafting={false}
         />
       </MediaClientProvider>,
     );
@@ -331,6 +336,7 @@ describe('Media', () => {
         isBorderMark={() => false}
         allowAltTextOnImages={true}
         eventHandlers={{ media: { onClick: mediaOnClick } }}
+        isDrafting={false}
       />,
     );
 
@@ -362,6 +368,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           allowAltTextOnImages={false}
           providers={providerFactory}
+          isDrafting={false}
         />
       </MediaClientProvider>,
     );
@@ -384,6 +391,7 @@ describe('Media', () => {
         marks={[]}
         isLinkMark={() => false}
         isBorderMark={() => false}
+        isDrafting={false}
       />,
     );
 
@@ -412,6 +420,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           collection={mediaNode.attrs.collection}
           ssr={ssr}
+          isDrafting={false}
         />,
       );
 
@@ -439,6 +448,7 @@ describe('Media', () => {
           isBorderMark={() => false}
           collection={mediaNode.attrs.collection}
           ssr={ssr}
+          isDrafting={false}
         />,
       );
 
@@ -1203,6 +1213,7 @@ describe('Media', () => {
           isLinkMark={() => false}
           isBorderMark={() => true}
           allowAltTextOnImages={false}
+          isDrafting={false}
         />,
       );
 

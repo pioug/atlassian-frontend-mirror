@@ -51,6 +51,7 @@ export const commentButton = (
           INPUT_METHOD.FLOATING_TB,
           'block',
           true,
+          selectMediaNode.attrs?.id,
         )(state, dispatch);
       }
     }

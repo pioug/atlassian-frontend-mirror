@@ -15,7 +15,7 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<
   PopupUserPickerProps,
   State
 > {
-  static defaultProps = {
+  static defaultProps: Partial<PopupUserPickerProps> = {
     boundariesElement: 'viewport',
     width: 300,
     isMulti: false,

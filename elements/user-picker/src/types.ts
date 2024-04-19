@@ -46,7 +46,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    * Function to generate the error message when there's a failure executing the loadOptions prop.
    * If not provided, will default to a default error message.
    */
-  loadOptionsErrorMessage?: (value: { inputValue: string }) => string;
+  loadOptionsErrorMessage?: (value: { inputValue: string }) => React.ReactNode;
   /**
    * Function used to load user source if they are an external user.
    * accepts two params:

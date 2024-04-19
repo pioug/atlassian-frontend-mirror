@@ -110,7 +110,7 @@ export default function withSortedPageRows<
   type InternalWithSortedPageRowsProps = Omit<
     WrappedComponentProps & TableProps,
     'pageRows'
-  > & { forwardedRef?: React.RefObject<RefType> };
+  > & { forwardedRef?: React.Ref<RefType> };
 
   class WithSortedPageRows extends React.Component<
     InternalWithSortedPageRowsProps,
@@ -119,7 +119,7 @@ export default function withSortedPageRows<
     state = { pageRows: [] };
 
     static getDerivedStateFromProps(
-      props: Omit<WrappedComponentProps & TableProps, 'pageRows'>,
+      props: InternalWithSortedPageRowsProps,
       state: { pageRows: Array<RowType> },
     ) {
       const {

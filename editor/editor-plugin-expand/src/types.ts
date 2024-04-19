@@ -7,6 +7,7 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
+import type { SelectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 
 import type { insertExpand } from './legacyExpand/commands';
 
@@ -50,6 +51,7 @@ export type ExpandPlugin = NextEditorPlugin<
       DecorationsPlugin,
       SelectionPlugin,
       OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<SelectionMarkerPlugin>,
     ];
     actions: {
       insertExpand: ReturnType<typeof insertExpand>;

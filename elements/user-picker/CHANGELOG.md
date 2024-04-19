@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.19.11
+
+### Patch Changes
+
+- [#91429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91429) [`3de462db1b3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3de462db1b3f) - Minor changes to Typescript types to improve compatibility with React 18
+
 ## 10.19.10
 
 ### Patch Changes

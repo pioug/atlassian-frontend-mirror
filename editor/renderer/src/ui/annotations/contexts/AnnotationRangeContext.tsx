@@ -162,9 +162,13 @@ export const AnnotationRangeProvider = ({
   }, []);
 
   const setHoverTarget = useCallback((target: HTMLElement) => {
+    // the HoverComponent expects an element deeply nested inside media, these classes work with the current implementation
+    const mediaNode = target.querySelector(
+      '.media-card-inline-player, .media-file-card-view',
+    ) as HTMLElement;
     const range = document.createRange();
-    range.setStartBefore(target);
-    range.setEndAfter(target);
+    range.setStartBefore(mediaNode);
+    range.setEndAfter(mediaNode);
     dispatch({ type: 'setHover', range });
   }, []);
 

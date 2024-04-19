@@ -17,7 +17,7 @@ import Tooltip from '../src';
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Toolbar = styled.div({
   backgroundColor: token('color.background.neutral'),
-  borderRadius: `${borderRadius}px`,
+  borderRadius: `${borderRadius()}px`,
   display: 'flex',
   padding: '5px',
 });

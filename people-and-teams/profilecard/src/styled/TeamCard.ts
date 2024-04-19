@@ -7,24 +7,25 @@ import { token } from '@atlaskit/tokens';
 
 import { bgColor, teamHeaderBgColor } from './constants';
 
-export const CardTriggerWrapper = styled.div`
-  display: inherit;
-`;
+export const CardTriggerWrapper = styled.div({
+  display: 'inherit',
+});
 
-export const CardWrapper = styled.div`
-  background-color: ${bgColor};
-  border-radius: ${borderRadius}px;
-  width: ${gridSize() * 40}px;
-  position: relative;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-`;
+export const CardWrapper = styled.div({
+  backgroundColor: bgColor,
+  borderRadius: `${borderRadius()}px`,
+  width: `${gridSize() * 40}px`,
+  position: 'relative',
+  WebkitFontSmoothing: 'antialiased',
+  MozOsxFontSmoothing: 'grayscale',
+});
 
-export const TeamForbiddenErrorStateWrapper = styled.div`
-  width: ${gridSize() * 40}px;
-  position: relative;
-`;
+export const TeamForbiddenErrorStateWrapper = styled.div({
+  width: `${gridSize() * 40}px`,
+  position: 'relative',
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
 export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
   background-color: ${(props) =>
     props.isLoading
@@ -40,77 +41,78 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
   height: ${gridSize() * 16}px;
 `;
 
-export const CardContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: ${token('space.300', '24px')};
-  min-height: ${gridSize() * 13}px;
-`;
+export const CardContent = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  padding: token('space.300', '24px'),
+  minHeight: `${gridSize() * 13}px`,
+});
 
-export const TeamName = styled.h6`
-  ${h600};
-  text-transform: none;
-  overflow: hidden;
-  max-height: 48px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-`;
+export const TeamName = styled.h6(h600, {
+  textTransform: 'none',
+  overflow: 'hidden',
+  maxHeight: '48px',
+  display: '-webkit-box',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+});
 
-export const MemberCount = styled.div`
-  color: ${token('color.text.subtlest', N200)};
-  margin-top: ${token('space.050', '4px')};
-`;
+export const MemberCount = styled.div({
+  color: token('color.text.subtlest', N200),
+  marginTop: token('space.050', '4px'),
+});
 
-export const AvatarSection = styled.div`
-  margin-top: ${token('space.200', '16px')};
-  margin-left: ${token('space.negative.025', '-2px')};
-`;
+export const AvatarSection = styled.div({
+  marginTop: token('space.200', '16px'),
+  marginLeft: token('space.negative.025', '-2px'),
+});
 
-export const DescriptionWrapper = styled.div`
-  margin-top: ${token('space.200', '16px')};
-  align-items: center;
-  display: flex;
-`;
+export const DescriptionWrapper = styled.div({
+  marginTop: token('space.200', '16px'),
+  alignItems: 'center',
+  display: 'flex',
+});
 
-export const Description = styled.span`
-  overflow: hidden;
-  max-height: 60px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-`;
+export const Description = styled.span({
+  overflow: 'hidden',
+  maxHeight: '60px',
+  display: '-webkit-box',
+  WebkitLineClamp: 3,
+  WebkitBoxOrient: 'vertical',
+});
 
-export const ActionButtons = styled.div`
-  width: calc(100% + 8px);
-  display: flex;
-  justify-content: space-between;
-  margin: ${token('space.300', '24px')} ${token('space.negative.300', '-24px')}
-    0 ${token('space.negative.100', '-8px')};
-  background-color: ${token(
+export const ActionButtons = styled.div({
+  width: 'calc(100% + 8px)',
+  display: 'flex',
+  justifyContent: 'space-between',
+  margin: `${token('space.300', '24px')} ${token(
+    'space.negative.300',
+    '-24px',
+  )} 0 ${token('space.negative.100', '-8px')}`,
+  backgroundColor: token(
     'elevation.surface.overlay',
     'hsla(0, 100%, 100%, 0.2)',
-  )};
-`;
+  ),
+});
 
-export const WrappedButton = styled.div`
-  flex-basis: 0;
-  flex-grow: 1;
-  margin-left: ${token('space.100', '8px')};
-`;
+export const WrappedButton = styled.div({
+  flexBasis: 0,
+  flexGrow: 1,
+  marginLeft: token('space.100', '8px'),
+});
 
-export const MoreButton = styled.div`
-  margin-left: ${token('space.100', '8px')};
-`;
+export const MoreButton = styled.div({
+  marginLeft: token('space.100', '8px'),
+});
 
-export const LoadingWrapper = styled.div`
-  text-align: center;
-  margin-top: ${token('space.500', '40px')};
-`;
+export const LoadingWrapper = styled.div({
+  textAlign: 'center',
+  marginTop: token('space.500', '40px'),
+});
 
-export const AccessLockSVGWrapper = styled.div`
-  margin-bottom: ${token('space.300', '24px')};
-`;
+export const AccessLockSVGWrapper = styled.div({
+  marginBottom: token('space.300', '24px'),
+});
 
 // export const LoadingTeamName = styled.div`
 //   width: 175px;

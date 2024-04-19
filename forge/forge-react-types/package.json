@@ -37,7 +37,7 @@
     "@atlaskit/form": "^9.2.0",
     "@atlaskit/heading": "^2.1.0",
     "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/modal-dialog": "^12.10.0",
+    "@atlaskit/modal-dialog": "^12.11.0",
     "@atlaskit/primitives": "^5.5.0",
     "@atlaskit/progress-bar": "2.0.2",
     "@atlaskit/progress-tracker": "8.5.10",

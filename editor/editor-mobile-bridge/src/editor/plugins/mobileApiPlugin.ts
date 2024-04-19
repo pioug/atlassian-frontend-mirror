@@ -155,7 +155,7 @@ export const mobileApiPlugin: NextEditorPlugin<
       DatePlugin,
       StatusPlugin,
       TextColorPlugin,
-      ExpandPlugin,
+      OptionalPlugin<ExpandPlugin>,
       TasksAndDecisionsPlugin,
     ];
     pluginConfiguration: {

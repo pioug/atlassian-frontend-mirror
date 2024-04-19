@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.16.3
+
+### Patch Changes
+
+- [#91429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91429) [`e66644a98985`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e66644a98985) - Updated TypeScript types for the `forwardedRef` prop in `withSortedPageRows` to improve compatibility with React 18
+
 ## 14.16.2
 
 ### Patch Changes

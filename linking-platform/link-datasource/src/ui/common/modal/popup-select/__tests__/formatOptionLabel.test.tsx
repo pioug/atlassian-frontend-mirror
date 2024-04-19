@@ -16,7 +16,7 @@ describe('Testing formatOptionLabel', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select-option--lozenge'),
+      queryByTestId('basic-filter-popup-select-option--lozenge'),
     ).toBeInTheDocument();
   });
 
@@ -28,7 +28,7 @@ describe('Testing formatOptionLabel', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select-option--avatar'),
+      queryByTestId('basic-filter-popup-select-option--avatar'),
     ).toBeInTheDocument();
   });
 
@@ -41,7 +41,7 @@ describe('Testing formatOptionLabel', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select-option--icon-label'),
+      queryByTestId('basic-filter-popup-select-option--icon-label'),
     ).toBeInTheDocument();
   });
 
@@ -54,7 +54,7 @@ describe('Testing formatOptionLabel', () => {
     });
 
     expect(
-      queryByTestId('jlol-basic-filter-popup-select-option--icon-label'),
+      queryByTestId('basic-filter-popup-select-option--icon-label'),
     ).toBeInTheDocument();
   });
 });

@@ -4,10 +4,7 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { token } from '@atlaskit/tokens';
 
 const decorationStyle = `
-    background-color: ${token(
-      'color.background.accent.gray.subtler',
-      '#DCDFE4',
-    )};
+    background-color: ${token('color.background.neutral', '#DCDFE4')};
   `;
 
 const decorationHighlightStyle = `

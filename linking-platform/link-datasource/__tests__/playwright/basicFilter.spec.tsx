@@ -48,9 +48,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     const popupSearchInput = page.locator(
       '#jlol-basic-filter-project-popup-select--input',
     );
-    const popupFooter = page.getByTestId(
-      'jlol-basic-filter-popup-select--footer',
-    );
+    const popupFooter = page.getByTestId('jlol-basic-filter-project--footer');
 
     await expect(popupMenu).toBeVisible();
     await expect(popupSearchInput).toBeVisible();
@@ -65,7 +63,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await page.getByTestId('jlol-basic-filter-project-trigger').click();
 
     const showMoreButton = page.locator(
-      '[data-testid="jlol-basic-filter-popup-select--show-more-button"]',
+      '[data-testid="jlol-basic-filter-project--show-more-button"]',
     );
 
     await showMoreButton.scrollIntoViewIfNeeded();
@@ -74,7 +72,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
 
     await expect(page.getByText('Test10', { exact: true })).toBeVisible();
     await expect(
-      page.getByTestId('jlol-basic-filter-popup-select--show-more-button'),
+      page.getByTestId('jlol-basic-filter-project--show-more-button'),
     ).toBeHidden();
   });
 
@@ -113,7 +111,7 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
     await page.type('#jlol-basic-filter-assignee-popup-select--input', `empty`);
 
     await expect(
-      page.getByTestId('jlol-basic-filter-popup-select--no-options-message'),
+      page.getByTestId('jlol-basic-filter-assignee--no-options-message'),
     ).toBeVisible();
 
     await page.type('#jlol-basic-filter-assignee-popup-select--input', ``);

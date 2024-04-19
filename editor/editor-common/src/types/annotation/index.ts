@@ -98,6 +98,11 @@ export type InlineCommentHoverComponentProps = {
   range: Range;
 
   /**
+   * Is mouse within the range container
+   */
+  isWithinRange: boolean;
+
+  /**
    * Renderer/Editor DOM element ancestors wrapping the selection.
    */
   wrapperDOM: HTMLElement;

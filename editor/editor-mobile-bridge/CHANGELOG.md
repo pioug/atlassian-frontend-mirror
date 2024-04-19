@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.10.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.10.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 193.10.9
+
+### Patch Changes
+
+- [#90925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/90925) [`431c0d17e3e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/431c0d17e3e3) - [ux] Improve the selection marker by hiding it when in an expand and improving styling by making it more subtle.
+- Updated dependencies
+
 ## 193.10.8
 
 ### Patch Changes

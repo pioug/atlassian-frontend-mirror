@@ -7,7 +7,7 @@ import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../../../analytics';
-import { SEARCH_DEBOUNCE_MS } from '../../../../jira-issues-modal/basic-filters/ui/async-popup-select';
+import { SEARCH_DEBOUNCE_MS } from '../constants';
 
 import { asyncPopupSelectMessages } from './messages';
 import CustomSelectMessage from './selectMessage';
@@ -39,7 +39,7 @@ const CustomNoOptionsMessage = ({ filterName }: { filterName: string }) => {
         />
       }
       message={asyncPopupSelectMessages.noOptionsMessage}
-      testId="jlol-basic-filter-popup-select--no-options-message"
+      testId={`${filterName}--no-options-message`}
     />
   );
 };

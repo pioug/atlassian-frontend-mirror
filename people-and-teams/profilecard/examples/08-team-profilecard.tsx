@@ -13,9 +13,9 @@ import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 import { CardWrapper } from './helper/wrapper';
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
 const props = {
   team: teamData({}),

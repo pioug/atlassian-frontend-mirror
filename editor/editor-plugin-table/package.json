@@ -30,7 +30,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^35.9.0",
     "@atlaskit/custom-steps": "^0.0.18",
-    "@atlaskit/editor-common": "^78.28.0",
+    "@atlaskit/editor-common": "^78.29.0",
     "@atlaskit/editor-palette": "1.5.3",
     "@atlaskit/editor-plugin-accessibility-utils": "^1.0.0",
     "@atlaskit/editor-plugin-analytics": "^1.0.0",

@@ -9,10 +9,10 @@ import {
 } from '@atlaskit/link-test-helpers/datasource';
 import { Flex, xcss } from '@atlaskit/primitives';
 
+import { SelectOption } from '../../src/ui/common/modal/popup-select/types';
 import {
   BasicFilterFieldType,
   SelectedOptionsMap,
-  SelectOption,
 } from '../../src/ui/jira-issues-modal/basic-filters/types';
 import AsyncPopupSelect from '../../src/ui/jira-issues-modal/basic-filters/ui/async-popup-select';
 

@@ -119,6 +119,8 @@ export class ExpandNodeView implements NodeView {
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
   api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+  decorationCleanup?: () => boolean | undefined;
+
   constructor(
     node: PmNode,
     view: EditorView,
@@ -171,6 +173,8 @@ export class ExpandNodeView implements NodeView {
     if (this.input) {
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       this.input.addEventListener('keydown', this.handleTitleKeydown);
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+      this.input.addEventListener('blur', this.handleBlur);
     }
     if (this.titleContainer) {
       // If the user interacts in our title bar (either toggle or input)
@@ -200,6 +204,8 @@ export class ExpandNodeView implements NodeView {
       if (typeof pos === 'number') {
         setSelectionInsideExpand(pos)(state, dispatch, this.view);
       }
+      this.decorationCleanup =
+        this.api?.selectionMarker?.actions?.hideDecoration();
       this.input.focus();
     }
   };
@@ -297,6 +303,10 @@ export class ExpandNodeView implements NodeView {
 
   private handleFocus = (event: FocusEvent) => {
     event.stopImmediatePropagation();
+  };
+
+  private handleBlur = (event: FocusEvent) => {
+    this.decorationCleanup?.();
   };
 
   private handleTitleKeydown = (event: KeyboardEvent) => {
@@ -588,6 +598,8 @@ export class ExpandNodeView implements NodeView {
     if (this.input) {
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       this.input.removeEventListener('keydown', this.handleTitleKeydown);
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+      this.input.removeEventListener('blur', this.handleBlur);
     }
 
     if (this.titleContainer) {
@@ -600,6 +612,8 @@ export class ExpandNodeView implements NodeView {
       this.icon.removeEventListener('keydown', this.handleIconKeyDown);
       ReactDOM.unmountComponentAtNode(this.icon);
     }
+
+    this.decorationCleanup?.();
 
     // @ts-ignore - [unblock prosemirror bump] reset non optional prop to undefined to clear reference
     this.dom = undefined;

@@ -11,6 +11,7 @@ import { asyncPopupSelectMessages } from './messages';
 export interface PopupFooterProps {
   currentDisplayCount: number;
   totalCount: number;
+  filterName: string;
 }
 
 const footerContainerStyles = xcss({
@@ -25,10 +26,14 @@ const footerPaginationInfoStyles = xcss({
   marginInline: 'space.150',
 });
 
-const PopupFooter = ({ currentDisplayCount, totalCount }: PopupFooterProps) => {
+const PopupFooter = ({
+  currentDisplayCount,
+  totalCount,
+  filterName,
+}: PopupFooterProps) => {
   return (
     <Flex
-      testId="jlol-basic-filter-popup-select--footer"
+      testId={`${filterName}--footer`}
       direction="row"
       alignItems="center"
       justifyContent="end"

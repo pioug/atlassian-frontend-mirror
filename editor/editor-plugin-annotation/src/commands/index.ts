@@ -164,11 +164,13 @@ export const removeInlineCommentNearSelection =
 const getDraftCommandAction: (
   drafting: boolean,
   targetType: TargetType,
+  targetNodeId?: string,
   isCommentOnMediaOn?: boolean,
   supportedBlockNodes?: string[],
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
   drafting: boolean,
   targetType: TargetType,
+  targetNodeId?: string,
   isCommentOnMediaOn?: boolean,
   supportedBlockNodes?: string[],
 ) => {
@@ -190,6 +192,7 @@ const getDraftCommandAction: (
         targetType,
         isCommentOnMediaOn,
         supportedBlockNodes,
+        targetNodeId,
       },
     };
   };
@@ -250,10 +253,12 @@ export const setInlineCommentDraftState =
     inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
     targetType: TargetType = 'inline',
     isCommentOnMediaOn: boolean = false,
+    targetNodeId: string | undefined = undefined,
   ): Command => {
     const commandAction = getDraftCommandAction(
       drafting,
       targetType,
+      targetNodeId,
       isCommentOnMediaOn,
       supportedBlockNodes,
     );

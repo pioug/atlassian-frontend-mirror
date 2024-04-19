@@ -24,6 +24,24 @@ import { SelectOption } from './types';
 // Needed to disable filtering from react-select
 const noFilterOptions = () => true;
 
+export interface FilterPopupSelectProps {
+  buttonLabel: string;
+  totalCount: number;
+  filterName: string;
+  isDisabled: boolean;
+  showLoading: boolean;
+  showHydrating: boolean;
+  shouldShowFooter: boolean;
+  status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
+  menuListProps: CustomMenuListProps;
+  options: ValueType<SelectOption, true>;
+  selectedOptions: ValueType<SelectOption, true>;
+  onSelectionChange: (newValue: ValueType<SelectOption, true>) => void;
+  onInputChange: (newValue: string, actionMeta: InputActionMeta) => void;
+  onMenuOpen?: () => void;
+  onMenuClose?: () => void;
+}
+
 export const FilterPopupSelect = ({
   filterName,
   totalCount,
@@ -40,23 +58,7 @@ export const FilterPopupSelect = ({
   onInputChange,
   onMenuClose,
   onMenuOpen,
-}: {
-  buttonLabel: string;
-  totalCount: number;
-  filterName: string;
-  isDisabled: boolean;
-  showLoading: boolean;
-  showHydrating: boolean;
-  shouldShowFooter: boolean;
-  status: 'empty' | 'loading' | 'resolved' | 'rejected' | 'loadingMore';
-  menuListProps: CustomMenuListProps;
-  options: ValueType<SelectOption, true>;
-  selectedOptions: ValueType<SelectOption, true>;
-  onSelectionChange: (newValue: ValueType<SelectOption, true>) => void;
-  onInputChange: (newValue: string, actionMeta: InputActionMeta) => void;
-  onMenuOpen?: () => void;
-  onMenuClose?: () => void;
-}) => {
+}: FilterPopupSelectProps) => {
   const { formatMessage } = useIntl();
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const [searchTerm, setSearchTerm] = useState('');
@@ -241,6 +243,7 @@ export const FilterPopupSelect = ({
           <PopupFooter
             currentDisplayCount={options.length}
             totalCount={totalCount}
+            filterName={filterName}
           />
         )
       }

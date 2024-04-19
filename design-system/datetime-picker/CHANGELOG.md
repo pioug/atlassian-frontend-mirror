@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 13.3.2
+
+### Patch Changes
+
+- [#91429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91429) [`3a4be575c5b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a4be575c5b5) - Updated TypeScript types for the default props of `DateTimePicker` to improve compatibility with React 18
+
 ## 13.3.1
 
 ### Patch Changes

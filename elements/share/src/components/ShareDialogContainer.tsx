@@ -69,13 +69,16 @@ function getCurrentPageUrl(): string {
   return window.location.href;
 }
 
+type ShareDialogContainerInternalProps = WithAnalyticsEventsProps &
+  ShareDialogContainerProps;
+
 /**
  * This component serves as a Provider to provide customizable implementations
  * to ShareDialogTrigger component
  */
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ShareDialogContainerInternal extends React.Component<
-  WithAnalyticsEventsProps & ShareDialogContainerProps,
+  ShareDialogContainerInternalProps,
   State
 > {
   private shareClient: ShareClient;
@@ -84,9 +87,9 @@ export class ShareDialogContainerInternal extends React.Component<
   private _urlShorteningRequestCounter = 0;
   private _lastUrlShorteningWasTooSlow = false;
 
-  static defaultProps = {
+  static defaultProps: Partial<ShareDialogContainerInternalProps> = {
     enableSmartUserPicker: false,
-    shareeAction: 'view' as 'view' | 'edit',
+    shareeAction: 'view',
     product: 'confluence',
   };
 

@@ -30,7 +30,7 @@ const ShowMoreButton = ({ onShowMore, filterName }: ShowMoreButtonProps) => {
     <Button
       onClick={handleShowMore}
       appearance="link"
-      testId="jlol-basic-filter-popup-select--show-more-button"
+      testId={`${filterName}--show-more-button`}
     >
       {formatMessage(asyncPopupSelectMessages.showMoreMessage)}
     </Button>

@@ -19,6 +19,7 @@ import { RendererContext as ActionsContext } from '../../RendererActionsContext'
 
 type Props = {
   range: Range;
+  isWithinRange: boolean;
   component: React.ComponentType<InlineCommentHoverComponentProps>;
   wrapperDOM: React.RefObject<HTMLDivElement>;
   documentPosition: Position | false;
@@ -35,6 +36,7 @@ export const Mounter = React.memo((props: Props) => {
   const {
     component: Component,
     range,
+    isWithinRange,
     isAnnotationAllowed,
     wrapperDOM,
     onClose: onCloseProps,
@@ -176,6 +178,7 @@ export const Mounter = React.memo((props: Props) => {
   return (
     <Component
       range={range}
+      isWithinRange={isWithinRange}
       wrapperDOM={wrapperDOM.current as HTMLElement}
       isAnnotationAllowed={isAnnotationAllowed}
       onClose={onCloseCallback}

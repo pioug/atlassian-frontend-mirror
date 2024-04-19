@@ -34,7 +34,7 @@ export function createTheme<ThemeTokens, ThemeProps>(
   Consumer: ComponentType<
     ThemeProps extends void
       ? ThemeConsumerFn<ThemeTokens>
-      : ThemeConsumerFn<ThemeTokens> & ThemeProps
+      : ThemeConsumerFn<ThemeTokens> & Omit<ThemeProps, 'children'>
   >;
   Provider: ComponentType<{
     children?: ReactNode;
@@ -68,7 +68,7 @@ export function createTheme<ThemeTokens, ThemeProps>(
   function Consumer(
     props: ThemeProps extends void
       ? ThemeConsumerFn<ThemeTokens>
-      : ThemeConsumerFn<ThemeTokens> & ThemeProps,
+      : ThemeConsumerFn<ThemeTokens> & Omit<ThemeProps, 'children'>,
   ) {
     const { children, ...themeProps } = props;
 

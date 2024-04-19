@@ -49,6 +49,8 @@ export class ExpandNodeView implements NodeView {
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
   api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+  decorationCleanup?: () => boolean | undefined;
+
   constructor(
     node: PmNode,
     view: EditorView,
@@ -94,6 +96,7 @@ export class ExpandNodeView implements NodeView {
     this.dom.addEventListener('click', this.handleClick);
     this.dom.addEventListener('input', this.handleInput);
     this.input.addEventListener('keydown', this.handleTitleKeydown);
+    this.input.addEventListener('blur', this.handleBlur);
     // If the user interacts in our title bar (either toggle or input)
     // Prevent ProseMirror from getting a focus event (causes weird selection issues).
     this.titleContainer.addEventListener('focus', this.handleFocus);
@@ -115,6 +118,8 @@ export class ExpandNodeView implements NodeView {
       if (typeof pos === 'number') {
         setSelectionInsideExpand(pos)(state, dispatch, this.view);
       }
+      this.decorationCleanup =
+        this.api?.selectionMarker?.actions?.hideDecoration();
       this.input.focus();
     }
   };
@@ -185,6 +190,10 @@ export class ExpandNodeView implements NodeView {
 
   private handleFocus = (event: FocusEvent) => {
     event.stopImmediatePropagation();
+  };
+
+  private handleBlur = (event: FocusEvent) => {
+    this.decorationCleanup?.();
   };
 
   private handleTitleKeydown = (event: KeyboardEvent) => {
@@ -428,8 +437,10 @@ export class ExpandNodeView implements NodeView {
     this.dom.removeEventListener('click', this.handleClick);
     this.dom.removeEventListener('input', this.handleInput);
     this.input.removeEventListener('keydown', this.handleTitleKeydown);
+    this.input.removeEventListener('blur', this.handleBlur);
     this.titleContainer.removeEventListener('focus', this.handleFocus);
     this.icon.removeEventListener('keydown', this.handleIconKeyDown);
+    this.decorationCleanup?.();
     ReactDOM.unmountComponentAtNode(this.icon);
   }
 }

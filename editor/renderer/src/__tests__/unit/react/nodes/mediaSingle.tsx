@@ -41,6 +41,7 @@ describe('MediaSingle', () => {
             marks={[]}
             type={imageFileId.mediaItemType}
             collection={imageFileId.collectionName}
+            isDrafting={false}
             {...mediaProps}
           />
           {showCaption && (

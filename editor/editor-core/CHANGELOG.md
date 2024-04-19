@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 193.10.11
+
+### Patch Changes
+
+- [#91808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91808) [`00e5dcfdf240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00e5dcfdf240) - Adds allowCommentsOnMedia in media plugin options to check the appearance of the renderer
+
 ## 193.10.8
 
 ### Patch Changes

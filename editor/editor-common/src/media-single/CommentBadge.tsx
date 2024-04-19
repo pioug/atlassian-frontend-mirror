@@ -43,6 +43,7 @@ export type CommentBadgeProps = {
   onMouseEnter?: (e: React.MouseEvent) => void;
   onMouseLeave?: (e: React.MouseEvent) => void;
   isEditor?: boolean;
+  isDrafting?: boolean;
 };
 
 export const CommentBadge = ({

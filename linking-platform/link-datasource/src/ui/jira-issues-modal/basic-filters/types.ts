@@ -1,39 +1,6 @@
+import { SelectOption } from '../../common/modal/popup-select/types';
+
 export type BasicFilterFieldType = 'project' | 'assignee' | 'type' | 'status';
-
-export interface OptionBase {
-  label: string;
-  value: string;
-}
-
-export type IconLabelOption = OptionBase & {
-  optionType: 'iconLabel';
-  icon: string;
-};
-
-export type LozengeLabelOption = OptionBase & {
-  optionType: 'lozengeLabel';
-  appearance?: LozengeAppearance;
-};
-
-export type LozengeAppearance =
-  | 'default'
-  | 'inprogress'
-  | 'moved'
-  | 'new'
-  | 'removed'
-  | 'success';
-
-export type AvatarLabelOption = OptionBase & {
-  optionType: 'avatarLabel';
-  avatar?: string;
-  isSquare?: boolean;
-  isGroup?: boolean;
-};
-
-export type SelectOption =
-  | IconLabelOption
-  | LozengeLabelOption
-  | AvatarLabelOption;
 
 export type SelectedOptionsMap = {
   [key in BasicFilterFieldType]?: SelectOption[];

@@ -11,13 +11,13 @@ import ProfileCardTrigger from '../src/components/User';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient } from './helper/util';
 
-export const Wrap = styled.div`
-  margin-bottom: ${token('space.250', '20px')};
-`;
+export const Wrap = styled.div({
+  marginBottom: token('space.250', '20px'),
+});
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
 export default function Example() {
   const [flags, setFlags] = useState<Array<FlagProps>>([]);

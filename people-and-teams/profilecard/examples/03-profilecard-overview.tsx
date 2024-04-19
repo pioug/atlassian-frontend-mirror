@@ -11,17 +11,16 @@ import { ProfilecardProps, ReportingLinesUser } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
-export const Section = styled.div`
-  margin: ${token('space.200', '16px')} 0;
-
-  h4 {
-    margin: ${token('space.100', '8px')} 0;
-  }
-`;
+export const Section = styled.div({
+  margin: `${token('space.200', '16px')} 0`,
+  h4: {
+    margin: `${token('space.100', '8px')} 0`,
+  },
+});
 
 const fakeProfileData = {
   avatarUrl: profiles[4].User.avatarUrl,

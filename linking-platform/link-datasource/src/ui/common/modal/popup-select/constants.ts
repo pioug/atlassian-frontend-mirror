@@ -1,0 +1,3 @@
+export const FILTER_SELECTION_DEBOUNCE_MS = 500;
+
+export const SEARCH_DEBOUNCE_MS = 350;

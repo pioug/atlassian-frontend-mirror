@@ -219,8 +219,8 @@ const colorCardContentCheckMarkStyles = css({
 const sharedColorContainerStylesNew = css({
   display: 'inline-block',
   position: 'relative',
-  width: token('space.300', '32px'),
-  height: token('space.300', '32px'),
+  width: token('space.400', '32px'),
+  height: token('space.400', '32px'),
   border: '2px solid transparent',
   boxSizing: 'border-box',
   borderRadius: token('border.radius.200', '6px'),

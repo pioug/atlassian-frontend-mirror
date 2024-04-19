@@ -9,9 +9,9 @@ import { profiles } from '../src/mocks';
 
 import ExampleWrapper from './helper/example-wrapper';
 
-export const MainStage = styled.div`
-  margin: ${token('space.200', '16px')};
-`;
+export const MainStage = styled.div({
+  margin: token('space.200', '16px'),
+});
 
 const avatarImage = profiles[4].User.avatarUrl;
 

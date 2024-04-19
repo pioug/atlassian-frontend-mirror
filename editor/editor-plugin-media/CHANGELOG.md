@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.15.2
+
+### Patch Changes
+
+- [#91808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91808) [`00e5dcfdf240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00e5dcfdf240) - Adds allowCommentsOnMedia in media plugin options to check the appearance of the renderer
+- [#91808](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91808) [`00e5dcfdf240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00e5dcfdf240) - [ux] Do not add comments button on the media toolbar when media is not inside full page editor.
+- [#91594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91594) [`26b59de564d9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26b59de564d9) - [ED-23025] Check for undefined in the status utility for the comment badge of media nodes
+
 ## 1.15.1
 
 ### Patch Changes

@@ -89,6 +89,7 @@ const initialState = (
     isVisible: true,
     skipSelectionHandling: false,
     featureFlagsPluginState,
+    isDrafting: false,
   };
 };
 

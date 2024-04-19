@@ -8,6 +8,7 @@ import {
   useAnnotationRangeDispatch,
   useAnnotationRangeState,
 } from '../contexts/AnnotationRangeContext';
+import { useAnnotationHoverContext } from '../contexts/AnnotationHoverContext';
 
 type Props = {
   component: React.ComponentType<InlineCommentHoverComponentProps>;
@@ -28,6 +29,7 @@ export const RangeValidator = (props: Props) => {
   const actions = useContext(ActionsContext);
   const { clearHoverRange } = useAnnotationRangeDispatch();
   const { range, type } = useAnnotationRangeState();
+  const { isWithinRange } = useAnnotationHoverContext();
 
   if (!range || type !== 'hover') {
     return null;
@@ -35,6 +37,7 @@ export const RangeValidator = (props: Props) => {
   const documentPosition = actions.getPositionFromRange(range);
   return (
     <Mounter
+      isWithinRange={isWithinRange}
       range={range}
       wrapperDOM={rendererRef}
       component={component}

@@ -46,6 +46,7 @@ describe('Annotations: Mounter', () => {
 
     render(
       <Mounter
+        isWithinRange
         range={document.createRange()}
         wrapperDOM={wrapperDOM}
         onClose={fakeOnCloseProp}

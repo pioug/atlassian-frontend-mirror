@@ -21,12 +21,13 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
+import { SelectOption } from '../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import {
   HydrateJqlState,
   useHydrateJqlQuery,
 } from '../../basic-filters/hooks/useHydrateJqlQuery';
-import { BasicFilterFieldType, SelectOption } from '../../basic-filters/types';
+import { BasicFilterFieldType } from '../../basic-filters/types';
 import { availableBasicFilterTypes } from '../../basic-filters/ui';
 import { JiraIssueDatasourceParameters } from '../../types';
 import {
@@ -833,7 +834,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const initialLozengeOptions = within(selectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
         const secondOption = initialLozengeOptions[1];
 
@@ -865,7 +866,7 @@ describe('JiraSearchContainer', () => {
           'jlol-basic-filter-status-popup-select--menu',
         );
         const updatedLozengeOptions = within(selectMenu2).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
 
         // Check that the ordering has been updated on reopen
@@ -906,7 +907,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
         fireEvent.click(firstStatus);
 
@@ -930,7 +931,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const [firstProject] = within(projectSelectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
         fireEvent.click(firstProject);
         // Close menu
@@ -964,7 +965,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const [firstStatus] = within(statusSelectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
         fireEvent.click(firstStatus);
 
@@ -1309,7 +1310,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const [firstOption] = within(selectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
 
         fireEvent.click(firstOption);
@@ -1392,7 +1393,7 @@ describe('JiraSearchContainer', () => {
         );
 
         const [firstOption] = within(selectMenu).queryAllByTestId(
-          'jlol-basic-filter-popup-select-option--lozenge',
+          'basic-filter-popup-select-option--lozenge',
         );
 
         fireEvent.click(firstOption);

@@ -3,11 +3,8 @@ import React, { useMemo } from 'react';
 import { Flex, xcss } from '@atlaskit/primitives';
 
 import type { Site } from '../../../../common/types';
-import type {
-  BasicFilterFieldType,
-  SelectedOptionsMap,
-  SelectOption,
-} from '../types';
+import { SelectOption } from '../../../common/modal/popup-select/types';
+import type { BasicFilterFieldType, SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 
 import AsyncPopupSelect from './async-popup-select';

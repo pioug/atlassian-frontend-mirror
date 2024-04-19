@@ -16,24 +16,23 @@ import {
   StatusType,
 } from '../../src/types';
 
-const StoryWrapper = styled.div`
-  label {
-    color: ${token('color.text', N800)};
-    margin-right: ${token('space.100', '8px')};
-    -webkit-user-select: none;
-  }
+const StoryWrapper = styled.div({
+  label: {
+    color: token('color.text', N800),
+    marginRight: token('space.100', '8px'),
+    WebkitUserSelect: 'none',
+  },
+  ul: {
+    margin: 0,
+    padding: 0,
+    listStyle: 'none',
+    float: 'left',
+  },
+});
 
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    float: left;
-  }
-`;
-
-const ProfileCardWrapper = styled.div`
-  height: 400px;
-`;
+const ProfileCardWrapper = styled.div({
+  height: '400px',
+});
 
 const handleActionClick = (title: string) => () => {
   console.log(`${title} button clicked`);

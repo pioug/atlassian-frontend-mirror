@@ -83,7 +83,7 @@ const styles: StylesConfig = {
 };
 
 const dateTimePickerDefaultProps = {
-  appearance: 'default',
+  appearance: 'default' as NonNullable<DateTimePickerBaseProps['appearance']>,
   autoFocus: false,
   isDisabled: false,
   name: '',
@@ -104,7 +104,7 @@ const dateTimePickerDefaultProps = {
   datePickerSelectProps: {},
   timePickerSelectProps: {},
   times: defaultTimes,
-  spacing: 'default',
+  spacing: 'default' as NonNullable<DateTimePickerBaseProps['spacing']>,
   locale: 'en-US',
   // Not including a default prop for value as it will
   // Make the component a controlled component
@@ -114,7 +114,7 @@ export const datePickerDefaultAriaLabel = 'Date';
 export const timePickerDefaultAriaLabel = 'Time';
 
 class DateTimePicker extends React.Component<DateTimePickerProps, State> {
-  static defaultProps = dateTimePickerDefaultProps;
+  static defaultProps: DateTimePickerProps = dateTimePickerDefaultProps;
 
   state: State = {
     dateValue: '',

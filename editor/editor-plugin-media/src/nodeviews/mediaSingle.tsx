@@ -310,6 +310,7 @@ export default class MediaSingleNode extends Component<
       editorViewMode,
       mediaPluginState,
       editorDisabled,
+      annotationPluginState,
     } = this.props;
     const { commentsOnMedia = false } =
       mediaOptions?.getEditorFeatureFlags?.() || {};
@@ -418,6 +419,10 @@ export default class MediaSingleNode extends Component<
       isSelected &&
       state.selection instanceof NodeSelection;
 
+    const isCurrentNodeDrafting =
+      annotationPluginState?.isDrafting &&
+      annotationPluginState?.targetNodeId === node?.firstChild?.attrs.id;
+
     const MediaChildren = (
       <figure
         ref={this.mediaSingleWrapperRef}
@@ -433,6 +438,7 @@ export default class MediaSingleNode extends Component<
             }
             mediaNode={node?.firstChild}
             getPos={getPos}
+            isDrafting={isCurrentNodeDrafting}
           />
         )}
         <div ref={this.props.forwardRef} />

@@ -43,6 +43,7 @@ type SetInlineCommentDraftState = (
   targetType?: TargetType,
   /** check for confluence.frontend.fabric.editor.comments-on-media feature flag */
   isCommentOnMediaOn?: boolean,
+  targetNodeId?: string,
 ) => Command;
 
 export type AnnotationPlugin = NextEditorPlugin<

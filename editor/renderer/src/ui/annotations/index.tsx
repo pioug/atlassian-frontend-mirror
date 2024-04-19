@@ -9,6 +9,7 @@ import { useLoadAnnotations } from './hooks/use-load-annotations';
 import { useAnnotationStateByTypeEvent } from './hooks/use-events';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
+import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 
 const LoadAnnotations = React.memo(
   ({ adfDocument }: Record<'adfDocument', JSONDocNode>) => {
@@ -40,14 +41,16 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
             annotationProvider?.inlineComment?.allowCommentsOnMedia ?? false
           }
         >
-          <AnnotationsContextWrapper
-            createAnalyticsEvent={createAnalyticsEvent}
-            rendererRef={rendererRef}
-          >
-            <LoadAnnotations adfDocument={adfDocument} />
-            <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
-            {children}
-          </AnnotationsContextWrapper>
+          <AnnotationHoverContext>
+            <AnnotationsContextWrapper
+              createAnalyticsEvent={createAnalyticsEvent}
+              rendererRef={rendererRef}
+            >
+              <LoadAnnotations adfDocument={adfDocument} />
+              <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
+              {children}
+            </AnnotationsContextWrapper>
+          </AnnotationHoverContext>
         </AnnotationRangeProvider>
       </InlineCommentsStateContext.Provider>
     </ProvidersContext.Provider>

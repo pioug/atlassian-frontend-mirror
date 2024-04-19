@@ -270,6 +270,7 @@ const generateMediaSingleFloatingToolbar = (
     allowResizing,
     allowLinking,
     allowAdvancedToolBarOptions,
+    allowCommentsOnMedia,
     allowResizingInTables,
     allowAltTextOnImages,
     allowMediaInline,
@@ -592,7 +593,11 @@ const generateMediaSingleFloatingToolbar = (
       toolbarButtons.push({ type: 'separator' });
     }
 
-    if (editorFeatureFlags && editorFeatureFlags.commentsOnMedia) {
+    if (
+      editorFeatureFlags &&
+      editorFeatureFlags.commentsOnMedia &&
+      allowCommentsOnMedia
+    ) {
       toolbarButtons.push(commentButton(intl, state, pluginInjectionApi), {
         type: 'separator',
       });

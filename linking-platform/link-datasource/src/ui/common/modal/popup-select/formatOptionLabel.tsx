@@ -42,7 +42,7 @@ const IconOptionLabel = ({ data }: { data: IconLabelOption }) => {
   return (
     <AvatarOptionLabel
       data={avatarOptionLabelData}
-      testId="jlol-basic-filter-popup-select-option--icon-label"
+      testId="basic-filter-popup-select-option--icon-label"
     />
   );
 };
@@ -51,7 +51,7 @@ const LozengeOptionLabel = ({ data }: { data: LozengeLabelOption }) => {
   return (
     <Lozenge
       appearance={data.appearance}
-      testId="jlol-basic-filter-popup-select-option--lozenge"
+      testId="basic-filter-popup-select-option--lozenge"
     >
       <Box xcss={[commonLabelStyles]}>{data.label}</Box>
     </Lozenge>
@@ -68,7 +68,7 @@ const AvatarOptionLabel = ({
   return (
     <Flex
       alignItems="center"
-      testId={testId || 'jlol-basic-filter-popup-select-option--avatar'}
+      testId={testId || 'basic-filter-popup-select-option--avatar'}
     >
       {data.isGroup ? (
         <Flex
@@ -85,7 +85,7 @@ const AvatarOptionLabel = ({
           size="xsmall"
         />
       )}
-      <Box xcss={[commonLabelStyles, avatarOptionLabelStyles]} testId="nidhin">
+      <Box xcss={[commonLabelStyles, avatarOptionLabelStyles]}>
         {data.label}
       </Box>
     </Flex>

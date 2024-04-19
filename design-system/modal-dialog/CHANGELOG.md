@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.11.0
+
+### Minor Changes
+
+- [#82087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/82087) [`aa45bc0045bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aa45bc0045bb) - [ux] This change introduces `focusLockAllowlist` prop. It allows to pass callback function to specify nodes which focus lock should ignore.
+
 ## 12.10.10
 
 ### Patch Changes

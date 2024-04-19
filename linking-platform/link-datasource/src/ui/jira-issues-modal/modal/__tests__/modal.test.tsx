@@ -21,10 +21,10 @@ import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { SelectOption } from '../../../common/modal/popup-select/types';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
 import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
-import { SelectOption } from '../../basic-filters/types';
 import JiraIssuesConfigModal from '../../index'; // Using async one to test lazy integration at the same time
 import { JiraIssuesDatasourceAdf } from '../../types';
 
@@ -274,7 +274,7 @@ describe('JiraIssuesConfigModal', () => {
         );
         const [firstStatus, secondStatus] = within(
           statusSelectMenu,
-        ).queryAllByTestId('jlol-basic-filter-popup-select-option--lozenge');
+        ).queryAllByTestId('basic-filter-popup-select-option--lozenge');
         fireEvent.click(firstStatus); // select the first status
         fireEvent.click(secondStatus); // select the second status
 

@@ -351,6 +351,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
               getMediaFeatureFlag('mediaInline', options.featureFlags),
             allowResizing: options && options.allowResizing,
             allowResizingInTables: options && options.allowResizingInTables,
+            allowCommentsOnMedia: options && options.allowCommentsOnMedia,
             allowLinking: options && options.allowLinking,
             allowAdvancedToolBarOptions:
               options && options.allowAdvancedToolBarOptions,

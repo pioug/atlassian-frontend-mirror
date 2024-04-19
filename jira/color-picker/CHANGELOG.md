@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.2.8
+
+### Patch Changes
+
+- [#91880](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91880) [`b4448486d34b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4448486d34b) - [ux] Fixed token for width and height of color cards and added VR tests
+
 ## 3.2.7
 
 ### Patch Changes

@@ -36,6 +36,7 @@ export default (
         action.data.targetType,
         action.data.isCommentOnMediaOn,
         action.data.supportedBlockNodes,
+        action.data.targetNodeId,
       );
     case ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK:
       return {
@@ -47,6 +48,7 @@ export default (
       return {
         ...pluginState,
         isInlineCommentViewClosed: true,
+        isDrafting: false,
       };
 
     case ACTIONS.ADD_INLINE_COMMENT:
@@ -97,6 +99,7 @@ function getNewDraftState(
   targetType?: TargetType,
   isCommentOnMediaOn?: boolean,
   supportedBlockNodes?: string[],
+  targetNodeId?: string,
 ) {
   let { draftDecorationSet } = pluginState;
 
@@ -104,7 +107,13 @@ function getNewDraftState(
     draftDecorationSet = DecorationSet.empty;
   }
 
-  let newState = { ...pluginState, draftDecorationSet };
+  let newState = {
+    ...pluginState,
+    draftDecorationSet,
+    isDrafting: drafting,
+    targetNodeId,
+  };
+
   newState.bookmark = undefined;
 
   if (drafting && editorState) {

@@ -1,4 +1,5 @@
 import type { Rule, Scope } from 'eslint';
+import { isNodeOfType } from 'eslint-codemod-utils';
 import type { CallExpression } from 'estree';
 
 type Definition = Scope.Definition;
@@ -163,6 +164,35 @@ export const isStyled = isSupportedImportWrapper('styled', [
   '@emotion/styled',
 ]);
 export const isXcss = isSupportedImportWrapper('xcss');
+
+export const hasStyleObjectArguments: SupportedNameChecker = (
+  node,
+  references,
+  importSources,
+) =>
+  [isCss, isCssMap, isKeyframes, isStyled, isXcss].some(checker => {
+    if (checker === isStyled) {
+      /**
+       * If this is a `styled` call of either form:
+       *
+       * - styled(BaseComponent)({})
+       * - styled(BaseComponent)``
+       *
+       * Then we want to ignore the inner `CallExpression`,
+       * as it does not have style object arguments.
+       */
+      const shouldIgnore =
+        isNodeOfType(node, 'CallExpression') &&
+        (node.parent?.type === 'CallExpression' ||
+          node.parent?.type === 'TaggedTemplateExpression');
+
+      if (shouldIgnore) {
+        return false;
+      }
+    }
+
+    return checker(node, references, importSources);
+  });
 
 export const isImportedFrom =
   (moduleName: string, exactMatch = true) =>

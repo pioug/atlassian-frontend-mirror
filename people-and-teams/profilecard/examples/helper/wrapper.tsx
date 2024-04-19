@@ -9,8 +9,8 @@ const themedBoxShadow = token(
   `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
 );
 
-export const CardWrapper = styled.div`
-  display: inline-block;
-  border-radius: ${borderRadius()}px;
-  box-shadow: ${themedBoxShadow};
-`;
+export const CardWrapper = styled.div({
+  display: 'inline-block',
+  borderRadius: `${borderRadius()}px`,
+  boxShadow: themedBoxShadow,
+});

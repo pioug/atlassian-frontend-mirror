@@ -35,7 +35,7 @@ const selectionMarkerCursorStyles = xcss({
   content: "''",
   position: 'absolute',
   background: token('color.text', N500),
-  width: token('space.025', '2px'),
+  width: '1px',
   display: 'inline-block',
   top: 'space.0',
   bottom: token('space.negative.025', '-2px'),

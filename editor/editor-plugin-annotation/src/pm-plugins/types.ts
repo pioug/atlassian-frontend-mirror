@@ -54,6 +54,7 @@ export type InlineCommentAction =
         targetType?: TargetType;
         isCommentOnMediaOn?: boolean;
         supportedBlockNodes?: string[];
+        targetNodeId?: string;
       };
     }
   | {
@@ -97,4 +98,6 @@ export type InlineCommentPluginState = {
   skipSelectionHandling: boolean;
 
   featureFlagsPluginState?: FeatureFlags;
+  isDrafting: boolean;
+  targetNodeId?: string;
 };

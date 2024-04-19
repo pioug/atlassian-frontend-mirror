@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.12.0
+
+### Minor Changes
+
+- [#91576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/91576) [`6a97f44d3d0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a97f44d3d0e) - Add support for React 18.
+
 ## 0.11.17
 
 ### Patch Changes

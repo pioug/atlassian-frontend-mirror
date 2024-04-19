@@ -13,27 +13,27 @@ import { Team } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 
-const Table = styled.table`
-  border: ${token('border.width', '1px')} solid black;
-  border-collapse: collapse;
-`;
+const Table = styled.table({
+  border: `${token('border.width', '1px')} solid black`,
+  borderCollapse: 'collapse',
+});
 
-const Head = styled.th`
-  border: ${token('border.width', '1px')} solid black;
-`;
+const Head = styled.th({
+  border: `${token('border.width', '1px')} solid black`,
+});
 
-const Cell = styled.td`
-  border: ${token('border.width', '1px')} solid black;
-`;
+const Cell = styled.td({
+  border: `${token('border.width', '1px')} solid black`,
+});
 
-const Text = styled.p`
-  font-weight: initial;
-`;
+const Text = styled.p({
+  fontWeight: 'initial',
+});
 
-const TriggerText = styled.span`
-  border-radius: ${token('border.radius', '3px')};
-  padding: ${token('space.050', '4px')};
-`;
+const TriggerText = styled.span({
+  borderRadius: token('border.radius', '3px'),
+  padding: token('space.050', '4px'),
+});
 
 const team = teamData({});
 

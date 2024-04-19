@@ -31,7 +31,8 @@
     "website": {
       "name": "Flag",
       "category": "Components"
-    }
+    },
+    "runReact18": true
   },
   "af:exports": {
     ".": "./src/index.tsx",
@@ -72,7 +73,7 @@
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",

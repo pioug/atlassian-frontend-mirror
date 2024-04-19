@@ -15,17 +15,17 @@ import { Team } from '../src/types';
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 
-const EditViewContainer = styled.div`
-  z-index: 300;
-  position: relative;
-`;
+const EditViewContainer = styled.div({
+  zIndex: 300,
+  position: 'relative',
+});
 
-const Container = styled.div`
-  border: 1px solid ${token('color.border', '#ccc')};
-  border-radius: 3px;
-  margin: ${token('space.100', '8px')};
-  padding: ${token('space.100', '8px')};
-`;
+const Container = styled.div({
+  border: `1px solid ${token('color.border', '#ccc')}`,
+  borderRadius: '3px',
+  margin: token('space.100', '8px'),
+  padding: token('space.100', '8px'),
+});
 
 const teams: Record<
   string,

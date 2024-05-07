@@ -62,7 +62,7 @@
     "deep-equal": "^1.0.1",
     "fflate": "^0.8.1",
     "mime": "^2.4.6",
-    "pdfjs-dist": "2.16.105",
+    "pdfjs-dist": "4.2.67",
     "perf-marks": "^1.5.0",
     "react-focus-lock": "^2.9.5",
     "react-loadable": "^5.1.0",

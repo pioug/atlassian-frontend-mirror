@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { renderWithIntl } from '@atlaskit/link-test-helpers';
 
@@ -45,32 +43,16 @@ describe('LazyIntersectionObserverCard', () => {
       });
     });
 
-    describe('should disconnect intersection observer when unmounting if never intersected', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.fix-intersection-observer',
-        async () => {
-          const { unmount } = setup();
+    it('should disconnect intersection observer when unmounting if never intersected', async () => {
+      const { unmount } = setup();
 
-          expect(observe).toHaveBeenCalledTimes(1);
-          expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-          expect(disconnect).toHaveBeenCalledTimes(0);
+      expect(observe).toHaveBeenCalledTimes(1);
+      expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+      expect(disconnect).toHaveBeenCalledTimes(0);
 
-          unmount();
+      unmount();
 
-          expect(disconnect).toHaveBeenCalledTimes(1);
-        },
-        async () => {
-          const { unmount } = setup();
-
-          expect(observe).toHaveBeenCalledTimes(1);
-          expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-          expect(disconnect).toHaveBeenCalledTimes(0);
-
-          unmount();
-
-          expect(disconnect).toHaveBeenCalledTimes(0);
-        },
-      );
+      expect(disconnect).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -107,36 +89,20 @@ describe('LazyIntersectionObserverCard', () => {
       });
     });
 
-    describe('should immediately disconnect intersection observer if intersecting', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.fix-intersection-observer',
-        async () => {
-          const { unmount } = setup();
+    it('should immediately disconnect intersection observer if intersecting', async () => {
+      const { unmount } = setup();
 
-          expect(observe).toHaveBeenCalledTimes(1);
-          expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-          expect(disconnect).toHaveBeenCalledTimes(1);
+      expect(observe).toHaveBeenCalledTimes(1);
+      expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+      expect(disconnect).toHaveBeenCalledTimes(1);
 
-          unmount();
+      unmount();
 
-          /**
-           * Called twice because the useEffect cleanup function
-           * also calls disconnect
-           */
-          expect(disconnect).toHaveBeenCalledTimes(2);
-        },
-        async () => {
-          const { unmount } = setup();
-
-          expect(observe).toHaveBeenCalledTimes(1);
-          expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
-          expect(disconnect).toHaveBeenCalledTimes(1);
-
-          unmount();
-
-          expect(disconnect).toHaveBeenCalledTimes(1);
-        },
-      );
+      /**
+       * Called twice because the useEffect cleanup function
+       * also calls disconnect
+       */
+      expect(disconnect).toHaveBeenCalledTimes(2);
     });
   });
 });

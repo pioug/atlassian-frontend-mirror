@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { hideControlsClassName } from '../classNames';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface MutedIndicatorProps {
   isMuted: boolean;
@@ -26,7 +27,13 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>(
     props.showSlider
       ? `
     &:hover,
-    &:active {
+    &:active
+    ${
+      getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
+        ? ', &:focus-within'
+        : ''
+    }
+    {
       width: 150px;
       transition: width 0.3s ease-out;
     }
@@ -78,6 +85,35 @@ export const Thumb = styled.div({
   transition: 'all 0.1s',
   transitionDelay: '1s',
   '&:hover .current-time-tooltip': {
+    opacity: 1,
+  },
+});
+
+export const CurrentTimeLineThumb = styled.div({
+  position: 'absolute',
+  display: 'block',
+  right: '0',
+  top: '50%',
+  transform: 'translate(50%, -50%)',
+  backgroundColor: '#05c',
+  border: 'none',
+  height: token('space.150', '13px'),
+  width: token('space.150', '13px'),
+  pointerEvents: 'none',
+  borderRadius: '100%',
+  opacity: '0',
+  outline: `2px solid ${token('color.border.focused', '#85B8FF')}`,
+  outlineOffset: token('space.025', '2px'),
+
+  '&:focus': {
+    opacity: '1',
+  },
+
+  '&:hover .current-time-tooltip': {
+    opacity: 1,
+  },
+
+  '&:focus .current-time-tooltip': {
     opacity: 1,
   },
 });
@@ -196,6 +232,48 @@ export const TimeRangeWrapper = styled.div(
   }
   ${Thumb} {
     ${showAsActive ? 'transform: translate(7px, -50%) scale(1);' : ''}
+  }
+
+  ${
+    getBooleanFF('platform.editor.a11y_video_controls_keyboard_support_yhcxh')
+      ? `
+    // a11y override default theme colors from '@atlaskit/range' to have better contrast with panel color
+    input[type="range"] {
+      width:100%;
+      cursor: pointer;
+      height: 14px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+      appearance: none;
+      background: #9FADBC;
+      width: 14px;
+      height: 14px;
+      margin-top: -5px; // smaller thumb requires adjustment for margin
+    }
+
+    input[type="range"]::-webkit-slider-runnable-track {
+      --webkit-appearance: none; /* Override default look */
+      --track-bg: #596773;
+      --track-fg: #9FADBC;
+    }
+
+    input[type="range"]::-moz-range-progress {
+      background-color: #9FADBC;
+    }
+
+    input[type="range"]::-moz-range-track {
+      background-color: #596773;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      background: #9FADBC;
+      width: 14px;
+      height: 14px;
+    }
+    `
+      : ''
   }
 `,
 );

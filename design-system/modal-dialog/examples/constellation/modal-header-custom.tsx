@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { token } from '@atlaskit/tokens';
 
@@ -21,19 +22,17 @@ const headerStyles = css({
   justifyContent: 'space-between',
 });
 
-const headingStyles = css({ fontSize: 20, fontWeight: 500 });
-
 const CustomHeader = () => {
   const { onClose, titleId } = useModal();
   return (
     <div css={headerStyles}>
-      <h1 css={headingStyles} id={titleId}>
+      <Heading as="h1" size="medium" id={titleId}>
         Custom modal header
-      </h1>
+      </Heading>
       <IconButton
         appearance="subtle"
         icon={CrossIcon}
-        label="Close Modal"
+        label="Close modal"
         onClick={onClose}
       />
     </div>
@@ -74,7 +73,7 @@ export default function Example() {
               </p>
             </ModalBody>
             <ModalFooter>
-              <Button appearance="subtle">Secondary Action</Button>
+              <Button appearance="subtle">About modals</Button>
               <Button appearance="primary" onClick={closeModal}>
                 Close
               </Button>

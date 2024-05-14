@@ -2081,6 +2081,7 @@ describe(name, () => {
                       type: 'mention',
                       attrs: {
                         id: '0',
+                        localId: null,
                         text: '@Carolyn',
                         accessLevel: '',
                         userType: 'DEFAULT',

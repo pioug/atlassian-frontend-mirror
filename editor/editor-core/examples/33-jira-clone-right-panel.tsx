@@ -36,8 +36,8 @@ const portalContainer = css({
 });
 
 const rightSidebarContainer = xcss({
-  paddingRight: token('space.250', '20px'),
-  paddingLeft: token('space.250', '20px'),
+  paddingRight: 'space.250',
+  paddingLeft: 'space.250',
 });
 
 const headerActionContainer = css({

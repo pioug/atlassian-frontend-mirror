@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 import * as AdfTable from '../../examples-helpers/adfTable.json';
 import * as Image from '../../examples-helpers/images.json';
 import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
-import { fallbackRenderType } from '../../src/ui/issue-like-table/render-type';
+import { renderType } from '../../src/ui/issue-like-table/render-type';
 import { DatasourceTypeWithOnlyValues } from '../../src/ui/issue-like-table/types';
 
 const ContainerWrapper = styled.div({
@@ -268,7 +268,7 @@ export default () => {
                   <td style={item.style}>
                     {item.variations.map((variation, index) => (
                       <RenderDiv key={index}>
-                        {fallbackRenderType({
+                        {renderType({
                           type: item.type,
                           values: variation,
                         } as DatasourceTypeWithOnlyValues)}

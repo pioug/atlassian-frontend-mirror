@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-utils",
-  "version": "19.0.27",
+  "version": "19.1.1",
   "description": "Set of utilities to traverse, modify and create ADF documents.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -51,7 +51,7 @@
     "generate:spec": "rm -rf ./src/validator/specs/ && yarn json-schema-generator --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.9.0",
+    "@atlaskit/adf-schema": "^36.1.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@babel/runtime": "^7.0.0"

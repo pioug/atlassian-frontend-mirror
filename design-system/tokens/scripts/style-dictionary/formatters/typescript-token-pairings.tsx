@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format, TransformedToken } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getAlpha } from '../../../src/utils/color-utils';
@@ -365,13 +365,10 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
   });
 
   // Generate list of pairs
-  return prettier.format(
+  return format(
     `export const generatedPairs = ${JSON.stringify(recommendedPairs)};
 export default generatedPairs`,
-    {
-      parser: 'typescript',
-      singleQuote: true,
-    },
+    'typescript'
   );
 };
 

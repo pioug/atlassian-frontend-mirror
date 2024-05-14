@@ -32,17 +32,15 @@ describe('Help', () => {
     const NotificationsBadge = () => (
       <NotificationIndicator
         max={MAX_NUMBER_OF_NOTIFICATIONS}
-        notificationLogProvider={Promise.resolve(notificationLogProvider)}
+        notificationLogProvider={notificationLogProvider}
       />
     );
 
     render(<Help tooltip={`Help button`} badge={NotificationsBadge} />);
 
-    await waitFor(() => notificationLogProvider);
+    await screen.findByText(`${MAX_NUMBER_OF_NOTIFICATIONS}+`);
 
-    const notificationCounterElm = screen.queryByText(
-      `${MAX_NUMBER_OF_NOTIFICATIONS}+`,
-    );
+    const notificationCounterElm = screen.getByText(`${MAX_NUMBER_OF_NOTIFICATIONS}+`);
     expect(notificationCounterElm).toBeInTheDocument();
   });
 

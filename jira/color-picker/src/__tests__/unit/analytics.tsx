@@ -4,6 +4,7 @@ import ColorPicker from '../..';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<
@@ -18,7 +19,11 @@ describe('Analytics on Tigger', () => {
       { value: 'blue', label: 'Blue' },
       { value: 'red', label: 'Red' },
     ];
-    return render(<ColorPicker palette={palette} onChange={mockFn} />);
+    return render(
+      <IntlProvider locale="en">
+        <ColorPicker palette={palette} onChange={mockFn} />
+      </IntlProvider>,
+    );
   };
 
   afterEach(() => {
@@ -26,7 +31,7 @@ describe('Analytics on Tigger', () => {
   });
 
   it('Analytics event should occur on color change', async () => {
-    const { getByLabelText } = renderUI();
+    const { getByLabelText, getAllByRole } = renderUI();
     // get color button or Trigger
     const colorButton = getByLabelText('Color picker, Blue selected');
     expect(colorButton).toHaveAttribute('aria-expanded', 'false');
@@ -37,7 +42,7 @@ describe('Analytics on Tigger', () => {
     expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
     // click on color option and check onChange called with Analytics
-    await userEvent.click(getByLabelText('Red'));
+    await userEvent.click(getAllByRole('radio')[1]);
     expect(mockFn.mock.calls.length).toBe(1);
     expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
   });
@@ -48,9 +53,9 @@ describe('Analytics on Tigger', () => {
     });
 
     it('Analytics event should occur on color change', async () => {
-      const { getByLabelText } = renderUI();
+      const { getByLabelText, getAllByRole } = renderUI();
       // get color button or Trigger
-      const colorButton = getByLabelText('Color picker, Blue selected');
+      const colorButton = getByLabelText('Blue selected, Color picker');
       expect(colorButton).toHaveAttribute('aria-expanded', 'false');
       expect(colorButton).toBeInTheDocument();
 
@@ -59,7 +64,7 @@ describe('Analytics on Tigger', () => {
       expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
       // click on color option and check onChange called with Analytics
-      await userEvent.click(getByLabelText('Red'));
+      await userEvent.click(getAllByRole('radio')[1]);
       expect(mockFn.mock.calls.length).toBe(1);
       expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
     });

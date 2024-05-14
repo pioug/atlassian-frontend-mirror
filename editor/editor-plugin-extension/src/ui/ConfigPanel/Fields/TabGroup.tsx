@@ -11,20 +11,6 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
-const tabWrapperStyles = css({
-  // increase specificity to make sure the tab style is overridden
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  "&&& [role='tabpanel'][tabindex]": {
-    padding: 0,
-  },
-
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  "&&& [role='tablist']::before": {
-    left: 0,
-    right: 0,
-  },
-});
-
 const panelWrapperStyles = css({
   flexGrow: 1,
   maxWidth: '100%',
@@ -53,24 +39,22 @@ const TabGroupImpl = (props: Props) => {
   );
 
   return (
-    <div css={tabWrapperStyles}>
-      <Tabs
-        id={`configPanelTabs-${field.name}`}
-        onChange={onChange}
-        selected={activeTab}
-      >
-        <TabList>
-          {fields.map(({ name, label }) => (
-            <Tab key={`tab-${name}`}>{label}</Tab>
-          ))}
-        </TabList>
-        {fields.map(field => (
-          <TabPanel key={`panel-${field.name}`}>
-            <div css={panelWrapperStyles}>{renderPanel(field)}</div>
-          </TabPanel>
+    <Tabs
+      id={`configPanelTabs-${field.name}`}
+      onChange={onChange}
+      selected={activeTab}
+    >
+      <TabList>
+        {fields.map(({ name, label }) => (
+          <Tab key={`tab-${name}`}>{label}</Tab>
         ))}
-      </Tabs>
-    </div>
+      </TabList>
+      {fields.map(field => (
+        <TabPanel key={`panel-${field.name}`}>
+          <div css={panelWrapperStyles}>{renderPanel(field)}</div>
+        </TabPanel>
+      ))}
+    </Tabs>
   );
 };
 TabGroupImpl.displayName = 'TabGroup';

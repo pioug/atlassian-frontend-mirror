@@ -87,6 +87,8 @@ export type FeatureFlags = {
   catchAllTracking?: boolean;
 
   /**
+   * @private
+   * @deprecated This is always on now and this prop is no longer required.
    * @description
    * Yield to user interaction work before sending analytics
    *
@@ -245,6 +247,15 @@ export type FeatureFlags = {
 
   /**
    * @description
+   * Enables new table columns and rows added to duplicate neighbouring cell colouring
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-22849
+   * @default false
+   */
+  tableDuplicateCellColouring?: boolean;
+
+  /**
+   * @description
    * Enables commenting on media
    *
    * @see https://product-fabric.atlassian.net/browse/ED-22102
@@ -260,6 +271,15 @@ export type FeatureFlags = {
    * @default false
    */
   macroInteractionUpdates?: boolean;
+
+   /**
+   * @description
+   * Enables bug fix on media comments
+   *
+  //  * @see https://product-fabric.atlassian.net/browse/ED-23093
+   * @default false
+   */
+  commentsOnMediaBugFix?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

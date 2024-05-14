@@ -2,13 +2,15 @@ import React, { ReactNode } from 'react';
 
 import styled from '@emotion/styled';
 
+import { token } from '@atlaskit/tokens';
+
 import Tag from '../src/tag/removable-tag';
 
 const cupcakeipsum =
   'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
 
 const TableHeading = styled.th({
-  fontWeight: 'bold',
+  fontWeight: token('font.weight.bold'),
 });
 
 interface RowProps {

@@ -12,7 +12,7 @@ const StyledTooltip = () => (
     Create
     <span
       style={{
-        color: token('color.background.accent.orange.subtle', 'orange'),
+        color: token('color.background.accent.orange.subtle'),
       }}
     >
       [c]

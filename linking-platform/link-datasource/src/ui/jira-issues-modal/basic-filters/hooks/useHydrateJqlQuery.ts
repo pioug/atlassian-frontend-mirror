@@ -5,6 +5,7 @@ import { useIntl } from 'react-intl-next';
 import { OPERAND_EMPTY } from '@atlaskit/jql-ast';
 
 import { useBasicFilterAGG } from '../../../../services/useBasicFilterAGG';
+import { CommonBasicFilterHookState } from '../../../common/modal/popup-select/types';
 import { SelectedOptionsMap } from '../types';
 import { extractValuesFromNonComplexJQL } from '../utils/extractValuesFromNonComplexJQL';
 import { removeFuzzyCharacter } from '../utils/isClauseTooComplex';
@@ -12,11 +13,9 @@ import { mapHydrateResponseData } from '../utils/transformers';
 
 import { getAssigneeUnassignedFilterOption } from './useFilterOptions';
 
-export interface HydrateJqlState {
+export interface HydrateJqlState extends CommonBasicFilterHookState {
   hydratedOptions: SelectedOptionsMap & { basicInputTextValue?: string };
   fetchHydratedJqlOptions: () => Promise<void>;
-  status: 'empty' | 'loading' | 'resolved' | 'rejected';
-  errors: unknown[];
 }
 
 export const useHydrateJqlQuery = (

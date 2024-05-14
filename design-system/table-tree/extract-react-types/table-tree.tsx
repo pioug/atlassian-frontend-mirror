@@ -18,9 +18,9 @@ export type Item = {
  */
 type TableTreeProps = {
   /**
-   * The contents of the table,
-   * used when composing `Cell`, `Header`, `Headers`, `Row`, and `Rows` components.
-   * For basic usage, you can instead specify table contents with the `items` prop.
+   * The contents of the table.
+   * Use this when composing `Cell`, `Header`, `Headers`, `Row`, and `Rows` components.
+   * For basic usage, it's simpler to specify table contents with the `items` prop instead.
    */
   children?: ReactNode;
   /**
@@ -29,45 +29,44 @@ type TableTreeProps = {
    */
   columns?: ElementType<Content>[];
   /**
-   * The widths of the respective columns in the table.
+   * The widths of the columns in the table.
    */
   columnWidths?: (string | number)[];
   /**
-   * The header text of the respective columns of the table.
+   * The header text of the columns of the table.
    */
   headers?: string[];
   /* eslint-disable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
-    Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
+    Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.
 
-    If your cells contain interactive elements, this can cause unexpected expanding or collapsing.
+    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.
 
-    If not using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
+    If you aren’t using the `items` prop, `shouldExpandOnClick` should be used on the row component instead.
    */
   shouldExpandOnClick?: boolean;
   /**
-    The data used to render the table.
+    The data used to render the table. If you’re creating a basic table, use this prop instead of composing cell, header, headers, row, and rows components.
 
-    In addition to these props, any other data can be added, and it will
+    In addition to the `items` props, any other data can be added, and it will
     be provided as props when rendering each cell.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   items?: Item[] | null;
   /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
-   * The value used to extend the expand or collapse button label in cases where `Row` has child rows.
-   *
-   * Should be a string when we pass data via `items` property, value should be one of the `columns` names.
-   * Should be a number when we pass data via `<Rows />` component as children in `<TableTree />`.
+   * The value used to extend the expand or collapse button label in cases where `row` has child rows.
+   * It should be a string when we pass data via the `items` property, the value should be one of the `columns` names.
+   * It should be a number when we pass data via the `rows` component as children in the table tree.
    */
   mainColumnForExpandCollapseLabel?: string | number;
   /**
-   * Refers to an `aria-label` attribute. Use label to describe the table for assistive technologies.
+   * This is an `aria-label` attribute. Use the label to describe the table for assistive technologies.
    * Usage of either this, or the `labelId` attribute is strongly recommended.
    */
   label?: string;
   /**
-   * Refers to an `aria-labelledby` attribute. Pass an id of the element which should define an accessible name for the table.
+   * This is an `aria-labelledby` attribute. Pass an ID for the element which should define an accessible name for the table.
    * Usage of either this, or the `label` attribute is strongly recommended.
    */
   referencedLabel?: string;

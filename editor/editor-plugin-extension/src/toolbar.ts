@@ -92,6 +92,7 @@ const breakoutOptions = (
   formatMessage: IntlShape['formatMessage'],
   extensionState: ExtensionState,
   breakoutEnabled: boolean,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Array<FloatingToolbarItem<Command>> => {
   const nodeWithPos = getSelectedExtension(state, true);
 
@@ -102,7 +103,7 @@ const breakoutOptions = (
       {
         type: 'button',
         icon: CenterIcon,
-        onClick: updateExtensionLayout('default'),
+        onClick: updateExtensionLayout('default', editorAnalyticsAPI),
         selected: layout === 'default',
         title: formatMessage(commonMessages.layoutFixedWidth),
         tabIndex: null,
@@ -110,7 +111,7 @@ const breakoutOptions = (
       {
         type: 'button',
         icon: WideIcon,
-        onClick: updateExtensionLayout('wide'),
+        onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
         selected: layout === 'wide',
         title: formatMessage(commonMessages.layoutWide),
         tabIndex: null,
@@ -118,7 +119,7 @@ const breakoutOptions = (
       {
         type: 'button',
         icon: FullWidthIcon,
-        onClick: updateExtensionLayout('full-width'),
+        onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
         selected: layout === 'full-width',
         title: formatMessage(commonMessages.layoutFullWidth),
         tabIndex: null,
@@ -206,6 +207,7 @@ export const getToolbarConfig =
         formatMessage,
         extensionState,
         breakoutEnabled,
+        editorAnalyticsAPI
       );
 
       const extensionObj = getSelectedExtension(state, true);

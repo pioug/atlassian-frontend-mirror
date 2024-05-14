@@ -122,6 +122,7 @@ export function show(entry: Entry): API {
       done();
     }
   }
+
   function isVisible(): boolean {
     return (
       phase === 'shown' ||
@@ -129,6 +130,7 @@ export function show(entry: Entry): API {
       phase === 'hide-animating'
     );
   }
+
   function getInitialMouse(): FakeMouseElement | null {
     if (entry.source.type === 'mouse') {
       return entry.source.mouse;

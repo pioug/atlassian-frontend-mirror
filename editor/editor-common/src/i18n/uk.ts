@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Додати стовпець справа',
   'fabric.editor.addCommentOnMedia': 'Додати коментар',
   'fabric.editor.addImageBorder': 'Додати рамку',
+  'fabric.editor.addLoomVideo': 'Додати відео Loom',
   'fabric.editor.addMediaFiles': 'Додати зображення, відео або файл',
   'fabric.editor.addRowAbove': 'Додати рядок угорі',
   'fabric.editor.addRowBelow': 'Додати рядок знизу',
@@ -98,6 +99,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Ресурси (бета-версія)',
   'fabric.editor.datasource.assetsObjects.description':
     'Вставляйте об’єкти з розділу «Ресурси» в Jira Service Management за допомогою пошуку й фільтрації',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Ресурси',
+  'fabric.editor.datasource.confluenceSearch': 'Вставка списку Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Вставте список результатів пошуку з Confluence із розширеним пошуком, фільтрацією та конфігурацією.',
   'fabric.editor.datasource.jiraIssue': 'Завдання в Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Вставляйте завдання Jira з Jira Cloud за допомогою розширеного пошуку, фільтрації та конфігурації.',
@@ -108,6 +113,7 @@ export default {
   'fabric.editor.decision': 'Рішення',
   'fabric.editor.decision.description': 'Зафіксувати рішення, щоб його було легко знайти',
   'fabric.editor.decisionPlaceholder': 'Додати рішення...',
+  'fabric.editor.decreaseColumnSize': 'Зменшити розмір стовпця',
   'fabric.editor.decreaseSize': 'Зменшити розмір',
   'fabric.editor.defaultAltText': 'Документ',
   'fabric.editor.description': 'Опис',
@@ -236,6 +242,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Розмір',
   'fabric.editor.imageBorderSubtle': 'Тонка',
   'fabric.editor.improvement': 'Покращення',
+  'fabric.editor.increaseColumnSize': 'Збільшити розмір стовпця',
   'fabric.editor.increaseSize': 'Збільшити розмір',
   'fabric.editor.indent': 'Збільшити відступ',
   'fabric.editor.info': 'Інформація',
@@ -332,8 +339,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Додати текст-заміщення',
   'fabric.editor.plainText': 'Застосувати текст без форматування',
   'fabric.editor.quickInsert': 'Швидка вставка',
-  'fabric.editor.recordVideo': 'Записати відео',
-  'fabric.editor.recordVideo.description': 'Запис відео за допомогою Loom',
+  'fabric.editor.recordVideo': 'Запишіть відео в Loom',
+  'fabric.editor.recordVideo.description': 'Зробіть запис екрана або зніміть відео',
   'fabric.editor.redo': 'Повторити',
   'fabric.editor.remove': 'Видалити',
   'fabric.editor.removeColumns':
@@ -355,6 +362,7 @@ export default {
   'fabric.editor.saveButton': 'Зберегти',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {Доступний {itemsLength,number} результат пошуку. За допомогою клавіш зі стрілками переходьте вгору й униз між пунктами. Щоб вибрати потрібне, натисніть Enter.} few {Доступні {itemsLength,number} результати пошуку. За допомогою клавіш зі стрілками переходьте вгору й униз між пунктами. Щоб вибрати потрібне, натисніть Enter.} many {Доступні {itemsLength,number} результатів пошуку. За допомогою клавіш зі стрілками переходьте вгору й униз між пунктами. Щоб вибрати потрібне, натисніть Enter.} other {Доступні {itemsLength,number} результатів пошуку. За допомогою клавіш зі стрілками переходьте вгору й униз між пунктами. Щоб вибрати потрібне, натисніть Enter.}}',
+  'fabric.editor.selectColumnResize': 'Вибрати змінення розміру стовпця',
   'fabric.editor.selectLanguage': 'Вибір мови',
   'fabric.editor.selectTableColumn': 'Виберіть стовпець таблиці',
   'fabric.editor.selectTableRow': 'Виберіть рядок таблиці',
@@ -448,10 +456,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'У цьому редакторі вміст недоступний; під час внесення і збереження змін він залишиться незмінним',
   'fabric.editor.unsupportedInlineContent': 'Вміст не підтримується',
+  'fabric.editor.upDown':
+    'Щоб оновити дату, можна скористатися клавішами зі стрілками вгору й униз у полі для введення даних нижче',
   'fabric.editor.url': 'Показати URL-адресу',
   'fabric.editor.urlDescription': 'Показати посилання як URL-адресу',
   'fabric.editor.urlTitle': 'URL-адреса',
   'fabric.editor.useMarkdown': 'Застосувати розмітку тексту',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Переглянути й додати коментарі',
+  'fabric.editor.viewCommentOnMedia': 'Переглянути коментарі',
   'fabric.editor.viewMore': 'Докладніше',
   'fabric.editor.visit': 'Відкрити посилання в новому вікні',
   'fabric.editor.warning': 'Попередження',

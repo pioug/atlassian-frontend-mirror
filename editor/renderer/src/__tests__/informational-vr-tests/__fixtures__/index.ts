@@ -1,4 +1,6 @@
-export const adfRightWrappedMediaInsideTable = {
+import type { DocNode } from '@atlaskit/adf-schema';
+
+export const adfRightWrappedMediaInsideTable: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -139,7 +141,7 @@ export const adfRightWrappedMediaInsideTable = {
     },
   ],
 };
-export const adfLeftAndRightWrappedMediaInsideTable = {
+export const adfLeftAndRightWrappedMediaInsideTable: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -280,7 +282,7 @@ export const adfLeftAndRightWrappedMediaInsideTable = {
     },
   ],
 };
-export const adfLeftWrappedMediaInsideTable = {
+export const adfLeftWrappedMediaInsideTable: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -422,7 +424,7 @@ export const adfLeftWrappedMediaInsideTable = {
   ],
 };
 
-export const adfMediaInsideTable = {
+export const adfMediaInsideTable: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -556,7 +558,7 @@ export const adfMediaInsideTable = {
   ],
 };
 
-export const adfMediaInsideExpand = {
+export const adfMediaInsideExpand: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -601,7 +603,7 @@ export const adfMediaInsideExpand = {
   ],
 };
 
-export const adfMediaSingle = {
+export const adfMediaSingle: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -635,7 +637,7 @@ export const adfMediaSingle = {
   ],
 };
 
-export const adfMediaInsideNestedExpand = {
+export const adfMediaInsideNestedExpand: DocNode = {
   version: 1,
   type: 'doc',
   content: [
@@ -711,6 +713,70 @@ export const adfMediaInsideNestedExpand = {
           ],
         },
       ],
+    },
+  ],
+};
+
+export const adfMediaSingleAndMediaGroupFiles: DocNode = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: {
+        width: 33.33333333333333,
+        layout: 'center',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            width: 2400,
+            height: 1091,
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'mediaGroup',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+        {
+          type: 'media',
+          attrs: {
+            id: '5556346b-b081-482b-bc4a-4faca8ecd2de',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
     },
   ],
 };

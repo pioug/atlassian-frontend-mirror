@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/analytics-gas-types';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { InviteExperimentCohort, UserRole } from '@atlaskit/mention';
+import type { UserRole } from '@atlaskit/mention';
 import type { MentionDescription } from '@atlaskit/mention/resource';
 import { isSpecialMention } from '@atlaskit/mention/resource';
 
@@ -110,31 +110,6 @@ export const buildTypeAheadInviteItemViewedPayload = (
       childObjectId,
       userRole,
     },
-  );
-};
-
-export const buildTypeAheadInviteExposurePayload = (
-  sessionId: string,
-  contextIdentifierProvider?: ContextIdentifierProvider,
-  inviteExperimentCohort?: InviteExperimentCohort,
-  userRole?: UserRole,
-): GasPayload => {
-  const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
-    {}) as ContextIdentifierProvider;
-  return buildAnalyticsPayload(
-    'feature',
-    'exposed',
-    OPERATIONAL_EVENT_TYPE,
-    sessionId,
-    {
-      flagKey: 'confluence.frontend.invite.from.mention',
-      value: inviteExperimentCohort || 'not-enrolled',
-      containerId,
-      objectId,
-      childObjectId,
-      userRole,
-    },
-    ['measurement', 'hasCustomAttributes'],
   );
 };
 

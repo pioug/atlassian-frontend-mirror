@@ -12,6 +12,7 @@ import PopupDisableAutofocusExample from '../../examples/constellation/popup-dis
 import PopupContentUpdateExample from '../../examples/constellation/popup-content-update';
 import PopupSurfaceDetectionExample from '../../examples/constellation/popup-surface-detection';
 import PopupContentWithoutPortalExample from '../../examples/constellation/popup-content-without-portal';
+import PopupWithRoleExample from '../../examples/constellation/popup-with-role';
 
 ## Default
 
@@ -92,3 +93,11 @@ By default, the popup content is rendered inside `React.Portal`. Use `shouldRend
   Component={PopupContentWithoutPortalExample}
   packageName="@atlaskit/popup"
 />
+
+## Role
+
+Use the `role` prop to set a role for the popup content.
+We do not forbid passing any of the aria roles, but we strongly recommend using only `menu` or `dialog`.
+When the `role="dialog"` property is passed, one of the following properties must also be added: `label` or `titleId`.
+
+<Example Component={PopupWithRoleExample} packageName="@atlaskit/popup" />

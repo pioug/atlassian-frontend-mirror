@@ -37,6 +37,9 @@
             "path": "../../inline-dialog/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../primitives/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../textfield/afm-cc/tsconfig.json"
         },
         {
@@ -44,6 +47,9 @@
         },
         {
             "path": "../../tokens/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../visually-hidden/afm-cc/tsconfig.json"
         }
     ]
 }

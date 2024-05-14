@@ -1,13 +1,13 @@
-import { Article, ArticleItem, ArticleFeedback } from './Article';
+import { type Article, type ArticleItem, type ArticleFeedback } from './Article';
 import {
-  WhatsNewArticleItem,
-  WhatsNewArticle,
-  WHATS_NEW_ITEM_TYPES,
-  whatsNewSearchResult,
+  type WhatsNewArticleItem,
+  type WhatsNewArticle,
+  type WHATS_NEW_ITEM_TYPES,
+  type whatsNewSearchResult,
 } from './WhatsNew';
-import { REQUEST_STATE } from './Requests';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { NotificationLogProvider } from '@atlaskit/notification-log-client';
+import { type REQUEST_STATE } from './Requests';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type NotificationLogProvider } from '@atlaskit/notification-log-client';
 import type { Props as HelpContentButtonProps } from '../components/HelpContentButton';
 
 export enum ARTICLE_TYPE {
@@ -76,6 +76,8 @@ export interface Help {
     ): void;
     // External search site URL
     searchExternalUrl?: string;
+    // Open External search URL in a new tab. This prop is optional
+    openExternalSearchUrlInNewTab?: boolean;
   };
 
   navigation?: {

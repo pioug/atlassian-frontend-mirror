@@ -1,18 +1,18 @@
-import prettier from 'prettier';
+import format from '@af/formatting/sync';
 
-jest.mock('prettier');
+jest.mock('@af/formatting/sync');
 
 import { typescriptFormatter as formatter } from '../../typescript-token-generated-types-internal';
 
 describe('formatter', () => {
   beforeEach(() => {
-    (prettier.format as jest.Mock).mockImplementation((str: string) =>
+    (format as jest.Mock).mockImplementation((str: string) =>
       str.split('{').pop()!.split('}')[0].trim(),
     );
   });
 
   afterEach(() => {
-    (prettier.format as jest.Mock).mockReset();
+    (format as jest.Mock).mockReset();
   });
 
   it('should parse token', () => {

@@ -7,6 +7,7 @@ import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, MenuGroup, Section } from '../src';
 
+import MenuGroupContainer from './common/menu-group-container';
 import Invision from './icons/invision';
 import Portfolio from './icons/portfolio';
 import Slack from './icons/slack';
@@ -14,19 +15,7 @@ import Tempo from './icons/tempo';
 
 export default () => {
   return (
-    <div
-      style={{
-        color: token('color.text'),
-        backgroundColor: token('elevation.surface.overlay', '#fff'),
-        boxShadow: token(
-          'elevation.shadow.overlay',
-          '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-        ),
-        borderRadius: 4,
-        maxWidth: 320,
-        margin: `${token('space.200', '16px')} auto`,
-      }}
-    >
+    <MenuGroupContainer>
       <MenuGroup>
         <Section>
           <ButtonItem
@@ -82,6 +71,6 @@ export default () => {
           <ButtonItem>Manage your apps</ButtonItem>
         </Section>
       </MenuGroup>
-    </div>
+    </MenuGroupContainer>
   );
 };

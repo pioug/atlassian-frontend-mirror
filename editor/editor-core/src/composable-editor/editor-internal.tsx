@@ -6,7 +6,9 @@ import { css, jsx } from '@emotion/react';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import { usePortalProvider } from '@atlaskit/editor-common/portal';
 import {
+  type LegacyPortalProviderAPI,
   PortalProviderWithThemeProviders,
   PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
@@ -19,6 +21,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
@@ -99,6 +102,8 @@ export const EditorInternal = memo(
     const renderTracking = props.performanceTracking?.renderTracking?.editor;
     const renderTrackingEnabled = renderTracking?.enabled;
     const useShallow = renderTracking?.useShallow;
+    const [nextPortalProviderAPI, NextPortalRenderer] = usePortalProvider();
+
     // ED-16320: Check for explicit disable so that by default
     // it will still be enabled as it currently is. Then we can
     // progressively opt out synthetic tenants.
@@ -129,12 +134,12 @@ export const EditorInternal = memo(
                 <PortalProviderWithThemeProviders
                   onAnalyticsEvent={handleAnalyticsEvent}
                   useAnalyticsContext={props.UNSAFE_useAnalyticsContext}
-                  render={(portalProviderAPI) => (
+                  render={(legacyPortalProviderAPI: LegacyPortalProviderAPI) => (
                     <Fragment>
                       <ReactEditorViewContextWrapper
                         editorProps={overriddenEditorProps}
                         createAnalyticsEvent={createAnalyticsEvent}
-                        portalProviderAPI={portalProviderAPI}
+                        portalProviderAPI={getBooleanFF('platform.editor.react-18-portal') ? nextPortalProviderAPI : legacyPortalProviderAPI}
                         providerFactory={providerFactory}
                         onEditorCreated={onEditorCreated}
                         onEditorDestroyed={onEditorDestroyed}
@@ -208,7 +213,7 @@ export const EditorInternal = memo(
                           </BaseTheme>
                         )}
                       />
-                      <PortalRenderer portalProviderAPI={portalProviderAPI} />
+                      {getBooleanFF('platform.editor.react-18-portal') ? <NextPortalRenderer /> : <PortalRenderer portalProviderAPI={legacyPortalProviderAPI} />}
                     </Fragment>
                   )}
                 />

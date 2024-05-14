@@ -1,5 +1,6 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import ProjectIcon from '@atlaskit/icon/glyph/people-group';
 import CommitIcon from '@atlaskit/icon-object/glyph/commit/16';
@@ -11,14 +12,15 @@ import TaskIcon from '@atlaskit/icon-object/glyph/task/16';
 import { extractorPriorityMap } from './priority';
 import {
   extractProvider,
-  LinkProvider,
+  type LinkProvider,
   extractUrlFromIconJsonLd,
   extractTitle,
 } from '@atlaskit/link-extractors';
 import { extractFileFormat } from './extractFileFormat';
 import { extractIconFromDocument } from './extractIconFromDocument';
 import { extractIconFromTask } from './extractIconFromTask';
-import { extractTaskType, LinkTaskType } from '../lozenge/extractTaskType';
+import { extractTaskType, type LinkTaskType } from '../lozenge/extractTaskType';
+import { prioritiseIcon } from './prioritiseIcon';
 
 export type IconPriority = 'type' | 'provider';
 export interface IconOpts {
@@ -53,6 +55,16 @@ export const extractIcon = (
   }
 };
 
+/**
+ * Extracts an icon based on the given type.
+ * 
+ * Some types return hardcoded icons, while others follow a priority list on how to pick the icon.
+ * If type is not recognized, it will return the icon from the provider, or `undefined` if no icon is found.
+ *
+ * @param type - The type of the object.
+ * @param opts - Options for the icon extraction.
+ * @returns The extracted icon as a React node, or `undefined` if no icon is found.
+ */
 const extractIconByType = (
   type: JsonLd.Primitives.ObjectType | 'atlassian:Template',
   opts: IconOpts,
@@ -101,6 +113,23 @@ const extractIconByType = (
     case 'atlassian:Task':
       return extractIconFromTask(opts);
     default:
-      return opts.provider && opts.provider.icon;
+      return getBooleanFF('platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour')
+        ? extractDefaultIcon(opts)
+        : opts.provider && opts.provider.icon;
   }
 };
+
+/**
+ * Choose which icon to show when the type is not recognized.
+ */
+const extractDefaultIcon = (opts: IconOpts): React.ReactNode | undefined => {
+  const { provider } = opts;
+  const providerId = provider?.id;
+  return prioritiseIcon<React.ReactNode>({
+    providerId,
+    fileFormatIcon: undefined,
+    documentTypeIcon: undefined,
+    urlIcon: opts.icon,
+    providerIcon: opts.provider?.icon,
+  });
+}

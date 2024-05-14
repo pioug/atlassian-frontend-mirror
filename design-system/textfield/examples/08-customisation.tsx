@@ -14,6 +14,7 @@ const overrideStyles = css({
   '& > [data-ds--text-field--input]': {
     border: '2px solid green',
     fontSize: 20,
+    lineHeight: 1.5,
   },
 });
 

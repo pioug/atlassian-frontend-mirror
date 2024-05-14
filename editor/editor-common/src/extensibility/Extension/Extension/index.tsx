@@ -111,6 +111,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
     {
       'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
       'with-border': showMacroInteractionDesignUpdates,
+      'with-bodied-border': showMacroInteractionDesignUpdates && hasBody,
       'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
       'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,
@@ -130,7 +131,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
   });
 
   const newContentClassNames = classnames({
-    'remove-padding': showMacroInteractionDesignUpdates,
+    'with-padding-styles': showMacroInteractionDesignUpdates,
   });
 
   const contentClassNames = classnames('extension-content', 'block', {
@@ -176,6 +177,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
           node={node}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
           customContainerStyles={customContainerStyles}
+          setIsNodeHovered={setIsNodeHovered}
+          isBodiedMacro={hasBody}
         />
       )}
       <div

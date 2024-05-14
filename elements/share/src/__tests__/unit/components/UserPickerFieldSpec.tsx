@@ -6,22 +6,24 @@ jest.mock('../../../components/utils', () => ({
 
 import React from 'react';
 
+import { render as renderRTL } from '@testing-library/react';
 import { mount, shallow } from 'enzyme';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, IntlProvider, type MessageDescriptor } from 'react-intl-next';
+
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
-import SmartUserPicker, { OptionData } from '@atlaskit/smart-user-picker';
-import UserPicker, { ExternalUser, Team, User } from '@atlaskit/user-picker';
+import SmartUserPicker, { type OptionData } from '@atlaskit/smart-user-picker';
+import UserPicker, { type ExternalUser, type Team, type User } from '@atlaskit/user-picker';
 
 import {
-  Props,
+  type Props,
   REQUIRED,
   UserPickerField,
 } from '../../../components/UserPickerField';
 import { getMenuPortalTargetCurrentHTML } from '../../../components/utils';
 import { messages } from '../../../i18n';
-import { ConfigResponse, UserPickerOptions } from '../../../types';
-import { ProductName } from '../../../types/Products';
+import { type ConfigResponse, type UserPickerOptions } from '../../../types';
+import { type ProductName } from '../../../types/Products';
 import { renderProp } from '../_testUtils';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
@@ -625,6 +627,38 @@ describe('UserPickerField', () => {
         expect(overrideByline?.(externalUser)).toBe(expectedByline);
         expect(overrideByline?.(team)).toBe('');
       });
+    });
+  });
+
+  describe('custom messages', () => {
+    it('should render custom messages when provided', () => {
+      const customPlaceHolderMessageDescriptor: MessageDescriptor = {
+        id: 'custom.placeholder',
+        defaultMessage: 'Custom placeholder',
+      };
+      const customLabelMessageDescriptor: MessageDescriptor = {
+        id: 'custom.label',
+        defaultMessage: 'Custom label',
+      };
+
+
+      const loadOptions = jest.fn();
+      const { getByText } = renderRTL(
+        <IntlProvider locale='en'>
+        <UserPickerField
+        {...{
+          loadOptions,
+          product: 'confluence',
+          userPickerOptions: {
+            getPlaceholderMessage: () => customPlaceHolderMessageDescriptor,
+            getLabelMessage: () => customLabelMessageDescriptor,
+          },
+        }}/></IntlProvider>
+      );
+
+      expect(getByText('Custom placeholder')).toBeInTheDocument();
+      expect(getByText('Custom label')).toBeInTheDocument();
+
     });
   });
 });

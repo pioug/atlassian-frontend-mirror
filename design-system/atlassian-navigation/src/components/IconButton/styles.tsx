@@ -20,7 +20,7 @@ export const getIconButtonTheme =
         // TODO Delete this comment after verifying space token -> previous value `4`
         padding: token('space.050', '4px'),
         height: 'auto',
-        fontWeight: 500,
+        fontWeight: token('font.weight.medium'),
         ...iconButton.default,
         ':hover': iconButton.hover,
         ':focus': iconButton.focus,

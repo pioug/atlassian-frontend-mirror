@@ -1,5 +1,5 @@
 import { sampleBinaries } from './sampleBinaries';
-import { ArtifactsSets } from './types';
+import { type ArtifactsSets } from './types';
 
 export const artifactSets: ArtifactsSets = {
   jpgCat: {
@@ -40,6 +40,16 @@ export const artifactSets: ArtifactsSets = {
     binaryUri: sampleBinaries.mp3Sonata,
     // Any audio* artifact
     audio: sampleBinaries.mp3Sonata,
+  },
+  svgCar: {
+    binaryUri: sampleBinaries.svgCar,
+    // preview & any image* artifact
+    image: sampleBinaries.svgCarPreview,
+  },
+  svgOpenWeb: {
+    binaryUri: sampleBinaries.svgOpenWeb,
+    // preview & any image* artifact
+    image: sampleBinaries.svgOpenWebPreview,
   },
 };
 

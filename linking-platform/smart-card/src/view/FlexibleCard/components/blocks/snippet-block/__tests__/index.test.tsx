@@ -50,11 +50,24 @@ describe('SnippetBlock', () => {
       expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '2');
     });
 
-    it('renders with maximum maxLines when maxLines exceed maximum', async () => {
+    it('renders specific maxLines above the default maxlines', async () => {
       const testId = 'smart-element-text';
       const { findByTestId } = render(
         <FlexibleUiContext.Provider value={context}>
-          <SnippetBlock maxLines={5} status={SmartLinkStatus.Resolved} />
+          <SnippetBlock maxLines={6} status={SmartLinkStatus.Resolved} />
+        </FlexibleUiContext.Provider>,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toHaveStyleDeclaration('-webkit-line-clamp', '6');
+    });
+
+    it('renders with default maximum maxLines when maxLines exceed maximum', async () => {
+      const testId = 'smart-element-text';
+      const { findByTestId } = render(
+        <FlexibleUiContext.Provider value={context}>
+          <SnippetBlock maxLines={7} status={SmartLinkStatus.Resolved} />
         </FlexibleUiContext.Provider>,
       );
 

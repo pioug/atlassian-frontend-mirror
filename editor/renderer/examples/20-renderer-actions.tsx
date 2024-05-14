@@ -103,6 +103,7 @@ export default function Example() {
                   rendererRef={localRef}
                   adfDocument={document as DocNode}
                   annotationProvider={annotationProvider}
+                  isNestedRender={false}
                 >
                   <RendererDemo
                     serializer="react"

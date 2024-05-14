@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.9.7",
+  "version": "10.10.1",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,27 +23,28 @@
     "website": {
       "name": "Comment",
       "category": "Components"
-    }
+    },
+    "runReact18": true
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/lozenge": "^11.7.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/avatar": "^21.5.0",
-    "@atlaskit/checkbox": "*",
+    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

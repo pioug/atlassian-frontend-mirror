@@ -8,25 +8,17 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
-import { iconColor, titleIconMargin } from './internal/constants';
+import { iconColor } from './internal/constants';
 import { Appearance } from './types';
-
-const fontSize = 20;
-const lineHeight = 1;
-const adjustedLineHeight = 1.2;
 
 const titleStyles = css({
   display: 'flex',
   minWidth: 0,
 
   margin: token('space.0', '0px'),
-  alignItems: 'center',
+  gap: token('space.100'),
 
-  fontSize: token('font.size.300', '20px'),
-  fontStyle: 'inherit',
-  fontWeight: token('font.weight.medium', '500'),
-  letterSpacing: `-0.008em`,
-  lineHeight: lineHeight,
+  font: token('font.heading.medium'),
 });
 
 const textStyles = css({
@@ -43,39 +35,21 @@ const textStyles = css({
 
 const iconStyles = css({
   flex: '0 0 auto',
-  alignSelf: 'start',
-  marginInlineEnd: `${titleIconMargin}px`,
 });
 
-/**
- * When the title is truncated (not multi-line), we adjust the
- * line height to avoid cropping the descenders. This removes
- * the extra spacing that we get from that adjustment.
- */
-const lineHeightOffset = fontSize - fontSize * adjustedLineHeight;
-
 const truncatedTextStyles = css({
-  lineHeight: adjustedLineHeight,
-  marginBlockEnd: `${lineHeightOffset / 2}px`,
-  marginBlockStart: `${lineHeightOffset / 2}px`,
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
 
-const truncatedTextIconStyles = css({
-  lineHeight: 1.2,
-  marginBlockEnd: `${lineHeightOffset / 2}px`,
-});
-
 const TitleIcon = ({
   appearance,
-  isMultiline,
-}: Required<Pick<ModalTitleProps, 'appearance' | 'isMultiline'>>) => {
+}: Required<Pick<ModalTitleProps, 'appearance'>>) => {
   const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
 
   return (
-    <span css={[iconStyles, !isMultiline && truncatedTextIconStyles]}>
+    <span css={iconStyles}>
       <Icon label={appearance} primaryColor={iconColor[appearance]} />
     </span>
   );
@@ -128,9 +102,7 @@ const ModalTitle = (props: ModalTitleProps) => {
 
   return (
     <h1 css={titleStyles} data-testid={testId}>
-      {appearance && (
-        <TitleIcon appearance={appearance} isMultiline={isMultiline} />
-      )}
+      {appearance && <TitleIcon appearance={appearance} />}
       <span
         id={titleId}
         css={[textStyles, !isMultiline && truncatedTextStyles]}

@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { additionalChecks } from '../../../src/utils/custom-theme-token-contrast-check';
@@ -34,13 +34,13 @@ export const formatter: Format['formatter'] = ({ dictionary }) => {
     .map((name) => `  '${name}': '${tokens[name]}',`)
     .join('\n');
 
-  const source = prettier.format(
+  const source = format(
     `const tokenValues = {
       ${tokensKeyValues}
     } as const;
 
     export default tokenValues;\n`,
-    { parser: 'typescript', singleQuote: true },
+    'typescript'
   );
 
   return createSignedArtifact(

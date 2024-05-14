@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -26,9 +26,6 @@ export type PressableProps = Omit<
   // Should not allow custom elements
   | 'as'
   | 'children'
-  // There is no reason the default role of `button` should
-  // be overwritten.
-  | 'role'
   | 'style'
   | 'onClick'
 > & {
@@ -39,24 +36,22 @@ export type PressableProps = Omit<
   children: ReactNode;
   isDisabled?: boolean;
   /**
-   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+   * Handler to be called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
    */
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * An optional name used to identify the interaction type to press listeners. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+   * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
    */
   interactionName?: string;
   /**
-   * An optional component name used to identify this component to press listeners. This can be used if a parent component's name is preferred. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+   * An optional component name used to identify this component in Atlaskit analytics events. This can be used if a parent component's name is preferred over the default 'Pressable'.
    */
   componentName?: string;
   /**
-   * Additional information to be included in the `context` of analytics events that come from pressable.
+   * Additional information to be included in the `context` of Atlaskit analytics events that come from pressable.
    */
   analyticsContext?: Record<string, any>;
 };
@@ -86,17 +81,15 @@ const focusRingStyles = xcss({
 });
 
 /**
- * __UNSAFE_PRESSABLE__
+ * __Pressable__
  *
- * @internal Still under development. Do not use.
- *
- * A Pressable is a primitive component that renders a `<button>`.
+ * A primitive for building custom buttons.
  *
  * - [Examples](https://atlassian.design/components/primitives/pressable/examples)
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const UNSAFE_PRESSABLE = forwardRef(
+const Pressable = forwardRef(
   (
     {
       children,
@@ -186,4 +179,4 @@ const UNSAFE_PRESSABLE = forwardRef(
   },
 );
 
-export default UNSAFE_PRESSABLE;
+export default Pressable;

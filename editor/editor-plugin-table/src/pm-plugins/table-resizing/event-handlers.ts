@@ -32,6 +32,7 @@ import {
   getTableMaxWidth,
   pointsAtCell,
   resizeColumn,
+  resizeColumnAndTable,
   updateControls,
 } from './utils';
 
@@ -41,12 +42,12 @@ export const handleMouseDown = (
   localResizeHandlePos: number,
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
+  isTableScalingEnabled: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
 ): boolean => {
   const { state, dispatch } = view;
   const editorDisabled = !view.editable;
   const domAtPos = view.domAtPos.bind(view);
-  const { isTableScalingEnabled = false } = getTablePluginState(state);
 
   if (
     editorDisabled ||
@@ -85,7 +86,14 @@ export const handleMouseDown = (
     getEditorContainerWidth,
   });
 
-  const shouldScale = tableDepth === 0 && isTableScalingEnabled;
+  let shouldScale = tableDepth === 0 && isTableScalingEnabled;
+  if (
+    isTableScalingEnabled &&
+    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+  ) {
+    shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
+  }
+
   const resizeState = getResizeState({
     minWidth: tableCellMinWidth,
     maxSize,
@@ -181,25 +189,42 @@ export const handleMouseDown = (
           selectedColumns.indexOf(colIndex) > -1 ||
           selectedColumns.indexOf(colIndex + 1) > -1;
 
-        const shouldScale = tableDepth === 0 && isTableScalingEnabled;
-        const newResizeState = resizeColumn(
-          resizeState,
-          colIndex,
-          clientX - startX,
-          dom,
-          originalTable,
-          resizingSelectedColumns ? selectedColumns : undefined,
-          shouldScale,
-        );
+        let shouldScale = tableDepth === 0 && isTableScalingEnabled;
+        if (
+          isTableScalingEnabled &&
+          getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+        ) {
+          shouldScale =
+            shouldScale && originalTable.attrs.displayMode !== 'fixed';
+        }
 
         const resizedDelta = clientX - startX;
 
-        tr = updateColumnWidths(newResizeState, table, start)(tr);
-
-        // console.log('debug newResizeState=', newResizeState);
         if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
-          tr.setNodeAttribute(tablePos, 'width', newResizeState.tableWidth);
+          const newResizeState = resizeColumnAndTable(
+            resizeState,
+            colIndex,
+            clientX - startX,
+            dom,
+            originalTable,
+            resizingSelectedColumns ? selectedColumns : undefined,
+            shouldScale,
+          );
+          tr = updateColumnWidths(newResizeState, table, start)(tr);
+          tr.setNodeAttribute(start - 1, 'width', newResizeState.tableWidth);
+        } else {
+          const newResizeState = resizeColumn(
+            resizeState,
+            colIndex,
+            clientX - startX,
+            dom,
+            originalTable,
+            resizingSelectedColumns ? selectedColumns : undefined,
+            shouldScale,
+          );
+          tr = updateColumnWidths(newResizeState, table, start)(tr);
         }
+
         if (colIndex === map.width - 1) {
           const mouseUpTime = event.timeStamp;
 
@@ -277,16 +302,35 @@ export const handleMouseDown = (
       $cell.nodeAfter!.attrs.colspan -
       1;
 
-    const shouldScale = tableDepth === 0 && isTableScalingEnabled;
-    resizeColumn(
-      resizeState,
-      colIndex,
-      clientX - dragging.startX,
-      dom,
-      table,
-      undefined,
-      shouldScale,
-    );
+    let shouldScale = tableDepth === 0 && isTableScalingEnabled;
+    if (
+      isTableScalingEnabled &&
+      getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+    ) {
+      shouldScale = shouldScale && originalTable.attrs.displayMode !== 'fixed';
+    }
+
+    if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
+      resizeColumnAndTable(
+        resizeState,
+        colIndex,
+        clientX - dragging.startX,
+        dom,
+        table,
+        undefined,
+        shouldScale,
+      );
+    } else {
+      resizeColumn(
+        resizeState,
+        colIndex,
+        clientX - dragging.startX,
+        dom,
+        table,
+        undefined,
+        shouldScale,
+      );
+    }
 
     updateControls()(state);
   }

@@ -7,23 +7,24 @@ import { IntlProvider } from 'react-intl-next';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
-  DatasourceDataResponseItem,
-  DatasourceTableStatusType,
+  type DatasourceDataResponseItem,
+  type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import { EVENT_CHANNEL } from '../../analytics';
-import { DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
+import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
 import {
-  DatasourceTableState,
+  type DatasourceTableState,
   useDatasourceTableState,
 } from '../../hooks/useDatasourceTableState';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
 import * as issueLikeModule from '../issue-like-table';
-import { IssueLikeDataTableViewProps } from '../issue-like-table/types';
+import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
 import { useIsOnScreen } from '../issue-like-table/useIsOnScreen';
 
 import { DatasourceTableView } from './datasourceTableView';
-import { DatasourceTableViewProps } from './types';
+import { type DatasourceTableViewProps } from './types';
 
 jest.mock('../../hooks/useDatasourceTableState');
 jest.mock('../issue-like-table/useIsOnScreen');
@@ -121,6 +122,74 @@ const setup = (
           parameters={{
             cloudId: 'some-cloud-id',
             jql: 'some-jql-query',
+          }}
+          visibleColumnKeys={
+            visibleColumnKeys === null
+              ? undefined
+              : visibleColumnKeys || ['visible-column-1', 'visible-column-2']
+          }
+          onVisibleColumnKeysChange={
+            onVisibleColumnKeysChange === null
+              ? undefined
+              : onVisibleColumnKeysChange || jest.fn()
+          }
+          {...propsOverride}
+        />
+      </IntlProvider>
+    </AnalyticsListener>,
+  );
+
+  return { mockReset, ...renderResult };
+};
+
+const setupAssetsTable = (
+  stateOverride: Partial<DatasourceTableState> & {
+    visibleColumnKeys?: string[] | null;
+    onVisibleColumnKeysChange?: ((visibleColumnKeys: string[]) => void) | null;
+    responseItems?: DatasourceDataResponseItem[];
+  } = {},
+  propsOverride: Partial<DatasourceTableViewProps> = {},
+) => {
+  const { visibleColumnKeys, onVisibleColumnKeysChange, responseItems } =
+    stateOverride;
+
+  const mockReset = jest.fn();
+  asMock(useDatasourceTableState).mockReturnValue({
+    reset: mockReset,
+    status: 'resolved',
+    onNextPage: jest.fn(),
+    loadDatasourceDetails: jest.fn(),
+    hasNextPage: false,
+    responseItems: responseItems || [
+      {
+        myColumn: {
+          data: 'some-value',
+        },
+        id: {
+          data: 'some-id1',
+        },
+      },
+    ],
+    totalCount: responseItems?.length || 2,
+    columns: [
+      { key: 'myColumn', title: 'My Column', type: 'string' },
+      { key: 'id', title: 'Id' },
+    ],
+    defaultVisibleColumnKeys: ['myColumn'],
+    extensionKey: 'jsm-cmdb-gateway',
+    destinationObjectTypes: ['assets'],
+    ...(stateOverride || {}),
+  } as DatasourceTableState);
+
+  const renderResult = render(
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+      <IntlProvider locale="en">
+        <DatasourceTableView
+          datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+          parameters={{
+            workspaceId: 'workspaceId',
+            aql: 'name like a',
+            schemaId: '2',
           }}
           visibleColumnKeys={
             visibleColumnKeys === null
@@ -246,6 +315,45 @@ describe('DatasourceTableView', () => {
     const { getByTestId } = setup();
 
     expect(getByTestId('table-footer')).toBeInTheDocument();
+  });
+
+  it('should render the powered by JSM Assets link with Assets DatasourceId', async () => {
+    const { queryByTestId } = setupAssetsTable();
+    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+
+    expect(assetsLink).toBeInTheDocument();
+  });
+
+  it('should fire ui.link.clicked.poweredBy when Assets link is clicked', async () => {
+    const { findByTestId } = setupAssetsTable();
+    const assetsLink = await findByTestId('powered-by-jsm-assets-link');
+    expect(assetsLink).toBeInTheDocument();
+
+    await assetsLink.click();
+    await waitFor(() => {
+      expect(onAnalyticFireEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            action: 'clicked',
+            actionSubject: 'link',
+            actionSubjectId: 'poweredBy',
+            eventType: 'ui',
+            attributes: {
+              componentHierarchy: 'datasourceTable',
+              extensionKey: 'jsm-cmdb-gateway',
+            },
+          }),
+        }),
+        EVENT_CHANNEL,
+      );
+    });
+  });
+
+  it('should not render the powered by JSM Assets link on footer if datasource is not Assets', async () => {
+    const { queryByTestId } = setup();
+    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+
+    expect(assetsLink).not.toBeInTheDocument();
   });
 
   it('should not call reset() on initial load (only when parameters change)', () => {

@@ -54,13 +54,11 @@ export function tableSelectionKeymapPlugin(
     list,
   );
 
-  if (getBooleanFF('platform.editor.table.shift-arrowup-fix')) {
-    bindKeymapWithCommand(
-      shiftArrowUp.common!,
-      shiftArrowUpFromTable(editorSelectionAPI)(),
-      list,
-    );
-  }
+  bindKeymapWithCommand(
+    shiftArrowUp.common!,
+    shiftArrowUpFromTable(editorSelectionAPI)(),
+    list,
+  );
 
   if (getBooleanFF('platform.editor.table.cmd-a-select-table')) {
     bindKeymapWithCommand(

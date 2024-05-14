@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import {
@@ -66,8 +64,7 @@ export const createInteractionStylesFromTemplate = (
 
   const { prefix, cssProperty, filterFn } = colors[colorProperty];
 
-  return (
-    prettier.format(
+  return (format(
       `
 const ${colorProperty}ActiveColorMap = {
   ${pressedTokens
@@ -94,12 +91,7 @@ const ${colorProperty}HoverColorMap = {
     })
     .join(',\n\t')}
 };`,
-      {
-        singleQuote: true,
-        parser: 'typescript',
-        trailingComma: 'all',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) +
     `\ntype Interaction${capitalize(
       colorProperty,

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/textarea",
-  "version": "5.2.0",
+  "version": "5.4.0",
   "description": "A text area lets users enter long form text which spans over multiple lines.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,7 @@
   "homepage": "https://atlassian.design/components/textarea/",
   "atlassian": {
     "team": "Design System Team",
+    "runReact18": true,
     "productPushConsumption": [
       "jira"
     ],
@@ -47,15 +48,14 @@
     "./text-area": "./src/text-area.tsx"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
@@ -97,14 +97,6 @@
         "emotion"
       ],
       "deprecation": "no-deprecated-imports"
-    }
-  },
-  "platform-feature-flags": {
-    "platform.design-system-team.border-checkbox_nyoiu": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.update-input-border-wdith_5abwv": {
-      "type": "boolean"
     }
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

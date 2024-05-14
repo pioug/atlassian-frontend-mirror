@@ -12,6 +12,7 @@ import { useBidiWarnings } from '../../../hooks/use-bidi-warnings';
 import { RendererCssClassName } from '../../../../consts';
 import type { Props as CodeBlockProps } from '../codeBlock';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const lightWeightCodeBlockStyles = css`
   .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
     cursor: text;
@@ -29,6 +30,7 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = () => {
   // lightweight codeblock containers will not be targeted.
   // NOTE: This must be added after other .code-block styles in the root
   // Renderer stylesheet.
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     .${RendererCssClassName.DOCUMENT}
       > .${LightWeightCodeBlockCssClassName.CONTAINER}

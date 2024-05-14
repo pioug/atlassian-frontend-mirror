@@ -7,7 +7,7 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
@@ -15,6 +15,7 @@ import type {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
@@ -35,7 +36,6 @@ import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 import { isImage } from '../utils/is-type';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { MediaInlineNodeSelector } from './styles';
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;
   identifier: FileIdentifier;
@@ -159,26 +159,18 @@ export const MediaInline = (props: MediaInlineProps) => {
 
   if (allowInlineImages && isImage(type)) {
     return (
-      <MediaViewerContainer
-        mediaNode={props.node}
-        mediaPluginState={props.mediaPluginState}
-        isEditorViewMode={props.editorViewMode}
+      <MediaInlineImageCard
+        mediaClient={getMediaClient(viewMediaClientConfig)}
+        identifier={identifier}
         isSelected={props.isSelected}
-        isInline={true}
-      >
-        <MediaInlineImageCard
-          mediaClient={getMediaClient(viewMediaClientConfig)}
-          identifier={identifier}
-          isSelected={props.isSelected}
-          alt={alt}
-          width={width}
-          height={height}
-          border={{
-            borderSize: borderMark?.attrs.size,
-            borderColor: borderMark?.attrs.color,
-          }}
-        />
-      </MediaViewerContainer>
+        alt={alt}
+        width={width}
+        height={height}
+        border={{
+          borderSize: borderMark?.attrs.size,
+          borderColor: borderMark?.attrs.color,
+        }}
+      />
     );
   }
 
@@ -251,12 +243,6 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
     return domRef;
   }
 
-  getContentDOM() {
-    const dom = document.createElement('span');
-    dom.classList.add(MediaInlineNodeSelector);
-    return { dom };
-  }
-
   ignoreMutation() {
     return true;
   }
@@ -301,23 +287,23 @@ export class MediaInlineNodeView extends SelectionBasedNodeView<MediaInlineNodeV
 
 export const ReactMediaInlineNode =
   (
-    portalProviderAPI: PortalProviderAPI,
+    portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
   ) =>
-  (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
-    return new MediaInlineNodeView(
-      node,
-      view,
-      getPos,
-      portalProviderAPI,
-      eventDispatcher,
-      {
-        providerFactory,
-        dispatchAnalyticsEvent,
-        api,
-      },
-    ).init();
-  };
+    (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
+      return new MediaInlineNodeView(
+        node,
+        view,
+        getPos,
+        portalProviderAPI,
+        eventDispatcher,
+        {
+          providerFactory,
+          dispatchAnalyticsEvent,
+          api,
+        },
+      ).init();
+    };

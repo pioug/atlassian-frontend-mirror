@@ -1,4 +1,4 @@
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 
 export enum InsertDraftPosition {
@@ -14,6 +14,7 @@ export type AnnotationsWrapperProps = React.PropsWithChildren<{
   adfDocument: JSONDocNode;
   annotationProvider: AnnotationProviders | null | undefined;
   rendererRef: React.RefObject<HTMLDivElement>;
+  isNestedRender: boolean;
 }>;
 
 export type TextPosition = {

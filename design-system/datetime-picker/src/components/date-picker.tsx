@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, CSSProperties } from 'react';
+import { Component, type CSSProperties } from 'react';
 
 import { jsx } from '@emotion/react';
 import { format, isValid, lastDayOfMonth, parseISO } from 'date-fns';
@@ -10,20 +10,20 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { CalendarRef } from '@atlaskit/calendar';
+import { type CalendarRef } from '@atlaskit/calendar';
 import CalendarIcon from '@atlaskit/icon/glyph/calendar';
 import {
   createLocalizationProvider,
-  LocalizationProvider,
+  type LocalizationProvider,
 } from '@atlaskit/locale';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Select, {
-  ActionMeta,
-  DropdownIndicatorProps,
-  InputActionMeta,
+  type ActionMeta,
+  type DropdownIndicatorProps,
+  type InputActionMeta,
   mergeStyles,
-  OptionType,
-  ValueType,
+  type OptionType,
+  type ValueType,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
@@ -40,7 +40,7 @@ import {
 } from '../internal/parse-date';
 import { convertTokens } from '../internal/parse-tokens';
 import { makeSingleValue } from '../internal/single-value';
-import { Appearance, DatePickerBaseProps, Spacing } from '../types';
+import { type Appearance, type DatePickerBaseProps, type Spacing } from '../types';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -178,6 +178,22 @@ class DatePicker extends Component<DatePickerProps, State> {
     });
 
     this.props.onChange(iso);
+
+    // Not ideal, and the alternative is to place a ref on the inner input of the Select
+    // but that would require a lot of extra work on the Select component just for this
+    // focus functionality. While that would be the 'right react' way to do it, it doesnt
+    // post any other benefits; performance wise, we are only searching within the
+    // container, making it quick.
+    if (
+      getBooleanFF(
+        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
+      )
+    ) {
+      const innerCombobox: HTMLInputElement | undefined | null =
+        this.containerRef?.querySelector('[role="combobox"]');
+      innerCombobox?.focus();
+      this.setState({ isOpen: false });
+    }
   };
 
   onInputClick = () => {
@@ -191,14 +207,7 @@ class DatePicker extends Component<DatePickerProps, State> {
 
     if (!this.containerRef?.contains(newlyFocusedElement)) {
       this.setState({ isOpen: false });
-
-      if (
-        getBooleanFF(
-          'platform.design-system-team.move-onblur-event-to-input-container_3z82c',
-        )
-      ) {
-        this.props.onBlur(event);
-      }
+      this.props.onBlur(event);
     }
   };
 
@@ -212,13 +221,6 @@ class DatePicker extends Component<DatePickerProps, State> {
       // Don't close menu if focus is staying within the date picker's
       // container. Makes keyboard accessibility of calendar possible
       this.setState({ isOpen: false, isFocused: false });
-    }
-    if (
-      !getBooleanFF(
-        'platform.design-system-team.move-onblur-event-to-input-container_3z82c',
-      )
-    ) {
-      this.props.onBlur(event);
     }
   };
 
@@ -259,6 +261,18 @@ class DatePicker extends Component<DatePickerProps, State> {
     const { value, calendarValue } = this.getSafeState();
 
     const keyPressed = event.key.toLowerCase();
+
+    // If the input is focused and the calendar is not visible, handle space and enter clicks
+    if (
+      getBooleanFF(
+        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
+      ) &&
+      !this.state.isOpen &&
+      (keyPressed === 'enter' || keyPressed === ' ')
+    ) {
+      this.setState({ isOpen: true });
+    }
+
     switch (keyPressed) {
       case 'escape':
         // Yes, this is not ideal. The alternative is to be able to place a ref

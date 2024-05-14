@@ -23,10 +23,14 @@ const commentBadgeWrapper = css({
   zIndex: akEditorUnitZIndex * 10,
 });
 
-const commentBadgeEditorOverrides = css({
-  right: '14px',
-  zIndex: layers.card(),
-});
+const commentBadgeEditorOverrides = (
+  commentsOnMediaBugFixEnabled?: boolean,
+  badgeOffsetRight?: string,
+) =>
+  css({
+    right: commentsOnMediaBugFixEnabled ? badgeOffsetRight : '14px',
+    zIndex: layers.card(),
+  });
 
 const getBadgeSize = (width?: number, height?: number) => {
   // width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
@@ -44,6 +48,8 @@ export type CommentBadgeProps = {
   onMouseLeave?: (e: React.MouseEvent) => void;
   isEditor?: boolean;
   isDrafting?: boolean;
+  badgeOffsetRight?: string;
+  commentsOnMediaBugFixEnabled?: boolean;
 };
 
 export const CommentBadge = ({
@@ -55,7 +61,8 @@ export const CommentBadge = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
-  isEditor = false,
+  badgeOffsetRight,
+  commentsOnMediaBugFixEnabled,
 }: CommentBadgeProps) => {
   const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
     getBadgeSize(width, height),
@@ -101,10 +108,19 @@ export const CommentBadge = ({
   return (
     <div
       css={
-        isEditor
-          ? [commentBadgeWrapper, commentBadgeEditorOverrides]
+        badgeOffsetRight
+          ? [
+              commentBadgeWrapper,
+              commentBadgeEditorOverrides(
+                commentsOnMediaBugFixEnabled,
+                badgeOffsetRight,
+              ),
+            ]
           : commentBadgeWrapper
       }
+      // This is needed so that mediaWrapperStyle in editor/editor-common/src/ui/MediaSingle/styled.tsx
+      // can target the correct div
+      data-comment-badge="true"
     >
       <Tooltip position="top" content={title}>
         <CustomThemeButton

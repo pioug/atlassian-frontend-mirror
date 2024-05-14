@@ -13,7 +13,7 @@ import {
   VAR_LEFT_SIDEBAR_FLYOUT,
 } from '../../common/constants';
 import { useIsSidebarDragging } from '../../common/hooks';
-import { SlotWidthProps } from '../../common/types';
+import { type SlotWidthProps } from '../../common/types';
 import { getPageLayoutSlotSelector } from '../../common/utils';
 import { SidebarResizeContext, useSkipLink } from '../../controllers';
 
@@ -66,9 +66,7 @@ const Main = (props: SlotWidthProps) => {
   return (
     <SlotFocusRing>
       {({ className }) => (
-        <div
-          // Using ARIA role instead of <main> tag to avoid any issues with downstream implementations.
-          role="main"
+        <main
           data-testid={testId}
           css={[
             mainStyles,
@@ -81,7 +79,7 @@ const Main = (props: SlotWidthProps) => {
           {...getPageLayoutSlotSelector('main')}
         >
           {children}
-        </div>
+        </main>
       )}
     </SlotFocusRing>
   );

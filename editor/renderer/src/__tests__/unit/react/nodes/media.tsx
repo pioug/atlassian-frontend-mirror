@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
 
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import type { MediaType } from '@atlaskit/adf-schema';
+import { AnnotationTypes, type MediaType } from '@atlaskit/adf-schema';
 import type { CardEvent } from '@atlaskit/media-card';
 import type {
   FileIdentifier,
@@ -38,6 +38,12 @@ import {
   MediaClientProvider,
 } from '@atlaskit/media-client-react';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import { renderWithIntl } from '../../../__helpers/render';
+
+jest.mock('../../../../ui/annotations/hooks', () => ({
+  ...jest.requireActual('../../../../ui/annotations/hooks'),
+  useInlineCommentsFilter: jest.fn().mockReturnValue(['foo']),
+}));
 
 const MediaCardWithProvider = (props: MediaCardProps & ImageLoaderProps) => {
   return (
@@ -1228,4 +1234,85 @@ describe('Media', () => {
       );
     });
   });
+
+  describe('Media Annotation Mark', () => {
+    describe('when feature is disabled', () => {
+      it('media comment badge does not render', () => {
+        const result = renderWithIntl(
+          <Media
+            type={mediaNode.attrs.type as MediaType}
+            id={mediaNode.attrs.id}
+            collection={mediaNode.attrs.collection}
+            alt="test"
+            marks={[
+              {
+                type: 'annotation',
+                attrs: {
+                  id: 'foo',
+                  annotationType: AnnotationTypes.INLINE_COMMENT
+                },
+              },
+            ]}
+            isLinkMark={() => false}
+            isBorderMark={() => false}
+            isAnnotationMark={() => true}
+            allowAltTextOnImages={false}
+            isDrafting={false}
+            featureFlags={{commentsOnMedia: false}}
+          />
+        )
+
+        expect(result.container.querySelector('#foo')).toBeInTheDocument();
+        expect(screen.queryByLabelText('View comments')).not.toBeInTheDocument();
+      })
+    })
+    describe('when feature is enabled', () => {
+      it('renders badge when annotation exists', () => {
+        const result = renderWithIntl(
+          <Media
+            type={mediaNode.attrs.type as MediaType}
+            id={mediaNode.attrs.id}
+            collection={mediaNode.attrs.collection}
+            alt="test"
+            marks={[
+              {
+                type: 'annotation',
+                attrs: {
+                  id: 'foo',
+                  annotationType: AnnotationTypes.INLINE_COMMENT
+                },
+              },
+            ]}
+            isLinkMark={() => false}
+            isBorderMark={() => false}
+            isAnnotationMark={() => true}
+            allowAltTextOnImages={false}
+            isDrafting={false}
+            featureFlags={{commentsOnMedia: true}}
+          />
+        )
+        expect(result.container.querySelector('#foo')).toBeInTheDocument();
+        expect(screen.queryByLabelText('View comments')).toBeInTheDocument();
+      })
+      it('renders draft badge when annotation does not exist and draft mode is true', () => {
+        const result = renderWithIntl(
+          <Media
+            type={mediaNode.attrs.type as MediaType}
+            id={mediaNode.attrs.id}
+            collection={mediaNode.attrs.collection}
+            alt="test"
+            marks={[]}
+            isLinkMark={() => false}
+            isBorderMark={() => false}
+            isAnnotationMark={() => true}
+            allowAltTextOnImages={false}
+            isDrafting={true}
+            featureFlags={{commentsOnMedia: true}}
+          />
+        )
+        expect(result.container.querySelector('#foo')).not.toBeInTheDocument();
+        expect(screen.queryByLabelText('View comments')).toBeInTheDocument();
+      })
+    })
+  })
 });

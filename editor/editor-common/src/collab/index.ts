@@ -2,7 +2,6 @@ import type { ReactElement } from 'react';
 
 import { css } from '@emotion/react';
 
-import { hexToRgba } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type {
   EditorState,
@@ -10,9 +9,11 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import * as themeColors from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import {
+  avatarColors,
+  relativeFontSizeToBase16,
+} from '@atlaskit/editor-shared-styles';
+import { getGlobalTheme, token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
 
@@ -479,56 +480,33 @@ export interface CollabEventLocalStepData {
   steps: Array<Step>;
 }
 
-export interface Color {
-  solid: string;
-  selection: string;
-}
+export type Color = ReturnType<typeof token>;
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-7269
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-export const colors: Color[] = [
-  themeColors.R100,
-  themeColors.R300,
-  themeColors.R500,
-  themeColors.Y100,
-  themeColors.Y300,
-  themeColors.Y500,
-  themeColors.G100,
-  themeColors.G300,
-  themeColors.G500,
-  themeColors.T100,
-  themeColors.T300,
-  themeColors.T500,
-  themeColors.B100,
-  themeColors.B300,
-  themeColors.B500,
-  themeColors.P100,
-  themeColors.P300,
-  themeColors.P500,
-  themeColors.N70,
-  themeColors.N200,
-  themeColors.N800,
-].map((solid) => ({
-  solid,
-  selection: hexToRgba(solid, 0.2)!,
-}));
+const telepointerColorStyle = (color: Color, index: number) => {
+  const { colorMode } = getGlobalTheme();
 
-const telepointerColorStyle = (color: Color, index: number) => `
-  &.color-${index} {
-    background-color: ${color.selection};
-    &::after {
-      background-color: ${color.solid};
-      color: ${token('color.text.inverse', '#fff')};
-      border-color: ${color.solid};
+  const backgroundStyle =
+    colorMode === 'dark'
+      ? `linear-gradient(to bottom, ${color} -800000%, transparent 200000%)`
+      : `linear-gradient(to bottom, ${color} -850000%, transparent 150000%)`;
+
+  return `
+    &.color-${index} {
+      background: ${backgroundStyle};
+      &::after {
+        background-color: ${color};
+        color: ${token('color.text.inverse', '#FFFFFF')};
+        border-color: ${color};
+      }
     }
-  }
-`;
+  `;
+};
 
 export const TELEPOINTER_DIM_CLASS = 'telepointer-dim';
 
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/no-exported-css
 export const telepointerStyle = css`
   .ProseMirror .telepointer {
     position: relative;
@@ -547,7 +525,7 @@ export const telepointerStyle = css`
       top: -14px;
       font-size: ${relativeFontSizeToBase16(9)};
       padding: ${token('space.025', '2px')};
-      color: ${token('color.text.inverse', 'white')};
+      color: ${token('color.text.inverse', '#FFFFFF')};
       left: 0px;
       border-radius: 2px 2px 2px 0;
       line-height: initial;
@@ -557,7 +535,7 @@ export const telepointerStyle = css`
       opacity: 0.2;
     }
 
-    ${colors.map((color, index) => telepointerColorStyle(color, index))};
+    ${avatarColors.map((color, index) => telepointerColorStyle(color, index))};
   }
 `;
 

@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Přidat sloupec vpravo',
   'fabric.editor.addCommentOnMedia': 'Přidat komentář',
   'fabric.editor.addImageBorder': 'Přidat ohraničení',
+  'fabric.editor.addLoomVideo': 'Přidat video Loom',
   'fabric.editor.addMediaFiles': 'Přidat obrázek, video nebo soubor',
   'fabric.editor.addRowAbove': 'Přidat řádek nad',
   'fabric.editor.addRowBelow': 'Přidat řádek pod',
@@ -98,6 +99,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Aktiva (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Pomocí vyhledávání a filtrování vložte objekty z Aktiv do Jira Service Management.',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Aktiva',
+  'fabric.editor.datasource.confluenceSearch': 'Vložit seznam Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Vložte seznam výsledků vyhledávání z Confluence s použitím rozšířeného vyhledávání, filtrování a konfigurací.',
   'fabric.editor.datasource.jiraIssue': 'Požadavky Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Vkládání požadavků Jira z Jira Cloud pomocí rozšířeného vyhledávání, filtrování a konfigurací.',
@@ -108,6 +113,7 @@ export default {
   'fabric.editor.decision': 'Rozhodnutí',
   'fabric.editor.decision.description': 'Zaznamenávejte rozhodnutí, aby se snadněji sledovala',
   'fabric.editor.decisionPlaceholder': 'Přidat rozhodnutí...',
+  'fabric.editor.decreaseColumnSize': 'Snížit velikost sloupce',
   'fabric.editor.decreaseSize': 'Snížit velikost',
   'fabric.editor.defaultAltText': 'Dokument',
   'fabric.editor.description': 'Popis',
@@ -234,6 +240,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Velikost',
   'fabric.editor.imageBorderSubtle': 'Útlé',
   'fabric.editor.improvement': 'Vylepšení',
+  'fabric.editor.increaseColumnSize': 'Zvýšit velikost sloupce',
   'fabric.editor.increaseSize': 'Zvýšit velikost',
   'fabric.editor.indent': 'Zvětšit odsazení',
   'fabric.editor.info': 'Informace',
@@ -330,8 +337,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Přidat text placeholderu.',
   'fabric.editor.plainText': 'Použít prostý text',
   'fabric.editor.quickInsert': 'Rychlé vložení',
-  'fabric.editor.recordVideo': 'Nahrát video',
-  'fabric.editor.recordVideo.description': 'Nahrát video z aplikace Loom',
+  'fabric.editor.recordVideo': 'Nahrávání videa Loom',
+  'fabric.editor.recordVideo.description': 'Nahrávejte obrazovku a obraz z kamery.',
   'fabric.editor.redo': 'Znovu',
   'fabric.editor.remove': 'Odebrat',
   'fabric.editor.removeColumns':
@@ -353,6 +360,7 @@ export default {
   'fabric.editor.saveButton': 'Uložit',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {K dispozici je {itemsLength,number} výsledek vyhledávání. Možnosti můžete procházet pomocí kláves se šipkami nahoru/dolů. Stisknutím klávesy Enter vyberete možnost.} few {K dispozici jsou {itemsLength,number} výsledky vyhledávání. Možnosti můžete procházet pomocí kláves se šipkami nahoru/dolů. Stisknutím klávesy Enter vyberete možnost.} many {K dispozici je {itemsLength,number} výsledku vyhledávání. Možnosti můžete procházet pomocí kláves se šipkami nahoru/dolů. Stisknutím klávesy Enter vyberete možnost.} other {K dispozici je {itemsLength,number} výsledků vyhledávání. Možnosti můžete procházet pomocí kláves se šipkami nahoru/dolů. Stisknutím klávesy Enter vyberete možnost.}}',
+  'fabric.editor.selectColumnResize': 'Vybrat sloupec ke změně velikosti',
   'fabric.editor.selectLanguage': 'Vyberte programovací jazyk',
   'fabric.editor.selectTableColumn': 'Vybrat sloupec tabulky',
   'fabric.editor.selectTableRow': 'Vybrat řádek tabulky',
@@ -443,10 +451,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'Obsah není v tomto editoru k dispozici. Vaše úpravy se při uložení zachovají.',
   'fabric.editor.unsupportedInlineContent': 'Nepodporovaný obsah',
+  'fabric.editor.upDown':
+    'Při použití kláves se šipkami nahoru a dolů v následujícím vstupním poli se aktualizuje datum níže.',
   'fabric.editor.url': 'Zobrazit adresu URL',
   'fabric.editor.urlDescription': 'Zobrazit odkaz jako adresu URL',
   'fabric.editor.urlTitle': 'Adresa URL',
   'fabric.editor.useMarkdown': 'Použít markdown',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Zobrazit a přidat komentáře',
+  'fabric.editor.viewCommentOnMedia': 'Zobrazit komentáře',
   'fabric.editor.viewMore': 'Zobrazit více',
   'fabric.editor.visit': 'Otevřít odkaz v novém okně',
   'fabric.editor.warning': 'Varování',

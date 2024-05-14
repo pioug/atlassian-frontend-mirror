@@ -3,9 +3,6 @@ import { outdent } from 'outdent';
 import { typescriptEslintTester } from '../../__tests__/utils/_tester';
 import rule from '../index';
 
-// Uncomment the `name` properties below when AFM platform is upgraded to use
-// ESLint 8.1.0+
-
 typescriptEslintTester.run(
   'css-map',
   // @ts-expect-error typescript-eslint and eslint have slightly different types
@@ -13,7 +10,7 @@ typescriptEslintTester.run(
   {
     valid: [
       {
-        // name: 'example valid css map',
+        name: 'example valid css map',
         code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -31,7 +28,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with valid function calls',
+        name: 'valid css map with valid function calls',
         options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
         code: outdent`
         import React from 'react';
@@ -51,7 +48,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with several valid function calls',
+        name: 'valid css map with several valid function calls',
         options: [
           {
             allowedFunctionCalls: [
@@ -78,7 +75,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with string extracted into a variable',
+        name: 'valid css map with string extracted into a variable',
         code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -93,7 +90,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with string concatenation',
+        name: 'valid css map with string concatenation',
         code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -106,7 +103,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with valid function call thru `import { X as Y } from Z`',
+        name: 'valid css map with valid function call thru `import { X as Y } from Z`',
         options: [{ allowedFunctionCalls: [['@atlaskit/token', 'token']] }],
         code: outdent`
         import React from 'react';
@@ -126,7 +123,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with imported variable',
+        name: 'valid css map with imported variable',
         code: outdent`
         import React from 'react';
         import { cssMap } from '@compiled/react';
@@ -140,7 +137,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with variable in template strings',
+        name: 'valid css map with variable in template strings',
         code: outdent`
         import { firstFunction } from 'example';
         import React from 'react';
@@ -159,7 +156,7 @@ typescriptEslintTester.run(
     ],
     invalid: [
       {
-        // name: 'invalid test with `import as`',
+        name: 'invalid test with `import as`',
         errors: [
           {
             messageId: 'noSpreadElement',
@@ -184,7 +181,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map not declared at the top-most scope, variant 1',
+        name: 'css map not declared at the top-most scope, variant 1',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -204,7 +201,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map not declared at the top-most scope, variant 2',
+        name: 'css map not declared at the top-most scope, variant 2',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -224,7 +221,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map not declared at the top-most scope, variant 3',
+        name: 'css map not declared at the top-most scope, variant 3',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -244,7 +241,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map not declared at the top-most scope, variant 4',
+        name: 'css map not declared at the top-most scope, variant 4',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -264,7 +261,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map not declared at the top-most scope, variant 5',
+        name: 'css map not declared at the top-most scope, variant 5',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -284,7 +281,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'spread element',
+        name: 'spread element',
         errors: [
           {
             messageId: 'noSpreadElement',
@@ -309,7 +306,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'exporting css map',
+        name: 'exporting css map',
         errors: [
           {
             messageId: 'noExportedCssMap',
@@ -327,7 +324,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'exporting css map (through `export default`)',
+        name: 'exporting css map (through `export default`)',
         errors: [
           {
             messageId: 'noExportedCssMap',
@@ -345,7 +342,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'getters (object methods)',
+        name: 'getters (object methods)',
         errors: [
           {
             messageId: 'noInlineFunctions',
@@ -366,7 +363,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'arrow functions',
+        name: 'arrow functions',
         errors: [
           {
             messageId: 'noInlineFunctions',
@@ -385,7 +382,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'function call to a forbidden imported function',
+        name: 'function call to a forbidden imported function',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -410,7 +407,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'function call to a default export',
+        name: 'function call to a default export',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -438,7 +435,7 @@ typescriptEslintTester.run(
         //     import { token } from '@atlaskit/token'
         // but not
         //     import token from '@atlaskit/token'
-        // name: 'function call to a default export listed in allowedFunctionCalls',
+        name: 'function call to a default export listed in allowedFunctionCalls',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -462,7 +459,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'function call to a local function',
+        name: 'function call to a local function',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -484,7 +481,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'function calls to forbidden functions with cheeky loophole (import from correct package)',
+        name: 'function calls to forbidden functions with cheeky loophole (import from correct package)',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -508,7 +505,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'function calls to forbidden functions with cheeky loophole (import from wrong package)',
+        name: 'function calls to forbidden functions with cheeky loophole (import from wrong package)',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -532,7 +529,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls in template strings, variant 1',
+        name: 'valid css map with invalid function calls in template strings, variant 1',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -556,7 +553,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls in template strings, variant 2',
+        name: 'valid css map with invalid function calls in template strings, variant 2',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -581,7 +578,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls in logical expressions',
+        name: 'valid css map with invalid function calls in logical expressions',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -602,7 +599,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls thru variable',
+        name: 'valid css map with invalid function calls thru variable',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -624,7 +621,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls thru variable (imported function)',
+        name: 'valid css map with invalid function calls thru variable (imported function)',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -645,7 +642,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'valid css map with invalid function calls in string concatenation',
+        name: 'valid css map with invalid function calls in string concatenation',
         errors: [
           {
             messageId: 'noFunctionCalls',
@@ -666,7 +663,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'css map declared within an arrow function',
+        name: 'css map declared within an arrow function',
         errors: [
           {
             messageId: 'mustBeTopLevelScope',
@@ -686,7 +683,7 @@ typescriptEslintTester.run(
       `,
       },
       {
-        // name: 'should detect lint errors when cssMap is imported from @atlaskit/css',
+        name: 'should detect lint errors when cssMap is imported from @atlaskit/css',
         errors: [
           {
             messageId: 'noSpreadElement',

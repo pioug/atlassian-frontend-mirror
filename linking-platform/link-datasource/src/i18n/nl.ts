@@ -42,10 +42,26 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Kolommen configureren',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Zoek naar issues met trefwoorden',
   'linkDataSource.configmodal.cancelButtonText': 'Annuleren',
+  'linkDataSource.configmodal.inlineLinkViewModeDescription':
+    'Het aantal zoekresultaten weergeven of als een inline Smart Link',
+  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Inline-link',
+  'linkDataSource.configmodal.tableViewModeDescription': 'Zoekresultaten als tabel weergeven',
+  'linkDataSource.configmodal.tableViewModeLabel': 'Tabel',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuleren',
+  'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Willekeurig',
+  'linkDataSource.confluence-search.configmodal.date.range.custom': 'Aangepast',
+  'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Afgelopen 30 dagen',
+  'linkDataSource.confluence-search.configmodal.date.range.last.week': 'Afgelopen 7 dagen',
+  'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Afgelopen jaar',
+  'linkDataSource.confluence-search.configmodal.date.range.title': 'Voor het laatst bijgewerkt',
+  'linkDataSource.confluence-search.configmodal.date.range.today': 'Vandaag',
+  'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Gisteren',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Confluence-lijst invoegen',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Confluence-lijst invoegen van',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Resultaten invoegen',
+  'linkDataSource.confluence-search.configmodal.placeholder.issues': '### resultaten',
+  'linkDataSource.confluence-search.configmodal.resultsCountText':
+    '{totalCount, plural, one {resultaat} other {resultaten}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Voer zoektermen in om pagina’s, bijlagen en meer te vinden',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -95,7 +111,8 @@ export default {
   'linkDataSource.modal-initial-state.jiraSearchTitle': 'Zoek naar Jira-issues',
   'linkDataSource.modal-initial-state.learnMoreLink': 'Meer informatie over zoeken met JQL',
   'linkDataSource.modal-initial-state.searchDescription-basic': 'Zoek met trefwoorden om issues toe te voegen.',
-  'linkDataSource.modal-initial-state.searchDescription-confluence': "Zoek met trefwoorden om pagina's toe te voegen.",
+  'linkDataSource.modal-initial-state.searchDescription-confluence':
+    "Zoek met trefwoorden naar pagina's om in te voegen.",
   'linkDataSource.modal-initial-state.searchDescription-jql':
     'Gebruik JQL ( Jira Query Language) om te zoeken naar issues.',
   'linkDataSource.modal-initial-state.searchTitle': 'Zoek naar Jira-issues',
@@ -111,6 +128,7 @@ export default {
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Gesynchroniseerd op {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {item} other {items}}',
   'linkDataSource.table-footer.loading': 'Laden...',
+  'linkDataSource.table-footer.power-by-jsm': 'Aangestuurd door Assets in Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Vernieuwen',
   'linkDataSource.unableToLoadItems': 'Kan items niet laden',
   'linkDataSource.unableToLoadResults': 'Resultaten kunnen niet worden geladen',

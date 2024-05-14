@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -163,7 +163,7 @@ describe('Progress Indicator', () => {
 
       const buttons = screen.getAllByRole('tab');
 
-      expect(buttons[0]).toHaveAttribute('aria-label', 'tab0');
+      expect(buttons[0]).toHaveAccessibleName('tab0');
       expect(buttons[0]).toHaveAttribute('aria-controls', 'panel0');
       // skip should be removed once DSP-17664 is fixed
       // This will skip the a11y audit in after each
@@ -185,7 +185,7 @@ describe('Progress Indicator', () => {
 
       const buttons = screen.getAllByRole('tab');
 
-      expect(buttons[0]).toHaveAttribute('aria-label', 'testAriaLabel0');
+      expect(buttons[0]).toHaveAccessibleName('testAriaLabel0');
       expect(buttons[0]).toHaveAttribute('aria-controls', 'testAriaControls0');
       // skip should be removed once DSP-17664 is fixed
       // This will skip the a11y audit in after each
@@ -205,6 +205,29 @@ describe('Progress Indicator', () => {
       // This will skip the a11y audit in after each
       skipA11yAudit();
     });
+  });
+
+  it('should add tabIndex={-1} to selected dots only', () => {
+    const values = ['one', 'two', 'three'];
+    render(
+      <ProgressDots
+        onSelect={__noop}
+        testId="progress-dots"
+        selectedIndex={0}
+        values={values}
+      />,
+    );
+
+    expect(screen.getByTestId(`progress-dots-ind-0`)).toHaveAttribute(
+      'tabIndex',
+      '-1',
+    );
+    expect(screen.getByTestId(`progress-dots-ind-1`)).not.toHaveAttribute(
+      'tabIndex',
+    );
+    expect(screen.getByTestId(`progress-dots-ind-2`)).not.toHaveAttribute(
+      'tabIndex',
+    );
   });
 });
 

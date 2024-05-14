@@ -4,20 +4,23 @@ import {
   createElement,
   forwardRef,
   isValidElement,
-  MouseEvent,
-  MouseEventHandler,
-  ReactNode,
-  Ref,
+  type MouseEvent,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
   useCallback,
   useEffect,
   useRef,
 } from 'react';
 
 import { ClassNames, jsx } from '@emotion/react';
-import { CSSInterpolation } from '@emotion/serialize';
+import { type CSSInterpolation } from '@emotion/serialize';
 import { useUIDSeed } from 'react-uid';
 
-import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import {
+  type UIAnalyticsEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import { B300, N0, N70A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -28,15 +31,16 @@ import {
   AVATAR_SIZES,
   BORDER_WIDTH,
 } from './constants';
+import { useAvatarContext } from './context';
 import { PresenceWrapper } from './Presence';
 import { StatusWrapper } from './Status';
 import {
-  AppearanceType,
-  AvatarClickEventHandler,
-  IndicatorSizeType,
-  Presence,
-  SizeType,
-  Status,
+  type AppearanceType,
+  type AvatarClickEventHandler,
+  type IndicatorSizeType,
+  type Presence,
+  type SizeType,
+  type Status,
 } from './types';
 import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 
@@ -286,7 +290,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
       name,
       onClick,
       presence,
-      size = 'medium' as SizeType,
+      size: sizeProp = 'medium' as SizeType,
       src,
       stackIndex,
       status,
@@ -297,6 +301,10 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
     ref,
   ) => {
     const { createAnalyticsEvent } = useAnalyticsEvents();
+    const context = useAvatarContext();
+
+    const size = context?.size || sizeProp;
+
     const customPresenceNode = isValidElement(presence) ? presence : null;
     const customStatusNode = isValidElement(status) ? status : null;
     const isValidIconSize = size !== 'xxlarge' && size !== 'xsmall';

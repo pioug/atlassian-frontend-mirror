@@ -1,0 +1,144 @@
+This rule disallows using imported style values in `css`, `cssMap`, `styled`, `keyframes` and `xcss` calls.
+
+Importing style values may result in unexpected errors when used in these APIs, because its value will be null at runtime when using `@compiled/react`. Additionally, co-locating style definitions with their usage is considered best practice in order to improve code readability and build performance.
+
+## Examples
+
+### Incorrect
+
+```js
+import { css } from '@compiled/react';
+import { colors, getColor } from '@mui/theme';
+
+const styles = css({
+  [colorKey]: getColor('red'),
+  background: colors['red'],
+});
+```
+
+```js
+import { css } from '@compiled/react';
+import { buttonStyles, cssShared, HEIGHT, colorKey } from '../shared';
+import { ff } from '@atlaskit/ff';
+
+const sharedObject = { padding: 0 };
+
+const styles = css({
+  ...cssShared,
+  ...sharedObject,
+  height: `${HEIGHT}px`,
+  width: ff('…') ? `${HEIGHT}px` : undefined,
+});
+```
+
+Importing styles to use in style composition is not allowed.
+
+```js
+import { css } from '@compiled/react';
+import { buttonStyles } from '../shared';
+
+const styles = css({
+  color: 'red',
+});
+
+export default () => <div css={[styles, buttonStyles]} />;
+```
+
+Importing styles to pass to the style prop is also not allowed.
+
+```js
+import { importedWidth } from '../shared';
+
+export default () => <div style={{ width: importedWidth }} />;
+```
+
+### Correct
+
+Co-locate your styles next to your components to improve code readability, linting, and build performance.
+
+```js
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const styles = css({
+  color: 'red',
+  padding: token('space.150'),
+});
+export const Component = ({ children }) => <div css={styles}>{children}></div>;
+```
+
+```js
+import { keyframes } from '@compiled/react';
+
+const animation = keyframes({});
+const styles = css({ animate: `${animation} 1s ease-in` });
+export const Component = ({ children }) => <div css={styles}>{children}></div>;
+```
+
+## Options
+
+### `allowedDynamicKeys: [string, string][]`
+
+Use this to allow specified imports as dynamic keys, in addition to the built-in allow-list.
+
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+
+Default imports are not supported.
+
+```tsx
+// .eslintrc.js
+
+// ...
+      rules: {
+        '@atlaskit/eslint-plugin-ui-styling-standard/no-unsafe-values': [
+          'error',
+          {
+            allowedDynamicKeys: [
+              ['@atlaskit/primitives/responsive', 'media'],
+            ]
+          },
+        ],
+        // ...
+      },
+// ...
+```
+
+### `allowedFunctionCalls: [string, string][]`
+
+Use this to allow specific functions to be called, in addition to the built-in allow-list.
+
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+
+Default imports are not currently supported.
+
+```tsx
+// .eslintrc.js
+
+// ...
+      rules: {
+        '@atlaskit/eslint-plugin-ui-styling-standard/no-unsafe-values': [
+          'error',
+          {
+            allowedFunctionCalls: [
+              ['@atlaskit/tokens', 'token'],
+            ]
+          },
+        ],
+        // ...
+      },
+// ...
+```
+
+### `importSources: string[]`
+
+By default, this rule will check `css` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).

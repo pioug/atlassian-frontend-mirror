@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { FormattedDate, MessageDescriptor } from 'react-intl-next';
-
 import {
   ElementName,
   IconType,
@@ -117,6 +116,7 @@ const getData = (
   }
 
   const data = context[contextKey as keyof typeof context];
+
   switch (elementName) {
     case ElementName.AssignedToGroup:
     case ElementName.AuthorGroup:

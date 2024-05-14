@@ -17,9 +17,6 @@ snapshotInformational(EditorWithTable, {
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
   },
-  featureFlags: {
-    'platform.editor.table.shift-arrowup-fix': true,
-  },
   prepare: async (page: Page, component: Locator) => {
     const editor = await EditorPageModel.from({ page });
     const nodes = EditorNodeContainerModel.from(editor);
@@ -35,9 +32,6 @@ snapshotInformational(EditorWithNestedTable, {
   description: 'Nested table selected on Shift + ArrowUp from top row',
   selector: {
     byTestId: CONTENT_AREA_TEST_ID,
-  },
-  featureFlags: {
-    'platform.editor.table.shift-arrowup-fix': true,
   },
   prepare: async (page: Page, component: Locator) => {
     const editor = await EditorPageModel.from({ page });

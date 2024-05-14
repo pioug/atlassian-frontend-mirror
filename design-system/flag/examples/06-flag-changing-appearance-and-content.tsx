@@ -3,8 +3,7 @@ import { ReactElement, SyntheticEvent, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, xcss, Text } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';

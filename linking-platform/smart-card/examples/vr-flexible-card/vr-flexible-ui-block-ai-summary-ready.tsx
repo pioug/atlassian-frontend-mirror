@@ -19,6 +19,7 @@ export default () => (
     <Provider
       client={new MaximumResolvedCustomClient()}
       isAdminHubAIEnabled={true}
+      product="JSM"
     >
       <Card
         appearance="block"

@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Nem tudjuk megjeleníteni az összefoglaló eredményét, mert ellentmond az <a>Atlassian elfogadható használatra vonatkozó irányelveinek</a>.',
   'fabric.linking.ai_summary_error_generic':
-    'Az Atlassian Intelligence jelenleg nem tud válaszolni. További információkat a <a>támogatási dokumentációban</a> találsz.',
+    'Az Atlassian Intelligence (AI) nem válaszol. Próbálkozz újra később, vagy <a>ellenőrizd az AI állapotát</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Az Atlassian Intelligence nem tudta feldolgozni a kérelmedet, mert a tartalmad a HIPAA által korlátozott tartalomra hivatkozik.',
   'fabric.linking.assigned_to': 'Hozzárendelve a következő személyhez: {context}',
   'fabric.linking.beta': 'Béta',
   'fabric.linking.cancel': 'Mégse',

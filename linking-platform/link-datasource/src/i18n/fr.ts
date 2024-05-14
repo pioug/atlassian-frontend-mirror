@@ -42,13 +42,29 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Configurer les colonnes',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Rechercher des tickets par mot clé',
   'linkDataSource.configmodal.cancelButtonText': 'Annuler',
+  'linkDataSource.configmodal.inlineLinkViewModeDescription':
+    'Affichez le nombre de résultats de recherche ou sous forme de lien intelligent contextuel',
+  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Lien contextuel',
+  'linkDataSource.configmodal.tableViewModeDescription': 'Affichez les résultats de la recherche sous forme de tableau',
+  'linkDataSource.configmodal.tableViewModeLabel': 'Tableau',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Annuler',
+  'linkDataSource.confluence-search.configmodal.date.range.any.time': "N'importe quand",
+  'linkDataSource.confluence-search.configmodal.date.range.custom': 'Personnalisée',
+  'linkDataSource.confluence-search.configmodal.date.range.last.month': '30 derniers jours',
+  'linkDataSource.confluence-search.configmodal.date.range.last.week': '7 derniers jours',
+  'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Année dernière',
+  'linkDataSource.confluence-search.configmodal.date.range.title': 'Dernière mise à jour',
+  'linkDataSource.confluence-search.configmodal.date.range.today': "Aujourd'hui",
+  'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Hier',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Insérer une liste Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites':
     'Insérer la liste Confluence à partir de',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Insérer les résultats',
+  'linkDataSource.confluence-search.configmodal.placeholder.issues': '### Résultats',
+  'linkDataSource.confluence-search.configmodal.resultsCountText':
+    '{totalCount, plural, one {résultat} other {résultats}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
-    'Saisissez des mots-clés pour rechercher des pages, des pièces jointes, et plus encore',
+    'Saisissez des mots clés pour rechercher des pages, des pièces jointes, et plus encore',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
     "Pour demander l'accès, contactez votre administrateur.",
   'linkDataSource.confluence-search.no.confluence.sites.access.title': "Vous n'avez accès à aucun site Confluence",
@@ -112,6 +128,7 @@ export default {
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisé le {date}',
   'linkDataSource.table-footer.item': '{itemCount, plural, one {élément} other {éléments}}',
   'linkDataSource.table-footer.loading': 'Chargement…',
+  'linkDataSource.table-footer.power-by-jsm': 'Optimisé par Actifs dans Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Actualiser',
   'linkDataSource.unableToLoadItems': 'Chargement de certains éléments impossible',
   'linkDataSource.unableToLoadResults': 'Impossible de charger les résultats',

@@ -98,6 +98,11 @@ export const TEST_RESOLVED_META_DATA: JsonLd.Meta.BaseMeta = {
   key: 'object-provider',
 };
 
+export const TEST_RESOLVED_META_DATA_WITH_AI_SUMMARY: JsonLd.Meta.BaseMeta = {
+  ...TEST_RESOLVED_META_DATA,
+  supportedFeature: ['AISummary'],
+};
+
 export const TEST_DOCUMENT: JsonLd.Data.Document = {
   ...TEST_OBJECT,
   ...TEST_BASE_DATA,
@@ -105,6 +110,12 @@ export const TEST_DOCUMENT: JsonLd.Data.Document = {
   'schema:commentCount': 214,
   'schema:potentialAction': [],
 };
+
+export const TEST_DOCUMENT_WITH_ARI: JsonLd.Data.Document = {
+  ...TEST_DOCUMENT,
+  'atlassian:ari': 'some-resource-identifier',
+};
+
 export const TEST_CURRENT_DOCUMENT: JsonLd.Data.Document = {
   ...TEST_OBJECT,
   ...TEST_BASE_DATA,

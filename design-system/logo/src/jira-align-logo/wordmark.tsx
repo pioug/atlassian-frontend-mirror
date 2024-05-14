@@ -3,7 +3,7 @@ import React from 'react';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({ appearance, textColor }: LogoProps) => {
@@ -12,7 +12,7 @@ const svg = ({ appearance, textColor }: LogoProps) => {
   };
 
   if (appearance) {
-    colors = getColorsFromAppearance(appearance);
+    colors = getColorsFromAppearanceOldLogos(appearance);
   }
 
   return `
@@ -28,7 +28,7 @@ const svg = ({ appearance, textColor }: LogoProps) => {
       <path d="M96.5468 22.7316C95.5419 24.8315 93.6397 25.9176 91.1992 25.9176C87.036 25.9176 84.9544 22.3333 84.9544 17.6267C84.9544 13.1373 87.1437 9.33583 91.5222 9.33583C93.8192 9.33583 95.6137 10.3858 96.5468 12.4494V9.66167H99.2026V24.1436C99.2026 28.814 97.0134 31.9638 91.3787 31.9638C88.7228 31.9638 87.2872 31.6018 85.7439 31.0949V28.4157C87.4667 28.995 89.297 29.3571 91.2351 29.3571C95.183 29.3571 96.5468 27.221 96.5468 24.2522V22.7316ZM91.917 23.3471C94.3575 23.3471 96.5109 21.7903 96.5109 18.2422V16.975C96.5109 13.427 94.537 11.8702 92.2041 11.8702C89.1535 11.8702 87.5743 13.8976 87.5743 17.5905C87.6102 21.4644 89.1176 23.3471 91.917 23.3471Z" />
       <path d="M116.717 25.5918H113.989V15.9613C113.989 13.1011 112.841 11.834 110.257 11.834C107.744 11.834 105.986 13.5356 105.986 16.7578V25.628H103.258V9.69789H105.986V12.3046C106.991 10.422 108.857 9.37205 110.975 9.37205C114.599 9.37205 116.681 11.9064 116.681 16.2872V25.5918H116.717Z" />
     </g>
-  </svg>  
+  </svg>
   `;
 };
 

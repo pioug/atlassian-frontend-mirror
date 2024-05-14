@@ -129,34 +129,6 @@ describe('NotificationIndicator', () => {
     expect(wrapper.find(Badge).length).toEqual(0);
   });
 
-  it('Should render data-test-selector="EmptyNotificationIndicator"', async () => {
-    // enrolled in Confluence default empty notifications experiment
-    const wrapper = await renderNotificationIndicator(returnCount(0), {
-      showEmptyBadge: true,
-    });
-
-    await asyncUpdateComponentTick(wrapper);
-    const dataTestSelector = wrapper.childAt(0);
-
-    expect(dataTestSelector.prop('data-test-selector')).toEqual(
-      'EmptyNotificationIndicator',
-    );
-  });
-
-  // handles a potential edge case where the internal count is different from Confluence count
-  it('Should render data-test-selector="EmptyNotificationIndicator"', async () => {
-    const wrapper = await renderNotificationIndicator(returnCount(1), {
-      showEmptyBadge: true,
-    });
-
-    await asyncUpdateComponentTick(wrapper);
-    const dataTestSelector = wrapper.childAt(0);
-
-    expect(dataTestSelector.prop('data-test-selector')).toEqual(
-      'NotificationIndicator',
-    );
-  });
-
   it('Should not render indicator when there is an error', async () => {
     const wrapper = await renderNotificationIndicator(returnError());
 

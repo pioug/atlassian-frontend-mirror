@@ -9,6 +9,7 @@ import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const placeholder = css`
   color: ${token('color.text.subtlest', N200)};
   width: 100%;

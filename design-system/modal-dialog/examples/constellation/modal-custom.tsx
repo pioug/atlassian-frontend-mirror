@@ -23,12 +23,7 @@ const imageStyles = css({
 });
 
 const headerStyles = css({
-  color: 'inherit',
-  fontSize: 20,
-  fontStyle: 'inherit',
-  fontWeight: 500,
-  letterSpacing: '-0.008em',
-  lineHeight: 1.2,
+  font: token('font.heading.medium'),
   marginBlockEnd: token('space.100', '8px'),
 });
 

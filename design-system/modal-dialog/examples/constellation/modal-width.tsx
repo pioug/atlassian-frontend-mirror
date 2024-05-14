@@ -37,7 +37,7 @@ export default function Example() {
         {isOpen && (
           <Modal onClose={closeModal} width={width}>
             <ModalHeader>
-              <ModalTitle>Easily set up your own projects</ModalTitle>
+              <ModalTitle>Set up your own projects</ModalTitle>
             </ModalHeader>
             <ModalBody>
               We simplified the way you set up issue types, workflows, fields,

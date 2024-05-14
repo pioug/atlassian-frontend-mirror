@@ -61,7 +61,7 @@ export type HeaderProps = {
 
   /**
    * Element to render before the item text.
-   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   * Generally should be an [icon](https://atlassian.design/components/icon/icon-explorer) component.
    */
   iconBefore?: React.ReactNode;
 

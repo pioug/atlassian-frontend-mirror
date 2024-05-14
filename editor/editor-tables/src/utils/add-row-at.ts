@@ -1,9 +1,7 @@
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import {
-  ContentNodeWithPos,
-  safeInsert,
-} from '@atlaskit/editor-prosemirror/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import { TableMap } from '../table-map';
 
@@ -106,7 +104,11 @@ export const cloneRowAt =
 
 // Returns a new transaction that adds a new row at index `rowIndex`. Optionally clone the previous row.
 export const addRowAt =
-  (rowIndex: number, clonePreviousRow?: boolean) =>
+  (
+    rowIndex: number,
+    clonePreviousRow?: boolean,
+    isCellBackgroundDuplicated?: boolean,
+  ) =>
   (tr: Transaction): Transaction => {
     const table = findTable(tr.selection);
     if (table) {
@@ -127,6 +129,7 @@ export const addRowAt =
               table: table.node,
             },
             rowIndex,
+            isCellBackgroundDuplicated,
           ),
         );
       }

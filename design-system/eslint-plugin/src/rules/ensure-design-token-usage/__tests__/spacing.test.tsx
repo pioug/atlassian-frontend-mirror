@@ -1,5 +1,5 @@
 import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
-import { Tests } from '../../__tests__/utils/_types';
+import { type Tests } from '../../__tests__/utils/_types';
 import rule from '../../ensure-design-token-usage';
 
 export const spacingTests: Tests = {
@@ -183,15 +183,21 @@ export const spacingTests: Tests = {
     // xcss should not be linted against
     {
       options: [{ domains: ['spacing'], applyImport: false }],
-      code: `const styles = xcss({
-        padding: 'space.250',
-      });`,
+      code: `
+        import { xcss } from '@atlaskit/primitives';
+        const styles = xcss({
+          padding: 'space.250',
+        });
+      `,
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
-      code: `const MockTab = ({ children }: React.PropsWithChildren<{}>) => (
-        <Inline xcss={xcss({ padding: 'space.100' })}>{children}</Inline>
-      );`,
+      code: `
+        import { xcss } from '@atlaskit/primitives';
+        const MockTab = ({ children }: React.PropsWithChildren<{}>) => (
+          <Inline xcss={xcss({ padding: 'space.100' })}>{children}</Inline>
+        );
+      `,
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],

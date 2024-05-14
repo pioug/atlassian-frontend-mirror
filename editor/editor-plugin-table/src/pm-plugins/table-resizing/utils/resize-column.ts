@@ -1,6 +1,5 @@
 // Resize a given column by an amount from the current state
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TableCssClassName as ClassName } from '../../../types';
 
@@ -13,65 +12,120 @@ export const resizeColumn = (
   resizeState: ResizeState,
   colIndex: number,
   amount: number,
-  tableRef: HTMLElement,
+  tableRef: HTMLElement | null,
   tableNode: PmNode,
   selectedColumns?: number[],
   isTableScalingEnabled = false,
 ): ResizeState => {
   let scalePercent = 1;
-  let resizeAmount = getBooleanFF(
-    'platform.editor.table.colum-resizing-improvements',
-  )
-    ? amount * 2
-    : amount;
+  let resizeAmount = amount;
 
   if (isTableScalingEnabled) {
     scalePercent = getTableScalingPercent(tableNode, tableRef);
     resizeAmount = amount / scalePercent;
   }
 
-  const newState = getBooleanFF(
-    'platform.editor.table.colum-resizing-improvements',
-  )
-    ? updateAffectedColumn(resizeState, colIndex, resizeAmount)
-    : resizeAmount > 0
-    ? growColumn(resizeState, colIndex, resizeAmount, selectedColumns)
-    : resizeAmount < 0
-    ? shrinkColumn(resizeState, colIndex, resizeAmount, selectedColumns)
-    : resizeState;
+  const newState =
+    resizeAmount > 0
+      ? growColumn(resizeState, colIndex, resizeAmount, selectedColumns)
+      : resizeAmount < 0
+        ? shrinkColumn(resizeState, colIndex, resizeAmount, selectedColumns)
+        : resizeState;
 
   updateColgroup(newState, tableRef, tableNode, isTableScalingEnabled);
-
-  if (getBooleanFF('platform.editor.table.colum-resizing-improvements')) {
-    // use the difference in width from affected column to update overall table width
-    const delta =
-      newState.cols[colIndex].width - resizeState.cols[colIndex].width;
-
-    updateTable(delta, tableRef, tableNode);
-    return {
-      ...newState,
-      tableWidth: resizeState.tableWidth + delta,
-    };
-  }
 
   return newState;
 };
 
-const updateTable = (
-  resizeAmount: number,
+// try not scale table during resize
+export const resizeColumnAndTable = (
+  resizeState: ResizeState,
+  colIndex: number,
+  amount: number,
   tableRef: HTMLElement,
   tableNode: PmNode,
-  // isTableScalingEnabled: boolean,
+  selectedColumns?: number[],
+  isTableScalingEnabled = false,
+  originalTableWidth?: number,
+): ResizeState => {
+  // TODO: can we use document state, and apply scaling factor?
+  const tableWidth = tableRef.clientWidth;
+  const tableContainerWidth = tableRef.closest(
+    '.pm-table-container',
+  )?.clientWidth;
+
+  const isOverflowed = !!(
+    tableWidth &&
+    tableContainerWidth &&
+    tableWidth > tableContainerWidth
+  );
+
+  let resizeAmount = amount * 2;
+
+  // todo: reimplement - use getTableScalingPercentFrozen to get scaled percent before table width changes dynamically
+  // let scalePercent = 1;
+  // if (isTableScalingEnabled) {
+  // import from ./misc
+  //   scalePercent = getStaticTableScalingPercent(
+  //     tableNode,
+  //     originalTableWidth || resizeState.maxSize,
+  //   );
+  //   resizeAmount = amount / scalePercent;
+  // }
+
+  // need to look at the resize amount and try to adjust the colgroups
+  if (isOverflowed) {
+    resizeAmount =
+      amount < 0
+        ? amount
+        : resizeAmount -
+          (tableNode.attrs.width + resizeAmount - tableContainerWidth) / 2;
+  } else {
+    resizeAmount =
+      amount > 0 && tableContainerWidth
+        ? resizeAmount -
+          (tableNode.attrs.width + resizeAmount - tableContainerWidth) / 2
+        : resizeAmount;
+  }
+
+  const newState = updateAffectedColumn(resizeState, colIndex, resizeAmount);
+
+  // this function only updates the colgroup in DOM, it reverses the scalePercent
+  // todo: change isScalingEnabled to true when reimplementing scaling
+  updateColgroup(newState, tableRef, tableNode, false);
+
+  // use the difference in width from affected column to update overall table width
+  const delta =
+    newState.cols[colIndex].width - resizeState.cols[colIndex].width;
+
+  if (!isOverflowed) {
+    updateTablePreview(delta, tableRef, tableNode);
+  }
+
+  return {
+    ...newState,
+    tableWidth: isOverflowed
+      ? tableContainerWidth
+      : resizeState.tableWidth + delta,
+  };
+};
+
+const updateTablePreview = (
+  resizeAmount: number,
+  tableRef: HTMLElement | null,
+  tableNode: PmNode,
 ) => {
   const currentWidth = getTableContainerElementWidth(tableNode);
-  const resizingContainer = tableRef.closest(
+  const resizingContainer = tableRef?.closest(
     `.${ClassName.TABLE_RESIZER_CONTAINER}`,
   );
   const resizingItem = resizingContainer?.querySelector('.resizer-item');
 
-  if (resizingContainer && resizingItem) {
+  if (resizingItem) {
     const newWidth = `${currentWidth + resizeAmount}px`;
-    tableRef.style.width = newWidth;
+    if (tableRef) {
+      tableRef.style.width = newWidth;
+    }
     (resizingContainer as HTMLElement).style.width = newWidth;
     (resizingItem as HTMLElement).style.width = newWidth;
   }

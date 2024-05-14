@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { Flex, Grid, type TextColor, xcss } from '@atlaskit/primitives';
+import {
+  Flex,
+  Grid,
+  Pressable,
+  type TextColor,
+  xcss,
+} from '@atlaskit/primitives';
 import Box from '@atlaskit/primitives/box';
-import Pressable from '@atlaskit/primitives/pressable';
 import { media } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
 import Text from '@atlaskit/primitives/text';

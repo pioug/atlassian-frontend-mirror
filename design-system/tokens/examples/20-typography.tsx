@@ -21,8 +21,6 @@ const body = [
   'font.body.large',
   'font.body',
   'font.body.small',
-  'font.ui',
-  'font.ui.small',
   'font.code',
 ] as const;
 

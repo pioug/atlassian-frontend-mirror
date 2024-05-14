@@ -49,10 +49,10 @@ export type Props = {
   'aria-keyshortcuts'?: React.AriaAttributes['aria-keyshortcuts'];
 } & Pick<ButtonProps, 'aria-label' | 'children'>;
 
-const buttonWrapper = css`
-  display: flex;
-  height: 100%;
-`;
+const buttonWrapper = css({
+  display: 'flex',
+  height: '100%',
+});
 
 export type ToolbarButtonRef = HTMLElement;
 const ToolbarButton = React.forwardRef<ToolbarButtonRef, Props>(

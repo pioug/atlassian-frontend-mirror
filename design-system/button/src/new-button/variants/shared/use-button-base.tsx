@@ -1,8 +1,11 @@
-import React, { Fragment, useMemo, useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { Box, xcss } from '@atlaskit/primitives';
+import * as colors from '@atlaskit/theme/colors';
+import { fontSize as getFontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
 import {
@@ -12,7 +15,6 @@ import {
 } from '../types';
 
 import blockEvents from './block-events';
-import { getXCSS } from './xcss';
 
 export type ControlledEvents<TagName extends HTMLElement> = Pick<
   React.DOMAttributes<TagName>,
@@ -54,22 +56,369 @@ export type UseButtonBaseArgs<TagName extends HTMLElement> = {
 > &
   ControlledEvents<TagName>;
 
+type XCSS = ReturnType<typeof xcss>;
+
 export type UseButtonBaseReturn<TagName extends HTMLElement> = {
-  xcss: ReturnType<typeof xcss>;
+  xcss: XCSS | Array<XCSS | false | undefined>;
   ref(node: TagName | null): void;
   children: React.ReactNode;
   isDisabled: boolean;
 } & ControlledEvents<TagName>;
 
+const fontSize: number = getFontSize();
+
+const buttonStyles = xcss({
+  display: 'inline-flex',
+  boxSizing: 'border-box',
+  width: 'auto',
+  maxWidth: '100%',
+  position: 'relative',
+  alignItems: 'baseline',
+  justifyContent: 'center',
+  columnGap: 'space.050',
+  background: token('color.background.neutral', colors.N20A),
+  borderRadius: 'border.radius.100',
+  borderWidth: 'border.width.0',
+  // @ts-expect-error
+  color: token('color.text', colors.N500),
+  flexShrink: 0,
+  fontFamily: 'inherit',
+  fontSize: 'inherit',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  height: `${32 / fontSize}em`,
+  lineHeight: `${32 / fontSize}em`,
+  paddingBlock: 'space.0',
+  paddingInlineEnd: 'space.150',
+  paddingInlineStart: 'space.150',
+  textAlign: 'center',
+  transition:
+    'background 0.1s ease-out, box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+  verticalAlign: 'middle',
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text', colors.N500),
+  },
+});
+
+const defaultInteractiveStyles = xcss({
+  ':hover': {
+    background: token('color.background.neutral.hovered', '#091e4214'),
+    // @ts-expect-error
+    color: token('color.text', colors.N500),
+    transitionDuration: '0s, 0.15s',
+  },
+  ':active': {
+    background: token('color.background.neutral.pressed', colors.B75),
+    // @ts-expect-error
+    color: token('color.text', colors.B400),
+    transitionDuration: '0s, 0s',
+  },
+});
+
+const primaryStyles = xcss({
+  background: token('color.background.brand.bold', '#0052CC'),
+  // @ts-expect-error
+  color: token('color.text.inverse'),
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text.inverse'),
+  },
+});
+
+const primaryInteractiveStyles = xcss({
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.inverse'),
+    background: token('color.background.brand.bold.hovered', '#0065FF'),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.inverse'),
+    background: token('color.background.brand.bold.pressed', '#0747A6'),
+  },
+});
+
+const warningStyles = xcss({
+  background: token('color.background.warning.bold', '#FFAB00'),
+  // @ts-expect-error
+  color: token('color.text.warning.inverse', '#172B4D'),
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text.warning.inverse', '#172B4D'),
+  },
+});
+
+const warningInteractiveStyles = xcss({
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.warning.inverse', '#172B4D'),
+    background: token('color.background.warning.bold.hovered', '#FFC400'),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.warning.inverse', '#172B4D'),
+    background: token('color.background.warning.bold.pressed', '#FF991F'),
+  },
+});
+
+const dangerStyles = xcss({
+  background: token('color.background.danger.bold', '#DE350B'),
+  color: 'color.text.inverse',
+  ':visited': {
+    color: 'color.text.inverse',
+  },
+});
+
+const dangerInteractiveStyles = xcss({
+  ':hover': {
+    color: 'color.text.inverse',
+    background: token('color.background.danger.bold.hovered', '#FF5630'),
+  },
+  ':active': {
+    color: 'color.text.inverse',
+    background: token('color.background.danger.bold.pressed', '#BF2600'),
+  },
+});
+
+const discoveryStyles = xcss({
+  background: token('color.background.discovery.bold', '#5243AA'),
+  color: 'color.text.inverse',
+  ':visited': {
+    color: 'color.text.inverse',
+  },
+});
+
+const discoveryInteractiveStyles = xcss({
+  ':hover': {
+    color: 'color.text.inverse',
+    background: token('color.background.discovery.bold.hovered', '#8777D9'),
+  },
+  ':active': {
+    color: 'color.text.inverse',
+    background: token('color.background.discovery.bold.pressed', '#5243AA'),
+  },
+});
+
+const subtleStyles = xcss({
+  background: token('color.background.neutral.subtle', 'transparent'),
+  // @ts-expect-error
+  color: token('color.text', '#42526E'),
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text', '#42526E'),
+  },
+});
+
+const subtleInteractiveStyles = xcss({
+  ':hover': {
+    background: token('color.background.neutral.subtle.hovered', '#091e4214'),
+    // @ts-expect-error
+    color: token('color.text', '#42526E'),
+  },
+  ':active': {
+    background: token('color.background.neutral.subtle.pressed', '#B3D4FF'),
+    // @ts-expect-error
+    color: token('color.text', '#42526E'),
+  },
+});
+
+const linkStyles = xcss({
+  // @ts-expect-error
+  color: token('color.link', colors.B400),
+  background: token('color.background.neutral.subtle', 'transparent'),
+  textDecoration: 'none',
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.link', colors.B300),
+    background: token('color.background.neutral.subtle', 'transparent'),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.link.pressed'),
+    background: token('color.background.neutral.subtle', 'transparent'),
+  },
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.link', colors.B400),
+  },
+});
+
+const subtleLinkStyles = xcss({
+  // @ts-expect-error
+  color: token('color.text.subtle', colors.N200),
+  background: token('color.background.neutral.subtle', 'transparent'),
+  textDecoration: 'none',
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.subtle', colors.N90),
+    background: token('color.background.neutral.subtle', 'transparent'),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text', colors.N400),
+    background: token('color.background.neutral.subtle', 'transparent'),
+  },
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text.subtle', colors.N200),
+  },
+});
+
+// Required due to Jira's AUI CSS reset: https://product-fabric.atlassian.net/browse/DSP-15687
+const linkDecorationUnsetStyles = xcss({
+  textDecoration: 'none',
+  ':hover': { textDecoration: 'none' },
+  ':active': { textDecoration: 'none' },
+  ':focus': { textDecoration: 'none' },
+});
+
+const linkDecorationStyles = xcss({
+  ':hover': { textDecoration: 'underline' },
+  ':focus': { textDecoration: 'underline' },
+});
+
+const disabledStyles = xcss({
+  background: token('color.background.disabled', colors.N20A),
+  // @ts-expect-error
+  color: token('color.text.disabled'),
+  ':hover': {
+    background: token('color.background.disabled', colors.N20A),
+    // @ts-expect-error
+    color: token('color.text.disabled'),
+  },
+  ':active': {
+    background: token('color.background.disabled', colors.N20A),
+    // @ts-expect-error
+    color: token('color.text.disabled'),
+  },
+});
+
+const selectedStyles = xcss({
+  background: token('color.background.selected', colors.N700),
+  // @ts-expect-error
+  color: token('color.text.selected', colors.N20),
+  ':visited': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+  },
+});
+
+const selectedInteractiveStyles = xcss({
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected.hovered', colors.N700),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected.pressed', colors.N700),
+  },
+});
+
+// TODO: Remove me once we kill color fallbacks
+const selectedWarningStyles = xcss({
+  background: token('color.background.selected', colors.Y400),
+  // @ts-expect-error
+  color: token('color.text.selected', colors.N800),
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', colors.Y400),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', colors.Y400),
+  },
+});
+
+// TODO: Remove me once we kill color fallbacks
+const selectedDangerStyles = xcss({
+  background: token('color.background.selected', colors.R500),
+  // @ts-expect-error
+  color: token('color.text.selected', colors.N20),
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', colors.R500),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', colors.R500),
+  },
+});
+
+// TODO: Remove me once we kill color fallbacks
+const selectedDiscoveryStyles = xcss({
+  background: token('color.background.selected', '#403294'),
+  // @ts-expect-error
+  color: token('color.text.selected', colors.N20),
+  ':hover': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', '#403294'),
+  },
+  ':active': {
+    // @ts-expect-error
+    color: token('color.text.selected', colors.N20),
+    background: token('color.background.selected', '#403294'),
+  },
+});
+
+const spacingCompactStyles = xcss({
+  columnGap: 'space.050',
+  height: `${24 / fontSize}em`,
+  lineHeight: `${24 / fontSize}em`,
+  paddingInlineEnd: 'space.150',
+  paddingInlineStart: 'space.150',
+  verticalAlign: 'middle',
+});
+
+const spacingNoneStyles = xcss({
+  columnGap: 'space.0',
+  height: 'auto',
+  lineHeight: 'inherit',
+  paddingInlineEnd: 'space.0',
+  paddingInlineStart: 'space.0',
+  verticalAlign: 'baseline',
+});
+
+const circleStyles = xcss({ borderRadius: 'border.radius.circle' });
+const fullWidthStyles = xcss({ width: '100%' });
+const loadingOverlayStyles = xcss({ cursor: 'progress' });
+const nonInteractiveStyles = xcss({ cursor: 'not-allowed' });
+const iconButtonStyles = xcss({
+  height: `${32 / fontSize}em`,
+  width: `${32 / fontSize}em`,
+  paddingInlineEnd: 'space.0',
+  paddingInlineStart: 'space.0',
+});
+const iconButtonCompactStyles = xcss({
+  width: `${24 / fontSize}em`,
+  height: `${24 / fontSize}em`,
+});
+const buttonIconBeforeStyles = xcss({ paddingInlineStart: 'space.100' });
+const buttonIconAfterStyles = xcss({ paddingInlineEnd: 'space.100' });
+const splitButtonStyles = xcss({ ':focus-visible': { zIndex: 'card' } });
+
+const navigationSplitButtonStyles = xcss({
+  width: '24px',
+  backgroundColor: 'color.background.neutral.subtle',
+  paddingInlineEnd: 'space.075',
+  paddingInlineStart: 'space.075',
+});
 const overlayStyles = xcss({
-  position: 'absolute',
-  insetInlineStart: 'space.0',
-  insetBlockStart: 'space.0',
-  insetInlineEnd: 'space.0',
-  insetBlockEnd: 'space.0',
   display: 'flex',
+  position: 'absolute',
   alignItems: 'center',
   justifyContent: 'center',
+  insetBlockEnd: 'space.0',
+  insetBlockStart: 'space.0',
+  insetInlineEnd: 'space.0',
+  insetInlineStart: 'space.0',
 });
 
 /**
@@ -88,7 +437,6 @@ const overlayStyles = xcss({
 const useButtonBase = <TagName extends HTMLElement>({
   appearance: propAppearance = 'default',
   autoFocus = false,
-  buttonType,
   isDisabled: propIsDisabled = false,
   isLoading = false,
   isSelected = false,
@@ -124,57 +472,54 @@ const useButtonBase = <TagName extends HTMLElement>({
   const appearance = splitButtonContext?.appearance || propAppearance;
   const spacing = splitButtonContext?.spacing || propSpacing;
   const isDisabled = splitButtonContext?.isDisabled || propIsDisabled;
-  const isHighlighted = splitButtonContext?.isHighlighted || false;
-  const isActiveOverSelected =
-    splitButtonContext?.isActiveOverSelected || false;
+  const hasOverlay = Boolean(overlay);
+  const isInteractive = !isDisabled && !isLoading && !hasOverlay;
+  const isEffectivelyDisabled = isDisabled || Boolean(overlay);
 
   useAutoFocus(localRef, autoFocus);
 
-  const buttonXCSS: ReturnType<typeof xcss> = useMemo(
-    () =>
-      getXCSS({
-        appearance,
-        spacing,
-        isDisabled,
-        isLoading,
-        isSelected,
-        isHighlighted,
-        isActiveOverSelected,
-        shouldFitContainer,
-        isIconButton,
-        isCircle,
-        hasOverlay: Boolean(overlay),
-        isLink: buttonType === 'link',
-        hasIconBefore,
-        hasIconAfter,
-        isSplit: isSplitButton,
-        isNavigationSplit: isNavigationSplitButton,
-      }),
-    [
-      appearance,
-      buttonType,
-      spacing,
-      isDisabled,
-      isLoading,
-      isSelected,
-      isHighlighted,
-      isActiveOverSelected,
-      isIconButton,
-      isCircle,
-      shouldFitContainer,
-      overlay,
-      hasIconBefore,
-      hasIconAfter,
-      isSplitButton,
-      isNavigationSplitButton,
-    ],
-  );
-
-  const isEffectivelyDisabled = isDisabled || Boolean(overlay);
-
   return {
     ref: mergeRefs([localRef, ref]),
-    xcss: buttonXCSS,
+    xcss: [
+      buttonStyles,
+      appearance === 'default' && isInteractive && defaultInteractiveStyles,
+      appearance === 'primary' && primaryStyles,
+      appearance === 'primary' && isInteractive && primaryInteractiveStyles,
+      appearance === 'warning' && warningStyles,
+      appearance === 'warning' && isInteractive && warningInteractiveStyles,
+      appearance === 'danger' && dangerStyles,
+      appearance === 'danger' && isInteractive && dangerInteractiveStyles,
+      appearance === 'discovery' && discoveryStyles,
+      appearance === 'discovery' && isInteractive && discoveryInteractiveStyles,
+      appearance === 'subtle' && subtleStyles,
+      appearance === 'subtle' && isInteractive && subtleInteractiveStyles,
+      appearance === 'link' && linkStyles,
+      appearance === 'subtle-link' && subtleLinkStyles,
+      !isSelected && (appearance === 'link' || appearance === 'subtle-link')
+        ? linkDecorationStyles
+        : linkDecorationUnsetStyles,
+      isSelected && selectedStyles,
+      isSelected && isInteractive && selectedInteractiveStyles,
+      // TODO: remove me once we kill color fallbacks
+      isSelected && appearance === 'danger' && selectedDangerStyles,
+      // TODO: remove me once we kill color fallbacks
+      isSelected && appearance === 'warning' && selectedWarningStyles,
+      // TODO: remove me once we kill color fallbacks
+      isSelected && appearance === 'discovery' && selectedDiscoveryStyles,
+      isDisabled && disabledStyles,
+      isCircle && !isSplitButton && circleStyles,
+      spacing === 'compact' && spacingCompactStyles,
+      spacing === 'none' && spacingNoneStyles,
+      spacing !== 'none' && hasIconBefore && buttonIconBeforeStyles,
+      spacing !== 'none' && hasIconAfter && buttonIconAfterStyles,
+      isIconButton && iconButtonStyles,
+      isIconButton && spacing === 'compact' && iconButtonCompactStyles,
+      shouldFitContainer && fullWidthStyles,
+      isLoading && loadingOverlayStyles,
+      (isDisabled || (hasOverlay && !isLoading)) && nonInteractiveStyles,
+      isSplitButton && splitButtonStyles,
+      isNavigationSplitButton && navigationSplitButtonStyles,
+    ],
     // Consider overlay buttons to be effectively disabled
     isDisabled: isEffectivelyDisabled,
     children: (

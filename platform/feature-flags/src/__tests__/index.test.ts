@@ -4,7 +4,7 @@
 /* eslint-disable @atlaskit/platform/ensure-feature-flag-registration */
 /* eslint-disable @atlaskit/platform/no-invalid-feature-flag-usage */
 
-import { FeatureFlagResolverBoolean, PFF_GLOBAL_KEY } from '../resolvers';
+import { type FeatureFlagResolverBoolean, PFF_GLOBAL_KEY } from '../resolvers';
 
 beforeEach(() => {
   jest.resetModules();

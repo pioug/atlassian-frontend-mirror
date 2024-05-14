@@ -1,9 +1,9 @@
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type {
-  EditorAnalyticsAPI,
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+  INPUT_METHOD,
   RESOLVE_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   Command,
   CommandDispatch,
@@ -13,6 +13,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
   type EditorState,
   NodeSelection,
+  type Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
@@ -50,14 +51,30 @@ export const updateInlineCommentResolvedState =
 
     const allResolved = Object.values(partialNewState).every(state => state);
 
+    // FIXME: https://product-fabric.atlassian.net/browse/EDF-716 -- This is nuking the scroll into view which occurs
+    // when a comment is resolved. The problem is this is called when either a collab user or the current user resolves a comment.
+    // and the problem is since cc is just dispatching an event through the provider to resolve the comment and this
+    // is not comming via NCS, we have not way to know if this is a local or remote transaction.
+    // To quickly fix this problem to unblock live pages this will just stop the transaction causing a scroll when the
+    // resolve method is set.
+    const transformer = (tr: Transaction, state: EditorState) =>
+      resolveMethod === RESOLVE_METHOD.CONSUMER
+        ? tr.setMeta('scrollIntoView', false)
+        : tr;
+
     if (resolveMethod && allResolved) {
-      return createCommand(
-        command,
-        transform.addResolveAnalytics(editorAnalyticsAPI)(resolveMethod),
+      return createCommand(command, (tr: Transaction, state: EditorState) =>
+        transformer(
+          transform.addResolveAnalytics(editorAnalyticsAPI)(resolveMethod)(
+            tr,
+            state,
+          ),
+          state,
+        ),
       );
     }
 
-    return createCommand(command);
+    return createCommand(command, transformer);
   };
 
 export const closeComponent = (): Command =>

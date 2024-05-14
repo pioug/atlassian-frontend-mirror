@@ -5,6 +5,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  TARGET_SELECTION_SOURCE
 } from '@atlaskit/editor-common/analytics';
 import type {
   Parameters,
@@ -85,7 +86,7 @@ export const forceAutoSave =
       applyChangeToContextPanel,
     );
 
-export const updateExtensionLayout = (layout: ExtensionLayout) =>
+export const updateExtensionLayout = (layout: ExtensionLayout, analyticsApi?: EditorAnalyticsAPI) =>
   createCommand({ type: 'UPDATE_STATE', data: { layout } }, (tr, state) => {
     const selectedExtension = getSelectedExtension(state, true);
 
@@ -99,6 +100,22 @@ export const updateExtensionLayout = (layout: ExtensionLayout) =>
         },
       );
       trWithNewNodeMarkup.setMeta('scrollIntoView', false);
+      if (analyticsApi) {
+        analyticsApi.attachAnalyticsEvent({
+          action: ACTION.UPDATED,
+          actionSubject: ACTION_SUBJECT.EXTENSION,
+          actionSubjectId: ACTION_SUBJECT_ID.EXTENSION,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            extensionType: selectedExtension.node.attrs.extensionType,
+            extensionKey: selectedExtension.node.attrs.extensionKey,
+            localId: selectedExtension.node.attrs.localId,
+            layout,
+            selection: tr.selection.toJSON(),
+            targetSelectionSource: TARGET_SELECTION_SOURCE.CURRENT_SELECTION,
+          },
+        })(tr);
+      }
       return trWithNewNodeMarkup;
     }
 

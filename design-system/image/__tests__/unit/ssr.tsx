@@ -1,5 +1,5 @@
 import __noop from '@atlaskit/ds-lib/noop';
-import { cleanup, hydrate, ssr } from '@atlaskit/ssr/emotion';
+import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 jest.spyOn(global.console, 'error').mockImplementation(__noop);
 
@@ -15,7 +15,7 @@ it('should ssr then hydrate basic example correctly', async () => {
   const { html, styles } = await ssr(examplePath);
 
   elem.innerHTML = html;
-  hydrate(examplePath, elem, styles);
+  await hydrateWithAct(examplePath, elem, styles, true);
 
   // No other errors from e.g. hydrate
   // eslint-disable-next-line no-console
@@ -30,7 +30,7 @@ it('should ssr then hydrate themed example correctly', async () => {
   const { html, styles } = await ssr(examplePath);
 
   elem.innerHTML = html;
-  hydrate(examplePath, elem, styles);
+  await hydrateWithAct(examplePath, elem, styles, true);
 
   // eslint-disable-next-line no-console
   const mockCalls = (console.error as jest.Mock).mock.calls;

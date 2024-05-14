@@ -36,7 +36,7 @@ const BasicExample = () => {
         >
           <Section isList>
             <NestingItem
-              id="2"
+              id="filters"
               testId="filter-nesting-item"
               title="Filters"
               iconBefore={<FilterIcon label="" />}
@@ -46,7 +46,7 @@ const BasicExample = () => {
                 <ButtonItem>Search issues</ButtonItem>
               </Section>
               <Section title="Starred" isList>
-                <ButtonItem>Everything me</ButtonItem>
+                <ButtonItem>Everything for me</ButtonItem>
                 <ButtonItem>My open issues</ButtonItem>
                 <ButtonItem>Reported by me</ButtonItem>
               </Section>
@@ -61,7 +61,7 @@ const BasicExample = () => {
               </Section>
             </NestingItem>
             <NestingItem
-              id="1"
+              id="queues"
               isSelected
               title="Queues view"
               iconBefore={<QueueIcon label="" />}
@@ -78,7 +78,7 @@ const BasicExample = () => {
               </Section>
             </NestingItem>
             <NestingItem
-              id="3"
+              id="settings"
               iconBefore={<SettingsIcon label="" />}
               title="Settings"
               testId="settings-nesting-item"
@@ -86,17 +86,17 @@ const BasicExample = () => {
               <Section>
                 <NestingItem
                   iconBefore={<LanguageIcon label="" />}
-                  id="3-1"
+                  id="language-menu"
                   title="Language settings"
                 >
                   <Section>
                     <ButtonItem>Customize</ButtonItem>
-                    <NestingItem id="3-1-1" title="German Settings">
+                    <NestingItem id="german-settings" title="German Settings">
                       <Section>
                         <ButtonItem>Hallo Welt!</ButtonItem>
                       </Section>
                     </NestingItem>
-                    <NestingItem id="3-1-2" title="English Settings">
+                    <NestingItem id="english-settings" title="English Settings">
                       <Section>
                         <ButtonItem>Hello World!</ButtonItem>
                       </Section>
@@ -106,7 +106,7 @@ const BasicExample = () => {
               </Section>
             </NestingItem>
             <NestingItem
-              id="4"
+              id="dropbox"
               iconBefore={<DropboxIcon label="" />}
               title="Dropbox"
               testId="dropbox-nesting-item"

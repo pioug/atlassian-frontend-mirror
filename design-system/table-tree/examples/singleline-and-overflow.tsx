@@ -7,27 +7,25 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
 const staticData = [
   {
-    title: 'Chapter One: Introduction',
+    title: 'Chapter one: Introduction',
     description: 'Description One',
   },
   {
     title:
-      "Chapter Two: With a Very Very Long Title That Should Be Cut Off Because We Don't Want It To Span Multiple Lines",
+      "Chapter two: With a very very long title that will be cut off instead of spanning multiple lines",
     description: 'Description Two. This column can span multiple lines.',
   },
 ];
 
 const overflowingBoxStyles = css({
   width: '150px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginBottom: '-15px',
   position: 'absolute',
-  right: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  bottom: '100%',
-  background: token('color.background.danger.bold', 'red'),
-  border: `5px solid ${token('color.border', '#800')}`,
-  color: token('color.text.inverse', '#000'),
+  background: token('color.background.danger.bold'),
+  border: `5px solid ${token('color.border')}`,
+  color: token('color.text.inverse'),
+  insetBlockEnd: '100%',
+  insetInlineEnd: token('space.0', '0px'),
+  marginBlockEnd: '-15px',
 });
 
 export default () => (

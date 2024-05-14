@@ -16,7 +16,7 @@ const message =
 const BannerOverflowExample = () => {
   return (
     <Box xcss={containerStyles}>
-      <Banner icon={<WarningIcon label="" secondaryColor="inherit" />}>
+      <Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" />}>
         {message}
       </Banner>
     </Box>

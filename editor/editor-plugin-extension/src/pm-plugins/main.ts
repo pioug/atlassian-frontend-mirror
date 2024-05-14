@@ -10,7 +10,8 @@ import type {
   ExtensionProvider,
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
@@ -201,7 +202,7 @@ const createPlugin = (
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,
-  portalProviderAPI: PortalProviderAPI,
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   pluginInjectionApi: ExtractInjectionAPI<ExtensionPlugin> | undefined,
   useLongPressSelection: boolean = false,

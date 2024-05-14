@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Label } from '@atlaskit/form';
+import { Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
@@ -16,7 +18,10 @@ export default () => (
     }}
   >
     <div style={{ display: 'flex', gap: '25px' }}>
-      <Toggle id="toggle-default-1" />
+      <Stack>
+        <Label htmlFor="toggle-1">Allow pull requests</Label>
+        <Toggle id="toggle-1" />
+      </Stack>
       <span>Non-interactive element</span>
       <DropdownMenu
         trigger="Page actions"
@@ -30,7 +35,10 @@ export default () => (
         </DropdownItemGroup>
       </DropdownMenu>
       <span>Non-interactive element</span>
-      <Toggle id="toggle-default-2" />
+      <Stack>
+        <Label htmlFor="toggle-2">Allow pull requests</Label>
+        <Toggle id="toggle-2" />
+      </Stack>
     </div>
     <div>
       <span>Nested dropdown Example</span>

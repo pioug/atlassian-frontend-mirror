@@ -28,6 +28,26 @@ const jpgRotated = () =>
     /* webpackChunkName: "@atlaskit-internal_rotatedImages" */ './rotatedImages'
   ).then(mod => mod.default);
 
+const svgCar = () =>
+  import(/* webpackChunkName: "@atlaskit-internal_svgCar" */ './svgCar').then(
+    mod => mod.default,
+  );
+
+const svgCarPreview = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgCarPreview" */ './svgCarPreview'
+  ).then(mod => mod.default);
+
+const svgOpenWeb = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgOpenWeb" */ './svgOpenWeb'
+  ).then(mod => mod.default);
+
+const svgOpenWebPreview = () =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_svgOpenWebPreview" */ './svgOpenWebPreview'
+  ).then(mod => mod.default);
+
 const videoFire1080p = () =>
   import(
     /* webpackChunkName: "@atlaskit-internal_videoFire1080p" */ './videoFire1080p'
@@ -65,4 +85,8 @@ export const sampleBinaries = {
   pdfAnatomyPreview,
   mp3Sonata,
   passwordPdf,
+  svgCar,
+  svgCarPreview,
+  svgOpenWeb,
+  svgOpenWebPreview,
 };

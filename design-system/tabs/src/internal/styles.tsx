@@ -4,8 +4,9 @@ import { token } from '@atlaskit/tokens';
 
 import { tabColors, tabLineColors } from './colors';
 
-const tabLeftRightPadding = token('space.100', '8px');
-const tabTopBottomPadding = token('space.050', '4px');
+const tabInlinePadding = token('space.100', '8px');
+const tabBlockPadding = token('space.075', '6px');
+const tabInlineMargin = token('space.negative.100', '-8px');
 // TODO this should probably be `border.width.indicator`
 const underlineHeight = token('border.width.outline', '2px');
 
@@ -17,7 +18,6 @@ const getTabPanelStyles = (): CSSObject => ({
   */
   minHeight: '0%',
   display: 'flex',
-  padding: `0 ${tabLeftRightPadding}`,
 });
 
 export const getTabsStyles = (): SerializedStyles =>
@@ -39,8 +39,8 @@ const tabLineStyles: CSSObject = {
   margin: 0,
   position: 'absolute',
   width: 'inherit',
-  left: tabLeftRightPadding,
-  right: tabLeftRightPadding,
+  insetInlineStart: tabInlinePadding,
+  insetInlineEnd: 0,
 };
 
 export const getTabListStyles = (): SerializedStyles =>
@@ -48,6 +48,7 @@ export const getTabListStyles = (): SerializedStyles =>
   css({
     '& [role="tab"]': getTabStyles(),
     fontWeight: token('font.weight.medium', '500'),
+    marginInlineStart: tabInlineMargin,
     '&::before': {
       ...tabLineStyles,
       height: underlineHeight,
@@ -61,9 +62,8 @@ export const getTabStyles = (): CSSObject => {
   return {
     color: colors.labelColor,
     cursor: 'pointer',
-    lineHeight: 1.8,
     margin: 0,
-    padding: `${tabTopBottomPadding} ${tabLeftRightPadding}`,
+    padding: `${tabBlockPadding} ${tabInlinePadding}`,
     position: 'relative',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -74,6 +74,7 @@ export const getTabStyles = (): CSSObject => {
       color: colors.hoverLabelColor,
       '&::after': {
         ...tabLineStyles,
+        insetInlineEnd: tabInlinePadding,
         borderBottom: `${underlineHeight} solid ${tabLineColors.hoveredColor}`,
         height: 0,
       },
@@ -84,6 +85,7 @@ export const getTabStyles = (): CSSObject => {
       color: colors.activeLabelColor,
       '&::after': {
         ...tabLineStyles,
+        insetInlineEnd: tabInlinePadding,
         borderBottom: `${underlineHeight} solid ${tabLineColors.activeColor}`,
         height: 0,
       },
@@ -93,6 +95,7 @@ export const getTabStyles = (): CSSObject => {
       color: colors.selectedColor,
       '&::after': {
         ...tabLineStyles,
+        insetInlineEnd: tabInlinePadding,
         // This line is a border so it is visible in high contrast mode
         borderBottom: `${underlineHeight} solid ${tabLineColors.selectedColor}`,
         height: 0,

@@ -77,7 +77,7 @@ export class Channel extends Emitter<ChannelEvent> {
   // read-only getters used for tests
   getInitialized = () => this.initialized;
   getConnected = () => this.connected;
-  getSocket = () => this.socket;
+  getSocket: () => Socket | null = () => this.socket;
   getToken = () => this.token;
 
   // Used to retrieve the x-token for API requests
@@ -254,7 +254,7 @@ export class Channel extends Emitter<ChannelEvent> {
       'permission:invalidateToken',
       this.handlePermissionInvalidateToken,
     );
-    this.socket.onAnyOutgoing((event, ...args) =>
+    this.socket.onAnyOutgoing((_event, ...args) =>
       this.onAnyOutgoingHandler(Date.now(), args),
     );
 
@@ -331,6 +331,18 @@ export class Channel extends Emitter<ChannelEvent> {
         }
       }
     }
+  }
+
+  private async commonHeaders() {
+    return {
+      ...(this.config.permissionTokenRefresh
+        ? {
+            'x-token': await this.getChannelToken(),
+          }
+        : {}),
+      'x-product': getProduct(this.config.productInfo),
+      'x-subproduct': getSubProduct(this.config.productInfo),
+    };
   }
 
   private isLimitExceeded(
@@ -501,15 +513,7 @@ export class Channel extends Emitter<ChannelEvent> {
             clientId: clientId,
           },
           requestInit: {
-            headers: {
-              ...(this.config.permissionTokenRefresh
-                ? {
-                    'x-token': await this.getChannelToken(),
-                  }
-                : {}),
-              'x-product': getProduct(this.config.productInfo),
-              'x-subproduct': getSubProduct(this.config.productInfo),
-            },
+            headers: await this.commonHeaders(),
           },
         });
       return {
@@ -547,6 +551,7 @@ export class Channel extends Emitter<ChannelEvent> {
   fetchCatchupv2 = async (
     fromVersion: number,
     clientId: number | string | undefined,
+    catchUpOutofSync: boolean | undefined,
   ): Promise<Catchupv2Response> => {
     try {
       const { steps, metadata } = await utils.requestService<any>(this.config, {
@@ -556,17 +561,10 @@ export class Channel extends Emitter<ChannelEvent> {
         queryParams: {
           version: fromVersion,
           clientId: clientId,
+          catchUpOutofSync,
         },
         requestInit: {
-          headers: {
-            ...(this.config.permissionTokenRefresh
-              ? {
-                  'x-token': await this.getChannelToken(),
-                }
-              : {}),
-            'x-product': getProduct(this.config.productInfo),
-            'x-subproduct': getSubProduct(this.config.productInfo),
-          },
+          headers: await this.commonHeaders(),
         },
       });
       return {
@@ -615,13 +613,7 @@ export class Channel extends Emitter<ChannelEvent> {
         )}/reconcile`,
         requestInit: {
           headers: {
-            ...(this.config.permissionTokenRefresh
-              ? {
-                  'x-token': await this.getChannelToken(),
-                }
-              : {}),
-            'x-product': getProduct(this.config.productInfo),
-            'x-subproduct': getSubProduct(this.config.productInfo),
+            ...(await this.commonHeaders()),
             'Content-Type': 'application/json',
           },
           method: 'POST',

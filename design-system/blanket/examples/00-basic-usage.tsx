@@ -13,10 +13,10 @@ const eventResultStyles = css({
   margin: '0.5em',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '0.5em',
-  borderColor: token('color.border', '#ccc'),
+  borderColor: token('color.border'),
   borderStyle: 'dashed',
   borderWidth: token('border.width', '1px'),
-  color: token('color.text.subtlest', '#ccc'),
+  color: token('color.text.subtlest'),
 });
 
 const BasicExample = () => {

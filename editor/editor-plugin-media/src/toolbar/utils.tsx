@@ -52,10 +52,12 @@ export const getSelectedNearestMediaContainerNodeAttrs = (
 
 export const downloadMedia = async (
   mediaPluginState: MediaPluginState,
+  isViewMode?: boolean,
 ): Promise<boolean> => {
   try {
-    const selectedNodeAttrs =
-      getSelectedMediaContainerNodeAttrs(mediaPluginState);
+    const selectedNodeAttrs = isViewMode
+      ? getSelectedNearestMediaContainerNodeAttrs(mediaPluginState)
+      : getSelectedMediaContainerNodeAttrs(mediaPluginState);
     if (selectedNodeAttrs && mediaPluginState.mediaClientConfig) {
       const { id, collection = '' } = selectedNodeAttrs;
       const mediaClient = getMediaClient(mediaPluginState.mediaClientConfig);

@@ -22,33 +22,33 @@ import { createCollabProviderFactory } from '../src/providers/collab-provider';
 import { getBridge } from '../src/editor/native-to-web/bridge-initialiser';
 import { useEditorConfiguration } from '../src/editor/hooks/use-editor-configuration';
 
-export const wrapper: any = css`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-`;
+export const wrapper: any = css({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  height: '100%',
+  width: '100%',
+  boxSizing: 'border-box',
+});
 
 export const toolbar = css({
   borderBottom: `1px dashed ${token('color.border.disabled', N50)}`,
   padding: token('space.200', '16px'),
 });
 
-export const clipboardZone: any = css`
-  max-width: 500px;
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-`;
+export const clipboardZone: any = css({
+  maxWidth: '500px',
+  display: 'flex',
+  flexFlow: 'row',
+  alignItems: 'center',
+});
 
-export const copyWrapper: any = css`
-  border: none;
-  background: none;
-`;
+export const copyWrapper: any = css({
+  border: 'none',
+  background: 'none',
+});
 
 window.logBridge = window.logBridge || [];
 

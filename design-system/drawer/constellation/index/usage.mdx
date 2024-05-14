@@ -1,0 +1,47 @@
+---
+title: Drawer
+description: A drawer is a panel that slides in from the side of the screen.
+order: 2
+---
+
+## Usage
+
+The drawer component is a modal dialog that appears from the side of the screen. You can configure the size of the drawer to be narrow, medium, wide, extended, or full.
+
+Like standard modal dialogs, drawers are invasive and should be used sparingly.
+
+Choose a drawer over a modal dialog if you need to help people complete a secondary task, while keeping them on the same page they are working on.
+
+## Accessibility
+
+### Be aware of covered UI
+
+When using extended or full size drawers, keep in mind that people may lose track of where they are situated in their workflow, as there is lower visual affordance to show that they are in a modal. Unless there are significant benefits to interrupting a task with a drawer modal, we recommend choosing a new page experience or non-modal dialog instead.
+
+When the drawer is open, keep in mind that the background content isn’t interactive or focusable, so don’t present people with a task in a drawer if they need to reference the content in the UI behind the drawer.
+
+### Labeling drawer modals
+
+Drawers must have a title or label so that people can understand what the drawer is for. You can do this in one of two ways:
+
+1. Add the titleId to an element within your drawer modal. This approach is best, because you can associate the accessible title with a visible heading.
+2. Use the label prop when there isn’t a visual heading.
+
+### Managing focus
+
+When the drawer is opened, set focus to the first item in the drawer. When it's closed, set focus back to the component that triggered it.
+
+## Behavior
+
+### Dismissing drawer modals
+
+Users can't interact with the rest of the page until the modal is closed. These are the three options that will dismiss a drawer:
+
+- Press the close/back control for the drawer
+- Press "escape" on a keyboard
+- Click anywhere on the blanket
+
+## Related
+
+- For most applications, use a [modal dialog](/components/modal-dialog/examples) instead.
+- For bigger tasks, consider making a non-modal dialog using [spacing tokens](/foundations/spacing/).

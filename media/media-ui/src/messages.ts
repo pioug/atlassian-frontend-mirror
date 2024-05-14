@@ -1,4 +1,4 @@
-import { defineMessages, MessageDescriptor } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor } from 'react-intl-next';
 
 export type RequestAccessMessageKey =
   | 'request_access_description'
@@ -54,7 +54,6 @@ export type MessageKey =
   | 'default_avatars'
   | 'avatar_picker_back_btn_label'
   | 'drag_and_drop_images_here'
-  | 'upload_image'
   | 'alt_text'
   | 'alt_text_description'
   | 'image_url_invalid_error'
@@ -128,6 +127,8 @@ export type MessageKey =
   | 'playbackSpeed'
   | 'skipBackward'
   | 'skipForward'
+  | 'volumeMuteButtonAria'
+  | 'volumeLevelControlAria'
   | 'playbackDefaultSpeed'
   | 'preview'
   | 'preview_unavailable'
@@ -145,6 +146,8 @@ export type MessageKey =
   | 'file_archive_is_selected'
   | 'file_unknown_is_selected'
   | 'open_file_in_viewer'
+  | 'video_seeker_assistive_text_time_value'
+  | 'video_seeker_label_assistive_text'
   | RequestAccessMessageKey;
 
 type Messages = {
@@ -436,11 +439,6 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Drag and drop your images here',
     description:
       'Indicates that the user can drag and drop images in that area',
-  },
-  upload_image: {
-    id: 'fabric.media.upload_image',
-    defaultMessage: 'Upload image',
-    description: 'Call to action for the user to upload a new image',
   },
   alt_text: {
     id: 'fabric.media.alt_text',
@@ -835,6 +833,18 @@ export const messages: Messages = defineMessages({
     description:
       'In the context of a video player, it allows user to skip 10 seconds of play time forward.',
   },
+  volumeLevelControlAria: {
+    id: 'fabric.media.volume_level',
+    defaultMessage: 'volume',
+    description:
+      'In the context of a video player and screen reader. Aria label for volume level control',
+  },
+  volumeMuteButtonAria: {
+    id: 'fabric.media.volume_level',
+    defaultMessage: 'mute',
+    description:
+      'In the context of a video player and screen reader. Aria label for mute button',
+  },
   playbackDefaultSpeed: {
     id: 'fabric.media.playback_default_speed',
     defaultMessage: 'Default',
@@ -929,5 +939,17 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Open {name}',
     description:
       'Shown when user focuses on preview to open the full screen viewer of the file with {name}',
+  },
+  video_seeker_assistive_text_time_value: {
+    id: 'fabric.media.video_seeker_assistive_text_time_value',
+    defaultMessage:
+      '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} of {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+    description:
+      'Video time seeker information for screen reader users - final format example: 1 hour 12 minutes 13 seconds of 1 hours 16 minutes 1 second. Units are already translated via Intl.NumberFormat',
+  },
+  video_seeker_label_assistive_text: {
+    id: 'fabric.media.video_seeker_label_assistive_text',
+    defaultMessage: 'Seek slider',
+    description: 'Video time seek slider aria-label',
   },
 });

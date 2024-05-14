@@ -363,6 +363,16 @@ export const document = {
             },
           ],
         },
+        {
+          type: 'text',
+          text: ' yellow highlight',
+          marks: [
+            {
+              type: 'backgroundColor',
+              attrs: { color: '#ffff00' },
+            },
+          ],
+        },
       ],
     },
     {

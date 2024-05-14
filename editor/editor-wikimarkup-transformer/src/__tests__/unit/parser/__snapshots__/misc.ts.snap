@@ -325,6 +325,7 @@ Object {
           "attrs": Object {
             "accessLevel": "",
             "id": "username",
+            "localId": null,
             "text": "",
             "userType": null,
           },

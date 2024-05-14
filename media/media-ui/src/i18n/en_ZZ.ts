@@ -10,6 +10,8 @@ export default {
   'fabric.media.accounts': '⁣⁢Accounts⁮⁫⁪⁡⁡⁯⁠⁭⁡⁫‍⁮‌‌‍⁮⁮⁣⁤',
   'fabric.media.actions': '⁣⁢Actions⁡⁬⁪⁮⁪⁬‍⁡⁮⁡⁮⁮⁬⁪⁪⁬⁪‍⁭⁪⁬⁮⁣⁤',
   'fabric.media.add_account': '⁣⁢Add account‍⁮‌‌⁡‌⁯؜‌⁮⁭⁡⁡‌⁫⁯‌⁯⁭⁮⁫⁮⁡⁠⁭⁫⁣⁤',
+  'fabric.media.alt_text':
+    '⁣⁢How would you describe the selected image to someone with low vision?⁡⁬⁬⁫⁬⁯⁮‍⁡⁠‌⁯⁮⁠⁬⁯‌‌⁭⁬⁪⁣⁤',
   'fabric.media.annotate': '⁣⁢Annotate‍⁬⁪⁯⁭⁡‌⁪⁯⁡⁡⁡⁮⁮⁭؜⁡⁪‌‌⁪⁣⁤',
   'fabric.media.annotate.confirmation.close.anyway': '⁣⁢Close anyway‍‍⁫⁫⁪⁭⁭⁠⁭⁠⁫⁮⁭⁭⁭‌⁠⁬⁯⁫⁮⁯؜⁬⁬⁭⁣⁤',
   'fabric.media.annotate.confirmation.content':
@@ -65,6 +67,7 @@ export default {
   'fabric.media.drop_your_files_here': '⁣⁢Drop your files here⁭؜⁠⁮⁠؜⁭‍⁭⁫⁮⁫؜⁫؜⁯⁯⁫⁣⁤',
   'fabric.media.email': '⁣⁢email⁡؜⁪⁭⁡⁬⁭⁪‍⁫⁫⁠⁡⁫‌⁡⁭⁠⁪⁣⁤',
   'fabric.media.enable_fullscreen': '⁣⁢enable fullscreen⁬⁯‍⁭؜⁯⁭⁪⁫⁯⁡⁠⁪⁭⁠⁠⁯⁣⁤',
+  'fabric.media.enter_password': '⁣⁢Enter password⁫‌⁪⁮⁠⁮⁮⁪⁡⁮⁡⁭⁯⁭‍⁫⁪⁮⁬‌⁫⁠⁫⁣⁤',
   'fabric.media.error_429': '⁣⁢Error 429⁭⁬‌⁪⁬⁡⁭⁭⁭‍⁡؜⁯⁠‌⁫⁫⁠⁫⁯⁭⁣⁤',
   'fabric.media.error_generating_preview': '⁣⁢Error generating preview⁯⁫⁫؜⁯⁡‍⁬⁪⁫⁪⁫⁮⁭‌⁠؜⁡‌⁭؜⁬⁣⁤',
   'fabric.media.error_hint_critical': '⁣⁢If the problem keeps happening contact support.؜⁯‍⁮⁭⁫؜⁮⁫⁪⁫⁯⁫‌⁫⁪‍⁯؜‌⁡⁪⁣⁤',
@@ -72,6 +75,7 @@ export default {
   'fabric.media.error_loading_file': '⁣⁢Error loading file⁫؜؜⁫⁬‌⁡⁬⁪⁭؜⁠⁮‍⁭⁠⁫⁠‍⁪⁮⁯⁯⁬⁣⁤',
   'fabric.media.failed_to_load': '⁣⁢Failed to load⁪⁮⁯⁠⁬؜⁡‌‌⁪⁡⁭⁭⁬⁫⁠⁡⁭⁠⁡‍⁫⁮⁣⁤',
   'fabric.media.failed_to_upload': '⁣⁢Failed to upload⁮⁬⁬‍⁫⁮‌⁫⁡⁯⁬⁫⁮⁯⁮⁫⁠⁭‌⁫؜⁠‍⁯؜⁡⁡⁡⁣⁤',
+  'fabric.media.file_is_selected': '⁣⁢File {name} is selected؜⁭⁭⁡⁡⁭‌‍⁮؜⁯⁬⁬⁪⁭⁬‍⁮⁬؜‍‌⁯⁭⁣⁤',
   'fabric.media.forbidden_description':
     '⁣⁢You don’t have access to this preview. Contact the site admin if you need access.؜⁡⁬‌‌⁯⁠⁮؜‍‌‍⁫⁯⁪‍⁯‍⁭⁯⁭⁭‌⁣⁤',
   'fabric.media.give_feedback': '⁣⁢Give feedback⁭⁭⁯⁬‍⁫⁪⁫⁯⁫⁠⁮‌⁮‌⁭⁠‍‍⁣⁤',
@@ -80,6 +84,7 @@ export default {
   'fabric.media.image_size_too_large_error':
     '⁣⁢Image is too large, must be no larger than {MAX_SIZE_MB}Mb‌⁡⁡⁡⁯⁮‌‍‍⁡⁪⁠⁠⁮⁫⁪⁭⁪⁪⁠⁭‌⁠⁯؜⁠⁪؜⁭⁣⁤',
   'fabric.media.image_url_invalid_error': '⁣⁢Could not load image, the url is invalid.⁭‌‍⁠⁮⁠‌؜⁠⁮⁮‍⁮⁡⁫⁯‍⁪⁬⁪‍⁪‌⁣⁤',
+  'fabric.media.incorrect_password': '⁣⁢Incorrect password. Please try again.⁬⁭⁬⁫⁮⁭⁭‍‌؜⁡⁫⁪⁯⁮⁫؜؜⁪⁬⁫⁯⁣⁤',
   'fabric.media.insert_files':
     '{0, plural, one {⁣⁢Insert a file⁮‍⁮⁮⁯⁫⁠؜⁠⁪⁡⁯⁡⁠⁫‍⁬‌⁬⁬⁠‌⁣⁤} other {⁣⁢Insert {0} files⁮‍⁮⁮⁯⁫⁠؜⁠⁪⁡⁯⁡⁠⁫‍⁬‌⁬⁬⁠‌⁣⁤}}',
   'fabric.media.invalid_permissions': '⁣⁢Restricted link؜⁪⁪⁯⁭⁬⁪‍⁪⁯⁬⁯‍⁭⁮⁬؜⁭؜⁯⁠⁮⁠⁣⁤',
@@ -97,9 +102,12 @@ export default {
   'fabric.media.not_found_description':
     "⁣⁢We couldn't find the link. Check the url and try editing or paste again.⁪⁮⁡‍⁭⁯⁡⁭‌‌‌⁡⁡⁮؜⁪⁡⁬‌⁭⁣⁤",
   'fabric.media.not_found_title': "⁣⁢Uh oh. We can't find this link!⁭⁫⁬⁭⁫⁬⁬⁬⁮⁮‌؜؜⁭؜‌⁡⁭‌⁣⁤",
+  'fabric.media.open_file_in_viewer': '⁣⁢Open {name}‌‌⁭‍⁡⁭⁠⁪⁯‌؜⁭⁯⁠⁬⁭⁡⁮⁯⁮‌⁪‍⁠⁣⁤',
   'fabric.media.or': '⁣⁢or‌⁬⁡⁭‌‍⁫⁭‍⁬⁬⁡⁬⁭⁫⁬⁫⁪‍‌⁬⁠⁡‍⁣⁤',
   'fabric.media.or_select_default_avatars':
     '⁣⁢Upload a photo or select from some default options⁡⁯⁡⁫⁮⁭⁠⁫⁯⁭⁮⁪⁭⁪‌؜⁮⁡⁬‌⁣⁤',
+  'fabric.media.password': '⁣⁢Password⁮⁪‍؜⁫‍⁪⁡؜⁭‌⁫⁠؜⁡⁫⁠؜⁫⁠⁬⁡⁭⁬⁭⁣⁤',
+  'fabric.media.password_protected_pdf': '⁣⁢This file is password protected.⁬⁬⁡⁪⁡‍⁠؜⁭⁯⁭⁪‍⁪⁮⁠⁠‍‍⁮⁡⁯⁣⁤',
   'fabric.media.pause': '⁣⁢Pause‍⁯⁬؜⁠؜⁪⁯‍⁭⁪‌⁡⁫⁫⁬‌⁭‍⁡⁬⁯⁣⁤',
   'fabric.media.play': '⁣⁢Play‍⁭⁠⁫؜⁬⁬‍⁪‍⁡⁮‍⁠⁫؜⁬⁮⁬‌⁣⁤',
   'fabric.media.playback_default_speed': '⁣⁢Default‍⁪⁬⁡⁯⁪⁬⁡⁫⁫⁬⁭‌⁬⁭⁮⁬⁮⁬⁪⁠‍⁬⁬⁣⁤',
@@ -129,6 +137,7 @@ export default {
   'fabric.media.something_went_wrong': '⁣⁢Something went wrong.⁭⁯⁪⁫‌⁡⁭⁮⁠⁫⁪⁬⁭⁫⁯⁠⁯⁬⁫⁫‌⁡⁯⁫⁬‌؜⁣⁤',
   'fabric.media.srclink': '⁣⁢View in⁡⁮⁠‍⁫⁪⁮⁭⁡⁬⁯‍⁡⁯‌⁬⁮⁫⁬⁯⁠⁡⁮⁮⁣⁤',
   'fabric.media.srclinkunknown': '⁣⁢View Original⁠⁪‌⁯‌‍⁮⁮⁯⁮⁪⁪⁡‍‍⁡‌؜⁫‍⁯⁣⁤',
+  'fabric.media.submit': '⁣⁢Submit⁡⁡⁭⁮‍‌⁠؜⁡‌⁫⁯⁡⁭⁬⁫⁯؜⁬‍⁫⁮‌⁫⁣⁤',
   'fabric.media.text': '⁣⁢text⁠⁭⁫‌⁠‌‌؜⁬‌‍⁪⁯⁬⁠⁠‍⁯⁬⁪⁫؜⁭⁠⁫⁣⁤',
   'fabric.media.try_again': '⁣⁢Try again⁭⁫⁬؜؜⁠‍⁮⁠‌؜⁡⁫⁮⁮⁫؜⁡⁪⁬⁯⁡⁪⁣⁤',
   'fabric.media.try_another_account': '⁣⁢Try another account⁠⁭⁡⁮⁯⁬⁫⁮‌⁫‌⁪‍⁫⁡⁫⁮⁯⁯⁯⁣⁤',

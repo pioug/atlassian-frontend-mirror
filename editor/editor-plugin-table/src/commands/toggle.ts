@@ -15,7 +15,7 @@ import { META_KEYS } from '../pm-plugins/table-analytics';
  * Table layout toggle logic
  * default -> wide -> full-width -> default
  */
-export const getNextLayout = (currentLayout: TableLayout): TableLayout => {
+export const getNextLayout = (currentLayout: TableLayout) => {
   switch (currentLayout) {
     case 'default':
       return 'wide';

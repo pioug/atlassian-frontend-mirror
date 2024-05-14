@@ -219,6 +219,8 @@ describe('Snapshot Test', () => {
     const imageOnHover = await takeElementScreenShot(page, removableAvatarTag);
     expect(imageOnHover).toMatchProdImageSnapshot();
     await page.click(removableAvatarTagCloseButton);
+    // Wait for removal transition to complete
+    await page.waitForTimeout(500);
     const imageAfterRemovingTag = await takeElementScreenShot(
       page,
       '#appearance',

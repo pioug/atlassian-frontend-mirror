@@ -128,13 +128,13 @@ export function getLayoutModeFromTargetNode(node: PMNode): string {
   return layout;
 }
 
-export const isIgnoredClick = (elem: HTMLElement) => {
-  if (elem.nodeName === 'BUTTON' || elem.closest('button')) {
+export const isIgnoredClick = (elem: HTMLElement | null) => {
+  if (elem?.nodeName === 'BUTTON' || elem?.closest('button')) {
     return true;
   }
 
   // check if we're clicking an image caption placeholder
-  if (elem.closest(`[data-id="${CAPTION_PLACEHOLDER_ID}"]`)) {
+  if (elem?.closest(`[data-id="${CAPTION_PLACEHOLDER_ID}"]`)) {
     return true;
   }
 
@@ -171,7 +171,7 @@ export const isIgnoredClick = (elem: HTMLElement) => {
 
   // Check if unsupported node selection
   // (without this, selection requires double clicking in FF due to posAtCoords differences)
-  if (elem.closest(`.${UnsupportedSharedCssClassName.BLOCK_CONTAINER}`)) {
+  if (elem?.closest(`.${UnsupportedSharedCssClassName.BLOCK_CONTAINER}`)) {
     return true;
   }
 

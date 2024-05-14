@@ -27,6 +27,14 @@ import {
   JIRA_CUSTOM_TASK_TYPE,
 } from '../../constants';
 
+/**
+ * Chooses an icon for a task based on the provided options.
+ *
+ * Chooses icon based on variety of Jira task types, based on opts.taskType.id
+ *
+ * @param opts - The options for extracting the icon.
+ * @returns The React node representing the extracted icon, or `undefined` if no icon is found.
+ */
 export const extractIconFromTask = (
   opts: IconOpts,
 ): React.ReactNode | undefined => {

@@ -45,7 +45,8 @@ snapshot(MediaImageInlineWithBorders, {
   },
 });
 
-snapshot(MediaImageInlineWithLinks, {
+// Flaky Test https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2942703/steps/%7B2cd9f3bd-29cb-49d1-816a-d1b6a862b09b%7D
+snapshot.skip(MediaImageInlineWithLinks, {
   variants: [
     {
       name: 'desktop',

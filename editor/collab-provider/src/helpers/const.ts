@@ -53,6 +53,7 @@ export type ErrorAnalyticsEvent = {
     errorName?: string;
     errorCode?: string;
     errorStatus?: string;
+    errorStack?: string;
     documentAri?: string;
     mappedError?: ProviderError;
   } & DocumentUpdateErrorAttributes;

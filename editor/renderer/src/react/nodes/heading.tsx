@@ -20,6 +20,7 @@ export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
 const getCurrentUrlWithHash = (hash: string = ''): string => {
   const url = new URL(window.location.href);
+  url.search = ''; // clear any query params so that the page will correctly scroll to the anchor
   url.hash = encodeURIComponent(hash);
   return url.href;
 };

@@ -54,6 +54,9 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
       mutationCallback: (
         currentValue: Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
       ) => Pick<ADFEntity, 'content' | 'attrs' | 'marks'>,
+      options?: {
+        addToHistory?: boolean;
+      },
     ) => void;
   };
 };

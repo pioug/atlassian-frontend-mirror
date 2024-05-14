@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Component, createRef, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -78,19 +78,28 @@ const DropdownButtonItem: React.MemoExoticComponent<
   >
 > = ButtonItem as any;
 
-const DropdownMenuItem = ({
-  item,
-  hide,
-  dispatchCommand,
-  editorView,
-  iconBefore,
-}: {
+const DropdownMenuItem = (props: {
   item: DropdownOptionT<Function>;
   hide: Function;
   dispatchCommand: Function;
   editorView?: EditorView;
-  iconBefore: React.ReactNode;
+  intl: IntlShape;
+  showSelected: boolean;
+  itemSelected?: boolean;
 }) => {
+  const { item, hide, dispatchCommand, editorView, showSelected, intl } = props;
+  const itemSelected = item.selected;
+
+  const iconBefore = useMemo(() => {
+    return (
+      <SelectedIconBefore
+        itemSelected={itemSelected}
+        showSelected={showSelected}
+        intl={intl}
+      />
+    );
+  }, [itemSelected, showSelected, intl]);
+
   const [tooltipContent, setTooltipContent] = useState<string>(
     item.tooltip || '',
   );
@@ -174,7 +183,7 @@ const DropdownMenuItem = ({
   }, [dispatchCommand, item.onClick, hide, editorView]);
 
   /* ED-16704 - Native mouse event handler to overcome firefox issue on disabled <button> - https://github.com/whatwg/html/issues/5886 */
-  const labelRef = createRef<HTMLDivElement>();
+  const labelRef = useRef<HTMLDivElement>(null);
   const handleTitleWrapperMouseEvent = useCallback(
     (e: any) => {
       if (item.disabled) {
@@ -262,69 +271,81 @@ const DropdownMenuItem = ({
   return itemContent;
 };
 
-// eslint-disable-next-line @repo/internal/react/no-class-components
-class Dropdown extends Component<Props & WrappedComponentProps> {
-  render() {
-    const { hide, dispatchCommand, items, intl, editorView } = this.props;
-    return (
-      <div
-        css={menuContainerStyles}
-        role={
-          getBooleanFF(
-            'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
-          )
-            ? 'menu'
-            : undefined
-        }
-      >
-        {items
-          .filter(item => !item.hidden)
-          .map((item, idx) => (
-            <DropdownMenuItem
-              key={idx}
-              item={item}
-              hide={hide}
-              dispatchCommand={dispatchCommand}
-              editorView={editorView}
-              iconBefore={this.renderSelected(item, intl)}
-            />
-          ))}
-      </div>
-    );
-  }
-
-  private renderSelected(item: DropdownOptionT<any>, intl: IntlShape) {
-    const { showSelected = true } = this.props;
-    const { selected } = item;
-
-    if (showSelected && selected) {
-      if (
-        getBooleanFF(
-          'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
-        )
-      ) {
-        return (
-          <span aria-hidden="true">
-            <EditorDoneIcon
-              primaryColor={token('color.icon.selected', B400)}
-              size="small"
-              label={intl.formatMessage(messages.confirmModalOK)}
-            />
-          </span>
-        );
-      }
-
+type SelectedIconBeforeProps = {
+  itemSelected?: boolean;
+  showSelected: boolean;
+  intl: IntlShape;
+};
+const SelectedIconBefore = ({
+  itemSelected,
+  intl,
+  showSelected,
+}: SelectedIconBeforeProps) => {
+  if (showSelected && itemSelected) {
+    if (
+      getBooleanFF(
+        'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+      )
+    ) {
       return (
-        <EditorDoneIcon
-          primaryColor={token('color.icon.selected', B400)}
-          size="small"
-          label={intl.formatMessage(messages.confirmModalOK)}
-        />
+        <span aria-hidden="true">
+          <EditorDoneIcon
+            primaryColor={token('color.icon.selected', B400)}
+            size="small"
+            label={intl.formatMessage(messages.confirmModalOK)}
+          />
+        </span>
       );
     }
 
-    return <span css={spacerStyles} />;
+    return (
+      <EditorDoneIcon
+        primaryColor={token('color.icon.selected', B400)}
+        size="small"
+        label={intl.formatMessage(messages.confirmModalOK)}
+      />
+    );
   }
-}
+
+  return <span css={spacerStyles} />;
+};
+
+const Dropdown = memo((props: Props & WrappedComponentProps) => {
+  const {
+    hide,
+    dispatchCommand,
+    items,
+    intl,
+    editorView,
+    showSelected = true,
+  } = props;
+
+  return (
+    <div
+      css={menuContainerStyles}
+      role={
+        getBooleanFF(
+          'platform.editor.a11y-table-floating-toolbar-dropdown-menu_zkb33',
+        )
+          ? 'menu'
+          : undefined
+      }
+    >
+      {items
+        .filter(item => !item.hidden)
+        .map((item, idx) => (
+          <DropdownMenuItem
+            key={idx}
+            item={item}
+            hide={hide}
+            dispatchCommand={dispatchCommand}
+            editorView={editorView}
+            showSelected={showSelected}
+            intl={intl}
+          />
+        ))}
+    </div>
+  );
+});
 
 export default injectIntl(Dropdown);

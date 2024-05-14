@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { akEditorMobileMaxWidth, relativeFontSizeToBase16 } from '../consts';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const shortcutStyle = css`
   background-color: ${token(
     'color.background.neutral',

@@ -3,11 +3,11 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-const imageContainer = css`
-  width: 120px;
-  height: 111px;
-  margin-top: ${token('space.600', '48px')};
-`;
+const imageContainer = css({
+  width: '120px',
+  height: '111px',
+  marginTop: token('space.600', '48px'),
+});
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export default function NotFoundIllustration(): JSX.Element {

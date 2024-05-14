@@ -1136,17 +1136,22 @@ export const createPlugin = (
                     'ArrowLeft',
                     'ArrowRight',
                   ],
-                  text: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'Esc'],
+                  combobox: [...a11yDefaultKeys, 'ArrowDown', 'ArrowUp', 'Esc'],
+                  slider: ['Tab', 'Shift', 'ArrowLeft', 'ArrowRight'],
                 };
 
+                const targetRole = event.target.role;
                 const targetType = (
                   event.target as HTMLElement & { type?: string }
                 ).type;
-                // only if targeting button or range/text input
-                if (targetType && targetType in targetsAndButtons) {
+
+                const allowedTargets = targetRole || targetType;
+
+                // only if targeting interactive elements fe. button, slider, range, dropdown
+                if (allowedTargets && allowedTargets in targetsAndButtons) {
                   let targetRelatedA11YKeys: string[] =
                     targetsAndButtons[
-                      targetType as keyof typeof targetsAndButtons
+                      allowedTargets as keyof typeof targetsAndButtons
                     ];
                   const allowedKeys = new Set(targetRelatedA11YKeys);
 

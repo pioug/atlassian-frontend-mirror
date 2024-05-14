@@ -2,13 +2,19 @@ import { snapshot } from '@af/visual-regression';
 
 import HoverCard from '../../../examples/vr-hover-card/vr-hover-cards';
 import HoverCardActions from '../../../examples/vr-hover-card/vr-hover-card-actions';
-import HoverCardUanuthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
+import HoverCardUnauthorised from '../../../examples/vr-hover-card/vr-unauthorised-hover-cards';
 import HoverCardSSRLoading from '../../../examples/vr-hover-card/vr-hover-cards-ssr-loading';
 import HoverCardSSRError from '../../../examples/vr-hover-card/vr-hover-cards-ssr-error';
 import HoverCardPositioning from '../../../examples/vr-hover-card/vr-hover-card-can-open-positioning';
 
 snapshot(HoverCard, {
   drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+      false,
+    ],
+  },
   states: [
     {
       state: 'hovered',
@@ -55,8 +61,14 @@ snapshot(HoverCardActions, {
   ],
 });
 
-snapshot(HoverCardUanuthorised, {
+snapshot(HoverCardUnauthorised, {
   drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+      false,
+    ],
+  },
   states: [
     {
       state: 'hovered',
@@ -67,6 +79,12 @@ snapshot(HoverCardUanuthorised, {
 
 snapshot(HoverCardSSRLoading, {
   drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+      false,
+    ],
+  },
   states: [
     {
       state: 'hovered',
@@ -77,6 +95,12 @@ snapshot(HoverCardSSRLoading, {
 
 snapshot(HoverCardSSRError, {
   drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+      false,
+    ],
+  },
   states: [
     {
       state: 'hovered',

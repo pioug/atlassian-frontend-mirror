@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getTokenId } from '../../../src/utils/token-ids';
@@ -22,10 +22,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
       .map((value) => ` | '${value}'`)
       .join('\n');
 
-    return prettier.format(`export type ActiveTokens = ${activeTokenType};\n`, {
-      parser: 'typescript',
-      singleQuote: true,
-    });
+    return format(`export type ActiveTokens = ${activeTokenType};\n`, 'typescript');
   }
 
   return `// No active tokens in this theme\nexport {}`;

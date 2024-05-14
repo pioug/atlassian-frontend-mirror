@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 
 import Lorem from 'react-lorem-component';
 
+import { Code } from '@atlaskit/code';
+
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
-import { Code, Highlight, HighlightGroup } from './styled';
+import { Highlight, HighlightGroup } from './styled';
 
 interface State {
   active: number | null;

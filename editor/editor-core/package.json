@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "193.10.11",
+  "version": "193.15.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,28 +40,28 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^35.9.0",
+    "@atlaskit/adf-schema": "^36.1.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^17.12.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-json-transformer": "^8.10.0",
-    "@atlaskit/editor-plugins": "^2.2.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-json-transformer": "^8.12.0",
+    "@atlaskit/editor-plugins": "^2.5.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
+    "@atlaskit/editor-shared-styles": "^2.10.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/media-card": "^77.11.0",
     "@atlaskit/mention": "^23.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/task-decision": "^17.9.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/task-decision": "^17.10.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/width-detector": "^4.1.0",
+    "@atlaskit/width-detector": "^4.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@types/react-loadable": "^5.4.1",
@@ -84,36 +84,36 @@
   "devDependencies": {
     "@af/editor-libra": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/adf-utils": "^19.0.0",
+    "@atlaskit/adf-utils": "^19.1.0",
     "@atlaskit/analytics-listeners": "^8.9.1",
-    "@atlaskit/checkbox": "^13.1.0",
-    "@atlaskit/collab-provider": "9.26.2",
-    "@atlaskit/dropdown-menu": "^12.9.0",
-    "@atlaskit/editor-plugin-annotation": "1.5.9",
-    "@atlaskit/editor-plugin-card": "^1.8.0",
-    "@atlaskit/editor-plugin-editor-viewmode": "^1.0.0",
-    "@atlaskit/editor-plugin-list": "^3.1.5",
-    "@atlaskit/editor-plugin-paste": "^1.0.0",
+    "@atlaskit/checkbox": "^13.3.0",
+    "@atlaskit/collab-provider": "9.28.5",
+    "@atlaskit/dropdown-menu": "^12.10.0",
+    "@atlaskit/editor-plugin-annotation": "1.7.3",
+    "@atlaskit/editor-plugin-card": "^1.11.0",
+    "@atlaskit/editor-plugin-editor-viewmode": "^1.1.0",
+    "@atlaskit/editor-plugin-list": "^3.2.0",
+    "@atlaskit/editor-plugin-paste": "^1.1.0",
     "@atlaskit/editor-test-helpers": "*",
-    "@atlaskit/flag": "^15.3.0",
+    "@atlaskit/flag": "^15.5.0",
     "@atlaskit/link-provider": "^1.9.0",
     "@atlaskit/link-test-helpers": "^7.0.0",
-    "@atlaskit/logo": "^13.15.0",
+    "@atlaskit/logo": "^13.16.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.27",
-    "@atlaskit/modal-dialog": "^12.11.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/renderer": "^109.19.0",
-    "@atlaskit/select": "^17.6.0",
-    "@atlaskit/smart-card": "^26.56.0",
-    "@atlaskit/synchrony-test-helpers": "^2.3.0",
+    "@atlaskit/modal-dialog": "^12.13.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/renderer": "^109.25.0",
+    "@atlaskit/select": "^17.9.0",
+    "@atlaskit/smart-card": "^26.65.0",
+    "@atlaskit/synchrony-test-helpers": "^2.4.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/adf-schema-json": "^1.0.7",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/link-picker-plugins": "^24.0.0",
-    "@atlassian/search-provider": "2.4.56",
+    "@atlassian/search-provider": "2.4.64",
     "@atlassian/ufo": "^0.2.0",
     "@emotion/jest": "^11.8.0",
     "@storybook/addon-knobs": "^5.3.18",
@@ -129,7 +129,6 @@
     "jscodeshift": "^0.13.0",
     "lz-string": "^1.4.4",
     "mockdate": "^3.0.5",
-    "prettier": "^2.8.0",
     "prosemirror-dev-tools": "^4.0.0",
     "raf-stub": "^2.0.1",
     "react": "^16.8.0",
@@ -164,10 +163,6 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
-    "platform.corex.password-protected-pdf_ht8re": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
     "platform.editor.live-pages-expand-divergence": {
       "type": "boolean",
       "referenceOnly": "true"
@@ -185,6 +180,10 @@
       "referenceOnly": "true"
     },
     "platform.linking-platform.datasource-assets_objects": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.table.preserve-widths-with-lock-button": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -207,14 +206,7 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
-    "platform.design-system-team.border-checkbox_nyoiu": {
-      "type": "boolean"
-    },
     "platform.design-system-team.editor-new-button_jjjdo": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.design-system-team.update-border-radio-checkbox_7askv": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -226,17 +218,14 @@
       "type": "boolean",
       "referenceOnly": "true"
     },
-    "platform.editor.paste-options-toolbar": {
-      "type": "boolean"
-    },
-    "platform.editor.menu.group-items": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
     "platform.editor.enable-selection-toolbar_ucdwd": {
       "type": "boolean"
     },
     "platform.editor.multi-bodied-extension_0rygg": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.allow-action-in-list": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -277,27 +266,11 @@
       "type": "boolean",
       "referenceOnly": true
     },
-    "platform.editor.table.column-controls-styles-updated": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.shift-arrowup-fix": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.analytics-plugin-moved-event": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
     "platform.editor.a11y-column-resizing_emcvz": {
       "type": "boolean",
       "referenceOnly": "true"
     },
     "platform.editor.paste-markdown-table-in-a-table": {
-      "type": "boolean",
-      "referenceOnly": "true"
-    },
-    "platform.editor.table.background-color-flicker-in-drag-menu": {
       "type": "boolean",
       "referenceOnly": "true"
     },
@@ -331,6 +304,35 @@
     "platform.editor.table.colum-resizing-improvements": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "platform.editor.table-width-diff-in-renderer_x5s3z": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.preserve-whitespace-clipboard-text-serialization": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.explicit-html-element-check": {
+      "type": "boolean"
+    },
+    "platform.editor.table.live-pages-sorting_4malx": {
+      "type": "boolean",
+      "referenceOnly": "true"
+    },
+    "platform.editor.codeblock-preserve-newlines_54r3m": {
+      "type": "boolean",
+      "referenceOnly": true
+    },
+    "platform.editor.react-18-portal": {
+      "type": "boolean"
+    },
+    "platform.editor.table.allow-table-alignment": {
+      "type": "boolean"
     }
   },
   "stricter": {
@@ -350,6 +352,7 @@
     "./preset-universal": "./src/preset-universal.ts",
     "./test-utils": "./src/test-utils.ts",
     "./use-preset": "./src/use-preset.ts",
+    "./preset-builder": "./src/preset-builder.ts",
     "./version-wrapper": "./src/version-wrapper.ts"
   },
   "exports": {
@@ -358,12 +361,14 @@
     "./editor-context": "./src/editor-context.ts",
     "./editor": "./src/editor.tsx",
     "./element-browser": "./src/element-browser.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./labs-next": "./src/labs-next.ts",
     "./messages": "./src/messages.ts",
     "./preset-default": "./src/preset-default.ts",
     "./preset-universal": "./src/preset-universal.ts",
     "./test-utils": "./src/test-utils.ts",
     "./use-preset": "./src/use-preset.ts",
+    "./preset-builder": "./src/preset-builder.ts",
     "./version-wrapper": "./src/version-wrapper.ts",
     "./package.json": "./package.json"
   }

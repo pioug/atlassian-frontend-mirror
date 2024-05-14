@@ -72,6 +72,68 @@ exports[`Renderer - EmailSerializer should align paragraph correctly: html 1`] =
 </div>
 `;
 
+exports[`Renderer - EmailSerializer should apply backgroundColor mark correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      style="background-color: #C6EDFB;"
+    >
+      highlighted text
+    </span>
+    <span
+      style="background-color: #C6EDFB;"
+    >
+      <span
+        class="csg-mark-strong"
+        style="font-weight: bold;"
+      >
+        highlighted bold text
+      </span>
+    </span>
+    <span
+      style="background-color: #C6EDFB;"
+    >
+      <span
+        class="csg-mark-em"
+        style="font-style: italic;"
+      >
+        highlighted italic text
+      </span>
+    </span>
+    <sup>
+      <span
+        style="background-color: #C6EDFB;"
+      >
+        highlighted sup text
+      </span>
+    </sup>
+    <sub>
+      <span
+        style="background-color: #C6EDFB;"
+      >
+        highlighted sub text
+      </span>
+    </sub>
+    <span
+      class="csg-mark-underline"
+      style="text-decoration: underline;"
+    >
+      <span
+        style="background-color: #C6EDFB;"
+      >
+        highlighted underline text
+      </span>
+    </span>
+  </p>
+</div>
+`;
+
 exports[`Renderer - EmailSerializer should apply no mark for annotation marks: html 1`] = `
 <div
   class="csg-wrapper"
@@ -101,6 +163,68 @@ exports[`Renderer - EmailSerializer should apply no mark for breakout marks: htm
       :(){ :|: & };:
     </pre>
   </div>
+</div>
+`;
+
+exports[`Renderer - EmailSerializer should apply textColor mark correctly: html 1`] = `
+<div
+  class="csg-wrapper"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 14px; font-weight: 400; line-height: 24px; vertical-align: baseline;"
+>
+  <p
+    class="csg-p"
+    style="margin: 0; padding: 0px; margin-bottom: 7px; padding-top: 7px; mso-line-height-rule: exactly; line-height: 24px; font-size: 14px;"
+  >
+    <span
+      style="color: #B3D4FF;"
+    >
+      colored text
+    </span>
+    <span
+      style="color: #B3D4FF;"
+    >
+      <span
+        class="csg-mark-strong"
+        style="font-weight: bold;"
+      >
+        colored bold text
+      </span>
+    </span>
+    <span
+      style="color: #B3D4FF;"
+    >
+      <span
+        class="csg-mark-em"
+        style="font-style: italic;"
+      >
+        colored italic text
+      </span>
+    </span>
+    <sup>
+      <span
+        style="color: #B3D4FF;"
+      >
+        colored sup text
+      </span>
+    </sup>
+    <sub>
+      <span
+        style="color: #B3D4FF;"
+      >
+        colored sub text
+      </span>
+    </sub>
+    <span
+      class="csg-mark-underline"
+      style="text-decoration: underline;"
+    >
+      <span
+        style="color: #B3D4FF;"
+      >
+        colored underline text
+      </span>
+    </span>
+  </p>
 </div>
 `;
 

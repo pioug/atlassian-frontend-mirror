@@ -33,6 +33,12 @@
   },
   "references": [
     {
+      "path": "../../../build/formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../primitives/tsconfig.app.json"
+    },
+    {
       "path": "../tokens/tsconfig.app.json"
     },
     {

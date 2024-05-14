@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/layering",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Layering provides consistent and accessible layered experience",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -8,6 +8,7 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
+    "runReact18": true,
     "releaseModel": "continuous"
   },
   "author": "Atlassian Pty Ltd",
@@ -28,10 +29,10 @@
   "dependencies": {
     "@atlaskit/ds-lib": "^2.3.0",
     "@babel/runtime": "^7.0.0",
-    "bind-event-listener": "^2.1.1"
+    "bind-event-listener": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@atlaskit/ssr": "*",
@@ -39,7 +40,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
-    "prettier": "^2.8.0",
+    "prettier": "^3.2.5",
     "typescript": "~5.4.2"
   },
   "techstack": {

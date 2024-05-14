@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs mahual remediation */
 import { css } from '@emotion/react';
 
 import {
@@ -11,7 +12,6 @@ import {
   akEditorTableNumberColumnWidth,
   akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N0, N300, N40A, N60A, Y200, Y50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -398,34 +398,18 @@ const overflowShadowWidhoutDnD = (
 };
 
 const columnHeaderButton = (cssString?: string) => {
-  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
-    return css(
-      {
-        background: tableHeaderCellBackgroundColor,
-        display: 'block',
-        boxSizing: 'border-box',
-        padding: 0,
-        ':focus': {
-          outline: 'none',
-        },
+  return css(
+    {
+      background: tableHeaderCellBackgroundColor,
+      display: 'block',
+      boxSizing: 'border-box',
+      padding: 0,
+      ':focus': {
+        outline: 'none',
       },
-      cssString,
-    );
-  } else {
-    return css(
-      {
-        background: tableHeaderCellBackgroundColor,
-        border: `1px solid ${tableBorderColor}`,
-        display: 'block',
-        boxSizing: 'border-box',
-        padding: 0,
-        ':focus': {
-          outline: 'none',
-        },
-      },
-      cssString,
-    );
-  }
+    },
+    cssString,
+  );
 };
 
 const columnHeaderButtonSelected = () =>
@@ -503,34 +487,33 @@ export const rowControlsWrapperDotStyle = () => {
 };
 
 export const columnControlsDecoration = () => {
-  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
-    return css`
-      .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        display: none;
-        cursor: pointer;
+  return css`
+    .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+      display: none;
+      cursor: pointer;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
+      height: ${columnControlsDecorationHeight}px;
+      // floating dot for adding column button
+      &::before {
+        content: ' ';
+        background-color: ${tableBorderColor};
         position: absolute;
-        width: 100%;
-        left: 0;
-        top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
-        height: ${columnControlsDecorationHeight}px;
-        // floating dot for adding column button
-        &::before {
-          content: ' ';
-          background-color: ${tableBorderColor};
-          position: absolute;
-          height: ${lineMarkerSize}px;
-          width: ${lineMarkerSize}px;
-          border-radius: 50%;
-          pointer-events: none;
-          top: 2px;
-          right: -1px;
-        }
+        height: ${lineMarkerSize}px;
+        width: ${lineMarkerSize}px;
+        border-radius: 50%;
+        pointer-events: none;
+        top: 2px;
+        right: ${token('space.negative.025', '-2px')};
+      }
 
-        &::after {
-          content: ' ';
+      &::after {
+        content: ' ';
 
-          ${columnHeaderButton(
-            `
+        ${columnHeaderButton(
+          `
         border-right: ${tableCellBorderWidth}px solid ${tableBorderColor};
         border-top: ${tableCellBorderWidth}px solid ${tableBorderColor};
         border-bottom: ${tableCellBorderWidth}px solid ${tableBorderColor};
@@ -542,159 +525,86 @@ export const columnControlsDecoration = () => {
         left: 0px;
         z-index: ${columnControlsZIndex};
       `,
-          )}
-        }
+        )}
       }
+    }
 
-      // floating dot for adding column button - overriding style on last column to avoid scroll
-      ${getFloatingDotOverrides()}
+    // floating dot for adding column button - overriding style on last column to avoid scroll
+    ${getFloatingDotOverrides()}
 
-      .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        display: block;
-      }
+    .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+      display: block;
+    }
 
-      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
-        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_TABLE} {
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            ${columnHeaderButtonSelected()};
-          }
-
-          &.${ClassName.HOVERED_CELL_IN_DANGER}
-            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            background-color: ${tableToolbarDeleteColor};
-            border-color: ${tableBorderDeleteColor};
-            z-index: ${akEditorUnitZIndex * 100};
-          }
-        }
-      }
-
-      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
-        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            ${columnHeaderButtonSelected()};
-            border-left: ${tableCellBorderWidth}px solid
-              ${tableBorderSelectedColor};
-            left: -${tableCellBorderWidth}px;
-          }
-        }
-      }
-
-      table tr:first-of-type th.${ClassName.TABLE_HEADER_CELL} {
-        &.${ClassName.HOVERED_COLUMN} {
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            ${columnHeaderButtonSelected()};
-          }
-
-          &.${ClassName.HOVERED_CELL_IN_DANGER}
-            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            background-color: ${tableToolbarDeleteColor};
-            border-color: ${tableBorderDeleteColor};
-            border-left: ${tableCellBorderWidth}px solid
-              ${tableBorderDeleteColor};
-            left: -${tableCellBorderWidth}px;
-            z-index: ${akEditorUnitZIndex * 100};
-          }
-        }
-      }
-
-      .${ClassName.TABLE_SELECTED}
-        table
-        tr:first-of-type
-        td.${ClassName.TABLE_CELL},
-        .${ClassName.TABLE_SELECTED}
-        table
-        tr:first-of-type
-        th.${ClassName.TABLE_HEADER_CELL} {
+    table
+      tr:first-of-type
+      td.${ClassName.TABLE_CELL},table
+      tr:first-of-type
+      th.${ClassName.TABLE_HEADER_CELL} {
+      &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_TABLE} {
         .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
           ${columnHeaderButtonSelected()};
         }
-      }
-    `;
-  } else {
-    return css`
-      .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        display: none;
-        cursor: pointer;
-        position: absolute;
-        width: calc(100% + ${tableCellBorderWidth * 2}px);
-        left: -1px;
-        top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
-        height: ${columnControlsDecorationHeight}px;
-        // floating dot for adding column button
-        &::before {
-          content: ' ';
-          background-color: ${tableBorderColor};
-          position: absolute;
-          height: ${lineMarkerSize}px;
-          width: ${lineMarkerSize}px;
-          border-radius: 50%;
-          pointer-events: none;
-          top: 2px;
-          right: -1px;
-        }
 
-        &::after {
-          content: ' ';
-
-          ${columnHeaderButton(
-            `
-        border-right: ${tableCellBorderWidth}px solid ${tableBorderColor};
-        border-bottom: none;
-        height: ${tableToolbarSize}px;
-        width: 100%;
-        position: absolute;
-        top: ${columnControlsDecorationHeight - tableToolbarSize}px;
-        left: 0px;
-        z-index: ${columnControlsZIndex};
-      `,
-          )}
+        &.${ClassName.HOVERED_CELL_IN_DANGER}
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+          background-color: ${tableToolbarDeleteColor};
+          border-color: ${tableBorderDeleteColor};
+          z-index: ${akEditorUnitZIndex * 100};
         }
       }
+    }
 
-      // floating dot for adding column button - overriding style on last column to avoid scroll
-      ${getFloatingDotOverrides()}
-
-      .${ClassName.WITH_CONTROLS} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        display: block;
+    table
+      tr:first-of-type
+      td.${ClassName.TABLE_CELL},table
+      tr:first-of-type
+      th.${ClassName.TABLE_HEADER_CELL} {
+      &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
+        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+          ${columnHeaderButtonSelected()};
+          border-left: ${tableCellBorderWidth}px solid
+            ${tableBorderSelectedColor};
+          left: -${tableCellBorderWidth}px;
+        }
       }
+    }
 
+    table
+      tr:first-of-type
+      td.${ClassName.TABLE_CELL},
       table
-        tr:first-of-type
-        td.${ClassName.TABLE_CELL},
-        table
-        tr:first-of-type
-        th.${ClassName.TABLE_HEADER_CELL} {
-        &.${ClassName.COLUMN_SELECTED},
-          &.${ClassName.HOVERED_COLUMN},
-          &.${ClassName.HOVERED_TABLE} {
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            ${columnHeaderButtonSelected()};
-          }
-
-          &.${ClassName.HOVERED_CELL_IN_DANGER}
-            .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            background-color: ${tableToolbarDeleteColor};
-            border: 1px solid ${tableBorderDeleteColor};
-            border-bottom: none;
-            z-index: ${akEditorUnitZIndex * 100};
-          }
-        }
-      }
-
-      .${ClassName.TABLE_SELECTED}
-        table
-        tr:first-of-type
-        td.${ClassName.TABLE_CELL},
-        .${ClassName.TABLE_SELECTED}
-        table
-        tr:first-of-type
-        th.${ClassName.TABLE_HEADER_CELL} {
+      tr:first-of-type
+      th.${ClassName.TABLE_HEADER_CELL} {
+      &.${ClassName.HOVERED_COLUMN} {
         .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
           ${columnHeaderButtonSelected()};
         }
+
+        &.${ClassName.HOVERED_CELL_IN_DANGER}
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+          background-color: ${tableToolbarDeleteColor};
+          border-color: ${tableBorderDeleteColor};
+          border-left: ${tableCellBorderWidth}px solid ${tableBorderDeleteColor};
+          left: -${tableCellBorderWidth}px;
+          z-index: ${akEditorUnitZIndex * 100};
+        }
       }
-    `;
-  }
+    }
+
+    .${ClassName.TABLE_SELECTED}
+      table
+      tr:first-of-type
+      td.${ClassName.TABLE_CELL},
+      .${ClassName.TABLE_SELECTED}
+      table
+      tr:first-of-type
+      th.${ClassName.TABLE_HEADER_CELL} {
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+        ${columnHeaderButtonSelected()};
+      }
+    }
+  `;
 };
 
 export const hoveredDeleteButton = () => css`

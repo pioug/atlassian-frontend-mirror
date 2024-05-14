@@ -1,7 +1,7 @@
 import {
   setBooleanResolver,
   resolveBooleanFlag,
-  FeatureFlagResolverBoolean,
+  type FeatureFlagResolverBoolean,
 } from './resolvers';
 
 /**

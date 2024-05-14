@@ -27,6 +27,11 @@ const storeOptions: CardProviderStoreOpts = {
   },
 };
 
+/**
+ * Use case: Smart Link is resolved via SSR (represented by the mock initial state)
+ * and hover card send a second request to get metadata and that request fails, thus error state.
+ * HoverCard still renders 'resolved' status with minimum data from the initial state.
+ */
 export default () => (
   <VRTestWrapper>
     <Provider

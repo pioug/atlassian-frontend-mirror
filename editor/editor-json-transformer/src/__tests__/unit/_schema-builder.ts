@@ -14,5 +14,5 @@ export const schema: Schema = createSchema({
     'codeBlock',
     'rule',
   ],
-  marks: ['em', 'strong', 'code', 'strike', 'underline', 'textColor'],
+  marks: ['em', 'strong', 'code', 'strike', 'underline', 'textColor', 'backgroundColor'],
 });

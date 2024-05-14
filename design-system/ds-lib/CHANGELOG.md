@@ -1,5 +1,11 @@
 # @atlaskit/ds-lib
 
+## 2.3.1
+
+### Patch Changes
+
+- [#94316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94316) [`35fd5ed8e1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35fd5ed8e1d7) - Upgrading internal dependency `bind-event-listener` to `@^3.0.0`
+
 ## 2.3.0
 
 ### Minor Changes

@@ -13,6 +13,7 @@ import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
   annotationSharedStyles,
+  backgroundColorStyles,
   blockMarksSharedStyles,
   codeBlockInListSafariFix,
   codeMarkSharedStyles,
@@ -53,11 +54,12 @@ import {
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { N200, N30A, N500 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 import type { FeatureFlags } from '../../types/feature-flags';
 
+import { aiPanelStyles } from './ai-panels';
 import { codeBlockStyles } from './code-block';
 import { dateStyles } from './date';
 import { expandStyles } from './expand';
@@ -77,6 +79,7 @@ export const linkStyles = css`
 
 type ContentStylesProps = {
   theme?: any;
+  colorMode?: 'light' | 'dark';
   featureFlags?: FeatureFlags;
 };
 
@@ -240,6 +243,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${blocktypeStyles()}
   ${codeMarkSharedStyles()}
   ${textColorStyles}
+  ${backgroundColorStyles}
   ${listsStyles}
   ${ruleStyles()}
   ${mediaStyles}
@@ -268,6 +272,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${embedCardStyles}
   ${unsupportedStyles}
   ${resizerStyles}
+  ${aiPanelStyles(props.colorMode)}
 
   .panelView-content-wrap {
     box-sizing: border-box;
@@ -334,13 +339,15 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
   return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
     const { className, children, featureFlags } = props;
     const theme = useTheme();
+    const { colorMode } = useThemeObserver();
     const memoizedStyle = useMemo(
       () =>
         contentStyles({
           theme,
+          colorMode,
           featureFlags,
         }),
-      [theme, featureFlags],
+      [theme, colorMode, featureFlags],
     );
 
     return (

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "hello!"
+        }
+      ]
+    },
+    {
+      "type": "extension",
+      "attrs": {
+        "extensionType": "com.atlassian.confluence.macro.core",
+        "extensionKey": "block-eh",
+        "parameters": {},
+        "text": "Block extension demo",
+        "layout": "default",
+        "localId": "7eef28e1-b15f-472d-9642-88ab407b14be"
+      }
+    }
+  ]
+}

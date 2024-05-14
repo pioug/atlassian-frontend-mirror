@@ -12,6 +12,7 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
 import { extractAri, extractLink } from '@atlaskit/link-extractors';
 import { di } from 'react-magnetic-di';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
 const ConnectedAIPrismContainer = ({
   children,
@@ -28,7 +29,7 @@ const ConnectedAIPrismContainer = ({
   //The data is undefined while the link is resolving.
   const dataUrl = data ? extractLink(data) : null;
   const dataAri = data ? extractAri(data) : null;
-  const { product } = useSmartLinkContext();
+  const { product, connections } = useSmartLinkContext();
 
   const {
     state: { status },
@@ -36,6 +37,8 @@ const ConnectedAIPrismContainer = ({
     url: dataUrl || '',
     ari: dataAri || '',
     product: product,
+    envKey: connections.client.envKey as EnvironmentsKeys,
+    baseUrl: connections.client.baseUrlOverride,
   });
 
   const [showPrism, setShowPrism] = useState(status === 'loading');

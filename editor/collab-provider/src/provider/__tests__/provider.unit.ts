@@ -980,6 +980,7 @@ describe('Provider', () => {
         analyticsHelper: expect.any(Object),
         clientId: 'some-random-prosemirror-client-Id',
         onStepsAdded: expect.any(Function),
+        catchUpOutofSync: false,
       });
 
       await new Promise(process.nextTick);

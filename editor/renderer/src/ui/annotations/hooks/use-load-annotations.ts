@@ -1,15 +1,16 @@
 import { useContext, useEffect } from 'react';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { AnnotationState } from '@atlaskit/editor-common/types';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import { ProvidersContext } from '../context';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 
 type Props = {
   adfDocument: JSONDocNode;
+  isNestedRender: boolean;
 };
-export const useLoadAnnotations = ({ adfDocument }: Props) => {
+export const useLoadAnnotations = ({ adfDocument, isNestedRender }: Props) => {
   const actions = useContext(ActionsContext);
   const providers = useContext(ProvidersContext);
 
@@ -31,6 +32,7 @@ export const useLoadAnnotations = ({ adfDocument }: Props) => {
       return;
     }
     const ids = annotations.map((mark) => mark.attrs.id);
+
     const cb = (data: AnnotationState<AnnotationTypes.INLINE_COMMENT>[]) => {
       if (!updateSubscriberInlineComment) {
         return;
@@ -53,6 +55,6 @@ export const useLoadAnnotations = ({ adfDocument }: Props) => {
       );
     };
 
-    inlineCommentGetState(ids).then(cb);
-  }, [actions, providers, adfDocument]);
+    inlineCommentGetState(ids, isNestedRender).then(cb);
+  }, [actions, providers, adfDocument, isNestedRender]);
 };

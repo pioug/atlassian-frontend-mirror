@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-deprecated-design-token-usage */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
@@ -5,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './heading-context';
 import NewHeading from './heading.partial';
-import type { HeadingProps } from './types';
+import type { HeadingProps, NewHeadingProps, OldHeadingProps } from './types';
 
 // https://atlassian.design/foundations/typography
 const levelMap = {
@@ -120,7 +121,7 @@ const OldHeading = ({
   testId,
   as,
   color = 'default',
-}: HeadingProps) => {
+}: OldHeadingProps) => {
   if (
     typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
@@ -180,13 +181,13 @@ const OldHeading = ({
  * );
  * ```
  */
-const Heading = ({ level, size, ...props }: HeadingProps) => {
+const Heading = ({ level, ...props }: HeadingProps) => {
   return level ? (
     // eslint-disable-next-line jsx-a11y/heading-has-content, @repo/internal/react/no-unsafe-spread-props
-    <OldHeading level={level} {...props} />
+    <OldHeading level={level} {...(props as Omit<OldHeadingProps, 'level'>)} />
   ) : (
     // eslint-disable-next-line jsx-a11y/heading-has-content, @repo/internal/react/no-unsafe-spread-props
-    <NewHeading size={size} {...props} />
+    <NewHeading {...(props as NewHeadingProps)} />
   );
 };
 

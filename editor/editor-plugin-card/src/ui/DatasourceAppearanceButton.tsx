@@ -12,7 +12,6 @@ import type { Node } from '@atlaskit/editor-prosemirror/dist/types/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import TableIcon from '@atlaskit/icon/glyph/table';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource';
 import type { CardContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
@@ -24,6 +23,7 @@ import { pluginKey } from '../pm-plugins/plugin-key';
 import type { CardPluginState } from '../types';
 
 import { CardContextProvider } from './CardContextProvider';
+import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
 export interface DatasourceAppearanceButtonProps {
@@ -129,7 +129,7 @@ const DatasourceAppearanceButtonWithCardContext = ({
       <Button
         css={buttonStyles}
         title={buttonLabel}
-        icon={<TableIcon label={buttonLabel} />}
+        icon={<DatasourceIcon label={buttonLabel} />}
         selected={selected}
         onClick={onChangeAppearance}
         testId={'card-datasource-appearance-button'}

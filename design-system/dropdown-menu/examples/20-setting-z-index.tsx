@@ -1,10 +1,9 @@
 import React, { Fragment, useState } from 'react';
 
 import { IconButton } from '@atlaskit/button/new';
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 

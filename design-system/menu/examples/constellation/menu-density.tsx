@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { token } from '@atlaskit/tokens';
-
 import { ButtonItem, MenuGroup, Section } from '../../src';
+import ImgIcon from '../common/img-icon';
+import MenuGroupContainer from '../common/menu-group-container';
 import battery from '../icons/battery.png';
 import cloud from '../icons/cloud.png';
 import Drill from '../icons/drill.png';
@@ -11,24 +11,8 @@ import ui from '../icons/ui.png';
 import wallet from '../icons/wallet.png';
 import Yeti from '../icons/yeti.png';
 
-const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
-);
-
 export default () => (
-  <div
-    style={{
-      color: token('color.text'),
-      backgroundColor: token('elevation.surface.overlay', '#fff'),
-      boxShadow: token(
-        'elevation.shadow.overlay',
-        '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-      ),
-      borderRadius: 4,
-      maxWidth: 320,
-      margin: `${token('space.200', '16px')} auto`,
-    }}
-  >
+  <MenuGroupContainer>
     <MenuGroup spacing="compact">
       <Section title="Starred">
         <ButtonItem
@@ -81,5 +65,5 @@ export default () => (
         <ButtonItem>Create project</ButtonItem>
       </Section>
     </MenuGroup>
-  </div>
+  </MenuGroupContainer>
 );

@@ -3,6 +3,10 @@ import type { IntlShape } from 'react-intl-next';
 import { keyName } from 'w3c-keyname';
 
 import {
+  expandedState,
+  isExpandCollapsed,
+} from '@atlaskit/editor-common/expand';
+import {
   GapCursorSelection,
   RelativeSelectionPos,
   Side,
@@ -18,6 +22,7 @@ import type {
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
@@ -26,14 +31,16 @@ import type {
   EditorView,
   NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import {
   deleteExpand,
   setSelectionInsideExpand,
+  toggleExpandExpanded,
   updateExpandTitle,
 } from '../commands';
-import { renderIcon, toDOM } from '../ui/NodeView';
+import { buildExpandClassName, renderIcon, toDOM } from '../ui/NodeView';
 
 export class ExpandNodeView implements NodeView {
   node: PmNode;
@@ -61,16 +68,23 @@ export class ExpandNodeView implements NodeView {
     api: ExtractInjectionAPI<ExpandPlugin> | undefined,
     allowInteractiveExpand: boolean = true,
     private __livePage = false,
+    private cleanUpEditorDisabledOnChange?: () => void,
   ) {
     this.intl = getIntl();
-    const { dom, contentDOM } = DOMSerializer.renderSpec(
-      document,
-      toDOM(node, this.__livePage, this.intl),
-    );
+
     this.allowInteractiveExpand = allowInteractiveExpand;
     this.getPos = getPos;
     this.view = view;
     this.node = node;
+    const { dom, contentDOM } = DOMSerializer.renderSpec(
+      document,
+      toDOM(
+        node,
+        this.__livePage,
+        this.intl,
+        api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
+      ),
+    );
     this.dom = dom as HTMLElement;
     this.contentDOM = contentDOM as HTMLElement;
     this.isMobile = isMobile;
@@ -85,7 +99,20 @@ export class ExpandNodeView implements NodeView {
       `.${expandClassNames.titleContainer}`,
     );
 
-    renderIcon(this.icon, this.allowInteractiveExpand, this.intl);
+    this.content = this.dom.querySelector<HTMLElement>(
+      `.${expandClassNames.content}`,
+    );
+
+    if (!expandedState.has(this.node)) {
+      expandedState.set(this.node, false);
+    }
+
+    renderIcon(
+      this.icon,
+      this.allowInteractiveExpand,
+      !isExpandCollapsed(this.node),
+      this.intl,
+    );
 
     if (!this.input || !this.titleContainer || !this.icon) {
       return;
@@ -97,10 +124,38 @@ export class ExpandNodeView implements NodeView {
     this.dom.addEventListener('input', this.handleInput);
     this.input.addEventListener('keydown', this.handleTitleKeydown);
     this.input.addEventListener('blur', this.handleBlur);
+    this.input.addEventListener('focus', this.handleInputFocus);
     // If the user interacts in our title bar (either toggle or input)
     // Prevent ProseMirror from getting a focus event (causes weird selection issues).
     this.titleContainer.addEventListener('focus', this.handleFocus);
     this.icon.addEventListener('keydown', this.handleIconKeyDown);
+
+    if (
+      this.api?.editorDisabled &&
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      )
+    ) {
+      this.cleanUpEditorDisabledOnChange =
+        this.api.editorDisabled.sharedState.onChange(sharedState => {
+          const editorDisabled = sharedState.nextSharedState.editorDisabled;
+
+          if (this.input) {
+            if (editorDisabled) {
+              this.input.setAttribute('readonly', 'true');
+            } else {
+              this.input.removeAttribute('readonly');
+            }
+          }
+
+          if (this.content) {
+            this.content.setAttribute(
+              'contenteditable',
+              this.getContentEditable(this.node) ? 'true' : 'false',
+            );
+          }
+        });
+    }
   }
 
   private focusTitle = () => {
@@ -118,8 +173,6 @@ export class ExpandNodeView implements NodeView {
       if (typeof pos === 'number') {
         setSelectionInsideExpand(pos)(state, dispatch, this.view);
       }
-      this.decorationCleanup =
-        this.api?.selectionMarker?.actions?.hideDecoration();
       this.input.focus();
     }
   };
@@ -157,8 +210,12 @@ export class ExpandNodeView implements NodeView {
         this.view.dom.blur();
       }
 
-      // TODO https://product-fabric.atlassian.net/browse/ED-22841
-      // call toggleExpandExpanded
+      toggleExpandExpanded({
+        editorAnalyticsAPI: this.api?.analytics?.actions,
+        pos,
+        node: this.node,
+      })(this.view.state, this.view.dispatch);
+      this.updateExpandToggleIcon(this.node);
 
       return;
     }
@@ -192,14 +249,19 @@ export class ExpandNodeView implements NodeView {
     event.stopImmediatePropagation();
   };
 
-  private handleBlur = (event: FocusEvent) => {
+  private handleInputFocus = () => {
+    this.decorationCleanup =
+      this.api?.selectionMarker?.actions?.hideDecoration();
+  };
+
+  private handleBlur = () => {
     this.decorationCleanup?.();
   };
 
   private handleTitleKeydown = (event: KeyboardEvent) => {
     switch (keyName(event)) {
       case 'Enter':
-        // TO-DO
+        this.toggleExpand();
         break;
       case 'Tab':
       case 'ArrowDown':
@@ -218,6 +280,16 @@ export class ExpandNodeView implements NodeView {
         this.deleteEmptyExpand();
         break;
     }
+    // 'Ctrl-y', 'Mod-Shift-z');
+    if ((event.ctrlKey && event.key === 'y') || ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z')) {
+      this.handleRedoFromTitle(event);
+      return;
+    }
+    // 'Mod-z'
+    if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
+      this.handleUndoFromTitle(event);
+      return;
+    }
   };
 
   private deleteEmptyExpand = () => {
@@ -234,6 +306,23 @@ export class ExpandNodeView implements NodeView {
 
     if (expandNode && isEmptyNode(state.schema)(expandNode)) {
       deleteExpand(this.api?.analytics?.actions)(state, this.view.dispatch);
+    }
+  };
+
+  private toggleExpand = () => {
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
+
+    if (this.allowInteractiveExpand) {
+      const { state, dispatch } = this.view;
+      toggleExpandExpanded({
+        editorAnalyticsAPI: this.api?.analytics?.actions,
+        pos,
+        node: this.node,
+      })(state, dispatch);
+      this.updateExpandToggleIcon(this.node);
     }
   };
 
@@ -271,9 +360,8 @@ export class ExpandNodeView implements NodeView {
     }
   };
 
-  // TODO: https://product-fabric.atlassian.net/browse/ED-22841
   private isCollapsed = () => {
-    return false;
+    return !expandedState.get(this.node);
   };
 
   private setRightGapCursor = (event: KeyboardEvent) => {
@@ -285,7 +373,19 @@ export class ExpandNodeView implements NodeView {
       return;
     }
     const { value, selectionStart, selectionEnd } = this.input;
-    if (selectionStart === selectionEnd && selectionStart === value.length) {
+
+    const selectionStartExists =
+      selectionStart !== null && selectionStart !== undefined;
+    const selectionEndExists =
+      selectionEnd !== null && selectionEnd !== undefined;
+    const selectionStartInsideTitle =
+      selectionStartExists &&
+      selectionStart >= 0 &&
+      selectionStart <= value.length;
+    const selectionEndInsideTitle =
+      selectionEndExists && selectionEnd >= 0 && selectionEnd <= value.length;
+
+    if (selectionStartInsideTitle && selectionEndInsideTitle) {
       const { state, dispatch } = this.view;
       event.preventDefault();
       this.view.focus();
@@ -381,6 +481,37 @@ export class ExpandNodeView implements NodeView {
     }
   };
 
+  private handleUndoFromTitle = (event: KeyboardEvent) => {
+    const { state, dispatch } = this.view;
+    undo(state, dispatch);
+    event.preventDefault();
+    return;
+  }
+
+  private handleRedoFromTitle = (event: KeyboardEvent) => {
+    const { state, dispatch } = this.view;
+    redo(state, dispatch);
+    event.preventDefault();
+    return;
+  }
+
+  private getContentEditable = (node: PmNode): boolean => {
+    const contentEditable = !isExpandCollapsed(node);
+    if (
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      ) &&
+      this.api &&
+      this.api.editorDisabled
+    ) {
+      return (
+        !this.api.editorDisabled.sharedState.currentState()?.editorDisabled &&
+        contentEditable
+      );
+    }
+    return contentEditable;
+  };
+
   stopEvent(event: Event) {
     const target = event.target as HTMLElement;
     return (
@@ -411,9 +542,6 @@ export class ExpandNodeView implements NodeView {
 
   update(node: PmNode, _decorations: readonly Decoration[]) {
     if (this.node.type === node.type) {
-      // TODO: https://product-fabric.atlassian.net/browse/ED-22841
-      // Handle toggling of the expand on update here
-
       // During a collab session the title doesn't sync with other users
       // since we're intentionally being less aggressive about re-rendering.
       // We also apply a rAF to avoid abrupt continuous replacement of the title.
@@ -423,10 +551,55 @@ export class ExpandNodeView implements NodeView {
         }
       });
 
+      // This checks if the node has been replaced with a different version
+      // and updates the state of the new node to match the old one
+      // Eg. typing in a node changes it to a new node so it must be updated
+      // in the expandedState weak map
+      if (this.node !== node) {
+        const wasExpanded = expandedState.get(this.node);
+        if (wasExpanded) {
+          expandedState.set(node, wasExpanded);
+        }
+      }
+
+      if (this.content) {
+        // Disallow interaction/selection inside when collapsed.
+        this.content.setAttribute(
+          'contenteditable',
+          this.getContentEditable(node) ? 'true' : 'false',
+        );
+      }
+
       this.node = node;
+      this.updateExpandToggleIcon(this.node);
       return true;
     }
     return false;
+  }
+
+  updateExpandToggleIcon(node: PmNode) {
+    const expanded = expandedState.get(node) ? expandedState.get(node) : false;
+    if (this.dom && expanded !== undefined) {
+      this.dom.className = buildExpandClassName(node.type.name, expanded);
+      // Re-render the icon to update the aria-expanded attribute
+      renderIcon(
+        this.icon ? this.icon : null,
+        this.allowInteractiveExpand,
+        expandedState.get(node) ?? false,
+        this.intl,
+      );
+    }
+    this.updateExpandBodyContentEditable();
+  }
+
+  updateExpandBodyContentEditable() {
+    // Disallow interaction/selection inside expand body when collapsed.
+    if (this.content) {
+      this.content.setAttribute(
+        'contenteditable',
+        expandedState.get(this.node) ? 'true' : 'false',
+      );
+    }
   }
 
   destroy() {
@@ -438,9 +611,13 @@ export class ExpandNodeView implements NodeView {
     this.dom.removeEventListener('input', this.handleInput);
     this.input.removeEventListener('keydown', this.handleTitleKeydown);
     this.input.removeEventListener('blur', this.handleBlur);
+    this.input.removeEventListener('focus', this.handleInputFocus);
     this.titleContainer.removeEventListener('focus', this.handleFocus);
     this.icon.removeEventListener('keydown', this.handleIconKeyDown);
     this.decorationCleanup?.();
+    if (this.cleanUpEditorDisabledOnChange) {
+      this.cleanUpEditorDisabledOnChange();
+    }
     ReactDOM.unmountComponentAtNode(this.icon);
   }
 }

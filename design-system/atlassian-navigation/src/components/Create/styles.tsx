@@ -1,4 +1,5 @@
 import { ThemeProps, ThemeTokens } from '@atlaskit/button/types';
+import { token } from '@atlaskit/tokens';
 
 import { NavigationTheme } from '../../theme';
 
@@ -14,7 +15,7 @@ export const getCreateButtonTheme =
         ...buttonStyles,
         ...create.default,
         margin: 0,
-        fontWeight: 500,
+        fontWeight: token('font.weight.medium'),
         ':hover': create.hover,
         ':focus': create.focus,
         // :active doesn't work in FF, becasue we do a

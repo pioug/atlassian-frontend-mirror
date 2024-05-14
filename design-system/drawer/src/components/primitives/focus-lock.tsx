@@ -5,7 +5,7 @@ import ScrollLock from 'react-scrolllock';
 import invariant from 'tiny-invariant';
 
 import { defaultFocusLockSettings } from '../../constants';
-import { FocusLockProps } from '../types';
+import { type FocusLockProps } from '../types';
 
 // Thin wrapper over react-focus-lock. This wrapper only exists to ensure API compatibility.
 // This component should be deleted during https://ecosystem.atlassian.net/browse/AK-5658
@@ -33,11 +33,30 @@ export default class FocusLock extends Component<FocusLockProps> {
     }
   }
 
+  getFocusTarget = () => {
+    const { shouldReturnFocus } = this.props;
+
+    if (typeof shouldReturnFocus === 'boolean') {
+      return shouldReturnFocus;
+    }
+
+    return false;
+  }
+
+  onDeactivation = () => {
+    const { shouldReturnFocus } = this.props;
+
+    if (typeof shouldReturnFocus !== 'boolean') {
+      window.setTimeout(() => {
+        shouldReturnFocus?.current?.focus();
+      }, 0);
+    }
+  }
+
   render() {
     const {
       isFocusLockEnabled,
       autoFocusFirstElem,
-      shouldReturnFocus,
       children,
     } = this.props;
 
@@ -45,7 +64,8 @@ export default class FocusLock extends Component<FocusLockProps> {
       <ReactFocusLock
         disabled={!isFocusLockEnabled}
         autoFocus={!!autoFocusFirstElem}
-        returnFocus={shouldReturnFocus}
+        returnFocus={this.getFocusTarget()}
+        onDeactivation={this.onDeactivation}
       >
         <ScrollLock>{children}</ScrollLock>
       </ReactFocusLock>

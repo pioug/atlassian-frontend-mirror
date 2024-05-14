@@ -13,7 +13,6 @@ import type { LastContentPasted } from '@atlaskit/editor-plugin-paste';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   changeToMarkdownWithAnalytics,
@@ -42,16 +41,11 @@ export const isToolbarVisible = (
 ): boolean => {
   /**
    * Conditions for not showing the toolbar:
-   * 1. Feature flag is disabled
-   * 2. Pasting link, media or text containing media(note: markdown link and images are allowed)
-   * 3. Content is pasted in a nested node(i.e. inside a table, panel etc.).
+   * 1. Pasting link, media or text containing media(note: markdown link and images are allowed)
+   * 2. Content is pasted in a nested node(i.e. inside a table, panel etc.).
    *    (grandParent node should be root doc for showing up the toolbar)
-   * 4. Cursor is inside the codeblock.
+   * 3. Cursor is inside the codeblock.
    */
-  if (!getBooleanFF('platform.editor.paste-options-toolbar')) {
-    return false;
-  }
-
   const $from = state.selection.$from;
   if (hasRuleNode(lastContentPasted.pastedSlice, state.schema)) {
     return false;

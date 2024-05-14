@@ -6,13 +6,13 @@ import styled from 'styled-components';
 import WithDocumentActions from '../consumers/with-document-actions';
 import type { Mode } from '../context/context';
 
-const Toolbar = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 ${token('space.250', '20px')};
-  height: ${token('space.1000', '80px')};
-`;
+const Toolbar = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: `0 ${token('space.250', '20px')}`,
+  height: token('space.1000', '80px'),
+});
 
 export default (props: { mode: Mode; editorActions?: any }) => {
   const { mode, editorActions } = props;

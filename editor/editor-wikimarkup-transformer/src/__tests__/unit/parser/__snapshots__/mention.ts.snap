@@ -13,6 +13,7 @@ Object {
           "attrs": Object {
             "accessLevel": "",
             "id": "78032763-2feb-4f5b-88c0-99b50613d53a",
+            "localId": null,
             "text": "",
             "userType": null,
           },
@@ -60,6 +61,7 @@ Object {
           "attrs": Object {
             "accessLevel": "",
             "id": "accountid:78032763-2feb-4f5b-88c0-99b50613d53a",
+            "localId": null,
             "text": "",
             "userType": null,
           },
@@ -90,6 +92,7 @@ Object {
           "attrs": Object {
             "accessLevel": "",
             "id": "aAaAaA",
+            "localId": null,
             "text": "",
             "userType": null,
           },

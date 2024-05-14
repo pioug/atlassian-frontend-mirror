@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Výsledky tohoto souhrnu nemůžeme zobrazit, protože jsou v rozporu se <a>Zásadami přijatelného používání společnosti Atlassian</a>.',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence momentálně nemůže poskytnout odpověď. Další informace najdete <a>v naší podpůrné dokumentaci</a>.',
+    'Atlassian Intelligence (AI) neodpovídá. Zkuste to znovu později nebo <a>zkontrolujte stav AI</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence nedokázala zpracovat vaši žádost, protože váš obsah obsahuje odkazy na obsah omezený HIPAA.',
   'fabric.linking.assigned_to': 'Přiřazeno k: {context}',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Zrušit',

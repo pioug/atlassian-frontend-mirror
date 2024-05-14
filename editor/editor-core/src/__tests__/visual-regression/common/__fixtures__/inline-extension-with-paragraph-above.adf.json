@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "hello!"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineExtension",
+          "attrs": {
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "extensionKey": "inline-eh",
+            "parameters": {},
+            "text": "Inline extension demo",
+            "localId": "f91538c8-3ad1-4c05-8036-4159986fff7e"
+          }
+        }
+      ]
+    }
+  ]
+}

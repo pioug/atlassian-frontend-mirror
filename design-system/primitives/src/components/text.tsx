@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import {
-  ComponentPropsWithRef,
+  type ComponentPropsWithRef,
   createContext,
-  ElementType,
+  type ElementType,
   forwardRef,
-  ReactNode,
-  Ref,
+  type ReactNode,
+  type Ref,
   useContext,
 } from 'react';
 
@@ -13,12 +13,12 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import {
-  FontSize,
+  type FontSize,
   fontStylesMap,
-  FontWeight,
+  type FontWeight,
   fontWeightStylesMap,
   inverseColorMap,
-  TextColor,
+  type TextColor,
   textColorStylesMap,
 } from '../xcss/style-maps.partial';
 
@@ -40,7 +40,7 @@ type TextPropsBase<T extends ElementType = 'span'> = {
   /**
    * Token representing text color with a built-in fallback value.
    * Will apply inverse text color automatically if placed within a Box with bold background color.
-   * Defaults to `text.color` if not nested in other Text components.
+   * Defaults to `color.text` if not nested in other Text components.
    */
   color?: TextColor | 'inherit';
   /**
@@ -174,11 +174,14 @@ const Text = forwardRef(
         ref={ref}
         css={[
           resetStyles,
+          // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
           fontStylesMap[size],
+          // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
           color && textColorStylesMap[color],
           maxLines && truncationStyles,
           maxLines === 1 && wordBreakMap.breakAll,
           align && textAlignMap[align],
+          // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
           weight && fontWeightStylesMap[weight],
           Component === 'em' && emStyles,
           Component === 'strong' && strongStyles,

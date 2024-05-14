@@ -2,6 +2,8 @@ import type { Rule, Scope } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 import type { CallExpression } from 'estree';
 
+import { findIdentifierNode } from './find-identifier-node';
+
 type Definition = Scope.Definition;
 type Callee = CallExpression['callee'];
 type Reference = Scope.Reference;
@@ -31,22 +33,6 @@ export type SupportedNameChecker = (
  */
 export const DEFAULT_IMPORT_SOURCES: ImportSource[] =
   Object.values(CSS_IN_JS_IMPORTS);
-
-const getIdentifierNode = (node: Callee) => {
-  let identifierNode = node.type === 'Identifier' ? node : undefined;
-  if (!identifierNode) {
-    // Handles styled.div`` case
-    if (node.type === 'MemberExpression' && node.object.type === 'Identifier') {
-      identifierNode = node.object;
-    }
-
-    // Handles styled(Component)`` case
-    if (node.type === 'CallExpression' && node.callee.type === 'Identifier') {
-      identifierNode = node.callee;
-    }
-  }
-  return identifierNode;
-};
 
 /**
  * Given the ESLint rule context, extract and parse the value of the importSources rule option.
@@ -134,7 +120,7 @@ const isSupportedImportWrapper = (
     referencesInScope: Reference[],
     importSources: ImportSource[],
   ): boolean => {
-    const identifierNode = getIdentifierNode(nodeToCheck);
+    const identifierNode = findIdentifierNode(nodeToCheck);
 
     return (
       identifierNode?.type === 'Identifier' &&
@@ -182,9 +168,9 @@ export const hasStyleObjectArguments: SupportedNameChecker = (
        * as it does not have style object arguments.
        */
       const shouldIgnore =
-        isNodeOfType(node, 'CallExpression') &&
-        (node.parent?.type === 'CallExpression' ||
-          node.parent?.type === 'TaggedTemplateExpression');
+        isNodeOfType(node, 'Identifier') &&
+        (node.parent?.parent?.type === 'CallExpression' ||
+          node.parent?.parent?.type === 'TaggedTemplateExpression');
 
       if (shouldIgnore) {
         return false;
@@ -218,7 +204,7 @@ export const isImportedFrom =
       return false;
     }
 
-    const identifierNode = getIdentifierNode(nodeToCheck);
+    const identifierNode = findIdentifierNode(nodeToCheck);
 
     return (
       identifierNode?.type === 'Identifier' &&

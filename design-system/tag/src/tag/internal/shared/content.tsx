@@ -10,7 +10,6 @@ import {
   defaultTextPadding,
   maxTextWidth,
   maxTextWidthUnitless,
-  textFontSize,
   textMarginLeft,
   textPaddingRight,
 } from '../../../constants';
@@ -23,16 +22,10 @@ interface ContentProps extends SimpleTagProps {
 
 const baseStyles = css({
   maxWidth: maxTextWidth,
-  paddingTop: token('space.025', '2px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingRight: defaultTextPadding,
-  paddingBottom: token('space.025', '2px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingLeft: defaultTextPadding,
-  fontSize: textFontSize,
-  fontWeight: 'normal',
-  lineHeight: 1,
+  font: token('font.body'),
   overflow: 'hidden',
+  paddingInlineEnd: defaultTextPadding,
+  paddingInlineStart: defaultTextPadding,
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
 });
@@ -60,12 +53,12 @@ const linkStyles = css({
 const hasAfterStyles = css({
   maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingRight: textPaddingRight,
+  paddingInlineEnd: textPaddingRight,
 });
 
 const hasBeforeStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  marginLeft: textMarginLeft,
+  marginInlineStart: textMarginLeft,
 });
 
 const Content = ({

@@ -1,8 +1,7 @@
 import { API, FileInfo, Options } from 'jscodeshift';
 
 const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
-import * as prettier from 'prettier';
-import parserTypescript from 'prettier/parser-typescript';
+import formatSync from '@af/formatting/sync';
 
 type Transformer = (file: FileInfo, jscodeshift: API, options: Options) => void;
 
@@ -27,10 +26,7 @@ function removeWhitespace(value: string): string {
 
 function format(value: string): string {
   const trimmed = removeWhitespace(value);
-  const formatted = prettier.format(trimmed, {
-    parser: 'typescript',
-    plugins: [parserTypescript],
-  });
+  const formatted = formatSync(trimmed, 'typescript');
   return formatted;
 }
 

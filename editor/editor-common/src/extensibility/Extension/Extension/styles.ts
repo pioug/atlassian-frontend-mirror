@@ -19,6 +19,9 @@ export const wrapperStyle = css(wrapperDefault, {
   '&.with-border': {
     border: `1px solid transparent`, // adding this so macro doesn't jump when hover border is shown
   },
+  '&.with-bodied-border': {
+    border: `1px solid ${token('color.border', N30)}`,
+  },
   '&.with-hover-border': {
     border: `1px solid ${token('color.border.input', N500)}`,
   },
@@ -59,8 +62,8 @@ export const contentWrapper = css({
   padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')}`,
   display: 'flex',
   justifyContent: 'center',
-  '&.remove-padding': {
-    padding: 0,
+  '&.with-padding-styles': {
+    padding: token('space.100', '8px'),
   },
 });
 

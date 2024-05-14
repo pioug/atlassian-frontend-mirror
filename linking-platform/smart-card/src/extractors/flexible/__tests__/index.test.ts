@@ -310,6 +310,7 @@ describe('extractFlexibleUiContext', () => {
             },
           },
           value: true,
+          isProject: true,
         },
       },
       authorGroup: [

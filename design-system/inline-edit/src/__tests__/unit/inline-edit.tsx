@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import Textfield from '@atlaskit/textfield';
 
 import InlineEdit from '../../inline-edit';
@@ -17,7 +17,7 @@ describe('InlineEdit component', () => {
       const defaultValue = 'Some text';
       const onConfirm = jest.fn();
 
-      const { queryByTestId } = render(
+      render(
         <InlineEdit
           defaultValue={defaultValue}
           label="Inline edit"
@@ -33,7 +33,7 @@ describe('InlineEdit component', () => {
         />,
       );
 
-      const read = queryByTestId('read-view');
+      const read = screen.queryByTestId('read-view');
       expect(read).toBeInTheDocument();
     });
 
@@ -42,7 +42,7 @@ describe('InlineEdit component', () => {
       const onConfirm = jest.fn();
       const onEdit = jest.fn();
 
-      const { container, queryByTestId, queryByText } = render(
+      const { container, queryByText } = render(
         <InlineEdit
           defaultValue={defaultValue}
           label="Inline edit"
@@ -59,8 +59,8 @@ describe('InlineEdit component', () => {
         />,
       );
 
-      const read = queryByTestId('read-view');
-      const edit = queryByTestId('edit-view');
+      const read = screen.queryByTestId('read-view');
+      const edit = screen.queryByTestId('edit-view');
 
       expect(read).toBeInTheDocument();
       expect(edit).not.toBeInTheDocument();
@@ -83,7 +83,7 @@ describe('InlineEdit component', () => {
       const defaultValue = 'Some text';
       const onConfirm = jest.fn();
 
-      const { container, queryByTestId, queryByText } = render(
+      const { container, queryByText } = render(
         <InlineEdit
           defaultValue={defaultValue}
           label="Inline edit"
@@ -99,8 +99,8 @@ describe('InlineEdit component', () => {
         />,
       );
 
-      const read = queryByTestId('read-view');
-      const edit = queryByTestId('edit-view');
+      const read = screen.queryByTestId('read-view');
+      const edit = screen.queryByTestId('edit-view');
 
       expect(read).toBeInTheDocument();
       expect(edit).not.toBeInTheDocument();
@@ -145,7 +145,7 @@ describe('InlineEdit component', () => {
         <InlineEditExample />,
       );
 
-      const read = queryByTestId('read-view');
+      const read = screen.queryByTestId('read-view');
       expect(read).toBeInTheDocument();
       expect(read!.innerText).toContain('Old content');
 
@@ -202,9 +202,9 @@ describe('InlineEdit component', () => {
         );
       };
 
-      const { container, queryByTestId } = render(<InlineEditWithDropdown />);
+      const { container } = render(<InlineEditWithDropdown />);
 
-      const readView = queryByTestId('read-view');
+      const readView = screen.queryByTestId('read-view');
       expect(readView).toBeInTheDocument();
 
       fireEvent.click(readView!);
@@ -243,11 +243,12 @@ describe('InlineEdit component', () => {
               <span>{defaultValue || 'Click to enter value'}</span>
             )}
             onConfirm={onConfirm}
+            testId="test"
           />
         </AnalyticsListener>,
       );
 
-      const button = container.querySelector('button[aria-label="Edit"]');
+      const button = screen.queryByTestId('test--edit-button');
       fireEvent.click(button!);
 
       const input = container.querySelector('input[name="inlineEdit"]');
@@ -257,7 +258,9 @@ describe('InlineEdit component', () => {
       fireEvent.click(confirm!);
 
       expect(onConfirm).toHaveBeenCalled();
-      expect(onAnalyticsEvent.mock.calls[2]).toEqual(
+      expect(
+        onAnalyticsEvent.mock.calls[onAnalyticsEvent.mock.calls.length - 1],
+      ).toEqual(
         expect.arrayContaining([
           expect.objectContaining({
             payload: {

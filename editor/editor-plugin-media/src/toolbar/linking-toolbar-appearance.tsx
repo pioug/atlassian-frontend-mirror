@@ -34,6 +34,7 @@ export interface LinkingToolbarProps {
   onEditLink: React.MouseEventHandler;
   onOpenLink: React.MouseEventHandler;
   isInlineNode?: boolean;
+  isViewOnly?: boolean;
 }
 
 const wrapperStyles = css({
@@ -49,6 +50,7 @@ export const LinkToolbarAppearance = ({
   onEditLink,
   onOpenLink,
   isInlineNode,
+  isViewOnly,
 }: LinkingToolbarProps) => {
   const [showLinkingControls, setShowLinkingControls] = useState(true);
 
@@ -86,18 +88,20 @@ export const LinkToolbarAppearance = ({
 
     return (
       <Fragment>
-        <div css={wrapperStyles}>
-          <ToolbarButton
-            onClick={onEditLink}
-            title={title}
-            tooltipContent={
-              <ToolTipContent description={title} keymap={addLink} />
-            }
-            testId="edit-link-button"
-          >
-            {title}
-          </ToolbarButton>
-        </div>
+        {!isViewOnly && (
+          <div css={wrapperStyles}>
+            <ToolbarButton
+              onClick={onEditLink}
+              title={title}
+              tooltipContent={
+                <ToolTipContent description={title} keymap={addLink} />
+              }
+              testId="edit-link-button"
+            >
+              {title}
+            </ToolbarButton>
+          </div>
+        )}
         <ToolbarButton
           target="_blank"
           href={isValidUrl ? mediaLinkingState.link : undefined}
@@ -112,7 +116,7 @@ export const LinkToolbarAppearance = ({
     );
   } else {
     const title = intl.formatMessage(linkToolbarMessages.addLink);
-    return (
+    return !isViewOnly ? (
       <Fragment>
         <ToolbarButton
           testId="add-link-button"
@@ -125,6 +129,6 @@ export const LinkToolbarAppearance = ({
         />
         <Separator />
       </Fragment>
-    );
+    ) : null;
   }
 };

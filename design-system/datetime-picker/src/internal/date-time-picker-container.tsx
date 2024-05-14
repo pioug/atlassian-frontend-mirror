@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N0, N100, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -40,12 +39,7 @@ const noBgStyles = css({
 const hoverStyles = css({
   '&:hover': {
     backgroundColor: token('color.background.input.hovered', N30),
-    borderColor: token(
-      'color.border.input',
-      getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-        ? N100
-        : N30,
-    ),
+    borderColor: token('color.border.input', N100),
   },
 });
 
@@ -107,9 +101,7 @@ export const DateTimePickerContainer = ({
     <div
       css={[
         baseContainerStyles,
-        getBooleanFF(
-          'platform.design-system-team.update-input-border-wdith_5abwv',
-        ) && newBorderStyles,
+        newBorderStyles,
         isDisabled && isDisabledStyles,
         isFocused && isFocusedStyles,
         appearance === 'subtle' &&

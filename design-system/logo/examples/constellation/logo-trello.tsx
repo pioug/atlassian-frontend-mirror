@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { TrelloIcon, TrelloLogo, TrelloWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { TrelloIcon, TrelloLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoTrello = () => {
   return (
@@ -9,17 +15,13 @@ const LogoTrello = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <TrelloLogo appearance="brand" />
-            </td>
-            <td>
-              <TrelloWordmark appearance="brand" />
             </td>
             <td>
               <TrelloIcon appearance="brand" />

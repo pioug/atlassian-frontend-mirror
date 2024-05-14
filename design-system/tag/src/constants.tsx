@@ -1,10 +1,9 @@
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const gridSizeValue = gridSize();
 const borderRadiusValue = borderRadius();
-const fontSizeValue = fontSize();
 
 export const tagHeightUnitless = 2.5 * gridSizeValue;
 export const tagHeight = token('space.250', `${tagHeightUnitless}px`);
@@ -21,7 +20,6 @@ export const defaultMargin = token('space.050', `${gridSizeValue / 2}px`);
 export const defaultTextPadding = token('space.050', `${gridSizeValue / 2}px`);
 export const textPaddingRight = token('space.200', `${2 * gridSizeValue}px`);
 export const textMarginLeft = tagHeight;
-export const textFontSize = `${fontSizeValue}px`;
 
 export const cssVar = {
   color: {

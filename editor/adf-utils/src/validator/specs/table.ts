@@ -6,7 +6,14 @@ export default {
         isNumberColumnEnabled: { type: 'boolean', optional: true },
         layout: {
           type: 'enum',
-          values: ['wide', 'full-width', 'default'],
+          values: [
+            'wide',
+            'full-width',
+            'center',
+            'align-end',
+            'align-start',
+            'default',
+          ],
           optional: true,
         },
         localId: { type: 'string', minLength: 1, optional: true },

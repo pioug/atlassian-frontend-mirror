@@ -82,6 +82,7 @@ type Props = WithAnalyticsEventsProps & {
    */
   skipFocusButtonAfterPick?: boolean;
   absoluteOffset?: PopupPosition;
+  returnEscToButton?: boolean;
 };
 
 const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
@@ -209,6 +210,7 @@ const ColorPickerButton = (props: Props) => {
             handleClose={() => setIsPopupOpen(false)}
             isOpenedByKeyboard={isOpenedByKeyboard}
             isPopupPositioned={isPopupPositioned}
+            ignoreEscapeKey={props.returnEscToButton}
           >
             <ColorPaletteWithListeners
               cols={props.cols}

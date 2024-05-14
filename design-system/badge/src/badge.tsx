@@ -1,9 +1,5 @@
 import React, { memo } from 'react';
 
-import OldText, {
-  TextProps as OldTextProps,
-} from '@atlaskit/ds-explorations/text';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   BackgroundColor,
   Box,
@@ -46,10 +42,7 @@ const Badge = memo(function Badge({
       style={{ background: style?.backgroundColor, color: style?.color }}
       paddingInline="space.075"
     >
-      {getBooleanFF(
-        'platform.design-system-team.remove-badge-text-style-inheritance_add9o',
-      ) ? (
-        <Text
+      <Text
           size="UNSAFE_small"
           align="center"
           color={style?.color ? 'inherit' : textColors[appearance]}
@@ -58,19 +51,6 @@ const Badge = memo(function Badge({
             ? formatValue(children, max)
             : children}
         </Text>
-      ) : (
-        <OldText
-          fontSize="size.075"
-          lineHeight="lineHeight.100"
-          textAlign="center"
-          color={textColorsOld[appearance]}
-          UNSAFE_style={style?.color ? { color: style.color } : undefined}
-        >
-          {typeof children === 'number' && max
-            ? formatValue(children, max)
-            : children}
-        </OldText>
-      )}
     </Box>
   );
 });
@@ -86,15 +66,6 @@ const backgroundColors: Record<ThemeAppearance, BackgroundColor> = {
   primary: 'color.background.brand.bold',
   primaryInverted: 'elevation.surface',
   removed: 'color.background.danger',
-};
-
-const textColorsOld: Record<ThemeAppearance, OldTextProps['color']> = {
-  added: 'success',
-  default: 'color.text',
-  important: 'inverse',
-  primary: 'inverse',
-  primaryInverted: 'brand',
-  removed: 'danger',
 };
 
 const textColors: Record<ThemeAppearance, TextColor> = {

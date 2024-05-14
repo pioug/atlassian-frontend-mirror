@@ -1,4 +1,6 @@
 import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
+import MediaServicesActualSizeIcon from '@atlaskit/icon/glyph/media-services/actual-size';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import React, { type FC, useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import { ActionName } from '../../../../../constants';
@@ -10,8 +12,22 @@ import {
 import useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import { openEmbedModalWithFlexibleUiIcon } from '../../utils';
 import Action from '../action';
-import PreviewIcon from './preview-icon';
 import type { PreviewActionProps } from './types';
+
+const getIconFF = () => {
+  if (
+    getBooleanFF(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+    )
+  ) {
+    if (
+      getBooleanFF('platform.linking-platform.smart-card.action-icon-redesign')
+    ) {
+      return MediaServicesActualSizeIcon;
+    }
+  }
+  return VidFullScreenOnIcon;
+};
 
 const PreviewAction: FC<PreviewActionProps> = ({
   onClick: onClickCallback,
@@ -47,7 +63,7 @@ const PreviewAction: FC<PreviewActionProps> = ({
   }, [analytics, data, invoke, onClickCallback]);
 
   const isStackItem = props.as === 'stack-item';
-  const Icon = isStackItem ? PreviewIcon : VidFullScreenOnIcon;
+  const Icon = isStackItem ? MediaServicesActualSizeIcon : getIconFF();
   const tooltipMessage = isStackItem
     ? messages.preview_description
     : messages.preview_improved;
@@ -59,6 +75,7 @@ const PreviewAction: FC<PreviewActionProps> = ({
       onClick={onClick}
       testId="smart-action-preview-action"
       tooltipMessage={<FormattedMessage {...tooltipMessage} />}
+      hideTooltipOnMouseDown={true}
       {...data}
       {...props}
     />

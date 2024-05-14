@@ -1,5 +1,11 @@
 # @atlaskit/breadcrumbs
 
+## 12.0.8
+
+### Patch Changes
+
+- [#92007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92007) [`85525725cb0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85525725cb0d) - Migrated to the new button component
+
 ## 12.0.7
 
 ### Patch Changes

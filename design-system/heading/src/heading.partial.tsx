@@ -1,10 +1,14 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import {
+  UNSAFE_inverseColorMap,
+  UNSAFE_useSurface,
+} from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './heading-context';
-import type { HeadingProps } from './types';
+import type { HeadingColor, NewHeadingProps } from './types';
 
 const sizeTagMap = {
   xxlarge: 'h1',
@@ -17,15 +21,26 @@ const sizeTagMap = {
 } as const;
 
 const headingResetStyles = css({
-  color: token('color.text', '#172B4D'),
   letterSpacing: 'normal',
   marginBlock: 0,
   textTransform: 'none',
 });
 
-const inverseStyles = css({
-  color: token('color.text.inverse', '#FFF'),
-});
+const useColor = (colorProp?: HeadingColor): HeadingColor => {
+  const surface = UNSAFE_useSurface();
+
+  /**
+   * Where the color of the surface is inverted we always override the color
+   * as there is no valid choice that is not covered by the override.
+   */
+  if (UNSAFE_inverseColorMap.hasOwnProperty(surface)) {
+    return UNSAFE_inverseColorMap[
+      surface as keyof typeof UNSAFE_inverseColorMap
+    ];
+  }
+
+  return colorProp || 'color.text';
+};
 
 /**
  * __Heading__
@@ -44,8 +59,8 @@ const Heading = ({
   id,
   testId,
   as,
-  color = 'default',
-}: HeadingProps) => {
+  color: colorProp,
+}: NewHeadingProps) => {
   if (
     typeof process !== 'undefined' &&
     process.env.NODE_ENV !== 'production' &&
@@ -60,6 +75,7 @@ const Heading = ({
   const [hLevel, inferredElement] = useHeading(sizeTagMap[size!]);
   const Component = as || inferredElement;
   const needsAriaRole = Component === 'div' && hLevel;
+  const color = useColor(colorProp);
 
   return (
     <Component
@@ -70,7 +86,7 @@ const Heading = ({
       css={[
         headingResetStyles,
         size && headingSizeStylesMap[size],
-        color === 'inverse' && inverseStyles,
+        headingColorStylesMap[color],
       ]}
     >
       {children}
@@ -78,55 +94,33 @@ const Heading = ({
   );
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-exported-css
+export const headingColorStylesMap: Record<HeadingColor, SerializedStyles> = {
+  'color.text': css({
+    color: token('color.text'),
+  }),
+  'color.text.inverse': css({
+    color: token('color.text.inverse'),
+  }),
+  'color.text.warning.inverse': css({
+    color: token('color.text.warning.inverse'),
+  }),
+};
+
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::057c0fe2015c2071afe3d694c5afcc0e>>
+ * @codegen <<SignedSource::d7d7bb136aa9b7935c15f8e85d0916d7>>
  * @codegenId typography
  * @codegenCommand yarn workspace @atlaskit/heading codegen
  */
 const headingSizeStylesMap = {
-  xxlarge: css({
-    font: token(
-      'font.heading.xxlarge',
-      'normal 500 35px/40px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  xlarge: css({
-    font: token(
-      'font.heading.xlarge',
-      'normal 600 29px/32px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  large: css({
-    font: token(
-      'font.heading.large',
-      'normal 500 24px/28px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  medium: css({
-    font: token(
-      'font.heading.medium',
-      'normal 500 20px/24px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  small: css({
-    font: token(
-      'font.heading.small',
-      'normal 600 16px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  xsmall: css({
-    font: token(
-      'font.heading.xsmall',
-      'normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  xxsmall: css({
-    font: token(
-      'font.heading.xxsmall',
-      'normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
+    xxlarge: css({ font: token('font.heading.xxlarge') }),
+    xlarge: css({ font: token('font.heading.xlarge') }),
+    large: css({ font: token('font.heading.large') }),
+    medium: css({ font: token('font.heading.medium') }),
+    small: css({ font: token('font.heading.small') }),
+    xsmall: css({ font: token('font.heading.xsmall') }),
+    xxsmall: css({ font: token('font.heading.xxsmall') }),
 };
 
 export type HeadingSize = keyof typeof headingSizeStylesMap;

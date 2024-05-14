@@ -26,17 +26,16 @@ export default function Example() {
           <Modal onClose={closeModal}>
             <ModalHeader>
               <ModalTitle appearance="warning">
-                Delete the Newtown Repository
+                Move your page to the Design team space
               </ModalTitle>
             </ModalHeader>
             <ModalBody>
-              Bamboo will permanently delete all related configuration settings,
-              artifacts, logos, and results. This can’t be undone.
+              If you move this page to the Design system space, your access permissions will change to view only. You'll need to ask the space admin for edit access.
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Cancel</Button>
               <Button appearance="warning" onClick={closeModal}>
-                Delete
+                Move page
               </Button>
             </ModalFooter>
           </Modal>

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reactions",
-  "version": "22.5.12",
+  "version": "22.7.0",
   "description": "Reactions component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -22,7 +22,7 @@
   },
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Foundational Elements",
+    "team": "Editor: Collaboration",
     "releaseModel": "continuous",
     "website": {
       "name": "Reactions"
@@ -35,19 +35,19 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/avatar": "^21.5.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/emoji": "^67.6.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/modal-dialog": "^12.11.0",
-    "@atlaskit/motion": "^1.5.0",
+    "@atlaskit/modal-dialog": "^12.13.0",
+    "@atlaskit/motion": "^1.6.0",
     "@atlaskit/popper": "^5.5.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/tabs": "^14.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/tabs": "^16.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
@@ -89,6 +89,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./MockReactionsClient": "./src/MockReactionsClient.ts"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",

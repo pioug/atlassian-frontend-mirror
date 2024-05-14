@@ -22,8 +22,7 @@ const Example = () => {
           <Header
             component={({ children, ...props }) => (
               <>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#" {...props}>
+                <a href="https://atlassian.design/" {...props}>
                   {children}
                 </a>
               </>
@@ -41,10 +40,8 @@ const Example = () => {
             iconBefore={<Icon label="" glyph={SampleIcon} />}
             description={
               <div>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Give feedback</a> {' ∙ '}
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="">Learn more</a>
+                <a href="https://www.atlassian.design">Give feedback</a> {' ∙ '}
+                <a href="https://www.atlassian.design">About this project</a>
               </div>
             }
           >

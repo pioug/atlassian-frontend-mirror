@@ -1,6 +1,6 @@
 import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type {
   EditorState,
   ReadonlyTransaction,
@@ -14,6 +14,18 @@ export const trackNCSInitializationPluginKey =
   new PluginKey<CollabInitializedMetadata>(
     'collabTrackNCSInitializationPlugin',
   );
+
+const originalTransactionHasMeta = (transaction: Transaction | ReadonlyTransaction, metaTag: string): boolean => {
+  const hasMetaTag = Boolean(transaction.getMeta(metaTag));
+  if (hasMetaTag) {
+    return true;
+  }
+  const appendedTransaction = transaction.getMeta('appendedTransaction');
+  if (appendedTransaction instanceof Transaction) {
+    return originalTransactionHasMeta(appendedTransaction, metaTag);
+  }
+  return false;
+}
 
 export const createPlugin = () => {
   return new SafePlugin<CollabInitializedMetadata>({
@@ -47,10 +59,10 @@ export const createPlugin = () => {
           return prevPluginState;
         }
 
-        const isRemote = Boolean(transaction.getMeta('isRemote'));
+        const isRemote = originalTransactionHasMeta(transaction, 'isRemote');
 
         const isDocumentReplaceFromRemote =
-          isRemote && Boolean(transaction.getMeta('replaceDocument'));
+          isRemote && originalTransactionHasMeta(transaction, 'replaceDocument');
 
         if (isDocumentReplaceFromRemote) {
           return prevPluginState;

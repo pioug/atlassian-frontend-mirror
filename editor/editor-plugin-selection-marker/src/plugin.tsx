@@ -52,18 +52,42 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
     },
 
     usePluginHook({ editorView }) {
-      const { focusState, typeAheadState } = useSharedPluginState(api, [
+      const {
+        focusState,
+        typeAheadState,
+        selectionMarkerState,
+        editorDisabledState,
+      } = useSharedPluginState(api, [
         'focus',
         'typeAhead',
+        'editorDisabled',
+        'selectionMarker',
       ]);
       useEffect(() => {
+        /**
+         * There are a number of conditions we should not show the marker,
+         * - Focus: to ensure it doesn't interrupt the normal cursor
+         * - Typeahead Open: To ensure it doesn't show when we're typing in the typeahead
+         * - Disabled: So that it behaves similar to the renderer in live pages/disabled
+         * - Via the API: If another plugin has requested it to be hidden (force hidden).
+         */
         const shouldHide =
-          (focusState?.hasFocus || (typeAheadState?.isOpen ?? false)) ?? true;
+          (focusState?.hasFocus ||
+            (typeAheadState?.isOpen ?? false) ||
+            selectionMarkerState?.isForcedHidden ||
+            (editorDisabledState?.editorDisabled ?? false)) ??
+          true;
 
         requestAnimationFrame(() =>
           dispatchShouldHideDecorations(editorView, shouldHide),
         );
-      }, [editorView, focusState, typeAheadState]);
+      }, [
+        editorView,
+        focusState,
+        typeAheadState,
+        selectionMarkerState,
+        editorDisabledState,
+      ]);
     },
 
     contentComponent() {

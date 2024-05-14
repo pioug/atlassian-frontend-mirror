@@ -19,9 +19,9 @@ const ReadViewContainer: FC<{ children: ReactNode }> = ({ children }) => (
 const messageStyles = css({
   margin: `${token('space.100', '8px')} ${token('space.0', '0px')}`,
   padding: token('space.100', '8px'),
-  backgroundColor: token('color.background.danger.bold', 'orangered'),
+  backgroundColor: token('color.background.danger.bold'),
   bordeRadius: '3px',
-  color: token('color.text.inverse', 'white'),
+  color: token('color.text.inverse'),
 });
 
 const Message: FC<{ children: string }> = ({ children }) => (

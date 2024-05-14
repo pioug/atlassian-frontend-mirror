@@ -6,6 +6,7 @@ import { simplePalette } from '../mock-data';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+import { IntlProvider } from 'react-intl-next';
 
 class ColorPickerExample extends React.Component<{}, { color: string }> {
   state = {
@@ -15,26 +16,28 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
   render() {
     return (
       <div style={{ padding: token('space.250', '20px') }}>
-        <ColorPicker
-          label="Change color"
-          palette={simplePalette}
-          selectedColor={this.state.color}
-          showDefaultSwatchColor={false}
-          selectedColourSwatchSize="small"
-          popperProps={{
-            strategy: 'fixed',
-            modifiers: [
-              {
-                name: 'offset',
-                options: {
-                  offset: [-10, 5],
+        <IntlProvider locale="en">
+          <ColorPicker
+            label="Change color"
+            palette={simplePalette}
+            selectedColor={this.state.color}
+            showDefaultSwatchColor={false}
+            selectedColourSwatchSize="small"
+            popperProps={{
+              strategy: 'fixed',
+              modifiers: [
+                {
+                  name: 'offset',
+                  options: {
+                    offset: [-10, 5],
+                  },
                 },
-              },
-            ],
-          }}
-          cols={3}
-          onChange={(newColor: string) => this.setState({ color: newColor })}
-        />
+              ],
+            }}
+            cols={3}
+            onChange={(newColor: string) => this.setState({ color: newColor })}
+          />
+        </IntlProvider>
       </div>
     );
   }
@@ -45,7 +48,7 @@ const Story = () => <ColorPickerExample />;
 Story.decorators = [
   withPlatformFeatureFlags({
     'platform.color-picker-radio-button-functionality_6hkcy': true,
-    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl': true,
+    'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe': true,
   }),
 ];
 

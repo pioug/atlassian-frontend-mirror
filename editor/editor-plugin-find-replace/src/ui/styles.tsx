@@ -46,64 +46,57 @@ export const wrapperPaddingStyles = css({
   padding: `${token('space.050', '4px')} ${token('space.050', '4px')}`,
 });
 
-export const sectionWrapperStyles = css`
-  display: flex;
+export const sectionWrapperStyles = css({
+  display: 'flex',
+  '& > *': {
+    display: 'inline-flex',
+    height: '32px',
+    flex: '0 0 auto',
+  },
+  '& > [data-ds--text-field--container]': {
+    display: 'flex',
+    flex: '1 1 auto',
+  },
+});
 
-  & > * {
-    display: inline-flex;
-    height: 32px;
-    flex: 0 0 auto;
-  }
+export const sectionWrapperStylesAlternate = css({
+  display: 'flex',
+  padding: token('space.100', '8px'),
+  '& > *': {
+    height: 'unset',
+  },
+});
 
-  & > [data-ds--text-field--container] {
-    display: flex;
-    flex: 1 1 auto;
-  }
-`;
+export const sectionWrapperJustified = css({
+  justifyContent: 'space-between',
+  fontSize: relativeFontSizeToBase16(14),
+});
 
-export const sectionWrapperStylesAlternate = css`
-  display: flex;
-  padding: ${token('space.100', '8px')};
+export const textFieldWrapper = css({
+  flex: '1 100%',
+  flexWrap: 'wrap',
+  '#find-text-field, #replace-text-field': {
+    height: `${(gridSize * 4.5) / fontSize}em`,
+  },
+  label: {
+    fontSize: relativeFontSizeToBase16(14),
+    lineHeight: `${gridSize * 2}px`,
+  },
+});
 
-  & > * {
-    height: unset;
-  }
-`;
+export const afterInputSection = css({
+  display: 'flex',
+  flex: '0 0 auto',
+  alignItems: 'center',
+});
 
-export const sectionWrapperJustified = css`
-  justify-content: space-between;
-  font-size: ${relativeFontSizeToBase16(14)};
-`;
-
-export const textFieldWrapper = css`
-  flex: 1 100%;
-  flex-wrap: wrap;
-
-  #find-text-field,
-  #replace-text-field {
-    height: ${(gridSize * 4.5) / fontSize}em;
-  }
-
-  label {
-    font-size: ${relativeFontSizeToBase16(14)};
-    line-height: ${gridSize * 2}px;
-  }
-`;
-
-export const afterInputSection = css`
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-`;
-
-export const matchCaseSection = css`
-  padding-right: ${token('space.100', '8px')};
-
-  button {
-    width: 20px;
-    height: 20px;
-  }
-`;
+export const matchCaseSection = css({
+  paddingRight: token('space.100', '8px'),
+  button: {
+    width: '20px',
+    height: '20px',
+  },
+});
 
 export const nextPreviousItemStyles = css({
   padding: `0px ${token('space.025', '2px')}`,

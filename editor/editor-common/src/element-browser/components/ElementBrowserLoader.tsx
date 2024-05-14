@@ -8,13 +8,13 @@ import Spinner from '@atlaskit/spinner';
 
 import type { Props as ElementBrowserProps } from '../ElementBrowser';
 
-const spinnerContainer = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-`;
+const spinnerContainer = css({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100%',
+  width: '100%',
+});
 
 const ElementBrowserLoader = Loadable({
   loader: () =>

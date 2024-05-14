@@ -174,6 +174,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
+          false,
         );
       });
     });
@@ -227,6 +228,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
+          false,
         );
       });
 

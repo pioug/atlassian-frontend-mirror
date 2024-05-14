@@ -101,7 +101,11 @@ const formatOptionLabel: FormatOptionLabel = data => {
     return <AvatarOptionLabel data={data} />;
   }
 
-  return <IconOptionLabel data={data} />;
+  if (data.optionType === 'iconLabel') {
+    return <IconOptionLabel data={data} />;
+  }
+
+  return <></>;
 };
 
 export default formatOptionLabel;

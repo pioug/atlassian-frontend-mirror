@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React, {
-  CSSProperties,
-  FC,
-  MutableRefObject,
+  type CSSProperties,
+  type FC,
+  type MutableRefObject,
   useCallback,
   useEffect,
   useRef,
@@ -17,7 +17,6 @@ import { Box, Inline } from '@atlaskit/primitives';
 
 import type { ProgressDotsProps } from '../types';
 
-import { getBgColor } from './appearances';
 import {
   progressIndicatorGapMap,
   sizes,
@@ -135,25 +134,24 @@ const ProgressDots: FC<ProgressDotsProps> = ({
           const isSelected = selectedIndex === index;
           const tabId = `${ariaLabel}${index}`;
           const panelId = `${ariaControls}${index}`;
-          const backgroundColor = getBgColor(appearance, isSelected);
+          const indicatorTestId = testId && `${testId}-ind-${index}`;
 
           return onSelect ? (
             <ButtonIndicator
               key={index}
-              style={{ backgroundColor }}
-              aria-controls={panelId}
-              aria-label={tabId}
-              aria-selected={isSelected}
-              id={tabId}
+              testId={indicatorTestId}
+              appearance={appearance}
+              isSelected={isSelected}
+              tabId={tabId}
+              panelId={panelId}
               onClick={(event) => onSelectWithAnalytics({ event, index })}
-              tabIndex={isSelected ? 0 : -1}
-              data-testid={testId && `${testId}-ind-${index}`}
             />
           ) : (
             <PresentationalIndicator
-              testId={testId && `${testId}-ind-${index}`}
               key={index}
-              style={{ backgroundColor }}
+              testId={indicatorTestId}
+              appearance={appearance}
+              isSelected={isSelected}
             />
           );
         })}

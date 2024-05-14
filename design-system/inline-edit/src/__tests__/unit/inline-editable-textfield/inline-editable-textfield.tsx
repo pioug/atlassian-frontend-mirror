@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import InlineEditableTextfield from '../../../inline-editable-textfield';
 
@@ -9,7 +9,7 @@ describe('Simple render', () => {
     const defaultValue = 'Some text';
     const onConfirm = jest.fn();
 
-    const { queryByTestId } = render(
+    render(
       <InlineEditableTextfield
         testId="editable-textfield"
         defaultValue={defaultValue}
@@ -19,7 +19,7 @@ describe('Simple render', () => {
       />,
     );
 
-    const read = queryByTestId('read-view-editable-textfield');
+    const read = screen.queryByTestId('read-view-editable-textfield');
     expect(read).toBeInTheDocument();
 
     expect(read?.innerText).toContain(defaultValue);
@@ -40,14 +40,14 @@ describe('Simple render', () => {
       );
     };
 
-    const { container, queryByTestId, queryByText } = render(
+    const { container, queryByText } = render(
       <InlineEditableTextFieldExample />,
     );
 
-    const read = queryByTestId('read-view-editable-textfield');
+    const read = screen.queryByTestId('read-view-editable-textfield');
     expect(read).toBeInTheDocument();
 
-    const button = container.querySelector('[aria-label="Edit"]');
+    const button = screen.queryByTestId('editable-textfield--edit-button');
     fireEvent.click(button!);
 
     const textField = container.querySelector(
@@ -58,9 +58,9 @@ describe('Simple render', () => {
     fireEvent.change(textField!, { target: { value: 'New content' } });
     fireEvent.click(confirm!);
 
-    expect(queryByTestId('read-view-editable-textfield')!.innerText).toContain(
-      'New content',
-    );
+    expect(
+      screen.queryByTestId('read-view-editable-textfield')!.innerText,
+    ).toContain('New content');
   });
 
   it('oncancel should clear the unsaved edit content back to defaultValue', () => {
@@ -82,14 +82,14 @@ describe('Simple render', () => {
       );
     };
 
-    const { container, queryByTestId, queryByText } = render(
+    const { container, queryByText } = render(
       <InlineEditableTextFieldExample />,
     );
 
-    const read = queryByTestId('read-view-editable-textfield');
+    const read = screen.queryByTestId('read-view-editable-textfield');
     expect(read).toBeInTheDocument();
 
-    const button = container.querySelector('[aria-label="Edit"]');
+    const button = screen.queryByTestId('editable-textfield--edit-button');
     fireEvent.click(button!);
 
     const textField = container.querySelector(
@@ -104,7 +104,7 @@ describe('Simple render', () => {
     fireEvent.click(cancel!);
     expect(onCancel).toHaveBeenCalled();
 
-    const button2 = container.querySelector('[aria-label="Edit"]');
+    const button2 = screen.queryByTestId('editable-textfield--edit-button');
     fireEvent.click(button2!);
     const textField2 = container.querySelector(
       '[data-testid="editable-textfield"]',
@@ -132,20 +132,18 @@ describe('Simple render', () => {
       );
     };
 
-    const { container, queryByTestId } = render(
-      <InlineEditableTextFieldExample />,
-    );
+    render(<InlineEditableTextFieldExample />);
 
-    const read = queryByTestId(
+    const read = screen.queryByTestId(
       'read-view-editable-textfield',
     ) as HTMLInputElement;
     expect(read).toBeInTheDocument();
 
-    const button = container.querySelector('[aria-label="Edit"]');
+    const button = screen.queryByTestId('editable-textfield--edit-button');
     fireEvent.click(button!);
 
-    const textField = container.querySelector(
-      '[data-testid="editable-textfield"]',
+    const textField = screen.queryByTestId(
+      'editable-textfield',
     ) as HTMLInputElement;
 
     fireEvent.change(textField!, { target: { value: 'New content' } });

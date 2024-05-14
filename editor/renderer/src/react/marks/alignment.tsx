@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import {
-  alignmentPositionMap,
-  AlignmentAttributes,
-} from '@atlaskit/adf-schema';
-import { MarkProps } from '../types';
+import type { AlignmentAttributes } from '@atlaskit/adf-schema';
+import { alignmentPositionMap } from '@atlaskit/adf-schema';
+import type { MarkProps } from '../types';
 
 type MarkWrapperProps = {
   'data-align': AlignmentAttributes['align'];
@@ -17,11 +15,13 @@ const MarkWrapper = (
   >,
 ) => {
   const styles = props['data-align']
-    ? css`
+    ? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+      css`
         text-align: ${alignmentPositionMap[props['data-align']]};
       `
     : '';
   return (
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <div css={styles} {...props}>
       {props.children}
     </div>

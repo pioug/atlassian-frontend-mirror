@@ -43,10 +43,26 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Konfiguruj kolumny',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Wyszukaj zgłoszenia według słów kluczowych',
   'linkDataSource.configmodal.cancelButtonText': 'Anuluj',
+  'linkDataSource.configmodal.inlineLinkViewModeDescription':
+    'Wyświetl liczbę wyników wyszukiwania lub jako śródwierszowe inteligentne łącze',
+  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Łącze śródwierszowe',
+  'linkDataSource.configmodal.tableViewModeDescription': 'Wyświetl wyniki wyszukiwania w formie tabeli',
+  'linkDataSource.configmodal.tableViewModeLabel': 'Tabela',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Anuluj',
+  'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Kiedykolwiek',
+  'linkDataSource.confluence-search.configmodal.date.range.custom': 'Niestandardowa',
+  'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Ostatnie 30 dni',
+  'linkDataSource.confluence-search.configmodal.date.range.last.week': 'Ostatnie 7 dni',
+  'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Ostatni rok',
+  'linkDataSource.confluence-search.configmodal.date.range.title': 'Ostatnia aktualizacja',
+  'linkDataSource.confluence-search.configmodal.date.range.today': 'Dzisiaj',
+  'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Wczoraj',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Wstawianie listy Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Wstaw listę Confluence z',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Wstaw wyniki',
+  'linkDataSource.confluence-search.configmodal.placeholder.issues': 'Liczba wyników: ###',
+  'linkDataSource.confluence-search.configmodal.resultsCountText':
+    '{totalCount, plural, one {wynik} few {wyniki} many {wyników} other {wyniku}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Wprowadź słowa kluczowe, aby znaleźć strony, załączniki i nie tylko',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -117,6 +133,7 @@ export default {
   'linkDataSource.table-footer.item':
     '{itemCount, plural, one {element} few {elementy} many {elementów} other {elementu}}',
   'linkDataSource.table-footer.loading': 'Ładowanie…',
+  'linkDataSource.table-footer.power-by-jsm': 'Obsługiwane przez Zasoby w Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Odśwież',
   'linkDataSource.unableToLoadItems': 'Nie można załadować elementów',
   'linkDataSource.unableToLoadResults': 'Nie można załadować wyników',

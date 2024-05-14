@@ -6,6 +6,7 @@ import type {
   Command,
   GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
+import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables';
 import type { CellAttributes, Direction } from '@atlaskit/editor-tables/types';
@@ -129,7 +130,10 @@ export const initiateKeyboardColumnResizing =
     ariaNotify,
     getIntl,
   }: {
-    ariaNotify?: (message: string) => void;
+    ariaNotify?: (
+      message: string,
+      ariaLiveElementAttributes?: AriaLiveElementAttributes,
+    ) => void;
     getIntl?: () => IntlShape;
   }): Command =>
   (state, dispatch, view) => {
@@ -144,7 +148,9 @@ export const initiateKeyboardColumnResizing =
     const cell = findCellClosestToPos(selection.$from);
 
     if (ariaNotify && getIntl) {
-      ariaNotify(getIntl().formatMessage(messages.startedColumnResize));
+      ariaNotify(getIntl().formatMessage(messages.startedColumnResize), {
+        priority: 'important',
+      });
     }
 
     if (selectionRect && cell && view) {
@@ -164,7 +170,10 @@ export const activateNextResizeArea =
     getIntl,
   }: {
     direction: Direction;
-    ariaNotify?: (message: string) => void;
+    ariaNotify?: (
+      message: string,
+      ariaLiveElementAttributes?: AriaLiveElementAttributes,
+    ) => void;
     getIntl?: () => IntlShape;
   }): Command =>
   (state, dispatch, view) => {
@@ -210,6 +219,7 @@ export const activateNextResizeArea =
           getIntl().formatMessage(messages.focusedOtherResize, {
             direction: 'right',
           }),
+          { priority: 'important' },
         );
       }
 
@@ -218,6 +228,7 @@ export const activateNextResizeArea =
           getIntl().formatMessage(messages.focusedOtherResize, {
             direction: 'left',
           }),
+          { priority: 'important' },
         );
       }
     }
@@ -275,7 +286,10 @@ export const changeColumnWidthByStep =
     stepSize: number;
     getEditorContainerWidth: GetEditorContainerWidth;
     isTableScalingEnabled: boolean;
-    ariaNotify?: (message: string) => void;
+    ariaNotify?: (
+      message: string,
+      ariaLiveElementAttributes?: AriaLiveElementAttributes,
+    ) => void;
     getIntl?: () => IntlShape;
     originalTr?: Transaction;
   }): Command =>
@@ -305,11 +319,19 @@ export const changeColumnWidthByStep =
       ($cell.nodeAfter ? $cell.nodeAfter.attrs.colspan : 1) -
       1;
 
-    let dom: HTMLTableElement = domAtPos(tableStartPosition)
-      .node as HTMLTableElement;
+    let dom: HTMLTableElement | null = null;
+    if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+      const domAtPosition = domAtPos(tableStartPosition);
+      dom =
+        domAtPosition.node instanceof HTMLTableElement
+          ? domAtPosition.node
+          : null;
+    } else {
+      dom = domAtPos(tableStartPosition).node as HTMLTableElement;
+    }
 
     if (dom && dom.nodeName !== 'TABLE') {
-      dom = dom.closest('table') as HTMLTableElement;
+      dom = dom.closest('table');
     }
 
     const cellAttrs = cell?.node.attrs;
@@ -332,6 +354,15 @@ export const changeColumnWidthByStep =
       getEditorContainerWidth,
     });
 
+    let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
+    if (
+      isTableScalingEnabled &&
+      getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+    ) {
+      isTableScalingEnabledOnCurrentTable =
+        originalTable.attrs.displayMode !== 'fixed';
+    }
+
     const initialResizeState = getResizeState({
       minWidth: tableCellMinWidth,
       maxSize,
@@ -339,7 +370,7 @@ export const changeColumnWidthByStep =
       tableRef: dom,
       start: tableStartPosition,
       domAtPos,
-      isTableScalingEnabled,
+      isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
     });
 
     updateControls()(state);
@@ -352,7 +383,7 @@ export const changeColumnWidthByStep =
     const resizingSelectedColumns =
       selectedColumns.indexOf(colIndex) > -1 ||
       selectedColumns.indexOf(colIndex + 1) > -1;
-    const newResizeState = resizeColumn(
+    let newResizeState = resizeColumn(
       initialResizeState,
       colIndex,
       stepSize,
@@ -381,10 +412,14 @@ export const changeColumnWidthByStep =
 
       if (newResizeState.cols.length === colIndex + 1) {
         if (newResizeState.overflow === true) {
-          ariaNotify(getIntl().formatMessage(messages.columnResizeLast));
+          ariaNotify(getIntl().formatMessage(messages.columnResizeLast), {
+            priority: 'important',
+          });
         }
         if (newResizeState.overflow === false) {
-          ariaNotify(getIntl().formatMessage(messages.columnResizeOverflow));
+          ariaNotify(getIntl().formatMessage(messages.columnResizeOverflow), {
+            priority: 'important',
+          });
         }
       }
     }
@@ -398,7 +433,10 @@ export const stopKeyboardColumnResizing =
     getIntl,
     originalTr,
   }: {
-    ariaNotify?: (message: string) => void;
+    ariaNotify?: (
+      message: string,
+      ariaLiveElementAttributes?: AriaLiveElementAttributes,
+    ) => void;
     getIntl?: () => IntlShape;
     originalTr?: Transaction;
   }): Command =>
@@ -439,7 +477,9 @@ export const stopKeyboardColumnResizing =
       () => customTr.setMeta('scrollIntoView', false),
     )(state, fakeDispatch);
     if (ariaNotify && getIntl) {
-      ariaNotify(getIntl().formatMessage(messages.columnResizeStop));
+      ariaNotify(getIntl().formatMessage(messages.columnResizeStop), {
+        priority: 'important',
+      });
     }
 
     if (dispatch) {

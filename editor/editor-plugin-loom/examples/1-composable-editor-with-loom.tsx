@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -12,8 +11,8 @@ import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { getLoomProvider } from './utils/provider/loom-provider';
 
 function Editor() {
-  const { preset } = usePreset(() =>
-    new EditorPresetBuilder()
+  const { preset } = usePreset(builder =>
+    builder
       .add(basePlugin)
       .add(typeAheadPlugin)
       .add(quickInsertPlugin)
@@ -23,7 +22,7 @@ function Editor() {
         getLoomProvider({
           // NOTE: DEV MOVE - A public key referencing a sandbox loom account, this will eventially be substituted
           // for a session token that will intialise the SDK.
-          publicAppId: 'e1cff63a-8ca2-4c2c-ad41-d61c54beb16a',
+          publicAppId: '4dc78821-b6d2-44ee-ab43-54d0494290c8',
         }),
       ]),
   );

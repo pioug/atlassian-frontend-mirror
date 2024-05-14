@@ -6,13 +6,13 @@ import { FormattedMessage } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { Link } from '@atlaskit/linking-types';
-import Modal, {
+import { type Link } from '@atlaskit/linking-types';
+import {
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -47,9 +47,13 @@ import { PermissionError } from '../../../services/cmdbService.utils';
 import { AccessRequired } from '../../../ui/common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { CancelButton } from '../../common/modal/cancel-button';
+import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { AssetsSearchContainer } from '../search-container';
 import { AssetsSearchContainerLoading } from '../search-container/loading-state';
-import { AssetsConfigModalProps, AssetsDatasourceParameters } from '../types';
+import {
+  type AssetsConfigModalProps,
+  type AssetsDatasourceParameters,
+} from '../types';
 
 import { modalMessages } from './messages';
 import { MODAL_HEIGHT, RenderAssetsContent } from './render-assets-content';
@@ -95,7 +99,9 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
     objectSchemasError,
     totalObjectSchemas,
     assetsClientLoading,
-  } = useAssetsClient(initialParameters);
+  } = useAssetsClient(
+    initialParameters as AssetsDatasourceParameters | undefined,
+  );
 
   /* ------------------------------ PERMISSIONS ------------------------------ */
   useEffect(() => {
@@ -178,10 +184,6 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       });
     }
   }, [fireEvent, totalObjectSchemas]);
-
-  useEffect(() => {
-    fireEvent('screen.datasourceModalDialog.viewed', {});
-  }, [fireEvent]);
 
   const fireTableViewedEvent = useCallback(() => {
     if (isDataReady) {
@@ -428,11 +430,9 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
       loaderFn={fetchMessagesForLocale}
     >
       <ModalTransition>
-        <Modal
-          testId={'asset-datasource-modal'}
+        <DatasourceModal
+          testId="asset-datasource-modal"
           onClose={onCancel}
-          width="calc(100% - 80px)"
-          shouldScrollInViewport={true}
           shouldCloseOnOverlayClick={false}
         >
           <ModalHeader>{renderModalTitleContent()}</ModalHeader>
@@ -480,7 +480,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
               />
             </Button>
           </ModalFooter>
-        </Modal>
+        </DatasourceModal>
       </ModalTransition>
     </IntlMessagesProvider>
   );

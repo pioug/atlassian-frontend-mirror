@@ -7,7 +7,6 @@ import {
   N100,
   N20,
   N200,
-  N40,
   N600,
   N700,
 } from '@atlaskit/theme/colors';
@@ -105,7 +104,11 @@ const defaultTheme: { mode: Mode } = {
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       iconGradientStop: B200,
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-      iconColor: B200,
+      iconColor: getBooleanFF(
+        'platform.design-system-team.brand-refresh-update-product-logos_q7coo',
+      )
+        ? '#357DE8'
+        : B200,
     },
     primaryButton: {
       active: {
@@ -157,12 +160,7 @@ const defaultTheme: { mode: Mode } = {
       default: {
         backgroundColor: token('color.background.input', N0),
         color: token('color.text.subtlest', N200),
-        borderColor: token(
-          'color.border.input',
-          getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-            ? N100
-            : N40,
-        ),
+        borderColor: token('color.border.input', N100),
       },
       focus: {
         borderColor: token('color.border.focused', B200),

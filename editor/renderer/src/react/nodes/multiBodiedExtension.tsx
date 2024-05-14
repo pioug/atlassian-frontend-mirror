@@ -79,6 +79,7 @@ const useMultiBodiedExtensionActions = ({
   return actions;
 };
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const navigationCssExtended = css`
   ${sharedMultiBodiedExtensionStyles.mbeNavigation};
   margin-left: 0 !important;
@@ -121,6 +122,7 @@ const MultiBodiedExtension = (props: Props) => {
     updateActiveChild,
     children,
   });
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   const containerCssExtended = css`
     ${sharedMultiBodiedExtensionStyles.mbeExtensionContainer};
     .ak-renderer-extension {
@@ -199,6 +201,7 @@ const MultiBodiedExtension = (props: Props) => {
   return (
     <section
       className="multiBodiedExtension--container"
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={containerCssExtended}
       data-testid="multiBodiedExtension--container"
       data-active-child-index={activeChildIndex}

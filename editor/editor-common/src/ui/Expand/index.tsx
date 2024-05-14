@@ -87,33 +87,32 @@ export const ExpandIconWrapper = ({
   );
 };
 
-const expandIconWrapperStyle = () => css`
-  cursor: pointer;
-  display: flex;
-  color: ${token('color.icon', N90)};
-  border-radius: ${token('border.radius.100', '4px')};
-  width: 24px;
-  height: 24px;
+const expandIconWrapperStyle = () =>
+  css({
+    cursor: 'pointer',
+    display: 'flex',
+    color: token('color.icon', N90),
+    borderRadius: token('border.radius.100', '4px'),
+    width: '24px',
+    height: '24px',
+    '&:hover': {
+      background: token('color.background.neutral.subtle.hovered', N30A),
+    },
+    svg: {
+      transition: `transform 0.2s ${akEditorSwoopCubicBezier}`,
+    },
+  });
 
-  &:hover {
-    background: ${token('color.background.neutral.subtle.hovered', N30A)};
-  }
+const expandIconWrapperExpandedStyle = css({
+  svg: {
+    transform: 'rotate(90deg)',
+  },
+});
 
-  svg {
-    transition: transform 0.2s ${akEditorSwoopCubicBezier};
-  }
-`;
-
-const expandIconWrapperExpandedStyle = css`
-  svg {
-    transform: rotate(90deg);
-  }
-`;
-
-export const expandLayoutWrapperStyle = css`
-  width: ${token('space.300', '24px')};
-  height: ${token('space.300', '24px')};
-`;
+export const expandLayoutWrapperStyle = css({
+  width: token('space.300', '24px'),
+  height: token('space.300', '24px'),
+});
 
 export const ExpandLayoutWrapperWithRef = forwardRef(
   (props: React.HTMLAttributes<HTMLDivElement>, ref: Ref<any>) => {
@@ -138,41 +137,38 @@ const containerStyles = (styleProps: StyleProps) => {
       : 0;
   const margin = `${marginTop} ${marginHorizontal} ${marginBottom}`;
 
-  return () => css`
-    border-width: 1px;
-    border-style: solid;
-    border-color: ${focused
-      ? EXPAND_FOCUSED_BORDER_COLOR
-      : expanded
-      ? EXPAND_EXPANDED_BORDER_COLOR
-      : EXPAND_COLLAPSED_BORDER_COLOR};
-    border-radius: ${BORDER_RADIUS};
-    min-height: 25px;
-    background: ${!expanded
-      ? EXPAND_COLLAPSED_BACKGROUND
-      : EXPAND_SELECTED_BACKGROUND};
-    margin: ${margin};
-
-    transition: background 0.3s ${akEditorSwoopCubicBezier},
-      border-color 0.3s ${akEditorSwoopCubicBezier};
-    padding: ${token('space.100', '8px')};
-
-    &:hover {
-      // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
-      // This is because the default state already uses the same token and, as such, the hover style won't change anything.
-      // https://product-fabric.atlassian.net/browse/DSP-4152
-      border: 1px solid ${token('color.border', N50A)};
-      background: ${EXPAND_SELECTED_BACKGROUND};
-    }
-
-    td > :not(style):first-child,
-    td > style:first-child + * {
-      margin-top: 0;
-    }
-  `;
+  return () =>
+    css({
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: focused
+        ? EXPAND_FOCUSED_BORDER_COLOR
+        : expanded
+        ? EXPAND_EXPANDED_BORDER_COLOR
+        : EXPAND_COLLAPSED_BORDER_COLOR,
+      borderRadius: BORDER_RADIUS,
+      minHeight: '25px',
+      background: !expanded
+        ? EXPAND_COLLAPSED_BACKGROUND
+        : EXPAND_SELECTED_BACKGROUND,
+      margin: margin,
+      transition: `background 0.3s ${akEditorSwoopCubicBezier}, border-color 0.3s ${akEditorSwoopCubicBezier}`,
+      padding: token('space.100', '8px'),
+      '&:hover': {
+        // TODO: Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
+        // This is because the default state already uses the same token and, as such, the hover style won't change anything.
+        // https://product-fabric.atlassian.net/browse/DSP-4152
+        border: `1px solid ${token('color.border', N50A)}`,
+        background: EXPAND_SELECTED_BACKGROUND,
+      },
+      'td > :not(style):first-child, td > style:first-child + *': {
+        marginTop: 0,
+      },
+    });
 };
 
 const contentStyles = (styleProps: StyleProps) => () =>
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   css`
     padding-top: ${styleProps.expanded
       ? token('space.100', '8px')
@@ -206,41 +202,41 @@ const contentStyles = (styleProps: StyleProps) => () =>
       : ''}
   `;
 
-const titleInputStyles = () => css`
-  outline: none;
-  border: none;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
-  line-height: ${akEditorLineHeight};
-  font-weight: normal;
-  color: ${token('color.text.subtlest', N200A)};
-  background: transparent;
-  display: flex;
-  flex: 1;
-  padding: 0 0 0 ${token('space.050', '4px')};
-  width: 100%;
+const titleInputStyles = () =>
+  css({
+    outline: 'none',
+    border: 'none',
+    fontSize: relativeFontSizeToBase16(fontSize()),
+    lineHeight: akEditorLineHeight,
+    fontWeight: 'normal',
+    color: token('color.text.subtlest', N200A),
+    background: 'transparent',
+    display: 'flex',
+    flex: 1,
+    padding: `0 0 0 ${token('space.050', '4px')}`,
+    width: '100%',
+    '&::placeholder': {
+      opacity: 1,
+      color: token('color.text.subtlest', N200),
+    },
+  });
 
-  &::placeholder {
-    opacity: 1;
-    color: ${token('color.text.subtlest', N200)};
-  }
-`;
-
-const titleContainerStyles = () => css`
-  padding: 0;
-  display: flex;
-  align-items: flex-start;
-  background: none;
-  border: none;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
-  width: 100%;
-  color: ${token('color.text.subtle', N300A)};
-  overflow: hidden;
-  cursor: pointer;
-
-  &:focus {
-    outline: 0;
-  }
-`;
+const titleContainerStyles = () =>
+  css({
+    padding: 0,
+    display: 'flex',
+    alignItems: 'flex-start',
+    background: 'none',
+    border: 'none',
+    fontSize: relativeFontSizeToBase16(fontSize()),
+    width: '100%',
+    color: token('color.text.subtle', N300A),
+    overflow: 'hidden',
+    cursor: 'pointer',
+    '&:focus': {
+      outline: 0,
+    },
+  });
 
 export const sharedExpandStyles = {
   titleInputStyles,

@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import {
   legacyLightTokens as legacyTokens,
   light as tokens,
@@ -14,7 +12,7 @@ import {
   isPressed,
   not,
   pick,
-  ShadowDefintion,
+  type ShadowDefintion,
   tokenToStyle,
 } from './utils';
 
@@ -85,7 +83,7 @@ export const createColorStylesFromTemplate = (
     tokenStyles[colorProperty];
 
   return (
-    prettier.format(
+    format(
       `
 const ${objectName}Map = {
   ${activeTokens
@@ -99,12 +97,7 @@ const ${objectName}Map = {
     })
     .join(',\n\t')}
 } as const;`,
-      {
-        singleQuote: true,
-        parser: 'typescript',
-        trailingComma: 'all',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) +
     `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
   );

@@ -5,7 +5,6 @@ import { axe } from '@af/accessibility-testing';
 
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { B300, G300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { AutoDismissFlag, FlagGroup } from '../../index';
@@ -21,7 +20,7 @@ describe('Accessibility jest-axe', () => {
         title: 'New version published',
         icon: (
           <InfoIcon
-            primaryColor={token('color.icon.information', B300)}
+            primaryColor={token('color.icon.information')}
             label="Info"
           />
         ),
@@ -34,7 +33,7 @@ describe('Accessibility jest-axe', () => {
         title: 'New version published',
         icon: (
           <InfoIcon
-            primaryColor={token('color.icon.information', B300)}
+            primaryColor={token('color.icon.information')}
             label="Info"
           />
         ),
@@ -57,7 +56,7 @@ describe('Accessibility jest-axe', () => {
         id={1}
         icon={
           <SuccessIcon
-            primaryColor={token('color.icon.success', G300)}
+            primaryColor={token('color.icon.success')}
             label="Success"
             size="medium"
           />

@@ -135,7 +135,7 @@ it('should render images on the first tick if they were cached', () => {
       // would fail.
       process.nextTick(() => {
         hasCalledOnLoad = true;
-        this.onload();
+        this.onload?.();
       });
     },
   });
@@ -173,7 +173,7 @@ it.skip('should use an accessible combination of colours', () => {
 it('image should be decorative when no alt is provided', () => {
   Object.defineProperty(Image.prototype, 'src', {
     set() {
-      this.onload();
+      this.onload?.();
     },
   });
 

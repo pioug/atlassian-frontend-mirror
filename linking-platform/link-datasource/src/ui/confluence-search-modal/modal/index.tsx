@@ -13,13 +13,13 @@ import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { InlineCardAdf } from '@atlaskit/linking-common/types';
-import Modal, {
+import { type InlineCardAdf } from '@atlaskit/linking-common/types';
+import {
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -46,12 +46,12 @@ import {
   DatasourceDisplay,
   DatasourceSearchMethod,
 } from '../../../analytics/types';
-import { DisplayViewModes, Site } from '../../../common/types';
+import { type DisplayViewModes, type Site } from '../../../common/types';
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
-import { getAvailableSites } from '../../../services/getAvailableSites';
+import { useAvailableSites } from '../../../services/useAvailableSites';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoInstancesView } from '../../common/error-state/no-instances';
@@ -63,14 +63,18 @@ import {
   SmartCardPlaceholder,
   SmartLink,
 } from '../../common/modal/count-view-smart-link';
+import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import { ColumnSizesMap } from '../../issue-like-table/types';
+import { useColumnResize } from '../../issue-like-table/use-column-resize';
+import { useColumnWrapping } from '../../issue-like-table/use-column-wrapping';
+import { getColumnAction } from '../../issue-like-table/utils';
+import { type SelectedOptionsMap } from '../basic-filters/types';
 import ConfluenceSearchContainer from '../confluence-search-container';
 import {
-  ConfluenceSearchConfigModalProps,
-  ConfluenceSearchDatasourceParameters,
+  type ConfluenceSearchConfigModalProps,
+  type ConfluenceSearchDatasourceParameters,
 } from '../types';
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
@@ -86,23 +90,6 @@ const searchCountStyles = xcss({
   flex: 1,
   fontWeight: 600,
 });
-
-// TODO: common functionality of all modals refactor in EDM-9573
-export const getColumnAction = (
-  oldVisibleColumnKeys: string[],
-  newVisibleColumnKeys: string[],
-): DatasourceAction => {
-  const newColumnSize = newVisibleColumnKeys.length;
-  const oldColumnSize = oldVisibleColumnKeys.length;
-
-  if (newColumnSize > oldColumnSize) {
-    return DatasourceAction.COLUMN_ADDED;
-  } else if (newColumnSize < oldColumnSize) {
-    return DatasourceAction.COLUMN_REMOVED;
-  } else {
-    return DatasourceAction.COLUMN_REORDERED;
-  }
-};
 
 export const PlainConfluenceSearchConfigModal = (
   props: ConfluenceSearchConfigModalProps,
@@ -122,18 +109,28 @@ export const PlainConfluenceSearchConfigModal = (
     disableDisplayDropdown = false,
     overrideParameters,
   } = props;
-
-  const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
-    undefined,
-  );
   const [currentViewMode, setCurrentViewMode] =
     useState<DisplayViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+  const { availableSites, selectedSite: selectedConfluenceSite } =
+    useAvailableSites('confluence', cloudId);
   const [searchString, setSearchString] = useState<string | undefined>(
     initialParameters?.searchString,
   );
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(
     initialVisibleColumnKeys,
+  );
+  const [contributorAccountIds, setContributorAccountIds] = useState<string[]>(
+    initialParameters?.contributorAccountIds || [],
+  );
+  const [lastModified, setLastModified] = useState(
+    initialParameters?.lastModified
+      ? {
+          value: initialParameters?.lastModified,
+          from: initialParameters?.lastModifiedFrom,
+          to: initialParameters?.lastModifiedTo,
+        }
+      : undefined,
   );
 
   // analytics related parameters
@@ -141,14 +138,23 @@ export const PlainConfluenceSearchConfigModal = (
   const userInteractionActions = useRef<Set<DatasourceAction>>(new Set());
   const visibleColumnCount = useRef(visibleColumnKeys?.length || 0);
 
-  // TODO: further refactoring in EDM-9573
-  // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6829210
   const parameters = useMemo(
-    () => ({ ...initialParameters, cloudId, searchString }),
+    () => ({
+      ...initialParameters,
+      cloudId: cloudId || '',
+      searchString,
+      lastModified: lastModified?.value,
+      lastModifiedFrom: lastModified?.from,
+      lastModifiedTo: lastModified?.to,
+      contributorAccountIds:
+        contributorAccountIds?.length > 0 ? contributorAccountIds : undefined,
+    }),
     [
-      cloudId,
       initialParameters,
-      searchString /** Add more parameters when more filters are added */,
+      cloudId,
+      searchString,
+      lastModified,
+      contributorAccountIds,
     ],
   );
 
@@ -188,27 +194,14 @@ export const PlainConfluenceSearchConfigModal = (
 
   const hasNoConfluenceSites = availableSites && availableSites.length === 0;
 
-  const selectedConfluenceSite = useMemo<Site | undefined>(() => {
-    if (cloudId) {
-      return availableSites?.find(
-        confluenceSite => confluenceSite.cloudId === cloudId,
-      );
-    } else {
-      let currentlyLoggedInSiteUrl: string | undefined;
-      if (typeof window.location !== 'undefined') {
-        currentlyLoggedInSiteUrl = window.location.origin;
-      }
-      return (
-        availableSites?.find(
-          confluenceSite => confluenceSite.url === currentlyLoggedInSiteUrl,
-        ) || availableSites?.[0]
-      );
-    }
-  }, [availableSites, cloudId]);
-
   useEffect(() => {
-    fireEvent('screen.datasourceModalDialog.viewed', {});
-  }, [fireEvent]);
+    if (availableSites) {
+      fireEvent('ui.modal.ready.datasource', {
+        instancesCount: availableSites.length,
+        schemasCount: null,
+      });
+    }
+  }, [fireEvent, availableSites]);
 
   // TODO: further refactoring in EDM-9573
   // https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/82725/overview?commentId=6828283
@@ -227,28 +220,13 @@ export const PlainConfluenceSearchConfigModal = (
     (site: Site) => {
       userInteractionActions.current.add(DatasourceAction.INSTANCE_UPDATED);
       setSearchString(undefined);
+      setLastModified(undefined);
+      setContributorAccountIds([]);
       setCloudId(site.cloudId);
       reset({ shouldForceRequest: true });
     },
     [reset],
   );
-
-  useEffect(() => {
-    const fetchSiteDisplayNames = async () => {
-      const confluenceSites = await getAvailableSites('confluence');
-      const sortedAvailableSites = [...confluenceSites].sort((a, b) =>
-        a.displayName.localeCompare(b.displayName),
-      );
-      setAvailableSites(sortedAvailableSites);
-
-      fireEvent('ui.modal.ready.datasource', {
-        instancesCount: sortedAvailableSites.length,
-        schemasCount: null,
-      });
-    };
-
-    void fetchSiteDisplayNames();
-  }, [fireEvent]);
 
   useEffect(() => {
     const newVisibleColumnKeys =
@@ -265,32 +243,12 @@ export const PlainConfluenceSearchConfigModal = (
       ? confluenceSearchModalMessages.insertIssuesTitleManySites
       : confluenceSearchModalMessages.insertIssuesTitle;
 
-  const [columnCustomSizes, setColumnCustomSizes] = useState<
-    ColumnSizesMap | undefined
-  >(initialColumnCustomSizes);
-
-  const onColumnResize = useCallback(
-    (key: string, width: number) => {
-      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
-    },
-    [columnCustomSizes],
+  const { columnCustomSizes, onColumnResize } = useColumnResize(
+    initialColumnCustomSizes,
   );
 
-  const [wrappedColumnKeys, setWrappedColumnKeys] = useState<
-    string[] | undefined
-  >(initialWrappedColumnKeys);
-
-  const onWrappedColumnChange = useCallback(
-    (key: string, isWrapped: boolean) => {
-      const set = new Set(wrappedColumnKeys);
-      if (isWrapped) {
-        set.add(key);
-      } else {
-        set.delete(key);
-      }
-      setWrappedColumnKeys(Array.from(set));
-    },
-    [wrappedColumnKeys],
+  const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(
+    initialWrappedColumnKeys,
   );
 
   // TODO: common functionality of all modals refactor in EDM-9573
@@ -360,10 +318,36 @@ export const PlainConfluenceSearchConfigModal = (
   const hasConfluenceSearchParams = selectedConfluenceSite && searchString;
 
   const selectedConfluenceSiteUrl = selectedConfluenceSite?.url;
-  const confluenceSearchUrl =
-    selectedConfluenceSiteUrl &&
-    searchString !== undefined &&
-    `${selectedConfluenceSiteUrl}/wiki/search?text=${encodeURI(searchString)}`;
+  const confluenceSearchUrl = useMemo(() => {
+    if (!selectedConfluenceSiteUrl || searchString === undefined) {
+      return undefined;
+    }
+
+    const params = new URLSearchParams();
+    // we are appending "text" without checking searchString as we need the url to have "text" when a user does an empty search
+    params.append('text', searchString);
+
+    if (contributorAccountIds.length > 0) {
+      params.append('contributors', contributorAccountIds.join(','));
+    }
+
+    if (lastModified?.value) {
+      params.append('lastModified', lastModified.value);
+    }
+    if (lastModified?.from) {
+      params.append('from', lastModified?.from);
+    }
+    if (lastModified?.to) {
+      params.append('to', lastModified?.to);
+    }
+
+    return `${selectedConfluenceSiteUrl}/wiki/search?${params.toString()}`;
+  }, [
+    contributorAccountIds,
+    lastModified,
+    searchString,
+    selectedConfluenceSiteUrl,
+  ]);
 
   const analyticsPayload = useMemo(
     () => ({
@@ -398,10 +382,8 @@ export const PlainConfluenceSearchConfigModal = (
 
   useEffect(() => {
     const isResolved = status === 'resolved';
-    const isTableViewMode =
-      currentViewMode === 'issue' || currentViewMode === 'table';
-    const isInlineViewMode =
-      currentViewMode === 'count' || currentViewMode === 'inline';
+    const isTableViewMode = currentViewMode === 'table';
+    const isInlineViewMode = currentViewMode === 'inline';
 
     if (!isResolved) {
       return;
@@ -565,9 +547,33 @@ export const PlainConfluenceSearchConfigModal = (
   };
 
   const onSearch = useCallback(
-    (newSearchString: string) => {
+    (newSearchString: string, filters?: SelectedOptionsMap) => {
       searchCount.current++;
       userInteractionActions.current.add(DatasourceAction.QUERY_UPDATED);
+
+      if (filters) {
+        const { editedOrCreatedBy, lastModified: lastModifiedList } = filters;
+
+        if (lastModifiedList) {
+          const updatedDateRangeOption = lastModifiedList.find(
+            range => range.value,
+          );
+
+          if (updatedDateRangeOption?.optionType === 'dateRange') {
+            setLastModified({
+              value: updatedDateRangeOption.value,
+              from: updatedDateRangeOption.from,
+              to: updatedDateRangeOption.to,
+            });
+          }
+        }
+
+        if (editedOrCreatedBy) {
+          const accountIds = editedOrCreatedBy.map(user => user.value);
+          setContributorAccountIds(accountIds);
+        }
+      }
+
       setSearchString(newSearchString);
       reset({ shouldForceRequest: true });
     },
@@ -594,11 +600,9 @@ export const PlainConfluenceSearchConfigModal = (
       defaultMessages={i18nEN}
       loaderFn={fetchMessagesForLocale}
     >
-      <Modal
+      <DatasourceModal
         testId="confluence-search-datasource-modal"
         onClose={onCancel}
-        width="calc(100% - 80px)"
-        shouldScrollInViewport={true}
       >
         <ModalHeader>
           <ModalTitle>
@@ -622,10 +626,9 @@ export const PlainConfluenceSearchConfigModal = (
             <Fragment>
               <Box xcss={inputContainerStyles}>
                 <ConfluenceSearchContainer
-                  cloudId={cloudId}
                   isSearching={status === 'loading'}
                   onSearch={onSearch}
-                  initialSearchValue={initialParameters?.searchString}
+                  parameters={parameters}
                 />
               </Box>
               {currentViewMode === 'inline'
@@ -682,7 +685,7 @@ export const PlainConfluenceSearchConfigModal = (
             </Button>
           )}
         </ModalFooter>
-      </Modal>
+      </DatasourceModal>
     </IntlMessagesProvider>
   );
 };

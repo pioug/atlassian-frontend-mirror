@@ -42,37 +42,35 @@ class DropList extends Component<Props> {
   private dropContentRef?: HTMLDivElement;
   private triggerRef?: HTMLDivElement;
 
-  private wrapperStyles = css`
-    ${this.props.shouldFitContainer
-      ? 'display: block; flex: 1 1 auto;'
-      : 'display: inline-flex;'}
-    transition-duration: 0.2s;
-    transition: box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-  `;
+  private wrapperStyles = css({
+    display: this.props.shouldFitContainer ? 'block' : 'inline-flex',
+    flex: this.props.shouldFitContainer ? '1 1 auto' : undefined,
+    transitionDuration: '0.2s',
+    transition: 'box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+  });
 
-  private triggerStyles = css`
-    transition-duration: 0.2s;
-    transition: box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
-    ${this.props.shouldFitContainer
-      ? 'display: block; box-sizing: border-box;'
-      : 'display: inline-flex;'}
-  `;
+  private triggerStyles = css({
+    transitionDuration: '0.2s',
+    transition: 'box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
+    display: this.props.shouldFitContainer ? 'block' : 'inline-flex',
+    boxSizing: this.props.shouldFitContainer ? 'border-box' : undefined,
+  });
 
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
   private menuWrapper = () => {
-    return css`
-      color: ${token('color.text', N900)};
-      background-color: ${token('elevation.surface.overlay', N0)};
-      border-radius: ${token('border.radius', '3px')};
-      box-shadow: ${token(
+    return css({
+      color: token('color.text', N900),
+      backgroundColor: token('elevation.surface.overlay', N0),
+      borderRadius: token('border.radius', '3px'),
+      boxShadow: token(
         'elevation.shadow.overlay',
         `0 4px 8px calc(-1 * 2px) ${N50A}, 0 0 1px ${N60A}`,
-      )};
-      box-sizing: border-box;
-      overflow: auto;
-      padding: ${token('space.050', '4px')} 0;
-      max-height: 90vh;
-    `;
+      ),
+      boxSizing: 'border-box',
+      overflow: 'auto',
+      padding: `${token('space.050', '4px')} 0`,
+      maxHeight: '90vh',
+    });
   };
   /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
 

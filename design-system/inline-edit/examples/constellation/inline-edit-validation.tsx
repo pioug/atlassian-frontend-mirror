@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button/new';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -84,9 +85,9 @@ const InlineEditValidationExample = () => {
 
   return (
     <Box xcss={containerStyles}>
-      <button data-testid="clear-button" onClick={clearInlineEditContent}>
-        Click to clear
-      </button>
+      <Button testId="clear-button" onClick={clearInlineEditContent}>
+        Clear field
+      </Button>
       <InlineEdit
         defaultValue={editValue}
         label="Description"

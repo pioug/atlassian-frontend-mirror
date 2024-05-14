@@ -333,7 +333,7 @@ describe('JiraIssuesConfigModal', () => {
   it('should display a placeholder smart link if there is no jql', async () => {
     const { getByText } = await setup({
       parameters: { cloudId: '67899', jql: '' },
-      viewMode: 'count',
+      viewMode: 'inline',
     });
 
     expect(getByText('### Issues')).toBeInTheDocument();
@@ -375,7 +375,7 @@ describe('JiraIssuesConfigModal', () => {
 
     it('should show a smart link in count view', async () => {
       const { searchWithNewJql, queryByTestId, findByText } = await setup({
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       searchWithNewJql('different-query');
@@ -391,7 +391,7 @@ describe('JiraIssuesConfigModal', () => {
 
     it('should not show footer issue count in count view', async () => {
       const { searchWithNewJql, queryByTestId, findByText } = await setup({
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       searchWithNewJql('different-query');
@@ -661,7 +661,7 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(IssueLikeDataTableView).toHaveBeenCalled();
-      switchMode('count');
+      switchMode('inline');
 
       await waitFor(() =>
         getByText(
@@ -737,7 +737,7 @@ describe('JiraIssuesConfigModal', () => {
       );
       const { getByText, onInsert, getByRole } = await setup({
         hookState,
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       await waitFor(() =>
@@ -963,7 +963,7 @@ describe('JiraIssuesConfigModal', () => {
     });
 
     it('should call onInsert with inlineCard ADF upon Insert button press in count view mode', async () => {
-      const { onInsert, findByRole } = await setup({ viewMode: 'count' });
+      const { onInsert, findByRole } = await setup({ viewMode: 'inline' });
 
       const insertIssuesButton = await findByRole('button', {
         name: 'Insert issues',
@@ -994,7 +994,7 @@ describe('JiraIssuesConfigModal', () => {
       );
       const { onInsert, findByRole } = await setup({
         hookState,
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       const insertIssuesButton = await findByRole('button', {
@@ -1369,7 +1369,7 @@ describe('JiraIssuesConfigModal', () => {
     it('should not show no results screen in count view mode', async () => {
       const { getByRole, queryByText, onInsert } = await setup({
         hookState: { ...getDefaultHookState(), responseItems: [] },
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       expect(queryByText('No results found')).not.toBeInTheDocument();
@@ -1392,7 +1392,7 @@ describe('JiraIssuesConfigModal', () => {
     it('should not show network error message in count view mode', async () => {
       const { queryByText } = await setup({
         hookState: { ...getErrorHookState() },
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       expect(queryByText('Unable to load results')).not.toBeInTheDocument();
@@ -1421,7 +1421,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
 
       // count view
-      switchMode('count');
+      switchMode('inline');
       expect(
         getByText("You don't have access to the following site:"),
       ).toBeInTheDocument();

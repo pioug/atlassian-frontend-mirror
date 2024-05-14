@@ -5,7 +5,7 @@ import { uid } from 'react-uid';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({
@@ -25,7 +25,7 @@ const svg = ({
   let id = uid({ iconGradientStart: iconGradientStop });
 
   if (appearance) {
-    colors = getColorsFromAppearance(appearance);
+    colors = getColorsFromAppearanceOldLogos(appearance);
   }
 
   return `

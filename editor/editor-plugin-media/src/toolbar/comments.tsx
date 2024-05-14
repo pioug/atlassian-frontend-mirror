@@ -65,5 +65,6 @@ export const commentButton = (
     title,
     onClick: onClickHandler,
     tooltipContent: <ToolTipContent description={title} />,
+    supportsViewMode: true,
   };
 };

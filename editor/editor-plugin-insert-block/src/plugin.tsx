@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -77,6 +77,9 @@ export type InsertBlockPlugin = NextEditorPlugin<
   {
     pluginConfiguration: InsertBlockOptions | undefined;
     dependencies: InsertBlockPluginDependencies;
+    actions: {
+      toggleAdditionalMenu: () => void;
+    };
   }
 >;
 
@@ -84,8 +87,39 @@ export const insertBlockPlugin: InsertBlockPlugin = ({
   config: options = {},
   api,
 }) => {
+  const toggleDropdownMenuOptionsRef: Record<'current', null | (() => void)> = {
+    current: null,
+  };
+  const registerToggleDropdownMenuOptions = (cb: () => void) => {
+    toggleDropdownMenuOptionsRef.current = cb;
+
+    return () => {
+      toggleDropdownMenuOptionsRef.current = null;
+    };
+  };
+
   return {
     name: 'insertBlock',
+
+    actions: {
+      toggleAdditionalMenu: () => {
+        const toggle = toggleDropdownMenuOptionsRef.current;
+
+        if (!toggle) {
+          return;
+        }
+
+        toggle();
+      },
+    },
+
+    usePluginHook: () => {
+      useLayoutEffect(() => {
+        return () => {
+          toggleDropdownMenuOptionsRef.current = null;
+        };
+      }, []);
+    },
 
     primaryToolbarComponent({
       editorView,
@@ -117,6 +151,9 @@ export const insertBlockPlugin: InsertBlockPlugin = ({
             isLastItem={isLastItem}
             providers={providers}
             options={options}
+            registerToggleDropdownMenuOptions={
+              registerToggleDropdownMenuOptions
+            }
           />
         );
       };
@@ -140,6 +177,7 @@ interface ToolbarInsertBlockWithInjectionApiProps
   providers: Providers;
   pluginInjectionApi: ExtractInjectionAPI<typeof insertBlockPlugin> | undefined;
   options: InsertBlockOptions;
+  registerToggleDropdownMenuOptions: (cb: () => void) => () => void;
 }
 
 function ToolbarInsertBlockWithInjectionApi({
@@ -156,6 +194,7 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
+  registerToggleDropdownMenuOptions,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
   const {
@@ -244,6 +283,7 @@ function ToolbarInsertBlockWithInjectionApi({
       }
       showElementBrowserLink={options.showElementBrowserLink}
       showSeparator={!isLastItem && toolbarSize <= ToolbarSize.S}
+      registerToggleDropdownMenuOptions={registerToggleDropdownMenuOptions}
     />
   );
 }

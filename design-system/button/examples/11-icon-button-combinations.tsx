@@ -54,7 +54,11 @@ export default function IconButtonExample() {
                           <th>{capitalize(appearance)}</th>
                           <td>
                             <LegacyButton
-                              appearance={appearance}
+                              appearance={
+                                appearance === 'discovery'
+                                  ? undefined
+                                  : appearance
+                              }
                               iconBefore={
                                 <StarFilledIcon label="Label" size="medium" />
                               }
@@ -62,7 +66,11 @@ export default function IconButtonExample() {
                           </td>
                           <td>
                             <LegacyButton
-                              appearance={appearance}
+                              appearance={
+                                appearance === 'discovery'
+                                  ? undefined
+                                  : appearance
+                              }
                               iconBefore={
                                 <StarFilledIcon label="Label" size="medium" />
                               }
@@ -71,7 +79,11 @@ export default function IconButtonExample() {
                           </td>
                           <td>
                             <LegacyButton
-                              appearance={appearance}
+                              appearance={
+                                appearance === 'discovery'
+                                  ? undefined
+                                  : appearance
+                              }
                               iconBefore={
                                 <StarFilledIcon label="Label" size="medium" />
                               }
@@ -80,7 +92,11 @@ export default function IconButtonExample() {
                           </td>
                           <td>
                             <LegacyButton
-                              appearance={appearance}
+                              appearance={
+                                appearance === 'discovery'
+                                  ? undefined
+                                  : appearance
+                              }
                               iconBefore={
                                 <StarFilledIcon label="Label" size="medium" />
                               }
@@ -92,7 +108,11 @@ export default function IconButtonExample() {
                           {iconSizes.map((size) => (
                             <td>
                               <LegacyButton
-                                appearance={appearance}
+                                appearance={
+                                  appearance === 'discovery'
+                                    ? undefined
+                                    : appearance
+                                }
                                 iconBefore={
                                   <StarFilledIcon label="Label" size={size} />
                                 }

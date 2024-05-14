@@ -1,11 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import {
-  EslintNode,
-  ImportDeclaration,
+  type EslintNode,
+  type ImportDeclaration,
   isNodeOfType,
-  ObjectExpression,
+  type ObjectExpression,
 } from 'eslint-codemod-utils';
+
+import { getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
 import { includesHardCodedColor } from '../utils/is-color';
@@ -26,7 +28,7 @@ import {
 import { errorBoundary } from './error-boundary';
 import ruleMeta from './rule-meta';
 import { lintObjectForSpacing } from './spacing';
-import { RuleConfig } from './types';
+import { type RuleConfig } from './types';
 import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
@@ -105,6 +107,13 @@ const createWithConfig: (
       ObjectExpression: (parentNode: Rule.Node) =>
         errorBoundary(
           () => {
+            const { references } = context.getScope();
+            /**
+             * NOTE: This rule doesn't have an `importSources` config option,
+             * so this will just be equal to DEFAULT_IMPORT_SOURCES (which is fine)
+             */
+            const importSources = getImportSources(context);
+
             // To force the correct node type
             if (!isNodeOfType(parentNode, 'ObjectExpression')) {
               return;
@@ -115,7 +124,7 @@ const createWithConfig: (
               return;
             }
 
-            if (isDecendantOfXcssBlock(parentNode)) {
+            if (isDecendantOfXcssBlock(parentNode, references, importSources)) {
               return;
             }
 

@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React, { type FC } from 'react';
 
-import { BaseCell, BaseCellProps, SortDirection } from './base-cell';
+import { BaseCell, type BaseCellProps, type SortDirection } from './base-cell';
 
 export type THProps = Omit<BaseCellProps, 'as'>;
 
@@ -21,6 +21,7 @@ export const TH: FC<InternalTHProps> = ({
   backgroundColor,
   width,
   sortDirection,
+  colSpan
 }) => (
   <BaseCell
     as="th"
@@ -30,6 +31,7 @@ export const TH: FC<InternalTHProps> = ({
     width={width}
     backgroundColor={backgroundColor}
     sortDirection={sortDirection}
+    colSpan={colSpan}
   >
     {children}
   </BaseCell>

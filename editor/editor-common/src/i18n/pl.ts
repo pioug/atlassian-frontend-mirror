@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Dodaj kolumnę z prawej',
   'fabric.editor.addCommentOnMedia': 'Dodaj komentarz',
   'fabric.editor.addImageBorder': 'Dodaj obramowanie',
+  'fabric.editor.addLoomVideo': 'Dodaj film Loom',
   'fabric.editor.addMediaFiles': 'Dodaj obraz, film lub plik',
   'fabric.editor.addRowAbove': 'Dodaj wiersz powyżej',
   'fabric.editor.addRowBelow': 'Dodaj wiersz poniżej',
@@ -99,6 +100,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Zasoby (wersja beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Wstawianie obiektów z Zasobów do Jira Service Management z wyszukiwaniem i filtrowaniem',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Zasoby',
+  'fabric.editor.datasource.confluenceSearch': 'Wstawianie listy Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Wstawianie listy wyników wyszukiwania z Confluence z ulepszonym wyszukiwaniem, filtrowaniem i konfigurowaniem.',
   'fabric.editor.datasource.jiraIssue': 'Zgłoszenia Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Wstawianie zgłoszeń Jira z Jira Cloud z ulepszonym wyszukiwaniem, filtrowaniem i konfigurowaniem.',
@@ -109,6 +114,7 @@ export default {
   'fabric.editor.decision': 'Decyzja',
   'fabric.editor.decision.description': 'Obserwuj decyzje, aby łatwo je śledzić',
   'fabric.editor.decisionPlaceholder': 'Dodaj decyzję…',
+  'fabric.editor.decreaseColumnSize': 'Zmniejsz rozmiar kolumny',
   'fabric.editor.decreaseSize': 'Zmniejsz rozmiar',
   'fabric.editor.defaultAltText': 'Dokument',
   'fabric.editor.description': 'Opis',
@@ -237,6 +243,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Rozmiar',
   'fabric.editor.imageBorderSubtle': 'Delikatny',
   'fabric.editor.improvement': 'Ulepszenie',
+  'fabric.editor.increaseColumnSize': 'Zwiększ rozmiar kolumny',
   'fabric.editor.increaseSize': 'Zwiększ rozmiar',
   'fabric.editor.indent': 'Zwiększ wcięcie',
   'fabric.editor.info': 'Informacje',
@@ -333,8 +340,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Dodaj tekst zastępczy',
   'fabric.editor.plainText': 'Użyj zwykłego tekstu',
   'fabric.editor.quickInsert': 'Szybkie wstawianie',
-  'fabric.editor.recordVideo': 'Nagraj film',
-  'fabric.editor.recordVideo.description': 'Nagraj film za pomocą Loom',
+  'fabric.editor.recordVideo': 'Nagraj film Loom',
+  'fabric.editor.recordVideo.description': 'Nagraj zawartość ekranu i obraz z kamery',
   'fabric.editor.redo': 'Ponów',
   'fabric.editor.remove': 'Usuń',
   'fabric.editor.removeColumns':
@@ -356,6 +363,7 @@ export default {
   'fabric.editor.saveButton': 'Zapisz',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {Dostępny jest {itemsLength,number} wynik wyszukiwania. Użyj klawiszy strzałek w górę i w dół, aby przechodzić między opcjami. Naciśnij klawisz Enter, aby wybrać opcję.} few {Dostępne są {itemsLength,number} wyniki wyszukiwania. Użyj klawiszy strzałek w górę i w dół, aby przechodzić między opcjami. Naciśnij klawisz Enter, aby wybrać opcję.} many {Dostępnych jest {itemsLength,number} wyników wyszukiwania. Użyj klawiszy strzałek w górę i w dół, aby przechodzić między opcjami. Naciśnij klawisz Enter, aby wybrać opcję.} other {Dostępne jest {itemsLength,number} wyniku wyszukiwania. Użyj klawiszy strzałek w górę i w dół, aby przechodzić między opcjami. Naciśnij klawisz Enter, aby wybrać opcję.}}',
+  'fabric.editor.selectColumnResize': 'Wybierz rozmiar kolumny',
   'fabric.editor.selectLanguage': 'Wybierz język',
   'fabric.editor.selectTableColumn': 'Wybierz kolumnę tabeli',
   'fabric.editor.selectTableRow': 'Wybierz wiersz tabeli',
@@ -447,10 +455,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'Zawartość jest niedostępna w tym edytorze, ale zostanie zachowana, jeśli ją wprowadzisz i zapiszesz',
   'fabric.editor.unsupportedInlineContent': 'Nieobsługiwana zawartość',
+  'fabric.editor.upDown':
+    'Data wprowadzona w poniższym polu za pomocą klawiszy strzałek w górę i w dół zostanie zaktualizowana poniżej',
   'fabric.editor.url': 'Wyświetl adres URL',
   'fabric.editor.urlDescription': 'Wyświetl łącze jako adres URL',
   'fabric.editor.urlTitle': 'Adres URL',
   'fabric.editor.useMarkdown': 'Użyj Markdown',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Wyświetl i dodaj komentarze',
+  'fabric.editor.viewCommentOnMedia': 'Wyświetl komentarze',
   'fabric.editor.viewMore': 'Wyświetl więcej',
   'fabric.editor.visit': 'Otwórz łącze w nowym oknie',
   'fabric.editor.warning': 'Ostrzeżenie',

@@ -11,9 +11,6 @@ jest.mock('@atlaskit/ds-lib/warn-once');
 
 (warnOnce as jest.Mock).mockImplementation(() => 42);
 
-const name = process.env._PACKAGE_NAME_ as string;
-const version = process.env._PACKAGE_VERSION_ as string;
-
 describe('getTokenValue', () => {
   beforeEach(() => {
     render(
@@ -73,7 +70,7 @@ describe('getTokenValue', () => {
       expect(result).toEqual('');
 
       expect(warnOnce).toHaveBeenCalledWith(
-        `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,
+        `Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
       );
     });
 
@@ -85,7 +82,7 @@ describe('getTokenValue', () => {
       expect(result).toEqual('#000');
 
       expect(warnOnce).toHaveBeenCalledWith(
-        `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,
+        `Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
       );
     });
   });

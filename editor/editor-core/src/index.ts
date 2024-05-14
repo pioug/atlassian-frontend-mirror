@@ -72,7 +72,7 @@ export type {
 } from '@atlaskit/editor-common/provider-factory';
 export {
   PortalProvider,
-  PortalProviderAPI,
+  LegacyPortalProviderAPI,
   PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
 

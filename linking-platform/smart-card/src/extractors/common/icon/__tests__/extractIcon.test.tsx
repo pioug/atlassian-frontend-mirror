@@ -2,7 +2,7 @@ import { extractIcon } from '../extractIcon';
 import { TEST_BASE_DATA, TEST_URL, TEST_OBJECT } from '../../__mocks__/jsonld';
 import { render, screen } from '@testing-library/react';
 import { withIntl } from '../../__mocks__/withIntl';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 describe('extractors.icon', () => {
   it('returns highest priority icon from array of types', async () => {

@@ -9,11 +9,15 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/src/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
+import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
+import { type Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -29,6 +33,56 @@ import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
 import { LOCALSTORAGE_defaultTitleKey } from './5-full-page';
+
+// This was created to generate steps debugging collab-provider/ncs
+// See runbook: https://hello.atlassian.net/wiki/spaces/CEPS/pages/3677789685/Debug+with+Custom+Steps
+export class CustomReplaceStep extends ReplaceStep {
+  constructor(private doc: Node) {
+    super(0, 0, Slice.empty);
+  }
+
+  toJSON() {
+    return {
+      stepType: 'replace',
+      from: this.doc.nodeSize / 2,
+      to: this.doc.nodeSize / 2 + 1,
+      slice: {
+        content: [
+          {
+            type: 'text',
+            text: '<CustomStep>',
+          },
+        ],
+      },
+    };
+  }
+}
+
+export const collabCustomStepPlugin: NextEditorPlugin<
+  'collab-malformed-plugin'
+> = ({ api }) => {
+  return {
+    name: 'collab-malformed-plugin',
+
+    primaryToolbarComponent: () => {
+      return (
+        <div>
+          <Button
+            title="HOWTO: https://hello.atlassian.net/wiki/spaces/CEPS/pages/3677789685/Debug+with+Custom+Steps"
+            appearance="discovery"
+            onClick={() => {
+              api?.core.actions.execute(({ tr }) => {
+                return tr.step(new CustomReplaceStep(tr.doc));
+              });
+            }}
+          >
+            Send Custom Step
+          </Button>
+        </div>
+      );
+    },
+  };
+};
 
 export const getRandomUser = () => {
   return Math.floor(Math.random() * 10000).toString();
@@ -119,7 +173,9 @@ function useFullPageEditorPreset(props: any) {
   const { preset, editorApi } = usePreset(() => {
     return universalPreset
       .add([editorViewModePlugin, { mode: 'view' }])
-      .add(selectionMarkerPlugin);
+      .add(selectionMarkerPlugin)
+      .add(collabCustomStepPlugin)
+      .add(blockControlsPlugin);
   }, [universalPreset]);
 
   const { setEditorAPI } = props;
@@ -378,6 +434,9 @@ export default class Example extends React.Component<Props, State> {
                   provider: mediaProvider,
                   allowMediaSingle: true,
                   customDropzoneContainer: parentContainer,
+                  allowCaptions: true,
+                  allowLinking: true,
+                  allowImagePreview: true,
                 }}
                 allowPanel={true}
                 emojiProvider={getEmojiProvider()}

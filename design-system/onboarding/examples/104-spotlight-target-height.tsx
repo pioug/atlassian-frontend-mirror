@@ -6,7 +6,6 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
@@ -25,7 +24,7 @@ const targetStyles = css({
   padding: token('space.100', '8px'),
   alignItems: 'center',
   justifyContent: 'center',
-  background: token('color.background.accent.gray.subtlest', N40),
+  background: token('color.background.accent.gray.subtlest'),
 });
 
 function SpotlightTargetHeight() {

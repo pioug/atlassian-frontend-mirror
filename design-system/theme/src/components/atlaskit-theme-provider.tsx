@@ -1,4 +1,4 @@
-import React, { FC, memo } from 'react';
+import React, { type FC, memo } from 'react';
 
 import { background as bg } from '../colors';
 import { DEFAULT_THEME_MODE } from '../constants';
@@ -49,6 +49,7 @@ const AtlaskitThemeProvider: FC<AKThemeProviderProps> =
       return (
         <Theme.Provider value={themeFnMap[mode]}>
           <div
+            // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
             className={`${mode}-${SELECTOR}`}
             style={{ backgroundColor }}
             data-testid="theme-provider"

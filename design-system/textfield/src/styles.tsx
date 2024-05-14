@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   N0,
@@ -6,24 +5,13 @@ import {
   N100,
   N200,
   N30,
-  N40,
   N70,
   N900,
   R400,
 } from '@atlaskit/theme/colors';
-import {
-  codeFontFamily,
-  fontFamily,
-  fontSize as getFontSize,
-  // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-  gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Appearance } from './types';
-
-const fontSize = getFontSize();
-const gridSize = getGridSize();
+import { type Appearance } from './types';
 
 const backgroundColor = {
   standard: token('color.background.input', N10),
@@ -44,12 +32,7 @@ const backgroundColorHover = {
 };
 
 const borderColor = {
-  standard: token(
-    'color.border.input',
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? N100
-      : N40,
-  ),
+  standard: token('color.border.input', N100),
   subtle: 'transparent',
   none: 'transparent',
 };
@@ -61,12 +44,7 @@ const borderColorFocus = {
 };
 
 const borderColorHover = {
-  standard: token(
-    'color.border.input',
-    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? N100
-      : N40,
-  ),
+  standard: token('color.border.input', N100),
   subtle: token('color.border.input', 'transparent'),
   none: 'transparent',
 };
@@ -83,13 +61,9 @@ const getContainerTextBgAndBorderColor = (appearance: Appearance) => ({
   '&:focus-within:not([data-disabled])': {
     backgroundColor: backgroundColorFocus[appearance],
     borderColor: borderColorFocus[appearance],
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${
-          borderColorFocus[appearance]
-        }`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${
+      borderColorFocus[appearance]
+    }`,
   },
   '&[data-disabled]': {
     color: token('color.text.disabled', N70),
@@ -103,26 +77,18 @@ const getContainerTextBgAndBorderColor = (appearance: Appearance) => ({
   },
   '&[data-invalid], &[data-invalid]:hover': {
     borderColor: token('color.border.danger', R400),
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
-          'color.border.danger',
-          R400,
-        )}`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
+      'color.border.danger',
+      R400,
+    )}`,
   },
   '&[data-invalid]:focus-within': {
     backgroundColor: token('color.background.input.pressed', N0),
     borderColor: token('color.border.focused', B200),
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? `inset 0 0 0 ${token('border.width', '1px')} ${token(
-          'color.border.focused',
-          B200,
-        )}`
-      : undefined,
+    boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
+      'color.border.focused',
+      B200,
+    )}`,
   },
   '@media screen and (-ms-high-contrast: active)': {
     '&[data-invalid]:focus-within': {
@@ -156,22 +122,16 @@ export const containerStyles = (
     alignItems: 'center',
     ...getContainerTextBgAndBorderColor(appearance),
     borderRadius: 3,
-    borderWidth: getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    )
-      ? token('border.width', '1px')
-      : 2,
+    borderWidth: token('border.width', '1px'),
     // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
-    ...(getBooleanFF(
-      'platform.design-system-team.update-input-border-wdith_5abwv',
-    ) && appearance !== 'none'
+    ...(appearance !== 'none'
       ? { padding: `${token('border.width', '1px')} 0` }
       : {}),
     borderStyle: appearance === 'none' ? 'none' : 'solid',
     boxSizing: 'border-box',
     display: 'flex',
     flex: '1 1 100%',
-    fontSize,
+    font: token('font.body'),
     justifyContent: 'space-between',
     maxWidth: getMaxWidth(width),
     overflow: 'hidden',
@@ -188,22 +148,18 @@ export const inputStyles = () =>
     boxSizing: 'border-box',
     color: 'inherit',
     cursor: 'inherit',
-    fontSize,
+    font: token('font.body'),
     minWidth: '0',
     outline: 'none',
     width: '100%',
-    lineHeight: (gridSize * 2.5) / fontSize,
-    fontFamily: fontFamily(),
     '&[data-monospaced]': {
-      fontFamily: codeFontFamily(),
+      fontFamily: token('font.family.monospace'),
     },
     '&[data-compact]': {
       padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
-      height: `${((gridSize * 3.5) / fontSize).toFixed(2)}em`,
     },
     '&:not([data-compact])': {
       padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
-      height: `${((gridSize * 4.5) / fontSize).toFixed(2)}em`,
     },
     '&[disabled]': {
       // Safari (WebKit) adds a -webkit-text-fill-color style to disabled inputs

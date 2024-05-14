@@ -77,8 +77,10 @@ import {
   toggleHeaderColumnWithAnalytics,
   toggleHeaderRowWithAnalytics,
   toggleNumberColumnWithAnalytics,
+  toggleTableLockWithAnalytics,
   wrapTableInExpandWithAnalytics,
 } from './commands-with-analytics';
+import type { TablePluginOptions } from './plugin';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import { getNewResizeStateFromSelectedColumns } from './pm-plugins/table-resizing/utils/resize-state';
@@ -91,11 +93,12 @@ import type {
   ToolbarMenuState,
 } from './types';
 import { TableCssClassName } from './types';
-import { FullWidthDisplay } from './ui/TableFullWidthLabel';
+import { DisplayModeIcon } from './ui/icons';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,
   getSelectedRowIndexes,
+  isTableNested,
 } from './utils';
 
 export const getToolbarMenuConfig = (
@@ -450,6 +453,7 @@ export const getToolbarConfig =
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
     getEditorFeatureFlags: GetEditorFeatureFlags,
     getEditorView: () => EditorView | null,
+    options?: TablePluginOptions,
   ) =>
   (config: PluginConfig): FloatingToolbarHandler =>
   (state, intl) => {
@@ -461,62 +465,6 @@ export const getToolbarConfig =
     // We don't want to show floating toolbar while resizing the table
     const isWidthResizing = tableWidthState?.resizing;
 
-    const { isTableScalingEnabled, widthToWidest } = pluginState;
-    const currentTableNodeLocalId = tableObject?.node?.attrs?.localId ?? '';
-
-    if (
-      isTableScalingEnabled &&
-      isWidthResizing &&
-      widthToWidest &&
-      currentTableNodeLocalId &&
-      widthToWidest[currentTableNodeLocalId]
-    ) {
-      const { stickyScrollbar } = getEditorFeatureFlags();
-
-      const nodeType = state.schema.nodes.table;
-      const getDomRef = (editorView: EditorView) => {
-        let element: HTMLElement | undefined;
-        const domAtPos = editorView.domAtPos.bind(editorView);
-        const parent = findParentDomRefOfType(
-          nodeType,
-          domAtPos,
-        )(state.selection);
-        if (parent) {
-          const tableRef =
-            (parent as HTMLElement).querySelector<HTMLTableElement>('table') ||
-            undefined;
-          if (tableRef) {
-            element =
-              closestElement(
-                tableRef,
-                `.${TableCssClassName.TABLE_NODE_WRAPPER}`,
-              ) || undefined;
-          }
-        }
-        return element;
-      };
-      const fullWidthLabel = {
-        id: 'editor.table.fullWidthLabel',
-        type: 'custom',
-        fallback: [],
-        render: () => {
-          return <FullWidthDisplay key={'full-width-label'} />;
-        },
-      } as FloatingToolbarItem<Command>;
-
-      return {
-        title: 'Table floating label',
-        getDomRef,
-        nodeType,
-        key: 'full-width-label',
-        offset: [0, 18],
-        absoluteOffset: stickyScrollbar ? { top: -6 } : { top: 0 },
-        zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
-        items: [fullWidthLabel],
-        scrollable: true,
-      };
-    }
-
     if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
       const nodeType = state.schema.nodes.table;
       const menu = getToolbarMenuConfig(
@@ -525,8 +473,6 @@ export const getToolbarConfig =
         intl,
         editorAnalyticsAPI,
       );
-
-      const { isTableScalingEnabled = false } = getPluginState(state);
 
       let cellItems: Array<FloatingToolbarItem<Command>>;
       cellItems = pluginState.isDragAndDropEnabled
@@ -537,7 +483,7 @@ export const getToolbarConfig =
             intl,
             getEditorContainerWidth,
             editorAnalyticsAPI,
-            isTableScalingEnabled,
+            options?.isTableScalingEnabled,
           );
 
       let columnSettingsItems;
@@ -548,10 +494,16 @@ export const getToolbarConfig =
             intl,
             getEditorContainerWidth,
             editorAnalyticsAPI,
-            isTableScalingEnabled,
+            options?.isTableScalingEnabled,
           )
         : [];
-      const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI);
+      const colorPicker = getColorPicker(
+        state,
+        menu,
+        intl,
+        editorAnalyticsAPI,
+        getEditorView,
+      );
 
       // Check if we need to show confirm dialog for delete button
       let confirmDialog;
@@ -691,6 +643,29 @@ const getCellItems = (
   return [];
 };
 
+export const getLockBtnConfig =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null): Command =>
+  (state, dispatch, editorView) => {
+    const selectionOrTableRect = getClosestSelectionOrTableRect(state);
+    if (!editorView || !selectionOrTableRect) {
+      return false;
+    }
+
+    const { tr } = state;
+    const table = findTable(tr.selection);
+
+    if (!table) {
+      return false;
+    } else {
+      const { displayMode } = table.node.attrs;
+      toggleTableLockWithAnalytics(editorAnalyticsAPI)(
+        displayMode,
+        INPUT_METHOD.FLOATING_TB,
+      )(state, dispatch);
+      return true;
+    }
+  };
+
 export const getDistributeConfig =
   (
     getEditorContainerWidth: GetEditorContainerWidth,
@@ -747,30 +722,62 @@ const getColumnSettingItems = (
 
   const wouldChange = newResizeStateWithAnalytics?.changed ?? false;
 
+  const items: Array<FloatingToolbarItem<Command>> = [];
+
+  const isNested =
+    pluginState.tablePos && isTableNested(editorState, pluginState.tablePos);
+
+  const isTableScalingLockBtnEnabled =
+    !isNested &&
+    isTableScalingEnabled &&
+    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button');
+
+  if (isTableScalingLockBtnEnabled) {
+    const areColumnWidthsLocked =
+      pluginState?.tableNode?.attrs.displayMode === 'fixed';
+
+    const title = areColumnWidthsLocked
+      ? formatMessage(messages.unlockColumnWidths)
+      : formatMessage(messages.lockColumnWidths);
+
+    items.push({
+      id: 'editor.table.lockColumns',
+      type: 'button',
+      title,
+      icon: () => <DisplayModeIcon size="medium" label={title} />,
+      onClick: (state, dispatch, view) =>
+        getLockBtnConfig(editorAnalyticsAPI)(state, dispatch, view),
+      selected: areColumnWidthsLocked,
+      testId: 'table-lock-column-widths-btn',
+    });
+  }
+
   if (
     pluginState?.pluginConfig?.allowDistributeColumns &&
     pluginState.isDragAndDropEnabled
   ) {
-    return [
-      {
-        id: 'editor.table.distributeColumns',
-        type: 'button',
-        title: formatMessage(messages.distributeColumns),
-        icon: DistributeColumnIcon,
-        onClick: (state, dispatch, view) =>
-          getDistributeConfig(
-            getEditorContainerWidth,
-            editorAnalyticsAPI,
-            isTableScalingEnabled,
-          )(state, dispatch, view),
-        disabled: !wouldChange,
-      },
-      {
-        type: 'separator',
-      },
-    ];
+    items.push({
+      id: 'editor.table.distributeColumns',
+      type: 'button',
+      title: formatMessage(messages.distributeColumns),
+      icon: DistributeColumnIcon,
+      onClick: (state, dispatch, view) =>
+        getDistributeConfig(
+          getEditorContainerWidth,
+          editorAnalyticsAPI,
+          isTableScalingEnabled,
+        )(state, dispatch, view),
+      disabled: !wouldChange,
+    });
   }
-  return [];
+
+  if (items.length !== 0) {
+    items.push({
+      type: 'separator',
+    });
+  }
+
+  return items;
 };
 
 const getColorPicker = (
@@ -778,6 +785,7 @@ const getColorPicker = (
   menu: FloatingToolbarItem<Command>,
   { formatMessage }: ToolbarMenuContext,
   editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
+  getEditorView: () => EditorView | null,
 ): Array<FloatingToolbarItem<Command>> => {
   const { targetCellPosition, pluginConfig } = getPluginState(state);
   if (!pluginConfig.allowBackgroundColor) {
@@ -804,11 +812,13 @@ const getColorPicker = (
       selectType: 'color',
       defaultValue: defaultPalette,
       options: cellBackgroundColorPalette,
+      returnEscToButton: true,
       onChange: (option: any) =>
         setColorWithAnalytics(editorAnalyticsAPI)(
           INPUT_METHOD.FLOATING_TB,
           option.value,
           targetCellPosition,
+          getEditorView(),
         ),
     },
     separator(menu.hidden),

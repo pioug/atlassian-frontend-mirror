@@ -1,8 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Text from '@atlaskit/ds-explorations/text';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
 
@@ -25,14 +24,14 @@ const sizes: Sizes[] = ['small', 'default', 'large'];
 const spacings: Spacing[] = ['comfortable', 'cozy', 'compact'];
 
 const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
-  const [selectedIndex, setSelectedIndes] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handlePrev = () => {
-    setSelectedIndes((prevState) => prevState - 1);
+    setSelectedIndex((prevState) => prevState - 1);
   };
 
   const handleNext = () => {
-    setSelectedIndes((prevState) => prevState + 1);
+    setSelectedIndex((prevState) => prevState + 1);
   };
 
   return (
@@ -44,7 +43,7 @@ const Example: FC<ExampleProps> = ({ values = ['one', 'two', 'three'] }) => {
         <Inline space="space.300" testId="vr-hook">
           {sizes.map((size) => (
             <Stack key={size} space="space.200">
-              <Text fontWeight="bold">{size}</Text>
+              <Text weight="bold">{size}</Text>
               {spacings.map((space) => (
                 <Stack key={space} space="space.100">
                   <Text>{space}</Text>

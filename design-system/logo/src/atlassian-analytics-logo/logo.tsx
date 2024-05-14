@@ -5,7 +5,7 @@ import { uid } from 'react-uid';
 
 import { defaultLogoParams } from '../constants';
 import { LogoPropsAppearanceRequired } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
@@ -14,7 +14,7 @@ const svg = ({ appearance }: LogoPropsAppearanceRequired) => {
   // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
   let id = uid({ appearance });
 
-  const colors = getColorsFromAppearance(appearance);
+  const colors = getColorsFromAppearanceOldLogos(appearance);
 
   return `
   <svg height="32" viewBox="0 0 477 48" xmlns="http://www.w3.org/2000/svg">

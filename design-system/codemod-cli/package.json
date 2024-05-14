@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/codemod-cli",
-  "version": "0.21.1",
+  "version": "0.23.1",
   "description": "A cli for distributing codemods for atlassian-frontend components and services",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
   "bin": "./bin/codemod-cli.js",
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@codeshift/utils": "^0.2.4",
     "@hypermod/utils": "^0.4.2",
@@ -65,8 +65,9 @@
     "simple-git": "^3.16.0"
   },
   "devDependencies": {
+    "@af/formatting": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "prettier": "^2.8.0",
+    "prettier": "^3.2.5",
     "ts-node": "^10.9.1",
     "typescript": "~5.4.2"
   },

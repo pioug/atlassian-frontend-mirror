@@ -1,24 +1,24 @@
 import MentionResource, {
   AbstractMentionResource,
-  MentionContextIdentifier,
-  MentionProvider,
-  ResolvingMentionProvider,
-  MentionStats,
-  MentionResourceConfig,
-  TeamMentionResourceConfig,
+  type MentionContextIdentifier,
+  type MentionProvider,
+  type ResolvingMentionProvider,
+  type MentionStats,
+  type MentionResourceConfig,
+  type TeamMentionResourceConfig,
   isResolvingMentionProvider,
 } from './api/MentionResource';
 
 import TeamMentionResource from './api/TeamMentionResource';
 import PresenceResource, {
-  PresenceProvider,
+  type PresenceProvider,
   AbstractPresenceResource,
 } from './api/PresenceResource';
 import {
   DefaultMentionNameResolver,
-  MentionNameResolver,
+  type MentionNameResolver,
 } from './api/MentionNameResolver';
-import { MentionNameClient } from './api/MentionNameClient';
+import { type MentionNameClient } from './api/MentionNameClient';
 import MentionItem from './components/MentionItem';
 import MentionList from './components/MentionList';
 import ResourcedMentionList from './components/ResourcedMentionList';
@@ -26,16 +26,15 @@ import { MentionPickerWithAnalytics as MentionPicker } from './components/Mentio
 import Mention from './components/Mention';
 import ResourcedMention from './components/Mention/ResourcedMention';
 import {
-  MentionDescription,
-  MentionsResult,
+  type MentionDescription,
+  type MentionsResult,
   MentionNameStatus,
-  MentionNameDetails,
-  InviteExperimentCohort,
-  InviteFlow,
+  type MentionNameDetails,
+  type InviteFlow,
   isSpecialMention,
-  TeamMember,
+  type TeamMember,
   UserAccessLevel,
-  UserRole,
+  type UserRole,
   UserType,
 } from './types';
 import { ELEMENTS_CHANNEL } from './_constants';
@@ -82,7 +81,6 @@ export type {
   TeamMember,
   MentionResourceConfig,
   TeamMentionResourceConfig,
-  InviteExperimentCohort,
   InviteFlow,
   UserRole,
 };

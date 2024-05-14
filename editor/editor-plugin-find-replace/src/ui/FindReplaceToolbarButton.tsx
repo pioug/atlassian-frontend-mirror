@@ -32,6 +32,7 @@ import { token } from '@atlaskit/tokens';
 import type { FindReplaceProps } from './FindReplace';
 import FindReplace from './FindReplace';
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 const toolbarButtonWrapper = css`
   display: flex;
   flex: 1 1 auto;
@@ -45,14 +46,14 @@ const toolbarButtonWrapper = css`
   }
 `;
 
-const toolbarButtonWrapperFullWith = css`
-  flex-grow: 1;
-`;
+const toolbarButtonWrapperFullWith = css({
+  flexGrow: 1,
+});
 
-const wrapper = css`
-  display: flex;
-  flex-direction: column;
-`;
+const wrapper = css({
+  display: 'flex',
+  flexDirection: 'column',
+});
 
 const dropdownWidthNewDesign = 382;
 const dropdownWidthOldDesign = 352;

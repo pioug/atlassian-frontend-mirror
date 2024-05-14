@@ -10,7 +10,7 @@ type Item = {
  */
 export const getDefaultItems = (): Item[] => [
   {
-    title: 'Chapter 1: Clean Code',
+    title: 'Chapter 1: Clean code',
     page: 1,
     numbering: '1',
   },

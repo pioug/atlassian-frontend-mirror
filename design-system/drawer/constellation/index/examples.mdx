@@ -5,22 +5,21 @@ order: 0
 import DrawerDefaultExample from '../../examples/constellation/drawer-default';
 import DrawerWidths from '../../examples/constellation/drawer-widths/index';
 import DrawerWidthsDescription from '../../examples/constellation/drawer-widths/description';
-import DrawerOverridesExample from '../../examples/constellation/drawer-overrides';
 import DrawerSurfaceDetection from '../../examples/constellation/drawer-surface-detection';
 
 import { widths } from '../../src/constants';
 
 ## Default
 
-The default form of a drawer.
-
-Make sure that you use either the `label` or `titleId` prop to announce the accessible name of the drawer to users of assistive technology.
+The default form of a drawer. Use either the `label` or `titleId` prop to announce the accessible name of the drawer to users of assistive technology.
 
 <Example Component={DrawerDefaultExample} packageName="@atlaskit/drawer" />
 
 ## Width
 
 <DrawerWidthsDescription />
+
+Use `medium` or `wide` for most applications. Use `extended` and `full` with caution, because there isn’t enough visual affordance that this is a drawer and not a new page.
 
 <Example Component={DrawerWidths} packageName="@atlaskit/drawer" />
 
@@ -34,15 +33,9 @@ clear the state when the drawer is closed use `shouldUnmountOnExit`.
 
 <Example Component={DrawerUnmountExample} packageName="@atlaskit/drawer" /> -->
 
-## Overrides
-
-The `overrides` prop allows granular customisation of the drawer. Both the sidebar and content components can be overridden.
-
-<Example Component={DrawerOverridesExample} packageName="@atlaskit/drawer" />
-
 ## Surface detection
 
 The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the drawer.
-The `utility.elevation.surface.current` design token can be used to style children with the current surface color.
+You can use the `utility.elevation.surface.current` design token to style children with the current surface color.
 
 <Example Component={DrawerSurfaceDetection} packageName="@atlaskit/drawer" />

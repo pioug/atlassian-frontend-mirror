@@ -9,26 +9,27 @@ import { G400, N200, R400 } from '@atlaskit/theme/colors';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-const errorColor = css`
-  color: ${token('color.text.danger', R400)};
-`;
+const errorColor = css({
+  color: token('color.text.danger', R400),
+});
 
-const validColor = css`
-  color: ${token('color.text.success', G400)};
-`;
+const validColor = css({
+  color: token('color.text.success', G400),
+});
 
-const messageStyle = () => css`
-  ${h200()} font-weight: normal;
-  color: ${token('color.text.subtlest', N200)};
-  margin-top: ${token('space.050', '4px')};
-  display: flex;
-  justify-content: baseline;
-`;
+const messageStyle = () =>
+  css(h200(), {
+    fontWeight: 'normal',
+    color: token('color.text.subtlest', N200),
+    marginTop: token('space.050', '4px'),
+    display: 'flex',
+    justifyContent: 'baseline',
+  });
 
-const iconWrapperStyle = css`
-  display: flex;
-  margin-right: ${token('space.050', '4px')};
-`;
+const iconWrapperStyle = css({
+  display: 'flex',
+  marginRight: token('space.050', '4px'),
+});
 
 interface Props {
   /** The content of the message */

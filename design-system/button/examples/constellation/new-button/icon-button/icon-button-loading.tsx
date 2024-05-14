@@ -5,7 +5,8 @@ import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
 import { IconButton } from '../../../../src/new';
-const ButtonLoadingExample = () => {
+
+const IconButtonLoadingExample = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const toggleLoading = useCallback(
@@ -30,4 +31,4 @@ const ButtonLoadingExample = () => {
   );
 };
 
-export default ButtonLoadingExample;
+export default IconButtonLoadingExample;

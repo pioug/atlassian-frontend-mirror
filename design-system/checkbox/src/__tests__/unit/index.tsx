@@ -1,6 +1,6 @@
-import React, { ChangeEvent, createRef } from 'react';
+import React, { type ChangeEvent, createRef } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 
@@ -139,7 +139,7 @@ describe('@atlaskit/checkbox', () => {
       });
       const checkbox = screen.getByLabelText('stub') as HTMLInputElement;
 
-      checkbox.focus();
+      fireEvent.focus(checkbox);
 
       expect(onFocus).toBeCalled();
     });

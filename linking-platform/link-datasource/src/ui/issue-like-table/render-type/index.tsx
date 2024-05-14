@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { IntlShape } from 'react-intl-next';
+import { type IntlShape } from 'react-intl-next';
 
-import { DatasourceType } from '@atlaskit/linking-types';
+import { type DatasourceType } from '@atlaskit/linking-types';
 
-import { TableViewPropsRenderType } from '../types';
+import { type TableViewPropsRenderType } from '../types';
 
 import BooleanRenderType from './boolean';
 import DateTimeRenderType, { getFormattedDate } from './date-time';
@@ -55,7 +55,7 @@ export const stringifyType = (
   }
 };
 
-export const fallbackRenderType: TableViewPropsRenderType = item => {
+export const renderType: TableViewPropsRenderType = item => {
   switch (item.type) {
     case 'boolean':
       return item.values.map(booleanValue => (

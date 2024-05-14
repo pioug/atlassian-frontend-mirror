@@ -325,18 +325,38 @@ export const getMediaInlineImageToolbar = (
             onEditLink={editLink}
             onOpenLink={openLink}
             isInlineNode
+            isViewOnly={options.isViewOnly}
           />
         );
       }
       return null;
     },
+    supportsViewMode: true,
   });
 
   //Image Preview
   if (options.allowImagePreview) {
     inlineImageItems.push(generateFilePreviewItem(mediaPluginState, intl), {
       type: 'separator',
+      supportsViewMode: true,
     });
+  }
+
+  if (options.isViewOnly) {
+    inlineImageItems.push(
+      {
+        id: 'editor.media.image.download',
+        type: 'button',
+        icon: DownloadIcon,
+        onClick: () => {
+          downloadMedia(mediaPluginState, options.isViewOnly);
+          return true;
+        },
+        title: intl.formatMessage(messages.download),
+        supportsViewMode: true,
+      },
+      { type: 'separator', supportsViewMode: true },
+    );
   }
 
   if (options.allowAltTextOnImages) {
@@ -355,23 +375,27 @@ export const getMediaInlineImageToolbar = (
           formatMessage: intl.formatMessage,
           nodeType: mediaInline,
         },
-        { type: 'separator' },
       ],
-    },
-    {
-      id: 'editor.media.delete',
-      type: 'button',
-      appearance: 'danger',
-      focusEditoronEnter: true,
-      icon: RemoveIcon,
-      onMouseEnter: hoverDecoration?.(mediaInline, true),
-      onMouseLeave: hoverDecoration?.(mediaInline, false),
-      onFocus: hoverDecoration?.(mediaInline, true),
-      onBlur: hoverDecoration?.(mediaInline, false),
-      title: intl.formatMessage(commonMessages.remove),
-      onClick: removeInlineCard,
-      testId: 'media-toolbar-remove-button',
+      supportsViewMode: true,
     },
   );
+
+  inlineImageItems.push({ type: 'separator' });
+  inlineImageItems.push({
+    id: 'editor.media.delete',
+    type: 'button',
+    appearance: 'danger',
+    focusEditoronEnter: true,
+    icon: RemoveIcon,
+    onMouseEnter: hoverDecoration?.(mediaInline, true),
+    onMouseLeave: hoverDecoration?.(mediaInline, false),
+    onFocus: hoverDecoration?.(mediaInline, true),
+    onBlur: hoverDecoration?.(mediaInline, false),
+    title: intl.formatMessage(commonMessages.remove),
+    onClick: removeInlineCard,
+    testId: 'media-toolbar-remove-button',
+  });
+
+
   return inlineImageItems;
 };

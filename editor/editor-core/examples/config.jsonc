@@ -17,7 +17,6 @@
     "@atlaskit/smart-card",
     "@atlaskit/synchrony-test-helpers",
     "@atlassian/link-picker-plugins",
-    "@atlassian/ufo",
-    "prettier"
+    "@atlassian/ufo"
   ]
 }

@@ -3,31 +3,51 @@ order: 0
 ---
 
 import HeadingDefault from '../../examples/constellation/heading-default';
-import HeadingInverse from '../../examples/constellation/heading-inverse';
+import HeadingAsProp from '../../examples/constellation/heading-as-prop';
+import HeadingColorInverse from '../../examples/constellation/heading-color-inverse';
+import HeadingColorProp from '../../examples/constellation/heading-color-prop';
+import HeadingSpacing from '../../examples/constellation/heading-spacing';
 import HeadingProvider from '../../examples/constellation/heading-provider';
 import HeadingMigration from '../../examples/constellation/heading-migration';
 import HeadingNew from '../../examples/constellation/heading-new';
 
 ## Basic
 
-This implements the [Atlassian typography heading set](/foundations/typography/) as a component.
-
-The provided `size` maps to HTML heading elements by default, however this can be overridden using the `as` prop, or automatically incremented using the `HeadingContextProvider`.
+Use a Heading component for all page titles and subheadings to introduce content. Headings are sized to contrast with content, increase visual hierarchy, and help readers easily understand the structure of content.
 
 <Example Component={HeadingDefault} packageName="@atlaskit/heading" />
 
-## Inverse
+## Mapping to HTML heading elements
 
-Set `color` to change the text color in the heading. Use `color="inverse"` for headings placed on a dark
-surface for better color contrast.
+The `size` provided automatically maps to specific HTML heading elements. `xxlarge` and `xlarge` both render a `<h1>`, `large` renders a `<h2>`, `medium` renders a `<h3>`, and so on.
 
-<Example Component={HeadingInverse} packageName="@atlaskit/heading" />
+This mapping can be overridden using the `as` prop, or automatically incremented using the `HeadingContextProvider`.
+
+<Example Component={HeadingAsProp} packageName="@atlaskit/heading" />
+
+## Color
+
+Heading uses the `color.text` token which automatically switches colors to be legible across both light and dark modes.
+
+Heading will automatically apply the correct inverse color token if placed within a [box component](/components/primitives/box) with a bold background color.
+
+<Example Component={HeadingColorInverse} packageName="@atlaskit/heading" />
+
+To invert the heading color manually when not using a box component, use the `color` prop to apply either `color.text.inverse` or  `color.text.warning.inverse` depending on the surface. Beyond this, heading color cannot be customised.
+
+<Example Component={HeadingColorProp} packageName="@atlaskit/heading" />
+
+## Arrangement with other text styles
+
+Heading does not apply any vertical margin or spacing. To control space between headings and other content, use a [stack component](/components/primitives/stack).
+
+<Example Component={HeadingSpacing} packageName="@atlaskit/heading" />
 
 ## Heading provider
 
-The `HeadingContextProvider` component allows you to configure the default HTML heading level for all headings.
+The `HeadingContextProvider` allows you to configure the default HTML heading level for all headings.
 By nesting a `HeadingContextProvider`, you can override the default HTML heading level for a subtree. This is useful
 when you want to use a different HTML heading level for a section of your page but don't have control over where
-in the heading heirarchy that section will be placed.
+in the heading hierarchy that section will be placed.
 
 <Example Component={HeadingProvider} packageName="@atlaskit/heading" />

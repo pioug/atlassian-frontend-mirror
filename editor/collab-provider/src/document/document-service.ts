@@ -62,6 +62,7 @@ export class DocumentService {
   private stepQueue: StepQueueState;
   private stepRejectCounter: number = 0;
   private aggressiveCatchup: boolean = false;
+  private catchUpOutofSync: boolean = false;
 
   // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
   private clientId?: number | string;
@@ -91,6 +92,7 @@ export class DocumentService {
     private fetchCatchupv2: (
       fromVersion: number,
       clientId: number | string | undefined,
+      catchUpOutofSync: boolean,
     ) => Promise<Catchupv2Response>,
     private fetchReconcile: (
       currentStateDoc: string,
@@ -209,13 +211,26 @@ export class DocumentService {
 
     this.stepQueue.pauseQueue();
     try {
-      await catchupv2({
+      /**
+       * We have two options when out of sync:
+       * - Check a boolean that ensures we reset the document next time we catchup
+       * - Immediately catchup
+       *
+       * Immediately catching up has some complexity invovled with it - do we call catchupv2 again, fetchCatchupv2 again, or documentService.catchupV2 again?
+       * If we call either catchupv2 or documentService.catchupv2, we run the risk of creating an infinite loop of reset catchup requests.
+       * We can slow down the loop by calling throttledCatchupv2, and can add booleans that check if we're already doing a reset catchup request.
+       *
+       * But this all adds complexity that can be avoided by choosing the first option.
+       * Collab provider will already call catchup again, so this time we can ensure we call it with reset.
+       */
+      this.catchUpOutofSync = await catchupv2({
         getCurrentPmVersion: this.getCurrentPmVersion,
         fetchCatchupv2: this.fetchCatchupv2,
         updateMetadata: this.metadataService.updateMetadata,
         analyticsHelper: this.analyticsHelper,
         clientId: this.clientId,
         onStepsAdded: this.onStepsAdded,
+        catchUpOutofSync: this.catchUpOutofSync,
       });
       const latency = new Date().getTime() - start;
       this.analyticsHelper?.sendActionEvent(
@@ -579,7 +594,9 @@ export class DocumentService {
   private updateDocumentAnalytics = (doc: any, version: number) => {
     const updatedVersion = this.getCurrentPmVersion();
     const isDocContentValid = this.validatePMJSONDocument(doc);
-    if (this.getCurrentPmVersion() !== version) {
+    // ESS-5023: only emit error event if updated client version is still behind server version
+    // client version could become higher than server version due to user editing or plugin adding steps
+    if (updatedVersion < version) {
       const error = new UpdateDocumentError('Failed to update the document', {
         newVersion: version,
         editorVersion: updatedVersion,

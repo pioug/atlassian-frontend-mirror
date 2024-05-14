@@ -1,6 +1,8 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -48,6 +50,7 @@ type ReducerState = {
   focusedItemIndex?: number;
   listSize: number;
   canFocusViewMore?: boolean;
+  focusedCategoryIndex?: number;
 };
 
 export enum ACTIONS {
@@ -76,6 +79,7 @@ const reducer = (state: ReducerState, action: ReducerAction) => {
       return {
         ...state,
         focusedItemIndex: undefined,
+        focusedCategoryIndex: undefined,
         focusOnSearch: true,
         focusOnViewMore: false,
       };
@@ -223,7 +227,9 @@ export type useSelectAndFocusReturnType = {
   focusOnSearch: boolean;
   focusOnViewMore: boolean;
   focusedItemIndex?: number;
+  focusedCategoryIndex?: number;
   setFocusedItemIndex: (index?: number) => void;
+  setFocusedCategoryIndex: (index?: number) => void;
   setFocusOnSearch: () => void;
 };
 
@@ -231,6 +237,7 @@ function useSelectAndFocusOnArrowNavigation(
   listSize: number,
   step: number,
   canFocusViewMore: boolean,
+  isFocusSearch?: boolean,
 ): useSelectAndFocusReturnType {
   const [state, dispatch] = useReducer(
     reducer,
@@ -250,26 +257,76 @@ function useSelectAndFocusOnArrowNavigation(
     focusedItemIndex,
     focusOnSearch,
     focusOnViewMore,
+    focusedCategoryIndex,
   } = state;
 
-  const reset = useCallback((listSize: number) => {
-    let payload = {
-      ...initialState,
-      listSize,
-    };
-    dispatch({
-      type: ACTIONS.UPDATE_STATE,
-      payload,
-    });
-  }, []);
+  // calls if items size changed
+  const reset = useCallback(
+    (listSize: number) => {
+      let payload = {
+        ...initialState,
+        listSize,
+      };
+      if (
+        getBooleanFF(
+          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+        )
+      ) {
+        // A11Y: if categories exist ,on the initial render search element should receive focus.
+        // After user pick some category the category should stay focused.
+        payload = Object.assign(payload, {
+          focusOnSearch: isFocusSearch ?? initialState.focusOnSearch,
+        });
+      }
+
+      dispatch({
+        type: ACTIONS.UPDATE_STATE,
+        payload,
+      });
+    },
+    [isFocusSearch],
+  );
 
   const removeFocusFromSearchAndSetOnItem = useCallback(
     (index?: number) => {
-      const payload: Partial<ReducerState> = {
+      let payload: Partial<ReducerState> = {
         focusedItemIndex: index,
         selectedItemIndex: index,
         focusOnSearch: false,
         focusOnViewMore: false,
+      };
+      if (
+        getBooleanFF(
+          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+        )
+      ) {
+        payload = Object.assign(payload, {
+          focusedCategoryIndex: undefined,
+        });
+      }
+
+      dispatch({
+        type: ACTIONS.UPDATE_STATE,
+        payload,
+      });
+    },
+    [dispatch],
+  );
+
+  const setFocusedCategoryIndex = useCallback(
+    (index?: number) => {
+      if (
+        !getBooleanFF(
+          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+        )
+      ) {
+        return;
+      }
+      const payload: Partial<ReducerState> = {
+        focusOnSearch: false,
+        focusOnViewMore: false,
+        focusedCategoryIndex: index,
+        focusedItemIndex: undefined,
       };
 
       dispatch({
@@ -361,6 +418,8 @@ function useSelectAndFocusOnArrowNavigation(
     setFocusOnSearch,
     focusedItemIndex,
     setFocusedItemIndex: removeFocusFromSearchAndSetOnItem,
+    focusedCategoryIndex,
+    setFocusedCategoryIndex: setFocusedCategoryIndex,
   };
 }
 

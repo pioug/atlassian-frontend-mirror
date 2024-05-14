@@ -2,7 +2,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 import { mocked } from 'ts-jest/utils';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -21,7 +21,7 @@ import {
 import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import HoverCardResolvedView from '../index';
 import {
-  AnalyticsFacade,
+  type AnalyticsFacade,
   useSmartLinkAnalytics,
 } from '../../../../../../state/analytics';
 import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
@@ -32,15 +32,15 @@ import {
   SmartLinkSize,
 } from '../../../../../../constants';
 import { useSmartLinkActions } from '../../../../../../state/hooks-external/useSmartLinkActions';
-import { LinkAction } from '../../../../../../state/hooks-external/useSmartLinkActions';
-import { CardState } from '@atlaskit/linking-common';
+import { type LinkAction } from '../../../../../../state/hooks-external/useSmartLinkActions';
+import { type CardState } from '@atlaskit/linking-common';
 import { useSmartCardState } from '../../../../../../state/store';
 import { extractBlockProps } from '../../../../../../extractors/block';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
-import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import useRelatedUrls, {
-  RelatedUrlsResponse,
+  type RelatedUrlsResponse,
 } from '../../../../../../state/hooks/use-related-urls';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 
@@ -468,6 +468,92 @@ describe('HoverCardResolvedView', () => {
             'smart-block-related-urls-resolving-view',
           );
           expect(relatedUrlsBlock).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('renders footer blocks', () => {
+      const setupWithAISummary = () =>
+        setup({
+          mockResponse: mockAtlasProjectWithAiSummary,
+          isAISummaryEnabled: true,
+        });
+
+      it('renders FooterBlock', async () => {
+        const { findByTestId } = setup();
+        const block = await findByTestId('smart-footer-block-resolved-view');
+        expect(block).toBeInTheDocument();
+      });
+
+      describe('When AISummary enabled', () => {
+        beforeEach(() => {
+          isAiSummaryFFEnabled = true;
+          AISummariesStore.clear();
+        });
+
+        it('renders AISummaryBlock', async () => {
+          const { findByTestId } = setupWithAISummary();
+          const block = await findByTestId(
+            'smart-ai-summary-block-resolved-view',
+          );
+          expect(block).toBeInTheDocument();
+        });
+
+        it('does not render FooterBlock', () => {
+          const { queryByTestId } = setupWithAISummary();
+          const block = queryByTestId('smart-footer-block-resolved-view');
+          expect(block).not.toBeInTheDocument();
+        });
+
+        it('does not render ActionBlock', () => {
+          const { queryByTestId } = setupWithAISummary();
+          const block = queryByTestId('smart-block-action');
+          expect(block).not.toBeInTheDocument();
+        });
+
+        it('does not render MetadataBlock (footer)', () => {
+          const { queryByTestId } = setupWithAISummary();
+          const block = queryByTestId('smart-block-action-footer');
+          expect(block).not.toBeInTheDocument();
+        });
+      });
+
+      ffTest.on(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+        'Action redesign enabled',
+        () => {
+          it('renders ActionBlock', async () => {
+            const { findByTestId } = setup();
+            const block = await findByTestId('smart-block-action');
+            expect(block).toBeInTheDocument();
+          });
+
+          it('renders FooterBlock', () => {
+            const { queryByTestId } = setup();
+            const block = queryByTestId('smart-ai-footer-block-resolved-view');
+            expect(block).toBeInTheDocument();
+          });
+
+          describe('AI summary', () => {
+            it('does not render AISummaryBlock', () => {
+              const { queryByTestId } = setup();
+              const block = queryByTestId(
+                'smart-ai-summary-block-resolved-view',
+              );
+              expect(block).not.toBeInTheDocument();
+            });
+
+            it('renders AISummaryBlock', async () => {
+              isAiSummaryFFEnabled = true;
+              AISummariesStore.clear();
+
+              const { findByTestId } = setupWithAISummary();
+              const block = await findByTestId(
+                'smart-ai-summary-block-resolved-view',
+              );
+              expect(block).toBeInTheDocument();
+            });
+          });
         },
       );
     });

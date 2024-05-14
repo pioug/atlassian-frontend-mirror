@@ -26,10 +26,19 @@ The benefits modal component is made up of the following:
 
 ## Accessibility
 
-- Avoid jargon and use simple language.
-- Write button text that clearly explains what will happen next in the flow.
-- If the illustration provides useful information, include alternative text. If it's only for decoration, avoid alt text to save time for people using assistive technology, like screen readers.
-- Using an image as a metaphor may not translate to all cultures and languages. When choosing imagery, consider internationalization.
+### Use custom modal dialogs where possible
+
+We recommend using a [custom modal dialog](/components/modal-dialog/examples#custom-modal) instead of this component for all new experiences. This is because modal dialog has `shouldCloseOnEscapeKeyPress` and `shouldCloseOnOverlayClick` behavior which significantly improves the accessibility.
+
+### Write clear onboarding messages
+
+Avoid jargon and use simple language. Write button text that clearly explains what will happen next in the flow.
+
+### Use images sparingly
+
+If the illustration provides useful information, include alternative text. If it's only for decoration, use an empty alt attribute (`alt=""`) to save time for people using assistive technology.
+
+Using an image as a metaphor may not translate to all cultures and languages. When choosing imagery, consider internationalization.
 
 ## Best practices
 
@@ -55,5 +64,6 @@ The benefits modal component is made up of the following:
 
 ## Related
 
-- For a more general modal, see [modal dialog](/components/modal-dialog/examples).
+- For most use cases, use the [modal dialog component](/components/modal-dialog/examples).
 - For a smaller onboarding message, see [onboarding spotlight](/components/onboarding/examples).
+- For more information about how to use buttons, see the [button usage guidelines](/components/button/button-new/usage).

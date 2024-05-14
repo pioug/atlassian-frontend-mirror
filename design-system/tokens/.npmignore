@@ -4,6 +4,7 @@ examples/
 index.ts
 docs/
 build/
+prebuilt/
 __tests__/
 tsconfig.json
 tsconfig.node.json

@@ -1,15 +1,21 @@
 /** @jsx jsx */
 import { css, Global, jsx } from '@emotion/react';
 
-// Unset the selection background color as we are using our own
-// Otherwise we might have a mix of grey + our selection marker depending on the state.
-// We do not apply this reset to input fields (ie. expand case) because otherwise
-// selection highlight will not show on those.
+/**
+ * Unset the selection background color as we are using our own
+ * Otherwise we might have a mix of grey + our selection marker depending on the state.
+ *
+ * Edge cases:
+ * - We do not apply this reset to input fields (ie. expand case) because otherwise
+ * selection highlight will not show on those.
+ * - We do not apply this reset when the editor is disabled
+ */
 const globalStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '.ProseMirror:not(:focus) ::selection:not(input)': {
-    background: 'unset',
-  },
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+  '.ProseMirror:not(:focus):not([contenteditable="false"]) ::selection:not(input)':
+    {
+      background: 'unset',
+    },
 });
 
 export const GlobalStylesWrapper = () => {

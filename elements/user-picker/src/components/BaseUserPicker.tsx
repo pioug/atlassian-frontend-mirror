@@ -1,5 +1,5 @@
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
-import { UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
+import { type UFOExperience, UFOExperienceState } from '@atlaskit/ufo';
 import debounce from 'lodash/debounce';
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
@@ -9,15 +9,15 @@ import {
   clearEvent,
   createAndFireEventInElementsChannel,
   deleteEvent,
-  EventCreator,
+  type EventCreator,
   failedEvent,
   focusEvent,
   searchedEvent,
   selectEvent,
   startSession,
-  UserPickerSession,
+  type UserPickerSession,
 } from '../analytics';
-import {
+import type {
   Appearance,
   AtlasKitSelectChange,
   InputActionTypes,
@@ -621,7 +621,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       } else {
         this.handleOpen();
       }
-    } else if (!this.state.menuIsOpen) {
+      // escaping the below condition when openMenuOnClick is true otherwise menu own't open on click
+    } else if (!this.state.menuIsOpen && !this.isMenuOpenOnClickForSingleSelect) {
       // Trigger focus state when ValueContainer is clicked for the first time
       // The focused state will then invoke <Select /> instance's own handlers (e.g. onMenuOpen, onMenuClose)
       // to manage the state of the dropdown menu

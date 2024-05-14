@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
-import { h600 } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
 
 export interface FormSectionProps {
   /**
@@ -26,28 +25,13 @@ const formSectionDescriptionStyles = xcss({
   marginBlockStart: 'space.100',
 });
 
-const formSectionTitleStyles = css({
-  lineHeight: token('space.400', '32px'),
-  marginBlockStart: 0,
-  marginInlineEnd: token('space.400', '32px'),
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
-
 const formSectionWrapperStyles = xcss({
   marginBlockStart: 'space.300',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
 
 const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
   return <Box xcss={formSectionWrapperStyles}>{children}</Box>;
-};
-
-const FormSectionTitle = ({ children }: { children: ReactNode }) => {
-  return <h3 css={[formSectionTitleStyles, lightH600Styles]}>{children}</h3>;
 };
 
 const FormSectionDescription = ({ children }: { children: ReactNode }) => {
@@ -67,7 +51,7 @@ const FormSectionDescription = ({ children }: { children: ReactNode }) => {
 const FormSection = ({ children, description, title }: FormSectionProps) => {
   return (
     <FormSectionWrapper>
-      {title && <FormSectionTitle>{title}</FormSectionTitle>}
+      {title && <Heading size="medium">{title}</Heading>}
       {description && (
         <FormSectionDescription>{description}</FormSectionDescription>
       )}

@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getFullyQualifiedTokenId } from '../../../src/utils/token-ids';
@@ -22,9 +22,9 @@ export const typescriptFormatter: Format['formatter'] = ({ dictionary }) => {
       .map((value) => ` | '${value}'`)
       .join('\n');
 
-    return prettier.format(
+    return format(
       `export type InternalTokenIds = ${activeTokenType};\n`,
-      { parser: 'typescript', singleQuote: true },
+      'typescript',
     );
   }
 

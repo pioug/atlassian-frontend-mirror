@@ -204,9 +204,16 @@ function createFileWithPath(filePath: string, content: string) {
     fs.mkdirSync(directoryPath, { recursive: true });
   }
 
-  const formatted = formatCode(content);
-  // Write the file
-  fs.writeFileSync(filePath, formatted);
+  try {
+    const formatted = formatCode(content);
+    // Write the file
+    fs.writeFileSync(filePath, formatted);
+  } catch (e) {
+    console.error(`Failed formatting code for file: ${filePath}
+
+This may be a problem with Prettier rather than code. Please check support channels for changes`);
+throw e;
+  }
 }
 
 // Function to update plugin files based on dependencies
@@ -456,8 +463,8 @@ async function run() {
       console.log('Dry run completed - no changes were made.');
     }
   } catch (error) {
-    console.error(error);
     console.error('FAILED TO UPDATE');
+    console.error(error);
   }
 }
 

@@ -9,6 +9,7 @@ import TooltipComponent from '../../examples/constellation/tooltip-component';
 import TooltipAvoidTitle from '../../examples/constellation/tooltip-avoid-title';
 import TooltipCustomization from '../../examples/constellation/tooltip-customization';
 import TooltipUpdate from '../../examples/constellation/tooltip-update';
+import TooltipPreventInteractions from '../../examples/constellation/tooltip-prevent-interactions';
 import TooltipRenderProps from '../../examples/constellation/tooltip-render-props';
 
 ## Default
@@ -52,6 +53,14 @@ Use `TooltipPrimitive` to customize the style of a default tooltip.
 When the content of a visible tooltip changes, its' position isn't recalculated and the tooltip may become misaligned. If you need the tooltip to recalculate its position you can control this manually using the `update` render prop.
 
 <Example Component={TooltipUpdate} packageName="@atlaskit/tooltip" />
+
+## Preventing tooltip interactions
+
+There are situations where the tooltip persisting on hover of the tooltip itself can obstruct interactions with another element.
+
+Set `ignoreTooltipPointerEvents` to true to prevent mouse interactions with the tooltip. This sets `pointer-events: none` on the tooltip.
+
+<Example Component={TooltipPreventInteractions} packageName="@atlaskit/tooltip" />
 
 ## Accessibility
 

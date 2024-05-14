@@ -54,6 +54,10 @@ const largeContainerStyles = xcss({
   },
 });
 
+const overflowItemsStyles = xcss({
+  color: 'color.text',
+});
+
 const MoreItemsPopup = ({
   moreLabel,
   testId,
@@ -94,7 +98,9 @@ const MoreItemsPopup = ({
         openOverflowMenu={openOverflowMenu}
         closeOverflowMenu={onMoreClose}
       >
-        {items}
+        <Box xcss={overflowItemsStyles}>
+          {items}
+        </Box>
       </OverflowProvider>
     ),
     [items, openOverflowMenu, onMoreClose],

@@ -3,14 +3,18 @@ import { FC, useCallback, useEffect, useState, CSSProperties } from 'react';
 
 import { jsx, css } from '@emotion/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Inline, Stack, Box, xcss } from '@atlaskit/primitives';
+import { Inline, Stack, Box, xcss, Text } from '@atlaskit/primitives';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { DEFAULT_APPEARANCE } from './constants';
-import { flagTextColor, flagBackgroundColor, flagIconColor } from './theme';
+import {
+  flagTextColor,
+  flagBackgroundColor,
+  flagIconColor,
+  flagTextColorToken,
+} from './theme';
 import type { FlagProps } from './types';
 
 import Actions from './flag-actions';
@@ -18,6 +22,17 @@ import { useFlagGroup } from './flag-group';
 import { Expander, DismissButton } from './internal';
 
 const CSS_VAR_ICON_COLOR = '--flag-icon-color';
+
+// For cases where a single word is longer than the container (e.g. filenames)
+const overflowWrapStyles = xcss({
+  overflowWrap: 'anywhere',
+});
+
+const descriptionStyles = css({
+  maxHeight: 100, // height is defined as 5 lines maximum by design
+  overflow: 'auto',
+  overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+});
 
 const iconWrapperStyles = css({
   display: 'flex',
@@ -172,14 +187,8 @@ const Flag: FC<FlagProps> = (props) => {
                 space="space.100"
                 spread="space-between"
               >
-                <Box paddingBlockStart="space.025">
-                  <Text
-                    color={textColor}
-                    fontWeight="semibold"
-                    UNSAFE_style={{
-                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                    }}
-                  >
+                <Box paddingBlockStart="space.025" xcss={overflowWrapStyles}>
+                  <Text color={textColor} weight="semibold">
                     {title}
                   </Text>
                 </Box>
@@ -198,18 +207,13 @@ const Flag: FC<FlagProps> = (props) => {
               {/* Normal appearance can't be expanded so isExpanded is always true */}
               <Expander isExpanded={!isBold || isExpanded} testId={testId}>
                 {description && (
-                  <Text
-                    as="div"
-                    color={textColor}
-                    UNSAFE_style={{
-                      maxHeight: 100, // height is defined as 5 lines maximum by design
-                      overflow: 'auto',
-                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                    }}
-                    testId={testId && `${testId}-description`}
+                  <div
+                    style={{ color: flagTextColorToken[appearance] }}
+                    css={descriptionStyles}
+                    data-testid={testId && `${testId}-description`}
                   >
                     {description}
-                  </Text>
+                  </div>
                 )}
                 <Actions
                   actions={actions}

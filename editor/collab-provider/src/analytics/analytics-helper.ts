@@ -1,6 +1,7 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
 import type { ProviderError } from '@atlaskit/editor-common/collab';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type {
   ActionAnalyticsEvent,
   ErrorAnalyticsEvent,
@@ -107,6 +108,12 @@ export default class AnalyticsHelper {
         errorName: error instanceof Error ? error.name : undefined,
         errorCode: (error as any).data?.code ?? undefined,
         errorStatus: (error as any).data?.status ?? undefined,
+        errorStack:
+          error instanceof Error &&
+          loggableErrorName.includes(error.name) &&
+          getBooleanFF('platform.editor.ncs.log-error-stacks')
+            ? error.stack
+            : undefined,
         originalErrorMessage: this.getUGCFreeErrorMessage(error),
         ...errorExtraAttributes,
       },

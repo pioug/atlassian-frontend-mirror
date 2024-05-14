@@ -8,10 +8,8 @@ import {
 import ColorCard from './ColorCard';
 import { getOptions, getWidth } from '../utils';
 import { css, jsx } from '@emotion/react';
-import { COLOR_CARD_SIZE } from '../constants';
 import { token } from '@atlaskit/tokens';
 import { N0, N40 } from '@atlaskit/theme/colors';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type Props = {
   /** color picker button label */
@@ -86,16 +84,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
         ]}
       >
         {options.map(({ label, value }) => (
-          <div
-            css={
-              getBooleanFF(
-                'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
-              )
-                ? colorCardWrapperStyles
-                : colorCardWrapperStylesOld
-            }
-            key={value}
-          >
+          <div css={colorCardWrapperStyles} key={value}>
             <ColorCard
               label={label}
               value={value}
@@ -117,12 +106,6 @@ export default withAnalyticsContext({
   packageName: process.env._PACKAGE_NAME_,
   packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));
-
-const colorCardWrapperStylesOld = css({
-  display: 'flex',
-  margin: token('space.025', '2px'),
-  height: `${COLOR_CARD_SIZE}px`,
-});
 
 const colorCardWrapperStyles = css({
   display: 'flex',

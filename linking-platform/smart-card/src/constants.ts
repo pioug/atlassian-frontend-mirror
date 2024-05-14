@@ -162,6 +162,14 @@ export enum ActionName {
   CustomAction = 'CustomAction',
 }
 
+export enum InternalActionName {
+  AISummaryAction = 'AISummaryAction',
+}
+
+export type FlexibleUiActionName =
+  | keyof typeof ActionName
+  | keyof typeof InternalActionName;
+
 /**
  * Flexible UI icons - each mapped to AK icons.
  */

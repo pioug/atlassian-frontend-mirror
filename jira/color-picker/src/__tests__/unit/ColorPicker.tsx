@@ -8,6 +8,7 @@ import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { IntlProvider } from 'react-intl-next';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFF = getBooleanFF as jest.MockedFunction<
@@ -26,11 +27,13 @@ describe('ColorPicker', () => {
       placement: 'bottom',
     };
     return render(
-      <ColorPicker
-        palette={palette}
-        onChange={mockFn}
-        popperProps={popperProps}
-      />,
+      <IntlProvider locale="en">
+        <ColorPicker
+          palette={palette}
+          onChange={mockFn}
+          popperProps={popperProps}
+        />
+      </IntlProvider>,
     );
   };
 
@@ -78,14 +81,14 @@ describe('ColorPicker', () => {
 
     test('should render ColorPicker', () => {
       const { getByLabelText } = renderUI();
-      const colorButton = getByLabelText('Color picker, Blue selected');
+      const colorButton = getByLabelText('Blue selected, Color picker');
 
       expect(colorButton).toBeInTheDocument();
     });
 
     test('should render ColorPickerMenu on ColorPicker click', async () => {
       const { getByLabelText, getAllByRole } = renderUI();
-      const colorButton = getByLabelText('Color picker, Blue selected');
+      const colorButton = getByLabelText('Blue selected, Color picker');
       expect(colorButton).toHaveAttribute('aria-expanded', 'false');
       expect(colorButton).toBeInTheDocument();
 

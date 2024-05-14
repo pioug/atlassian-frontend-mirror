@@ -445,6 +445,58 @@ export const runCommonHoverCardTests = (
       );
     });
 
+    describe('renders copy link action', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+        async () => {
+          const { findByTestId } = await setup();
+          const hoverCard = await findByTestId('hover-card');
+          const block = await within(hoverCard).findByTestId(
+            'smart-block-action',
+          );
+          const button = await within(block).findByTestId(
+            'smart-action-copy-link-action',
+          );
+          expect(button).toBeInTheDocument();
+        },
+        async () => {
+          const { findByTestId } = await setup();
+          const hoverCard = await findByTestId('hover-card');
+          const block = await within(hoverCard).findByTestId(
+            'smart-block-title-resolved-view',
+          );
+          const button = await within(block).findByTestId(
+            'hover-card-copy-button',
+          );
+          expect(button).toBeInTheDocument();
+        },
+      );
+
+      // This test can be removed on cleanup.
+      // https://product-fabric.atlassian.net/browse/EDM-9556
+      ffTest(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+        async () => {
+          // Does not render copy button on title block
+          const { findByTestId } = await setup();
+          const hoverCard = await findByTestId('hover-card');
+          const button = within(hoverCard).queryByTestId(
+            'hover-card-copy-button',
+          );
+          expect(button).not.toBeInTheDocument();
+        },
+        async () => {
+          // Does not render copy button on action block
+          const { findByTestId } = await setup();
+          const hoverCard = await findByTestId('hover-card');
+          const button = within(hoverCard).queryByTestId(
+            'smart-action-copy-link-action',
+          );
+          expect(button).not.toBeInTheDocument();
+        },
+      );
+    });
+
     describe('FF enableThemeStateUrl', () => {
       ffTest.on(
         'platform.linking-platform.smart-card.enable-theme-state-url',

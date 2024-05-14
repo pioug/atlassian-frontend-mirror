@@ -216,8 +216,8 @@ const catPlugin: NextEditorPlugin<'cat'> = () => {
 
 // @ts-ignore
 function TestEditor3() {
-  const { preset, editorApi } = usePreset(() => {
-    return new EditorPresetBuilder().add(catPlugin);
+  const { preset, editorApi } = usePreset((builder) => {
+    return builder.add(catPlugin);
   }, []);
 
   return (

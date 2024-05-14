@@ -15,7 +15,8 @@ import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   transformSliceToRemoveOpenBodiedExtension,
@@ -101,7 +102,7 @@ import { pluginKey } from './plugin-key';
 export const createPlugin = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
-  portalProviderAPI: PortalProviderAPI,
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   pluginConfig: PluginConfig,
   getEditorContainerWidth: GetEditorContainerWidth,
@@ -114,6 +115,7 @@ export const createPlugin = (
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   pluginInjectionApi?: PluginInjectionAPI,
   isTableScalingEnabled?: boolean,
+  isTableAlignmentEnabled?: boolean,
 ) => {
   const state = createPluginState(dispatch, {
     pluginConfig,

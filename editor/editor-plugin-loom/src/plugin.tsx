@@ -1,9 +1,11 @@
 import React from 'react';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type {
+  EditorCommand,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
@@ -27,6 +29,15 @@ export type LoomPlugin = NextEditorPlugin<
       HyperlinkPlugin,
     ];
     sharedState: LoomPluginState | undefined;
+    actions: {
+      recordVideo: ({
+        inputMethod,
+        editorAnalyticsAPI,
+      }: {
+        inputMethod: INPUT_METHOD;
+        editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+      }) => EditorCommand;
+    };
   }
 >;
 
@@ -35,6 +46,10 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
 
   return {
     name: 'loom',
+
+    actions: {
+      recordVideo,
+    },
 
     pmPlugins: () => [
       {
@@ -96,11 +111,11 @@ export const loomPlugin: LoomPlugin = ({ config, api }) => {
     },
 
     // Enable inserting Loom recordings through main toolbar
-    primaryToolbarComponent({ disabled }) {
+    primaryToolbarComponent({ disabled, appearance }) {
       if (!config.shouldShowToolbarButton) {
         return null;
       }
-      return <LoomToolbarButton disabled={disabled} api={api} />;
+      return <LoomToolbarButton disabled={disabled} api={api} appearance={appearance} />;
     },
   };
 };

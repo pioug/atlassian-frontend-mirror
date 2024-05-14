@@ -1,6 +1,10 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { TimeRange, TimeRangeProps } from '../../customMediaPlayer/timeRange';
+import { shallow } from 'enzyme';
+import {
+  TimeRange,
+  TimeRangeBase,
+  TimeRangeProps,
+} from '../../customMediaPlayer/timeRange';
 import {
   CurrentTimeLine,
   BufferedTime,
@@ -8,18 +12,22 @@ import {
   Thumb,
   TimeRangeWrapper,
 } from '../../customMediaPlayer/styled';
+import { mountWithIntlContext } from '../../test-helpers/mountWithIntlContext';
+import type { IntlShape } from 'react-intl-next';
 
 describe('<TimeRange />', () => {
   const setup = (props?: Partial<TimeRangeProps>) => {
     const onChange = jest.fn();
     const onChanged = jest.fn();
-    const component = mount(
+    const component = mountWithIntlContext(
       <TimeRange
         currentTime={10}
         duration={20}
         bufferedTime={5}
         onChange={onChange}
         onChanged={onChanged}
+        disableThumbTooltip={false}
+        isAlwaysActive={false}
         {...props}
       />,
     );
@@ -63,12 +71,15 @@ describe('<TimeRange />', () => {
     const onChange = jest.fn();
     const onChanged = jest.fn();
     const component = shallow(
-      <TimeRange
+      <TimeRangeBase
         currentTime={10}
         duration={20}
         bufferedTime={5}
         onChange={onChange}
+        disableThumbTooltip={false}
+        isAlwaysActive={false}
         onChanged={onChanged}
+        intl={{ locale: 'en' } as IntlShape}
       />,
     );
 

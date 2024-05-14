@@ -69,6 +69,7 @@ const InlineExtension = (props: Props) => {
           isNodeSelected={isNodeSelected}
           isNodeHovered={isNodeHovered}
           showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+          setIsNodeHovered={setIsNodeHovered}
         />
       )}
       <div

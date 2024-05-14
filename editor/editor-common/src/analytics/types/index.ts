@@ -53,6 +53,7 @@ export {
   TABLE_BREAKOUT,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
   TABLE_STATUS,
+  TABLE_DISPLAY_MODE,
 } from './table-events';
 export type { TableEventPayload, OverflowStateInfo } from './table-events';
 export { PasteContents, PasteSources, PasteTypes } from './paste-events';

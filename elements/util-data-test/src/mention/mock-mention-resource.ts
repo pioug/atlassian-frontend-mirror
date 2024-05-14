@@ -1,20 +1,19 @@
 import { Search } from 'js-search';
 
 import {
-  MentionDescription,
-  MentionsResult,
+  type MentionDescription,
+  type MentionsResult,
   AbstractMentionResource,
-  MentionNameResolver,
-  ResolvingMentionProvider,
-  MentionNameDetails,
+  type MentionNameResolver,
+  type ResolvingMentionProvider,
+  type MentionNameDetails,
   MentionNameStatus,
   SLI_EVENT_TYPE,
-  MentionProvider,
+  type MentionProvider,
 } from '@atlaskit/mention/resource';
 import {
-  InviteExperimentCohort,
-  InviteFlow,
-  UserRole,
+  type InviteFlow,
+  type UserRole,
 } from '@atlaskit/mention';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
@@ -24,7 +23,6 @@ export interface MockMentionConfig {
   minWait?: number;
   maxWait?: number;
   mentionNameResolver?: MentionNameResolver;
-  inviteExperimentCohort?: InviteExperimentCohort;
   productName?: string;
   shouldEnableInvite?: boolean;
   onInviteItemClick?: (flow: InviteFlow) => void;
@@ -42,7 +40,6 @@ export class MockMentionResource
   productName?: string;
   shouldEnableInvite: boolean;
   userRole: UserRole;
-  inviteExperimentCohort?: InviteExperimentCohort;
   onInviteItemClick?: (flow: InviteFlow) => void;
 
   constructor(config: MockMentionConfig) {
@@ -57,7 +54,6 @@ export class MockMentionResource
     this.lastReturnedSearch = 0;
     this.productName = config.productName;
     this.shouldEnableInvite = !!config.shouldEnableInvite;
-    this.inviteExperimentCohort = config.inviteExperimentCohort;
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
   }

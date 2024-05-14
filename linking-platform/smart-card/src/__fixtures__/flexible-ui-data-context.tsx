@@ -24,8 +24,13 @@ const context: FlexibleUiDataContext = {
         providerKey: 'object-provider',
       },
       value: true,
+      isProject: true,
     },
     CopyLinkAction: {
+      url: 'https://www.link-url.com',
+    },
+    AISummaryAction: {
+      product: 'CONFLUENCE',
       url: 'https://www.link-url.com',
     },
   },

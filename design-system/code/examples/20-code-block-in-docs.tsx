@@ -1,12 +1,21 @@
-import { code } from '@atlaskit/docs';
-
-export default () =>
-  code`highlight=5-7
 import React from 'react';
 
-() => (
-  <div>
-    hello there
-    <span>buds</span>
-  </div>
-)`;
+import { code } from '@atlaskit/docs';
+
+export default () => {
+  const exampleCode = code`highlight=5-7
+  import React from 'react';
+  
+  () => (
+    <div>
+      hello there
+      <span>buds</span>
+    </div>
+  )`;
+  return (
+    <>
+      <h2>Code block in docs</h2>
+      {exampleCode}
+    </>
+  );
+};

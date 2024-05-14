@@ -17,7 +17,7 @@ export interface WithAnalyticsEventsProps {
 const withAnalyticsEvents =
   (createEventMap: CreateEventMap = {}) =>
   <Props extends WithAnalyticsEventsProps, Component>(
-    WrappedComponent: React.JSXElementConstructor<Props> & Component,
+    WrappedComponent: React.ComponentType<Props> & Component,
   ) => {
     type WrappedProps = JSX.LibraryManagedAttributes<
       Component,
@@ -41,9 +41,7 @@ const withAnalyticsEvents =
       );
     });
 
-    // @ts-ignore
     WithAnalyticsEvents.displayName = `WithAnalyticsEvents(${
-      // @ts-ignore disneyName doesn't exist on type
       WrappedComponent.displayName || WrappedComponent.name
     })`;
 

@@ -149,6 +149,9 @@ export const buildToolbar = (
       getDomRef: view =>
         findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
       nodeType,
+      groupLabel: intl.formatMessage(
+        toolbarMessages.floatingToolbarRadioGroupAriaLabel,
+      ),
       items: [
         ...layoutTypes.map(i =>
           buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),

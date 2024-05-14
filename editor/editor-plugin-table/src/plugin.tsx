@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
+import {
+  table,
+  tableCell,
+  tableHeader,
+  tableRow,
+  tableStage0,
+} from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -35,6 +41,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -69,6 +76,7 @@ import {
   createPlugin as createTableWidthPlugin,
   pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
+import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import { getToolbarConfig } from './toolbar';
 import type {
   ColumnResizingPluginState,
@@ -80,6 +88,8 @@ import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingDragMenu from './ui/FloatingDragMenu';
 import FloatingInsertButton from './ui/FloatingInsertButton';
+import { FloatingToolbarLabel } from './ui/FloatingToolbarLabel/FloatingToolbarLabel';
+import { FullWidthDisplay } from './ui/TableFullWidthLabel';
 import { createTableWithWidth } from './utils';
 
 export interface TablePluginOptions {
@@ -92,6 +102,7 @@ export interface TablePluginOptions {
   wasFullWidthEnabled?: boolean;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
 }
 
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -125,12 +136,12 @@ export type TablePlugin = NextEditorPlugin<
       ) => EditorCommand;
     };
     dependencies: [
-      OptionalPlugin<AccessibilityUtilsPlugin>,
       AnalyticsPlugin,
       ContentInsertionPlugin,
       WidthPlugin,
       GuidelinePlugin,
       SelectionPlugin,
+      OptionalPlugin<AccessibilityUtilsPlugin>,
       OptionalPlugin<MediaPlugin>,
       OptionalPlugin<EditorViewModePlugin>,
     ];
@@ -223,8 +234,14 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
     },
 
     nodes() {
+      const tableNode =
+        options?.isTableScalingEnabled &&
+        getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+          ? tableStage0
+          : table;
+
       return [
-        { name: 'table', node: table },
+        { name: 'table', node: tableNode },
         { name: 'tableHeader', node: tableHeader },
         { name: 'tableRow', node: tableRow },
         { name: 'tableCell', node: tableCell },
@@ -251,7 +268,9 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               getEditorFeatureFlags,
               dragAndDropEnabled,
               isTableScalingEnabled,
+              isTableAlignmentEnabled,
             } = options || ({} as TablePluginOptions);
+
             return createPlugin(
               dispatchAnalyticsEvent,
               dispatch,
@@ -268,14 +287,19 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               editorAnalyticsAPI,
               api,
               isTableScalingEnabled,
+              isTableAlignmentEnabled,
             );
           },
         },
         {
           name: 'tablePMColResizing',
           plugin: ({ dispatch }) => {
-            const { fullWidthEnabled, tableOptions, getEditorFeatureFlags } =
-              options || ({} as TablePluginOptions);
+            const {
+              fullWidthEnabled,
+              tableOptions,
+              getEditorFeatureFlags,
+              isTableScalingEnabled,
+            } = options || ({} as TablePluginOptions);
             const { allowColumnResizing } = pluginConfig(tableOptions);
             return allowColumnResizing
               ? createFlexiResizingPlugin(
@@ -286,6 +310,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                   defaultGetEditorContainerWidth,
                   getEditorFeatureFlags || defaultGetEditorFeatureFlags,
                   editorAnalyticsAPI,
+                  isTableScalingEnabled || false,
                 )
               : undefined;
           },
@@ -360,6 +385,16 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           },
         },
         {
+          name: 'tableViewModeSort',
+          plugin: () => {
+            return getBooleanFF(
+              'platform.editor.table.live-pages-sorting_4malx',
+            ) && api?.editorViewMode
+              ? createViewModeSortPlugin(api.editorViewMode)
+              : undefined;
+          },
+        },
+        {
           name: 'tableLocalId',
           plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
         },
@@ -371,6 +406,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                   dispatch,
                   dispatchAnalyticsEvent,
                   options?.fullWidthEnabled ?? false,
+                  options?.isTableScalingEnabled ?? false,
                 )
               : undefined,
         },
@@ -387,9 +423,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         {
           name: 'tableAnalyticsPlugin',
           plugin: ({ dispatch, dispatchAnalyticsEvent }) =>
-            getBooleanFF('platform.editor.table.analytics-plugin-moved-event')
-              ? createTableAnalyticsPlugin(dispatch, dispatchAnalyticsEvent)
-              : undefined,
+            createTableAnalyticsPlugin(dispatch, dispatchAnalyticsEvent),
         },
         {
           name: 'tableGetEditorViewReferencePlugin',
@@ -453,7 +487,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
             }) => {
               const isColumnResizing = resizingPluginState?.dragging;
               const isTableResizing = tableWidthPluginState?.resizing;
+              const resizingTableLocalId = tableWidthPluginState?.tableLocalId;
+              const resizingTableRef = tableWidthPluginState?.tableRef;
               const isResizing = isColumnResizing || isTableResizing;
+              const widthToWidest = tablePluginState?.widthToWidest;
 
               const {
                 tableNode,
@@ -515,6 +552,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       getEditorContainerWidth={defaultGetEditorContainerWidth}
+                      getEditorFeatureFlags={
+                        options?.getEditorFeatureFlags ||
+                        defaultGetEditorFeatureFlags
+                      }
                     />
                   )}
                   {options?.allowContextualMenu && (
@@ -548,6 +589,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       editorAnalyticsAPI={editorAnalyticsAPI}
                       stickyHeaders={stickyHeader}
                       pluginConfig={pluginConfig}
+                      isTableScalingEnabled={options?.isTableScalingEnabled}
+                      getEditorFeatureFlags={
+                        options?.getEditorFeatureFlags ||
+                        defaultGetEditorFeatureFlags
+                      }
                     />
                   )}
                   {allowControls && !isDragAndDropEnabled && !isResizing && (
@@ -565,6 +611,23 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                       editorAnalyticsAPI={editorAnalyticsAPI}
                     />
                   )}
+                  {options?.isTableScalingEnabled &&
+                    isTableResizing &&
+                    widthToWidest &&
+                    resizingTableLocalId &&
+                    resizingTableRef &&
+                    widthToWidest[resizingTableLocalId] && (
+                      <FloatingToolbarLabel
+                        target={resizingTableRef}
+                        content={<FullWidthDisplay />}
+                        alignX={'center'}
+                        alignY={'bottom'}
+                        stick={true}
+                        forcePlacement={true}
+                        zIndex={akEditorFloatingPanelZIndex}
+                        offset={[0, 10]}
+                      />
+                    )}
                 </>
               );
             }}
@@ -586,11 +649,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
           action(insert, state) {
             // see comment on tablesPlugin.getSharedState on usage
             const tableState = api?.table?.sharedState.currentState();
-            const { isTableScalingEnabled = false } = getPluginState(state);
 
             const tr = insert(
               createTableWithWidth(
-                isTableScalingEnabled,
+                options?.isTableScalingEnabled,
                 tableState?.isFullWidthModeEnabled,
               )(state.schema),
             );
@@ -610,6 +672,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
         editorAnalyticsAPI,
         options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
         () => editorViewRef.current,
+        options,
       )(pluginConfig(options?.tableOptions)),
     },
   };

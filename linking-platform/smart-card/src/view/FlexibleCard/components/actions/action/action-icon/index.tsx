@@ -3,7 +3,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../../constants';
 import { getIconSizeStyles } from '../../../utils';
-import { ActionIconProps } from './types';
+import { type ActionIconProps } from './types';
 import { token } from '@atlaskit/tokens';
 
 const getIconWidth = (size?: SmartLinkSize): string => {
@@ -25,10 +25,8 @@ const getIconStyles = (isDisabled?: boolean) =>
       : token('color.icon', '#44546F'),
   });
 
-const backgroundStyles = css({
-  backgroundColor: token('color.background.brand.subtlest'),
-  borderRadius: token('border.radius.050'),
-  color: token('color.icon.brand'),
+const stackItemIconSizeStyles = getIconSizeStyles('20px');
+const stackItemIconStyles = css(stackItemIconSizeStyles, {
   display: 'inline-block',
   lineHeight: 0,
   padding: token('space.025'),
@@ -42,13 +40,14 @@ const ActionIcon: React.FC<ActionIconProps> = ({
   testId,
   icon,
   isDisabled,
-  showBackground,
+  asStackItemIcon,
 }) => (
   <span
     css={[
       getIconStyles(isDisabled),
-      getIconSizeStyles(getIconWidth(size)),
-      showBackground && backgroundStyles,
+      asStackItemIcon
+        ? stackItemIconStyles
+        : getIconSizeStyles(getIconWidth(size)),
     ]}
     data-testid={`${testId}-icon`}
   >

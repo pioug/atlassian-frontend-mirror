@@ -6,45 +6,45 @@ order: 3
 
 ## Upgrade from 4.x to 5.x
 
-In the v5 release was added ability to control expansion state of the tree-table.
+In the v5 release was added the ability to control the expansion state of the table tree.
 
-## Changes to the Props
+## Changes to the props
 
 ## Row
 
-- v5 - **isExpanded**: If set to true or false, turns component into stateless, that requires to control it's behavior with onExpand / onCollapse handlers.
-- v5 - **isDefaultExpanded**: New property that allows to control default expansion state of the row.
+- v5 - **isExpanded**: If set to `true` or `false`, it turns the component stateless, and requires you to control its' behavior with `onExpand` / `onCollapse` handlers.
+- v5 - **isDefaultExpanded**: A new property that allows you to control the default expansion state of the row.
 
 ## Upgrade from 1.x to 2.x
 
-In the v2 release the table-tree component does not maintain state anymore. A helper class \`TableTreeDataHelper\`
+In the v2 release the table tree component doesn't maintain state anymore. A helper class \`TableTreeDataHelper\`
 is exported that can help you maintain cache of the object keys and update table tree items object efficiently.
 
 ---
 
-## Changes to the Props
+## Changes to the props
 
 ### TableTree (Default export)
 
-- v2 - **items**: Array of data object to display in the Table Tree
-- v1 - **items**: (**_Deprecated_**) Function that will be used to provide data for rows at a particular level in the hierarchy
+- v2 - `items`: An array of data objects to display in the Table Tree
+- v1 - `items`: (**_Deprecated_**) Function that will be used to provide data for rows at a particular level in the hierarchy
 
 ### Rows:
 
-- v2 - **items**: Array of data object to display in the Table Tree
-- v1 - **items**: (**_Deprecated_**) Function that will be used to provide data for rows at a particular level in the hierarchy
+- v2 - `items`: An array of data objects to display in the Table Tree
+- v1 - `items`: (**_Deprecated_**) Function that will be used to provide data for rows at a particular level in the hierarchy
 
 ### Row:
 
-- [New Prop] **items** - Array of child objects for a particular parent
+- [New prop] `items`: An array of child objects for a particular parent
 
 ## Upgrade with static table data ( without async loading )
 
-In v2 API of table tree, the \`items\` prop on default export of tableTree, accepts the array of data to be presented
-in table tree. Moreover, the \`items\` prop is drilled down to Rows component ( exported from package ) , therefore, we
+In v2 API of table tree, the `items` prop on default export of tableTree, accepts the array of data to be presented
+in table tree. Also, the `items` prop is drilled down to Rows component (exported from package) , therefore, we
 can pass the table tree here in case we follow render props pattern.
 
-Additionally, a new prop \`items\` is added on Row component ( exported from package ), which accepts array of children object for particular
+Additionally, a new prop `items` is added on Row component (exported from package), which accepts array of children object for particular
 parent item.
 
 <!--See the example below:
@@ -71,13 +71,12 @@ pass the same as \`items\` in Row_
 
 ## Upgrade with Async loading of table data
 
-**Here we will discuss the helper class that we can use in case of Async data loading.**
-
-### Problem
+Here we will discuss the helper class that we can use for async data loading.
 
 We can use the nested table data structure where each item has a children property referencing it's children object.
-However, in case of async loading we will not have children items for a particular parent item. Therefore, once we load the
-the children item we need to traverse the table tree object and update the children property in the particular parent item. As
+However, in case of async loading we won't have children items for a particular parent item.
+
+Therefore, once we load the children item we need to traverse the table tree object and update the children property in the particular parent item. As
 the table tree data object grows we will hit performance bottle neck in traversing table tree object.
 
 Example table data
@@ -101,7 +100,7 @@ Example table data
 ]
 ```
 
-_To overcome this performance bottle neck we recommend creating a cache with unique identifier in the item and path to the item, so that
+_To overcome this performance bottleneck we recommend creating a cache with a unique identifier in the item and path to the item, so that
 we can travel the item tree quickly to update, to do this we provide a helper class \`TableTreeDataHelper\`_
 
 ### Recommendation
@@ -113,7 +112,7 @@ item objects.
 const tableTreeDataHelper = new TableTreeDataHelper('keyId');
 ```
 
-Then to build cache and get items to be used in component just do:
+Then to build cache and get items to be used in component:
 
 ```
 tableTreeDataHelper.updateItems(<_items_to_add>, <_current_items_>, <_parent_item_for_item_to_be_added_>);

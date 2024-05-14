@@ -50,12 +50,11 @@ ${(<AtlassianInternalWarning />)}
 
 ${code`
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 
 const CommentEditor = () => {
-  const { preset } = usePreset(() => new EditorPresetBuilder().add(basePlugin));
+  const { preset } = usePreset((builder) => builder.add(basePlugin));
 
   return <ComposableEditor preset={preset} />;
 };
@@ -405,7 +404,7 @@ ${(
     <Props
       shouldCollapseProps
       heading="Props"
-      props={require('!!extract-react-types-loader!../src/composable-editor')}
+      props={require('!!extract-react-types-loader!../src/composable-editor/editor')}
     />
   )}
 

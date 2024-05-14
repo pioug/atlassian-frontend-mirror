@@ -100,4 +100,37 @@ test.describe('table', () => {
     }
     await expect(floatingToolbarModel.toolbar).toBeVisible();
   });
+
+  test.describe('full page height', () => {
+    test.use({
+      editorProps: {
+        appearance: 'full-page',
+        allowTables: true,
+      },
+      adf: tableAdf,
+    });
+
+    /**
+     * Test to prevent surplus white space from reappearing at the bottom of the editor
+     * @see https://product-fabric.atlassian.net/browse/ED-10388
+     *
+     * The toolbar + content area should match the total editor area.
+     */
+    test('the toolbar and content area should match the total editor height', async ({
+      editor,
+    }) => {
+      const totalEditorBox = await editor.page
+        .locator('.akEditor')
+        .boundingBox();
+      const contentAreaBox = await editor.page
+        .getByTestId('ak-editor-fp-content-area')
+        .boundingBox();
+      const toolbarBox = await editor.page
+        .getByTestId('ak-editor-main-toolbar')
+        .boundingBox();
+      expect(contentAreaBox!.height + toolbarBox!.height).toBe(
+        totalEditorBox!.height,
+      );
+    });
+  });
 });

@@ -16,7 +16,7 @@ const NestedDropdown = () => {
           ref={triggerRef}
           elemAfter={
             <ChevronRightIcon
-              primaryColor={token('color.icon.subtle', '')}
+              primaryColor={token('color.icon.subtle')}
               label=""
             />
           }

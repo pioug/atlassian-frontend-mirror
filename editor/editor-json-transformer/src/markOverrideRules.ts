@@ -33,6 +33,7 @@ export const markOverrideRuleFor: MarkOverrideRules = (type) => {
     case 'underline':
     case 'code':
     case 'textColor':
+    case 'backgroundColor':
     case 'confluenceInlineComment':
     case 'breakout':
     case 'alignment':

@@ -69,22 +69,22 @@ export const generateColgroup = (table: PmNode, tableRef?: HTMLElement) => {
 };
 
 export const insertColgroupFromNode = (
-  tableRef: HTMLTableElement,
+  tableRef: HTMLTableElement | null,
   table: PmNode,
   isTableScalingEnabled = false,
   shouldRemove = true,
 ): HTMLCollection => {
-  let colgroup = tableRef.querySelector('colgroup') as HTMLElement;
+  let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
   if (colgroup && shouldRemove) {
-    tableRef.removeChild(colgroup);
+    tableRef?.removeChild(colgroup);
   }
 
   colgroup = renderColgroupFromNode(
     table,
-    isTableScalingEnabled ? tableRef : undefined,
+    isTableScalingEnabled ? tableRef ?? undefined : undefined,
   );
   if (shouldRemove) {
-    tableRef.insertBefore(colgroup, tableRef.firstChild);
+    tableRef?.insertBefore(colgroup, tableRef?.firstChild);
   }
 
   return colgroup.children;

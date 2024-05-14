@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import {
-  ActionItem,
-  NamedDataActionItem,
+  type ActionItem,
+  type NamedDataActionItem,
 } from '../../../../FlexibleCard/components/blocks/types';
 import {
   ActionName,
@@ -21,6 +21,7 @@ import {
   AISummaryBlock,
   CustomBlock,
   ActionBlock,
+  AIFooterBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import {
   footerBlockCss,
@@ -28,15 +29,14 @@ import {
   metadataBlockCss,
 } from './styled';
 import FlexibleCard from '../../../../FlexibleCard';
-import { getSimulatedBetterMetadata } from '../../../utils';
-import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
+import { getMetadata } from '../../../utils';
+import { type LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import {
-  CustomActionItem,
-  ElementItem,
+  type CustomActionItem,
+  type ElementItem,
 } from '../../../../FlexibleCard/components/blocks/types';
 import ImagePreview from '../../ImagePreview';
-import { elementNamesToItems } from '../../../../../extractors/hover/extractMetadata';
-import { HoverCardResolvedProps } from './types';
+import { type HoverCardResolvedProps } from './types';
 import { messages } from '../../../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -46,6 +46,7 @@ import { extractAri, extractLink } from '@atlaskit/link-extractors';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { SmartLinkStatus } from '../../../../../constants';
 import { di } from 'react-magnetic-di';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
 export const toFooterActions = (
   cardActions: LinkAction[],
@@ -94,7 +95,7 @@ const ConnectedAIBlock = ({
   imagePreview,
   data,
 }: {
-  bottomPrimary: ElementItem[];
+  bottomPrimary?: ElementItem[];
   imagePreview: boolean;
   data: JsonLd.Data.BaseData;
 }) => {
@@ -102,11 +103,17 @@ const ConnectedAIBlock = ({
 
   const dataUrl = data ? extractLink(data) : null;
   const dataAri = data ? extractAri(data) : null;
-  const { product } = useSmartLinkContext();
+  const { product, connections } = useSmartLinkContext();
 
   const {
     state: { status, content },
-  } = useAISummary({ url: dataUrl || '', ari: dataAri || '', product });
+  } = useAISummary({
+    url: dataUrl || '',
+    ari: dataAri || '',
+    product,
+    envKey: connections.client.envKey as EnvironmentsKeys,
+    baseUrl: connections.client.baseUrlOverride,
+  });
 
   const showData =
     status === 'ready' ||
@@ -122,18 +129,22 @@ const ConnectedAIBlock = ({
           status={SmartLinkStatus.Resolved}
         />
       )}
-      <MetadataBlock
-        primary={bottomPrimary}
-        size={SmartLinkSize.Large}
-        overrideCss={metadataBlockCss}
-        maxLines={1}
-        status={SmartLinkStatus.Resolved}
-      />
+      {!getBooleanFF(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+      ) && (
+        <MetadataBlock
+          primary={bottomPrimary}
+          size={SmartLinkSize.Large}
+          overrideCss={metadataBlockCss}
+          maxLines={1}
+          status={SmartLinkStatus.Resolved}
+        />
+      )}
     </>
   ) : null;
 };
 
-const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
+const HoverCardResolvedView = ({
   flexibleCardProps,
   titleBlockProps,
   analytics,
@@ -143,7 +154,7 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   onActionClick,
   extensionKey,
   url,
-}) => {
+}: HoverCardResolvedProps) => {
   const canBeDatasource = getCanBeDatasource(cardState.details);
   useEffect(() => {
     // Since this hover view is only rendered on resolved status,
@@ -162,17 +173,8 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
 
-  const { topPrimary, topSecondary, bottomPrimary } = useMemo(() => {
-    const betterMetadata = getSimulatedBetterMetadata(extensionKey, data);
-    return {
-      topPrimary: elementNamesToItems(betterMetadata.topMetadataBlock.primary),
-      topSecondary: elementNamesToItems(
-        betterMetadata.topMetadataBlock.secondary,
-      ),
-      bottomPrimary: elementNamesToItems(
-        betterMetadata.bottomMetadataBlock.primary,
-      ),
-    };
+  const { primary, secondary, tertiary } = useMemo(() => {
+    return getMetadata(extensionKey, data);
   }, [data, extensionKey]);
 
   const snippetHeight = React.useRef<number>(0);
@@ -196,20 +198,29 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
     fallbackElementHeight: snippetHeight.current,
   });
 
+  const isActionBlockEnabled = getBooleanFF(
+    'platform.linking-platform.smart-card.hover-card-action-redesign',
+  )
+    ? true
+    : false;
+
   return (
     <FlexibleCard {...flexibleCardProps}>
       {imagePreview}
+
       <TitleBlock
         {...titleBlockProps}
         metadataPosition={SmartLinkPosition.Top}
       />
+
       <MetadataBlock
-        primary={topPrimary}
-        secondary={topSecondary}
+        primary={primary}
+        secondary={secondary}
         overrideCss={metadataBlockCss}
         maxLines={1}
         size={SmartLinkSize.Medium}
       />
+
       {/* The isAISummaryEnabled setting depends on the status of the feature flag (FF) 'platform.linking-platform.smart-card.hover-card-ai-summaries'.
       It will always be false if this FF is disabled. */}
       {isAISummaryEnabled && (
@@ -222,48 +233,60 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
         >
           <ConnectedAIBlock
             imagePreview={!!imagePreview}
-            bottomPrimary={bottomPrimary}
+            bottomPrimary={tertiary}
             data={data}
           />
         </CustomBlock>
       )}
+
       {!isAISummaryEnabled && !imagePreview && (
         <SnippetBlock status={SmartLinkStatus.Resolved} />
       )}
+
       <SnippetBlock
         testId={'hidden-snippet'}
         onRender={onSnippetRender}
         blockRef={snippetBlockRef}
         overrideCss={hiddenSnippetStyles}
       />
-      {!isAISummaryEnabled && (
+
+      {!isAISummaryEnabled && !isActionBlockEnabled && (
         <MetadataBlock
-          primary={bottomPrimary}
+          primary={tertiary}
           size={SmartLinkSize.Large}
           overrideCss={metadataBlockCss}
           maxLines={1}
           status={SmartLinkStatus.Resolved}
         />
       )}
+
       {getBooleanFF(
         'platform.linking-platform.smart-card.enable-hover-card-related-urls',
       ) && <RelatedUrlsBlock url={url} size={SmartLinkSize.Small} />}
-      {isAISummaryEnabled ? (
+
+      {isAISummaryEnabled && (
         <AISummaryBlock
           metadata={[{ name: ElementName.Provider }]}
           actions={footerActions}
           aiSummaryMinHeight={connectedAIBlockHeight.current}
         />
-      ) : (
+      )}
+
+      {isActionBlockEnabled && (
+        <ActionBlock onClick={onActionClick} spaceInline="space.100" />
+      )}
+
+      {isActionBlockEnabled && (
+        <AIFooterBlock />
+      )}
+
+      {!isAISummaryEnabled && !isActionBlockEnabled && (
         <FooterBlock
           actions={footerActions}
           size={SmartLinkSize.Large}
           overrideCss={footerBlockCss}
         />
       )}
-      {getBooleanFF(
-        'platform.linking-platform.smart-card.hover-card-action-redesign',
-      ) && <ActionBlock spaceInline="space.150" onClick={onActionClick} />}
     </FlexibleCard>
   );
 };

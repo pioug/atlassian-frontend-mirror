@@ -1,5 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
+import format from '@af/formatting/sync';
 
 import { capitalize } from './utils';
 
@@ -39,7 +38,7 @@ export const createDimensionStylesFromTemplate = (
   const { cssProperty } = dimensionProperties[spacingProperty];
 
   return (
-    prettier.format(
+    format(
       `
 const ${spacingProperty}Map = {
   ${activeTokens
@@ -49,12 +48,7 @@ const ${spacingProperty}Map = {
     })
     .join(',\n\t')}
 };`,
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        parser: 'typescript',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) +
     `\nexport type ${capitalize(
       spacingProperty,

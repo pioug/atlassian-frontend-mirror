@@ -7,7 +7,7 @@ import { Snippet } from '../../elements';
 import { getMaxLines } from '../../utils';
 
 const DEFAULT_MAX_LINES = 3;
-const MAXIMUM_MAX_LINES = 3;
+const MAXIMUM_MAX_LINES = 6;
 const MINIMUM_MAX_LINES = 1;
 
 /**

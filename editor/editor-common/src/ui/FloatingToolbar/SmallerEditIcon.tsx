@@ -3,9 +3,9 @@ import { css, jsx } from '@emotion/react';
 
 import EditIcon from '@atlaskit/icon/glyph/edit';
 
-const editIconStyles = css`
-  width: 20px;
-`;
+const editIconStyles = css({
+  width: '20px',
+});
 
 /* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 export const SmallerEditIcon = () => {

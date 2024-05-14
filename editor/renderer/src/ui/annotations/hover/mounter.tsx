@@ -16,6 +16,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { ProvidersContext } from '../context';
 
 type Props = {
   range: Range;
@@ -51,6 +52,10 @@ export const Mounter = React.memo((props: Props) => {
     useState<Position | null>();
 
   const actions = useContext(ActionsContext);
+  const providers = useContext(ProvidersContext);
+  const isCommentsOnMediaBugFixEnabled = Boolean(
+    providers?.inlineComment.isCommentsOnMediaBugFixEnabled,
+  );
 
   const onCreateCallback = useCallback(
     (annotationId: string) => {
@@ -75,6 +80,7 @@ export const Mounter = React.memo((props: Props) => {
       return applyAnnotation(
         draftDocumentPosition || documentPosition,
         annotation,
+        isCommentsOnMediaBugFixEnabled,
       );
     },
     [
@@ -83,6 +89,7 @@ export const Mounter = React.memo((props: Props) => {
       applyAnnotation,
       draftDocumentPosition,
       createAnalyticsEvent,
+      isCommentsOnMediaBugFixEnabled,
     ],
   );
 

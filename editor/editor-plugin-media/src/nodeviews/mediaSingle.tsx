@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import type { MouseEvent } from 'react';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -20,13 +20,14 @@ import {
   getMaxWidthForNestedNode,
   MEDIA_SINGLE_GUTTER_SIZE,
 } from '@atlaskit/editor-common/media-single';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
 import {
@@ -60,7 +61,6 @@ import type {
 } from '../types';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { CommentBadge } from '../ui/CommentBadge';
-import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
@@ -308,7 +308,6 @@ export default class MediaSingleNode extends Component<
       lineLength,
       dispatchAnalyticsEvent,
       editorViewMode,
-      mediaPluginState,
       editorDisabled,
       annotationPluginState,
     } = this.props;
@@ -413,11 +412,31 @@ export default class MediaSingleNode extends Component<
       }
     }
 
-    const shouldShowPlaceholder =
+    const isBadgePosOffsetRight = () => {
+      const pos = getPos();
+      if (pos !== undefined) {
+        const $pos = view.state.doc.resolve(pos);
+        const { table } = view.state.schema.nodes;
+        const foundTableNode = findParentNodeOfTypeClosestToPos($pos, [table]);
+        return foundTableNode ? '2px' : '14px';
+      }
+    };
+
+    const badgeOffsetRight = isBadgePosOffsetRight();
+
+    let shouldShowPlaceholder =
       mediaOptions.allowCaptions &&
       node.childCount !== 2 &&
       isSelected &&
       state.selection instanceof NodeSelection;
+
+    if (
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      )
+    ) {
+      shouldShowPlaceholder = !editorDisabled && shouldShowPlaceholder;
+    }
 
     const isCurrentNodeDrafting =
       annotationPluginState?.isDrafting &&
@@ -432,11 +451,13 @@ export default class MediaSingleNode extends Component<
       >
         {commentsOnMedia && (
           <CommentBadge
+            commentsOnMediaBugFixEnabled={mediaOptions?.getEditorFeatureFlags?.()?.commentsOnMediaBugFix}
             view={view}
             api={
               pluginInjectionApi as ExtractInjectionAPI<MediaNextEditorPluginType>
             }
             mediaNode={node?.firstChild}
+            badgeOffsetRight={badgeOffsetRight}
             getPos={getPos}
             isDrafting={isCurrentNodeDrafting}
           />
@@ -452,13 +473,7 @@ export default class MediaSingleNode extends Component<
     );
 
     return (
-      <MediaViewerContainer
-        mediaPluginState={mediaPluginState}
-        isEditorViewMode={editorViewMode}
-        mediaNode={node}
-        isSelected={isSelected}
-        isInline={false}
-      >
+      <Fragment>
         {canResize ? (
           getBooleanFF('platform.editor.media.extended-resize-experience') ? (
             <ResizableMediaSingleNext
@@ -485,7 +500,7 @@ export default class MediaSingleNode extends Component<
             {MediaChildren}
           </MediaSingle>
         )}
-      </MediaViewerContainer>
+      </Fragment>
     );
   }
 
@@ -741,7 +756,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
 export const ReactMediaSingleNode =
   (
-    portalProviderAPI: PortalProviderAPI,
+    portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     pluginInjectionApi:

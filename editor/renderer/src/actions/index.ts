@@ -50,6 +50,7 @@ export interface RendererActionsOptions {
 export type ApplyAnnotation = (
   pos: Position,
   annotation: Annotation,
+  isCommentsOnMediaBugFixEnabled?: boolean,
 ) => AnnotationActionResult;
 
 export interface AnnotationsRendererActionsOptions {
@@ -238,12 +239,16 @@ export default class RendererActions
     return this._privateValidatePositionsForAnnotation(pos.from, pos.to);
   }
 
-  getPositionFromRange(range: Range | null): Position | false {
+  getPositionFromRange(
+    range: Range | null,
+    isCommentsOnMediaBugFixEnabled?: boolean,
+    isCommentsOnMediaBugVideoComment?: boolean,
+  ): Position | false {
     if (!this.doc || !this.schema || !range) {
       return false;
     }
 
-    return getPosFromRange(range);
+    return getPosFromRange(range, isCommentsOnMediaBugFixEnabled, isCommentsOnMediaBugVideoComment);
   }
 
   getAnnotationMarks() {
@@ -297,6 +302,8 @@ export default class RendererActions
   applyAnnotation(
     pos: Position,
     annotation: Annotation,
+    isCommentsOnMediaBugFixEnabled?: boolean,
+    isCommentsOnMediaBugVideoCommentEnabled?: boolean,
   ): AnnotationActionResult {
     if (!this.doc || !pos || !this.schema) {
       return false;
@@ -304,12 +311,18 @@ export default class RendererActions
     const { from, to } = pos;
     const { annotationId, annotationType } = annotation;
     let step;
+    let targetNodeType;
 
-    // If from points to a node position,
-    // we need to 1 position before it for nodeAt to return the node itself
-    const beforeNodePos = Math.max(from - 1, 0);
+    const beforeNodePos = isCommentsOnMediaBugFixEnabled
+      ? // As part of fix for RAP, `from` points to the position right before media node
+        // hence, -1 is not needed
+        from
+      : // If from points to a node position,
+        // we need to 1 position before it for nodeAt to return the node itself
+        Math.max(from - 1, 0);
     const possibleNode = this.doc.nodeAt(beforeNodePos);
     if (possibleNode?.type.name === 'media') {
+      targetNodeType = 'media';
       step = new AddNodeMarkStep(
         beforeNodePos,
         this.schema.marks.annotation.create({
@@ -318,6 +331,7 @@ export default class RendererActions
         }),
       );
     } else {
+      targetNodeType = 'text';
       step = createAnnotationStep(from, to, {
         annotationId,
         annotationType,
@@ -346,6 +360,7 @@ export default class RendererActions
       numMatches,
       matchIndex,
       pos: blockNodePos,
+      ...(isCommentsOnMediaBugFixEnabled && { targetNodeType }),
     };
   }
 

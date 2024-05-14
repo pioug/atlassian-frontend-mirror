@@ -20,6 +20,7 @@ import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
+import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 
 import {
   CODE_MACRO,
@@ -144,6 +145,9 @@ class Example extends Component<ExampleProps, ExampleState> {
             <WithEditorActions
               render={(actions) => (
                 <Editor
+                  dangerouslyAppendPlugins={{
+                    __plugins: [highlightPlugin({ config: undefined })],
+                  }}
                   appearance="full-page"
                   allowTextColor={true}
                   allowTables={{

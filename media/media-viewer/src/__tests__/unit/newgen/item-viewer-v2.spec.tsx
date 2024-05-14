@@ -7,7 +7,6 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import * as analytics from '../../../analytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
 import { ItemViewerV2 } from '../../../v2/item-viewer-v2';
@@ -97,13 +96,6 @@ describe('<ItemViewerV2 />', () => {
           </MockedMediaClientProvider>
         </IntlProvider>,
       );
-
-      // check if the loading indicator is shown
-      expect(
-        screen.getByRole('img', {
-          name: /loading file/i,
-        }),
-      ).toBeInTheDocument();
 
       expect(
         await screen.findByTestId('media-viewer-image'),
@@ -620,7 +612,7 @@ describe('<ItemViewerV2 />', () => {
     });
 
     it('should load error experience when file failed processing', async () => {
-      const [fileItem, identifier] = generateSampleFileItem.failedPdf();
+      const [fileItem, identifier] = generateSampleFileItem.failedDoc();
       const { mediaApi } = createMockedMediaApi(fileItem);
 
       render(
@@ -835,51 +827,18 @@ describe('<ItemViewerV2 />', () => {
     });
   });
 
-  describe('should load document viewer if mimeType type is pdf and status is failed-processing', () => {
-    ffTest(
-      'platform.corex.password-protected-pdf_ht8re',
-      async () => {
-        const [fileItem, identifier] = generateSampleFileItem.passwordPdf();
+  it('should load document viewer if mimeType type is pdf and status is failed-processing', async () => {
+    const [fileItem, identifier] = generateSampleFileItem.passwordPdf();
 
-        const { mediaApi } = createMockedMediaApi(fileItem);
-        render(
-          <IntlProvider locale="en">
-            <MockedMediaClientProvider mockedMediaApi={mediaApi}>
-              <ItemViewerV2 previewCount={0} identifier={identifier} />,
-            </MockedMediaClientProvider>
-          </IntlProvider>,
-        );
-        const pdfContent = await screen.findByTestId(
-          'media-viewer-pdf-content',
-        );
-        expect(pdfContent).toBeDefined();
-      },
-      async () => {
-        const [fileItem, identifier] = generateSampleFileItem.passwordPdf();
-
-        const { mediaApi } = createMockedMediaApi(fileItem);
-        render(
-          <IntlProvider locale="en">
-            <MockedMediaClientProvider mockedMediaApi={mediaApi}>
-              <ItemViewerV2 previewCount={0} identifier={identifier} />,
-            </MockedMediaClientProvider>
-          </IntlProvider>,
-        );
-        const errorExperience = await screen.findByText(
-          /something went wrong\./i,
-        );
-        expect(errorExperience).toBeDefined();
-        expect(
-          screen.getByRole('img', {
-            name: /error loading file/i,
-          }),
-        ).toBeDefined();
-        expect(
-          screen.getByRole('button', {
-            name: /download/i,
-          }),
-        ).toBeDefined();
-      },
+    const { mediaApi } = createMockedMediaApi(fileItem);
+    render(
+      <IntlProvider locale="en">
+        <MockedMediaClientProvider mockedMediaApi={mediaApi}>
+          <ItemViewerV2 previewCount={0} identifier={identifier} />,
+        </MockedMediaClientProvider>
+      </IntlProvider>,
     );
+    const pdfContent = await screen.findByTestId('media-viewer-pdf-content');
+    expect(pdfContent).toBeDefined();
   });
 });

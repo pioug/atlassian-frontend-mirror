@@ -1,10 +1,6 @@
 import { API, JSXElement, JSXAttribute, JSXSpreadAttribute } from 'jscodeshift';
-import { addCommentBefore } from '@atlaskit/codemod-utils';
 
-import {
-  NEW_BUTTON_VARIANTS,
-  iconPropsNoLongerSupportedComment,
-} from '../utils/constants';
+import { NEW_BUTTON_VARIANTS } from '../utils/constants';
 
 export const getIconAttributes = (
   attributes: (JSXAttribute | JSXSpreadAttribute)[],
@@ -34,81 +30,128 @@ export const getIconElement = (iconAttr: JSXAttribute) => {
   return null;
 };
 
-export const moveSizeAndLabelAttributes = (
+/**
+ * We need to do a couple of things here:
+ *
+ * 1. If an icon attribute has a label, elevate it to the root button element
+ * 2. If an icon doesn't have any other attributes, move to bounded API:
+ *      {<MoreIcon />} -> {MoreIcon}
+ * 3. If an icon has attributes other than label, move to renderProp:
+ *      {<MoreIcon primaryColor />} -> {() => <MoreIcon primaryColor />}
+ *
+ * @param element
+ * @param j
+ * @param iconRenamed
+ */
+export const handleIconAttributes = (
   element: JSXElement,
   j: API['jscodeshift'],
   iconRenamed: boolean = false,
 ) => {
-  const { attributes } = element.openingElement;
+  const { attributes: buttonAttributes } = element.openingElement;
 
-  const iconAttrs = attributes && getIconAttributes(attributes);
-  iconAttrs?.forEach((iconAttr) => {
-    const iconElement = getIconElement(iconAttr);
+  // Get iconBefore and iconAfter attributes
+  const buttonIconAttributes =
+    buttonAttributes && getIconAttributes(buttonAttributes);
+
+  buttonIconAttributes?.forEach((iconAttribute) => {
+    let iconElement = getIconElement(iconAttribute);
     if (!iconElement) {
       return;
     }
-    const iconJSXElementAttributes = iconElement.openingElement.attributes;
-    // add inlined comment to the icon if it has any attributes other than label and size
-    if (Array.isArray(iconJSXElementAttributes)) {
-      const ifIconAttributeEitherLabelOrSize = iconJSXElementAttributes?.every(
-        (attribute) =>
-          attribute.type === 'JSXAttribute' &&
-          typeof attribute.name.name === 'string' &&
-          (attribute.name.name === 'size' || attribute.name.name === 'label'),
-      );
-      if (!ifIconAttributeEitherLabelOrSize) {
-        addCommentBefore(
-          j,
-          j(iconAttr),
-          iconPropsNoLongerSupportedComment,
-          'line',
-        );
-      }
+    const iconAttributes = iconElement.openingElement.attributes;
 
-      // move label and size attributes from icon to the root Button prop
-      const buttonAlreadyHasLabelProp = attributes?.find(
+    if (!Array.isArray(iconAttributes)) {
+      return;
+    }
+
+    // 1. Move label to root button element, only if label doesn't exist already. Button label
+    // takes precedence over icon label.
+
+    const buttonAlreadyHasLabelProp = buttonAttributes?.find(
+      (buttonAttribute) =>
+        buttonAttribute.type === 'JSXAttribute' &&
+        buttonAttribute.name.name === 'label',
+    );
+
+    if (!buttonAlreadyHasLabelProp) {
+      const labelAttribute = iconAttributes.find(
         (attribute) =>
           attribute.type === 'JSXAttribute' && attribute.name.name === 'label',
       );
-
-      if (!buttonAlreadyHasLabelProp) {
-        const labelAttribute = iconJSXElementAttributes.find(
-          (attribute) =>
-            attribute.type === 'JSXAttribute' &&
-            attribute.name.name === 'label',
-        );
-        if (
-          labelAttribute &&
-          labelAttribute.type === 'JSXAttribute' &&
-          iconRenamed
-        ) {
-          attributes?.push(labelAttribute);
-        }
-      }
-
-      const sizeAttribute = iconJSXElementAttributes.find(
-        (attribute) =>
-          attribute.type === 'JSXAttribute' &&
-          attribute.name.name === 'size' &&
-          attribute.value?.type === 'StringLiteral' &&
-          attribute.value?.value !== 'medium',
-      );
-      if (sizeAttribute && sizeAttribute.type === 'JSXAttribute') {
-        sizeAttribute.name.name = iconRenamed
-          ? 'UNSAFE_size'
-          : `UNSAFE_${iconAttr.name.name}_size`;
-        attributes?.push(sizeAttribute);
+      if (
+        labelAttribute &&
+        labelAttribute.type === 'JSXAttribute' &&
+        iconRenamed
+      ) {
+        buttonAttributes?.unshift(labelAttribute);
       }
     }
 
-    // replace JSXElement with identifier {<MoreIcon />} => {MoreIcon}
-    if (
-      iconElement.openingElement.name.type === 'JSXIdentifier' &&
-      iconAttr.value?.type === 'JSXExpressionContainer'
-    ) {
-      iconAttr.value.expression = j.identifier(
-        iconElement.openingElement.name.name,
+    // 2. If there are any other props on icon, move to render prop
+    const attributesOtherThanLabelOrMediumSize = iconAttributes.filter(
+      (iconAttribute) => {
+        // Exclude size="medium"
+        if (
+          iconAttribute.type === 'JSXAttribute' &&
+          iconAttribute.name.name === 'size' &&
+          iconAttribute.value?.type === 'StringLiteral' &&
+          iconAttribute.value?.value === 'medium'
+        ) {
+          return false;
+        }
+
+        // Exclude label
+        if (
+          iconAttribute.type === 'JSXAttribute' &&
+          iconAttribute.name.name === 'label'
+        ) {
+          return false;
+        }
+
+        return true;
+      },
+    );
+
+    if (attributesOtherThanLabelOrMediumSize.length > 0) {
+      // Move to render prop: `<MoreIcon primaryColor />` -> `(props) => <MoreIcon {...props} primaryColor />`
+
+      // Remove label and size="medium" attributes
+      j(iconElement.openingElement)
+        .find(j.JSXAttribute)
+        .filter(
+          (attribute) =>
+            attribute.value.name.name === 'label' ||
+            (attribute.value.type === 'JSXAttribute' &&
+              attribute.value.name.name === 'size' &&
+              attribute.value.value &&
+              attribute.value.value.type === 'StringLiteral' &&
+              attribute.value.value.value === 'medium') ||
+            false,
+        )
+        .remove();
+
+      // Add spread props
+      iconAttributes.unshift(j.jsxSpreadAttribute(j.identifier('iconProps')));
+
+      // Create new arrow function (renderProp)
+      iconAttribute.value = j.jsxExpressionContainer(
+        j.arrowFunctionExpression.from({
+          params: [j.identifier('iconProps')],
+          body: iconElement,
+          expression: true,
+        }),
       );
+    } else {
+      // Move to bounded API: {<MoreIcon />} => {MoreIcon}
+      if (
+        iconElement.openingElement.name.type === 'JSXIdentifier' &&
+        iconAttribute.value?.type === 'JSXExpressionContainer'
+      ) {
+        iconAttribute.value.expression = j.identifier(
+          iconElement.openingElement.name.name,
+        );
+      }
     }
   });
 };
@@ -126,7 +169,7 @@ export const generateNewElement = (
     variant === NEW_BUTTON_VARIANTS.linkIcon;
 
   if (isIconOrLinkIcon && iconAttrs?.length) {
-    moveSizeAndLabelAttributes(element, j, true);
+    handleIconAttributes(element, j, true);
 
     // rename iconBefore/iconAfter to icon
     iconAttrs[0].name.name = 'icon';

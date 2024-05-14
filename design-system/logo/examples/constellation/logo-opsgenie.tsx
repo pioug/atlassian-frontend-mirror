@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { OpsgenieIcon, OpsgenieLogo, OpsgenieWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { OpsgenieIcon, OpsgenieLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoOpsgenie = () => {
   return (
@@ -9,17 +15,13 @@ const LogoOpsgenie = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <OpsgenieLogo appearance="brand" />
-            </td>
-            <td>
-              <OpsgenieWordmark appearance="brand" />
             </td>
             <td>
               <OpsgenieIcon appearance="brand" />

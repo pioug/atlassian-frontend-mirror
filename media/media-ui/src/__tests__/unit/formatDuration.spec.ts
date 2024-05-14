@@ -1,4 +1,52 @@
-import { formatDuration } from '../../formatDuration';
+import {
+  formatDuration,
+  secondsToTime,
+  isInvalidInput,
+} from '../../formatDuration';
+
+describe('isInvalidInput', () => {
+  test('should return true for invalid inputs', () => {
+    expect(isInvalidInput(-1)).toBe(true);
+    expect(isInvalidInput(Infinity)).toBe(true);
+    expect(isInvalidInput(NaN)).toBe(true);
+  });
+
+  test('should return false for valid inputs', () => {
+    expect(isInvalidInput(0)).toBe(false);
+    expect(isInvalidInput(1)).toBe(false);
+    expect(isInvalidInput(60)).toBe(false);
+    expect(isInvalidInput(3600)).toBe(false);
+  });
+});
+
+describe('secondsToTime', () => {
+  test('should return correct hours, minutes, and seconds', () => {
+    expect(secondsToTime(3661)).toEqual({ hours: 1, minutes: 1, seconds: 1 });
+    expect(secondsToTime(3600)).toEqual({ hours: 1, minutes: 0, seconds: 0 });
+    expect(secondsToTime(60)).toEqual({ hours: 0, minutes: 1, seconds: 0 });
+    expect(secondsToTime(1)).toEqual({ hours: 0, minutes: 0, seconds: 1 });
+  });
+
+  test('should handle zero', () => {
+    expect(secondsToTime(0)).toEqual({ hours: 0, minutes: 0, seconds: 0 });
+  });
+
+  test('should handle negative numbers', () => {
+    expect(secondsToTime(-1)).toEqual({ hours: 0, minutes: 0, seconds: 0 });
+  });
+
+  test('should handle Infinity', () => {
+    expect(secondsToTime(Infinity)).toEqual({
+      hours: 0,
+      minutes: 0,
+      seconds: 0,
+    });
+  });
+
+  test('should handle NaN', () => {
+    expect(secondsToTime(NaN)).toEqual({ hours: 0, minutes: 0, seconds: 0 });
+  });
+});
 
 describe('formatDuration', () => {
   const minute = 60;

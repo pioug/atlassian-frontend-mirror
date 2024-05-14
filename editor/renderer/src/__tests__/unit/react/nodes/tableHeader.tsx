@@ -17,9 +17,9 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 
 const MOCK_SORTING_ICON_ID = 'mock-sort-icon';
 
-jest.mock('../../../../ui/SortingIcon', () => ({
+jest.mock('@atlaskit/editor-common/table', () => ({
   __esModule: true,
-  default: (props: any) => <div id={MOCK_SORTING_ICON_ID} {...props} />,
+  SortingIcon: (props: any) => <div id={MOCK_SORTING_ICON_ID} {...props} />,
 }));
 
 describe('Renderer - React/Nodes/TableHeader', () => {

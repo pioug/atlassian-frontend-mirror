@@ -9,6 +9,7 @@ import { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import * as ffPackage from '@atlaskit/platform-feature-flags';
 import type { Provider } from '..';
 import { EVENT_STATUS } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
@@ -81,6 +82,8 @@ describe('#sendData', () => {
   });
 
   it('catchupv2 : triggers catchupv2 on processSteps failure', () => {
+    jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => true);
+
     const catchupv2Spy = jest.spyOn(
       // @ts-ignore
       provider.documentService as any,
@@ -106,6 +109,8 @@ describe('#sendData', () => {
         },
         packageName: '@atlaskit/fabric',
         packageVersion: '0.0.0',
+        errorCode: undefined,
+        errorStack: expect.any(String),
         errorName: 'TypeError',
         errorMessage: 'Error while processing steps',
         originalErrorMessage: 'steps.map is not a function',

@@ -15,6 +15,7 @@ export { default as annotation } from './annotation';
 export { default as dataConsumer } from './dataConsumer';
 export { default as fragment } from './fragment';
 export { default as border } from './border';
+export { default as backgroundColor } from './backgroundColor';
 export { default as hardBreak } from './hardBreak';
 export { default as mention } from './mention';
 export { default as emoji } from './emoji';

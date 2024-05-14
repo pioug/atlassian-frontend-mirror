@@ -42,13 +42,13 @@
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
+      "path": "../button/tsconfig.app.json"
+    },
+    {
       "path": "../ds-explorations/tsconfig.app.json"
     },
     {
       "path": "../ds-lib/tsconfig.app.json"
-    },
-    {
-      "path": "../form/tsconfig.app.json"
     },
     {
       "path": "../primitives/tsconfig.app.json"
@@ -57,7 +57,7 @@
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
     },
     {
-      "path": "../toggle/tsconfig.app.json"
+      "path": "../tokens/tsconfig.app.json"
     }
   ]
 }

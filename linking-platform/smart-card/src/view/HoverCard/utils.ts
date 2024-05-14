@@ -3,139 +3,15 @@ import { ElementName } from '../../constants';
 import { extractType } from '@atlaskit/link-extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { ElementItem } from '../FlexibleCard/components/blocks/types';
 
-export const getSimulatedMetadata = (
-  extensionKey: string = '',
-  data: JsonLd.Data.BaseData,
-): JsonLd.Primitives.Property<any> => {
-  const types = data ? extractType(data) : undefined;
-
-  switch (extensionKey) {
-    case 'bitbucket-object-provider':
-    case 'native-bitbucket-object-provider':
-      if (types?.includes('atlassian:SourceCodePullRequest')) {
-        return {
-          metadata: {
-            primary: [
-              ElementName.AuthorGroup,
-              ElementName.ModifiedOn,
-              ElementName.SubscriberCount,
-              ElementName.State,
-            ],
-            secondary: [],
-            subtitle: [ElementName.SourceBranch, ElementName.TargetBranch],
-          },
-        };
-      }
-      return {
-        metadata: {
-          primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
-          secondary: [],
-          subtitle: [],
-        },
-      };
-    case 'confluence-object-provider':
-      const primaryAttribution =
-        data && extractOwnedBy(data)
-          ? ElementName.OwnedBy
-          : ElementName.CreatedBy;
-      return {
-        metadata: {
-          primary: [ElementName.AuthorGroup, primaryAttribution],
-          secondary: [
-            ElementName.ReactCount,
-            ElementName.CommentCount,
-            ElementName.ViewCount,
-          ],
-          subtitle: [],
-        },
-      };
-
-    case 'jira-object-provider':
-      return {
-        metadata: {
-          primary: [
-            ElementName.AuthorGroup,
-            ElementName.State,
-            ElementName.Priority,
-          ],
-          secondary: [],
-          subtitle: [],
-        },
-      };
-
-    case 'trello-object-provider':
-      return {
-        metadata: {
-          primary: [
-            ElementName.AuthorGroup,
-            ElementName.State,
-            ElementName.DueOn,
-          ],
-          secondary: [
-            ElementName.ReactCount,
-            ElementName.CommentCount,
-            ElementName.AttachmentCount,
-            ElementName.ChecklistProgress,
-          ],
-          subtitle: [ElementName.Location],
-        },
-      };
-
-    case 'watermelon-object-provider':
-      if (types?.includes('atlassian:Project')) {
-        return {
-          metadata: {
-            primary: [
-              ElementName.AuthorGroup,
-              ElementName.ModifiedOn,
-              ElementName.State,
-              ElementName.DueOn,
-            ],
-            secondary: [],
-            subtitle: [],
-          },
-        };
-      }
-      return {
-        metadata: {
-          primary: [
-            ElementName.AuthorGroup,
-            ElementName.State,
-            ElementName.DueOn,
-          ],
-          secondary: [],
-          subtitle: [],
-        },
-      };
-
-    default:
-      return {
-        metadata: {
-          primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
-          secondary: [],
-          subtitle: [],
-        },
-      };
-  }
-};
-
-export const getSimulatedBetterMetadata = (
-  extensionKey: string = '',
-  data: JsonLd.Data.BaseData,
+const getSimulatedBetterMetadata = (
+  extensionKey?: string,
+  data?: JsonLd.Data.BaseData,
 ): JsonLd.Primitives.Property<any> => {
   const types = data ? extractType(data) : undefined;
   const defaultMetadata = {
-    topMetadataBlock: {
-      primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
-      secondary: [],
-      subtitle: [],
-    },
-    bottomMetadataBlock: {
-      primary: [],
-      secondary: [],
-      subtitle: [],
-    },
+    primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
   };
 
   switch (extensionKey) {
@@ -143,17 +19,13 @@ export const getSimulatedBetterMetadata = (
     case 'native-bitbucket-object-provider':
       if (types?.includes('atlassian:SourceCodePullRequest')) {
         return {
-          ...defaultMetadata,
-          topMetadataBlock: {
-            primary: [
-              ElementName.AuthorGroup,
-              ElementName.ModifiedOn,
-              ElementName.SubscriberCount,
-              ElementName.State,
-            ],
-            secondary: [],
-            subtitle: [ElementName.SourceBranch, ElementName.TargetBranch],
-          },
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.ModifiedOn,
+            ElementName.SubscriberCount,
+            ElementName.State,
+          ],
+          subtitle: [ElementName.SourceBranch, ElementName.TargetBranch],
         };
       }
       if (
@@ -163,25 +35,15 @@ export const getSimulatedBetterMetadata = (
         types?.includes('schema:DigitalDocument')
       ) {
         return {
-          ...defaultMetadata,
-          topMetadataBlock: {
-            primary: [
-              ElementName.LatestCommit,
-              ElementName.CollaboratorGroup,
-              ElementName.ModifiedOn,
-            ],
-            secondary: [],
-            subtitle: [],
-          },
+          primary: [
+            ElementName.LatestCommit,
+            ElementName.CollaboratorGroup,
+            ElementName.ModifiedOn,
+          ],
         };
       }
       return {
-        ...defaultMetadata,
-        topMetadataBlock: {
-          primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
-          secondary: [],
-          subtitle: [],
-        },
+        primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
       };
     case 'confluence-object-provider':
       const primaryAttribution =
@@ -189,124 +51,121 @@ export const getSimulatedBetterMetadata = (
           ? ElementName.OwnedByGroup
           : ElementName.AuthorGroup;
       return {
-        topMetadataBlock: {
-          primary: [primaryAttribution, ElementName.ModifiedOn],
-          secondary: [],
-          subtitle: [],
-        },
-        bottomMetadataBlock: {
-          primary: [
-            ElementName.ReactCount,
-            ElementName.CommentCount,
-            ElementName.ViewCount,
-          ],
-          secondary: [],
-          subtitle: [],
-        },
+        primary: [primaryAttribution, ElementName.ModifiedOn],
+        tertiary: [
+          ElementName.ReactCount,
+          ElementName.CommentCount,
+          ElementName.ViewCount,
+        ],
       };
     case 'jira-object-provider':
-      const isJiraTask = data['@type']?.includes('atlassian:Task') ?? false;
+      const isJiraTask = data?.['@type']?.includes('atlassian:Task') ?? false;
 
       return {
         ...defaultMetadata,
         ...(isJiraTask && {
-          topMetadataBlock: {
-            primary: [
-              ElementName.AssignedToGroup,
-              ElementName.State,
-              ElementName.StoryPoints,
-              ElementName.Priority,
-            ],
-            secondary: [],
-            subtitle: [],
-          },
+          primary: [
+            ElementName.AssignedToGroup,
+            ElementName.State,
+            ElementName.StoryPoints,
+            ElementName.Priority,
+          ],
         }),
       };
-
     case 'trello-object-provider':
       return {
-        ...defaultMetadata,
-        topMetadataBlock: {
-          primary: [
-            ElementName.AuthorGroup,
-            ElementName.State,
-            ElementName.DueOn,
-          ],
-          secondary: [
-            ElementName.ReactCount,
-            ElementName.CommentCount,
-            ElementName.AttachmentCount,
-            ElementName.ChecklistProgress,
-          ],
-          subtitle: [ElementName.Location],
-        },
+        primary: [
+          ElementName.CollaboratorGroup,
+          ElementName.State,
+          ElementName.DueOn,
+        ],
+        secondary: [
+          ElementName.ReactCount,
+          ElementName.CommentCount,
+          ElementName.AttachmentCount,
+          ElementName.ChecklistProgress,
+        ],
+        subtitle: [ElementName.Location],
       };
-
     case 'watermelon-object-provider':
       if (types?.includes('atlassian:Project')) {
         return {
-          ...defaultMetadata,
-          topMetadataBlock: {
-            primary: [
-              ElementName.AuthorGroup,
-              ElementName.ModifiedOn,
-              ElementName.State,
-              ElementName.DueOn,
-            ],
-            secondary: [],
-            subtitle: [],
-          },
-        };
-      }
-      return {
-        ...defaultMetadata,
-        topMetadataBlock: {
           primary: [
             ElementName.AuthorGroup,
+            ElementName.ModifiedOn,
             ElementName.State,
             ElementName.DueOn,
           ],
-          secondary: [],
-          subtitle: [],
-        },
+        };
+      }
+      return {
+        primary: [
+          ElementName.AuthorGroup,
+          ElementName.State,
+          ElementName.DueOn,
+        ],
       };
     case 'slack-object-provider':
       return {
-        topMetadataBlock: {
-          primary: [ElementName.AuthorGroup, ElementName.SentOn],
-          secondary: [],
-          subtitle: [],
-        },
-        bottomMetadataBlock: {
-          primary: [ElementName.ReactCount, ElementName.CommentCount],
-          secondary: [],
-          subtitle: [],
-        },
+        primary: [ElementName.AuthorGroup, ElementName.SentOn],
+        tertiary: [ElementName.ReactCount, ElementName.CommentCount],
       };
     case 'google-object-provider':
     case 'figma-object-provider':
       return {
-        ...defaultMetadata,
-        topMetadataBlock: {
-          primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
-          secondary: [],
-          subtitle: [],
-        },
+        primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
       };
-
     default:
       return defaultMetadata;
   }
 };
 
-export const getIsAISummaryEnabled = (
-  isAdminHubAIEnabled: boolean = false,
-  response?: JsonLd.Response,
-) =>
-  Boolean(
-    getBooleanFF(
-      'platform.linking-platform.smart-card.hover-card-ai-summaries',
-    ) &&
-      isAdminHubAIEnabled &&
-      response?.meta?.supportedFeature?.includes('AISummary'),
-  );
+const AvatarGroupsWithNamePrefix = [
+  ElementName.AssignedToGroup,
+  ElementName.OwnedByGroup,
+  ElementName.AuthorGroup,
+];
+
+const toElementItem = (name: ElementName): ElementItem => {
+  const showNamePrefix =
+    AvatarGroupsWithNamePrefix.indexOf(name) !== -1 ? true : undefined;
+  const testId = `${name.toLowerCase()}-metadata-element`;
+  return { name, showNamePrefix, testId } as ElementItem;
+};
+
+const toElementItems = (
+  elementNames: ElementName[],
+): ElementItem[] | undefined => {
+  if (!elementNames?.length) {
+    return;
+  }
+  return elementNames.filter((name) => name in ElementName).map(toElementItem);
+};
+
+export const getMetadata = (
+  extensionKey?: string,
+  data?: JsonLd.Data.BaseData,
+) => {
+  const metadata = getSimulatedBetterMetadata(extensionKey, data);
+
+  const primary = getBooleanFF(
+    'platform.linking-platform.smart-card.hover-card-action-redesign',
+  )
+    ? [].concat(metadata.primary, metadata.tertiary)
+    : metadata.primary;
+
+  // `tertiary` should be removed completely during cleanup:
+  // https://product-fabric.atlassian.net/browse/EDM-9556
+  const tertiary = getBooleanFF(
+    'platform.linking-platform.smart-card.hover-card-action-redesign',
+  )
+    ? undefined
+    : metadata.tertiary;
+
+  return {
+    subtitle: toElementItems(metadata.subtitle),
+    primary: toElementItems(primary),
+    secondary: toElementItems(metadata.secondary),
+    tertiary: toElementItems(tertiary),
+  };
+};

@@ -23,6 +23,8 @@ import {
   ZERO_WIDTH_SPACE,
 } from '../utils';
 
+import { generateUniqueNodeKey } from './generateUniqueNodeKey';
+
 export type InlineNodeViewComponentProps = {
   view: EditorView;
   getPos: () => GetPosReturn;
@@ -51,6 +53,7 @@ function createNodeView<ExtraComponentProps>({
   // used for comparisions when doing updates, before being
   // overwritten to the updated node.
   let currentNode = nodeViewParams.node;
+  const key = generateUniqueNodeKey();
 
   // First we setup the dom element which will be rendered and "tracked" by prosemirror
   // and also used as a "editor portal" (not react portal) target by the editor
@@ -93,6 +96,7 @@ function createNodeView<ExtraComponentProps>({
         extraComponentProps,
       }),
       domRef,
+      key,
       false,
       // node views should be rendered with intl context
       true,
@@ -156,7 +160,7 @@ function createNodeView<ExtraComponentProps>({
       // When prosemirror destroys the node view, we need to clean up
       // what we have previously rendered using the editor portal
       // provider api.
-      pmPluginFactoryParams.portalProviderAPI.remove(domRef);
+      pmPluginFactoryParams.portalProviderAPI.remove(key, domRef);
       // @ts-expect-error Expect an error as domRef is expected to be
       // of HTMLSpanElement type however once the node view has
       // been destroyed no other consumers should still be using it.

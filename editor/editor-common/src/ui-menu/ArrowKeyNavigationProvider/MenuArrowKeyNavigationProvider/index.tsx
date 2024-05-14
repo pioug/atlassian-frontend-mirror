@@ -6,6 +6,8 @@ import React, {
   useState,
 } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import type { MenuArrowKeyNavigationProviderProps } from '../types';
 
 const hasEnabledItems = (list: HTMLElement[]) =>
@@ -96,7 +98,7 @@ export const MenuArrowKeyNavigationProvider = ({
      * @param event
      */
     const handleKeyDown = (event: KeyboardEvent): void => {
-      const targetElement = event.target as HTMLElement;
+      const targetElement = event.target;
 
       // Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext
       if (event.key === 'Tab' && closeOnTab) {
@@ -111,8 +113,17 @@ export const MenuArrowKeyNavigationProvider = ({
         return;
       }
 
-      if (!wrapperRef.current?.contains(targetElement)) {
-        setCurrentSelectedItemIndex(-1);
+      if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+        if (
+          targetElement instanceof HTMLElement &&
+          !wrapperRef.current?.contains(targetElement)
+        ) {
+          setCurrentSelectedItemIndex(-1);
+        }
+      } else {
+        if (!wrapperRef.current?.contains(targetElement as HTMLElement)) {
+          setCurrentSelectedItemIndex(-1);
+        }
       }
 
       switch (event.key) {
@@ -138,27 +149,75 @@ export const MenuArrowKeyNavigationProvider = ({
         // then logic to retain the focus can be handled in the parent components with KeydownHandlerContext
         case 'ArrowLeft':
           // Filter out the events from outside the menu
-          if (!targetElement.closest('.custom-key-handler-wrapper')) {
-            return;
+          if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+            if (
+              targetElement instanceof HTMLElement &&
+              !targetElement.closest('.custom-key-handler-wrapper')
+            ) {
+              return;
+            }
+          } else {
+            if (
+              !(targetElement as HTMLElement)?.closest(
+                '.custom-key-handler-wrapper',
+              )
+            ) {
+              return;
+            }
           }
           handleClose!(event);
-          if (
-            !targetElement.closest('[data-testid="editor-floating-toolbar"]')
-          ) {
-            keyDownHandlerContext?.handleArrowLeft();
+          if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+            if (
+              targetElement instanceof HTMLElement &&
+              !targetElement.closest('[data-testid="editor-floating-toolbar"]')
+            ) {
+              keyDownHandlerContext?.handleArrowLeft();
+            }
+          } else {
+            if (
+              !(targetElement as HTMLElement)?.closest(
+                '[data-testid="editor-floating-toolbar"]',
+              )
+            ) {
+              keyDownHandlerContext?.handleArrowLeft();
+            }
           }
           break;
 
         case 'ArrowRight':
           // Filter out the events from outside the menu
-          if (!targetElement.closest('.custom-key-handler-wrapper')) {
-            return;
+          if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+            if (
+              targetElement instanceof HTMLElement &&
+              !targetElement.closest('.custom-key-handler-wrapper')
+            ) {
+              return;
+            }
+          } else {
+            if (
+              !(targetElement as HTMLElement).closest(
+                '.custom-key-handler-wrapper',
+              )
+            ) {
+              return;
+            }
           }
           handleClose!(event);
-          if (
-            !targetElement.closest('[data-testid="editor-floating-toolbar"]')
-          ) {
-            keyDownHandlerContext?.handleArrowRight();
+          if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+            if (
+              targetElement instanceof HTMLElement &&
+              !targetElement.closest('[data-testid="editor-floating-toolbar"]')
+            ) {
+              keyDownHandlerContext?.handleArrowRight();
+            }
+          } else {
+            if (
+              !(targetElement as HTMLElement).closest(
+                '[data-testid="editor-floating-toolbar"]',
+              )
+            ) {
+              keyDownHandlerContext?.handleArrowRight();
+            }
           }
           break;
 

@@ -93,7 +93,7 @@ export const editorContentAreaHideContainer = css({
 const editorContentAreaContainerStyle = (containerWidth: number) =>
   css({
     '.fabric-editor--full-width-mode': {
-      '.pm-table-container, .code-block, .extension-container': {
+      '.code-block, .extension-container': {
         maxWidth: `${
           containerWidth - TOTAL_PADDING - tableMarginFullWidthMode * 2
         }px`,

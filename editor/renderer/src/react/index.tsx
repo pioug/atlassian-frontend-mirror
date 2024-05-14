@@ -512,7 +512,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       ).length;
 
     return {
-      ...this.getProps(node),
+      ...this.getProps(node, path),
       isInsideOfBlockNode,
       childHasLink,
       allowCaptions: this.media && this.media.allowCaptions,

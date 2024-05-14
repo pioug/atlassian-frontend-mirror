@@ -10,9 +10,7 @@ import {
 import type {
   CollabEditOptions,
   CollabParticipant,
-  Color,
 } from '@atlaskit/editor-common/collab';
-import { colors } from '@atlaskit/editor-common/collab';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -22,8 +20,7 @@ import type {
   EditorView,
 } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-
-export { Color, colors };
+import { avatarColors } from '@atlaskit/editor-shared-styles/consts';
 
 export const findPointers = (
   id: string,
@@ -52,9 +49,9 @@ export function getAvatarColor(str: string) {
     /* eslint-enable no-bitwise */
   }
 
-  const index = Math.abs(hash) % colors.length;
+  const index = Math.abs(hash) % avatarColors.length;
 
-  return { index, color: colors[index] };
+  return { index, color: avatarColors[index] };
 }
 
 export const createTelepointers = (
@@ -87,7 +84,7 @@ export const createTelepointers = (
   const cursor = document.createElement('span');
   cursor.textContent = ZERO_WIDTH_JOINER;
   cursor.className = `telepointer color-${color} telepointer-selection-badge`;
-  cursor.style.cssText = `${style({ color: avatarColor.color.solid })};`;
+  cursor.style.cssText = `${style({ color: avatarColor.color })};`;
   cursor.setAttribute('data-initial', initial);
   return decorations
     .concat(

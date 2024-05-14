@@ -1,6 +1,13 @@
-import { Datasource, EnvironmentsKeys } from '@atlaskit/linking-common';
+import {
+  type Datasource,
+  type EnvironmentsKeys,
+} from '@atlaskit/linking-common';
 import { EditorCardProvider } from '..';
-import { LinkAppearance, ProviderPattern, UserPreferences } from '../types';
+import {
+  type LinkAppearance,
+  type ProviderPattern,
+  type UserPreferences,
+} from '../types';
 import { mocks } from './__fixtures__/mocks';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -351,6 +358,60 @@ describe('providers > editor', () => {
     async (_, url) => {
       ffTest(
         'platform.linking-platform.embed-youtube-by-default',
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'inline', false);
+          expect(adf).toEqual(expectedEmbedAdf(url));
+        },
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'inline', false);
+          expect(adf).toEqual(expectedInlineAdf(url));
+        },
+      );
+    },
+  );
+
+  describe.each<[string, string]>([
+    [
+      'Loom Video share',
+      'https://www.loom.com:44/share/4e890d2246f945aa9239e1f38c64ec05',
+    ],
+    [
+      'Loom Video embed',
+      'https://www.loom.com/embed/4e890d2246f945aa9239e1f38c64ec05',
+    ],
+    [
+      'Loom Video w/sid',
+      'https://www.loom.com/share/4e890d2246f945aa9239e1f38c64ec05?sid=9a042073-5133-4064-af01-c7b60ab27023',
+    ],
+    [
+      'Loom Video human readable section',
+      'https://www.loom.com/share/human-readable-text-9b62d620bbea4476bbf2286a6b0c83cf',
+    ],
+  ])(
+    'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',
+    async (_, url) => {
+      ffTest(
+        'platform.linking-platform.embed-loom-by-default',
         async () => {
           const provider = new EditorCardProvider();
           mockFetch.mockResolvedValueOnce({
@@ -1487,4 +1548,58 @@ describe('providers > editor', () => {
       expect(mockFetch).not.toHaveBeenCalled();
     });
   });
+
+  describe.each<[string, string]>([
+    [
+      'Jira Dashboard',
+      'https://product-fabric.atlassian.net/jira/dashboards/15429',
+    ],
+    [
+      'Jira Dashboard embed',
+      'https://product-fabric.atlassian.net/jira/dashboards/15429/embed',
+    ],
+    [
+      'Jira Dashboard gadget',
+      'https://product-fabric.atlassian.net/jira/dashboards/15429?maximized=26563',
+    ],
+    [
+      'Jira Dashboard gadget embed',
+      'https://product-fabric.atlassian.net/jira/dashboards/15429/embed?maximized=26563',
+    ],
+  ])(
+    'returns embedCard when %s link is inserted, calling /providers and /resolve/batch endpoint',
+    async (_, url) => {
+      ffTest(
+        'platform.linking-platform.jira-dashboard-embed_ycjcj',
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'embed', false);
+          expect(adf).toEqual(expectedEmbedAdf(url));
+        },
+        async () => {
+          const provider = new EditorCardProvider();
+          mockFetch.mockResolvedValueOnce({
+            json: async () => getMockProvidersResponse(),
+            ok: true,
+          });
+          // Mocking call to /resolve/batch
+          mockFetch.mockResolvedValueOnce({
+            json: async () => [{ body: mocks.success, status: 200 }],
+            ok: true,
+          });
+          const adf = await provider.resolve(url, 'inline', false);
+          expect(adf).toEqual(expectedInlineAdf(url));
+        },
+      );
+    },
+  );
 });

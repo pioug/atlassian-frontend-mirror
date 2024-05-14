@@ -1,14 +1,14 @@
+/* eslint-disable @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation */
 import React from 'react';
 import debounce from 'lodash/debounce';
 import styled from 'styled-components';
 import AkAvatar from '@atlaskit/avatar';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
+import type { EditorActions, EditorProps } from '@atlaskit/editor-core';
 import {
   Editor as AkEditor,
-  EditorActions,
   EditorContext,
-  EditorProps,
   WithEditorActions,
   CollapsedEditor,
   ToolbarFeedback,
@@ -17,7 +17,7 @@ import {
   version as packageVersion,
 } from '@atlaskit/editor-core';
 
-import { User } from '../model';
+import type { User } from '../model';
 
 // See https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
 // https://developer.mozilla.org/en-US/docs/Web/API/Event/returnValue

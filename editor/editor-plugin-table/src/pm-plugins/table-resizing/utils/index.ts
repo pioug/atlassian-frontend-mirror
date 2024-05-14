@@ -42,7 +42,7 @@ export {
 } from './scale-table';
 export type { ScaleOptions } from './scale-table';
 export type { ResizeState, ResizeStateWithAnalytics } from './types';
-export { resizeColumn } from './resize-column';
+export { resizeColumn, resizeColumnAndTable } from './resize-column';
 export {
   COLUMN_MIN_WIDTH,
   TABLE_MAX_WIDTH,

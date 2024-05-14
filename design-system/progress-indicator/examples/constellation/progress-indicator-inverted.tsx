@@ -13,7 +13,7 @@ const containerStyles = css({
   padding: token('space.200', '16px'),
   alignItems: 'center',
   justifyContent: 'space-between',
-  backgroundColor: token('color.text', '#1b2638'),
+  backgroundColor: token('color.text'),
 });
 
 const InvertedExample = () => {

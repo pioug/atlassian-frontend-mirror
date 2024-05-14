@@ -79,6 +79,9 @@ function PopperWrapper({
   shouldRenderToParent,
   shouldDisableFocusLock,
   strategy,
+  role,
+  label,
+  titleId,
 }: PopperWrapperProps) {
   const [popupRef, setPopupRef] = useState<HTMLDivElement | null>(null);
   const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(
@@ -134,6 +137,9 @@ function PopperWrapper({
             data-ds--level={currentLevel}
             data-placement={placement}
             data-testid={testId}
+            role={role}
+            aria-label={label}
+            aria-labelledby={titleId}
             ref={(node: HTMLDivElement) => {
               if (node) {
                 if (typeof ref === 'function') {

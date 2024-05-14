@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   B300,
@@ -15,7 +14,6 @@ import {
   N100,
   N20,
   N30,
-  N40,
   N70,
   N80,
   N900,
@@ -68,13 +66,7 @@ const radioStyles = css({
   backgroundColor: 'var(--radio-background-color)',
   /* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
     inner circle not be centred at various zoom levels */
-  border: `${
-    getBooleanFF(
-      'platform.design-system-team.update-border-radio-checkbox_7askv',
-    )
-      ? token('border.width', '1px')
-      : 'calc(2px * 12 / 7)'
-  } solid var(--radio-border-color)`,
+  border: `${token('border.width', '1px')} solid var(--radio-border-color)`,
   borderRadius: token('border.radius.circle', '50%'),
   MozAppearance: 'none',
   outline: 'none',
@@ -85,11 +77,7 @@ const radioStyles = css({
     All other variables are constant
   */
   '--radio-background-color': token('color.background.input', N10),
-  '--radio-border-color': getBooleanFF(
-    'platform.design-system-team.update-border-radio-checkbox_7askv',
-  )
-    ? token('color.border.bold', N100)
-    : token('color.border.input', N40),
+  '--radio-border-color': token('color.border.input', N100),
   '--radio-dot-color': token('color.icon.inverse', N10),
   '--radio-dot-opacity': 0,
 
@@ -115,11 +103,7 @@ const radioStyles = css({
 
   '&:hover': {
     '--radio-background-color': token('color.background.input.hovered', N30),
-    '--radio-border-color': getBooleanFF(
-      'platform.design-system-team.update-border-radio-checkbox_7askv',
-    )
-      ? token('color.border.bold', N100)
-      : token('color.border.input', N40),
+    '--radio-border-color': token('color.border.input', N100),
   },
   '&:active': {
     '--radio-background-color': token('color.background.input.pressed', N30),
@@ -152,11 +136,7 @@ const radioStyles = css({
       'color.background.selected.bold.pressed',
       B50,
     ),
-    '--radio-border-color': getBooleanFF(
-      'platform.design-system-team.update-border-radio-checkbox_7askv',
-    )
-      ? token('color.border.bold', N100)
-      : token('color.border.input', N40),
+    '--radio-border-color': token('color.border.input', N100),
     '--radio-dot-color': token('color.icon.inverse', B400),
   },
   '&:checked:focus': {

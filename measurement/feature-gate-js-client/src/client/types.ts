@@ -8,6 +8,7 @@ export type Identifiers = {
   analyticsAnonymousId?: string;
   atlassianAccountId?: string;
   atlassianOrgId?: string;
+  bitbucketWorkspaceId?: string;
   gsacIssueId?: string;
   intercomConversationId?: string;
   marketplaceAnonymousId?: string;

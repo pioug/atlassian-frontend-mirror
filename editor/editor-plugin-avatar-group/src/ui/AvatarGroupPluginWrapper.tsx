@@ -28,21 +28,20 @@ import type { AvatarGroupPlugin } from '../index';
 import AvatarsWithPluginState from './avatars-with-plugin-state';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const toolbarButtonWrapper = css`
-  display: flex;
-  justify-content: flex-end;
-  flex-grow: 0;
-  align-items: center;
-  & > div {
-    margin-right: 0;
-  }
-`;
+const toolbarButtonWrapper = css({
+  display: 'flex',
+  justifyContent: 'flex-end',
+  flexGrow: 0,
+  alignItems: 'center',
+  '& > div': {
+    marginRight: 0,
+  },
+});
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const toolbarButtonWrapperFullWidth = css`
-  ${toolbarButtonWrapper}
-  flex-grow: 1;
-`;
+const toolbarButtonWrapperFullWidth = css(toolbarButtonWrapper, {
+  flexGrow: 1,
+});
 
 const AvatarGroupPluginWrapper = (props: {
   collabEdit?: CollabEditOptions;

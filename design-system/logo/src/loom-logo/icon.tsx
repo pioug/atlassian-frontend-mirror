@@ -3,7 +3,7 @@ import React from 'react';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({ appearance, iconColor }: LogoProps) => {
@@ -12,7 +12,7 @@ const svg = ({ appearance, iconColor }: LogoProps) => {
   };
 
   if (appearance) {
-    colors = getColorsFromAppearance(appearance);
+    colors = getColorsFromAppearanceOldLogos(appearance);
   }
 
   const loomIconColor = appearance === 'brand' ? '#625DF5' : colors.iconColor;

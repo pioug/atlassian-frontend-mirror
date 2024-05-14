@@ -25,7 +25,7 @@ const tableStyles = css({
 });
 
 const tableCellStyles = css({
-  border: `1px solid ${token('color.border', 'black')}`,
+  border: `1px solid ${token('color.border')}`,
   textAlign: 'center',
 });
 

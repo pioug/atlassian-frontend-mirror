@@ -1,4 +1,5 @@
 export { textColorStyles } from './shared/text-color';
+export { backgroundColorStyles } from './shared/background-color';
 export {
   tableSharedStyle,
   tableMarginTop,

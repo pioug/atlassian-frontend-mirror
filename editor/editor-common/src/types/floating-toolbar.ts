@@ -113,6 +113,7 @@ export type FloatingToolbarCopyButton = {
   type: 'copy-button';
   items: Array<FloatingToolbarSeparator | MarkOptions | NodeOptions>;
   hidden?: boolean;
+  supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
 export type FloatingToolbarButton<T extends {}> = {
@@ -186,6 +187,7 @@ export type FloatingToolbarCustom<T extends {}> = {
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
   ) => React.ReactNode;
   hidden?: boolean;
+  supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
 type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
@@ -199,6 +201,7 @@ type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
   hideExpandIcon?: boolean;
   defaultValue?: V | null;
   placeholder?: string;
+  returnEscToButton?: boolean;
   onChange: (selected: V) => T;
   filterOption?: ((option: V, rawInput: string) => boolean) | null;
 };
@@ -237,6 +240,7 @@ export type FloatingToolbarSelect<T extends {}> =
 export type FloatingToolbarSeparator = {
   type: 'separator';
   hidden?: boolean;
+  supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
 export type FloatingToolbarDropdown<T extends {}> = {
@@ -321,6 +325,9 @@ export interface FloatingToolbarConfig {
   items:
     | Array<FloatingToolbarItem<Command>>
     | ((node: Node) => Array<FloatingToolbarItem<Command>>);
+
+  /** aria-label added to role='radiogroup'element */
+  groupLabel?: string;
 
   align?: AlignType;
 

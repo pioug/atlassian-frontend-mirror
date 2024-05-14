@@ -165,6 +165,7 @@ describe('Annotations: Mounter', () => {
         expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
+          false,
         );
       });
     });
@@ -216,6 +217,7 @@ describe('Annotations: Mounter', () => {
         expect(fakeApplyAnnotation).toHaveBeenCalledWith(
           fakeDocumentPosition,
           fakeAnnotation,
+          false,
         );
       });
 

@@ -14,15 +14,15 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const toolbarScrollButtons = css`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: ${token('space.050', '4px')};
-  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-  border-left: solid ${token('color.border', N30)} 1px;
-  flex-shrink: 0;
-  align-items: center;
-`;
+const toolbarScrollButtons = css({
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gridGap: token('space.050', '4px'),
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
+  borderLeft: `solid ${token('color.border', N30)} 1px`,
+  flexShrink: 0,
+  alignItems: 'center',
+});
 
 const LeftIcon = ChevronLeftLargeIcon as React.ComponentClass<any>;
 const RightIcon = ChevronRightLargeIcon as React.ComponentClass<any>;

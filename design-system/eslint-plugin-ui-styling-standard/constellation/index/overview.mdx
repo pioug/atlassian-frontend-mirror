@@ -1,5 +1,5 @@
-The UI Styling Standard is a set of principles to guide styling UI code
-across Atlassian's frontend codebases and ecosystem.
+The UI Styling Standard is a set of principles to guide styling UI code across Atlassian's frontend
+codebases and ecosystem.
 
 These are the current ESLint rules that enforce and help comply with the UI Styling Standard today,
 but more are planned to support the standard over time.
@@ -11,13 +11,19 @@ but more are planned to support the standard over time.
 
 | Rule                                                                                                                        | Description                                                                                                                                                                                                                                                                                | Recommended | Fixable | Suggestions |
 | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- | ------- | ----------- |
+| <a href="atlaskit-theme/usage">atlaskit-theme</a>                                                                           | Ban certain usages of `@atlaskit/theme` that `@compiled/react` does not understand                                                                                                                                                                                                         | Yes         |         |             |
 | <a href="convert-props-syntax/usage">convert-props-syntax</a>                                                               | Convert props syntax that is unsupported by styled-components@<4 or @emotion/styled to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by those libraries. | Yes         | Yes     |             |
+| <a href="enforce-style-prop/usage">enforce-style-prop</a>                                                                   | Disallows usage of static styles in the `style` attribute in components                                                                                                                                                                                                                    | Yes         |         |             |
 | <a href="local-cx-xcss/usage">local-cx-xcss</a>                                                                             | Ensures the cx() function, which is part of the XCSS API, is only used within the xcss prop. This aids tracking what styles are applied to a jsx element.                                                                                                                                  | Yes         |         |             |
 | <a href="no-array-arguments/usage">no-array-arguments</a>                                                                   | Prevents usage of array arguments to style declaration functions                                                                                                                                                                                                                           | Yes         | Yes     |             |
 | <a href="no-classname-prop/usage">no-classname-prop</a>                                                                     | Disallows usage of the `className` prop in JSX                                                                                                                                                                                                                                             | Yes         |         |             |
 | <a href="no-container-queries/usage">no-container-queries</a>                                                               | Prevents usage of @container query within css styling                                                                                                                                                                                                                                      | Yes         |         |             |
+| <a href="no-dynamic-styles/usage">no-dynamic-styles</a>                                                                     | Disallows use of dynamic styles in CSS-in-JS calls                                                                                                                                                                                                                                         | Yes         |         |             |
+| <a href="no-exported-styles/usage">no-exported-styles</a>                                                                   | Disallows exports of css, keyframes, styled and xcss                                                                                                                                                                                                                                       | Yes         |         |             |
 | <a href="no-important-styles/usage">no-important-styles</a>                                                                 | Disallows important style declarations                                                                                                                                                                                                                                                     | Yes         |         |             |
+| <a href="no-imported-style-values/usage">no-imported-style-values</a>                                                       | Disallows imports of style values                                                                                                                                                                                                                                                          | Yes         |         |             |
 | <a href="no-nested-selectors/usage">no-nested-selectors</a>                                                                 | Prevents usage of nested selectors within css styling                                                                                                                                                                                                                                      | Yes         |         |             |
+| <a href="no-unsafe-values/usage">no-unsafe-values</a>                                                                       | Disallows styles that are difficult/impossible to statically anaylze.                                                                                                                                                                                                                      | Yes         |         |             |
 | <a href="consistent-css-prop-usage/usage">@atlaskit/design-system/consistent-css-prop-usage</a>                             | Ensures consistency with `css` and `xcss` prop usages                                                                                                                                                                                                                                      | Yes         | Yes     |             |
 | <a href="no-css-tagged-template-expression/usage">@atlaskit/design-system/no-css-tagged-template-expression</a>             | Disallows any `css` tagged template expressions that originate from Emotion, Styled Components or Compiled                                                                                                                                                                                 | Yes         | Yes     |             |
 | <a href="no-keyframes-tagged-template-expression/usage">@atlaskit/design-system/no-keyframes-tagged-template-expression</a> | Disallows any `keyframe` tagged template expressions that originate from Emotion, Styled Components or Compiled                                                                                                                                                                            | Yes         | Yes     |             |
@@ -33,39 +39,46 @@ but more are planned to support the standard over time.
 
 ## Purpose of the UI Styling Standard
 
-For Atlassians, refer to the [internal UI Styling Standard policy](https://go.atlassian.com/ui-styling-standard-policy).
+For Atlassians, refer to the
+[internal UI Styling Standard policy](https://go.atlassian.com/ui-styling-standard-policy).
 
 To enforce scoped encapsulation, type safety, and deterministic behavior in styling code that is
 present in other programming languages. This is a stepping stone to large performance improvements,
-reduced visual regressions, and enables testing and maintainability at scale.
-This approach improves readability and developer productivity via automation with tooling, testing,
-code migrations, and future advancements like generative AI.
+reduced visual regressions, and enables testing and maintainability at scale. This approach improves
+readability and developer productivity via automation with tooling, testing, code migrations, and
+future advancements like generative AI.
 
 ### Desired outcomes:
 
-- We can make large visual changes and migrations safely and in a fraction of the time.
-- To have the vast majority of styling code be deterministic, immutable, and bound to its scope, reducing unknown visual and UX regressions.
-- To enable teams to write tooling quicker that's better and more performant to lint, test, and migrate UI code to improve current and future developer productivity and satisfaction.
-- To enable large performance improvements for customers and developers with a zero-runtime styling solution.
-- To reduce the amount of overall custom styling code written while supporting customization without without the need for hacks and technical debt.
-- We aim to see a reduction of the “average styles per component”, reducing the effort to build and maintain UIs.
+-   We can make large visual changes and migrations safely and in a fraction of the time.
+-   To have the vast majority of styling code be deterministic, immutable, and bound to its scope,
+    reducing unknown visual and UX regressions.
+-   To enable teams to write tooling quicker that's better and more performant to lint, test, and
+    migrate UI code to improve current and future developer productivity and satisfaction.
+-   To enable large performance improvements for customers and developers with a zero-runtime
+    styling solution.
+-   To reduce the amount of overall custom styling code written while supporting customization
+    without without the need for hacks and technical debt.
+-   We aim to see a reduction of the “average styles per component”, reducing the effort to build
+    and maintain UIs.
 
 ## Basic principles
 
-We want the styling ecosystem (CSS, CSS-in-JS, and parts of JSX) at Atlassian and the wider ecosystem
-we support to be as mature as the other code we write, such as TypeScript/JavaScript, Java, Go, etc.
+We want the styling ecosystem (CSS, CSS-in-JS, and parts of JSX) at Atlassian and the wider
+ecosystem we support to be as mature as the other code we write, such as TypeScript/JavaScript,
+Java, Go, etc.
 
 ### Like other languages, styling code must be:
 
-- type-safe
-- static and locally analyzable
-- reusable and composable
-- restricted to an encapsulated scope
-- deterministic—with styling known in isolation
-- discoverable and readable without deep knowledge of the CSS spec
+-   type-safe
+-   static and locally analyzable
+-   reusable and composable
+-   restricted to an encapsulated scope
+-   deterministic—with styling known in isolation
+-   discoverable and readable without deep knowledge of the CSS spec
 
-As the W3C CSS spec and wider industry grows, having our styling code meet these principles will mean we
-can programatically evolve that a better future state.
+As the W3C CSS spec and wider industry grows, having our styling code meet these principles will
+mean we can programatically evolve that a better future state.
 
 ## Examples
 
@@ -137,86 +150,93 @@ export const Component = ({
 
 ### Correct code
 
-Every element should be clear in isolation how it's styled, using locally and statically available context so both humans and tooling can read this component in a performant and deterministic manner.
+Every element should be clear in isolation how it's styled, using locally and statically available
+context so both humans and tooling can read this component in a performant and deterministic manner.
 
 1. Use `@compiled/…` wherever possible!
 2. Instead of dynamic styles:
-   1. Use static `css()` calls everywhere.
-   2. Compose styles together, turning styles on or off.
-   3. When absoluteuly necessary, use `props.style` for dynamic styles.
+    1. Use static `css()` calls everywhere.
+    2. Compose styles together, turning styles on or off.
+    3. When absoluteuly necessary, use `props.style` for dynamic styles.
 3. Instead of nested selectors or global styles:
-   1. Style components directly.
-   2. Treat everything as local scope, parents shouldn't interact with children wherever feasible.
+    1. Style components directly.
+    2. Treat everything as local scope, parents shouldn't interact with children wherever feasible.
 4. Instead of passing raw styles around:
-   1. Write composable and reusable components which distribute styles with clear context.
-   2. Co-locate styles in the same file for human readability and far better tooling feasibility and performance.
-5. Instead of `styled.…`, use `const styles = css({ … });` (hoisted and static) and `<div css={styles} />`.
-   1. There will be a safe way to make bounded customizations on components through the use of `<Component xcss={css({ … })}>` in the future.
-6. Instead of `...props`, be explicit with the `aria-` or `data-` props you support, or have more complex spread handling. This is because `className`, `style`, and other things can be applied without any knowledge, resulting in regressions in the future.
-7. Instead of `!important`, `&& { … }`, or other specificity hacks, ensure your styles are correctly scoped to the component.
+    1. Write composable and reusable components which distribute styles with clear context.
+    2. Co-locate styles in the same file for human readability and far better tooling feasibility
+       and performance.
+5. Instead of `styled.…`, use `const styles = css({ … });` (hoisted and static) and
+   `<div css={styles} />`.
+    1. There will be a safe way to make bounded customizations on components through the use of
+       `<Component xcss={css({ … })}>` in the future.
+6. Instead of `...props`, be explicit with the `aria-` or `data-` props you support, or have more
+   complex spread handling. This is because `className`, `style`, and other things can be applied
+   without any knowledge, resulting in regressions in the future.
+7. Instead of `!important`, `&& { … }`, or other specificity hacks, ensure your styles are correctly
+   scoped to the component.
 
 ```tsx
 import { css } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 const wrapperStyles = css({
-  padding: token('space.200'), // eg. from mixin
-  font: token('font.body'), // eg. from mixin
-  color: token('color.text'),
+    padding: token('space.200'), // eg. from mixin
+    font: token('font.body'), // eg. from mixin
+    color: token('color.text'),
 });
 const disabledWrapperStyles = css({
-  color: token('color.text.disabled'),
+    color: token('color.text.disabled'),
 });
 const innerWrapperStyles = css({
-  // eg. colocated `innerWrapperStyles` (alternatively could create a reusable `<InnerWrapper>`)
-  display: 'flex',
-  gap: token('space.100'),
-  flexDirection: 'column',
+    // eg. colocated `innerWrapperStyles` (alternatively could create a reusable `<InnerWrapper>`)
+    display: 'flex',
+    gap: token('space.100'),
+    flexDirection: 'column',
 });
 const buttonStyles = css({
-  appearance: 'none', // eg. from global styles
-  padding: `${token('space.100')} ${token('space.200')}`, // eg. from global styles
-  color: token('color.link'),
+    appearance: 'none', // eg. from global styles
+    padding: `${token('space.100')} ${token('space.200')}`, // eg. from global styles
+    color: token('color.link'),
 });
 const disabledButtonStyles = css({
-  cursor: 'not-allowed', // eg. from disabledStyles
-  color: token('color.text.disabled'),
-  opacity: '70%',
+    cursor: 'not-allowed', // eg. from disabledStyles
+    color: token('color.text.disabled'),
+    opacity: '70%',
 });
 const buttonAppearanceStyles = cssMap({
-  primary: { background: token('color.background.brand.subtlest') },
-  secondary: { background: token('color.background.success') },
+    primary: { background: token('color.background.brand.subtlest') },
+    secondary: { background: token('color.background.success') },
 });
 
 export const Component = ({
-  disabled = false,
-  width = 100,
-  appearance = 'primary',
-  'aria-label': ariaLabel,
+    disabled = false,
+    width = 100,
+    appearance = 'primary',
+    'aria-label': ariaLabel,
 }: {
-  disabled?: boolean;
-  width?: number;
-  appearance?: 'primary' | 'secondary';
-  'aria-label'?: string;
+    disabled?: boolean;
+    width?: number;
+    appearance?: 'primary' | 'secondary';
+    'aria-label'?: string;
 }) => (
-  <div
-    css={[wrapperStyles, props.disabled && disabledWrapperStyles]}
-    style={{ width: `${props.width}px` }}
-    aria-label={ariaLabel}
-  >
-    <div css={innerWrapperStyles}>
-      {/* Typically, this `<button>` should be an Atlassian Design System `<Button>` */}
-      <button
-        disabled={props.disabled}
-        css={[
-          buttonStyles,
-          buttonAppearances[props.appearance],
-          props.disabled && disabledButtonStyles,
-        ]}
-      >
-        Click me
-      </button>
+    <div
+        css={[wrapperStyles, props.disabled && disabledWrapperStyles]}
+        style={{ width: `${props.width}px` }}
+        aria-label={ariaLabel}
+    >
+        <div css={innerWrapperStyles}>
+            {/* Typically, this `<button>` should be an Atlassian Design System `<Button>` */}
+            <button
+                disabled={props.disabled}
+                css={[
+                    buttonStyles,
+                    buttonAppearances[props.appearance],
+                    props.disabled && disabledButtonStyles,
+                ]}
+            >
+                Click me
+            </button>
+        </div>
     </div>
-  </div>
 );
 ```

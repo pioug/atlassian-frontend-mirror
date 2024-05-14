@@ -23,7 +23,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-import { getPluginState } from './plugin-factory';
 import { TABLE_MAX_WIDTH } from './table-resizing/utils';
 
 type __ReplaceStep = ReplaceStep & {
@@ -34,6 +33,8 @@ type __ReplaceStep = ReplaceStep & {
 
 type TableWidthPluginState = {
   resizing: boolean;
+  tableLocalId: string;
+  tableRef: HTMLTableElement | null;
 };
 
 export const pluginKey = new PluginKey<TableWidthPluginState>(
@@ -44,6 +45,7 @@ const createPlugin = (
   dispatch: Dispatch,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   fullWidthEnabled: boolean,
+  isTableScalingEnabled: boolean,
 ) => {
   return new SafePlugin({
     key: pluginKey,
@@ -51,15 +53,24 @@ const createPlugin = (
       init() {
         return {
           resizing: false,
+          tableLocalId: '',
+          tableRef: null,
         };
       },
       apply(tr, pluginState) {
         const meta = tr.getMeta(pluginKey);
-        if (meta && meta.resizing !== pluginState.resizing) {
-          const newState = { resizing: meta.resizing };
+        if (meta) {
+          const keys = Object.keys(meta) as Array<keyof TableWidthPluginState>;
+          const changed = keys.some((key) => {
+            return pluginState[key] !== meta[key];
+          });
 
-          dispatch(pluginKey, newState);
-          return newState;
+          if (changed) {
+            const newState = { ...pluginState, ...meta };
+
+            dispatch(pluginKey, newState);
+            return newState;
+          }
         }
 
         return pluginState;
@@ -121,8 +132,6 @@ const createPlugin = (
       const referentialityTr = transactions.find((tr) =>
         tr.getMeta('referentialityTableInserted'),
       );
-
-      const { isTableScalingEnabled = false } = getPluginState(newState);
 
       const shouldPatchTable = fullWidthEnabled && isTableScalingEnabled;
 

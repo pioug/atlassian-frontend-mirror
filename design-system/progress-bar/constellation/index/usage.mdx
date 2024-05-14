@@ -9,7 +9,9 @@ import progressBarDont from './images/progress-bar-data-viz-dont.png';
 
 A progress bar shows the duration of a system process, such as saving or processing changes, uploading and downloading files, and loading or updating an application.
 
-Use a progress bar when you can determine the percentage of the completed task at any time.
+Use a progress bar when the process is complex or has a long wait time, and you can determine the percentage of the process that has been completed.
+
+For short loading times, use a [spinner](/components/spinner) instead.
 
 ## Anatomy
 
@@ -20,11 +22,15 @@ Use a progress bar when you can determine the percentage of the completed task a
 
 ## Accessibility
 
-- Always provide a clear `ariaLabel` that describes the current state of the progress bar. For example, "5 of 10 files uploaded", not "Files uploading".
-- Use helper text with a progress bar if the process is complex or has a long wait time. This lets people know what sub-processes are taking place.
-- Use a clear success state when the actions required to continue have been fulfilled.
+### Provide clear labels and messaging
 
-## Best practice
+Always provide a clear `ariaLabel` that describes the current state of the progress bar. For example, "5 of 10 files uploaded", not "Files uploading".
+
+Wherever possible, also include this text as visual helper text. This lets people know what sub-processes are taking place.
+
+Use a clear success state when the actions required to continue have been fulfilled.
+
+### Don't use progress bars for data visualization
 
 <DoDont
   type="do"
@@ -50,5 +56,5 @@ Use a progress bar when you can determine the percentage of the completed task a
 
 ## Related
 
-- For guidelines on an alternative indeterminate loading state for constrained spaces, see [spinner](/components/spinner).
-- For guidelines on applying color to custom progress bars for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/).
+- For most loading use cases, choose a [spinner component](/components/spinner).
+- For guidelines on applying color to custom components for data visualization, see [data visualization color](/foundations/color-new/data-visualization-color/).

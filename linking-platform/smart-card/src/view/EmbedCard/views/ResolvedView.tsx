@@ -6,7 +6,7 @@ import LinkGlyph from '@atlaskit/icon/glyph/link';
 
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
-import { ContextViewModel, FrameStyle } from '../types';
+import { type ContextViewModel, type FrameStyle } from '../types';
 import { Frame } from '../components/Frame';
 import { useThemeObserver } from '@atlaskit/tokens';
 import { getPreviewUrlWithTheme } from '../../../utils';

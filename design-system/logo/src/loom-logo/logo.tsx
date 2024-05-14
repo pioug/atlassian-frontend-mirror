@@ -5,7 +5,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({
@@ -20,7 +20,7 @@ const svg = ({
   };
 
   if (appearance) {
-    colors = getColorsFromAppearance(appearance);
+    colors = getColorsFromAppearanceOldLogos(appearance);
   }
 
   const loomTextColor =

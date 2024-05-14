@@ -7,6 +7,7 @@ import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import * as analytics from '../../../../../../utils/analytics';
 import userEvent from '@testing-library/user-event';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 const mockResponse = getMockForbiddenDirectAccessResponse();
 const forbiddenViewTestId = 'hover-card-forbidden-view-resolved-view';
@@ -29,16 +30,18 @@ describe('Forbidden Hover Card', () => {
         onEvent={analyticsSpy}
       >
         <IntlProvider locale="en">
-          <HoverCardForbiddenView
-            flexibleCardProps={{
-              cardState: {
-                status: 'forbidden',
-                details: customResponse,
-              },
-              children: {},
-              url: mockUrl,
-            }}
-          />
+          <SmartCardProvider>
+            <HoverCardForbiddenView
+              flexibleCardProps={{
+                cardState: {
+                  status: 'forbidden',
+                  details: customResponse,
+                },
+                children: {},
+                url: mockUrl,
+              }}
+            />
+          </SmartCardProvider>
         </IntlProvider>
       </AnalyticsListener>,
     );

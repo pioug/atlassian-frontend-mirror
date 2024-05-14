@@ -1,11 +1,11 @@
-import {
+import type {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
   DatasourceTableStatusType,
   DatasourceType,
 } from '@atlaskit/linking-types';
 
-import { NextPageType } from '../../hooks/useDatasourceTableState';
+import type { NextPageType } from '../../hooks/useDatasourceTableState';
 
 export type DatasourceTypeWithOnlyValues = {
   [K in DatasourceType['type']]: {

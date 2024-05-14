@@ -10,12 +10,19 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clipboardPluginKey } from '../plugin-key';
 
+export enum ClipboardEventType {
+  CUT = 'CUT',
+  COPY = 'COPY',
+}
+let lastEventType: ClipboardEventType | null = null;
+
 export const createPlugin = ({
   dispatchAnalyticsEvent,
   schema,
 }: PMPluginFactoryParams) => {
   let editorView: EditorView;
   const getEditorView = () => editorView;
+
   return new SafePlugin({
     key: clipboardPluginKey,
     view: (view: EditorView) => {
@@ -28,10 +35,22 @@ export const createPlugin = ({
     },
     props: {
       handleDOMEvents: {
-        cut: view =>
-          sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.CUT),
-        copy: view =>
-          sendClipboardAnalytics(view, dispatchAnalyticsEvent, ACTION.COPIED),
+        cut: view => {
+          setLastEventType(ClipboardEventType.CUT);
+          return sendClipboardAnalytics(
+            view,
+            dispatchAnalyticsEvent,
+            ACTION.CUT,
+          );
+        },
+        copy: view => {
+          setLastEventType(ClipboardEventType.COPY);
+          return sendClipboardAnalytics(
+            view,
+            dispatchAnalyticsEvent,
+            ACTION.COPIED,
+          );
+        },
       },
       clipboardSerializer: createClipboardSerializer(schema, getEditorView),
     },
@@ -107,7 +126,24 @@ export const createClipboardSerializer = (
       return originalSerializeFragment(newContent, options, target);
     }
 
-    // If we're not copying any rows, just run default serializeFragment function.
+    // Remove annotations from media nodes when copying to clipboard, only do this for copy operations
+    if (
+      lastEventType === ClipboardEventType.COPY &&
+      content.firstChild?.type.name === 'media'
+    ) {
+      const mediaNode = content.firstChild;
+      const strippedMediaNode = schema.nodes.media.createChecked(
+        mediaNode.attrs,
+        mediaNode.content,
+        mediaNode.marks?.filter(mark => mark.type.name !== 'annotation'),
+      );
+      const newContent = Fragment.from(strippedMediaNode);
+      // Currently incorrectly typed, see comment above
+      //@ts-ignore
+      return originalSerializeFragment(newContent, options, target);
+    }
+
+    // If we're not copying any rows or media nodes, just run default serializeFragment function.
     // Currently incorrectly typed in @Types. See this GitHub thread: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/57668
     //@ts-ignore
     return originalSerializeFragment(content, options, target);
@@ -128,5 +164,8 @@ export const sendClipboardAnalytics = (
   // from running just because we are sending an analytics event
   return false;
 };
+
+export const setLastEventType = (eventType: ClipboardEventType) =>
+  (lastEventType = eventType);
 
 export { getAnalyticsPayload };

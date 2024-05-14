@@ -4,40 +4,72 @@ description: Text is a token-backed typography component to display body text.
 order: 0
 ---
 
-import Basic from '../../examples/constellation/text/basic';
-import ColorInverse from '../../examples/constellation/text/color-inverse';
-import Weight from '../../examples/constellation/text/weight';
-import Align from '../../examples/constellation/text/align';
-import AsElement from '../../examples/constellation/text/as-element';
+import TextBasic from '../../examples/constellation/text/text-basic';
+import TextColorInverse from '../../examples/constellation/text/text-color-inverse';
+import TextColorInherit from '../../examples/constellation/text/text-color-inherit';
+import TextWeight from '../../examples/constellation/text/text-weight';
+import TextAlign from '../../examples/constellation/text/text-align';
+import TextAsElement from '../../examples/constellation/text/text-as-element';
+import TextSpacing from '../../examples/constellation/text/text-spacing';
+import TextTruncation from '../../examples/constellation/text/text-truncation';
 
 ## Basic
 
-Implements the [Atlassian typography system](/foundations/typography/) as a component, scoped to body text usages.
+Use a Text component for main content. Text typically appears after headings or subheadings as detailed descriptions and messages, but also as standalone text in components.
 
-The `size` prop expresses the visual appearance of the text element.
+The `size` prop expresses the visual appearance of the text element:
+- `'large'` is for long-form content. Use this size for a comfortable reading experience such as in blogs.
+- `'medium'` is the default size in components or where space is limited, for detailed or descriptive content such as primary descriptions in flags.
+- `'small'` should be used sparingly and is for secondary level content such as fine print or semantic messaging.
 
-<Example Component={Basic} packageName="@atlaskit/primitives" />
+<Example Component={TextBasic} packageName="@atlaskit/primitives" />
 
 ## Color
 
-Set `color` to change the text color, defaults to `text.color` if not nested in other Text components. When used within a [box component](/components/primitives/box) that has a bold background color, the text color will automatically be inverted.
+Text uses the `color.text` token which automatically switches colors to be legible across both light and dark modes.
 
-<Example Component={ColorInverse} packageName="@atlaskit/primitives" />
+Text will automatically apply the correct inverse color token if placed within a [box component](/components/primitives/box) with a bold background color.
 
-## Weight
+<Example Component={TextColorInverse} packageName="@atlaskit/primitives" />
 
-Set `weight` to change the font weight.
+The `color` prop can be used with any text color token. If Text is nested inside another Text component, color will automatically inherit from its parent.
 
-<Example Component={Weight} packageName="@atlaskit/primitives" />
+<Example Component={TextColorInherit} packageName="@atlaskit/primitives" />
+
+## Font weight
+
+Font weight defaults to regular (400) and can be set using the `weight` prop.
+More information about the available weights can be found on the [typography foundations page](/foundations/typography-beta/#body-font-weight).
+
+Note: Text supports the semibold weight, however due to differences between font stacks across different operating systems, semibold text may render as bold.
+We recommend using regular, medium, and bold for the best results.
+
+<Example Component={TextWeight} packageName="@atlaskit/primitives" />
 
 ## Alignment
 
-Set `align` to change the text alignment.
+Text can be aligned using the `align` prop.
 
-<Example Component={Align} packageName="@atlaskit/primitives" />
+<Example Component={TextAlign} packageName="@atlaskit/primitives" />
 
-## Rendered HTML tag
+## Rendered HTML element
 
-Set `as` to change the rendered HTML element, defaults to `span`.
+Text renders a HTML `<span>` element by default. Use the `as` prop to change the rendered HTML element.
 
-<Example Component={AsElement} packageName="@atlaskit/primitives" />
+<Example Component={TextAsElement} packageName="@atlaskit/primitives" />
+
+## Arrangement with other text styles
+
+Text does not apply any vertical margin or spacing. To control space between text and other content, use a [stack component](/components/primitives/stack).
+
+The available values for paragraph spacing are outlined in the [Typography foundations](/foundations/typography-beta/#body) page.
+
+<Example Component={TextSpacing} packageName="@atlaskit/primitives" />
+
+## Truncation
+
+Truncation in product experiences [should be avoided](/content/language-and-grammar/#truncation).
+
+However if truncation cannot be avoided, for example when displaying user-generated content, use the `maxLines` prop to indicate how text should be truncated.
+
+<Example Component={TextTruncation} packageName="@atlaskit/primitives" />

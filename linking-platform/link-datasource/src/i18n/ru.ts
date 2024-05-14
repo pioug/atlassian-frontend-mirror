@@ -45,10 +45,26 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Настроить столбцы',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Поиск задач по ключевому слову',
   'linkDataSource.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.configmodal.inlineLinkViewModeDescription':
+    'Отображение количества результатов поиска или встроенной интеллектуальной ссылки',
+  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Встроенная ссылка',
+  'linkDataSource.configmodal.tableViewModeDescription': 'Отображение результатов поиска в виде таблицы',
+  'linkDataSource.configmodal.tableViewModeLabel': 'Таблица',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.confluence-search.configmodal.date.range.any.time': 'В любое время',
+  'linkDataSource.confluence-search.configmodal.date.range.custom': 'Свой вариант',
+  'linkDataSource.confluence-search.configmodal.date.range.last.month': 'В последние 30 дней',
+  'linkDataSource.confluence-search.configmodal.date.range.last.week': 'В последние 7 дней',
+  'linkDataSource.confluence-search.configmodal.date.range.last.year': 'В последний год',
+  'linkDataSource.confluence-search.configmodal.date.range.title': 'Последнее обновление',
+  'linkDataSource.confluence-search.configmodal.date.range.today': 'Сегодня',
+  'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Вчера',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Вставка списка Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставить список Confluence с сайта',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Вставить результаты',
+  'linkDataSource.confluence-search.configmodal.placeholder.issues': 'Найдено: ###',
+  'linkDataSource.confluence-search.configmodal.resultsCountText':
+    '{totalCount, plural, one {результат} few {результата} many {результатов} other {результата}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Введите ключевые слова для поиска страниц, вложений и другого содержимого',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -115,6 +131,7 @@ export default {
   'linkDataSource.table-footer.item':
     '{itemCount, plural, one {элемент} few {элемента} many {элементов} other {элемента}}',
   'linkDataSource.table-footer.loading': 'Загрузка…',
+  'linkDataSource.table-footer.power-by-jsm': 'С использованием функции «Активы» в Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Обновить',
   'linkDataSource.unableToLoadItems': 'Не удалось загрузить элементы',
   'linkDataSource.unableToLoadResults': 'Не удалось загрузить результаты',

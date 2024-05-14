@@ -31,8 +31,8 @@ describe('ColorPaletteMenu', () => {
     jest.resetAllMocks();
   });
 
-  test('should render ColorPaletteMenu with ColorCard', () => {
-    const { getByRole, getAllByRole } = renderUI();
+  test('should render ColorPaletteMenu with ColorCard', async () => {
+    const { getByRole, getAllByRole, findByText } = renderUI();
 
     const colorPaletteMenu = getByRole('radiogroup');
     expect(colorPaletteMenu).toBeInTheDocument();
@@ -43,8 +43,11 @@ describe('ColorPaletteMenu', () => {
 
     const colorCard = getAllByRole('radio');
     expect(colorCard).toHaveLength(2);
-    expect(colorCard[0]).toHaveAttribute('aria-label', 'Blue');
     expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
+
+    await userEvent.click(colorCard[0]);
+      const blueOption = await findByText('Blue');
+      expect(blueOption).toBeInTheDocument();
   });
 
   test('should call onChange prop onClick and onKeydown', async () => {
@@ -76,8 +79,8 @@ describe('ColorPaletteMenu', () => {
       mockGetBooleanFF.mockReturnValue(true);
     });
 
-    test('should render ColorPaletteMenu with ColorCard', () => {
-      const { getByRole, getAllByRole } = renderUI();
+    test('should render ColorPaletteMenu with ColorCard', async () => {
+      const { getByRole, getAllByRole, findByText } = renderUI();
 
       const colorPaletteMenu = getByRole('radiogroup');
       expect(colorPaletteMenu).toBeInTheDocument();
@@ -88,8 +91,11 @@ describe('ColorPaletteMenu', () => {
 
       const colorCard = getAllByRole('radio');
       expect(colorCard).toHaveLength(2);
-      expect(colorCard[0]).toHaveAttribute('aria-label', 'Blue');
       expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
+
+      await userEvent.click(colorCard[0]);
+      const blueOption = await findByText('Blue');
+      expect(blueOption).toBeInTheDocument();
     });
 
     test('should call onChange prop onClick and onKeydown', async () => {

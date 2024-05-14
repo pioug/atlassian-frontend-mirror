@@ -5,6 +5,7 @@ import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EventDispatcher } from '../event-dispatcher';
 import type { ExtensionHandlers } from '../extensions';
+import type { PortalProviderAPI } from '../portal';
 import type { ProviderFactory } from '../provider-factory';
 import type {
   ForwardRef,
@@ -13,7 +14,7 @@ import type {
 } from '../react-node-view';
 import ReactNodeView from '../react-node-view';
 import type { EditorAppearance } from '../types';
-import type { PortalProviderAPI } from '../ui/PortalProvider';
+import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
 import { Extension } from './Extension';
 import { ExtensionNodeWrapper } from './ExtensionNodeWrapper';
@@ -97,7 +98,7 @@ export class ExtensionNode extends ReactNodeView {
 }
 
 export default function ExtensionNodeView(
-  portalProviderAPI: PortalProviderAPI,
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   extensionHandlers: ExtensionHandlers,

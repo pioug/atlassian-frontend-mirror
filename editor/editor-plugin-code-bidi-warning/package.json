@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-code-bidi-warning",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "description": "Code bidi warning plugin for @atlaskit/editor-core.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,9 +36,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/code": "^15.2.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

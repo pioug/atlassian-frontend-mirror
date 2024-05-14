@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Cuentas',
   'fabric.media.actions': 'Acciones',
   'fabric.media.add_account': 'Añadir cuenta',
+  'fabric.media.alt_text': '¿Cómo describirías la imagen seleccionada a una persona con problemas de visión?',
   'fabric.media.annotate': 'Anotar',
   'fabric.media.annotate.confirmation.close.anyway': 'Cerrar de todos modos',
   'fabric.media.annotate.confirmation.content':
@@ -62,6 +63,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Arrastra tus archivos hasta aquí',
   'fabric.media.email': 'Correo electrónico',
   'fabric.media.enable_fullscreen': 'activar pantalla completa',
+  'fabric.media.enter_password': 'Introducir contraseña',
   'fabric.media.error_429': 'Error 429',
   'fabric.media.error_generating_preview': 'Error al generar la vista previa',
   'fabric.media.error_hint_critical': 'Si el problema continúa, ponte en contacto con la asistencia.',
@@ -69,6 +71,7 @@ export default {
   'fabric.media.error_loading_file': 'Error al cargar el archivo',
   'fabric.media.failed_to_load': 'No se pudo cargar',
   'fabric.media.failed_to_upload': 'Error al cargar',
+  'fabric.media.file_is_selected': 'El archivo {name} está seleccionado',
   'fabric.media.forbidden_description':
     'No puedes acceder a esta vista previa. Ponte en contacto con el administrador del sitio si tienes que acceder.',
   'fabric.media.give_feedback': 'Enviar comentarios',
@@ -76,6 +79,7 @@ export default {
   'fabric.media.image_format_invalid_error': 'No se pudo cargar la imagen porque el formato no es válido.',
   'fabric.media.image_size_too_large_error': 'La imagen es demasiado grande; no puede superar los {MAX_SIZE_MB} MB',
   'fabric.media.image_url_invalid_error': 'No se pudo cargar la imagen porque la URL no es válida.',
+  'fabric.media.incorrect_password': 'Contraseña incorrecta. Vuelve a intentarlo.',
   'fabric.media.insert_files': '{0, plural, one {Insertar {0} archivo} other {Insertar {0} archivos}}',
   'fabric.media.invalid_permissions': 'Enlace restringido',
   'fabric.media.invalid_permissions_description':
@@ -92,8 +96,11 @@ export default {
   'fabric.media.not_found_description':
     'No hemos encontrado el enlace. Comprueba la URL y prueba a editarla, o pégala de nuevo.',
   'fabric.media.not_found_title': '¡Vaya! No encontramos este enlace',
+  'fabric.media.open_file_in_viewer': 'Abrir {name}',
   'fabric.media.or': 'o',
   'fabric.media.or_select_default_avatars': 'Sube una foto o selecciona alguna de las opciones predeterminadas',
+  'fabric.media.password': 'Contraseña',
+  'fabric.media.password_protected_pdf': 'Este archivo está protegido con contraseña.',
   'fabric.media.pause': 'Pausar',
   'fabric.media.play': 'Reproducir',
   'fabric.media.playback_default_speed': 'Predeterminado',
@@ -122,6 +129,7 @@ export default {
   'fabric.media.something_went_wrong': 'Algo ha ido mal.',
   'fabric.media.srclink': 'Ver en',
   'fabric.media.srclinkunknown': 'Ver original',
+  'fabric.media.submit': 'Enviar',
   'fabric.media.text': 'Texto',
   'fabric.media.try_again': 'Volver a intentarlo',
   'fabric.media.try_another_account': 'Probar otra cuenta',

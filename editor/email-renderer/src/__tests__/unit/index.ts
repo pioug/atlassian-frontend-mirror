@@ -41,6 +41,8 @@ import * as lists from './__fixtures__/lists.adf.json';
 import * as orderedList from './__fixtures__/ordered-list.adf.json';
 import * as text from './__fixtures__/text.adf.json';
 import * as expand from './__fixtures__/expand.adf.json';
+import * as textColor from './__fixtures__/text-color.adf.json';
+import * as backgroundColor from './__fixtures__/background-color.adf.json';
 
 import * as image from './__fixtures__/image.adf.json';
 import * as placeholder from './__fixtures__/placeholder.adf.json';
@@ -49,7 +51,7 @@ import * as breakout from './__fixtures__/breakout.adf.json';
 import * as blockquoteWithList from './__fixtures__/blockquote-with-list.json';
 import * as actionInsideList from './__fixtures__/action-inside-list.adf.json';
 import * as extendedPanel from './__fixtures__/extended-panel.adf.json';
-import * as extendedNestedExpand from './__fixtures__/extended-nested-expand.adf.json';
+import * as nestedExpand from './__fixtures__/extended-nested-expand.adf.json';
 import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
@@ -175,6 +177,16 @@ describe('Renderer - EmailSerializer', () => {
 
   it('should apply no mark for breakout marks', () => {
     const { result } = render(breakout);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should apply textColor mark correctly', () => {
+    const { result } = render(textColor);
+    expect(result).toMatchSnapshot('html');
+  });
+
+  it('should apply backgroundColor mark correctly', () => {
+    const { result } = render(backgroundColor);
     expect(result).toMatchSnapshot('html');
   });
 
@@ -437,7 +449,7 @@ describe('Renderer - EmailSerializer', () => {
     expect(result).toMatchSnapshot('html');
   });
   it('should render list, action, code-block, panel, quote, decision, rule inside nested expand', () => {
-    const { result } = render(extendedNestedExpand, undefined, mediaContext);
+    const { result } = render(nestedExpand, undefined, mediaContext);
     expect(result).toMatchSnapshot('html');
   });
 });

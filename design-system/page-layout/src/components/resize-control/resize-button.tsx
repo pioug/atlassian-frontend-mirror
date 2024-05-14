@@ -23,6 +23,11 @@ const increaseHitAreaStyles = css({
   insetInlineStart: `${token('space.negative.100', '-8px')}`,
 });
 
+const furtherIncreasedHitAreasStyles = css({
+  insetBlockEnd: `${token('space.negative.300', '-24px')}`,
+  insetBlockStart: `${token('space.negative.300', '-24px')}`,
+});
+
 const mobileStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [UNSAFE_media.below.sm]: {
@@ -99,9 +104,9 @@ const ResizeButton = ({
   >
     <ChevronRight label="" />
     {getBooleanFF(
-      'platform.design-system-team.page-layout-remove-empty-div_4jg0j',
+      'platform.design-system-team.page-layout-resize-button-fix_u0qxv',
     ) ? (
-      <span css={increaseHitAreaStyles} />
+      <span css={[increaseHitAreaStyles, furtherIncreasedHitAreasStyles]} />
     ) : (
       <div css={increaseHitAreaStyles} />
     )}

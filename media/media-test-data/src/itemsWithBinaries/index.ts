@@ -5,6 +5,7 @@ export type {
   ItemWithBinaries,
   Binaries,
   GeneratedItemWithBinaries,
+  ItemWithBinariesGenerator,
 } from './types';
 
 export { sampleBinaries } from './sampleBinaries';

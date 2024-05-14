@@ -126,18 +126,18 @@ describe('<Heading />', () => {
       );
     });
 
-    it('Should call "copyTextToClipboard" with correct hash replaced', () => {
+    it('Should call "copyTextToClipboard" with correct hash replaced and query params cleared', () => {
       Object.defineProperty(window, 'location', {
         writable: true,
         value: {
-          href: 'http://localhost/#some-other-link',
+          href: 'http://localhost/some-path?focusedCommentId=123#some-other-link',
           hash: '#some-other-link',
         },
       });
       heading = renderHeadingWithAnchor();
       heading.find('button').simulate('click');
       expect(mockCopyTextToClipboard).toHaveBeenCalledWith(
-        'http://localhost/#This-is-a-Heading-1',
+        'http://localhost/some-path#This-is-a-Heading-1',
       );
     });
   });

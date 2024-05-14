@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.1.4
+
+### Patch Changes
+
+- [#92552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92552) [`7cd874b858c8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cd874b858c8) - Check target elements are actually HTMLElement rather than typecasting.
+
 ## 1.1.3
 
 ### Patch Changes

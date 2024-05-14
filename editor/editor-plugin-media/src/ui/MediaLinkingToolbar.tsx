@@ -47,21 +47,25 @@ export type Props = {
   displayUrl?: string;
 };
 
-const validationWrapper = css`
-  line-height: 0;
-  padding: ${token('space.150', '12px')} ${token('space.300', '24px')}
-    ${token('space.150', '12px')} 0;
-  margin: 0 ${token('space.050', '4px')} 0 ${token('space.400', '32px')};
-  border-top: 1px solid ${token('color.border.danger', R400)};
-  align-items: start;
-  display: flex;
-  flex-direction: column;
-`;
+const validationWrapper = css({
+  lineHeight: 0,
+  padding: `${token('space.150', '12px')} ${token('space.300', '24px')} ${token(
+    'space.150',
+    '12px',
+  )} 0`,
+  margin: `0 ${token('space.050', '4px')} 0 ${token('space.400', '32px')}`,
+  borderTop: `1px solid ${token('color.border.danger', R400)}`,
+  alignItems: 'start',
+  display: 'flex',
+  flexDirection: 'column',
+});
 
-const buttonWrapper = css`
-  padding: ${token('space.050', '4px')} ${token('space.100', '8px')}
-    ${token('space.050', '4px')} 0px;
-`;
+const buttonWrapper = css({
+  padding: `${token('space.050', '4px')} ${token('space.100', '8px')} ${token(
+    'space.050',
+    '4px',
+  )} 0px`,
+});
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class LinkAddToolbar extends React.PureComponent<

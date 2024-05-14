@@ -1,8 +1,5 @@
 import React from 'react';
 
-import parser from 'prettier/parser-babel';
-import prettier from 'prettier/standalone';
-
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import TextArea from '@atlaskit/textarea';
@@ -266,10 +263,7 @@ const nodeToDocBuilder = (node: any): string => {
 };
 
 const toDocBuilder = (adf: any) => {
-  return prettier.format(nodeToDocBuilder(adf), {
-    parser: 'babel',
-    plugins: [parser],
-  });
+  return nodeToDocBuilder(adf);
 };
 
 export default class Example extends React.Component {

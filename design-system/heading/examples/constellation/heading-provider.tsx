@@ -4,33 +4,26 @@ import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import Heading, { HeadingContextProvider } from '../../src';
 
-const Section = ({ size, children }: any) => (
+const Section = ({ size, willRenderAs, children }: any) => (
   <HeadingContextProvider>
-    <Box paddingInlineStart="space.100">
       <Stack space="space.100">
-        <Heading size={size}>Heading {size}</Heading>
+        <Heading size={size}>Heading {size} as {willRenderAs}</Heading>
         <Text as="p">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic adipisci,
-          fuga perferendis nam neque doloribus velit eveniet? Distinctio
-          explicabo autem est. Temporibus sunt non beatae quis minus rem
-          deleniti repellat consequuntur laboriosam eius mollitia repudiandae.
+          This section's heading is rendered as a {willRenderAs}, despite being {size}.
         </Text>
         {children}
       </Stack>
-    </Box>
   </HeadingContextProvider>
 );
 
 export default () => {
   return (
-    <HeadingContextProvider>
+    <HeadingContextProvider value={2}>
       <Box style={{ maxWidth: 850, margin: 'auto' }}>
         <Stack testId="headings" space="space.100">
-          <Heading size="xxlarge">Heading xxlarge as H1</Heading>
-          <Section size="medium">
-            <Section size="large">
-              <Section size="xxlarge" />
-            </Section>
+          <Heading size="xxlarge">Heading xxlarge as h2</Heading>
+          <Section size="medium" willRenderAs="h3">
+            <Section size="medium" willRenderAs="h4"/>
           </Section>
         </Stack>
       </Box>

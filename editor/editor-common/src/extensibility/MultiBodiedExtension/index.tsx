@@ -189,10 +189,11 @@ const MultiBodiedExtensionWithWidth = ({
     'extension-container',
     'block',
     {
-      'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
       'with-border': showMacroInteractionDesignUpdates,
-      'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
       'with-danger-overlay': showMacroInteractionDesignUpdates,
+      'with-padding-background-styles': showMacroInteractionDesignUpdates,
+      'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
+      'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
     },
   );
 
@@ -203,6 +204,10 @@ const MultiBodiedExtensionWithWidth = ({
   const navigationClassNames = classnames('multiBodiedExtension--navigation', {
     'remove-margins': showMacroInteractionDesignUpdates,
     'remove-border': showMacroInteractionDesignUpdates,
+  });
+
+  const overlayClassNames = classnames('multiBodiedExtension--overlay', {
+    'with-margin': showMacroInteractionDesignUpdates,
   });
 
   const handleMouseEvent = (didHover: boolean) => {
@@ -221,6 +226,8 @@ const MultiBodiedExtensionWithWidth = ({
           customContainerStyles={mbeWrapperStyles}
           isNodeHovered={isNodeHovered}
           isNodeNested={isNodeNested}
+          setIsNodeHovered={setIsNodeHovered}
+          isBodiedMacro={true}
         />
       )}
       <div
@@ -231,7 +238,11 @@ const MultiBodiedExtensionWithWidth = ({
         onMouseEnter={() => handleMouseEvent(true)}
         onMouseLeave={() => handleMouseEvent(false)}
       >
-        <div css={overlayStyles} className="multiBodiedExtension--overlay" />
+        <div
+          css={overlayStyles}
+          className={overlayClassNames}
+          data-testid="multiBodiedExtension--overlay"
+        />
         {getWrapperTitleContent(
           imageData,
           title,

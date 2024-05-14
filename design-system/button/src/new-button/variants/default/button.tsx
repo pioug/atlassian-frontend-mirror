@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UNSAFE_PRESSABLE from '@atlaskit/primitives/pressable';
+import Pressable from '@atlaskit/primitives/pressable';
 
 import { type CommonButtonVariantProps } from '../types';
 
@@ -83,7 +83,7 @@ const Button = React.memo(
     });
 
     return (
-      <UNSAFE_PRESSABLE
+      <Pressable
         // TODO: Remove spread props
         {...rest}
         ref={baseProps.ref}
@@ -106,7 +106,7 @@ const Button = React.memo(
         componentName="Button"
       >
         {baseProps.children}
-      </UNSAFE_PRESSABLE>
+      </Pressable>
     );
   }),
 );

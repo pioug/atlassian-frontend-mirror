@@ -1,6 +1,7 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
@@ -24,7 +25,7 @@ export interface Props {
   allowColumnResizing?: boolean;
   allowControls?: boolean;
   cellMinWidth?: number;
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
   eventDispatcher: EventDispatcher;
   getPos: () => number | undefined;
   options?: TableOptions;

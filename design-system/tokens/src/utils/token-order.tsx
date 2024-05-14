@@ -43,11 +43,7 @@ export const tokenOrder = [
   },
   {
     path: 'font',
-    subpaths: ['family', 'size', 'weight', 'lineHeight'],
-  },
-  {
-    path: 'typography',
-    subpaths: [],
+    subpaths: ['heading', 'body', 'code', 'weight', 'family', 'size', 'lineHeight'],
   },
   {
     path: 'value', // Legacy palette

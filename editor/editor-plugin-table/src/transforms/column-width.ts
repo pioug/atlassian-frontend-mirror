@@ -6,6 +6,7 @@ import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ResizeState } from '../pm-plugins/table-resizing/utils';
 import {
@@ -119,8 +120,15 @@ export const rescaleColumns =
 
     const newTable = tr.doc.nodeAt(table.pos);
     const domAtPos = view.domAtPos.bind(view);
-    const maybeTable = domAtPos(table.start).node as HTMLElement;
-    const tableRef = maybeTable.closest('table');
+    const maybeTable = domAtPos(table.start).node;
+    const maybeTableElement = getBooleanFF(
+      'platform.editor.explicit-html-element-check',
+    )
+      ? maybeTable instanceof HTMLElement
+        ? maybeTable
+        : null
+      : (maybeTable as HTMLElement | null);
+    const tableRef = maybeTableElement?.closest('table');
 
     if (!tableRef || !newTable) {
       return tr;
@@ -135,7 +143,14 @@ export const rescaleColumns =
     };
 
     const tableDepth = view.state.doc.resolve(table.pos).depth;
-    const shouldScale = isTableScalingEnabled && tableDepth === 0;
+    let shouldScale = isTableScalingEnabled && tableDepth === 0;
+    if (
+      shouldScale &&
+      getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+    ) {
+      shouldScale = newTable.attrs.displayMode !== 'fixed';
+    }
+
     if (shouldScale) {
       previousTableInfo = {
         width: getTableElementWidth(table.node),

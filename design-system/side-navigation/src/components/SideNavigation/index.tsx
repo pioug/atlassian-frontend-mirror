@@ -9,8 +9,8 @@ import { token } from '@atlaskit/tokens';
 
 export interface SideNavigationProps {
   /**
-   *  Describes the specific role of this navigation component for users viewing the page with a screen reader.
-   *  Differentiates from other navigation components on a page.
+   *  Describes the specific role of this navigation component for people viewing the page with assistive technology.
+   *  This differentiates the navigation from other navigation components on a page.
    */
   label: string;
 

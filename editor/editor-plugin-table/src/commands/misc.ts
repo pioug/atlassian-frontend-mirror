@@ -304,14 +304,20 @@ export const getTableElementMoveTypeBySlice = (
     return 'row';
   }
 
-  const map = TableMap.get(currentTable.node);
-  const slicedMap = TableMap.get(slice.content.firstChild);
+  // `TableMap.get` can throw if the content is invalid - in which case we should just
+  // return undefined
+  try {
+    const map = TableMap.get(currentTable.node);
+    const slicedMap = TableMap.get(slice.content.firstChild);
 
-  return map.width === slicedMap.width
-    ? 'row'
-    : map.height === slicedMap.height
-    ? 'column'
-    : undefined;
+    return map.width === slicedMap.width
+      ? 'row'
+      : map.height === slicedMap.height
+      ? 'column'
+      : undefined;
+  } catch (e) {
+    return undefined;
+  }
 };
 
 export const isInsideFirstCellOfRowOrColumn = (
@@ -435,7 +441,11 @@ export const moveCursorBackward: Command = (state, dispatch) => {
 };
 
 export const setMultipleCellAttrs =
-  (attrs: Object, targetCellPosition?: number): Command =>
+  (
+    attrs: Object,
+    targetCellPosition?: number,
+    editorView?: EditorView | null,
+  ): Command =>
   (state, dispatch) => {
     let cursorPos: number | undefined;
     let { tr } = state;
@@ -457,6 +467,10 @@ export const setMultipleCellAttrs =
 
     if (tr.docChanged && cursorPos !== undefined) {
       if (dispatch) {
+        if (cursorPos !== undefined) {
+          editorView?.focus();
+          tr.setSelection(new TextSelection(tr.doc.resolve(cursorPos)));
+        }
         dispatch(tr);
       }
       return true;

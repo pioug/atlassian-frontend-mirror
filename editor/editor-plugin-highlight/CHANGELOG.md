@@ -1,0 +1,46 @@
+# @atlaskit/editor-plugin-highlight
+
+## 1.0.5
+
+### Patch Changes
+
+-   [#97599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97599)
+    [`32c3130b08fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32c3130b08fe) -
+    [ED-22282] Bump adf-schema to 36.1.0
+
+## 1.0.4
+
+### Patch Changes
+
+-   [#97698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97698)
+    [`1c7b378c0d3b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c7b378c0d3b) -
+    [HOT-108999] We had an incident where the cursor jumps back a character in table headers for any
+    language triggering composition on an empty line.This was fixed in a patch bump of
+    prosemirror-view. https://github.com/ProseMirror/prosemirror-view/compare/1.33.4...1.33.5
+
+## 1.0.3
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 1.0.2
+
+### Patch Changes
+
+-   [#96237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96237)
+    [`0401e7b5a88e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0401e7b5a88e) -
+    [ED-23102] Bump ADF schema to version 35.12.2
+-   [#96613](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96613)
+    [`398961a2b0a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/398961a2b0a1) -
+    [ux] [ED-23133] Moved stepped rainbow text colour icon styles to editor-common and refactored to
+    be reusable
+
+## 1.0.1
+
+### Patch Changes
+
+-   [#95715](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95715)
+    [`f036f2fd9ccf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f036f2fd9ccf) -
+    [ED-23102] Added global styles that map the custom CSS variables to background color for
+    background color mark

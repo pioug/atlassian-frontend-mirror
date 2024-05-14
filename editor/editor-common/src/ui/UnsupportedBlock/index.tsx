@@ -2,9 +2,10 @@
 import React, { useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';
@@ -14,27 +15,27 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { ACTION_SUBJECT_ID } from '../../analytics';
 import { unsupportedContentMessages } from '../../messages/unsupportedContent';
-import { UnsupportedContentTooltipPayload } from '../../utils';
+import type { UnsupportedContentTooltipPayload } from '../../utils';
 import { trackUnsupportedContentTooltipDisplayedFor } from '../../utils/track-unsupported-content';
 import { getUnsupportedContent } from '../unsupported-content-helper';
 
-const blockNodeStyle = css`
-  background: ${token('color.background.disabled', N30)};
-  border: 1px dashed ${token('color.border.disabled', N50)};
-  border-radius: ${borderRadius()}px;
-  box-sizing: border-box;
-  cursor: default;
-  display: flex;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
-  margin: ${token('space.100', '8px')} 0;
-  min-height: 24px;
-  padding: ${token('space.150', '12px')};
-  text-align: center;
-  vertical-align: text-bottom;
-  min-width: 120px;
-  align-items: center;
-  justify-content: center;
-`;
+const blockNodeStyle = css({
+  background: token('color.background.disabled', N30),
+  border: `1px dashed ${token('color.border.disabled', N50)}`,
+  borderRadius: `${borderRadius()}px`,
+  boxSizing: 'border-box',
+  cursor: 'default',
+  display: 'flex',
+  fontSize: relativeFontSizeToBase16(fontSize()),
+  margin: `${token('space.100', '8px')} 0`,
+  minHeight: '24px',
+  padding: token('space.150', '12px'),
+  textAlign: 'center',
+  verticalAlign: 'text-bottom',
+  minWidth: '120px',
+  alignItems: 'center',
+  justifyContent: 'center',
+});
 
 export interface Props {
   node?: PMNode;

@@ -19,8 +19,8 @@ export interface LoadingItemsProps {
   fallback: React.ReactNode;
 
   /**
-   * Used to show either the loading fallback or the loaded contents.
-   * Will cross fade between children and fallback when this is flipped.
+   * Use this to show either the loading fallback or the loaded contents.
+   * It will cross fade between children and fallback when the value is flipped.
    */
   isLoading?: boolean;
 

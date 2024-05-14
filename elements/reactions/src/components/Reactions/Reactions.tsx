@@ -8,11 +8,11 @@ import React, {
 } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
-  KeyboardOrMouseEvent,
+  type KeyboardOrMouseEvent,
   ModalTransition,
-  OnCloseHandler,
+  type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
@@ -29,12 +29,12 @@ import {
 import { SAMPLING_RATE_REACTIONS_RENDERED_EXP } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import {
-  onDialogSelectReactionChange,
+  type onDialogSelectReactionChange,
   ReactionStatus,
-  ReactionClick,
-  ReactionSummary,
-  ReactionSource,
-  QuickReactionEmojiSummary,
+  type ReactionClick,
+  type ReactionSummary,
+  type ReactionSource,
+  type QuickReactionEmojiSummary,
 } from '../../types';
 import {
   ReactionDialogClosed,
@@ -42,10 +42,10 @@ import {
   ReactionDialogSelectedReactionChanged,
 } from '../../ufo';
 
-import { Reaction, ReactionProps } from '../Reaction';
+import { Reaction, type ReactionProps } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
-import { ReactionPicker, ReactionPickerProps } from '../ReactionPicker';
-import { SelectorProps } from '../Selector';
+import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
+import { type SelectorProps } from '../Selector';
 
 import {
   reactionPickerStyle,
@@ -113,6 +113,11 @@ export interface ReactionsProps
    */
   flash?: Record<string, boolean>;
   /**
+   * Optional emoji reactions list to show floating emoji particle effect (key => emoji string "id", value => true/false to show the particle effect).
+   * Generally used for newly added reactions.
+   */
+  particleEffectByEmoji?: Record<string, boolean>;
+  /**
    * Optional event to get reaction details for an emoji
    * @param emojiId current reaction emoji id
    */
@@ -167,6 +172,7 @@ export function getTooltip(status: ReactionStatus, errorMessage?: string) {
 export const Reactions = React.memo(
   ({
     flash = {},
+    particleEffectByEmoji = {},
     status,
     errorMessage,
     loadReaction,
@@ -396,6 +402,7 @@ export const Reactions = React.memo(
             flash={flash[reaction.emojiId]}
             handleUserListClick={handleOpenReactionsDialog}
             allowUserDialog={allowUserDialog}
+            showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
           />
         ))}
         <ReactionPicker

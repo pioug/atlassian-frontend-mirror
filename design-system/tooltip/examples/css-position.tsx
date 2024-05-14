@@ -4,7 +4,6 @@ import { CSSProperties, FC, forwardRef, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { ReactNode } from 'react-redux';
 
-import { N20, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../src';
@@ -21,16 +20,13 @@ const color = {
   fixed: 'red',
 };
 
-const boxShadow = token(
-  'elevation.shadow.overlay',
-  `0 4px 8px -2px ${N60A}, 0 0 1px ${N60A}`,
-);
+const boxShadow = token('elevation.shadow.overlay');
 
 const positionStyles = css({
   width: '280px',
   height: '60px',
   padding: token('space.100', '8px'),
-  backgroundColor: `${token('color.background.neutral', N20)}`,
+  backgroundColor: `${token('color.background.neutral')}`,
   borderRadius: '5px',
 });
 

@@ -3,7 +3,15 @@ import type { Space, XCSS } from '@atlaskit/primitives';
 import type { SerializedStyles } from '@emotion/react';
 import type { ReactChild, ReactNode } from 'react';
 import type { SmartLinkSize } from '../../../../../constants';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
+export type ActionMessageAppearance = 'error';
+
+export type ActionMessage = {
+  appearance?: ActionMessageAppearance;
+  icon?: ReactNode;
+  title: ReactNode;
+};
 
 export type ActionProps = {
   /**
@@ -32,6 +40,11 @@ export type ActionProps = {
   onClick: () => any;
 
   /**
+   * Error callback - each action is to provide its own implementation.
+   */
+  onError?: (error: ActionMessage) => void;
+
+  /**
    * Determines the icon rendered within the Action.
    */
   icon?: ReactChild;
@@ -56,6 +69,11 @@ export type ActionProps = {
    * Determines the onHide behaviour of the Tooltip
    */
   tooltipOnHide?: (analyticsEvent: UIAnalyticsEvent) => any;
+
+  /**
+   * Determines the hideTooltipOnMouseDown behaviour of the Tooltip
+   */
+  hideTooltipOnMouseDown?: boolean;
 
   /**
    * @deprecated Use 'as' instead

@@ -1,17 +1,15 @@
 import { writeFileSync } from 'fs';
 import { join } from 'path';
 
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 // eslint-disable-next-line import/order
 import { createPartialSignedArtifact } from '@atlassian/codegen';
 
 // eslint-disable-next-line import/order
 import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
-const constructTokenFunctionCall = (tokenName: string, fallback: string) => {
-  return `token('${tokenName}', '${fallback}')`;
+const constructTokenFunctionCall = (tokenName: string) => {
+  return `token('${tokenName}')`;
 };
 
 const headingTokens = tokens
@@ -24,7 +22,7 @@ const removeVerbosity = (name: string): string => {
 
 export const createTypographyStylesFromTemplate = () => {
   return (
-    prettier.format(
+    format(
       `
 const headingSizeStylesMap = {
   ${headingTokens
@@ -32,20 +30,12 @@ const headingSizeStylesMap = {
       return `
         '${removeVerbosity(
           token.name,
-        )}': css({ font: ${constructTokenFunctionCall(
-        token.cleanName,
-        token.value,
-      )} })
+        )}': css({ font: ${constructTokenFunctionCall(token.cleanName)} })
       `.trim();
     })
     .join(',\n\t')}
 };`,
-      {
-        singleQuote: true,
-        trailingComma: 'all',
-        parser: 'typescript',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) + `\nexport type HeadingSize = keyof typeof headingSizeStylesMap;\n`
   );
 };

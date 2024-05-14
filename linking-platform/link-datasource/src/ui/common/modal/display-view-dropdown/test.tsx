@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { DisplayViewModes } from '../../../../common/types';
+import { type DisplayViewModes } from '../../../../common/types';
 
 import { DisplayViewDropDown } from './display-view-drop-down';
 
@@ -55,7 +55,7 @@ describe('DisplayViewDropDown', () => {
   it('displays the correct item title in the dropdown menu', () => {
     const { getByTestId } = setup();
 
-    expect(getByTestId('dropdown-item-table')).toHaveTextContent('Table');
+    expect(getByTestId('dropdown-item-table')).toHaveTextContent('List');
     expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
       'Inline link',
     );
@@ -65,14 +65,14 @@ describe('DisplayViewDropDown', () => {
     const { getByTestId } = setup();
 
     expect(getByTestId('dropdown-item-table')).toHaveTextContent(
-      'Display search results as a table',
+      'Display search results as a list',
     );
     expect(getByTestId('dropdown-item-inline-link')).toHaveTextContent(
-      'Display the number of search results or as an inline smart link',
+      'Display the number of search results as an inline Smart Link',
     );
   });
 
-  it('should display table item followed by inline item', () => {
+  it('should display list item followed by inline item', () => {
     const { getByTestId } = setup();
 
     const tableItem = getByTestId('dropdown-item-table');
@@ -94,5 +94,27 @@ describe('DisplayViewDropDown', () => {
 
     fireEvent.click(getByTestId('dropdown-item-table'));
     expect(mockOnViewModeChange).toHaveBeenCalledWith('table');
+  });
+
+  it('trigger text should be list when view mode is table', () => {
+    const { getByTestId } = setup({
+      defaultViewMode: 'table',
+      openDropDownByDefault: false,
+    });
+
+    expect(
+      getByTestId('datasource-modal--view-drop-down--trigger'),
+    ).toHaveTextContent('List');
+  });
+
+  it('trigger text should be inline link when view mode is inline', () => {
+    const { getByTestId } = setup({
+      defaultViewMode: 'inline',
+      openDropDownByDefault: false,
+    });
+
+    expect(
+      getByTestId('datasource-modal--view-drop-down--trigger'),
+    ).toHaveTextContent('Inline link');
   });
 });

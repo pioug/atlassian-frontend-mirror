@@ -3,7 +3,6 @@ export async function* readStream<T>(response: Response): AsyncGenerator<T> {
   const reader = getBufferReader(response);
   let doneStreaming = false;
   let chunkBuffer = '';
-  const chunkTypeErrorMessage = 'jsonChunkType error';
   do {
     try {
       const { value, done } = await reader.read();
@@ -17,14 +16,12 @@ export async function* readStream<T>(response: Response): AsyncGenerator<T> {
         for (let chunk of processedChunks) {
           try {
             const jsonChunk = JSON.parse(chunk);
+
             if (jsonChunk.type === 'ERROR') {
-              throw new Error(chunkTypeErrorMessage);
+              reader.cancel();
             }
             yield jsonChunk;
           } catch (e) {
-            if (e instanceof Error && e.message === chunkTypeErrorMessage) {
-              throw e;
-            }
             // the chunk may be incomplete, so we'll save it for the next iteration.
             chunkBuffer = chunk;
           }

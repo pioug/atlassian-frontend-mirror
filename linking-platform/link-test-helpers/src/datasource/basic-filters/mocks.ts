@@ -1094,3 +1094,268 @@ export const fieldValuesErrorResponse = {
 };
 
 export const fieldValuesEmptyResponseMapped = [];
+
+export const successfulUserQueryResponse = {
+  data: {
+    me: {
+      user: {
+        accountId: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+        id: 'ari:cloud:identity::user/70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+      },
+    },
+  },
+};
+
+export const successfuluserHydrationResponse = {
+  data: {
+    users: [
+      {
+        accountId: '5ffe1efc34847e0069446bf8',
+        name: 'Atlassian Assist (staging)',
+        picture:
+          'https://avatar-management--avatars.us-west-2.staging.public.atl-paas.net/62cf07378afb5805e5d46454/5d1719ab-8717-4837-9ae7-a3761c3b6604/128',
+      },
+    ],
+  },
+};
+
+export const successfulRecommendationAPIResponse = {
+  recommendedUsers: [
+    {
+      entityType: 'USER',
+      id: '5ffe1efc34847e0069446bf8',
+      name: 'Atlassian Assist (staging)',
+      avatarUrl: '',
+      nickname: 'Atlassian Assist (staging)',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      userType: 'APP',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '62df272c3aaeedcae755c533',
+      name: 'Atlas for Jira (staging)',
+      avatarUrl: '',
+      nickname: 'Atlas for Jira (staging)',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      userType: 'APP',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '6232be743eacc50071fe13ba',
+      name: 'Stephen',
+      email: 'sdemontfort+10@atlassian.com',
+      avatarUrl: '',
+      nickname: 'Stephen',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      locale: 'en-GB',
+      userType: 'DEFAULT',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '608b253e2911000071b6e6d6',
+      name: 'Pranay Test 1773',
+      email: 'pmarella+1773@atlassian.com',
+      avatarUrl: '',
+      nickname: 'Pranay Test 1773',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      locale: 'en-US',
+      userType: 'DEFAULT',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '6202a8cfc4e2c9006ae620b1',
+      name: 'Jacob Test3',
+      email: 'jbrunson+test3@atlassian.com',
+      avatarUrl: '',
+      nickname: 'Jacob Test3',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      locale: 'en-US',
+      userType: 'DEFAULT',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '61428180ff23ba00717b7d78',
+      name: 'Test Themes',
+      avatarUrl: '',
+      nickname: 'Test Themes',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      userType: 'APP',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '5d9e2c300d44fc0dca5428bb',
+      name: 'Confluence Connect Test - AP methods',
+      avatarUrl: '',
+      nickname: 'Confluence Connect Test - AP methods',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      userType: 'APP',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '655363:1276a696-f0d0-4f3a-a022-636723eb5148',
+      name: 'Confluence Google Drive',
+      avatarUrl: '',
+      nickname: 'Confluence Google Drive',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      userType: 'APP',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '712020:413e43c0-7202-4016-a318-a004892e7f8c',
+      name: 'arthur chen nth user',
+      avatarUrl: '',
+      nickname: 'arthur chen nth user',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      locale: 'en-US',
+      userType: 'DEFAULT',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+    {
+      entityType: 'USER',
+      id: '712020:9219bf5f-0358-4782-99dc-bc73258b2ddc',
+      name: 'jeff mellis',
+      avatarUrl: '',
+      nickname: 'jeff mellis',
+      matchPositions: {},
+      accessLevel: 'CONTAINER',
+      accountStatus: 'ACTIVE',
+      notMentionable: false,
+      locale: 'en-US',
+      userType: 'DEFAULT',
+      attributes: {
+        isConfluenceExternalCollaborator: false,
+      },
+    },
+  ],
+};
+
+export const failedUserQueryResponse = {
+  errors: [
+    {
+      message: 'failed to fetch or some other error message',
+      locations: [],
+      extensions: {},
+    },
+  ],
+  extensions: {},
+};
+
+export const failedRecommendationAPIResponse = {
+  errors: [],
+};
+
+export const transformedRecommendationMockFilterOptions = [
+  {
+    optionType: 'avatarLabel',
+    label: 'Atlassian Assist (staging)',
+    value: '5ffe1efc34847e0069446bf8',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Atlas for Jira (staging)',
+    value: '62df272c3aaeedcae755c533',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Stephen',
+    value: '6232be743eacc50071fe13ba',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Pranay Test 1773',
+    value: '608b253e2911000071b6e6d6',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Jacob Test3',
+    value: '6202a8cfc4e2c9006ae620b1',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Test Themes',
+    value: '61428180ff23ba00717b7d78',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Confluence Connect Test - AP methods',
+    value: '5d9e2c300d44fc0dca5428bb',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'Confluence Google Drive',
+    value: '655363:1276a696-f0d0-4f3a-a022-636723eb5148',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'arthur chen nth user',
+    value: '712020:413e43c0-7202-4016-a318-a004892e7f8c',
+    avatar: '',
+  },
+  {
+    optionType: 'avatarLabel',
+    label: 'jeff mellis',
+    value: '712020:9219bf5f-0358-4782-99dc-bc73258b2ddc',
+    avatar: '',
+  },
+];

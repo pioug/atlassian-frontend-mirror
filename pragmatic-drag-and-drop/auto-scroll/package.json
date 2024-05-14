@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-  "version": "1.0.3",
+  "version": "1.3.0",
   "description": "An optional Pragmatic drag and drop package that enables automatic scrolling during a drag operation",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -43,6 +43,7 @@
     "./external": "./src/entry-point/external.ts",
     "./text-selection": "./src/entry-point/text-selection.ts",
     "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
+    "./unsafe-overflow/external": "./src/entry-point/unsafe-overflow/external.ts",
     "./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
   },
   "exports": {
@@ -51,6 +52,7 @@
     "./external": "./src/entry-point/external.ts",
     "./text-selection": "./src/entry-point/text-selection.ts",
     "./unsafe-overflow/element": "./src/entry-point/unsafe-overflow/element.ts",
+    "./unsafe-overflow/external": "./src/entry-point/unsafe-overflow/external.ts",
     "./unsafe-overflow/text-selection": "./src/entry-point/unsafe-overflow/text-selection.ts"
   },
   "dependencies": {
@@ -61,7 +63,7 @@
     "@af/integration-testing": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
-    "bind-event-listener": "^2.1.1",
+    "bind-event-listener": "^3.0.0",
     "raf-stub": "^2.0.1",
     "tiny-invariant": "^1.2.0",
     "typescript": "~5.4.2"

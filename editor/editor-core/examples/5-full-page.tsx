@@ -542,6 +542,7 @@ export class ExampleEditorComponent extends React.Component<
                   'table-drag-and-drop': true,
                   'table-preserve-width': true,
                   'sticky-scrollbar': true,
+                  'table-duplicate-cell-colouring': true,
                 }}
                 appearance={this.state.appearance}
                 onEditorReady={this.onEditorReady}

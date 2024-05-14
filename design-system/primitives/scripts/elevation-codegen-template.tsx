@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens';
 import {
   legacyLightTokens as legacyTokens,
@@ -66,8 +64,7 @@ export const createElevationStylesFromTemplate = (
 
   const { filterFn, objectName } = tokenStyles[property];
 
-  return (
-    prettier.format(
+  return (format(
       `
 export const ${objectName}Map = {
   ${activeTokens
@@ -82,12 +79,7 @@ export const ${objectName}Map = {
     })
     .join(',\n\t')}
 } as const;`,
-      {
-        singleQuote: true,
-        parser: 'typescript',
-        trailingComma: 'all',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) +
     `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
   );

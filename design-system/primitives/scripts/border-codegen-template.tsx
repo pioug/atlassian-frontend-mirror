@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { shape as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, constructTokenFunctionCall } from './utils';
@@ -47,8 +45,7 @@ export const createBorderStylesFromTemplate = (
 
   const { filterFn, objectName } = tokenStyles[property];
 
-  return (
-    prettier.format(
+  return (format(
       `
 export const ${objectName}Map = {
   ${activeTokens
@@ -63,12 +60,7 @@ export const ${objectName}Map = {
     })
     .join(',\n\t')}
 } as const;`,
-      {
-        singleQuote: true,
-        parser: 'typescript',
-        trailingComma: 'all',
-        plugins: [parserTypeScript],
-      },
+      'typescript',
     ) +
     `\nexport type ${capitalize(objectName)} = keyof typeof ${objectName}Map;\n`
   );

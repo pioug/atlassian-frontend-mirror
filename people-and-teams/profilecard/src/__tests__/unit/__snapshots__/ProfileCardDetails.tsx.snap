@@ -4,6 +4,7 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 <Styled(div)>
   <Styled(h2)
     data-testid="profilecard-name"
+    id="profilecard-name-label"
     noMeta={true}
   >
     full name test (jscrazy) 
@@ -33,6 +34,7 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 <Styled(div)>
   <Styled(h2)
     data-testid="profilecard-name"
+    id="profilecard-name-label"
     noMeta={true}
   >
     full name test (jscrazy) 
@@ -63,6 +65,7 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when n
 <Styled(div)>
   <Styled(h2)
     data-testid="profilecard-name"
+    id="profilecard-name-label"
     noMeta={true}
   >
     full name test (jscrazy) 
@@ -98,6 +101,7 @@ exports[`ProfileCardDetails reportingLines property should match snapshot when r
 <Styled(div)>
   <Styled(h2)
     data-testid="profilecard-name"
+    id="profilecard-name-label"
     noMeta={true}
   >
     full name test (jscrazy) 

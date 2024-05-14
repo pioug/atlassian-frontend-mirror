@@ -1,6 +1,5 @@
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize, fontFamily } from '@atlaskit/theme/constants';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B400,
@@ -21,7 +20,7 @@ import {
 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { StylesConfig, ValidationState } from './types';
+import { type StylesConfig, type ValidationState } from './types';
 
 const BORDER_WIDTH = 2;
 const ICON_PADDING = 2;
@@ -48,12 +47,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
     control: (css, { isFocused, isDisabled }) => {
       let borderColor: string = isFocused
         ? token('color.border.focused', B100)
-        : token(
-            'color.border.input',
-            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-              ? N100
-              : N20,
-          );
+        : token('color.border.input', N100);
       let backgroundColor: string = isFocused
         ? token('color.background.input.pressed', N0)
         : token('color.background.input', N20);
@@ -74,12 +68,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
 
       let borderColorHover: string = isFocused
         ? token('color.border.focused', B100)
-        : token(
-            'color.border.input',
-            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-              ? N100
-              : N30,
-          );
+        : token('color.border.input', N100);
 
       if (validationState === 'error') {
         borderColorHover = token('color.border.danger', R400);
@@ -116,22 +105,17 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderColor,
         borderStyle: 'solid',
         borderRadius: token('border.radius.100', '3px'),
-        borderWidth: getBooleanFF(
-          'platform.design-system-team.update-input-border-wdith_5abwv',
-        )
-          ? token('border.width', '1px')
-          : token('border.width.outline', '2px'),
-        boxShadow: 'none',
-        ...(getBooleanFF(
-          'platform.design-system-team.update-input-border-wdith_5abwv',
-        ) && {
-          '&:focus-within': {
-            boxShadow: `inset 0 0 0 ${token(
-              'border.width',
-              '1px',
-            )} ${borderColor}`,
-          },
-        }),
+        borderWidth: token('border.width', '1px'),
+        boxShadow:
+          validationState === 'error'
+            ? `inset 0 0 0 ${token('border.width', '1px')} ${borderColor}`
+            : 'none',
+        '&:focus-within': {
+          boxShadow: `inset 0 0 0 ${token(
+            'border.width',
+            '1px',
+          )} ${borderColor}`,
+        },
         minHeight: isCompact ? gridSize() * 4 : gridSize() * 5,
         padding: 0,
         transition: `background-color ${transitionDuration} ease-in-out,

@@ -5,7 +5,6 @@ import { Component, SyntheticEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { N20, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
@@ -21,8 +20,8 @@ const stackingStyles = css({
 
 const visualStyles = css({
   padding: token('space.300', '24px'),
-  backgroundColor: token('color.background.neutral', N20),
-  border: `1px solid ${token('color.background.accent.gray.subtle', N500)}`,
+  backgroundColor: token('color.background.neutral'),
+  border: `1px solid ${token('color.background.accent.gray.subtle')}`,
 });
 
 export default class DrawersExample extends Component<{}, State> {

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { LinkButton } from '../../../../src/new';
+
 type MyRouterLinkConfig = {
   to: string;
   replace?: boolean;

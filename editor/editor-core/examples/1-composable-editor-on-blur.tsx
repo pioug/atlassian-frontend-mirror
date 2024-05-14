@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
@@ -12,8 +11,8 @@ import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 
 function Editor() {
-  const { editorApi, preset } = usePreset(() =>
-    new EditorPresetBuilder()
+  const { editorApi, preset } = usePreset((builder) =>
+    builder
       .add(basePlugin)
       .add([analyticsPlugin, {}])
       .add(blockTypePlugin)

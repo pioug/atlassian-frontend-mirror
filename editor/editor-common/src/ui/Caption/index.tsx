@@ -2,26 +2,27 @@
 import React from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { N200, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
 
-const captionWrapperStyle = css`
-  margin-top: ${token('space.100', '8px')};
-  text-align: center;
-  position: relative;
-  color: ${token('color.text.subtle', N400)};
-`;
+const captionWrapperStyle = css({
+  marginTop: token('space.100', '8px'),
+  textAlign: 'center',
+  position: 'relative',
+  color: token('color.text.subtle', N400),
+});
 
-const placeholderStyle = css`
-  color: ${token('color.text.subtlest', N200)};
-  position: absolute;
-  top: 0;
-  width: 100%;
-`;
+const placeholderStyle = css({
+  color: token('color.text.subtlest', N200),
+  position: 'absolute',
+  top: 0,
+  width: '100%',
+});
 
 type Props = {
   selected?: boolean;

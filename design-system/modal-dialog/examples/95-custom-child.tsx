@@ -13,7 +13,7 @@ import Modal, { ModalTransition } from '../src';
 
 const childStyles = css({
   height: '400px',
-  backgroundColor: token('color.background.accent.magenta.subtler', 'hotpink'),
+  backgroundColor: token('color.background.accent.magenta.subtler'),
 });
 
 const containerStyles = xcss({

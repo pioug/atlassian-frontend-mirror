@@ -1,14 +1,11 @@
-/** @jsx jsx */
-import {
-  FocusEventHandler,
-  KeyboardEventHandler,
-  MouseEventHandler,
+import React, {
+  type FocusEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { token } from '@atlaskit/tokens';
+import { Pressable, xcss } from '@atlaskit/primitives';
 
 import { cssVar } from '../../../constants';
 
@@ -23,40 +20,36 @@ type RemoveButtonProps = {
   testId?: string;
 };
 
-const baseStyles = css({
+const removeButtonStyles = xcss({
   display: 'flex',
   height: '16px',
-  margin: token('space.0', '0px'),
-  padding: token('space.0', '0px'),
+  margin: 'space.0',
+  padding: 'space.0',
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  right: 0,
+  insetInlineEnd: 'space.0',
   alignItems: 'center',
   justifyContent: 'center',
   alignSelf: 'center',
   appearance: 'none',
-  backgroundColor: 'transparent',
+  backgroundColor: 'color.background.neutral.subtle',
   border: 'none',
+  // Once legacy theming is dropped, this can be changed to 'border.radius'
+  // @ts-expect-error
   borderRadius: `var(${cssVar.borderRadius})`,
   // Once legacy theming is dropped, this can be changed to 'inherit'
+  // @ts-expect-error
   color: `var(${cssVar.color.removeButton.default})`,
   cursor: 'pointer',
   pointerEvents: 'auto',
-  '&::-moz-focus-inner': {
-    margin: token('space.0', '0px'),
-    padding: token('space.0', '0px'),
-    border: 0,
+
+  ':focus-visible': {
+    outlineOffset: 'space.0',
   },
+
   ':hover': {
     // Once legacy theming is dropped, this can be changed to 'cssVar.color.text.default'
+    // @ts-expect-error
     color: `var(${cssVar.color.removeButton.hover})`,
-  },
-});
-
-const focusRingStyles = css({
-  '&:focus': {
-    boxShadow: `0 0 0 2px var(${cssVar.color.focusRing}) inset`,
-    outline: 'none',
   },
 });
 
@@ -71,9 +64,8 @@ const RemoveButton = ({
   testId,
 }: RemoveButtonProps) => {
   return (
-    <button
-      css={[baseStyles, focusRingStyles]}
-      tabIndex={0}
+    <Pressable
+      xcss={removeButtonStyles}
       aria-label={ariaLabel}
       onClick={onClick}
       onFocus={onFocus}
@@ -81,11 +73,10 @@ const RemoveButton = ({
       onKeyPress={onKeyPress}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
-      type="button"
-      data-testid={testId}
+      testId={testId}
     >
       <EditorCloseIcon label="close tag" size="small" />
-    </button>
+    </Pressable>
   );
 };
 

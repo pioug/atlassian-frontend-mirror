@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ds-lib",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Reusable utilities and hooks specific to design system.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "bind-event-listener": "^2.1.1"
+    "bind-event-listener": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ~18.2.0"

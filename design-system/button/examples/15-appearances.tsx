@@ -18,7 +18,8 @@ export default function AppearancesExample() {
               <tr>
                 <th>Appearance</th>
                 <th>Default</th>
-                <th>Icon after</th>
+                {name === 'Button' ||
+                  (name === 'LinkButton' && <th>Icon after</th>)}
                 <th>Selected</th>
               </tr>
             </thead>
@@ -34,15 +35,18 @@ export default function AppearancesExample() {
                       Default
                     </Component>
                   </td>
-                  <td>
-                    <Component
-                      // @ts-ignore
-                      appearance={appearance}
-                      iconAfter={ChevronDownIcon}
-                    >
-                      Icon after
-                    </Component>
-                  </td>
+                  {name === 'Button' ||
+                    (name === 'LinkButton' && (
+                      <td>
+                        <Component
+                          // @ts-ignore
+                          appearance={appearance}
+                          iconAfter={ChevronDownIcon}
+                        >
+                          Icon after
+                        </Component>
+                      </td>
+                    ))}
                   <td>
                     <Component
                       // @ts-ignore

@@ -27,7 +27,6 @@ import type { TeamMember } from '@atlaskit/mention/team-resource';
 import {
   buildTypeAheadCancelPayload,
   buildTypeAheadInsertedPayload,
-  buildTypeAheadInviteExposurePayload,
   buildTypeAheadInviteItemClickedPayload,
   buildTypeAheadInviteItemViewedPayload,
   buildTypeAheadRenderedPayload,
@@ -311,20 +310,6 @@ export const createTypeAheadConfig = ({
 
           if (mentions.length === 0 && firstQueryWithoutResults === null) {
             firstQueryWithoutResults = query;
-          }
-
-          // Growth (El-dorado) experiment design hard requirement
-          if (mentionItems.length <= 2) {
-            const { inviteExperimentCohort, userRole } = mentionProvider;
-
-            fireEvent(
-              buildTypeAheadInviteExposurePayload(
-                sessionId,
-                contextIdentifierProvider,
-                inviteExperimentCohort,
-                userRole,
-              ),
-            );
           }
 
           if (!mentionProvider.shouldEnableInvite || mentionItems.length > 2) {

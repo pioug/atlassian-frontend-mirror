@@ -5,31 +5,31 @@ import { css, jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { IconProps } from '@atlaskit/icon';
+import { type IconProps } from '@atlaskit/icon';
 import ShareIcon from '@atlaskit/icon/glyph/share';
-import Popup, { TriggerProps } from '@atlaskit/popup';
+import Popup, { type TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
-import { Value } from '@atlaskit/user-picker';
+import { type Value } from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
 import {
-  Flag,
-  Integration,
+  type Flag,
+  type Integration,
   OBJECT_SHARED,
-  ShareData,
-  ShareDialogWithTriggerProps,
-  ShareDialogWithTriggerStates,
-  ShareError,
+  type ShareData,
+  type ShareDialogWithTriggerProps,
+  type ShareDialogWithTriggerStates,
+  type ShareError,
 } from '../types';
 
 import {
@@ -636,6 +636,8 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           placement={dialogPlacement}
           trigger={this.renderShareTriggerButton}
           zIndex={dialogZIndex}
+          label={this.props.intl.formatMessage(messages.sharePopupLabel)}
+          role="dialog"
         />
 
         {/* The select menu portal */}

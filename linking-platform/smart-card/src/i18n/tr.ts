@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     "<a>Atlassian Kabul Edilebilir Kullanım Politikası</a>'na uymadığından bu özetin sonuçları gösterilemiyor.",
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence şu anda bir yanıt sağlayamıyor. <a>Destek belgelerimizden</a> daha fazla bilgi edinin.',
+    'Atlassian Intelligence (AI) yanıt vermiyor. Daha sonra yeniden deneyin veya <a>AI durumunu kontrol edin</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence, içeriğiniz HIPAA kısıtlı içeriklere giden bağlantılar içerdiğinden talebinizi işleyemedi.',
   'fabric.linking.assigned_to': '{context} adlı kişiye atandı',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'İptal',

@@ -1,4 +1,3 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   N0,
@@ -18,12 +17,7 @@ export const disabledBackground = token('color.background.disabled', N20);
 export const disabledBorder = token('color.border.disabled', N40);
 export const invalidBorderColor = token('color.border.danger', R400);
 
-export const defaultBorderColor = token(
-  'color.border.input',
-  getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-    ? N100
-    : N40,
-);
+export const defaultBorderColor = token('color.border.input', N100);
 
 export const defaultBorderColorFocus = token('color.border.focused', B200);
 export const defaultBackgroundColor = token('color.background.input', N10);

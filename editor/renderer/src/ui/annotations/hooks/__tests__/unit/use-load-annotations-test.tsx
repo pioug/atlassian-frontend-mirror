@@ -66,7 +66,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 
   describe('#useLoadAnnotations', () => {
     const CustomComp = () => {
-      useLoadAnnotations({ adfDocument });
+      useLoadAnnotations({ adfDocument, isNestedRender: false });
       return null;
     };
 
@@ -104,7 +104,10 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
         const CustomComp = ({
           myAdfDocument,
         }: React.PropsWithChildren<Record<'myAdfDocument', JSONDocNode>>) => {
-          useLoadAnnotations({ adfDocument: myAdfDocument });
+          useLoadAnnotations({
+            adfDocument: myAdfDocument,
+            isNestedRender: false,
+          });
           return null;
         };
 
@@ -219,6 +222,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 
       expect(providers.inlineComment.getState).toHaveBeenCalledWith(
         fakeMarksIds,
+        false,
       );
     });
 

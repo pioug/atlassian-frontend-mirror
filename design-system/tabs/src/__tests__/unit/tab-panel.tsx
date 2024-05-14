@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { cleanup, fireEvent, render, waitFor } from '@testing-library/react';
 
@@ -51,7 +51,6 @@ describe('@atlaskit/tabs', () => {
             hidden: false,
             'aria-labelledby': '1',
             tabIndex: 0,
-            onMouseDown: noop,
           }}
         >
           <TabPanel>
@@ -60,7 +59,7 @@ describe('@atlaskit/tabs', () => {
         </TabPanelContext.Provider>,
       );
 
-      expect(getByTestId('panel-1')).toBeTruthy();
+      expect(getByTestId('panel-1')).toBeInTheDocument();
     });
 
     it('should map props in context correctly', () => {
@@ -72,7 +71,6 @@ describe('@atlaskit/tabs', () => {
             hidden: false,
             'aria-labelledby': '1',
             tabIndex: 0,
-            onMouseDown: noop,
           }}
         >
           <TabPanel>Label 1</TabPanel>
@@ -80,33 +78,10 @@ describe('@atlaskit/tabs', () => {
       );
 
       const tabPanel = getByRole('tabpanel');
-      expect(tabPanel.getAttribute('aria-labelledby')).toBe('1');
+      expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
       expect(tabPanel.id).toBe('0-1-tab');
       expect(tabPanel.hidden).toBe(false);
       expect(tabPanel.tabIndex).toBe(0);
-    });
-
-    it('should map onMouseDown in context correctly', () => {
-      const spy = jest.fn();
-      const { getByRole } = render(
-        <TabPanelContext.Provider
-          value={{
-            role: 'tabpanel',
-            id: '0-1-tab',
-            hidden: false,
-            'aria-labelledby': '1',
-            tabIndex: 0,
-            onMouseDown: spy,
-          }}
-        >
-          <TabPanel>Label 1</TabPanel>
-        </TabPanelContext.Provider>,
-      );
-
-      const tabPanel = getByRole('tabpanel');
-      fireEvent.mouseDown(tabPanel);
-
-      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -119,7 +94,6 @@ describe('@atlaskit/tabs', () => {
             'aria-labelledby': '1',
             id: '1-1-tab',
             tabIndex: 0,
-            onMouseDown: noop,
           }}
         >
           <CustomTabPanel>Panel 1</CustomTabPanel>
@@ -127,7 +101,7 @@ describe('@atlaskit/tabs', () => {
       );
 
       const tabPanel = getByRole('tabpanel');
-      expect(tabPanel.getAttribute('aria-labelledby')).toBe('1');
+      expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
       expect(tabPanel.id).toBe('1-1-tab');
       expect(tabPanel.hidden).toBe(false);
       expect(tabPanel.tabIndex).toBe(0);
@@ -141,7 +115,6 @@ describe('@atlaskit/tabs', () => {
             'aria-labelledby': '1',
             id: '1-1-tab',
             tabIndex: 0,
-            onMouseDown: noop,
           }}
         >
           <div>
@@ -151,7 +124,7 @@ describe('@atlaskit/tabs', () => {
       );
 
       const tabPanel = getByRole('tabpanel');
-      expect(tabPanel.getAttribute('aria-labelledby')).toBe('1');
+      expect(tabPanel).toHaveAttribute('aria-labelledby', '1');
       expect(tabPanel.id).toBe('1-1-tab');
       expect(tabPanel.hidden).toBe(false);
       expect(tabPanel.tabIndex).toBe(0);
@@ -169,12 +142,12 @@ describe('@atlaskit/tabs', () => {
         </Tabs>,
       );
 
-      getByText('Tab 2 label').click();
+      fireEvent.click(getByText('Tab 2 label'));
 
       waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-      expect(getByText('Tab 1 panel')).toBeTruthy();
-      expect(getByText('Tab 2 panel')).toBeTruthy();
-      expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+      expect(getByText('Tab 1 panel')).toBeInTheDocument();
+      expect(getByText('Tab 2 panel')).toBeInTheDocument();
+      expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
       expect(getByText('Tab 1 panel').hidden).toBe(true);
       expect(getByText('Tab 2 panel').hidden).toBe(false);

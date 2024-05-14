@@ -238,7 +238,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "display view changed" and display = "datasource_inline" when user changed the view and then clicked the ${buttonName} button`, async () => {
           const { assertAnalyticsAfterButtonClick } = await setup({
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -377,7 +377,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
               ],
               totalCount: 1,
             },
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -418,7 +418,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           });
 
           const { assertAnalyticsAfterButtonClick } = await setup({
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -441,7 +441,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
           );
 
           const { assertAnalyticsAfterButtonClick } = await setup({
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -697,7 +697,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
 
       it('should fire "ui.link.viewed.count" event once when a issue count viewed', async () => {
         const { onAnalyticFireEvent } = await setup({
-          viewMode: 'count',
+          viewMode: 'inline',
         });
 
         expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
@@ -715,7 +715,7 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         async (status, hookState) => {
           const { onAnalyticFireEvent } = await setup({
             hookState,
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           expect(onAnalyticFireEvent).not.toBeFiredWithAnalyticEventOnce(

@@ -3,28 +3,28 @@ import React from 'react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import SmartUserPicker, {
-  EmailValidationResponse,
+  type EmailValidationResponse,
   isValidEmail,
-  LoadOptions,
-  OptionData,
-  Props as SmartUserPickerProps,
-  UserPickerProps,
-  Value,
+  type LoadOptions,
+  type OptionData,
+  type Props as SmartUserPickerProps,
+  type UserPickerProps,
+  type Value,
 } from '@atlaskit/smart-user-picker';
-import UserPicker, { ExternalUser, Team, User } from '@atlaskit/user-picker';
+import UserPicker, { type ExternalUser, type Team, type User } from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
 import {
-  ConfigResponse,
-  MessageDescriptor,
-  ProductName,
-  ShareError,
-  UserPickerOptions,
+  type ConfigResponse,
+  type MessageDescriptor,
+  type ProductName,
+  type ShareError,
+  type UserPickerOptions,
 } from '../types';
 
 import { MAX_PICKER_HEIGHT } from './styles';
@@ -114,7 +114,7 @@ const getNoOptionsMessage =
       : null;
   };
 
-const getPlaceHolderMessageDescriptor: GetMessageDescriptor = (
+const getPlaceHolderMessageDescriptorDefault: GetMessageDescriptor = (
   product: ProductName = 'confluence',
   allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
@@ -142,7 +142,7 @@ const getPlaceHolderMessageDescriptor: GetMessageDescriptor = (
   return placeholderMessage[product];
 };
 
-const getLabelMessageDescriptor: GetMessageDescriptor = (
+const getLabelMessageDescriptorDefault: GetMessageDescriptor = (
   product: ProductName = 'confluence',
   allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
@@ -168,7 +168,7 @@ const getLabelMessageDescriptor: GetMessageDescriptor = (
   return labelMessage[product];
 };
 
-const getRequiredMessage: GetMessageDescriptor = (
+const getRequiredMessageDefault: GetMessageDescriptor = (
   product: ProductName = 'confluence',
   allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
@@ -307,14 +307,19 @@ export class UserPickerFieldComponent extends React.Component<
 
     const allowEmail = allowEmails(config);
 
+    const { header, noOptionsMessageHandler, onFocus, getLabelMessage: getLabelMessageCustom, getPlaceholderMessage: getPlaceholderMessageCustom, getRequiredMessage: getRequiredMessageCustom, } =
+    userPickerOptions ?? {};
+    
+    const getRequiredMessage = (...[product, ...params]: Parameters<GetMessageDescriptor>) => getRequiredMessageCustom?.(...params) ?? getRequiredMessageDefault(...[product, ...params]);
+    const getLabelMessage = (...[product, ...params]: Parameters<GetMessageDescriptor>) => getLabelMessageCustom?.(...params) ?? getLabelMessageDescriptorDefault(...[product, ...params]);
+    const getPlaceHolderMessage = (...[product, ...params]: Parameters<GetMessageDescriptor>) => getPlaceholderMessageCustom?.(...params) ?? getPlaceHolderMessageDescriptorDefault(...[product, ...params]);
+
     const requiredMessage = getRequiredMessage(
       product,
       allowEmail,
       isBrowseUsersDisabled,
     );
 
-    const { header, noOptionsMessageHandler, onFocus } =
-      userPickerOptions ?? {};
 
     const commonPickerProps: Partial<UserPickerProps> = {
       fieldId: 'share',
@@ -349,7 +354,7 @@ export class UserPickerFieldComponent extends React.Component<
         label={
           <span id={USER_PICKER_FIELD_LABEL}>
             <FormattedMessage
-              {...getLabelMessageDescriptor(
+              {...getLabelMessage(
                 product,
                 allowEmail,
                 isBrowseUsersDisabled,
@@ -388,7 +393,7 @@ export class UserPickerFieldComponent extends React.Component<
                 placeholder={
                   <span id={USER_PICKER_FIELD_PLACEHOLDER}>
                     <FormattedMessage
-                      {...getPlaceHolderMessageDescriptor(
+                      {...getPlaceHolderMessage(
                         product,
                         allowEmail,
                         isBrowseUsersDisabled,
@@ -397,6 +402,7 @@ export class UserPickerFieldComponent extends React.Component<
                   </span>
                 }
                 menuPortalTarget={menuPortalTarget}
+                inputId={fieldProps.id}
               />
 
               {helperMessage && !wasValidationOrShareError && (

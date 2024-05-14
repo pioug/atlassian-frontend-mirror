@@ -4,6 +4,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { updateColumnWidths } from '../../../transforms';
 import { getTableWidth } from '../../../utils';
@@ -38,7 +39,7 @@ export const scale = (
   tableRef: HTMLTableElement,
   options: ScaleOptions,
   domAtPos: DomAtPos,
-  isTableScalingEnabled = false,
+  isTableScalingEnabledOnCurrentTable = false,
 ): ResizeState | undefined => {
   const {
     node,
@@ -87,7 +88,7 @@ export const scale = (
     tableRef,
     start,
     domAtPos,
-    isTableScalingEnabled,
+    isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
   });
 
   return scaleTableTo(resizeState, newWidth);
@@ -99,7 +100,7 @@ export const scaleWithParent = (
   table: PMNode,
   start: number,
   domAtPos: DomAtPos,
-  isTableScalingEnabled = false,
+  isTableScalingEnabledOnCurrentTable = false,
 ) => {
   const resizeState = getResizeState({
     minWidth: tableCellMinWidth,
@@ -108,7 +109,7 @@ export const scaleWithParent = (
     tableRef,
     start,
     domAtPos,
-    isTableScalingEnabled,
+    isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
   });
 
   if (table.attrs.isNumberColumnEnabled) {
@@ -163,15 +164,23 @@ export const previewScaleTable = (
     tableRef.style.width = `${width}px`;
   }
 
+  let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
+  if (
+    isTableScalingEnabled &&
+    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+  ) {
+    isTableScalingEnabledOnCurrentTable =
+      isTableScalingEnabled && node.attrs.displayMode !== 'fixed';
+  }
   // If the table hasn't been resize, the colgroup 48px width values will gracefully scale down.
   // If we are scaling the table down with isTableScalingEnabled, the colgroup widths may be scaled to a value that is not 48px.
-  if (!hasTableBeenResized(node) && !isTableScalingEnabled) {
+  if (!hasTableBeenResized(node) && !isTableScalingEnabledOnCurrentTable) {
     syncStickyRowToTable(tableRef);
     return;
   }
 
   const resizeState = parentWidth
-    ? scaleWithParent(tableRef, parentWidth, node, start, domAtPos, false)
+    ? scaleWithParent(tableRef, parentWidth, node, start, domAtPos, false) // Here last value is isTableScalingEnabled = false
     : scale(tableRef, options, domAtPos, false);
 
   if (resizeState) {
@@ -185,7 +194,7 @@ export const scaleTable =
     tableRef: HTMLTableElement | null | undefined,
     options: ScaleOptions,
     domAtPos: DomAtPos,
-    isTableScalingEnabled = false,
+    isTableScalingEnabledOnCurrentTable = false,
   ) =>
   (tr: Transaction) => {
     if (!tableRef) {
@@ -197,7 +206,7 @@ export const scaleTable =
     if (hasTableBeenResized(node) === false) {
       // If its not a re-sized table, we still want to re-create cols
       // To force reflow of columns upon delete.
-      if (!isTableScalingEnabled) {
+      if (!isTableScalingEnabledOnCurrentTable) {
         insertColgroupFromNode(tableRef, node);
       }
       tr.setMeta('scrollIntoView', false);
@@ -212,10 +221,15 @@ export const scaleTable =
         node,
         start,
         domAtPos,
-        isTableScalingEnabled,
+        isTableScalingEnabledOnCurrentTable,
       );
     } else {
-      resizeState = scale(tableRef, options, domAtPos, isTableScalingEnabled);
+      resizeState = scale(
+        tableRef,
+        options,
+        domAtPos,
+        isTableScalingEnabledOnCurrentTable,
+      );
     }
 
     if (resizeState) {

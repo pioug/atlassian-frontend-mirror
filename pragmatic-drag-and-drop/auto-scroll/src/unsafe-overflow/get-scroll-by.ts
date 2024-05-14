@@ -4,18 +4,25 @@ import type {
   Position,
 } from '@atlaskit/pragmatic-drag-and-drop/types';
 
-import type { Axis, Edge, InternalConfig, Spacing } from '../internal-types';
+import type {
+  AllowedAxis,
+  Axis,
+  Edge,
+  InternalConfig,
+  Spacing,
+} from '../internal-types';
 import { canScrollOnEdge } from '../shared/can-scroll-on-edge';
-import { edges } from '../shared/edges';
+import { edgeAxisLookup, edges } from '../shared/edges';
 import { markAndGetEngagement } from '../shared/engagement-history';
 import { getScrollChange } from '../shared/get-scroll-change';
+import { isAxisAllowed } from '../shared/is-axis-allowed';
 import { isWithin } from '../shared/is-within';
 
 import { getHitbox } from './hitbox';
 import {
-  HitboxSpacing,
-  ProvidedHitboxSpacing,
-  UnsafeOverflowAutoScrollArgs,
+  type HitboxSpacing,
+  type ProvidedHitboxSpacing,
+  type UnsafeOverflowAutoScrollArgs,
 } from './types';
 
 export type HitboxForEdge = {
@@ -53,9 +60,11 @@ export function getScrollBy<DragType extends AllDragTypes>({
   timeSinceLastFrame,
   input,
   config,
+  allowedAxis,
 }: {
   entry: UnsafeOverflowAutoScrollArgs<DragType>;
   input: Input;
+  allowedAxis: AllowedAxis;
   timeSinceLastFrame: number;
   config: InternalConfig;
 }): Pick<ScrollToOptions, 'top' | 'left'> | null {
@@ -138,8 +147,14 @@ export function getScrollBy<DragType extends AllDragTypes>({
   // as being engaged with to start applying time dampening
   const engagement = markAndGetEngagement(entry.element);
 
-  const scrollableEdges: HitboxForEdge[] = inHitboxForEdge.filter(value =>
-    canScrollOnEdge[value.edge](entry.element),
+  // Note: changing the allowed axis during a drag will not
+  // reset time dampening. It was decided it would be too
+  // complex to implement initially, and we can add it
+  // later if needed.
+  const scrollableEdges: HitboxForEdge[] = inHitboxForEdge.filter(
+    value =>
+      isAxisAllowed(edgeAxisLookup[value.edge], allowedAxis) &&
+      canScrollOnEdge[value.edge](entry.element),
   );
 
   // Nothing can be scrolled

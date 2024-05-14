@@ -69,6 +69,7 @@ export const composeListItemStyles = (selected = false) => {
 
 export const itemNameStyles = css({
   overflow: 'hidden',
+  alignContent: 'center',
 });
 
 export const listItemNameStyles = css({

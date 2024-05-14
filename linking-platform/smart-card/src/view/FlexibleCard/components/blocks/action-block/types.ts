@@ -1,16 +1,13 @@
 import type { Space } from '@atlaskit/primitives';
-import type { ActionName } from '../../../../../constants';
+
 import type { BlockProps } from '../types';
+import { FlexibleUiActionName } from '../../../../../constants';
 
 export type ActionBlockProps = {
   /**
    * Callback once action is executed.
    */
-  onClick?: (name: ActionName) => void;
-  /**
-   * Array.Sort function to order the actions
-   */
-  sort?: (a: ActionName, b: ActionName) => number;
+  onClick?: (name: FlexibleUiActionName) => void;
   /**
    * Used to add space along the inline axis (typically horizontal).
    */

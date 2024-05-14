@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
+
+import { css, jsx } from '@compiled/react';
 
 import { LoomIcon, LoomLogo } from '../../src';
+
+const tableStyle = css({
+  width: '80%',
+});
 
 const LogoLoom = () => {
   return (
@@ -14,7 +20,7 @@ const LogoLoom = () => {
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <LoomLogo appearance="brand" />
             </td>
             <td>

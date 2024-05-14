@@ -321,6 +321,10 @@ const unsupportedMarks = {
     open: '',
     close: '',
   },
+  backgroundColor: {
+    open: '',
+    close: '',
+  },
   typeAheadQuery: {
     open: '',
     close: '',

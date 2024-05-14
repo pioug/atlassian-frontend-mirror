@@ -15,7 +15,10 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
@@ -53,6 +56,7 @@ export interface Props {
   hasStickyHeaders?: boolean;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 export class FloatingInsertButton extends React.Component<
@@ -94,8 +98,8 @@ export class FloatingInsertButton extends React.Component<
       typeof insertColumnButtonIndex !== 'undefined'
         ? 'column'
         : typeof insertRowButtonIndex !== 'undefined'
-        ? 'row'
-        : null;
+          ? 'row'
+          : null;
 
     if (!tableNode || !tableRef || !type) {
       return null;
@@ -261,13 +265,23 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private insertRow(event: React.SyntheticEvent) {
-    const { editorView, insertRowButtonIndex, editorAnalyticsAPI } = this.props;
+    const {
+      editorView,
+      insertRowButtonIndex,
+      editorAnalyticsAPI,
+      getEditorFeatureFlags,
+    } = this.props;
 
     if (typeof insertRowButtonIndex !== 'undefined') {
       event.preventDefault();
 
       const { state, dispatch } = editorView;
-      insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.BUTTON, {
+      const featureFlags = !!getEditorFeatureFlags && getEditorFeatureFlags();
+
+      insertRowWithAnalytics(
+        editorAnalyticsAPI,
+        featureFlags && featureFlags.tableDuplicateCellColouring,
+      )(INPUT_METHOD.BUTTON, {
         index: insertRowButtonIndex,
         moveCursorToInsertedRow: true,
       })(state, dispatch);
@@ -275,8 +289,12 @@ export class FloatingInsertButton extends React.Component<
   }
 
   private insertColumn(event: React.SyntheticEvent) {
-    const { editorView, insertColumnButtonIndex, editorAnalyticsAPI } =
-      this.props;
+    const {
+      editorView,
+      insertColumnButtonIndex,
+      editorAnalyticsAPI,
+      getEditorFeatureFlags,
+    } = this.props;
 
     if (typeof insertColumnButtonIndex !== 'undefined') {
       event.preventDefault();
@@ -285,11 +303,20 @@ export class FloatingInsertButton extends React.Component<
         editorView.state,
       );
 
+      const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
+        ? getEditorFeatureFlags()
+        : {};
+
       const { state, dispatch } = editorView;
-      insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
-        INPUT_METHOD.BUTTON,
-        insertColumnButtonIndex,
-      )(state, dispatch, editorView);
+      insertColumnWithAnalytics(
+        editorAnalyticsAPI,
+        isTableScalingEnabled,
+        tableDuplicateCellColouring,
+      )(INPUT_METHOD.BUTTON, insertColumnButtonIndex)(
+        state,
+        dispatch,
+        editorView,
+      );
     }
   }
 }

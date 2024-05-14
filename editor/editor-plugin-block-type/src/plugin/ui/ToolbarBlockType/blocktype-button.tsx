@@ -30,10 +30,15 @@ export interface BlockTypeButtonProps {
   onClick(e: React.MouseEvent): void;
   onKeyDown(e: React.KeyboardEvent): void;
   formatMessage: WrappedComponentProps['intl']['formatMessage'];
+  blockTypeName?: string;
 }
 
 export const BlockTypeButton = (props: BlockTypeButtonProps) => {
-  const labelTextStyles = props.formatMessage(toolbarMessages.textStyles);
+  const blockTypeName = props.blockTypeName || '';
+  const labelTextStyles = props.formatMessage(toolbarMessages.textStyles, {
+    blockTypeName
+  });
+
   return (
     <ToolbarButton
       spacing={props.isReducedSpacing ? 'none' : 'default'}

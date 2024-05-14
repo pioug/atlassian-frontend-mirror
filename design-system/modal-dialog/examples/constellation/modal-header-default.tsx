@@ -53,7 +53,7 @@ export default function Example() {
               </p>
             </ModalBody>
             <ModalFooter>
-              <Button appearance="subtle">Secondary Action</Button>
+              <Button appearance="subtle">About modals</Button>
               <Button appearance="primary" onClick={closeModal}>
                 Close
               </Button>

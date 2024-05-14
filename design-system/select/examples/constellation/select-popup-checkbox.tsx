@@ -2,10 +2,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { PopupSelect, CheckboxOption } from '@atlaskit/select';
-
 const options = [
-  { label: 'All standard issue types', value: 'standard' },
-  { label: 'All sub-task issue types', value: 'sub-task' },
   {
     label: 'Standard issue types',
     options: [

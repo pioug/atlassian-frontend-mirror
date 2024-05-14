@@ -881,7 +881,7 @@ describe('document-service', () => {
         );
       });
 
-      it('Detects when the editor did not update the document, and emits error analytics', () => {
+      it('Detects when the editor did not update the document (clientVersion still behind serverVersion), and emits error analytics', () => {
         const { service, analyticsHelperMock } = createMockService();
         const schema = getSchemaBasedOnStage('stage0');
         service.setup({
@@ -909,6 +909,23 @@ describe('document-service', () => {
           newVersion: 2,
           isDocContentValid: true, // We sent a valid empty doc
         });
+      });
+
+      it('Does not emit error analytics when clientVersion ahead of serverVersion after updateDocument', () => {
+        const { service, analyticsHelperMock } = createMockService();
+        const schema = getSchemaBasedOnStage('stage0');
+        service.setup({
+          getState: jest.fn().mockReturnValue({ schema }),
+          clientId: 'unused',
+        });
+        (getVersion as jest.Mock).mockReturnValue(3);
+
+        service.updateDocument({
+          ...{ ...updateDocumentData, version: 2 },
+          reserveCursor: false,
+        });
+
+        expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
       });
 
       it('Detects when the editor did not update the document and emits an error when enableErrorOnFailedDocumentApply is set', () => {

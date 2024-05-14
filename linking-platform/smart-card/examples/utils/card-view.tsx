@@ -25,7 +25,6 @@ const CardView: React.FC<CardViewProps> = ({
   >
     <Card
       appearance={appearance}
-      showServerActions={true}
       url={url}
       /* Embed-specific props */
       frameStyle={frameStyle}

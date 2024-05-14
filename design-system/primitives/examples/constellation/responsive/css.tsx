@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 const cardStyles = css({
   padding: token('space.050', '4px'),
-  borderColor: token('color.border.discovery', 'blue'),
+  borderColor: token('color.border.discovery'),
   borderStyle: 'solid',
   borderWidth: token('border.width.0', '0px'),
   [media.above.xs]: {

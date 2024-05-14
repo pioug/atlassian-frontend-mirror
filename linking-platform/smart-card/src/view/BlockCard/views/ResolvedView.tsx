@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import { AvatarClickEventHandler } from '@atlaskit/avatar';
 import Lozenge from '@atlaskit/lozenge';
 import { MouseEvent } from 'react';
@@ -25,6 +25,11 @@ import { gs } from '../../common/utils';
 import { handleClickCommon } from '../utils/handlers';
 import { LozengeProps } from '../../../types';
 
+const styles = css({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+});
 export interface ResolvedViewProps {
   /* Details about the provider for the link */
   context?: ContextViewModel;
@@ -127,13 +132,7 @@ export const ResolvedView = ({
     >
       <Content>
         <div>
-          <div
-            css={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}
-          >
+          <div css={styles}>
             <ContentHeader onClick={handleClick} link={link}>
               {titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
               <Name name={title} textColor={titleTextColor} />
@@ -146,7 +145,9 @@ export const ResolvedView = ({
                     justifyContent: 'center',
                   }}
                 >
-                  <Lozenge {...lozenge}>{lozenge.text}</Lozenge>
+                  <Lozenge style={lozenge.style} {...lozenge}>
+                    {lozenge.text}
+                  </Lozenge>
                 </LozengeBlockWrapper>
               )}
             </ContentHeader>

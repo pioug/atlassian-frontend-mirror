@@ -1,0 +1,52 @@
+# no-html-button
+
+Don't use native HTML buttons. The Atlassian Design System provides ready-made button components
+that include event tracking, ensure accessible implementations, and provide access to ADS styling
+features like design tokens.
+
+Use Atlassian Design System components such as the [Button component](/components/button/) when
+suitable. There may also be other components better-suited depending on the use case. If these
+components aren't suitable, use the [Pressable primitive](/components/primitives/pressable/) which
+helps you build custom buttons with Atlassian Design System styling.
+
+## Examples
+
+This rule marks code as violations when it finds native HTML button elements.
+
+### Incorrect
+
+```jsx
+<button>
+ ^^^^^^ Using a native HTML `<button>`
+  Hello, World!
+</button>
+
+<div role="button" tabIndex="0">
+     ^^^^^^^^^^^^^ Using `role="button"` to create buttons
+  Hello, World!
+</div>
+
+<input type="button" value="Button" />
+       ^^^^^^^^^^^^^ Using a `<input>` as a button
+
+<input type="submit" value="Submit" />
+       ^^^^^^^^^^^^^ Using a `<input>` as a button
+
+<input type="reset" value="Reset" />
+       ^^^^^^^^^^^^ Using a `<input>` as a button
+
+<input type="image" alt="Submit" src="/submit-button.png" />
+       ^^^^^^^^^^^^ Using a `<input>` as a button
+```
+
+### Correct
+
+```jsx
+import Pressable from '@atlaskit/primitives/pressable';
+
+<Pressable>Hello, World!</Pressable>;
+
+import Button from '@atlaskit/button/new';
+
+<Button>Hello, World!</Button>;
+```

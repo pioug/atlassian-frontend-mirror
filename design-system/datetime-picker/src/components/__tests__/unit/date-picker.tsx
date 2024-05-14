@@ -8,7 +8,7 @@ import cases from 'jest-in-case';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { convertTokens } from '../../../internal/parse-tokens';
-import { DatePickerBaseProps } from '../../../types';
+import { type DatePickerBaseProps } from '../../../types';
 import { DatePickerWithoutAnalytics as DatePicker } from '../../date-picker';
 
 const testId = 'dateTest';
@@ -537,13 +537,181 @@ describe('DatePicker', () => {
     );
   });
 
+  describe('focus', () => {
+    const testId = 'escape-test';
+    const queryCalendar = () =>
+      screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
+
+    describe('should bring focus back to the input and close the calendar when the value of the calendar is changed', async () => {
+      ffTest(
+        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
+        async () => {
+          const user = userEvent;
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Move focus to inside the calendar
+          await user.keyboard('{Tab}');
+          expect(selectInput).not.toHaveFocus();
+          // An element within the calendar's container should have focus
+          const focusedElement = document.activeElement;
+          expect(
+            focusedElement?.closest('[data-testid$="--calendar--container"]'),
+          ).toBeTruthy();
+
+          // Select one of the dates in the calendar
+          await user.keyboard('{Tab}');
+          await user.keyboard('{Tab}');
+          await user.keyboard(' ');
+
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).toHaveFocus();
+        },
+        async () => {
+          const user = userEvent;
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Move focus to inside the calendar
+          await user.keyboard('{Tab}');
+          expect(selectInput).not.toHaveFocus();
+          // An element within the calendar's container should have focus
+          const focusedElement = document.activeElement;
+          expect(
+            focusedElement?.closest('[data-testid$="--calendar--container"]'),
+          ).toBeTruthy();
+
+          // Select one of the dates in the calendar
+          await user.keyboard('{Tab}');
+          await user.keyboard('{Tab}');
+          await user.keyboard(' ');
+
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+        },
+      );
+    });
+
+    describe('should open the calendar when the input is focused, the calendar is closed, and space is pressed', async () => {
+      ffTest(
+        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
+        async () => {
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Close the calendar with escape key
+          await userEvent.type(selectInput, '{Escape}');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).toHaveFocus();
+
+          // Press space to re-open the calendar
+          await userEvent.keyboard(' ');
+          expect(queryCalendar()).toBeInTheDocument();
+        },
+        async () => {
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Close the calendar with escape key
+          await userEvent.type(selectInput, '{Escape}');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).toHaveFocus();
+
+          // Press space to re-open the calendar
+          await userEvent.keyboard(' ');
+          expect(queryCalendar()).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should open the calendar when the input is focused, the calendar is closed, and enter is pressed', async () => {
+      ffTest(
+        'platform.design-system-team-date-picker-input-focus-fix_awmzp',
+        async () => {
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Close the calendar with escape key
+          await userEvent.type(selectInput, '{Escape}');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).toHaveFocus();
+
+          // Press enter to re-open the calendar
+          await userEvent.keyboard('{Enter}');
+          expect(queryCalendar()).toBeInTheDocument();
+        },
+        async () => {
+          render(createDatePicker({ testId: testId }));
+
+          const selectInput = screen.getByRole('combobox');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).not.toHaveFocus();
+
+          // Move focus to the select input
+          fireEvent.focus(selectInput);
+          expect(selectInput).toHaveFocus();
+          expect(queryCalendar()).toBeVisible();
+
+          // Close the calendar with escape key
+          await userEvent.type(selectInput, '{Escape}');
+          expect(queryCalendar()).not.toBeInTheDocument();
+          expect(selectInput).toHaveFocus();
+
+          // Press enter to re-open the calendar
+          await userEvent.keyboard('{Enter}');
+          expect(queryCalendar()).not.toBeInTheDocument();
+        },
+      );
+    });
+  });
+
   describe('escape', () => {
     const testId = 'escape-test';
     const queryCalendar = () =>
       screen.queryByTestId(new RegExp(`${testId}.*--calendar$`));
 
     it('should close the calendar when focused on the input and the escape key is pressed', async () => {
-      const user = userEvent.setup();
+      const user = userEvent;
       render(createDatePicker({ testId: testId }));
 
       const selectInput = screen.getByRole('combobox');
@@ -551,7 +719,7 @@ describe('DatePicker', () => {
       expect(selectInput).not.toHaveFocus();
 
       // Move focus to the select input
-      await user.keyboard('{Tab}');
+      fireEvent.focus(selectInput);
       expect(selectInput).toHaveFocus();
       expect(queryCalendar()).toBeVisible();
 
@@ -561,7 +729,7 @@ describe('DatePicker', () => {
     });
 
     it('should bring focus back to input and close calendar when focused on the calendar and the escape key is pressed', async () => {
-      const user = userEvent.setup();
+      const user = userEvent;
       render(createDatePicker({ testId: testId }));
 
       const selectInput = screen.getByRole('combobox');
@@ -569,7 +737,7 @@ describe('DatePicker', () => {
       expect(selectInput).not.toHaveFocus();
 
       // Move focus to the select input
-      await user.keyboard('{Tab}');
+      fireEvent.focus(selectInput);
       expect(selectInput).toHaveFocus();
       expect(queryCalendar()).toBeVisible();
 

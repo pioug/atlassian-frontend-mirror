@@ -15,11 +15,11 @@ const ContentExample = () => {
     <AppFrame shouldHideAppBar>
       <SideNavigation label="project">
         <NavigationHeader>
-          <Header>Money machine</Header>
+          <Header>Design System Project</Header>
         </NavigationHeader>
         <NavigationContent showTopScrollIndicator>
           <Section>
-            <ButtonItem>Print money</ButtonItem>
+            <ButtonItem>Tasks</ButtonItem>
           </Section>
         </NavigationContent>
       </SideNavigation>

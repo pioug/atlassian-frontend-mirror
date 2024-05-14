@@ -6,6 +6,10 @@ import rafSchedule from 'raf-schd';
 
 import { WidthObserver } from '@atlaskit/width-detector';
 
+const styles = css({
+  position: 'relative',
+  width: '100%',
+});
 export type Breakpoints = 'S' | 'M' | 'L';
 
 export type WidthConsumerContext = {
@@ -54,7 +58,7 @@ export const WidthProvider = ({
   const existingContextValue: WidthConsumerContext =
     React.useContext(WidthContext);
   const [width, setWidth] = React.useState(
-    typeof document !== 'undefined' ? document.body.offsetWidth : 0,
+    typeof document !== 'undefined' ? document.body?.offsetWidth ?? 0 : 0,
   );
   const providerValue = React.useMemo(() => createWidthContext(width), [width]);
 
@@ -70,13 +74,7 @@ export const WidthProvider = ({
     shouldCheckExistingValue && existingContextValue.width > 0;
 
   return (
-    <div
-      css={css`
-        position: relative;
-        width: 100%;
-      `}
-      className={className}
-    >
+    <div css={styles} className={className}>
       {!skipWidthDetection && (
         <Fragment>
           <WidthObserver setWidth={updateWidth} offscreen />

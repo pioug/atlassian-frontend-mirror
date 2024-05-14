@@ -7,19 +7,19 @@ import { useShouldNestedElementRender } from '../NestableNavigationContent/conte
 
 export interface SectionProps {
   /**
-   * Children of the section,
-   * should generally be item or heading components.
+   * The children of the section.
+   * These should generally be item or heading components.
    */
   children: React.ReactNode;
 
   /**
    * The text passed to heading.
-   * If a title is not provided no heading will be rendered.
+   * If you don't provide a title, then the heading won't be rendered.
    */
   title?: string;
 
   /**
-   * Will render a border at the top of the section.
+   * This will render a border at the top of the section.
    */
   hasSeparator?: boolean;
 

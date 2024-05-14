@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': '右に列を追加',
   'fabric.editor.addCommentOnMedia': 'コメントを追加',
   'fabric.editor.addImageBorder': '枠を追加',
+  'fabric.editor.addLoomVideo': 'Loom 動画を追加',
   'fabric.editor.addMediaFiles': '画像、動画、またはファイルを追加',
   'fabric.editor.addRowAbove': '上に行を追加',
   'fabric.editor.addRowBelow': '下に行を追加',
@@ -98,6 +99,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'アセット (ベータ版)',
   'fabric.editor.datasource.assetsObjects.description':
     '検索とフィルタリングを使用して、Jira Service Management のアセットからオブジェクトを挿入します',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'アセット',
+  'fabric.editor.datasource.confluenceSearch': 'Confluence リストを挿入する',
+  'fabric.editor.datasource.confluenceSearch.description':
+    '強化された検索、フィルタリング、設定を使用して、Confluence から検索結果のリストを挿入します。',
   'fabric.editor.datasource.jiraIssue': 'Jira 課題',
   'fabric.editor.datasource.jiraIssue.description':
     '強化された検索、フィルタリング、設定を使用して、Jira Cloud から Jira 課題を挿入します。',
@@ -108,6 +113,7 @@ export default {
   'fabric.editor.decision': '決定事項',
   'fabric.editor.decision.description': '決定事項をキャプチャして簡単に追跡',
   'fabric.editor.decisionPlaceholder': '決定事項を追加…',
+  'fabric.editor.decreaseColumnSize': '列のサイズを縮小する',
   'fabric.editor.decreaseSize': 'サイズを縮小する',
   'fabric.editor.defaultAltText': 'ドキュメント',
   'fabric.editor.description': '説明',
@@ -234,6 +240,7 @@ export default {
   'fabric.editor.imageBorderSize': 'サイズ',
   'fabric.editor.imageBorderSubtle': '細',
   'fabric.editor.improvement': '改善',
+  'fabric.editor.increaseColumnSize': '列のサイズを拡大する',
   'fabric.editor.increaseSize': 'サイズを拡大する',
   'fabric.editor.indent': 'インデント',
   'fabric.editor.info': '情報',
@@ -326,8 +333,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'プレースホルダー テキストを追加',
   'fabric.editor.plainText': 'プレーン テキストを使用する',
   'fabric.editor.quickInsert': 'クイック挿入',
-  'fabric.editor.recordVideo': '動画を録画',
-  'fabric.editor.recordVideo.description': 'Loom を使用して動画を録画',
+  'fabric.editor.recordVideo': 'Loom 動画を録画する',
+  'fabric.editor.recordVideo.description': '画面とカメラ映像を録画します',
   'fabric.editor.redo': 'やり直し',
   'fabric.editor.remove': '削除',
   'fabric.editor.removeColumns': '{0, plural, other {列を削除}}',
@@ -347,6 +354,7 @@ export default {
   'fabric.editor.saveButton': '保存',
   'fabric.editor.searchResults':
     '{itemsLength, plural, other {{itemsLength,number} 件の検索結果があります。上下の矢印キーで目的のオプションに移動します。Enter キーでオプションを選択します。}}',
+  'fabric.editor.selectColumnResize': '列のサイズ変更を選択する',
   'fabric.editor.selectLanguage': '言語を選択',
   'fabric.editor.selectTableColumn': '表の列を選択します',
   'fabric.editor.selectTableRow': '表の行を選択します',
@@ -389,6 +397,7 @@ export default {
   'fabric.editor.tables.columnResizeLast': 'この列は左側方向のみサイズを変更できます。',
   'fabric.editor.tables.columnResizeOverflow':
     'この列のサイズを変更できるのは、表にスクロール バーがあるときのみです。',
+  'fabric.editor.tables.columnWidth': '{width, plural, other {列の幅が {width} ピクセルに変更されました}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} を削除すると、接続されているすべてが破棄されます。',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': '削除',
@@ -436,10 +445,13 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'このエディターではコンテンツが利用できないため、編集および保存の際にはコンテンツが保持されます',
   'fabric.editor.unsupportedInlineContent': 'サポートされていないコンテンツ',
+  'fabric.editor.upDown': '次の入力フィールドで上矢印キーまたは下矢印キーを使用すると、下の日付が更新されます',
   'fabric.editor.url': 'URL を表示',
   'fabric.editor.urlDescription': 'リンクを URL として表示します。',
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.useMarkdown': 'マークダウンを使用する',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'コメントを表示および追加',
+  'fabric.editor.viewCommentOnMedia': 'コメントを見る',
   'fabric.editor.viewMore': 'さらに表示',
   'fabric.editor.visit': 'リンクを新しいウィンドウで開く',
   'fabric.editor.warning': '警告',

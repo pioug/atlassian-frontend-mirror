@@ -203,12 +203,17 @@ export const toolbarInsertBlockMessages = defineMessages({
   },
   addLoomVideo: {
     id: 'fabric.editor.addLoomVideo',
-    defaultMessage: 'Add Loom Video',
-    description: 'Record a new Loom video',
+    defaultMessage: 'Record a Loom video',
+    description: 'Record a Loom video',
+  },
+  addLoomVideoComment: {
+    id: 'fabric.editor.addLoomVideoComment',
+    defaultMessage: 'Record a Loom video comment',
+    description: 'Record a Loom video comment',
   },
   recordVideoDescription: {
     id: 'fabric.editor.recordVideo.description',
-    defaultMessage: 'Record your screen and camera',
-    description: 'Record your screen and camera',
+    defaultMessage: 'Record and share your screen and thoughts',
+    description: 'Record and share your screen and thoughts',
   },
 });

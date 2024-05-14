@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Accounts',
   'fabric.media.actions': 'Acties',
   'fabric.media.add_account': 'Account toevoegen',
+  'fabric.media.alt_text': 'Hoe zou je de geselecteerde afbeelding beschrijven aan een slechtziend persoon?',
   'fabric.media.annotate': 'Aantekeningen maken',
   'fabric.media.annotate.confirmation.close.anyway': 'Toch sluiten',
   'fabric.media.annotate.confirmation.content':
@@ -63,6 +64,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Zet je bestanden hier neer.',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'volledig scherm inschakelen',
+  'fabric.media.enter_password': 'Voer wachtwoord in',
   'fabric.media.error_429': 'Fout 429',
   'fabric.media.error_generating_preview': 'Fout bij aanmaken van voorvertoning',
   'fabric.media.error_hint_critical': 'Neem contact op met support als dit probleem zich blijft voordoen.',
@@ -70,6 +72,7 @@ export default {
   'fabric.media.error_loading_file': 'Fout bij laden van bestand',
   'fabric.media.failed_to_load': 'Fout bij het laden',
   'fabric.media.failed_to_upload': 'Kan niet worden geüpload',
+  'fabric.media.file_is_selected': 'Bestand {name} is geselecteerd',
   'fabric.media.forbidden_description':
     'Je hebt geen toegang tot deze voorvertoning. Neem contact op met de sitebeheerder als je toegang nodig hebt.',
   'fabric.media.give_feedback': 'Feedback geven',
@@ -78,6 +81,7 @@ export default {
     'De afbeelding kon niet geladen worden omdat het bestandsformaat ongeldig is.',
   'fabric.media.image_size_too_large_error': 'Afbeelding is te groot, mag niet groter zijn dan {MAX_SIZE_MB} MB.',
   'fabric.media.image_url_invalid_error': 'De afbeelding kon niet geladen worden omdat de URL ongeldig is.',
+  'fabric.media.incorrect_password': 'Onjuist wachtwoord. Probeer het opnieuw.',
   'fabric.media.insert_files': '{0, plural, one {Voer {0} bestanden in} other {Voer {0} bestanden in}}',
   'fabric.media.invalid_permissions': 'Afgeschermde link',
   'fabric.media.invalid_permissions_description':
@@ -94,8 +98,11 @@ export default {
   'fabric.media.not_found_description':
     'We konden de link niet vinden. Controleer de URL en probeer nogmaals te bewerken of plakken.',
   'fabric.media.not_found_title': 'Oh-oh. We kunnen deze link niet vinden.',
+  'fabric.media.open_file_in_viewer': '{name} openen',
   'fabric.media.or': 'of',
   'fabric.media.or_select_default_avatars': 'Upload een foto of selecteer een foto uit de standaardopties',
+  'fabric.media.password': 'Wachtwoord',
+  'fabric.media.password_protected_pdf': 'Dit bestand is beveiligd met een wachtwoord.',
   'fabric.media.pause': 'Pauzeren',
   'fabric.media.play': 'Afspelen',
   'fabric.media.playback_default_speed': 'Standaard',
@@ -124,6 +131,7 @@ export default {
   'fabric.media.something_went_wrong': 'Er is iets misgegaan.',
   'fabric.media.srclink': 'Bekijken in',
   'fabric.media.srclinkunknown': 'Bekijk Origineel',
+  'fabric.media.submit': 'Verzenden',
   'fabric.media.text': 'Tekst',
   'fabric.media.try_again': 'Opnieuw proberen',
   'fabric.media.try_another_account': 'Gebruik een ander account',

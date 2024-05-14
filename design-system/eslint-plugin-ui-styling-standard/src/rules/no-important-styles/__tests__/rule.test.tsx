@@ -11,7 +11,7 @@ tester.run('no-important-styles', rule, {
       });
     `,
     {
-      // Custom import sources (subtractive)
+      name: 'custom import sources (subtractive)',
       code: `
         import { css } from '@compiled/react';
 
@@ -28,7 +28,7 @@ tester.run('no-important-styles', rule, {
   ],
   invalid: [
     {
-      // Basic test case
+      name: 'basic test case',
       code: `
         import { css } from '@compiled/react';
 
@@ -39,7 +39,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // Whitespace handling
+      name: 'whitespace handling',
       code: `
         import { css } from '@compiled/react';
 
@@ -50,7 +50,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // Nesting
+      name: 'nesting',
       code: `
         import { css } from '@compiled/react';
 
@@ -68,7 +68,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // styled API
+      name: 'styled API',
       code: `
         import { styled } from '@compiled/react';
 
@@ -86,7 +86,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // keyframes API
+      name: 'keyframes API',
       code: `
         import { keyframes } from '@compiled/react';
 
@@ -102,7 +102,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // cssMap API
+      name: 'cssMap API',
       code: `
         import { cssMap } from '@compiled/react';
 
@@ -114,7 +114,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // xcss API
+      name: 'xcss API',
       code: `
         import { xcss } from '@atlaskit/primitives';
 
@@ -125,7 +125,7 @@ tester.run('no-important-styles', rule, {
       errors: [{ messageId: 'no-important-styles' }],
     },
     {
-      // Custom import sources (additive)
+      name: 'custom import sources (additive)',
       code: `
         import { css } from 'custom-library';
 
@@ -135,6 +135,19 @@ tester.run('no-important-styles', rule, {
       `,
       errors: [{ messageId: 'no-important-styles' }],
       options: [{ importSources: ['custom-library'] }],
+    },
+    {
+      name: 'template string',
+      code: `
+        import { css } from '@compiled/react';
+
+        const color = 'red';
+
+        const styles = css({
+          color: \`\${color}!important\`
+        });
+      `,
+      errors: [{ messageId: 'no-important-styles' }],
     },
   ],
 });

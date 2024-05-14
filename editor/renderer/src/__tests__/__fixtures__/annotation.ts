@@ -321,3 +321,172 @@ export const mediaWithAnnotation = (annotationId: string) => ({
     },
   ],
 });
+
+export const docWithTextAndMedia = {
+  /**
+   * Structure:
+   * 0               17
+   *  some plain text
+     17                  38
+      more formatted text
+     38            51
+       mediaSingle
+     40       50
+       caption
+     51     84
+       table
+     60           73
+       mediaSingle
+     62       72
+       caption
+   */
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'some plain text',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'more formatted text',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+            {
+              type: 'underline',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 426,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '6ee23984-95e4-4e9c-bff3-3723de5db792',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            alt: '568c02f0-5949-4465-8f43-e7f9b1f7ead5.png',
+            width: 500,
+            height: 500,
+          },
+        },
+        {
+          type: 'caption',
+          content: [
+            {
+              type: 'text',
+              text: 'cute dog',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '709775b2-c4ad-4b47-bb63-023bfc655bb4',
+        width: 760,
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'mediaSingle',
+                  attrs: {
+                    layout: 'center',
+                    width: 426,
+                    widthType: 'pixel',
+                  },
+                  content: [
+                    {
+                      type: 'media',
+                      attrs: {
+                        id: 'e407b8a4-edb3-42d2-8425-7aa022c815c0',
+                        type: 'file',
+                        collection: 'MediaServicesSample',
+                        alt: 'catt.jpeg',
+                        width: 2121,
+                        height: 1194,
+                      },
+                    },
+                    {
+                      type: 'caption',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'cute cat',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

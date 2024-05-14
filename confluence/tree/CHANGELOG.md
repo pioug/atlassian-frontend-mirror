@@ -1,5 +1,11 @@
 # @atlaskit/tree
 
+## 8.8.9
+
+### Patch Changes
+
+- [#92007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92007) [`85525725cb0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85525725cb0d) - Migrated to the new button component
+
 ## 8.8.8
 
 ### Patch Changes

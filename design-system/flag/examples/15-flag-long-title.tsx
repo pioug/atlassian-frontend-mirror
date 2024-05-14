@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Text from '@atlaskit/primitives/text';
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { token } from '@atlaskit/tokens';

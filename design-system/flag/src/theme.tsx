@@ -1,6 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { UNSAFE_TextProps as TextProps } from '@atlaskit/ds-explorations';
-import { BackgroundColor } from '@atlaskit/primitives';
+import { BackgroundColor, TextProps } from '@atlaskit/primitives';
 import { B400, N0, N30A, N500, N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -24,11 +23,11 @@ export const flagIconColor: Record<AppearanceTypes, string> = {
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export const flagTextColor: Record<AppearanceTypes, TextProps['color']> = {
-  error: 'inverse',
-  info: 'inverse',
-  normal: 'subtle',
-  success: 'inverse',
-  warning: 'warning.inverse',
+  error: 'color.text.inverse',
+  info: 'color.text.inverse',
+  normal: 'color.text.subtle',
+  success: 'color.text.inverse',
+  warning: 'color.text.warning.inverse',
 };
 
 export const flagTextColorToken = {

@@ -174,6 +174,11 @@ export interface TablePluginState {
   isTableResizingEnabled?: boolean;
   isDragAndDropEnabled?: boolean;
   isTableHovered?: boolean;
+
+  // Currently isTableScalingEnabled is the same as options.isTableScalingEnabled from TablePluginOptions.
+  // However, if you want to learn if tablePlugin is configured to enable Preserve Table Widths feature,
+  // use options.isTableScalingEnabled and avoid using pluginState.isTableScalingEnabled or
+  // const { isTableScalingEnabled } = getPluginState(state) for that purpose.
   isTableScalingEnabled?: boolean;
 }
 

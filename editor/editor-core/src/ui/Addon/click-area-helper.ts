@@ -3,6 +3,7 @@ import { addParagraphAtEnd } from '@atlaskit/editor-common/commands';
 import { setSelectionTopLevelBlocks } from '@atlaskit/editor-common/selection';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // we ignore all of the clicks made inside <div class="ak-editor-content-area" /> (but not clicks on the node itself)
 const insideContentArea = (ref: HTMLElement | null): boolean => {
@@ -28,8 +29,8 @@ const insideProseMirrorEditableArea = (ref: HTMLElement | null): boolean => {
  * 1. if editor (e.g. comment inside of Jira ticket view) is inside modal then ensure focus and cursor is brought to the input
  * 2. if another modal is open (e.g. delete confirmation modal for confluence table) then ignore clicks as they shouldn't influence editor state
  */
-export const checkForModal = (target: HTMLElement) => {
-  const modalDialog = target.closest('[role=dialog]');
+export const checkForModal = (target: HTMLElement | null) => {
+  const modalDialog = target?.closest('[role=dialog]');
 
   if (modalDialog) {
     // return false if not an editor inside modal, otherwise return true
@@ -46,13 +47,25 @@ const clickAreaClickHandler = (
 ) => {
   const isEditorFocused = !!view?.hasFocus?.();
 
+  if (
+    getBooleanFF('platform.editor.explicit-html-element-check') &&
+    !(event.target instanceof HTMLElement)
+  ) {
+    return;
+  }
+
   const target = event.target as HTMLElement;
-  const isTargetContentArea = target.classList.contains(
+  const isTargetContentArea = target?.classList.contains(
     'ak-editor-content-area',
   );
-  const isTargetChildOfContentArea = insideContentArea(
-    target.parentNode as HTMLElement | null,
-  );
+
+  const isTargetChildOfContentArea = getBooleanFF(
+    'platform.editor.explicit-html-element-check',
+  )
+    ? insideContentArea(
+        target?.parentNode instanceof HTMLElement ? target?.parentNode : null,
+      )
+    : insideContentArea(target?.parentNode as HTMLElement);
   const isTargetInsideEditableArea = insideProseMirrorEditableArea(target);
 
   // Any click inside ProseMirror should be managed by ProseMirror
@@ -67,11 +80,11 @@ const clickAreaClickHandler = (
   // click event gets triggered twice on a checkbox (on <label> first and then on <input>)
   // by the time it gets triggered on input, PM already re-renders nodeView and detaches it from DOM
   // which doesn't pass the check !contentArea.contains(event.target)
-  const isInputClicked = target.nodeName === 'INPUT';
+  const isInputClicked = target?.nodeName === 'INPUT';
   // @see ED-5126
   const isPopupClicked = !!closestElement(target, '[data-editor-popup]');
   // Fixes issue when using a textarea for editor title in full page editor doesn't let user focus it.
-  const isTextAreaClicked = target.nodeName === 'TEXTAREA';
+  const isTextAreaClicked = target?.nodeName === 'TEXTAREA';
   const isBreadcrumbClicked = !!closestElement(
     target,
     'nav[aria-label="Breadcrumbs"]',
@@ -91,7 +104,7 @@ const clickAreaClickHandler = (
     Boolean(closestElement(event.currentTarget, 'button')) ||
     Boolean(closestElement(target, 'button')) ||
     event.currentTarget?.nodeName === 'BUTTON' ||
-    target.nodeName === 'BUTTON';
+    target?.nodeName === 'BUTTON';
 
   const isTargetInsideContentArea = Boolean(isTargetChildOfContentArea);
 

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::c4023f0dc3ef442249a36d387b17308e>>
+ * @codegen <<SignedSource::334c6c6965226785c649b8d6b292227c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataType = {
@@ -35,6 +35,7 @@ export type ResolvedAttributesType = {
 };
 
 export type ButtonClickedAiSummaryAttributesType = {};
+export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
   fromCache: boolean | null;
 };
@@ -42,6 +43,10 @@ export type ErrorViewedAiSummaryAttributesType = {};
 export type SummarySuccessAttributesType = {};
 export type SummaryFailedAttributesType = {
   reason: string | null;
+  /**
+   * True if the error should be counted towards the SLO.
+   */
+  isSloError: boolean;
 };
 export type AiInteractionInitiatedAttributesType = {
   aiFeatureName: string;
@@ -53,6 +58,9 @@ export type AnalyticsEventAttributes = {
   /**
    * fired when an ai summary is clicked */
   'ui.button.clicked.aiSummary': ButtonClickedAiSummaryAttributesType;
+  /**
+   * fired when the copy ai summary button is clicked */
+  'ui.button.clicked.copySummary': ButtonClickedCopySummaryAttributesType;
   /**
    * fired when a summary is viewed */
   'ui.summary.viewed': SummaryViewedAttributesType;

@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format, TransformedToken } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
@@ -92,7 +92,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     }
   }
 
-  const source = prettier.format(
+  const source = format(
     `export type BackgroundColor = ${mapToCssVar(backgroundColor)};
 
 export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
@@ -237,7 +237,7 @@ export interface DesignTokenStyles {
   width: SizeIntrinsic;
   zIndex: 100 | 200 | 300 | 400 | 500 | 510 | 600 | 700 | 800;
 }\n`,
-    { parser: 'typescript', singleQuote: true },
+  'typescript'
   );
 
   return createSignedArtifact(

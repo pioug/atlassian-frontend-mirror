@@ -16,10 +16,7 @@ const itemStyles = css({
   height: '2rem',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '2rem auto',
-  backgroundColor: token(
-    'color.background.accent.orange.subtler',
-    'papayawhip',
-  ),
+  backgroundColor: token('color.background.accent.orange.subtler'),
   borderRadius: token('border.radius', '3px'),
 });
 
@@ -27,15 +24,11 @@ const highlightStyles = css({
   ':nth-of-type(4n)': {
     padding: token('space.050', '4px'),
     position: 'sticky',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    top: 65,
-    backgroundColor: token(
-      'color.background.accent.blue.subtle',
-      'cornflowerblue',
-    ),
+    backgroundColor: token('color.background.accent.blue.subtle'),
+    insetBlockStart: 65,
     textAlign: 'center',
     '&::after': {
-      color: token('color.text.inverse', '#FFF'),
+      color: token('color.text.inverse'),
       content: '"Stickied element"',
     },
   },

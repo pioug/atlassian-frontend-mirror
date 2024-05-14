@@ -3,7 +3,7 @@ import React from 'react';
 import { ModalFooter } from '@atlaskit/modal-dialog';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import Textfield from '@atlaskit/textfield';
-import { Avatar } from '../../avatar-list';
+import { type Avatar } from '../../avatar-list';
 import { ImageNavigator } from '../../image-navigator';
 import { PredefinedAvatarList } from '../../predefined-avatar-list';
 import { AvatarPickerDialog, fixedCrop } from '../../avatar-picker-dialog';
@@ -14,9 +14,9 @@ import {
 import { PredefinedAvatarView } from '../../predefined-avatar-view';
 import {
   Mode,
-  AvatarPickerDialogPropsNoAlt,
-  AvatarPickerDialogState,
-  AvatarPickerDialogPropsAlt,
+  type AvatarPickerDialogPropsNoAlt,
+  type AvatarPickerDialogState,
+  type AvatarPickerDialogPropsAlt,
 } from '../../avatar-picker-dialog/types';
 
 describe('Avatar Picker Dialog', () => {
@@ -218,7 +218,7 @@ describe('Avatar Picker Dialog', () => {
     expect(title).toContain('Upload an avatar');
   });
 
-  it('should by able to customise title', () => {
+  it('should be able to customise title', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
     const avatars = [selectedAvatar];
     const component = renderWithProps({
@@ -242,7 +242,7 @@ describe('Avatar Picker Dialog', () => {
     expect(component.text()).toEqual('Save');
   });
 
-  it('should by able to customise primary button text', () => {
+  it('should be able to customise primary button text', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
     const avatars = [selectedAvatar];
     const component = renderWithProps({
@@ -254,6 +254,56 @@ describe('Avatar Picker Dialog', () => {
       component.find(ModalFooter).find('button[type="submit"]').text(),
     ).toEqual('test-primary-text');
   });
+
+  it('should render default select avatar label', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({ avatars });
+    const selectAvatarLabel = component
+      .find('#predefined-avatar-wrapper')
+      .first()
+      .html();
+    expect(selectAvatarLabel).toContain('Select a default avatar')
+  })
+
+  it('should be able to customise select avatar label', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({
+      avatars,
+      selectAvatarLabel: 'test-select-avatar'
+    });
+    const selectAvatarLabel = component
+      .find('#predefined-avatar-wrapper')
+      .first()
+      .html();
+    expect(selectAvatarLabel).toContain('test-select-avatar')
+  })
+
+  it('should render default show more avatars button label', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({ avatars });
+    const selectAvatarLabel = component
+      .find('#predefined-avatar-wrapper')
+      .first()
+      .html();
+    expect(selectAvatarLabel).toContain('Show more')
+  })
+
+  it('should be able to customise show more avatars button label', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({
+      avatars,
+      showMoreAvatarsButtonLabel: 'test-show-more'
+    });
+    const selectAvatarLabel = component
+      .find('#predefined-avatar-wrapper')
+      .first()
+      .html();
+    expect(selectAvatarLabel).toContain('test-show-more')
+  })
 
   it('should clear selected image when cross clicked', () => {
     const component = renderWithProps({

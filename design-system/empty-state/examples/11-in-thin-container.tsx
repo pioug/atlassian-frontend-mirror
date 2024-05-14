@@ -4,7 +4,6 @@ import { FC, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button, { LinkButton } from '@atlaskit/button/new';
-import { N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import EmptyState from '../src';
@@ -13,7 +12,7 @@ import exampleImage from './img/example-image.png';
 
 const containerStyles = css({
   width: '300px',
-  backgroundColor: token('color.background.neutral', N20),
+  backgroundColor: token('color.background.neutral'),
 });
 
 const Container: FC<{ children: ReactNode }> = ({ children }) => (

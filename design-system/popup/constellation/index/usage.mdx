@@ -12,6 +12,7 @@ While you can use popups to build compact interactive experiences like a menu, i
 
 - Don’t make popups that scroll. There isn't enough visual affordance to show that there's hidden content.
 - Avoid nesting popups wherever possible.
+- Use `role` to indicate what type of interactive element the popup is going to be. Usually the popup will be a `menu` or `dialog`. When the popup is used as a dialog, make sure it has a `label` or `titleId` that gives the dialog an accessible name.
 
 ## Behavior
 

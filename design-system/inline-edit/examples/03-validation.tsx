@@ -76,6 +76,7 @@ const InlineEditExample = () => {
         Click to clear
       </button>
       <InlineEdit
+        testId="validation"
         defaultValue={editValue}
         label="Inline edit validation"
         editView={({ errorMessage, ...fieldProps }) => (

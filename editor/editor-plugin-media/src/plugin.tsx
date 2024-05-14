@@ -361,6 +361,8 @@ export const mediaPlugin: MediaNextEditorPluginType = ({
             fullWidthEnabled: options && options.fullWidthEnabled,
             allowMediaInlineImages: options && options.allowMediaInlineImages,
             getEditorFeatureFlags: options && options.getEditorFeatureFlags,
+            isViewOnly:
+              api?.editorViewMode?.sharedState.currentState()?.mode === 'view',
           },
           api,
         ),

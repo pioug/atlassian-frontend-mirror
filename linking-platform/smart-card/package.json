@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.56.1",
+  "version": "26.65.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,34 +29,34 @@
   },
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/avatar": "^21.5.0",
-    "@atlaskit/avatar-group": "^9.5.0",
-    "@atlaskit/badge": "^16.0.0",
-    "@atlaskit/button": "^17.12.0",
-    "@atlaskit/dropdown-menu": "^12.9.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/avatar-group": "^9.6.0",
+    "@atlaskit/badge": "^16.1.0",
+    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/dropdown-menu": "^12.10.0",
     "@atlaskit/frontend-utilities": "^2.7.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
-    "@atlaskit/icon-object": "^6.3.0",
+    "@atlaskit/icon-object": "^6.4.0",
     "@atlaskit/icon-priority": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-analytics": "^8.3.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/link-extractors": "^1.3.0",
+    "@atlaskit/link-extractors": "^1.5.0",
     "@atlaskit/linking-common": "^5.6.0",
     "@atlaskit/linking-types": "^8.8.0",
-    "@atlaskit/logo": "^13.15.0",
-    "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/modal-dialog": "^12.11.0",
+    "@atlaskit/logo": "^13.16.0",
+    "@atlaskit/lozenge": "^11.7.0",
+    "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/popup": "^1.14.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/popup": "^1.17.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -154,6 +154,7 @@
     "./hooks": "./src/hooks.ts",
     "./hover-card": "./src/hoverCard.ts",
     "./link-url": "./src/linkUrl.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     ".": "./src/index.ts"
   },
   "platform-feature-flags": {
@@ -172,7 +173,7 @@
     "platform.linking-platform.smart-card.hover-card-ai-summaries-release-stable": {
       "type": "boolean"
     },
-    "platform.linking-platform.smart-card.fix-intersection-observer": {
+    "platform.linking-platform.smart-card.ai-summary-service-base-url": {
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.enable-embed-card-header-tooltip_g9saw": {
@@ -182,6 +183,15 @@
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.enable-theme-state-url": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.standardise-smart-link-icon-behaviour": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.fix-embed-card-blurring": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.action-icon-redesign": {
       "type": "boolean"
     }
   },

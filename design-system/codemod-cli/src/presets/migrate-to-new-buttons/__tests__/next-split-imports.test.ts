@@ -1,90 +1,87 @@
-const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
+import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/next-split-imports';
 
+const check = createCheck(transformer);
+
 describe('rename-imports', () => {
-  defineInlineTest(
-    transformer,
-    {},
-    `import Button from '@atlaskit/button';`,
-    `import Button from '@atlaskit/button/standard-button';`,
-    'should import default button from standard button entry point',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import { LoadingButton } from '@atlaskit/button';`,
-    `import LoadingButton from '@atlaskit/button/loading-button';`,
-    'should replace with default import from loading-button',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import { ButtonGroup } from '@atlaskit/button';`,
-    `import ButtonGroup from '@atlaskit/button/button-group';`,
-    'should replace with default import from button-group',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import { CustomThemeButton } from '@atlaskit/button';`,
-    `import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
-    'should replace with default import from custom-theme-button',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import Button, { CustomThemeButton as CB } from '@atlaskit/button';`,
-    `import CB from '@atlaskit/button/custom-theme-button';
-import Button from '@atlaskit/button/standard-button';
-`,
-    'should keep the alias name when import from new entry point',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import Button, { LoadingButton } from '@atlaskit/button';`,
-    `import LoadingButton from '@atlaskit/button/loading-button';
-import Button from '@atlaskit/button/standard-button';
-`,
-    'should split imports into default imports',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import { CustomThemeButton, ThemeProps, ThemeTokens } from '@atlaskit/button';`,
-    `import CustomThemeButton from '@atlaskit/button/custom-theme-button';
-import { ThemeProps, ThemeTokens } from '@atlaskit/button';
-`,
-    'should split the CustomThemeButton import from default and keep the type imports',
-  );
-  defineInlineTest(
-    transformer,
-    {},
-    `import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
-    import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
-    `import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
-    import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
-    'should not modify import path',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { type Appearance } from '@atlaskit/button';`,
-    `import { type Appearance } from '@atlaskit/button/types';`,
-    'should add types to the type imports for Appearance import',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
-    `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
-    'should not split the type imports',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { Spacing } from '@atlaskit/button';`,
-    `import { Spacing } from '@atlaskit/button/types';`,
-    'should add types to the type imports for Spacing import',
-  );
+  check({
+    it: 'should import default button from standard button entry point',
+    original: `import Button from '@atlaskit/button';`,
+    expected: `import Button from '@atlaskit/button/standard-button';`,
+  });
+
+  check({
+    it: 'should replace with default import from loading-button',
+    original: `import { LoadingButton } from '@atlaskit/button';`,
+    expected: `import LoadingButton from '@atlaskit/button/loading-button';`,
+  });
+
+  check({
+    it: 'should replace with default import from button-group',
+    original: `import { ButtonGroup } from '@atlaskit/button';`,
+    expected: `import ButtonGroup from '@atlaskit/button/button-group';`,
+  });
+
+  check({
+    it: 'should replace with default import from custom-theme-button',
+    original: `import { CustomThemeButton } from '@atlaskit/button';`,
+    expected: `import CustomThemeButton from '@atlaskit/button/custom-theme-button';`,
+  });
+
+  check({
+    it: 'should keep the alias name when import from new entry point',
+    original: `import Button, { CustomThemeButton as CB } from '@atlaskit/button';`,
+    expected: `
+      import CB from '@atlaskit/button/custom-theme-button';
+      import Button from '@atlaskit/button/standard-button';
+    `,
+  });
+
+  check({
+    it: 'should split imports into default imports',
+    original: `import Button, { LoadingButton } from '@atlaskit/button';`,
+    expected: `
+      import LoadingButton from '@atlaskit/button/loading-button';
+      import Button from '@atlaskit/button/standard-button';
+    `,
+  });
+
+  check({
+    it: 'should split the CustomThemeButton import from default and keep the type imports',
+    original: `import { CustomThemeButton, ThemeProps, ThemeTokens } from '@atlaskit/button';`,
+    expected: `
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+      import { ThemeProps, ThemeTokens } from '@atlaskit/button';
+    `,
+  });
+
+  check({
+    it: 'should not modify import path',
+    original: `
+      import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+    `,
+    expected: `
+      import { UNSAFE_LINK_BUTTON as LinkButton } from '@atlaskit/button/unsafe';
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+    `,
+  });
+
+  check({
+    it: 'should add types to the type imports for Appearance import',
+    original: `import { type Appearance } from '@atlaskit/button';`,
+    expected: `import { type Appearance } from '@atlaskit/button/types';`,
+  });
+
+  check({
+    it: 'should not split the type imports',
+    original: `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
+    expected: `import { type LoadingButtonProps } from '@atlaskit/button/loading-button';`,
+  });
+
+  check({
+    it: 'should add types to the type imports for Spacing import',
+    original: `import { Spacing } from '@atlaskit/button';`,
+    expected: `import { Spacing } from '@atlaskit/button/types';`,
+  });
 });

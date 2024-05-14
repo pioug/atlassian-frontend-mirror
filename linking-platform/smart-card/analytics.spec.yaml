@@ -91,6 +91,12 @@ events:
       attributes:
         <<: [*PackageMetaDataContext, *ResolvedAttributes]
 
+  - button clicked (copySummary):
+      type: ui
+      description: fired when the copy ai summary button is clicked
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedAttributes]
+
   - summary viewed:
       type: ui
       description: fired when a summary is viewed
@@ -122,6 +128,11 @@ events:
           required: false
           type: string
           description: failure reason
+        isSloError:
+          required: true
+          type: boolean
+          description: True if the error should be counted towards the SLO.
+
 
   - aiInteraction initiated:
       type: track

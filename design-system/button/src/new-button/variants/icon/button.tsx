@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UNSAFE_PRESSABLE from '@atlaskit/primitives/pressable';
+import Pressable from '@atlaskit/primitives/pressable';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type CommonButtonVariantProps } from '../types';
@@ -106,7 +106,7 @@ const IconButton = React.memo(
           hideTooltipOnMouseDown={tooltip?.hideTooltipOnMouseDown}
         >
           {(triggerProps) => (
-            <UNSAFE_PRESSABLE
+            <Pressable
               // Top level props
               {...rest}
               type={type}
@@ -162,14 +162,14 @@ const IconButton = React.memo(
               onClickCapture={baseProps.onClickCapture}
             >
               {baseProps.children}
-            </UNSAFE_PRESSABLE>
+            </Pressable>
           )}
         </Tooltip>
       );
     }
 
     return (
-      <UNSAFE_PRESSABLE
+      <Pressable
         {...rest}
         ref={baseProps.ref}
         xcss={baseProps.xcss}
@@ -191,7 +191,7 @@ const IconButton = React.memo(
         interactionName={interactionName}
       >
         {baseProps.children}
-      </UNSAFE_PRESSABLE>
+      </Pressable>
     );
   }),
 );

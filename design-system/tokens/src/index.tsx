@@ -26,6 +26,8 @@ export type {
   ThemeState,
 } from './theme-config';
 export type {
+  FontFamilyToken,
+  FontWeightToken,
   Groups,
   OpacityToken,
   PaintToken,

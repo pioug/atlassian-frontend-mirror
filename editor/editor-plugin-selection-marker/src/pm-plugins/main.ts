@@ -52,10 +52,9 @@ function getDecorations(
 
 function getDecorationType(
   tr: ReadonlyTransaction,
-  forceHide: boolean,
   shouldHideDecorations: boolean,
 ): DecorationType {
-  if (shouldHideDecorations || forceHide || isEmptyDocument(tr.doc)) {
+  if (shouldHideDecorations || isEmptyDocument(tr.doc)) {
     return 'none';
   }
   // TODO: implement "highlight" for AI features
@@ -80,7 +79,7 @@ export const createPlugin = (
         const shouldHideDecorations =
           tr.getMeta(key)?.shouldHideDecorations ??
           currentState.shouldHideDecorations;
-        const type = getDecorationType(tr, forceHide, shouldHideDecorations);
+        const type = getDecorationType(tr, shouldHideDecorations);
         return {
           decorations: getDecorations(tr, type),
           shouldHideDecorations,

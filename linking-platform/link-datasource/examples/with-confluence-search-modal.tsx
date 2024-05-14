@@ -8,16 +8,16 @@ import {
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import {
-  DatasourceAdfTableViewColumn,
-  InlineCardAdf,
+  type DatasourceAdfTableViewColumn,
+  type InlineCardAdf,
 } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { CONFLUENCE_SEARCH_DATASOURCE_ID } from '../src/ui/confluence-search-modal';
 import { ConfluenceSearchConfigModal } from '../src/ui/confluence-search-modal/modal';
 import {
-  ConfluenceSearchDatasourceAdf,
-  ConfluenceSearchDatasourceParameters,
+  type ConfluenceSearchDatasourceAdf,
+  type ConfluenceSearchDatasourceParameters,
 } from '../src/ui/confluence-search-modal/types';
 
 mockDatasourceFetchRequests({ type: 'confluence' });
@@ -74,7 +74,11 @@ export default () => {
 
   return (
     <SmartCardProvider client={new SmartLinkClient()}>
-      <Button appearance="primary" onClick={toggleIsOpen}>
+      <Button
+        appearance="primary"
+        onClick={toggleIsOpen}
+        testId="example-toggle-modal"
+      >
         Toggle Modal
       </Button>
       <div>Generated ADF:</div>

@@ -23,7 +23,6 @@ import {
   findTable,
   selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { updateRowOrColumnMovedTransform } from '../pm-plugins/analytics/commands';
 import { META_KEYS } from '../pm-plugins/table-analytics';
@@ -45,7 +44,10 @@ function addColumnAtCustomStep(column: number) {
   };
 }
 
-export function addColumnAt(isTableScalingEnabled = false) {
+export function addColumnAt(
+  isTableScalingEnabled = false,
+  isCellBackgroundDuplicated?: boolean,
+) {
   return (
     column: number,
     allowAddColumnCustomStep: boolean = false,
@@ -56,7 +58,10 @@ export function addColumnAt(isTableScalingEnabled = false) {
       if (allowAddColumnCustomStep) {
         updatedTr = addColumnAtCustomStep(column)(updatedTr);
       } else {
-        updatedTr = addColumnAtPMUtils(column)(updatedTr);
+        updatedTr = addColumnAtPMUtils(
+          column,
+          isCellBackgroundDuplicated,
+        )(updatedTr);
       }
       const table = findTable(updatedTr.selection);
       if (table) {
@@ -66,10 +71,7 @@ export function addColumnAt(isTableScalingEnabled = false) {
         );
       }
 
-      if (
-        getBooleanFF('platform.editor.table.analytics-plugin-moved-event') &&
-        view
-      ) {
+      if (view) {
         updatedTr = updateRowOrColumnMovedTransform(
           { type: 'column' },
           'addRowOrColumn',
@@ -130,10 +132,10 @@ export const addColumnAfter =
   };
 
 export const insertColumn =
-  (isTableScalingEnabled = false) =>
+  (isTableScalingEnabled = false, isCellBackgroundDuplicated?: boolean) =>
   (column: number): Command =>
   (state, dispatch, view) => {
-    let tr = addColumnAt(isTableScalingEnabled)(
+    let tr = addColumnAt(isTableScalingEnabled, isCellBackgroundDuplicated)(
       column,
       getAllowAddColumnCustomStep(state),
       view,
@@ -154,7 +156,11 @@ export const insertColumn =
   };
 
 export const insertRow =
-  (row: number, moveCursorToTheNewRow: boolean): Command =>
+  (
+    row: number,
+    moveCursorToTheNewRow: boolean,
+    isCellBackgroundDuplicated?: boolean,
+  ): Command =>
   (state, dispatch) => {
     // Don't clone the header row
     const headerRowEnabled = checkIfHeaderRowEnabled(state.selection);
@@ -169,7 +175,7 @@ export const insertRow =
 
     const tr = clonePreviousRow
       ? copyPreviousRow(state.schema)(row)(state.tr)
-      : addRowAt(row)(state.tr);
+      : addRowAt(row, undefined, isCellBackgroundDuplicated)(state.tr);
 
     const table = findTable(tr.selection);
     if (!table) {
@@ -185,14 +191,12 @@ export const insertRow =
         tr.setSelection(selection.map(tr.doc, tr.mapping));
       }
 
-      if (getBooleanFF('platform.editor.table.analytics-plugin-moved-event')) {
-        updateRowOrColumnMovedTransform(
-          {
-            type: 'row',
-          },
-          'addRowOrColumn',
-        )(state, tr);
-      }
+      updateRowOrColumnMovedTransform(
+        {
+          type: 'row',
+        },
+        'addRowOrColumn',
+      )(state, tr);
 
       dispatch(tr);
     }

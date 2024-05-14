@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { CompassIcon, CompassLogo, CompassWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { CompassIcon, CompassLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoCompass = () => {
   return (
@@ -9,17 +15,13 @@ const LogoCompass = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <CompassLogo appearance="brand" />
-            </td>
-            <td>
-              <CompassWordmark appearance="brand" />
             </td>
             <td>
               <CompassIcon appearance="brand" />

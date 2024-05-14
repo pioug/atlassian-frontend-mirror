@@ -8,7 +8,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../src';
 
-const Icon = <WarningIcon label="" secondaryColor="inherit" />;
+const Icon = <WarningIcon label="Warning" secondaryColor="inherit" />;
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);

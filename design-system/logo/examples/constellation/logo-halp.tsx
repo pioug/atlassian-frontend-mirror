@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { HalpIcon, HalpLogo, HalpWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { HalpIcon, HalpLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoHalp = () => (
   <div>
@@ -8,17 +14,13 @@ const LogoHalp = () => (
       <thead>
         <tr>
           <th>Logo</th>
-          <th>Wordmark</th>
           <th>Icon</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>
+          <td css={tableStyle}>
             <HalpLogo appearance="brand" />
-          </td>
-          <td>
-            <HalpWordmark appearance="brand" />
           </td>
           <td>
             <HalpIcon appearance="brand" />

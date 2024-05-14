@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help-layout",
-  "version": "4.2.17",
+  "version": "4.2.18",
   "description": "Layout for the atlaskit/help component.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,12 +33,12 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.0.0",
@@ -82,6 +82,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./analytics": "./src/analytics.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./messages": "./src/messages.ts"
   }
 }

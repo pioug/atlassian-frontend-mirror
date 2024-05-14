@@ -37,7 +37,11 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
     : `${fullName}${shownNickname}`;
 
   return (
-    <FullNameLabel noMeta={!meta} data-testid="profilecard-name">
+    <FullNameLabel
+      noMeta={!meta}
+      data-testid="profilecard-name"
+      id="profilecard-name-label"
+    >
       {displayName}
     </FullNameLabel>
   );
@@ -121,7 +125,12 @@ const DisabledProfileCardDetails = (
 
   return (
     <DetailsGroup>
-      <FullNameLabel noMeta isDisabledAccount data-testid="profilecard-name">
+      <FullNameLabel
+        noMeta
+        isDisabledAccount
+        data-testid="profilecard-name"
+        id="profilecard-name-label"
+      >
         {name}
       </FullNameLabel>
 

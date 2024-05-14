@@ -205,6 +205,7 @@ const LayoutButtonWrapper = ({
     'editorViewMode',
   ]);
   const isViewMode = editorViewModeState?.mode === 'view';
+  const isEditMode = editorViewModeState?.mode === 'edit';
 
   return !isViewMode ? (
     <LayoutButton
@@ -213,6 +214,7 @@ const LayoutButtonWrapper = ({
       boundariesElement={boundariesElement}
       scrollableElement={scrollableElement}
       node={breakoutState?.breakoutNode?.node ?? null}
+      isLivePage={isEditMode}
     />
   ) : null;
 };

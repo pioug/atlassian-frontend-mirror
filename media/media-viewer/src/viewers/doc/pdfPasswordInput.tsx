@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import { useEffect, useRef, useState } from 'react';
-import LoadingButton from '@atlaskit/button/loading-button';
+import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 import LockIcon from '@atlaskit/icon/glyph/lock';
 import Form, { Field, OnSubmitHandler } from '@atlaskit/form';
@@ -119,13 +119,9 @@ export const PDFPasswordInput = ({
             )}
           </Field>
           <Box xcss={footerStyles}>
-            <LoadingButton
-              appearance="primary"
-              type="submit"
-              isLoading={submitting}
-            >
+            <Button appearance="primary" type="submit" isLoading={submitting}>
               <FormattedMessage {...messages.submit} />
-            </LoadingButton>
+            </Button>
           </Box>
         </form>
       )}

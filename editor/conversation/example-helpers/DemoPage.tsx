@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ResourceProvider } from '../src/api/ConversationResource';
+import type { ResourceProvider } from '../src/api/ConversationResource';
 import { Conversation } from '../src';
 // https://atlassian.slack.com/archives/CNZTJCZ7U/p1634674323008000
 // import SingleSelect from '@atlaskit/single-select';
-import { Conversation as ConversationType, User } from '../src/model';
-import { State } from '../src/internal/store';
+import type { Conversation as ConversationType, User } from '../src/model';
+import type { State } from '../src/internal/store';
 import { MOCK_USERS } from './MockData';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 const DUMMY_CODE = `
 class Main() {
@@ -17,37 +17,35 @@ class Main() {
 }
 `;
 
-const Line = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+const Line = styled.div({
+  display: 'flex',
+  flexDirection: 'row',
+});
 
-const LineNumber = styled.div`
-  padding: 2px;
-  background: #dfe1e5;
-  flex: 20px 0 0;
+const LineNumber = styled.div({
+  padding: '2px',
+  background: '#dfe1e5',
+  flex: '20px 0 0',
+  '& > a': {
+    color: '#5e6c84',
+  },
+});
 
-  & > a {
-    color: #5e6c84;
-  }
-`;
+const Code = styled.div({
+  background: '#fafbfc',
+  margin: 0,
+  flex: 'auto',
+  '& > pre': {
+    padding: '2px',
+  },
+});
 
-const Code = styled.div`
-  background: #fafbfc;
-  margin: 0;
-  flex: auto;
-
-  & > pre {
-    padding: 2px;
-  }
-`;
-
-const ConvoWrapper = styled.div`
-  border-top: 1px solid #c1c7d0;
-  border-bottom: 1px solid #c1c7d0;
-  padding: 10px;
-  background: #fff;
-`;
+const ConvoWrapper = styled.div({
+  borderTop: '1px solid #c1c7d0',
+  borderBottom: '1px solid #c1c7d0',
+  padding: '10px',
+  background: '#fff',
+});
 
 interface FileProps {
   name: string;

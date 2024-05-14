@@ -1,7 +1,6 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
+import format from '@af/formatting/sync';
 
-import { Layer } from '../src/constants';
+import type { Layer } from '../src/constants';
 
 const styleProperties: Record<'layer', Record<Layer, number>> = {
   layer: {
@@ -24,7 +23,7 @@ export const createStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${property}"`);
   }
 
-  return prettier.format(
+  return format(
     `
 const ${property}Map = {
   ${Object.keys(styleProperties[property])
@@ -33,11 +32,6 @@ const ${property}Map = {
     })
     .join(',\n\t')}
 };`,
-    {
-      singleQuote: true,
-      trailingComma: 'all',
-      parser: 'typescript',
-      plugins: [parserTypeScript],
-    },
+    'typescript',
   );
 };

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/app-provider",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "A top level provider for the Design System.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -42,9 +42,9 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
-    "bind-event-listener": "^2.1.1"
+    "bind-event-listener": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ~18.2.0"

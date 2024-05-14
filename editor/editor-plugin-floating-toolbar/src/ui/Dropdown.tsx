@@ -23,14 +23,14 @@ import { token } from '@atlaskit/tokens';
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const dropdownExpandContainer = css`
-  margin: 0px ${token('space.negative.050', '-4px')};
-`;
+const dropdownExpandContainer = css({
+  margin: `0px ${token('space.negative.050', '-4px')}`,
+});
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const iconGroup = css`
-  display: flex;
-`;
+const iconGroup = css({
+  display: 'flex',
+});
 
 const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
   <div css={iconGroup}>

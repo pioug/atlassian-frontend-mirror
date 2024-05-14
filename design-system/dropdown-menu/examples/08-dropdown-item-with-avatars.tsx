@@ -2,11 +2,11 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 
-import Dropdown, { DropdownItem, DropdownItemGroup } from '../src';
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 export default () => (
-  <Dropdown defaultOpen trigger="Assign to" shouldRenderToParent>
-    <DropdownItemGroup title="Teammates">
+  <DropdownMenu defaultOpen trigger="Assign to" shouldRenderToParent>
+    <DropdownItemGroup>
       <DropdownItem elemBefore={<Avatar size="small" />}>
         Some text
       </DropdownItem>
@@ -14,5 +14,5 @@ export default () => (
         Some text also
       </DropdownItem>
     </DropdownItemGroup>
-  </Dropdown>
+  </DropdownMenu>
 );

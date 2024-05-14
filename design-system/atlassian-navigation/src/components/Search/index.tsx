@@ -4,12 +4,10 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import SearchIcon from '@atlaskit/icon/glyph/search';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
   CREATE_BREAKPOINT,
-  fontSize,
   varSearchBackgroundColor,
   varSearchBorderColor,
   varSearchColor,
@@ -22,9 +20,9 @@ import { IconButton } from '../IconButton';
 import { SearchProps } from './types';
 
 const searchInputContainerStyles = css({
-  marginRight: token('space.100', '8px'),
-  marginLeft: token('space.250', '20px'),
   position: 'relative',
+  marginInlineEnd: token('space.100', '8px'),
+  marginInlineStart: token('space.250', '20px'),
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
     display: 'none !important',
@@ -35,10 +33,8 @@ const searchInputIconStyles = css({
   width: '20px',
   height: '20px',
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  top: '5px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  left: '10px',
+  insetBlockStart: '5px',
+  insetInlineStart: '10px',
   pointerEvents: 'none',
 });
 
@@ -62,7 +58,7 @@ const searchInputStyles = css({
   borderColor: `var(${varSearchBorderColor})`,
   borderRadius: token('border.radius.200', '6px'),
   color: `var(${varSearchColor})`,
-  fontSize: `${fontSize}px`,
+  font: token('font.body'),
   outline: 'none',
   '::placeholder': {
     color: 'inherit',
@@ -119,12 +115,7 @@ const SearchComponent = (props: SearchComponentProps) => {
       </div>
       <input
         style={searchInputDynamicStyles as React.CSSProperties}
-        css={[
-          searchInputStyles,
-          getBooleanFF(
-            'platform.design-system-team.update-input-border-wdith_5abwv',
-          ) && newSearchBorderStyles,
-        ]}
+        css={[searchInputStyles, newSearchBorderStyles]}
         aria-label={label}
         placeholder={placeholder}
         onChange={onChange}

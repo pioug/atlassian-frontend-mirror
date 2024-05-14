@@ -23,8 +23,8 @@ const Tick = () => (
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const DivPresence = styled.div({
   alignItems: 'center',
-  backgroundColor: token('color.background.discovery.bold', 'rebeccapurple'),
-  color: token('color.text.inverse', 'white'),
+  backgroundColor: token('color.background.discovery.bold'),
+  color: token('color.text.inverse'),
   display: 'flex',
   fontSize: '0.75em',
   fontWeight: 500,

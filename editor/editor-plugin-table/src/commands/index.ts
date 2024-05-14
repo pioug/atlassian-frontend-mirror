@@ -44,3 +44,4 @@ export {
 export { sortByColumn } from './sort';
 export { goToNextCell } from './go-to-next-cell';
 export { removeDescendantNodes } from './referentiality';
+export { setTableDisplayMode } from './display-mode';

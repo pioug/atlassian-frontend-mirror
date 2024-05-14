@@ -1,4 +1,4 @@
-import { extractLink } from '@atlaskit/link-extractors';
+import { extractLink, extractType } from '@atlaskit/link-extractors';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import type { JsonLd } from 'json-ld-types';
 
@@ -22,6 +22,10 @@ const extractFollowAction = (
   const extensionKey = getExtensionKey(response);
   const data = response?.data as JsonLd.Data.BaseData;
   const actions = extractServerAction(data);
+
+  const type = extractType(data);
+  const isProject = type?.includes('atlassian:Project');
+
   if (!extensionKey || actions.length === 0) {
     return;
   }
@@ -57,6 +61,7 @@ const extractFollowAction = (
       reload,
     },
     value: actionType === SmartLinkActionType.FollowEntityAction,
+    isProject,
   };
 };
 

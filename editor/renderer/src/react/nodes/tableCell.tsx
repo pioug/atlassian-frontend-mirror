@@ -9,7 +9,7 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
 
-import SortingIcon from '../../ui/SortingIcon';
+import { SortingIcon } from '@atlaskit/editor-common/table';
 import type { AnalyticsEventPayload } from '../../analytics/events';
 import { MODE, PLATFORM } from '../../analytics/events';
 import {

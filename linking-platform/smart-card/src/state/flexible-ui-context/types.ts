@@ -1,9 +1,15 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
 import { LinkPerson } from '@atlaskit/link-extractors';
-import { ActionName, IconType, MediaType } from '../../constants';
+import {
+  ActionName,
+  IconType,
+  InternalActionName,
+  MediaType,
+} from '../../constants';
 import { InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import type { AnalyticsFacade } from '../analytics';
+import type { ProductType } from '@atlaskit/linking-common';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
@@ -254,6 +260,7 @@ export type FlexibleUiActions = {
   [ActionName.DownloadAction]?: DownloadActionData;
   [ActionName.FollowAction]?: ServerActionProp<boolean>;
   [ActionName.CopyLinkAction]?: CopyLinkActionData;
+  [InternalActionName.AISummaryAction]?: AISummaryActionData;
 };
 
 export type PreviewActionData = {
@@ -287,6 +294,11 @@ export type CopyLinkActionData = {
   /* A URL that will be copied upon clicking copy actions */
   url: string;
 };
+export type AISummaryActionData = {
+  ari?: string;
+  product: ProductType;
+  url: string;
+};
 
 export type FlexibleAnalyticsContextType = AnalyticsFacade & {
   display?: CardInnerAppearance;
@@ -298,4 +310,5 @@ export type ServerActionProp<TValue> = {
   action: InvokeRequestWithCardDetails;
   /* A toggle value */
   value?: TValue;
+  isProject?: boolean;
 };

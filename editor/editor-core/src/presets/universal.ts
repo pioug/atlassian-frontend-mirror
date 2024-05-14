@@ -63,7 +63,8 @@ import { createDefaultPreset } from './default';
 import type { DefaultPresetPluginOptions } from './default';
 type UniversalPresetProps = DefaultPresetPluginOptions &
   EditorSharedPropsWithPlugins &
-  EditorPluginFeatureProps &
+  // Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
+  Omit<EditorPluginFeatureProps, 'placeholder'> &
   EditorProviderProps;
 
 /**
@@ -104,8 +105,8 @@ export default function createUniversalPreset(
   const statusMenuDisabled = !props.allowStatus
     ? true
     : typeof props.allowStatus === 'object'
-    ? Boolean(props.allowStatus.menuDisabled)
-    : false;
+      ? Boolean(props.allowStatus.menuDisabled)
+      : false;
 
   const hasBeforePrimaryToolbar = (
     components?: PrimaryToolbarComponents,
@@ -178,7 +179,8 @@ export default function createUniversalPreset(
             typeof props.media?.allowAdvancedToolBarOptions !== 'undefined'
               ? props.media?.allowAdvancedToolBarOptions
               : isFullPage || isComment,
-          allowCommentsOnMedia: isFullPage,
+          allowCommentsOnMedia:
+            isFullPage && Boolean(props.annotationProviders),
           allowDropzoneDropLine: isFullPage,
           allowMediaSingleEditable: !isMobile,
           allowRemoteDimensionsFetch: !isMobile,
@@ -232,6 +234,9 @@ export default function createUniversalPreset(
           wasFullWidthEnabled:
             prevAppearance && prevAppearance === 'full-width',
           getEditorFeatureFlags,
+          isTableAlignmentEnabled:
+            getBooleanFF('platform.editor.table.allow-table-alignment') &&
+            isFullPage,
         },
       ],
       Boolean(props.allowTables),
@@ -465,13 +470,7 @@ export default function createUniversalPreset(
       Boolean(props.allowBorderMark || props.UNSAFE_allowBorderMark),
     )
     .maybeAdd(fragmentPlugin, Boolean(props.allowFragmentMark))
-    .maybeAdd(pasteOptionsToolbarPlugin, () => {
-      if (getBooleanFF('platform.editor.paste-options-toolbar')) {
-        return true;
-      }
-
-      return false;
-    })
+    .add(pasteOptionsToolbarPlugin)
     .add([
       codeBidiWarningPlugin,
       {

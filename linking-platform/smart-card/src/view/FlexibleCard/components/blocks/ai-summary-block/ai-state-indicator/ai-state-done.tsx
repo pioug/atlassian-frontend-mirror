@@ -12,7 +12,7 @@ import { messages } from '../../../../../../messages';
 import AIIcon from '../../../../../common/ai-icon';
 import AIIndicatorTooltip from './ai-indicator-tooltip';
 import AIIndicatorContainer from './ai-indicator-container';
-import AILearnMoreAnchor from './ai-learn-more-anchor';
+import AILearnMoreAnchor from '../../../common/ai-summary/ai-learn-more-anchor';
 import type { AIStateIndicatorProps } from './types';
 
 const tooltipMsgStyles = xcss({

@@ -8,9 +8,9 @@ import {
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import {
-  DatasourceAdf,
-  DatasourceAdfTableViewColumn,
-  InlineCardAdf,
+  type DatasourceAdf,
+  type DatasourceAdfTableViewColumn,
+  type InlineCardAdf,
 } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
@@ -19,8 +19,8 @@ import {
   JiraIssuesConfigModal,
 } from '../src';
 import {
-  JiraIssueDatasourceParameters,
-  JiraIssuesDatasourceAdf,
+  type JiraIssueDatasourceParameters,
+  type JiraIssuesDatasourceAdf,
 } from '../src/ui/jira-issues-modal/types';
 
 mockDatasourceFetchRequests();

@@ -1,9 +1,10 @@
 /** @jsx jsx */
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import { CardState } from '../../../state/types';
-import { JsonLd } from 'json-ld-types';
+import { type CardState } from '../../../state/types';
+import { type JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
@@ -12,19 +13,18 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../constants';
-import { extractMetadata } from '../../../extractors/hover/extractMetadata';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { getExtensionKey, getServices } from '../../../state/helpers';
 import { isSpecialEvent } from '../../../utils';
-import { TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
+import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import {
-  ActionItem,
-  CustomActionItem,
+  type ActionItem,
+  type CustomActionItem,
 } from '../../FlexibleCard/components/blocks/types';
-import { FlexibleCardProps } from '../../FlexibleCard/types';
+import { type FlexibleCardProps } from '../../FlexibleCard/types';
 import { flexibleUiOptions, titleBlockCss } from '../styled';
-import { HoverCardContentProps } from '../types';
-import { getSimulatedMetadata, getIsAISummaryEnabled } from '../utils';
+import { type HoverCardContentProps } from '../types';
+import { getMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
@@ -35,6 +35,7 @@ import { useSmartCardState } from '../../../state/store';
 
 import HoverCardForbiddenView from './views/forbidden';
 import ContentContainer from './ContentContainer';
+import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -137,14 +138,16 @@ const HoverCardContent = ({
   const titleActions = useMemo(() => [getCopyAction(url)], [url]);
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
-  const { subtitle } = extractMetadata(
-    getSimulatedMetadata(extensionKey, data),
-  );
+  const { subtitle } = getMetadata(extensionKey, data);
 
   const titleMaxLines = subtitle && subtitle.length > 0 ? 1 : 2;
 
   const titleBlockProps: TitleBlockProps = {
-    actions: titleActions,
+    actions: getBooleanFF(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+    )
+      ? undefined
+      : titleActions,
     maxLines: titleMaxLines,
     overrideCss: titleBlockCss,
     size: SmartLinkSize.Large,

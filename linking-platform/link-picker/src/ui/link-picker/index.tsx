@@ -81,6 +81,8 @@ interface OnSubmitParameter {
    * { url: 'https://google.com', rawUrl: 'google.com' }
    */
   rawUrl?: string;
+  /** Raw object from the selected resource */
+  data?: Record<string, unknown>;
 }
 
 export interface LinkPickerProps {
@@ -305,7 +307,12 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
       }, [trackAttribute, handleClear, isSubmitting]);
 
       const handleInsert = useCallback(
-        (url: string, title: string | null, inputType: LinkInputType) => {
+        (
+          url: string,
+          title: string | null,
+          inputType: LinkInputType,
+          data?: Record<string, unknown>,
+        ) => {
           const event = createAnalyticsEvent(
             createEventPayload('ui.form.submitted.linkPicker', {}),
           );
@@ -325,6 +332,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               displayText: displayText || null,
               title: title || null,
               meta: { inputMethod: inputType },
+              data,
               ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
             },
             consumerEvent,
@@ -354,7 +362,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               'linkFieldContentInputSource',
               getDataSource(selectedItem, activePlugin),
             );
-            handleInsert(url, name, 'typeAhead');
+            handleInsert(url, name, 'typeAhead', { ...selectedItem });
           }
         },
         [handleInsert, trackAttribute, items, activePlugin, isSubmitting],

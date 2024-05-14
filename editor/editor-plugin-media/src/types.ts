@@ -141,6 +141,7 @@ export type MediaFloatingToolbarOptions = {
   getEditorFeatureFlags?: GetEditorFeatureFlags;
   fullWidthEnabled?: boolean;
   allowCommentsOnMedia?: boolean;
+  isViewOnly?: boolean;
 };
 
 export type MediaDecorationSpec = {

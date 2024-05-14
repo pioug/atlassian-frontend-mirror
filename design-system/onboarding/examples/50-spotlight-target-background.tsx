@@ -4,15 +4,16 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
+import { Code } from '@atlaskit/code';
 import { token } from '@atlaskit/tokens';
 
 import { Spotlight, SpotlightManager, SpotlightTarget } from '../src';
 
-import { Code, Highlight, HighlightGroup } from './styled';
+import { Highlight, HighlightGroup } from './styled';
 
 const wrapperStyles = css({
   padding: token('space.500', '40px'),
-  backgroundColor: token('elevation.surface.raised', '#f6f6f6'),
+  backgroundColor: token('elevation.surface.raised'),
   borderRadius: token('border.radius', '4px'),
 });
 

@@ -1,6 +1,7 @@
 {
   "name": "@atlaskit/smart-user-picker",
-  "version": "6.9.2",
+  "version": "6.9.3",
+  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -27,6 +28,7 @@
   },
   "exports": {
     ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./option": "./src/option.ts"
   },
   "atlassian": {
@@ -38,9 +40,9 @@
     ]
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/ufo": "^0.2.0",
-    "@atlaskit/user-picker": "^10.19.0",
+    "@atlaskit/user-picker": "^10.20.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
@@ -52,7 +54,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/select": "^17.6.0",
+    "@atlaskit/select": "^17.9.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

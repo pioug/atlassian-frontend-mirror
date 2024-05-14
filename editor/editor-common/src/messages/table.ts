@@ -120,6 +120,30 @@ export const messages = defineMessages({
     defaultMessage: 'Row numbers',
     desciption: 'Adds a number to each row except header row',
   },
+  rowsAreInserted: {
+    id: 'fabric.editor.rowsAreInserted',
+    defaultMessage:
+      '{count, plural, one {A row has been} other {{count} rows have been}} inserted',
+    description: 'Assistive message following the insertion of row(s)',
+  },
+  rowsAreRemoved: {
+    id: 'fabric.editor.rowsAreRemoved',
+    defaultMessage:
+      '{count, plural, one {The row has been} other {{count} rows have been}} removed',
+    description: 'Assistive message following the removal of row(s)',
+  },
+  columnsAreInserted: {
+    id: 'fabric.editor.columnsAreInserted',
+    defaultMessage:
+      '{count, plural, one {A column has been} other {{count} columns have been}} inserted',
+    description: 'Assistive message following the insertion of column(s)',
+  },
+  columnsAreRemoved: {
+    id: 'fabric.editor.columnsAreRemoved',
+    defaultMessage:
+      '{count, plural, one {The column has been} other {{count} columns have been}} removed',
+    description: 'Assistive message following the removal of column(s)',
+  },
   cellOptions: {
     id: 'fabric.editor.cellOptions',
     defaultMessage: 'Cell options',
@@ -224,6 +248,16 @@ export const messages = defineMessages({
     id: 'fabric.editor.distributeColumns',
     defaultMessage: `Distribute columns`,
     description: `Distribute widths between selected columns`,
+  },
+  lockColumnWidths: {
+    id: 'fabric.editor.lockColumns',
+    defaultMessage: 'Fixed column widths',
+    description: 'Toggle button to enable fixed column widths',
+  },
+  unlockColumnWidths: {
+    id: 'fabric.editor.unLockColumns',
+    defaultMessage: 'Variable column widths',
+    description: 'Toggle button to enable variable column widths',
   },
   rowControl: {
     id: 'fabric.editor.rowControl',

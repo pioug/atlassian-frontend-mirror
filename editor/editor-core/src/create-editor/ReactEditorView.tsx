@@ -25,13 +25,14 @@ import type {
 } from '@atlaskit/editor-common/analytics';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import type {
   ContextIdentifierProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type {
   AllEditorPresetPluginTypes,
   Transformer,
@@ -117,7 +118,7 @@ export interface EditorViewProps {
   editorProps: EditorProps | EditorNextProps;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   providerFactory: ProviderFactory;
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
   disabled?: boolean;
   experienceStore?: ExperienceStore;
   setEditorApi?: SetEditorAPI;
@@ -241,7 +242,7 @@ export class ReactEditorView<T = {}> extends React.Component<
           this.pluginInjectionAPI
             .api()
             .collabEdit?.sharedState.currentState()
-            .participants.size() || 1,
+            ?.participants?.size() || 1,
       },
     });
   };
@@ -314,13 +315,6 @@ export class ReactEditorView<T = {}> extends React.Component<
       ? getEnabledFeatureFlagKeys(this.featureFlags)
       : [];
 
-    // START TEMPORARY CODE ED-10584
-    if (this.props.createAnalyticsEvent) {
-      (this.props.createAnalyticsEvent as any).__queueAnalytics =
-        this.featureFlags.queueAnalytics;
-    }
-    // END TEMPORARY CODE ED-10584
-
     // This needs to be before initialising editorState because
     // we dispatch analytics events in plugin initialisation
     this.eventDispatcher.on(analyticsEventKey, this.handleAnalyticsEvent);
@@ -359,17 +353,6 @@ export class ReactEditorView<T = {}> extends React.Component<
   getEditorView = () => this.view;
 
   UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
-    // START TEMPORARY CODE ED-10584
-    if (
-      nextProps.createAnalyticsEvent &&
-      nextProps.createAnalyticsEvent !== this.props.createAnalyticsEvent
-    ) {
-      const featureFlags = createFeatureFlagsFromProps(nextProps.editorProps);
-      (nextProps.createAnalyticsEvent as any).__queueAnalytics =
-        featureFlags.queueAnalytics;
-    }
-    // END TEMPORARY CODE ED-10584
-
     if (
       this.view &&
       this.props.editorProps.disabled !== nextProps.editorProps.disabled

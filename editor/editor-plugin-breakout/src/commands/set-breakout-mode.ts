@@ -2,8 +2,12 @@ import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
+import { updateExpandedState } from '../utils/single-player-expand';
 
-export function setBreakoutMode(mode: BreakoutMode): Command {
+export function setBreakoutMode(
+  mode: BreakoutMode,
+  isLivePage?: boolean,
+): Command {
   return (state, dispatch) => {
     const node = findSupportedNodeForBreakout(state.selection);
 
@@ -16,6 +20,9 @@ export function setBreakoutMode(mode: BreakoutMode): Command {
       node.node.attrs,
       [state.schema.marks.breakout.create({ mode })],
     );
+
+    updateExpandedState(tr, node, isLivePage);
+
     tr.setMeta('scrollIntoView', false);
 
     if (state.selection instanceof NodeSelection) {

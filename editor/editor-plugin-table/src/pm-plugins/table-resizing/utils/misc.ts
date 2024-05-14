@@ -1,4 +1,4 @@
-import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
   getParentNodeWidth,
   getTableContainerWidth,
@@ -34,7 +34,7 @@ import { MAX_SCALING_PERCENT } from './consts';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
-  tableLayout: TableLayout,
+  tableLayout: 'default' | 'wide' | 'full-width',
   containerWidth: number = 0,
   options: TableOptions,
 ): number {
@@ -112,7 +112,7 @@ interface getTableMaxWidthProps {
   table: PMNode;
   tableStart: number;
   state: EditorState;
-  layout: TableLayout;
+  layout: 'default' | 'wide' | 'full-width';
   getEditorContainerWidth: GetEditorContainerWidth;
 }
 
@@ -158,12 +158,23 @@ export const getTableContainerElementWidth = (table: PMNode) => {
 
 export const getTableScalingPercent = (
   table: PMNode,
-  tableRef: HTMLElement,
+  tableRef: HTMLElement | null,
 ) => {
   const tableWidth = getTableContainerElementWidth(table);
-  let renderWidth = tableRef.parentElement?.clientWidth || tableWidth;
+  let renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
   // minus 1 here to avoid any 1px scroll in Firefox
   let scalePercent = (renderWidth - 1) / tableWidth;
+  scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
+  return Math.min(scalePercent, 1);
+};
+
+export const getStaticTableScalingPercent = (
+  table: PMNode,
+  tableRenderWidth: number,
+) => {
+  const tableWidth = getTableContainerElementWidth(table);
+  // minus 1 here to avoid any 1px scroll in Firefox
+  let scalePercent = (tableRenderWidth - 1) / tableWidth;
   scalePercent = Math.max(scalePercent, 1 - MAX_SCALING_PERCENT);
   return Math.min(scalePercent, 1);
 };

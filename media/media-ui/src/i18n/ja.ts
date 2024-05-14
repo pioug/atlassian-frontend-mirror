@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'アカウント',
   'fabric.media.actions': 'アクション',
   'fabric.media.add_account': 'アカウントを追加',
+  'fabric.media.alt_text': '選択された画像を弱視の人に説明するとしたら、どのように説明しますか?',
   'fabric.media.annotate': '注釈',
   'fabric.media.annotate.confirmation.close.anyway': '閉じる',
   'fabric.media.annotate.confirmation.content': '保存されていない変更があります。保存せずに終了しますか?',
@@ -62,6 +63,7 @@ export default {
   'fabric.media.drop_your_files_here': 'ファイルをここにドロップ',
   'fabric.media.email': 'メール',
   'fabric.media.enable_fullscreen': '全画面表示を有効化',
+  'fabric.media.enter_password': 'パスワードを入力',
   'fabric.media.error_429': 'エラー 429',
   'fabric.media.error_generating_preview': 'プレビューの生成中にエラーが発生しました',
   'fabric.media.error_hint_critical': '問題が継続して起こる場合はサポートにご連絡ください。',
@@ -69,6 +71,7 @@ export default {
   'fabric.media.error_loading_file': 'ファイルの読み込み中にエラーが発生しました',
   'fabric.media.failed_to_load': '読み込めませんでした',
   'fabric.media.failed_to_upload': 'アップロードに失敗しました',
+  'fabric.media.file_is_selected': 'ファイル「{name}」が選択されました',
   'fabric.media.forbidden_description':
     'このプレビューにアクセスできません。アクセスが必要な場合はサイト管理者にお問い合わせください。',
   'fabric.media.give_feedback': 'フィードバックを送信',
@@ -77,6 +80,7 @@ export default {
   'fabric.media.image_size_too_large_error':
     '画像が大きすぎます。画像サイズは {MAX_SIZE_MB}Mb 以下である必要があります。',
   'fabric.media.image_url_invalid_error': '画像を読み込めませんでした。URL が無効です。',
+  'fabric.media.incorrect_password': 'パスワードが間違っています。もう一度お試しください。',
   'fabric.media.insert_files': '{0, plural, other {{0} 件のファイルを挿入}}',
   'fabric.media.invalid_permissions': '制限されたリンク',
   'fabric.media.invalid_permissions_description':
@@ -93,8 +97,11 @@ export default {
   'fabric.media.not_found_description':
     'リンクが見つかりませんでした。URL を確認して編集するか、もう一度貼り付けてください。',
   'fabric.media.not_found_title': '申し訳ありません。リンクが見つかりません。',
+  'fabric.media.open_file_in_viewer': '{name} を開く',
   'fabric.media.or': 'または',
   'fabric.media.or_select_default_avatars': '写真をアップロードするか、既定のオプションの中から選択してください',
+  'fabric.media.password': 'パスワード',
+  'fabric.media.password_protected_pdf': 'このファイルはパスワードで保護されています。',
   'fabric.media.pause': '一時停止',
   'fabric.media.play': '再生',
   'fabric.media.playback_default_speed': '既定',
@@ -123,6 +130,7 @@ export default {
   'fabric.media.something_went_wrong': '問題が発生しました。',
   'fabric.media.srclink': '次で表示',
   'fabric.media.srclinkunknown': 'リンク元を表示',
+  'fabric.media.submit': '送信',
   'fabric.media.text': 'テキスト',
   'fabric.media.try_again': '再試行',
   'fabric.media.try_another_account': '別のアカウントでお試しください',

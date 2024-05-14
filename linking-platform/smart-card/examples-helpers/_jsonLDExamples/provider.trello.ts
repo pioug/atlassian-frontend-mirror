@@ -121,7 +121,12 @@ export const TrelloCard = {
     name: 'Example Card with due date, member, attachments, and cover',
     summary:
       'This is an example card to test the hover preview. Ideally this should show a due date, member set, and attachment count in a hover preview card.',
-    'atlassian:state': 'List 1',
+    'atlassian:state': {
+      '@type': 'Object',
+      name: 'List1',
+      appearance: 'default',
+      accent: 'red',
+    },
     image: {
       '@type': 'Image',
       url: image1,

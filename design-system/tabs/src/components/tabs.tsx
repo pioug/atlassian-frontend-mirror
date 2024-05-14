@@ -15,7 +15,6 @@ import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatfor
 
 import { TabListContext, TabPanelContext } from '../internal/context';
 import { getTabsStyles } from '../internal/styles';
-import { onMouseDownBlur } from '../internal/utils';
 import { SelectedType, TabsProps } from '../types';
 
 const baseStyles = css({
@@ -55,7 +54,6 @@ const getTabPanelWithContext = ({
         id: `${tabsId}-${index}-tab`,
         hidden: isSelected ? undefined : true,
         'aria-labelledby': `${tabsId}-${index}`,
-        onMouseDown: onMouseDownBlur,
         tabIndex: isSelected ? 0 : -1,
       }}
       key={index}

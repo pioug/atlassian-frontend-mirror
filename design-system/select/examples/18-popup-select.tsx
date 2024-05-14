@@ -81,7 +81,7 @@ const PopupSelectExample = () => (
     <div css={flexStyles}>
       <div
         style={{
-          background: token('color.background.neutral', 'AliceBlue'),
+          background: token('color.background.neutral'),
           marginBottom: '1em',
           marginTop: '1em',
           padding: '1em',

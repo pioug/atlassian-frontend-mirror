@@ -16,13 +16,13 @@ const NestedExample = () => {
     <AppFrame shouldHideAppBar>
       <SideNavigation label="project">
         <NavigationHeader>
-          <Header>Money machine</Header>
+          <Header>Designing web navigation</Header>
         </NavigationHeader>
         <NestableNavigationContent>
           <Section>
-            <NestingItem id="" title="Print money">
+            <NestingItem id="component-menu" title="Navigation components">
               <Section>
-                <ButtonItem>Money printed</ButtonItem>
+                <ButtonItem>Side navigation</ButtonItem>
               </Section>
             </NestingItem>
           </Section>

@@ -5,7 +5,7 @@ import Tooltip from '@atlaskit/tooltip';
 import React, { type FC, useCallback } from 'react';
 import { getPrimitivesInlineSpaceBySize } from '../../../utils';
 import ActionIcon from '../action-icon';
-import { ActionStackItemProps } from './types';
+import { type ActionStackItemProps } from './types';
 
 const buttonStyles = xcss({
   all: 'unset',
@@ -52,6 +52,7 @@ const ActionStackItem: FC<ActionStackItemProps> = ({
   tooltipMessage,
   xcss,
   tooltipOnHide,
+  hideTooltipOnMouseDown,
 }) => {
   const space = spaceOption ?? getPrimitivesInlineSpaceBySize(size);
 
@@ -64,8 +65,8 @@ const ActionStackItem: FC<ActionStackItemProps> = ({
   const icon =
     iconOption && isLoading ? (
       <ActionIcon
+        asStackItemIcon={true}
         icon={<Spinner testId={`${testId}-loading`} />}
-        showBackground={true}
         size={size}
       />
     ) : (
@@ -77,7 +78,7 @@ const ActionStackItem: FC<ActionStackItemProps> = ({
     <Tooltip
       content={tooltipMessage || content}
       onHide={tooltipOnHide}
-      hideTooltipOnMouseDown
+      hideTooltipOnMouseDown={hideTooltipOnMouseDown}
     >
       {(tooltipProps) => (
         <Box

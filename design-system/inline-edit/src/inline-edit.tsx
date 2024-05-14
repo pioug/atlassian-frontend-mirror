@@ -4,16 +4,18 @@ import React, { useCallback, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
+import Pressable from '@atlaskit/primitives/pressable';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import Buttons from './internal/buttons';
 import useButtonFocusHook from './internal/hooks/use-button-focus-hook';
 import ReadView from './internal/read-view';
-import { InlineEditProps } from './types';
+import { type InlineEditProps } from './types';
 
 const fieldStyles = css({
   maxWidth: '100%',
@@ -173,6 +175,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(
         editButtonRef={editButtonRef}
         readViewFitContainerWidth={readViewFitContainerWidth}
         readView={readView}
+        testId={testId}
       />
     );
   };
@@ -242,7 +245,9 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                     />
                   ) : (
                     /** This is to allow Ctrl + Enter to submit without action buttons */
-                    <button hidden type="submit" aria-label="Submit" />
+                    <Pressable hidden type="submit">
+                      <VisuallyHidden>Submit</VisuallyHidden>
+                    </Pressable>
                   )}
                 </div>
               )}

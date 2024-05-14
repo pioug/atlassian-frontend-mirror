@@ -1,10 +1,6 @@
 import React from 'react';
 
-import {
-  expand,
-  extendedNestedExpand,
-  nestedExpand,
-} from '@atlaskit/adf-schema';
+import { expand, nestedExpand } from '@atlaskit/adf-schema';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -15,7 +11,6 @@ import {
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../types';
 
@@ -31,14 +26,9 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
     name: 'expand',
 
     nodes() {
-      const nestedExpandNode = getBooleanFF(
-        'platform.editor.allow-extended-nested-expand',
-      )
-        ? extendedNestedExpand
-        : nestedExpand;
       return [
         { name: 'expand', node: expand },
-        { name: 'nestedExpand', node: nestedExpandNode },
+        { name: 'nestedExpand', node: nestedExpand },
       ];
     },
 

@@ -25,6 +25,7 @@ export function createPlugin(
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
+  isTableScalingEnabled?: boolean,
 ) {
   return new SafePlugin({
     key: pluginKey,
@@ -79,6 +80,7 @@ export function createPlugin(
                 resizeHandlePos,
                 getEditorContainerWidth,
                 getEditorFeatureFlags,
+                isTableScalingEnabled || false,
                 editorAnalyticsAPI,
               )
             ) {

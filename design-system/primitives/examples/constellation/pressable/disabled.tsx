@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Inline, Stack, xcss } from '@atlaskit/primitives';
-import Pressable from '@atlaskit/primitives/pressable';
+import { Inline, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
@@ -9,7 +8,7 @@ const pressableStyles = xcss({
   fontWeight: token('font.weight.medium'),
 });
 
-const activeStyles = xcss({
+const enabledStyles = xcss({
   color: 'color.text.subtle',
 
   ':hover': {
@@ -26,7 +25,7 @@ const disabledStyles = xcss({
 
 export default function Disabled() {
   const handleClick = useCallback(() => {
-    alert('Clicked');
+    console.log('Clicked');
   }, []);
 
   const [isDisabled, setIsDisabled] = useState(true);
@@ -38,7 +37,7 @@ export default function Disabled() {
   );
   return (
     <Stack space="space.200" alignInline="start">
-      <Inline alignBlock="center">
+      <Inline alignBlock="center" space="space.100">
         <Toggle
           isChecked={isDisabled}
           id="is-disabled"
@@ -47,11 +46,11 @@ export default function Disabled() {
         <label htmlFor="is-disabled">Disabled</label>
       </Inline>
       <Pressable
+        isDisabled={isDisabled}
         onClick={handleClick}
         padding="space.0"
         backgroundColor="color.background.neutral.subtle"
-        xcss={[pressableStyles, isDisabled ? disabledStyles : activeStyles]}
-        isDisabled={isDisabled}
+        xcss={[pressableStyles, isDisabled ? disabledStyles : enabledStyles]}
       >
         Edit comment
       </Pressable>

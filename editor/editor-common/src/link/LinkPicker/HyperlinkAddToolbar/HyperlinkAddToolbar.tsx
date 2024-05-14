@@ -63,50 +63,50 @@ import {
  * Visible only to screenreaders. Use when there is a need
  * to provide more context to a non-sighted user.
  */
-export const visuallyHiddenStyles = css`
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  height: 1px;
-  width: 1px;
-  margin: ${token('space.negative.025', '-2px')};
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-`;
+export const visuallyHiddenStyles = css({
+  clip: 'rect(1px, 1px, 1px, 1px)',
+  clipPath: 'inset(50%)',
+  height: '1px',
+  width: '1px',
+  margin: token('space.negative.025', '-2px'),
+  overflow: 'hidden',
+  padding: 0,
+  position: 'absolute',
+});
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
-const clearText = css`
-  cursor: pointer;
-  padding: 0;
-  margin-right: ${token('space.100', '8px')};
-  color: ${token('color.icon.subtle', N90)};
-  background: transparent;
-  border: none;
-`;
+const clearText = css({
+  cursor: 'pointer',
+  padding: 0,
+  marginRight: token('space.100', '8px'),
+  color: token('color.icon.subtle', N90),
+  background: 'transparent',
+  border: 'none',
+});
 
-const clearTextWrapper = css`
-  position: absolute;
-  right: 0;
-`;
-const containerPadding = css`
-  padding: ${token('space.150', '12px')} ${token('space.100', '8px')};
-`;
+const clearTextWrapper = css({
+  position: 'absolute',
+  right: 0,
+});
+const containerPadding = css({
+  padding: `${token('space.150', '12px')} ${token('space.100', '8px')}`,
+});
 
-const textLabelMargin = css`
-  margin-top: ${token('space.150', '12px')};
-`;
+const textLabelMargin = css({
+  marginTop: token('space.150', '12px'),
+});
 
-const inputLabel = css`
-  font-size: ${fontSizeSmall()}px;
-  color: ${token('color.text.subtlest', N200)};
-  font-weight: 500;
-  padding-bottom: ${token('space.050', '4px')};
-`;
+const inputLabel = css({
+  fontSize: `${fontSizeSmall()}px`,
+  color: token('color.text.subtlest', N200),
+  fontWeight: 500,
+  paddingBottom: token('space.050', '4px'),
+});
 
-const inputWrapperPosition = css`
-  position: relative;
-`;
+const inputWrapperPosition = css({
+  position: 'relative',
+});
 
 export const messages = defineMessages({
   displayText: {

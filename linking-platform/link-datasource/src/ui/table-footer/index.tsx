@@ -12,10 +12,14 @@ import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N0, N40, N800, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
+
 import { footerMessages } from './messages';
+import { PoweredByJSMAssets } from './powered-by-jsm-assets';
 import { SyncInfo } from './sync-info';
 
 export type TableFooterProps = {
+  datasourceId: string;
   itemCount?: number;
   onRefresh?: () => void;
   isLoading: boolean;
@@ -56,6 +60,7 @@ const SyncTextWrapper = styled.div({
 });
 
 export const TableFooter = ({
+  datasourceId,
   itemCount,
   onRefresh,
   isLoading,
@@ -99,6 +104,12 @@ export const TableFooter = ({
             </LinkUrl>
           )}
         </ItemCounterWrapper>
+        {datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID ? (
+          <PoweredByJSMAssets
+            text={intl.formatMessage(footerMessages.powerByJSM)}
+          />
+        ) : null}
+
         <SyncWrapper>
           {onRefresh && (
             <Fragment>

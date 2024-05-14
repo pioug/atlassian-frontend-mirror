@@ -3,31 +3,36 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 
+import { expandedState } from '@atlaskit/editor-common/expand';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type {
   DOMOutputSpec,
   Node as PmNode,
 } from '@atlaskit/editor-prosemirror/model';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { ExpandButton } from '../ui/ExpandButton';
 
-// TODO: https://product-fabric.atlassian.net/browse/ED-22841
-export const buildExpandClassName = (type: string) => {
-  return `${expandClassNames.prefix} ${expandClassNames.type(type)}
-  ${expandClassNames.expanded}`;
+export const buildExpandClassName = (type: string, expanded: boolean) => {
+  return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
+    expanded ? expandClassNames.expanded : ''
+  }`;
 };
 
 export const toDOM = (
   node: PmNode,
   __livePage: boolean,
   intl?: IntlShape,
+  titleReadOnly?: boolean,
+  contentEditable?: boolean,
 ): DOMOutputSpec => [
   'div',
   {
     // prettier-ignore
     'class': buildExpandClassName(
       node.type.name,
+      expandedState.get(node) ?? false,
     ),
     'data-node-type': node.type.name,
     'data-title': node.attrs.title,
@@ -59,22 +64,43 @@ export const toDOM = (
           value: node.attrs.title,
           placeholder:
             (intl &&
+              typeof intl.formatMessage === 'function' &&
               intl.formatMessage(expandMessages.expandPlaceholderText)) ||
             expandMessages.expandPlaceholderText.defaultMessage,
           type: 'text',
+          readonly:
+            getBooleanFF(
+              'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+            ) && titleReadOnly
+              ? 'true'
+              : undefined,
         },
       ],
     ],
   ],
-  // prettier-ignore
-  ['div', { 'class': expandClassNames.content }, 0],
+  [
+    'div',
+    {
+      // prettier-ignore
+      class: expandClassNames.content,
+      contenteditable:
+        getBooleanFF(
+          'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+        ) && contentEditable
+          ? contentEditable
+            ? 'true'
+            : 'false'
+          : undefined,
+    },
+    0,
+  ],
 ];
 
 export const renderIcon = (
   icon: HTMLElement | null,
   allowInteractiveExpand: boolean,
+  expanded: boolean,
   intl?: IntlShape,
-  node?: PmNode,
 ) => {
   if (!icon) {
     return;
@@ -84,7 +110,7 @@ export const renderIcon = (
     <ExpandButton
       intl={intl}
       allowInteractiveExpand={allowInteractiveExpand}
-      expanded={true} // TO-DO https://product-fabric.atlassian.net/browse/ED-22841
+      expanded={expanded}
     />,
     icon,
   );

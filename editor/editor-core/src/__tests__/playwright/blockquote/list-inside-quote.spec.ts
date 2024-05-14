@@ -176,9 +176,6 @@ test.describe('List inside a blockquote', () => {
 test.describe('quick-insert: numbered list', () => {
   test.use({
     adf: numberedListDocument,
-    platformFeatureFlags: {
-      'platform.editor.ordered-list-inserting-nodes_bh0vo': true,
-    },
   });
 
   test('Insert blockquote in numbered list', async ({ editor }) => {
@@ -251,9 +248,6 @@ test.describe('quick-insert: numbered list', () => {
 test.describe('quick-insert: nested numbered list', () => {
   test.use({
     adf: nestedNumberedListDocument,
-    platformFeatureFlags: {
-      'platform.editor.ordered-list-inserting-nodes_bh0vo': true,
-    },
   });
 
   test('Insert Blockquote in nested numbered list', async ({ editor }) => {

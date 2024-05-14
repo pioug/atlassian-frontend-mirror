@@ -27,7 +27,6 @@ const CardExample: React.FC<{
             url={url}
             showAuthTooltip={true}
             showHoverPreview={true}
-            showServerActions={true}
           />
         </ErrorBoundary>{' '}
         wench bounty rope's end bilge water scourge of the seven seas hardtack
@@ -37,12 +36,7 @@ const CardExample: React.FC<{
       <h6>Block</h6>
       <br />
       <ErrorBoundary fallback={fallback} onError={onError}>
-        <Card
-          appearance="block"
-          platform="web"
-          url={url}
-          showServerActions={true}
-        />
+        <Card appearance="block" platform="web" url={url} />
       </ErrorBoundary>
       <h6>Embed</h6>
       <br />

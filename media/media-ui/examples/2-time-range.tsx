@@ -42,6 +42,8 @@ class Example extends Component<any, ExampleState> {
               duration={100}
               bufferedTime={30}
               onChange={this.onChange1}
+              disableThumbTooltip={false}
+              isAlwaysActive={false}
             />
           </TimeRangeWrapper>
           {currentTime2}
@@ -51,6 +53,8 @@ class Example extends Component<any, ExampleState> {
               duration={100}
               bufferedTime={0}
               onChange={this.onChange2}
+              disableThumbTooltip={false}
+              isAlwaysActive={false}
             />
           </TimeRangeWrapper>
           <TimeRangeWrapper style={{ marginLeft: 100, width: 500 }}>
@@ -59,6 +63,8 @@ class Example extends Component<any, ExampleState> {
               duration={100}
               bufferedTime={20}
               onChange={this.onChange3}
+              disableThumbTooltip={false}
+              isAlwaysActive={false}
             />
           </TimeRangeWrapper>
         </Group>

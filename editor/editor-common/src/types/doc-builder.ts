@@ -1,5 +1,4 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Represents a ProseMirror "position" in a document.

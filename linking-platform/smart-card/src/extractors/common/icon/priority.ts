@@ -2,6 +2,9 @@ import { JsonLd } from 'json-ld-types';
 
 type JsonLdType = JsonLd.Primitives.ObjectType | 'atlassian:Template';
 
+/**
+ * Preference more detailed object types over less detailed ones (like 'Document' or 'Object').
+ */
 export const extractorPriorityMap: Record<JsonLdType, number> = {
   Object: 0,
   Document: 5,

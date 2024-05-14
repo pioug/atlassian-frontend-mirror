@@ -12,7 +12,7 @@ import Popup from '../../src';
 const contentStyles = css({
   maxWidth: 220,
   padding: token('space.200', '16px'),
-  backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
+  backgroundColor: token('utility.elevation.surface.current'),
 });
 
 const SurfaceAwareBox = () => {

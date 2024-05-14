@@ -49,8 +49,8 @@ export interface NestingItemProps<
   TCustomComponentProps = CustomItemComponentProps,
 > {
   /**
-   * A **unique identifier** for the nesting item.
-   * Every nesting item component needs a unique id else undefined behavior will occur.
+   * A unique identifier for the nesting item.
+   * Every nesting item component needs a unique ID, or else undefined behavior will occur.
    */
   id: string;
 
@@ -93,18 +93,18 @@ export interface NestingItemProps<
 
   /**
    * Element to render before the item text.
-   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   * Generally should be an [icon](https://atlassian.design/components/icon/icon-explorer) component.
    */
   iconBefore?: React.ReactNode;
 
   /**
    * Element to render after the item text.
-   * Generally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.
+   * Generally should be an [icon](https://atlassian.design/components/icon/icon-explorer) component.
    */
   iconAfter?: React.ReactNode;
 
   /**
-   * Event that is triggered when the element is clicked.
+   * Event that is triggered when a person clicks the element.
    */
   onClick?: (event: React.MouseEvent | React.KeyboardEvent) => void;
 
@@ -115,7 +115,7 @@ export interface NestingItemProps<
   description?: string | JSX.Element;
 
   /**
-   * Makes the element appear disabled as well as removing interactivity.
+   * Makes the element appear disabled and removes interactivity. Be aware that disabled UI does not appear to people who use assistive technology, so avoid using this if it still needs to appear in the tab order.
    */
   isDisabled?: boolean;
 

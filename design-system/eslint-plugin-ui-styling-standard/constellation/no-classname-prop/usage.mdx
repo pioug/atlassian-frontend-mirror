@@ -2,7 +2,9 @@
 
 This rule prevents usage of the `className` prop in JSX.
 
-Avoid `className` because it invites the use of unsafe global styles and is impossible to determine via local tooling. Use props for configuration and typical CSS-in-JS for styling or `xcss` for bounded overrides.
+Avoid `className` because it invites the use of unsafe global styles and is impossible to determine
+via local tooling. Use props for configuration and typical CSS-in-JS for styling or `xcss` for
+bounded overrides.
 
 ## Examples
 
@@ -32,7 +34,8 @@ import { css } from '@compiled/react';
 
 ### What if I'm using `className` to target elements with JavaScript?
 
-There are some cases where a selector is required to integrate with a 3rd party library,
-such as legacy code using jQuery.
+There are some cases where a selector is required to integrate with a 3rd party library, such as
+legacy code using jQuery.
 
-Use a `ref` if possible. Otherwise, if you _must_ have a selector, use a `data-*` attribute that gives enough context and is unique enough, for example `data-editor-table-target="true"`.
+Use a `ref` if possible. Otherwise, if you _must_ have a selector, use a `data-*` attribute that
+gives enough context and is unique enough, for example `data-editor-table-target="true"`.

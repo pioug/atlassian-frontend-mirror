@@ -13,7 +13,7 @@ const Component = React.forwardRef((props, ref: React.Ref<HTMLElement>) => (
     {...props}
     ref={ref}
     style={{
-      backgroundColor: token('color.background.accent.red.subtler', 'N500A'),
+      backgroundColor: token('color.background.accent.red.subtler'),
     }}
   />
 ));

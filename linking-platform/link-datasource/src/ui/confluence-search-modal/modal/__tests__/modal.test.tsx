@@ -6,12 +6,16 @@ import invariant from 'tiny-invariant';
 
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { InlineCardAdf } from '@atlaskit/linking-common';
+import { type InlineCardAdf } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { mockTransformedUserHydrationResponse } from '../../../../services/mocks';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
 import type { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
-import { ConfluenceSearchDatasourceAdf } from '../../types';
+import { useBasicFilterHydration } from '../../basic-filters/hooks/useBasicFilterHydration';
+import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
+import useRecommendation from '../../basic-filters/hooks/useRecommendation';
+import { type ConfluenceSearchDatasourceAdf } from '../../types';
 
 import {
   getAvailableSites,
@@ -28,6 +32,11 @@ import {
 // This is needed because if you remove this order, it messes up the test setup, somehow.
 // eslint-disable-next-line import/order
 import { ConfluenceSearchConfigModal } from '../index';
+
+jest.mock('../../basic-filters/hooks/useCurrentUserInfo');
+jest.mock('../../basic-filters/hooks/useRecommendation');
+jest.mock('../../basic-filters/hooks/useBasicFilterHydration');
+jest.useFakeTimers();
 
 describe('ConfluenceSearchConfigModal', () => {
   const prevWindowLocation = window.location;
@@ -62,6 +71,10 @@ describe('ConfluenceSearchConfigModal', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  asMock(useBasicFilterHydration).mockReturnValue({
+    reset: () => {},
   });
 
   describe('when no Confluence instances are returned', () => {
@@ -125,6 +138,34 @@ describe('ConfluenceSearchConfigModal', () => {
       });
     });
 
+    it('should reset hooks parameters', async () => {
+      const hookState = getDefaultHookState();
+      const { selectNewInstanceSite } = await setup({
+        hookState,
+        parameters: {
+          cloudId: '6879',
+          searchString: 'test',
+        },
+      });
+
+      expect(useDatasourceTableState).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          parameters: {
+            cloudId: '6879',
+            searchString: 'test',
+          },
+        }),
+      );
+
+      await selectNewInstanceSite();
+
+      expect(useDatasourceTableState).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          parameters: undefined,
+        }),
+      );
+    });
+
     it('should call `useDatasourceTableState` with `undefined` parameters', async () => {
       const hookState = getDefaultHookState();
       const { selectNewInstanceSite } = await setup({
@@ -185,7 +226,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some keywords',
             },
-            url: 'https://hello.atlassian.net/wiki/search?text=some%20keywords',
+            url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
           },
           {
             attributes: {
@@ -216,7 +257,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some keywords',
             },
-            url: 'https://hello.atlassian.net/wiki/search?text=some%20keywords',
+            url: 'https://hello.atlassian.net/wiki/search?text=some+keywords',
           },
           {
             attributes: {
@@ -242,7 +283,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -250,6 +291,395 @@ describe('ConfluenceSearchConfigModal', () => {
             searchCount: 1,
             searchMethod: 'datasource_search_query',
           },
+        },
+      );
+    });
+
+    describe('should call insert with correct basic filter selection attributes when `last updated` selection is made', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+            },
+          });
+
+          // Select option from last Updated list
+          fireEvent.click(
+            getByTestId(`confluence-search-modal--date-range-button`),
+          );
+          fireEvent.click(await findByText(`Today`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                lastModified: 'today',
+                // for custom would have lastModifiedTo & lastModifiedFrom
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=today',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and no to or from dates', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+            },
+          });
+
+          fireEvent.click(
+            getByTestId(`confluence-search-modal--date-range-button`),
+          );
+          fireEvent.click(await findByText(`Custom`));
+          fireEvent.click(await findByText(`Update`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                lastModified: 'custom',
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only from date', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            // setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+              lastModified: 'custom',
+              lastModifiedFrom: '2024-02-02',
+            },
+          });
+
+          fireEvent.click(
+            getByTestId(`confluence-search-modal--date-range-button`),
+          );
+          fireEvent.click(await findByText(`Update`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                lastModified: 'custom',
+                lastModifiedFrom: '2024-02-02',
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02',
+            },
+            {
+              attributes: {
+                // technically search wasn't actioned as it was pre-filled therefore this has not updated
+                actions: [],
+                searchCount: 0,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and only to date', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            // setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+              lastModified: 'custom',
+              lastModifiedTo: '2024-02-03',
+            },
+          });
+
+          fireEvent.click(
+            getByTestId(`confluence-search-modal--date-range-button`),
+          );
+          fireEvent.click(await findByText(`Update`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                lastModified: 'custom',
+                lastModifiedTo: '2024-02-03',
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&to=2024-02-03',
+            },
+            {
+              attributes: {
+                // technically search wasn't actioned as it was pre-filled therefore this has not updated
+                actions: [],
+                searchCount: 0,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call insert with correct basic filter selection attributes when `last updated` selection is made with custom selected and both from and to date', () => {
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            // setting up the parameters with custom selected and only from date pre-selected to not have to mock the flaky date picker component
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+              lastModified: 'custom',
+              lastModifiedFrom: '2024-02-02',
+              lastModifiedTo: '2024-02-03',
+            },
+          });
+
+          fireEvent.click(
+            getByTestId(`confluence-search-modal--date-range-button`),
+          );
+          fireEvent.click(await findByText(`Update`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                lastModified: 'custom',
+                lastModifiedFrom: '2024-02-02',
+                lastModifiedTo: '2024-02-03',
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&lastModified=custom&from=2024-02-02&to=2024-02-03',
+            },
+            {
+              attributes: {
+                // technically search wasn't actioned as it was pre-filled therefore this has not updated
+                actions: [],
+                searchCount: 0,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should call insert with correct parameters when `Edited or created by` selection is made', () => {
+      const mockUserRecommendationHook = {
+        filterOptions: [
+          {
+            optionType: 'avatarLabel',
+            label: 'Job Bob',
+            value: '5ffe1efc34847e0069446bf8',
+          },
+          {
+            optionType: 'avatarLabel',
+            label: 'Mike Scott',
+            value: '62df272c3aaeedcae755c533',
+          },
+        ],
+        status: 'resolved',
+        fetchFilterOptions: jest.fn(),
+      };
+
+      asMock(useRecommendation).mockReturnValue(mockUserRecommendationHook);
+      asMock(useCurrentUserInfo).mockReturnValue({
+        user: {
+          accountId: '123',
+        },
+      });
+
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          const { assertInsertResult, findByText, getByTestId } = await setup({
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+            },
+          });
+
+          // Select option from edited/created by filter list
+          fireEvent.click(
+            getByTestId(`clol-basic-filter-editedOrCreatedBy-trigger`),
+          );
+          fireEvent.click(await findByText(`Mike Scott`));
+
+          jest.advanceTimersByTime(500);
+
+          assertInsertResult(
+            {
+              parameters: {
+                cloudId: '67899',
+                searchString: 'some-query',
+                contributorAccountIds: ['62df272c3aaeedcae755c533'],
+              },
+              url: 'https://hello.atlassian.net/wiki/search?text=some-query&contributors=62df272c3aaeedcae755c533',
+            },
+            {
+              attributes: {
+                actions: ['query updated'],
+                searchCount: 1,
+                searchMethod: 'datasource_search_query',
+              },
+            },
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
+        },
+      );
+    });
+
+    describe('should pass the initialFilterSelection prop to ConfluenceSearchContainer for hydration when modal parameters have contributorAccountIds', () => {
+      const mockUserRecommendationHook = {
+        filterOptions: [
+          {
+            optionType: 'avatarLabel',
+            label: 'Job Bob',
+            value: '5ffe1efc34847e0069446bf8',
+          },
+          {
+            optionType: 'avatarLabel',
+            label: 'Mike Scott',
+            value: '62df272c3aaeedcae755c533',
+          },
+        ],
+        status: 'resolved',
+        fetchFilterOptions: jest.fn(),
+      };
+
+      asMock(useRecommendation).mockReturnValue(mockUserRecommendationHook);
+      asMock(useCurrentUserInfo).mockReturnValue({
+        user: {
+          accountId: '123',
+        },
+      });
+
+      ffTest(
+        'platform.linking-platform.datasource.show-clol-basic-filters',
+        async () => {
+          asMock(useBasicFilterHydration).mockReturnValue({
+            status: 'resolved',
+            hydrateUsersFromAccountIds: () => {},
+            users: mockTransformedUserHydrationResponse,
+            reset: () => {},
+          });
+
+          const { getByTestId } = await setup({
+            parameters: {
+              cloudId: '67899',
+              searchString: 'some-query',
+              contributorAccountIds: ['23432'],
+            },
+          });
+
+          const editedOrCreatedByTriggerButton = getByTestId(
+            'clol-basic-filter-editedOrCreatedBy-trigger--button',
+          );
+
+          expect(editedOrCreatedByTriggerButton).toHaveTextContent(
+            'Edited or created by: Peter Grasevski+3',
+          );
+        },
+        async () => {
+          const { getConfigModalTitleText, queryByTestId } = await setup();
+          await getConfigModalTitleText();
+
+          expect(
+            queryByTestId('clol-basic-filter-container'),
+          ).not.toBeInTheDocument();
         },
       );
     });
@@ -286,7 +716,7 @@ describe('ConfluenceSearchConfigModal', () => {
             shouldMatchTitleOnly: true,
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -326,7 +756,7 @@ describe('ConfluenceSearchConfigModal', () => {
 
     it('should not show footer issue count in count view', async () => {
       const { searchWithNewBasic, queryByTestId } = await setup({
-        viewMode: 'count',
+        viewMode: 'inline',
       });
 
       searchWithNewBasic('some query');
@@ -698,7 +1128,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -727,7 +1157,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -780,7 +1210,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -837,7 +1267,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some query',
             },
-            url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+            url: 'https://hello.atlassian.net/wiki/search?text=some+query',
           },
           {
             attributes: {
@@ -898,7 +1328,7 @@ describe('ConfluenceSearchConfigModal', () => {
                 cloudId: '67899',
                 searchString: 'some query',
               },
-              url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+              url: 'https://hello.atlassian.net/wiki/search?text=some+query',
             },
             {
               attributes: {
@@ -1010,7 +1440,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -1047,7 +1477,7 @@ describe('ConfluenceSearchConfigModal', () => {
             cloudId: '67899',
             searchString: 'some query',
           },
-          url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+          url: 'https://hello.atlassian.net/wiki/search?text=some+query',
         },
         {
           attributes: {
@@ -1083,7 +1513,7 @@ describe('ConfluenceSearchConfigModal', () => {
               cloudId: '67899',
               searchString: 'some query',
             },
-            url: 'https://hello.atlassian.net/wiki/search?text=some%20query',
+            url: 'https://hello.atlassian.net/wiki/search?text=some+query',
           },
           {
             attributes: {

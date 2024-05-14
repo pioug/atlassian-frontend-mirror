@@ -1,8 +1,7 @@
 import React from 'react';
 
 import SVGIcon from '@atlaskit/icon/svg';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { B400, N10, N100, N40 } from '@atlaskit/theme/colors';
+import { B400, N10, N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -37,22 +36,9 @@ const CheckboxIcon = ({ checked }: { checked: boolean }) => {
           stroke={
             checked
               ? token('color.border.selected', B400)
-              : token(
-                  'color.border.input',
-                  getBooleanFF(
-                    'platform.design-system-team.border-checkbox_nyoiu',
-                  )
-                    ? N100
-                    : N40,
-                )
+              : token('color.border.input', N100)
           }
-          strokeWidth={
-            getBooleanFF(
-              'platform.design-system-team.update-input-border-wdith_5abwv',
-            )
-              ? 1
-              : 2
-          }
+          strokeWidth={1}
         />
         <path
           d="M9.707 11.293a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l4-4a1 1 0 10-1.414-1.414L11 12.586l-1.293-1.293z"

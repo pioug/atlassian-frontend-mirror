@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Tämän yhteenvedon tuloksia ei voida näyttää, sillä se ei noudata <a>Atlassianin hyväksyttävän käytön käytäntöä</a>.',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence ei pysty tarjoamaan vastausta juuri nyt. Lue lisää <a>tukidokumentaatiostamme</a>.',
+    'Atlassian Intelligence (AI) ei vastaa. Yritä myöhemmin uudelleen tai <a>tarkista AI:n tila</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence ei pystynyt käsittelemään pyyntöäsi, koska sisältösi sisältää linkkejä HIPAA-rajoitettuun sisältöön.',
   'fabric.linking.assigned_to': 'Määrätty käyttäjälle {context}',
   'fabric.linking.beta': 'Beeta',
   'fabric.linking.cancel': 'Peruuta',

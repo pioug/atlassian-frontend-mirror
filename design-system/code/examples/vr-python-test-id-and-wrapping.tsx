@@ -8,7 +8,7 @@ const exampleCodeBlock = `def factorial(n):
 """
 This multiline comment should appear green whether it has code wrapping on or off, regardless of whether a testId is applied. This example exists to demonstrate an edge case that wasn't found until QA testing with python lang.
 
-Calculates the factorial of a given number n. 
+Calculates the factorial of a given number n.
 
 Args:
 n: An integer
@@ -25,7 +25,7 @@ else:
 const CodeBlockShouldWrapLongLinesExample = () => {
   return (
     <Stack testId="testid-and-wrapping-with-python">
-      <b>Wrapping on, with a testId</b>
+      <h2>Wrapping on, with a testId</h2>
       <CodeBlock
         testId="test"
         language="python"
@@ -33,14 +33,14 @@ const CodeBlockShouldWrapLongLinesExample = () => {
         shouldWrapLongLines={true}
         highlight="3"
       />
-      <b>Wrapping on, without a testId</b>
+      <h2>Wrapping on, without a testId</h2>
       <CodeBlock
         language="python"
         text={exampleCodeBlock}
         shouldWrapLongLines={true}
         highlight="3"
       />
-      <b>Wrapping off, with a testId</b>
+      <h2>Wrapping off, with a testId</h2>
       <CodeBlock
         testId="test2"
         language="python"
@@ -48,7 +48,7 @@ const CodeBlockShouldWrapLongLinesExample = () => {
         shouldWrapLongLines={false}
         highlight="3"
       />
-      <b>Wrapping off, without a testId</b>
+      <h2>Wrapping off, without a testId</h2>
       <CodeBlock
         language="python"
         text={exampleCodeBlock}

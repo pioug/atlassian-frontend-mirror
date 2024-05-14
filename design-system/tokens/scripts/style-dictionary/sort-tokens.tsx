@@ -147,22 +147,23 @@ const isAlphaPaletteToken = (token: TransformedToken) => {
 /**
  * Typography tokens
  */
-const typographyTokens = ['heading', 'body', 'ui', 'code'];
+const getIndexForPath = (token: TransformedToken, pathIndex: number, pathArray: string[]) => {
+  return pathArray.findIndex((value) => value === token.path[pathIndex]);
+}
+
+const typographyPaths = ['heading', 'body', 'code'];
 
 const isTypographyToken = (token: TransformedToken, path: string) => {
   return (
     token.original.attributes?.group === 'typography' &&
-    typographyTokens.includes(path)
+    typographyPaths.includes(path)
   );
 };
-
-const getTypographyIndex = (token: TransformedToken, pathIndex: number) =>
-  typographyTokens.findIndex((value) => value === token.path[pathIndex]);
 
 /**
  * T-shirt sizes (e.g. typography tokens)
  */
-const sizeTokens = [
+const sizePaths = [
   'xxlarge',
   'xlarge',
   'large',
@@ -178,11 +179,43 @@ const isTypographyGroup = (token: TransformedToken) => {
 };
 
 const isSizeToken = (token: TransformedToken, path: string) => {
-  return isTypographyGroup(token) && sizeTokens.includes(path);
+  return isTypographyGroup(token) && sizePaths.includes(path);
 };
 
-const getSizeIndex = (token: TransformedToken, pathIndex: number) =>
-  sizeTokens.findIndex((value) => value === token.path[pathIndex]);
+/**
+ * Font weights
+ */
+const fontWeightPaths = [
+  'regular',
+  'medium',
+  'semibold',
+  'bold',
+];
+
+const isFontWeightGroup = (token: TransformedToken) => {
+  return token.original.attributes?.group === 'fontWeight';
+};
+
+const isFontWeightToken = (token: TransformedToken, path: string) => {
+  return isFontWeightGroup(token) && fontWeightPaths.includes(path);
+};
+
+/**
+ * Font family
+ */
+const fontFamilyPaths = [
+  'heading',
+  'body',
+  'code',
+];
+
+const isFontFamilyGroup = (token: TransformedToken) => {
+  return token.original.attributes?.group === 'fontFamily';
+};
+
+const isFontFamilyToken = (token: TransformedToken, path: string) => {
+  return isFontFamilyGroup(token) && fontFamilyPaths.includes(path);
+};
 
 /**
  * Sort tokens by root path name according to the predefined order of `tokenOrder`.
@@ -369,13 +402,12 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
      * Check if it's a typography token.
      *
      * This ensures typography tokens are grouped together and in the
-     * predefined order in `typographyTokens`.
+     * predefined order in `typographyPaths`.
      *
      * @example
      * 1. font.heading
      * 2. font.body
-     * 3. font.ui
-     * 4. font.code
+     * 3. font.code
      */
     const aIsTypography = isTypographyToken(a, aPath);
     const bIsTypography = isTypographyToken(b, bPath);
@@ -385,8 +417,8 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
     } else if (aIsTypography && !bIsTypography) {
       return -1;
     } else if (aIsTypography && bIsTypography) {
-      const aIndex = getTypographyIndex(a, pathIndex);
-      const bIndex = getTypographyIndex(b, pathIndex);
+      const aIndex = getIndexForPath(a, pathIndex, typographyPaths);
+      const bIndex = getIndexForPath(b, pathIndex, typographyPaths);
 
       if (aIndex > bIndex) {
         return 1;
@@ -399,7 +431,7 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
      * Check if it's a size-based token.
      *
      * This ensures size tokens are grouped together and in the
-     * predefined order of largest to smallest in `sizeTokens`.
+     * predefined order of largest to smallest in `sizePaths`.
      *
      * @example
      * 1. font.heading.xxlarge
@@ -414,8 +446,66 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
     } else if (aIsSize && !bIsSize) {
       return -1;
     } else if (aIsSize && bIsSize) {
-      const aIndex = getSizeIndex(a, pathIndex);
-      const bIndex = getSizeIndex(b, pathIndex);
+      const aIndex = getIndexForPath(a, pathIndex, sizePaths);
+      const bIndex = getIndexForPath(b, pathIndex, sizePaths);
+
+      if (aIndex > bIndex) {
+        return 1;
+      } else if (aIndex < bIndex) {
+        return -1;
+      }
+    }
+
+    /**
+     * Check if it's a font weight token.
+     *
+     * This ensures font weight tokens are grouped together and in the
+     * predefined order of thinnest to boldest in `fontWeightPaths`.
+     *
+     * @example
+     * 1. font.weight.regular
+     * 2. font.weight.medium
+     * 3. font.weight.bold
+     */
+    const aIsFontWeight = isFontWeightToken(a, aPath);
+    const bIsFontWeight = isFontWeightToken(b, bPath);
+
+    if (!aIsFontWeight && bIsFontWeight) {
+      return 1;
+    } else if (aIsFontWeight && !bIsFontWeight) {
+      return -1;
+    } else if (aIsFontWeight && bIsFontWeight) {
+      const aIndex = getIndexForPath(a, pathIndex, fontWeightPaths);
+      const bIndex = getIndexForPath(b, pathIndex, fontWeightPaths);
+
+      if (aIndex > bIndex) {
+        return 1;
+      } else if (aIndex < bIndex) {
+        return -1;
+      }
+    }
+
+    /**
+     * Check if it's a font family token.
+     *
+     * This ensures font family tokens are grouped together and in the
+     * predefined order in `fontFamilyPaths`.
+     *
+     * @example
+     * 1. font.family.brand.heading
+     * 2. font.family.brand.body
+     * 3. font.family.heading
+     */
+    const aIsFontFamily = isFontFamilyToken(a, aPath);
+    const bIsFontFamily = isFontFamilyToken(b, bPath);
+
+    if (!aIsFontFamily && bIsFontFamily) {
+      return 1;
+    } else if (aIsFontFamily && !bIsFontFamily) {
+      return -1;
+    } else if (aIsFontFamily && bIsFontFamily) {
+      const aIndex = getIndexForPath(a, pathIndex, fontFamilyPaths);
+      const bIndex = getIndexForPath(b, pathIndex, fontFamilyPaths);
 
       if (aIndex > bIndex) {
         return 1;
@@ -452,6 +542,10 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
       return -1;
     }
 
+    const isIgnoredGroup = (token: TransformedToken) => {
+      return isTypographyGroup(token) || isFontWeightGroup(token) || isFontFamilyGroup(token)
+    }
+
     /**
      * If no other rules match, sort by path length.
      *
@@ -460,7 +554,7 @@ const sortByPathName = (a: TransformedToken, b: TransformedToken) => {
      * 2. color.icon.subtle
      * 2. color.icon.accent.blue
      */
-    if (!isTypographyGroup(a) && !isTypographyGroup(b)) {
+    if (!isIgnoredGroup(a) && !isIgnoredGroup(b)) {
       if (aStrippedPath.length - 1 === pathIndex) {
         if (aStrippedPath.length > bStrippedPath.length) {
           return 1;

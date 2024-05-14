@@ -2,8 +2,7 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import Box from '@atlaskit/primitives/box';
+import { Text, Box } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { FlagProps } from '../../types';
@@ -22,19 +21,19 @@ describe('Flag', () => {
         generateFlag({ description: '', testId: 'flag-test' }),
       );
 
-      expect(queryByTestId('flag-test-description')).toBeNull();
+      expect(queryByTestId('flag-test-description')).not.toBeInTheDocument();
     });
 
     it('description element should not be rendered if description prop not passed', () => {
       const { queryByTestId } = render(generateFlag({ testId: 'flag-test' }));
 
-      expect(queryByTestId('flag-test-description')).toBeNull();
+      expect(queryByTestId('flag-test-description')).not.toBeInTheDocument();
     });
 
     it('description prop text should be rendered to correct location', () => {
       const { getByText } = render(generateFlag({ description: 'Oh hi!' }));
 
-      expect(getByText('Oh hi!')).not.toBeNull();
+      expect(getByText('Oh hi!')).toBeInTheDocument();
     });
 
     it('should accept JSX in description', () => {
@@ -49,7 +48,7 @@ describe('Flag', () => {
         }),
       );
 
-      expect(queryByTestId('description-jsx')).not.toBeNull();
+      expect(queryByTestId('description-jsx')).toBeInTheDocument();
     });
   });
 
@@ -58,8 +57,8 @@ describe('Flag', () => {
       it('should not render dismiss icon if isDismissAllowed is false or if no onDismissed callback is provided', () => {
         const { queryByTestId } = render(generateFlag({ testId: 'flag-test' }));
 
-        expect(queryByTestId('flag-test-toggle')).toBeNull();
-        expect(queryByTestId('flag-test-dismiss')).toBeNull();
+        expect(queryByTestId('flag-test-toggle')).not.toBeInTheDocument();
+        expect(queryByTestId('flag-test-dismiss')).not.toBeInTheDocument();
       });
 
       it('should render dismiss icon if first element in a FlagGroup', () => {
@@ -70,7 +69,7 @@ describe('Flag', () => {
             })}
           </FlagGroup>,
         );
-        expect(queryByTestId('flag-test-dismiss')).not.toBeNull();
+        expect(queryByTestId('flag-test-dismiss')).toBeInTheDocument();
       });
     });
 
@@ -84,9 +83,10 @@ describe('Flag', () => {
           }),
         );
 
-        expect(
-          getByTestId('flag-test-toggle').getAttribute('aria-expanded'),
-        ).toEqual('false');
+        expect(getByTestId('flag-test-toggle')).toHaveAttribute(
+          'aria-expanded',
+          'false',
+        );
       });
 
       it('should set aria-expanded to true if expanded', () => {
@@ -100,9 +100,10 @@ describe('Flag', () => {
         const toggleButton = getByTestId('flag-test-toggle');
         fireEvent.click(toggleButton);
 
-        expect(
-          getByTestId('flag-test-toggle').getAttribute('aria-expanded'),
-        ).toEqual('true');
+        expect(getByTestId('flag-test-toggle')).toHaveAttribute(
+          'aria-expanded',
+          'true',
+        );
       });
 
       it('should only render an expand button if either description or actions props are set', () => {
@@ -112,7 +113,7 @@ describe('Flag', () => {
             testId: 'flag-test',
           }),
         );
-        expect(queryByTestId('flag-test-toggle')).toBeNull();
+        expect(queryByTestId('flag-test-toggle')).not.toBeInTheDocument();
 
         rerender(
           generateFlag({
@@ -122,7 +123,7 @@ describe('Flag', () => {
             description: 'Hello',
           }),
         );
-        expect(queryByTestId('flag-test-toggle')).not.toBeNull();
+        expect(queryByTestId('flag-test-toggle')).toBeInTheDocument();
 
         rerender(
           generateFlag({
@@ -131,7 +132,7 @@ describe('Flag', () => {
             actions: [{ content: 'Hello', onClick: noop }],
           }),
         );
-        expect(queryByTestId('flag-test-toggle')).not.toBeNull();
+        expect(queryByTestId('flag-test-toggle')).toBeInTheDocument();
       });
 
       it('should un-expand an expanded bold flag when the description and actions props are removed', () => {
@@ -146,9 +147,10 @@ describe('Flag', () => {
 
         fireEvent.click(getByTestId('flag-test-toggle'));
 
-        expect(
-          getByTestId('flag-test-expander').getAttribute('aria-hidden'),
-        ).toEqual('false');
+        expect(getByTestId('flag-test-expander')).toHaveAttribute(
+          'aria-hidden',
+          'false',
+        );
 
         rerender(
           generateFlag({
@@ -158,9 +160,10 @@ describe('Flag', () => {
           }),
         );
 
-        expect(
-          getByTestId('flag-test-expander').getAttribute('aria-hidden'),
-        ).toEqual('false');
+        expect(getByTestId('flag-test-expander')).toHaveAttribute(
+          'aria-hidden',
+          'false',
+        );
 
         rerender(
           generateFlag({
@@ -170,9 +173,10 @@ describe('Flag', () => {
           }),
         );
 
-        expect(
-          getByTestId('flag-test-expander').getAttribute('aria-hidden'),
-        ).toEqual('false');
+        expect(getByTestId('flag-test-expander')).toHaveAttribute(
+          'aria-hidden',
+          'false',
+        );
 
         rerender(
           generateFlag({
@@ -180,9 +184,10 @@ describe('Flag', () => {
             testId: 'flag-test',
           }),
         );
-        expect(
-          getByTestId('flag-test-expander').getAttribute('aria-hidden'),
-        ).toEqual('true');
+        expect(getByTestId('flag-test-expander')).toHaveAttribute(
+          'aria-hidden',
+          'true',
+        );
       });
     });
 
@@ -212,7 +217,7 @@ describe('Flag', () => {
           }),
         );
 
-        expect(queryByTestId('flag-test-dismiss')).toBeNull();
+        expect(queryByTestId('flag-test-dismiss')).not.toBeInTheDocument();
         expect(spy).not.toHaveBeenCalled();
       });
     });

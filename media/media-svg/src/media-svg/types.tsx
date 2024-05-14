@@ -14,4 +14,8 @@ export interface MediaSvgProps {
   dimensions?: Dimensions;
   /* Callback that will be called if an error occurs. */
   onError?: (error: Error) => void;
+  /* alt text for the image element */
+  alt?: string;
 }
+
+export type ContentSource = 'remote' | 'local';

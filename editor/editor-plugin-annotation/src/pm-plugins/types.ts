@@ -3,7 +3,8 @@ import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type {
   EditorState,
@@ -31,7 +32,7 @@ export enum ACTIONS {
 export interface InlineCommentPluginOptions {
   dispatch: Dispatch;
   eventDispatcher: EventDispatcher;
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
   provider: InlineCommentAnnotationProvider;
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
   featureFlagsPluginState?: FeatureFlags;

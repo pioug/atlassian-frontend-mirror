@@ -29,9 +29,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
           height={60}
           isFixed={false}
         >
-          <SlotWrapper
-            borderColor={token('color.border.accent.yellow', 'gold')}
-          >
+          <SlotWrapper borderColor={token('color.border.accent.yellow')}>
             <SlotLabel>Banner</SlotLabel>
           </SlotWrapper>
         </Banner>
@@ -43,7 +41,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
         height={60}
         isFixed={false}
       >
-        <SlotWrapper borderColor={token('color.border.accent.blue', 'blue')}>
+        <SlotWrapper borderColor={token('color.border.accent.blue')}>
           <SlotLabel>Product Navigation</SlotLabel>
         </SlotWrapper>
       </TopNavigation>
@@ -57,7 +55,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
             width={125}
           >
             <SlotWrapper
-              borderColor={token('color.border.accent.green', 'darkgreen')}
+              borderColor={token('color.border.accent.green')}
               hasExtraPadding
             >
               <SlotLabel isSmall>Space Navigation</SlotLabel>
@@ -79,10 +77,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
           </LeftSidebar>
         )}
         <Main testId={`${testId}-main`} id="main" skipLinkTitle="Main Content">
-          <SlotWrapper
-            borderColor={token('color.border', 'black')}
-            minHeight={400}
-          >
+          <SlotWrapper borderColor={token('color.border')} minHeight={400}>
             <SlotLabel isSmall>Main Content</SlotLabel>
             <p>
               Visit the first focusable element on the page to see the skip
@@ -99,9 +94,7 @@ const renderPageLayout = (isBasic: boolean = true) => {
           isFixed={false}
           width={125}
         >
-          <SlotWrapper
-            borderColor={token('color.border.accent.orange', 'orange')}
-          >
+          <SlotWrapper borderColor={token('color.border.accent.orange')}>
             <SlotLabel>Help Panel</SlotLabel>
           </SlotWrapper>
         </RightPanel>
@@ -128,7 +121,7 @@ describe('Page Layout Accessibility', () => {
 
   it('Main content slot has role="main', async () => {
     renderPageLayout();
-    const main = screen.getByTestId(`${testId}-main`);
-    expect(main).toHaveAttribute('role', 'main');
+    const main = screen.getByRole('main');
+    expect(main).toBeInTheDocument();
   });
 });

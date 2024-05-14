@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
-import { ColorPaletteArrowKeyNavigationProps } from '../types';
+import type { ColorPaletteArrowKeyNavigationProps } from '../types';
 /**
  * This component is a wrapper for color picker which listens to keydown events of children
  * and handles arrow key navigation
@@ -14,6 +14,7 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
   handleClose,
   closeOnTab,
   editorRef,
+  ignoreEscapeKey,
 }: React.PropsWithChildren<
   Omit<ColorPaletteArrowKeyNavigationProps, 'type'>
 >) => {
@@ -137,7 +138,9 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
           break;
 
         case 'Escape':
-          handleClose!(event);
+          if (!ignoreEscapeKey) {
+            handleClose!(event);
+          }
           break;
 
         default:
@@ -167,6 +170,7 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
     wrapperRef,
     handleClose,
     closeOnTab,
+    ignoreEscapeKey,
     listenerTargetElement,
   ]);
 

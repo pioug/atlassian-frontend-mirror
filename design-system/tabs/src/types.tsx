@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import { KeyboardEvent, ReactNode } from 'react';
 
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
@@ -147,10 +147,6 @@ export type TabAttributesType = {
    */
   'aria-setsize': number;
   /**
-   * Prevents a focus ring being shown when clicked.
-   */
-  onMouseDown: (e: MouseEvent<HTMLElement>) => void;
-  /**
    * Allows navigation of tabs with automatic activation.
    * Read here for more details: https://www.w3.org/TR/wai-aria-practices-1.1/examples/tabs/tabs-1/tabs.html
    */
@@ -201,10 +197,6 @@ export type TabPanelAttributesType = {
    * The id of the tab that links to this tab panel.
    */
   'aria-labelledby': string;
-  /**
-   * Prevents a focus ring being shown when clicked.
-   */
-  onMouseDown: (e: MouseEvent<HTMLElement>) => void;
   /**
    * If the tab panel is selected the tab index is 0 and is focusable.
    * Otherwise it is -1 and is not focusable.

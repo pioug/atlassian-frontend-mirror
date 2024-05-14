@@ -28,7 +28,6 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -229,15 +228,7 @@ function createPanelAction({
     return false;
   }
 
-  const tr =
-    state.selection.empty &&
-    getBooleanFF('platform.editor.ordered-list-inserting-nodes_bh0vo')
-      ? insert(node)
-      : createWrapSelectionTransaction({
-          state,
-          type: state.schema.nodes.panel,
-          nodeAttributes: attributes,
-        });
+  const tr = state.selection.empty && insert(node);
 
   if (tr) {
     api?.analytics?.actions.attachAnalyticsEvent({

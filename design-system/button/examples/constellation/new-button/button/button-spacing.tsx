@@ -3,7 +3,7 @@ import React from 'react';
 import { ButtonGroup } from '../../../../src';
 import Button, { LinkButton } from '../../../../src/new';
 
-const ButtonPaddingExample = () => {
+const ButtonSpacingExample = () => {
   return (
     <ButtonGroup>
       <Button appearance="primary">Default</Button>
@@ -17,4 +17,4 @@ const ButtonPaddingExample = () => {
   );
 };
 
-export default ButtonPaddingExample;
+export default ButtonSpacingExample;

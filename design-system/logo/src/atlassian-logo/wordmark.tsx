@@ -3,7 +3,7 @@ import React from 'react';
 
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import { getColorsFromAppearanceOldLogos } from '../utils';
 import Wrapper from '../wrapper';
 
 const svg = ({ appearance, textColor }: LogoProps) => {
@@ -14,7 +14,7 @@ const svg = ({ appearance, textColor }: LogoProps) => {
   };
 
   if (appearance) {
-    colors = getColorsFromAppearance(appearance);
+    colors = getColorsFromAppearanceOldLogos(appearance);
   }
 
   return `

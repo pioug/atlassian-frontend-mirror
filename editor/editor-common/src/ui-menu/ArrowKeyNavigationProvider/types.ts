@@ -25,6 +25,7 @@ export type ColorPaletteArrowKeyNavigationProps =
     handleClose?: SimpleEventHandler<KeyboardEvent>;
     closeOnTab?: boolean;
     editorRef: React.RefObject<HTMLDivElement>;
+    ignoreEscapeKey?: boolean | false;
   };
 
 export type MenuArrowKeyNavigationOptions = {

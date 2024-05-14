@@ -130,6 +130,7 @@ class ToolbarBlockType extends React.PureComponent<
               onKeyDown={this.handleTriggerByKeyboard}
               formatMessage={formatMessage}
               aria-expanded={active}
+              blockTypeName={currentBlockType.name}
             />
           </DropdownMenu>
           <span
@@ -153,6 +154,7 @@ class ToolbarBlockType extends React.PureComponent<
           onKeyDown={this.handleTriggerByKeyboard}
           formatMessage={formatMessage}
           aria-expanded={active}
+          blockTypeName={currentBlockType.name}
         />
         <span
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

@@ -75,24 +75,3 @@ export const Highlight = forwardRef<
     ref={ref as React.Ref<HTMLDivElement>}
   />
 ));
-
-const codeStyles = css({
-  display: 'inline-block',
-  backgroundColor: token('color.background.discovery.hovered'),
-  border: `1px solid ${token('color.border.discovery')}`,
-  borderRadius: '0.2em',
-  color: token('color.text.discovery'),
-  fontFamily: 'Monaco, monospace',
-  fontSize: '0.85em',
-  lineHeight: 1.3,
-  paddingInlineEnd: token('space.050', '4px'),
-  paddingInlineStart: token('space.050', '4px'),
-  verticalAlign: 'baseline',
-});
-
-type CodeProps = HTMLAttributes<HTMLElement> & { children?: ReactNode };
-
-export const Code = (props: CodeProps) => (
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  <code {...props} css={codeStyles} />
-);

@@ -1,5 +1,30 @@
 # @atlaskit/pragmatic-drag-and-drop-docs
 
+## 1.0.10
+
+### Patch Changes
+
+- [#94316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/94316) [`35fd5ed8e1d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35fd5ed8e1d7) - Upgrading internal dependency `bind-event-listener` to `@^3.0.0`
+
+## 1.0.9
+
+### Patch Changes
+
+- [#92007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92007) [`85525725cb0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85525725cb0d) - Migrated to the new button component
+
+## 1.0.8
+
+### Patch Changes
+
+- [#92913](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92913) [`8f7e827e0978`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f7e827e0978) - Some Pragmatic drag and drop packages did not have `"author"` and or `"license"` attributes set in their `package.json` file. These missing attributes have now been added where required.
+
+  ```diff
+  + "author": "Atlassian Pty Ltd",
+  + "license": "Apache-2.0",
+  ```
+
+  All Pragmatic drag and drop packages were already licensed under `Apache-2.0` (see `LICENSE` files), but the `"license"` attribute in some `package.json` files was missing.
+
 ## 1.0.7
 
 ### Patch Changes

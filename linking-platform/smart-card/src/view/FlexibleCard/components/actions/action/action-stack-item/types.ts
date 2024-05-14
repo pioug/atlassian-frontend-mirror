@@ -10,4 +10,5 @@ export type ActionStackItemProps = ActionProps & {
   space?: Space;
   xcss?: XCSS;
   tooltipOnHide?: (analyticsEvent: UIAnalyticsEvent) => any;
+  hideTooltipOnMouseDown?: boolean;
 };

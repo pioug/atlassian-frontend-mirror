@@ -29,8 +29,6 @@ const baseStyles = css({
   borderRadius: `var(${cssVar.borderRadius})`,
   color: `var(${cssVar.color.text.default})`,
   cursor: 'default',
-  lineHeight: 1,
-  overflow: 'hidden',
 });
 
 const interactiveStyles = css({

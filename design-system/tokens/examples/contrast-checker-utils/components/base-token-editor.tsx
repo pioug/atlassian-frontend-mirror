@@ -42,7 +42,7 @@ const black = '#000000';
  */
 function generateColorPair(bg: string) {
   if (getAlpha(bg) < 1) {
-    return token('color.text', 'black');
+    return token('color.text');
   }
   const contrastWithWhite = getContrastRatio(bg, white);
   if (contrastWithWhite >= 4.5) {

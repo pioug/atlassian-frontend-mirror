@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-code-block",
-  "version": "1.1.9",
+  "version": "1.2.7",
   "description": "Code block plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,15 +36,17 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.9.0",
-    "@atlaskit/code": "^15.1.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-composition": "^1.0.0",
-    "@atlaskit/editor-plugin-decorations": "^1.0.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/adf-schema": "^36.1.0",
+    "@atlaskit/code": "^15.2.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-plugin-analytics": "^1.1.0",
+    "@atlaskit/editor-plugin-composition": "^1.1.0",
+    "@atlaskit/editor-plugin-decorations": "^1.1.0",
+    "@atlaskit/editor-plugin-editor-disabled": "^1.1.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/prosemirror-input-rules": "^3.0.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
+    "@atlaskit/prosemirror-input-rules": "^3.1.0",
     "@babel/runtime": "^7.0.0",
     "raf-schd": "^4.0.3"
   },
@@ -93,6 +95,14 @@
   "stricter": {
     "no-unused-dependencies": {
       "checkDevDependencies": true
+    }
+  },
+  "platform-feature-flags": {
+    "platform.editor.live-view.disable-editing-in-view-mode_fi1rx": {
+      "type": "boolean"
+    },
+    "platform.editor.codeblock-preserve-newlines_54r3m": {
+      "type": "boolean"
     }
   }
 }

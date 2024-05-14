@@ -192,7 +192,7 @@ const RBDExample = () => {
         </NavigationHeader>
         <NestableNavigationContent>
           <NestingItem
-            id="1"
+            id="draggable-button-items"
             iconBefore={<RBDIcon label="" />}
             title="Draggable <ButtonItem/>s"
           >
@@ -204,7 +204,7 @@ const RBDExample = () => {
             ></ADragDropView>
           </NestingItem>
           <NestingItem
-            id="2"
+            id="draggable-custom-items"
             iconBefore={<RBDIcon label="" />}
             title="Draggable <CustomItem/>s"
           >

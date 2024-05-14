@@ -157,28 +157,6 @@ const typography: ValueSchema<
         },
       },
     },
-    ui: {
-      '[default]': {
-        value: {
-          fontWeight: 'FontWeight500',
-          fontSize: 'FontSize14',
-          lineHeight: 'LineHeight1',
-          fontFamily: 'FontFamilyWebSans',
-          fontStyle: 'normal',
-          letterSpacing: 'LetterSpacing0',
-        },
-      },
-      small: {
-        value: {
-          fontWeight: 'FontWeight400',
-          fontSize: 'FontSize12',
-          lineHeight: 'LineHeight1',
-          fontFamily: 'FontFamilyWebSans',
-          fontStyle: 'normal',
-          letterSpacing: 'LetterSpacing0',
-        },
-      },
-    },
   },
 };
 

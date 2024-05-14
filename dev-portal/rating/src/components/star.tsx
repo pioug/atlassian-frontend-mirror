@@ -5,7 +5,7 @@ import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import Rating, { RatingProps, RatingRender } from './rating';
+import Rating, { type RatingProps, type RatingRender } from './rating';
 
 export interface StarProps extends RatingProps {
   /**

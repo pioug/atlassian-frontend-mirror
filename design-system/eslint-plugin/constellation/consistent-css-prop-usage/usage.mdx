@@ -4,22 +4,26 @@ Ensures consistency with css prop usage.
 
 ## Rationale
 
-Every product should be defining styles in the same way, using the same tools, enforced by the same linting rules, which we can then all evolve and scale together.
+Every product should be defining styles in the same way, using the same tools, enforced by the same
+linting rules, which we can then all evolve and scale together.
 
 ## How the rule works
 
 This rule checks for the following cases:
 
-- Styles should not be defined inline; it should instead be in a standalone variable.
-  - The exception for this is style composition (e.g. `<div css={[baseStyles, moreStyles]} />`), which is a way to combine styles from two variables.
-- Styles must be wrapped in a `css` function call.
-- Styles must be defined in the same file as their usage, and not be imported.
-- Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
-- Styles must all be defined at the top of the file, or at the bottom of the file.
+-   Styles should not be defined inline; it should instead be in a standalone variable.
+    -   The exception for this is style composition (e.g. `<div css={[baseStyles, moreStyles]} />`),
+        which is a way to combine styles from two variables.
+-   Styles must be wrapped in a `css` function call.
+-   Styles must be defined in the same file as their usage, and not be imported.
+-   Styles should not contain spread operators (e.g. `css({ ...spreadStyles })`).
+-   Styles must all be defined at the top of the file, or at the bottom of the file.
 
-This rule also has an autofixer that enforces and fixes the code (where practical) to meet the above requirements.
+This rule also has an autofixer that enforces and fixes the code (where practical) to meet the above
+requirements.
 
-All the above can also work for custom `css` functions, such as `xcss` (https://atlassian.design/components/primitives/xcss/).
+All the above can also work for custom `css` functions, such as `xcss`
+(https://atlassian.design/components/primitives/xcss/).
 
 This rule has several options - see below.
 
@@ -80,20 +84,21 @@ function Button({ children }) {
 
 ### Correct
 
-**Using the css() function to create a style object and passing it as a variable into the css={...} JSX attribute.**
+**Using the css() function to create a style object and passing it as a variable into the css={...}
+JSX attribute.**
 
 With the following options turned on:
 
-- cssFunctions = ['css']
-- stylesPlacement = 'top'
+-   cssFunctions = ['css']
+-   stylesPlacement = 'top'
 
 ```js
 const containerStyles = css({
-  zIndex: 1,
+    zIndex: 1,
 });
 
 function Button({ children }) {
-  return <button css={containerStyles}>{children}</button>;
+    return <button css={containerStyles}>{children}</button>;
 }
 ```
 
@@ -101,8 +106,8 @@ function Button({ children }) {
 
 With the following options turned on:
 
-- cssFunctions = ['css']
-- stylesPlacement = 'top'
+-   cssFunctions = ['css']
+-   stylesPlacement = 'top'
 
 ```js
 const borderStyles = cssMap({
@@ -119,22 +124,20 @@ function Button({ children }) {
 
 With the following options turned on:
 
-- cssFunctions = ['css']
-- stylesPlacement = 'bottom'
+-   cssFunctions = ['css']
+-   stylesPlacement = 'bottom'
 
 ```js
 function Button({ children }) {
-  return (
-    <button css={[baseContainerStyles, containerStyles]}>{children}</button>
-  );
+    return <button css={[baseContainerStyles, containerStyles]}>{children}</button>;
 }
 
 const baseContainerStyles = css({
-  zIndex: 5,
+    zIndex: 5,
 });
 
 const containerStyles = css({
-  zIndex: 7,
+    zIndex: 7,
 });
 ```
 
@@ -153,35 +156,46 @@ This rule comes with options to support different repository configurations.
 
 ### cssFunctions
 
-An array of function names the linting rule should target. Defaults to `['css', 'xcss']`. The functionality of `cssMap` will be linted regardless of the configuration of `cssFunctions`, as it can be used with either attribute.
+An array of function names the linting rule should target. Defaults to `['css', 'xcss']`. The
+functionality of `cssMap` will be linted regardless of the configuration of `cssFunctions`, as it
+can be used with either attribute.
 
 ### stylesPlacement
 
 Either `top` or `bottom`.
 
-The rule prevents inline styles from being created. This option defines what the error message should say: "(...) styles at the top (...)" or "(...) styles at the bottom (...)".
-Defaults to `top`.
+The rule prevents inline styles from being created. This option defines what the error message
+should say: "(...) styles at the top (...)" or "(...) styles at the bottom (...)". Defaults to
+`top`.
 
 ### cssImportSource
 
-When auto-fixing the contents of the `css` attribute, this rule will wrap CSS styles in a `css(...)` function call or `` css`...`  `` template expression, and it will add an import declaration for the `css` function. `cssImportSource` is a string that determines what package `css` should be imported from.
+When auto-fixing the contents of the `css` attribute, this rule will wrap CSS styles in a `css(...)`
+function call or ``css`...` `` template expression, and it will add an import declaration for the
+`css` function. `cssImportSource` is a string that determines what package `css` should be imported
+from.
 
 This is `@compiled/react` by default.
 
 ### xcssImportSource
 
-When auto-fixing the contents of the `xcss` attribute, this rule will wrap XCSS styles in a `xcss(...)` function call, and it will add an import declaration for the `xcss` function. `xcssImportSource` is a string that determines what package `xcss` should be imported from.
+When auto-fixing the contents of the `xcss` attribute, this rule will wrap XCSS styles in a
+`xcss(...)` function call, and it will add an import declaration for the `xcss` function.
+`xcssImportSource` is a string that determines what package `xcss` should be imported from.
 
 This is `@atlaskit/primitives` by default.
 
 ### excludeReactComponents
 
-Whether to exclude `css` attributes of React components from being affected by this ESLint rule. We assume that an element is a React component if its name starts with a capital letter, e.g. `<Button />`.
+Whether to exclude `css` attributes of React components from being affected by this ESLint rule. We
+assume that an element is a React component if its name starts with a capital letter, e.g.
+`<Button />`.
 
 This is `false` by default.
 
 ### autoFix
 
-When set to `true`, this rule will turn on the autofixer. Set this to `false` if you do not want the autofixers to run.
+When set to `true`, this rule will turn on the autofixer. Set this to `false` if you do not want the
+autofixers to run.
 
 This is `true` by default.

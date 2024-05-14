@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Chúng tôi không thể hiển thị kết quả của bản tóm tắt này vì nội dung này đi ngược lại <a>Chính sách sử dụng được chấp nhận của Atlassian</a>.',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence hiện không thể cung cấp phản hồi. Đọc thêm <a>trong tài liệu hỗ trợ của chúng tôi</a>.',
+    'Atlassian Intelligence (AI) không phản hồi. Hãy thử lại sau hoặc <a>kiểm tra trạng thái của AI</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence không xử lý được yêu cầu của bạn vì nội dung của bạn có chứa các liên kết đến nội dung bị hạn chế của HIPAA.',
   'fabric.linking.assigned_to': 'Đã chỉ định cho {context}',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Hủy',

@@ -46,6 +46,9 @@
             "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/range/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/select/afm-cc/tsconfig.json"
         },
         {

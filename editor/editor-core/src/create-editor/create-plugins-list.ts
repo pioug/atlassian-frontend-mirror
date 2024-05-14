@@ -52,7 +52,8 @@ export function getScrollGutterOptions(
 export function getDefaultPresetOptionsFromEditorProps(
   props: EditorProps,
   createAnalyticsEvent?: CreateUIAnalyticsEvent,
-): DefaultPresetPluginOptions & EditorPluginFeatureProps {
+  // Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
+): DefaultPresetPluginOptions & Omit<EditorPluginFeatureProps, 'placeholder'> {
   const appearance = props.appearance;
   const isMobile = appearance === 'mobile';
 

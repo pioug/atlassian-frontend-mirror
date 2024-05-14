@@ -9,11 +9,11 @@ import {
   RECENT_SEARCH_LIST_SIZE,
 } from '../../common/constants';
 import {
-  LinkPickerPlugin,
-  LinkPickerPluginAction,
-  LinkPickerPluginErrorFallback,
-  LinkPickerState,
-  LinkSearchListItemData,
+  type LinkPickerPlugin,
+  type LinkPickerPluginAction,
+  type LinkPickerPluginErrorFallback,
+  type LinkPickerState,
+  type LinkSearchListItemData,
 } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 

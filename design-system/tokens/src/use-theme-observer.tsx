@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import getGlobalTheme from './get-global-theme';
-import { ActiveThemeState } from './theme-config';
+import { type ActiveThemeState } from './theme-config';
 import ThemeMutationObserver from './theme-mutation-observer';
 
 /**

@@ -11,7 +11,6 @@ import {
 import { withReactEditorViewOuterListeners } from '@atlaskit/editor-common/ui-react';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { MenuGroup, Section } from '@atlaskit/menu';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { dragMenuDropdownWidth } from '../consts';
 
@@ -116,39 +115,6 @@ export const DropdownMenu = ({
     );
   };
 
-  if (disableKeyboardHandling) {
-    if (
-      getBooleanFF(
-        'platform.editor.table.background-color-flicker-in-drag-menu',
-      )
-    ) {
-      // This part need be refactor when clean up the ff, to reuse the wrapper
-      return (
-        <div className="drag-dropdown-menu-wrapper">
-          <div className="drag-dropdown-menu-popup-ref" ref={handleRef}></div>
-          <Popup
-            target={targetRefDiv as HTMLElement}
-            mountTo={mountPoint}
-            boundariesElement={boundariesElement}
-            scrollableElement={scrollableElement}
-            onPlacementChanged={(placement: [string, string]) => {
-              setPopupPlacement(placement);
-            }}
-            fitHeight={fitHeight}
-            fitWidth={fitWidth}
-            zIndex={akEditorFloatingPanelZIndex}
-            offset={[offsetX, offsetY]}
-            allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
-          >
-            {innerMenu()}
-          </Popup>
-        </div>
-      );
-    } else {
-      return innerMenu();
-    }
-  }
-
   return (
     <div className="drag-dropdown-menu-wrapper">
       <div className="drag-dropdown-menu-popup-ref" ref={handleRef}></div>
@@ -166,51 +132,55 @@ export const DropdownMenu = ({
         offset={[offsetX, offsetY]}
         allowOutOfBounds // required as this popup is child of a parent popup, should be allowed to be out of bound of the parent popup, otherwise horizontal offset is not right
       >
-        <ArrowKeyNavigationProvider
-          closeOnTab
-          type={ArrowKeyNavigationType.MENU}
-          handleClose={() => handleClose('handle')}
-          onSelection={(index) => {
-            const results = items.flatMap((item) =>
-              'items' in item ? item.items : item,
-            );
+        {disableKeyboardHandling ? (
+          innerMenu()
+        ) : (
+          <ArrowKeyNavigationProvider
+            closeOnTab
+            type={ArrowKeyNavigationType.MENU}
+            handleClose={() => handleClose('handle')}
+            onSelection={(index) => {
+              const results = items.flatMap((item) =>
+                'items' in item ? item.items : item,
+              );
 
-            // onSelection is called when any focusable element is 'activated'
-            // this is an issue as some menu items have toggles, which cause the index value
-            // in the callback to be outside of array length.
-            // The logic below normalises the index value based on the number
-            // of menu items with 2 focusable elements, and adjusts the index to ensure
-            // the correct menu item is sent in onItemActivated callback
-            const keys = ['row_numbers', 'header_row', 'header_column'];
-            let doubleItemCount = 0;
+              // onSelection is called when any focusable element is 'activated'
+              // this is an issue as some menu items have toggles, which cause the index value
+              // in the callback to be outside of array length.
+              // The logic below normalises the index value based on the number
+              // of menu items with 2 focusable elements, and adjusts the index to ensure
+              // the correct menu item is sent in onItemActivated callback
+              const keys = ['row_numbers', 'header_row', 'header_column'];
+              let doubleItemCount = 0;
 
-            const firstIndex = results.findIndex((value) =>
-              keys.includes(value.key!),
-            );
+              const firstIndex = results.findIndex((value) =>
+                keys.includes(value.key!),
+              );
 
-            if (firstIndex === -1 || index <= firstIndex) {
-              onItemActivated && onItemActivated({ item: results[index] });
-              return;
-            }
-
-            for (let i = firstIndex; i < results.length; i += 1) {
-              if (keys.includes(results[i].key!)) {
-                doubleItemCount += 1;
-              }
-              if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
-                onItemActivated && onItemActivated({ item: results[i] });
+              if (firstIndex === -1 || index <= firstIndex) {
+                onItemActivated && onItemActivated({ item: results[index] });
                 return;
               }
 
-              if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
-                onItemActivated && onItemActivated({ item: results[i] });
-                return;
+              for (let i = firstIndex; i < results.length; i += 1) {
+                if (keys.includes(results[i].key!)) {
+                  doubleItemCount += 1;
+                }
+                if (firstIndex % 2 === 0 && index - doubleItemCount === i) {
+                  onItemActivated && onItemActivated({ item: results[i] });
+                  return;
+                }
+
+                if (firstIndex % 2 === 1 && index - doubleItemCount === i) {
+                  onItemActivated && onItemActivated({ item: results[i] });
+                  return;
+                }
               }
-            }
-          }}
-        >
-          {innerMenu()}
-        </ArrowKeyNavigationProvider>
+            }}
+          >
+            {innerMenu()}
+          </ArrowKeyNavigationProvider>
+        )}
       </Popup>
     </div>
   );

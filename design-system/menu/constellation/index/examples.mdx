@@ -3,8 +3,16 @@ order: 0
 ---
 
 import MenuDefault from '../../examples/constellation/menu-default';
+import MenuStructure from '../../examples/constellation/menu-structure';
+import ButtonItem from '../../examples/constellation/button-item';
+import LinkItem from '../../examples/constellation/link-item';
+import CustomItem from '../../examples/constellation/custom-item';
+import HeadingItemCustom from '../../examples/constellation/heading-item-custom';
+import HeadingItem from '../../examples/constellation/heading-item';
+import HeadingItemLeveling from '../../examples/constellation/heading-item-leveling';
 import MenuScrollable from '../../examples/constellation/menu-scrollable';
 import MenuScrollableSection from '../../examples/constellation/menu-scrollable-section';
+import MenuDensity from '../../examples/constellation/menu-density';
 import MenuLoading from '../../examples/constellation/menu-loading';
 
 ## Default
@@ -13,13 +21,71 @@ The menu is a collection of composable menu components intended for use as produ
 
 <Example Component={MenuDefault} packageName="@atlaskit/menu" />
 
-## Scrollable menu
+## Menu structure
+
+Use menu groups, sections and heading items to structure the menu.
+
+<Example Component={MenuStructure} packageName="@atlaskit/menu" />
+
+## Menu items
+
+### Button item
+
+The button item component renders a menu item wrapped in a button tag `<button>`. Use this component when you have an action that does something other than navigating to a new page or context.
+
+<Example Component={ButtonItem} packageName="@atlaskit/menu" />
+
+### Link item
+
+The link item component renders a menu item wrapped in an anchor tag `<a>`. This is the most common type of menu item, as most menu items are used to send people to another location.
+
+For menu items that do something else, use the button item component instead.
+
+If you need to use a specific router component for route transitions, you'll want to compose them together using the custom item component.
+
+<Example Component={LinkItem} packageName="@atlaskit/menu" />
+
+### Custom item
+
+Use custom item when you want to create a item using a your own component that inherits the look and feel of a menu item.
+For example, to use your own router link component. Your custom component will be given all overflow props passed to the custom item component.
+
+<Example Component={CustomItem} packageName="@atlaskit/menu" />
+
+## Section and heading item
+
+When there are a large number of items in a menu, allowing users who navigate with a screen reader to skip over sections can greatly improve the user experience. This behavior is done by default with this component by setting a group role and label.
+
+<Example Component={HeadingItem} packageName="@atlaskit/menu" />
+
+### Custom heading item
+
+It may be necessary to manually set the `HeadingItem`; in these cases the below code provides an example of how to maintain accessibility.
+
+<Example Component={HeadingItemCustom} packageName="@atlaskit/menu" />
+
+### Heading item level
+
+Using `headingLevel` prop to change the level of the heading. The default heading level is `h2`. Make sure that headings are in the correct order relative to the pages the menu is on, and don’t skip levels.
+
+<Example Component={HeadingItemLeveling} packageName="@atlaskit/menu" />
+
+## Density
+
+The menu group can be configured to accept different spacing values. Applying a `compact` spacing value
+will trim the gutters and whitespace, for higher density content.
+
+<Example Component={MenuDensity} packageName="@atlaskit/menu" />
+
+## Scrolling
+
+### Scrollable menu
 
 Menus can be scrollable to fit a fixed height or space.
 
 <Example Component={MenuScrollable} packageName="@atlaskit/menu" />
 
-## Scrollable sections
+### Scrollable sections
 
 For menus with distinct sections, it's possible to have some scrollable sections.
 
@@ -27,7 +93,7 @@ Scrollable sections don't have as much visual affordance, and should be reserved
 
 <Example Component={MenuScrollableSection} packageName="@atlaskit/menu" />
 
-## Loading experience
+## Loading
 
 To defer loading the entire menu, the contents can be rendered as skeleton placeholders while the items load asynchronously.
 

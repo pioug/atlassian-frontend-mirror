@@ -1,46 +1,46 @@
 import { Subscription } from 'rxjs/Subscription';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { type ReplaySubject } from 'rxjs/ReplaySubject';
 import { map } from 'rxjs/operators/map';
 import uuid from 'uuid/v4';
 // import setimmediate to temporary fix dataloader 2.0.0 bug
 // @see https://github.com/graphql/dataloader/issues/249
 import 'setimmediate';
-import Dataloader from 'dataloader';
-import { AuthProvider, authToOwner } from '@atlaskit/media-core';
+import type Dataloader from 'dataloader';
+import { type AuthProvider, authToOwner } from '@atlaskit/media-core';
 import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
-import { MediaFileArtifacts } from '@atlaskit/media-state';
+import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
 import {
   MediaStore as MediaApi,
-  MediaStoreCopyFileWithTokenBody,
-  MediaStoreCopyFileWithTokenParams,
-  TouchedFiles,
-  TouchFileDescriptor,
+  type MediaStoreCopyFileWithTokenBody,
+  type MediaStoreCopyFileWithTokenParams,
+  type TouchedFiles,
+  type TouchFileDescriptor,
 } from '../media-store';
 import {
-  GetFileOptions,
+  type GetFileOptions,
   isErrorFileState,
   isFinalFileState,
   isProcessingFileState,
   mapMediaFileToFileState,
   mapMediaItemToFileState,
 } from '../../models/file-state';
-import { MediaFile } from '../../models/media';
+import { type MediaFile } from '../../models/media';
 import { FileFetcherError } from './error';
 import {
-  UploadableFile,
-  UploadableFileUpfrontIds,
+  type UploadableFile,
+  type UploadableFileUpfrontIds,
   uploadFile,
 } from '../../uploader';
-import { UploadController } from '../../upload-controller';
+import { type UploadController } from '../../upload-controller';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { globalMediaEventEmitter } from '../../globalMediaEventEmitter';
 import { RECENTS_COLLECTION } from '../../constants';
 import isValidId from 'uuid-validate';
 import {
   createFileDataloader,
-  DataloaderKey,
-  DataloaderResult,
+  type DataloaderKey,
+  type DataloaderResult,
 } from '../../utils/createFileDataLoader';
 import { getMediaTypeFromUploadableFile } from '../../utils/getMediaTypeFromUploadableFile';
 import { overrideMediaTypeIfUnknown } from '../../utils/overrideMediaTypeIfUnknown';
@@ -48,11 +48,11 @@ import { convertBase64ToBlob } from '../../utils/convertBase64ToBlob';
 import {
   toPromise,
   fromObservable,
-  MediaSubscribable,
+  type MediaSubscribable,
 } from '../../utils/mediaSubscribable';
 import {
   getDimensionsFromBlob,
-  Dimensions,
+  type Dimensions,
 } from '../../utils/getDimensionsFromBlob';
 import { createMediaSubject } from '../../utils/createMediaSubject';
 import {
@@ -62,16 +62,18 @@ import {
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { PollingFunction } from '../../utils/polling';
 import { isEmptyFile } from '../../utils/detectEmptyFile';
-import { MediaTraceContext } from '@atlaskit/media-common';
+import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
-  ErrorFileState,
-  UploadingFileState,
-  FilePreview,
-  FileState,
-  ProcessingFileState,
-  MediaStore,
+  type ErrorFileState,
+  type UploadingFileState,
+  type FilePreview,
+  type FileState,
+  type ProcessingFileState,
+  type MediaStore,
   mediaStore,
 } from '@atlaskit/media-state';
+
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type {
   FileFetcherErrorAttributes,
@@ -437,7 +439,10 @@ export class FileFetcherImpl implements FileFetcher {
     if (content instanceof Blob) {
       size = content.size;
       mimeType = content.type;
-      if (isMimeTypeSupportedByBrowser(content.type)) {
+      if (
+        isMimeTypeSupportedByBrowser(content.type) ||
+        getBooleanFF('platform.media-svg-rendering')
+      ) {
         preview = {
           value: content,
           origin: 'local',

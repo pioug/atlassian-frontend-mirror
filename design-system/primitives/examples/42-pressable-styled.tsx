@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { xcss } from '../src';
-import UNSAFE_PRESSABLE from '../src/components/pressable';
+import Pressable from '../src/components/pressable';
 
 const pressableStyles = xcss({
   borderRadius: 'border.radius.100',
@@ -10,13 +10,13 @@ const pressableStyles = xcss({
 
 export default function Styled() {
   return (
-    <UNSAFE_PRESSABLE
+    <Pressable
       testId="pressable-styled"
       backgroundColor="color.background.brand.bold"
       padding="space.100"
       xcss={pressableStyles}
     >
       Press me
-    </UNSAFE_PRESSABLE>
+    </Pressable>
   );
 }

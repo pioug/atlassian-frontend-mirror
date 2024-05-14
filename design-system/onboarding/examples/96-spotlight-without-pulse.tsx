@@ -46,7 +46,7 @@ const SpotlightWithoutPulseExample = () => {
             <Spotlight
               target="button"
               actionsBeforeElement="1/3"
-              targetBgColor={token('elevation.surface.raised', '#fff')}
+              targetBgColor={token('elevation.surface.raised')}
               actions={[
                 {
                   onClick: toggleIsSpotlightVisible,

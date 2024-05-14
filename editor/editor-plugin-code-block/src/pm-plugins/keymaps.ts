@@ -2,7 +2,11 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import { isEmptyNode } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Node,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
   Transaction,
@@ -12,6 +16,7 @@ import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getCursor } from '../utils';
 
@@ -31,11 +36,45 @@ const setTextSelection =
     return tr;
   };
 
+// This method converts the code block with a Paragraph, while replacing it's
+// newline `\n` characters with `hardBreak`s to ensure that they are retained in the
+// rendered output. `prosemirror-transform` v1.74 introduced new behaviour for
+// `setBlockType` which means we can't use it here without losing whitespace
+// https://github.com/ProseMirror/prosemirror-transform/blob/master/CHANGELOG.md#174-2023-07-28
+const replaceWithParagraph = (
+  node: Node,
+  nodePos: number,
+  $cursor: ResolvedPos,
+  state: EditorState,
+  dispatch: CommandDispatch,
+) => {
+  const { paragraph, hardBreak } = state.schema.nodes;
+  const nodeLines = node.textContent.split('\n');
+  const { tr } = state;
+
+  const newNodes: Node[] = [];
+
+  nodeLines.forEach((line, index) => {
+    if (index > 0) {
+      newNodes.push(hardBreak.create());
+    }
+    if (line) {
+      newNodes.push(state.schema.text(line));
+    }
+  });
+
+  const newParagraph = paragraph.createChecked([], newNodes);
+
+  tr.replaceWith(nodePos, nodePos + node.nodeSize, newParagraph);
+  setTextSelection($cursor.pos)(tr);
+  dispatch(tr);
+};
+
 export function keymapPlugin(schema: Schema): SafePlugin | undefined {
   return keymap({
     Backspace: (state: EditorState, dispatch?: CommandDispatch) => {
       const $cursor = getCursor(state.selection);
-      const { paragraph, codeBlock, listItem, table, layoutColumn } =
+      const { codeBlock, listItem, paragraph, table, layoutColumn } =
         state.schema.nodes;
       if (!$cursor || $cursor.parent.type !== codeBlock || !dispatch) {
         return false;
@@ -52,11 +91,16 @@ export function keymapPlugin(schema: Schema): SafePlugin | undefined {
           return false;
         }
 
-        dispatch(
-          state.tr
-            .setNodeMarkup(node.pos, node.node.type, node.node.attrs, [])
-            .setBlockType($cursor.pos, $cursor.pos, paragraph),
-        );
+        if (getBooleanFF('platform.editor.codeblock-preserve-newlines_54r3m')) {
+          replaceWithParagraph(node.node, node.pos, $cursor, state, dispatch);
+        } else {
+          dispatch(
+            state.tr
+              .setNodeMarkup(node.pos, node.node.type, node.node.attrs, [])
+              .setBlockType($cursor.pos, $cursor.pos, paragraph),
+          );
+        }
+
         return true;
       }
       if (

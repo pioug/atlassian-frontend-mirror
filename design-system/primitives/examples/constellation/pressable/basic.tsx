@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { xcss } from '@atlaskit/primitives';
-import Pressable from '@atlaskit/primitives/pressable';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 const pressableStyles = xcss({
@@ -18,7 +17,7 @@ const pressableStyles = xcss({
 
 export default function Basic() {
   const handleClick = useCallback(() => {
-    alert('Clicked');
+    console.log('Clicked');
   }, []);
 
   return (

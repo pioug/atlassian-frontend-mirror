@@ -25,13 +25,7 @@
             "path": "../../button/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../ds-explorations/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../ds-lib/afm-cc/tsconfig.json"
-        },
-        {
-            "path": "../../focus-ring/afm-cc/tsconfig.json"
         },
         {
             "path": "../../icon/afm-cc/tsconfig.json"

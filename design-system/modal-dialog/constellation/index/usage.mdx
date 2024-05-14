@@ -8,7 +8,7 @@ Use modal dialogs to present a short-term task the user needs to perform. This c
 
 In some cases, modals contain information that requires additional help and support. You can add elements like filters or hint text to the modal dialog, but be mindful of dialog real estate.
 
-Although highly versatile, this doesn't mean modal dialogs are fit for all purposes. Modal dialogs are invasive and should be used sparingly. The ability of the user to access and view their own content is important for a good experience.
+Although highly versatile, modal dialogs aren't fit for all purposes. Modal dialogs are invasive and should be used sparingly. Letting people access and view their own content is important for a good experience.
 
 ## Anatomy
 
@@ -18,22 +18,11 @@ Although highly versatile, this doesn't mean modal dialogs are fit for all purpo
 - **Body:** Provides an overview of the modal's purpose and, optionally, controls to complete a task.
 - **Footer:** Contains a primary action and the ability to cancel and close the dialog.
 
-## Best practices
-
-- Limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or content that does not support the task.
-- Avoid multiple steps that require navigation within the modal dialog.
-- Avoid complex decision making that requires additional sources of information unavailable in the modal.
-- This modal dialog is responsive. When adding contents, respect the dimensions set by modal dialog to maintain responsiveness.
-- It's best to support multiple methods for dismissal, however the use of both Cancel and X is not required on desktop.
-
-## Content guidelines
-
-- Modal dialog titles should use sentence case and prioritize keywords.
-- Modal dialog body copy should contain only valuable and relevant information that is both helpful and concise.
-- Label elements with action verbs that indicate what happens when the element is selected. For example, label a select menu with Choose a user instead of Users.
-- The main action (a [primary button](/components/button/examples#primary)) should reflect the modal title. For example, a modal with the title "Fork &lt;repository name&gt;" has a button labeled "Fork repository". The title "Select a template" has a button labeled "Select".
-
 ## Accessibility
+
+### Indicate severity
+
+Don't rely on color alone to indicate severity. Provide an accessible `label` for the warning and error icons.
 
 ### Labeling modals
 
@@ -51,6 +40,20 @@ Users can't interact with the rest of the page until the modal is closed. To cat
 - Click **X** in the header (if included)
 - Press `Esc` on a keyboard
 - Click anywhere on the blanket
+
+## Best practices
+
+- Limit the number of interactions in a modal dialog. Simplify by removing unnecessary elements or content that does not support the task.
+- Avoid multiple steps that require navigation within the modal dialog.
+- Avoid complex decision making that requires additional sources of information unavailable in the modal.
+- This modal dialog is responsive. When adding contents, respect the dimensions set by modal dialog to maintain responsiveness.
+- It's best to support multiple methods for dismissal, however the use of both Cancel and X is not required on desktop.
+
+## Content guidelines
+
+- Modal dialog body copy should contain only valuable and relevant information.
+- Label elements with action verbs that indicate what happens when the element is selected. For example, label a select menu with Choose a user instead of Users.
+- The main action (a [primary button](/components/button/examples#primary)) should reflect the modal title. For example, a modal with the title "Fork &lt;repository name&gt;" has a button labeled "Fork repository". The title "Select a template" has a button labeled "Select".
 
 ## Data Center products
 

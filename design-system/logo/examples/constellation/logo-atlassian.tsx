@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { AtlassianIcon, AtlassianLogo, AtlassianWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { AtlassianIcon, AtlassianLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoAtlassian = () => {
   return (
@@ -9,17 +15,13 @@ const LogoAtlassian = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <AtlassianLogo appearance="brand" />
-            </td>
-            <td>
-              <AtlassianWordmark appearance="brand" />
             </td>
             <td>
               <AtlassianIcon appearance="brand" />

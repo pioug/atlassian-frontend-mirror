@@ -4,6 +4,7 @@ import { Component, ImgHTMLAttributes } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
+import { Code } from '@atlaskit/code';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -16,7 +17,6 @@ import {
 
 import logoInverted from './assets/logo-inverted.png';
 import logo from './assets/logo.png';
-import { Code } from './styled';
 
 const Replacement = (rect: any) => {
   const style = {

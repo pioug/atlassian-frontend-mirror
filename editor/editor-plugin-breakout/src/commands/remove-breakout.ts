@@ -2,8 +2,9 @@ import type { Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
+import { updateExpandedState } from '../utils/single-player-expand';
 
-export function removeBreakout(): Command {
+export function removeBreakout(isLivePage?: boolean): Command {
   return (state, dispatch) => {
     const node = findSupportedNodeForBreakout(state.selection);
 
@@ -18,7 +19,11 @@ export function removeBreakout(): Command {
       node.node.attrs,
       marks,
     );
+
+    updateExpandedState(tr, node, isLivePage);
+
     tr.setMeta('scrollIntoView', false);
+
     if (state.selection instanceof NodeSelection) {
       if (state.selection.$anchor.pos === node.pos) {
         tr.setSelection(NodeSelection.create(tr.doc, node.pos));

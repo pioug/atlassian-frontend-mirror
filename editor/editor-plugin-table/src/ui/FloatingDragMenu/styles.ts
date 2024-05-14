@@ -7,17 +7,19 @@ import { token } from '@atlaskit/tokens';
 import { TableCssClassName as ClassName } from '../../types';
 import { dragMenuDropdownWidth } from '../consts';
 
-export const cellColourPreviewStyles = (selectedColor: string) => css`
-  &::before {
-    background: ${selectedColor};
-  }
-`;
+export const cellColourPreviewStyles = (selectedColor: string) =>
+  css({
+    '&::before': {
+      background: selectedColor,
+    },
+  });
 
-export const elementBeforeIconStyles = css`
-  margin-right: ${token('space.negative.075', '-6px')};
-  display: flex;
-`;
+export const elementBeforeIconStyles = css({
+  marginRight: token('space.negative.075', '-6px'),
+  display: 'flex',
+});
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const dragMenuBackgroundColorStyles = css`
   .${ClassName.DRAG_SUBMENU} {
     border-radius: ${token('border.radius', '3px')};
@@ -58,19 +60,19 @@ export const dragMenuBackgroundColorStyles = css`
   }
 `;
 
-export const toggleStyles = css`
-  display: flex;
-  input[type='checkbox'] {
-    width: 30px;
-    height: 14px;
-    pointer-events: initial;
-    cursor: pointer;
-  }
-  > label {
-    margin: 0px;
-    pointer-events: none;
-    > span {
-      pointer-events: none;
-    }
-  }
-`;
+export const toggleStyles = css({
+  display: 'flex',
+  "input[type='checkbox']": {
+    width: '30px',
+    height: '14px',
+    pointerEvents: 'initial',
+    cursor: 'pointer',
+  },
+  '> label': {
+    margin: '0px',
+    pointerEvents: 'none',
+    '> span': {
+      pointerEvents: 'none',
+    },
+  },
+});

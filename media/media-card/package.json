@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "77.11.1",
+  "version": "77.11.2",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,21 +41,21 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/dropdown-menu": "^12.9.0",
-    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/dropdown-menu": "^12.10.0",
+    "@atlaskit/editor-shared-styles": "^2.10.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/media-client": "^26.3.0",
+    "@atlaskit/media-client": "^27.0.0",
     "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.1.0",
+    "@atlaskit/media-common": "^11.2.0",
     "@atlaskit/media-file-preview": "^0.5.0",
-    "@atlaskit/media-ui": "^25.7.0",
-    "@atlaskit/media-viewer": "^48.4.0",
+    "@atlaskit/media-ui": "^25.10.0",
+    "@atlaskit/media-viewer": "^48.5.0",
     "@atlaskit/platform-feature-flags": "^0.2.2",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/ufo-interaction-ignore": "^1.1.0",
     "@babel/runtime": "^7.0.0",
@@ -74,13 +74,13 @@
     "@af/integration-testing": "*",
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/inline-message": "^12.0.0",
+    "@atlaskit/inline-message": "^12.1.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-picker": "^66.4.0",
     "@atlaskit/media-state": "^1.0.0",
-    "@atlaskit/media-test-data": "^2.0.0",
+    "@atlaskit/media-test-data": "^2.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/primitives": "^5.5.0",
+    "@atlaskit/primitives": "^6.1.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -106,10 +106,6 @@
     },
     "platform.media-experience.card-views-refactor_b91lr": {
       "type": "boolean"
-    },
-    "platform.corex.password-protected-pdf_ht8re": {
-      "type": "boolean",
-      "referenceOnly": "true"
     }
   },
   "techstack": {

@@ -124,7 +124,7 @@ exports[`generateTheme atlassian theme should match theme object for "search" 1`
 Object {
   "default": Object {
     "backgroundColor": "var(--ds-background-input, #FFFFFF)",
-    "borderColor": "var(--ds-border-input, #DFE1E6)",
+    "borderColor": "var(--ds-border-input, #7A869A)",
     "color": "var(--ds-text-subtlest, #6B778C)",
   },
   "focus": Object {

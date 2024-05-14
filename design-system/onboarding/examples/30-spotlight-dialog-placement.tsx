@@ -4,6 +4,7 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
+import { Code } from '@atlaskit/code';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 
 import {
@@ -13,7 +14,7 @@ import {
   SpotlightTransition,
 } from '../src';
 
-import { Code, Highlight } from './styled';
+import { Highlight } from './styled';
 
 type Placement = (typeof options)[number];
 

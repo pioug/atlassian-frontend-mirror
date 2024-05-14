@@ -7,6 +7,11 @@ import { Box, Stack } from '@atlaskit/primitives';
 
 import Pagination from '../src';
 
+interface Pages {
+  href: string;
+  label: string;
+}
+
 const PAGES = [
   {
     href: '/',
@@ -44,19 +49,12 @@ const Contact = () => (
 interface LinkProps {
   isDisabled: boolean;
   page: any;
-  pages: any[];
   selectedIndex: number;
   style: object;
 }
 
-function renderLink(pageType: string, selectedIndex: number) {
-  return function PageItem({
-    isDisabled,
-    page,
-    pages,
-    style,
-    ...rest
-  }: LinkProps) {
+function renderLink(pageType: string, selectedIndex: number, pages: Pages[]) {
+  return function PageItem({ isDisabled, page, style, ...rest }: LinkProps) {
     let href;
     if (pageType === 'page') {
       href = page.href;
@@ -89,9 +87,9 @@ const PaginationWithSelectPage = ({
       selectedIndex={pageSelected}
       pages={PAGES}
       components={{
-        Page: renderLink('page', pageSelected),
-        Previous: renderLink('previous', pageSelected),
-        Next: renderLink('next', pageSelected),
+        Page: renderLink('page', pageSelected, PAGES),
+        Previous: renderLink('previous', pageSelected, PAGES),
+        Next: renderLink('next', pageSelected, PAGES),
       }}
       nextLabel="Next"
       label="React Router Page"

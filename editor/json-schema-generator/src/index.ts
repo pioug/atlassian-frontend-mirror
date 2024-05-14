@@ -99,7 +99,7 @@ export default (
           JSON.stringify(jsonSchema, null, 2) + '\n',
         );
       } else {
-        return prettier.resolveConfig(process.cwd()).then((resolvedConfig) => {
+        return prettier.resolveConfig(process.cwd()).then(async (resolvedConfig) => {
           const options = {
             parser: 'babel',
             ...resolvedConfig,
@@ -109,23 +109,31 @@ export default (
             '// DO NOT MODIFY THIS FILE, USE `yarn generate:spec`',
           ];
 
-          jsonSchema.definitions.forEach((def, name) => {
-            const fileName = getPmName(name);
-            exports.push(
-              `export { default as ${fileName} } from './${fileName}';`,
-            );
-            writeFileSync(
-              join(resolvedOutDir, `${fileName}.ts`),
-              prettier.format(
-                `export default ${JSON.stringify(def.node.toSpec())}`,
-                options!,
-              ),
-            );
+          let awaitAllDefinitions: Promise<null>[] = [];
+
+          jsonSchema.definitions.forEach(async (def, name) => {
+            const promise = new Promise<null>(async (resolve) => {
+              const fileName = getPmName(name);
+              exports.push(
+                `export { default as ${fileName} } from './${fileName}';`,
+              );
+              writeFileSync(
+                join(resolvedOutDir, `${fileName}.ts`),
+                await prettier.format(
+                  `export default ${JSON.stringify(def.node.toSpec())}`,
+                  options!,
+                ),
+              );
+              resolve(null);
+            });
+            awaitAllDefinitions.push(promise);
           });
+
+          await Promise.all(awaitAllDefinitions);
           // Generate index.ts with exports
           writeFileSync(
             join(resolvedOutDir, 'index.ts'),
-            prettier.format(exports.join('\n'), options!),
+            await prettier.format(exports.join('\n'), options!),
           );
         });
       }

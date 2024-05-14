@@ -9,14 +9,13 @@ import SectionMessage from '@atlaskit/section-message';
 import LinkButton from '../../examples/constellation/new-button/link-button/link-button';
 import LinkButtonWithRouting from '../../examples/constellation/new-button/link-button/link-button-with-routing';
 import LinkButtonPrimary from '../../examples/constellation/new-button/link-button/link-button-primary';
+import LinkButtonLink from '../../examples/constellation/new-button/link-button/link-button-link';
+import LinkButtonSubtleLink from '../../examples/constellation/new-button/link-button/link-button-subtle-link';
+import LinkButtonSubtle from '../../examples/constellation/new-button/link-button/link-button-subtle';
 import LinkButtonWarning from '../../examples/constellation/new-button/link-button/link-button-warning';
 import LinkButtonDanger from '../../examples/constellation/new-button/link-button/link-button-danger';
-import LinkButtonSubtle from '../../examples/constellation/new-button/link-button/link-button-subtle';
 import LinkButtonIcon from '../../examples/constellation/new-button/link-button/link-button-icon';
 import LinkButtonDisabled from '../../examples/constellation/new-button/link-button/link-button-disabled';
-
-import ButtonLink from '../../examples/constellation/new-button/button/button-link';
-import ButtonSubtleLink from '../../examples/constellation/new-button/button/button-subtle-link';
 
 ## Default
 
@@ -50,18 +49,6 @@ Use a primary link button when the main call to action is to navigate to a new p
 
 <Example Component={LinkButtonPrimary} packageName="@atlaskit/button" />
 
-### Warning
-
-Warning appearances are designed to confirm someone wants to proceed despite a potentially unintended or inconvenient (but reversible) outcome. In general, try to avoid these unclear outcomes in the first place.
-
-<Example Component={LinkButtonWarning} packageName="@atlaskit/button" />
-
-### Danger
-
-Danger appearances are similar to warnings, but these should be reserved for situations with severe consequences, such as a permanent loss of data or an action that affects many users.
-
-<Example Component={LinkButtonDanger} packageName="@atlaskit/button" />
-
 ### Subtle
 
 Use subtle buttons when the surrounding context makes it clear the text is interactable, such as in navigation areas.
@@ -80,7 +67,7 @@ Use subtle buttons when the surrounding context makes it clear the text is inter
 
 Use a link appearance for buttons that look and behave like inline text links. This is only supported for <a href="#link-button">link buttons</a>.
 
-<Example Component={ButtonLink} packageName="@atlaskit/button" />
+<Example Component={LinkButtonLink} packageName="@atlaskit/button" />
 
 ### Subtle link
 
@@ -88,7 +75,19 @@ Similar to a subtle button, but looks like a link. Use a subtle link button to a
 
 Make sure designs have clear affordances for usable areas and elements. Because there is no color or other affordance, this style relies on the context around it to show that it can be interacted with.
 
-<Example Component={ButtonSubtleLink} packageName="@atlaskit/button" />
+<Example Component={LinkButtonSubtleLink} packageName="@atlaskit/button" />
+
+### Warning
+
+Warning appearances are designed to confirm someone wants to proceed despite a potentially unintended or inconvenient (but reversible) outcome. In general, try to avoid these unclear outcomes in the first place.
+
+<Example Component={LinkButtonWarning} packageName="@atlaskit/button" />
+
+### Danger
+
+Danger appearances are similar to warnings, but these should be reserved for situations with severe consequences, such as a permanent loss of data or an action that affects many users.
+
+<Example Component={LinkButtonDanger} packageName="@atlaskit/button" />
 
 ## Icon
 

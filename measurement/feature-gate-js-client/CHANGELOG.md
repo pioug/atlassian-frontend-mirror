@@ -1,5 +1,11 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.17.0
+
+### Minor Changes
+
+- [#92417](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92417) [`917bb55883de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/917bb55883de) - Introduce `bitbucketWorkspaceId` identifier type.
+
 ## 4.16.1
 
 ### Patch Changes

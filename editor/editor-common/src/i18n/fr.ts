@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Ajouter une colonne à droite',
   'fabric.editor.addCommentOnMedia': 'Ajouter un commentaire',
   'fabric.editor.addImageBorder': 'Ajouter une bordure',
+  'fabric.editor.addLoomVideo': 'Ajouter une vidéo Loom',
   'fabric.editor.addMediaFiles': 'Ajouter une image, une vidéo ou un fichier',
   'fabric.editor.addRowAbove': 'Ajouter une ligne au-dessus',
   'fabric.editor.addRowBelow': 'Ajouter une ligne en dessous',
@@ -99,6 +100,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Actifs (Bêta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Insérer des objets depuis Actifs dans Jira Service Management grâce à la recherche et au filtrage',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Actifs',
+  'fabric.editor.datasource.confluenceSearch': 'Insérer une liste Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Insérez une liste des résultats de recherche depuis Confluence grâce à la recherche, au filtrage et à la configuration améliorés.',
   'fabric.editor.datasource.jiraIssue': 'Tickets Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Insérez des tickets Jira depuis Jira Cloud grâce à la recherche, au filtrage et à la configuration améliorés.',
@@ -109,6 +114,7 @@ export default {
   'fabric.editor.decision': 'Décision',
   'fabric.editor.decision.description': 'Enregistrer des décisions pour les suivre plus facilement',
   'fabric.editor.decisionPlaceholder': 'Ajoutez une décision…',
+  'fabric.editor.decreaseColumnSize': 'Réduire la taille de la colonne',
   'fabric.editor.decreaseSize': 'Diminuer la taille',
   'fabric.editor.defaultAltText': 'Document',
   'fabric.editor.description': 'Description',
@@ -238,6 +244,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Taille',
   'fabric.editor.imageBorderSubtle': 'Subtile',
   'fabric.editor.improvement': 'Amélioration',
+  'fabric.editor.increaseColumnSize': 'Augmenter la taille de la colonne',
   'fabric.editor.increaseSize': 'Augmenter la taille',
   'fabric.editor.indent': 'Retrait positif',
   'fabric.editor.info': 'Informations',
@@ -334,8 +341,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': "Ajouter le texte de l'espace réservé",
   'fabric.editor.plainText': 'Utiliser du texte brut',
   'fabric.editor.quickInsert': 'Insertion rapide',
-  'fabric.editor.recordVideo': 'Enregistrer une vidéo',
-  'fabric.editor.recordVideo.description': 'Enregistrer une vidéo avec Loom',
+  'fabric.editor.recordVideo': 'Enregistrer une vidéo Loom',
+  'fabric.editor.recordVideo.description': 'Enregistrez votre écran et votre caméra',
   'fabric.editor.redo': 'Rétablir',
   'fabric.editor.remove': 'Supprimer',
   'fabric.editor.removeColumns': '{0, plural, one {Supprimer la colonne} other {Supprimer les colonnes}}',
@@ -355,6 +362,7 @@ export default {
   'fabric.editor.saveButton': 'Enregistrer',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} résultat de recherche disponible. Utilisez les flèches vers le haut et vers le bas pour parcourir les options. Appuyez sur Entrée pour en sélectionner une.} other {{itemsLength,number} résultats de recherche disponibles. Utilisez les flèches vers le haut et vers le bas pour parcourir les options. Appuyez sur Entrée pour en sélectionner une.}}',
+  'fabric.editor.selectColumnResize': 'Sélectionner le redimensionnement de la colonne',
   'fabric.editor.selectLanguage': 'Sélectionner le langage',
   'fabric.editor.selectTableColumn': 'Sélectionner une colonne du tableau',
   'fabric.editor.selectTableRow': 'Sélectionner une ligne du tableau',
@@ -447,10 +455,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     "Le contenu n'est pas disponible dans cet éditeur, il sera conservé lorsque vous le modifierez et l'enregistrerez",
   'fabric.editor.unsupportedInlineContent': 'Contenu non pris en charge',
+  'fabric.editor.upDown':
+    'En utilisant les flèches haut et bas dans le champ de saisie suivant, la date sera mise à jour ci-dessous',
   'fabric.editor.url': "Afficher l'URL",
   'fabric.editor.urlDescription': "Affichez le lien sous forme d'URL",
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.useMarkdown': 'Utiliser Markdown',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Afficher et ajouter des commentaires',
+  'fabric.editor.viewCommentOnMedia': 'Afficher les commentaires',
   'fabric.editor.viewMore': 'Voir plus',
   'fabric.editor.visit': 'Ouvrir le lien dans une nouvelle fenêtre',
   'fabric.editor.warning': 'Avertissement',

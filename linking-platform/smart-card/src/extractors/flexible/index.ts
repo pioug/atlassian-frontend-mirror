@@ -50,6 +50,7 @@ const extractFlexibleUiContext = ({
   renderers,
   actionOptions,
   response,
+  aiSummaryConfig,
 }: Partial<ExtractFlexibleUiDataContextParams> = {}):
   | FlexibleUiDataContext
   | undefined => {
@@ -57,10 +58,11 @@ const extractFlexibleUiContext = ({
     return undefined;
   }
   const data = response.data as JsonLd.Data.BaseData;
+
   const url = extractLink(data);
 
   return {
-    actions: extractActions(response, data, actionOptions, id),
+    actions: extractActions(response, url, actionOptions, id, aiSummaryConfig),
     assignedToGroup: extractPersonAssignedToAsArray(
       data as JsonLd.Data.Task | JsonLd.Data.TaskType,
     ),

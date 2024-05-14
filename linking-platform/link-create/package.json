@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "1.15.6",
+  "version": "1.15.9",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -38,23 +38,24 @@
     ".": "./src/index.ts"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/empty-state": "^7.8.0",
-    "@atlaskit/form": "^9.2.0",
+    "@atlaskit/form": "^10.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/intl-messages-provider": "^1.0.2",
     "@atlaskit/linking-common": "^5.6.0",
-    "@atlaskit/modal-dialog": "^12.11.0",
+    "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/select": "^17.6.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/textfield": "^6.1.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/select": "^17.9.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/textfield": "^6.3.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "debounce-promise": "^3.1.2",

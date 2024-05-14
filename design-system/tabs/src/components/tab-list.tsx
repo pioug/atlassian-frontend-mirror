@@ -14,7 +14,6 @@ import { token } from '@atlaskit/tokens';
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
 import { getTabListStyles } from '../internal/styles';
-import { onMouseDownBlur } from '../internal/utils';
 import { TabListProps } from '../types';
 
 const baseStyles = css({
@@ -106,7 +105,6 @@ const TabList = ({ children }: TabListProps) => {
       <TabContext.Provider
         value={{
           onClick: () => onChange(index),
-          onMouseDown: onMouseDownBlur,
           onKeyDown,
           'aria-setsize': length,
           role: 'tab',

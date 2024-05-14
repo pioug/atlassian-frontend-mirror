@@ -39,18 +39,18 @@ const LanguageSettings = () => {
   return (
     <NestingItem
       iconBefore={<LanguageIcon label="" />}
-      id="3-1"
+      id="language-settings"
       title="Language settings"
     >
       <Section>
         <ButtonItem>Customize</ButtonItem>
 
-        <NestingItem id="3-1-1" title="German Settings">
+        <NestingItem id="german-settings" title="German Settings">
           <Section>
             <ButtonItem>Hallo Welt!</ButtonItem>
           </Section>
         </NestingItem>
-        <NestingItem id="3-1-2" title="English Settings">
+        <NestingItem id="english-settings" title="English Settings">
           <Section>
             <ButtonItem>Hello World!</ButtonItem>
           </Section>
@@ -77,14 +77,16 @@ const BasicExample = () => {
                   </ButtonItem>
                 </SpotlightTarget>
                 <SpotlightTarget name="linkItem">
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <LinkItem href="#" iconBefore={<CustomerIcon label="" />}>
+                  <LinkItem
+                    href="https://www.atlassian.design"
+                    iconBefore={<CustomerIcon label="" />}
+                  >
                     Your customers
                   </LinkItem>
                 </SpotlightTarget>
                 <SpotlightTarget name="disabledItem">
                   <NestingItem
-                    id="4"
+                    id="dropbox"
                     iconBefore={<DropboxIcon label="" />}
                     title="Dropbox"
                     isDisabled
@@ -105,7 +107,7 @@ const BasicExample = () => {
                 </SpotlightTarget>
                 <SpotlightTarget name="selectedNestingItem">
                   <NestingItem
-                    id="1"
+                    id="queues"
                     isSelected
                     title="Queues view"
                     iconBefore={<QueueIcon label="" />}

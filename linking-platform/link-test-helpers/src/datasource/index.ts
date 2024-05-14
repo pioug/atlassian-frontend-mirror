@@ -1,6 +1,8 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import { mockAssetsClientFetchRequests } from './assets';
+import { assetsDefaultInitialVisibleColumnKeys } from './assets/data';
+import { successfulRecommendationAPIResponse } from './basic-filters/mocks';
 import { defaultInitialVisibleColumnKeys as defaultInitialVisibleConfluenceColumnKeys } from './confluence/data';
 import * as confluenceMocks from './confluence/mocks';
 import {
@@ -17,6 +19,7 @@ export { defaultInitialVisibleConfluenceColumnKeys };
 
 export {
   defaultInitialVisibleJiraColumnKeys,
+  assetsDefaultInitialVisibleColumnKeys,
   mockAutoCompleteData,
   mockJiraData,
   mockSiteData,
@@ -46,6 +49,12 @@ export {
   fieldValuesResponseForStatusesSearched,
   fieldValuesResponseForTypesWithRelativeUrls,
   fieldValuesResponseForTypesWithRelativeUrlsMapped,
+  successfulUserQueryResponse,
+  failedUserQueryResponse,
+  successfulRecommendationAPIResponse,
+  failedRecommendationAPIResponse,
+  transformedRecommendationMockFilterOptions,
+  successfuluserHydrationResponse,
 } from './basic-filters/mocks';
 
 fetchMock.config.fallbackToNetwork = true;
@@ -223,6 +232,10 @@ export const mockDatasourceFetchRequests = ({
       });
     },
   );
+
+  fetchMock.post(new RegExp(`/gateway/api/v1/recommendations`), async () => {
+    return Promise.resolve(successfulRecommendationAPIResponse);
+  });
 
   fetchMock.post(
     /\/api\/ex\/jira\/.+\/rest\/api\/latest\/jql\/autocompletedata/,

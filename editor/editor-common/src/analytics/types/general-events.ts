@@ -435,6 +435,11 @@ type InvalidMediaContentTransformedAEP = OperationalAEP<
   undefined
 >;
 
+type HeadingAnchorLinkButtonAEP = ButtonAEP<
+  ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK,
+  undefined
+>;
+
 export type GeneralEventPayload<T = void> =
   | AnnotateButtonAEP
   | AnnotationAEP
@@ -473,4 +478,5 @@ export type GeneralEventPayload<T = void> =
   | NodesMissingContentTransformedAEP
   | InvalidProsemirrorDocumentErrorAEP
   | DocumentProcessingErrorAEP
-  | InvalidMediaContentTransformedAEP;
+  | InvalidMediaContentTransformedAEP
+  | HeadingAnchorLinkButtonAEP;

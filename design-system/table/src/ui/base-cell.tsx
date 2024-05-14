@@ -1,6 +1,6 @@
-import React, { forwardRef, ReactNode } from 'react';
+import React, { forwardRef, type ReactNode } from 'react';
 
-import { Box, BoxProps, type XCSS, xcss } from '@atlaskit/primitives';
+import { Box, type BoxProps, type XCSS, xcss } from '@atlaskit/primitives';
 
 export type BaseCellProps = {
   /**
@@ -34,6 +34,10 @@ export type BaseCellProps = {
    * Number of columns to span.
    */
   colSpan?: number;
+  /**
+   * Number of rows to span.
+   */
+  rowSpan?: number;
 } & Pick<
   BoxProps<any>,
   'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'xcss'
@@ -91,6 +95,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       xcss,
       sortDirection,
       colSpan,
+      rowSpan,
     },
     ref,
   ) => {
@@ -112,6 +117,7 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
         style={width ? { width } : undefined}
         aria-sort={sortDirection}
         colSpan={colSpan}
+        rowSpan={rowSpan}
       >
         {children}
       </Box>

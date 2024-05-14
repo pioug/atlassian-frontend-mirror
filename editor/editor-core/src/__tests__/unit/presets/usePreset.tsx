@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { basePlugin } from '@atlaskit/editor-plugins/base';
 
 import { usePreset } from '../../../use-preset';
 
@@ -35,4 +36,27 @@ describe('usePreset', () => {
 
     expect(createPreset).toBeCalledTimes(2); // createPreset should be called again when dependency changes
   });
+
+  it('injects the base EditorPresetBuilder', () => {
+    const { result } = renderHook(
+      (dep) => usePreset((builder) => builder, [dep]),
+      {
+        initialProps: 'initial',
+      },
+    );
+
+    // @ts-ignore
+    expect(result.current.preset.data).toStrictEqual([]);
+  });
 });
+
+// @ts-ignore
+function Types() {
+  const { editorApi } = usePreset((builder) => builder.add(basePlugin));
+  // Should be typed with base plugin
+  editorApi?.base?.sharedState.currentState()?.keyboardHeight;
+  // Should not be typed with any other random plugin
+  // @ts-expect-error
+  editorApi?.analytics?.sharedState.currentState();
+  return null;
+}

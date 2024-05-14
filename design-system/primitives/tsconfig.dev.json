@@ -40,6 +40,9 @@
       "path": "../accessibility-testing/tsconfig.app.json"
     },
     {
+      "path": "../../../build/formatting/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
     },
     {
@@ -73,6 +76,9 @@
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
+      "path": "../flag/tsconfig.app.json"
+    },
+    {
       "path": "../form/tsconfig.app.json"
     },
     {
@@ -85,10 +91,16 @@
       "path": "../icon-object/tsconfig.app.json"
     },
     {
+      "path": "../../observability/interaction-context/tsconfig.app.json"
+    },
+    {
       "path": "../logo/tsconfig.app.json"
     },
     {
       "path": "../lozenge/tsconfig.app.json"
+    },
+    {
+      "path": "../motion/tsconfig.app.json"
     },
     {
       "path": "../range/tsconfig.app.json"
@@ -110,6 +122,12 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../visually-hidden/tsconfig.app.json"
+    },
+    {
+      "path": "../../data/analytics-bridge/tsconfig.app.json"
     },
     {
       "path": "../codegen/tsconfig.app.json"

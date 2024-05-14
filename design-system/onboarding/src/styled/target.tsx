@@ -1,11 +1,10 @@
 /** @jsx jsx */
-import { HTMLAttributes, ReactNode } from 'react';
+import { type HTMLAttributes, type ReactNode } from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 
 import { reduceMotionAsPerUserPreference } from '@atlaskit/motion';
 import { P300 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 type BaseProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -47,12 +46,6 @@ const animationStyles = css({
   boxShadow: baseShadow,
 });
 
-// IE11 and Edge: z-index needed because fixed position calculates z-index relative
-// to body instead of nearest stacking context (Portal in our case).
-const baseStyles = css({
-  zIndex: layers.spotlight() + 1,
-});
-
 const Base = ({
   children,
   bgColor,
@@ -62,7 +55,6 @@ const Base = ({
   ...props
 }: BaseProps) => (
   <div
-    css={baseStyles}
     data-testid={testId}
     style={
       {

@@ -5,8 +5,8 @@ import { Inline, xcss } from '@atlaskit/primitives';
 
 import Image from '../src';
 
-import Dark from './images/dark-mode-cat.png';
-import Light from './images/light-mode-cat.png';
+import Dark from './images/SpotDark.png';
+import Light from './images/SpotLight.png';
 
 const containerStyles = xcss({
   height: '100%',

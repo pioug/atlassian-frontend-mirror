@@ -12,7 +12,7 @@ const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {
           group: 'fontWeight',
           state: 'active',
           introduced: '0.10.33',
-          description: 'Helpful guidance goes here',
+          description: 'Default font weight for body text styles.',
         },
       },
       medium: {
@@ -20,7 +20,7 @@ const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {
           group: 'fontWeight',
           state: 'active',
           introduced: '0.10.33',
-          description: 'Helpful guidance goes here',
+          description: 'For all text that may appear beside iconography, such as in a button.',
         },
       },
       semibold: {
@@ -28,7 +28,7 @@ const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {
           group: 'fontWeight',
           state: 'active',
           introduced: '0.10.33',
-          description: 'Helpful guidance goes here',
+          description: 'Use with caution as fallback fonts do not support this font weight and will default to bold weight.',
         },
       },
       bold: {
@@ -36,7 +36,7 @@ const font: AttributeSchema<FontWeightTokenSchema<BaseToken>> = {
           group: 'fontWeight',
           state: 'active',
           introduced: '0.10.33',
-          description: 'Helpful guidance goes here',
+          description: 'Use sparingly for emphasising text, such as in a lozenge.',
         },
       },
     },

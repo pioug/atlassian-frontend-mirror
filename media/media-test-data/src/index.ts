@@ -11,4 +11,5 @@ export type {
   ItemWithBinaries,
   Binaries,
   GeneratedItemWithBinaries,
+  ItemWithBinariesGenerator,
 } from './itemsWithBinaries';

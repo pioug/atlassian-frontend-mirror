@@ -13,22 +13,22 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   flushPromises,
   MockIntersectionObserverFactory,
-  MockIntersectionObserverOpts,
+  type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
-  DatasourceDataResponseItem,
-  DatasourceResponseSchemaProperty,
+  type DatasourceDataResponseItem,
+  type DatasourceResponseSchemaProperty,
 } from '@atlaskit/linking-types/datasource';
-import { Input } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { ConcurrentExperience } from '@atlaskit/ufo';
+import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
+import { type ConcurrentExperience } from '@atlaskit/ufo';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
 import { getOrderedColumns, IssueLikeDataTableView } from '../index';
 import {
-  IssueLikeDataTableViewProps,
-  TableViewPropsRenderType,
+  type IssueLikeDataTableViewProps,
+  type TableViewPropsRenderType,
 } from '../types';
 import { COLUMN_MIN_WIDTH } from '../utils';
 
@@ -249,6 +249,17 @@ describe('IssueLikeDataTableView', () => {
     },
   ];
 
+  const getFalsyItems = (): DatasourceDataResponseItem[] => [
+    {
+      someNumericKey: {
+        data: 0,
+      },
+      someBooleanKey: {
+        data: false,
+      },
+    },
+  ];
+
   const getSimpleColumns = (): DatasourceResponseSchemaProperty[] => [
     {
       key: 'id',
@@ -272,6 +283,19 @@ describe('IssueLikeDataTableView', () => {
       key: 'someOtherKey',
       title: 'Some Other key',
       type: 'string',
+    },
+  ];
+
+  const getFalsyColumns = (): DatasourceResponseSchemaProperty[] => [
+    {
+      key: 'someNumericKey',
+      title: 'numeric key',
+      type: 'number',
+    },
+    {
+      key: 'someBooleanKey',
+      title: 'boolean key',
+      type: 'boolean',
     },
   ];
 
@@ -597,59 +621,6 @@ describe('IssueLikeDataTableView', () => {
     );
   });
 
-  it('should be backward compatible and render with the old response format', async () => {
-    const items: any[] = [
-      {
-        listProp: [
-          {
-            text: 'item1',
-          },
-          {
-            text: 'item2',
-          },
-        ],
-        name: 'test-name',
-        anotherName: {
-          data: 'another-test-name',
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'listProp',
-        title: 'List',
-        type: 'tag',
-      },
-      {
-        key: 'name',
-        title: 'Name',
-        type: 'string',
-      },
-      {
-        key: 'anotherName',
-        title: 'Name',
-        type: 'string',
-      },
-    ];
-
-    setup({
-      items,
-      columns,
-      visibleColumnKeys: ['listProp', 'name', 'anotherName'],
-    });
-
-    expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
-      'item1item2',
-    );
-    expect(await screen.findByTestId('sometable--cell-1')).toHaveTextContent(
-      'test-name',
-    );
-    expect(await screen.findByTestId('sometable--cell-2')).toHaveTextContent(
-      'another-test-name',
-    );
-  });
-
   it('should use provided renderer to transform data by type', async () => {
     const items: DatasourceDataResponseItem[] = [
       { someNumber: { data: 40 }, someString: { data: 'abc' } },
@@ -693,6 +664,22 @@ describe('IssueLikeDataTableView', () => {
     expect(await screen.findByTestId('sometable--cell-1')).toHaveTextContent(
       'abc-blah',
     );
+  });
+
+  it('should process and render falsy values correctly', async () => {
+    const items = getFalsyItems();
+    const columns = getFalsyColumns();
+
+    const visibleColumnKeys = ['someNumericKey', 'someBooleanKey'];
+
+    setup({
+      items,
+      columns,
+      visibleColumnKeys,
+    });
+
+    expect(screen.getByTestId('sometable--cell-0')).toHaveTextContent('0');
+    expect(screen.getByTestId('sometable--cell-1')).toHaveTextContent('No');
   });
 
   it('should call onNextPage again when scrolled to the bottom and actually has a next page', async () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/theme",
-  "version": "12.7.1",
+  "version": "12.8.0",
   "description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,6 +16,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
+    "runReact18": true,
     "productPushConsumption": [
       "jira"
     ],
@@ -28,11 +29,11 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@atlaskit/ssr": "*",

@@ -6,11 +6,8 @@ import { token } from '@atlaskit/tokens';
 
 import { ButtonItem, CSSFn, ItemState } from '../src';
 
+import ImgIcon from './common/img-icon';
 import Yeti from './icons/yeti.png';
-
-const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} height={24} width={24} alt={alt} style={{ borderRadius: 3 }} />
-);
 
 export default () => (
   <div data-testid="button-items">

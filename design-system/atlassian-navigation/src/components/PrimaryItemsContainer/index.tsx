@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
+import { N700 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -38,6 +39,10 @@ const widthObserverContainerStyles = css({
   margin: '0px',
   position: 'relative',
   flexShrink: 1,
+});
+
+const overflowItemsStyles = css({
+  color: token('color.text', N700),
 });
 
 // Internal only
@@ -88,7 +93,9 @@ export const PrimaryItemsContainer = ({
         openOverflowMenu={openOverflowMenu}
         closeOverflowMenu={onMoreClose}
       >
-        {overflowItems}
+        <div css={overflowItemsStyles}>
+          {overflowItems}
+        </div>
       </OverflowProvider>
     ),
     // Overflow items has an unstable reference - so we will only recalculate

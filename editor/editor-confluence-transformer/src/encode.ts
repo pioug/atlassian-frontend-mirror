@@ -1,8 +1,8 @@
 import {
-  MediaAttributes,
+  type MediaAttributes,
   getEmojiAcName,
   hexToRgb,
-  RichMediaAttributes as MediaSingleAttributes,
+  type RichMediaAttributes as MediaSingleAttributes,
   tableBackgroundColorPalette,
 } from '@atlaskit/adf-schema';
 import {
@@ -10,10 +10,10 @@ import {
   calcTableColumnWidths,
 } from '@atlaskit/editor-common/utils';
 import {
-  Fragment,
-  Node as PMNode,
-  Mark,
-  Schema,
+  type Fragment,
+  type Node as PMNode,
+  type Mark,
+  type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import parseCxhtml from './parse-cxhtml';
 import { AC_XMLNS, FAB_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
@@ -300,6 +300,9 @@ export default function encode(node: PMNode, schema: Schema) {
           case 'textColor':
             elem = elem.appendChild(encodeTextColor(node, schema));
             break;
+          case 'backgroundColor':
+            elem = elem.appendChild(encodeBackgroundColor(node, schema));
+            break;
           case 'emojiQuery':
             break;
           default:
@@ -353,6 +356,16 @@ export default function encode(node: PMNode, schema: Schema) {
     const color = hexToRgb(mark ? mark.attrs.color : '');
     if (color !== null) {
       elem.style.color = color;
+    }
+    return elem;
+  }
+
+  function encodeBackgroundColor(node: PMNode, schema: Schema) {
+    const elem: HTMLSpanElement = doc.createElement('span');
+    const mark = getNodeMarkOfType(node, schema.marks.backgroundColor);
+    const color = hexToRgb(mark ? mark.attrs.color : '');
+    if (color !== null) {
+      elem.style.backgroundColor = color;
     }
     return elem;
   }

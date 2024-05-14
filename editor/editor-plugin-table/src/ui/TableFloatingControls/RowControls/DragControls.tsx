@@ -16,6 +16,7 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
@@ -142,19 +143,35 @@ const DragControlsComponent = ({
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      const isParentDragControls = (e.nativeEvent.target as Element).closest(
-        `.${ClassName.DRAG_ROW_CONTROLS}`,
-      );
-      const rowIndex = (e.nativeEvent.target as Element).getAttribute(
-        'data-start-index',
-      );
+      if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+        const target =
+          e.nativeEvent.target instanceof Element ? e.nativeEvent.target : null;
+        const isParentDragControls = target?.closest(
+          `.${ClassName.DRAG_ROW_CONTROLS}`,
+        );
+        const rowIndex = target?.getAttribute('data-start-index');
 
-      // avoid updating if event target is not related
-      if (!isParentDragControls || !rowIndex) {
-        return;
+        // avoid updating if event target is not related
+        if (!isParentDragControls || !rowIndex) {
+          return;
+        }
+
+        updateCellHoverLocation(Number(rowIndex));
+      } else {
+        const isParentDragControls = (e.nativeEvent.target as Element).closest(
+          `.${ClassName.DRAG_ROW_CONTROLS}`,
+        );
+        const rowIndex = (e.nativeEvent.target as Element).getAttribute(
+          'data-start-index',
+        );
+
+        // avoid updating if event target is not related
+        if (!isParentDragControls || !rowIndex) {
+          return;
+        }
+
+        updateCellHoverLocation(Number(rowIndex));
       }
-
-      updateCellHoverLocation(Number(rowIndex));
     },
     [updateCellHoverLocation],
   );

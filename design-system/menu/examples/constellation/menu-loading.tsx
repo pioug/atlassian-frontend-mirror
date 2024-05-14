@@ -4,7 +4,7 @@ import Button from '@atlaskit/button/new';
 import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -16,20 +16,11 @@ import {
   SkeletonHeadingItem,
   SkeletonItem,
 } from '../../src';
+import MenuGroupContainer from '../common/menu-group-container';
 import Invision from '../icons/invision';
 import Portfolio from '../icons/portfolio';
 import Slack from '../icons/slack';
 import Tempo from '../icons/tempo';
-
-const menuGroupContainerStyles = xcss({
-  color: 'color.text',
-  backgroundColor: 'elevation.surface.overlay',
-  boxShadow: 'elevation.shadow.overlay',
-  borderRadius: 'border.radius',
-  maxWidth: '320px',
-  marginBlock: 'space.200',
-  marginInline: 'auto',
-});
 
 const iconContainerStyles = xcss({
   height: 'size.200',
@@ -82,8 +73,8 @@ export default () => {
   }, [retryLoading]);
 
   return (
-    <Box>
-      <Box xcss={menuGroupContainerStyles}>
+    <Stack space="space.200">
+      <MenuGroupContainer>
         <MenuGroup>
           <Section aria-labelledby={isLoading ? '' : 'apps'}>
             <Heading aria-hidden id="apps" isLoading={isLoading}>
@@ -140,12 +131,12 @@ export default () => {
             <Item>Manage your apps</Item>
           </Section>
         </MenuGroup>
-      </Box>
+      </MenuGroupContainer>
       <Box xcss={buttonContainerStyles}>
         <Button testId="toggle-loading" onClick={() => setRetryLoading(true)}>
           Reload
         </Button>
       </Box>
-    </Box>
+    </Stack>
   );
 };

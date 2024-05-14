@@ -16,7 +16,7 @@ type RowProps = {
    */
   hasChildren?: boolean;
   /**
-   * Children contained in the row. Should be one or more Cell components.
+   * Children contained in the row. Should be one or more cell components.
    */
   children?: React.ReactNode;
   /**
@@ -41,49 +41,49 @@ type RowProps = {
    */
   isDefaultExpanded?: ReactNode;
   /**
-   * Visually hidden text placed inside the expand chevron button.
+   * This is the accessible name for the expand chevron button, used to tell assistive technology what the button is for.
    */
   expandLabel?: string;
   /**
-   * Visually hidden text placed inside the collapse chevron button.
+   * This is the accessible name for the collapse chevron button, used to tell assistive technology what the button is for.
    */
   collapseLabel?: string;
   /**
-   * Callback called when row collapses.
+   * Callback called when the row collapses.
    */
   onCollapse?: (data: Item) => void;
   /**
-   * Callback called when row expands.
+   * Callback called when the row expands.
    */
   onExpand?: (data: Item) => void;
   /**
-   * Children to render under row.
-   * Normally set by parent Item component and does not need to be configured.
+   * Children to render under the row.
+   * This is normally set by the parent item component, and doesn't need to be configured.
    */
   renderChildren?: () => React.ReactNode;
   /**
-    Whether a row with children should expand when clicked anywhere within the row. If false or unset, a row with children will only expand when the chevron is clicked.
+    Use this to set whether a row with children should expand when clicked anywhere within the row. If `false` or unset, a row with children will only expand when the chevron is clicked.
 
-    If your cells contain interactive elements, this can cause unexpected expanding or collapsing.
+    If your cells contain interactive elements, always set this to `false` to avoid unexpected expanding or collapsing.
    */
   shouldExpandOnClick?: boolean;
   /**
-   * Data to render. Passed down by Item and passed into onExpand and onCollapse callbacks.
-   * Normally set by parent Item component and does not need to be configured.
+   * Data to render. Passed down by `item` and passed into `onExpand` and `onCollapse` callbacks.
+   * This is normally set by the parent `item` component, and doesn't need to be configured.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   data?: Item;
   /**
-   * Depth used for rendering indent.
-   * Normally set by parent Item component and does not need to be configured.
+   * The depth used for rendering an indent.
+   * This is normally set by parent `item` component, and doesn't need to be configured.
    */
   depth?: number;
   /**
     Adds detail to the expand and collapse row button's aria label by appending the value from the given column. If you don't set this prop, the aria label will read out "Expand `itemId` row".
 
-    Should be a string when we pass data via `items` property in `<TableTree />`, value should be one of the property `columns` names in `<TableTree />`.
+    Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.
 
-    Should be a number  when we pass data via `<Rows />` component as children in `<TableTree />`.
+    Should be a number  when we pass data via the `Rows` component as children in the table tree.
    */
   mainColumnForExpandCollapseLabel?: string | number;
 };

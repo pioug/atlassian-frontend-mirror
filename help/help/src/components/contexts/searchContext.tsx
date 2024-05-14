@@ -1,8 +1,8 @@
-import React, { useState, useCallback, PropsWithChildren } from 'react';
+import React, { useState, useCallback, type PropsWithChildren } from 'react';
 import debounce from 'lodash/debounce';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { ArticleItem } from '../../model/Article';
+import { type ArticleItem } from '../../model/Article';
 import { REQUEST_STATE } from '../../model/Requests';
 import { createCtx } from '../../util/hooks/ctx';
 
@@ -23,6 +23,7 @@ interface SearchSharedInterface {
     analyticsEvent: UIAnalyticsEvent,
   ): void;
   searchExternalUrl?: string;
+  openExternalSearchUrlInNewTab?: boolean;
 }
 
 export interface SearchContextInterface extends SearchSharedInterface {
@@ -58,6 +59,7 @@ export const SearchContextProvider = ({
   onSearchExternalUrlClick,
   searchExternalUrl,
   children,
+  openExternalSearchUrlInNewTab,
 }: PropsWithChildren<SearchProviderInterface>) => {
   // Search
   const [searchValue, setSearchValue] = useState<string>('');
@@ -123,7 +125,9 @@ export const SearchContextProvider = ({
     if (onSearchResultItemClick) {
       onSearchResultItemClick(event, analyticsEvent, articleData);
     }
-    setSearchResultsVisible(false);
+    if (!openExternalSearchUrlInNewTab || articleData.href == null) {
+      setSearchResultsVisible(false);
+    }
   };
 
   return (
@@ -139,6 +143,7 @@ export const SearchContextProvider = ({
         searchResult,
         searchState,
         searchValue,
+        openExternalSearchUrlInNewTab,
       }}
     >
       {children}

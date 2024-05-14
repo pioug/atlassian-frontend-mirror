@@ -7,6 +7,8 @@ import {
   TableRendererMobile,
   TableRendererWithInlineComments,
   TableRendererWrappedNodes,
+  TableRendererComplexNodes,
+  TableRendererBackgroundColor,
 } from './table.fixture';
 
 snapshot(TableRenderer, {
@@ -23,4 +25,12 @@ snapshot(TableRendererWithInlineComments, {
 snapshot(TableRendererWrappedNodes, {
   description:
     'Table renderer should NOT overflow inline nodes when table columns are narrow',
+});
+snapshot(TableRendererComplexNodes, {
+  description: 'Table renderer should render complex nodes in table cells',
+});
+
+snapshot(TableRendererBackgroundColor, {
+  description:
+    'Table renderer should render all table cell background colors correctly',
 });

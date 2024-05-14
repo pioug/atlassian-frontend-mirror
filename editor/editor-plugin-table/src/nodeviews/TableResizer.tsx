@@ -241,7 +241,11 @@ export const TableResizer = ({
         } = editorView;
         displayGapCursor(true);
         displayGuideline([]);
-        tr.setMeta(tableWidthPluginKey, { resizing: false });
+        tr.setMeta(tableWidthPluginKey, {
+          resizing: false,
+          tableLocalId: '',
+          tableRef: null,
+        });
         dispatch(tr);
       }
     };
@@ -255,7 +259,12 @@ export const TableResizer = ({
       state: { tr },
     } = editorView;
     displayGapCursor(false);
-    tr.setMeta(tableWidthPluginKey, { resizing: true });
+
+    tr.setMeta(tableWidthPluginKey, {
+      resizing: true,
+      tableLocalId: node.attrs.localId,
+      tableRef: tableRef,
+    });
     tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
       name: TABLE_OVERFLOW_CHANGE_TRIGGER.RESIZED,
     });
@@ -277,6 +286,8 @@ export const TableResizer = ({
     startMeasure,
     editorView,
     displayGapCursor,
+    node.attrs.localId,
+    tableRef,
     isTableScalingEnabled,
     containerWidth,
     displayGuideline,
@@ -374,7 +385,11 @@ export const TableResizer = ({
           ? TABLE_MAX_WIDTH
           : newWidth;
 
-      let tr = state.tr.setMeta(tableWidthPluginKey, { resizing: false });
+      let tr = state.tr.setMeta(tableWidthPluginKey, {
+        resizing: false,
+        tableLocalId: '',
+        tableRef: null,
+      });
       const frameRateSamples = endMeasure();
 
       if (frameRateSamples.length > 0) {

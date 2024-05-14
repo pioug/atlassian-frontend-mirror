@@ -18,6 +18,7 @@ import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -67,8 +68,10 @@ export interface Props {
   onInsertItem: (item: QuickInsertItem) => void;
   setColumnCount: (columnCount: number) => void;
   setFocusedItemIndex: (index: number) => void;
+  setFocusedCategoryIndex?: (index: number) => void; // undefined for the case of mobile browser or when no categories
   emptyStateHandler?: EmptyStateHandler;
   selectedCategory?: string;
+  selectedCategoryIndex?: number;
   searchTerm?: string;
 }
 
@@ -81,7 +84,10 @@ function ElementList({
   createAnalyticsEvent,
   emptyStateHandler,
   selectedCategory,
+  selectedCategoryIndex,
   searchTerm,
+  setFocusedCategoryIndex,
+  setFocusedItemIndex,
   ...props
 }: Props & SelectedItemProps & WithAnalyticsEventsProps) {
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
@@ -135,6 +141,32 @@ function ElementList({
             key={key}
             className="element-item-wrapper"
             css={elementItemWrapper}
+            onKeyDown={
+              getBooleanFF(
+                'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+              ) ? (e) => {
+                if (e.key === 'Tab') {
+                  if (e.shiftKey && index === 0) {
+                    if (setFocusedCategoryIndex) {
+                      if (!!selectedCategoryIndex) {
+                        setFocusedCategoryIndex(selectedCategoryIndex);
+                      } else {
+                        setFocusedCategoryIndex(0);
+                      }
+                      e.preventDefault();
+                    }
+                  }
+                  // before focus jumps from elements list we need to rerender react-virtualized collection.
+                  // Otherwise on the next render 'scrollToCell' will have same cached value
+                  // and collection will not be scrolled to top.
+                  // So Tab press on category will not work anymore due to invisible 1-t element.
+                  else if (index === items.length - 2) {
+                    setFocusedItemIndex(items.length - 1);
+                  }
+                }
+              }
+                : undefined
+            }
           >
             <MemoizedElementItem
               inlineMode={!fullMode}
@@ -142,12 +174,22 @@ function ElementList({
               item={items[index]}
               selected={selectedItemIndex === index}
               focus={focusedItemIndex === index}
+              setFocusedItemIndex={setFocusedItemIndex}
               {...props}
             />
           </div>
         );
       },
-    [items, fullMode, selectedItemIndex, focusedItemIndex, props],
+    [
+      items,
+      fullMode,
+      selectedItemIndex,
+      focusedItemIndex,
+      selectedCategoryIndex,
+      setFocusedCategoryIndex,
+      setFocusedItemIndex,
+      props,
+    ],
   );
 
   return (

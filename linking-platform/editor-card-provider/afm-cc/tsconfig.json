@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../../platform/eslint-plugin/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../link-client-extension/afm-cc/tsconfig.json"
         },
         {

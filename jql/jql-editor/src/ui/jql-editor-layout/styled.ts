@@ -1,7 +1,6 @@
 import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B100,
   B200,
@@ -108,28 +107,15 @@ const editorInputHorizontalPadding = 6;
 type EditorViewContainerProps = {
   editorViewHasFocus?: boolean;
   editorViewIsInvalid?: boolean;
+  isBorderContrastFixEnabled: boolean;
 };
 export const EditorViewContainer = styled.div<EditorViewContainerProps>(
   {
     backgroundColor: token('color.background.input', N10),
     borderStyle: 'solid',
-    borderWidth: getBooleanFF(
-      'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-    )
-      ? token('border.width', '1px')
-      : '2px',
-    borderColor: getBooleanFF(
-      'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-    )
-      ? token('color.border.input', N100)
-      : token('color.border', N40),
+    borderWidth: '2px',
+    borderColor: token('color.border', N40),
     borderRadius: token('border.radius.100', '3px'),
-    // add 1px padding to keep the same overall height & width after border reduced from 2px to 1px
-    ...(getBooleanFF(
-      'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-    )
-      ? { padding: token('border.width', '1px') }
-      : {}),
     boxSizing: 'border-box',
     color: token('color.text', N900),
     display: 'flex',
@@ -138,12 +124,17 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
       'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
   },
   props =>
+    props.isBorderContrastFixEnabled &&
+    css({
+      borderWidth: token('border.width', '1px'),
+      borderColor: token('color.border.input', N100),
+      padding: token('border.width', '1px'),
+    }),
+  props =>
     props.editorViewIsInvalid &&
     css({
       borderColor: token('color.border.danger', R400),
-      ...(getBooleanFF(
-        'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-      )
+      ...(props.isBorderContrastFixEnabled
         ? {
             boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
               'color.border.danger',
@@ -158,15 +149,9 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
           backgroundColor: token('elevation.surface', N0),
           borderColor: token(
             'color.border.focused',
-            getBooleanFF(
-              'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-            )
-              ? B200
-              : B100,
+            props.isBorderContrastFixEnabled ? B200 : B100,
           ),
-          ...(getBooleanFF(
-            'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
-          )
+          ...(props.isBorderContrastFixEnabled
             ? {
                 boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
                   'color.border.focused',

@@ -1,4 +1,3 @@
-import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -186,7 +185,7 @@ export const fixAutoSizedTable = (
     .setMeta('addToHistory', false);
 };
 
-const getLayoutBasedOnWidth = (totalWidth: number): TableLayout => {
+const getLayoutBasedOnWidth = (totalWidth: number) => {
   if (totalWidth > akEditorWideLayoutWidth) {
     return 'full-width';
   } else if (

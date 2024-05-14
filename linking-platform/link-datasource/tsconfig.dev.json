@@ -52,6 +52,9 @@
       "path": "../../design-system/code/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/datetime-picker/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/form/tsconfig.app.json"
     },
     {
@@ -95,6 +98,9 @@
     },
     {
       "path": "../smart-card/tsconfig.app.json"
+    },
+    {
+      "path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"

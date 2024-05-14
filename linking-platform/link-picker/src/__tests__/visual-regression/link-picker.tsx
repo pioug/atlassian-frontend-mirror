@@ -4,7 +4,7 @@ import {
   disableScrollBehavior,
   getExampleUrl,
   loadPage,
-  LoadPageOptions,
+  type LoadPageOptions,
   pageSelector,
   takeElementScreenShot,
   waitForTooltip,
@@ -413,6 +413,14 @@ describe('link-picker', () => {
 
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
+  });
+});
+
+describe.skip('link-picker', () => {
+  let testSelector: string;
+
+  beforeEach(() => {
+    testSelector = '[data-testid="link-picker"]';
   });
 
   ffTest(

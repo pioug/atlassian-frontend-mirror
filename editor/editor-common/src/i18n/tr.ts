@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Sağa sütun ekle',
   'fabric.editor.addCommentOnMedia': 'Yorum ekle',
   'fabric.editor.addImageBorder': 'Kenarlık ekle',
+  'fabric.editor.addLoomVideo': 'Loom Videosu Ekle',
   'fabric.editor.addMediaFiles': 'Görsel, video ya da dosya ekle',
   'fabric.editor.addRowAbove': 'Yukarıya satır ekle',
   'fabric.editor.addRowBelow': 'Aşağıya satır ekle',
@@ -97,6 +98,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Varlıklar (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     "Arama ve filtreleme ile Jira Service Management'taki Varlıklar'dan nesneleri ekleyin",
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Varlıklar',
+  'fabric.editor.datasource.confluenceSearch': 'Confluence listesi ekleyin',
+  'fabric.editor.datasource.confluenceSearch.description':
+    "Gelişmiş arama, filtreleme ve yapılandırma ile Confluence'taki arama sonuçlarının listesini ekleyin.",
   'fabric.editor.datasource.jiraIssue': 'Jira Konuları',
   'fabric.editor.datasource.jiraIssue.description':
     "Gelişmiş arama, filtreleme ve yapılandırma ile Jira Cloud'daki Jira konularını ekleyin.",
@@ -107,6 +112,7 @@ export default {
   'fabric.editor.decision': 'Karar',
   'fabric.editor.decision.description': 'Takibi kolaylaştırmak için kararları vurgulayın',
   'fabric.editor.decisionPlaceholder': 'Karar ekle…',
+  'fabric.editor.decreaseColumnSize': 'Sütun boyutunu azalt',
   'fabric.editor.decreaseSize': 'Boyutu azalt',
   'fabric.editor.defaultAltText': 'Belge',
   'fabric.editor.description': 'Açıklama',
@@ -233,6 +239,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Boyut',
   'fabric.editor.imageBorderSubtle': 'Göze çarpmayan',
   'fabric.editor.improvement': 'İyileştirme',
+  'fabric.editor.increaseColumnSize': 'Sütun boyutunu artır',
   'fabric.editor.increaseSize': 'Boyutu artır',
   'fabric.editor.indent': 'Girintile',
   'fabric.editor.info': 'Bilgi',
@@ -325,8 +332,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Yer tutucu metin ekleyin',
   'fabric.editor.plainText': 'Düz metin kullan',
   'fabric.editor.quickInsert': 'Hızlı ekleme',
-  'fabric.editor.recordVideo': 'Video kaydet',
-  'fabric.editor.recordVideo.description': 'Loom kullanarak video kaydedin',
+  'fabric.editor.recordVideo': 'Bir Loom videosu kaydedin',
+  'fabric.editor.recordVideo.description': 'Ekranınızı ve kameranızı kaydedin',
   'fabric.editor.redo': 'Yinele',
   'fabric.editor.remove': 'Kaldır',
   'fabric.editor.removeColumns': '{0, plural, one {Sütunu sil} other {Sütunları sil}}',
@@ -346,6 +353,7 @@ export default {
   'fabric.editor.saveButton': 'Kaydet',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} arama sonucu bulundu. Seçenekler arasında gezinmek için Yukarı ve Aşağı ok tuşlarını kullanın. Bir seçeneği belirlemek için lütfen Enter tuşuna basın.} other {{itemsLength,number} arama sonucu bulundu. Seçenekler arasında gezinmek için Yukarı ve Aşağı ok tuşlarını kullanın. Bir seçeneği belirlemek için lütfen Enter tuşuna basın.}}',
+  'fabric.editor.selectColumnResize': 'Sütunun yeniden boyutlandırmasını seç',
   'fabric.editor.selectLanguage': 'Dil seçin',
   'fabric.editor.selectTableColumn': 'Tablo sütununu seç',
   'fabric.editor.selectTableRow': 'Tablo satırını seç',
@@ -388,6 +396,8 @@ export default {
   'fabric.editor.tables.columnResizeLast': 'Bu sütunu yalnızca sola doğru yeniden boyutlandırabilirsiniz.',
   'fabric.editor.tables.columnResizeOverflow':
     'Bu sütunu yalnızca tabloda kaydırma çubuğu varken yeniden boyutlandırabilirsiniz.',
+  'fabric.editor.tables.columnWidth':
+    '{width, plural, one {Sütun genişliği {width} piksel olarak değiştirildi} other {Sütun genişliği {width} piksel olarak değiştirildi}}',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':
     '{nodeName} düğümünün silinmesi, bu düğüme bağlı her şeyin bozulmasına neden olur.',
   'fabric.editor.tables.confirmDeleteLinkedModalOKButton': 'Sil',
@@ -435,10 +445,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'İçerik bu düzenleyicide kullanılamıyor, düzenleyip kaydettiğinizde korunacak',
   'fabric.editor.unsupportedInlineContent': 'Desteklenmeyen içerik',
+  'fabric.editor.upDown':
+    'Aşağıdaki girdi alanında yukarı ve aşağı ok tuşlarını kullandığınızda tarih aşağıda güncellenir',
   'fabric.editor.url': "URL'yi göster",
   'fabric.editor.urlDescription': 'Bağlantıyı URL olarak gösterir',
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.useMarkdown': 'Markdown kullan',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Yorumları görüntüleyin ve ekleyin',
+  'fabric.editor.viewCommentOnMedia': 'Yorumları görüntüle',
   'fabric.editor.viewMore': 'Daha fazla göster',
   'fabric.editor.visit': 'Bağlantıyı yeni pencerede aç',
   'fabric.editor.warning': 'Uyarı',

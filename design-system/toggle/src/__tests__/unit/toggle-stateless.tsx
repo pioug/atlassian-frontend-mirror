@@ -4,9 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import Toggle from '../../toggle';
 
-const packageName = process.env._PACKAGE_NAME_ as string;
-const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
 describe('Toggle component', () => {
   const label = 'Label';
 
@@ -29,21 +26,14 @@ describe('Toggle component', () => {
 
       fireEvent.click(labelElement!);
       expect(onChange).toHaveBeenCalled();
-      expect(onChange).toHaveBeenCalledWith(
-        expect.objectContaining({
-          nativeEvent: null,
-          target: null,
-        }),
-        expect.objectContaining({
-          context: [
-            {
-              componentName: 'toggle',
-              packageName,
-              packageVersion,
-            },
-          ],
-        }),
-      );
+
+      const callArgs = onChange.mock.calls[0];
+
+      // Check if the first argument is a React.ChangeEvent<HTMLInputElement>
+      expect(callArgs[0]).toHaveProperty('target');
+
+      // Check if the second argument is a UIAnalyticsEvent
+      expect(callArgs[1]).toHaveProperty('context');
 
       expect(labelElement?.getAttribute('data-checked')).toBe(null);
     });

@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import FocusRing from '@atlaskit/focus-ring';
+import { Text } from '@atlaskit/primitives';
 
 import { useTab } from '../hooks';
 import { TabAttributesType, TabProps } from '../types';
@@ -24,7 +24,6 @@ export default function Tab({ children, testId }: TabProps) {
     'aria-posinset': ariaPosinset,
     'aria-selected': ariaSelected,
     'aria-setsize': ariaSetsize,
-    onMouseDown,
     onKeyDown,
     role,
     tabIndex,
@@ -41,12 +40,11 @@ export default function Tab({ children, testId }: TabProps) {
         aria-posinset={ariaPosinset}
         aria-selected={ariaSelected}
         aria-setsize={ariaSetsize}
-        onMouseDown={onMouseDown}
         onKeyDown={onKeyDown}
         role={role}
         tabIndex={tabIndex}
       >
-        <Text shouldTruncate UNSAFE_style={{ color: 'inherit' }}>
+        <Text weight="medium" color="inherit" maxLines={1}>
           {children}
         </Text>
       </div>

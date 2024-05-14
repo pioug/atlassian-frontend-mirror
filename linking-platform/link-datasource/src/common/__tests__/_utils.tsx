@@ -344,7 +344,7 @@ export const setupFactory = <Parameters, InsertArgs, ADF>(
 
     const switchMode = (viewMode: DisplayViewModes) => {
       fireEvent.click(getByTestId(`datasource-modal--view-drop-down--trigger`));
-      viewMode === 'issue' || viewMode === 'table'
+      viewMode === 'table'
         ? fireEvent.click(getByTestId('dropdown-item-table'))
         : fireEvent.click(getByTestId('dropdown-item-inline-link'));
     };

@@ -25,9 +25,9 @@ const selectionMarkerHighlightStyles = xcss({
   backgroundSize: 'contain',
   aspectRatio: '3/20',
   left: '0px',
-  marginLeft: '-0.1em',
+  marginLeft: 'space.negative.025',
   right: '0px',
-  marginRight: '-0.1em',
+  marginRight: 'space.negative.025',
   pointerEvents: 'none',
 });
 
@@ -40,9 +40,9 @@ const selectionMarkerCursorStyles = xcss({
   top: 'space.0',
   bottom: token('space.negative.025', '-2px'),
   left: '1px',
-  marginLeft: '-0.1em',
+  marginLeft: 'space.negative.025',
   right: '0px',
-  marginRight: '-0.1em',
+  marginRight: 'space.negative.025',
   pointerEvents: 'none',
 });
 
@@ -51,7 +51,7 @@ type WidgetProps = { type: SelectionType; isHighlight: boolean };
 const Widget = ({ type, isHighlight }: WidgetProps) => {
   return (
     <Box
-      as={'span'}
+      as="span"
       xcss={
         isHighlight
           ? selectionMarkerHighlightStyles

@@ -1,15 +1,16 @@
-import React from 'react';
+import type React from 'react';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { EventDispatcher } from '../event-dispatcher';
+import { type EventDispatcher } from '../event-dispatcher';
+import { type PortalProviderAPI } from '../portal';
 import ReactNodeView, {
-  getPosHandler,
-  ReactComponentProps,
-  shouldUpdate,
+  type getPosHandler,
+  type ReactComponentProps,
+  type shouldUpdate,
 } from '../react-node-view';
-import { PortalProviderAPI } from '../ui/PortalProvider';
+import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 
 /**
  * A ReactNodeView that handles React components sensitive
@@ -47,7 +48,7 @@ export class SelectionBasedNodeView<
     node: PMNode,
     view: EditorView,
     getPos: getPosHandler,
-    portalProviderAPI: PortalProviderAPI,
+    portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     reactComponentProps: P,
     reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,

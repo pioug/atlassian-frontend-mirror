@@ -4,6 +4,8 @@ import React from 'react';
 import classnames from 'classnames';
 import memoizeOne from 'memoize-one';
 import rafSchedule from 'raf-schd';
+import type { IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import {
@@ -61,9 +63,11 @@ import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
+  getAssistiveMessage,
   isTableNested,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
+  tablesHaveDifferentNoOfRows,
 } from '../utils';
 
 import { ExternalDropTargets } from './ExternalDropTargets';
@@ -106,6 +110,7 @@ export interface ComponentProps {
   getEditorFeatureFlags: GetEditorFeatureFlags;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   pluginInjectionApi?: PluginInjectionAPI;
+  intl: IntlShape;
 
   // marking props as option to ensure backward compatibility when platform.editor.table.use-shared-state-hook disabled
   isInDanger?: boolean;
@@ -209,7 +214,27 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isTableScalingEnabled,
     } = this.props;
 
-    if (isTableScalingEnabled) {
+    if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
+      const { mode } =
+        this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState() ||
+        {};
+      if (mode === 'view') {
+        this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
+      }
+    }
+
+    if (
+      isTableScalingEnabled &&
+      !getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+    ) {
+      this.handleColgroupUpdates(true);
+    }
+
+    if (
+      isTableScalingEnabled &&
+      getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+      getNode().attrs.displayMode !== 'fixed'
+    ) {
       this.handleColgroupUpdates(true);
     }
 
@@ -307,6 +332,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       window.removeEventListener('resize', this.handleWindowResizeDebounced);
     }
 
+    if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
+      this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
+    }
+
     if (this.overflowShadowsObserver) {
       this.overflowShadowsObserver.dispose();
     }
@@ -320,6 +349,15 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       clearTimeout(this.initialOverflowCaptureTimerId);
     }
   }
+
+  handleMouseEnter = () => {
+    const node = this.props.getNode();
+    const pos = this.props.getPos();
+    const tr = this.props.view.state.tr;
+    const tableId = node.attrs.localId;
+    tr.setMeta('mouseEnterTable', [tableId, node, pos]);
+    this.props.view.dispatch(tr);
+  };
 
   handleColgroupUpdates(force = false) {
     const { getNode, containerWidth, isResizing, view, getPos } = this.props;
@@ -346,34 +384,78 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     // Needed for undo / redo
     const isTableWidthChanged = tableNodeWidth !== this.tableNodeWidth;
     const isTableSquashed = tableRenderWidth < tableNodeWidth;
+    const isNumberColumnChanged =
+      tableNode.attrs.isNumberColumnEnabled !==
+      this.node.attrs.isNumberColumnEnabled;
+    const isNumberOfColumnsChanged = tablesHaveDifferentNoOfColumns(
+      tableNode,
+      this.node,
+    );
 
     const maybeScale =
-      isTableSquashed || isTableWidthChanged || isTableResizedFullWidth;
+      isTableSquashed ||
+      isTableWidthChanged ||
+      isTableResizedFullWidth ||
+      isNumberColumnChanged ||
+      isNumberOfColumnsChanged;
+
     if (force || maybeScale) {
       const { width: containerWidthValue } = containerWidth;
       const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
       const wasTableResized = hasTableBeenResized(this.node);
       const isTableResized = hasTableBeenResized(tableNode);
       const isColumnsDistributed = wasTableResized && !isTableResized;
-      const shouldScale =
+      const isTableDisplayModeChanged =
+        this.node.attrs.displayMode !== tableNode.attrs.displayMode;
+
+      const shouldUpdateColgroup =
         isWidthChanged ||
         isColumnsDistributed ||
         isTableResizedFullWidth ||
-        isTableWidthChanged;
-      if (force || (!isResizing && shouldScale)) {
+        isTableWidthChanged ||
+        isTableDisplayModeChanged ||
+        isNumberColumnChanged ||
+        isNumberOfColumnsChanged;
+
+      if (force || (!isResizing && shouldUpdateColgroup)) {
         const resizeState = getResizeState({
           minWidth: COLUMN_MIN_WIDTH,
           maxSize: tableRenderWidth,
           table: tableNode,
           tableRef: this.table,
           start,
-          domAtPos: view.domAtPos,
+          domAtPos: view.domAtPos.bind(view),
           isTableScalingEnabled: true,
         });
 
+        let shouldScaleOnColgroupUpdate = false;
+        if (
+          this.props.options?.isTableScalingEnabled &&
+          !getBooleanFF(
+            'platform.editor.table.preserve-widths-with-lock-button',
+          )
+        ) {
+          shouldScaleOnColgroupUpdate = true;
+        }
+
+        if (
+          this.props.options?.isTableScalingEnabled &&
+          getBooleanFF(
+            'platform.editor.table.preserve-widths-with-lock-button',
+          ) &&
+          tableNode.attrs.displayMode !== 'fixed'
+        ) {
+          shouldScaleOnColgroupUpdate = true;
+        }
+
         // Request animation frame required for Firefox
         requestAnimationFrame(() => {
-          updateColgroup(resizeState, this.table!, tableNode, true);
+          updateColgroup(
+            resizeState,
+            this.table!,
+            tableNode,
+            shouldScaleOnColgroupUpdate,
+          );
         });
       }
     }
@@ -390,7 +472,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       allowColumnResizing,
       isResizing,
       options,
-      isTableScalingEnabled,
+      isTableScalingEnabled, // we could use options.isTableScalingEnabled here
       getPos,
     } = this.props;
     let { isInDanger } = this.props;
@@ -402,7 +484,27 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isInDanger = pluginState.isInDanger;
     }
 
-    if (isTableScalingEnabled) {
+    let shouldScale = false;
+    let shouldHandleColgroupUpdates = false;
+
+    if (
+      isTableScalingEnabled &&
+      !getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+    ) {
+      shouldScale = true;
+      shouldHandleColgroupUpdates = true;
+    }
+
+    if (
+      isTableScalingEnabled &&
+      getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+      getNode().attrs.displayMode !== 'fixed'
+    ) {
+      shouldScale = true;
+      shouldHandleColgroupUpdates = true;
+    }
+
+    if (shouldHandleColgroupUpdates) {
       this.handleColgroupUpdates();
     }
 
@@ -442,6 +544,21 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     }
 
     const currentTable = getNode();
+    const previousTable = this.node;
+    const isNoOfColumnsChanged = tablesHaveDifferentNoOfColumns(
+      currentTable,
+      previousTable,
+    );
+    const isNoOfRowsChanged = tablesHaveDifferentNoOfRows(
+      currentTable,
+      previousTable,
+    );
+    if (isNoOfColumnsChanged || isNoOfRowsChanged) {
+      this.props.pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify(
+        getAssistiveMessage(previousTable, currentTable, this.props.intl),
+        { priority: 'important' },
+      );
+    }
     if (currentTable.attrs.__autoSize) {
       // Wait for next tick to handle auto sizing, gives the browser time to do layout calc etc.
       this.handleAutoSizeDebounced();
@@ -451,11 +568,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     else if (allowColumnResizing && this.table && !isMediaFullscreen) {
       // If col widths (e.g. via collab) or number of columns (e.g. delete a column) have changed,
       // re-draw colgroup.
-      const previousTable = this.node;
-      const isNoOfColumnsChanged = tablesHaveDifferentNoOfColumns(
-        currentTable,
-        previousTable,
-      );
       if (
         tablesHaveDifferentColumnWidths(currentTable, previousTable) ||
         isNoOfColumnsChanged
@@ -469,7 +581,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         if (shouldRecreateResizeCols) {
           const start = getPos() || 0;
           const depth = view.state.doc.resolve(start).depth;
-          const shouldScale = depth === 0 && isTableScalingEnabled;
+          shouldScale = depth === 0 && shouldScale;
+
           insertColgroupFromNode(this.table, currentTable, shouldScale);
         }
 
@@ -573,7 +686,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       pluginInjectionApi,
       isDragAndDropEnabled,
       getEditorFeatureFlags,
-      isTableScalingEnabled,
+      isTableScalingEnabled, // here we can use options.isTableScalingEnabled
     } = this.props;
 
     let {
@@ -659,7 +772,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     const shadowStyle = memoizeOne(
       (visible) =>
-        ({ visibility: visible ? 'visible' : 'hidden' } as CSSProperties),
+        ({ visibility: visible ? 'visible' : 'hidden' }) as CSSProperties,
     );
 
     /**
@@ -1044,4 +1157,4 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private handleWindowResizeDebounced = rafSchedule(this.handleWindowResize);
 }
 
-export default TableComponent;
+export default injectIntl(TableComponent);

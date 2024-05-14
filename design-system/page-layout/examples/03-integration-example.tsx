@@ -43,7 +43,7 @@ import {
 const centeredStyles = css({ textAlign: 'center' });
 const mainContentStyles = css({
   height: '2000px',
-  backgroundColor: token('color.background.neutral', '#eeeeee'),
+  backgroundColor: token('color.background.neutral'),
 });
 
 export default function ProductLayout() {
@@ -126,8 +126,8 @@ export default function ProductLayout() {
         width={rightPanelWidth}
       >
         <SlotWrapper
-          borderColor={token('color.border.accent.orange', 'orange')}
-          backgroundColor={token('elevation.surface.overlay', 'white')}
+          borderColor={token('color.border.accent.orange')}
+          backgroundColor={token('elevation.surface.overlay')}
         >
           <SlotLabel>Help Panel</SlotLabel>
           <Button type="button" onClick={close}>

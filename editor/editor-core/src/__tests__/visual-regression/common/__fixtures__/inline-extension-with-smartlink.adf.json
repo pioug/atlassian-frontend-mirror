@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineCard",
+          "attrs": {
+            "url": "https://inlineCardTestUrl"
+          }
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "inlineExtension",
+          "attrs": {
+            "extensionType": "com.atlassian.confluence.macro.core",
+            "extensionKey": "inline-eh",
+            "parameters": {},
+            "text": "Inline extension demo",
+            "localId": "d35b4db7-5461-4c28-b591-738478b2ba8a"
+          }
+        }
+      ]
+    }
+  ]
+}

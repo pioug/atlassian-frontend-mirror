@@ -1,4 +1,7 @@
-import { FileIdentifier, ResponseFileItem } from '@atlaskit/media-client';
+import {
+  type FileIdentifier,
+  type ResponseFileItem,
+} from '@atlaskit/media-client';
 
 export type BinaryFn = () => Promise<string>;
 export type ArtifactsSet = Record<string, BinaryFn>;
@@ -11,3 +14,7 @@ export interface ItemWithBinaries extends Binaries {
 }
 
 export type GeneratedItemWithBinaries = [ItemWithBinaries, FileIdentifier];
+
+export interface ItemWithBinariesGenerator {
+  (): Promise<GeneratedItemWithBinaries>;
+}

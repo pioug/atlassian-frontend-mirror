@@ -11,37 +11,19 @@ import {
 import { TOOL_ID } from '../constants';
 import { Themes } from '../types';
 
-const themeOptions = [
-  {
-    id: 'none' as Themes,
-    title: 'Disable',
-    icon: 'cross',
-  },
-  {
-    id: 'auto' as Themes,
-    title: 'Same as system',
-    icon: 'circlehollow',
-  },
-  {
-    id: 'light' as Themes,
-    title: 'Light theme',
-    icon: 'circlehollow',
-  },
-  {
-    id: 'dark' as Themes,
-    title: 'Dark theme',
-    icon: 'circle',
-  },
-  {
-    id: 'split' as Themes,
-    title: 'Side by side',
-    icon: 'sidebar',
-  },
-  {
-    id: 'stack' as Themes,
-    title: 'Stacked',
-    icon: 'bottombar',
-  },
+interface ThemeOption {
+  id: Themes;
+  title: string;
+  icon: string;
+}
+
+const themeOptions: ThemeOption[] = [
+  { id: 'auto', title: 'Same as system', icon: 'mirror' },
+  { id: 'light', title: 'Light theme', icon: 'circlehollow' },
+  { id: 'dark', title: 'Dark theme', icon: 'circle' },
+  { id: 'split', title: 'Side by side', icon: 'sidebar' },
+  { id: 'stack', title: 'Stacked', icon: 'bottombar' },
+  { id: 'none', title: 'Disable (Unsafe)', icon: 'cross' },
 ];
 
 /**
@@ -66,19 +48,16 @@ const Tool = () => {
       onVisibilityChange={setIsVisible}
       tooltip={({ onHide }) => (
         <TooltipLinkList
-          links={themeOptions.map(({ id, title, icon }) => {
-            const Icon = <Icons style={{ opacity: 1 }} icon={icon as any} />;
-            return {
-              id,
-              title,
-              active: adsTheme === id,
-              right: Icon,
-              onClick: () => {
-                setTheme(id);
-                onHide();
-              },
-            };
-          })}
+          links={themeOptions.map(({ id, title, icon }) => ({
+            id,
+            title,
+            active: adsTheme === id,
+            right: <Icons style={{ opacity: 1 }} icon={icon as any} />,
+            onClick: () => {
+              setTheme(id);
+              onHide();
+            },
+          }))}
         />
       )}
     >

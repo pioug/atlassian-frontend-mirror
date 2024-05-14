@@ -11,16 +11,26 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { AnnotationRangeProvider } from './contexts/AnnotationRangeContext';
 import { AnnotationHoverContext } from './contexts/AnnotationHoverContext';
 
-const LoadAnnotations = React.memo(
-  ({ adfDocument }: Record<'adfDocument', JSONDocNode>) => {
-    useLoadAnnotations({ adfDocument });
+type LoadAnnotationsProps = {
+  adfDocument: JSONDocNode;
+  isNestedRender: boolean;
+};
 
+const LoadAnnotations = React.memo<LoadAnnotationsProps>(
+  ({ adfDocument, isNestedRender }) => {
+    useLoadAnnotations({ adfDocument, isNestedRender });
     return null;
   },
 );
 
 export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
-  const { children, annotationProvider, rendererRef, adfDocument } = props;
+  const {
+    children,
+    annotationProvider,
+    rendererRef,
+    adfDocument,
+    isNestedRender,
+  } = props;
   const updateSubscriber =
     annotationProvider &&
     annotationProvider.inlineComment &&
@@ -46,7 +56,10 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
               createAnalyticsEvent={createAnalyticsEvent}
               rendererRef={rendererRef}
             >
-              <LoadAnnotations adfDocument={adfDocument} />
+              <LoadAnnotations
+                adfDocument={adfDocument}
+                isNestedRender={isNestedRender}
+              />
               <AnnotationView createAnalyticsEvent={createAnalyticsEvent} />
               {children}
             </AnnotationsContextWrapper>

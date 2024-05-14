@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Kontoer',
   'fabric.media.actions': 'Tiltak',
   'fabric.media.add_account': 'Legg til en konto',
+  'fabric.media.alt_text': 'Hvordan vil du beskrive det valgte bildet til noen med nedsatt syn?',
   'fabric.media.annotate': 'Kommenter',
   'fabric.media.annotate.confirmation.close.anyway': 'Lukk likevel',
   'fabric.media.annotate.confirmation.content':
@@ -63,6 +64,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Slipp bildene her',
   'fabric.media.email': 'E-post',
   'fabric.media.enable_fullscreen': 'aktiver fullskjerm',
+  'fabric.media.enter_password': 'Oppgi passord',
   'fabric.media.error_429': 'Feil 429',
   'fabric.media.error_generating_preview': 'Feil ved generering av forhåndsvisning',
   'fabric.media.error_hint_critical': 'Kontakt brukerstøtte hvis problemet ikke forsvinner.',
@@ -70,6 +72,7 @@ export default {
   'fabric.media.error_loading_file': 'Feil ved lasting av feil',
   'fabric.media.failed_to_load': 'Kunne ikke lastes inn',
   'fabric.media.failed_to_upload': 'Kan ikke laste opp',
+  'fabric.media.file_is_selected': 'Filen {name} er valgt',
   'fabric.media.forbidden_description':
     'Du har ikke tilgang til denne forhåndsvisningen. Ta kontakt med nettstedets administrator hvis du trenger tilgang.',
   'fabric.media.give_feedback': 'Gi en tilbakemelding',
@@ -77,6 +80,7 @@ export default {
   'fabric.media.image_format_invalid_error': 'Bildet har feil format. Det kan derfor ikke lastes inn.',
   'fabric.media.image_size_too_large_error': 'Bildet er for stort. Det kan ikke være større enn {MAX_SIZE_MB}MB',
   'fabric.media.image_url_invalid_error': 'Nettadressen er feil. Bildet kan derfor ikke lastes inn.',
+  'fabric.media.incorrect_password': 'Feil passord. Prøv på nytt.',
   'fabric.media.insert_files': '{0, plural, one {Legg inn {0} fil} other {Legg inn {0} filer}}',
   'fabric.media.invalid_permissions': 'Begrenset kobling',
   'fabric.media.invalid_permissions_description':
@@ -93,8 +97,11 @@ export default {
   'fabric.media.not_found_description':
     'Vi finner ikke koblingen. Sjekk URL-en og prøv å redigere den, eller lim inn på nytt.',
   'fabric.media.not_found_title': 'Oi sann. VI finner ikke denne koblingen.',
+  'fabric.media.open_file_in_viewer': 'Åpne {name}',
   'fabric.media.or': 'eller',
   'fabric.media.or_select_default_avatars': 'Last opp et bilde eller velg blant noen standardalternativer',
+  'fabric.media.password': 'Passord',
+  'fabric.media.password_protected_pdf': 'Denne filen er passordbeskyttet.',
   'fabric.media.pause': 'Sett på pause',
   'fabric.media.play': 'Spill av',
   'fabric.media.playback_default_speed': 'Standard',
@@ -123,6 +130,7 @@ export default {
   'fabric.media.something_went_wrong': 'Det oppsto en feil.',
   'fabric.media.srclink': 'Se i',
   'fabric.media.srclinkunknown': 'Vis original',
+  'fabric.media.submit': 'Send inn',
   'fabric.media.text': 'tekst',
   'fabric.media.try_again': 'Prøv på nytt',
   'fabric.media.try_another_account': 'Prøv en annen konto',

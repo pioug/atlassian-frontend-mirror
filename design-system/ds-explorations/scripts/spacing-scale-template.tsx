@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { spacing as tokens } from '@atlaskit/tokens/tokens-raw';
 
 const onlySpaceTokens = tokens
@@ -10,7 +8,7 @@ const onlySpaceTokens = tokens
 const activeTokens = onlySpaceTokens.map((t) => `'${t.cleanName}'`);
 
 export const createSpacingScaleTemplate = () => {
-  return prettier.format(
+  return format(
     `
 export const spacingScale = [
   ${activeTokens
@@ -21,11 +19,6 @@ export const spacingScale = [
     })
     .join(',\n\t')}
 ] as const;`,
-    {
-      singleQuote: true,
-      parser: 'typescript',
-      trailingComma: 'all',
-      plugins: [parserTypeScript],
-    },
+    'typescript',
   );
 };

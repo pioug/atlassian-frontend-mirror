@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { createContext, FC, Fragment, ReactNode, useContext } from 'react';
+import { createContext, type FC, Fragment, type ReactNode, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
@@ -189,127 +189,127 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::203ec574e582b95619dc5a1ff65925c7>>
+ * @codegen <<SignedSource::65ff1e4f089a7947b576d1f76f3ac63d>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3.tsx <<SignedSource::bfa028f044b5112b83b8e52861d48b2f>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-typography-adg3.tsx <<SignedSource::0378e6d4168508dfb05295e81dbe2dbe>>
  */
 const fontSizeMap = {
-  'size.050': css({
-    fontSize: token('font.size.050', '11px'),
-  }),
-  'size.075': css({
-    fontSize: token('font.size.075', '12px'),
-  }),
-  'size.100': css({
-    fontSize: token('font.size.100', '14px'),
-  }),
-  'size.200': css({
-    fontSize: token('font.size.200', '16px'),
-  }),
-  'size.300': css({
-    fontSize: token('font.size.300', '20px'),
-  }),
-  'size.400': css({
-    fontSize: token('font.size.400', '24px'),
-  }),
-  'size.500': css({
-    fontSize: token('font.size.500', '29px'),
-  }),
-  'size.600': css({
-    fontSize: token('font.size.600', '35px'),
-  }),
+    'size.050': css({
+        fontSize: token('font.size.050', '11px'),
+    }),
+    'size.075': css({
+        fontSize: token('font.size.075', '12px'),
+    }),
+    'size.100': css({
+        fontSize: token('font.size.100', '14px'),
+    }),
+    'size.200': css({
+        fontSize: token('font.size.200', '16px'),
+    }),
+    'size.300': css({
+        fontSize: token('font.size.300', '20px'),
+    }),
+    'size.400': css({
+        fontSize: token('font.size.400', '24px'),
+    }),
+    'size.500': css({
+        fontSize: token('font.size.500', '29px'),
+    }),
+    'size.600': css({
+        fontSize: token('font.size.600', '35px'),
+    }),
 };
 
 export type FontSize = keyof typeof fontSizeMap;
 
 const fontWeightMap = {
-  bold: css({
-    fontWeight: token('font.weight.bold', '700'),
-  }),
-  medium: css({
-    fontWeight: token('font.weight.medium', '500'),
-  }),
-  regular: css({
-    fontWeight: token('font.weight.regular', '400'),
-  }),
-  semibold: css({
-    fontWeight: token('font.weight.semibold', '600'),
-  }),
+    bold: css({
+        fontWeight: token('font.weight.bold', '700'),
+    }),
+    medium: css({
+        fontWeight: token('font.weight.medium', '500'),
+    }),
+    regular: css({
+        fontWeight: token('font.weight.regular', '400'),
+    }),
+    semibold: css({
+        fontWeight: token('font.weight.semibold', '600'),
+    }),
 };
 
 export type FontWeight = keyof typeof fontWeightMap;
 
 const fontFamilyMap = {
-  body: css({
-    fontFamily: token(
-      'font.family.body',
-      'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  'brand.body': css({
-    fontFamily: token(
-      'font.family.brand.body',
-      '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  'brand.heading': css({
-    fontFamily: token(
-      'font.family.brand.heading',
-      '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  code: css({
-    fontFamily: token(
-      'font.family.code',
-      'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
-    ),
-  }),
-  heading: css({
-    fontFamily: token(
-      'font.family.heading',
-      'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
-    ),
-  }),
-  monospace: css({
-    fontFamily: token(
-      'font.family.monospace',
-      'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
-    ),
-  }),
-  sans: css({
-    fontFamily: token(
-      'font.family.sans',
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
-    ),
-  }),
+    body: css({
+        fontFamily: token(
+            'font.family.body',
+            'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+        ),
+    }),
+    'brand.body': css({
+        fontFamily: token(
+            'font.family.brand.body',
+            '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+        ),
+    }),
+    'brand.heading': css({
+        fontFamily: token(
+            'font.family.brand.heading',
+            '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+        ),
+    }),
+    code: css({
+        fontFamily: token(
+            'font.family.code',
+            'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+        ),
+    }),
+    heading: css({
+        fontFamily: token(
+            'font.family.heading',
+            'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+        ),
+    }),
+    monospace: css({
+        fontFamily: token(
+            'font.family.monospace',
+            'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
+        ),
+    }),
+    sans: css({
+        fontFamily: token(
+            'font.family.sans',
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif',
+        ),
+    }),
 };
 
 export type FontFamily = keyof typeof fontFamilyMap;
 
 const lineHeightMap = {
-  'lineHeight.1': css({
-    lineHeight: token('font.lineHeight.1', '1'),
-  }),
-  'lineHeight.100': css({
-    lineHeight: token('font.lineHeight.100', '16px'),
-  }),
-  'lineHeight.200': css({
-    lineHeight: token('font.lineHeight.200', '20px'),
-  }),
-  'lineHeight.300': css({
-    lineHeight: token('font.lineHeight.300', '24px'),
-  }),
-  'lineHeight.400': css({
-    lineHeight: token('font.lineHeight.400', '28px'),
-  }),
-  'lineHeight.500': css({
-    lineHeight: token('font.lineHeight.500', '32px'),
-  }),
-  'lineHeight.600': css({
-    lineHeight: token('font.lineHeight.600', '40px'),
-  }),
+    'lineHeight.1': css({
+        lineHeight: token('font.lineHeight.1', '1'),
+    }),
+    'lineHeight.100': css({
+        lineHeight: token('font.lineHeight.100', '16px'),
+    }),
+    'lineHeight.200': css({
+        lineHeight: token('font.lineHeight.200', '20px'),
+    }),
+    'lineHeight.300': css({
+        lineHeight: token('font.lineHeight.300', '24px'),
+    }),
+    'lineHeight.400': css({
+        lineHeight: token('font.lineHeight.400', '28px'),
+    }),
+    'lineHeight.500': css({
+        lineHeight: token('font.lineHeight.500', '32px'),
+    }),
+    'lineHeight.600': css({
+        lineHeight: token('font.lineHeight.600', '40px'),
+    }),
 };
 
 export type LineHeight = keyof typeof lineHeightMap;
@@ -320,52 +320,52 @@ export type LineHeight = keyof typeof lineHeightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::607a969c3ff0c84233d12412b1c104b4>>
+ * @codegen <<SignedSource::db9171c09481d187d83bb01192c16c41>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::eface03157c2df5c1b3b305911d3ed4d>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::f27d1519d51cc4a85383a00907847774>>
  */
 const textColorMap = {
-  'color.text': css({
-    color: token('color.text', '#172B4D'),
-  }),
-  disabled: css({
-    color: token('color.text.disabled', '#A5ADBA'),
-  }),
-  inverse: css({
-    color: token('color.text.inverse', '#FFFFFF'),
-  }),
-  selected: css({
-    color: token('color.text.selected', '#0052CC'),
-  }),
-  brand: css({
-    color: token('color.text.brand', '#0065FF'),
-  }),
-  danger: css({
-    color: token('color.text.danger', '#DE350B'),
-  }),
-  warning: css({
-    color: token('color.text.warning', '#974F0C'),
-  }),
-  'warning.inverse': css({
-    color: token('color.text.warning.inverse', '#172B4D'),
-  }),
-  success: css({
-    color: token('color.text.success', '#006644'),
-  }),
-  discovery: css({
-    color: token('color.text.discovery', '#403294'),
-  }),
-  information: css({
-    color: token('color.text.information', '#0052CC'),
-  }),
-  subtlest: css({
-    color: token('color.text.subtlest', '#7A869A'),
-  }),
-  subtle: css({
-    color: token('color.text.subtle', '#42526E'),
-  }),
+    'color.text': css({
+        color: token('color.text', '#172B4D'),
+    }),
+    disabled: css({
+        color: token('color.text.disabled', '#A5ADBA'),
+    }),
+    inverse: css({
+        color: token('color.text.inverse', '#FFFFFF'),
+    }),
+    selected: css({
+        color: token('color.text.selected', '#0052CC'),
+    }),
+    brand: css({
+        color: token('color.text.brand', '#0065FF'),
+    }),
+    danger: css({
+        color: token('color.text.danger', '#DE350B'),
+    }),
+    warning: css({
+        color: token('color.text.warning', '#974F0C'),
+    }),
+    'warning.inverse': css({
+        color: token('color.text.warning.inverse', '#172B4D'),
+    }),
+    success: css({
+        color: token('color.text.success', '#006644'),
+    }),
+    discovery: css({
+        color: token('color.text.discovery', '#403294'),
+    }),
+    information: css({
+        color: token('color.text.information', '#0052CC'),
+    }),
+    subtlest: css({
+        color: token('color.text.subtlest', '#7A869A'),
+    }),
+    subtle: css({
+        color: token('color.text.subtle', '#42526E'),
+    }),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

@@ -1,4 +1,4 @@
-import { defineMessages, MessageDescriptor } from 'react-intl-next';
+import { defineMessages, type MessageDescriptor } from 'react-intl-next';
 
 export type RequestAccessMessageKey =
   | 'click_to_join'
@@ -24,10 +24,16 @@ export type MessageKey =
   | 'ai_summarized'
   | 'ai_summarized_abbreviation'
   | 'ai_summarized_info'
+  | 'ai_summarized_info_short'
   | 'ai_summarizing'
   | 'ai_summary_error_generic'
   | 'ai_summary_error_acceptable_use_violation'
   | 'ai_summary_error_hipaa_content_detected'
+  | 'ai_summary_action'
+  | 'ai_summary_action_description'
+  | 'copy_summary_action'
+  | 'copy_summary_action_description'
+  | 'copied_summary_action_description'
   | 'beta'
   | 'cannot_find_link'
   | 'connect_link_account_card'
@@ -44,6 +50,10 @@ export type MessageKey =
   | 'download_description'
   | 'download_file'
   | 'follow'
+  | 'follow_project_description'
+  | 'follow_project'
+  | 'follow_goal'
+  | 'follow_goal_description'
   | 'go_back'
   | 'invalid_permissions'
   | 'invalid_permissions_description'
@@ -103,6 +113,10 @@ export type MessageKey =
   | 'unauthorised_account_name_no_provider'
   | 'unassigned'
   | 'unfollow'
+  | 'unfollow_project_description'
+  | 'unfollow_project'
+  | 'unfollow_goal'
+  | 'unfollow_goal_description'
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
@@ -159,6 +173,11 @@ export const messages: Messages = defineMessages({
   ai_summarized_info: {
     id: 'fabric.linking.ai_summarized_info',
     defaultMessage: 'Information quality may vary. <a>Learn more</a>',
+    description: 'Additional info about the content summarised by AI.',
+  },
+  ai_summarized_info_short: {
+    id: 'fabric.linking.ai_summarized_info_short.nonfinal',
+    defaultMessage: 'Content quality may vary',
     description: 'Additional info about the content summarised by AI.',
   },
   ai_summarizing: {
@@ -349,6 +368,32 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Download file',
     description: 'Allow a user to download a file',
   },
+  ai_summary_action: {
+    id: 'fabric.linking.ai_summary_action.nonfinal',
+    defaultMessage: 'Summarize with AI',
+    description: 'Allow a user to summarize a link',
+  },
+  ai_summary_action_description: {
+    id: 'fabric.linking.ai_summary_action_description.nonfinal',
+    defaultMessage:
+      'Summarize the content of this link using Atlassian Intelligence.',
+    description: 'Description of what the summarize link with AI action does',
+  },
+  copy_summary_action: {
+    id: 'fabric.linking.copy_summary_action.nonfinal',
+    defaultMessage: 'Copy summary',
+    description: 'Allow a user to copy a generated summary',
+  },
+  copy_summary_action_description: {
+    id: 'fabric.linking.copy_summary_action.nonfinal',
+    defaultMessage: 'Copy summary',
+    description: 'Description of what the copy summary AI action does',
+  },
+  copied_summary_action_description: {
+    id: 'fabric.linking.copied_summary_action_description.nonfinal',
+    defaultMessage: 'Copied summary to clipboard',
+    description: 'Confirmation to the user that the summry has been copied',
+  },
   edit: {
     id: 'fabric.linking.edit',
     defaultMessage: 'Edit',
@@ -357,6 +402,26 @@ export const messages: Messages = defineMessages({
   follow: {
     id: 'fabric.linking.follow',
     defaultMessage: 'Follow',
+    description: 'Click to follow a project.',
+  },
+  follow_project_description: {
+    id: 'fabric.linking.follow_project_description.nonfinal',
+    defaultMessage: 'Follow to get notifications on this project',
+    description: 'Description on what Follow does',
+  },
+  follow_project: {
+    id: 'fabric.linking.follow_project.nonfinal',
+    defaultMessage: 'Follow project',
+    description: 'Click to follow a project.',
+  },
+  follow_goal_description: {
+    id: 'fabric.linking.follow_goal_description.nonfinal',
+    defaultMessage: 'Follow this goal to get notifications on updates',
+    description: 'Description on what Follow does',
+  },
+  follow_goal: {
+    id: 'fabric.linking.follow_goal.nonfinal',
+    defaultMessage: 'Follow goal',
     description: 'Click to follow a project.',
   },
   go_back: {
@@ -638,6 +703,26 @@ export const messages: Messages = defineMessages({
   unfollow: {
     id: 'fabric.linking.unfollow',
     defaultMessage: 'Unfollow',
+    description: 'Click to unfollow a project.',
+  },
+  unfollow_project_description: {
+    id: 'fabric.linking.unfollow_project_description.nonfinal',
+    defaultMessage: 'Unfollow to stop receiving project notifications',
+    description: 'Description on what Unfollow does',
+  },
+  unfollow_project: {
+    id: 'fabric.linking.unfollow_project.nonfinal',
+    defaultMessage: 'Unfollow project',
+    description: 'Click to unfollow a project.',
+  },
+  unfollow_goal_description: {
+    id: 'fabric.linking.unfollow_goal_description.nonfinal',
+    defaultMessage: 'Unfollow to stop receiving notifications for this goal',
+    description: 'Description on what Unfollow does',
+  },
+  unfollow_goal: {
+    id: 'fabric.linking.unfollow_goal.nonfinal',
+    defaultMessage: 'Unfollow goal',
     description: 'Click to unfollow a project.',
   },
   unlink_account: {

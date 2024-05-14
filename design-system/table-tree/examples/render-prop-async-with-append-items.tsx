@@ -17,7 +17,7 @@ type Item = (typeof ROOTS)[number];
 
 const ROOTS = [
   {
-    title: 'Chapter 1: Clean Code',
+    title: 'Chapter 1: Clean code',
     id: ++uuid,
     page: 1,
     numbering: '1',
@@ -55,7 +55,7 @@ const ROOTS = [
 function getChildren() {
   return [
     {
-      title: 'There Will Be Code',
+      title: 'There will be code',
       id: ++uuid,
       page: 2,
       numbering: '1.1',
@@ -68,7 +68,7 @@ function getChildren() {
       numbering: '1.2',
     },
     {
-      title: 'The Total Cost of Owning a Mess',
+      title: 'The cost of owning a mess',
       id: ++uuid,
       page: 4,
       numbering: '1.3',

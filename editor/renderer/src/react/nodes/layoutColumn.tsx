@@ -8,10 +8,10 @@ import {
   clearNextSiblingBlockMarkMarginTopStyle,
 } from '@atlaskit/editor-common/ui';
 
-const layoutColumnClearMarginTopStyles = css`
-  ${clearNextSiblingMarginTopStyle}
-  ${clearNextSiblingBlockMarkMarginTopStyle}
-`;
+const layoutColumnClearMarginTopStyles = css(
+  clearNextSiblingMarginTopStyle,
+  clearNextSiblingBlockMarkMarginTopStyle,
+);
 
 export default function LayoutSection(
   props: React.PropsWithChildren<{ width?: number }>,

@@ -47,7 +47,7 @@ import type { MediaSSR, RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
 import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import type { RendererAppearance } from './types';
+import type { RendererAppearance, NodeComponentsProps } from './types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -81,6 +81,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 import type { FireAnalyticsCallback } from '../../react/utils/performance/RenderTracking';
 import { RenderTracking } from '../../react/utils/performance/RenderTracking';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
+import { nodeToReact } from '../../react/nodes';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -91,6 +92,8 @@ export interface Extension<T> {
 }
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
 
 export type { RendererProps as Props };
 
@@ -819,6 +822,7 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
         rendererRef={innerRef}
         adfDocument={adfDocument}
         annotationProvider={props.annotationProvider}
+        isNestedRender
       >
         <RendererWithAnalytics
           innerRef={innerRef}

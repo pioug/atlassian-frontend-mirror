@@ -16,6 +16,10 @@ test.describe('ConfluenceSearchModal', () => {
       groupIdSelection,
       packageIdSelection,
       exampleIdSelection,
+      {
+        featureFlag:
+          'platform.linking-platform.datasource.show-clol-basic-filters',
+      },
     );
   }
 
@@ -106,7 +110,7 @@ test.describe('ConfluenceSearchModal', () => {
       .click();
     await expect(
       page.getByTestId('datasource-modal--view-drop-down--trigger'),
-    ).toHaveText('Table');
+    ).toHaveText('List');
     await expect(
       page.getByTestId('confluence-search-datasource-table'),
     ).toBeVisible();
@@ -126,6 +130,136 @@ test.describe('ConfluenceSearchModal', () => {
     ).toHaveText('Inline link');
     await expect(
       page.getByRole('link', { name: 'https://hello.atlassian.net/' }),
+    ).toBeVisible();
+  });
+
+  test('Last Updated custom date range can be set and will search new results', async ({
+    page,
+  }) => {
+    await setup(page);
+    await page
+      .getByTestId('confluence-search-modal--date-range-button')
+      .click();
+    await page.getByText('Custom').click();
+
+    const fromContainer = page.getByTestId('date-from-picker--container');
+    await fromContainer.locator('input[role="combobox"]').fill('11/11/2023');
+    await fromContainer.locator('input[role="combobox"]').press('Enter');
+
+    const toContainer = page.getByTestId('date-to-picker--container');
+    await toContainer.locator('input[role="combobox"]').fill('12/12/2023');
+    await toContainer.locator('input[role="combobox"]').press('Enter');
+
+    await page.getByTestId('custom-date-range-update-button').click();
+
+    // The locale is set to en not en-AU in the test example, so dates are formatted by the getFormattedDate helper
+    // which is why the format is different from what we see locally (Nov 11, 2023 vs 11 Nov 2023).
+    await expect(page.getByText(': Nov 11, 2023 - Dec 12, 2023')).toBeVisible();
+
+    await expect(
+      page.getByTestId('confluence-search-datasource-table--cell-0').first(),
+    ).toBeVisible();
+    await expect(
+      page.getByTestId('confluence-search-datasource-table--cell-1').first(),
+    ).toBeVisible();
+  });
+
+  test('Closing and opening the picker after setting a date but not clicking update will clear the selections on reopen', async ({
+    page,
+  }) => {
+    await setup(page);
+    const filterButton = page.getByTestId(
+      'confluence-search-modal--date-range-button',
+    );
+
+    await filterButton.click();
+    await page.getByText('Custom').click();
+
+    const fromContainer = page.getByTestId('date-from-picker--container');
+    await fromContainer.locator('input[role="combobox"]').fill('11/11/2023');
+    await fromContainer.locator('input[role="combobox"]').press('Enter');
+
+    const toContainer = page.getByTestId('date-to-picker--container');
+    await toContainer.locator('input[role="combobox"]').fill('12/12/2023');
+    await toContainer.locator('input[role="combobox"]').press('Enter');
+
+    await filterButton.click();
+    await filterButton.click();
+
+    await expect(fromContainer.locator('input[role="combobox"]')).toBeEmpty();
+    await expect(toContainer.locator('input[role="combobox"]')).toBeEmpty();
+  });
+
+  test('Choosing from date then closing picker and then chosing to date and clicking update only updates with the from date', async ({
+    page,
+  }) => {
+    await setup(page);
+    const filterButton = page.getByTestId(
+      'confluence-search-modal--date-range-button',
+    );
+
+    await filterButton.click();
+    await page.getByText('Custom').click();
+
+    const fromContainer = page.getByTestId('date-from-picker--container');
+    await fromContainer.locator('input[role="combobox"]').fill('11/11/2023');
+    await fromContainer.locator('input[role="combobox"]').press('Enter');
+
+    await filterButton.click();
+    await filterButton.click();
+
+    const toContainer = page.getByTestId('date-to-picker--container');
+    await toContainer.locator('input[role="combobox"]').fill('12/12/2023');
+    await toContainer.locator('input[role="combobox"]').press('Enter');
+
+    await page.getByTestId('custom-date-range-update-button').click();
+
+    await expect(page.getByText(': before Dec 12, 2023')).toBeVisible();
+  });
+
+  test('should reset and clear hydrated filter values after a site change', async ({
+    page,
+  }) => {
+    await setup(page);
+
+    // make both filter selections
+    await page
+      .getByTestId('confluence-search-modal--date-range-button')
+      .click();
+    await page.getByText('Today').click();
+
+    await page
+      .getByTestId('clol-basic-filter-editedOrCreatedBy-trigger')
+      .click();
+    await page
+      .getByText('Atlassian Assist (staging)', {
+        exact: true,
+      })
+      .click();
+
+    // click on insert button
+    await page
+      .getByTestId('confluence-search-datasource-modal--insert-button')
+      .click();
+
+    // open the modal again and wait for hydration logic to do its thing
+    await page.getByTestId('example-toggle-modal').click();
+
+    // ensure values are hydrated and populated in the button label
+    await expect(
+      page.getByText('Edited or created by: Atlassian Assist (staging)'),
+    ).toBeVisible();
+    await expect(page.getByText('Last updated: Today')).toBeVisible();
+
+    // change the site and ensure that values have changed and its now showing intial UI
+    await page.locator(sitePickerSelector).click();
+    await page.getByText('test1', { exact: true }).click();
+
+    await expect(page.getByText('Edited or created by')).toBeVisible();
+    await expect(page.getByText('Last updated')).toBeVisible();
+
+    await expect(
+      page.getByTestId('datasource-modal--initial-state-view'),
     ).toBeVisible();
   });
 });

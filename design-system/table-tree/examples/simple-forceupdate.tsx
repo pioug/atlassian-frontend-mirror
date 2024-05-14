@@ -4,7 +4,7 @@ import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
 const ROOTS = [
   {
-    title: 'Chapter 1: Clean Code',
+    title: 'Chapter 1: Clean code',
     page: 1,
     numbering: '1',
     hasChildren: true,
@@ -36,7 +36,7 @@ const ROOTS = [
 
 const CHILDREN = [
   {
-    title: 'There Will Be Code',
+    title: 'There will be code',
     page: 2,
     numbering: '1.1',
     hasChildren: true,
@@ -47,7 +47,7 @@ const CHILDREN = [
     numbering: '1.2',
   },
   {
-    title: 'The Total Cost of Owning a Mess',
+    title: 'The cost of owning a mess',
     page: 4,
     numbering: '1.3',
     hasChildren: true,

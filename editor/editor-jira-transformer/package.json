@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-jira-transformer",
-  "version": "8.3.39",
+  "version": "8.4.6",
   "description": "Editor JIRA transformer's",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -50,9 +50,9 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.9.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/adf-schema": "^36.1.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6"
   },
@@ -61,11 +61,11 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^193.10.0",
-    "@atlaskit/editor-json-transformer": "^8.10.0",
-    "@atlaskit/editor-test-helpers": "^18.20.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "1.43.0",
+    "@atlaskit/editor-core": "^193.15.0",
+    "@atlaskit/editor-json-transformer": "^8.12.0",
+    "@atlaskit/editor-test-helpers": "^18.22.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "1.48.0",
     "@atlaskit/util-data-test": "^17.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",

@@ -48,6 +48,7 @@ describe('catchupv2 trigged in document service', () => {
       updateMetadata: service.metadataService.updateMetadata,
       analyticsHelper: analyticsHelperMock,
       onStepsAdded: service.onStepsAdded,
+      catchUpOutofSync: false,
     });
 
     expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(

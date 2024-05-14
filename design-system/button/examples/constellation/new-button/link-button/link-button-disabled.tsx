@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { LinkButton } from '../../../../src/new';
-const ButtonDisabledExample = () => {
+
+const LinkButtonDisabledExample = () => {
   return (
     <LinkButton href="https://atlassian.com/" appearance="primary" isDisabled>
       Disabled link button
@@ -9,4 +10,4 @@ const ButtonDisabledExample = () => {
   );
 };
 
-export default ButtonDisabledExample;
+export default LinkButtonDisabledExample;

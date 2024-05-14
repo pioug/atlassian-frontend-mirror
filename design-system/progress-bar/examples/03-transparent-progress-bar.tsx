@@ -8,7 +8,7 @@ import { progress } from './00-basic';
 
 const containerStyle = {
   padding: '25px 10px',
-  background: token('color.background.brand.bold', '#DFE1E5'),
+  background: token('color.background.brand.bold'),
   borderRadius: 3,
 };
 

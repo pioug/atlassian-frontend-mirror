@@ -3,17 +3,12 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Box } from '@atlaskit/primitives';
-import { N200 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 const LabelElement = styled.label({
-  fontSize: `${headingSizes.h200.size / fontSize()}em`,
-  fontStyle: 'inherit',
-  lineHeight: headingSizes.h200.lineHeight / headingSizes.h200.size,
-  color: token('color.text.subtle', N200),
-  fontWeight: 600,
+  font: token('font.body.UNSAFE_small'),
+  fontWeight: token('font.weight.semibold'),
+  color: token('color.text.subtle'),
   display: 'inline-block',
   marginBottom: token('space.050', '4px'),
   marginTop: 0,

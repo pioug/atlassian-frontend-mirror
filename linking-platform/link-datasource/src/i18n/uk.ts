@@ -44,10 +44,26 @@ export default {
   'linkDataSource.column-picker.tooltip': 'Налаштувати стовпці',
   'linkDataSource.configmodal.basicTextSearchPlaceholder': 'Пошук завдань за ключовим словом',
   'linkDataSource.configmodal.cancelButtonText': 'Скасувати',
+  'linkDataSource.configmodal.inlineLinkViewModeDescription':
+    'Відображення кількості результатів пошуку у вигляді вбудованого смарт-посилання',
+  'linkDataSource.configmodal.inlineLinkViewModeLabel': 'Вбудоване посилання',
+  'linkDataSource.configmodal.tableViewModeDescription': 'Показ результатів пошуку у вигляді таблиці',
+  'linkDataSource.configmodal.tableViewModeLabel': 'Таблиця',
   'linkDataSource.confluence-search.configmodal.cancelButtonText': 'Скасувати',
+  'linkDataSource.confluence-search.configmodal.date.range.any.time': 'Будь-коли',
+  'linkDataSource.confluence-search.configmodal.date.range.custom': 'Настроюваний період',
+  'linkDataSource.confluence-search.configmodal.date.range.last.month': 'Останні 30 днів',
+  'linkDataSource.confluence-search.configmodal.date.range.last.week': 'Останні 7 днів',
+  'linkDataSource.confluence-search.configmodal.date.range.last.year': 'Минулий рік',
+  'linkDataSource.confluence-search.configmodal.date.range.title': 'Дата останнього оновлення',
+  'linkDataSource.confluence-search.configmodal.date.range.today': 'Сьогодні',
+  'linkDataSource.confluence-search.configmodal.date.range.yesterday': 'Учора',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitle': 'Вставка списку Confluence',
   'linkDataSource.confluence-search.configmodal.insertConfluenceTitleManySites': 'Вставка списку Confluence з',
   'linkDataSource.confluence-search.configmodal.insertResultsButtonText': 'Вставити результати',
+  'linkDataSource.confluence-search.configmodal.placeholder.issues': '### результ.',
+  'linkDataSource.confluence-search.configmodal.resultsCountText':
+    '{totalCount, plural, one {результат} few {результати} many {результатів} other {результатів}}',
   'linkDataSource.confluence-search.configmodal.searchLabel':
     'Введіть ключові слова, щоб знайти сторінки, вкладення тощо',
   'linkDataSource.confluence-search.no.confluence.sites.access.description':
@@ -101,7 +117,7 @@ export default {
   'linkDataSource.modal-initial-state.searchDescription-basic':
     'Використовуйте ключове слово для пошуку завдань, які потрібно вставити.',
   'linkDataSource.modal-initial-state.searchDescription-confluence':
-    'Використовуйте ключове слово для пошуку сторінок, які потрібно вставити.',
+    'Шукайте сторінки, які потрібно вставити, за ключовим словом.',
   'linkDataSource.modal-initial-state.searchDescription-jql':
     'Використовуйте JQL (Jira Query Language) для пошуку завдань.',
   'linkDataSource.modal-initial-state.searchTitle': 'Пошук завдань Jira',
@@ -118,6 +134,7 @@ export default {
   'linkDataSource.table-footer.item':
     '{itemCount, plural, one {елемент} few {елементи} many {елементів} other {елементи}}',
   'linkDataSource.table-footer.loading': 'Завантаження…',
+  'linkDataSource.table-footer.power-by-jsm': 'Розділ «Ресурси» в Jira Service Management',
   'linkDataSource.table-footer.refresh': 'Оновити',
   'linkDataSource.unableToLoadItems': 'Не вдалося завантажити елементи',
   'linkDataSource.unableToLoadResults': 'Не вдалося завантажити результати',

@@ -3,29 +3,29 @@
 import 'setimmediate';
 import DataLoader from 'dataloader';
 import {
-  CardAdf,
-  CardAppearance,
-  DatasourceAdf,
+  type CardAdf,
+  type CardAppearance,
+  type DatasourceAdf,
   getStatus,
 } from '@atlaskit/linking-common';
 import { extractPreview } from '@atlaskit/link-extractors';
 import {
-  CardProvider,
-  LinkAppearance,
-  ORSProvidersResponse,
-  ProviderPattern,
-  ProvidersData,
+  type CardProvider,
+  type LinkAppearance,
+  type ORSProvidersResponse,
+  type ProviderPattern,
+  type ProvidersData,
 } from './types';
 import { Transformer } from './transformer';
 
 import {
-  EnvironmentsKeys,
+  type EnvironmentsKeys,
   getBaseUrl,
   getResolverUrl,
 } from '@atlaskit/linking-common';
 import { CardClient } from '@atlaskit/link-provider';
-import { JsonLd } from 'json-ld-types';
-import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
+import { type JsonLd } from 'json-ld-types';
+import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import * as api from './api';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -75,6 +75,22 @@ const isYoutubeVideo = (url: string) =>
   url.match(
     /^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/,
   );
+
+const isLoomUrl = (url: string) => {
+  if (!getBooleanFF('platform.linking-platform.embed-loom-by-default')) {
+    return null;
+  }
+  return url.match(
+    /^https:\/\/(.*?\.)?(loom\..*?\/(share|embed))\/([a-zA-Z0-9-]*-)?(?<videoId>[a-f0-9]{32})/,
+  );
+};
+
+const isJiraDashboard = (url: string) => {
+  if (!getBooleanFF('platform.linking-platform.jira-dashboard-embed_ycjcj')) {
+    return null;
+  }
+  return url.match(/^https:\/\/.*?\/jira\/dashboards\/[0-9]+.*/);
+};
 
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
@@ -231,7 +247,9 @@ export class EditorCardProvider implements CardProvider {
       isConfluenceWhiteboard(url) ||
       isConfluenceDatabase(url) ||
       (getBooleanFF('platform.linking-platform.embed-youtube-by-default') &&
-        isYoutubeVideo(url))
+        isYoutubeVideo(url)) ||
+      isLoomUrl(url) ||
+      isJiraDashboard(url)
     ) {
       return 'embed';
     }

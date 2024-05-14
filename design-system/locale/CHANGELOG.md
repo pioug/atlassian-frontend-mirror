@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.7.0
+
+### Minor Changes
+
+- [#93674](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93674) [`ca69fae2d873`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca69fae2d873) - Add support for React 18.
+
 ## 2.6.5
 
 ### Patch Changes

@@ -13,6 +13,9 @@ import {
 import { getOptions } from '../utils';
 import { css, jsx } from '@emotion/react';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { injectIntl } from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import messages from '../messages';
 
 export interface Props {
   /** color picker button label */
@@ -48,7 +51,9 @@ const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
-export class ColorPickerWithoutAnalytics extends React.Component<Props> {
+class ColorPickerWithoutAnalyticsBase extends React.Component<
+  Props & WrappedComponentProps
+> {
   createAndFireEventOnAtlaskit = createAndFireEvent('atlaskit');
 
   state = { isTabbing: false };
@@ -93,6 +98,28 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
     }
   };
 
+  getFullLabel = (intl: IntlShape, value: Color, label: string): string => {
+    if (
+      getBooleanFF(
+        'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe',
+      )
+    ) {
+      if (value && value.label) {
+        return intl.formatMessage(messages.colorPickerAriaLabel, {
+          color: value.label,
+          message: label,
+        });
+      } else {
+        return label;
+      }
+    } else {
+      return intl.formatMessage(messages.colorPickerAriaLabelOldFormat, {
+        color: value.label,
+        message: label,
+      });
+    }
+  };
+
   render() {
     const {
       palette,
@@ -104,13 +131,14 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
       selectedColourSwatchSize,
       showDefaultSwatchColor = true,
       isDisabledSelectedSwatch,
+      intl,
     } = this.props;
     const { options, value } = getOptions(
       palette,
       selectedColor,
       showDefaultSwatchColor,
     );
-    const fullLabel = value.label && `${label}, ${value.label} selected`;
+    const fullLabel = this.getFullLabel(intl, value, label);
 
     return (
       <PopupSelect<Color>
@@ -149,6 +177,10 @@ export class ColorPickerWithoutAnalytics extends React.Component<Props> {
     );
   }
 }
+
+export const ColorPickerWithoutAnalytics = injectIntl(
+  ColorPickerWithoutAnalyticsBase,
+);
 
 export default withAnalyticsContext({
   componentName: 'color-picker',

@@ -23,7 +23,7 @@ const BasicGrid = () => {
         height={60}
         isFixed={false}
       >
-        <SlotWrapper borderColor={token('color.border.accent.blue', 'blue')}>
+        <SlotWrapper borderColor={token('color.border.accent.blue')}>
           <SlotLabel>Product Navigation</SlotLabel>
         </SlotWrapper>
       </TopNavigation>

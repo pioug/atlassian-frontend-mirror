@@ -1,6 +1,6 @@
 import React from 'react';
 import WidthDetector from '../..';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 
 // requestAnimationFrame is stubbed with `raf-stub`
 const requestAnimationFrame = window.requestAnimationFrame as any;
@@ -16,20 +16,24 @@ describe('@atlaskit/width-detector', () => {
     requestAnimationFrame.reset();
   });
 
-  it('should pass width to child function', () => {
+  it('should pass width to child function', async () => {
     const spy = jest.fn();
     render(<WidthDetector>{createChildWithSpy(spy)}</WidthDetector>);
     requestAnimationFrame.step();
-    expect(spy).toHaveBeenCalledTimes(2);
+    await waitFor(() => {
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
     expect(spy).toHaveBeenCalledWith(0);
   });
 
-  it('should use requestAnimationFrame to queue resize measurements', () => {
+  it('should use requestAnimationFrame to queue resize measurements', async () => {
     const spy = jest.fn();
     render(<WidthDetector>{createChildWithSpy(spy)}</WidthDetector>);
     expect(spy).toHaveBeenCalledTimes(1);
     requestAnimationFrame.step();
-    expect(spy).toHaveBeenCalledTimes(2);
+    await waitFor(() => {
+      expect(spy).toHaveBeenCalledTimes(2);
+    });
   });
 
   it('should call cancelAnimationFrame when unmounted', () => {

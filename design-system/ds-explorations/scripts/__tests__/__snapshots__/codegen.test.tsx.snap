@@ -2,90 +2,90 @@
 
 exports[`@atlaskit/design-system-explorations bg styles are generated correctly 1`] = `
 "const backgroundColorMap = {
-  disabled: css({
-    backgroundColor: token('color.background.disabled', '#091e4289'),
-  }),
-  input: css({
-    backgroundColor: token('color.background.input', '#FAFBFC'),
-  }),
-  'inverse.subtle': css({
-    backgroundColor: token('color.background.inverse.subtle', '#00000029'),
-  }),
-  neutral: css({
-    backgroundColor: token('color.background.neutral', '#DFE1E6'),
-  }),
-  'neutral.subtle': css({
-    backgroundColor: token('color.background.neutral.subtle', 'transparent'),
-  }),
-  'neutral.bold': css({
-    backgroundColor: token('color.background.neutral.bold', '#42526E'),
-  }),
-  selected: css({
-    backgroundColor: token('color.background.selected', '#DEEBFF'),
-  }),
-  'selected.bold': css({
-    backgroundColor: token('color.background.selected.bold', '#0052CC'),
-  }),
-  'brand.subtlest': css({
-    backgroundColor: token('color.background.brand.subtlest', '#B3D4FF'),
-  }),
-  'brand.bold': css({
-    backgroundColor: token('color.background.brand.bold', '#0052CC'),
-  }),
-  'brand.boldest': css({
-    backgroundColor: token('color.background.brand.boldest', '#0747A6'),
-  }),
-  danger: css({
-    backgroundColor: token('color.background.danger', '#FFEBE6'),
-  }),
-  'danger.bold': css({
-    backgroundColor: token('color.background.danger.bold', '#DE350B'),
-  }),
-  warning: css({
-    backgroundColor: token('color.background.warning', '#FFFAE6'),
-  }),
-  'warning.bold': css({
-    backgroundColor: token('color.background.warning.bold', '#FFAB00'),
-  }),
-  success: css({
-    backgroundColor: token('color.background.success', '#E3FCEF'),
-  }),
-  'success.bold': css({
-    backgroundColor: token('color.background.success.bold', '#00875A'),
-  }),
-  discovery: css({
-    backgroundColor: token('color.background.discovery', '#EAE6FF'),
-  }),
-  'discovery.bold': css({
-    backgroundColor: token('color.background.discovery.bold', '#5243AA'),
-  }),
-  information: css({
-    backgroundColor: token('color.background.information', '#DEEBFF'),
-  }),
-  'information.bold': css({
-    backgroundColor: token('color.background.information.bold', '#0052CC'),
-  }),
-  'color.blanket': css({
-    backgroundColor: token('color.blanket', '#091e4289'),
-  }),
-  'color.blanket.selected': css({
-    backgroundColor: token('color.blanket.selected', '#388BFF14'),
-  }),
-  'color.blanket.danger': css({
-    backgroundColor: token('color.blanket.danger', '#EF5C4814'),
-  }),
-  'elevation.surface': css({
-    backgroundColor: token('elevation.surface', '#FFFFFF'),
-  }),
-  'elevation.surface.overlay': css({
-    backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
-  }),
-  'elevation.surface.raised': css({
-    backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
-  }),
-  'elevation.surface.sunken': css({
-    backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
-  }),
+    disabled: css({
+        backgroundColor: token('color.background.disabled', '#091e4289'),
+    }),
+    input: css({
+        backgroundColor: token('color.background.input', '#FAFBFC'),
+    }),
+    'inverse.subtle': css({
+        backgroundColor: token('color.background.inverse.subtle', '#00000029'),
+    }),
+    neutral: css({
+        backgroundColor: token('color.background.neutral', '#DFE1E6'),
+    }),
+    'neutral.subtle': css({
+        backgroundColor: token('color.background.neutral.subtle', 'transparent'),
+    }),
+    'neutral.bold': css({
+        backgroundColor: token('color.background.neutral.bold', '#42526E'),
+    }),
+    selected: css({
+        backgroundColor: token('color.background.selected', '#DEEBFF'),
+    }),
+    'selected.bold': css({
+        backgroundColor: token('color.background.selected.bold', '#0052CC'),
+    }),
+    'brand.subtlest': css({
+        backgroundColor: token('color.background.brand.subtlest', '#B3D4FF'),
+    }),
+    'brand.bold': css({
+        backgroundColor: token('color.background.brand.bold', '#0052CC'),
+    }),
+    'brand.boldest': css({
+        backgroundColor: token('color.background.brand.boldest', '#0747A6'),
+    }),
+    danger: css({
+        backgroundColor: token('color.background.danger', '#FFEBE6'),
+    }),
+    'danger.bold': css({
+        backgroundColor: token('color.background.danger.bold', '#DE350B'),
+    }),
+    warning: css({
+        backgroundColor: token('color.background.warning', '#FFFAE6'),
+    }),
+    'warning.bold': css({
+        backgroundColor: token('color.background.warning.bold', '#FFAB00'),
+    }),
+    success: css({
+        backgroundColor: token('color.background.success', '#E3FCEF'),
+    }),
+    'success.bold': css({
+        backgroundColor: token('color.background.success.bold', '#00875A'),
+    }),
+    discovery: css({
+        backgroundColor: token('color.background.discovery', '#EAE6FF'),
+    }),
+    'discovery.bold': css({
+        backgroundColor: token('color.background.discovery.bold', '#5243AA'),
+    }),
+    information: css({
+        backgroundColor: token('color.background.information', '#DEEBFF'),
+    }),
+    'information.bold': css({
+        backgroundColor: token('color.background.information.bold', '#0052CC'),
+    }),
+    'color.blanket': css({
+        backgroundColor: token('color.blanket', '#091e4289'),
+    }),
+    'color.blanket.selected': css({
+        backgroundColor: token('color.blanket.selected', '#388BFF14'),
+    }),
+    'color.blanket.danger': css({
+        backgroundColor: token('color.blanket.danger', '#EF5C4814'),
+    }),
+    'elevation.surface': css({
+        backgroundColor: token('elevation.surface', '#FFFFFF'),
+    }),
+    'elevation.surface.overlay': css({
+        backgroundColor: token('elevation.surface.overlay', '#FFFFFF'),
+    }),
+    'elevation.surface.raised': css({
+        backgroundColor: token('elevation.surface.raised', '#FFFFFF'),
+    }),
+    'elevation.surface.sunken': css({
+        backgroundColor: token('elevation.surface.sunken', '#F4F5F7'),
+    }),
 } as const;
 
 export type BackgroundColor = keyof typeof backgroundColorMap;
@@ -94,45 +94,45 @@ export type BackgroundColor = keyof typeof backgroundColorMap;
 
 exports[`@atlaskit/design-system-explorations border styles are generated correctly 1`] = `
 "const borderColorMap = {
-  'color.border': css({
-    borderColor: token('color.border', '#091e4221'),
-  }),
-  disabled: css({
-    borderColor: token('color.border.disabled', '#FAFBFC'),
-  }),
-  focused: css({
-    borderColor: token('color.border.focused', '#2684FF'),
-  }),
-  input: css({
-    borderColor: token('color.border.input', '#FAFBFC'),
-  }),
-  inverse: css({
-    borderColor: token('color.border.inverse', '#FFFFFF'),
-  }),
-  selected: css({
-    borderColor: token('color.border.selected', '#0052CC'),
-  }),
-  brand: css({
-    borderColor: token('color.border.brand', '#0052CC'),
-  }),
-  danger: css({
-    borderColor: token('color.border.danger', '#FF5630'),
-  }),
-  warning: css({
-    borderColor: token('color.border.warning', '#FFC400'),
-  }),
-  success: css({
-    borderColor: token('color.border.success', '#00875A'),
-  }),
-  discovery: css({
-    borderColor: token('color.border.discovery', '#998DD9'),
-  }),
-  information: css({
-    borderColor: token('color.border.information', '#0065FF'),
-  }),
-  bold: css({
-    borderColor: token('color.border.bold', '#344563'),
-  }),
+    'color.border': css({
+        borderColor: token('color.border', '#091e4221'),
+    }),
+    disabled: css({
+        borderColor: token('color.border.disabled', '#FAFBFC'),
+    }),
+    focused: css({
+        borderColor: token('color.border.focused', '#2684FF'),
+    }),
+    input: css({
+        borderColor: token('color.border.input', '#FAFBFC'),
+    }),
+    inverse: css({
+        borderColor: token('color.border.inverse', '#FFFFFF'),
+    }),
+    selected: css({
+        borderColor: token('color.border.selected', '#0052CC'),
+    }),
+    brand: css({
+        borderColor: token('color.border.brand', '#0052CC'),
+    }),
+    danger: css({
+        borderColor: token('color.border.danger', '#FF5630'),
+    }),
+    warning: css({
+        borderColor: token('color.border.warning', '#FFC400'),
+    }),
+    success: css({
+        borderColor: token('color.border.success', '#00875A'),
+    }),
+    discovery: css({
+        borderColor: token('color.border.discovery', '#998DD9'),
+    }),
+    information: css({
+        borderColor: token('color.border.information', '#0065FF'),
+    }),
+    bold: css({
+        borderColor: token('color.border.bold', '#344563'),
+    }),
 } as const;
 
 export type BorderColor = keyof typeof borderColorMap;
@@ -141,601 +141,387 @@ export type BorderColor = keyof typeof borderColorMap;
 
 exports[`@atlaskit/design-system-explorations border styles are generated correctly 2`] = `
 "const backgroundActiveColorMap = {
-  'accent.lime.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.lime.subtlest.pressed'),
-    },
-  }),
-  'accent.lime.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.lime.subtler.pressed'),
-    },
-  }),
-  'accent.lime.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.lime.subtle.pressed'),
-    },
-  }),
-  'accent.lime.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.lime.bolder.pressed'),
-    },
-  }),
-  'accent.red.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.red.subtlest.pressed'),
-    },
-  }),
-  'accent.red.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.red.subtler.pressed'),
-    },
-  }),
-  'accent.red.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.red.subtle.pressed'),
-    },
-  }),
-  'accent.red.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.red.bolder.pressed'),
-    },
-  }),
-  'accent.orange.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.orange.subtlest.pressed'),
-    },
-  }),
-  'accent.orange.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.orange.subtler.pressed'),
-    },
-  }),
-  'accent.orange.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.orange.subtle.pressed'),
-    },
-  }),
-  'accent.orange.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.orange.bolder.pressed'),
-    },
-  }),
-  'accent.yellow.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.yellow.subtlest.pressed'),
-    },
-  }),
-  'accent.yellow.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.yellow.subtler.pressed'),
-    },
-  }),
-  'accent.yellow.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.yellow.subtle.pressed'),
-    },
-  }),
-  'accent.yellow.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.yellow.bolder.pressed'),
-    },
-  }),
-  'accent.green.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.green.subtlest.pressed'),
-    },
-  }),
-  'accent.green.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.green.subtler.pressed'),
-    },
-  }),
-  'accent.green.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.green.subtle.pressed'),
-    },
-  }),
-  'accent.green.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.green.bolder.pressed'),
-    },
-  }),
-  'accent.teal.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.teal.subtlest.pressed'),
-    },
-  }),
-  'accent.teal.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.teal.subtler.pressed'),
-    },
-  }),
-  'accent.teal.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.teal.subtle.pressed'),
-    },
-  }),
-  'accent.teal.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.teal.bolder.pressed'),
-    },
-  }),
-  'accent.blue.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.blue.subtlest.pressed'),
-    },
-  }),
-  'accent.blue.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.blue.subtler.pressed'),
-    },
-  }),
-  'accent.blue.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.blue.subtle.pressed'),
-    },
-  }),
-  'accent.blue.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.blue.bolder.pressed'),
-    },
-  }),
-  'accent.purple.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.purple.subtlest.pressed'),
-    },
-  }),
-  'accent.purple.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.purple.subtler.pressed'),
-    },
-  }),
-  'accent.purple.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.purple.subtle.pressed'),
-    },
-  }),
-  'accent.purple.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.purple.bolder.pressed'),
-    },
-  }),
-  'accent.magenta.subtlest': css({
-    ':active': {
-      backgroundColor: token(
-        'color.background.accent.magenta.subtlest.pressed',
-      ),
-    },
-  }),
-  'accent.magenta.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.magenta.subtler.pressed'),
-    },
-  }),
-  'accent.magenta.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.magenta.subtle.pressed'),
-    },
-  }),
-  'accent.magenta.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.magenta.bolder.pressed'),
-    },
-  }),
-  'accent.gray.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.gray.subtlest.pressed'),
-    },
-  }),
-  'accent.gray.subtler': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.gray.subtler.pressed'),
-    },
-  }),
-  'accent.gray.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.gray.subtle.pressed'),
-    },
-  }),
-  'accent.gray.bolder': css({
-    ':active': {
-      backgroundColor: token('color.background.accent.gray.bolder.pressed'),
-    },
-  }),
-  input: css({
-    ':active': { backgroundColor: token('color.background.input.pressed') },
-  }),
-  'inverse.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.inverse.subtle.pressed'),
-    },
-  }),
-  neutral: css({
-    ':active': { backgroundColor: token('color.background.neutral.pressed') },
-  }),
-  'neutral.subtle': css({
-    ':active': {
-      backgroundColor: token('color.background.neutral.subtle.pressed'),
-    },
-  }),
-  'neutral.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.neutral.bold.pressed'),
-    },
-  }),
-  selected: css({
-    ':active': { backgroundColor: token('color.background.selected.pressed') },
-  }),
-  'selected.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.selected.bold.pressed'),
-    },
-  }),
-  'brand.subtlest': css({
-    ':active': {
-      backgroundColor: token('color.background.brand.subtlest.pressed'),
-    },
-  }),
-  'brand.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.brand.bold.pressed'),
-    },
-  }),
-  'brand.boldest': css({
-    ':active': {
-      backgroundColor: token('color.background.brand.boldest.pressed'),
-    },
-  }),
-  danger: css({
-    ':active': { backgroundColor: token('color.background.danger.pressed') },
-  }),
-  'danger.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.danger.bold.pressed'),
-    },
-  }),
-  warning: css({
-    ':active': { backgroundColor: token('color.background.warning.pressed') },
-  }),
-  'warning.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.warning.bold.pressed'),
-    },
-  }),
-  success: css({
-    ':active': { backgroundColor: token('color.background.success.pressed') },
-  }),
-  'success.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.success.bold.pressed'),
-    },
-  }),
-  discovery: css({
-    ':active': { backgroundColor: token('color.background.discovery.pressed') },
-  }),
-  'discovery.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.discovery.bold.pressed'),
-    },
-  }),
-  information: css({
-    ':active': {
-      backgroundColor: token('color.background.information.pressed'),
-    },
-  }),
-  'information.bold': css({
-    ':active': {
-      backgroundColor: token('color.background.information.bold.pressed'),
-    },
-  }),
-  'elevation.surface': css({
-    ':active': { backgroundColor: token('elevation.surface.pressed') },
-  }),
-  'elevation.surface.overlay': css({
-    ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
-  }),
-  'elevation.surface.raised': css({
-    ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
-  }),
+    'accent.lime.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.lime.subtlest.pressed') },
+    }),
+    'accent.lime.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.lime.subtler.pressed') },
+    }),
+    'accent.lime.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.lime.subtle.pressed') },
+    }),
+    'accent.lime.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.lime.bolder.pressed') },
+    }),
+    'accent.red.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.red.subtlest.pressed') },
+    }),
+    'accent.red.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.red.subtler.pressed') },
+    }),
+    'accent.red.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.red.subtle.pressed') },
+    }),
+    'accent.red.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.red.bolder.pressed') },
+    }),
+    'accent.orange.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.orange.subtlest.pressed') },
+    }),
+    'accent.orange.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.orange.subtler.pressed') },
+    }),
+    'accent.orange.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.orange.subtle.pressed') },
+    }),
+    'accent.orange.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.orange.bolder.pressed') },
+    }),
+    'accent.yellow.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.yellow.subtlest.pressed') },
+    }),
+    'accent.yellow.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.yellow.subtler.pressed') },
+    }),
+    'accent.yellow.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.yellow.subtle.pressed') },
+    }),
+    'accent.yellow.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.yellow.bolder.pressed') },
+    }),
+    'accent.green.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.green.subtlest.pressed') },
+    }),
+    'accent.green.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.green.subtler.pressed') },
+    }),
+    'accent.green.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.green.subtle.pressed') },
+    }),
+    'accent.green.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.green.bolder.pressed') },
+    }),
+    'accent.teal.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.teal.subtlest.pressed') },
+    }),
+    'accent.teal.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.teal.subtler.pressed') },
+    }),
+    'accent.teal.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.teal.subtle.pressed') },
+    }),
+    'accent.teal.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.teal.bolder.pressed') },
+    }),
+    'accent.blue.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.blue.subtlest.pressed') },
+    }),
+    'accent.blue.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.blue.subtler.pressed') },
+    }),
+    'accent.blue.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.blue.subtle.pressed') },
+    }),
+    'accent.blue.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.blue.bolder.pressed') },
+    }),
+    'accent.purple.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.purple.subtlest.pressed') },
+    }),
+    'accent.purple.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.purple.subtler.pressed') },
+    }),
+    'accent.purple.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.purple.subtle.pressed') },
+    }),
+    'accent.purple.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.purple.bolder.pressed') },
+    }),
+    'accent.magenta.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.magenta.subtlest.pressed') },
+    }),
+    'accent.magenta.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.magenta.subtler.pressed') },
+    }),
+    'accent.magenta.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.magenta.subtle.pressed') },
+    }),
+    'accent.magenta.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.magenta.bolder.pressed') },
+    }),
+    'accent.gray.subtlest': css({
+        ':active': { backgroundColor: token('color.background.accent.gray.subtlest.pressed') },
+    }),
+    'accent.gray.subtler': css({
+        ':active': { backgroundColor: token('color.background.accent.gray.subtler.pressed') },
+    }),
+    'accent.gray.subtle': css({
+        ':active': { backgroundColor: token('color.background.accent.gray.subtle.pressed') },
+    }),
+    'accent.gray.bolder': css({
+        ':active': { backgroundColor: token('color.background.accent.gray.bolder.pressed') },
+    }),
+    input: css({
+        ':active': { backgroundColor: token('color.background.input.pressed') },
+    }),
+    'inverse.subtle': css({
+        ':active': { backgroundColor: token('color.background.inverse.subtle.pressed') },
+    }),
+    neutral: css({
+        ':active': { backgroundColor: token('color.background.neutral.pressed') },
+    }),
+    'neutral.subtle': css({
+        ':active': { backgroundColor: token('color.background.neutral.subtle.pressed') },
+    }),
+    'neutral.bold': css({
+        ':active': { backgroundColor: token('color.background.neutral.bold.pressed') },
+    }),
+    selected: css({
+        ':active': { backgroundColor: token('color.background.selected.pressed') },
+    }),
+    'selected.bold': css({
+        ':active': { backgroundColor: token('color.background.selected.bold.pressed') },
+    }),
+    'brand.subtlest': css({
+        ':active': { backgroundColor: token('color.background.brand.subtlest.pressed') },
+    }),
+    'brand.bold': css({
+        ':active': { backgroundColor: token('color.background.brand.bold.pressed') },
+    }),
+    'brand.boldest': css({
+        ':active': { backgroundColor: token('color.background.brand.boldest.pressed') },
+    }),
+    danger: css({
+        ':active': { backgroundColor: token('color.background.danger.pressed') },
+    }),
+    'danger.bold': css({
+        ':active': { backgroundColor: token('color.background.danger.bold.pressed') },
+    }),
+    warning: css({
+        ':active': { backgroundColor: token('color.background.warning.pressed') },
+    }),
+    'warning.bold': css({
+        ':active': { backgroundColor: token('color.background.warning.bold.pressed') },
+    }),
+    success: css({
+        ':active': { backgroundColor: token('color.background.success.pressed') },
+    }),
+    'success.bold': css({
+        ':active': { backgroundColor: token('color.background.success.bold.pressed') },
+    }),
+    discovery: css({
+        ':active': { backgroundColor: token('color.background.discovery.pressed') },
+    }),
+    'discovery.bold': css({
+        ':active': { backgroundColor: token('color.background.discovery.bold.pressed') },
+    }),
+    information: css({
+        ':active': { backgroundColor: token('color.background.information.pressed') },
+    }),
+    'information.bold': css({
+        ':active': { backgroundColor: token('color.background.information.bold.pressed') },
+    }),
+    'elevation.surface': css({
+        ':active': { backgroundColor: token('elevation.surface.pressed') },
+    }),
+    'elevation.surface.overlay': css({
+        ':active': { backgroundColor: token('elevation.surface.overlay.pressed') },
+    }),
+    'elevation.surface.raised': css({
+        ':active': { backgroundColor: token('elevation.surface.raised.pressed') },
+    }),
 };
 
 const backgroundHoverColorMap = {
-  'accent.lime.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.lime.subtlest.hovered'),
-    },
-  }),
-  'accent.lime.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.lime.subtler.hovered'),
-    },
-  }),
-  'accent.lime.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.lime.subtle.hovered'),
-    },
-  }),
-  'accent.lime.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.lime.bolder.hovered'),
-    },
-  }),
-  'accent.red.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.red.subtlest.hovered'),
-    },
-  }),
-  'accent.red.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.red.subtler.hovered'),
-    },
-  }),
-  'accent.red.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.red.subtle.hovered'),
-    },
-  }),
-  'accent.red.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.red.bolder.hovered'),
-    },
-  }),
-  'accent.orange.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.orange.subtlest.hovered'),
-    },
-  }),
-  'accent.orange.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.orange.subtler.hovered'),
-    },
-  }),
-  'accent.orange.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.orange.subtle.hovered'),
-    },
-  }),
-  'accent.orange.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.orange.bolder.hovered'),
-    },
-  }),
-  'accent.yellow.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.yellow.subtlest.hovered'),
-    },
-  }),
-  'accent.yellow.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.yellow.subtler.hovered'),
-    },
-  }),
-  'accent.yellow.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.yellow.subtle.hovered'),
-    },
-  }),
-  'accent.yellow.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.yellow.bolder.hovered'),
-    },
-  }),
-  'accent.green.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.green.subtlest.hovered'),
-    },
-  }),
-  'accent.green.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.green.subtler.hovered'),
-    },
-  }),
-  'accent.green.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.green.subtle.hovered'),
-    },
-  }),
-  'accent.green.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.green.bolder.hovered'),
-    },
-  }),
-  'accent.teal.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.teal.subtlest.hovered'),
-    },
-  }),
-  'accent.teal.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.teal.subtler.hovered'),
-    },
-  }),
-  'accent.teal.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.teal.subtle.hovered'),
-    },
-  }),
-  'accent.teal.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.teal.bolder.hovered'),
-    },
-  }),
-  'accent.blue.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.blue.subtlest.hovered'),
-    },
-  }),
-  'accent.blue.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.blue.subtler.hovered'),
-    },
-  }),
-  'accent.blue.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.blue.subtle.hovered'),
-    },
-  }),
-  'accent.blue.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.blue.bolder.hovered'),
-    },
-  }),
-  'accent.purple.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.purple.subtlest.hovered'),
-    },
-  }),
-  'accent.purple.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.purple.subtler.hovered'),
-    },
-  }),
-  'accent.purple.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.purple.subtle.hovered'),
-    },
-  }),
-  'accent.purple.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.purple.bolder.hovered'),
-    },
-  }),
-  'accent.magenta.subtlest': css({
-    ':hover': {
-      backgroundColor: token(
-        'color.background.accent.magenta.subtlest.hovered',
-      ),
-    },
-  }),
-  'accent.magenta.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.magenta.subtler.hovered'),
-    },
-  }),
-  'accent.magenta.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.magenta.subtle.hovered'),
-    },
-  }),
-  'accent.magenta.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.magenta.bolder.hovered'),
-    },
-  }),
-  'accent.gray.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.gray.subtlest.hovered'),
-    },
-  }),
-  'accent.gray.subtler': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.gray.subtler.hovered'),
-    },
-  }),
-  'accent.gray.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.gray.subtle.hovered'),
-    },
-  }),
-  'accent.gray.bolder': css({
-    ':hover': {
-      backgroundColor: token('color.background.accent.gray.bolder.hovered'),
-    },
-  }),
-  input: css({
-    ':hover': { backgroundColor: token('color.background.input.hovered') },
-  }),
-  'inverse.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.inverse.subtle.hovered'),
-    },
-  }),
-  neutral: css({
-    ':hover': { backgroundColor: token('color.background.neutral.hovered') },
-  }),
-  'neutral.subtle': css({
-    ':hover': {
-      backgroundColor: token('color.background.neutral.subtle.hovered'),
-    },
-  }),
-  'neutral.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.neutral.bold.hovered'),
-    },
-  }),
-  selected: css({
-    ':hover': { backgroundColor: token('color.background.selected.hovered') },
-  }),
-  'selected.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.selected.bold.hovered'),
-    },
-  }),
-  'brand.subtlest': css({
-    ':hover': {
-      backgroundColor: token('color.background.brand.subtlest.hovered'),
-    },
-  }),
-  'brand.bold': css({
-    ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
-  }),
-  'brand.boldest': css({
-    ':hover': {
-      backgroundColor: token('color.background.brand.boldest.hovered'),
-    },
-  }),
-  danger: css({
-    ':hover': { backgroundColor: token('color.background.danger.hovered') },
-  }),
-  'danger.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.danger.bold.hovered'),
-    },
-  }),
-  warning: css({
-    ':hover': { backgroundColor: token('color.background.warning.hovered') },
-  }),
-  'warning.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.warning.bold.hovered'),
-    },
-  }),
-  success: css({
-    ':hover': { backgroundColor: token('color.background.success.hovered') },
-  }),
-  'success.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.success.bold.hovered'),
-    },
-  }),
-  discovery: css({
-    ':hover': { backgroundColor: token('color.background.discovery.hovered') },
-  }),
-  'discovery.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.discovery.bold.hovered'),
-    },
-  }),
-  information: css({
-    ':hover': {
-      backgroundColor: token('color.background.information.hovered'),
-    },
-  }),
-  'information.bold': css({
-    ':hover': {
-      backgroundColor: token('color.background.information.bold.hovered'),
-    },
-  }),
-  'elevation.surface': css({
-    ':hover': { backgroundColor: token('elevation.surface.hovered') },
-  }),
-  'elevation.surface.overlay': css({
-    ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
-  }),
-  'elevation.surface.raised': css({
-    ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
-  }),
+    'accent.lime.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.lime.subtlest.hovered') },
+    }),
+    'accent.lime.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.lime.subtler.hovered') },
+    }),
+    'accent.lime.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.lime.subtle.hovered') },
+    }),
+    'accent.lime.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.lime.bolder.hovered') },
+    }),
+    'accent.red.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.red.subtlest.hovered') },
+    }),
+    'accent.red.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.red.subtler.hovered') },
+    }),
+    'accent.red.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.red.subtle.hovered') },
+    }),
+    'accent.red.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.red.bolder.hovered') },
+    }),
+    'accent.orange.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.orange.subtlest.hovered') },
+    }),
+    'accent.orange.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.orange.subtler.hovered') },
+    }),
+    'accent.orange.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.orange.subtle.hovered') },
+    }),
+    'accent.orange.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.orange.bolder.hovered') },
+    }),
+    'accent.yellow.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.yellow.subtlest.hovered') },
+    }),
+    'accent.yellow.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.yellow.subtler.hovered') },
+    }),
+    'accent.yellow.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.yellow.subtle.hovered') },
+    }),
+    'accent.yellow.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.yellow.bolder.hovered') },
+    }),
+    'accent.green.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.green.subtlest.hovered') },
+    }),
+    'accent.green.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.green.subtler.hovered') },
+    }),
+    'accent.green.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.green.subtle.hovered') },
+    }),
+    'accent.green.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.green.bolder.hovered') },
+    }),
+    'accent.teal.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.teal.subtlest.hovered') },
+    }),
+    'accent.teal.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.teal.subtler.hovered') },
+    }),
+    'accent.teal.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.teal.subtle.hovered') },
+    }),
+    'accent.teal.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.teal.bolder.hovered') },
+    }),
+    'accent.blue.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.blue.subtlest.hovered') },
+    }),
+    'accent.blue.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.blue.subtler.hovered') },
+    }),
+    'accent.blue.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.blue.subtle.hovered') },
+    }),
+    'accent.blue.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.blue.bolder.hovered') },
+    }),
+    'accent.purple.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.purple.subtlest.hovered') },
+    }),
+    'accent.purple.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.purple.subtler.hovered') },
+    }),
+    'accent.purple.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.purple.subtle.hovered') },
+    }),
+    'accent.purple.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.purple.bolder.hovered') },
+    }),
+    'accent.magenta.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.magenta.subtlest.hovered') },
+    }),
+    'accent.magenta.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.magenta.subtler.hovered') },
+    }),
+    'accent.magenta.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.magenta.subtle.hovered') },
+    }),
+    'accent.magenta.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.magenta.bolder.hovered') },
+    }),
+    'accent.gray.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.accent.gray.subtlest.hovered') },
+    }),
+    'accent.gray.subtler': css({
+        ':hover': { backgroundColor: token('color.background.accent.gray.subtler.hovered') },
+    }),
+    'accent.gray.subtle': css({
+        ':hover': { backgroundColor: token('color.background.accent.gray.subtle.hovered') },
+    }),
+    'accent.gray.bolder': css({
+        ':hover': { backgroundColor: token('color.background.accent.gray.bolder.hovered') },
+    }),
+    input: css({
+        ':hover': { backgroundColor: token('color.background.input.hovered') },
+    }),
+    'inverse.subtle': css({
+        ':hover': { backgroundColor: token('color.background.inverse.subtle.hovered') },
+    }),
+    neutral: css({
+        ':hover': { backgroundColor: token('color.background.neutral.hovered') },
+    }),
+    'neutral.subtle': css({
+        ':hover': { backgroundColor: token('color.background.neutral.subtle.hovered') },
+    }),
+    'neutral.bold': css({
+        ':hover': { backgroundColor: token('color.background.neutral.bold.hovered') },
+    }),
+    selected: css({
+        ':hover': { backgroundColor: token('color.background.selected.hovered') },
+    }),
+    'selected.bold': css({
+        ':hover': { backgroundColor: token('color.background.selected.bold.hovered') },
+    }),
+    'brand.subtlest': css({
+        ':hover': { backgroundColor: token('color.background.brand.subtlest.hovered') },
+    }),
+    'brand.bold': css({
+        ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
+    }),
+    'brand.boldest': css({
+        ':hover': { backgroundColor: token('color.background.brand.boldest.hovered') },
+    }),
+    danger: css({
+        ':hover': { backgroundColor: token('color.background.danger.hovered') },
+    }),
+    'danger.bold': css({
+        ':hover': { backgroundColor: token('color.background.danger.bold.hovered') },
+    }),
+    warning: css({
+        ':hover': { backgroundColor: token('color.background.warning.hovered') },
+    }),
+    'warning.bold': css({
+        ':hover': { backgroundColor: token('color.background.warning.bold.hovered') },
+    }),
+    success: css({
+        ':hover': { backgroundColor: token('color.background.success.hovered') },
+    }),
+    'success.bold': css({
+        ':hover': { backgroundColor: token('color.background.success.bold.hovered') },
+    }),
+    discovery: css({
+        ':hover': { backgroundColor: token('color.background.discovery.hovered') },
+    }),
+    'discovery.bold': css({
+        ':hover': { backgroundColor: token('color.background.discovery.bold.hovered') },
+    }),
+    information: css({
+        ':hover': { backgroundColor: token('color.background.information.hovered') },
+    }),
+    'information.bold': css({
+        ':hover': { backgroundColor: token('color.background.information.bold.hovered') },
+    }),
+    'elevation.surface': css({
+        ':hover': { backgroundColor: token('elevation.surface.hovered') },
+    }),
+    'elevation.surface.overlay': css({
+        ':hover': { backgroundColor: token('elevation.surface.overlay.hovered') },
+    }),
+    'elevation.surface.raised': css({
+        ':hover': { backgroundColor: token('elevation.surface.raised.hovered') },
+    }),
 };
 
 type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
@@ -744,45 +530,45 @@ type InteractionBackgroundColor = keyof typeof backgroundHoverColorMap;
 
 exports[`@atlaskit/design-system-explorations text styles are generated correctly 1`] = `
 "const textColorMap = {
-  'color.text': css({
-    color: token('color.text', '#172B4D'),
-  }),
-  disabled: css({
-    color: token('color.text.disabled', '#A5ADBA'),
-  }),
-  inverse: css({
-    color: token('color.text.inverse', '#FFFFFF'),
-  }),
-  selected: css({
-    color: token('color.text.selected', '#0052CC'),
-  }),
-  brand: css({
-    color: token('color.text.brand', '#0065FF'),
-  }),
-  danger: css({
-    color: token('color.text.danger', '#DE350B'),
-  }),
-  warning: css({
-    color: token('color.text.warning', '#974F0C'),
-  }),
-  'warning.inverse': css({
-    color: token('color.text.warning.inverse', '#172B4D'),
-  }),
-  success: css({
-    color: token('color.text.success', '#006644'),
-  }),
-  discovery: css({
-    color: token('color.text.discovery', '#403294'),
-  }),
-  information: css({
-    color: token('color.text.information', '#0052CC'),
-  }),
-  subtlest: css({
-    color: token('color.text.subtlest', '#7A869A'),
-  }),
-  subtle: css({
-    color: token('color.text.subtle', '#42526E'),
-  }),
+    'color.text': css({
+        color: token('color.text', '#172B4D'),
+    }),
+    disabled: css({
+        color: token('color.text.disabled', '#A5ADBA'),
+    }),
+    inverse: css({
+        color: token('color.text.inverse', '#FFFFFF'),
+    }),
+    selected: css({
+        color: token('color.text.selected', '#0052CC'),
+    }),
+    brand: css({
+        color: token('color.text.brand', '#0065FF'),
+    }),
+    danger: css({
+        color: token('color.text.danger', '#DE350B'),
+    }),
+    warning: css({
+        color: token('color.text.warning', '#974F0C'),
+    }),
+    'warning.inverse': css({
+        color: token('color.text.warning.inverse', '#172B4D'),
+    }),
+    success: css({
+        color: token('color.text.success', '#006644'),
+    }),
+    discovery: css({
+        color: token('color.text.discovery', '#403294'),
+    }),
+    information: css({
+        color: token('color.text.information', '#0052CC'),
+    }),
+    subtlest: css({
+        color: token('color.text.subtlest', '#7A869A'),
+    }),
+    subtle: css({
+        color: token('color.text.subtle', '#42526E'),
+    }),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

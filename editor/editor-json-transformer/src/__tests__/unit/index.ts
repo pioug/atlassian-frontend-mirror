@@ -5,6 +5,7 @@ import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { DocBuilder } from '@atlaskit/editor-common/types';
+import { highlightPlugin } from '@atlaskit/editor-plugin-highlight';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -14,6 +15,7 @@ import type { Options } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
   a,
+  backgroundColor,
   blockquote,
   border,
   br,
@@ -96,6 +98,7 @@ describe('JSONTransformer:', () => {
     const editor = (doc: DocBuilder, options?: Pick<Options, 'editorProps'>) =>
       createEditor({
         doc,
+        editorPlugins: [highlightPlugin({ config: undefined })],
         editorProps: {
           emojiProvider: new Promise(() => {}),
           mentionProvider: new Promise(() => {}),
@@ -158,6 +161,7 @@ describe('JSONTransformer:', () => {
             'plain text',
             strike('hey'),
             textColor({ color: 'red' })('Red :D'),
+            backgroundColor({ color: 'red' })('Highlight Red'),
           ),
           ul(li(p('ichi')), li(p('ni')), li(p('san'))),
           ol()(li(p('ek')), li(p('dui')), li(p('tin'))),

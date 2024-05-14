@@ -1,7 +1,7 @@
-import React, { ReactNode, useRef } from 'react';
+import React, { type ReactNode, useEffect, useRef } from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-hooks/dom';
 
 import setGlobalTheme from '../../set-global-theme';
 import useThemeObserver from '../../use-theme-observer';
@@ -68,7 +68,10 @@ const ThemedComponent = () => {
 };
 
 const HookWrapper = ({ isAuto, children }: HookWrapperProps) => {
-  setGlobalTheme({ colorMode: isAuto ? 'auto' : 'dark' });
+  useEffect(() => {
+    setGlobalTheme({ colorMode: isAuto ? 'auto' : 'dark' });
+  }, [isAuto]);
+
   return <>{children}</>;
 };
 

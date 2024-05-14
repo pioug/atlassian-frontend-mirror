@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import {
+  createEvent,
+  fireEvent,
+  render,
+  waitFor,
+} from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 
@@ -125,5 +130,48 @@ describe('MediaSvg', () => {
 
     await waitFor(() => expect(onError).toBeCalledTimes(1));
     expect(onError).toHaveBeenCalledWith(error);
+  });
+
+  it('should render the local binary if available', async () => {
+    const [fileItem, identifier] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider, uploadItem, mediaApi } =
+      createMockedMediaClientProvider({});
+
+    jest.spyOn(mediaApi, 'getFileBinary');
+
+    // Adds a local preview to the state
+    uploadItem(fileItem, 0.8);
+
+    const testId = 'media-svg';
+
+    const { findByTestId } = render(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier} />,
+      </MockedMediaClientProvider>,
+    );
+
+    const elem = await findByTestId(testId);
+    expect(elem.getAttribute('data-source')).toBe('local');
+    expect(mediaApi.getFileBinary).toBeCalledTimes(0);
+  });
+
+  it('should disable context menu', async () => {
+    // https://asecurityteam.atlassian.net/browse/PSHELP-42057
+    const [fileItem, identifier] = generateSampleFileItem.svg();
+    const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+      initialItems: fileItem,
+    });
+    const testId = 'media-svg';
+
+    const { findByTestId } = render(
+      <MockedMediaClientProvider>
+        <MediaSvg testId={testId} identifier={identifier} />,
+      </MockedMediaClientProvider>,
+    );
+
+    const img = await findByTestId(testId);
+    const evt = createEvent.contextMenu(img);
+    fireEvent(img, evt);
+    expect(evt.defaultPrevented).toBe(true);
   });
 });

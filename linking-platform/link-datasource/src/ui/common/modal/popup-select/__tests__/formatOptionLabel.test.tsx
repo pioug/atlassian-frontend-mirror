@@ -46,15 +46,14 @@ describe('Testing formatOptionLabel', () => {
   });
 
   it('should default to icon+label component when optionType is invalid', () => {
-    const { queryByTestId } = setup({
+    const { container } = setup({
       optionType: 'blablabla' as any,
       label: 'Bob',
       value: 'bob',
       icon: '',
     });
 
-    expect(
-      queryByTestId('basic-filter-popup-select-option--icon-label'),
-    ).toBeInTheDocument();
+    // Assert that the container contains no children
+    expect(container.childNodes.length).toBe(0);
   });
 });

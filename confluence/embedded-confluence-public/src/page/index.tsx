@@ -1,4 +1,4 @@
-import React, { ComponentProps } from 'react';
+import React, { type ComponentProps } from 'react';
 import { I18nProvider } from '@atlassian/embedded-confluence-common';
 import fetchTranslations from '../i18n/fetchTranslations';
 import { Page as Component } from './Page';

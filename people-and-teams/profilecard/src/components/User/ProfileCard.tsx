@@ -90,7 +90,13 @@ const useKudos = (
 };
 
 const Wrapper = (props: { children: React.ReactNode }) => (
-  <CardWrapper data-testid="profilecard">{props.children}</CardWrapper>
+  <CardWrapper
+    data-testid="profilecard"
+    role="dialog"
+    aria-labelledby="profilecard-name-label"
+  >
+    {props.children}
+  </CardWrapper>
 );
 
 export const ProfilecardInternal = (

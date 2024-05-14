@@ -21,6 +21,8 @@ import type { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { TextHighlighter } from '../react/types';
 
+export type { NodeComponentsProps } from './Renderer/types';
+
 export interface RawObjectFeatureFlags {
   ['renderer-render-tracking']: string;
 }

@@ -1,5 +1,11 @@
 # @atlaskit/analytics-next
 
+## 9.3.0
+
+### Minor Changes
+
+- [#92779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/92779) [`3aa3cd8db606`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3aa3cd8db606) - Improve compatibility with React 18
+
 ## 9.2.3
 
 ### Patch Changes

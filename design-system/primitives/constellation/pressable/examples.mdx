@@ -1,13 +1,18 @@
 ---
 title: Pressable
-description: A pressable is a primitive used for building custom buttons.
+description: A pressable is a primitive for building custom buttons.
 order: 0
 ---
 
 import PressableDefault from '../../examples/constellation/pressable/default';
 import PressableBasic from '../../examples/constellation/pressable/basic';
 import PressableStyled from '../../examples/constellation/pressable/styled';
+import PressableWithoutVisibleLabels from '../../examples/constellation/pressable/without-visible-labels';
 import PressableDisabled from '../../examples/constellation/pressable/disabled';
+import PressableHtmlAttributes from '../../examples/constellation/pressable/html-attributes';
+import PressablePressTracing from '../../examples/constellation/pressable/press-tracing';
+import PressableAnalytics from '../../examples/constellation/pressable/analytics';
+import PressableAnalyticsGASv3 from '../../examples/constellation/pressable/analytics-gasv3';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 import SectionMessage from '@atlaskit/section-message';
@@ -18,9 +23,9 @@ import SectionMessage from '@atlaskit/section-message';
   directoryName="primitives"
 />
 
-Pressable is a primitive used for building custom buttons with Atlassian Design System styling. This component is used by other design system components, such as the [Button component](/components/button/examples).
+Pressable is a primitive used for building custom buttons with Atlassian Design System styling and built-in event tracking. It renders a `<button>` element.
 
-Only use Pressable when [the Button component](/components/button/examples) is unsuitable and unable to be customized with [XCSS](/components/primitives/xcss/usage).
+Only use Pressable when existing components such as [Button](/components/button/examples) are unsuitable and unable to be customized to fit your needs.
 
 ## Default
 
@@ -33,15 +38,23 @@ Pressable is unstyled by default.
 
 ## Basic styling with XCSS
 
-Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover` and `:active` pseudo-classes.
-
-By default, pressable includes consistent Atlassian Design System `:focus` styles so it's not necessary to add your own.
+Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover` and `:active` pseudo-classes. Pressable includes consistent Atlassian Design System `:focus` styles, so it's unnecessary to add your own.
 
 For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
 
 <Example
   Component={PressableBasic}
   packageName="@atlaskit/primitives/pressable"
+/>
+
+## Advanced styling
+
+Use a combination of XCSS and other primitives for more complex designs.
+
+<Example
+  Component={PressableStyled}
+  packageName="@atlaskit/primitives/pressable"
+  backgroundColor="white"
 />
 
 ## Disabled
@@ -53,12 +66,60 @@ Pressable can be disabled using the `isDisabled` prop. Disabled styles should be
   packageName="@atlaskit/primitives/pressable"
 />
 
-## Advanced styling
+## Buttons without visible labels
 
-Advanced styling can be achieved using a combination of XCSS and other primitives.
+For buttons without visible labels such as icon buttons, ensure an accessible label is still available by using [the visually hidden component](/components/visually-hidden/examples). This will render hidden text inside the button, which is preferable over the `aria-label` attribute because not all screen readers translate this between languages.
+
+Provide a tooltip to help sighted users understand the button's purpose rather than relying on iconography alone.
 
 <Example
-  Component={PressableStyled}
+  Component={PressableWithoutVisibleLabels}
   packageName="@atlaskit/primitives/pressable"
   backgroundColor="white"
+/>
+
+## HTML attributes
+
+Pressable passes through all valid HTML attributes to the underlying `<button>` element. It will default the `type` attribute to `button` to prevent buttons unintentionally submitting forms.
+
+<Example
+  Component={PressableHtmlAttributes}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+## Event tracking
+
+Pressable has utilities to make tracking events easier. Events will not be captured unless listeners are setup to handle them.
+
+### React UFO press interactions
+
+By default, pressable fires [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions) for available listeners. This helps Atlassian measure performance and reliability. Additional detail can be provided using the `interactionName` prop.
+
+<Example
+  Component={PressablePressTracing}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+### Atlaskit analytics
+
+Pressable comes with built-in Atlaskit analytics support using the [Analytics next package](https://atlaskit.atlassian.com/packages/analytics/analytics-next), and fires events for available listeners. Currently this is only available for `onClick`.
+
+It always fires events on the `atlaskit` channel. To also fire events on other channels, use the provided `analyticsEvent` in `onClick`. To configure event data, use `componentName` (defaults to 'Pressable') and `analyticsContext` for passing other metadata.
+
+See the event data in the console.
+
+<Example
+  Component={PressableAnalytics}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+### GASv3 analytics
+
+The Atlassian analytics bridge makes Atlaskit analytics events compatible with GASv3 (Global Analytics Service). This can also inject an `actionSubjectId` to the event if required.
+
+See the event data in the console.
+
+<Example
+  Component={PressableAnalyticsGASv3}
+  packageName="@atlaskit/primitives/pressable"
 />

@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { AvatarList, Avatar } from '../avatar-list';
+import { AvatarList, type Avatar } from '../avatar-list';
 
 import EditorMoreIcon from '@atlaskit/icon/glyph/editor/more';
 import Button from '@atlaskit/button/standard-button';
@@ -15,6 +15,7 @@ export interface PredefinedAvatarListProps {
   onShowMore?: () => void;
   onAvatarSelected: (avatar: Avatar) => void;
   selectAvatarLabel?: string;
+  showMoreAvatarsButtonLabel?: string;
 }
 
 export const PredefinedAvatarList = ({
@@ -23,6 +24,7 @@ export const PredefinedAvatarList = ({
   onShowMore,
   onAvatarSelected,
   selectAvatarLabel,
+  showMoreAvatarsButtonLabel
 }: PredefinedAvatarListProps) => {
   const intl = useIntl();
 
@@ -35,7 +37,7 @@ export const PredefinedAvatarList = ({
         selectAvatarLabel={selectAvatarLabel}
       />
       <Button
-        aria-label={intl.formatMessage(messages.show_more_avatars_btn_label)}
+        aria-label={ showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label) }
         className="show-more-button"
         appearance="subtle"
         iconAfter={<EditorMoreIcon label="" size="large" />}

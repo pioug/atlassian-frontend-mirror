@@ -8,11 +8,11 @@ const BannerErrorExample = () => {
   return (
     <Banner
       appearance="error"
-      icon={<ErrorIcon label="" secondaryColor="inherit" />}
+      icon={<ErrorIcon label="Error" secondaryColor="inherit" />}
     >
-      Bitbucket is experiencing an incident, but we’re on it. Check our status
+      Bitbucket is experiencing an incident. Check our status
       page for more details.{' '}
-      <a href="http://www.bitbucket.com">Learn more about Bitbucket</a>
+      <a href="http://www.bitbucket.com">Status page</a>
     </Banner>
   );
 };

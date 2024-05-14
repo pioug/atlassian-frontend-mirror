@@ -14,12 +14,6 @@ import LegacyButton from '../src/old-button/button';
 import LoadingButton from '../src/old-button/loading-button';
 import variants, { type Variant } from '../src/utils/variants';
 
-const overlay = (
-  <span role="img" aria-label="Smiley face">
-    🙂
-  </span>
-);
-
 const shouldFitContainerStyles = xcss({ width: 'size.1000' });
 const longLabelStyles = xcss({ width: 'size.600' });
 
@@ -265,70 +259,6 @@ const ExampleRow = ({
         )}
       </td>
       <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          // @ts-ignore
-          spacing={spacing}
-          // @ts-ignore
-          iconBefore={
-            version === 'legacy' ? <SettingsIcon label="" /> : SettingsIcon
-          }
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          isDisabled
-          // @ts-ignore
-          spacing={spacing}
-          // @ts-ignore
-          iconBefore={
-            version === 'legacy' ? <SettingsIcon label="" /> : SettingsIcon
-          }
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          isSelected
-          // @ts-ignore
-          spacing={spacing}
-          // @ts-ignore
-          iconBefore={
-            version === 'legacy' ? <SettingsIcon label="" /> : SettingsIcon
-          }
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
-        <Component
-          // @ts-ignore
-          appearance={appearance}
-          overlay={overlay}
-          isSelected
-          isDisabled
-          // @ts-ignore
-          spacing={spacing}
-          // @ts-ignore
-          iconBefore={
-            version === 'legacy' ? <SettingsIcon label="" /> : SettingsIcon
-          }
-        >
-          {isIconOnly ? null : 'Hello'}
-        </Component>
-      </td>
-      <td>
         <Box xcss={shouldFitContainerStyles}>
           <Component
             // @ts-ignore
@@ -418,10 +348,6 @@ export default function AllCombinationsExample() {
                         <th>Loading + Disabled</th>
                         <th>Loading + Selected</th>
                         <th>Loading + Disabled + Selected</th>
-                        <th>Overlay</th>
-                        <th>Disabled + Overlay</th>
-                        <th>Selected + Overlay</th>
-                        <th>Disabled + Overlay + Selected</th>
                         <th>Should fit container</th>
                         <th>Truncation</th>
                       </tr>

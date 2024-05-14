@@ -1,6 +1,7 @@
 import rafSchedule from 'raf-schd';
 
 import type {
+  ExtractInjectionAPI,
   getPosHandler,
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
@@ -8,14 +9,16 @@ import { browser } from '@atlaskit/editor-common/utils';
 import type { DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { resetShouldIgnoreFollowingMutations } from '../actions';
+import type { CodeBlockPlugin } from '../plugin';
 import { getPluginState } from '../pm-plugins/main-state';
 import { codeBlockClassNames } from '../ui/class-names';
 
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
-const toDOM = (node: Node) =>
+const toDOM = (node: Node, contentEditable: boolean) =>
   [
     'div',
     { class: 'code-block' },
@@ -32,7 +35,13 @@ const toDOM = (node: Node) =>
           {
             'data-language': node.attrs.language || '',
             spellcheck: 'false',
-            contenteditable: 'true',
+            contenteditable: getBooleanFF(
+              'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+            )
+              ? contentEditable
+                ? 'true'
+                : 'false'
+              : 'true',
             'data-testid': 'code-block--code',
           },
           0,
@@ -49,9 +58,22 @@ export class CodeBlockView {
   lineNumberGutter: HTMLElement;
   getPos: getPosHandlerNode;
   view: EditorView;
+  api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
-  constructor(node: Node, view: EditorView, getPos: getPosHandlerNode) {
-    const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOM(node));
+  constructor(
+    node: Node,
+    view: EditorView,
+    getPos: getPosHandlerNode,
+    api?: ExtractInjectionAPI<CodeBlockPlugin>,
+    private cleanupEditorDisabledListener?: () => void,
+  ) {
+    const { dom, contentDOM } = DOMSerializer.renderSpec(
+      document,
+      toDOM(
+        node,
+        !api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
+      ),
+    );
     this.getPos = getPos;
     this.view = view;
     this.node = node;
@@ -60,8 +82,29 @@ export class CodeBlockView {
     this.lineNumberGutter = this.dom.querySelector(
       `.${codeBlockClassNames.gutter}`,
     ) as HTMLElement;
+    this.api = api;
 
     this.ensureLineNumbers();
+    this.handleEditorDisabledChanged();
+  }
+
+  handleEditorDisabledChanged() {
+    if (
+      this.api?.editorDisabled &&
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      )
+    ) {
+      this.cleanupEditorDisabledListener =
+        this.api.editorDisabled.sharedState.onChange(sharedState => {
+          if (this.contentDOM) {
+            this.contentDOM.setAttribute(
+              'contenteditable',
+              sharedState.nextSharedState.editorDisabled ? 'false' : 'true',
+            );
+          }
+        });
+    }
   }
 
   updateDOMAndSelection(savedInnerHTML: string, newCursorPosition: number) {
@@ -174,10 +217,18 @@ export class CodeBlockView {
       record.target.parentNode === this.lineNumberGutter
     );
   }
+
+  destroy() {
+    if (this.cleanupEditorDisabledListener) {
+      this.cleanupEditorDisabledListener();
+    }
+    this.cleanupEditorDisabledListener = undefined;
+  }
 }
 
 export const codeBlockNodeView = (
   node: Node,
   view: EditorView,
   getPos: getPosHandler,
-) => new CodeBlockView(node, view, getPos as getPosHandlerNode);
+  api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
+) => new CodeBlockView(node, view, getPos as getPosHandlerNode, api);

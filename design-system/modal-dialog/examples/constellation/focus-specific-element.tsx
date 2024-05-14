@@ -31,8 +31,8 @@ export default function Example() {
             <ModalHeader>
               <ModalTitle>Sign up</ModalTitle>
               <Breadcrumbs>
-                <BreadcrumbsItem href="#" text="Projects" />
-                <BreadcrumbsItem href="#" text="Design System Team" />
+                <BreadcrumbsItem href="https://atlassian.design/" text="Projects" />
+                <BreadcrumbsItem href="https://atlassian.design/" text="Design System Team" />
               </Breadcrumbs>
             </ModalHeader>
             <ModalBody>
@@ -48,7 +48,7 @@ export default function Example() {
               </Field>
             </ModalBody>
             <ModalFooter>
-              <Button appearance="subtle">Learn more</Button>
+              <Button appearance="subtle">Account settings</Button>
               <Button appearance="primary" onClick={closeModal}>
                 Sign up
               </Button>

@@ -8,15 +8,15 @@ import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertItem } from '../provider-factory';
 
-const itemBefore = css`
-  width: 40px;
-  height: 40px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: ${token('space.050', '4px')};
-`;
+const itemBefore = css({
+  width: '40px',
+  height: '40px',
+  boxSizing: 'border-box',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginRight: token('space.050', '4px'),
+});
 
 export const ViewMore = ({
   item,
@@ -40,9 +40,9 @@ export const ViewMore = ({
         aria-describedby={item.title}
         data-testid="view-more-elements-item"
         // @ts-ignore Overriding Menu styles is not supported
-        css={css`
-          padding: 0px ${token('space.150', '12px')};
-        `}
+        css={css({
+          padding: `0px ${token('space.150', '12px')}`,
+        })}
         ref={ref}
       >
         {item.title}

@@ -15,11 +15,7 @@ export const renderCard = (client: CardClient, appearance: CardAppearance) => (
     client={client}
     featureFlags={{ enableFlexibleBlockCard: true }}
   >
-    <Card
-      url="https://some.url"
-      appearance={appearance}
-      showServerActions={true}
-    />
+    <Card url="https://some.url" appearance={appearance} />
   </SmartCardProvider>
 );
 

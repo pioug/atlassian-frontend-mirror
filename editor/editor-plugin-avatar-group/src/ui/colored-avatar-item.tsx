@@ -17,8 +17,9 @@ export interface ColoredAvatarItemProps {
 }
 
 export const ColoredAvatarItem = (props: ColoredAvatarItemProps) => {
-  const color = props.api?.collabEdit?.actions?.getAvatarColor(props.sessionId)
-    .color.solid;
+  const color = props.api?.collabEdit?.actions?.getAvatarColor(
+    props.sessionId,
+  ).color;
   const avatar = props.name.substr(0, 1).toUpperCase();
   return (
     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

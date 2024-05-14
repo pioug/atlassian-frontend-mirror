@@ -19,7 +19,6 @@ import Info from '@atlaskit/icon/glyph/info';
 import AddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
 import Select, { PopupSelect } from '@atlaskit/select';
-import { P300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -315,12 +314,7 @@ const generateFlagData = (flags: FlagData[]): FlagData => ({
   created: Date.now(),
   description:
     'Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod.',
-  icon: (
-    <Info
-      label="Info icon"
-      primaryColor={token('color.icon.discovery', P300)}
-    />
-  ),
+  icon: <Info label="Info icon" primaryColor={token('color.icon.discovery')} />,
   id: flags.length,
   key: flags.length,
   title: `${flags.length + 1}: Whoa a new flag!`,

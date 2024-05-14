@@ -38,5 +38,29 @@ describe('ActionBlock', () => {
 
     const previewAction = await findByTestId('smart-action-preview-action');
     expect(previewAction).toBeInTheDocument();
+
+    const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
+    expect(aiSummaryAction).toBeInTheDocument();
+
+  });
+
+  it('sorts list of actions', async () => {
+    const { findAllByRole, findByTestId } = setup();
+
+    const buttons = await findAllByRole('button');
+    const copyLinkAction = await findByTestId('smart-action-copy-link-action');
+    const downloadAction = await findByTestId('smart-action-download-action');
+    const followAction = await findByTestId('smart-action-follow-action');
+    const previewAction = await findByTestId('smart-action-preview-action');
+    const aiSummaryAction = await findByTestId(
+      'smart-action-ai-summary-action-summarise-action',
+    );
+
+    expect(buttons.length).toBe(5);
+    expect(buttons[0]).toBe(previewAction);
+    expect(buttons[1]).toBe(copyLinkAction);
+    expect(buttons[2]).toBe(aiSummaryAction);
+    expect(buttons[3]).toBe(downloadAction);
+    expect(buttons[4]).toBe(followAction);
   });
 });

@@ -13,13 +13,13 @@ import Spinner from '@atlaskit/spinner';
 import Button from '@atlaskit/button/custom-theme-button';
 
 import {
-  ProcessedFileState,
-  FileIdentifier,
-  FileState,
-  Identifier,
-  MediaClient,
-  MediaType,
-  MediaSubscribable,
+  type ProcessedFileState,
+  type FileIdentifier,
+  type FileState,
+  type Identifier,
+  type MediaClient,
+  type MediaType,
+  type MediaSubscribable,
   createMediaSubscribable,
 } from '@atlaskit/media-client';
 import {
@@ -29,18 +29,23 @@ import {
   nextTick,
   mountWithIntlWrapper,
 } from '@atlaskit/media-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { ItemViewer, ItemViewerBase } from '../../../item-viewer';
 import { ErrorMessage } from '../../../errorMessage';
-import { MediaViewerError, MediaViewerErrorReason } from '../../../errors';
+import { MediaViewerError, type MediaViewerErrorReason } from '../../../errors';
 import { ImageViewer } from '../../../viewers/image';
 import { ErrorViewDownloadButton } from '../../../download';
-import { VideoViewer, Props as VideoViewerProps } from '../../../viewers/video';
-import { AudioViewer, Props as AudioViewerProps } from '../../../viewers/audio';
+import {
+  VideoViewer,
+  type Props as VideoViewerProps,
+} from '../../../viewers/video';
+import {
+  AudioViewer,
+  type Props as AudioViewerProps,
+} from '../../../viewers/audio';
 import { DocViewer } from '../../../viewers/doc';
 import { InteractiveImg } from '../../../viewers/image/interactive-img';
 import ArchiveViewerLoader from '../../../viewers/archiveSidebar/archiveViewerLoader';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { type MediaFeatureFlags } from '@atlaskit/media-common';
 import { CodeViewer } from '../../../viewers/codeViewer';
 import Loadable from 'react-loadable';
 
@@ -296,45 +301,23 @@ describe('<ItemViewer />', () => {
     );
   });
 
-  describe('should show the document viewer if mimeType type is pdf and status is failed-processing', () => {
-    ffTest(
-      'platform.corex.password-protected-pdf_ht8re',
-      () => {
-        const state: FileState = {
-          id: identifier.id,
-          mediaType: 'doc',
-          status: 'failed-processing',
-          artifacts: {},
-          name: '',
-          size: 10,
-          mimeType: 'application/pdf',
-          representations: { image: {} },
-        };
-        const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-        const { el } = mountComponent(mediaClient, identifier);
-        el.update();
-        expect(el.find(DocViewer)).toHaveLength(1);
-        // MSW:720 - passes the collectionName along
-        expect(el.find(DocViewer).prop('collectionName')).toEqual(
-          identifier.collectionName,
-        );
-      },
-      () => {
-        const state: FileState = {
-          id: identifier.id,
-          mediaType: 'doc',
-          status: 'failed-processing',
-          artifacts: {},
-          name: '',
-          size: 10,
-          mimeType: 'application/pdf',
-          representations: { image: {} },
-        };
-        const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
-        const { el } = mountComponent(mediaClient, identifier);
-        el.update();
-        expect(el.find(DocViewer)).toHaveLength(0);
-      },
+  it('should show the document viewer if mimeType type is pdf and status is failed-processing', () => {
+    const state: FileState = {
+      id: identifier.id,
+      mediaType: 'doc',
+      status: 'failed-processing',
+      artifacts: {},
+      name: '',
+      size: 10,
+      mimeType: 'application/pdf',
+      representations: { image: {} },
+    };
+    const mediaClient = makeFakeMediaClient(createMediaSubscribable(state));
+    const { el } = mountComponent(mediaClient, identifier);
+    expect(el.find(DocViewer)).toHaveLength(1);
+    // MSW:720 - passes the collectionName along
+    expect(el.find(DocViewer).prop('collectionName')).toEqual(
+      identifier.collectionName,
     );
   });
 

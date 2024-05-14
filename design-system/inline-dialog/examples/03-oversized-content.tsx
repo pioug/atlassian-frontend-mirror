@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { G300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import InlineDialog from '../src';
@@ -12,7 +11,7 @@ const centeredContainerStyles = {
 };
 
 const targetStyles = {
-  background: token('color.background.success.bold', G300),
+  background: token('color.background.success.bold'),
   padding: '10px',
 };
 
@@ -25,7 +24,7 @@ const scrollContainerStyles = {
 const oversizedStyles = {
   height: '2000px',
   width: '2000px',
-  background: token('color.background.warning.bold', Y300),
+  background: token('color.background.warning.bold'),
 };
 
 const dialogContentStyles = (

@@ -494,8 +494,8 @@ export default class TableRow
 
     const { wrapper } = tree;
 
-    const tableContainer = wrapper.parentElement!;
-    const tableContentWrapper = tableContainer.parentElement;
+    const tableContainer = wrapper.parentElement;
+    const tableContentWrapper = tableContainer?.parentElement;
 
     const layoutContainer =
       tableContentWrapper && tableContentWrapper.parentElement;

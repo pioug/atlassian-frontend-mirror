@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { BitbucketIcon, BitbucketLogo, BitbucketWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { BitbucketIcon, BitbucketLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoBitbucket = () => {
   return (
@@ -9,17 +15,13 @@ const LogoBitbucket = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <BitbucketLogo appearance="brand" />
-            </td>
-            <td>
-              <BitbucketWordmark appearance="brand" />
             </td>
             <td>
               <BitbucketIcon appearance="brand" />

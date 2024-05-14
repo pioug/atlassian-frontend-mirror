@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { ConfluenceIcon, ConfluenceLogo, ConfluenceWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { ConfluenceIcon, ConfluenceLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoConfluence = () => {
   return (
@@ -9,17 +15,13 @@ const LogoConfluence = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <ConfluenceLogo appearance="brand" />
-            </td>
-            <td>
-              <ConfluenceWordmark appearance="brand" />
             </td>
             <td>
               <ConfluenceIcon appearance="brand" />

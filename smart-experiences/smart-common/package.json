@@ -1,7 +1,8 @@
 {
   "name": "@atlaskit/smart-common",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Smarts common lib",
+  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

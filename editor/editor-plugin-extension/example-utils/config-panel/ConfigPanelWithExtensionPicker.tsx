@@ -29,15 +29,15 @@ const wrapperStyles = xcss({ margin: 'space.200' });
 const exampleWrapperStyles = css({ display: 'flex', flexDirection: 'row' });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const column = (width: number | string) => css`
-  width: ${width}px;
-  margin: ${token('space.200', '16px')};
-
-  h3 {
-    border-bottom: 1px solid ${colors.N50};
-    margin-bottom: ${token('space.200', '16px')};
-  }
-`;
+const column = (width: number | string) =>
+  css({
+    width: `${width}px`,
+    margin: token('space.200', '16px'),
+    h3: {
+      borderBottom: `1px solid ${colors.N50}`,
+      marginBottom: token('space.200', '16px'),
+    },
+  });
 
 const codeWrapperStyles = css({
   marginTop: token('space.200', '16px'),

@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { light as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { compose, isAccent, not, pick } from './utils';
@@ -28,7 +26,7 @@ const activeTokens = tokens
   .map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }));
 
 export const createColorMapTemplate = () => {
-  return prettier.format(
+  return format(
     `
 export default {
   ${activeTokens
@@ -41,11 +39,6 @@ export default {
     })
     .join(',\n\t')}
 } as const;`,
-    {
-      singleQuote: true,
-      parser: 'typescript',
-      trailingComma: 'all',
-      plugins: [parserTypeScript],
-    },
+    'typescript',
   );
 };

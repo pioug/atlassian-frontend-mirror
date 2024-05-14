@@ -40,20 +40,20 @@ import { TypeAheadList } from './TypeAheadList';
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
 const ITEM_PADDING = 12;
 
-const typeAheadContent = css`
-  background: ${token('elevation.surface.overlay', N0)};
-  border-radius: ${token('border.radius', '3px')};
-  box-shadow: ${token(
+const typeAheadContent = css({
+  background: token('elevation.surface.overlay', N0),
+  borderRadius: token('border.radius', '3px'),
+  boxShadow: token(
     'elevation.shadow.overlay',
     `0 0 1px ${N60A}, 0 4px 8px -2px ${N50A}`,
-  )};
-  padding: ${token('space.050', '4px')} 0;
-  width: 320px;
-  max-height: 380px; /* ~5.5 visibile items */
-  overflow-y: auto;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-  position: relative;
-`;
+  ),
+  padding: `${token('space.050', '4px')} 0`,
+  width: '320px',
+  maxHeight: '380px' /* ~5.5 visibile items */,
+  overflowY: 'auto',
+  MsOverflowStyle: '-ms-autohiding-scrollbar',
+  position: 'relative',
+});
 
 type TypeAheadPopupProps = {
   triggerHandler: TypeAheadHandler;

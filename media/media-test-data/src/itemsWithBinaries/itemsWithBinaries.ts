@@ -1,12 +1,11 @@
-import { FileItemGenerator, generateSampleFileItem } from '../sampleFileItems';
+import {
+  type FileItemGenerator,
+  generateSampleFileItem,
+} from '../sampleFileItems';
 
 import { artifactSets } from './artifactSets';
 import { createItemWithBinaries } from './createItemWithBinaries';
-import { ArtifactsSet, GeneratedItemWithBinaries } from './types';
-
-interface ItemWithBinariesGenerator {
-  (): Promise<GeneratedItemWithBinaries>;
-}
+import { type ArtifactsSet, type ItemWithBinariesGenerator } from './types';
 
 const createItemWithBinariesGenerator =
   (
@@ -89,6 +88,17 @@ const workingVideo = {
   ),
 };
 
+const svg = {
+  svgCar: createItemWithBinariesGenerator(
+    generateSampleFileItem.svg,
+    artifactSets.svgCar,
+  ),
+  svgOpenWeb: createItemWithBinariesGenerator(
+    generateSampleFileItem.svg,
+    artifactSets.svgOpenWeb,
+  ),
+};
+
 /* type GenerateItemWithBinaries = {
   [key in keyof typeof generateSampleFileItem]: Record<
     string,
@@ -107,6 +117,7 @@ export const generateItemWithBinaries = {
   workingVideo,
   workingAudioWithoutRemotePreview,
   passwordPdf,
+  svg,
   // workingArchive,
   // workingUnknown,
   // workingGif,

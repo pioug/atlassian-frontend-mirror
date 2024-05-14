@@ -49,6 +49,9 @@
       "path": "../../design-system/button/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/datetime-picker/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/dropdown-menu/tsconfig.app.json"
     },
     {
@@ -94,6 +97,9 @@
       "path": "../linking-types/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/logo/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/lozenge/tsconfig.app.json"
     },
     {
@@ -104,6 +110,9 @@
     },
     {
       "path": "../../platform/feature-flags/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/popup/tsconfig.app.json"
     },
     {
       "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
@@ -125,6 +134,9 @@
     },
     {
       "path": "../smart-card/tsconfig.app.json"
+    },
+    {
+      "path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
     },
     {
       "path": "../../design-system/spinner/tsconfig.app.json"

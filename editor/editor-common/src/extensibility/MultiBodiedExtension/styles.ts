@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { N0, N500 } from '@atlaskit/theme/colors';
+import { N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { wrapperDefault } from '../Extension/styles';
@@ -25,10 +25,14 @@ export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
     paddingTop: `${token('space.100', '8px')} !important`,
   },
   '&.with-border': {
-    border: `1px solid ${token('color.border.inverse', N0)}`, // adding this so macro doesn't jump when hover border is shown
+    border: `1px solid ${token('color.border', N30)}`,
   },
   '&.with-hover-border': {
     border: `1px solid ${token('color.border.input', N500)}`,
+  },
+  '&.with-padding-background-styles': {
+    padding: token('space.100', '8px'),
+    background: 'transparent',
   },
 });
 
@@ -41,4 +45,7 @@ export const overlayStyles = css({
   pointerEvents: 'none',
   transition: 'opacity 0.3s',
   zIndex: 1,
+  '&.with-margin': {
+    margin: token('space.negative.100', '-8px'),
+  },
 });

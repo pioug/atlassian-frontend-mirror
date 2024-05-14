@@ -3,8 +3,10 @@ import React from 'react';
 import type { IntlShape } from 'react-intl-next';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  FloatingToolbarConfig,
+} from '@atlaskit/editor-common/types';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,

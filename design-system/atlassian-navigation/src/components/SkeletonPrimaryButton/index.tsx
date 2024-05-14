@@ -18,9 +18,8 @@ const primaryButtonSkeletonStyles = css({
   position: 'relative',
   appearance: 'none',
   border: 0,
-  fontSize: token('font.size.100', '14px'),
-  fontWeight: token('font.weight.medium', '500'),
-  lineHeight: 1,
+  font: token('font.body'),
+  fontWeight: token('font.weight.medium'),
   pointerEvents: 'none',
   ':focus, :active, :hover': {
     appearance: 'none',

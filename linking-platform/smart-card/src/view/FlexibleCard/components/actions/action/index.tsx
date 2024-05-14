@@ -3,7 +3,7 @@ import { type FC } from 'react';
 import { jsx } from '@emotion/react';
 import { SmartLinkSize } from '../../../../../constants';
 import ActionStackItem from './action-stack-item';
-import { ActionProps } from './types';
+import { type ActionProps } from './types';
 import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
@@ -26,6 +26,7 @@ const Action: FC<ActionProps> = ({
   spaceInline,
   tooltipMessage,
   tooltipOnHide,
+  hideTooltipOnMouseDown,
   xcss,
   asDropDownItem,
   overrideCss,
@@ -43,10 +44,10 @@ const Action: FC<ActionProps> = ({
 
   const actionIcon = icon && (
     <ActionIcon
+      asStackItemIcon={isStackItem}
       isDisabled={isDisabled}
       icon={icon}
       size={size}
-      showBackground={isStackItem}
       testId={testId}
     />
   );
@@ -67,6 +68,7 @@ const Action: FC<ActionProps> = ({
         tooltipMessage={tooltipMessage || content}
         xcss={xcss}
         tooltipOnHide={tooltipOnHide}
+        hideTooltipOnMouseDown={hideTooltipOnMouseDown}
       />
     );
   }

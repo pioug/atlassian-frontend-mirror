@@ -177,6 +177,7 @@ export const getDragMenuConfig = (
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   isHeaderRowRequired?: boolean,
   isTableScalingEnabled = false,
+  tableDuplicateCellColouring = false,
 ): DragMenuConfig[] => {
   const addOptions =
     direction === 'row'
@@ -303,18 +304,23 @@ export const getDragMenuConfig = (
       icon,
       onClick: (state: EditorState, dispatch?: CommandDispatch) => {
         if (direction === 'row') {
-          insertRowWithAnalytics(editorAnalyticsAPI)(
-            INPUT_METHOD.TABLE_CONTEXT_MENU,
-            {
-              index: (index ?? 0) + offset,
-              moveCursorToInsertedRow: true,
-            },
-          )(state, dispatch);
+          insertRowWithAnalytics(
+            editorAnalyticsAPI,
+            tableDuplicateCellColouring,
+          )(INPUT_METHOD.TABLE_CONTEXT_MENU, {
+            index: (index ?? 0) + offset,
+            moveCursorToInsertedRow: true,
+          })(state, dispatch);
         } else {
-          insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
-            INPUT_METHOD.TABLE_CONTEXT_MENU,
-            (index ?? 0) + offset,
-          )(state, dispatch, editorView);
+          insertColumnWithAnalytics(
+            editorAnalyticsAPI,
+            isTableScalingEnabled,
+            tableDuplicateCellColouring,
+          )(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(
+            state,
+            dispatch,
+            editorView,
+          );
         }
         return true;
       },

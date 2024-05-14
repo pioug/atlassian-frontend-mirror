@@ -30,7 +30,7 @@ const columnContainerStyles = css({
   display: 'flex',
   height: '100%',
   flexGrow: 1,
-  background: token('color.background.neutral', '#eee'),
+  background: token('color.background.neutral'),
 });
 
 const columnStyles = css({
@@ -78,7 +78,6 @@ export default function Example() {
                     style={{
                       background: token(
                         'color.background.accent.yellow.subtler',
-                        '#fea',
                       ),
                     }}
                   >
@@ -94,10 +93,7 @@ export default function Example() {
                   <div
                     css={columnStyles}
                     style={{
-                      background: token(
-                        'color.background.accent.teal.subtler',
-                        '#afe',
-                      ),
+                      background: token('color.background.accent.teal.subtler'),
                     }}
                   >
                     <h2> Column 2 </h2>

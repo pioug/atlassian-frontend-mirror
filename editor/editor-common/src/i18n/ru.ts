@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Добавить столбец справа',
   'fabric.editor.addCommentOnMedia': 'Добавить комментарий',
   'fabric.editor.addImageBorder': 'Добавить рамку',
+  'fabric.editor.addLoomVideo': 'Добавить видео из Loom',
   'fabric.editor.addMediaFiles': 'Добавить изображение, видео или файл',
   'fabric.editor.addRowAbove': 'Добавить строку выше',
   'fabric.editor.addRowBelow': 'Добавить строку ниже',
@@ -101,6 +102,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Активы (бета-версия)',
   'fabric.editor.datasource.assetsObjects.description':
     'Вставка объектов из Активов в Jira Service Management с помощью поиска и фильтрации',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Активы',
+  'fabric.editor.datasource.confluenceSearch': 'Вставка списка Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Вставка списка результатов поиска из Confluence с использованием возможностей расширенного поиска, фильтрации и настройки.',
   'fabric.editor.datasource.jiraIssue': 'Задачи Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Вставка задач Jira из Jira Cloud с помощью расширенного поиска, фильтрации и настройки.',
@@ -111,6 +116,7 @@ export default {
   'fabric.editor.decision': 'Решение',
   'fabric.editor.decision.description': 'Записывайте решения для удобного отслеживания',
   'fabric.editor.decisionPlaceholder': 'Добавить решение…',
+  'fabric.editor.decreaseColumnSize': 'Уменьшить размер столбца',
   'fabric.editor.decreaseSize': 'Уменьшить размер',
   'fabric.editor.defaultAltText': 'Документ',
   'fabric.editor.description': 'Описание',
@@ -238,6 +244,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Размер',
   'fabric.editor.imageBorderSubtle': 'Узкая',
   'fabric.editor.improvement': 'Улучшение',
+  'fabric.editor.increaseColumnSize': 'Увеличить размер столбца',
   'fabric.editor.increaseSize': 'Увеличить размер',
   'fabric.editor.indent': 'Сделать отступ',
   'fabric.editor.info': 'Информация',
@@ -335,8 +342,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Добавить замещающий текст',
   'fabric.editor.plainText': 'Использовать неформатированный текст',
   'fabric.editor.quickInsert': 'Быстрая вставка',
-  'fabric.editor.recordVideo': 'Записать видео',
-  'fabric.editor.recordVideo.description': 'Запись видео с помощью Loom',
+  'fabric.editor.recordVideo': 'Записать видео Loom',
+  'fabric.editor.recordVideo.description': 'Записать видео с экрана и камеры',
   'fabric.editor.redo': 'Вернуть',
   'fabric.editor.remove': 'Удалить',
   'fabric.editor.removeColumns':
@@ -358,6 +365,7 @@ export default {
   'fabric.editor.saveButton': 'Сохранить',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} результат поиска. Используйте клавиши со стрелками вверх и вниз для навигации по параметрам и клавишу Enter для выбора параметра.} few {{itemsLength,number} результата поиска. Используйте клавиши со стрелками вверх и вниз для навигации по параметрам и клавишу Enter для выбора параметра.} many {{itemsLength,number} результатов поиска. Используйте клавиши со стрелками вверх и вниз для навигации по параметрам и клавишу Enter для выбора параметра.} other {{itemsLength,number} результата поиска. Используйте клавиши со стрелками вверх и вниз для навигации по параметрам и клавишу Enter для выбора параметра.}}',
+  'fabric.editor.selectColumnResize': 'Выбрать изменение размера столбца',
   'fabric.editor.selectLanguage': 'Выберите язык',
   'fabric.editor.selectTableColumn': 'Выбрать столбец таблицы',
   'fabric.editor.selectTableRow': 'Выбрать строку таблицы',
@@ -450,10 +458,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'Контент недоступен в этом редакторе, при редактировании и сохранении он останется неизменным',
   'fabric.editor.unsupportedInlineContent': 'Контент не поддерживается.',
+  'fabric.editor.upDown':
+    'Используйте клавиши со стрелками вверх и вниз в следующем поле ввода, чтобы изменить дату ниже',
   'fabric.editor.url': 'Отобразить URL-адрес',
   'fabric.editor.urlDescription': 'Отображение ссылки в виде URL-адреса',
   'fabric.editor.urlTitle': 'URL-адрес',
   'fabric.editor.useMarkdown': 'Использовать разметку',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Просмотреть и добавить комментарии',
+  'fabric.editor.viewCommentOnMedia': 'Просмотреть комментарии',
   'fabric.editor.viewMore': 'Развернуть',
   'fabric.editor.visit': 'Открыть ссылку в новом окне',
   'fabric.editor.warning': 'Предупреждение',

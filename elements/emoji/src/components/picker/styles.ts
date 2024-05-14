@@ -162,7 +162,7 @@ export const input = css({
 
 export const pickerSearch = css({
   boxSizing: 'border-box',
-  padding: '10px 10px 11px 10px',
+  padding: token('space.150', '12px'),
   width: '100%',
 });
 
@@ -189,7 +189,7 @@ export const emojiCategoryTitle = css({
   boxSizing: 'border-box',
   color: token('color.text', N900),
   fontSize: '14px',
-  padding: `5px ${token('space.100', '8px')}`,
+  padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
   textTransform: 'lowercase',
   '&:first-letter': {
     textTransform: 'uppercase',
@@ -210,8 +210,7 @@ export const emojiItem = css({
   },
   [`& .${placeholder}`]: {
     padding: token('space.0', '0px'),
-    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-    margin: '7px',
+    margin: token('space.100', '8px'),
     minWidth: '24px',
     maxWidth: '24px',
   },

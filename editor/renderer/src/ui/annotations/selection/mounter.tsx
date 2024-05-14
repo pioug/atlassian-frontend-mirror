@@ -16,6 +16,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
+import { ProvidersContext } from '../context';
 
 type Props = {
   range: Range | null;
@@ -54,6 +55,9 @@ export const SelectionInlineCommentMounter = React.memo(
       useState<Position | null>();
 
     const actions = useContext(ActionsContext);
+    const providers = useContext(ProvidersContext);
+    const isCommentsOnMediaBugFixEnabled =
+      !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
     const onCreateCallback = useCallback(
       (annotationId: string) => {
@@ -88,7 +92,11 @@ export const SelectionInlineCommentMounter = React.memo(
           }).fire(FabricChannel.editor);
         }
 
-        return applyAnnotation(positionToAnnotate, annotation);
+        return applyAnnotation(
+          positionToAnnotate,
+          annotation,
+          isCommentsOnMediaBugFixEnabled,
+        );
       },
       [
         actions,
@@ -96,6 +104,7 @@ export const SelectionInlineCommentMounter = React.memo(
         applyAnnotation,
         draftDocumentPosition,
         createAnalyticsEvent,
+        isCommentsOnMediaBugFixEnabled,
       ],
     );
 

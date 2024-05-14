@@ -6,7 +6,17 @@ import { act } from 'react-dom/test-utils';
 import { IntlProvider } from 'react-intl-next';
 import ReactSerializer from '../../../react/index';
 import { getPosFromRange, resolvePos } from '../../index';
-import { complexDocument as doc } from './__fixtures__/documents';
+import {
+  complexDocument,
+  docWithFormattedText,
+  docWithImage,
+  docWithImageInTable,
+} from './__fixtures__/documents';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
+import { MediaClientProvider } from '@atlaskit/media-client-react';
 
 describe('steps', () => {
   const DOC_ROOT_OFFSET = 1;
@@ -14,17 +24,34 @@ describe('steps', () => {
   let container: HTMLElement | null = document.createElement('div');
   let docFromSchema: PMNode;
   let reactAdf: JSX.Element;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let root: any; // Change to Root once we go full React 18
   let firstValidParagraphPosition: number;
   let firstValidParagraph: HTMLElement;
 
-  beforeEach(async () => {
+  async function setup(
+    {
+      smartLinksSsr,
+      doc = complexDocument,
+    }: { smartLinksSsr: boolean; doc?: any } = {
+      smartLinksSsr: false,
+      doc: complexDocument,
+    },
+  ) {
     container = document.createElement('div');
     document.body.appendChild(container);
 
     docFromSchema = schema.nodeFromJSON(doc);
+    const mediaClientConfig = getDefaultMediaClientConfig();
+
     const reactSerializer = new ReactSerializer({
       surroundTextNodesWithTextWrapper: true,
+      smartLinks: {
+        ssr: smartLinksSsr,
+      },
+      media: {
+        allowCaptions: true,
+      },
     });
 
     reactAdf = reactSerializer.serializeFragment(docFromSchema.content)!;
@@ -42,15 +69,35 @@ describe('steps', () => {
       const { createRoot } = await import('react-dom/client');
       root = createRoot(container!);
       act(() => {
-        root.render(<IntlProvider locale="en">{reactAdf}</IntlProvider>);
+        root.render(
+          <IntlProvider locale="en">
+            <MediaClientProvider clientConfig={mediaClientConfig}>
+              {reactAdf}
+            </MediaClientProvider>
+          </IntlProvider>,
+        );
       });
     } else {
-      render(<IntlProvider locale="en">{reactAdf}</IntlProvider>, container);
+      render(
+        <IntlProvider locale="en">
+          <SmartCardProvider>
+            <MediaClientProvider clientConfig={mediaClientConfig}>
+              {reactAdf}
+            </MediaClientProvider>
+          </SmartCardProvider>
+        </IntlProvider>,
+        container,
+      );
     }
     firstValidParagraph = container!.querySelector(
-      `p[data-renderer-start-pos="${firstValidParagraphPosition}"]`,
+      `p[data-renderer-start-pos="${firstValidParagraphPosition!}"]`,
     ) as HTMLElement;
-  });
+
+    await act(async () => {
+      // needed to ensure smart cards are rendered
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+  }
 
   afterEach(() => {
     if (process.env.IS_REACT_18 === 'true') {
@@ -58,11 +105,13 @@ describe('steps', () => {
     } else {
       unmountComponentAtNode(container!);
     }
+    firstValidParagraphPosition = 0;
   });
 
   describe('#getPosFromRange', () => {
     describe('when a paragraph is selected', () => {
-      it('should calc the position', () => {
+      it('should calc the position', async () => {
+        await setup();
         const myRange = new Range();
         const PARENT_OFFSET = 1;
         myRange.setStart(firstValidParagraph, 0);
@@ -77,11 +126,17 @@ describe('steps', () => {
           from: firstValidParagraphPosition,
           to: firstValidParagraphPosition + paragraphNode.nodeSize,
         });
+
+        expect(getPosFromRange(myRange, true)).toEqual({
+          from: firstValidParagraphPosition,
+          to: firstValidParagraphPosition + paragraphNode.nodeSize,
+        });
       });
     });
 
     describe('when a part of paragraph is selected', () => {
-      it('should calc the position of a plain text range', () => {
+      it('should calc the position of a plain text range', async () => {
+        await setup();
         const myRange = new Range();
         const PARENT_OFFSET = 1;
         myRange.setStart(firstValidParagraph, 0);
@@ -94,43 +149,186 @@ describe('steps', () => {
           from: firstValidParagraphPosition,
           to: firstValidParagraphPosition + textNode.nodeSize,
         });
+
+        expect(getPosFromRange(myRange, true)).toEqual({
+          from: firstValidParagraphPosition,
+          to: firstValidParagraphPosition + textNode.nodeSize,
+        });
       });
 
-      it('should calc the position of a range with an inline card with a mark', () => {
-        const prefix = 'range-with-inline-card-with-mark';
-        const inlineCardWithMarkParagraph = [
-          ...document.querySelectorAll('p'),
-        ].filter((paragraph) => paragraph.textContent!.includes(prefix))![0];
-
+      it('should calc the position of a formatted text range', async () => {
+        await setup({ doc: docWithFormattedText, smartLinksSsr: false });
         const myRange = new Range();
-        // This is a fragile, but sets a start position inside the paragraph
-        // see the test document for full structure
-        myRange.setStart(
-          inlineCardWithMarkParagraph.childNodes[0],
-          prefix.length,
-        );
-        myRange.setEnd(
-          // The third item in the document for this paragraph is a text node with a comment on it
-          // which means the html will be a span (for the comment), and then a text node
-          // so we reach in twice to get the text node
-          inlineCardWithMarkParagraph.childNodes[3]
-            .childNodes[0] as HTMLElement,
-          5,
-        );
+        const PARENT_OFFSET = 1;
 
-        const posFromRange = getPosFromRange(myRange);
-
-        expect(posFromRange).toEqual({
-          from: 1843,
-          to: 1872,
+        myRange.setStart(firstValidParagraph, 0);
+        myRange.setEnd(firstValidParagraph.childNodes[1], 0);
+        const paragraphNode = docFromSchema.nodeAt(
+          firstValidParagraphPosition - PARENT_OFFSET,
+        )!;
+        const textNode = paragraphNode.nodeAt(0)!;
+        expect(getPosFromRange(myRange)).toEqual({
+          from: firstValidParagraphPosition,
+          to: firstValidParagraphPosition + textNode.nodeSize,
         });
+
+        expect(getPosFromRange(myRange, true)).toEqual({
+          from: firstValidParagraphPosition,
+          to: firstValidParagraphPosition + textNode.nodeSize,
+        });
+      });
+
+      describe.each([[{ smartLinksSsr: false }], [{ smartLinksSsr: true }]])(
+        `smartLinksSsr: %o`,
+        (setupOptions) => {
+          describe('should calc the position of a range with an inline card with a mark', () => {
+            ffTest(
+              'platform.editor.allow-inline-comments-for-inline-nodes',
+              async () => {
+                if (
+                  !getBooleanFF(
+                    'platform.editor.allow-inline-comments-for-inline-nodes',
+                  )
+                ) {
+                  expect(true).toBe(true);
+                  return;
+                }
+                await setup(setupOptions);
+
+                const prefix = 'range-with-inline-card-with-mark';
+                const inlineCardWithMarkParagraph = [
+                  ...document.querySelectorAll('p'),
+                ].filter((paragraph) =>
+                  paragraph.textContent!.includes(prefix),
+                )![0];
+
+                const myRange = new Range();
+                // This is a fragile, but sets a start position inside the paragraph
+                // see the test document for full structure
+                myRange.setStart(
+                  inlineCardWithMarkParagraph.childNodes[0],
+                  prefix.length,
+                );
+                myRange.setEnd(
+                  // The third item in the document for this paragraph is a text node with a comment on it
+                  // which means the html will be a span (for the comment), and then a text node
+                  // so we reach in twice to get the text node
+                  inlineCardWithMarkParagraph.childNodes[3]
+                    .childNodes[0] as HTMLElement,
+                  5,
+                );
+
+                const posFromRange = getPosFromRange(myRange);
+
+                expect(posFromRange).toEqual({
+                  from: 1843,
+                  to: 1873,
+                });
+
+                // coerce the range to a string
+                const rangeContents = myRange + '';
+                expect(rangeContents).toEqual(
+                  ' This is an inline card https://trello.com/c/gfrst89H/4-much-muffins with',
+                );
+                const expectedLength =
+                  rangeContents.length -
+                  // text content of inline card
+                  'https://trello.com/c/gfrst89H/4-much-muffins'.length +
+                  // the prosemirror position will be at the end of the range
+                  1;
+                // @ts-ignore
+                expect(posFromRange.to).toEqual(
+                  // @ts-ignore
+                  posFromRange.from + expectedLength,
+                );
+              },
+            );
+          });
+        },
+      );
+    });
+
+    describe('when an image is hovered', () => {
+      it('should calc the position of the top-level image', async () => {
+        await setup({ doc: docWithImage, smartLinksSsr: false });
+        const imageContainer = container!.querySelector(
+          '#newFileExperienceWrapper',
+        )! as HTMLElement;
+        const myRange = new Range();
+        myRange.setStart(imageContainer, 0);
+        myRange.setEnd(imageContainer, 0);
+
+        expect(getPosFromRange(myRange, true)).toEqual({
+          from: 1,
+          to: 1,
+        });
+
+        expect(getPosFromRange(myRange, false)).toEqual({
+          from: 2,
+          to: 2,
+        });
+      });
+
+      it('should calc the position of the caption of the top-level image', async () => {
+        await setup({ doc: docWithImage, smartLinksSsr: false });
+        const captionContainer = container?.querySelector(
+          '[data-media-caption="true"]',
+        );
+        const myRange = new Range();
+        const textNode = captionContainer?.childNodes[0];
+        if (textNode) {
+          myRange.setStart(textNode, 1);
+          myRange.setEnd(textNode, 6);
+        }
+
+        expect(getPosFromRange(myRange, true)).toEqual(
+          getPosFromRange(myRange, false),
+        );
+      });
+
+      it('should calc the position of the nested image', async () => {
+        await setup({ doc: docWithImageInTable, smartLinksSsr: false });
+        const imageContainer = container!.querySelector(
+          '#newFileExperienceWrapper',
+        )! as HTMLElement;
+        const myRange = new Range();
+        myRange.setStart(imageContainer, 0);
+        myRange.setEnd(imageContainer, 0);
+
+        expect(getPosFromRange(myRange, true)).toEqual({
+          from: 10,
+          to: 10,
+        });
+
+        expect(getPosFromRange(myRange, false)).toEqual({
+          from: 11,
+          to: 11,
+        });
+      });
+
+      it('should calc the position of the nested image', async () => {
+        await setup({ doc: docWithImageInTable, smartLinksSsr: false });
+        const captionContainer = container?.querySelector(
+          '[data-media-caption="true"]',
+        );
+        const myRange = new Range();
+        const textNode = captionContainer?.childNodes[0];
+        if (textNode) {
+          myRange.setStart(textNode, 0);
+          myRange.setEnd(textNode, 4);
+        }
+
+        expect(getPosFromRange(myRange, true)).toEqual(
+          getPosFromRange(myRange, true),
+        );
       });
     });
   });
 
   describe('#resolvePos', () => {
     describe('when the text node is inside code block', () => {
-      it('should return false', () => {
+      it('should return false', async () => {
+        await setup();
         const codeBlockElements = container!.querySelectorAll('.code-block');
         const codeBlockNodes: {
           startPos: number;
@@ -160,7 +358,8 @@ describe('steps', () => {
     });
 
     describe('when the node is a text element', () => {
-      it('should return the same position as ProseMirror', () => {
+      it('should return the same position as ProseMirror', async () => {
+        await setup();
         const firstChild = firstValidParagraph.childNodes[0];
         expect(firstChild).toBeInstanceOf(Text);
         expect(resolvePos(firstChild, 0)).toBe(firstValidParagraphPosition);
@@ -168,14 +367,16 @@ describe('steps', () => {
     });
 
     describe('when the node is a HTML element', () => {
-      it('should return the same position as ProseMirror', () => {
+      it('should return the same position as ProseMirror', async () => {
+        await setup();
         expect(resolvePos(firstValidParagraph, 0)).toBe(
           firstValidParagraphPosition,
         );
       });
     });
 
-    it('validate all ProseMirror nodes position', () => {
+    it('validate all ProseMirror nodes position', async () => {
+      await setup();
       const nodePositions: {
         element: HTMLElement;
         startPos: number;
@@ -206,7 +407,8 @@ describe('steps', () => {
     });
 
     describe('when the text node is inside text highlight', () => {
-      it('should return the same position as ProseMirror', () => {
+      it('should return the same position as ProseMirror', async () => {
+        await setup();
         const testElement = document.createElement('p');
         testElement.dataset.rendererStartPos = '7';
         testElement.appendChild(document.createTextNode('Hello '));

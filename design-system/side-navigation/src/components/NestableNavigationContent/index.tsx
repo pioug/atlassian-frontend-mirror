@@ -24,9 +24,9 @@ export const ROOT_ID = 'ATLASKIT_NESTED_ROOT';
 
 export interface NestableNavigationContentProps {
   /**
-   * The NestableNavigationContent wraps the entire navigation hierarchy of a side-navigation.
+   * The NestableNavigationContent wraps the entire navigation hierarchy of a side navigation.
    * Using this component is only needed if you want to enable nested views with [nesting items](/packages/navigation/side-navigation/docs/nesting-item),
-   * else you should use [navigation content](/packages/navigation/side-navigation/docs/navigation-content) instead.
+   * otherwise you should use [navigation content](/packages/navigation/side-navigation/docs/navigation-content) instead.
    */
   children: JSX.Element | JSX.Element[];
 
@@ -42,7 +42,7 @@ export interface NestableNavigationContentProps {
   testId?: string;
 
   /**
-   * Forces the top scroll indicator to be shown. This prop should be used when needing to
+   * This forces the top scroll indicator to be shown. Use this prop when you need to
    * distinctly separate the side navigation header from the side navigation content.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
@@ -50,7 +50,7 @@ export interface NestableNavigationContentProps {
 
   /**
    * Array of the initial stack you want to show.
-   * Useful when wanting to set the initial nested view but not wanting to opt into controlled state.
+   * This is useful when you want to set the initial nested view but don't want to opt into a controlled state.
    * Make sure to have all intermediate navigation pages line up.
    */
   initialStack?: string[];
@@ -65,14 +65,14 @@ export interface NestableNavigationContentProps {
 
   /**
    * Allows you to react based on transitions between [nesting items](/packages/navigation/side-navigation/docs/nesting-item).
-   * It will be called everytime a user navigates from one [nesting item](/packages/navigation/side-navigation/docs/nesting-item) to another,
+   * It will be called everytime a person navigates from one [nesting item](/packages/navigation/side-navigation/docs/nesting-item) to another,
    * both up or down the navigation hierarchy.
    * This prop should be used with the `stack` prop for controlled behavior.
    */
   onChange?: (stack: string[]) => void;
 
   /**
-   * Called when a nesting id that does not exist among `<NestingItem>`s is pushed to the stack. Use this callback to be notified when there is an undefined nesting state.
+   * Called when a nesting ID that does not exist among `<NestingItem>`s is pushed to the stack. Use this callback to be notified when there is an undefined nesting state.
    * Provides you with the stack which led to the undefined state, with the top of the stack (last item in array) being the invalid item.
    */
   onUnknownNest?: (stack: string[]) => void;

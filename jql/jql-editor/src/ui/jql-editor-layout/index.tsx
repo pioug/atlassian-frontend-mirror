@@ -1,5 +1,7 @@
 import React, { FocusEvent, ReactNode } from 'react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import {
   EditorThemeContext,
   useEditorTheme,
@@ -99,6 +101,13 @@ const JQLEditorLayout = (props: Props) => {
       <EditorViewContainer
         editorViewHasFocus={editorViewHasFocus}
         editorViewIsInvalid={editorViewIsInvalid}
+        isBorderContrastFixEnabled={
+          getBooleanFF(
+            'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+          )
+            ? true
+            : false
+        }
         ref={onEditorViewContainerRef}
         onScroll={onEditorViewContainerScroll}
       >
@@ -141,7 +150,15 @@ const JQLEditorReadOnlyWithoutTheme = ({ query }: ReadOnlyProps) => {
 
   return (
     <EditorMain>
-      <ReadOnlyEditorViewContainer>
+      <ReadOnlyEditorViewContainer
+        isBorderContrastFixEnabled={
+          getBooleanFF(
+            'platform.a11y-jira-team.fix-border-contrast-for-jql-editor-textarea_vy0qk',
+          )
+            ? true
+            : false
+        }
+      >
         <LineNumberToolbar lineNumbersVisible={lineNumbersVisible} />
         <ReadOnlyEditorView
           data-testid="jql-editor-read-only"

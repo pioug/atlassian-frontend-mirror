@@ -1,21 +1,20 @@
 import React from 'react';
 import Loadable from 'react-loadable';
 import {
-  MediaClient,
-  FileState,
-  ProcessedFileState,
-  UploadingFileState,
-  ProcessingFileState,
-  Identifier,
+  type MediaClient,
+  type FileState,
+  type ProcessedFileState,
+  type UploadingFileState,
+  type ProcessingFileState,
+  type Identifier,
   isExternalImageIdentifier,
   isFileIdentifier,
-  ExternalImageIdentifier,
-  MediaSubscription,
-  ProcessingFailedState,
+  type ExternalImageIdentifier,
+  type MediaSubscription,
+  type ProcessingFailedState,
 } from '@atlaskit/media-client';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { FormattedMessage } from 'react-intl-next';
-import { messages, WithShowControlMethodProp } from '@atlaskit/media-ui';
+import { messages, type WithShowControlMethodProp } from '@atlaskit/media-ui';
 import { isCodeViewerItem } from '@atlaskit/media-ui/codeViewer';
 import { Outcome } from './domain';
 import { Spinner } from './loading';
@@ -25,7 +24,7 @@ import { MediaViewerError } from './errors';
 import { ErrorViewDownloadButton } from './download';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { createCommencedEvent } from './analytics/events/operational/commenced';
 import { createLoadSucceededEvent } from './analytics/events/operational/loadSucceeded';
@@ -34,8 +33,8 @@ import { InteractiveImg } from './viewers/image/interactive-img';
 import ArchiveViewerLoader from './viewers/archiveSidebar/archiveViewerLoader';
 import {
   getRandomHex,
-  MediaFeatureFlags,
-  MediaTraceContext,
+  type MediaFeatureFlags,
+  type MediaTraceContext,
 } from '@atlaskit/media-common';
 import type { ImageViewerProps } from './viewers/image';
 import type { Props as VideoViewerProps } from './viewers/video';
@@ -46,7 +45,7 @@ import {
   startMediaFileUfoExperience,
   succeedMediaFileUfoExperience,
 } from './analytics/ufoExperiences';
-import { FileStateFlags } from './components/types';
+import { type FileStateFlags } from './components/types';
 
 const ImageViewer = Loadable({
   loader: (): Promise<React.ComponentType<ImageViewerProps>> =>
@@ -353,7 +352,6 @@ export class ItemViewerBase extends React.Component<Props, State> {
               return this.renderItem(fileItem);
             case 'failed-processing':
               if (
-                getBooleanFF('platform.corex.password-protected-pdf_ht8re') &&
                 fileItem.mediaType === 'doc' &&
                 fileItem.mimeType === 'application/pdf'
               ) {

@@ -217,6 +217,7 @@ const DatasourceTableViewWithoutAnalytics = ({
           <EmptyState testId="datasource-table-view-skeleton" isCompact />
         )}
         <TableFooter
+          datasourceId={datasourceId}
           itemCount={isDataReady ? totalCount : undefined}
           onRefresh={onRefresh}
           isLoading={!isDataReady || status === 'loading'}

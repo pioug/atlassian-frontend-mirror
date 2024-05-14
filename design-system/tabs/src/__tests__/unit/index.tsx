@@ -4,12 +4,12 @@ import {
   cleanup,
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
   waitFor,
 } from '@testing-library/react';
 
 import Tabs, { Tab, TabList, TabPanel } from '../../index';
-import { TabsProps } from '../../types';
+import { type TabsProps } from '../../types';
 
 declare var global: any;
 
@@ -42,15 +42,15 @@ describe('@atlaskit/tabs', () => {
       it('should render each tab', () => {
         const { getByText, getAllByRole } = render(renderTabs());
         expect(getAllByRole('tab').length).toBe(3);
-        expect(getByText('Tab 1 label')).toBeTruthy();
-        expect(getByText('Tab 2 label')).toBeTruthy();
-        expect(getByText('Tab 3 label')).toBeTruthy();
+        expect(getByText('Tab 1 label')).toBeInTheDocument();
+        expect(getByText('Tab 2 label')).toBeInTheDocument();
+        expect(getByText('Tab 3 label')).toBeInTheDocument();
       });
 
       it('should render one tab panel', () => {
         const { getByText, getAllByRole } = render(renderTabs());
         expect(getAllByRole('tabpanel').length).toBe(1);
-        expect(getByText('Tab 1 label')).toBeTruthy();
+        expect(getByText('Tab 1 label')).toBeInTheDocument();
       });
     });
 
@@ -58,12 +58,14 @@ describe('@atlaskit/tabs', () => {
       it('should not unmount a panel when changed', () => {
         const { getByText, queryByText, getAllByRole } = render(renderTabs());
 
-        getByText('Tab 2 label').click();
-
         waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-        expect(getByText('Tab 1 panel')).toBeTruthy();
-        expect(getByText('Tab 2 panel')).toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+        expect(getByText('Tab 1 panel')).toBeInTheDocument();
+
+        const element = getByText('Tab 2 label');
+        fireEvent.click(element);
+
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 1 panel').hidden).toBe(true);
         expect(getByText('Tab 2 panel').hidden).toBe(false);
@@ -72,25 +74,24 @@ describe('@atlaskit/tabs', () => {
       it('should not unmount a panel when changed twice', () => {
         const { getByText, queryByText, getAllByRole } = render(renderTabs());
 
-        getByText('Tab 2 label').click();
-        getByText('Tab 1 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
+        fireEvent.click(getByText('Tab 1 label'));
 
         waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-        expect(getByText('Tab 1 panel')).toBeTruthy();
-        expect(getByText('Tab 2 panel')).toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+        expect(getByText('Tab 1 panel')).toBeInTheDocument();
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 1 panel').hidden).toBe(false);
         expect(getByText('Tab 2 panel').hidden).toBe(true);
       });
 
       it('should not unmount a panel when changed and another panel is added', () => {
-        const { getByText, queryByText, getAllByRole, rerender } = render(
-          renderTabs(),
-        );
+        const { getByText, queryByText, getAllByRole, rerender } =
+          render(renderTabs());
 
-        getByText('Tab 2 label').click();
-        getByText('Tab 1 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
+        fireEvent.click(getByText('Tab 1 label'));
 
         rerender(
           <Tabs id="test">
@@ -108,22 +109,21 @@ describe('@atlaskit/tabs', () => {
         );
 
         waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-        expect(getByText('Tab 1 panel')).toBeTruthy();
-        expect(getByText('Tab 2 panel')).toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
-        expect(queryByText('Tab 4 panel')).not.toBeTruthy();
+        expect(getByText('Tab 1 panel')).toBeInTheDocument();
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
+        expect(queryByText('Tab 4 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 1 panel').hidden).toBe(false);
         expect(getByText('Tab 2 panel').hidden).toBe(true);
       });
 
       it('should not unmount a panel when changed and a panel is removed', () => {
-        const { getByText, queryByText, getAllByRole, rerender } = render(
-          renderTabs(),
-        );
+        const { getByText, queryByText, getAllByRole, rerender } =
+          render(renderTabs());
 
-        getByText('Tab 2 label').click();
-        getByText('Tab 1 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
+        fireEvent.click(getByText('Tab 1 label'));
 
         rerender(
           <Tabs id="test">
@@ -137,9 +137,9 @@ describe('@atlaskit/tabs', () => {
         );
 
         waitFor(() => expect(getAllByRole('tabpanel').length).toBe(2));
-        expect(getByText('Tab 1 panel')).toBeTruthy();
-        expect(getByText('Tab 2 panel')).toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+        expect(getByText('Tab 1 panel')).toBeInTheDocument();
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 1 panel').hidden).toBe(false);
         expect(getByText('Tab 2 panel').hidden).toBe(true);
@@ -150,12 +150,12 @@ describe('@atlaskit/tabs', () => {
           renderTabs({ shouldUnmountTabPanelOnChange: true }),
         );
 
-        getByText('Tab 2 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
 
         expect(getAllByRole('tabpanel').length).toBe(1);
-        expect(queryByText('Tab 1 panel')).not.toBeTruthy();
-        expect(getByText('Tab 2 panel')).toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+        expect(queryByText('Tab 1 panel')).not.toBeInTheDocument();
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 2 panel').hidden).toBe(false);
       });
@@ -165,13 +165,13 @@ describe('@atlaskit/tabs', () => {
           renderTabs({ shouldUnmountTabPanelOnChange: true }),
         );
 
-        getByText('Tab 2 label').click();
-        getByText('Tab 1 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
+        fireEvent.click(getByText('Tab 1 label'));
 
         expect(getAllByRole('tabpanel').length).toBe(1);
-        expect(getByText('Tab 1 panel')).toBeTruthy();
-        expect(queryByText('Tab 2 panel')).not.toBeTruthy();
-        expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+        expect(getByText('Tab 1 panel')).toBeInTheDocument();
+        expect(queryByText('Tab 2 panel')).not.toBeInTheDocument();
+        expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
 
         expect(getByText('Tab 1 panel').hidden).toBe(false);
       });
@@ -181,7 +181,7 @@ describe('@atlaskit/tabs', () => {
       describe('defaultSelected', () => {
         it('should set the selected tab on initial mount', () => {
           const { getByText } = render(renderTabs({ defaultSelected: 1 }));
-          expect(getByText('Tab 2 panel')).toBeTruthy();
+          expect(getByText('Tab 2 panel')).toBeInTheDocument();
         });
 
         it('changing this prop should not update the selected tab after the initial mount', () => {
@@ -197,8 +197,8 @@ describe('@atlaskit/tabs', () => {
             }),
           );
 
-          expect(getByText('Tab 2 panel')).toBeTruthy();
-          expect(queryByText('Tab 3 panel')).not.toBeTruthy();
+          expect(getByText('Tab 2 panel')).toBeInTheDocument();
+          expect(queryByText('Tab 3 panel')).not.toBeInTheDocument();
         });
       });
 
@@ -210,7 +210,7 @@ describe('@atlaskit/tabs', () => {
           expect(
             getByTestId('tab-2').getAttribute('aria-selected'),
           ).toBeTruthy();
-          expect(getByText('Tab 2 panel')).toBeTruthy();
+          expect(getByText('Tab 2 panel')).toBeInTheDocument();
         });
 
         it('should take precedence over defaultSelected', () => {
@@ -220,7 +220,7 @@ describe('@atlaskit/tabs', () => {
           expect(
             getByTestId('tab-2').getAttribute('aria-selected'),
           ).toBeTruthy();
-          expect(getByText('Tab 2 panel')).toBeTruthy();
+          expect(getByText('Tab 2 panel')).toBeInTheDocument();
         });
 
         it('changing this prop should update the selected tab after the initial mount', () => {
@@ -233,7 +233,7 @@ describe('@atlaskit/tabs', () => {
           expect(
             getByTestId('tab-3').getAttribute('aria-selected'),
           ).toBeTruthy();
-          expect(getByText('Tab 3 panel')).toBeTruthy();
+          expect(getByText('Tab 3 panel')).toBeInTheDocument();
         });
 
         it('should default to the first tab if neither selected nor defaultSelected are set', () => {
@@ -241,7 +241,7 @@ describe('@atlaskit/tabs', () => {
           expect(
             getByTestId('tab-1').getAttribute('aria-selected'),
           ).toBeTruthy();
-          expect(getByText('Tab 1 panel')).toBeTruthy();
+          expect(getByText('Tab 1 panel')).toBeInTheDocument();
         });
 
         describe("setting this prop should make the component 'controlled'", () => {
@@ -254,7 +254,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               getByTestId('tab-2').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(getByText('Tab 2 panel')).toBeTruthy();
+            expect(getByText('Tab 2 panel')).toBeInTheDocument();
           });
 
           it('should maintain its own internal state in case selected is not provided', () => {
@@ -268,7 +268,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(getByText('Tab 1 panel')).toBeTruthy();
+            expect(getByText('Tab 1 panel')).toBeInTheDocument();
           });
         });
       });
@@ -324,10 +324,11 @@ describe('@atlaskit/tabs', () => {
           beforeEach(() => {
             onChange = jest.fn();
             wrapper = render(renderTabs({ defaultSelected: 1, onChange }));
-            expect(
-              wrapper.getByTestId('tab-2').getAttribute('aria-selected'),
-            ).toBe('true');
-            expect(wrapper.getByText('Tab 2 panel')).toBeTruthy();
+            expect(wrapper.getByTestId('tab-2')).toHaveAttribute(
+              'aria-selected',
+              'true',
+            );
+            expect(wrapper.getByText('Tab 2 panel')).toBeInTheDocument();
           });
           afterEach(() => {
             wrapper.unmount();
@@ -344,7 +345,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 1 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(1);
             expect(onChange).toHaveBeenCalledWith(
               0,
@@ -358,7 +359,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-3').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 3 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(1);
             expect(onChange).toHaveBeenCalledWith(
               2,
@@ -373,7 +374,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-3').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 3 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(2);
             expect(onChange).toHaveBeenCalledWith(
               0,
@@ -388,7 +389,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 1 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(2);
             expect(onChange).toHaveBeenCalledWith(
               2,
@@ -402,7 +403,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 1 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 1 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(1);
             expect(onChange).toHaveBeenCalledWith(
               0,
@@ -416,7 +417,7 @@ describe('@atlaskit/tabs', () => {
             expect(
               wrapper.getByTestId('tab-1').getAttribute('aria-selected'),
             ).toBeTruthy();
-            expect(wrapper.getByText('Tab 3 panel')).toBeTruthy();
+            expect(wrapper.getByText('Tab 3 panel')).toBeInTheDocument();
             expect(onChange).toHaveBeenCalledTimes(1);
             expect(onChange).toHaveBeenCalledWith(
               2,
@@ -487,11 +488,11 @@ describe('@atlaskit/tabs', () => {
           </Tabs>,
         );
 
-        getByText('Tab 2 label').click();
+        fireEvent.click(getByText('Tab 2 label'));
 
         // Don't care about second argument because tested in analytics
         expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));
-        expect(getByText('Tab 2 panel')).toBeTruthy();
+        expect(getByText('Tab 2 panel')).toBeInTheDocument();
       });
     });
   });

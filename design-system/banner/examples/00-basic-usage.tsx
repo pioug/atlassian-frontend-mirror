@@ -8,7 +8,7 @@ import Banner from '../src';
 export default () => (
   <Box>
     <Banner
-      icon={<WarningIcon label="" secondaryColor="inherit" size="medium" />}
+      icon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}
     >
       Your license is about to expire. Please renew your license within the next
       week.

@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     "Impossible d'afficher les résultats de ce résumé, car cela va à l'encontre de la <a>politique d'utilisation acceptable d'Atlassian</a>.",
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence ne peut pas fournir de réponse actuellement. Consultez <a>notre documentation de support</a> pour en savoir plus.',
+    "Atlassian Intelligence (AI) ne répond pas. Réessayez plus tard ou <a>vérifiez l'état d'AI</a>.",
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    "Atlassian Intelligence n'a pas été en mesure de traiter votre demande, car votre contenu comprend des liens vers du contenu soumis à des restrictions HIPAA.",
   'fabric.linking.assigned_to': 'Assigné à {context}',
   'fabric.linking.beta': 'Bêta',
   'fabric.linking.cancel': 'Annuler',

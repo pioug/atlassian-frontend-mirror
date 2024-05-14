@@ -17,6 +17,10 @@ export type AnalyticsContextAttributesType = {
 };
 
 export type DatasourceModalDialogViewedAttributesType = {};
+export type LinkClickedPoweredByAttributesType = {
+  extensionKey: string;
+  componentHierarchy: string;
+};
 export type ModalReadyDatasourceAttributesType = {
   instancesCount: number | null;
   schemasCount: number | null;
@@ -239,6 +243,9 @@ export type AnalyticsEventAttributes = {
   /**
    * Fired when the “show more” button inside the dropdown menu is clicked */
   'ui.button.clicked.basicSearchDropdown': ButtonClickedBasicSearchDropdownAttributesType;
+  /**
+   * Fired when the “show more” button inside the dropdown menu is clicked */
+  'ui.link.clicked.poweredBy': LinkClickedPoweredByAttributesType;
   /**
    * Fired when search is initiated via the search icon or enter key press for aql editor input field. */
   'ui.aqlEditor.searched': AqlEditorSearchedAttributesType;

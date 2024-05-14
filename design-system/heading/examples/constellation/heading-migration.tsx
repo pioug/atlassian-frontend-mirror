@@ -9,6 +9,8 @@ export default () => {
     <Fragment>
       <style>{`:root { --ds-font-family-heading: sans-serif; }`}</style>
       <Grid templateColumns="1fr 1fr" gap="space.100" alignItems="baseline">
+        <Heading size="xsmall">Old</Heading>
+        <Heading size="xsmall">Replace with</Heading>
         <Heading level="h900">h900</Heading>
         <Heading size="xxlarge">xxlarge</Heading>
         <Heading level="h800">h800</Heading>
@@ -24,9 +26,9 @@ export default () => {
         <Heading level="h300">h300</Heading>
         <Heading size="xxsmall">xxsmall</Heading>
         <Heading level="h200">h200</Heading>
-        <span>No equivalent</span>
+        <Heading size="xxsmall">xxsmall</Heading>
         <Heading level="h100">h100</Heading>
-        <span>No equivalent</span>
+        <Heading size="xxsmall">xxsmall</Heading>
       </Grid>
     </Fragment>
   );

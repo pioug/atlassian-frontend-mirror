@@ -18,6 +18,8 @@ export interface Props {
   isNodeHovered?: boolean;
   isNodeNested?: boolean;
   customContainerStyles?: CSSProperties;
+  setIsNodeHovered?: (isHovered: boolean) => void;
+  isBodiedMacro?: boolean;
 }
 
 export interface LozengeData {
@@ -56,6 +58,8 @@ export default class ExtensionLozenge extends Component<Props, any> {
       isNodeHovered,
       isNodeNested,
       customContainerStyles,
+      setIsNodeHovered,
+      isBodiedMacro,
     } = this.props;
     const { parameters, extensionKey } = this.props.node.attrs;
     const { name } = this.props.node.type;
@@ -79,6 +83,8 @@ export default class ExtensionLozenge extends Component<Props, any> {
         title={title}
         renderImage={this.renderImage}
         customContainerStyles={customContainerStyles}
+        setIsNodeHovered={setIsNodeHovered}
+        isBodiedMacro={isBodiedMacro}
       />
     );
   };

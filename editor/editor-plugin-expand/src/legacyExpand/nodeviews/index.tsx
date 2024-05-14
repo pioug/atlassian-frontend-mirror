@@ -21,6 +21,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import { closestElement, isEmptyNode } from '@atlaskit/editor-common/utils';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type {
   DOMOutputSpec,
   Node as PmNode,
@@ -53,6 +54,8 @@ const toDOM = (
   node: PmNode,
   __livePage: boolean,
   intl?: IntlShape,
+  titleReadOnly?: boolean,
+  contentEditable?: boolean,
 ): DOMOutputSpec => [
   'div',
   {
@@ -97,12 +100,32 @@ const toDOM = (
               intl.formatMessage(expandMessages.expandPlaceholderText)) ||
             expandMessages.expandPlaceholderText.defaultMessage,
           type: 'text',
+          readonly:
+            getBooleanFF(
+              'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+            ) && titleReadOnly
+              ? 'true'
+              : undefined,
         },
       ],
     ],
   ],
-  // prettier-ignore
-  ['div', { 'class': expandClassNames.content }, 0],
+  [
+    'div',
+    {
+      // prettier-ignore
+      class: expandClassNames.content,
+      contenteditable:
+        getBooleanFF(
+          'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+        ) && contentEditable
+          ? contentEditable
+            ? 'true'
+            : 'false'
+          : undefined,
+    },
+    0,
+  ],
 ];
 
 export class ExpandNodeView implements NodeView {
@@ -131,11 +154,17 @@ export class ExpandNodeView implements NodeView {
     api: ExtractInjectionAPI<ExpandPlugin> | undefined,
     allowInteractiveExpand: boolean = true,
     private __livePage = false,
+    private cleanUpEditorDisabledOnChange?: () => void,
   ) {
     this.intl = getIntl();
     const { dom, contentDOM } = DOMSerializer.renderSpec(
       document,
-      toDOM(node, this.__livePage, this.intl),
+      toDOM(
+        node,
+        this.__livePage,
+        this.intl,
+        api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
+      ),
     );
     this.allowInteractiveExpand = allowInteractiveExpand;
     this.getPos = getPos;
@@ -175,6 +204,8 @@ export class ExpandNodeView implements NodeView {
       this.input.addEventListener('keydown', this.handleTitleKeydown);
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       this.input.addEventListener('blur', this.handleBlur);
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+      this.input.addEventListener('focus', this.handleInputFocus);
     }
     if (this.titleContainer) {
       // If the user interacts in our title bar (either toggle or input)
@@ -186,6 +217,33 @@ export class ExpandNodeView implements NodeView {
     if (this.icon) {
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       this.icon.addEventListener('keydown', this.handleIconKeyDown);
+    }
+
+    if (
+      this.api?.editorDisabled &&
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      )
+    ) {
+      this.cleanUpEditorDisabledOnChange =
+        this.api.editorDisabled.sharedState.onChange(sharedState => {
+          const editorDisabled = sharedState.nextSharedState.editorDisabled;
+
+          if (this.input) {
+            if (editorDisabled) {
+              this.input.setAttribute('readonly', 'true');
+            } else {
+              this.input.removeAttribute('readonly');
+            }
+          }
+
+          if (this.content) {
+            this.content.setAttribute(
+              'contenteditable',
+              this.getContentEditable(this.node) ? 'true' : 'false',
+            );
+          }
+        });
     }
   }
 
@@ -204,8 +262,6 @@ export class ExpandNodeView implements NodeView {
       if (typeof pos === 'number') {
         setSelectionInsideExpand(pos)(state, dispatch, this.view);
       }
-      this.decorationCleanup =
-        this.api?.selectionMarker?.actions?.hideDecoration();
       this.input.focus();
     }
   };
@@ -305,7 +361,12 @@ export class ExpandNodeView implements NodeView {
     event.stopImmediatePropagation();
   };
 
-  private handleBlur = (event: FocusEvent) => {
+  private handleInputFocus = () => {
+    this.decorationCleanup =
+      this.api?.selectionMarker?.actions?.hideDecoration();
+  };
+
+  private handleBlur = () => {
     this.decorationCleanup?.();
   };
 
@@ -330,6 +391,16 @@ export class ExpandNodeView implements NodeView {
       case 'Backspace':
         this.deleteExpand(event);
         break;
+    }
+    // 'Ctrl-y', 'Mod-Shift-z');
+    if ((event.ctrlKey && event.key === 'y') || ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z')) {
+      this.handleRedoFromTitle(event);
+      return;
+    }
+    // 'Mod-z'
+    if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
+      this.handleUndoFromTitle(event);
+      return;
     }
   };
 
@@ -523,6 +594,41 @@ export class ExpandNodeView implements NodeView {
     }
   };
 
+  private handleUndoFromTitle = (event: KeyboardEvent) => {
+    const { state, dispatch } = this.view;
+    undo(state, dispatch);
+    event.preventDefault();
+    return;
+  };
+
+  private handleRedoFromTitle = (event: KeyboardEvent) => {
+    const { state, dispatch } = this.view;
+    redo(state, dispatch);
+    event.preventDefault();
+    return;
+  };
+
+  private getContentEditable = (node: PmNode): boolean => {
+    const contentEditable =
+      getBooleanFF('platform.editor.live-pages-expand-divergence') &&
+      this.__livePage
+        ? !node.attrs.__expanded
+        : node.attrs.__expanded;
+    if (
+      getBooleanFF(
+        'platform.editor.live-view.disable-editing-in-view-mode_fi1rx',
+      ) &&
+      this.api &&
+      this.api.editorDisabled
+    ) {
+      return (
+        !this.api.editorDisabled.sharedState.currentState()?.editorDisabled &&
+        contentEditable
+      );
+    }
+    return contentEditable;
+  };
+
   stopEvent(event: Event) {
     const target = event.target as HTMLElement;
     return (
@@ -565,10 +671,7 @@ export class ExpandNodeView implements NodeView {
           // Disallow interaction/selection inside when collapsed.
           this.content.setAttribute(
             'contenteditable',
-            getBooleanFF('platform.editor.live-pages-expand-divergence') &&
-              this.__livePage
-              ? !node.attrs.__expanded
-              : node.attrs.__expanded,
+            this.getContentEditable(node) ? 'true' : 'false',
           );
         }
       }
@@ -600,6 +703,8 @@ export class ExpandNodeView implements NodeView {
       this.input.removeEventListener('keydown', this.handleTitleKeydown);
       // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
       this.input.removeEventListener('blur', this.handleBlur);
+      // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+      this.input.removeEventListener('focus', this.handleInputFocus);
     }
 
     if (this.titleContainer) {
@@ -615,6 +720,10 @@ export class ExpandNodeView implements NodeView {
 
     this.decorationCleanup?.();
 
+    if (this.cleanUpEditorDisabledOnChange) {
+      this.cleanUpEditorDisabledOnChange();
+    }
+
     // @ts-ignore - [unblock prosemirror bump] reset non optional prop to undefined to clear reference
     this.dom = undefined;
     this.contentDOM = undefined;
@@ -622,6 +731,7 @@ export class ExpandNodeView implements NodeView {
     this.input = undefined;
     this.titleContainer = undefined;
     this.content = undefined;
+    this.cleanUpEditorDisabledOnChange = undefined;
   }
 }
 

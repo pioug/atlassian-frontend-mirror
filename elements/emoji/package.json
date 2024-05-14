@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/emoji",
-  "version": "67.6.18",
+  "version": "67.6.22",
   "description": "Fabric emoji React components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Foundational Elements",
+    "team": "Editor: Collaboration",
     "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
@@ -37,19 +37,19 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/media-client": "^26.3.0",
+    "@atlaskit/media-client": "^27.0.0",
     "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/textfield": "^6.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/textfield": "^6.3.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/util-service-support": "^6.2.0",
-    "@atlaskit/visually-hidden": "^1.2.0",
+    "@atlaskit/visually-hidden": "^1.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@tanstack/react-virtual": "3.0.0-beta.60",
@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "@af/integration-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/ssr": "*",
@@ -114,6 +115,7 @@
     ".": "./src/index.ts",
     "./admin": "./src/admin.ts",
     "./element": "./src/element.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./picker": "./src/picker.ts",
     "./resource": "./src/resource.ts",
     "./typeahead": "./src/typeahead.ts",

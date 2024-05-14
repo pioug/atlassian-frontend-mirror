@@ -1,3 +1,4 @@
+import { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 import { ElementProps } from '../types';
 import type { LinkLozengeInvokeActions } from '../../../../../extractors/common/lozenge/types';
 
@@ -19,6 +20,11 @@ export type LozengeProps = ElementProps & {
    * Determines the appearance of the Atlaskit lozenge.
    */
   appearance?: LozengeAppearance;
+
+  /**
+   * Determines the custom styles of the Atlaskit lozenge.
+   */
+  style?: AtlaskitLozengeProps['style'];
 
   /**
    * The text to display within the lozenge.

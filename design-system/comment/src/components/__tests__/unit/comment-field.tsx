@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { matchers } from '@emotion/jest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import CommentField, { CommentFieldProps } from '../../field';
+import CommentField, { type CommentFieldProps } from '../../field';
 
 expect.extend(matchers);
 
@@ -96,7 +96,8 @@ describe('@atlaskit comments', () => {
         expect(onClickMock).toHaveBeenCalledTimes(1);
         expect(onHoverMock).toHaveBeenCalledTimes(1);
 
-        await user.tab();
+        jest.clearAllMocks();
+        fireEvent.focus(link);
         expect(onFocusMock).toHaveBeenCalledTimes(1);
       });
     });

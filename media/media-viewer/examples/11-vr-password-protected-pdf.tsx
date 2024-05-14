@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Identifier } from '@atlaskit/media-client';
+import { type Identifier } from '@atlaskit/media-client';
 import {
   createStorybookMediaClientConfig,
   defaultCollectionName,
@@ -7,18 +7,12 @@ import {
 } from '@atlaskit/media-test-helpers';
 import {
   generateItemWithBinaries,
-  ItemWithBinaries,
+  type ItemWithBinaries,
 } from '@atlaskit/media-test-data';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 
 import { MediaViewer } from '../src';
 import { MainWrapper } from '../example-helpers/MainWrapper';
-
-setBooleanFeatureFlagResolver(
-  (flagKey: string) =>
-    flagKey === 'platform.corex.password-protected-pdf_ht8re',
-);
 
 const prepareItem = async () => {
   const item = await generateItemWithBinaries.passwordPdf.passwordPdf();

@@ -1,7 +1,7 @@
 import type { DependencyList } from 'react';
 import { useMemo } from 'react';
 
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   AllEditorPresetPluginTypes,
   ExtractNextEditorPlugins,
@@ -57,12 +57,17 @@ export function usePreset<
   PluginNames extends string[] = [],
   StackPlugins extends AllEditorPresetPluginTypes[] = [],
 >(
-  createPreset: () => EditorPresetBuilder<PluginNames, StackPlugins>,
+  createPreset: (
+    builder: EditorPresetBuilder,
+  ) => EditorPresetBuilder<PluginNames, StackPlugins>,
   dependencies: DependencyList = [],
 ): PresetAPI<PluginNames, StackPlugins> {
   const editorApi = usePresetContext<ExtractNextEditorPlugins<StackPlugins>>();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const preset = useMemo(createPreset, dependencies);
+  const preset = useMemo(
+    () => createPreset(new EditorPresetBuilder()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dependencies,
+  );
 
   return {
     editorApi,

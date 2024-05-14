@@ -2,9 +2,9 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import type { InteractionContextType } from '@atlaskit/interaction-context';
-// eslint-disable-next-line no-duplicate-imports
-import InteractionContext from '@atlaskit/interaction-context';
+import InteractionContext, {
+  type InteractionContextType,
+} from '@atlaskit/interaction-context';
 
 import variants from '../../../utils/variants';
 

@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
+
+import { css, jsx } from '@compiled/react';
 
 import { AtlasIcon, AtlasLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoAtlas = () => {
   return (
@@ -14,7 +20,7 @@ const LogoAtlas = () => {
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <AtlasLogo appearance="brand" />
             </td>
             <td>

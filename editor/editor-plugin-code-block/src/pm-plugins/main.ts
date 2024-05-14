@@ -1,9 +1,14 @@
 import type { IntlShape } from 'react-intl-next';
 
+import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type {
+  EditorAppearance,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type {
   EditorView,
@@ -14,6 +19,7 @@ import {
   ignoreFollowingMutations,
   resetShouldIgnoreFollowingMutations,
 } from '../actions';
+import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { pluginKey } from '../plugin-key';
 import { codeBlockClassNames } from '../ui/class-names';
@@ -27,6 +33,7 @@ export const createPlugin = ({
   getIntl,
   appearance,
   allowCompositionInputOverride = false,
+  api,
 }: {
   useLongPressSelection?: boolean;
   getIntl: () => IntlShape;
@@ -34,6 +41,7 @@ export const createPlugin = ({
   // We only want this DOM event on mobile as composition only happens on mobile
   // Don't want to add an uneccessary listener to web
   allowCompositionInputOverride?: boolean;
+  api?: ExtractInjectionAPI<CodeBlockPlugin>;
 }) => {
   const handleDOMEvents: PMEditorProps['handleDOMEvents'] = {};
 
@@ -143,7 +151,8 @@ export const createPlugin = ({
     key: pluginKey,
     props: {
       nodeViews: {
-        codeBlock: codeBlockNodeView,
+        codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
+          codeBlockNodeView(node, view, getPos, api),
       },
       handleClickOn: createSelectionClickHandler(
         ['codeBlock'],

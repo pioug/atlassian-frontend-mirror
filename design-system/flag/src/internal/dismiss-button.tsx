@@ -1,21 +1,18 @@
-/** @jsx jsx */
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import { css, jsx } from '@emotion/react';
-import FocusRing from '@atlaskit/focus-ring';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { token } from '@atlaskit/tokens';
+import { Pressable, xcss } from '@atlaskit/primitives';
 
 import { flagTextColorToken } from '../theme';
-import { AppearanceTypes } from '../types';
+import { type AppearanceTypes } from '../types';
 
-const buttonStyles = css({
+const buttonStyles = xcss({
   display: 'flex',
   width: '24px',
   height: '24px',
-  padding: token('space.0', '0px'),
+  padding: 'space.0',
   alignItems: 'center',
   justifyContent: 'center',
   flex: '0 0 auto',
@@ -54,21 +51,18 @@ const DismissButton = ({
   }
 
   return (
-    <FocusRing>
-      <button
-        type="button"
-        css={buttonStyles}
-        onClick={onClick}
-        aria-expanded={isBold ? isExpanded : undefined}
-        data-testid={buttonTestId}
-      >
-        <ButtonIcon
-          label={buttonLabel}
-          size={size}
-          primaryColor={flagTextColorToken[appearance]}
-        />
-      </button>
-    </FocusRing>
+    <Pressable
+      xcss={buttonStyles}
+      onClick={onClick}
+      aria-expanded={isBold ? isExpanded : undefined}
+      testId={buttonTestId}
+    >
+      <ButtonIcon
+        label={buttonLabel}
+        size={size}
+        primaryColor={flagTextColorToken[appearance]}
+      />
+    </Pressable>
   );
 };
 

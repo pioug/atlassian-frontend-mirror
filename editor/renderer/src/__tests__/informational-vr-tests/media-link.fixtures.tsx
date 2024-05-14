@@ -97,7 +97,6 @@ export function RendererMediaLink() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfMediaSingle}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -137,7 +136,6 @@ export function RendererMediaLinkInsideExpand() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfMediaInsideExpand}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -157,7 +155,6 @@ export function RendererMediaLinkInsideNestedExpand() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfMediaInsideNestedExpand}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -177,7 +174,6 @@ export function RendererMediaLinkInsideTable() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfMediaInsideTable}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -197,7 +193,6 @@ export function RendererLeftWrappedMediaLinkInsideTable() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfLeftWrappedMediaInsideTable}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -217,7 +212,6 @@ export function RendererRightWrappedMediaLinkInsideTable() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfRightWrappedMediaInsideTable}
           appearance={'full-page'}
           dataProviders={providerFactory}
@@ -237,7 +231,6 @@ export function RendererLeftAndRightWrappedMediaLinkInsideTable() {
       <MockMediaClientProvider>
         <Renderer
           adfStage={'stage0'}
-          // @ts-expect-error
           document={adfLeftAndRightWrappedMediaInsideTable}
           appearance={'full-page'}
           dataProviders={providerFactory}

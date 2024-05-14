@@ -14,8 +14,7 @@ export const emojiUploadWidget = css({
   width: `${emojiPickerWidth}px`,
   marginBottom: token('space.100', '8px'),
   minWidth: `${emojiPickerWidth}px`,
-  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-  margin: '-10px',
+  margin: token('space.negative.150', '-12px'),
   marginTop: token('space.negative.200', '-16px'),
 });
 

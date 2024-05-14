@@ -1,7 +1,25 @@
+import { ReactNode } from 'react';
+import {
+  MediaClient,
+  MediaStoreGetFileImageParams,
+  FileIdentifier,
+} from '@atlaskit/media-client';
 import type { WithMediaClientConfigProps } from '@atlaskit/media-client-react';
-import { MediaImageInternalProps } from './mediaImage';
-
+import type { SSR } from '@atlaskit/media-common';
 export type MediaImageStatus = 'loading' | 'error' | 'processed' | 'succeeded';
+
+export interface MediaImageInternalProps {
+  /** Instance of file identifier */
+  identifier: FileIdentifier;
+  /** Instance of Media MediaClient */
+  mediaClient: MediaClient;
+  /** Media API Configuration object */
+  apiConfig?: MediaStoreGetFileImageParams;
+  /** Render props returning `MediaImageChildrenProps` data structure */
+  children: (props: MediaImageChildrenProps) => ReactNode;
+  /** Server-Side-Rendering modes are "server" and "client" */
+  ssr?: SSR;
+}
 
 export interface MediaImageState {
   /** Current status of the image to be loaded */

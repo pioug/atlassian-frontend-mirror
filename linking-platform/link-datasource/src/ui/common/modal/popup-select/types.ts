@@ -30,9 +30,31 @@ export type AvatarLabelOption = OptionBase & {
   isGroup?: boolean;
 };
 
+export type DateRangeType =
+  | 'anyTime'
+  | 'today'
+  | 'yesterday'
+  | 'past7Days'
+  | 'past30Days'
+  | 'pastYear'
+  | 'custom';
+
+export type DateRangeOption = OptionBase & {
+  optionType: 'dateRange';
+  value: DateRangeType;
+  from?: string;
+  to?: string;
+};
+
 export type SelectOption =
   | IconLabelOption
   | LozengeLabelOption
-  | AvatarLabelOption;
+  | AvatarLabelOption
+  | DateRangeOption;
 
 export type FormatOptionLabel = (option: SelectOption) => ReactElement;
+
+export interface CommonBasicFilterHookState {
+  status: 'empty' | 'loading' | 'resolved' | 'rejected';
+  errors: unknown[];
+}

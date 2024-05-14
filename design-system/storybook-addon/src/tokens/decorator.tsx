@@ -14,8 +14,8 @@ const splitColumnStyles: CSSProperties = {
   height: '100vh',
   overflow: 'auto',
   padding: '10px',
-  background: token('elevation.surface', 'white'),
-  color: token('color.text', '#172B4D'),
+  background: token('elevation.surface'),
+  color: token('color.text'),
 };
 
 const stackColumnStyles: CSSProperties = {
@@ -25,15 +25,15 @@ const stackColumnStyles: CSSProperties = {
   height: '50%',
   overflow: 'auto',
   padding: '10px',
-  background: token('elevation.surface', 'white'),
-  color: token('color.text', '#172B4D'),
+  background: token('elevation.surface'),
+  color: token('color.text'),
 };
 
 const withDesignTokens = makeDecorator({
   name: DECORATOR_ID,
   parameterName: DECORATOR_PARAM,
   wrapper: (storyFn, context) => {
-    const theme = context.globals.adsTheme as Themes;
+    const theme = (context.globals.adsTheme as Themes) || 'auto';
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
@@ -86,7 +86,13 @@ const withDesignTokens = makeDecorator({
     }, [context.id, theme]);
 
     function renderStory() {
-      const story = storyFn(context) as ReactNode;
+      const story = storyFn({
+        ...context,
+        globals: {
+          ...context.globals,
+          adsTheme: theme,
+        },
+      }) as ReactNode;
 
       if (theme === 'split' || theme === 'stack') {
         return (

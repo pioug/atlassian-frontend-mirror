@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Oszlop beszúrása jobbra',
   'fabric.editor.addCommentOnMedia': 'Megjegyzés hozzáadása',
   'fabric.editor.addImageBorder': 'Szegély hozzáadása',
+  'fabric.editor.addLoomVideo': 'Loom-videó hozzáadása',
   'fabric.editor.addMediaFiles': 'Kép, videó vagy fájl hozzáadása',
   'fabric.editor.addRowAbove': 'Sor beszúrása felülre',
   'fabric.editor.addRowBelow': 'Sor beszúrása alulra',
@@ -99,6 +100,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Eszközök (béta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Objektumok beszúrása az Eszközökből a Jira Service Managementbe kereséssel és szűrőkkel',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Eszközök',
+  'fabric.editor.datasource.confluenceSearch': 'Confluence-lista beszúrása',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Keresési eredmények listájának beszúrása a Confluence-ből bővített kereséssel, szűrőkkel és konfigurációkkal.',
   'fabric.editor.datasource.jiraIssue': 'Jira-ügyek',
   'fabric.editor.datasource.jiraIssue.description':
     'Jira-ügyek beszúrása a Jira Cloudból továbbfejlesztett kereséssel, szűrőkkel és konfigurációkkal.',
@@ -109,6 +114,7 @@ export default {
   'fabric.editor.decision': 'Döntés',
   'fabric.editor.decision.description': 'Döntések rögzítése az egyszerű nyomon követés érdekében',
   'fabric.editor.decisionPlaceholder': 'Döntés hozzáadása...',
+  'fabric.editor.decreaseColumnSize': 'Oszlop méretének csökkentése',
   'fabric.editor.decreaseSize': 'Méret csökkentése',
   'fabric.editor.defaultAltText': 'Dokumentum',
   'fabric.editor.description': 'Leírás',
@@ -237,6 +243,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Méret',
   'fabric.editor.imageBorderSubtle': 'Vékony',
   'fabric.editor.improvement': 'Javítás',
+  'fabric.editor.increaseColumnSize': 'Oszlop méretének növelése',
   'fabric.editor.increaseSize': 'Méret növelése',
   'fabric.editor.indent': 'Behúzás',
   'fabric.editor.info': 'Információ',
@@ -329,8 +336,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Helyőrző szöveg hozzáadása',
   'fabric.editor.plainText': 'Egyszerű szöveg használata',
   'fabric.editor.quickInsert': 'Gyorsbeillesztés',
-  'fabric.editor.recordVideo': 'Videó rögzítése',
-  'fabric.editor.recordVideo.description': 'Videó rögzítése a Loom segítségével',
+  'fabric.editor.recordVideo': 'Loom-videó rögzítése',
+  'fabric.editor.recordVideo.description': 'A képernyőd vagy a kamerád képének rögzítése',
   'fabric.editor.redo': 'Ismét',
   'fabric.editor.remove': 'Eltávolítás',
   'fabric.editor.removeColumns': '{0, plural, one {Oszlop törlése} other {Oszlopok törlése}}',
@@ -350,6 +357,7 @@ export default {
   'fabric.editor.saveButton': 'Mentés',
   'fabric.editor.searchResults':
     '{itemsLength, plural, one {{itemsLength,number} elérhető találat. Az opciók közötti navigációhoz használd a Fel és Le nyilakat. A kiválasztáshoz nyomd meg az Enter billentyűt.} other {{itemsLength,number} elérhető találat. Az opciók közötti navigációhoz használd a Fel és Le nyilakat. A kiválasztáshoz nyomd meg az Enter billentyűt.}}',
+  'fabric.editor.selectColumnResize': 'Oszlop átméretezésének kiválasztása',
   'fabric.editor.selectLanguage': 'Programozási nyelv kiválasztása',
   'fabric.editor.selectTableColumn': 'Táblázatoszlop kiválasztása',
   'fabric.editor.selectTableRow': 'Táblázatsor kiválasztása',
@@ -442,10 +450,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'A tartalom nem áll rendelkezésre ebben a szerkesztőben, azonban a rendszer megőrzi a szerkesztés és mentés után',
   'fabric.editor.unsupportedInlineContent': 'Nem támogatott tartalom',
+  'fabric.editor.upDown':
+    'Ha a fel és le nyílbillentyűket használod az előző/következő beviteli mezőbe való lépéshez, az alábbi dátum frissülni fog',
   'fabric.editor.url': 'URL megjelenítése',
   'fabric.editor.urlDescription': 'Link megjelenítése URL-ként',
   'fabric.editor.urlTitle': 'URL-cím',
   'fabric.editor.useMarkdown': 'Markdown használata',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Megjegyzések megtekintése és hozzáadása',
+  'fabric.editor.viewCommentOnMedia': 'Megjegyzések megtekintése',
   'fabric.editor.viewMore': 'Továbbiak megtekintése',
   'fabric.editor.visit': 'Hivatkozás megnyitása új ablakban',
   'fabric.editor.warning': 'Figyelmeztetés',

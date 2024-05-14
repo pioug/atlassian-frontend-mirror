@@ -20,9 +20,14 @@ import {
   updateInlineCommentResolvedState,
   updateMouseState,
 } from '../commands';
-import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
+import {
+  AnnotationNodeView,
+  getAnnotationViewClassname,
+  getBlockAnnotationViewClassname,
+} from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
 import {
+  decorationKey,
   getAllAnnotations,
   getPluginState,
   inlineCommentPluginKey,
@@ -270,6 +275,10 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         const focusDecorations: Decoration[] = [];
 
         state.doc.descendants((node: PMNode, pos: number) => {
+          const isSupportedBlockNode =
+            node.isBlock &&
+            provider.supportedBlockNodes?.includes(node.type.name);
+
           node.marks
             .filter(mark => mark.type === state.schema.marks.annotation)
             .forEach(mark => {
@@ -283,15 +292,31 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
                       selectedAnnotation.id === mark.attrs.id,
                   );
 
-                focusDecorations.push(
-                  Decoration.inline(pos, pos + node.nodeSize, {
-                    class: `${getAnnotationViewClassname(
-                      isUnresolved,
-                      isSelected,
-                    )} ${isUnresolved}`,
-                    nodeName: 'span',
-                  }),
-                );
+                if (isSupportedBlockNode) {
+                  focusDecorations.push(
+                    Decoration.node(
+                      pos,
+                      pos + node.nodeSize,
+                      {
+                        class: `${getBlockAnnotationViewClassname(
+                          isUnresolved,
+                          isSelected,
+                        )} ${isUnresolved}`,
+                      },
+                      { key: decorationKey.block },
+                    ),
+                  );
+                } else {
+                  focusDecorations.push(
+                    Decoration.inline(pos, pos + node.nodeSize, {
+                      class: `${getAnnotationViewClassname(
+                        isUnresolved,
+                        isSelected,
+                      )} ${isUnresolved}`,
+                      nodeName: 'span',
+                    }),
+                  );
+                }
               }
             });
         });

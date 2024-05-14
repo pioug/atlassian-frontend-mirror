@@ -7,8 +7,12 @@ import {
   BufferedTime,
   CurrentTimeTooltip,
   TimeRangeWrapper,
+  CurrentTimeLineThumb,
 } from './styled';
-import { formatDuration } from '../formatDuration';
+import { formatDuration, secondsToTime } from '../formatDuration';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { messages } from '../messages';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface TimeRangeProps {
   currentTime: number;
@@ -18,6 +22,8 @@ export interface TimeRangeProps {
   disableThumbTooltip: boolean;
   isAlwaysActive: boolean;
   onChanged?: () => void;
+  skipBackward?: (skipAmount: number) => void;
+  skipForward?: (skipAmount: number) => void;
 }
 
 export interface TimeRangeState {
@@ -25,7 +31,10 @@ export interface TimeRangeState {
   dragStartClientX: number; // clientX value at the beginning of a slider
 }
 
-export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
+export class TimeRangeBase extends Component<
+  TimeRangeProps & WrappedComponentProps<'intl'>,
+  TimeRangeState
+> {
   thumbElement = React.createRef<HTMLDivElement>();
   wrapperElement = React.createRef<HTMLDivElement>();
 
@@ -41,8 +50,60 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
     isAlwaysActive: false,
   };
 
+  private numberFormatterHours: Intl.NumberFormat;
+  private numberFormatterMinutes: Intl.NumberFormat;
+  private numberFormatterSeconds: Intl.NumberFormat;
+
+  constructor(props: TimeRangeProps & WrappedComponentProps<'intl'>) {
+    super(props);
+    this.numberFormatterHours = new Intl.NumberFormat(this.props.intl.locale, {
+      style: 'unit',
+      unit: 'hour',
+    });
+    this.numberFormatterMinutes = new Intl.NumberFormat(
+      this.props.intl.locale,
+      {
+        style: 'unit',
+        unit: 'minute',
+      },
+    );
+    this.numberFormatterSeconds = new Intl.NumberFormat(
+      this.props.intl.locale,
+      {
+        style: 'unit',
+        unit: 'second',
+      },
+    );
+  }
+
   componentDidMount() {
     window.addEventListener('resize', this.setWrapperWidth);
+  }
+
+  componentDidUpdate(prevProps: TimeRangeProps & WrappedComponentProps) {
+    if (this.props.intl.locale !== prevProps.intl.locale) {
+      this.numberFormatterHours = new Intl.NumberFormat(
+        this.props.intl.locale,
+        {
+          style: 'unit',
+          unit: 'hour',
+        },
+      );
+      this.numberFormatterMinutes = new Intl.NumberFormat(
+        this.props.intl.locale,
+        {
+          style: 'unit',
+          unit: 'minute',
+        },
+      );
+      this.numberFormatterSeconds = new Intl.NumberFormat(
+        this.props.intl.locale,
+        {
+          style: 'unit',
+          unit: 'second',
+        },
+      );
+    }
   }
 
   componentWillUnmount() {
@@ -135,6 +196,34 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
     onChange(currentTime);
   };
 
+  onTimeLineThumbKeydown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!this.props.skipBackward || !this.props.skipForward) {
+      return;
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (event.shiftKey) {
+        this.props.skipForward(10);
+      } else {
+        this.props.skipForward(1);
+      }
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (event.shiftKey) {
+        this.props.skipBackward(10);
+      } else {
+        this.props.skipBackward(1);
+      }
+    }
+  };
+
   render() {
     const { isDragging } = this.state;
     const {
@@ -143,9 +232,21 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
       bufferedTime,
       disableThumbTooltip,
       isAlwaysActive,
+      intl,
     } = this.props;
     const currentPosition = (currentTime * 100) / duration;
     const bufferedTimePercentage = (bufferedTime * 100) / duration;
+
+    const {
+      seconds: currentTimeSeconds,
+      minutes: currentTimeMinutes,
+      hours: currentTimeHours,
+    } = secondsToTime(currentTime);
+    const {
+      seconds: videoTotalSeconds,
+      minutes: videoTotalMinutes,
+      hours: videoTotalHours,
+    } = secondsToTime(duration);
 
     return (
       <TimeRangeWrapper
@@ -155,20 +256,69 @@ export class TimeRange extends Component<TimeRangeProps, TimeRangeState> {
         <TimeLine ref={this.wrapperElement}>
           <BufferedTime style={{ width: `${bufferedTimePercentage}%` }} />
           <CurrentTimeLine style={{ width: `${currentPosition}%` }}>
-            <Thumb ref={this.thumbElement}>
-              {disableThumbTooltip ? null : (
-                <CurrentTimeTooltip
-                  draggable={false}
-                  isDragging={isDragging}
-                  className="current-time-tooltip"
-                >
-                  {formatDuration(currentTime)}
-                </CurrentTimeTooltip>
-              )}
-            </Thumb>
+            {getBooleanFF(
+              'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+            ) ? (
+              <CurrentTimeLineThumb
+                role="slider"
+                ref={this.thumbElement}
+                onKeyDown={this.onTimeLineThumbKeydown}
+                tabIndex={0}
+                aria-orientation="horizontal"
+                aria-label={intl.formatMessage(
+                  messages.video_seeker_label_assistive_text,
+                )}
+                aria-valuemin={0}
+                aria-valuemax={Math.floor(duration)}
+                aria-valuenow={Math.floor(currentTime)}
+                aria-valuetext={intl.formatMessage(
+                  messages.video_seeker_assistive_text_time_value,
+                  {
+                    currentTimeHours: currentTimeHours
+                      ? this.numberFormatterHours.format(currentTimeHours)
+                      : '',
+                    currentTimeMinutes:
+                      this.numberFormatterMinutes.format(currentTimeMinutes),
+                    currentTimeSeconds:
+                      this.numberFormatterSeconds.format(currentTimeSeconds),
+                    videoTotalHours: videoTotalHours
+                      ? this.numberFormatterHours.format(videoTotalHours)
+                      : '',
+                    videoTotalMinutes:
+                      this.numberFormatterMinutes.format(videoTotalMinutes),
+                    videoTotalSeconds:
+                      this.numberFormatterSeconds.format(videoTotalSeconds),
+                  },
+                )}
+              >
+                {disableThumbTooltip ? null : (
+                  <CurrentTimeTooltip
+                    draggable={false}
+                    isDragging={isDragging}
+                    className="current-time-tooltip"
+                  >
+                    {formatDuration(currentTime)}
+                  </CurrentTimeTooltip>
+                )}
+              </CurrentTimeLineThumb>
+            ) : (
+              <Thumb ref={this.thumbElement}>
+                {disableThumbTooltip ? null : (
+                  <CurrentTimeTooltip
+                    draggable={false}
+                    isDragging={isDragging}
+                    className="current-time-tooltip"
+                  >
+                    {formatDuration(currentTime)}
+                  </CurrentTimeTooltip>
+                )}
+              </Thumb>
+            )}
           </CurrentTimeLine>
         </TimeLine>
       </TimeRangeWrapper>
     );
   }
 }
+
+export const TimeRange = injectIntl(TimeRangeBase);

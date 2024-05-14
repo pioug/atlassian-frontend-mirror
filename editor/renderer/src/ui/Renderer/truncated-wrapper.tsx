@@ -20,28 +20,30 @@ const fadeOutStyles = (
   maxHeight: number,
   top: number,
   backgroundColor: string,
-) => css`
-  position: relative;
-  overflow-y: hidden;
-  max-height: ${maxHeight}px;
-  &::after {
-    content: '';
-    position: absolute;
-    top: ${top}px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(
-      ${token('color.background.neutral.subtle', 'rgba(255, 255, 255, 0)')},
-      ${backgroundColor}
-    );
-  }
-`;
+) =>
+  css({
+    position: 'relative',
+    overflowY: 'hidden',
+    maxHeight: `${maxHeight}px`,
+    '&::after': {
+      content: "''",
+      position: 'absolute',
+      top: `${top}px`,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundImage: `linear-gradient( ${token(
+        'color.background.neutral.subtle',
+        'rgba(255, 255, 255, 0)',
+      )}, ${backgroundColor} )`,
+    },
+  });
 
 const FadeOut = (props: FadeOutProps) => {
   const { children, backgroundColor, fadeHeight, height } = props;
   const top = height - fadeHeight;
   const styles = fadeOutStyles(height, top, backgroundColor);
+  // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
   return <div css={styles}>{children}</div>;
 };
 

@@ -6,8 +6,7 @@ import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import Text from '@atlaskit/ds-explorations/text';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import { ProgressIndicator } from '../src';
 
@@ -162,7 +161,7 @@ const ProgressIndicatorDots = () => {
                   onChange={toggleInteractivity}
                   type="checkbox"
                 />
-                <Text as="strong" fontWeight="bold">
+                <Text as="strong" weight="bold">
                   Allow interaction with indicators
                 </Text>
               </Inline>
@@ -183,9 +182,7 @@ const ProgressIndicatorDots = () => {
                   xcss={selected ? displayBlockStyles : displayNoneStyles}
                 >
                   <Stack space="space.100">
-                    <Text as="strong" fontSize="size.100" fontWeight="bold">
-                      Panel {i + 1}
-                    </Text>
+                    <Text as="strong">Panel {i + 1}</Text>
                     <Lorem count={3} />
                   </Stack>
                 </Box>

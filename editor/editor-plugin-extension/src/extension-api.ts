@@ -250,7 +250,7 @@ export const createExtensionAPI: CreateExtensionAPI = (
       tr = tr.scrollIntoView();
       dispatch(tr);
     },
-    update: (localId, mutationCallback) => {
+    update: (localId, mutationCallback, opts) => {
       const { node, pos } = ensureNodePosByLocalId(localId, {
         opName: 'update',
       });
@@ -339,6 +339,9 @@ export const createExtensionAPI: CreateExtensionAPI = (
         extensionAPICallPayload('update');
       editorAnalyticsAPI?.attachAnalyticsEvent(apiCallPayload)(tr);
 
+      if (typeof opts?.addToHistory === 'boolean') {
+        tr.setMeta('addToHistory', opts.addToHistory);
+      }
       dispatch(tr);
     },
   };

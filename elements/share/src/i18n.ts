@@ -288,4 +288,9 @@ export const messages = defineMessages({
     defaultMessage: 'Invite to Jira',
     description: 'Text for the byline of the non-licensed users',
   },
+  sharePopupLabel: {
+    id: 'fabric.elements.share.popup.label',
+    defaultMessage: 'Share',
+    description: 'Label of the popup that contains share menu used by assistive technologies',
+  },
 });

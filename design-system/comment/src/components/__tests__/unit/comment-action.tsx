@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import CommentActionWithAnalytics, {
   CommentActionWithoutAnalytics as CommentAction,
-  CommentActionItemProps,
+  type CommentActionItemProps,
 } from '../../action-item';
 
 describe('@atlaskit comments', () => {
@@ -57,7 +57,7 @@ describe('@atlaskit comments', () => {
         expect(onClickMock).toHaveBeenCalledTimes(1);
         expect(onHoverMock).toHaveBeenCalledTimes(1);
 
-        await user.tab();
+        fireEvent.focus(button);
         expect(onFocusMock).toHaveBeenCalledTimes(1);
       });
 

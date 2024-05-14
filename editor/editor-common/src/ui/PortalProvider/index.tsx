@@ -23,7 +23,7 @@ import IntlProviderIfMissingWrapper from '../IntlProviderIfMissingWrapper';
 
 export type BasePortalProviderProps = {
   render: (
-    portalProviderAPI: PortalProviderAPI,
+    portalProviderAPI: LegacyPortalProviderAPI,
   ) => React.ReactChild | JSX.Element | null;
   onAnalyticsEvent?: FireAnalyticsCallback;
   useAnalyticsContext?: boolean;
@@ -36,12 +36,13 @@ export type PortalRendererState = {
 };
 
 type MountedPortal = {
+  key: string;
   children: () => React.ReactChild | null;
   hasAnalyticsContext: boolean;
   hasIntlContext: boolean;
 };
 
-export class PortalProviderAPI extends EventDispatcher {
+export class LegacyPortalProviderAPI extends EventDispatcher {
   portals: Map<HTMLElement, MountedPortal> = new Map();
   context: any;
   intl: IntlShape;
@@ -66,11 +67,13 @@ export class PortalProviderAPI extends EventDispatcher {
   render(
     children: () => React.ReactChild | JSX.Element | null,
     container: HTMLElement,
+    key: string,
     hasAnalyticsContext: boolean = false,
     hasIntlContext: boolean = false,
   ) {
     this.portals.set(container, {
-      children: children,
+      key,
+      children,
       hasAnalyticsContext,
       hasIntlContext,
     });
@@ -128,7 +131,7 @@ export class PortalProviderAPI extends EventDispatcher {
     });
   }
 
-  remove(container: HTMLElement) {
+  remove(key: string, container: HTMLElement) {
     this.portals.delete(container);
 
     // There is a race condition that can happen caused by Prosemirror vs React,
@@ -166,11 +169,11 @@ export class PortalProviderAPI extends EventDispatcher {
 class BasePortalProvider extends React.Component<BasePortalProviderProps> {
   static displayName = 'PortalProvider';
 
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI;
 
   constructor(props: BasePortalProviderProps) {
     super(props);
-    this.portalProviderAPI = new PortalProviderAPI(
+    this.portalProviderAPI = new LegacyPortalProviderAPI(
       props.intl,
       props.onAnalyticsEvent,
       props.useAnalyticsContext,
@@ -225,10 +228,10 @@ const PortalProviderWithThemeAndIntlProviders = ({
 };
 
 export class PortalRenderer extends React.Component<
-  { portalProviderAPI: PortalProviderAPI },
+  { portalProviderAPI: LegacyPortalProviderAPI },
   PortalRendererState
 > {
-  constructor(props: { portalProviderAPI: PortalProviderAPI }) {
+  constructor(props: { portalProviderAPI: LegacyPortalProviderAPI }) {
     super(props);
     props.portalProviderAPI.setContext(this);
     props.portalProviderAPI.on('update', this.handleUpdate);

@@ -1,4 +1,4 @@
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { TableMap } from '../table-map';
 
@@ -8,7 +8,7 @@ import { findTable } from './find';
 
 // Returns a new transaction that adds a new column at index `columnIndex`.
 export const addColumnAt =
-  (columnIndex: number) =>
+  (columnIndex: number, isCellBackgroundDuplicated?: boolean) =>
   (tr: Transaction): Transaction => {
     const table = findTable(tr.selection);
     if (table) {
@@ -23,6 +23,7 @@ export const addColumnAt =
               table: table.node,
             },
             columnIndex,
+            isCellBackgroundDuplicated,
           ),
         );
       }

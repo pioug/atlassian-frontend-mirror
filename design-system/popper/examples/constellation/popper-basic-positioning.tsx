@@ -9,9 +9,9 @@ import { Manager, Popper, Reference } from '../../src';
 const popupStyles = css({
   maxWidth: '160px',
   padding: token('space.100', '8px'),
-  background: token('elevation.surface.overlay', 'white'),
+  background: token('elevation.surface.overlay'),
   borderRadius: token('border.radius', '3px'),
-  boxShadow: token('elevation.shadow.raised', '0 2px 3px rgba(0,0,0,0.2)'),
+  boxShadow: token('elevation.shadow.raised'),
 });
 
 const BasicPositioningExample = () => (

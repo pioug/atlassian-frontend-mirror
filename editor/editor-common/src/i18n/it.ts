@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Aggiungi colonna a destra',
   'fabric.editor.addCommentOnMedia': 'Aggiungi un commento',
   'fabric.editor.addImageBorder': 'Aggiungi bordo',
+  'fabric.editor.addLoomVideo': 'Aggiungi un video Loom',
   'fabric.editor.addMediaFiles': "Aggiungi un'immagine, un video o un file",
   'fabric.editor.addRowAbove': 'Aggiungi riga sopra',
   'fabric.editor.addRowBelow': 'Aggiungi riga sotto',
@@ -98,6 +99,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Risorse (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Inserisci oggetti da Risorse in Jira Service Management con la ricerca e i filtri',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Risorse',
+  'fabric.editor.datasource.confluenceSearch': "Inserisci l'elenco Confluence",
+  'fabric.editor.datasource.confluenceSearch.description':
+    "Inserisci l'elenco dei risultati della ricerca di Confluence con funzioni avanzate di ricerca, filtro e configurazione.",
   'fabric.editor.datasource.jiraIssue': 'Ticket Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Inserisci ticket Jira da Jira Cloud con la ricerca avanzata, i filtri e la configurazione.',
@@ -108,6 +113,7 @@ export default {
   'fabric.editor.decision': 'Decisione',
   'fabric.editor.decision.description': 'Acquisisci decisioni per monitorarle agevolmente',
   'fabric.editor.decisionPlaceholder': 'Aggiungi una decisione…',
+  'fabric.editor.decreaseColumnSize': 'Riduci la dimensione della colonna',
   'fabric.editor.decreaseSize': 'Riduci dimensione',
   'fabric.editor.defaultAltText': 'Documento',
   'fabric.editor.description': 'Descrizione',
@@ -238,6 +244,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Dimensione',
   'fabric.editor.imageBorderSubtle': 'Sottile',
   'fabric.editor.improvement': 'Miglioramento',
+  'fabric.editor.increaseColumnSize': 'Aumenta la dimensione della colonna',
   'fabric.editor.increaseSize': 'Aumenta dimensione',
   'fabric.editor.indent': 'Rientra',
   'fabric.editor.info': 'Info',
@@ -331,8 +338,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Aggiungi testo segnaposto',
   'fabric.editor.plainText': 'Usa testo normale',
   'fabric.editor.quickInsert': 'Inserimento rapido',
-  'fabric.editor.recordVideo': 'Registra video',
-  'fabric.editor.recordVideo.description': 'Registra video con Loom',
+  'fabric.editor.recordVideo': 'Registra un video Loom',
+  'fabric.editor.recordVideo.description': 'Registra lo schermo e la fotocamera',
   'fabric.editor.redo': 'Ripeti',
   'fabric.editor.remove': 'Rimuovi',
   'fabric.editor.removeColumns': '{0, plural, one {Elimina colonna} other {Elimina colonne}}',
@@ -352,6 +359,7 @@ export default {
   'fabric.editor.saveButton': 'Salva',
   'fabric.editor.searchResults':
     "{itemsLength, plural, one {{itemsLength,number} risultato della ricerca disponibile. Usa i tasti di direzione su e giù per spostarti tra le opzioni. Premi Invio per selezionare un'opzione.} other {{itemsLength,number} risultati della ricerca disponibili. Usa i tasti di direzione su e giù per spostarti tra le opzioni. Premi Invio per selezionare un'opzione.}}",
+  'fabric.editor.selectColumnResize': 'Seleziona il ridimensionamento della colonna',
   'fabric.editor.selectLanguage': 'Seleziona linguaggio',
   'fabric.editor.selectTableColumn': 'Seleziona la colonna della tabella',
   'fabric.editor.selectTableRow': 'Seleziona la riga della tabella',
@@ -444,10 +452,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'I contenuti non sono disponibili in questo editor; saranno preservati in fase di modifica e salvataggio',
   'fabric.editor.unsupportedInlineContent': 'Contenuti non supportati',
+  'fabric.editor.upDown':
+    'Utilizzando i tasti di direzione su e giù nel seguente campo di inserimento verrà aggiornata la data sottostante',
   'fabric.editor.url': 'Visualizza URL',
   'fabric.editor.urlDescription': 'Visualizza il link come URL',
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.useMarkdown': 'Usa Markdown',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Visualizza e aggiungi i commenti',
+  'fabric.editor.viewCommentOnMedia': 'Visualizza i commenti',
   'fabric.editor.viewMore': 'Visualizza altro',
   'fabric.editor.visit': 'Apri il link in una nuova finestra',
   'fabric.editor.warning': 'Avviso',

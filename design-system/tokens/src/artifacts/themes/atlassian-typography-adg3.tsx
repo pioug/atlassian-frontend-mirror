@@ -1,11 +1,16 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::338bafdd240d21d599f2864ace1663f6>>
+ * @codegen <<SignedSource::348e7051bde334fd7443da09d1f58011>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography-adg3"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
+  --ds-font-letterSpacing-0: 0;
+  --ds-font-letterSpacing-100: -0.003em;
+  --ds-font-letterSpacing-200: -0.006em;
+  --ds-font-letterSpacing-300: -0.008em;
+  --ds-font-letterSpacing-400: -0.01em;
   --ds-font-heading-xxlarge: normal 500 2.1875rem/2.5rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-heading-xlarge: normal 600 1.8125rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-heading-large: normal 500 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
@@ -17,21 +22,18 @@ html[data-theme~="typography:typography-adg3"] {
   --ds-font-body: normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-body-small: normal 400 0.6875rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-body-UNSAFE_small: normal 400 0.75rem/1rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-  --ds-font-ui: normal 500 0.875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
-  --ds-font-ui-small: normal 400 0.6875rem/1 ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-code: normal 400 0.875em/1 ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
-  --ds-font-letterSpacing-0: 0;
-  --ds-font-letterSpacing-100: -0.003em;
-  --ds-font-letterSpacing-200: -0.006em;
-  --ds-font-letterSpacing-300: -0.008em;
-  --ds-font-letterSpacing-400: -0.01em;
+  --ds-font-weight-regular: 400;
+  --ds-font-weight-medium: 500;
+  --ds-font-weight-semibold: 600;
+  --ds-font-weight-bold: 700;
+  --ds-font-family-heading: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-code: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
-  --ds-font-family-heading: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
   --ds-font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  --ds-font-family-brand-body: "Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand-heading: "Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
+  --ds-font-family-brand-body: "Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-size-050: 0.6875rem;
   --ds-font-size-075: 0.75rem;
   --ds-font-size-100: 0.875rem;
@@ -40,10 +42,6 @@ html[data-theme~="typography:typography-adg3"] {
   --ds-font-size-400: 1.5rem;
   --ds-font-size-500: 1.8125rem;
   --ds-font-size-600: 2.1875rem;
-  --ds-font-weight-bold: 700;
-  --ds-font-weight-medium: 500;
-  --ds-font-weight-regular: 400;
-  --ds-font-weight-semibold: 600;
   --ds-font-lineHeight-1: 1;
   --ds-font-lineHeight-100: 1rem;
   --ds-font-lineHeight-200: 1.25rem;

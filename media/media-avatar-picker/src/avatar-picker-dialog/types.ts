@@ -1,5 +1,5 @@
-import { Avatar } from '../avatar-list';
-import { CropProperties } from '../image-navigator';
+import { type Avatar } from '../avatar-list';
+import { type CropProperties } from '../image-navigator';
 
 export enum Mode {
   Cropping,
@@ -26,12 +26,16 @@ export interface CommonAvatarPickerDialogProps {
   errorMessage?: string;
   /** This optional property is used while the avatar is loaded. */
   isLoading?: boolean;
-  /** This property decribe the text related to the Avatar. */
+  /** This property describes the text related to the Avatar. */
   predefinedAvatarsText?: string;
   /** The target width/height of the resulting (square) avatar. Leave blank for default (200x200) */
   outputSize?: number;
   /** This optional property allows the consumer to define the maximum image size that can be uploaded. */
   maxImageSize?: number;
+  /** This optional property allows the consumer to define a custom label for select default avatar. The default is _Select a default avatar_. */
+  selectAvatarLabel?: string;
+  /** This optional property allows the consumer to define a custom label for the default avatars show more button. The default is _Show more_. */
+  showMoreAvatarsButtonLabel?: string;
 }
 
 export interface AvatarPickerDialogPropsNoAlt
@@ -51,6 +55,7 @@ export interface AvatarPickerDialogPropsNoAlt
 
 export interface AvatarPickerDialogPropsAlt
   extends CommonAvatarPickerDialogProps {
+  /** This property is raised when the user clicks the **Save** button and there is a pre-defined avatar selected, and no image selected. Two arguments are passed, an **Avatar** object with a **dataURI** property, and an **altText** string. */
   onAvatarPicked: (avatar: Avatar, altText: string) => void;
   /** This optional property is used to set the alt text of the selected image so that the component opens up with it visible already. */
   imageSourceAltText?: string;
@@ -77,4 +82,5 @@ export interface AvatarPickerDialogState {
   errorMessage?: string;
   isSubmitted: boolean;
   altText: string;
+  prevAltText: string;
 }

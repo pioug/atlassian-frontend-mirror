@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { Transition } from 'react-transition-group';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
 import { REQUEST_STATE } from '../../../model/Requests';
-import { ArticleItem } from '../../../model/Article';
+import { type ArticleItem } from '../../../model/Article';
 
 import {
   FADEIN_OVERLAY_TRANSITION_DURATION_MS,
@@ -42,6 +42,7 @@ export const SearchResults = () => {
     onSearch,
     onSearchResultItemClick,
     onSearchExternalUrlClick,
+    openExternalSearchUrlInNewTab,
   } = useSearchContext();
   const { openArticle, view } = useNavigationContext();
 
@@ -51,14 +52,18 @@ export const SearchResults = () => {
       analyticsEvent: UIAnalyticsEvent,
       articleData: ArticleItem,
     ): void => {
-      openArticle({
-        id: articleData.id,
-        type: ARTICLE_TYPE.HELP_ARTICLE,
-      });
+      if (!openExternalSearchUrlInNewTab || articleData.href == null) {
+        openArticle({
+          id: articleData.id,
+          type: ARTICLE_TYPE.HELP_ARTICLE,
+        });
+      } else {
+        window.open(articleData.href, '_blank');
+      }
 
       onSearchResultItemClick(event, analyticsEvent, articleData);
     },
-    [onSearchResultItemClick, openArticle],
+    [onSearchResultItemClick, openArticle, openExternalSearchUrlInNewTab],
   );
 
   return (

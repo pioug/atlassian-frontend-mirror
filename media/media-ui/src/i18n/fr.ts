@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Comptes',
   'fabric.media.actions': 'Actions',
   'fabric.media.add_account': 'Ajouter un compte',
+  'fabric.media.alt_text': "Comment décririez-vous l'image sélectionnée à une personne malvoyante ?",
   'fabric.media.annotate': 'Annoter',
   'fabric.media.annotate.confirmation.close.anyway': 'Fermer quand même',
   'fabric.media.annotate.confirmation.content':
@@ -64,6 +65,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Déposer vos fichiers ici',
   'fabric.media.email': 'E-mail',
   'fabric.media.enable_fullscreen': 'activer le mode plein écran',
+  'fabric.media.enter_password': 'Saisir le mot de passe',
   'fabric.media.error_429': 'Erreur 429',
   'fabric.media.error_generating_preview': "Erreur de génération de l'aperçu",
   'fabric.media.error_hint_critical': "Si le problème persiste, contactez le service d'assistance.",
@@ -71,6 +73,7 @@ export default {
   'fabric.media.error_loading_file': 'Erreur de chargement du fichier',
   'fabric.media.failed_to_load': 'Échec du chargement',
   'fabric.media.failed_to_upload': 'Échec du chargement',
+  'fabric.media.file_is_selected': 'Le fichier {name} est sélectionné',
   'fabric.media.forbidden_description':
     "Vous n'avez pas accès à cet aperçu. Contactez l'administrateur de site si vous avez besoin d'y accéder.",
   'fabric.media.give_feedback': 'Envoyer un commentaire',
@@ -78,6 +81,7 @@ export default {
   'fabric.media.image_format_invalid_error': "Impossible de charger l'image, le format n'est pas valide.",
   'fabric.media.image_size_too_large_error': "L'image est trop grande. Elle ne doit pas dépasser {MAX_SIZE_MB} Mo",
   'fabric.media.image_url_invalid_error': "Impossible de charger l'image, l'URL n'est pas valide.",
+  'fabric.media.incorrect_password': 'Mot de passe incorrect. Veuillez réessayer.',
   'fabric.media.insert_files': '{0, plural, one {Insérer {0} fichier} other {Insérer {0} fichiers}}',
   'fabric.media.invalid_permissions': 'Lien restreint',
   'fabric.media.invalid_permissions_description':
@@ -94,8 +98,11 @@ export default {
   'fabric.media.not_found_description':
     "Lien introuvable. Cliquez sur l'URL et essayez de la modifier, ou collez-la de nouveau.",
   'fabric.media.not_found_title': 'Oups, ce lien est introuvable !',
+  'fabric.media.open_file_in_viewer': 'Ouvrir {name}',
   'fabric.media.or': 'ou',
   'fabric.media.or_select_default_avatars': 'Téléchargez une photo ou sélectionnez une des options par défaut',
+  'fabric.media.password': 'Mot de passe',
+  'fabric.media.password_protected_pdf': 'Ce fichier est protégé par mot de passe.',
   'fabric.media.pause': 'Interrompre',
   'fabric.media.play': 'Lire',
   'fabric.media.playback_default_speed': 'Par défaut',
@@ -124,6 +131,7 @@ export default {
   'fabric.media.something_went_wrong': "Une erreur s'est produite.",
   'fabric.media.srclink': 'Afficher dans',
   'fabric.media.srclinkunknown': "Afficher l'original",
+  'fabric.media.submit': 'Envoyer',
   'fabric.media.text': 'Texte',
   'fabric.media.try_again': 'Réessayez',
   'fabric.media.try_another_account': 'Essayez un autre compte',

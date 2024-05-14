@@ -131,16 +131,15 @@ export interface ModalDialogProps {
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.
    *
-   * If not overridden using `testId` prop in the respective components,
-   * this will set `data-testid` on these elements when defined:
+   * If not overridden using `testId` prop in the respective components, this will set `data-testid` on these elements when defined:
    *
-   * - Modal dialog - `{testId}`
-   * - Modal header - `{testId}--header`
-   * - Modal title - `{testId}--title`
-   * - Modal body - `{testId}--body`
-   * - Modal footer - `{testId}--footer`
-   * - Scrollable element - `{testId}--scrollable`
-   * - Blanket - `{testId}--blanket`
+   * Modal dialog: `{testId}`
+   * Modal header: `{testId}--header`
+   * Modal title: `{testId}--title`
+   * Modal body: `{testId}--body`
+   * Modal footer: `{testId}--footer`
+   * Scrollable element: `{testId}--scrollable`
+   * Blanket: `{testId}--blanket`
    */
   testId?: string;
 }

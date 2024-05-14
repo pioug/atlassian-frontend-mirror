@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import type { Theme } from '@emotion/react';
 import { css } from '@emotion/react';
@@ -29,11 +30,15 @@ import {
   smartCardSharedStyles,
   tableCellPadding,
   textColorStyles,
+  backgroundColorStyles,
   codeBlockInListSafariFix,
   SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 
-import { shadowClassNames } from '@atlaskit/editor-common/ui';
+import {
+  shadowClassNames,
+  shadowObserverClassNames,
+} from '@atlaskit/editor-common/ui';
 
 import { browser } from '@atlaskit/editor-common/utils';
 import {
@@ -51,9 +56,9 @@ import { N40A } from '@atlaskit/theme/colors';
 import { RendererCssClassName } from '../../consts';
 import type { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
-import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
 import { isTableResizingEnabled } from '../../react/nodes/table';
+import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 
 export const FullPagePadding = 32;
 
@@ -71,7 +76,7 @@ export const TELEPOINTER_ID = 'ai-streaming-telepointer';
 const telepointerStyles = () => {
   const { colorMode } = getGlobalTheme();
 
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
     #${TELEPOINTER_ID} {
       display: inline-block;
@@ -336,14 +341,14 @@ const tableSortableColumnStyle = ({
 
       .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
         margin: 0;
-        .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+        .${SORTABLE_COLUMN_ICON_CLASSNAME} {
           opacity: 1;
           transition: opacity 0.2s ease-in-out;
         }
       }
 
       .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-        .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+        .${SORTABLE_COLUMN_ICON_CLASSNAME} {
           opacity: 0;
           &:focus {
             opacity: 1;
@@ -353,7 +358,7 @@ const tableSortableColumnStyle = ({
 
       &:hover {
         .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-          .${RendererCssClassName.SORTABLE_COLUMN_ICON} {
+          .${SORTABLE_COLUMN_ICON_CLASSNAME} {
             opacity: 1;
           }
         }
@@ -543,6 +548,7 @@ export const rendererStyles =
       ${shadowSharedStyle};
       ${dateSharedStyle};
       ${textColorStyles};
+      ${backgroundColorStyles};
       ${tasksAndDecisionsStyles};
       ${smartCardSharedStyles}
 

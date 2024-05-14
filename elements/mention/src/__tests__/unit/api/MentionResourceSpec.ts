@@ -1,12 +1,12 @@
-import { SecurityOptions } from '@atlaskit/util-service-support';
+import { type SecurityOptions } from '@atlaskit/util-service-support';
 import 'es6-promise/auto'; // 'whatwg-fetch' needs a Promise polyfill
 
 import fetchMock from 'fetch-mock/cjs/client';
 import * as queryString from 'query-string';
 import MentionResource, {
-  MentionResourceConfig,
+  type MentionResourceConfig,
 } from '../../../api/MentionResource';
-import { MentionDescription } from '../../../types';
+import { type MentionDescription } from '../../../types';
 import { checkOrder } from '../_test-helpers';
 import {
   resultC,
@@ -644,7 +644,7 @@ describe('MentionResource', () => {
     });
   });
 
-  describe('#inviteFromMentionExperiment', () => {
+  describe('#inviteFromMention feature', () => {
     it('should set value from config', () => {
       const mockOnInviteItemClick = jest.fn();
       const resource = new MentionResource({

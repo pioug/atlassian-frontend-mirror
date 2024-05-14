@@ -73,6 +73,7 @@ export {
   akEditorWideLayoutWidth,
   akLayoutGutterOffset,
   akRichMediaResizeZIndex,
+  avatarColors,
   blockNodesVerticalMargin,
   breakoutWideScaleRatio,
   editorFontSize,

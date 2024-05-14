@@ -1056,3 +1056,159 @@ export const complexDocument = {
     { type: 'paragraph' },
   ],
 };
+
+export const docWithFormattedText = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'some formatted',
+          marks: [
+            {
+              type: 'em',
+            },
+            {
+              type: 'strong',
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' ',
+        },
+        {
+          type: 'text',
+          text: 'text',
+          marks: [
+            {
+              type: 'underline',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const docWithImage = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: {
+        layout: 'center',
+        width: 426,
+        widthType: 'pixel',
+      },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '96e2796b-dcb0-4e7c-9cb6-e7643f75b0e2',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            alt: 'dog.png',
+            width: 500,
+            height: 500,
+          },
+        },
+        {
+          type: 'caption',
+          content: [
+            {
+              type: 'text',
+              text: 'cute dog',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
+export const docWithImageInTable = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '8273b6df-3b30-4c65-a18a-6ed2c4dd1036',
+        width: 760,
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'mediaSingle',
+                  attrs: {
+                    layout: 'center',
+                    width: 426,
+                    widthType: 'pixel',
+                  },
+                  content: [
+                    {
+                      type: 'media',
+                      attrs: {
+                        id: 'd43e848e-f0c7-4089-a187-28fba79edc74',
+                        type: 'file',
+                        collection: 'MediaServicesSample',
+                        alt: 'catt.jpeg',
+                        width: 2121,
+                        height: 1194,
+                      },
+                    },
+                    {
+                      type: 'caption',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'very cute cat',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};

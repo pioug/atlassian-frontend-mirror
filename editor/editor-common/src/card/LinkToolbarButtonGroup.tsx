@@ -11,12 +11,12 @@ import { FloatingToolbarButton as Button } from '../ui';
 /**
  * Applying `pointer-events: none;` when disabled allows the Tooltip to be displayed
  */
-const buttonStyle = css`
-  pointer-events: auto;
-`;
-const buttonStyleNoneEvent = css`
-  pointer-events: none;
-`;
+const buttonStyle = css({
+  pointerEvents: 'auto',
+});
+const buttonStyleNoneEvent = css({
+  pointerEvents: 'none',
+});
 
 type DisallowedWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
   disabled?: boolean;
@@ -30,12 +30,12 @@ const DisallowedWrapper = ({ disabled, ...props }: DisallowedWrapperProps) => {
  * The button requires `pointer-events: none;` in order to fix the tooltip, hence
  * leaving us without a disabled cursor, the following fixes this:
  */
-const defaultWrapperStyle = css`
-  cursor: pointer;
-`;
-const disallowedWrapperStyle = css`
-  cursor: not-allowed;
-`;
+const defaultWrapperStyle = css({
+  cursor: 'pointer',
+});
+const disallowedWrapperStyle = css({
+  cursor: 'not-allowed',
+});
 
 export interface ButtonOptionProps {
   title: string;

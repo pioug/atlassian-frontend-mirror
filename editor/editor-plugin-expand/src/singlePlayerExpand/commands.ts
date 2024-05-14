@@ -9,7 +9,11 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
+  MODE,
+  PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
+import { expandedState } from '@atlaskit/editor-common/expand';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { findExpand } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
@@ -26,7 +30,9 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 export const createExpandNode = (state: EditorState): PMNode | null => {
   const { expand, nestedExpand } = state.schema.nodes;
   const expandType = findTable(state.selection) ? nestedExpand : expand;
-  return expandType.createAndFill({});
+  const expandNode = expandType.createAndFill({});
+  expandedState.set(expandNode!, true);
+  return expandNode;
 };
 
 export const insertExpand =
@@ -124,6 +130,58 @@ export const setSelectionInsideExpand =
       return true;
     }
     return false;
+  };
+
+export const toggleExpandExpanded =
+  ({
+    editorAnalyticsAPI,
+    pos,
+    node,
+  }: {
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+    pos: number;
+    node: PMNode;
+  }): Command =>
+  (state, dispatch) => {
+    if (node && dispatch) {
+      const { tr } = state;
+      const expanded = expandedState.get(node) ?? false;
+
+      const isExpandedNext = !expanded;
+      expandedState.set(node, isExpandedNext);
+
+      // If we're going to collapse the expand and our cursor is currently inside
+      // Move to a right gap cursor, if the toolbar is interacted (or an API),
+      // it will insert below rather than inside (which will be invisible).
+      if (isExpandedNext === true) {
+        tr.setSelection(
+          new GapCursorSelection(
+            tr.doc.resolve(pos + node.nodeSize),
+            Side.RIGHT,
+          ),
+        );
+      }
+
+      // log when people open/close expands
+      // TODO: ED-8523 make platform/mode global attributes?
+      const payload: AnalyticsEventPayload = {
+        action: ACTION.TOGGLE_EXPAND,
+        actionSubject:
+          node.type === state.schema.nodes.expand
+            ? ACTION_SUBJECT.EXPAND
+            : ACTION_SUBJECT.NESTED_EXPAND,
+        attributes: {
+          platform: PLATFORMS.WEB,
+          mode: MODE.EDITOR,
+          expanded: isExpandedNext,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+
+      editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
+      dispatch(tr);
+    }
+    return true;
   };
 
 export const updateExpandTitle =

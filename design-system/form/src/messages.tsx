@@ -7,8 +7,6 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { N200 } from '@atlaskit/theme/colors';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -41,17 +39,11 @@ interface InternalMessageProps {
  */
 type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 
-const fontFamily = getFontFamily();
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH200Styles = css(h200({ theme: { mode: 'light' } }));
-
 const messageStyles = css({
   display: 'flex',
   justifyContent: 'baseline',
   gap: token('space.050', '4px'),
-  fontFamily: `${fontFamily}`,
-  fontWeight: 'normal',
+  font: token('font.body.UNSAFE_small'),
   marginBlockStart: token('space.050', '4px'),
 });
 
@@ -101,11 +93,7 @@ const Message = ({
 
   return (
     <div
-      css={[
-        lightH200Styles,
-        messageStyles,
-        messageAppearanceStyles[appearance],
-      ]}
+      css={[messageStyles, messageAppearanceStyles[appearance]]}
       data-testid={testId}
       id={fieldId}
       aria-live="polite"

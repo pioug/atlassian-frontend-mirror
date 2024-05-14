@@ -3,10 +3,8 @@ import { MenuListComponentProps, OptionProps } from '@atlaskit/select';
 import { Color } from '../types';
 import ColorCard from './ColorCard';
 import { getWidth } from '../utils';
-import { COLOR_CARD_SIZE } from '../constants';
 import { token } from '@atlaskit/tokens';
 import { css, jsx } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
   const {
@@ -39,16 +37,7 @@ export const Option = (props: OptionProps<Color>) => {
   } = props;
 
   return (
-    <div
-      css={
-        getBooleanFF(
-          'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
-        )
-          ? colorCardWrapperStyles
-          : colorCardWrapperStylesOld
-      }
-      {...innerProps}
-    >
+    <div css={colorCardWrapperStyles} {...innerProps}>
       <ColorCard
         label={label}
         value={value}
@@ -66,12 +55,6 @@ export const Option = (props: OptionProps<Color>) => {
 export const DropdownIndicator = () => null;
 
 export const Placeholder = () => null;
-
-const colorCardWrapperStylesOld = css({
-  display: 'flex',
-  margin: token('space.025', '2px'),
-  height: `${COLOR_CARD_SIZE}px`,
-});
 
 const colorCardWrapperStyles = css({
   display: 'flex',

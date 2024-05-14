@@ -1,0 +1,38 @@
+---
+title: Table tree
+description: A table tree is an expandable table for showing nested hierarchies of information.
+order: 2
+---
+
+## Usage
+
+A table tree is an expandable table for showing nested information. Use this table when you have grouped information, to help people read high-level data quickly, and drill down into detailed data when they need it. Grouping information helps increase readability, and reduces cognitive load for large amounts of data.
+
+Make sure that the important information is at the top-level of the table, so that most people don’t need to open all of the nested rows.
+
+## Accessibility
+
+### Use tables for tabular data
+
+Never use tables for visual presentation reasons. To keep tables accessible, your tables should be composed of structured tabular data. Clearly label column and row headers with simple language.
+
+### Limit indents and don’t truncate
+
+Avoid heavily indenting table cells, as this makes them less scannable, and less discoverable for people who use screen magnification.
+
+When the content exceeds the width of the cell, it can wrap onto multiple lines, or truncate. If possible, limit the length of the content the table can display with character limits. Otherwise, wrapping content onto multiple lines is strongly recommended because truncation isn’t accessible.
+
+### Provide accessible labels
+
+Use either the `label` or `referencedLabel` prop to provide an accessible name for the table. You can also customise the accessible labels for the expand/collapse button and loading states.
+
+## Behavior
+
+The table tree contains nested columns which can be opened by interacting with the expand/collapse chevron button.
+
+You can use the `shouldExpandOnClick` prop to change whether a row with children expands when clicked anywhere on a row instead of only via the chevron. Only do this if there aren’t any interactive elements like buttons or dropdown menus within the row.
+
+## Related
+
+- For simple tables, use the [native HTML table element](/components/css-reset/examples#tables).
+- For pagination, sorting, and reordering, use the [dynamic table component](/components/dynamic-table/examples).

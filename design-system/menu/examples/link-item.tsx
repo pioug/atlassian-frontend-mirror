@@ -4,11 +4,8 @@ import { Box } from '@atlaskit/primitives';
 
 import { LinkItem, LinkItemProps } from '../src';
 
+import ImgIcon from './common/img-icon';
 import koala from './icons/koala.png';
-
-const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img src={src} height={24} width={24} alt={alt} style={{ borderRadius: 3 }} />
-);
 
 const useLinkItemComputedProps = ({
   initialSelectedHref,

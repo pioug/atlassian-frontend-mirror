@@ -1,12 +1,14 @@
 import { AISummaryService } from '../';
 import {
-  StreamAnswerPart,
-  StreamResponse,
-  AISummaryServiceConfig,
+  type StreamAnswerPart,
+  type StreamResponse,
+  type StreamError,
+  type AISummaryServiceProps,
 } from '../types';
 import { readStream } from '../readStream';
-import { streamAnswer } from './__mocks__/streamAnswer';
+import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 import type { ProductType } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 
@@ -19,23 +21,26 @@ function* streamAnswerGenerator() {
   }
 }
 
+function* streamErrorAnswerGenerator() {
+  for (let value of streamErrorAnswer) {
+    yield value;
+  }
+}
+
 jest.mock('../readStream', () => ({ readStream: jest.fn() }));
 
 const url = 'https://url-to-summarise/';
 
-const aiSummaryServiceDefaultConfig: AISummaryServiceConfig = {
-  baseUrl: '/gateway/api/assist',
-  headers: {
-    'Content-Type': 'application/json;charset=UTF-8',
-    'x-experience-id': 'smart-link',
-    'x-product': 'confluence',
-  },
+const aiSummaryServiceDefaultHeadersConfig = {
+  'Content-Type': 'application/json;charset=UTF-8',
+  'x-experience-id': 'smart-link',
+  'x-product': 'confluence',
 };
 
-const customConfig = {
+const customConfig: AISummaryServiceProps = {
   url: url,
   ari: 'test-ari',
-  baseUrl: 'custom/base/url',
+  baseUrl: 'https://custom-base-url/',
   headers: { 'custom-header': 'custom-value' },
   product: 'BITBUCKET' as ProductType,
 };
@@ -45,57 +50,144 @@ describe('AI Summary Service', () => {
     jest.clearAllMocks();
   });
 
-  it('Fetch the AI response with default config', () => {
-    //initiate with only one required config - url
-    const aiSummaryService = new AISummaryService({ url });
-    (aiSummaryService as any).fetchStream();
+  describe('Fetch the AI response with default config', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.ai-summary-service-base-url',
+      () => {
+        //initiate with only one required config - url
+        const aiSummaryService = new AISummaryService({ url });
+        (aiSummaryService as any).fetchStream();
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith(
-      aiSummaryServiceDefaultConfig.baseUrl + '/chat/v1/invoke_agent/stream',
-      expect.objectContaining({
-        method: 'POST',
-        headers: aiSummaryServiceDefaultConfig.headers,
-        body: JSON.stringify({
-          recipient_agent_named_id: 'summary_agent',
-          agent_input_context: {
-            content_url: url,
-            content_ari: undefined,
-            prompt_id: 'smart_links',
-            summary_output_mimetype: 'text/markdown',
-          },
-        }),
-      }),
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          (aiSummaryService as any).config.requestUrl,
+          expect.objectContaining({
+            method: 'POST',
+            headers: aiSummaryServiceDefaultHeadersConfig,
+            body: JSON.stringify({
+              recipient_agent_named_id: 'summary_agent',
+              agent_input_context: {
+                content_url: url,
+                content_ari: undefined,
+                prompt_id: 'smart_links',
+                summary_output_mimetype: 'text/markdown',
+              },
+            }),
+          }),
+        );
+      },
+      () => {
+        //initiate with only one required config - url
+        const aiSummaryService = new AISummaryService({ url });
+        (aiSummaryService as any).fetchStream();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          '/gateway/api/assist/chat/v1/invoke_agent/stream',
+          expect.objectContaining({
+            method: 'POST',
+            headers: aiSummaryServiceDefaultHeadersConfig,
+            body: JSON.stringify({
+              recipient_agent_named_id: 'summary_agent',
+              agent_input_context: {
+                content_url: url,
+                content_ari: undefined,
+                prompt_id: 'smart_links',
+                summary_output_mimetype: 'text/markdown',
+              },
+            }),
+          }),
+        );
+      },
     );
   });
 
-  it('Fetch the AI response with custom config', () => {
-    //initiate with a custom config
-    const aiSummaryService = new AISummaryService(customConfig);
+  describe('Fetch the AI Summary content with custom config', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.ai-summary-service-base-url',
+      () => {
+        const aiSummaryService = new AISummaryService(customConfig);
+        (aiSummaryService as any).fetchStream();
 
-    //set a custom summary style
-    (aiSummaryService as any).fetchStream();
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          customConfig.baseUrl + 'assist/chat/v1/invoke_agent/stream',
+          expect.objectContaining({
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              ...aiSummaryServiceDefaultHeadersConfig,
+              ...customConfig.headers,
+              'x-product': customConfig.product?.toLowerCase(),
+            },
+            body: JSON.stringify({
+              recipient_agent_named_id: 'summary_agent',
+              agent_input_context: {
+                content_url: url,
+                content_ari: customConfig.ari,
+                prompt_id: 'smart_links',
+                summary_output_mimetype: 'text/markdown',
+              },
+            }),
+          }),
+        );
+      },
+      () => {
+        const aiSummaryService = new AISummaryService(customConfig);
+        (aiSummaryService as any).fetchStream();
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith(
-      customConfig.baseUrl + '/chat/v1/invoke_agent/stream',
-      expect.objectContaining({
-        method: 'POST',
-        headers: {
-          ...aiSummaryServiceDefaultConfig.headers,
-          ...customConfig.headers,
-          'x-product': customConfig.product.toLowerCase(),
-        },
-        body: JSON.stringify({
-          recipient_agent_named_id: 'summary_agent',
-          agent_input_context: {
-            content_url: url,
-            content_ari: customConfig.ari,
-            prompt_id: 'smart_links',
-            summary_output_mimetype: 'text/markdown',
-          },
-        }),
-      }),
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          '/gateway/api/assist/chat/v1/invoke_agent/stream',
+          expect.objectContaining({
+            method: 'POST',
+            headers: {
+              ...aiSummaryServiceDefaultHeadersConfig,
+              ...customConfig.headers,
+              'x-product': customConfig.product?.toLowerCase(),
+            },
+            body: JSON.stringify({
+              recipient_agent_named_id: 'summary_agent',
+              agent_input_context: {
+                content_url: url,
+                content_ari: customConfig.ari,
+                prompt_id: 'smart_links',
+                summary_output_mimetype: 'text/markdown',
+              },
+            }),
+          }),
+        );
+      },
+    );
+  });
+
+  describe('Fetch the AI Summary content with staging env key', () => {
+    ffTest(
+      'platform.linking-platform.smart-card.ai-summary-service-base-url',
+      () => {
+        const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
+        (aiSummaryService as any).fetchStream();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          'https://pug.jira-dev.com/gateway/api/assist/chat/v1/invoke_agent/stream',
+          expect.objectContaining({
+            credentials: 'include',
+          }),
+        );
+      },
+      () => {
+        const aiSummaryService = new AISummaryService({ url, envKey: 'stg' });
+        (aiSummaryService as any).fetchStream();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          '/gateway/api/assist/chat/v1/invoke_agent/stream',
+          expect.not.objectContaining({
+            credentials: 'include',
+          }),
+        );
+      },
     );
   });
 
@@ -111,6 +203,19 @@ describe('AI Summary Service', () => {
       ) as StreamResponse
     ).message.message.content;
     expect(aiSummaryService.state.content).toEqual(finalResponseContent);
+  });
+
+  it('should update state with the correct error type', async () => {
+    (readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
+    const errorResponseMessageTemplate = (
+      streamErrorAnswer.find((msg) => msg.type === 'ERROR') as StreamError
+    ).message.message_template;
+
+    const aiSummaryService = new AISummaryService({ url });
+    await aiSummaryService.summariseUrl();
+
+    expect(aiSummaryService.state.status).toEqual('error');
+    expect(aiSummaryService.state.error).toEqual(errorResponseMessageTemplate);
   });
 
   it('should update subscribers after every stream chunk', async () => {
@@ -214,5 +319,22 @@ describe('AI Summary Service', () => {
     //start summarising and change the aiSummaryService internal state to 'loading'
     aiSummaryService.summariseUrl();
     expect(subscriber).not.toHaveBeenCalled();
+  });
+
+  it('should return state when summariseUrl is completed', async () => {
+    (readStream as jest.Mock).mockImplementation(streamAnswerGenerator);
+
+    const aiSummaryService = new AISummaryService({ url });
+    const state = await aiSummaryService.summariseUrl();
+    expect(state).toBe(aiSummaryService.state);
+  });
+
+  it('should return error state when summariseUrl is complete', async () => {
+    (readStream as jest.Mock).mockImplementation(streamErrorAnswerGenerator);
+
+    const aiSummaryService = new AISummaryService({ url });
+    const state = await aiSummaryService.summariseUrl();
+
+    expect(state).toBe(aiSummaryService.state);
   });
 });

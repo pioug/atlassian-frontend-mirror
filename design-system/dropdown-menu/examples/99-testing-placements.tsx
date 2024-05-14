@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 import { Placement } from '../src/types';

@@ -2,13 +2,13 @@ import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import {
   expectFunctionToHaveBeenCalledWith,
-  JestFunction,
+  type JestFunction,
 } from '@atlaskit/media-test-helpers';
-import { CardState } from '@atlaskit/linking-common';
+import { type CardState } from '@atlaskit/linking-common';
 import { EmbedCard } from '../index';
-import { EmbedCardProps } from '../types';
+import { type EmbedCardProps } from '../types';
 import { mockAnalytics } from '../../../utils/mocks';
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { UnauthorisedImage } from '../constants';
 import {

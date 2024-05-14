@@ -1,4 +1,4 @@
-import type { Article } from '../../src';
+import type { Article, ArticleItem } from '../../src';
 import { ARTICLE_ITEM_TYPES } from '../../src';
 
 export const articleExamples: Article[] = [
@@ -491,41 +491,56 @@ export const articleExamples: Article[] = [
   },
 ];
 
-export const articlesSearchExample = [
+export const articlesSearchExample: ArticleItem[] = [
   {
     id: '01',
     title: 'Article 01',
     description: 'Description of Article 01',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '02',
     title: 'Article 02',
     description: 'Description of Article 02',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '03',
     title: 'Article 03',
     description: 'Description of Article 03',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '04',
     title: 'Article 04',
     description: 'Description of Article 04',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '05',
     title: 'Article 05',
     description: 'Description of Article 05',
+    href: 'https://google.com',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '06',
     title: 'Article 06',
     description: 'Description of Article 06',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
   {
     id: '07',
     title: 'Article 07',
     description: 'Description of Article 07',
+    lastPublished: '',
+    type: ARTICLE_ITEM_TYPES.topicInProduct,
   },
 ];
 
@@ -534,7 +549,7 @@ export const getArticle: (id: string) => Promise<Article> = (id = '00') => {
   return new Promise((resolve) => resolve(articleExamples[articleIndex]));
 };
 
-export const searchArticle = (value: string) => {
+export const searchArticle = (value: string): Promise<ArticleItem[]> => {
   if (value === 'empty') {
     return new Promise((resolve) => resolve([]));
   } else {

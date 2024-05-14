@@ -1,4 +1,3 @@
-import type { TableLayout } from '@atlaskit/adf-schema';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import {
   tableCellMinWidth,
@@ -9,6 +8,7 @@ import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getSelectedTableInfo } from '../../../utils';
 
@@ -35,7 +35,7 @@ export const getResizeState = ({
   minWidth: number;
   maxSize: number;
   table: PMNode;
-  tableRef: HTMLTableElement;
+  tableRef: HTMLTableElement | null;
   start: number;
   domAtPos: (pos: number) => { node: Node; offset: number };
   isTableScalingEnabled: boolean;
@@ -108,23 +108,27 @@ export const getResizeState = ({
 // updates Colgroup DOM node with new widths
 export const updateColgroup = (
   state: ResizeState,
-  tableRef: HTMLElement,
+  tableRef: HTMLElement | null,
   tableNode?: PMNode,
   isTableScalingEnabled?: boolean,
 ): void => {
-  const cols = tableRef.querySelectorAll('col');
-
-  const columnsCount = cols.length;
+  const cols = tableRef?.querySelectorAll('col');
+  const columnsCount = cols?.length;
+  /**
+     updateColgroup will update whole table scale when click the column resize handle, this behavior will affect when table overflowed, when now resize handle been dragged and extend to make table overflowed, table will show overflow. This need to be confirmed because it conflict with how isTableScalingEnabled work.
+     We don't want to scale the table when resizing columns, only when viewpoint shrinks the table.
+     We need to remove !isColumnResizing if we handled auto scale table when mouseUp event.
+     * */
   if (isTableScalingEnabled && tableNode) {
     const scalePercent = getTableScalingPercent(tableNode, tableRef);
     state.cols
       .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
       .forEach((column, i) => {
-        const fixedColWidth = getColWidthFix(column.width, columnsCount);
+        const fixedColWidth = getColWidthFix(column.width, columnsCount ?? 0);
         const scaledWidth = fixedColWidth * scalePercent;
         const finalWidth = Math.max(scaledWidth, tableCellMinWidth);
         // we aren't handling the remaining pixels here when the 48px min width is reached
-        if (cols[i]) {
+        if (cols?.[i]) {
           cols[i].style.width = `${finalWidth}px`;
         }
       });
@@ -132,10 +136,10 @@ export const updateColgroup = (
     state.cols
       .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
       .forEach((column, i) => {
-        if (cols[i]) {
+        if (cols?.[i]) {
           cols[i].style.width = `${getColWidthFix(
             column.width,
-            columnsCount,
+            columnsCount ?? 0,
           )}px`;
         }
       });
@@ -321,9 +325,7 @@ export const areColumnsEven = (resizeState: ResizeState): boolean => {
 };
 
 // Get the layout
-export const normaliseTableLayout = (
-  input: string | undefined | null,
-): TableLayout => {
+export const normaliseTableLayout = (input: string | undefined | null) => {
   switch (input) {
     case 'wide':
       return input;
@@ -360,8 +362,13 @@ export const getNewResizeStateFromSelectedColumns = (
     return;
   }
 
-  const maybeTable = domAtPos(table.start).node as HTMLElement;
-  const tableRef = maybeTable.closest('table');
+  const maybeTable = domAtPos(table.start).node;
+
+  const maybeTableElement =
+    maybeTable instanceof HTMLElement ? maybeTable : null;
+  const tableRef = getBooleanFF('platform.editor.explicit-html-element-check')
+    ? maybeTableElement?.closest('table')
+    : (maybeTable as HTMLElement)?.closest('table');
 
   if (!tableRef) {
     return;
@@ -377,14 +384,25 @@ export const getNewResizeStateFromSelectedColumns = (
     getEditorContainerWidth,
   });
 
-  const resizeState = getResizeState({
+  let resizeState;
+
+  let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
+  if (
+    isTableScalingEnabled &&
+    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
+  ) {
+    isTableScalingEnabledOnCurrentTable =
+      table.node.attrs.displayMode !== 'fixed';
+  }
+
+  resizeState = getResizeState({
     minWidth: tableCellMinWidth,
     maxSize,
     table: table.node,
     tableRef,
     start: table.start,
     domAtPos,
-    isTableScalingEnabled,
+    isTableScalingEnabled: isTableScalingEnabledOnCurrentTable,
   });
 
   const newResizeState = evenSelectedColumnsWidths(resizeState, rect);

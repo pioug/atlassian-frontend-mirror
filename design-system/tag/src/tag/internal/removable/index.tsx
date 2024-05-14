@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import {
   useCallbackWithAnalytics,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
@@ -16,7 +16,7 @@ import * as styles from '../../../styles';
 import BaseTag from '../shared/base';
 import Before from '../shared/before';
 import Content from '../shared/content';
-import { SimpleTagProps } from '../shared/types';
+import { type SimpleTagProps } from '../shared/types';
 
 import RemoveButton from './remove-button';
 

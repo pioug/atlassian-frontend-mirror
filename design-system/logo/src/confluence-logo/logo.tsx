@@ -3,46 +3,72 @@ import React from 'react';
 
 import { uid } from 'react-uid';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { useThemeObserver } from '@atlaskit/tokens';
+
 import { defaultLogoParams } from '../constants';
 import { LogoProps } from '../types';
-import { getColorsFromAppearance } from '../utils';
+import {
+  getColorsFromAppearance,
+  getColorsFromAppearanceOldLogos,
+} from '../utils';
 import Wrapper from '../wrapper';
 
-const svg = ({
-  appearance,
-  iconGradientStart,
-  iconGradientStop,
-  iconColor,
-  textColor,
-}: LogoProps) => {
+const svg = (
+  {
+    appearance,
+    iconGradientStart,
+    iconGradientStop,
+    iconColor,
+    textColor,
+  }: LogoProps,
+  colorMode: string | undefined,
+) => {
   let colors = {
     iconGradientStart,
     iconGradientStop,
     iconColor,
     textColor,
   };
-  // Will be fixed upon removal of deprecated iconGradientStart and
-  // iconGradientStop props, or with React 18's useId() hook when we update.
-  // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
-  let id = uid({ iconGradientStart: iconGradientStop });
+  if (
+    getBooleanFF(
+      'platform.design-system-team.brand-refresh-update-product-logos_q7coo',
+    )
+  ) {
+    // Currently the user can style the confluence icon using only iconGradientStop and iconGradientStart
+    // the following is used to mimic this edge case as these two props aren't used on the new logos
+    if (colors.iconColor === 'inherit') {
+      colors.iconColor = iconGradientStop;
+    }
+    if (appearance) {
+      colors = getColorsFromAppearance(appearance, colorMode);
+    }
+    return `<svg fill="none" height="32" viewBox="0 0 180 32" focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <path fill="${colors.iconColor}" d="M20.602 20.234c-6.584-3.183-8.507-3.66-11.281-3.66-3.255 0-6.03 1.355-8.507 5.16l-.407.622c-.333.513-.407.696-.407.915s.111.403.518.659l4.18 2.598c.221.146.406.22.591.22.222 0 .37-.11.592-.44l.666-1.024c1.035-1.574 1.96-2.086 3.144-2.086 1.035 0 2.256.293 3.772 1.025l4.365 2.049c.444.22.925.11 1.146-.403l2.072-4.537c.222-.512.074-.842-.444-1.098M1.406 12.22c6.583 3.184 8.507 3.66 11.28 3.66 3.256 0 6.03-1.354 8.508-5.16l.407-.622c.332-.512.406-.695.406-.915s-.11-.402-.518-.658L17.31 5.927c-.222-.147-.407-.22-.592-.22-.222 0-.37.11-.592.44l-.665 1.024c-1.036 1.573-1.96 2.086-3.144 2.086-1.036 0-2.257-.293-3.773-1.025L4.18 6.183c-.444-.22-.925-.11-1.147.402L.962 11.123c-.222.512-.074.841.444 1.098"/>
+      <path fill="${colors.textColor}" d="M172.49 12.293c-2.791 0-4.201 1.809-4.477 4.477h8.556c-.154-2.852-1.442-4.477-4.079-4.477m5.888 12.634c-1.257.675-3.189.92-4.753.92-5.735 0-8.25-3.312-8.25-8.004 0-4.63 2.576-7.942 7.238-7.942 4.722 0 6.624 3.281 6.624 7.942v1.196h-11.194c.368 2.607 2.055 4.294 5.674 4.294 1.778 0 3.281-.338 4.661-.828zm-15.093-2.147v2.362c-.92.49-2.331.705-3.742.705-5.458 0-8.004-3.312-8.004-8.004 0-4.63 2.546-7.942 8.004-7.942 1.38 0 2.454.184 3.65.736v2.453c-.982-.46-2.024-.736-3.466-.736-3.986 0-5.612 2.515-5.612 5.49s1.656 5.489 5.674 5.489c1.564 0 2.545-.215 3.496-.552m-14.503-6.226v8.986h-2.637v-9.262c0-2.76-1.104-3.986-3.619-3.986-2.453 0-4.14 1.625-4.14 4.722v8.526h-2.637V10.207h2.637v2.515c.981-1.81 2.791-2.821 4.845-2.821 3.527 0 5.551 2.422 5.551 6.654m-22.921-4.262c-2.79 0-4.201 1.809-4.477 4.477h8.556c-.154-2.852-1.441-4.477-4.079-4.477m5.888 12.634c-1.257.675-3.189.92-4.753.92-5.735 0-8.249-3.312-8.249-8.004 0-4.63 2.576-7.942 7.237-7.942 4.723 0 6.624 3.281 6.624 7.942v1.196h-11.193c.368 2.607 2.054 4.294 5.673 4.294 1.778 0 3.281-.338 4.661-.828zm-29.1-5.734v-8.986h2.637v9.262c0 2.76 1.104 3.986 3.619 3.986 2.453 0 4.14-1.625 4.14-4.722v-8.526h2.637v15.334h-2.637v-2.515c-.981 1.81-2.791 2.821-4.845 2.821-3.527 0-5.551-2.422-5.551-6.654m-2.231 6.317c-.215.061-.674.122-1.35.122-2.514 0-4.108-1.196-4.108-4.017V3.798h2.637v17.51c0 1.38.92 1.871 2.055 1.871.275 0 .459 0 .766-.03zM88.157 8.582v1.625h3.956v2.454h-3.956v12.88h-2.576V12.66h-2.484v-2.454h2.484V8.521c0-2.852 1.595-4.784 4.876-4.784a6.3 6.3 0 0 1 1.779.245v2.423a8.7 8.7 0 0 0-1.656-.154c-1.626 0-2.423.95-2.423 2.33m-7.327 7.974v8.986h-2.637v-9.262c0-2.76-1.104-3.986-3.619-3.986-2.453 0-4.14 1.625-4.14 4.722v8.526h-2.637V10.207h2.637v2.515c.981-1.81 2.79-2.821 4.845-2.821 3.527 0 5.551 2.422 5.551 6.654m-23.336 9.292c-4.6 0-7.298-3.404-7.298-8.004s2.698-7.942 7.298-7.942c4.57 0 7.238 3.342 7.238 7.942s-2.668 8.004-7.238 8.004m0-13.493c-3.28 0-4.722 2.576-4.722 5.49s1.441 5.55 4.722 5.55c3.251 0 4.662-2.637 4.662-5.55s-1.41-5.49-4.662-5.49m-9.233 9.629v2.668c-1.257.828-3.25 1.196-5.336 1.196-6.624 0-10.365-3.986-10.365-10.334 0-6.134 3.741-10.427 10.304-10.427 1.963 0 3.925.368 5.367 1.41v2.669c-1.442-.92-3.036-1.411-5.367-1.411-4.723 0-7.544 3.128-7.544 7.759s2.913 7.697 7.697 7.697c2.116 0 3.772-.49 5.244-1.227"/>
+    </svg>
+    `;
+  } else {
+    // Will be fixed upon removal of deprecated iconGradientStart and
+    // iconGradientStop props, or with React 18's useId() hook when we update.
+    // eslint-disable-next-line @repo/internal/react/disallow-unstable-values
+    let id = uid({ iconGradientStart: iconGradientStop });
 
-  if (appearance) {
-    colors = getColorsFromAppearance(appearance);
-  }
-
-  return `
-  <svg viewBox="0 0 158 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
+    if (appearance) {
+      colors = getColorsFromAppearanceOldLogos(appearance);
+    }
+    return `<svg viewBox="0 0 158 32" height="32" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
     <defs>
       <linearGradient x1="99.140087%" y1="112.745465%" x2="33.8589812%" y2="37.7675389%" id="${id}-1">
         <stop stop-color="${colors.iconGradientStart}" ${
-    colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
-  } offset="0%"></stop>
+      colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
+    } offset="0%"></stop>
         <stop stop-color="${colors.iconGradientStop}" offset="100%"></stop>
       </linearGradient>
       <linearGradient x1="14.1838118%" y1="5.80047897%" x2="61.141783%" y2="70.9663868%" id="${id}-2">
         <stop stop-color="${colors.iconGradientStart}" ${
-    colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
-  } offset="0%"></stop>
+      colors.iconGradientStart === 'inherit' ? 'stop-opacity="0.4"' : ''
+    } offset="0%"></stop>
         <stop stop-color="${colors.iconGradientStop}" offset="100%"></stop>
       </linearGradient>
     </defs>
@@ -54,6 +80,7 @@ const svg = ({
       <path fill="url(#${id}-2)" d="M22.7130274,10.4325806 C22.9567774,10.0564516 23.2305274,9.62 23.4630274,9.27225806 C23.6711329,8.93949274 23.5594135,8.51032964 23.2117774,8.30709677 L18.3367774,5.4683871 C18.1633186,5.35902032 17.9495842,5.32289142 17.7468362,5.36866556 C17.5440883,5.4144397 17.3706168,5.53798759 17.2680274,5.70967742 C17.0730274,6.0183871 16.8217774,6.41935484 16.5480274,6.84870968 C14.6167774,9.86483871 12.6742774,9.49580645 9.17177736,7.91322581 L4.35302736,5.7416129 C4.16995613,5.65916098 3.95940527,5.65035674 3.76936133,5.71720675 C3.5793174,5.78405675 3.42597321,5.92086501 3.34427736,6.09645161 L1.02302736,11.0641935 C0.85902727,11.4189952 1.02590019,11.8326965 1.39802736,11.993871 C2.41802736,12.4480645 4.44677736,13.3529032 6.27302736,14.1867742 C12.8580274,17.1993548 18.4417774,17.0006452 22.7130274,10.4325806 Z"></path>
     </g>
   </svg>`;
+  }
 };
 
 /**
@@ -75,6 +102,7 @@ export const ConfluenceLogo = ({
   iconGradientStop = defaultLogoParams.iconGradientStop,
   textColor = defaultLogoParams.textColor,
 }: LogoProps) => {
+  const { colorMode } = useThemeObserver();
   return (
     <Wrapper
       appearance={appearance}
@@ -83,13 +111,16 @@ export const ConfluenceLogo = ({
       iconGradientStart={iconGradientStart}
       iconGradientStop={iconGradientStop}
       size={size}
-      svg={svg({
-        appearance,
-        iconGradientStart,
-        iconGradientStop,
-        iconColor,
-        textColor,
-      })}
+      svg={svg(
+        {
+          appearance,
+          iconGradientStart,
+          iconGradientStop,
+          iconColor,
+          textColor,
+        },
+        colorMode,
+      )}
       testId={testId}
       textColor={textColor}
     />

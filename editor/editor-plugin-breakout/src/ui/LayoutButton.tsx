@@ -51,6 +51,7 @@ export interface Props {
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
   handleClick?: Function;
+  isLivePage?: boolean;
 }
 
 function getBreakoutNodeElement(
@@ -84,17 +85,18 @@ const LayoutButton = ({
   scrollableElement,
   editorView,
   node,
+  isLivePage,
 }: Props & WrappedComponentProps) => {
   const handleClick = useCallback(
     (breakoutMode: BreakoutMode) => {
       const { state, dispatch } = editorView;
       if (['wide', 'full-width'].indexOf(breakoutMode) !== -1) {
-        setBreakoutMode(breakoutMode)(state, dispatch);
+        setBreakoutMode(breakoutMode, isLivePage)(state, dispatch);
       } else {
-        removeBreakout()(state, dispatch);
+        removeBreakout(isLivePage)(state, dispatch);
       }
     },
-    [editorView],
+    [editorView, isLivePage],
   );
 
   const { state } = editorView;

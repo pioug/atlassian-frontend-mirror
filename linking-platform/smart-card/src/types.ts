@@ -1,6 +1,7 @@
 import { JsonLd } from 'json-ld-types';
 import { RequestAccessMessageKey } from './messages';
 export type { CardContext } from '@atlaskit/link-provider';
+import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 import { AccessContext } from './view/types';
 import { ActionProps } from './view/BlockCard/components/Action';
 
@@ -28,8 +29,10 @@ export type LozengeColor =
   | 'inprogress'
   | 'new'
   | 'moved';
+
 export interface LozengeProps {
   text: string;
   appearance?: LozengeColor; // defaults to 'default'
+  style?: AtlaskitLozengeProps['style'];
   isBold?: boolean; // defaults to false
 }

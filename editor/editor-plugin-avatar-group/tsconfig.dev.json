@@ -42,13 +42,7 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
-      "path": "../editor-test-helpers/tsconfig.app.json"
-    },
-    {
       "path": "../../design-system/tokens/tsconfig.app.json"
-    },
-    {
-      "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
     }
   ]
 }

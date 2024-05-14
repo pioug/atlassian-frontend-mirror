@@ -3,9 +3,18 @@ import { type ReactNode } from 'react';
 
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { fontSize as getFontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { heights } from '../../variants/shared/xcss';
+import { type Spacing } from '../../variants/types';
+
+const fontSize: number = getFontSize();
+
+const heights: { [key in Spacing]: string } = {
+  default: `${32 / fontSize}em`,
+  compact: `${24 / fontSize}em`,
+  none: 'auto',
+};
 
 import { SplitButtonContext } from './split-button-context';
 import type {

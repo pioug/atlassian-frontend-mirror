@@ -8,7 +8,7 @@ export interface WithContextProps {
 const withAnalyticsContext =
   (defaultData?: any) =>
   <Props, Component>(
-    WrappedComponent: React.JSXElementConstructor<Props> & Component,
+    WrappedComponent: React.ComponentType<Props> & Component,
   ) => {
     type WrappedProps = JSX.LibraryManagedAttributes<
       Component,
@@ -33,9 +33,7 @@ const withAnalyticsContext =
       },
     );
 
-    // @ts-ignore
     WithAnalyticsContext.displayName = `WithAnalyticsContext(${
-      // @ts-ignore disneyName doesn't exist on type
       WrappedComponent.displayName || WrappedComponent.name
     })`;
 

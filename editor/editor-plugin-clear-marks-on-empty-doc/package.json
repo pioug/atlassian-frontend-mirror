@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-clear-marks-on-empty-doc",
-  "version": "1.0.2",
+  "version": "1.1.2",
   "description": "Clear marks on empty doc plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,8 +36,8 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

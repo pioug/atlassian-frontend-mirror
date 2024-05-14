@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {
   forwardRef,
-  Ref,
+  type Ref,
   useCallback,
   useEffect,
   useMemo,
@@ -16,8 +16,8 @@ import invariant from 'tiny-invariant';
 
 import { Skeleton } from '@atlaskit/linking-common';
 import {
-  DatasourceResponseSchemaProperty,
-  DatasourceType,
+  type DatasourceResponseSchemaProperty,
+  type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
@@ -39,7 +39,7 @@ import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
-import { fallbackRenderType, stringifyType } from './render-type';
+import { renderType, stringifyType } from './render-type';
 import {
   fieldTextFontSize,
   Table,
@@ -48,8 +48,8 @@ import {
   withTablePluginHeaderPrefix,
 } from './styled';
 import {
-  DatasourceTypeWithOnlyValues,
-  IssueLikeDataTableViewProps,
+  type DatasourceTypeWithOnlyValues,
+  type IssueLikeDataTableViewProps,
 } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
 import { COLUMN_BASE_WIDTH, getWidthCss } from './utils';
@@ -408,7 +408,7 @@ export const IssueLikeDataTableView = ({
   onLoadDatasourceDetails,
   items,
   columns,
-  renderItem = fallbackRenderType,
+  renderItem = renderType,
   visibleColumnKeys,
   onVisibleColumnKeysChange,
   columnCustomSizes,
@@ -485,7 +485,7 @@ export const IssueLikeDataTableView = ({
             content: title,
             shouldTruncate: true,
             width: getColumnWidth(key, type),
-          } as RowCellType),
+          }) as RowCellType,
       ),
     [getColumnWidth, visibleSortedColumns],
   );
@@ -611,7 +611,8 @@ export const IssueLikeDataTableView = ({
           rowIndex
         }`,
         cells: visibleSortedColumns.map<RowCellType>(({ key, type }) => {
-          const value = newRowData[key]?.data || newRowData[key];
+          // Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+          const value = newRowData[key]?.data;
           const values = Array.isArray(value) ? value : [value];
 
           const renderedValues = renderItem({

@@ -10,6 +10,7 @@ import { openEmbedModal } from '../../EmbedModal/utils';
 import { PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { IntlShape, MessageDescriptor } from 'react-intl-next';
 import { EmbedModalProps } from '../../EmbedModal/types';
+import Loadable from 'react-loadable';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
   [SmartLinkSize.Small]: 'none',
@@ -73,6 +74,13 @@ export const getIconWidth = (size?: SmartLinkSize): string => {
     default:
       return '.75rem';
   }
+};
+
+export const importIcon = (importFn: () => Promise<any>): any => {
+  return Loadable({
+    loader: () => importFn().then((module) => module.default),
+    loading: () => null,
+  }) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
 export const getLinkLineHeight = (size: SmartLinkSize): string => {

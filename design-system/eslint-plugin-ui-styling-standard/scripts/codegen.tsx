@@ -4,7 +4,7 @@ import { extname, join, relative } from 'path';
 
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
-import { format, resolveConfig } from 'prettier';
+import format from '@af/formatting/sync';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
@@ -155,19 +155,12 @@ async function generatePresetConfig(
  * Write contents to a given file, creating a signed artifact if it's not a markdown file.
  */
 async function writeFile(filepath: string, code: string) {
-  const config = await resolveConfig(filepath);
   await fs.writeFile(
     filepath,
     extname(filepath).includes('.md')
-      ? format(code, {
-          ...config,
-          filepath,
-        })
+      ? format(code, 'markdown')
       : createSignedArtifact(
-          format(code, {
-            ...config,
-            filepath,
-          }),
+          format(code, 'typescript'),
           codegenCommand,
         ),
   );

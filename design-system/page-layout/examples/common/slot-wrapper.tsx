@@ -18,7 +18,7 @@ const slotWrapperStyles = css({
   boxSizing: 'border-box',
   height: '100%',
   padding: token('space.100', '8px'),
-  backgroundColor: token('color.background.neutral.subtle', 'white'),
+  backgroundColor: token('color.background.neutral.subtle'),
   outlineOffset: -4,
   overflowY: 'auto',
 });

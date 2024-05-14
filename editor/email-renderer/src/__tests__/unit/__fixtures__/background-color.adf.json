@@ -1,0 +1,104 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "highlighted text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "highlighted bold text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            },
+            {
+              "type": "strong"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "highlighted italic text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            },
+            {
+              "type": "em"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "highlighted sup text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            },
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sup"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "highlighted sub text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            },
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sub"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "highlighted underline text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#C6EDFB"
+              }
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

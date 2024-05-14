@@ -5,6 +5,7 @@ import { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
+import { Code } from '@atlaskit/code';
 import ArrowDownIcon from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/glyph/arrow-up';
 import { token } from '@atlaskit/tokens';
@@ -16,7 +17,7 @@ import {
   SpotlightTransition,
 } from '../src';
 
-import { Code, Highlight } from './styled';
+import { Highlight } from './styled';
 
 const wrapperStyles = css({
   display: 'flex',
@@ -34,7 +35,6 @@ const buttonStyles = css({
   display: 'flex',
   width: '36px',
   height: '32px',
-  marginRight: token('space.050', '4px'),
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -42,6 +42,7 @@ const buttonStyles = css({
   borderRadius: '0.2em',
   color: 'inherit',
   cursor: 'pointer',
+  marginInlineEnd: token('space.050', '4px'),
   opacity: 0.75,
   '&:hover, &:focus': {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',

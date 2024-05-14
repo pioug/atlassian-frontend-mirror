@@ -17,11 +17,11 @@ import Modal, {
 
 const textContainerStyles = css({
   padding: 20,
-  backgroundColor: token('elevation.surface.sunken', '#F7F8F9'),
+  backgroundColor: token('elevation.surface.sunken'),
 });
 
 const currentSurfaceStyles = css({
-  backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
+  backgroundColor: token('utility.elevation.surface.current'),
 });
 
 export default function DefaultModal() {

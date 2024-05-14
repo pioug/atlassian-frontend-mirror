@@ -42,9 +42,11 @@ describe('FlexibleCard', () => {
     };
 
     const { getByTestId } = render(
-      <FlexibleCard cardState={cardState} url={url}>
-        <TitleBlock />
-      </FlexibleCard>,
+      <SmartCardProvider>
+        <FlexibleCard cardState={cardState} url={url}>
+          <TitleBlock />
+        </FlexibleCard>
+      </SmartCardProvider>,
     );
 
     const container = await getByTestId('smart-links-container');
@@ -221,9 +223,11 @@ describe('FlexibleCard', () => {
       } as CardState;
 
       render(
-        <FlexibleCard cardState={cardState} url={url} onResolve={onResolve}>
-          <TitleBlock />
-        </FlexibleCard>,
+        <SmartCardProvider>
+          <FlexibleCard cardState={cardState} url={url} onResolve={onResolve}>
+            <TitleBlock />
+          </FlexibleCard>
+        </SmartCardProvider>,
       );
 
       expect(onResolve).toHaveBeenCalledWith({ title, url });
@@ -237,9 +241,11 @@ describe('FlexibleCard', () => {
       } as CardState;
 
       render(
-        <FlexibleCard cardState={cardState} onResolve={onResolve} url={url}>
-          <TitleBlock />
-        </FlexibleCard>,
+        <SmartCardProvider>
+          <FlexibleCard cardState={cardState} onResolve={onResolve} url={url}>
+            <TitleBlock />
+          </FlexibleCard>
+        </SmartCardProvider>,
       );
 
       expect(onResolve).toHaveBeenCalledWith({ title, url });
@@ -262,9 +268,11 @@ describe('FlexibleCard', () => {
 
         render(
           <IntlProvider locale="en">
-            <FlexibleCard cardState={cardState} onError={onError} url={url}>
-              <TitleBlock />
-            </FlexibleCard>
+            <SmartCardProvider>
+              <FlexibleCard cardState={cardState} onError={onError} url={url}>
+                <TitleBlock />
+              </FlexibleCard>
+            </SmartCardProvider>
           </IntlProvider>,
         );
 

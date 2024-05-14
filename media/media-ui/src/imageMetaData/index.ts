@@ -1,15 +1,14 @@
 import {
-  ImageInfo,
-  ImageMetaData,
-  ImageMetaDataTags,
+  type ImageInfo,
+  type ImageMetaData,
+  type ImageMetaDataTags,
   SupportedImageMetaTag,
-  FileInfo,
+  type FileInfo,
   ExifOrientation,
 } from './types';
 import { readImageMetaTags } from './metatags';
 
 import { loadImage, readImageNaturalOrientationFromDOM } from '../util';
-import { isRotated } from './imageOrientationUtil';
 
 const { Orientation, XResolution } = SupportedImageMetaTag;
 
@@ -132,9 +131,6 @@ export async function readImageMetaData(
   if (tags && tags.PixelXDimension) {
     height = getMetaTagNumericValue(tags, 'PixelYDimension', 0);
   }
-  // otherwise, load the image async (ideally avoid if found above due to being slightly expensive)
-  const orientation = getOrientationFromTags(tags);
-  const isImageRotated = isRotated(orientation);
   const data: ImageMetaData = {
     type,
     width,
@@ -144,17 +140,22 @@ export async function readImageMetaData(
     tags,
   };
 
-  if (isImageRotated || (width === 0 && height === 0)) {
-    try {
-      const img = await loadImage(src);
-      const { width, height } = readImageNaturalOrientationFromDOM(img);
-      data.width = width;
-      data.height = height;
-      data.naturalWidth = img.naturalWidth;
-      data.naturalHeight = img.naturalHeight;
-    } catch (e) {
-      return null;
-    }
+  /*
+   * The PixelXDimension and PixelYDimension of image tags can mean something different than just width and height, especially when images are compressed or for other reasons.
+   * https://imagemagick.org/discourse-server/viewtopic.php?t=27037
+   * We've also received JAC tickets reporting incorrect dimensions because of this
+   * https://jira.atlassian.com/browse/CONFCLOUD-78275
+   * The best way to get accurate dimensions is by loading images into the HTML, which reflects the actual dimensions the browser will render
+   */
+  try {
+    const img = await loadImage(src);
+    const { width, height } = readImageNaturalOrientationFromDOM(img);
+    data.width = width;
+    data.height = height;
+    data.naturalWidth = img.naturalWidth;
+    data.naturalHeight = img.naturalHeight;
+  } catch (e) {
+    return null;
   }
 
   return data;

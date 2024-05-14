@@ -1,13 +1,12 @@
-import React, { FC, useState } from 'react';
+import React, { type FC, useState } from 'react';
 
 import shuffle from 'lodash/shuffle';
 
-import { AppearanceType, SizeType } from '@atlaskit/avatar';
+import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
 import { RANDOM_USERS } from '../examples-util/data';
-import { Note } from '../examples-util/helpers';
 import AvatarGroup from '../src';
 
 type State = {
@@ -61,11 +60,10 @@ const AvatarGroupExample: FC = () => {
 
   return (
     <div>
-      <Note size="large">Click button Shuffle to reorder all avatars.</Note>
       <div style={{ display: 'flex', marginTop: '1em' }}>
         <div style={{ flex: 1 }}>
           <ButtonGroup label="Avatar options">
-            <Button onClick={() => shuffleAvatars()}>Shuffle</Button>
+            <Button onClick={() => shuffleAvatars()}>Shuffle avatars</Button>
           </ButtonGroup>
         </div>
       </div>

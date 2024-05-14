@@ -7,9 +7,6 @@ jest.mock('@atlaskit/ds-lib/warn-once');
 
 (warnOnce as jest.Mock).mockImplementation(() => 42);
 
-const name = process.env._PACKAGE_NAME_ as string;
-const version = process.env._PACKAGE_VERSION_ as string;
-
 describe('getToken', () => {
   it('returns a token', () => {
     // TS: Function should have specific return type.
@@ -37,7 +34,7 @@ describe('getToken', () => {
     expect(result).toEqual('var(--ds-token-not-found)');
     // eslint-disable-next-line no-console
     expect(warnOnce).toHaveBeenCalledWith(
-      `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,
+      `Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
     );
   });
 
@@ -48,7 +45,7 @@ describe('getToken', () => {
     expect(result).toEqual('var(--ds-token-not-found, #FFF)');
     // eslint-disable-next-line no-console
     expect(warnOnce).toHaveBeenCalledWith(
-      `Unknown token id at path: this-token-does-not-exist for ${name}@${version}`,
+      `Unknown token id at path: this-token-does-not-exist in @atlaskit/tokens`,
     );
   });
 

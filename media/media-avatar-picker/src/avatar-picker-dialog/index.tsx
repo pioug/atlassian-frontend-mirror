@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { FormEvent, Fragment } from 'react';
+import React, { type FormEvent, Fragment } from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import ModalDialog, {
@@ -12,14 +12,14 @@ import {
   FormattedMessage,
   IntlProvider,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 import { Field, HelperMessage } from '@atlaskit/form';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { Avatar } from '../avatar-list';
-import ImageNavigator, { CropProperties } from '../image-navigator';
+import { type Avatar } from '../avatar-list';
+import ImageNavigator, { type CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
 import {
   formStyles,
@@ -27,7 +27,7 @@ import {
   modalHeaderStyles,
 } from './styles';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
-import { LoadParameters } from '../image-navigator/index';
+import { type LoadParameters } from '../image-navigator/index';
 import ButtonGroup from '@atlaskit/button/button-group';
 
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from './layout-const';
@@ -37,8 +37,8 @@ import {
   CONTAINER_INNER_SIZE,
 } from './layout-const';
 import {
-  AvatarPickerDialogProps,
-  AvatarPickerDialogState,
+  type AvatarPickerDialogProps,
+  type AvatarPickerDialogState,
   Mode,
 } from './types';
 import { SRLiveTitle } from './SRLiveTitle';
@@ -106,6 +106,7 @@ export class AvatarPickerDialog extends PureComponent<
     errorMessage: this.props.errorMessage,
     isSubmitted: false,
     altText: this.initialiseAltText(),
+    prevAltText: '',
   };
 
   setSelectedImageState = async (selectedImage: File) => {
@@ -197,17 +198,16 @@ export class AvatarPickerDialog extends PureComponent<
 
   onRemoveImage = () => {
     const { requireAltText } = this.props;
-    const { selectedAvatar } = this.state;
+    const { prevAltText } = this.state;
 
     this.setState({
       selectedImageSource: undefined,
       selectedImage: undefined,
       mode: Mode.Cropping,
-      altText:
-        requireAltText && selectedAvatar && selectedAvatar.name
-          ? selectedAvatar.name
-          : '',
+      altText: requireAltText ? prevAltText : '',
     });
+
+    this.clearPrevAltText();
   };
 
   clearErrorState = () => {
@@ -226,6 +226,12 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   onImageUploaded = () => {
+    const { requireAltText } = this.props;
+    const { altText } = this.state;
+
+    if (requireAltText) {
+      this.updatePrevAltText(altText);
+    }
     this.clearAltText();
     this.clearErrorState();
   };
@@ -300,7 +306,7 @@ export class AvatarPickerDialog extends PureComponent<
   }
 
   renderPredefinedAvatarList() {
-    const { isLoading } = this.props;
+    const { isLoading, selectAvatarLabel, showMoreAvatarsButtonLabel } = this.props;
     const { selectedAvatar, selectedImage, selectedImageSource } = this.state;
     const avatars = this.getPredefinedAvatars();
 
@@ -319,6 +325,8 @@ export class AvatarPickerDialog extends PureComponent<
         avatars={avatars}
         onAvatarSelected={this.setSelectedAvatarState}
         onShowMore={this.onShowMore}
+        selectAvatarLabel={selectAvatarLabel}
+        showMoreAvatarsButtonLabel={showMoreAvatarsButtonLabel}
       />
     );
   }
@@ -345,7 +353,15 @@ export class AvatarPickerDialog extends PureComponent<
   }
 
   clearAltText() {
-    this.setState({ altText: '' });
+    this.updateAltText('');
+  }
+
+  updatePrevAltText(prevAltText: string) {
+    this.setState({ prevAltText });
+  }
+
+  clearPrevAltText() {
+    this.updatePrevAltText('');
   }
 
   renderAltTextField() {

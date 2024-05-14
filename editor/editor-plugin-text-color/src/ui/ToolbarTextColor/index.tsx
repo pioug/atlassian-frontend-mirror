@@ -20,6 +20,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { SteppedRainbowIconDecoration } from '@atlaskit/editor-common/icons';
 import { textColorMessages as messages } from '@atlaskit/editor-common/messages';
 import {
   expandIconWrapperStyle,
@@ -49,11 +50,6 @@ import type { TextColorPluginState } from '../../pm-plugins/main';
 import type { TextColorPlugin } from '../../types';
 
 import { EditorTextColorIcon } from './icon';
-import {
-  backgroundDisabled,
-  textColorIconBar,
-  textColorIconWrapper,
-} from './styles';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';
@@ -114,8 +110,6 @@ export class ToolbarTextColor extends React.Component<
       pluginInjectionApi,
     } = this.props;
 
-    const labelTextColor = formatMessage(messages.textColor);
-
     const palette = pluginState.palette;
 
     let fitWidth: number | undefined;
@@ -128,6 +122,16 @@ export class ToolbarTextColor extends React.Component<
     }
 
     const selectedColor = this.getSelectedColor(pluginState);
+    const selectedColorPaletteItemLabel = palette.find(
+      paletteItem => paletteItem.value === pluginState.color,
+    )?.label;
+
+    const selectedColorPaletteItemLabelText = selectedColorPaletteItemLabel || '';
+
+    const labelTextColor = formatMessage(messages.textColor, {
+      selectedColorName: selectedColorPaletteItemLabelText
+    });
+
     const { selectedRowIndex, selectedColumnIndex } =
       getSelectedRowAndColumnFromPalette(palette, pluginState.color);
 
@@ -167,21 +171,11 @@ export class ToolbarTextColor extends React.Component<
               iconBefore={
                 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
                 <div css={triggerWrapperStyles}>
-                  {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-                  <div css={textColorIconWrapper}>
-                    <EditorTextColorIcon />
-                    <div
-                      css={[
-                        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-                        textColorIconBar,
-                        selectedColor
-                          ? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-                            `background: ${selectedColor};`
-                          : // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-                            pluginState.disabled && backgroundDisabled,
-                      ]}
-                    />
-                  </div>
+                  <SteppedRainbowIconDecoration
+                    selectedColor={selectedColor}
+                    disabled={pluginState.disabled}
+                    icon={<EditorTextColorIcon />}
+                  />
                   {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
                   <span css={expandIconWrapperStyle}>
                     <ExpandIcon label="" />
@@ -309,10 +303,11 @@ export class ToolbarTextColor extends React.Component<
 
   private getSelectedColor(pluginState: TextColorPluginState) {
     const selectedColor =
-      pluginState.color !== pluginState.defaultColor &&
-      (pluginState.color
-        ? hexToEditorTextPaletteColor(pluginState.color)!
-        : pluginState.color);
+      pluginState.color !== pluginState.defaultColor
+        ? pluginState.color
+          ? hexToEditorTextPaletteColor(pluginState.color)!
+          : pluginState.color
+        : null;
     return selectedColor;
   }
 

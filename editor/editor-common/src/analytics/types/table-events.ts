@@ -40,6 +40,7 @@ export enum TABLE_ACTION {
    * the MOVED_ROW | MOVED_COLUMN actions if you want to track events which move row/cols in a single step.
    */
   ROW_OR_COLUMN_MOVED = 'rowOrColumnMoved',
+  CHANGED_DISPLAY_MODE = 'changedDisplayMode',
 }
 
 export enum TABLE_BREAKOUT {
@@ -353,6 +354,23 @@ type TableClonedRowOrColumnAEP = TableAEP<
   undefined
 >;
 
+export enum TABLE_DISPLAY_MODE {
+  FIXED = 'fixed',
+  DEFAULT = 'default',
+  INITIAL = 'initial',
+}
+
+type TableChangedDisplayModeAEP = TableAEP<
+  TABLE_ACTION.CHANGED_DISPLAY_MODE,
+  {
+    inputMethod: INPUT_METHOD.FLOATING_TB | INPUT_METHOD.CONTEXT_MENU;
+    previousDisplayMode: TABLE_DISPLAY_MODE;
+    newDisplayMode: TABLE_DISPLAY_MODE;
+    tableWidth: number | null;
+  } & TotalRowAndColCount,
+  undefined
+>;
+
 export type TableEventPayload =
   | TableDeleteAEP
   | TableClearAEP
@@ -376,4 +394,5 @@ export type TableEventPayload =
   | TableRowOrColumnMovedAEP
   | TableMovedRowOrColumnAEP
   | TableClonedRowOrColumnAEP
+  | TableChangedDisplayModeAEP
   | TableColumnResizedAEP;

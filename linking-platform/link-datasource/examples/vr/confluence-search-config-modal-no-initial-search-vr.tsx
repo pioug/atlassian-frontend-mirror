@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   defaultInitialVisibleConfluenceColumnKeys,
+  mockBasicFilterAGGFetchRequests,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -17,6 +18,7 @@ mockDatasourceFetchRequests({
   delayedResponse: false,
   shouldMockORSBatch: true,
 });
+mockBasicFilterAGGFetchRequests();
 
 const parameters = {
   cloudId: '67899',

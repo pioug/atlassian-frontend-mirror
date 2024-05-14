@@ -10,7 +10,7 @@ import React, {
 import { useIntl } from 'react-intl-next';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
@@ -21,11 +21,11 @@ import filterActionsInner from '../../internal/filterActions';
 import getLabelMessage from '../../internal/getLabelMessage';
 import { CardWrapper } from '../../styled/Card';
 import {
-  ProfileCardAction,
-  ProfileCardClientData,
-  ProfilecardProps,
-  ProfileCardTriggerProps,
-  TeamCentralReportingLinesData,
+  type ProfileCardAction,
+  type ProfileCardClientData,
+  type ProfilecardProps,
+  type ProfileCardTriggerProps,
+  type TeamCentralReportingLinesData,
 } from '../../types';
 import { cardTriggered, fireEvent } from '../../util/analytics';
 import { DELAY_MS_HIDE, DELAY_MS_SHOW } from '../../util/config';
@@ -386,6 +386,7 @@ export default function ProfilecardTriggerNext({
         zIndex={layers.modal()}
         shouldUseCaptureOnOutsideClick
         autoFocus={trigger === 'click'}
+        shouldRenderToParent
       />
       {shouldShowGiveKudos && (
         <Suspense fallback={null}>

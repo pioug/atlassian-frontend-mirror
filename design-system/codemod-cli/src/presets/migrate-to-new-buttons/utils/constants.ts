@@ -36,8 +36,6 @@ export const unsupportedProps = ['component', 'css', 'style'];
 
 export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.`;
 
-export const iconPropsNoLongerSupportedComment = `"glyph", "primaryColor", "secondaryColor" and "testId" are no longer supported in button icons, please refactor the code and/or revisit the UI.`;
-
 export const buttonPropsNoLongerSupportedComment = `Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.`;
 
 export const migrateFitContainerButtonToDefaultButtonComment = `Migrated to a default button with text which is from the icon label.`;

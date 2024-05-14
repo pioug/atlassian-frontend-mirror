@@ -7,7 +7,7 @@ import Button from '../src/old-button/button';
 export default () => (
   <Button
     style={{
-      backgroundColor: token('color.background.accent.red.subtle', 'pink'),
+      backgroundColor: token('color.background.accent.red.subtle'),
     }}
   >
     Pink button

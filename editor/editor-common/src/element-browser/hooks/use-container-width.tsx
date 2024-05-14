@@ -36,9 +36,9 @@ type useContainerWidthReturnType = {
   ContainerWidthMonitor: React.ElementType;
 };
 
-const widthObserverWrapper = css`
-  position: relative;
-`;
+const widthObserverWrapper = css({
+  position: 'relative',
+});
 
 export default function useContainerWidth(): useContainerWidthReturnType {
   const [containerWidth, setContainerWidth] = useState(0);

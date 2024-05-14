@@ -1,7 +1,7 @@
 jest.mock('../../uploader');
 
 import uuid from 'uuid/v4';
-import { AuthProvider, Auth } from '@atlaskit/media-core';
+import { type AuthProvider, type Auth } from '@atlaskit/media-core';
 import {
   asMockFunction,
   asMockFunctionResolvedValue,
@@ -11,22 +11,23 @@ import { Subscription } from 'rxjs/Subscription';
 
 import {
   MediaClient,
-  MediaStore,
-  MediaStoreResponse,
-  ItemsPayload,
-  MediaFileProcessingStatus,
+  type MediaStore,
+  type MediaStoreResponse,
+  type ItemsPayload,
+  type MediaFileProcessingStatus,
   FileFetcherImpl,
-  FileState,
-  UploadingFileState,
+  type FileState,
+  type UploadingFileState,
   isErrorFileState,
-  UploadableFileUpfrontIds,
-  UploadableFile,
+  type UploadableFileUpfrontIds,
+  type UploadableFile,
   UploadController,
-  MediaStoreGetFileImageParams,
+  type MediaStoreGetFileImageParams,
 } from '../..';
 import { getFileStreamsCache } from '../../file-streams-cache';
 import { uploadFile } from '../../uploader';
 import * as resolveAuth from '../../client/media-store/resolveAuth';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const auth = {
   token: 'some-token-that-does-not-really-matter-in-this-tests',
@@ -217,54 +218,152 @@ describe('MediaClient', () => {
       expect(getOrInsertSpy).toHaveBeenLastCalledWith(id, expect.any(Function));
     });
 
-    it('should return local file state while file is still uploading', (done) => {
-      const {
-        controller,
-        mediaClient,
-        uploadableFileUpfrontIds,
-        mockUploadFile,
-      } = setup();
+    describe('should return local file state while file is still uploading', () => {
+      it(`with preview when the file is supported by the browser`, (done) => {
+        // Remove this test when the FF is cleared up
+        const {
+          controller,
+          mediaClient,
+          uploadableFileUpfrontIds,
+          mockUploadFile,
+        } = setup();
 
-      const file: UploadableFile = {
-        content: new Blob(),
-      };
+        const file: UploadableFile = {
+          content: new Blob([], { type: 'image/jpeg' }),
+        };
 
-      mockUploadFile.mockReturnValue({ cancel: jest.fn() });
+        mockUploadFile.mockReturnValue({ cancel: jest.fn() });
 
-      const subscription = new Subscription();
-      subscription.add(
-        mediaClient.file
-          .upload(
-            file,
+        const subscription = new Subscription();
+        subscription.add(
+          mediaClient.file
+            .upload(file, controller, uploadableFileUpfrontIds)
+            .subscribe({
+              next(state) {
+                const fileId = state.id;
+                const occurrenceKey = state.occurrenceKey;
+                mediaClient.file.getFileState(fileId).subscribe({
+                  next(state) {
+                    const expectedState: UploadingFileState = {
+                      id: fileId,
+                      status: 'uploading',
+                      progress: 0,
+                      name: '',
+                      mediaType: 'image',
+                      mimeType: 'image/jpeg',
+                      size: 0,
+                      occurrenceKey,
+                      preview: { value: expect.any(Blob), origin: 'local' },
+                    };
+                    expect(state).toEqual(expectedState);
+                    expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+                    subscription.unsubscribe();
+                    done();
+                  },
+                });
+              },
+            }),
+        );
+      });
 
-            controller,
-            uploadableFileUpfrontIds,
-          )
-          .subscribe({
-            next(state) {
-              const fileId = state.id;
-              const occurrenceKey = state.occurrenceKey;
-              mediaClient.file.getFileState(fileId).subscribe({
-                next(state) {
-                  const expectedState: UploadingFileState = {
-                    id: fileId,
-                    status: 'uploading',
-                    progress: 0,
-                    name: '',
-                    mediaType: 'unknown',
-                    mimeType: '',
-                    size: 0,
-                    occurrenceKey,
-                  };
-                  expect(state).toEqual(expectedState);
-                  expect(mediaClient.mediaStore.getFile).not.toBeCalled();
-                  subscription.unsubscribe();
-                  done();
-                },
-              });
-            },
-          }),
-      );
+      describe('with preview', () => {
+        ffTest(
+          'platform.media-svg-rendering',
+          () => {
+            const {
+              controller,
+              mediaClient,
+              uploadableFileUpfrontIds,
+              mockUploadFile,
+            } = setup();
+
+            const file: UploadableFile = {
+              content: new Blob(),
+            };
+
+            mockUploadFile.mockReturnValue({ cancel: jest.fn() });
+
+            const subscription = new Subscription();
+            subscription.add(
+              mediaClient.file
+                .upload(file, controller, uploadableFileUpfrontIds)
+                .subscribe({
+                  next(state) {
+                    const fileId = state.id;
+                    const occurrenceKey = state.occurrenceKey;
+                    mediaClient.file.getFileState(fileId).subscribe({
+                      next(state) {
+                        const expectedState: UploadingFileState = {
+                          id: fileId,
+                          status: 'uploading',
+                          progress: 0,
+                          name: '',
+                          mediaType: 'unknown',
+                          mimeType: '',
+                          size: 0,
+                          occurrenceKey,
+                          preview: { value: expect.any(Blob), origin: 'local' },
+                        };
+                        expect(state).toEqual(expectedState);
+                        expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+                        subscription.unsubscribe();
+                      },
+                    });
+                  },
+                }),
+            );
+          },
+          () => {
+            const {
+              controller,
+              mediaClient,
+              uploadableFileUpfrontIds,
+              mockUploadFile,
+            } = setup();
+
+            const file: UploadableFile = {
+              content: new Blob(),
+            };
+
+            mockUploadFile.mockReturnValue({ cancel: jest.fn() });
+
+            const subscription = new Subscription();
+            subscription.add(
+              mediaClient.file
+                .upload(
+                  file,
+
+                  controller,
+                  uploadableFileUpfrontIds,
+                )
+                .subscribe({
+                  next(state) {
+                    const fileId = state.id;
+                    const occurrenceKey = state.occurrenceKey;
+                    mediaClient.file.getFileState(fileId).subscribe({
+                      next(state) {
+                        const expectedState: UploadingFileState = {
+                          id: fileId,
+                          status: 'uploading',
+                          progress: 0,
+                          name: '',
+                          mediaType: 'unknown',
+                          mimeType: '',
+                          size: 0,
+                          occurrenceKey,
+                        };
+                        expect(state).toEqual(expectedState);
+                        expect(mediaClient.mediaStore.getFile).not.toBeCalled();
+                        subscription.unsubscribe();
+                        // done();
+                      },
+                    });
+                  },
+                }),
+            );
+          },
+        );
+      });
     });
 
     it.skip('should return file state regardless of the state', async (done) => {

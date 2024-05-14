@@ -1,4 +1,3 @@
-import type { TableLayout } from '@atlaskit/adf-schema';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   EditorState,
@@ -164,7 +163,7 @@ export const getTableContainerWidth = (node?: PMNode): number => {
   }
 
   return (
-    layoutToWidth[node?.attrs.layout as TableLayout] ||
+    layoutToWidth[node?.attrs.layout as 'default' | 'wide' | 'full-width'] ||
     akEditorDefaultLayoutWidth
   );
 };

@@ -23,7 +23,7 @@ jest.mock('lodash/throttle', () => {
  */
 
 describe('useOverflowController', () => {
-  it('should not re-add items after determining they do not fit', () => {
+  it('should not re-add items after determining they do not fit', async () => {
     jest.useFakeTimers();
 
     const { result } = renderHook(({ nodes }) => useOverflowController(nodes), {
@@ -36,27 +36,16 @@ describe('useOverflowController', () => {
     });
 
     expect(result.current.visibleItems.length).toEqual(2);
-
     /**
      * Tell the controller the items are too squished.
      */
     act(() => result.current.updateWidth(1));
-
-    /**
-     * After one 'tick' the controller will have removed one item.
-     */
-    act(() => jest.advanceTimersToNextTimer());
     expect(result.current.visibleItems.length).toEqual(1);
 
     /**
      * Tell the controller there is now enough room.
      */
     act(() => result.current.updateWidth(100));
-
-    /**
-     * After one 'tick' the controller should NOT have added the 2nd item back
-     */
-    act(() => jest.advanceTimersToNextTimer());
     expect(result.current.visibleItems.length).toEqual(1);
 
     jest.useRealTimers();

@@ -3,9 +3,9 @@ const path = require('path');
 const { globSync } = require('glob'); // eslint-disable-line import/no-extraneous-dependencies
 const SVGSpriter = require('svg-sprite'); // eslint-disable-line import/no-extraneous-dependencies
 const mkdirp = require('mkdirp'); // eslint-disable-line import/no-extraneous-dependencies
-const bolt = require('bolt');
+const { getWorkspacesInfo } = require('@af/yarn-utils');
 
-bolt.getWorkspaces({ only: '@atlaskit/icon' }).then(([pkg]) => {
+getWorkspacesInfo({ only: '@atlaskit/icon' }).then(([pkg]) => {
   // We use icon package dir to get the processed SVGs.
   const iconPackageDir = pkg.dir;
 

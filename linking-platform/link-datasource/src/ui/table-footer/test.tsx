@@ -1,11 +1,17 @@
 import React from 'react';
 
 import { fireEvent } from '@testing-library/dom';
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { TableFooter, TableFooterProps } from './index';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 
+import { EVENT_CHANNEL } from '../../analytics';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
+
+import { TableFooter, type TableFooterProps } from './index';
+
+const onAnalyticFireEvent = jest.fn();
 const mockOnRefresh = jest.fn();
 const mockURL =
   'https://a4t-moro.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC';
@@ -19,12 +25,34 @@ const renderFooter = (
   return render(
     <IntlProvider locale="en">
       <TableFooter
+        datasourceId={'datasourceId'}
         isLoading={isLoading}
         itemCount={itemCount}
         onRefresh={onRefresh}
         url={noUrl ? undefined : mockURL}
       />
     </IntlProvider>,
+  );
+};
+
+const renderAssetsFooter = (
+  isLoading: TableFooterProps['isLoading'],
+  itemCount: TableFooterProps['itemCount'],
+  onRefresh: TableFooterProps['onRefresh'],
+  noUrl?: boolean,
+) => {
+  return render(
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+      <IntlProvider locale="en">
+        <TableFooter
+          datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+          isLoading={isLoading}
+          itemCount={itemCount}
+          onRefresh={onRefresh}
+          url={noUrl ? undefined : mockURL}
+        />
+      </IntlProvider>
+    </AnalyticsListener>,
   );
 };
 
@@ -129,5 +157,44 @@ describe('TableFooter', () => {
 
     expect(itemCount).not.toBeInTheDocument();
     expect(footer).toBeInTheDocument();
+  });
+
+  it('should render the powered by JSM Assets link with Assets DatasourceId', async () => {
+    const { queryByTestId } = renderAssetsFooter(false, 25, mockOnRefresh);
+    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+
+    expect(assetsLink).toBeInTheDocument();
+  });
+
+  it('should fire ui.link.clicked.poweredBy when Assets link is clicked', async () => {
+    const { findByTestId } = renderAssetsFooter(false, 25, mockOnRefresh);
+    const assetsLink = await findByTestId('powered-by-jsm-assets-link');
+    expect(assetsLink).toBeInTheDocument();
+
+    await assetsLink.click();
+    await waitFor(() => {
+      expect(onAnalyticFireEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          payload: expect.objectContaining({
+            action: 'clicked',
+            actionSubject: 'link',
+            actionSubjectId: 'poweredBy',
+            eventType: 'ui',
+            attributes: {
+              componentHierarchy: 'datasourceTable',
+              extensionKey: 'jsm-cmdb-gateway',
+            },
+          }),
+        }),
+        EVENT_CHANNEL,
+      );
+    });
+  });
+
+  it('should not render the powered by JSM Assets link on footer if datasource is not Assets with FF on', async () => {
+    const { queryByTestId } = renderFooter(false, 25, mockOnRefresh);
+    const assetsLink = queryByTestId('powered-by-jsm-assets-link');
+
+    expect(assetsLink).not.toBeInTheDocument();
   });
 });

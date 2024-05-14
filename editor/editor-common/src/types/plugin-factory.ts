@@ -4,9 +4,10 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { Dispatch, EventDispatcher } from '../event-dispatcher';
+import { type PortalProviderAPI } from '../portal';
 import type { ProviderFactory } from '../provider-factory';
 import type { SafePlugin } from '../safe-plugin';
-import type { PortalProviderAPI } from '../ui/PortalProvider';
+import type { LegacyPortalProviderAPI } from '../ui/PortalProvider';
 import type { ErrorReporter } from '../utils';
 
 import type { EditorReactContext } from './editor-react-context';
@@ -18,7 +19,7 @@ export type PMPluginFactoryParams = {
   eventDispatcher: EventDispatcher;
   providerFactory: ProviderFactory;
   errorReporter?: ErrorReporter;
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
   reactContext: () => EditorReactContext;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
   featureFlags: FeatureFlags;

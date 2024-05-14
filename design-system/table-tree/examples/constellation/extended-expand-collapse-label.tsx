@@ -17,7 +17,7 @@ const items: Item[] = [
   {
     id: 'item1',
     content: {
-      title: 'Chapter 1: Clean Code',
+      title: 'Chapter 1: Clean code',
       numbering: '1',
       page: 1,
     },
@@ -26,7 +26,7 @@ const items: Item[] = [
       {
         id: 'child1.1',
         content: {
-          title: 'There Will Be Code',
+          title: 'There will be code',
           numbering: '1.1',
           page: 2,
         },
@@ -44,7 +44,7 @@ const items: Item[] = [
       {
         id: 'child1.3',
         content: {
-          title: 'The Total Cost of Owning a Mess',
+          title: 'The cost of owning a mess',
           numbering: '1.3',
           page: 4,
         },
@@ -53,7 +53,7 @@ const items: Item[] = [
           {
             id: 'child1.3.1',
             content: {
-              title: 'The Gran Redesign in the Sky',
+              title: 'Redesigning your code',
               numbering: '1.3.1',
               page: 5,
             },
@@ -62,7 +62,7 @@ const items: Item[] = [
           {
             id: 'child1.3.2',
             content: {
-              title: 'Attitude',
+              title: 'Accessibility considerations',
               numbering: '1.3.2',
               page: 5,
             },
@@ -71,7 +71,7 @@ const items: Item[] = [
           {
             id: 'child1.3.3',
             content: {
-              title: 'The Primal Conundrum',
+              title: 'Planning for clean code',
               numbering: '1.3.3',
               page: 6,
             },
@@ -80,7 +80,7 @@ const items: Item[] = [
           {
             id: 'child1.3.4',
             content: {
-              title: 'The Art of Clean Code',
+              title: 'The art of clean code',
               numbering: '1.3.4',
               page: 6,
             },
@@ -89,7 +89,7 @@ const items: Item[] = [
           {
             id: 'child1.3.5',
             content: {
-              title: 'What Is Clean Code',
+              title: 'What is clean code',
               numbering: '1.3.5',
               page: 7,
             },
@@ -129,7 +129,7 @@ const items: Item[] = [
       {
         id: 'child3.2',
         content: {
-          title: 'Do One Thing',
+          title: 'Do one thing',
           numbering: '3.2',
           page: 35,
         },
@@ -138,7 +138,7 @@ const items: Item[] = [
       {
         id: 'child3.3',
         content: {
-          title: 'One Level of Abstraction per Function',
+          title: 'One level of abstraction per function',
           numbering: '3.3',
           page: 36,
         },
@@ -156,7 +156,7 @@ const items: Item[] = [
       {
         id: 'child3.5',
         content: {
-          title: 'Use Descriptive Names',
+          title: 'Use descriptive names',
           numbering: '3.5',
           page: 39,
         },

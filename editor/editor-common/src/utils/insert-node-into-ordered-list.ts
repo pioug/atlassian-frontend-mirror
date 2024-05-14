@@ -1,5 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
@@ -7,6 +9,29 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 
 import { isListNode } from './list';
+
+// Taken from `editor-plugin-content-insertion`
+function setSelectionToValidTextNode(
+  tr: Transaction,
+  node: PMNode,
+  from: number,
+) {
+  const sliceInserted = Slice.maxOpen(Fragment.from(node));
+
+  const openPosition = Math.min(
+    from + (node.isAtom ? node.nodeSize : sliceInserted.openStart),
+    tr.doc.content.size,
+  );
+  const FORWARD_DIRECTION = 1;
+  const nextSelection = TextSelection.findFrom(
+    tr.doc.resolve(openPosition),
+    FORWARD_DIRECTION,
+    true,
+  );
+  if (nextSelection) {
+    return tr.setSelection(nextSelection);
+  }
+}
 
 export function transformNodeIntoListItem(
   tr: Transaction,
@@ -82,6 +107,9 @@ export function transformNodeIntoListItem(
     .resolve(selectionParentListNodeWithPos.pos + 1)
     .posAtIndex(indexOfNextListItem);
 
+  // Place the selection at the replaced location
+  setSelectionToValidTextNode(tr, node, from);
+
   // Find the ordered list node after the pasted content so we can set it's order
   const mappedPositionOfNextListItem = tr.mapping.map(positionOfNextListItem);
   if (mappedPositionOfNextListItem > tr.doc.nodeSize) {
@@ -95,16 +123,20 @@ export function transformNodeIntoListItem(
   // Work out the new split out lists 'order' (the number it starts from)
   const originalParentOrderedListNodeOrder =
     selectionParentListNode?.attrs.order;
-  const numOfListItemsInOriginalList = findParentNodeOfTypeClosestToPos(
+  const nodeOfOriginalList = findParentNodeOfTypeClosestToPos(
     tr.doc.resolve(from - 1),
     [orderedList],
-  )?.node.childCount;
+  );
+  const numOfListItemsInOriginalList = nodeOfOriginalList?.node.childCount;
 
   // Set the new split out lists order attribute
   if (
     typeof originalParentOrderedListNodeOrder === 'number' &&
     numOfListItemsInOriginalList &&
-    nodeAfterPastedContentResolvedPos
+    nodeAfterPastedContentResolvedPos &&
+    // We only want to apply the node markup if we're referring to the split
+    // list rather than the original
+    nodeOfOriginalList?.node !== nodeAfterPastedContentResolvedPos?.node
   ) {
     tr.setNodeMarkup(nodeAfterPastedContentResolvedPos.pos, orderedList, {
       ...nodeAfterPastedContentResolvedPos.node.attrs,

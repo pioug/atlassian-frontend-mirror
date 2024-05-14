@@ -22,7 +22,6 @@ export interface PopupTriggerProps {
 const triggerButtonLabelStyles = xcss({
   textOverflow: 'ellipsis',
   overflow: 'hidden',
-  maxWidth: '150px',
 });
 
 const badgeStyles = xcss({
@@ -54,20 +53,20 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
 
     const hasOptions = selectedOptions && selectedOptions.length > 0;
     const showButtonLoading = !isDisabled && isLoading;
-    const tiggerButtonTestId = `${testId}-trigger`;
+    const triggerButtonTestId = `${testId}-trigger`;
 
     const LoadingButton = useCallback(
       () => (
         <LoadingStateAnimationWrapper>
           <Button
             iconAfter={<Spinner size={'xsmall'} />}
-            testId={`${tiggerButtonTestId}--loading-button`}
+            testId={`${triggerButtonTestId}--loading-button`}
           >
             {label}
           </Button>
         </LoadingStateAnimationWrapper>
       ),
-      [label, tiggerButtonTestId],
+      [label, triggerButtonTestId],
     );
 
     const DefaultButton = useCallback(
@@ -77,7 +76,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
           isSelected={isSelected || hasOptions}
           isDisabled={isDisabled}
           iconAfter={<ChevronDownIcon label="" />}
-          testId={`${tiggerButtonTestId}--button`}
+          testId={`${triggerButtonTestId}--button`}
         >
           <Flex>
             <Box xcss={triggerButtonLabelStyles}>
@@ -101,7 +100,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
         isSelected,
         label,
         selectedOptions,
-        tiggerButtonTestId,
+        triggerButtonTestId,
       ],
     );
 
@@ -110,7 +109,7 @@ const PopupTrigger = forwardRef<HTMLElement, PopupTriggerProps>(
      * Hence introducing a Box to make sure ref is always the same and only content is refreshed on re-renders
      */
     return (
-      <Box ref={ref} testId={tiggerButtonTestId}>
+      <Box ref={ref} testId={triggerButtonTestId}>
         {showButtonLoading ? <LoadingButton /> : <DefaultButton />}
       </Box>
     );

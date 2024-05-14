@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import { N200, N20A } from '@atlaskit/theme/colors';
 import checkboxTheme from './theme';
@@ -8,59 +7,58 @@ import checkboxTheme from './theme';
   Increasing specificity with double ampersand to ensure these rules take
   priority over the global styles applied to 'ol' elements.
 */
-export const listStyles = css`
-  && {
-    list-style-type: none;
-    padding-left: 0;
-  }
-`;
+export const listStyles = css({
+  '&&': {
+    listStyleType: 'none',
+    paddingLeft: 0,
+  },
+});
 
-export const taskListStyles = css`
-  div + div {
-    margin-top: ${token('space.050', '4px')};
-  }
-`;
+export const taskListStyles = css({
+  'div + div': {
+    marginTop: token('space.050', '4px'),
+  },
+});
 
-export const contentStyles = css`
-  margin: 0;
-  word-wrap: break-word;
-  min-width: 0;
-  flex: 1 1 auto;
-`;
+export const contentStyles = css({
+  margin: 0,
+  wordWrap: 'break-word',
+  minWidth: 0,
+  flex: '1 1 auto',
+});
 
-export const taskStyles = css`
-  display: flex;
-  flex-direction: row;
-  position: relative;
-`;
+export const taskStyles = css({
+  display: 'flex',
+  flexDirection: 'row',
+  position: 'relative',
+});
 
 export const decisionStyles = () =>
-  css`
-    display: flex;
-    flex-direction: row;
-    margin: ${token('space.100', '8px')} 0 0 0;
-    padding: ${token('space.100', '8px')};
-    padding-left: ${token('space.150', '12px')};
-    border-radius: ${token('border.radius.100', '3px')};
-    background-color: ${token('color.background.neutral', N20A)};
-    position: relative;
-
-    .decision-item {
-      cursor: initial;
-    }
-  `;
+  css({
+    display: 'flex',
+    flexDirection: 'row',
+    margin: `${token('space.100', '8px')} 0 0 0`,
+    padding: token('space.100', '8px'),
+    paddingLeft: token('space.150', '12px'),
+    borderRadius: token('border.radius.100', '3px'),
+    backgroundColor: token('color.background.neutral', N20A),
+    position: 'relative',
+    '.decision-item': {
+      cursor: 'initial',
+    },
+  });
 
 export const placeholderStyles = (offset: number) =>
-  css`
-    margin: 0 0 0 ${offset}px;
-    position: absolute;
-    color: ${token('color.text.subtlest', N200)};
-    pointer-events: none;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: calc(100% - 50px);
-  `;
+  css({
+    margin: `0 0 0 ${offset}px`,
+    position: 'absolute',
+    color: token('color.text.subtlest', N200),
+    pointerEvents: 'none',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    maxWidth: 'calc(100% - 50px)',
+  });
 
 /**
  * References packages/design-system/checkbox/src/checkbox.tsx
@@ -118,11 +116,7 @@ export const checkboxStyles = (isRenderer: boolean | undefined) =>
         }
         rect:first-of-type {
           stroke: ${checkboxTheme.light.borderColor.rest};
-          stroke-width: ${getBooleanFF(
-            'platform.design-system-team.update-border-radio-checkbox_7askv',
-          )
-            ? 1
-            : 2};
+          stroke-width: ${1};
           transition: stroke 0.2s ease-in-out;
         }
       }
@@ -203,21 +197,20 @@ export const checkboxStyles = (isRenderer: boolean | undefined) =>
       }
 
       ${isRenderer
-        ? css`
-            &:focus + span > svg,
-            &:checked:focus + span > svg {
-              rect:first-of-type {
-                stroke: ${checkboxTheme.light.borderColor.focused};
-              }
-            }
-          `
-        : css`
-            &:active:focus + span > svg,
-            &:checked:active:focus + span > svg {
-              rect:first-of-type {
-                stroke: ${checkboxTheme.light.borderColor.focused};
-              }
-            }
-          `}
+        ? css({
+            '&:focus + span > svg, &:checked:focus + span > svg': {
+              'rect:first-of-type': {
+                stroke: checkboxTheme.light.borderColor.focused,
+              },
+            },
+          })
+        : css({
+            '&:active:focus + span > svg, &:checked:active:focus + span > svg':
+              {
+                'rect:first-of-type': {
+                  stroke: checkboxTheme.light.borderColor.focused,
+                },
+              },
+          })}
     }
   `;

@@ -14,6 +14,7 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { deleteNode } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
@@ -142,8 +143,19 @@ const plugin = new SafePlugin({
         left: event.clientX,
         top: event.clientY,
       });
-      if (!posAtCoords || isIgnoredClick(event.target as HTMLElement)) {
-        return false;
+      if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+        if (
+          !posAtCoords ||
+          isIgnoredClick(
+            event.target instanceof HTMLElement ? event.target : null,
+          )
+        ) {
+          return false;
+        }
+      } else {
+        if (!posAtCoords || isIgnoredClick(event.target as HTMLElement)) {
+          return false;
+        }
       }
 
       const isInsideTheTarget = posAtCoords.pos === posAtCoords.inside;

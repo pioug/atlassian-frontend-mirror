@@ -1,10 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import {
-  JiraSoftwareIcon,
-  JiraSoftwareLogo,
-  JiraSoftwareWordmark,
-} from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { JiraSoftwareIcon, JiraSoftwareLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoJiraSoftware = () => {
   return (
@@ -13,17 +15,13 @@ const LogoJiraSoftware = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <JiraSoftwareLogo appearance="brand" />
-            </td>
-            <td>
-              <JiraSoftwareWordmark appearance="brand" />
             </td>
             <td>
               <JiraSoftwareIcon appearance="brand" />

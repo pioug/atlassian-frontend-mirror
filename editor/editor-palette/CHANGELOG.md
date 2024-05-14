@@ -1,5 +1,11 @@
 # @atlaskit/editor-palette
 
+## 1.6.0
+
+### Minor Changes
+
+- [#95631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95631) [`8514eacd7c0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8514eacd7c0e) - [ED-23111] Add text background color palette to editor palettes
+
 ## 1.5.3
 
 ### Patch Changes

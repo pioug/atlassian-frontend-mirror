@@ -51,7 +51,7 @@ const NewFeature = () => {
               target="button"
               heading="Switch it up"
               actionsBeforeElement="1/3"
-              targetBgColor={token('elevation.surface.raised', '#fff')}
+              targetBgColor={token('elevation.surface.raised')}
               pulse={false}
               actions={[
                 {

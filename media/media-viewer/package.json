@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-viewer",
-  "version": "48.4.4",
+  "version": "48.5.3",
   "description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,23 +39,23 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/button": "^17.12.0",
-    "@atlaskit/code": "^15.1.0",
-    "@atlaskit/form": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/code": "^15.2.0",
+    "@atlaskit/form": "^10.0.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
-    "@atlaskit/media-client": "^26.3.0",
+    "@atlaskit/media-client": "^27.0.0",
     "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.1.0",
-    "@atlaskit/media-ui": "^25.7.0",
+    "@atlaskit/media-common": "^11.2.0",
+    "@atlaskit/media-ui": "^25.10.0",
     "@atlaskit/platform-feature-flags": "^0.2.4",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/side-navigation": "^3.0.0",
-    "@atlaskit/spinner": "^16.0.0",
-    "@atlaskit/textfield": "^6.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/side-navigation": "^3.1.0",
+    "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/textfield": "^6.3.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "@kenjiuno/msgreader": "^1.2.6",
@@ -81,7 +81,7 @@
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-state": "^1.0.0",
-    "@atlaskit/media-test-data": "^2.0.0",
+    "@atlaskit/media-test-data": "^2.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -107,9 +107,6 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.media-experience.media-viewer-v2_hgsii": {
-      "type": "boolean"
-    },
-    "platform.corex.password-protected-pdf_ht8re": {
       "type": "boolean"
     }
   },

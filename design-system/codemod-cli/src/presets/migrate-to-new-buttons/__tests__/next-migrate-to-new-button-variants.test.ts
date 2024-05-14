@@ -1,724 +1,735 @@
-const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
+import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/next-migrate-to-new-button-variants';
 import {
   linkButtonMissingHrefComment,
-  NEW_BUTTON_VARIANTS as variants,
-  NEW_BUTTON_ENTRY_POINT,
-  iconPropsNoLongerSupportedComment,
   buttonPropsNoLongerSupportedComment,
   migrateFitContainerButtonToDefaultButtonComment,
   migrateFitContainerButtonToIconButtonComment,
 } from '../utils/constants';
 
-describe('migrate-to-icon-buttons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={MoreIcon} />);
-    `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} />);
-    `,
-    'should replace default button with icon button, rename the iconBefore prop',
-  );
+const check = createCheck(transformer);
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={<MoreIcon />} />);
+describe('Migrate to icon buttons', () => {
+  check({
+    it: 'should replace default button with icon button, rename the iconBefore prop',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={MoreIcon} />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={MoreIcon} />);
     `,
-    'should replace default button with icon button, rename the iconBefore prop, and replace the JSX element with just identifier',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />} />);
+  check({
+    it: 'should replace default button with icon button, rename the iconBefore prop, and replace the JSX element with just identifier',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon />} />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} label="more icon" UNSAFE_size="small" />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={MoreIcon} />);
     `,
-    'should replace default button with icon button, rename the iconBefore prop, and move the props from the icon component to IconButton props',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />} label="original label" />);
+  check({
+    it: 'should replace default button with icon button, rename the iconBefore prop, and move the props from the icon component to IconButton props',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon size="small" primaryColor="red" label="more icon" />} />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} label="original label" UNSAFE_size="small" />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton label="more icon" icon={iconProps => <MoreIcon {...iconProps} size="small" primaryColor="red" />} />);
     `,
-    'should replace default button with icon button, rename the iconBefore prop, and keep the original label prop in Button',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
+  check({
+    it: 'should replace default button with icon button, rename the iconBefore prop, and keep the original label prop in Button',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />} label="original label" />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} label="label" />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={iconProps => <MoreIcon {...iconProps} size="small" />} label="original label" />);
     `,
-    'should replace default button with icon button, and remove the aria label attribute if exist',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon />} />);
+  check({
+    it: 'should replace default button with icon button, and remove the aria label attribute if exist',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} label="aria label" />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton label="label" icon={MoreIcon} />);
     `,
-    'should replace default button with icon button, and use the aria label value as label value if icon has no label prop',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={<MoreIcon size="medium" />} />);
+  check({
+    it: 'should replace default button with icon button, and use the aria label value as label value if icon has no label prop',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button aria-label="aria label" iconBefore={<MoreIcon />} />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.icon} icon={MoreIcon} />);
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={MoreIcon} label="aria label" />);
     `,
-    'should replace default button with icon button, rename the iconBefore prop, and remove the medium size prop as its default',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (<Button
-onClick={onClick}
-iconBefore={<MoreIcon label="more icon" primaryColor="red" />}
-/>);
-`,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (<${variants.icon}
-  onClick={onClick}
-  // TODO: (from codemod) ${iconPropsNoLongerSupportedComment}
-  icon={MoreIcon}
-  label="more icon" />);
-`,
-    'should replace default button with icon button, move the props, remove the unsupported props from the icon component, and add an inline comment',
-  );
+  check({
+    it: 'should replace default button with icon button, rename the iconBefore prop, and remove the medium size prop as its default',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon size="medium" />} />);
+    `,
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={MoreIcon} />);
+    `,
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-        const App = () => (<Button iconBefore={icon} {...spreadProps} />);
-        `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-        const App = () => (<${variants.icon} icon={icon} {...spreadProps} />);
-        `,
-    'should replace default button with icon button and keep the spread props',
-  );
+  check({
+    it: 'should replace default button with icon button, move the icon component to a render prop with only the required props',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button onClick={onClick} iconBefore={<MoreIcon label="more icon" primaryColor="red" />}
+  />);
+    `,
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton label="more icon" onClick={onClick} icon={iconProps => <MoreIcon {...iconProps} primaryColor="red" />} />);
+    `,
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (
-      <Button
-        iconBefore={<MoreIcon size="small" />}
-        shouldFitContainer
-        onClick={onClick}
+  check({
+    it: 'should replace default button with icon button and keep the spread props',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={icon} {...spreadProps} />);
+    `,
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (<IconButton icon={icon} {...spreadProps} />);
+    `,
+  });
+
+  check({
+    it: 'should migrate default button to icon button, remove shouldFitContainer, and add an comment for manual check',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon size="small" />} shouldFitContainer onClick={onClick} />);
+    `,
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <IconButton
+          // TODO: (from codemod) ${migrateFitContainerButtonToIconButtonComment}
+          icon={iconProps => <MoreIcon {...iconProps} size="small" />}
+          onClick={onClick}
+        />
+      );
+    `,
+  });
+});
+
+describe('Migrate to loading buttons', () => {
+  check({
+    it: 'should import and replace loading button with default button + isLoading prop',
+    original: `
+      import LoadingButton from '@atlaskit/button/loading-button';
+      const App = () => (
+        <LoadingButton isLoading={true} onClick={() => {}} appearance="primary">Loading Button</LoadingButton>
+      );
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <Button isLoading={true} onClick={() => {}} appearance="primary">Loading Button</Button>
+      );
+    `,
+  });
+
+  check({
+    it: 'should import and replace aliased loading button with default button + isLoading prop, and do not modify the icon prop',
+    original: `
+      import FooBar from '@atlaskit/button/loading-button';
+      const App = () => (
+        <FooBar isLoading={true} onClick={() => {}} appearance="primary" iconBefore={<MoreIcon />}>Loading Button</FooBar>
+      );
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <Button
+          isLoading={true}
+          onClick={() => {}}
+          appearance="primary"
+          iconBefore={MoreIcon}>Loading Button</Button>
+      );
+    `,
+  });
+
+  check({
+    it: 'should import and replace aliased loading button with default button + isLoading prop',
+    original: `
+      import FooBar from '@atlaskit/button/loading-button';
+      const App = () => (
+        <FooBar isLoading={true} onClick={() => {}} appearance="primary">Loading Button</FooBar>
+      );
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <Button isLoading={true} onClick={() => {}} appearance="primary">Loading Button</Button>
+      );
+    `,
+  });
+});
+
+describe('Migrate to link buttons', () => {
+  check({
+    it: 'should import and replace default standard button with new link button',
+    original: `
+      import StandardButton from '@atlaskit/button/standard-button';
+      const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+    `,
+    expected: `
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
+    `,
+  });
+
+  check({
+    it: 'should replace default new button with link button',
+    original: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (<Button href='/#'>Link button</Button>);
+    `,
+    expected: `
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
+    `,
+  });
+
+  check({
+    it: 'should replace default button with link button if it has both href and icon prop',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' iconBefore={icon}>Link button</Button>);
+    `,
+    expected: `
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#' iconBefore={icon}>Link button</LinkButton>);
+    `,
+  });
+
+  check({
+    it: 'should import and replace default standard button with new link button',
+    original: `
+      import StandardButton from '@atlaskit/button/standard-button';
+      const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+    `,
+    expected: `
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (<LinkButton href='/#'>Link button</LinkButton>);
+    `,
+  });
+
+  check({
+    it: 'should replace default button with link button, and move size prop from the icon component to LinkButton props',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' iconAfter={<MoreIcon label="" size="small" />}>Link button</Button>);
+    `,
+    expected: `
+      import { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+        <LinkButton
+          href='/#'
+          iconAfter={iconProps => <MoreIcon {...iconProps} size="small" />}
+        >
+          Link button
+        </LinkButton>
+      );
+    `,
+  });
+});
+
+describe('Migrate to link icon buttons', () => {
+  check({
+    it: 'should replace default button with icon link button, and rename iconBefore prop to icon',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' iconBefore={icon} />);
+    `,
+    expected: `
+      import { LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (<LinkIconButton href='/#' icon={icon} />);
+    `,
+  });
+
+  check({
+    it: 'should replace default button with icon link button, and rename iconBefore prop to icon, and remove the aria-label',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button href='/#' aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
+    `,
+    expected: `
+      import { LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (<LinkIconButton label="label" href='/#' icon={MoreIcon} />);
+    `,
+  });
+
+  check({
+    it: 'should replace default button with link button and import both default and link button',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      import ButtonGroup from '@atlaskit/button/button-group';
+      const App = () => (
+        <div>
+          <Button>Default button</Button>
+          <Button {...props}>Default button with spread props</Button>
+          <ButtonGroup>Button group</ButtonGroup>
+          <Button href='/#'>Link button</Button>
+        </div>
+      );
+    `,
+    expected: `
+      import Button, { LinkButton } from '@atlaskit/button/new';
+      import ButtonGroup from '@atlaskit/button/button-group';
+      const App = () => (
+        <div>
+          <Button>Default button</Button>
+          <Button {...props}>Default button with spread props</Button>
+          <ButtonGroup>Button group</ButtonGroup>
+          <LinkButton href='/#'>Link button</LinkButton>
+        </div>
+      );
+    `,
+  });
+
+  check({
+    it: 'should not import or replace anything if there are already new button variants',
+    original: `
+      import { IconButton, LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <>
+          <IconButton icon={Icon}>Icon button</IconButton>
+          <LinkIconButton icon={Icon} href="/#">Icon link button</LinkIconButton>
+        </>
+      );
+    `,
+    expected: `
+      import { IconButton, LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <>
+          <IconButton icon={Icon}>Icon button</IconButton>
+          <LinkIconButton icon={Icon} href="/#">Icon link button</LinkIconButton>
+        </>
+      );
+    `,
+  });
+
+  check({
+    it: 'should not import or replace anything if there is already a link button',
+    original: `
+      import Button, { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <LinkButton href='/#'>Link button</LinkButton>
+          <Button>Default button</Button>
+        </div>
+      );
+    `,
+    expected: `
+      import Button, { LinkButton } from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <LinkButton href='/#'>Link button</LinkButton>
+          <Button>Default button</Button>
+        </div>
+      );
+    `,
+  });
+
+  check({
+    it: 'should only replace the import if the button is used in a call expression',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      render(Button);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      render(Button);
+    `,
+  });
+});
+
+describe('Migrate to default buttons', () => {
+  check({
+    it: 'should replace default button with new button, move the props from the icon component to Button props',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />}>Button with icon before</Button>);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (<Button iconBefore={iconProps => <MoreIcon {...iconProps} size="small" />}>Button with icon before</Button>);
+    `,
+  });
+
+  check({
+    it: 'should migrate default, move the props, and move to render props for icon',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button onClick={onClick} iconBefore={<MoreIcon size="small" testId="test" />}>text</Button>);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (<Button onClick={onClick} iconBefore={iconProps => <MoreIcon {...iconProps} size="small" testId="test" />}>text</Button>);
+    `,
+  });
+
+  check({
+    it: 'should replace old buttons with new button if non-link appearance values applied',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (<Button appearance="primary" isDisabled>Primary button</Button>);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (<Button appearance="primary" isDisabled>Primary button</Button>);
+    `,
+  });
+
+  check({
+    it: 'should migrate old button to new default button, and move size prop from the both icon components to render prop',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          iconAfter={<MoreIcon label="" size="small" />}
+          iconBefore={<AddIcon label="" size="large" />}
+        >
+          button with many icons
+        </Button>);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <Button
+          iconAfter={iconProps => <MoreIcon {...iconProps} size="small" />}
+          iconBefore={iconProps => <AddIcon {...iconProps} size="large" />}
+        >
+          button with many icons
+        </Button>);
+    `,
+  });
+
+  check({
+    it: 'should migrate default button to new button, move icon label to button label and remove icon if shouldFitContainer and icon label applied, and add an comment for manual check',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          iconBefore={<MoreIcon label="more" size="small" />}
+          shouldFitContainer
+          onClick={onClick}
+        />
+      );
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <Button
+          // TODO: (from codemod) ${migrateFitContainerButtonToDefaultButtonComment}
+          shouldFitContainer
+          onClick={onClick}
+        >
+          More
+        </Button>
+      );
+    `,
+  });
+});
+
+describe('Migrate types from new entry-point', () => {
+  check({
+    it: 'should import Appearance type from new entry point',
+    original: `
+      import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+      import { BaseProps, Appearance } from '@atlaskit/button/types';
+      const App = () => (<Button>Button</Button>);
+    `,
+    expected: `
+      import Button, { type ButtonProps, type Appearance } from '@atlaskit/button/new';
+      import { BaseProps } from '@atlaskit/button/types';
+      const App = () => (<Button>Button</Button>);
+    `,
+  });
+
+  check({
+    it: 'should import Spacing type from new entry point',
+    original: `
+      import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+      import { type Spacing } from '@atlaskit/button/types';
+      const App = () => (<Button>Button</Button>);
+    `,
+    expected: `
+      import Button, { type ButtonProps, type Spacing } from '@atlaskit/button/new';
+      const App = () => (<Button>Button</Button>);
+    `,
+  });
+
+  check({
+    it: 'should import new button and prop types from new entry point',
+    original: `
+      import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+      const App = () => (<Button>Button</Button>);
+    `,
+    expected: `
+      import Button, { type ButtonProps } from '@atlaskit/button/new';
+      const App = () => (<Button>Button</Button>);
+    `,
+  });
+
+  check({
+    it: 'should import new icon button and icon button prop types from new entry point',
+    original: `
+      import Button, { ButtonProps } from '@atlaskit/button/standard-button';
+      const App = () => (<Button
+        appearance={appearance as ButtonProps['appearance']}
+        iconBefore={<AddIcon label="add" size="small" />}
       />);
     `,
-    `import { ${variants.icon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (
-      <${variants.icon}
-        // TODO: (from codemod) ${migrateFitContainerButtonToIconButtonComment}
-        icon={MoreIcon}
-        onClick={onClick}
-        UNSAFE_size="small" />);
+    expected: `
+      import { IconButton, type IconButtonProps as ButtonProps } from '@atlaskit/button/new';
+      const App = () => (
+        <IconButton
+          label="add"
+          appearance={appearance as ButtonProps['appearance']}
+          icon={iconProps => <AddIcon {...iconProps} size="small" />}
+        />
+       );
     `,
-    'should migrate default button to icon button, remove shouldFitContainer, and add an comment for manual check',
-  );
+  });
 });
 
-describe('migrate-to-loading-buttons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import LoadingButton from '@atlaskit/button/loading-button';
-    const App = () => (
-      <LoadingButton isLoading={true} onClick={() => {}} appearance="primary">Loading Button</LoadingButton>
-    );
+describe('Migrate to new button variants: edge cases', () => {
+  check({
+    it: 'should migrate the button with link appearance but without href to a default button, add add a comment',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button
+            appearance="link"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
     `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (
-      <${variants.default} isLoading={true} onClick={() => {}} appearance="primary">Loading Button</${variants.default}>
-    );`,
-    'should import and replace loading button with default button + isLoading prop',
-  );
+    expected: `
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <Button
+            // TODO: (from codemod) ${linkButtonMissingHrefComment}
+            appearance="link"
+          >
+            Button looks like a link
+          </Button>
+        </div>
+      );
+    `,
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import FooBar from '@atlaskit/button/loading-button';
-    const App = () => (
-      <FooBar isLoading={true} onClick={() => {}} appearance="primary" iconBefore={<MoreIcon />}>Loading Button</FooBar>
-    );
+  check({
+    it: 'should replace default button with link button and import both default and link button',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      import ButtonGroup from '@atlaskit/button/button-group';
+      const App = () => (
+        <div>
+          <Button>Default button</Button>
+          <Button {...props}>Default button with spread props</Button>
+          <ButtonGroup>Button group</ButtonGroup>
+          <Button href='/#'>Link button</Button>
+        </div>
+      );
     `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (
-      <${variants.default}
-        isLoading={true}
-        onClick={() => {}}
-        appearance="primary"
-        iconBefore={MoreIcon}>Loading Button</${variants.default}>
-    );`,
-    'should import and replace aliased loading button with default button + isLoading prop, and do not modify the icon prop',
-  );
+    expected: `
+      import Button, { LinkButton } from '@atlaskit/button/new';
+      import ButtonGroup from '@atlaskit/button/button-group';
+      const App = () => (
+        <div>
+          <Button>Default button</Button>
+          <Button {...props}>Default button with spread props</Button>
+          <ButtonGroup>Button group</ButtonGroup>
+          <LinkButton href='/#'>Link button</LinkButton>
+        </div>
+      );
+    `,
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import FooBar from '@atlaskit/button/loading-button';
-    const App = () => (
-      <FooBar isLoading={true} onClick={() => {}} appearance="primary">Loading Button</FooBar>
-    );
+  check({
+    it: 'should only replace the import if the button is used in a call expression',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      render(Button);
     `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (
-      <${variants.default} isLoading={true} onClick={() => {}} appearance="primary">Loading Button</${variants.default}>
-    );`,
-    'should import and replace aliased loading button with default button + isLoading prop',
-  );
+    expected: `
+      import Button from '@atlaskit/button/new';
+      render(Button);
+    `,
+  });
+
+  check({
+    it: 'should only replace the loading button import if the button is used in a call expression',
+    original: `
+      import LoadingButton from '@atlaskit/button/loading-button';
+      render(LoadingButton);
+    `,
+    expected: `
+      import Button from '@atlaskit/button/new';
+      render(Button);
+    `,
+  });
+
+  check({
+    it: 'should keep the jsx pragma',
+    original: `
+      /** jsx @jsx */
+      import Button from '@atlaskit/button/standard-button';
+      render(Button);
+    `,
+    expected: `
+      /** jsx @jsx */
+      import Button from '@atlaskit/button/new';
+      render(Button);
+    `,
+  });
 });
 
-describe('migrate-to-link-buttons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import StandardButton from '@atlaskit/button/standard-button';
-    const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+describe('Should not migrate to new button variants: edge cases', () => {
+  check({
+    it: 'should not replace the old buttons with a custom component overrides',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          component={Link}
+          href="/#"
+        />
+      );
     `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#'>Link button</${variants.link}>);
+    expected: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
+          component={Link}
+          href="/#"
+        />
+      );
     `,
-    'should import and replace default standard button with new link button',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<Button href='/#'>Link button</Button>);
+  check({
+    it: 'should not replace the old buttons with a css prop',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button css={buttonStyle} />
+      );
     `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#'>Link button</${variants.link}>);
+    expected: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
+          css={buttonStyle}
+        />
+      );
     `,
-    'should replace default new button with link button',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' iconBefore={icon}>Link button</Button>);
+  check({
+    it: 'should not replace the old buttons with a style or component prop, but should replace the other buttons, and rename the old button',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <div>
+          <Button style={buttonStyle} />
+          <Button component={customComponent} />
+          <Button>Button</Button>
+        </div>
+      );
     `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#' iconBefore={icon}>Link button</${variants.link}>);
+    expected: `
+      import LegacyButton from '@atlaskit/button/standard-button';
+      import Button from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <LegacyButton
+            // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
+            style={buttonStyle} />
+          <LegacyButton
+            // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
+            component={customComponent} />
+          <Button>Button</Button>
+        </div>
+      );
     `,
-    'should replace default button with link button if it has both href and icon prop',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' iconBefore={icon}>Link button</Button>);
+  check({
+    it: 'should not import or replace anything if there are already new button variants',
+    original: `
+      import { IconButton, LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <>
+          <IconButton icon={Icon}>Icon button</IconButton>
+          <LinkIconButton icon={Icon} href="/#">Icon link button</LinkIconButton>
+        </>
+      );
     `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#' iconBefore={icon}>Link button</${variants.link}>);
+    expected: `
+      import { IconButton, LinkIconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <>
+          <IconButton icon={Icon}>Icon button</IconButton>
+          <LinkIconButton icon={Icon} href="/#">Icon link button</LinkIconButton>
+        </>
+      );
     `,
-    'should replace default button with link button if it has both href and icon prop',
-  );
+  });
 
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import StandardButton from '@atlaskit/button/standard-button';
-    const App = () => (<StandardButton href='/#'>Link button</StandardButton>);
+  check({
+    it: 'should not import or replace anything if there is already a link button',
+    original: `
+      import { LinkButton, Button } from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <LinkButton href='/#'>Link button</LinkButton>
+          <Button>Default button</Button>
+        </div>
+      );
     `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#'>Link button</${variants.link}>);
+    expected: `
+      import { LinkButton, Button } from '@atlaskit/button/new';
+      const App = () => (
+        <div>
+          <LinkButton href='/#'>Link button</LinkButton>
+          <Button>Default button</Button>
+        </div>
+      );
     `,
-    'should import and replace default standard button with new link button',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' iconAfter={<MoreIcon label="" size="small" />}>Link button</Button>);
-    `,
-    `import { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.link} href='/#' iconAfter={MoreIcon} UNSAFE_iconAfter_size="small">Link button</${variants.link}>);
-    `,
-    'should replace default button with link button, and move size prop from the icon component to LinkButton props',
-  );
-});
-
-describe('migrate-to-link-icon-buttons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' iconBefore={icon} />);
-    `,
-    `import { ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.linkIcon} href='/#' icon={icon} />);
-    `,
-    'should replace default button with icon link button, and rename iconBefore prop to icon',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' iconBefore={icon} />);
-    `,
-    `import { ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.linkIcon} href='/#' icon={icon} />);
-    `,
-    'should replace default button with icon link button, and rename iconBefore prop to icon',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button href='/#' aria-label="aria label" iconBefore={<MoreIcon label="label" />} />);
-    `,
-    `import { ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.linkIcon} href='/#' icon={MoreIcon} label="label" />);
-    `,
-    'should replace default button with icon link button, and rename iconBefore prop to icon, and remove the aria-label',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-import ButtonGroup from '@atlaskit/button/button-group';
-const App = () => (
-    <div>
-        <Button>Default button</Button>
-        <Button {...props}>Default button with spread props</Button>
-        <ButtonGroup>Button group</ButtonGroup>
-        <Button href='/#'>Link button</Button>
-    </div>
-);`,
-    `import ${variants.default}, { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-import ButtonGroup from '@atlaskit/button/button-group';
-const App = () => (
-    <div>
-        <${variants.default}>Default button</${variants.default}>
-        <${variants.default} {...props}>Default button with spread props</${variants.default}>
-        <ButtonGroup>Button group</ButtonGroup>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-    </div>
-);`,
-    'should replace default button with link button and import both default and link button',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { ${variants.icon}, ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-        const App = () => (
-            <>
-              <${variants.icon} icon={Icon}>Icon button</${variants.icon}>
-              <${variants.linkIcon} icon={Icon} href="/#">Icon link button</${variants.linkIcon}>
-            </>
-        );
-        `,
-    `import { ${variants.icon}, ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-        const App = () => (
-            <>
-              <${variants.icon} icon={Icon}>Icon button</${variants.icon}>
-              <${variants.linkIcon} icon={Icon} href="/#">Icon link button</${variants.linkIcon}>
-            </>
-        );
-        `,
-    'should not import or replace anything if there are already new button variants',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import ${variants.default}, { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-    <div>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-        <${variants.default}>Default button</${variants.default}>
-    </div>
-);`,
-    `import ${variants.default}, { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-    <div>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-        <${variants.default}>Default button</${variants.default}>
-    </div>
-);`,
-    'should not import or replace anything if there is already a link button',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-        render(Button);
-        `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-        render(${variants.default});
-        `,
-    'should only replace the import if the button is used in a call expression',
-  );
-});
-
-describe('migrate-to-default-buttons', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (<Button iconBefore={<MoreIcon label="more icon" size="small" />}>Button with icon before</Button>);
-    `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (<${variants.default} iconBefore={MoreIcon} UNSAFE_iconBefore_size="small">Button with icon before</${variants.default}>);
-    `,
-    'should replace default button with new button, move the props from the icon component to Button props',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-  const App = () => (<Button onClick={onClick} iconBefore={<MoreIcon size="small" testId="test" />}>text</Button>);
-`,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-  const App = () => (<${variants.default}
-    onClick={onClick}
-    // TODO: (from codemod) ${iconPropsNoLongerSupportedComment}
-    iconBefore={MoreIcon}
-    UNSAFE_iconBefore_size="small">text</${variants.default}>);
-`,
-    'should migrate default, move the props, remove the unsupported props from the icon component, and add an inline comment',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (<Button appearance="primary" isDisabled>Primary button</Button>);
-`,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (<${variants.default} appearance="primary" isDisabled>Primary button</${variants.default}>);
-`,
-    'should replace old buttons with new button if non-link appearance values applied',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <Button
-    iconAfter={<MoreIcon label="" size="small" />}
-    iconBefore={<AddIcon label="" size="large" />}
-  >
-    button with many icons
-  </Button>);
-`,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-  <${variants.default}
-    iconAfter={MoreIcon}
-    iconBefore={AddIcon}
-    UNSAFE_iconAfter_size="small"
-    UNSAFE_iconBefore_size="large">
-    button with many icons
-  </${variants.default}>);
-`,
-    'should migrate old button to new default button, and move size prop from the both icon components to new Button props',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-    const App = () => (
-      <Button
-        iconBefore={<MoreIcon label="more" size="small" />}
-        shouldFitContainer
-        onClick={onClick}
-      />);
-    `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-    const App = () => (
-      <${variants.default}
-        // TODO: (from codemod) ${migrateFitContainerButtonToDefaultButtonComment}
-        shouldFitContainer
-        onClick={onClick}>More</${variants.default}>);
-    `,
-    'should migrate default button to new button, move icon label to button label and remove icon if shouldFitContainer and icon label applied, and add an comment for manual check',
-  );
-});
-
-describe('migrate-types-from-new-entry-point', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button, { ButtonProps } from '@atlaskit/button/standard-button';
-import { BaseProps, Appearance } from '@atlaskit/button/types';
-const App = () => (<Button>Button</Button>);
-`,
-    `import ${variants.default}, { type ButtonProps, type Appearance } from '${NEW_BUTTON_ENTRY_POINT}';
-import { BaseProps } from '@atlaskit/button/types';
-const App = () => (<${variants.default}>Button</${variants.default}>);
-`,
-    'should import Appearance type from new entry point',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button, { ButtonProps } from '@atlaskit/button/standard-button';
-import { type Spacing } from '@atlaskit/button/types';
-const App = () => (<Button>Button</Button>);
-`,
-    `import ${variants.default}, { type ButtonProps, type Spacing } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (<${variants.default}>Button</${variants.default}>);
-`,
-    'should import Spacing type from new entry point',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button, { ButtonProps } from '@atlaskit/button/standard-button';
-const App = () => (<Button>Button</Button>);
-`,
-    `import ${variants.default}, { type ButtonProps } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (<${variants.default}>Button</${variants.default}>);
-`,
-    'should import new button and prop types from new entry point',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button, { ButtonProps } from '@atlaskit/button/standard-button';
-const App = () => (<Button
-  appearance={appearance as ButtonProps['appearance']}
-  iconBefore={<AddIcon label="add" size="small" />}
-/>);
-`,
-    `import { ${variants.icon}, type IconButtonProps as ButtonProps } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (<${variants.icon}
-  appearance={appearance as ButtonProps['appearance']}
-  icon={AddIcon}
-  label="add"
-  UNSAFE_size="small" />);
-`,
-    'should import new icon button and icon button prop types from new entry point',
-  );
-});
-
-describe('migrate-to-new-button-variants: edge cases', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <div>
-    <Button
-      appearance="link"
-    >
-      Button looks like a link
-    </Button>
-  </div>
-  );
-`,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-  <div>
-    <Button
-      // TODO: (from codemod) ${linkButtonMissingHrefComment}
-      appearance="link"
-    >
-      Button looks like a link
-    </Button>
-  </div>
-  );
-`,
-    'should migrate the button with link appearance but without href to a default button, add add a comment',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-import ButtonGroup from '@atlaskit/button/button-group';
-const App = () => (
-    <div>
-        <Button>Default button</Button>
-        <Button {...props}>Default button with spread props</Button>
-        <ButtonGroup>Button group</ButtonGroup>
-        <Button href='/#'>Link button</Button>
-    </div>
-);`,
-    `import ${variants.default}, { ${variants.link} } from '${NEW_BUTTON_ENTRY_POINT}';
-import ButtonGroup from '@atlaskit/button/button-group';
-const App = () => (
-    <div>
-        <${variants.default}>Default button</${variants.default}>
-        <${variants.default} {...props}>Default button with spread props</${variants.default}>
-        <ButtonGroup>Button group</ButtonGroup>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-    </div>
-);`,
-    'should replace default button with link button and import both default and link button',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-        render(Button);
-        `,
-    `import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-        render(Button);
-        `,
-    'should only replace the import if the button is used in a call expression',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `
-/** jsx @jsx */
-import Button from '@atlaskit/button/standard-button';
-render(Button);
-`,
-    `
-/** jsx @jsx */
-import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-render(Button);
-`,
-    'should keep the jsx pragma',
-  );
-});
-
-describe('should-not-migrate-to-new-button-variants: edge cases', () => {
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <Button
-    component={Link}
-    href="/#"
-  />
-);`,
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <Button
-    // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
-    component={Link}
-    href="/#"
-  />
-);`,
-    'should not replace the old buttons with a custom component overrides',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <Button css={buttonStyle} />
-);`,
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-  <Button // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
-  css={buttonStyle} />
-);`,
-    'should not replace the old buttons with a css prop',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import Button from '@atlaskit/button/standard-button';
-const App = () => (
-<div>
-  <Button style={buttonStyle} />
-  <Button component={customComponent} />
-  <Button>Button</Button>
-</div>
-);
-`,
-    `import LegacyButton from '@atlaskit/button/standard-button';
-import ${variants.default} from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-<div>
-  <LegacyButton
-    // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
-    style={buttonStyle} />
-  <LegacyButton
-    // TODO: (from codemod) ${buttonPropsNoLongerSupportedComment}
-    component={customComponent} />
-  <Button>Button</Button>
-</div>
-);`,
-    'should not replace the old buttons with a style or component prop, but should replace the other buttons, and rename the old button',
-  );
-
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { ${variants.icon}, ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-        const App = () => (
-            <>
-              <${variants.icon} icon={Icon}>Icon button</${variants.icon}>
-              <${variants.linkIcon} icon={Icon} href="/#">Icon link button</${variants.linkIcon}>
-            </>
-        );
-        `,
-    `import { ${variants.icon}, ${variants.linkIcon} } from '${NEW_BUTTON_ENTRY_POINT}';
-        const App = () => (
-            <>
-              <${variants.icon} icon={Icon}>Icon button</${variants.icon}>
-              <${variants.linkIcon} icon={Icon} href="/#">Icon link button</${variants.linkIcon}>
-            </>
-        );
-        `,
-    'should not import or replace anything if there are already new button variants',
-  );
-  defineInlineTest(
-    { default: transformer, parser: 'tsx' },
-    {},
-    `import { ${variants.link}, ${variants.default} } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-    <div>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-        <${variants.default}>Default button</${variants.default}>
-    </div>
-);`,
-    `import { ${variants.link}, ${variants.default} } from '${NEW_BUTTON_ENTRY_POINT}';
-const App = () => (
-    <div>
-        <${variants.link} href='/#'>Link button</${variants.link}>
-        <${variants.default}>Default button</${variants.default}>
-    </div>
-);`,
-    'should not import or replace anything if there is already a link button',
-  );
+  });
 });

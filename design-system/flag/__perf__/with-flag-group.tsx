@@ -2,7 +2,6 @@ import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
-import { G400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../src';
@@ -14,7 +13,7 @@ export default () => (
       icon={
         <SuccessIcon
           label="Success"
-          secondaryColor={token('color.background.success.bold', G400)}
+          secondaryColor={token('color.background.success.bold')}
         />
       }
       id="success"

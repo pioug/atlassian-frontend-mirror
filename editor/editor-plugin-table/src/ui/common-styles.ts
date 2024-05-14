@@ -6,6 +6,7 @@ import {
   tableMarginTop,
   tableSharedStyle,
 } from '@atlaskit/editor-common/styles';
+import { SORTABLE_COLUMN_ICON_CLASSNAME } from '@atlaskit/editor-common/table';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import {
@@ -27,6 +28,7 @@ import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
 import { TableCssClassName as ClassName } from '../types';
 
 import {
@@ -203,45 +205,66 @@ const breakoutWidthStyling = () => {
   `;
 };
 
-const tableBorderStyles = () => {
-  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
-    return `border-color: ${tableBorderDeleteColor}`;
-  } else {
-    return `border: 1px solid ${tableBorderDeleteColor}`;
-  }
-};
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-const tableStickyHeaderColumnControlsDecorationsStyle = () => {
-  if (getBooleanFF('platform.editor.table.column-controls-styles-updated')) {
+const viewModeSortStyles = () => {
+  if (getBooleanFF('platform.editor.table.live-pages-sorting_4malx')) {
     return css`
-      .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        z-index: 0;
-        left: -1px;
-      }
+      th {
+        .${SORTING_ICON_CLASS_NAME} {
+          + p {
+            margin-top: 0 !important;
+          }
+        }
 
-      .${ClassName.TABLE_STICKY}
-        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        border-left: 1px solid ${tableBorderColor};
-      }
+        &:has(.is-active) {
+          .${SORTABLE_COLUMN_ICON_CLASSNAME} {
+            opacity: 1;
+          }
+        }
 
-      .${ClassName.TABLE_STICKY}
-        tr:first-of-type
-        th.${ClassName.TABLE_HEADER_CELL} {
-        &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
-          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-            left: 0;
+        .${SORTABLE_COLUMN_ICON_CLASSNAME} {
+          opacity: 0;
+          &:focus {
+            opacity: 1;
+          }
+        }
+
+        &:hover {
+          .${SORTABLE_COLUMN_ICON_CLASSNAME} {
+            opacity: 1;
           }
         }
       }
     `;
-  } else {
-    return css`
-      .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
-        z-index: 0;
-      }
-    `;
   }
+};
+
+const tableBorderStyles = () => {
+  return `border-color: ${tableBorderDeleteColor}`;
+};
+
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
+const tableStickyHeaderColumnControlsDecorationsStyle = () => {
+  return css`
+    .${ClassName.TABLE_STICKY} .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
+      z-index: 0;
+      left: -1px;
+    }
+
+    .${ClassName.TABLE_STICKY}
+      .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+      border-left: 1px solid ${tableBorderColor};
+    }
+
+    .${ClassName.TABLE_STICKY}
+      tr:first-of-type
+      th.${ClassName.TABLE_HEADER_CELL} {
+      &.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
+        .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
+          left: 0;
+        }
+      }
+    }
+  `;
 };
 
 const tableStickyHeaderFirefoxFixStyle = () => {
@@ -269,6 +292,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
   ${props.featureFlags?.tableDragAndDrop && insertLine()};
   ${resizeHandle(props.featureFlags?.tableDragAndDrop)};
   ${rangeSelectionStyles};
+  ${viewModeSortStyles()};
 
   .${ClassName.LAST_ITEM_IN_CELL} {
     margin-bottom: 0;

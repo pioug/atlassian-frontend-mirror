@@ -34,6 +34,9 @@
             "path": "../../../design-system/button/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/datetime-picker/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/dropdown-menu/afm-cc/tsconfig.json"
         },
         {
@@ -76,6 +79,9 @@
             "path": "../../linking-types/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/logo/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/lozenge/afm-cc/tsconfig.json"
         },
         {
@@ -86,6 +92,9 @@
         },
         {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/popup/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../pragmatic-drag-and-drop/core/afm-cc/tsconfig.json"
@@ -107,6 +116,9 @@
         },
         {
             "path": "../../smart-card/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"

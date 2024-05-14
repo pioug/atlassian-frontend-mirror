@@ -2,7 +2,10 @@ import React from 'react';
 
 import type { ForwardRef } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
+import {
+  AnnotationSharedClassNames,
+  BlockAnnotationSharedClassNames,
+} from '@atlaskit/editor-common/styles';
 
 export class AnnotationNodeView extends ReactNodeView {
   createDomRef() {
@@ -34,4 +37,17 @@ export const getAnnotationViewClassname = (
   return hasFocus
     ? AnnotationSharedClassNames.focus
     : AnnotationSharedClassNames.blur;
+};
+
+export const getBlockAnnotationViewClassname = (
+  isUnresolved: boolean,
+  hasFocus: boolean,
+): string | undefined => {
+  if (!isUnresolved) {
+    return;
+  }
+
+  return hasFocus
+    ? BlockAnnotationSharedClassNames.focus
+    : BlockAnnotationSharedClassNames.blur;
 };

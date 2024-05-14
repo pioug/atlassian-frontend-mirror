@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { code } from '@atlaskit/docs';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -10,8 +9,8 @@ import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { listPlugin } from '@atlaskit/editor-plugins/list';
 
 function Editor() {
-  const { preset } = usePreset(() =>
-    new EditorPresetBuilder()
+  const { preset } = usePreset((builder) =>
+    builder
       .add(basePlugin)
       .add([analyticsPlugin, {}])
       .add(blockTypePlugin)
@@ -30,7 +29,6 @@ export default function Example() {
         }
       </p>
       {code`import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
@@ -39,8 +37,8 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 
 function Editor() {
   const { preset } = usePreset(
-    () =>
-      new EditorPresetBuilder()
+    (builder) =>
+      builder
         .add(basePlugin)
         .add(analyticsPlugin)
         .add(blockTypePlugin)

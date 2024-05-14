@@ -16,7 +16,7 @@ export const getPrimaryButtonTheme =
         ...buttonStyles,
         ...primaryButton.default,
         ...(props.isSelected && primaryButton.selected),
-        fontWeight: 500,
+        fontWeight: token('font.weight.medium'),
         padding: `0 ${token('space.050', '4px')}`,
         marginLeft: 0,
         marginRight: 0,

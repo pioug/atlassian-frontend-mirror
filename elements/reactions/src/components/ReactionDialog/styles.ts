@@ -6,7 +6,10 @@ import { ThemeColorModes, token } from '@atlaskit/tokens';
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 
 const REACTIONS_CONTAINER_WIDTH = 48;
+
+// These margin values must match
 const REACTION_RIGHT_MARGIN = 8;
+const REACTION_RIGHT_MARGIN_TOKEN = token('space.100', '8px');
 /* we want to display around 9 reactions and show 10th one as faded so removing 2px from REACTIONS_CONTAINER_WIDTH*/
 const CONTAINER_WIDTH =
   NUMBER_OF_REACTIONS_TO_DISPLAY *
@@ -62,12 +65,10 @@ export const counterStyle = (isSelected: boolean) =>
     fontSize: '11px',
     fontWeight: isSelected ? 700 : 400,
     paddingRight: '0px',
-    // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-    marginTop: '5px',
+    marginTop: token('space.075', '6px'),
     '> div': {
       width: '100%',
-      // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-      padding: '0px!important', //Counter component has its own styles overriding them to match designs
+      padding: `${token('space.0', '0px')}!important`, //Counter component has its own styles overriding them to match designs
       color: isSelected
         ? `${token('color.text', B400)}!important`
         : `2px solid ${token('color.text', N500)}!important`,
@@ -106,8 +107,7 @@ export const customTabWrapper = (
     justifyContent: 'center',
     minWidth: `${REACTIONS_CONTAINER_WIDTH}px`,
     minHeight: `${REACTION_CONTAINER_HEIGHT}px`,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-    marginRight: `${REACTION_RIGHT_MARGIN}px`,
+    marginRight: REACTION_RIGHT_MARGIN_TOKEN,
     boxSizing: 'border-box',
     position: 'relative',
     '> div': {
@@ -195,6 +195,8 @@ export const customTabListStyles = css({
   paddingBottom: token('space.050', '4px'),
   'div[role=tablist]': {
     flexGrow: 1,
+    // paddingInline exists to maintain styling prior to @atlaskit/tabs update that removed baked in horizontal padding
+    paddingInline: token('space.100', '8px'),
   },
 });
 

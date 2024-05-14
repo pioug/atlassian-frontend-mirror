@@ -25,15 +25,15 @@ const CopyAnchorWrapperWithRef = React.forwardRef(
   },
 );
 
-const copyAnchorButtonStyles = css`
-  display: inline;
-  outline: none;
-  background-color: transparent;
-  border: none;
-  color: ${token('color.icon', N500)};
-  cursor: pointer;
-  right: 0;
-`;
+const copyAnchorButtonStyles = css({
+  display: 'inline',
+  outline: 'none',
+  backgroundColor: 'transparent',
+  border: 'none',
+  color: token('color.icon', N500),
+  cursor: 'pointer',
+  right: 0,
+});
 
 type Props = {
   onCopyText: () => Promise<void>;

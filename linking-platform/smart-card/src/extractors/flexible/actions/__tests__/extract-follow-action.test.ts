@@ -41,6 +41,7 @@ describe('extractFollowAction', () => {
         },
       },
       value: true,
+      isProject: false,
     });
   });
 
@@ -63,6 +64,7 @@ describe('extractFollowAction', () => {
         },
       },
       value: false,
+      isProject: false,
     });
   });
 
@@ -88,6 +90,7 @@ describe('extractFollowAction', () => {
         },
       },
       value: true,
+      isProject: false,
     });
   });
 
@@ -110,6 +113,7 @@ describe('extractFollowAction', () => {
         },
       },
       value: true,
+      isProject: false,
     });
   });
 

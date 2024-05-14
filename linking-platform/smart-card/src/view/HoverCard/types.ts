@@ -1,5 +1,4 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { ElementItem } from '../FlexibleCard/components/blocks/types';
 import { AnalyticsFacade } from '../../state/analytics';
 import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
@@ -97,12 +96,6 @@ export interface HoverCardComponentProps
 
 export type PreviewDisplay = 'card' | 'embed';
 export type PreviewInvokeMethod = 'keyboard' | 'mouse_hover' | 'mouse_click';
-
-export interface MetadataOptions {
-  primary: Array<ElementItem>;
-  secondary: Array<ElementItem>;
-  subtitle: Array<ElementItem>;
-}
 
 export type HoverCardContentProps = {
   id?: string;

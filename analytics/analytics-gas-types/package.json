@@ -35,7 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

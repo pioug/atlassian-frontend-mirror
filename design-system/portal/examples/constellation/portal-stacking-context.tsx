@@ -12,26 +12,26 @@ const containerStyles = xcss({
 const figcaptionStyles = css({
   padding: token('space.100', '8px'),
   position: 'absolute',
-  background: token('color.background.neutral', 'white'),
+  background: token('color.background.neutral'),
   insetBlockEnd: token('space.0', '0px'),
 });
 
 const figureStyles = css({
   position: 'absolute',
-  border: `1px solid ${token('color.blanket', 'black')}`,
+  border: `1px solid ${token('color.blanket')}`,
   filter: 'drop-shadow(-12px 12px 8px)',
 });
 
 const topSquareStyles = css({
   width: '372px',
   height: '482px',
-  background: token('color.background.accent.purple.bolder', 'rebeccapurple'),
+  background: token('color.background.accent.purple.bolder'),
 });
 
 const bottomSquareStyles = css({
   width: '372px',
   height: '492px',
-  background: token('color.background.accent.blue.subtler', 'lightskyblue'),
+  background: token('color.background.accent.blue.subtler'),
 });
 
 const topSquarePositionStyles = css({

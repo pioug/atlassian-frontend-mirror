@@ -1,7 +1,7 @@
-import { RECENTS_COLLECTION, ResponseFileItem } from '@atlaskit/media-client';
+import { RECENTS_COLLECTION, type ResponseFileItem } from '@atlaskit/media-client';
 import { copy, getIdentifier } from '@atlaskit/media-client/test-helpers';
 
-import { FileItemGenerator } from './types';
+import { type FileItemGenerator } from './types';
 
 const createGenerator =
   (baseFileItem: ResponseFileItem): FileItemGenerator =>
@@ -90,6 +90,23 @@ const failedPdf = createGenerator({
     mimeType: 'application/pdf',
     name: 'fPDF.pdf',
     size: 2975434,
+    processingStatus: 'failed',
+    artifacts: {},
+    representations: {},
+    createdAt: 1691113227581,
+  },
+});
+
+const failedDoc = createGenerator({
+  type: 'file',
+  id: 'a4be1698-1608-4326-bb5f-c3365cabf2d4',
+  collection: 'MediaServicesSample',
+  details: {
+    mediaType: 'doc',
+    mimeType:
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    name: 'test-doc.xlsx',
+    size: 30713,
     processingStatus: 'failed',
     artifacts: {},
     representations: {},
@@ -575,6 +592,7 @@ export const generateSampleFileItem = {
   workingCodeLarge,
   processingPdf,
   failedPdf,
+  failedDoc,
   failedVideo,
   passwordPdf,
   svg,

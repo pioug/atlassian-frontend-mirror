@@ -44,8 +44,7 @@ const mbeNavigation = css({
   marginLeft: token('space.100', '8px'),
   marginRight: token('space.100', '8px'),
   '&.remove-margins': {
-    marginLeft: 0,
-    marginRight: 0,
+    margin: token('space.negative.100', '-8px'),
   },
   '&.remove-border': {
     border: 'none',

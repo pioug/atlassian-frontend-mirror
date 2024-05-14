@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-placeholder-text",
-  "version": "1.0.8",
+  "version": "1.1.6",
   "description": "placeholder text plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,15 +28,15 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.9.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-plugin-analytics": "^1.0.0",
-    "@atlaskit/editor-plugin-type-ahead": "^1.0.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/editor-shared-styles": "^2.9.0",
+    "@atlaskit/adf-schema": "^36.1.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-plugin-analytics": "^1.1.0",
+    "@atlaskit/editor-plugin-type-ahead": "^1.1.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
+    "@atlaskit/editor-shared-styles": "^2.10.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -46,8 +46,8 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/editor-plugin-floating-toolbar": "^1.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/editor-plugin-floating-toolbar": "^1.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

@@ -207,11 +207,10 @@ export const mentionResourceProviderWithInfoHints =
     maxWait: 25,
   });
 
-export const mentionResourceProviderWithInviteFromMentionExperiment =
+export const mentionResourceProviderWithInviteFromMentionEnabled =
   new MentionResource({
     minWait: 10,
     maxWait: 25,
-    inviteExperimentCohort: 'variation',
     productName: 'confluence',
     shouldEnableInvite: true,
     userRole: 'admin',

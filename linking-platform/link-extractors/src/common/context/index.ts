@@ -1,3 +1,3 @@
 export { extractContext } from './extractContext';
-export { extractProvider } from './extractProvider';
+export { extractProvider, extractProviderIcon } from './extractProvider';
 export type { LinkProvider } from './extractProvider';

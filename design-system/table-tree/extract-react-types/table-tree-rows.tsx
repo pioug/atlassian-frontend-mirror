@@ -20,8 +20,8 @@ type RowsProps = {
   items?: Item[] | null;
   /* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
   /**
-   * Accessible name for loading states spinner. Can be used for internationalization.
-   * Default is "Loading".
+   * This is an accessible name for the loading state's spinner.
+   * The default text is "Loading".
    */
   loadingLabel?: string | null;
   /**

@@ -14,6 +14,7 @@ export default {
   'fabric.editor.addColumnRight': 'Thêm cột bên phải',
   'fabric.editor.addCommentOnMedia': 'Thêm nhận xét',
   'fabric.editor.addImageBorder': 'Thêm viền',
+  'fabric.editor.addLoomVideo': 'Thêm video Loom',
   'fabric.editor.addMediaFiles': 'Thêm ảnh, video hoặc tệp',
   'fabric.editor.addRowAbove': 'Thêm hàng bên trên',
   'fabric.editor.addRowBelow': 'Thêm hàng bên dưới',
@@ -97,6 +98,10 @@ export default {
   'fabric.editor.datasource.assetsObjects': 'Tài sản (Beta)',
   'fabric.editor.datasource.assetsObjects.description':
     'Chèn đối tượng từ Tài sản trong Jira Service Management bằng tính năng tìm kiếm và lọc',
+  'fabric.editor.datasource.assetsObjectsGeneralAvailability': 'Tài sản',
+  'fabric.editor.datasource.confluenceSearch': 'Chèn danh sách Confluence',
+  'fabric.editor.datasource.confluenceSearch.description':
+    'Chèn danh sách kết quả tìm kiếm từ Confluence bằng tính năng tìm kiếm, lọc và định cấu hình nâng cao.',
   'fabric.editor.datasource.jiraIssue': 'Vấn đề trên Jira',
   'fabric.editor.datasource.jiraIssue.description':
     'Chèn vấn đề trên Jira từ Jira Cloud bằng tính năng tìm kiếm, lọc và định cấu hình nâng cao.',
@@ -107,6 +112,7 @@ export default {
   'fabric.editor.decision': 'Quyết định',
   'fabric.editor.decision.description': 'Thu thập các quyết định để dễ dàng theo dõi',
   'fabric.editor.decisionPlaceholder': 'Thêm quyết định…',
+  'fabric.editor.decreaseColumnSize': 'Giảm kích thước cột',
   'fabric.editor.decreaseSize': 'Giảm kích thước',
   'fabric.editor.defaultAltText': 'Tài liệu',
   'fabric.editor.description': 'Mô tả',
@@ -235,6 +241,7 @@ export default {
   'fabric.editor.imageBorderSize': 'Kích cỡ',
   'fabric.editor.imageBorderSubtle': 'Nhạt',
   'fabric.editor.improvement': 'Cải tiến',
+  'fabric.editor.increaseColumnSize': 'Tăng kích thước cột',
   'fabric.editor.increaseSize': 'Tăng kích thước',
   'fabric.editor.indent': 'Thụt lề',
   'fabric.editor.info': 'Thông tin',
@@ -327,8 +334,8 @@ export default {
   'fabric.editor.placeholderTextPlaceholder': 'Thêm văn bản giữ chỗ',
   'fabric.editor.plainText': 'Dùng văn bản thuần túy',
   'fabric.editor.quickInsert': 'Chèn nhanh',
-  'fabric.editor.recordVideo': 'Quay video',
-  'fabric.editor.recordVideo.description': 'Quay video bằng Loom',
+  'fabric.editor.recordVideo': 'Quay video Loom',
+  'fabric.editor.recordVideo.description': 'Quay lại màn hình và máy ảnh của bạn',
   'fabric.editor.redo': 'Làm lại',
   'fabric.editor.remove': 'Xóa',
   'fabric.editor.removeColumns': '{0, plural, other {Xóa cột}}',
@@ -348,6 +355,7 @@ export default {
   'fabric.editor.saveButton': 'Lưu',
   'fabric.editor.searchResults':
     '{itemsLength, plural, other {Có {itemsLength,number} kết quả tìm kiếm. Dùng phím mũi tên Lên và Xuống để di chuyển giữa các kết quả. Nhấn Enter để chọn một kết quả.}}',
+  'fabric.editor.selectColumnResize': 'Chọn kích thước cột',
   'fabric.editor.selectLanguage': 'Chọn ngôn ngữ',
   'fabric.editor.selectTableColumn': 'Chọn cột trong bảng',
   'fabric.editor.selectTableRow': 'Chọn hàng trong bảng',
@@ -435,10 +443,14 @@ export default {
   'fabric.editor.unsupportedContentTooltip':
     'Nội dung không có trong trình biên tập này, nội dung sẽ được bảo lưu khi bạn sửa và lưu',
   'fabric.editor.unsupportedInlineContent': 'Nội dung không được hỗ trợ',
+  'fabric.editor.upDown':
+    'Khi bạn sử dụng các phím mũi tên lên và xuống vào trường nhập sau, ngày sẽ cập nhật bên dưới',
   'fabric.editor.url': 'Hiển thị URL',
   'fabric.editor.urlDescription': 'Hiển thị liên kết dưới dạng URL',
   'fabric.editor.urlTitle': 'URL',
   'fabric.editor.useMarkdown': 'Dùng Markdown',
+  'fabric.editor.viewAndAddCommentsOnMedia': 'Xem và thêm nhận xét',
+  'fabric.editor.viewCommentOnMedia': 'Xem nhận xét',
   'fabric.editor.viewMore': 'Xem thêm',
   'fabric.editor.visit': 'Mở liên kết trong cửa sổ mới',
   'fabric.editor.warning': 'Cảnh báo',

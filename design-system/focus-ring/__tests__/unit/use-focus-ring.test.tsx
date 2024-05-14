@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { useFocusRing } from '../../src';
 import type { FocusState } from '../../src/types';
@@ -30,15 +30,25 @@ describe('Focus Ring', () => {
   });
 
   it('will update the focus state when focus changes', () => {
-    const [focusHook] = setup();
+    const TestComponent = () => {
+      const { focusState, focusProps } = useFocusRing();
+      return (
+        <button {...focusProps} data-testid="test" type="button">
+          {focusState}
+        </button>
+      );
+    };
 
-    expect(focusHook.focusState).toEqual('off');
+    render(<TestComponent />);
+    expect(screen.getByText('off')).toBeInTheDocument();
+
     const element = screen.getByTestId('test');
-    element.focus();
-    expect(focusHook.focusState).toEqual('on');
+    fireEvent.focus(element);
 
-    element.blur();
-    expect(focusHook.focusState).toEqual('off');
+    expect(screen.getByText('on')).toBeInTheDocument();
+
+    fireEvent.blur(element);
+    expect(screen.getByText('off')).toBeInTheDocument();
   });
 
   it('can programmatically update the focus state by directly calling the event handlers', () => {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "3.4.0",
+  "version": "3.6.2",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -47,33 +47,34 @@
     "website": {
       "name": "Atlassian navigation",
       "category": "Components"
-    }
+    },
+    "runReact18": true
   },
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/logo": "*",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popup": "^1.14.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
-    "@atlaskit/tooltip": "^18.2.0",
-    "@atlaskit/width-detector": "^4.1.0",
+    "@atlaskit/popup": "^1.17.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tooltip": "^18.3.0",
+    "@atlaskit/width-detector": "^4.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "chromatism": "^2.6.0",
     "lodash": "^4.17.21"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/dropdown-menu": "^12.9.0",
+    "@atlaskit/dropdown-menu": "^12.10.0",
     "@atlaskit/notification-indicator": "*",
     "@atlaskit/notification-log-client": "*",
     "@atlaskit/visual-regression": "*",
@@ -114,10 +115,7 @@
     "platform.design-system-team.navigation-v2-no-jank_5yhbd": {
       "type": "boolean"
     },
-    "platform.design-system-team.update-input-border-wdith_5abwv": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.border-checkbox_nyoiu": {
+    "platform.design-system-team.brand-refresh-update-product-logos_q7coo": {
       "type": "boolean"
     }
   }

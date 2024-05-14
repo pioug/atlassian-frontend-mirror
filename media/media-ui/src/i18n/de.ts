@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Konten',
   'fabric.media.actions': 'Aktionen',
   'fabric.media.add_account': 'Account hinzufügen',
+  'fabric.media.alt_text': 'Wie würden Sie das ausgewählte Bild einer Person mit Sehschwäche beschreiben?',
   'fabric.media.annotate': 'Kommentieren',
   'fabric.media.annotate.confirmation.close.anyway': 'Trotzdem schließen',
   'fabric.media.annotate.confirmation.content':
@@ -64,6 +65,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Dateien hier ablegen',
   'fabric.media.email': 'E-Mail',
   'fabric.media.enable_fullscreen': 'Vollbildmodus aktivieren',
+  'fabric.media.enter_password': 'Passwort eingeben',
   'fabric.media.error_429': 'Fehler 429',
   'fabric.media.error_generating_preview': 'Fehler beim Erzeugen der Vorschau',
   'fabric.media.error_hint_critical': 'Sollte das Problem bestehen bleiben, wenden Sie sich an den Support.',
@@ -71,6 +73,7 @@ export default {
   'fabric.media.error_loading_file': 'Fehler beim Laden der Datei',
   'fabric.media.failed_to_load': 'Fehler beim Laden',
   'fabric.media.failed_to_upload': 'Upload fehlgeschlagen',
+  'fabric.media.file_is_selected': 'Datei {name} ist ausgewählt',
   'fabric.media.forbidden_description':
     'Sie haben keinen Zugriff auf diese Vorschau. Wenden Sie sich an Ihren Administrator, falls Sie noch Zugriff benötigen.',
   'fabric.media.give_feedback': 'Feedback geben',
@@ -78,6 +81,7 @@ export default {
   'fabric.media.image_format_invalid_error': 'Das Bild konnte nicht geladen werden. Das Format ist ungültig.',
   'fabric.media.image_size_too_large_error': 'Das Bild ist zu groß. Es darf nicht größer sein als {MAX_SIZE_MB} MB.',
   'fabric.media.image_url_invalid_error': 'Das Bild konnte nicht geladen werden. Die URL ist ungültig.',
+  'fabric.media.incorrect_password': 'Falsches Passwort. Bitte versuchen Sie es erneut.',
   'fabric.media.insert_files': '{0, plural, one {{0} Datei einfügen} other {{0} Dateien einfügen}}',
   'fabric.media.invalid_permissions': 'Eingeschränkter Link',
   'fabric.media.invalid_permissions_description':
@@ -94,8 +98,11 @@ export default {
   'fabric.media.not_found_description':
     'Der Link konnte nicht gefunden werden. Überprüfen Sie die URL und versuchen Sie die Bearbeitung oder das Einfügen erneut.',
   'fabric.media.not_found_title': 'Oh! Diese Verknüpfung konnte nicht gefunden werden!',
+  'fabric.media.open_file_in_viewer': '{name} öffnen',
   'fabric.media.or': 'oder',
   'fabric.media.or_select_default_avatars': 'Foto hochladen oder aus einigen Standardoptionen auswählen',
+  'fabric.media.password': 'Passwort',
+  'fabric.media.password_protected_pdf': 'Diese Datei ist passwortgeschützt.',
   'fabric.media.pause': 'Anhalten',
   'fabric.media.play': 'Abspielen',
   'fabric.media.playback_default_speed': 'Standard',
@@ -125,6 +132,7 @@ export default {
   'fabric.media.something_went_wrong': 'Irgendetwas ist schiefgelaufen.',
   'fabric.media.srclink': 'Anzeigen in',
   'fabric.media.srclinkunknown': 'Original anzeigen',
+  'fabric.media.submit': 'Senden',
   'fabric.media.text': 'Text',
   'fabric.media.try_again': 'Erneut versuchen',
   'fabric.media.try_another_account': 'Versuchen Sie es mit einem anderen Konto erneut.',

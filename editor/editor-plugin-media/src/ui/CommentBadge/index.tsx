@@ -19,6 +19,8 @@ type CommentBadgeProps = {
   view: EditorView;
   getPos: getPosHandler;
   isDrafting: boolean;
+  badgeOffsetRight?: string;
+  commentsOnMediaBugFixEnabled?: boolean;
 };
 
 const CommentBadgeWrapper = ({
@@ -28,6 +30,8 @@ const CommentBadgeWrapper = ({
   getPos,
   intl,
   isDrafting,
+  badgeOffsetRight,
+  commentsOnMediaBugFixEnabled
 }: CommentBadgeProps) => {
   const [entered, setEntered] = useState(false);
   const { annotationState } = useSharedPluginState(api, ['annotation']);
@@ -84,12 +88,13 @@ const CommentBadgeWrapper = ({
 
   return (
     <CommentBadgeComponent
+      commentsOnMediaBugFixEnabled={commentsOnMediaBugFixEnabled}
+      badgeOffsetRight={badgeOffsetRight}
       width={mediaNode.attrs.width}
       height={mediaNode.attrs.height}
       onClick={onClick}
       mediaElement={mediaElement}
       intl={intl}
-      isEditor
       status={entered ? 'entered' : status}
       onMouseEnter={() => setEntered(true)}
       onMouseLeave={() => setEntered(false)}

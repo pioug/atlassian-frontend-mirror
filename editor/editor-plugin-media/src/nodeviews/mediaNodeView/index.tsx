@@ -7,7 +7,7 @@ import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
@@ -16,6 +16,7 @@ import type {
   Providers,
 } from '@atlaskit/editor-common/provider-factory';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -216,7 +217,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
 
 export const ReactMediaNode =
   (
-    portalProviderAPI: PortalProviderAPI,
+    portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     mediaOptions: MediaOptions = {},

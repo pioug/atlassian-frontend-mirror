@@ -1,11 +1,19 @@
+import { isExpandCollapsed } from '@atlaskit/editor-common/expand';
 import {
   backspace,
   bindKeymapWithCommand,
   moveDown,
+  moveLeft,
+  moveRight,
   moveUp,
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import {
+  GapCursorSelection,
+  RelativeSelectionPos,
+  Side,
+} from '@atlaskit/editor-common/selection';
 import { findExpand } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
@@ -14,7 +22,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusTitle } from '../commands';
@@ -22,6 +30,8 @@ import { deleteExpand, focusTitle } from '../commands';
 const isExpandNode = (node: PMNode) => {
   return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';
 };
+const isExpandSelected = (selection: Selection) =>
+  selection instanceof NodeSelection && isExpandNode(selection.node);
 
 export function expandKeymap(
   api: ExtractInjectionAPI<ExpandPlugin> | undefined,
@@ -30,6 +40,52 @@ export function expandKeymap(
   },
 ): SafePlugin {
   const list = {};
+
+  bindKeymapWithCommand(
+    moveRight.common!,
+    (state, dispatch, editorView) => {
+      if (!editorView) {
+        return false;
+      }
+      const { selection } = state;
+      const selectionSharedState: SelectionSharedState =
+        api?.selection?.sharedState.currentState() || {};
+      const { selectionRelativeToNode } = selectionSharedState;
+
+      if (
+        isExpandSelected(selection) &&
+        selectionRelativeToNode === RelativeSelectionPos.Start
+      ) {
+        return focusTitle(selection.from + 1)(state, dispatch, editorView);
+      }
+      return false;
+    },
+    list,
+  );
+
+  bindKeymapWithCommand(
+    moveLeft.common!,
+    (state, dispatch, editorView) => {
+      if (!editorView) {
+        return false;
+      }
+      const { selection } = state;
+      const selectionSharedState: SelectionSharedState =
+        api?.selection?.sharedState.currentState() || {};
+      const { selectionRelativeToNode } = selectionSharedState;
+
+      if (
+        isExpandSelected(selection) &&
+        (selectionRelativeToNode === undefined ||
+          selectionRelativeToNode === RelativeSelectionPos.End)
+      ) {
+        return focusTitle(selection.from + 1)(state, dispatch, editorView);
+      }
+
+      return false;
+    },
+    list,
+  );
 
   bindKeymapWithCommand(
     moveUp.common!,
@@ -44,8 +100,8 @@ export function expandKeymap(
         selection.side === Side.RIGHT &&
         nodeBefore &&
         (nodeBefore.type === schema.nodes.expand ||
-          nodeBefore.type === schema.nodes.nestedExpand)
-        // TO-DO: add back in expanded logic
+          nodeBefore.type === schema.nodes.nestedExpand) &&
+        isExpandCollapsed(nodeBefore)
       ) {
         const { $from } = selection;
         return focusTitle(Math.max($from.pos - 1, 0))(
@@ -78,9 +134,14 @@ export function expandKeymap(
         const expandBefore = findExpand(state, sel);
         if (sel && expandBefore) {
           // moving cursor from outside of an expand to the title when it is collapsed
-
-          // TO-DO: Bring back expanded logic
-          return focusTitle(expandBefore.start)(state, dispatch, editorView);
+          if (isExpandCollapsed(expandBefore.node)) {
+            return focusTitle(expandBefore.start)(state, dispatch, editorView);
+          }
+          // moving cursor from outside of an expand to the content when it is expanded
+          else if (dispatch) {
+            dispatch(state.tr.setSelection(sel));
+          }
+          return true;
         }
       }
 
@@ -103,8 +164,8 @@ export function expandKeymap(
         selection instanceof GapCursorSelection &&
         selection.side === Side.LEFT &&
         nodeAfter &&
-        (nodeAfter.type === expand || nodeAfter.type === nestedExpand)
-        // TO-DO: Bring back expanded logic
+        (nodeAfter.type === expand || nodeAfter.type === nestedExpand) &&
+        isExpandCollapsed(nodeAfter)
       ) {
         const { $from } = selection;
         return focusTitle($from.pos + 1)(state, dispatch, editorView);
@@ -150,8 +211,8 @@ export function expandKeymap(
         if (
           expandBefore &&
           (expandBefore.node.type === expand ||
-            expandBefore.node.type === nestedExpand)
-          // TO-DO: Bring back expanded logic
+            expandBefore.node.type === nestedExpand) &&
+          isExpandCollapsed(expandBefore.node)
         ) {
           return focusTitle(expandBefore.start)(state, dispatch, editorView);
         }

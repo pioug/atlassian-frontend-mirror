@@ -1,10 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import {
-  JiraWorkManagementIcon,
-  JiraWorkManagementLogo,
-  JiraWorkManagementWordmark,
-} from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { JiraWorkManagementIcon, JiraWorkManagementLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoJiraWorkManagement = () => {
   return (
@@ -13,17 +15,13 @@ const LogoJiraWorkManagement = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <JiraWorkManagementLogo appearance="brand" />
-            </td>
-            <td>
-              <JiraWorkManagementWordmark appearance="brand" />
             </td>
             <td>
               <JiraWorkManagementIcon appearance="brand" />

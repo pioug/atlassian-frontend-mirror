@@ -34,6 +34,7 @@ import {
   ul,
   underline,
   caption,
+  backgroundColor,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
@@ -580,6 +581,16 @@ describe('SlackTransformer: serializer', () => {
           doc(p(typeAheadQuery({ trigger: '@' })('@rsynenko')))(defaultSchema),
         ),
       ).toEqual('@rsynenko');
+    });
+
+    it('should ignore backgroundColor mark', () => {
+      expect(
+        markdownSerializer.serialize(
+          doc(p(backgroundColor({ color: 'red' })('Highlight Red')))(
+            defaultSchema,
+          ),
+        ),
+      ).toEqual('Highlight Red');
     });
 
     /**

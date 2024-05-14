@@ -4,7 +4,11 @@ Block the usage of web platform drag and drop functionality directly. Use Pragma
 
 ## Rationale
 
-The web platform has powerful drag and drop functionality built in. However, it is hard to be successful with web platform drag and drop due to bugs, inconsistencies and usage friction. Rather than leveraging the web platform API directly, the rule enforces the usage of [Pragmatic drag and drop](https://atlassian.design/components/pragmatic-drag-and-drop), which allows people to easily and successfully leverage web platform drag and drop.
+The web platform has powerful drag and drop functionality built in. However, it is hard to be
+successful with web platform drag and drop due to bugs, inconsistencies and usage friction. Rather
+than leveraging the web platform API directly, the rule enforces the usage of
+[Pragmatic drag and drop](https://atlassian.design/components/pragmatic-drag-and-drop), which allows
+people to easily and successfully leverage web platform drag and drop.
 
 ## Examples
 
@@ -12,7 +16,8 @@ This rule marks direct usage of web platform drag events as violations.
 
 ### Incorrect
 
-Adding drag related event listeners on intrinsic `react` elements (eg `div`, `span`, `strong` and so on).
+Adding drag related event listeners on intrinsic `react` elements (eg `div`, `span`, `strong` and so
+on).
 
 ```tsx
 <div onDragStart={fn}>{children}</div>
@@ -71,7 +76,8 @@ window.addEventListener('dragend', fn);
                         ^^^^^^^^^
 ```
 
-Binding drag related events using `bind()` from [bind-event-listener](https://github.com/alexreardon/bind-event-listener)
+Binding drag related events using `bind()` from
+[bind-event-listener](https://github.com/alexreardon/bind-event-listener)
 
 ```ts
 import {bind} from 'bind-event-listener';
@@ -92,7 +98,8 @@ bind(element, { type: 'dragend', listener: fn });
                       ^^^^^^^^^
 ```
 
-Binding drag related events using `bindAll()` from [bind-event-listener](https://github.com/alexreardon/bind-event-listener)
+Binding drag related events using `bindAll()` from
+[bind-event-listener](https://github.com/alexreardon/bind-event-listener)
 
 ```ts
 import {bindAll} from 'bind-event-listener';
@@ -123,15 +130,17 @@ Leveraging Pragmatic drag and drop for web platform drag and drop.
 import { monitor } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 monitor({
-  onGenerateDragPreview: fn,
-  onDragStart: fn,
-  onDropTargetChange: fn,
-  onDrag: fn,
-  onDrop: fn,
+    onGenerateDragPreview: fn,
+    onDragStart: fn,
+    onDropTargetChange: fn,
+    onDrag: fn,
+    onDrop: fn,
 });
 ```
 
-> See the [Pragmatic drag and drop documentation](https://atlassian.design/components/pragmatic-drag-and-drop) for more information about it's usage.
+> See the
+> [Pragmatic drag and drop documentation](https://atlassian.design/components/pragmatic-drag-and-drop)
+> for more information about it's usage.
 
 Using blocked JSX attributes on custom `react` components
 

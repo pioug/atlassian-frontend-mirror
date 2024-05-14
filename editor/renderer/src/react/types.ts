@@ -51,6 +51,7 @@ export interface NodeMeta {
 export interface MarkMeta {
   dataAttributes: {
     'data-renderer-mark': true;
+    'data-block-mark'?: true;
   };
   eventHandlers?: EventHandlers;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;

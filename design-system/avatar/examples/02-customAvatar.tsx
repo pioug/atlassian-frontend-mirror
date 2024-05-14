@@ -10,7 +10,7 @@ import Avatar from '../src';
 const customStyles: CSSProperties = {
   textAlign: 'center',
   fontWeight: 600,
-  color: token('color.text.inverse', 'white'),
+  color: token('color.text.inverse'),
   backgroundColor: token('color.background.brand.bold'),
 };
 

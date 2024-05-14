@@ -6,6 +6,7 @@ import { simplePalette } from '../mock-data';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
+import { IntlProvider } from 'react-intl-next';
 
 class ColorPickerExample extends React.Component<{}, { color: string }> {
   state = {
@@ -14,12 +15,14 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
 
   render() {
     return (
-      <ColorPicker
-        label="Change color"
-        palette={simplePalette}
-        selectedColor={this.state.color}
-        onChange={(newColor: string) => this.setState({ color: newColor })}
-      />
+      <IntlProvider locale="en">
+        <ColorPicker
+          label="Change color"
+          palette={simplePalette}
+          selectedColor={this.state.color}
+          onChange={(newColor: string) => this.setState({ color: newColor })}
+        />
+      </IntlProvider>
     );
   }
 }
@@ -29,7 +32,7 @@ const Story = () => <ColorPickerExample />;
 Story.decorators = [
   withPlatformFeatureFlags({
     'platform.color-picker-radio-button-functionality_6hkcy': true,
-    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl': true,
+    'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe': true,
   }),
 ];
 

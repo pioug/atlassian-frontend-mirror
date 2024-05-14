@@ -18,6 +18,7 @@ import {
   AsyncSelectProps,
   CreatableSelectProps,
   GroupType,
+  AtlaskitSelectRefType,
 } from './types';
 import {
   ClearIndicator,
@@ -36,12 +37,6 @@ type AtlaskitSelectProps<Option extends unknown, IsMulti extends boolean> =
   | SelectProps<Option, IsMulti>
   | AsyncSelectProps<Option, IsMulti>
   | CreatableSelectProps<Option, IsMulti>;
-
-type AtlaskitSelectRefType = {
-  select: BaseSelect | null;
-  blur: () => void;
-  focus: () => void;
-};
 
 export default function createSelect(WrappedComponent: ComponentType<any>) {
   const AtlaskitSelect = forwardRef(function AtlaskitSelect<

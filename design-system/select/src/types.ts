@@ -27,7 +27,7 @@ import {
   ValueContainerProps as RSValueContainerProps,
   MultiValueRemoveProps,
 } from 'react-select';
-
+import BaseSelect from 'react-select/base';
 import { AsyncProps } from 'react-select/async';
 import { CreatableProps } from 'react-select/creatable';
 
@@ -62,7 +62,14 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
   spacing?: 'compact' | 'default';
   /** This prop affects the backgroundColor and border of the Select field. 'subtle' makes these transparent while 'none' prevents all field styling. Take care when using the none appearance as this doesn't include accessible interactions. */
   appearance?: 'default' | 'subtle' | 'none';
-  /** Prop for testing */
+  // TODO: Fix testId prop in https://product-fabric.atlassian.net/browse/DSP-12033
+  /**
+   A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+
+   **WARNING:** This prop is currently broken and a test ID will not be added to select.
+   Please refer to the [select testing page](https://atlassian.design/components/select/testing)
+   for guidance on alternatives to identifying select in tests.
+   */
   testId?: string;
   /** This prop indicates if the component is in an error state */
   isInvalid?: boolean;
@@ -130,6 +137,12 @@ export type ValueContainerProps<
 > = RSValueContainerProps<Option, IsMulti>;
 
 export type GroupedOptionsType<Option> = ReadonlyArray<GroupType<Option>>;
+
+export type AtlaskitSelectRefType = {
+  select: BaseSelect | null;
+  blur: () => void;
+  focus: () => void;
+};
 
 export type {
   SelectInstance,

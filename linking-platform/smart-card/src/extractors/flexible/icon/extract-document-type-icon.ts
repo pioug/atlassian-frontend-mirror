@@ -1,4 +1,4 @@
-import { IconDescriptor } from './types';
+import { type IconDescriptor } from './types';
 import { IconType } from '../../../constants';
 
 const extractDocumentTypeIcon = (

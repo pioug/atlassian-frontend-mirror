@@ -1,29 +1,40 @@
+import { expandedState } from '@atlaskit/editor-common/expand';
 import type {
   Node as PMNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 /*
- * The way expand was built, no browser reconize selection on it.
+ * The way expand was built, no browser recognize selection on it.
  * For instance, when a selection going to a "collapsed" expand
  * the browser will try to send the cursor to inside the expand content (wrong),
  * this behavior is caused because the expand content is never true hidden
  * we just set the height to 1px.
  *
  * So, we need to capture a possible selection event
- * when a collapsed exxpand is the next node in the common depth.
+ * when a collapsed expand is the next node in the common depth.
  * If that is true, we create a new TextSelection and stop the event bubble
  */
-const isCollpasedExpand = (
+const isCollapsedExpand = (
   node: PMNode | null | undefined,
   { __livePage }: { __livePage: boolean },
 ): boolean => {
+  let currentExpandedState;
+  if (__livePage && getBooleanFF('platform.editor.single-player-expand')) {
+    currentExpandedState = node ? !expandedState.get(node) : undefined;
+  } else if (__livePage) {
+    currentExpandedState = node?.attrs.__expanded;
+  } else {
+    currentExpandedState = !node?.attrs.__expanded;
+  }
+
   return Boolean(
     node &&
       ['expand', 'nestedExpand'].includes(node.type.name) &&
-      (__livePage ? node.attrs.__expanded : !node.attrs.__expanded),
+      currentExpandedState,
   );
 };
 
@@ -51,7 +62,7 @@ const isProblematicNode = (
   { __livePage }: { __livePage: boolean },
 ): boolean => {
   return (
-    isCollpasedExpand(node, { __livePage }) ||
+    isCollapsedExpand(node, { __livePage }) ||
     isBodiedExtension(node) ||
     isTable(node)
   );

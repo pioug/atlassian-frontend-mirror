@@ -12,20 +12,18 @@ import {
 import ActionGroup from '../../action-group';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
-import AIMotionWrapper from '../ai-motion-wrapper';
+import MotionWrapper from '../../../common/motion-wrapper';
 import AIStateIndicator from '../ai-state-indicator';
 import { renderElementItems } from '../../utils';
 import type { ActionItem } from '../../types';
 import type { AISummaryBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
-import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
-import { useSmartLinkContext } from '@atlaskit/link-provider';
 import AIIcon from '../../../../../common/ai-icon';
 import AISummary from '../../../../../common/ai-summary';
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import AIEventSummaryViewed from '../ai-event-summary-viewed';
-import AIEventErrorViewed from '../ai-event-error-viewed';
+import AIEventErrorViewed from '../../../common/ai-summary/ai-event-error-viewed';
 import { di } from 'react-magnetic-di';
 import type {
   AISummaryStatus,
@@ -33,6 +31,10 @@ import type {
 } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
 import { css } from '@emotion/react';
 import FeatureDiscovery from '../feature-discovery';
+import { useFlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { EnvironmentsKeys } from '@atlaskit/linking-common';
 
 export const AISummaryBlockErrorIndicator = ({
   showErrorIndicator,
@@ -44,14 +46,14 @@ export const AISummaryBlockErrorIndicator = ({
   error?: ErrorMessage;
   showTransition: boolean;
 } & Pick<AISummaryBlockProps, 'testId'>) => (
-  <AIMotionWrapper
+  <MotionWrapper
     isFadeIn={true}
     show={showErrorIndicator}
     showTransition={showTransition}
   >
     <AIEventErrorViewed reason={error} />
     <AIStateIndicator error={error} state="error" testId={testId} />
-  </AIMotionWrapper>
+  </MotionWrapper>
 );
 
 export const AISummaryBlockStatusIndicator = ({
@@ -95,15 +97,22 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
   } = props;
 
   const { fireEvent } = useAnalyticsEvents();
+
   const context = useFlexibleUiContext();
   const url = context?.url || '';
   const ari = context?.ari || '';
-  const { product } = useSmartLinkContext();
+  const { product, connections } = useSmartLinkContext();
 
   const {
     summariseUrl,
     state: { content, status, error },
-  } = useAISummary({ url, ari, product });
+  } = useAISummary({
+    url,
+    ari,
+    product,
+    envKey: connections.client.envKey as EnvironmentsKeys,
+    baseUrl: connections.client.baseUrlOverride,
+  });
 
   const showAISummary =
     status === 'done' ||
@@ -177,7 +186,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
       {status === 'done' && (
         <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />
       )}
-      <AIMotionWrapper
+      <MotionWrapper
         minHeight={aiSummaryMinHeight}
         show={showAISummary}
         showTransition={!isSummarisedOnMountRef.current}
@@ -186,41 +195,56 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
           testId={`${testId}-ai-summary`}
           minHeight={aiSummaryMinHeight}
           content={content}
-          showIcon={isSummarisedOnMountRef.current}
+          showIcon={
+            !getBooleanFF(
+              'platform.linking-platform.smart-card.hover-card-action-redesign',
+            ) && isSummarisedOnMountRef.current
+          }
         />
-      </AIMotionWrapper>
-      <Inline
-        alignBlock="center"
-        alignInline="end"
-        grow="fill"
-        spread="space-between"
-      >
-        <Box>
-          <AISummaryBlockStatusIndicator
-            metadata={metadata}
-            showStatusIndicator={
-              !isSummarisedOnMountRef.current &&
-              (status === 'loading' || status === 'done')
+      </MotionWrapper>
+
+      {!getBooleanFF(
+        'platform.linking-platform.smart-card.hover-card-action-redesign',
+      ) && (
+        <>
+          <Inline
+            alignBlock="center"
+            alignInline="end"
+            grow="fill"
+            spread="space-between"
+            testId={`${testId}-footer-metadata`}
+          >
+            <Box>
+              <AISummaryBlockStatusIndicator
+                metadata={metadata}
+                showStatusIndicator={
+                  !isSummarisedOnMountRef.current &&
+                  (status === 'loading' || status === 'done')
+                }
+                status={status}
+                testId={testId}
+              />
+            </Box>
+            <Box>
+              <ActionGroup
+                onDropdownOpenChange={onDropdownOpenChange}
+                items={combinedActions}
+                appearance="default"
+                size={size}
+              />
+            </Box>
+          </Inline>
+
+          <AISummaryBlockErrorIndicator
+            showErrorIndicator={
+              !isErroredOnMountRef.current && status === 'error'
             }
-            status={status}
-            testId={testId}
+            showTransition={!isErroredOnMountRef.current}
+            error={error}
+            testId={`${testId}-error-indicator`}
           />
-        </Box>
-        <Box>
-          <ActionGroup
-            onDropdownOpenChange={onDropdownOpenChange}
-            items={combinedActions}
-            appearance="default"
-            size={size}
-          />
-        </Box>
-      </Inline>
-      <AISummaryBlockErrorIndicator
-        showErrorIndicator={!isErroredOnMountRef.current && status === 'error'}
-        showTransition={!isErroredOnMountRef.current}
-        error={error}
-        testId={testId}
-      />
+        </>
+      )}
     </Block>
   );
 };

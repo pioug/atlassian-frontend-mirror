@@ -43,6 +43,9 @@
             "path": "../../editor-plugin-better-type-history/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-block-controls/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-block-type/afm-cc/tsconfig.json"
         },
         {
@@ -140,6 +143,9 @@
         },
         {
             "path": "../../editor-plugin-help-dialog/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-highlight/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-plugin-history/afm-cc/tsconfig.json"

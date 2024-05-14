@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
 
-import { StatuspageIcon, StatuspageLogo, StatuspageWordmark } from '../../src';
+import { css, jsx } from '@compiled/react';
+
+import { StatuspageIcon, StatuspageLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoStatusPage = () => {
   return (
@@ -9,17 +15,13 @@ const LogoStatusPage = () => {
         <thead>
           <tr>
             <th>Logo</th>
-            <th>Wordmark</th>
             <th>Icon</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <StatuspageLogo appearance="brand" />
-            </td>
-            <td>
-              <StatuspageWordmark appearance="brand" />
             </td>
             <td>
               <StatuspageIcon appearance="brand" />

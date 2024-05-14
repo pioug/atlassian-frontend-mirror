@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from 'react';
+import React, { type FC, type MouseEvent } from 'react';
 import {
   className,
   LinkWrapper,
@@ -11,7 +11,7 @@ import {
 } from './styled';
 import { handleClickCommon } from '../../BlockCard/utils/handlers';
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
-import { FrameStyle } from '../types';
+import { type FrameStyle } from '../types';
 import Tooltip from '@atlaskit/tooltip';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
@@ -57,6 +57,8 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
   const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
   const handleMouseDown = useMouseDownEvent();
 
+  const isFixEmbedCardBlurEnabled = getBooleanFF('platform.linking-platform.smart-card.fix-embed-card-blurring') ? true : false;
+
   const renderHeaderOld = () => (
     <Header className="embed-header" frameStyle={frameStyle}>
       <IconWrapper isPlaceholder={isPlaceholder}>
@@ -99,6 +101,7 @@ export const ExpandedFrame: FC<ExpandedFrameProps> = ({
     <Content
       data-testid="embed-content-wrapper"
       allowScrollBar={allowScrollBar}
+      removeOverflow={isFixEmbedCardBlurEnabled}
       isInteractive={isInteractive()}
       frameStyle={frameStyle}
     >

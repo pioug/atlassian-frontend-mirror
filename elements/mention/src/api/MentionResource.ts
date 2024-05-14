@@ -1,27 +1,26 @@
 import {
-  KeyValues,
+  type KeyValues,
   utils as serviceUtils,
 } from '@atlaskit/util-service-support';
 
 import {
-  AnalyticsCallback,
-  ErrorCallback,
-  InfoCallback,
-  InviteExperimentCohort,
-  InviteFlow,
+  type AnalyticsCallback,
+  type ErrorCallback,
+  type InfoCallback,
+  type InviteFlow,
   isAppMention,
   isTeamMention,
-  MentionContextIdentifier,
-  MentionDescription,
-  MentionNameDetails,
+  type MentionContextIdentifier,
+  type MentionDescription,
+  type MentionNameDetails,
   MentionNameStatus,
-  MentionProvider,
-  MentionResourceConfig,
-  MentionsResult,
-  MentionStats,
-  ResourceProvider,
-  ResultCallback,
-  UserRole,
+  type MentionProvider,
+  type MentionResourceConfig,
+  type MentionsResult,
+  type MentionStats,
+  type ResourceProvider,
+  type ResultCallback,
+  type UserRole,
 } from '../types';
 import debug from '../util/logger';
 
@@ -242,7 +241,6 @@ export class MentionResource
 
   productName?: string;
   shouldEnableInvite: boolean;
-  inviteExperimentCohort?: InviteExperimentCohort;
   userRole: UserRole;
   onInviteItemClick?: (flow: InviteFlow) => void;
 
@@ -256,7 +254,6 @@ export class MentionResource
     this.activeSearches = new Set();
     this.productName = config.productName;
     this.shouldEnableInvite = !!config.shouldEnableInvite;
-    this.inviteExperimentCohort = config.inviteExperimentCohort;
     this.onInviteItemClick = config.onInviteItemClick;
     this.userRole = config.userRole || 'basic';
     if (this.config.debounceTime) {

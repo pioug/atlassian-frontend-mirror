@@ -17,6 +17,7 @@ export { indentation } from './builders/marks/indentation';
 export { dataConsumer } from './builders/marks/data-consumer';
 export { fragment } from './builders/marks/fragment';
 export { border } from './builders/marks/border';
+export { backgroundColor } from './builders/marks/background-color';
 
 // Nodes Builders
 

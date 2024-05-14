@@ -12,6 +12,7 @@ import {
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
 import { isTableResizingEnabled } from '../table';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -127,6 +128,11 @@ const renderScaleDownColgroup = (
   });
   let cellMinWidth = 0;
   let scaleDownPercent = 0;
+
+  const isTableWidthFixed =
+    getBooleanFF('platform.editor.table.preserve-widths-with-lock-button') &&
+    props.tableNode?.attrs.displayMode === 'fixed';
+
   // fixes migration tables with zero-width columns
   if (zeroWidthColumnsCount > 0) {
     if (minTableWidth > maxTableWidth) {
@@ -140,7 +146,7 @@ const renderScaleDownColgroup = (
     }
   }
   // scaling down
-  else if (renderWidth < tableWidth) {
+  else if (renderWidth < tableWidth && !isTableWidthFixed) {
     scaleDownPercent = calcScalePercent({
       renderWidth,
       tableWidth,

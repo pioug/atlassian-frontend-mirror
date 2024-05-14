@@ -1,8 +1,11 @@
-import { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { TableContext, TableMap } from '../table-map';
-import { CellAttributesWithColSpan } from '../types';
+import type { TableContext, TableMap } from '../table-map';
+import type { CellAttributes, CellAttributesWithColSpan } from '../types';
 
 import { addColSpan, assertColspan } from './colspan';
 import { tableNodeTypes } from './table-node-types';
@@ -28,6 +31,7 @@ export function addColumn(
   tr: Transaction,
   { map, tableStart, table }: TableContext,
   col: number,
+  isCellBackgroundDuplicated?: boolean,
 ): Transaction {
   let refColumn: number | null = col > 0 ? -1 : 0;
   if (columnIsHeader(map, table, col + refColumn)) {
@@ -59,7 +63,7 @@ export function addColumn(
       row += attributes.rowspan - 1;
     } else {
       let type: NodeType;
-
+      let attrs: CellAttributes = {};
       if (refColumn === null) {
         type = tableNodeTypes(table.type.schema).cell;
       } else {
@@ -69,9 +73,12 @@ export function addColumn(
           throw new Error(`addColumn: invalid node at mapped pos ${mappedPos}`);
         }
         type = cell.type;
+        if (cell.attrs.background && isCellBackgroundDuplicated) {
+          attrs = { background: cell.attrs.background };
+        }
       }
       const pos = map.positionAt(row, col, table);
-      tr.insert(tr.mapping.map(tableStart + pos), type.createAndFill()!);
+      tr.insert(tr.mapping.map(tableStart + pos), type.createAndFill(attrs)!);
     }
   }
 

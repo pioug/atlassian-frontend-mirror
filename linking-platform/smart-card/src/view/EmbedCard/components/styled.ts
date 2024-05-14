@@ -249,6 +249,7 @@ export const TooltipWrapper = styled.div({
 export interface ContentProps {
   isInteractive: boolean;
   allowScrollBar: boolean;
+  removeOverflow?: boolean;
   frameStyle?: FrameStyle;
 }
 
@@ -276,8 +277,12 @@ export const Content = styled.div`
     margin: 0 auto;
   }
 
-  ${({ allowScrollBar }: ContentProps) =>
-    allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;'}
+  ${({ allowScrollBar, removeOverflow }: ContentProps) => {
+    if (removeOverflow) {
+      return '';
+    }
+    return allowScrollBar ? 'overflow: auto;' : 'overflow: hidden;';
+  }}
 
   ${({ frameStyle }: ContentProps) =>
     frameStyle === 'show'

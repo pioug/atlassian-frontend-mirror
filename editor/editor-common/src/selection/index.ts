@@ -11,6 +11,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { selectedRect } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import {
@@ -175,14 +176,26 @@ export function createSelectionClickHandler(
       return false;
     }
     if (direct && nodes.indexOf(node.type.name) !== -1) {
-      if (event.target) {
-        const target = event.target as HTMLElement;
-        if (isValidTarget(target)) {
+      const target = event.target;
+
+      if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+        if (target instanceof HTMLElement && isValidTarget(target)) {
           const selectionPos = options.getNodeSelectionPos
             ? options.getNodeSelectionPos(view.state, nodePos)
             : nodePos;
           selectNode(selectionPos)(view.state, view.dispatch);
           return true;
+        }
+      } else {
+        if (event.target) {
+          const target = event.target as HTMLElement;
+          if (isValidTarget(target)) {
+            const selectionPos = options.getNodeSelectionPos
+              ? options.getNodeSelectionPos(view.state, nodePos)
+              : nodePos;
+            selectNode(selectionPos)(view.state, view.dispatch);
+            return true;
+          }
         }
       }
     }

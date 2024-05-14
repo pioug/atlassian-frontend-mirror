@@ -1,6 +1,4 @@
-import prettier from 'prettier';
-import parserTypeScript from 'prettier/parser-typescript';
-
+import format from '@af/formatting/sync';
 import { typographyAdg3 as tokens } from '@atlaskit/tokens/tokens-raw';
 
 import { capitalize, constructTokenFunctionCall } from './utils';
@@ -67,7 +65,7 @@ export const createTypographyStylesFromTemplate = () => {
       const { filterFn, objectName } = typographyProperty;
 
       return (
-        prettier.format(
+        format(
           `
 export const ${objectName}Map = {
 ${activeTokens
@@ -84,12 +82,7 @@ ${activeTokens
   })
   .join(',\n\t')}
 };`,
-          {
-            singleQuote: true,
-            trailingComma: 'all',
-            parser: 'typescript',
-            plugins: [parserTypeScript],
-          },
+          'typescript',
         ) +
         `\nexport type ${capitalize(
           objectName,

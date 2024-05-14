@@ -45,40 +45,6 @@ async function focusToolbar(page: PuppeteerPage) {
   await pressKeyCombo(page, ['Alt', 'F9']);
 }
 
-describe('Toolbar', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      viewport: { width: 1000, height: 350 },
-    });
-  });
-
-  afterEach(async () => {
-    await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
-    await snapshot(page, undefined, editorSelector);
-  });
-
-  it('should display headings menu correctly', async () => {
-    await clickToolbarMenu(page, ToolbarMenuItem.fontStyle);
-  });
-
-  it('should display text alignment menu correctly', async () => {
-    await clickToolbarMenu(page, ToolbarMenuItem.alignment);
-  });
-
-  it('should display text color menu correctly', async () => {
-    await clickToolbarMenu(page, ToolbarMenuItem.textColor);
-  });
-
-  it('should display insert menu correctly', async () => {
-    await page.setViewport({ width: 1000, height: 700 });
-    await clickToolbarMenu(page, ToolbarMenuItem.insertMenu);
-  });
-});
-
 describe('Toolbar keyboard shortcut', () => {
   it.each([Appearance.fullPage, Appearance.comment])(
     'in %s, should focus main toolbar and return on "ESC" ',

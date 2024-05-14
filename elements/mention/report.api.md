@@ -222,15 +222,10 @@ interface InfoCallback {
 }
 
 // @public (undocumented)
-export type InviteExperimentCohort = 'control' | 'not-enrolled' | 'variation';
-
-// @public (undocumented)
 export type InviteFlow = 'assign' | 'mention';
 
 // @public (undocumented)
 interface InviteFromMentionProvider {
-  // (undocumented)
-  inviteExperimentCohort?: InviteExperimentCohort;
   // (undocumented)
   onInviteItemClick?(flow: InviteFlow): void;
   // (undocumented)
@@ -509,8 +504,6 @@ export class MentionResource
     contextIdentifier?: MentionContextIdentifier,
   ): Promise<void>;
   // (undocumented)
-  inviteExperimentCohort?: InviteExperimentCohort;
-  // (undocumented)
   isFiltering(query: string): boolean;
   // (undocumented)
   notify(
@@ -566,8 +559,6 @@ export interface MentionResourceConfig extends ServiceConfig {
   containerId?: string;
   // (undocumented)
   debounceTime?: number;
-  // (undocumented)
-  inviteExperimentCohort?: InviteExperimentCohort;
   // (undocumented)
   mentionNameResolver?: MentionNameResolver;
   // (undocumented)

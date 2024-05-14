@@ -42,6 +42,11 @@ export interface TooltipProps {
   delay?: number;
 
   /**
+   * Adds `pointer-events: none` to the tooltip itself. Setting this to true will also prevent the tooltip from persisting when hovered.
+   */
+  ignoreTooltipPointerEvents?: boolean;
+
+  /**
    * Hide the tooltip when the click event is triggered. Use this when the tooltip should be hidden if `onClick` react synthetic event
    * is triggered, which happens after `onMouseDown` event.
    */
@@ -74,7 +79,7 @@ export interface TooltipProps {
   onHide?: (analyticsEvent: UIAnalyticsEvent) => void;
 
   /**
-   * Where the tooltip should appear relative to its' target.
+   * Where the tooltip should appear relative to its target.
    * If set to `"mouse"`, the tooltip will display next to the mouse pointer instead.
    * Make sure to utilize the `mousePosition` if you want to customize where the tooltip will show in relation to the mouse.
    */

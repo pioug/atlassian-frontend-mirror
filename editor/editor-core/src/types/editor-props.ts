@@ -102,10 +102,13 @@ interface EditorBaseProps {
   */
   appearance?: EditorAppearance;
 
+  // React components declared in this prop will be inserted into the editor content area
   contentComponents?: ContentComponents;
 
   // Optionally adds an element (eg: an icon) at the start of the editor's primary toolbar. If not specified, the primary toolbar spans the entire width.
   primaryToolbarIconBefore?: ReactElement;
+
+  // React components declared in this prop will be inserted into the secondary toolbar area
   secondaryToolbarComponents?: ReactComponents;
 
   persistScrollGutter?: boolean;
@@ -134,12 +137,6 @@ interface EditorBaseProps {
 
   // Set to configure the minimum editor height in pixels for `comment`, `chromeless` editor modes.
   minHeight?: number;
-
-  // Default placeholder text to be displayed if the document content is empty. e.g. 'Add a comment...'
-  placeholder?: string;
-
-  // Default placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
-  placeholderBracketHint?: string;
 
   // Set the default editor content.
   defaultValue?: Node | string | Object;
@@ -306,6 +303,19 @@ export interface EditorNextProps
     EditorSharedPropsWithPlugins,
     EditorProviderProps {
   preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
+  /**
+   * @deprecated
+   * This prop does nothing and will be removed soon.
+   * Configuration of this parameter should be done via `editor-plugin-placeholder` or the `default` preset.
+   */
+  placeholder?: string;
+
+  /**
+   * @deprecated
+   * This prop does nothing and will be removed soon.
+   * Configuration of this parameter should be done via `editor-plugin-placeholder` or the `default` preset.
+   */
+  placeholderBracketHint?: string;
 }
 
 export interface EditorProviderProps {
@@ -497,4 +507,10 @@ export interface EditorPluginFeatureProps {
   // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
   // This should only be disabled if the user has an OS setting that disables this.
   textFormatting?: TextFormattingOptions;
+
+  // Default placeholder text to be displayed if the document content is empty. e.g. 'Add a comment...'
+  placeholder?: string;
+
+  // Default placeholder text to be displayed when a bracket '{' is typed and the line is empty e.g. 'Did you mean to use '/' to insert content?'
+  placeholderBracketHint?: string;
 }

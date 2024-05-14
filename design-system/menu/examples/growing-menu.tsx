@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { token } from '@atlaskit/tokens';
+import { Stack } from '@atlaskit/primitives';
 
-import { ButtonItem, PopupMenuGroup, Section } from '../src';
+import { ButtonItem, MenuGroup, Section } from '../src';
 
+import ImgIcon from './common/img-icon';
+import MenuGroupContainer from './common/menu-group-container';
 import Yeti from './icons/yeti.png';
-
-const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
-  <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
-);
 
 const fullText =
   'A spacecraft is a vehicle or machine designed to fly in outer space. A type of artificial satellite, spacecraft are used for a variety of purposes.';
@@ -41,23 +39,9 @@ export default () => {
   }, [textIndex]);
 
   return (
-    <>
-      <div
-        style={{
-          display: 'inline-block',
-          color: token('color.text'),
-          backgroundColor: token('elevation.surface.overlay', '#fff'),
-          boxShadow: token(
-            'elevation.shadow.overlay',
-            '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-          ),
-          borderRadius: 4,
-          margin: `${token('space.200', '16px')} auto`,
-          minWidth: '320px',
-          maxWidth: '100%',
-        }}
-      >
-        <PopupMenuGroup>
+    <Stack space="space.200">
+      <MenuGroupContainer growing>
+        <MenuGroup>
           <Section>
             <ButtonItem
               iconBefore={<ImgIcon src={Yeti} alt={'Yeti'} />}
@@ -66,12 +50,12 @@ export default () => {
               Spacecraft
             </ButtonItem>
           </Section>
-        </PopupMenuGroup>
-      </div>
+        </MenuGroup>
+      </MenuGroupContainer>
 
       <div style={{ textAlign: 'center' }}>
         <Button onClick={() => setTextIndex(0)}>Again</Button>
       </div>
-    </>
+    </Stack>
   );
 };

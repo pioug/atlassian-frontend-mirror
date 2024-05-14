@@ -4,7 +4,7 @@ import {
   cleanup,
   fireEvent,
   render,
-  RenderResult,
+  type RenderResult,
 } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -51,7 +51,6 @@ describe('@atlaskit/tabs', () => {
 
     describe('context', () => {
       const onClick = jest.fn();
-      const onMouseDown = jest.fn();
       const onKeyDown = jest.fn();
       let wrapper: RenderResult;
 
@@ -65,7 +64,6 @@ describe('@atlaskit/tabs', () => {
               'aria-posinset': 2,
               'aria-selected': true,
               'aria-setsize': 4,
-              onMouseDown,
               onKeyDown,
               role: 'tab',
               tabIndex: 0,
@@ -78,7 +76,6 @@ describe('@atlaskit/tabs', () => {
 
       afterEach(() => {
         onClick.mockClear();
-        onMouseDown.mockClear();
         onKeyDown.mockClear();
         wrapper.unmount();
       });
@@ -96,10 +93,6 @@ describe('@atlaskit/tabs', () => {
         tab.click();
         expect(onClick).toBeCalled();
 
-        expect(onMouseDown).not.toBeCalled();
-        fireEvent.mouseDown(tab);
-        expect(onMouseDown).toBeCalled();
-
         expect(onKeyDown).not.toBeCalled();
         fireEvent.keyDown(tab, { key: 'ArrowRight' });
         expect(onKeyDown).toBeCalled();
@@ -113,21 +106,9 @@ describe('@atlaskit/tabs', () => {
         tab.click();
         expect(onClick).toBeCalled();
 
-        expect(onMouseDown).not.toBeCalled();
-        fireEvent.mouseDown(tab);
-        expect(onMouseDown).toBeCalled();
-
         expect(onKeyDown).not.toBeCalled();
         fireEvent.keyDown(tab, { key: 'ArrowRight' });
         expect(onKeyDown).toBeCalled();
-      });
-
-      it('should call onMouseDown when mouse down', () => {
-        const tab = wrapper.getByRole('tab');
-
-        expect(onMouseDown).not.toBeCalled();
-        fireEvent.mouseDown(tab);
-        expect(onMouseDown).toBeCalled();
       });
 
       it('should call onKeyDown when key down', () => {
@@ -149,7 +130,6 @@ describe('@atlaskit/tabs', () => {
             'aria-posinset': 2,
             'aria-selected': true,
             'aria-setsize': 4,
-            onMouseDown: noop,
             onKeyDown: noop,
             role: 'tab',
             tabIndex: 0,
@@ -178,7 +158,6 @@ describe('@atlaskit/tabs', () => {
           'aria-posinset': 2,
           'aria-selected': true,
           'aria-setsize': 4,
-          onMouseDown: noop,
           onKeyDown: noop,
           role: 'tab',
           tabIndex: 0,
@@ -196,7 +175,6 @@ describe('@atlaskit/tabs', () => {
   describe('Custom tab using useTab', () => {
     it('can be used to create a custom tab', () => {
       const onClick = jest.fn();
-      const onMouseDown = jest.fn();
       const onKeyDown = jest.fn();
       const { getByRole } = render(
         <TabContext.Provider
@@ -207,7 +185,6 @@ describe('@atlaskit/tabs', () => {
             'aria-posinset': 2,
             'aria-selected': true,
             'aria-setsize': 4,
-            onMouseDown,
             onKeyDown,
             role: 'tab',
             tabIndex: 0,
@@ -229,10 +206,6 @@ describe('@atlaskit/tabs', () => {
       tab.click();
       expect(onClick).toBeCalled();
 
-      expect(onMouseDown).not.toBeCalled();
-      fireEvent.mouseDown(tab);
-      expect(onMouseDown).toBeCalled();
-
       expect(onKeyDown).not.toBeCalled();
       fireEvent.keyDown(tab, { key: 'ArrowRight' });
       expect(onKeyDown).toBeCalled();
@@ -253,7 +226,7 @@ describe('@atlaskit/tabs', () => {
       );
 
       const tab2 = getByText('Tab 2 label');
-      tab2.click();
+      fireEvent.click(tab2);
 
       expect(spy).toHaveBeenCalledWith(1, expect.objectContaining({}));
       expect(getByText('Tab 1 label')).toHaveAttribute(

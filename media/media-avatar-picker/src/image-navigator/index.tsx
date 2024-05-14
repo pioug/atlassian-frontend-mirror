@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { Component } from 'react';
 import {
   FormattedMessage,
-  WrappedComponentProps,
+  type WrappedComponentProps,
   injectIntl,
 } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
@@ -329,9 +329,8 @@ export class ImageNavigator extends Component<
     const { errorMessage, isLoading } = this.props;
     const showBorder = !isLoading && !!!errorMessage;
     const dropZoneImageSrc = errorMessage ? errorIcon : uploadPlaceholder;
-    let dragZoneText =
+    const dragZoneText =
       errorMessage || formatMessage(messages.drag_and_drop_images_here);
-    const dragZoneAlt = errorMessage || formatMessage(messages.upload_image);
 
     return (
       <DragZone
@@ -350,7 +349,7 @@ export class ImageNavigator extends Component<
               id="drag-zone-image"
               css={dragZoneImageStyles}
               src={dropZoneImageSrc}
-              alt={dragZoneAlt}
+              alt=""
             />
             <div
               id="drag-zone-text"

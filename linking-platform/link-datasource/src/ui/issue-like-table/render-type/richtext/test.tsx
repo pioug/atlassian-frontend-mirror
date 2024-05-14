@@ -2,6 +2,8 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { type RichText } from '@atlaskit/linking-types';
+
 import RichTextType from './index';
 
 describe('RichText Type', () => {
@@ -26,7 +28,7 @@ describe('RichText Type', () => {
     const value = {
       type: 'adf',
       text: JSON.stringify(adfDoc),
-    } as const;
+    } satisfies RichText;
 
     const { container } = render(<RichTextType value={value} />);
 
@@ -40,7 +42,7 @@ describe('RichText Type', () => {
     const value = {
       type: 'adf',
       text: JSON.stringify(adfDoc),
-    } as const;
+    } satisfies RichText;
 
     const { container } = render(<RichTextType value={value} />);
 
@@ -54,7 +56,7 @@ describe('RichText Type', () => {
     const value = {
       type: 'adf',
       text: JSON.stringify(adfDoc),
-    } as const;
+    } satisfies RichText;
 
     const { container } = render(<RichTextType value={value} />);
 
@@ -66,7 +68,7 @@ describe('RichText Type', () => {
     const value = {
       type: 'adf',
       text: JSON.stringify(adfDoc),
-    } as const;
+    } satisfies RichText;
 
     const { container } = render(<RichTextType value={value} />);
 
@@ -97,5 +99,191 @@ describe('RichText Type', () => {
     expect(
       container.querySelector('[data-testid="richtext-unsupported"]'),
     ).toBeInTheDocument();
+  });
+
+  it('renders inlineLink with URL', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+            {
+                "type":"paragraph",
+                "content":[
+                    {"type":"text","text":"bluelink "},
+                    {"type":"text","text":"https://sdog.jira-dev.com/browse/MAY2023-11","marks":[{"type":"link","attrs":{"href":"https://sdog.jira-dev.com/browse/MAY2023-11"}}]},
+                    {"type":"text","text":"  inlinecard"},
+                    {"type":"inlineCard","attrs":{"url": "https://sdog.jira-dev.com/browse/MAY2023-11"}},
+                    {"type":"paragraph","content":[{"type":"text","text":"asdf"}]}
+                ]
+            }
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('bluelink https://sdog.jira-dev.com/browse/MAY2023-11  inlinecardhttps://sdog.jira-dev.com/browse/MAY2023-11asdf');
+  });
+
+  it('renders inlineLinks that do not have url in their attrs', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+            {
+                "type":"paragraph",
+                "content":[
+                    {"type":"text","text":"bluelink "},
+                    {"type":"text","text":"https://sdog.jira-dev.com/browse/MAY2023-11","marks":[{"type":"link","attrs":{"href":"https://sdog.jira-dev.com/browse/MAY2023-11"}}]},
+                    {"type":"text","text":"  inlinecard"},
+                    {"type":"inlineCard","attrs":{}},
+                    {"type":"paragraph","content":[{"type":"text","text":"asdf"}]}
+                ]
+            }
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('bluelink https://sdog.jira-dev.com/browse/MAY2023-11  inlinecardasdf');
+  });
+
+  it('renders inlineLinks with and without url at the same time', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+            {
+                "type":"paragraph",
+                "content":[
+                    {"type":"text","text":"bluelink "},
+                    {"type":"text","text":"https://sdog.jira-dev.com/browse/MAY2023-11","marks":[{"type":"link","attrs":{"href":"https://sdog.jira-dev.com/browse/MAY2023-11"}}]},
+                    {"type":"inlineCard","attrs":{"url": "https://sdog.jira-dev.com/browse/APR2023-12"}},
+                    {"type":"inlineCard","attrs":{}},
+                    {"type":"paragraph","content":[{"type":"text","text":"asdf"}]}
+                ]
+            }
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('bluelink https://sdog.jira-dev.com/browse/MAY2023-11https://sdog.jira-dev.com/browse/APR2023-12asdf');
+  });
+
+  it('renders blockCards with url attr', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"blockCard","attrs":{"url":"https://sdog.jira-dev.com/browse/MAY2023-11"}},
+          {"type":"paragraph","content":[{"type":"text","text":"asdf"}]
+      }]})
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('https://sdog.jira-dev.com/browse/MAY2023-11asdf');
+  });
+
+  it('renders blockCards that do not have url in their attrs', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"blockCard","attrs":{}},
+          {"type":"paragraph","content":[{"type":"text","text":"asdf"}]
+      }]})
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('asdf');
+  });
+
+
+  it('renders blockCards with url attr and without url attr at the same time', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"blockCard","attrs":{"url":"https://sdog.jira-dev.com/browse/MAY2023-11"}},
+          {"type":"blockCard","attrs":{"url":"https://sdog.jira-dev.com/browse/APR2023-12"}},
+          {"type":"paragraph","content":[{"type":"text","text":"asdf"}]}
+        ]})
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('https://sdog.jira-dev.com/browse/MAY2023-11https://sdog.jira-dev.com/browse/APR2023-12');
+  });
+
+  it('renders embedCards with url attr', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"embedCard","attrs":{"url":"https://sdog.jira-dev.com/browse/MAY2023-11","layout":"center","width":100}},
+          {"type":"paragraph","content":[{"type":"text","text":"<<embedCard"}]}
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('https://sdog.jira-dev.com/browse/MAY2023-11<<embedCard');
+  });
+
+  it('renders embedCards that do not have url in their attrs', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"embedCard","attrs":{"layout":"center","width":100}},
+          {"type":"paragraph","content":[{"type":"text","text":"<<embedCard"}]}
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('<<embedCard');
+  });
+
+  it('renders embedCards with and without a url attr at the same time', () => {
+    const value = {
+      "type":"adf",
+      "text": JSON.stringify({
+        "version":1,
+        "type":"doc",
+        "content":[
+          {"type":"embedCard","attrs":{"url":"https://sdog.jira-dev.com/browse/MAY2023-11","layout":"center","width":100}},
+          {"type":"embedCard","attrs":{"url":"https://sdog.jira-dev.com/browse/APR2023-12","layout":"center","width":100}},
+          {"type":"paragraph","content":[{"type":"text","text":"<<embedCard"}]}
+        ]
+      })
+    } satisfies RichText;
+
+    const { container } = render(<RichTextType value={value} />);
+
+    expect(container.textContent).toEqual('https://sdog.jira-dev.com/browse/MAY2023-11https://sdog.jira-dev.com/browse/APR2023-12');
   });
 });

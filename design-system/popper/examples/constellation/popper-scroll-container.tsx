@@ -10,9 +10,9 @@ import { Manager, Popper, Reference } from '../../src';
 const popupStyles = css({
   maxWidth: '160px',
   padding: token('space.100', '8px'),
-  background: token('elevation.surface.overlay', 'white'),
+  background: token('elevation.surface.overlay'),
   borderRadius: token('border.radius', '3px'),
-  boxShadow: token('elevation.shadow.raised', '0 2px 3px rgba(0,0,0,0.2)'),
+  boxShadow: token('elevation.shadow.raised'),
 });
 
 const popupHiddenStyles = css({
@@ -48,7 +48,7 @@ const BasicPopper = () => (
 const ScrollContainerExample = () => (
   <div
     style={{
-      border: `1px solid ${token('color.border.bold', 'black')}`,
+      border: `1px solid ${token('color.border.bold')}`,
       maxHeight: '400px',
       maxWidth: '800px',
       marginTop: token('space.250', '20px'),
@@ -61,7 +61,7 @@ const ScrollContainerExample = () => (
         height: '250%',
         boxSizing: 'border-box',
         padding: token('space.200', '16px'),
-        background: token('elevation.surface', 'white'),
+        background: token('elevation.surface'),
       }}
     >
       <b style={{ display: 'block', marginBottom: token('space.400', '2rem') }}>

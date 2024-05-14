@@ -21,7 +21,11 @@ export type AnnotationByMatches = {
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 export type AnnotationActionResult =
-  | ({ step: Step; doc: JSONDocNode } & AnnotationByMatches)
+  | ({
+      step: Step;
+      doc: JSONDocNode;
+      targetNodeType?: string;
+    } & AnnotationByMatches)
   | false;
 
 export type InlineCommentSelectionComponentProps = {
@@ -139,10 +143,15 @@ export type InlineCommentHoverComponentProps = {
 };
 
 interface AnnotationTypeProvider<Type> {
-  getState: (annotationIds: string[]) => Promise<AnnotationState<Type>[]>;
+  getState: (
+    annotationIds: string[],
+    isNestedRender: boolean,
+  ) => Promise<AnnotationState<Type>[]>;
   updateSubscriber?: AnnotationUpdateEmitter;
   allowDraftMode?: boolean;
   allowCommentsOnMedia?: boolean;
+  isCommentsOnMediaBugFixEnabled?: boolean;
+  isCommentsOnMediaBugVideoCommentEnabled?: boolean;
 }
 
 export type InlineCommentAnnotationProvider =

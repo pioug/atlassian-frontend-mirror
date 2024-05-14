@@ -11,7 +11,7 @@ import {
   Flex,
   Grid,
   Inline,
-  UNSAFE_PRESSABLE as Pressable,
+  Pressable,
   Stack,
 } from '../../../index';
 

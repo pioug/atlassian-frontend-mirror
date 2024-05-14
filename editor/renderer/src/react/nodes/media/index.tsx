@@ -6,8 +6,9 @@ import React, {
   useEffect,
   useState,
   useMemo,
+  useContext,
 } from 'react';
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
@@ -39,8 +40,10 @@ import {
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
 import AnnotationComponent from '../../marks/annotation';
-import { AnnotationsDraftContext } from '../../../ui/annotations/context';
-import { linkStyle, borderStyle } from './styles';
+import {
+  AnnotationsDraftContext,
+  ProvidersContext,
+} from '../../../ui/annotations/context';
 import type { CommentBadgeProps } from '@atlaskit/editor-common/media-single';
 import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
 import { injectIntl } from 'react-intl-next';
@@ -78,6 +81,26 @@ type Providers = {
   mediaProvider?: Promise<MediaProvider>;
   contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 };
+
+export const linkStyle = css`
+  position: absolute;
+  background: transparent;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  cursor: pointer;
+  width: 100% !important;
+  height: 100% !important;
+`;
+
+export const borderStyle = (color: string, width: number) => css`
+  position: absolute;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: ${width}px;
+  box-shadow: 0 0 0 ${width}px ${color};
+`;
 
 const MediaBorder = ({
   mark,
@@ -119,7 +142,6 @@ const MediaLink = ({
   if (!mark) {
     return <Fragment>{children}</Fragment>;
   }
-
   const linkHref = mark?.attrs.href;
 
   return (
@@ -151,6 +173,7 @@ const MediaAnnotation = ({
       annotationType={mark.attrs.annotationType}
       dataAttributes={{
         'data-renderer-mark': true,
+        'data-block-mark': true,
       }}
       // This should be fine being empty [] since the serializer serializeFragmentChild getMarkProps call always passes
       annotationParentIds={[]}
@@ -240,6 +263,7 @@ const CommentBadgeWrapper = ({
   }
 
   const onClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (updateSubscriber) {
       updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
         annotationIds: activeParentIds,
@@ -311,7 +335,7 @@ class Media extends PureComponent<MediaProps, {}> {
                 },
               }}
             >
-              {!!annotationMarks && (
+              {!!annotationMarks && featureFlags?.commentsOnMedia && (
                 <CommentBadgeWrapper
                   marks={annotationMarks}
                   mediaElement={mediaSingleElement}
@@ -382,6 +406,9 @@ class Media extends PureComponent<MediaProps, {}> {
 
 const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
   const draftPosition = React.useContext(AnnotationsDraftContext);
+  const providers = useContext(ProvidersContext);
+  const isCommentsOnMediaBugFixEnabled =
+    !!providers?.inlineComment.isCommentsOnMediaBugFixEnabled;
 
   const { dataAttributes } = props;
   const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];
@@ -394,15 +421,22 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
     if (pos === undefined) {
       return;
     }
-
-    if (draftPosition !== null && draftPosition.from === pos) {
+    const posToCheck = isCommentsOnMediaBugFixEnabled
+      ? (draftPosition?.from ?? 0) + 1
+      : draftPosition?.from;
+    if (draftPosition !== null && posToCheck === pos) {
       setShouldApplyDraftAnnotation(true);
-      setPosition(draftPosition?.from);
+      setPosition(posToCheck);
     } else if (draftPosition === null && shouldApplyDraftAnnotation) {
       setShouldApplyDraftAnnotation(false);
       setPosition(undefined);
     }
-  }, [draftPosition, pos, shouldApplyDraftAnnotation]);
+  }, [
+    draftPosition,
+    pos,
+    shouldApplyDraftAnnotation,
+    isCommentsOnMediaBugFixEnabled,
+  ]);
 
   const applyDraftAnnotation =
     props.allowAnnotationsDraftMode &&

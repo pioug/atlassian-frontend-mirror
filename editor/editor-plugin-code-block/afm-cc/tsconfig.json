@@ -34,7 +34,13 @@
             "path": "../../editor-plugin-decorations/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-editor-disabled/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../input-rules/afm-cc/tsconfig.json"

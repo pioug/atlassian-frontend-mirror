@@ -13,9 +13,8 @@ const skeletonCreateButtonStyles = css({
   alignSelf: 'center',
   border: 0,
   borderRadius: token('border.radius', '3px'),
-  fontSize: token('font.size.100', '14px'),
-  fontWeight: token('font.weight.medium', '500'),
-  lineHeight: 1,
+  font: token('font.body'),
+  fontWeight: token('font.weight.medium'),
   pointerEvents: 'none',
   ':focus, :active, :hover': {
     appearance: 'none',

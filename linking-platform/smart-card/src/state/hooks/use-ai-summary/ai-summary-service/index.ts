@@ -8,10 +8,12 @@ import {
   type StateSetter,
   type PostAgentPayload,
   errorMessages,
-  ErrorMessage,
+  type ErrorMessage,
 } from './types';
 import { addPath } from './utils';
 import { readStream } from './readStream';
+import { getBaseUrl, type EnvironmentsKeys } from '@atlaskit/linking-common';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export class AISummaryService implements AISummaryServiceInt {
   public state: AISummaryState = {
@@ -29,7 +31,7 @@ export class AISummaryService implements AISummaryServiceInt {
 
   constructor(props: AISummaryServiceProps) {
     this.config = {
-      baseUrl: props.baseUrl || '/gateway/api/assist',
+      requestUrl: this.getRequestUrl(props.envKey, props.baseUrl),
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'x-experience-id': 'smart-link',
@@ -46,6 +48,20 @@ export class AISummaryService implements AISummaryServiceInt {
     this.onError = props.onError;
   }
 
+  private getRequestUrl = (
+    envKey?: EnvironmentsKeys,
+    baseUrlOverride?: string,
+  ) => {
+    const path = 'assist/chat/v1/invoke_agent/stream';
+
+    if (baseUrlOverride || envKey) {
+      const baseUrl = baseUrlOverride || getBaseUrl(envKey);
+      return addPath(baseUrl, path);
+    }
+
+    return addPath('/gateway/api/', path);
+  };
+
   private fetchStream = async <T>() => {
     const payload: PostAgentPayload = {
       recipient_agent_named_id: 'summary_agent',
@@ -61,12 +77,20 @@ export class AISummaryService implements AISummaryServiceInt {
       method: 'POST',
       headers: this.config.headers,
       body: JSON.stringify(payload),
+      ...(getBooleanFF(
+        'platform.linking-platform.smart-card.ai-summary-service-base-url',
+      ) && {
+        credentials: 'include' as RequestCredentials,
+      }),
     };
 
-    const path = 'chat/v1/invoke_agent/stream';
-    const requestUrl = addPath(this.config.baseUrl, path);
+    const requestURL = getBooleanFF(
+      'platform.linking-platform.smart-card.ai-summary-service-base-url',
+    )
+      ? this.config.requestUrl
+      : '/gateway/api/assist/chat/v1/invoke_agent/stream';
 
-    const response = await fetch(requestUrl, options);
+    const response = await fetch(requestURL, options);
 
     if (!response.ok || response.status >= 400) {
       throw new Error(
@@ -131,6 +155,8 @@ export class AISummaryService implements AISummaryServiceInt {
     for (const subscriber of this.subscribedStateSetters) {
       subscriber(this.state);
     }
+
+    return this.state;
   }
 
   private isExpectedError(value: unknown): value is ErrorMessage {

@@ -329,15 +329,13 @@ describe('sortTokens', () => {
       expect(result[4].name).toEqual('font.xxsmall');
     });
 
-    it('are sorted heading -> body -> ui -> code', () => {
-      const result = fakeTokens(
-        ['font.body', 'font.code', 'font.ui', 'font.heading'],
-        { group: 'typography' },
-      );
+    it('are sorted heading -> body -> code', () => {
+      const result = fakeTokens(['font.body', 'font.code', 'font.heading'], {
+        group: 'typography',
+      });
       expect(result[0].name).toEqual('font.heading');
       expect(result[1].name).toEqual('font.body');
-      expect(result[2].name).toEqual('font.ui');
-      expect(result[3].name).toEqual('font.code');
+      expect(result[2].name).toEqual('font.code');
     });
   });
 });

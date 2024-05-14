@@ -1,7 +1,11 @@
-import { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { TableContext, TableMap } from '../table-map';
+import type { TableContext, TableMap } from '../table-map';
+import type { CellAttributes } from '../types';
 
 import { tableNodeTypes } from './table-node-types';
 
@@ -21,6 +25,7 @@ export function addRow(
   tr: Transaction,
   { map, tableStart, table }: TableContext,
   row: number,
+  isCellBackgroundDuplicated?: boolean,
 ): Transaction {
   let rowPos = tableStart;
   for (let i = 0; i < row; i++) {
@@ -52,6 +57,7 @@ export function addRow(
       col += attrs.colspan - 1;
     } else {
       let type: NodeType;
+      let attrs: CellAttributes = {};
 
       if (refRow == null) {
         type = tableNodeTypes(table.type.schema).cell;
@@ -62,8 +68,11 @@ export function addRow(
           throw new Error(`addRow: invalid node at mapped pos ${mappedPos}`);
         }
         type = cell.type;
+        if (cell.attrs.background && isCellBackgroundDuplicated) {
+          attrs = { background: cell.attrs.background };
+        }
       }
-      cells.push(type.createAndFill()!);
+      cells.push(type.createAndFill(attrs)!);
     }
   }
   const rowType = tableNodeTypes(table.type.schema).row;

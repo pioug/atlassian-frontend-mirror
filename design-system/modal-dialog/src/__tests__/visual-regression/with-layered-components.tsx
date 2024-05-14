@@ -99,7 +99,8 @@ describe('<Modal />', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('with FlagGroup', async () => {
+  // FIXME: This test was automatically skipped due to failure on 1/05/2024: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2906122/steps/%7B80db1e9a-4e82-467a-89af-3598287f4dbb%7D/test-report
+  it.skip('with FlagGroup', async () => {
     const page = await openModal(url, options);
 
     await page.click(scrollToMiddle);

@@ -662,6 +662,11 @@ const getDatasourceButtonGroup = (
   }
 
   const canShowMainToolbar = () => {
+    // we do not show smart-link or the datasource icons when the node does not have a url to resolve
+    if (!metadata.url) {
+      return false;
+    }
+
     if (
       // FF that controls visibily of the additional toolbar buttons
       !getBooleanFF(

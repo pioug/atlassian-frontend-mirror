@@ -5,7 +5,6 @@ import { Component, FC, ReactNode, SyntheticEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
@@ -22,7 +21,7 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({
       style={{
         alignItems: 'center',
         boxSizing: 'border-box',
-        color: token('color.text.subtle', N500),
+        color: token('color.text.subtle'),
         display: 'flex',
         flexShrink: 0,
         flexDirection: 'column',
@@ -31,10 +30,7 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({
         paddingTop: token('space.300', '24px'),
         width: 64,
         // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-        border: `3px dashed ${token(
-          'color.background.accent.teal.subtle',
-          'teal',
-        )}`,
+        border: `3px dashed ${token('color.background.accent.teal.subtle')}`,
       }}
     >
       {children}

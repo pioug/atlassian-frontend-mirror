@@ -15,6 +15,7 @@ export const overflowShadow = ({
   const leftCoverWidthResolved = leftCoverWidth || width;
   const rightCoverWidthResolved = rightCoverWidth || width;
 
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   return css`
 /* shadow cover left */
   linear-gradient(

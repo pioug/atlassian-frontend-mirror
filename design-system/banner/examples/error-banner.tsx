@@ -4,7 +4,7 @@ import ErrorIcon from '@atlaskit/icon/glyph/error';
 
 import Banner from '../src';
 
-const Icon = <ErrorIcon label="" secondaryColor="inherit" />;
+const Icon = <ErrorIcon label="Error" secondaryColor="inherit" />;
 
 export default () => (
   <Banner icon={Icon} appearance="error">

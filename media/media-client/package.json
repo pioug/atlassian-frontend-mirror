@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "26.3.0",
+  "version": "27.0.0",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,8 @@
   },
   "dependencies": {
     "@atlaskit/chunkinator": "^6.0.0",
-    "@atlaskit/media-common": "^11.1.0",
+    "@atlaskit/media-common": "^11.2.0",
+    "@atlaskit/platform-feature-flags": "0.2.5",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
     "deep-equal": "^1.0.1",
@@ -64,8 +65,9 @@
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-state": "^1.0.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "0.2.1",
     "@emotion/react": "^11.7.1",
     "@types/deep-equal": "^1.0.1",
     "@types/uuid-validate": "^0.0.2",
@@ -87,5 +89,10 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.media-svg-rendering": {
+      "type": "boolean"
+    }
+  }
 }

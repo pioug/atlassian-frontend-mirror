@@ -17,7 +17,7 @@ import { ButtonItem } from '@atlaskit/menu';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import type { TypeAheadItem } from '../types';
+import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
 export const itemIcon = css({
   width: token('space.500', '40px'),
@@ -113,66 +113,35 @@ type TypeAheadListItemProps = {
   onItemClick: (mode: SelectItemMode, index: number) => void;
 };
 
-export const TypeAheadListItem = ({
-  item,
-  itemsLength,
-  selectedIndex,
-  onItemClick,
-  itemIndex,
-  ariaLabel,
-}: TypeAheadListItemProps) => {
-  /**
-   * To select and highlight the first Item when no item is selected
-   * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
-   */
-  const isSelected =
-    itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+type CustomItemComponentWrapperProps = {
+  customRenderItem: (
+    props: TypeAheadItemRenderProps,
+  ) => React.ReactElement<TypeAheadItemRenderProps> | null;
+  isSelected: boolean;
+  ariaLabel: string | undefined;
+  itemsLength: number;
+  customItemRef: React.RefObject<HTMLDivElement>;
+  insertSelectedItem: () => void;
+  itemIndex: number;
+};
 
-  // Assistive text
-  const intl = useIntl();
-  const descriptionText = item.description ? `${item.description}.` : '';
-  const shortcutText = item.keyshortcut
-    ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${
-        item.keyshortcut
-      }.`
-    : '';
+const CustomItemComponentWrapper = React.memo(
+  (props: CustomItemComponentWrapperProps) => {
+    const {
+      customRenderItem,
+      isSelected,
+      ariaLabel,
+      itemsLength,
+      customItemRef,
+      insertSelectedItem,
+      itemIndex,
+    } = props;
 
-  const { icon, title, render: customRenderItem } = item;
-  const elementIcon = useMemo(() => {
-    return (
-      <div css={itemIcon}>{icon ? icon() : <FallbackIcon label={title} />}</div>
-    );
-  }, [icon, title]);
-
-  const insertSelectedItem = useCallback(() => {
-    onItemClick(SelectItemMode.SELECTED, itemIndex);
-  }, [onItemClick, itemIndex]);
-
-  const customItemRef = React.createRef<HTMLDivElement>();
-  const buttonItemRef = React.createRef<HTMLDivElement>();
-  const shouldUpdateFocus = selectedIndex === itemIndex;
-
-  useLayoutEffect(() => {
-    if (shouldUpdateFocus) {
-      customItemRef?.current?.focus();
-    }
-  }, [customItemRef, shouldUpdateFocus]);
-
-  useLayoutEffect(() => {
-    if (shouldUpdateFocus) {
-      buttonItemRef?.current?.focus();
-    }
-  }, [buttonItemRef, shouldUpdateFocus]);
-
-  const customItem = useMemo(() => {
-    if (!customRenderItem) {
-      return null;
-    }
     const Comp = customRenderItem;
-    const listItemClasses = [
-      customRenderItemDivStyle,
-      isSelected && selectedStyle,
-    ];
+    const listItemClasses = useMemo(() => {
+      return [customRenderItemDivStyle, isSelected && selectedStyle];
+    }, [isSelected]);
+
     return (
       <div
         aria-selected={isSelected}
@@ -197,50 +166,111 @@ export const TypeAheadListItem = ({
         </div>
       </div>
     );
-  }, [
-    customRenderItem,
-    isSelected,
-    ariaLabel,
-    itemsLength,
-    customItemRef,
-    insertSelectedItem,
-    itemIndex,
-  ]);
+  },
+);
 
-  if (customItem) {
-    return customItem;
-  }
-  const listItemClasses = [selectionFrame, isSelected && selectedStyle];
-  return (
-    <span css={listItemClasses}>
-      <ButtonItem
-        onClick={insertSelectedItem}
-        iconBefore={elementIcon}
-        isSelected={isSelected}
-        aria-selected={isSelected}
-        aria-label={title}
-        aria-description={`${descriptionText} ${shortcutText}`}
-        aria-setsize={itemsLength}
-        aria-posinset={itemIndex}
-        role="option"
-        ref={buttonItemRef}
-        // @ts-ignore
-        css={listItemClasses}
-      >
-        <div aria-hidden={true}>
-          <div css={itemText}>
-            <div css={itemBody}>
-              <div className="item-title">{item.title}</div>
-              <div css={itemAfter}>
-                {item.keyshortcut && (
-                  <div css={shortcutStyle}>{item.keyshortcut}</div>
-                )}
-              </div>
-            </div>
-            <div className="item-description">{item.description}</div>
-          </div>
+export const TypeAheadListItem = React.memo(
+  ({
+    item,
+    itemsLength,
+    selectedIndex,
+    onItemClick,
+    itemIndex,
+    ariaLabel,
+  }: TypeAheadListItemProps) => {
+    /**
+     * To select and highlight the first Item when no item is selected
+     * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
+     */
+    const isSelected =
+      itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+
+    // Assistive text
+    const intl = useIntl();
+    const descriptionText = item.description ? `${item.description}.` : '';
+    const shortcutText = item.keyshortcut
+      ? ` ${intl.formatMessage(typeAheadListMessages.shortcutLabel)} ${
+          item.keyshortcut
+        }.`
+      : '';
+
+    const { icon, title, render: customRenderItem } = item;
+    const elementIcon = useMemo(() => {
+      return (
+        <div css={itemIcon}>
+          {icon ? icon() : <FallbackIcon label={title} />}
         </div>
-      </ButtonItem>
-    </span>
-  );
-};
+      );
+    }, [icon, title]);
+
+    const insertSelectedItem = useCallback(() => {
+      onItemClick(SelectItemMode.SELECTED, itemIndex);
+    }, [onItemClick, itemIndex]);
+
+    const customItemRef = React.useRef<HTMLDivElement>(null);
+    const buttonItemRef = React.useRef<HTMLDivElement>(null);
+    const shouldUpdateFocus = selectedIndex === itemIndex;
+    const listItemClasses = useMemo(() => {
+      return [selectionFrame, isSelected && selectedStyle];
+    }, [isSelected]);
+
+    useLayoutEffect(() => {
+      if (shouldUpdateFocus) {
+        customItemRef?.current?.focus();
+      }
+    }, [customItemRef, shouldUpdateFocus]);
+
+    useLayoutEffect(() => {
+      if (shouldUpdateFocus) {
+        buttonItemRef?.current?.focus();
+      }
+    }, [buttonItemRef, shouldUpdateFocus]);
+
+    if (customRenderItem) {
+      return (
+        <CustomItemComponentWrapper
+          customRenderItem={customRenderItem}
+          isSelected={isSelected}
+          ariaLabel={ariaLabel}
+          itemsLength={itemsLength}
+          customItemRef={customItemRef}
+          insertSelectedItem={insertSelectedItem}
+          itemIndex={itemIndex}
+        />
+      );
+    }
+
+    return (
+      <span css={listItemClasses}>
+        <ButtonItem
+          onClick={insertSelectedItem}
+          iconBefore={elementIcon}
+          isSelected={isSelected}
+          aria-selected={isSelected}
+          aria-label={title}
+          aria-description={`${descriptionText} ${shortcutText}`}
+          aria-setsize={itemsLength}
+          aria-posinset={itemIndex}
+          role="option"
+          ref={buttonItemRef}
+          // @ts-ignore
+          css={listItemClasses}
+        >
+          <div aria-hidden={true}>
+            <div css={itemText}>
+              <div css={itemBody}>
+                <div className="item-title">{item.title}</div>
+                <div css={itemAfter}>
+                  {item.keyshortcut && (
+                    <div css={shortcutStyle}>{item.keyshortcut}</div>
+                  )}
+                </div>
+              </div>
+              <div className="item-description">{item.description}</div>
+            </div>
+          </div>
+        </ButtonItem>
+      </span>
+    );
+  },
+);

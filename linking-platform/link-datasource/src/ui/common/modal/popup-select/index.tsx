@@ -26,7 +26,7 @@ const noFilterOptions = () => true;
 
 export interface FilterPopupSelectProps {
   buttonLabel: string;
-  totalCount: number;
+  totalCount?: number;
   filterName: string;
   isDisabled: boolean;
   showLoading: boolean;
@@ -44,7 +44,7 @@ export interface FilterPopupSelectProps {
 
 export const FilterPopupSelect = ({
   filterName,
-  totalCount,
+  totalCount = 0,
   status,
   buttonLabel,
   showLoading = false,

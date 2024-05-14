@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'Vi kan inte visa sammanfattningsresultaten eftersom det strider mot <a>Atlassians policy för godtagbar användning</a>.',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence kan inte ge något svar just nu. Läs mer <a>i vår supportdokumentation</a>.',
+    'Atlassian Intelligence (AI) svarar inte. Försök igen senare eller <a>kontrollera status för AI</a>.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence kunde inte behandla din förfrågan eftersom innehållet innehåller länkar till HIPAA-begränsat innehåll.',
   'fabric.linking.assigned_to': 'Tilldelad till {context}',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',

@@ -6,9 +6,11 @@ import { axe } from '@af/accessibility-testing';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Image from '@atlaskit/image';
 
-import Cat from '../../examples/images/cat.png';
+import ExampleImage from '../../examples/images/Celebration.png';
 
 it('Basic Image should not fail aXe audit', async () => {
-  const { container } = render(<Image src={Cat} alt="Simple example" />);
+  const { container } = render(
+    <Image src={ExampleImage} alt="Simple example" />,
+  );
   await axe(container);
 });

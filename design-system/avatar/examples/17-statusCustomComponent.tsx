@@ -12,8 +12,8 @@ import Avatar from '../src';
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const DivPresence = styled.div({
   alignItems: 'center',
-  backgroundColor: token('color.background.discovery.bold', 'rebeccapurple'),
-  color: token('elevation.surface', 'white'),
+  backgroundColor: token('color.background.discovery.bold'),
+  color: token('elevation.surface'),
   display: 'flex',
   fontSize: '0.75em',
   fontWeight: 500,

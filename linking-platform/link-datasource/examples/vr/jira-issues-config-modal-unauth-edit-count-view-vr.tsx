@@ -33,7 +33,7 @@ export const JiraIssuesConfigModalUnauthorizedEditCountViewState = () => (
         onInsert={() => {}}
         parameters={parameters}
         visibleColumnKeys={defaultInitialVisibleJiraColumnKeys}
-        viewMode="count"
+        viewMode="inline"
       />
     </SmartCardProvider>
   </IntlProvider>

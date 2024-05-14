@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     '<a>Atlassian의 사용 제한 정책</a> 위반에 해당하므로 이 요약의 결과를 표시할 수 없습니다.',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence가 지금 응답을 제공할 수 없습니다. <a>지원 설명서</a>에서 자세히 읽어보세요.',
+    'Atlassian Intelligence(AI)가 응답하지 않습니다. 나중에 다시 시도하거나 <a>AI 상태를 확인</a>하세요.',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    '콘텐츠에 HIPAA 제한 콘텐츠 링크가 포함되어 있으므로 Atlassian Intelligence에서 요청을 처리할 수 없습니다.',
   'fabric.linking.assigned_to': '{context} 님에게 할당',
   'fabric.linking.beta': '베타',
   'fabric.linking.cancel': '취소',

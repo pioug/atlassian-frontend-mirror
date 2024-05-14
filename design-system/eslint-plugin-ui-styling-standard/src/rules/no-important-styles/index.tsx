@@ -1,13 +1,11 @@
-import estraverse from 'estraverse';
+import esquery from 'esquery';
+
+import type { Property } from 'estree';
 
 import { createLintRule } from '../utils/create-rule';
 import {
-  isCss,
   getImportSources,
-  isStyled,
-  isKeyframes,
-  isCssMap,
-  isXcss,
+  hasStyleObjectArguments,
 } from '@atlaskit/eslint-utils/is-supported-import';
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
@@ -46,39 +44,22 @@ export const rule = createLintRule({
       CallExpression(node) {
         const { references } = context.getScope();
 
-        if (
-          isCss(node.callee, references, importSources) ||
-          isStyled(node.callee, references, importSources) ||
-          isKeyframes(node.callee, references, importSources) ||
-          isCssMap(node.callee, references, importSources) ||
-          isXcss(node.callee, references, importSources)
-        ) {
-          estraverse.traverse(node, {
-            enter(node) {
-              if (node.type !== 'Property') {
-                return;
-              }
+        if (!hasStyleObjectArguments(node.callee, references, importSources)) {
+          return;
+        }
 
-              if (node.value.type !== 'Literal') {
-                return;
-              }
+        const matches = esquery(node, 'Property');
+        for (const match of matches) {
+          if (match.type !== 'Property') {
+            return;
+          }
 
-              /**
-               * There can be whitespace between the `!` and the `important` keyword.
-               * There can also be whitespace after the `important` keyword.
-               */
-              if (node.value.value?.toString().match(/!\s*important\s*$/gm)) {
-                context.report({
-                  node: node.value,
-                  messageId: 'no-important-styles',
-                });
-              }
-            },
-            /**
-             * This is needed to handle unknown node types. Otherwise an error is thrown.
-             */
-            fallback: 'iteration',
-          });
+          if (isImportant(match.value)) {
+            context.report({
+              node: match.value,
+              messageId: 'no-important-styles',
+            });
+          }
         }
       },
     };
@@ -86,3 +67,17 @@ export const rule = createLintRule({
 });
 
 export default rule;
+
+const importantRegex = /!\s*important\s*$/;
+function isImportant(node: Property['value']): boolean {
+  if (node.type === 'Literal') {
+    return typeof node.value === 'string' && importantRegex.test(node.value);
+  }
+
+  if (node.type === 'TemplateLiteral') {
+    const joinedRaw = node.quasis.map((element) => element.value.raw).join('');
+    return importantRegex.test(joinedRaw);
+  }
+
+  return false;
+}

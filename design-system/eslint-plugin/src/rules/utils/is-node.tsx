@@ -1,13 +1,15 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { Rule } from 'eslint';
+import type { Rule, Scope } from 'eslint';
 import {
-  CallExpression,
-  EslintNode,
-  Expression,
+  type CallExpression,
+  type EslintNode,
+  type Expression,
   isNodeOfType,
-  Property,
-  TaggedTemplateExpression,
+  type Property,
+  type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
+
+import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { Root } from '../../ast-nodes';
 
@@ -129,19 +131,25 @@ export const isCssInJsObjectNode = (
   node.callee.object.type === 'Identifier' &&
   cssInJsCallees.includes(node.callee.object.name);
 
-const isXcssCallNode = (node?: Expression | null): node is CallExpression =>
-  node?.type === 'CallExpression' &&
-  node.callee.type === 'Identifier' &&
-  node.callee.name === 'xcss';
-
-export const isDecendantOfXcssBlock = (node: Rule.Node): boolean => {
+export const isDecendantOfXcssBlock = (
+  node: Rule.Node,
+  referencesInScope: Scope.Reference[],
+  importSources: string[],
+): boolean => {
   // xcss contains types for all properties that accept tokens, so ignore xcss for linting as it will report false positives
-  if (isXcssCallNode(node as Expression)) {
+  if (
+    node.type === 'CallExpression' &&
+    isXcss(node.callee, referencesInScope, importSources)
+  ) {
     return true;
   }
 
   if (node.parent) {
-    return isDecendantOfXcssBlock(node.parent);
+    return isDecendantOfXcssBlock(
+      node.parent,
+      referencesInScope,
+      importSources,
+    );
   }
 
   return false;

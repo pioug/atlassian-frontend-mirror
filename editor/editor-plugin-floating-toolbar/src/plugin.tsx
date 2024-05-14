@@ -265,7 +265,7 @@ function ContentComponent({
   }
 
   const { config, node } = configWithNodeInfo;
-  let { items } = config;
+  let { items, groupLabel } = config;
   const {
     title,
     getDomRef = getDomRefFromSelection,
@@ -372,6 +372,7 @@ function ContentComponent({
               <ToolbarLoader
                 target={targetRef}
                 items={toolbarItems!}
+                groupLabel={groupLabel}
                 node={node}
                 dispatchCommand={dispatchCommand}
                 editorView={editorView}

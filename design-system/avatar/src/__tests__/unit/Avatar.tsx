@@ -1,17 +1,21 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, { FC, MouseEventHandler, ReactNode } from 'react';
+import React, { type FC, type MouseEventHandler, type ReactNode } from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   AnalyticsListener,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
 
-import Avatar from '../../index';
+import Avatar, {
+  AVATAR_SIZES,
+  AvatarContext,
+  type SizeType,
+} from '../../index';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -635,5 +639,88 @@ describe('Avatar', () => {
     const avatar = screen.getByTestId('avatar');
 
     expect(avatar.tagName).toEqual('SPAN');
+  });
+
+  describe('avatar context', () => {
+    it('should pass down size values from the provider into the avatar', () => {
+      const withContext = 'With Context';
+      const withContextSize: SizeType = 'xlarge';
+      const noContext = 'No Context';
+      const noContextSize: SizeType = 'small';
+
+      render(
+        <div>
+          <Avatar
+            name={noContext}
+            size={noContextSize}
+            testId={noContextSize}
+          />
+          <AvatarContext.Provider value={{ size: withContextSize }}>
+            <Avatar name={withContext} testId={withContextSize} />
+          </AvatarContext.Provider>
+        </div>,
+      );
+
+      const avatarNoContext = screen.getByTestId(`${noContextSize}--inner`);
+      const avatarWithContext = screen.getByTestId(`${withContextSize}--inner`);
+
+      expect(avatarNoContext).toBeInTheDocument();
+      expect(avatarNoContext).toHaveStyleDeclaration(
+        'height',
+        `${AVATAR_SIZES[noContextSize]}px`,
+      );
+      expect(avatarNoContext).toHaveStyleDeclaration(
+        'width',
+        `${AVATAR_SIZES[noContextSize]}px`,
+      );
+
+      expect(avatarWithContext).toBeInTheDocument();
+      expect(avatarWithContext).toHaveStyleDeclaration(
+        'height',
+        `${AVATAR_SIZES[withContextSize]}px`,
+      );
+      expect(avatarWithContext).toHaveStyleDeclaration(
+        'width',
+        `${AVATAR_SIZES[withContextSize]}px`,
+      );
+    });
+
+    it('should always prefer the context over provided values', () => {
+      const withContext = 'With Context';
+      const withContextSize: SizeType = 'xlarge';
+      const providedSize: SizeType = 'small';
+
+      render(
+        <div>
+          <AvatarContext.Provider value={{ size: withContextSize }}>
+            <Avatar
+              name={withContext}
+              size={providedSize}
+              testId={withContextSize}
+            />
+          </AvatarContext.Provider>
+        </div>,
+      );
+
+      const avatarWithContext = screen.getByTestId(`${withContextSize}--inner`);
+
+      expect(avatarWithContext).toBeInTheDocument();
+      expect(avatarWithContext).not.toHaveStyleDeclaration(
+        'height',
+        `${AVATAR_SIZES[providedSize]}px`,
+      );
+      expect(avatarWithContext).not.toHaveStyleDeclaration(
+        'width',
+        `${AVATAR_SIZES[providedSize]}px`,
+      );
+      expect(avatarWithContext).toHaveStyleDeclaration(
+        'height',
+        `${AVATAR_SIZES[withContextSize]}px`,
+      );
+      expect(avatarWithContext).toHaveStyleDeclaration(
+        'width',
+        `${AVATAR_SIZES[withContextSize]}px`,
+      );
+    });
   });
 });

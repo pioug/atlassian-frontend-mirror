@@ -26,6 +26,7 @@ export {
   getTableWidth,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
+  tablesHaveDifferentNoOfRows,
   isTableNested,
   anyChildCellMergedAcrossRow,
   supportedHeaderRow,
@@ -75,7 +76,7 @@ export {
 } from './row-controls';
 export type { RowParams } from './row-controls';
 export { getSelectedTableInfo, getSelectedCellInfo } from './analytics';
-export { getMergedCellsPositions } from './table';
+export { getMergedCellsPositions, getAssistiveMessage } from './table';
 export { updatePluginStateDecorations } from './update-plugin-state-decorations';
 export {
   hasMergedCellsInColumn,

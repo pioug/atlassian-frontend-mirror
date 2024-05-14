@@ -1,6 +1,7 @@
 # use-primitives
 
-Using primitives allows you to delete bespoke component code and replace it with ready made solutions made by the Atlassian Design System Team.
+Using primitives allows you to delete bespoke component code and replace it with ready made
+solutions made by the Atlassian Design System Team.
 
 ## Examples
 
@@ -33,45 +34,45 @@ const someStyles = xcss({
 
 Currently, the rule is extremely defensive, only reporting on `css` styles that contain:
 
-- one, and only one, style property from this list:
+-   one, and only one, style property from this list:
 
-  - padding
-  - paddingBlock
-  - paddingBlockEnd
-  - paddingBlockStart
-  - paddingBottom
-  - paddingInline
-  - paddingInlineEnd
-  - paddingInlineStart
-  - paddingLeft
-  - paddingRight
-  - paddingTop
-  - margin
-  - marginBlock
-  - marginBlockEnd
-  - marginBlockStart
-  - marginBottom
-  - marginInline
-  - marginInlineEnd
-  - marginInlineStart
-  - marginLeft
-  - marginRight
-  - marginTop
+    -   padding
+    -   paddingBlock
+    -   paddingBlockEnd
+    -   paddingBlockStart
+    -   paddingBottom
+    -   paddingInline
+    -   paddingInlineEnd
+    -   paddingInlineStart
+    -   paddingLeft
+    -   paddingRight
+    -   paddingTop
+    -   margin
+    -   marginBlock
+    -   marginBlockEnd
+    -   marginBlockStart
+    -   marginBottom
+    -   marginInline
+    -   marginInlineEnd
+    -   marginInlineStart
+    -   marginLeft
+    -   marginRight
+    -   marginTop
 
-- and where the style value is one of:
-  - 0px
-  - 2px
-  - 4px
-  - 6px
-  - 8px
-  - 12px
-  - 16px
-  - 20px
-  - 24px
-  - 32px
-  - 40px
-  - 48px
-  - 64px
-  - 80px
+-   and where the style value is one of:
+    -   0px
+    -   2px
+    -   4px
+    -   6px
+    -   8px
+    -   12px
+    -   16px
+    -   20px
+    -   24px
+    -   32px
+    -   40px
+    -   48px
+    -   64px
+    -   80px
 
 If these conditions are not met, then no violation will be reported.

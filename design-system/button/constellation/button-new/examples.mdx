@@ -9,8 +9,6 @@ import SectionMessage from '@atlaskit/section-message';
 import ButtonDefault from '../../examples/constellation/new-button/button/button-default';
 import ButtonPrimary from '../../examples/constellation/new-button/button/button-primary';
 import ButtonSubtle from '../../examples/constellation/new-button/button/button-subtle';
-import ButtonLink from '../../examples/constellation/new-button/button/button-link';
-import ButtonSubtleLink from '../../examples/constellation/new-button/button/button-subtle-link';
 import ButtonWarning from '../../examples/constellation/new-button/button/button-warning';
 import ButtonDanger from '../../examples/constellation/new-button/button/button-danger';
 import ButtonDisabled from '../../examples/constellation/new-button/button/button-disabled';
@@ -57,35 +55,6 @@ Typically, warnings alert people of a problem that might happen if they proceed.
 A danger button appears as a final confirmation for a destructive and irreversible action, such as deleting.
 
 <Example Component={ButtonDanger} packageName="@atlaskit/button" />
-
-## Link buttons
-
-Use [Link button](/components/button/link-button) for buttons that navigate to a new location or anchor.
-
-Follow the usage guidance for [when to use links and buttons](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation).
-
-### Link appearance
-
-<SectionMessage title="Updates to link handling" appearance="information">
-  <p>
-    Link appearances now only support semantically correct links using{' '}
-    <a href="#link-button">link button</a>. If you have a legacy button that's
-    being used as a link, consider replacing with the new link button or using
-    another approach.
-  </p>
-</SectionMessage>
-
-Use a link appearance for buttons that look and behave like inline text links. This is only supported for <a href="#link-button">link buttons</a>.
-
-<Example Component={ButtonLink} packageName="@atlaskit/button" />
-
-### Subtle link appearance
-
-Similar to a subtle button, but looks like a link. Use a `subtle link` button to avoid overwhelming a page with blue links.
-
-Make sure designs have clear affordances for interactable areas and elements. Because there is no color affordance, this style of button relies on the context around it to show that it can be interacted with.
-
-<Example Component={ButtonSubtleLink} packageName="@atlaskit/button" />
 
 ## States
 
@@ -138,9 +107,9 @@ Display an icon after the text.
 
 <Example Component={ButtonWithIconAfter} packageName="@atlaskit/button" />
 
-### Overriding icon size
+### Overriding icon props
 
-To override the default icon size, use the `iconBefore` or `iconAfter` render prop.
+Use the `iconBefore` or `iconAfter` render prop to override the default icon props.
 
 <Example Component={ButtonWithIconBeforeSize} packageName="@atlaskit/button" />
 

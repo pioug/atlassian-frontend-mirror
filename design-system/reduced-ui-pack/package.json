@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reduced-ui-pack",
-  "version": "18.2.0",
+  "version": "18.3.0",
   "description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,6 +16,7 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "runReact18": true,
     "website": {
       "name": "Reduced UI Pack",
       "category": "Libraries"
@@ -32,16 +33,17 @@
     "dist/icons-sprite.svg"
   ],
   "dependencies": {
-    "@atlaskit/theme": "^12.7.0",
+    "@atlaskit/theme": "^12.8.0",
     "fbjs": "^3.0.0"
   },
   "peerDependencies": {
-    "@atlaskit/css-reset": "^6.9.0"
+    "@atlaskit/css-reset": "^6.9.0",
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
+    "@af/yarn-utils": "*",
     "@atlaskit/icon": "^22.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "bolt": "^0.24.10",
     "glob": "9.0.0",
     "jsdom": "^17.0.0",
     "mkdirp": "^0.5.1",

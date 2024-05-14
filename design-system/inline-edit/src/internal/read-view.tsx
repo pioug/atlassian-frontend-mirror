@@ -3,8 +3,10 @@ import React, { useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { B100, N30 } from '@atlaskit/theme/colors';
+import { Pressable, xcss } from '@atlaskit/primitives';
+import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { borderRadius } from './constants';
 
@@ -12,17 +14,26 @@ const readViewContainerStyles = css({
   lineHeight: 1,
 });
 
-const editButtonStyles = css({
+const editButtonStyles = xcss({
   display: 'block',
-  margin: token('space.0', '0px'),
-  padding: token('space.0', '0px'),
+  margin: 'space.0',
+  padding: 'space.0',
   appearance: 'none',
   background: 'transparent',
   border: 0,
   lineHeight: 1,
-  outline: '0',
-  '&:focus + div': {
-    border: `2px solid ${token('color.border.focused', B100)}`,
+  outline: 0,
+
+  ':focus-visible': {
+    outline: 0,
+  },
+
+  // @ts-expect-error
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+  ':focus + div': {
+    borderColor: 'color.border.focused',
+    borderWidth: 'border.width.outline',
+    borderStyle: 'solid',
   },
 });
 
@@ -52,6 +63,7 @@ interface ReadViewProps {
   editButtonRef: React.RefObject<HTMLButtonElement>;
   readViewFitContainerWidth?: boolean;
   readView: () => React.ReactNode;
+  testId?: string;
 }
 
 const ReadView = ({
@@ -61,6 +73,7 @@ const ReadView = ({
   editButtonRef,
   readViewFitContainerWidth,
   readView,
+  testId,
 }: ReadViewProps) => {
   const startX = useRef(0);
   const startY = useRef(0);
@@ -92,13 +105,14 @@ const ReadView = ({
 
   return (
     <div css={readViewContainerStyles}>
-      <button
-        css={editButtonStyles}
-        aria-label={editButtonLabel}
-        type="button"
+      <Pressable
+        xcss={editButtonStyles}
         onClick={onEditRequested}
         ref={editButtonRef}
-      />
+        testId={testId && `${testId}--edit-button`}
+      >
+        <VisuallyHidden>{editButtonLabel}</VisuallyHidden>
+      </Pressable>
       <div
         css={[
           readViewWrapperStyles,

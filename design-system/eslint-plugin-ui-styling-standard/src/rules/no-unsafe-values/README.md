@@ -1,0 +1,220 @@
+This rule prevents the usage of styles that are difficult/impossible to statically analyze.
+
+## Examples
+
+### Incorrect
+
+**Function calls**
+
+Function calls are not allowed as arguments or as values,
+unless they are specified in `allowedFunctionCalls` (or in the default list).
+
+```tsx
+import { css } from '@compiled/react';
+
+function getStyles() {
+  return { width: 100 };
+}
+
+const styles = css(getStyles());
+```
+
+```tsx
+import { css } from '@compiled/react';
+
+function getWidth() {
+  return 100;
+}
+
+const styles = css({
+  width: getWidth(),
+});
+```
+
+**Dynamic keys**
+
+Dynamic keys are not allowed,
+unless they are specified in `allowedDynamicKeys` (or in the default list).
+
+```tsx
+import { css } from '@compiled/react';
+import { SELECTOR } from 'my-package';
+
+const styles = css({
+  [SELECTOR]: {
+    color: 'red',
+  },
+  [`${SELECTOR} > p`]: {
+    width: 100,
+  },
+});
+```
+
+**Variables**
+
+Variables are not allowed as values, unless they:
+
+- Have a simple, static value
+- Are defined in the same file
+
+```tsx
+import { css } from '@compiled/react';
+import { SELECTOR } from 'my-package';
+
+function myFunction() {
+  return '5px';
+}
+
+const styles = css({
+  height: myFunction,
+});
+```
+
+**Object access**
+
+Accessing object members is not allowed in values.
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const colors = {
+  text: token('color.text'),
+};
+
+const styles = css({
+  color: colors.text,
+});
+```
+
+**Spread elements**
+
+Spread elements are not allowed.
+
+```tsx
+import { css } from '@compiled/react';
+
+const buttonStyles = {
+  color: 'blue',
+};
+
+const styles = css({
+  ...buttonStyles,
+});
+```
+
+**Array values**
+
+Array values are not allowed.
+This syntax is not supported by most styling libraries.
+
+```tsx
+import { css } from '@compiled/react';
+
+const styles = css({
+  '::before': [{ fontWeight: 'bold' }, { color: 'red' }],
+});
+```
+
+### Correct
+
+Things to note about the following example:
+
+- The `warningStyles` are conditionally applied using the `css` prop
+- The dynamic `width` is applied using the `style` prop
+- The `token()` calls are allowed because they are statically analyzable (and in the default allow-list)
+
+```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
+
+const baseStyles = css({
+  height: 100,
+});
+
+const warningStyles = css({
+  color: token('color.text.warning'),
+  backgroundColor: token('color.background.warning'),
+});
+
+const Component = ({
+  isWarning,
+  width,
+}: {
+  isWarning: boolean;
+  width: number;
+}) => {
+  return (
+    <div style={{ width }} css={[baseStyles, isWarning && warningStyles]} />
+  );
+};
+```
+
+## Options
+
+### `allowedDynamicKeys: [string, string][]`
+
+Use this to allow specified imports as dynamic keys, in addition to the built-in allow-list.
+
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+
+Default imports are not supported.
+
+```tsx
+// .eslintrc.js
+
+// ...
+      rules: {
+        '@atlaskit/eslint-plugin-ui-styling-standard/no-unsafe-values': [
+          'error',
+          {
+            allowedDynamicKeys: [
+              ['@atlaskit/primitives/responsive', 'media'],
+            ]
+          },
+        ],
+        // ...
+      },
+// ...
+```
+
+### `allowedFunctionCalls: [string, string][]`
+
+Use this to allow specific functions to be called, in addition to the built-in allow-list.
+
+Each value should be a two-element array. The first item is the entrypoint, and the second item is a named export.
+
+Default imports are not currently supported.
+
+```tsx
+// .eslintrc.js
+
+// ...
+      rules: {
+        '@atlaskit/eslint-plugin-ui-styling-standard/no-unsafe-values': [
+          'error',
+          {
+            allowedFunctionCalls: [
+              ['@atlaskit/tokens', 'token'],
+            ]
+          },
+        ],
+        // ...
+      },
+// ...
+```
+
+### `importSources : string[]`
+
+By default, this rule will check `css` usages from:
+
+- `@atlaskit/css`
+- `@atlaskit/primitives`
+- `@compiled/react`
+- `@emotion/react`
+- `@emotion/core`
+- `@emotion/styled`
+- `styled-components`
+
+To change this list of libraries, you can define a custom set of `importSources`, which accepts an array of package names (strings).
+This will override the built-in allow-list.

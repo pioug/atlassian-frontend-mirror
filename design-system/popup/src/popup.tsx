@@ -1,15 +1,8 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 /** @jsx jsx */
-import {
-  type Dispatch,
-  type FC,
-  memo,
-  type SetStateAction,
-  useState,
-} from 'react';
+import { type FC, memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
-import memoizeOne from 'memoize-one';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { Manager, Reference } from '@atlaskit/popper';
@@ -18,6 +11,7 @@ import { layers } from '@atlaskit/theme/constants';
 
 import PopperWrapper from './popper-wrapper';
 import { PopupProps } from './types';
+import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 
 const defaultLayer = layers.layer();
 
@@ -42,42 +36,12 @@ export const Popup: FC<PopupProps> = memo(
     shouldRenderToParent = false,
     shouldDisableFocusLock = false,
     strategy,
+    role,
+    label,
+    titleId,
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
-
-    /*
-     * Get a memoized functional ref for use within this Popup's Trigger.
-     * This is still very volatile to change as `prop.isOpen` will regularly change, but it's better than nothing.
-     * This is memoized within our component as to not be shared across all Popup instances, just this one.
-     *
-     * This is complex because the inputs are split across three different scopes:
-     *  - `props.isOpen`
-     *  - `useState.setTriggerRef`
-     *  - `renderProps.ref`
-     */
-    const [getMergedTriggerRef] = useState(() =>
-      memoizeOne(
-        (
-          ref:
-            | React.RefCallback<HTMLElement>
-            | React.MutableRefObject<HTMLElement>
-            | null,
-          setTriggerRef: Dispatch<SetStateAction<HTMLElement | null>>,
-          isOpen: boolean,
-        ) => {
-          return (node: HTMLElement | null) => {
-            if (node && isOpen) {
-              if (typeof ref === 'function') {
-                ref(node);
-              } else if (ref) {
-                ref.current = node;
-              }
-              setTriggerRef(node);
-            }
-          };
-        },
-      ),
-    );
+    const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
 
     const renderPopperWrapper = (
       <UNSAFE_LAYERING isDisabled={false}>
@@ -100,6 +64,9 @@ export const Popup: FC<PopupProps> = memo(
           shouldDisableFocusLock={shouldDisableFocusLock}
           triggerRef={triggerRef}
           strategy={strategy}
+          role={role}
+          label={label}
+          titleId={titleId}
         />
       </UNSAFE_LAYERING>
     );

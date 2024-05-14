@@ -67,7 +67,7 @@ export interface ADMarkSimple {
 
 /*
  * It's important that this order follows the marks rank defined here:
- * https://product-fabric.atlassian.net/wiki/spaces/E/pages/11174043/Document+structure#Documentstructure-Rank
+ * https://product-fabric.atlassian.net/wiki/spaces/ETEMP/pages/11174043/Atlassian+Document+Format+-+Internal+documentation#Rank
  */
 export const markOrder = [
   'fragment',
@@ -82,6 +82,7 @@ export const markOrder = [
   'confluenceInlineComment',
   'annotation',
   'dataConsumer',
+  'backgroundColor',
 ];
 
 export const isSubSupType = (type: string): type is 'sub' | 'sup' => {
@@ -595,6 +596,16 @@ export const getValidNode = (
         break;
       }
       case 'paragraph': {
+        if (adfStage === 'stage0') {
+          let paragraphNode: ADNode = { type, content: content || [] };
+          if (attrs && attrs.localId) {
+            paragraphNode.attrs = { localId: attrs.localId };
+          }
+          if (marks) {
+            paragraphNode.marks = [...marks];
+          }
+          return paragraphNode;
+        }
         return marks
           ? {
               type,
@@ -622,6 +633,20 @@ export const getValidNode = (
           const { level } = attrs;
           const between = (x: number, a: number, b: number) => x >= a && x <= b;
           if (level && between(level, 1, 6)) {
+            if (adfStage === 'stage0') {
+              let headingNode: ADNode = {
+                type,
+                content: content,
+                attrs: { level },
+              };
+              if (attrs.localId) {
+                headingNode.attrs.localId = attrs.localId;
+              }
+              if (marks) {
+                headingNode.marks = [...marks];
+              }
+              return headingNode;
+            }
             return marks
               ? {
                   type,
@@ -856,8 +881,7 @@ export const getValidNode = (
 
 /*
  * This method will validate a Mark according to the spec defined here
- * https://product-fabric.atlassian.net/wiki/spaces/E/pages/11174043/Document+structure#Documentstructure-Marks
- *
+ * https://developer.atlassian.com/platform/atlassian-document-format/concepts/document-structure/marks/overview/
  * This is also the place to handle backwards compatibility.
  *
  * If a node is not recognized or is missing required attributes, we should return null
@@ -961,6 +985,16 @@ export const getValidMark = (
           type,
           attrs,
         };
+      }
+      case 'backgroundColor': {
+        if (attrs && TEXT_COLOR_PATTERN.test(attrs.color)) {
+          return {
+            type,
+            attrs,
+          };
+        }
+
+        break;
       }
     }
   }

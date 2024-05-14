@@ -1,6 +1,5 @@
 import type { IntlShape } from 'react-intl-next/src/types';
 
-import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import {
@@ -9,15 +8,18 @@ import {
   INPUT_METHOD,
   TABLE_ACTION,
   TABLE_BREAKOUT,
+  TABLE_DISPLAY_MODE,
 } from '@atlaskit/editor-common/analytics';
 import type {
   AnalyticsEventPayload,
   EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type {
   Command,
   GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/dist/types/view';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { Rect } from '@atlaskit/editor-tables/table-map';
@@ -31,6 +33,7 @@ import { clearMultipleCells } from './commands/clear';
 import { wrapTableInExpand } from './commands/collapse';
 import { changeColumnWidthByStep } from './commands/column-resize';
 import { deleteColumnsCommand } from './commands/delete';
+import { setTableDisplayMode } from './commands/display-mode';
 import { insertColumn, insertRow } from './commands/insert';
 import {
   deleteTable,
@@ -174,6 +177,7 @@ export const setColorWithAnalytics =
       | INPUT_METHOD.TABLE_CONTEXT_MENU,
     cellColor: string,
     targetCellPosition?: number,
+    editorView?: EditorView | null,
   ) =>
     withEditorAnalyticsAPI(({ selection }) => {
       const {
@@ -203,7 +207,11 @@ export const setColorWithAnalytics =
         eventType: EVENT_TYPE.TRACK,
       };
     })(editorAnalyticsAPI)(
-      setMultipleCellAttrs({ background: cellColor }, targetCellPosition),
+      setMultipleCellAttrs(
+        { background: cellColor },
+        targetCellPosition,
+        editorView,
+      ),
     );
 
 export const addRowAroundSelection =
@@ -232,7 +240,10 @@ export const addRowAroundSelection =
   };
 
 export const insertRowWithAnalytics =
-  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+    isCellbackgroundDuplicated = false,
+  ) =>
   (inputMethod: InsertRowMethods, options: InsertRowOptions) =>
     withEditorAnalyticsAPI((state) => {
       const { totalRowCount, totalColumnCount } = getSelectedTableInfo(
@@ -251,7 +262,11 @@ export const insertRowWithAnalytics =
         eventType: EVENT_TYPE.TRACK,
       };
     })(editorAnalyticsAPI)(
-      insertRow(options.index, options.moveCursorToInsertedRow),
+      insertRow(
+        options.index,
+        options.moveCursorToInsertedRow,
+        isCellbackgroundDuplicated,
+      ),
     );
 
 export const changeColumnWidthByStepWithAnalytics =
@@ -300,6 +315,7 @@ export const insertColumnWithAnalytics =
   (
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
     isTableScalingEnabled = false,
+    isCellbackgroundDuplicated = false,
   ) =>
   (
     inputMethod:
@@ -326,7 +342,9 @@ export const insertColumnWithAnalytics =
         },
         eventType: EVENT_TYPE.TRACK,
       };
-    })(editorAnalyticsAPI)(insertColumn(isTableScalingEnabled)(position));
+    })(editorAnalyticsAPI)(
+      insertColumn(isTableScalingEnabled, isCellbackgroundDuplicated)(position),
+    );
 
 export const deleteRowsWithAnalytics =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
@@ -535,7 +553,9 @@ export const toggleTableLayoutWithAnalytics = (
     );
 
     if (table) {
-      const { layout } = table.node.attrs as { layout: TableLayout };
+      const { layout } = table.node.attrs as {
+        layout: 'default' | 'wide' | 'full-width';
+      };
       return {
         action: TABLE_ACTION.CHANGED_BREAKOUT_MODE,
         actionSubject: ACTION_SUBJECT.TABLE,
@@ -627,4 +647,48 @@ export const wrapTableInExpandWithAnalytics = (
       eventType: EVENT_TYPE.TRACK,
     };
   })(editorAnalyticsAPI)(wrapTableInExpand);
+
+export const toggleTableLockWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    displayMode: TABLE_DISPLAY_MODE | null,
+    inputMethod: INPUT_METHOD.CONTEXT_MENU | INPUT_METHOD.FLOATING_TB,
+  ) =>
+    withEditorAnalyticsAPI((state) => {
+      const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
+      );
+
+      let previousDisplayMode: TABLE_DISPLAY_MODE;
+      let newDisplayMode: TABLE_DISPLAY_MODE;
+
+      switch (displayMode) {
+        case 'fixed':
+          previousDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+          newDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
+          break;
+        case 'default':
+          previousDisplayMode = TABLE_DISPLAY_MODE.DEFAULT;
+          newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+          break;
+        case null:
+        default:
+          previousDisplayMode = TABLE_DISPLAY_MODE.INITIAL;
+          newDisplayMode = TABLE_DISPLAY_MODE.FIXED;
+      }
+
+      return {
+        action: TABLE_ACTION.CHANGED_DISPLAY_MODE,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        attributes: {
+          inputMethod,
+          previousDisplayMode,
+          newDisplayMode,
+          tableWidth: table?.node.attrs.width,
+          totalRowCount,
+          totalColumnCount,
+        },
+        eventType: EVENT_TYPE.TRACK,
+      };
+    })(editorAnalyticsAPI)(editorCommandToPMCommand(setTableDisplayMode));
 // #endregion

@@ -15,4 +15,12 @@ snapshotInformational(IssueLikeTable, {
   },
   drawsOutsideBounds: true,
   description: 'issue like table hovering over key link',
+  ignoredErrors: [
+    {
+      pattern: /(received unsupported error)|(The above error occurred in the)/,
+      ignoredBecause:
+        'Intentionally triggering an error to capture error boundary fallback',
+      jiraIssueId: 'NONE-123',
+    },
+  ],
 });

@@ -102,6 +102,18 @@ Object {
           "text": "Red :D",
           "type": "text",
         },
+        Object {
+          "marks": Array [
+            Object {
+              "attrs": Object {
+                "color": "red",
+              },
+              "type": "backgroundColor",
+            },
+          ],
+          "text": "Highlight Red",
+          "type": "text",
+        },
       ],
       "type": "paragraph",
     },

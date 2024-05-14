@@ -1,9 +1,9 @@
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { DatasourceTableStatusType } from '@atlaskit/linking-types';
+import { type DatasourceTableStatusType } from '@atlaskit/linking-types';
 
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceSearchMethod } from '../../../../analytics/types';
-import { DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
+import { type DatasourceTableState } from '../../../../hooks/useDatasourceTableState';
 
 import {
   getDefaultHookState,
@@ -233,7 +233,7 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
 
         it(`should fire "ui.button.clicked.${actionSubjectId}" with action = "display view changed" and display = "datasource_inline" when user changed the view and then clicked the ${buttonName} button`, async () => {
           const { assertAnalyticsAfterButtonClick } = await setup({
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(
@@ -392,7 +392,7 @@ describe('Analytics: ConfluenceSearchConfigModal', () => {
           });
 
           const { assertAnalyticsAfterButtonClick } = await setup({
-            viewMode: 'count',
+            viewMode: 'inline',
           });
 
           await assertAnalyticsAfterButtonClick(

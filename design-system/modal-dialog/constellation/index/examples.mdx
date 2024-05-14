@@ -24,29 +24,22 @@ The default form of a modal dialog.
 
 ## Appearance
 
-A modal dialog is available in two other variations.
+You can give the modal `warning` or `danger` styling to indicate the severity of the action or message.
 The appearance needs to be set on both the modal title and the primary button.
 
 ### Warning
 
-Warning modals appear in anticipation of a significant change.
-Have empathy for people.
-Inform,
-but don't alarm.
-If the warning comes before an action,
-clearly communicate what will happen if they proceed,
-and provide an alternative or opt-out where possible.
+Use a warning modal to help inform people of a significant change. If the warning comes before an action, clearly communicate what will happen if they proceed, and provide an alternative or opt-out where possible.
 
 <a href="/content/writing-guidelines/writing-a-warning-message/">
-  Learn more about writing warning messages
+  Writing guidelines for warning messages
 </a>
 
 <Example Component={ModalWarning} packageName="@atlaskit/modal-dialog" />
 
 ### Danger
 
-Use danger modals to inform people when something potentially destructive will happen if they continue.
-Explain the problem and provide a next step or an alternative.
+Use danger modals to alert people when something potentially destructive or irreversible will happen if they continue. Explain the problem and provide a next step or an alternative.
 
 <Example Component={ModalDanger} packageName="@atlaskit/modal-dialog" />
 
@@ -110,7 +103,7 @@ in the top right.
 
 ### Custom modal header
 
-For very custom use cases, you can achieve the same thing without modal
+For very custom use cases, you can achieve the same thing without the modal
 header or title. To make sure the modal is accessible, call `useModal`
 and set `titleId` as the `id` on the heading.
 
@@ -118,14 +111,14 @@ and set `titleId` as the `id` on the heading.
 
 ## Modal footer
 
-Modal footer accepts any valid React element as children. For example,
+The modal footer accepts any valid React element as children. For example,
 you can add an [avatar](/components/avatar/) in the footer.
 
 <Example Component={ModalFooter} packageName="@atlaskit/modal-dialog" />
 
 ### Custom modal footer
 
-For very custom use cases, you can achieve the same thing without modal
+For very custom use cases, you can achieve the same thing without the modal
 footer.
 
 <Example Component={ModalCustomFooter} packageName="@atlaskit/modal-dialog" />
@@ -133,6 +126,6 @@ footer.
 ## Surface detection
 
 The [current surface CSS variable](/components/tokens/code#current-surface-color) is set to the surface color of the modal.
-The `utility.elevation.surface.current` design token can be used to style children with the current surface color.
+You can use the `utility.elevation.surface.current` design token to style children with the current surface color.
 
 <Example Component={ModalCurrentSurface} packageName="@atlaskit/modal-dialog" />

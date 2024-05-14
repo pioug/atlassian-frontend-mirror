@@ -30,8 +30,8 @@
     "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx"
   },
   "dependencies": {
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "fbjs": "^3.0.0"
   },

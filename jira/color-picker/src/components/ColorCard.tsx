@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
-import { COLOR_CARD_SIZE, KEY_ENTER, KEY_SPACE } from '../constants';
+import { KEY_ENTER, KEY_SPACE } from '../constants';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
@@ -26,7 +26,6 @@ const ColorCard = (props: Props) => {
     label,
     selected,
     focused,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     checkMarkColor = N0,
     isTabbing,
     onClick,
@@ -91,47 +90,7 @@ const ColorCard = (props: Props) => {
     }
   }, []);
 
-  return getBooleanFF(
-    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
-  ) ? (
-    <Tooltip content={label}>
-      <div
-        css={[
-          sharedColorContainerStylesNew,
-          (isTabbing === undefined || isTabbing) &&
-            colorCardOptionTabbingStyles,
-          focused && !isTabbing && colorCardOptionFocusedStyles,
-        ]}
-        onClick={handleClick}
-        onMouseDown={handleMouseDown}
-        onKeyDown={handleKeyDown}
-        role="radio"
-        aria-checked={selected}
-        aria-label={label}
-        tabIndex={0}
-        {...(getBooleanFF(
-          'platform.color-picker-radio-button-functionality_6hkcy',
-        ) && {
-          ref: ref,
-        })}
-      >
-        <div css={colorCardWrapperStylesNew}>
-          <div
-            css={colorCardContentStylesNew}
-            style={{
-              background: value || 'transparent',
-            }}
-          >
-            {selected && (
-              <div css={colorCardContentCheckMarkStyles}>
-                <EditorDoneIcon primaryColor={checkMarkColor} label="" />
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </Tooltip>
-  ) : (
+  return (
     <Tooltip content={label}>
       <div
         css={[
@@ -145,7 +104,6 @@ const ColorCard = (props: Props) => {
         onKeyDown={handleKeyDown}
         role="radio"
         aria-checked={selected}
-        aria-label={label}
         tabIndex={0}
         {...(getBooleanFF(
           'platform.color-picker-radio-button-functionality_6hkcy',
@@ -153,17 +111,19 @@ const ColorCard = (props: Props) => {
           ref: ref,
         })}
       >
-        <div
-          css={colorCardContentStyles}
-          style={{
-            background: value || 'transparent',
-          }}
-        >
-          {selected && (
-            <div css={colorCardContentCheckMarkStyles}>
-              <EditorDoneIcon primaryColor={checkMarkColor} label="" />
-            </div>
-          )}
+        <div css={colorCardWrapperStyles}>
+          <div
+            css={colorCardContentStyles}
+            style={{
+              background: value || 'transparent',
+            }}
+          >
+            {selected && (
+              <div css={colorCardContentCheckMarkStyles}>
+                <EditorDoneIcon primaryColor={checkMarkColor} label="" />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </Tooltip>
@@ -171,22 +131,6 @@ const ColorCard = (props: Props) => {
 };
 
 export default ColorCard;
-
-const sharedColorContainerStyles = css({
-  display: 'inline-block',
-  position: 'relative',
-  width: `${COLOR_CARD_SIZE}px`,
-  height: `${COLOR_CARD_SIZE}px`,
-  border: '2px solid transparent',
-  boxSizing: 'border-box',
-  borderRadius: '6px',
-  transition: 'border-color 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38)',
-  backgroundColor: token('color.background.neutral.subtle', N0),
-  borderColor: token('color.background.neutral.subtle', N0),
-  padding: token('space.0', '0px'),
-  cursor: 'pointer',
-  outline: 'none',
-});
 
 const colorCardOptionTabbingStyles = css({
   ':hover, :focus': {
@@ -198,25 +142,12 @@ const colorCardOptionFocusedStyles = css({
   borderColor: token('color.border.focused', B75),
 });
 
-const colorCardContentStyles = css({
-  position: 'absolute',
-  top: '1px',
-  left: '1px',
-  width: token('space.300', '24px'),
-  height: token('space.300', '24px'),
-  borderRadius: token('border.radius.100', '3px'),
-  boxShadow: `inset 0px 0px 0px 1px ${token(
-    'color.background.inverse.subtle',
-    DN600A,
-  )}`,
-});
-
 const colorCardContentCheckMarkStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   margin: '1px',
 });
 
-const sharedColorContainerStylesNew = css({
+const sharedColorContainerStyles = css({
   display: 'inline-block',
   position: 'relative',
   width: token('space.400', '32px'),
@@ -232,7 +163,7 @@ const sharedColorContainerStylesNew = css({
   outline: 'none',
 });
 
-const colorCardWrapperStylesNew = css({
+const colorCardWrapperStyles = css({
   width: '100%',
   height: '100%',
   display: 'flex',
@@ -240,7 +171,7 @@ const colorCardWrapperStylesNew = css({
   justifyContent: 'center',
 });
 
-const colorCardContentStylesNew = css({
+const colorCardContentStyles = css({
   width: token('space.300', '24px'),
   height: token('space.300', '24px'),
   borderRadius: token('border.radius.100', '3px'),

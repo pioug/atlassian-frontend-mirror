@@ -1,5 +1,10 @@
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import {
+  type DatasourceAdf,
+  type InlineCardAdf,
+} from '@atlaskit/linking-common/types';
+import { type DatasourceParameters } from '@atlaskit/linking-types';
+
+import { type ConfigModalProps } from '../../common/types';
 
 export type AssetsDatasourceParameters = {
   workspaceId: string;
@@ -9,13 +14,8 @@ export type AssetsDatasourceParameters = {
 
 export type AssetsDatasourceAdf = DatasourceAdf<AssetsDatasourceParameters>;
 
-export interface AssetsConfigModalProps {
-  datasourceId: string;
-  visibleColumnKeys?: string[];
-  parameters?: AssetsDatasourceParameters;
-  onCancel: () => void;
-  onInsert: (
-    adf: InlineCardAdf | AssetsDatasourceAdf,
-    analyticsEvent?: UIAnalyticsEvent,
-  ) => void;
-}
+export interface AssetsConfigModalProps
+  extends ConfigModalProps<
+    InlineCardAdf | AssetsDatasourceAdf,
+    DatasourceParameters | AssetsDatasourceParameters
+  > {}

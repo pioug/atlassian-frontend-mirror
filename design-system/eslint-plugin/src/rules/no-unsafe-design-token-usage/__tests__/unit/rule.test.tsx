@@ -3,6 +3,12 @@ import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { tester } from '../../../__tests__/utils/_tester';
 import rule from '../../index';
 
+// Mock default values in case they change
+jest.mock('@atlaskit/tokens/token-default-values', () => ({
+  __esModule: true,
+  default: { 'color.text': '#172B4D' },
+}));
+
 // Mock rename mapping in case it changes
 jest.mock('@atlaskit/tokens/rename-mapping', () => ({
   __esModule: true,
@@ -331,6 +337,13 @@ tester.run('no-unsafe-design-token-usage', rule, {
       // should error when a fallback is not supplied
       options: [{ fallbackUsage: 'forced' }],
       code: `css({ color: token('elevation.shadow.raised') })`,
+      errors: [{ messageId: 'tokenFallbackEnforced' }],
+    },
+    // should automatically insert a default fallback value
+    {
+      options: [{ fallbackUsage: 'forced' }],
+      code: `css({ color: token('color.text') })`,
+      output: `css({ color: token('color.text', '#172B4D') })`,
       errors: [{ messageId: 'tokenFallbackEnforced' }],
     },
   ],

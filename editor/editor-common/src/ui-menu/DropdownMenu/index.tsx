@@ -25,23 +25,24 @@ import type { MenuItem, Props, State } from './types';
 
 export type { MenuItem } from './types';
 
-const wrapper = css`
+const wrapper = css({
   /* tooltip in ToolbarButton is display:block */
-  & > div > div {
-    display: flex;
-  }
-`;
+  '& > div > div': {
+    display: 'flex',
+  },
+});
 
-const focusedMenuItemStyle = css`
-  box-shadow: inset 0px 0px 0px 2px ${token('color.border.focused', B100)};
-  outline: none;
-`;
+const focusedMenuItemStyle = css({
+  boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focused', B100)}`,
+  outline: 'none',
+});
 
 const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
   if (isActive) {
     /**
      * Hack for item to imitate old dropdown-menu selected styles
      */
+    // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
     return css`
       > span,
       > span:hover,
@@ -58,6 +59,7 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
       }
     `;
   } else {
+    // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
     return css`
       > span:hover[aria-disabled='false'] {
         color: ${token('color.text', N900)};
@@ -205,33 +207,12 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
           >
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />
             <div ref={this.popupRef}>
-              {getBooleanFF('platform.editor.menu.group-items') && (
-                <MenuGroup role={shouldUseDefaultRole ? 'group' : 'menu'}>
-                  {items.map((group, index) => (
-                    <Section
-                      hasSeparator={section?.hasSeparator && index > 0}
-                      title={section?.title}
-                      key={index}
-                    >
-                      {group.items.map((item) => (
-                        <DropdownMenuItem
-                          key={item.key ?? String(item.content)}
-                          item={item}
-                          onItemActivated={this.props.onItemActivated}
-                          shouldUseDefaultRole={this.props.shouldUseDefaultRole}
-                          onMouseEnter={this.props.onMouseEnter}
-                          onMouseLeave={this.props.onMouseLeave}
-                        />
-                      ))}
-                    </Section>
-                  ))}
-                </MenuGroup>
-              )}
-              {!getBooleanFF('platform.editor.menu.group-items') &&
-                items.map((group, index) => (
-                  <MenuGroup
+              <MenuGroup role={shouldUseDefaultRole ? 'group' : 'menu'}>
+                {items.map((group, index) => (
+                  <Section
+                    hasSeparator={section?.hasSeparator && index > 0}
+                    title={section?.title}
                     key={index}
-                    role={shouldUseDefaultRole ? 'group' : 'menu'}
                   >
                     {group.items.map((item) => (
                       <DropdownMenuItem
@@ -243,8 +224,9 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
                         onMouseLeave={this.props.onMouseLeave}
                       />
                     ))}
-                  </MenuGroup>
+                  </Section>
                 ))}
+              </MenuGroup>
             </div>
           </DropListWithOutsideListeners>
         </ArrowKeyNavigationProvider>
@@ -330,11 +312,20 @@ export function DropdownMenuItem({
   }
 
   const _handleSubmenuActive: MouseEventHandler<HTMLDivElement> = (event) => {
-    setSubmenuActive(
-      !!(event.target as Element).closest(
-        `.${DropdownMenuSharedCssClassName.SUBMENU}`,
-      ),
-    );
+    if (getBooleanFF('platform.editor.explicit-html-element-check')) {
+      setSubmenuActive(
+        Boolean(
+          event.target instanceof HTMLElement &&
+            event.target.closest(`.${DropdownMenuSharedCssClassName.SUBMENU}`),
+        ),
+      );
+    } else {
+      setSubmenuActive(
+        !!(event.target as Element).closest(
+          `.${DropdownMenuSharedCssClassName.SUBMENU}`,
+        ),
+      );
+    }
   };
 
   const dropListItem = (

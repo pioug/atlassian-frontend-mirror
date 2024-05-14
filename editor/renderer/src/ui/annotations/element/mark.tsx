@@ -54,6 +54,11 @@ export const MarkComponent = ({
   );
   const onMarkClick = useCallback(
     (event: MouseEvent) => {
+      // prevent inline mark logic for media block marks
+      if (event.currentTarget.getAttribute('data-block-mark')) {
+        return;
+      }
+
       // prevents multiple callback on overlapping annotations
       if (event.defaultPrevented || state !== AnnotationMarkStates.ACTIVE) {
         return;

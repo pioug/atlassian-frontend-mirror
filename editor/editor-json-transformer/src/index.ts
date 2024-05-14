@@ -118,6 +118,11 @@ const toJSON = (node: PMNode): JSONNode => {
     obj.attrs = filterNull(obj.attrs);
   }
 
+  // Remove the attrs property if it's empty, this is currently limited to paragraph nodes.
+  if (isParagraph(node) && obj.attrs && !Object.keys(obj.attrs).length) {
+    delete obj.attrs;
+  }
+
   if (node.isText) {
     obj.text = node.textContent;
   } else {

@@ -5,7 +5,7 @@ import React from 'react';
 import { Component } from 'react';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import PlayIcon from '@atlaskit/icon/glyph/vid-play';
 import PauseIcon from '@atlaskit/icon/glyph/vid-pause';
@@ -15,7 +15,7 @@ import SoundIcon from '@atlaskit/icon/glyph/hipchat/outgoing-sound';
 import HDIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import {
-  MediaFeatureFlags,
+  type MediaFeatureFlags,
   withMediaAnalyticsContext,
 } from '@atlaskit/media-common';
 
@@ -24,11 +24,12 @@ import { xcss, Box, Flex } from '@atlaskit/primitives';
 import MediaButton from '../MediaButton';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
-import MediaPlayer, { VideoState, VideoActions } from 'react-video-renderer';
+import MediaPlayer, { type VideoState, type VideoActions } from 'react-video-renderer';
 import { N0, DN60 } from '@atlaskit/theme/colors';
-import { NumericalCardDimensions } from '@atlaskit/media-common';
+import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { TimeRange } from './timeRange';
-import { CustomMediaPlayerType } from './types';
+import VolumeRange from './volumeRange';
+import { type CustomMediaPlayerType } from './types';
 import {
   CurrentTime,
   VolumeWrapper,
@@ -40,8 +41,8 @@ import {
   VolumeTimeRangeWrapper,
 } from './styled';
 import {
-  CustomMediaPlayerUIEvent,
-  CustomMediaPlayerAnalyticsEventPayload,
+  type CustomMediaPlayerUIEvent,
+  type CustomMediaPlayerAnalyticsEventPayload,
   fireAnalyticsEvent,
   createCustomMediaPlayerScreenEvent,
   createMediaButtonClickedEvent,
@@ -51,23 +52,24 @@ import {
   createPlaybackSpeedChangedEvent,
   createFirstPlayedTrackEvent,
   createPlayedTrackEvent,
-  PlaybackState,
-  WithPlaybackProps,
-  WithMediaPlayerState,
+  type PlaybackState,
+  type WithPlaybackProps,
+  type WithMediaPlayerState,
 } from './analytics';
 import { formatDuration } from '../formatDuration';
 import { Shortcut, keyCodes } from '../shortcut';
 import { toggleFullscreen, getFullscreenElement } from './fullscreen';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
 import simultaneousPlayManager from './simultaneousPlayManager';
-import { WithShowControlMethodProp } from '../types';
-import { TimeSaver, TimeSaverConfig } from './timeSaver';
+import { type WithShowControlMethodProp } from '../types';
+import { TimeSaver, type TimeSaverConfig } from './timeSaver';
 import PlaybackSpeedControls from './playbackSpeedControls';
 import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
 import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -359,22 +361,37 @@ export class CustomMediaPlayerBase extends Component<
             actions.toggleMute,
             'muteButton',
           )}
-          iconBefore={<SoundIcon label="volume" />}
+          iconBefore={<SoundIcon label={this.props.intl.formatMessage(messages.volumeMuteButtonAria)}  />}
+          aria-pressed={ videoState.isMuted }
         />
       </VolumeToggleWrapper>
-      {showSlider && (
-        <VolumeTimeRangeWrapper>
-          <TimeRange
-            onChange={actions.setVolume}
-            duration={1}
-            currentTime={videoState.volume}
-            bufferedTime={videoState.volume}
-            disableThumbTooltip={true}
-            isAlwaysActive={true}
-            onChanged={this.onVolumeChanged}
-          />
-        </VolumeTimeRangeWrapper>
-      )}
+      {getBooleanFF(
+        'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+      )
+        ? showSlider && (
+            <VolumeTimeRangeWrapper>
+              <VolumeRange
+                onChange={actions.setVolume}
+                currentVolume={videoState.volume}
+                isAlwaysActive={true}
+                onChanged={this.onVolumeChanged}
+                ariaLabel={this.props.intl.formatMessage(messages.volumeLevelControlAria)}
+              />
+            </VolumeTimeRangeWrapper>
+          )
+        : showSlider && (
+            <VolumeTimeRangeWrapper>
+              <TimeRange
+                onChange={actions.setVolume}
+                duration={1}
+                currentTime={videoState.volume}
+                bufferedTime={videoState.volume}
+                disableThumbTooltip={true}
+                isAlwaysActive={true}
+                onChanged={this.onVolumeChanged}
+              />
+            </VolumeTimeRangeWrapper>
+          )}
     </VolumeWrapper>
   );
 
@@ -820,13 +837,13 @@ export class CustomMediaPlayerBase extends Component<
             const isLargePlayer = playerSize === 'large';
             const isMediumPlayer = playerSize === 'medium';
 
-            const skipAmount = 10;
-            const skipBackward = () => {
+            const defaultSkipAmount = 10;
+            const skipBackward = (skipAmount = defaultSkipAmount) => {
               const newTime = videoState.currentTime - skipAmount;
               actions.navigate(Math.max(newTime, 0));
             };
 
-            const skipForward = () => {
+            const skipForward = (skipAmount = defaultSkipAmount) => {
               const newTime = videoState.currentTime + skipAmount;
               actions.navigate(Math.min(newTime, videoState.duration));
             };
@@ -858,13 +875,31 @@ export class CustomMediaPlayerBase extends Component<
                   className={getControlsWrapperClassName(this.wasPlayedOnce)}
                 >
                   <Box xcss={timeWrapperStyles}>
-                    <TimeRange
-                      currentTime={currentTime}
-                      bufferedTime={buffered}
-                      duration={duration}
-                      onChange={actions.navigate}
-                      onChanged={this.onTimeChanged}
-                    />
+                    {getBooleanFF(
+                      'platform.editor.a11y_video_controls_keyboard_support_yhcxh',
+                    ) ? (
+                      <TimeRange
+                        currentTime={currentTime}
+                        bufferedTime={buffered}
+                        duration={duration}
+                        onChange={actions.navigate}
+                        onChanged={this.onTimeChanged}
+                        disableThumbTooltip={true}
+                        skipBackward={skipBackward}
+                        skipForward={skipForward}
+                        isAlwaysActive={false}
+                      />
+                    ) : (
+                      <TimeRange
+                        disableThumbTooltip={false}
+                        isAlwaysActive={false}
+                        currentTime={currentTime}
+                        bufferedTime={buffered}
+                        duration={duration}
+                        onChange={actions.navigate}
+                        onChanged={this.onTimeChanged}
+                      />
+                    )}
                   </Box>
                   <Flex
                     alignItems="center"

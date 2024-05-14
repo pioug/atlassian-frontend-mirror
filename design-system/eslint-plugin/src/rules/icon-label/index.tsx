@@ -1,4 +1,4 @@
-import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
+import { isNodeOfType } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 import { findProp } from '../utils/jsx';
@@ -7,6 +7,7 @@ const elements = [
   'AkButton',
   'AKButton',
   'Button',
+  'IconButton',
   'MenuItem',
   'ButtonItem',
   'CustomItem',
@@ -99,7 +100,8 @@ const rule = createLintRule({
               const hasOtherDefinedLabel: boolean =
                 !!node.children.length || !!findProp(node, 'aria-label');
 
-              const expression = prop.value.expression as unknown as JSXElement;
+              const expression = prop.value.expression;
+
               if (
                 expression.type !== 'JSXElement' ||
                 expression.openingElement.name.type !== 'JSXIdentifier'
@@ -141,8 +143,28 @@ const rule = createLintRule({
         if (iconImports[name]) {
           // We've found an icon from @atlaskit - let's get to work.
           const hasLabelProp = findProp(node, 'label');
+          let hasSpreadPropApplied = false;
 
-          if (!hasLabelProp) {
+          // Check to see if it's inside an arrow function and the props have been spread
+          // ✅ <IconButton icon={(iconProps) => <StarIcon {...iconProps} />} label="Add to favorites" />
+          // ❌ <IconButton icon={() => <StarIcon />} label="Add to favorites" />
+          if (
+            node.parent &&
+            isNodeOfType(node.parent, 'ArrowFunctionExpression') &&
+            node.parent.params[0] &&
+            node.parent.params[0].type === 'Identifier'
+          ) {
+            // We are using an arrow function, test if the params have been spread onto the icon component
+            const paramName = node.parent.params[0].name;
+            hasSpreadPropApplied = !!node.openingElement.attributes.find(
+              (attribute) =>
+                attribute.type === 'JSXSpreadAttribute' &&
+                attribute.argument.type === 'Identifier' &&
+                attribute.argument.name === paramName,
+            );
+          }
+
+          if (!hasLabelProp && !hasSpreadPropApplied) {
             context.report({
               node: node.openingElement as any,
               messageId: 'missingLabelProp',

@@ -16,7 +16,7 @@ export type { HeadingItemProps } from '@atlaskit/menu';
 /**
  * __Heading item__
  *
- * Available for advanced use cases, for most situations providing a title to Section should be enough.
+ * Available for advanced use cases, for most situations providing a `title` to `section` should be enough.
  *
  */
 const HeadingItem = (props: HeadingItemProps) => {

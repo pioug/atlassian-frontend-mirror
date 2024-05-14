@@ -1,8 +1,8 @@
-import { ComponentType, ReactElement, ReactNode, SyntheticEvent } from 'react';
+import { type ComponentType, type ReactElement, type ReactNode, type RefObject, type SyntheticEvent } from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { type WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 export type Widths = {
   extended: { width: string };
@@ -16,7 +16,7 @@ export type DrawerWidth = 'extended' | 'full' | 'medium' | 'narrow' | 'wide';
 
 export interface BaseProps {
   /**
-   * A unique hook to be used for testing.
+   * A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
    */
   testId?: string;
   /**
@@ -28,11 +28,11 @@ export interface BaseProps {
    */
   icon?: ComponentType<any>;
   /**
-   * Provides an accessible name for the close/back control of the drawer. Default is "Close drawer".
+   * This is the accessible name for the close/back control of the drawer. The default is "Close drawer".
    */
   closeLabel?: string;
   /**
-   * Available drawer sizes.
+   * Sets the width of the drawer.
    */
   width?: DrawerWidth;
   /**
@@ -49,7 +49,7 @@ export interface BaseProps {
    */
   shouldUnmountOnExit?: boolean;
   /**
-   * Override drawer components.
+   * Avoid overrides whenever possible. The `overrides` prop allows granular customisation of the drawer. Both the sidebar and content components can be overridden.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   overrides?: OverridesType;
@@ -57,12 +57,12 @@ export interface BaseProps {
 
 export interface DrawerLabel {
   /**
-   * Refers to an aria-label attribute. Sets an accessible name for drawer wrapper to announce it to users of assistive technology.
+   * This is an `aria-label` attribute. It sets an accessible name for the drawer wrapper, for people who use assistive technology.
    * Usage of either this, or the `titleId` attribute is strongly recommended.
    */
   label?: string;
   /**
-   * Id referenced by the drawer wrapper's aria-labelledby attribute. This id should be assigned to the drawer title element.
+   * This is an ID referenced by the drawer wrapper's `aria-labelledby` attribute. This ID should be assigned to the drawer `title` element.
    * Usage of either this, or the `label` attribute is strongly recommended.
    */
   titleId?: string;
@@ -163,13 +163,15 @@ export interface FocusLockSettings {
    */
   autoFocusFirstElem?: boolean | (() => HTMLElement | null);
   /**
-   * Whether the focus lock is active or not.
+   * Enable this to keep focus inside the component until it’s closed. This is strongly recommended, as it prevents people who use assistive technology from accidentally navigating out of the drawer using the tab key.
    */
   isFocusLockEnabled?: boolean;
   /**
-   * Controls whether to return the focus to the previous active element on closing the drawer. Set to `true` by default.
+   * ReturnFocus controls what happens when the user exits focus lock mode.
+   * If true, focus returns to the trigger element . If false, focus remains where it was when the FocusLock was deactivated.
+   * If ref is passed, focus returns to that specific ref element.
    */
-  shouldReturnFocus?: boolean;
+  shouldReturnFocus?: boolean | RefObject<HTMLElement>;
 }
 
 export interface FocusLockProps extends FocusLockSettings {

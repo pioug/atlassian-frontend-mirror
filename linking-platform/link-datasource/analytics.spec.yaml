@@ -446,6 +446,16 @@ events:
             *AnalyticsContext,
             *AnalyticsContextAttributes,
           ]
+  - link clicked (poweredBy):
+      type: ui
+      description: Fired when the power by link on the issue like table footer is clicked.
+      attributes:
+        <<:
+          [
+            *ComponentMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
   - getWorkspaceId success:
       type: operational
       description: Fired when fetching a workspace Id is successful.

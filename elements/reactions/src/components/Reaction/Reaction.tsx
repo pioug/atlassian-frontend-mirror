@@ -3,8 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { EmojiProvider, ResourcedEmoji, EmojiId } from '@atlaskit/emoji';
-import { token } from '@atlaskit/tokens';
+import { type EmojiProvider, ResourcedEmoji, type EmojiId } from '@atlaskit/emoji';
 import {
   createAndFireSafe,
   createReactionClickedEvent,
@@ -12,17 +11,25 @@ import {
   createReactionHoveredEvent,
 } from '../../analytics';
 import {
-  ReactionSummary,
-  ReactionClick,
-  ReactionMouseEnter,
+  type ReactionSummary,
+  type ReactionClick,
+  type ReactionMouseEnter,
 } from '../../types';
 import { Counter } from '../Counter';
 import { FlashAnimation } from '../FlashAnimation';
-import { ReactionTooltip, ReactionTooltipProps } from '../ReactionTooltip';
+import { ReactionParticleEffect } from '../ReactionParticleEffect';
+import { ReactionTooltip, type ReactionTooltipProps } from '../ReactionTooltip';
 import { messages } from '../../shared/i18n';
 import { isLeftClick } from '../../shared/utils';
-import { emojiStyle, flashStyle, reactedStyle, reactionStyle } from './styles';
-import { ReactionFocused } from '../../types/reaction';
+import {
+  containerStyle,
+  emojiStyle,
+  emojiNoReactionStyle,
+  flashStyle,
+  reactedStyle,
+  reactionStyle,
+} from './styles';
+import { type ReactionFocused } from '../../types/reaction';
 
 /**
  * Test id for Reaction item wrapper div
@@ -60,6 +67,10 @@ export interface ReactionProps
    */
   flash?: boolean;
   /**
+   * Show a floating emoji particle effect (usually in response to a new reaction) (defaults to false)
+   */
+  showParticleEffect?: boolean;
+  /**
    * Optional function when the user wants to see more users in a modal
    */
   handleUserListClick?: (emojiId: string) => void;
@@ -76,6 +87,7 @@ export const Reaction = ({
   onFocused = () => {},
   className,
   flash = false,
+  showParticleEffect = false,
   handleUserListClick = () => {},
   allowUserDialog,
 }: ReactionProps) => {
@@ -157,48 +169,51 @@ export const Reaction = ({
   };
 
   return (
-    <ReactionTooltip
-      emojiName={emojiName}
-      reaction={reaction}
-      handleUserListClick={handleOpenReactionsDialog}
-      allowUserDialog={allowUserDialog}
-      isEnabled={isTooltipEnabled}
-    >
-      <button
-        className={className}
-        css={[reactionStyle, reaction.reacted && reactedStyle]}
-        aria-label={intl.formatMessage(messages.reactWithEmoji, {
-          emoji: emojiName,
-        })}
-        type="button"
-        data-emoji-id={reaction.emojiId}
-        data-testid={RENDER_REACTION_TESTID}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onFocus={handleFocused}
-        data-emoji-button-id={reaction.emojiId}
+    <div css={containerStyle}>
+      {showParticleEffect && (
+        <ReactionParticleEffect
+          emojiId={emojiId}
+          emojiProvider={emojiProvider}
+        />
+      )}
+      <ReactionTooltip
+        emojiName={emojiName}
+        reaction={reaction}
+        handleUserListClick={handleOpenReactionsDialog}
+        allowUserDialog={allowUserDialog}
+        isEnabled={isTooltipEnabled}
       >
-        <FlashAnimation flash={flash} css={flashStyle}>
-          <div
-            css={[
-              emojiStyle,
-              reaction.count === 0 && {
-                padding: `${token('space.050', '4px')} ${token(
-                  'space.025',
-                  '2px',
-                )} ${token('space.050', '4px')} 10px`,
-              },
-            ]}
-          >
-            <ResourcedEmoji
-              emojiProvider={emojiProvider}
-              emojiId={emojiId}
-              fitToHeight={16}
-            />
-          </div>
-          <Counter value={reaction.count} highlight={reaction.reacted} />
-        </FlashAnimation>
-      </button>
-    </ReactionTooltip>
+        <button
+          className={className}
+          css={[reactionStyle, reaction.reacted && reactedStyle]}
+          aria-label={intl.formatMessage(messages.reactWithEmoji, {
+            emoji: emojiName,
+          })}
+          type="button"
+          data-emoji-id={reaction.emojiId}
+          data-testid={RENDER_REACTION_TESTID}
+          onClick={handleClick}
+          onMouseEnter={handleMouseEnter}
+          onFocus={handleFocused}
+          data-emoji-button-id={reaction.emojiId}
+        >
+          <FlashAnimation flash={flash} css={flashStyle}>
+            <div
+              css={[
+                emojiStyle,
+                reaction.count === 0 && emojiNoReactionStyle,
+              ]}
+            >
+              <ResourcedEmoji
+                emojiProvider={emojiProvider}
+                emojiId={emojiId}
+                fitToHeight={16}
+              />
+            </div>
+            <Counter value={reaction.count} highlight={reaction.reacted} />
+          </FlashAnimation>
+        </button>
+      </ReactionTooltip>
+    </div>
   );
 };

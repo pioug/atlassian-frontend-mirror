@@ -3,10 +3,9 @@ import { createPortal } from 'react-dom';
 import FocusLock from 'react-focus-lock';
 import Select, {
   components as RSComponents,
-  mergeStyles,
   GroupBase,
+  mergeStyles,
 } from 'react-select';
-import BaseSelect from 'react-select/base';
 import { uid } from 'react-uid';
 import {
   Manager,
@@ -18,6 +17,7 @@ import {
 import { Placement } from '@popperjs/core';
 import NodeResolver from 'react-node-resolver';
 import { shallowEqualObjects } from 'shallow-equal';
+import DefaultSelect from '../Select';
 
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -32,6 +32,7 @@ import {
   StylesConfig,
   ValueType,
   ValidationState,
+  AtlaskitSelectRefType,
 } from '../types';
 import { bind, UnbindFn } from 'bind-event-listener';
 
@@ -136,13 +137,14 @@ export interface PopupSelectProps<
   isOpen?: boolean;
   defaultIsOpen?: boolean;
   /** Use this to set whether the component uses compact or standard spacing. */
-  spacing?: string;
+  spacing?: 'default' | 'compact';
   /** @deprecated Use isInvalid instead. The state of validation if used in a form */
   validationState?: ValidationState;
   /** This prop indicates if the component is in an error state. */
   isInvalid?: boolean;
   /** This gives an accessible name to the input for people who use assistive technology. */
   label?: string;
+  /** The `testId` prop appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests. It will be set on the menu element when defined: `{testId}--menu` */
   testId?: string;
 }
 
@@ -184,7 +186,9 @@ export default class PopupSelect<
   Modifiers = ModifierList,
 > extends PureComponent<PopupSelectProps<Option, IsMulti, Modifiers>, State> {
   menuRef: HTMLElement | null = null;
-  selectRef: BaseSelect<Option, IsMulti> | null = null;
+  // Due to types conflicts between `Select` and `DefaultSelect` components set 'any' type.
+  // After removing the flag feature 'platform.design-system-team.use-default-select-in-popup-select_46rmj' the correct type will be 'AtlaskitSelectRefType',
+  selectRef: any;
   targetRef: HTMLElement | null = null;
   unbindWindowClick: UnbindFn | null = null;
   unbindWindowKeydown: UnbindFn | null = null;
@@ -381,7 +385,11 @@ export default class PopupSelect<
     this.setState({ isOpen: true });
 
     if (this.selectRef) {
-      this.selectRef.openMenu('first');
+      getBooleanFF(
+        'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+      )
+        ? this.selectRef.select?.openMenu('first')
+        : this.selectRef.openMenu('first');
     }
 
     if (typeof window === 'undefined') {
@@ -454,7 +462,7 @@ export default class PopupSelect<
       }
     };
 
-  getSelectRef = (ref: BaseSelect<Option, IsMulti>) => {
+  getSelectRef = (ref: AtlaskitSelectRefType) => {
     this.selectRef = ref;
   };
 
@@ -487,8 +495,12 @@ export default class PopupSelect<
 
     // subtract the control height to maintain consistency
     const showSearchControl = this.showSearchControl();
+    let controlRef = getBooleanFF(
+      'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+    )
+      ? this.selectRef.select?.controlRef
+      : this.selectRef.controlRef;
 
-    const { controlRef } = this.selectRef;
     const offsetHeight =
       showSearchControl && controlRef ? controlRef.offsetHeight : 0;
     const maxHeight = maxMenuHeight! - offsetHeight;
@@ -538,6 +550,12 @@ export default class PopupSelect<
       }
     };
 
+    const InternalSelect: React.ComponentType<any> = getBooleanFF(
+      'platform.design-system-team.use-default-select-in-popup-select_46rmj',
+    )
+      ? DefaultSelect
+      : Select;
+
     const popper = (
       <Popper
         {...mergedPopperProps}
@@ -557,7 +575,7 @@ export default class PopupSelect<
               testId={testId}
             >
               <FocusLock disabled={!focusLockEnabled} returnFocus>
-                <Select<Option, IsMulti>
+                <InternalSelect
                   aria-label={getLabel()}
                   backspaceRemovesValue={false}
                   controlShouldRenderValue={false}
@@ -579,7 +597,6 @@ export default class PopupSelect<
                   components={selectComponents}
                   onChange={this.handleSelectChange}
                 />
-
                 {footer}
               </FocusLock>
             </MenuDialog>

@@ -19,7 +19,7 @@ const wrapperStyles = css({
   boxSizing: 'border-box',
   height: '100%',
   padding: token('space.100', '8px'),
-  backgroundColor: token('color.background.neutral.subtle', 'white'),
+  backgroundColor: token('color.background.neutral.subtle'),
   outlineOffset: -4,
   overflowY: 'auto',
 });
@@ -70,7 +70,7 @@ const BasicGrid = () => {
           </div>
         </LeftSidebar>
         <Main>
-          <Wrapper noOutline borderColor={token('color.border', 'black')}>
+          <Wrapper noOutline borderColor={token('color.border')}>
             <h3 css={slotLabelStyles}>Main</h3>
           </Wrapper>
         </Main>

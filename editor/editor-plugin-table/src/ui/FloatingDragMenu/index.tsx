@@ -1,7 +1,10 @@
 import React from 'react';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -11,7 +14,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import { getPluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import type { PluginConfig, TableDirection } from '../../types';
 import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
@@ -33,6 +35,8 @@ export interface Props {
   editorAnalyticsAPI?: EditorAnalyticsAPI;
   stickyHeaders?: RowStickyState;
   pluginConfig?: PluginConfig;
+  isTableScalingEnabled?: boolean;
+  getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
 
 const FloatingDragMenu = ({
@@ -49,6 +53,8 @@ const FloatingDragMenu = ({
   editorAnalyticsAPI,
   stickyHeaders,
   pluginConfig,
+  isTableScalingEnabled,
+  getEditorFeatureFlags,
 }: Props) => {
   if (
     !isOpen ||
@@ -73,7 +79,9 @@ const FloatingDragMenu = ({
     return null;
   }
 
-  const { isTableScalingEnabled = false } = getPluginState(editorView.state);
+  const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
+    ? getEditorFeatureFlags()
+    : {};
 
   return (
     <Popup
@@ -114,6 +122,7 @@ const FloatingDragMenu = ({
         boundariesElement={boundariesElement}
         scrollableElement={scrollableElement}
         isTableScalingEnabled={isTableScalingEnabled}
+        tableDuplicateCellColouring={tableDuplicateCellColouring}
       />
     </Popup>
   );

@@ -24,7 +24,6 @@ const TabPanel = ({ children, testId }: TabPanelProps) => {
     id,
     hidden,
     'aria-labelledby': ariaLabelledBy,
-    onMouseDown,
     tabIndex,
   }: TabPanelAttributesType = useTabPanel();
   return (
@@ -36,7 +35,6 @@ const TabPanel = ({ children, testId }: TabPanelProps) => {
         id={id}
         hidden={hidden}
         aria-labelledby={ariaLabelledBy}
-        onMouseDown={onMouseDown}
         tabIndex={tabIndex}
       >
         {/* Fragment is a workaround as Box types don't allow ReactNode children */}

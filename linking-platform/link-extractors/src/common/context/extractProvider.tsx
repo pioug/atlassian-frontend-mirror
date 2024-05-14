@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
@@ -40,7 +40,7 @@ export const extractProvider = (
   }
 };
 
-const extractProviderIcon = (
+export const extractProviderIcon = (
   icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
   id?: string,
 ): React.ReactNode | undefined => {

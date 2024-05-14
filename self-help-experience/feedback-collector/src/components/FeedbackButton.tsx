@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import { FlagGroup } from '@atlaskit/flag';
 import FeedbackIcon from '@atlaskit/icon/glyph/feedback';
 
@@ -32,12 +32,8 @@ const FeedbackButton = (props: Props) => {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        iconBefore={
-          <FeedbackIcon
-            label={formatMessage(messages.feedbackIconLabel)}
-            size="small"
-          />
-        }
+        iconBefore={FeedbackIcon}
+        UNSAFE_iconBefore_size="small"
       >
         {formatMessage(messages.giveFeedback)}
       </Button>

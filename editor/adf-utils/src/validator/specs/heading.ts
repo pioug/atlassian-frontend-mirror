@@ -8,6 +8,11 @@ export default {
       optional: true,
     },
     marks: { type: 'array', items: [], optional: true },
-    attrs: { props: { level: { type: 'number', minimum: 1, maximum: 6 } } },
+    attrs: {
+      props: {
+        level: { type: 'number', minimum: 1, maximum: 6 },
+        localId: { type: 'string', optional: true },
+      },
+    },
   },
 };

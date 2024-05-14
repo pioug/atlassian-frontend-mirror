@@ -15,7 +15,7 @@ import {
 const EXPERIENCE_NAME = 'smart-link-ai-summary';
 
 export const useAISummary = (props: AISummaryServiceProps) => {
-  const { url, baseUrl, headers, product, ari } = props;
+  const { url, baseUrl, headers, product, ari, envKey } = props;
   const [state, setState] = useState<AISummaryState>(
     AISummariesStore.get(url)?.state || { status: 'ready', content: '' },
   );
@@ -35,7 +35,12 @@ export const useAISummary = (props: AISummaryServiceProps) => {
 
   const onError: NonNullable<AISummaryServiceProps['onError']> = useCallback(
     (id, reason) => {
-      fireEvent('operational.summary.failed', { reason: reason || null });
+      /**
+       * Errors should only be counted to the SLO if they are not due to acceptable use violations
+       * or HIPAA content detected.
+       */
+      const isSloError = reason !== "ACCEPTABLE_USE_VIOLATIONS" && reason !== "HIPAA_CONTENT_DETECTED";
+      fireEvent('operational.summary.failed', { reason: reason || null, isSloError});
       failUfoExperience(EXPERIENCE_NAME, id);
     },
     [fireEvent],
@@ -56,13 +61,24 @@ export const useAISummary = (props: AISummaryServiceProps) => {
           onStart,
           onSuccess,
           product,
+          envKey,
         }),
       );
     }
 
     //returns function that calls unsubscribe method
     return AISummariesStore.get(url)?.subscribe(setState);
-  }, [url, baseUrl, headers, onError, onStart, onSuccess, product, ari]);
+  }, [
+    url,
+    baseUrl,
+    headers,
+    onError,
+    onStart,
+    onSuccess,
+    product,
+    ari,
+    envKey,
+  ]);
 
   const summariseUrl = () => {
     return AISummariesStore.get(url)?.summariseUrl();

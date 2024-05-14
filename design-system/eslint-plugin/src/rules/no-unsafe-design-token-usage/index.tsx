@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
+import tokenDefaultValues from '@atlaskit/tokens/token-default-values';
 import { getTokenId } from '@atlaskit/tokens/token-ids';
 import tokens from '@atlaskit/tokens/token-names';
 
@@ -138,9 +139,26 @@ token('color.background.blanket');
           }
 
           if (node.arguments.length < 2 && config.fallbackUsage === 'forced') {
+            let fix: Rule.ReportFixer | undefined;
+
+            if (node.arguments[0].type === 'Literal') {
+              const { value } = node.arguments[0];
+              const tokenName = value as keyof typeof tokenDefaultValues;
+              const fallbackValue = tokenDefaultValues[tokenName] || null;
+
+              if (fallbackValue) {
+                fix = (fixer: Rule.RuleFixer) =>
+                  fixer.replaceText(
+                    node,
+                    `${isNodeOfType(node.callee, 'Identifier') ? node.callee.name : 'token'}('${tokenName}', '${fallbackValue}')`,
+                  );
+              }
+            }
+
             context.report({
               messageId: 'tokenFallbackEnforced',
               node,
+              fix,
             });
           } else if (
             node.arguments.length > 1 &&

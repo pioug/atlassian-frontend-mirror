@@ -234,3 +234,5 @@ ComposableEditor.propTypes = {
     return null;
   },
 };
+
+export default ComposableEditor;

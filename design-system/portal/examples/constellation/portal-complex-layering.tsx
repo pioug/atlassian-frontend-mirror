@@ -24,7 +24,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const tooltipContainerStyles = css({
-  backgroundColor: token('color.background.neutral', 'white'),
+  backgroundColor: token('color.background.neutral'),
 });
 
 const TooltipButton = ({

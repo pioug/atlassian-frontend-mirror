@@ -1,5 +1,10 @@
 /** @jsx jsx */
-import { ComponentType, forwardRef, ReactNode, Ref } from 'react';
+import {
+  type ComponentType,
+  forwardRef,
+  type ReactNode,
+  type Ref,
+} from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -7,12 +12,13 @@ import Button, {
   Theme as ButtonTheme,
 } from '@atlaskit/button/custom-theme-button';
 import Heading from '@atlaskit/heading';
-import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
+import { Box, Text, xcss } from '@atlaskit/primitives';
+// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
+import { createTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
-import { Actions } from '../types';
+import { type Actions } from '../types';
 
 import { spotlightButtonTheme } from './theme';
 
@@ -48,21 +54,24 @@ const DefaultFooter = ({ children }: { children: ReactNode }) => (
   <div css={defaultFooterStyles}>{children}</div>
 );
 
-const containerStyles = css({
+const containerStyles = xcss({
   height: 'fit-content',
-  zIndex: layers.spotlight() + 1,
-  background: token('color.background.discovery.bold', P300),
-  borderRadius: token('border.radius', '3px'),
-  color: token('color.text.inverse', N0),
+  zIndex: 'spotlight',
+  borderRadius: 'border.radius',
+  color: 'color.text.inverse',
   overflow: 'auto',
+  minWidth: '160px',
+  maxWidth: '600px',
 });
 
-const containerShadowStyles = css({
-  boxShadow: token(
-    'elevation.shadow.raised',
-    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-  ),
+const containerShadowStyles = xcss({
+  boxShadow: 'elevation.shadow.raised',
 });
+
+/**
+ * @deprecated
+ */
+const Theme = createTheme(() => ({}));
 
 interface SpotlightCardProps {
   /**
@@ -105,7 +114,6 @@ interface SpotlightCardProps {
    * Removes elevation styles if set.
    */
   isFlat?: boolean;
-
   /**
    * Specifies the width of the card component. Accepts either a number or the string '100%'.
    * When a number is provided, the width is set in pixels. When '100%' is provided, the width
@@ -160,58 +168,67 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 
     return (
       <ButtonTheme.Provider value={spotlightButtonTheme}>
-        <div
-          css={[containerStyles, !isFlat && containerShadowStyles]}
-          style={{
-            minWidth: '160px',
-            maxWidth: '600px',
-            width: typeof width === 'string' ? width : `${width}px`,
-          }}
-          ref={ref || innerRef}
-          data-testid={testId}
-        >
-          {typeof image === 'string' ? (
-            <img css={imageStyles} src={image} alt="" />
-          ) : (
-            image
-          )}
-          <div css={bodyStyles}>
-            {heading || headingAfterElement ? (
-              <Header>
-                <Heading
-                  id={headingId}
-                  color="inverse"
-                  level="h600"
-                  as={`h${headingLevel}`}
-                >
-                  {heading}
-                </Heading>
-                {headingAfterElement}
-              </Header>
-            ) : null}
-            {children}
+        {/*
+          Theme.Provider and Theme.Consumer required to prevent inheriting theme.
+          When removed caused https://ops.internal.atlassian.com/jira/browse/HOT-108954
 
-            {actions.length > 0 || actionsBeforeElement ? (
-              <Footer>
-                {/* Always need an element so space-between alignment works */}
-                {actionsBeforeElement || <span />}
-                <DialogActionItemContainer>
-                  {actions.map(({ text, key, ...rest }, idx) => {
-                    return (
-                      <DialogActionItem
-                        key={
-                          key || (typeof text === 'string' ? text : `${idx}`)
-                        }
+          TODO: When new button either supports XCSS or an appearance to cater for this use case, remove theming
+          https://product-fabric.atlassian.net/browse/DSP-18616
+        */}
+        <Theme.Provider value={undefined}>
+          <Theme.Consumer>
+            {() => (
+              <Box
+                backgroundColor="color.background.discovery.bold"
+                xcss={[containerStyles, !isFlat && containerShadowStyles]}
+                style={{ width }}
+                ref={ref || innerRef}
+                testId={testId}
+              >
+                {typeof image === 'string' ? (
+                  <img css={imageStyles} src={image} alt="" />
+                ) : (
+                  image
+                )}
+                <div css={bodyStyles}>
+                  {heading || headingAfterElement ? (
+                    <Header>
+                      <Heading
+                        id={headingId}
+                        size="medium"
+                        as={`h${headingLevel}`}
                       >
-                        <Button {...rest}>{text}</Button>
-                      </DialogActionItem>
-                    );
-                  })}
-                </DialogActionItemContainer>
-              </Footer>
-            ) : null}
-          </div>
-        </div>
+                        {heading}
+                      </Heading>
+                      {headingAfterElement}
+                    </Header>
+                  ) : null}
+                  <Text>{children}</Text>
+                  {actions.length > 0 || actionsBeforeElement ? (
+                    <Footer>
+                      {/* Always need an element so space-between alignment works */}
+                      {actionsBeforeElement || <span />}
+                      <DialogActionItemContainer>
+                        {actions.map(({ text, key, ...rest }, idx) => {
+                          return (
+                            <DialogActionItem
+                              key={
+                                key ||
+                                (typeof text === 'string' ? text : `${idx}`)
+                              }
+                            >
+                              <Button {...rest}>{text}</Button>
+                            </DialogActionItem>
+                          );
+                        })}
+                      </DialogActionItemContainer>
+                    </Footer>
+                  ) : null}
+                </div>
+              </Box>
+            )}
+          </Theme.Consumer>
+        </Theme.Provider>
       </ButtonTheme.Provider>
     );
   },

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { EditorPresetBuilder } from '@atlaskit/editor-core/preset-builder';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';

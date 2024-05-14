@@ -11,6 +11,7 @@ export default {
           optional: true,
         },
         accessLevel: { type: 'string', optional: true },
+        localId: { type: 'string', optional: true },
       },
     },
   },

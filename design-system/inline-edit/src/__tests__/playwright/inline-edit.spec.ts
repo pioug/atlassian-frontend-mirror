@@ -1,10 +1,11 @@
 import { expect, test } from '@af/integration-testing';
 
 /* Css selectors used for the inline edit tests */
-const readViewContentWrapper = 'button[aria-label="Edit"] + div';
 const editInput = 'edit-view';
 
 test.describe('Inline Edit Validation', () => {
+  const readViewContentWrapper =
+    'button[data-testid="validation--edit-button"] + div';
   test.beforeEach(async ({ page }) => {
     await page.visitExample('design-system', 'inline-edit', 'validation');
   });
@@ -41,6 +42,8 @@ test.describe('Inline Edit Validation', () => {
 });
 
 test.describe('Default Inline Edit', () => {
+  const readViewContentWrapper =
+    'button[data-testid="inline-edit--edit-button"] + div';
   test.beforeEach(async ({ page }) => {
     await page.visitExample('design-system', 'inline-edit', 'basic-usage');
   });

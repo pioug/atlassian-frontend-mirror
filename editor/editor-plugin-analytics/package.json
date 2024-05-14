@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-analytics",
-  "version": "1.0.8",
+  "version": "1.1.6",
   "description": "Analytics plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,13 +35,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^35.9.0",
+    "@atlaskit/adf-schema": "^36.1.0",
     "@atlaskit/analytics-listeners": "^8.9.0",
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/editor-common": "^78.29.0",
-    "@atlaskit/editor-plugin-feature-flags": "^1.0.0",
-    "@atlaskit/editor-prosemirror": "3.0.0",
-    "@atlaskit/editor-tables": "^2.6.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-plugin-feature-flags": "^1.1.0",
+    "@atlaskit/editor-prosemirror": "4.0.1",
+    "@atlaskit/editor-tables": "^2.7.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tabs",
-  "version": "14.1.0",
+  "version": "16.1.1",
   "description": "Tabs are used to organize content by grouping similar information on the same page.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,28 +31,28 @@
     "website": {
       "name": "Tabs",
       "category": "Components"
-    }
+    },
+    "runReact18": true
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/ds-explorations": "^3.5.0",
-    "@atlaskit/focus-ring": "^1.3.9",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/focus-ring": "^1.4.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/primitives": "*",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tooltip": "*",
+    "@atlaskit/tooltip": "^18.3.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",

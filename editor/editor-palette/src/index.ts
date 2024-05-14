@@ -8,3 +8,6 @@ export {
   hexToEditorTableChartsPaletteColor,
   hexToEditorTableChartsPaletteRawValue,
 } from './table-charts';
+export {
+  hexToEditorTextBackgroundPaletteColor
+} from './text-background-color';

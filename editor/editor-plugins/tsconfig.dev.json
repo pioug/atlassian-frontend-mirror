@@ -60,6 +60,9 @@
       "path": "../editor-plugin-better-type-history/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-block-controls/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-block-type/tsconfig.app.json"
     },
     {
@@ -157,6 +160,9 @@
     },
     {
       "path": "../editor-plugin-help-dialog/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-plugin-highlight/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-history/tsconfig.app.json"

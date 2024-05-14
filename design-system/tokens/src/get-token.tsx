@@ -3,9 +3,6 @@ import warnOnce from '@atlaskit/ds-lib/warn-once';
 import tokens, { CSSTokenMap } from './artifacts/token-names';
 import { TOKEN_NOT_FOUND_CSS_VAR } from './constants';
 
-const name = process.env._PACKAGE_NAME_ as string;
-const version = process.env._PACKAGE_VERSION_ as string;
-
 type Tokens = typeof tokens;
 
 /**
@@ -42,7 +39,7 @@ function token<T extends keyof Tokens>(
     process.env.NODE_ENV !== 'production' &&
     !token
   ) {
-    warnOnce(`Unknown token id at path: ${path} for ${name}@${version}`);
+    warnOnce(`Unknown token id at path: ${path} in @atlaskit/tokens`);
   }
 
   // if the token is not found - replacing it with variable name without any value, to avoid it being undefined which would result in invalid css

@@ -5,8 +5,8 @@ import { ButtonItem, HeadingItem, Section } from '../../src';
 const SectionExample = () => {
   return (
     <div>
-      <Section title="Actions">
-        <ButtonItem>Create issue</ButtonItem>
+      <Section title="Planning">
+        <ButtonItem>Kanban board</ButtonItem>
       </Section>
       <Section aria-labelledby="actions" hasSeparator>
         <HeadingItem id="actions">Actions</HeadingItem>

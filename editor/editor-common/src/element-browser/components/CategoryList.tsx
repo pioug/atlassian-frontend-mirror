@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import type { Dispatch, SetStateAction } from 'react';
 import React, { Fragment, memo, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
@@ -10,6 +9,7 @@ import Button, {
   type ThemeProps,
   type ThemeTokens,
 } from '@atlaskit/button/custom-theme-button';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B400, B50, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -28,27 +28,80 @@ interface Props {
   categories?: Category[];
   onSelectCategory: (category: Category) => void;
   selectedCategory?: string;
+  focusedCategoryIndex?: number;
+  setFocusedCategoryIndex: (index: number) => void;
+  setFocusedItemIndex: (index: number) => void;
+  setFocusOnSearch?: () => void;
 }
 
+const arrowsKeys = new Set(['ArrowUp', 'ArrowDown']);
 function CategoryList({
   categories = [],
   ...props
 }: Props & WithAnalyticsEventsProps): JSX.Element {
-  const [focusedCategoryIndex, setFocusedCategoryIndex] = React.useState<
-    number | null
-  >(null);
+  const [focusedCategoryIndexState, setFocusedCategoryIndexState] =
+    React.useState<number | null>(null);
+  const {
+    focusedCategoryIndex: focusedCategoryIndexProp,
+    setFocusedCategoryIndex: setFocusedCategoryIndexProp,
+    onSelectCategory
+  } = props;
+
+  const focusedCategoryIndex = getBooleanFF(
+    'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+  )
+    ? focusedCategoryIndexProp
+    : focusedCategoryIndexState;
+  const setFocusedCategoryIndex = getBooleanFF(
+    'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+  )
+    ? setFocusedCategoryIndexProp
+    : setFocusedCategoryIndexState;
+
   return (
     <Fragment>
-      {categories.map<JSX.Element>((category, index) => (
-        <CategoryListItem
-          key={category.title}
-          index={index}
-          category={category}
-          focus={focusedCategoryIndex === index}
-          setFocusedCategoryIndex={setFocusedCategoryIndex}
-          {...props}
-        />
-      ))}
+      {categories.map<JSX.Element>((category, index) => {
+        const categoriesLength = categories?.length;
+        let selectNextCategory;
+        let selectPreviousCategory;
+        if (getBooleanFF('platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1')
+          && categoriesLength > 1) {
+          selectNextCategory = () => {
+            if (index !== categoriesLength - 1) {
+              setFocusedCategoryIndex(index + 1);
+              onSelectCategory(categories[index+1]);
+            } else {
+              setFocusedCategoryIndex(0);
+              onSelectCategory(categories[0]);
+            }
+
+            return;
+          }
+
+          selectPreviousCategory = () => {
+            if (index !== 0) {
+              setFocusedCategoryIndex(index - 1);
+              onSelectCategory(categories[index -1]);
+            } else {
+              setFocusedCategoryIndex(categoriesLength - 1);
+              onSelectCategory(categories[categoriesLength - 1]);
+            }
+            return;
+          }
+        }
+        return (
+          <CategoryListItem
+            key={category.title}
+            index={index}
+            category={category}
+            focus={focusedCategoryIndex === index}
+            {...props}
+            setFocusedCategoryIndex={setFocusedCategoryIndex}
+            selectPreviousCategory={selectPreviousCategory}
+            selectNextCategory={selectNextCategory}
+          />
+        );
+      })}
     </Fragment>
   );
 }
@@ -59,7 +112,11 @@ type CategoryListItemProps = {
   selectedCategory?: string;
   index: number;
   focus: boolean;
-  setFocusedCategoryIndex: Dispatch<SetStateAction<number | null>>;
+  setFocusedCategoryIndex: (index: number) => void;
+  setFocusedItemIndex?: (index: number) => void;
+  setFocusOnSearch?: () => void;
+  selectPreviousCategory?:() => void;
+  selectNextCategory?:() => void;
 };
 
 function CategoryListItem({
@@ -70,10 +127,20 @@ function CategoryListItem({
   focus,
   setFocusedCategoryIndex,
   createAnalyticsEvent,
+  setFocusedItemIndex,
+  setFocusOnSearch,
+  selectPreviousCategory,
+  selectNextCategory,
 }: CategoryListItemProps & WithAnalyticsEventsProps) {
   const ref = useFocus(focus);
   const onClick = useCallback(() => {
-    onSelectCategory(category);
+    if (
+      !getBooleanFF(
+        'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+      )
+    ) {
+      onSelectCategory(category);
+    }
     /**
      * When user double clicks on same category, focus on first item.
      */
@@ -81,6 +148,14 @@ function CategoryListItem({
       setFocusedCategoryIndex(0);
     } else {
       setFocusedCategoryIndex(index);
+    }
+
+    if (
+      getBooleanFF(
+        'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+      )
+    ) {
+      onSelectCategory(category);
     }
     fireAnalyticsEvent(createAnalyticsEvent)({
       payload: {
@@ -131,6 +206,53 @@ function CategoryListItem({
     },
     [category.name, selectedCategory],
   );
+  const onTabPress = useCallback(
+    (e) => {
+      const isShiftPressed = e.shiftKey;
+      if (!isShiftPressed) {
+        // set focus from focused category to first item in it
+        if (setFocusedItemIndex) {
+          setFocusedItemIndex(0);
+          e.preventDefault();
+        }
+      } else {
+        // jump from first category back to search
+        if (setFocusOnSearch) {
+          setFocusOnSearch();
+          e.preventDefault();
+        }
+      }
+      return;
+    },
+    [setFocusedItemIndex, setFocusOnSearch],
+  );
+
+  const onArrowPress = useCallback(
+    (e) => {
+      if (e.key === 'ArrowUp' && selectPreviousCategory) {
+        return selectPreviousCategory();
+      }
+      if (e.key === 'ArrowDown'&& selectNextCategory) {
+        return selectNextCategory();
+      }
+    },
+    [selectPreviousCategory, selectNextCategory],
+  );
+
+  const onKeyDown = useCallback(
+    (e) => {
+      const isTabPressed = e.key === 'Tab';
+      const isArrowPressed = arrowsKeys.has(e.key);
+      if (isTabPressed) {
+        return onTabPress(e);
+      }
+
+      if (isArrowPressed) {
+        return onArrowPress(e);
+      }
+    },
+    [onTabPress, onArrowPress],
+  );
 
   return (
     <div css={buttonWrapper} role="presentation">
@@ -139,6 +261,13 @@ function CategoryListItem({
         isSelected={selectedCategory === category.name}
         onClick={onClick}
         onFocus={onFocus}
+        onKeyDown={
+          getBooleanFF(
+            'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+          )
+            ? onKeyDown
+            : undefined
+        }
         theme={getTheme}
         role="tab"
         aria-selected={selectedCategory === category.name ? 'true' : 'false'}
@@ -146,6 +275,7 @@ function CategoryListItem({
         id={`browse-category--${category.name}-button`}
         ref={ref}
         testId="element-browser-category-item"
+        tabIndex={-1}
       >
         {category.title}
       </Button>

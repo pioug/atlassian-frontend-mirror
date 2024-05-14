@@ -55,7 +55,7 @@ const bullets = /^\s*[\*\-\u2022](\s+|\s+$)/;
 const numbers = /^\s*\d[\.\)](\s+|$)/;
 
 const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
-  if (!node.text) {
+  if (!node || !node.text) {
     return null;
   }
 
@@ -117,6 +117,7 @@ export const _extractListFromParagraphV2 = (
 ): Fragment => {
   const content: Array<Node> = mapChildren(node.content, node => node);
   const linesSplitByHardbreaks = _contentSplitByHardBreaks(content, schema);
+  const { paragraph, hardBreak, listItem, orderedList } = schema.nodes;
 
   const splitListsAndParagraphs: Node[] = [];
 
@@ -130,7 +131,7 @@ export const _extractListFromParagraphV2 = (
     const line = linesSplitByHardbreaks[index];
     let listMatch: [NodeType, number] | null;
     if (index === 0) {
-      if (line[0]?.type === schema.nodes.hardbreak) {
+      if (line[0]?.type === hardBreak) {
         paragraphParts.push(line);
         continue;
       } else {
@@ -154,11 +155,9 @@ export const _extractListFromParagraphV2 = (
     }
 
     const [nodeType, length] = listMatch;
-    const firstNonHardBreakNode = line.find(
-      node => node.type !== schema.nodes.hardBreak,
-    );
+    const firstNonHardBreakNode = line.find(node => node.type !== hardBreak);
     const chunksWithoutLeadingHardBreaks = line.slice(
-      line.findIndex(node => node.type !== schema.nodes.hardBreak),
+      line.findIndex(node => node.type !== hardBreak),
     );
 
     // retain text after bullet or number-dot e.g. 1. Hello
@@ -172,9 +171,9 @@ export const _extractListFromParagraphV2 = (
       : chunksWithoutLeadingHardBreaks.slice(1);
 
     // convert to list
-    const listItemNode = schema.nodes.listItem.createAndFill(
+    const listItemNode = listItem.createAndFill(
       undefined,
-      schema.nodes.paragraph.createChecked(undefined, restOfChunk),
+      paragraph.createChecked(undefined, restOfChunk),
     );
 
     if (!listItemNode) {
@@ -182,29 +181,38 @@ export const _extractListFromParagraphV2 = (
       continue;
     }
     const attrs =
-      nodeType === schema.nodes.orderedList
+      nodeType === orderedList
         ? {
             order: parseInt(firstNonHardBreakNode!.text!.split('.')[0]),
           }
         : undefined;
     const newList = nodeType.createChecked(attrs, [listItemNode]);
 
-    if (paragraphParts.length !== 0) {
+    if (
+      paragraphParts.length !== 0 &&
+      paragraph.validContent(Fragment.from(paragraphParts.flat()))
+    ) {
       splitListsAndParagraphs.push(
-        schema.nodes.paragraph.createAndFill(
-          undefined,
+        paragraph.createAndFill(
+          node.attrs,
           paragraphParts.flat(),
+          node.marks,
         ) as Node,
       );
       paragraphParts = [];
     }
     splitListsAndParagraphs.push(newList);
   }
-  if (paragraphParts.length !== 0) {
+
+  if (
+    paragraphParts.length !== 0 &&
+    paragraph.validContent(Fragment.from(paragraphParts.flat()))
+  ) {
     splitListsAndParagraphs.push(
       schema.nodes.paragraph.createAndFill(
-        undefined,
+        node.attrs,
         paragraphParts.flat(),
+        node.marks,
       ) as Node,
     );
   }

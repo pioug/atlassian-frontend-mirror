@@ -12,7 +12,7 @@ import { useAnalyticsEvents as useAnalyticsNextEvents } from '@atlaskit/analytic
 
 import { EVENT_CHANNEL } from '../constants';
 
-import { EventKey } from './analytics.types';
+import { type EventKey } from './analytics.types';
 import createEventPayload from './create-event-payload';
 
 export const useAnalyticsEvents = () => {
@@ -24,7 +24,7 @@ export const useAnalyticsEvents = () => {
       const event = createAnalyticsEvent(createEventPayload<K>(...params));
       event.fire(EVENT_CHANNEL);
     },
-    [createAnalyticsEvent],
+    [createAnalyticsEvent]
   );
   return {
     fireEvent,

@@ -10,6 +10,7 @@ export default {
   'fabric.media.accounts': 'Konton',
   'fabric.media.actions': 'Åtgärder',
   'fabric.media.add_account': 'Lägg till konto',
+  'fabric.media.alt_text': 'Hur skulle du beskriva den valda bilden för någon med nedsatt syn?',
   'fabric.media.annotate': 'Kommentera',
   'fabric.media.annotate.confirmation.close.anyway': 'Stäng ändå',
   'fabric.media.annotate.confirmation.content':
@@ -63,6 +64,7 @@ export default {
   'fabric.media.drop_your_files_here': 'Släpp dina filer här',
   'fabric.media.email': 'E-post',
   'fabric.media.enable_fullscreen': 'aktivera helskärm',
+  'fabric.media.enter_password': 'Ange lösenord',
   'fabric.media.error_429': 'Fel 429',
   'fabric.media.error_generating_preview': 'Fel vid generering av förhandsvisning',
   'fabric.media.error_hint_critical': 'Kontakta kundsupport om problemet kvarstår.',
@@ -70,6 +72,7 @@ export default {
   'fabric.media.error_loading_file': 'Fel vid inläsning av fil',
   'fabric.media.failed_to_load': 'Fel vid inläsning',
   'fabric.media.failed_to_upload': 'Uppladdning misslyckades',
+  'fabric.media.file_is_selected': 'Filen {name} har valts',
   'fabric.media.forbidden_description':
     'Du har inte behörighet för den här förhandsgranskningen. Kontakta webbplatsadministratören om du behöver åtkomst.',
   'fabric.media.give_feedback': 'Ge feedback',
@@ -77,6 +80,7 @@ export default {
   'fabric.media.image_format_invalid_error': 'Kunde inte läsa in bild på grund av ogiltigt format.',
   'fabric.media.image_size_too_large_error': 'Bilden är för stor. Storleken får inte överstiga {MAX_SIZE_MB} MB.',
   'fabric.media.image_url_invalid_error': 'Kunde inte läsa in bild på grund av felaktig URL.',
+  'fabric.media.incorrect_password': 'Felaktigt lösenord. Försök igen.',
   'fabric.media.insert_files': '{0, plural, one {Infoga {0} fil} other {Infoga {0} filer}}',
   'fabric.media.invalid_permissions': 'Begränsad länk',
   'fabric.media.invalid_permissions_description':
@@ -93,8 +97,11 @@ export default {
   'fabric.media.not_found_description':
     'Vi kunde inte hitta länken. Kontrollera URL-adressen och försök att redigera eller klistra in igen.',
   'fabric.media.not_found_title': 'Oj då. Vi kan inte hitta den här länken!',
+  'fabric.media.open_file_in_viewer': 'Öppna {name}',
   'fabric.media.or': 'eller',
   'fabric.media.or_select_default_avatars': 'Ladda upp en bild eller välj från något av standardalternativen',
+  'fabric.media.password': 'Lösenord',
+  'fabric.media.password_protected_pdf': 'Filen är lösenordsskyddad.',
   'fabric.media.pause': 'Pausa',
   'fabric.media.play': 'Spela',
   'fabric.media.playback_default_speed': 'Standard',
@@ -123,6 +130,7 @@ export default {
   'fabric.media.something_went_wrong': 'Något gick fel.',
   'fabric.media.srclink': 'Visa i',
   'fabric.media.srclinkunknown': 'Visa original',
+  'fabric.media.submit': 'Skicka in',
   'fabric.media.text': 'Text',
   'fabric.media.try_again': 'Försök igen',
   'fabric.media.try_another_account': 'Försök med ett annat konto',

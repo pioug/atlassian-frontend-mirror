@@ -25,6 +25,7 @@ export default function () {
         identifier={identifier}
         dimensions={{ width: 600 }}
         onError={onError}
+        alt={'This is a nice image'}
       />
     </MediaClientProvider>
   );

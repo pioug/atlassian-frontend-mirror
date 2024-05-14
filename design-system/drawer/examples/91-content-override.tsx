@@ -23,10 +23,7 @@ const ContentOverrideComponent: FC<{ children?: ReactNode }> = ({
         overflow: 'auto',
         marginTop: token('space.300', '24px'),
         // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-        border: `3px dashed ${token(
-          'color.background.accent.purple.subtle',
-          'pink',
-        )}`,
+        border: `3px dashed ${token('color.background.accent.purple.subtle')}`,
       }}
     >
       {children}

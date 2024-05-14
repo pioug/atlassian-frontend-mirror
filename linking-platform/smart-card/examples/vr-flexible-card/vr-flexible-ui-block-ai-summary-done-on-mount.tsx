@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import { TitleBlock, SnippetBlock, Card, Provider } from '../../src/index';
@@ -16,12 +17,13 @@ class MaximumResolvedCustomClient extends CardClient {
   }
 }
 
+const mockState: AISummaryState = {
+  status: 'done',
+  content: `Here's some test content to indicate a summary`,
+};
 const mockUseAiSummary = injectable(useAISummary, () => ({
-  summariseUrl: () => Promise.resolve(),
-  state: {
-    status: 'done',
-    content: `Here's some test content to indicate a summary`,
-  },
+  summariseUrl: () => Promise.resolve(mockState),
+  state: mockState,
 }));
 
 const dependencies = [mockUseAiSummary];
@@ -32,6 +34,7 @@ export default () => (
       <Provider
         client={new MaximumResolvedCustomClient()}
         isAdminHubAIEnabled={true}
+        product="JSM"
       >
         <Card
           appearance="block"

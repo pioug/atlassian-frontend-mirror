@@ -40,18 +40,18 @@ export type StyleProps = {
   children?: React.ReactNode;
 };
 
-const titleStyles = css`
-  outline: none;
-  border: none;
-  font-size: ${relativeFontSizeToBase16(fontSize())};
-  line-height: ${akEditorLineHeight};
-  font-weight: normal;
-  display: flex;
-  flex: 1;
-  margin: 0;
-  padding: 0 0 0 ${token('space.050', '4px')};
-  text-align: left;
-`;
+const titleStyles = css({
+  outline: 'none',
+  border: 'none',
+  fontSize: relativeFontSizeToBase16(fontSize()),
+  lineHeight: akEditorLineHeight,
+  fontWeight: 'normal',
+  display: 'flex',
+  flex: 1,
+  margin: 0,
+  padding: `0 0 0 ${token('space.050', '4px')}`,
+  textAlign: 'left',
+});
 
 const Container = (props: StyleProps) => {
   const paddingBottom = props.expanded
@@ -59,6 +59,7 @@ const Container = (props: StyleProps) => {
     : token('space.0', '0px');
   const sharedContainerStyles = sharedExpandStyles.containerStyles(props);
 
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   const styles = () => css`
     ${sharedContainerStyles()}
     padding: 0;
@@ -66,6 +67,7 @@ const Container = (props: StyleProps) => {
   `;
 
   return (
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <div css={styles} {...props}>
       {props.children}
     </div>
@@ -79,6 +81,7 @@ const TitleContainer = (
     ? token('space.100', '8px')
     : token('space.0', '0px');
 
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
   const styles = () => css`
     ${sharedExpandStyles.titleContainerStyles()}
     padding: ${token('space.100', '8px')};
@@ -88,6 +91,7 @@ const TitleContainer = (
   const { expanded, ...buttonProps } = props;
 
   return (
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <button type="button" css={styles} {...buttonProps}>
       {props.children}
     </button>
@@ -100,6 +104,7 @@ const ContentContainer = (props: StyleProps) => {
   const sharedContentStyles = sharedExpandStyles.contentStyles(props);
   const visibility = props.expanded ? 'visible' : 'hidden';
 
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression  -- needs manual remediation
   const styles = () => css`
     ${sharedContentStyles()};
     padding-right: ${token('space.200', '16px')};
@@ -108,6 +113,7 @@ const ContentContainer = (props: StyleProps) => {
   `;
 
   return (
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     <div css={styles} {...props}>
       {props.children}
     </div>

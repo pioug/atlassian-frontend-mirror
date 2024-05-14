@@ -1,7 +1,3 @@
-jest.mock('dateformat', () => ({
-  __esModule: true,
-  default: () => 'some date',
-}));
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { IntlProvider, createIntl } from 'react-intl-next';

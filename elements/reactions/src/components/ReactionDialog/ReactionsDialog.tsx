@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl-next';
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
 import { EmojiProvider } from '@atlaskit/emoji/resource';
 import Modal, {
   ModalBody,

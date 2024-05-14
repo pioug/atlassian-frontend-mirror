@@ -1160,10 +1160,6 @@ export interface TypographyTokenSchema<
       xsmall: TypographyToken<TPalette>;
       xxsmall: TypographyToken<TPalette>;
     };
-    ui: {
-      '[default]': TypographyToken<TPalette>;
-      small: TypographyToken<TPalette>;
-    };
     body: {
       '[default]': TypographyToken<TPalette>;
       small: TypographyToken<TPalette>;
@@ -1221,10 +1217,10 @@ export interface FontSizeTokenSchema<BaseToken> {
 export interface FontWeightTokenSchema<BaseToken> {
   font: {
     weight: {
-      regular: DeprecatedTypographyToken<BaseToken>;
-      medium: DeprecatedTypographyToken<BaseToken>;
-      semibold: DeprecatedTypographyToken<BaseToken>;
-      bold: DeprecatedTypographyToken<BaseToken>;
+      regular: FontWeightToken<BaseToken>;
+      medium: FontWeightToken<BaseToken>;
+      semibold: FontWeightToken<BaseToken>;
+      bold: FontWeightToken<BaseToken>;
     };
   };
 }
@@ -1242,13 +1238,13 @@ export interface FontFamilyTokenSchema<BaseToken> {
        * @deprecated
        */
       monospace: DeprecatedTypographyToken<BaseToken>;
-      body: DeprecatedTypographyToken<BaseToken>;
-      heading: DeprecatedTypographyToken<BaseToken>;
+      body: FontFamilyToken<BaseToken>;
+      heading: FontFamilyToken<BaseToken>;
       brand: {
-        heading: DeprecatedTypographyToken<BaseToken>;
-        body: DeprecatedTypographyToken<BaseToken>;
+        heading: FontFamilyToken<BaseToken>;
+        body: FontFamilyToken<BaseToken>;
       };
-      code: DeprecatedTypographyToken<BaseToken>;
+      code: FontFamilyToken<BaseToken>;
     };
   };
 }

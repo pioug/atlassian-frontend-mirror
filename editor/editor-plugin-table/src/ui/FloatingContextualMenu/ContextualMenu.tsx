@@ -46,7 +46,6 @@ import { splitCell } from '@atlaskit/editor-tables/utils';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorBackgroundColorIcon from '@atlaskit/icon/glyph/editor/background-color';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   clearHoverSelection,
@@ -157,12 +156,7 @@ export class ContextualMenu extends Component<
           }
           boundariesElement={boundariesElement}
           offset={offset}
-          section={
-            isDragAndDropEnabled &&
-            getBooleanFF('platform.editor.menu.group-items')
-              ? { hasSeparator: true }
-              : undefined
-          }
+          section={isDragAndDropEnabled ? { hasSeparator: true } : undefined}
         />
       </div>
     );
@@ -545,11 +539,16 @@ export class ContextualMenu extends Component<
       selectionRect,
       editorAnalyticsAPI,
       getEditorContainerWidth,
+      getEditorFeatureFlags,
     } = this.props;
     // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
     const { state, dispatch } = editorView;
     const { targetCellPosition, isTableScalingEnabled = false } =
       getPluginState(state);
+
+    const { tableDuplicateCellColouring = false } = getEditorFeatureFlags
+      ? getEditorFeatureFlags()
+      : {};
 
     switch (item.value.name) {
       case 'sort_column_desc':
@@ -608,17 +607,25 @@ export class ContextualMenu extends Component<
         this.toggleOpen();
         break;
       case 'insert_column':
-        insertColumnWithAnalytics(editorAnalyticsAPI, isTableScalingEnabled)(
-          INPUT_METHOD.CONTEXT_MENU,
-          selectionRect.right,
-        )(state, dispatch, editorView);
+        insertColumnWithAnalytics(
+          editorAnalyticsAPI,
+          isTableScalingEnabled,
+          tableDuplicateCellColouring,
+        )(INPUT_METHOD.CONTEXT_MENU, selectionRect.right)(
+          state,
+          dispatch,
+          editorView,
+        );
         this.toggleOpen();
         break;
       case 'insert_row':
-        insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, {
-          index: selectionRect.bottom,
-          moveCursorToInsertedRow: true,
-        })(state, dispatch);
+        insertRowWithAnalytics(editorAnalyticsAPI, tableDuplicateCellColouring)(
+          INPUT_METHOD.CONTEXT_MENU,
+          {
+            index: selectionRect.bottom,
+            moveCursorToInsertedRow: true,
+          },
+        )(state, dispatch);
         this.toggleOpen();
         break;
       case 'delete_column':

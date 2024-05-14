@@ -8,5 +8,9 @@ export default {
       optional: true,
     },
     marks: { type: 'array', items: [], optional: true },
+    attrs: {
+      optional: true,
+      props: { localId: { type: 'string', optional: true } },
+    },
   },
 };

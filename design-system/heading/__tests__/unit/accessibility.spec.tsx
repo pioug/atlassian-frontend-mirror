@@ -8,7 +8,7 @@ import Heading from '../../src/heading';
 
 it('Basic Heading should not fail aXe audit', async () => {
   const { container } = render(
-    <Heading size="xxlarge" color="inverse">
+    <Heading size="xxlarge" color="color.text.inverse">
       inverse
     </Heading>,
   );
@@ -36,7 +36,7 @@ it('Basic level is correct', async () => {
 
 it('Basic size is correct', async () => {
   const { container } = render(
-    <Heading as="div" size="xxlarge" color="inverse">
+    <Heading as="div" size="xxlarge" color="color.text.inverse">
       inverse
     </Heading>,
   );

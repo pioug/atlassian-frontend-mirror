@@ -4,7 +4,8 @@ import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type {
   GetEditorContainerWidth,
@@ -50,6 +51,7 @@ const tableAttributes = (node: PmNode) => {
     'data-autosize': node.attrs.__autoSize,
     'data-table-local-id': node.attrs.localId || '',
     'data-table-width': node.attrs.width,
+    'data-table-display-mode': node.attrs.displayMode,
   };
 };
 
@@ -135,8 +137,15 @@ export default class TableView extends ReactNodeView<Props> {
 
     if (rendered.dom) {
       this.table = rendered.dom;
-      // Preserve Table Width cannot have inline width set on the table
-      if (!this.options?.isTableScalingEnabled) {
+
+      if (
+        !this.options?.isTableScalingEnabled ||
+        (this.options?.isTableScalingEnabled &&
+          getBooleanFF(
+            'platform.editor.table.preserve-widths-with-lock-button',
+          ) &&
+          this.node.attrs.displayMode === 'fixed')
+      ) {
         const tableInlineWidth = getInlineWidth(
           this.node,
           this.reactComponentProps.options,
@@ -156,26 +165,35 @@ export default class TableView extends ReactNodeView<Props> {
     if (!this.table) {
       return;
     }
-
     const attrs = tableAttributes(node);
     (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
       this.table!.setAttribute(attr, attrs[attr]);
     });
 
-    // handle inline style when table been resized
-    const tableInlineWidth = getInlineWidth(
-      node,
-      (this.reactComponentProps as Props).options,
-      this.view.state,
-      this.getPos(),
-    );
+    // Preserve Table Width cannot have inline width set on the table
+    if (
+      !this.options?.isTableScalingEnabled ||
+      (this.options?.isTableScalingEnabled &&
+        getBooleanFF(
+          'platform.editor.table.preserve-widths-with-lock-button',
+        ) &&
+        node.attrs.displayMode === 'fixed')
+    ) {
+      // handle inline style when table been resized
+      const tableInlineWidth = getInlineWidth(
+        node,
+        (this.reactComponentProps as Props).options,
+        this.view.state,
+        this.getPos(),
+      );
 
-    const isTableResizing = tableWidthPluginKey.getState(
-      this.view.state,
-    )?.resizing;
+      const isTableResizing = tableWidthPluginKey.getState(
+        this.view.state,
+      )?.resizing;
 
-    if (!isTableResizing && tableInlineWidth) {
-      handleInlineTableWidth(this.table, tableInlineWidth);
+      if (!isTableResizing && tableInlineWidth) {
+        handleInlineTableWidth(this.table, tableInlineWidth);
+      }
     }
   }
 
@@ -274,7 +292,7 @@ export default class TableView extends ReactNodeView<Props> {
               isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
               isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
               isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
-              isTableScalingEnabled={pluginState!.isTableScalingEnabled}
+              isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled sams as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
               tableActive={tableActive}
               ordering={pluginState!.ordering as TableColumnOrdering}
               isResizing={isResizing}
@@ -367,7 +385,7 @@ export const createTableView = (
   node: PmNode,
   view: EditorView,
   getPos: getPosHandler,
-  portalProviderAPI: PortalProviderAPI,
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI,
   eventDispatcher: EventDispatcher,
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
@@ -380,7 +398,7 @@ export const createTableView = (
     wasFullWidthModeEnabled,
     isTableResizingEnabled,
     isDragAndDropEnabled,
-    isTableScalingEnabled,
+    isTableScalingEnabled, // same as options.isTableScalingEnabled
   } = getPluginState(view.state);
   const { allowColumnResizing, allowControls } = getPluginConfig(pluginConfig);
   const hasIntlContext = true;
@@ -398,7 +416,7 @@ export const createTableView = (
       wasFullWidthModeEnabled,
       isTableResizingEnabled,
       isDragAndDropEnabled,
-      isTableScalingEnabled,
+      isTableScalingEnabled, // same as options.isTableScalingEnabled
     },
     getEditorContainerWidth,
     getEditorFeatureFlags,

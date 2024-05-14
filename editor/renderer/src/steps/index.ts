@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
@@ -22,6 +23,19 @@ function findParent(element: ChildNode | Node): HTMLElement | null {
   }
 
   return findParent(parentElement);
+}
+
+function findMediaParent(element: ChildNode | Node): HTMLElement | null {
+  const { parentElement } = element;
+  if (!parentElement || isRoot(parentElement)) {
+    return null;
+  }
+
+  if (parentElement.dataset.nodeType === 'mediaSingle') {
+    return parentElement;
+  }
+
+  return findMediaParent(parentElement);
 }
 
 function findParentBeforePointer(element: HTMLElement): HTMLElement | null {
@@ -59,24 +73,45 @@ function isElementInlineMark(
   return !!element && Boolean(element.dataset.rendererMark);
 }
 
-/**
- * This returns the text content of a node excluding content
- * inside inline cards (spans with data-inline-card="true").
- */
-function getPMTextContent(node: ChildNode): string {
-  if (isTextNode(node)) {
-    return node.textContent!;
+function isNodeInlineTextMark(node: ChildNode | Node | HTMLElement | null) {
+  if (node === null) {
+    return false;
   }
 
+  const isInlineMark =
+    isElementNode(node) && Boolean(node.dataset.rendererMark);
+
+  if (!isInlineMark) {
+    return false;
+  }
+
+  /**
+   * This checks if the element has any descendents with the data-inline-card
+   * attribute set to 'true'. If it does, we should not consider it as an
+   * inline text mark.
+   **/
+
+  if (hasInlineCardDescendant(node)) {
+    return false;
+  }
+
+  return true;
+}
+
+/**
+ * This checks all the descendents of a node and returns true if it reaches
+ * a descendant with the data-inline-card attribute set to 'true'.
+ */
+function hasInlineCardDescendant(node: Node): boolean {
   if (isElementNode(node)) {
     if (node.dataset.inlineCard === 'true') {
-      return '';
+      return true;
     }
 
-    return Array.from(node.childNodes).map(getPMTextContent).join('');
+    return Array.from(node.childNodes).some(hasInlineCardDescendant);
   }
 
-  return '';
+  return false;
 }
 
 function resolveNodePos(node: Node) {
@@ -86,10 +121,20 @@ function resolveNodePos(node: Node) {
     if (prev && (isTextNode(prev) || isHighlightTextNode(prev))) {
       resolvedPos += (prev.textContent || '').length;
     } else if (prev) {
-      if (isNodeInlineMark(prev) && prev.textContent) {
-        resolvedPos += getPMTextContent(prev).length;
+      if (
+        getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+      ) {
+        if (isNodeInlineTextMark(prev) && prev.textContent) {
+          resolvedPos += prev.textContent.length;
+        } else {
+          resolvedPos += 1;
+        }
       } else {
-        resolvedPos += 1;
+        if (isNodeInlineMark(prev) && prev.textContent) {
+          resolvedPos += prev.textContent.length;
+        } else {
+          resolvedPos += 1;
+        }
       }
     }
 
@@ -131,13 +176,27 @@ export function resolvePos(node: Node | null, offset: number) {
     // We need to move our pointers to parent element
     // since we don't want to count text inside inline nodes at all
     if (
-      !(
-        isElementInlineMark(preParentPointer) ||
-        isHighlightTextNode(preParentPointer)
-      )
+      getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
     ) {
-      current = current.parentElement;
-      offset = 0;
+      if (
+        !(
+          isNodeInlineTextMark(preParentPointer) ||
+          isHighlightTextNode(preParentPointer)
+        )
+      ) {
+        current = current.parentElement;
+        offset = 0;
+      }
+    } else {
+      if (
+        !(
+          isElementInlineMark(preParentPointer) ||
+          isHighlightTextNode(preParentPointer)
+        )
+      ) {
+        current = current.parentElement;
+        offset = 0;
+      }
     }
 
     resolvedPos += resolveNodePos(current);
@@ -163,13 +222,43 @@ interface AnnotationStepOptions {
 
 export function getPosFromRange(
   range: Range,
+  isCommentsOnMediaBugFixEnabled?: boolean,
+  isCommentsOnMediaBugVideoCommentEnabled?: boolean,
 ): { from: number; to: number } | false {
   const { startContainer, startOffset, endContainer, endOffset } = range;
 
-  const parent = findParent(startContainer);
-  if (parent && getNodeType(parent) === 'media') {
-    const pos = getStartPos(parent);
-    return { from: pos, to: pos };
+  const possibleMediaOrMediaSingleElement = findParent(startContainer);
+
+  if (isCommentsOnMediaBugVideoCommentEnabled) {
+    // Video hover targets return media single, not media, thus, the extra check in condition.
+    const isMediaOrMediaSingle = possibleMediaOrMediaSingleElement && /media|mediaSingle/.test(getNodeType(possibleMediaOrMediaSingleElement) || '')
+    if (isMediaOrMediaSingle) {
+      let pos;
+      const mediaSingleElement = getNodeType(possibleMediaOrMediaSingleElement) === 'mediaSingle' ? possibleMediaOrMediaSingleElement : findMediaParent(possibleMediaOrMediaSingleElement);
+      if (mediaSingleElement) {
+        pos = getStartPos(mediaSingleElement);
+      }
+
+      if (pos !== undefined) {
+        return { from: pos, to: pos };
+      }
+    }
+  } else {
+    if (possibleMediaOrMediaSingleElement && getNodeType(possibleMediaOrMediaSingleElement) === 'media') {
+      let pos;
+      if (isCommentsOnMediaBugFixEnabled) {
+        const mediaSingleElement = findMediaParent(possibleMediaOrMediaSingleElement);
+        if (mediaSingleElement) {
+          pos = getStartPos(mediaSingleElement);
+        }
+      } else {
+        pos = getStartPos(possibleMediaOrMediaSingleElement);
+      }
+
+      if (pos !== undefined) {
+        return { from: pos, to: pos };
+      }
+    }
   }
 
   const from = resolvePos(startContainer, startOffset);

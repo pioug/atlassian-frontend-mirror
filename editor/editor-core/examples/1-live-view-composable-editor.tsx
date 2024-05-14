@@ -1,7 +1,8 @@
 import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
@@ -12,18 +13,27 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import Toggle from '@atlaskit/toggle';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
+import { EditorExampleControls } from '../example-helpers/full-page/editor-example-controls';
 import type { EditorActions } from '../src';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
 const smartCardClient = new ConfluenceCardClient('staging');
 
+const EXAMPLE_NAME = 'live-view-composable-editor';
+
 const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
   const onClickPublish = () => {
     props.editorActions.getResolvedEditorState().then((value) => {
-      console.log(value);
+      if (value?.content) {
+        localStorage.setItem(
+          `${EXAMPLE_NAME}-doc`,
+          JSON.stringify(value.content),
+        );
+      }
     });
   };
 
@@ -39,13 +49,21 @@ const SaveAndCancelButtons = (props: { editorActions: EditorActions }) => {
   );
 };
 
-function ComposableEditorPage() {
+function getDefaultValue() {
+  const doc = localStorage.getItem(`${EXAMPLE_NAME}-doc`);
+  return doc ? JSON.parse(doc) : '';
+}
+
+function ComposableEditorPage({ isViewMode }: { isViewMode: boolean }) {
   // [ED-22843] this feature flag is for testing purposes only
   // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
   const isLiveViewToggled = getBooleanFF('__live-view-toggle') ? true : false;
+  const [appearance, setAppearance] =
+    React.useState<EditorAppearance>('full-page');
 
   const universalPreset = useUniversalPreset({
     props: {
+      appearance,
       mentionProvider: Promise.resolve(mentionResourceProvider),
       allowStatus: true,
       allowTasksAndDecisions: true,
@@ -96,11 +114,13 @@ function ComposableEditorPage() {
 
   // Memoise the preset otherwise we will re-render the editor too often
   const { preset, editorApi } = usePreset(() => {
-    return universalPreset.add(editorViewModePlugin).add(selectionMarkerPlugin);
+    return universalPreset
+      .add([editorViewModePlugin, { mode: isViewMode ? 'view' : 'edit' }])
+      .add(selectionMarkerPlugin);
     // The only things that cause a re-creation of the preset is something in the
     // universal preset to be consistent with current behaviour (ie. this could
     // be a page width change via the `appearance` prop).
-  }, [universalPreset]);
+  }, [universalPreset, isViewMode]);
 
   React.useEffect(() => {
     if (!isLiveViewToggled) {
@@ -119,10 +139,20 @@ function ComposableEditorPage() {
 
   return (
     <SmartCardProvider client={smartCardClient}>
+      <EditorExampleControls
+        appearance={appearance}
+        onFullWidthChange={() => {
+          if (appearance === 'full-page') {
+            setAppearance('full-width');
+          } else if (appearance === 'full-width') {
+            setAppearance('full-page');
+          }
+        }}
+      />
       <ComposableEditor
-        placeholder="Editor AI"
-        appearance={'full-page'}
+        appearance={appearance}
         preset={preset}
+        defaultValue={getDefaultValue()}
         linking={{
           smartLinks: {
             provider: Promise.resolve(smartLinksProvider),
@@ -145,9 +175,23 @@ function ComposableEditorPage() {
 }
 
 export default function ComposableEditorPageWrapper() {
+  const [isViewMode, setIsViewMode] = React.useState(false);
+  const [reactKey, setReactKey] = React.useState(0);
   return (
-    <EditorContext>
-      <ComposableEditorPage />
-    </EditorContext>
+    <>
+      <label htmlFor="toggle-row-shuffle">Toggle View Mode</label>
+      <Toggle
+        id="toggle-row-shuffle"
+        size="large"
+        isChecked={isViewMode}
+        onChange={() => {
+          setReactKey((prev) => prev + 1);
+          setIsViewMode((prev) => !prev);
+        }}
+      />
+      <EditorContext>
+        <ComposableEditorPage isViewMode={isViewMode} key={reactKey} />
+      </EditorContext>
+    </>
   );
 }

@@ -39,6 +39,7 @@ export {
   TOOLBAR_ACTION_SUBJECT_ID,
   TRIGGER_METHOD,
   USER_CONTEXT,
+  TABLE_DISPLAY_MODE,
 } from './types';
 export type {
   AnalyticsDispatch,

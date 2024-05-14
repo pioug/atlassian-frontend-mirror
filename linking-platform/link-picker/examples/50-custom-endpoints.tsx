@@ -53,6 +53,23 @@ function CustomEndPoints() {
         aggregatorUrl:
           'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
+        tabConfig: {
+          tabKey: 'confluence-tab',
+          tabTitle: 'Confluence',
+        },
+      }),
+      // Loom content is pulled from https://stage.loom.com/looms/videos
+      new AtlassianLinkPickerPlugin({
+        cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
+        scope: Scope.Loom,
+        aggregatorUrl:
+          'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
+        activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',
+        disableActivityClient: true,
+        tabConfig: {
+          tabKey: 'loom-tab',
+          tabTitle: 'Loom',
+        },
       }),
     ],
     [],

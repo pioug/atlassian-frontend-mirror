@@ -16,4 +16,10 @@ export const footerMessages = defineMessages({
     description: 'Label for refresh icon',
     defaultMessage: 'Refresh',
   },
+  powerByJSM: {
+    id: 'linkDataSource.table-footer.power-by-jsm',
+    description:
+      'Displayed on the issue like table footer to increase JSM Assets visibility',
+    defaultMessage: 'Powered by Assets in Jira Service Management',
+  },
 });

@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getCSSCustomProperty, getTokenId } from '../../../src/utils/token-ids';
@@ -30,7 +30,7 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
     .map((name) => `  '${name}': 'var(${tokens[name]})',`)
     .join('\n');
 
-  return prettier.format(
+  return format(
     `const tokens = {
       ${tokensKeyValues}
     } as const;
@@ -42,7 +42,7 @@ export const typescriptTokenFormatter: Format['formatter'] = ({
     export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
     export default tokens;\n`,
-    { parser: 'typescript', singleQuote: true },
+    'typescript'
   );
 };
 

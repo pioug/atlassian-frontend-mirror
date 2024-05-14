@@ -19,7 +19,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     replacement: token.attributes?.replacement,
   }));
 
-  const source = `import tokens from './token-names';
+  const source = `import type tokens from './token-names';
 
 type Token = keyof typeof tokens | string;
 type RenameMap = {

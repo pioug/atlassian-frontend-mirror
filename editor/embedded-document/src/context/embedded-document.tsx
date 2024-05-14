@@ -11,22 +11,21 @@ import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const akEditorFullPageMaxWidth = 680;
-const Content = styled.div`
-  line-height: 24px;
-  height: 100%;
-  width: 100%;
-  max-width: ${akEditorFullPageMaxWidth + akEditorGutterPadding * 2}px;
-  padding-top: ${token('space.600', '48px')};
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  padding-bottom: ${token('space.600', '48px')};
-
-  & > * {
-    padding: 0 ${token('space.400', '32px')};
-  }
-`;
+const Content = styled.div({
+  lineHeight: '24px',
+  height: '100%',
+  width: '100%',
+  maxWidth: `${akEditorFullPageMaxWidth + akEditorGutterPadding * 2}px`,
+  paddingTop: token('space.600', '48px'),
+  margin: '0 auto',
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  paddingBottom: token('space.600', '48px'),
+  '& > *': {
+    padding: `0 ${token('space.400', '32px')}`,
+  },
+});
 
 export interface Props extends ProviderProps {
   /* The ARI for the resource that points or refers to this document e.g. a page in Confluence */

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
-import { Avatar, AvatarPickerDialog } from '../src';
+import { type Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
 
 const avatars: Array<Avatar> = generateAvatars(30);
@@ -14,5 +14,7 @@ export default () => (
     onCancel={() => console.log('onCancel')}
     title="Custom title!"
     primaryButtonText="This one!"
+    selectAvatarLabel="Custom select default avatar!"
+    showMoreAvatarsButtonLabel="Custom show more avatars!"
   />
 );

@@ -306,11 +306,13 @@ export interface Catchupv2Options {
   fetchCatchupv2: (
     fromVersion: number,
     clientId: number | string | undefined,
+    catchUpOutofSync: boolean,
   ) => Promise<Catchupv2Response>;
   updateMetadata: (metadata: Metadata | undefined) => void;
   analyticsHelper: AnalyticsHelper | undefined;
   clientId: number | string | undefined;
   onStepsAdded: (data: StepsPayload) => void;
+  catchUpOutofSync: boolean;
 }
 
 export type ProductInformation = {

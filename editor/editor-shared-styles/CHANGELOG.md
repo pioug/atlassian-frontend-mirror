@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.10.0
+
+### Minor Changes
+
+- [#86433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/86433) [`88ca3b199a49`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88ca3b199a49) - [ux] EDF-412 Collaborators avatars and telepointer colors are tokenised.
+
 ## 2.9.3
 
 ### Patch Changes

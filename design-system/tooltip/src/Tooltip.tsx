@@ -6,21 +6,21 @@ import { usePlatformLeafSyntheticEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import {
-  Direction,
+  type Direction,
   ExitingPersistence,
   FadeIn,
-  Transition,
+  type Transition,
 } from '@atlaskit/motion';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
-import { Placement, Popper } from '@atlaskit/popper';
+import { type Placement, Popper } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import { register } from './internal/drag-manager';
-import { API, Entry, show, Source } from './internal/tooltip-manager';
+import { type API, type Entry, show, type Source } from './internal/tooltip-manager';
 import useUniqueId from './internal/use-unique-id';
 import TooltipContainer from './TooltipContainer';
-import { TooltipProps, TriggerProps } from './types';
+import { type TooltipProps, type TriggerProps } from './types';
 import { getMousePosition } from './utilities';
 
 const tooltipZIndex = layers.tooltip();
@@ -41,7 +41,7 @@ const invertedDirection = {
 /**
  * Converts a Popper placement to it's general direction.
  *
- * @param position - Popper Placement value, e.g. 'top-start'
+ * @param placement - Popper Placement value, e.g. 'top-start'
  * @returns Popper Direction, e.g. 'top'
  */
 const getDirectionFromPlacement = (placement: Placement): Direction =>
@@ -73,6 +73,7 @@ function Tooltip({
   hideTooltipOnMouseDown = false,
   analyticsContext,
   strategy = 'fixed',
+  ignoreTooltipPointerEvents = false,
 }: TooltipProps) {
   const tooltipPosition = position === 'mouse' ? mousePosition : position;
   const onShowHandler = usePlatformLeafSyntheticEventHandler({
@@ -267,6 +268,7 @@ function Tooltip({
       apiRef.current.requestHide({ isImmediate: true });
     }
   }, [hideTooltipOnMouseDown]);
+
   const onClick = useCallback(() => {
     if (hideTooltipOnClick && apiRef.current) {
       apiRef.current.requestHide({ isImmediate: true });
@@ -325,7 +327,9 @@ function Tooltip({
     event.preventDefault();
 
     if (apiRef.current) {
-      apiRef.current.requestHide({ isImmediate: false });
+      apiRef.current.requestHide({
+        isImmediate: false,
+      });
     }
   }, []);
 
@@ -498,7 +502,12 @@ function Tooltip({
                            * and hide tooltips, including in VR snapshots
                            **/
                           className={`Tooltip ${className}`}
-                          style={style}
+                          style={{
+                            ...style,
+                            ...(ignoreTooltipPointerEvents && {
+                              pointerEvents: 'none',
+                            }),
+                          }}
                           truncate={truncate}
                           placement={tooltipPosition}
                           testId={

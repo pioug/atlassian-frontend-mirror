@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/section-message",
-  "version": "6.4.25",
+  "version": "6.5.1",
   "description": "A section message is used to alert users to a particular section of the screen.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,7 +31,8 @@
     },
     "productPushConsumption": [
       "jira"
-    ]
+    ],
+    "runReact18": true
   },
   "af:exports": {
     "./section-message": "./src/entry-points/section-message.tsx",
@@ -46,22 +47,22 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/heading": "^2.1.0",
+    "@atlaskit/heading": "^2.3.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

@@ -1,17 +1,4 @@
-import prettier from 'prettier';
-
-const prettierConfig: prettier.Options = {
-  semi: true,
-  printWidth: 80,
-  useTabs: false,
-  tabWidth: 2,
-  singleQuote: true,
-  trailingComma: 'all',
-  bracketSpacing: true,
-  bracketSameLine: false,
-  proseWrap: 'always',
-  parser: 'typescript',
-};
+import format from '@af/formatting/sync';
 
 export function sortObjectKeys(obj: Record<string, any>): Record<string, any> {
   const sortedKeys = Object.keys(obj).sort();
@@ -25,5 +12,5 @@ export function sortObjectKeys(obj: Record<string, any>): Record<string, any> {
 }
 
 export function formatCode(code: string): string {
-  return prettier.format(code, prettierConfig);
+  return format(code, 'typescript');
 }

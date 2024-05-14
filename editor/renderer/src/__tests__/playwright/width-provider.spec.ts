@@ -7,6 +7,7 @@ test.describe('width-provider', () => {
     rendererProps: {
       appearance: 'comment',
     },
+    viewport: { width: 960, height: 600 },
   });
 
   test('should resize table on page width change', async ({ renderer }) => {
@@ -14,9 +15,7 @@ test.describe('width-provider', () => {
 
     const beforeWidth = (await table.boundingBox())?.width;
     expect(beforeWidth).toBe(960);
-
     await renderer.page.setViewportSize({ width: 600, height: 600 });
-
     const targetWidth = 600;
 
     await renderer.page.waitForFunction(

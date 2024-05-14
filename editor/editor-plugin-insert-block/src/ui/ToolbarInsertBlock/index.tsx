@@ -108,9 +108,13 @@ export const tableButtonWrapper = ({
     }
   `;
 
+type InternalActions = {
+  registerToggleDropdownMenuOptions?: (cb: () => void) => () => void;
+};
+
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInsertBlock extends React.PureComponent<
-  Props & WrappedComponentProps,
+  Props & WrappedComponentProps & InternalActions,
   State
 > {
   private dropdownButtonRef?: HTMLElement;
@@ -118,6 +122,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private plusButtonRef?: HTMLElement;
   private tableButtonRef = React.createRef<HTMLElement>();
   private tableSelectorButtonRef = React.createRef<HTMLElement>();
+  private unresgisterToggleDropdownMenuOptions: null | (() => void);
 
   state: State = {
     isPlusMenuOpen: false,
@@ -128,6 +133,16 @@ export class ToolbarInsertBlock extends React.PureComponent<
     isTableSelectorOpen: false,
     isTableSelectorOpenedByKeyboard: false,
   };
+
+  constructor(props: Props & WrappedComponentProps & InternalActions) {
+    super(props);
+    const { registerToggleDropdownMenuOptions } = props;
+
+    this.unresgisterToggleDropdownMenuOptions =
+      registerToggleDropdownMenuOptions
+        ? registerToggleDropdownMenuOptions(this.handleClick)
+        : null;
+  }
 
   static getDerivedStateFromProps(
     props: Props & WrappedComponentProps,
@@ -404,10 +419,24 @@ export class ToolbarInsertBlock extends React.PureComponent<
     }
   };
 
+  componentWillUnmount = () => {
+    if (this.unresgisterToggleDropdownMenuOptions) {
+      this.unresgisterToggleDropdownMenuOptions();
+    }
+  };
+
   render() {
     const { buttons, dropdownItems, emojiPickerOpen, isTableSelectorOpen } =
       this.state;
     const { isDisabled, isReducedSpacing } = this.props;
+
+    const isTableButtonVisible = buttons.some(
+      ({ value }) => value.name === 'table',
+    );
+
+    const isTableSizeVisible = buttons.some(
+      ({ value }) => value.name === 'table selector',
+    );
 
     if (buttons.length === 0 && dropdownItems.length === 0) {
       return null;
@@ -457,65 +486,74 @@ export class ToolbarInsertBlock extends React.PureComponent<
             />
           );
         })}
-        {this.props.tableSelectorSupported && (
-          <div
-            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            css={tableButtonWrapper({
-              isTableSelectorOpen,
-              isButtonDisabled: tableButton?.isDisabled,
-            })}
-          >
-            <ToolbarButton
-              className="table-toolbar-btn"
-              item={tableButton}
-              ref={this.tableButtonRef}
-              testId={String(tableButton?.content)}
-              key={tableButton?.value.name}
-              spacing={isReducedSpacing ? 'none' : 'default'}
-              disabled={isDisabled || tableButton?.isDisabled}
-              iconBefore={tableButton?.elemBefore}
-              selected={tableButton?.isActive || isTableSelectorOpen}
-              title={tableButton?.title}
-              aria-label={tableButton ? tableButton['aria-label'] : undefined}
-              aria-haspopup={
-                tableButton ? tableButton['aria-haspopup'] : undefined
-              }
-              aria-keyshortcuts={
-                tableButton ? tableButton['aria-keyshortcuts'] : undefined
-              }
-              onItemClick={this.insertToolbarMenuItem}
-            />
-            <ToolbarButton
-              className="table-selector-toolbar-btn"
-              item={tableSelectorButton}
-              testId={String(tableSelectorButton?.content)}
-              key={tableSelectorButton?.value.name}
-              ref={this.tableSelectorButtonRef}
-              spacing={isReducedSpacing ? 'none' : 'default'}
-              disabled={isDisabled || tableSelectorButton?.isDisabled}
-              iconBefore={tableSelectorButton?.elemBefore}
-              selected={tableSelectorButton?.isActive || isTableSelectorOpen}
-              title={tableSelectorButton?.title}
-              aria-label={
-                tableSelectorButton
-                  ? tableSelectorButton['aria-label']
-                  : undefined
-              }
-              aria-haspopup={
-                tableSelectorButton
-                  ? tableSelectorButton['aria-haspopup']
-                  : undefined
-              }
-              aria-keyshortcuts={
-                tableSelectorButton
-                  ? tableSelectorButton['aria-keyshortcuts']
-                  : undefined
-              }
-              onItemClick={this.insertToolbarMenuItem}
-              onKeyDown={this.handleTableSelectorOpenByKeyboard}
-            />
-          </div>
-        )}
+        {this.props.tableSelectorSupported &&
+          (isTableButtonVisible || isTableSizeVisible) && (
+            <div
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+              css={tableButtonWrapper({
+                isTableSelectorOpen,
+                isButtonDisabled: tableButton?.isDisabled,
+              })}
+            >
+              {isTableButtonVisible && (
+                <ToolbarButton
+                  className="table-toolbar-btn"
+                  item={tableButton}
+                  ref={this.tableButtonRef}
+                  testId={String(tableButton?.content)}
+                  key={tableButton?.value.name}
+                  spacing={isReducedSpacing ? 'none' : 'default'}
+                  disabled={isDisabled || tableButton?.isDisabled}
+                  iconBefore={tableButton?.elemBefore}
+                  selected={tableButton?.isActive || isTableSelectorOpen}
+                  title={tableButton?.title}
+                  aria-label={
+                    tableButton ? tableButton['aria-label'] : undefined
+                  }
+                  aria-haspopup={
+                    tableButton ? tableButton['aria-haspopup'] : undefined
+                  }
+                  aria-keyshortcuts={
+                    tableButton ? tableButton['aria-keyshortcuts'] : undefined
+                  }
+                  onItemClick={this.insertToolbarMenuItem}
+                />
+              )}
+              {isTableButtonVisible && (
+                <ToolbarButton
+                  className="table-selector-toolbar-btn"
+                  item={tableSelectorButton}
+                  testId={String(tableSelectorButton?.content)}
+                  key={tableSelectorButton?.value.name}
+                  ref={this.tableSelectorButtonRef}
+                  spacing={isReducedSpacing ? 'none' : 'default'}
+                  disabled={isDisabled || tableSelectorButton?.isDisabled}
+                  iconBefore={tableSelectorButton?.elemBefore}
+                  selected={
+                    tableSelectorButton?.isActive || isTableSelectorOpen
+                  }
+                  title={tableSelectorButton?.title}
+                  aria-label={
+                    tableSelectorButton
+                      ? tableSelectorButton['aria-label']
+                      : undefined
+                  }
+                  aria-haspopup={
+                    tableSelectorButton
+                      ? tableSelectorButton['aria-haspopup']
+                      : undefined
+                  }
+                  aria-keyshortcuts={
+                    tableSelectorButton
+                      ? tableSelectorButton['aria-keyshortcuts']
+                      : undefined
+                  }
+                  onItemClick={this.insertToolbarMenuItem}
+                  onKeyDown={this.handleTableSelectorOpenByKeyboard}
+                />
+              )}
+            </div>
+          )}
         {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
         <span css={wrapperStyle}>
           {this.renderPopup()}

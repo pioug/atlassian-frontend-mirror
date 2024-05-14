@@ -13,11 +13,17 @@ export default {
   'fabric.linking.add_account': '⁣⁢Add account‌‍‌⁯⁬⁡⁠⁠⁭⁬⁯‌⁭‌⁡⁪‌⁫⁠⁣⁤',
   'fabric.linking.ai_summarize': '⁣⁢Summarize⁡؜‌⁠⁠⁫⁮⁡⁯⁯‍⁠⁪⁡⁫⁮⁭⁮؜⁯⁠‍‍‌‌‌⁣⁤',
   'fabric.linking.ai_summarized': '⁣⁢Summarized by Atlassian Intelligence⁯⁡⁯⁪‍⁮⁯⁭⁬‌⁡⁠‍‌⁪⁪⁡⁠⁯‌⁠⁬⁣⁤',
+  'fabric.linking.ai_summarized_abbreviation': '⁣⁢Summarized by AI⁯⁮⁭⁫؜⁭⁡⁮⁠‌⁭‌⁭⁯⁮⁡⁡‌⁫⁬⁪⁪‌؜⁣⁤',
   'fabric.linking.ai_summarized_info': '⁣⁢Information quality may vary. <a>Learn more</a>⁠‌⁫⁪⁬⁠⁭‌‌‌‌⁮‌⁪‍؜⁡⁮⁠⁫‌⁯⁣⁤',
   'fabric.linking.ai_summarizing': '⁣⁢Atlassian Intelligence is working...‌⁡⁡⁯‍‍⁡⁭⁠⁬⁠⁯⁮‍⁮؜⁬؜؜‌؜⁪⁪⁣⁤',
+  'fabric.linking.ai_summary_error_acceptable_use_violation':
+    "⁣⁢We cannot show the results of this summary as it goes against <a>Atlassian's Acceptable Use Policy</a>.⁮‌‌⁡‌⁡‌⁮⁠⁬⁯⁡⁯⁠⁬⁯‍⁯‌⁠⁫⁪‌؜⁡⁣⁤",
   'fabric.linking.ai_summary_error_generic':
-    "⁣⁢Atlassian Intelligence can't provide a response right now. Read more <a>in our support documentation</a>.‍⁭⁯‌⁡⁯⁫⁬⁫⁫‌⁭⁠⁮⁣⁤",
+    '⁣⁢Atlassian Intelligence (AI) isn’t responding. Try again later or <a>check the status of AI</a>.⁯⁯⁯⁡⁫⁬⁭⁫⁡⁭‍⁬؜⁭؜⁪⁯⁪؜‌‍⁣⁤',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    '⁣⁢Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content.⁫⁭⁭⁭⁡؜‌⁬؜⁮⁭‌⁮⁡⁮⁠؜‍⁠⁣⁤',
   'fabric.linking.assigned_to': '⁣⁢Assigned to {context}؜⁯‌‍⁬⁬‍⁡؜⁯؜‌‌‍⁡⁫⁭⁮‍⁠⁠؜⁯⁣⁤',
+  'fabric.linking.beta': '⁣⁢Beta⁯⁡⁮⁡⁮⁯⁪‌⁭⁯‍⁡⁡⁫⁡⁬‍⁪⁭⁮⁡⁮‌؜⁣⁤',
   'fabric.linking.cancel': '⁣⁢Cancel؜⁯⁡⁪⁮‌‌⁪؜⁭⁡‌⁫‌⁠‍⁪‍‍⁯⁣⁤',
   'fabric.linking.cannot_connect': "⁣⁢Can't connect, try again⁪⁪⁪⁯⁮‌‍⁯⁮‍⁫⁡؜؜⁡‌⁬⁮⁡⁣⁤",
   'fabric.linking.cannot_find_link': "⁣⁢Can't find link⁡‌‌⁯‌‌⁡‍⁪⁬⁯⁡⁭⁫⁯⁬⁮⁣⁤",
@@ -40,6 +46,7 @@ export default {
   'fabric.linking.connect_unauthorised_account_description_no_provider':
     '⁣⁢Connect your account to collaborate on work across Atlassian products.⁡⁯⁮‍‌؜⁬⁠⁡⁮‍⁯⁫⁯‌‌⁠⁮‌⁣⁤',
   'fabric.linking.continue': '⁣⁢Continue⁭‌؜⁪⁡⁭⁬⁯⁯؜⁠⁡⁬⁠‌؜⁯⁫⁫⁠⁣⁤',
+  'fabric.linking.copied_url_to_clipboard.nonfinal': '⁣⁢Copied!⁪‍؜‌⁭⁯⁬⁭⁬‍⁯⁮؜⁠؜⁯⁯⁬؜‍؜‍‍⁭⁣⁤',
   'fabric.linking.copy_url_to_clipboard': '⁣⁢Copy link⁡⁯⁬‍⁯⁠⁯⁯⁫⁬⁫‍‌⁫⁭⁮⁫‍⁫⁡⁯⁠⁣⁤',
   'fabric.linking.couldnt_load_link': "⁣⁢We couldn't load this link for an unknown reason.⁫؜⁮⁯‍⁬⁡⁭⁭⁬⁡؜‌⁪‌؜⁡؜⁫⁫⁯⁣⁤",
   'fabric.linking.create_on_absolute': '⁣⁢Created on {context}⁮‍؜⁠⁫؜‍⁭⁠؜⁬⁭⁮⁮⁫⁯؜؜⁮⁫؜⁪⁣⁤',
@@ -51,6 +58,8 @@ export default {
     '⁣⁢Your team uses {product} to collaborate and you can start using it right away!‌‌⁫‍؜؜⁬‍⁡⁪⁬⁯⁮⁭⁯‌⁬⁮‍⁯‌⁠⁫⁭‍⁣⁤',
   'fabric.linking.direct_access_title': '⁣⁢Join {product} to view this content⁠⁡؜⁭⁡‌⁪⁫⁬⁠⁭‌⁭⁫⁫‍⁬⁬⁡⁠‍⁬⁭⁠‌⁪⁣⁤',
   'fabric.linking.download': '⁣⁢Download‌⁫⁪⁬⁫⁫‍⁮‍؜⁪⁭⁠⁬⁯؜⁡⁡⁬‍⁬⁪⁣⁤',
+  'fabric.linking.download_description.nonfinal': '⁣⁢Download this file into your local storage⁭‌‌⁠⁠⁭⁭⁮⁯⁬‌⁯⁪⁬⁮⁯⁪⁮⁠⁬⁣⁤',
+  'fabric.linking.download_file.nonfinal': '⁣⁢Download file؜‍⁯⁡‌⁭⁯⁯⁮⁬⁠⁯‍⁪⁭⁭⁡⁪⁬⁫⁡⁪⁠⁣⁤',
   'fabric.linking.edit': '⁣⁢Edit⁭‌⁪⁠⁫⁠⁭⁫‍؜⁪‌⁡⁬‍⁫‍⁭⁮⁠⁣⁤',
   'fabric.linking.follow': '⁣⁢Follow‍⁡⁯⁪⁠⁭؜⁡⁫⁭‌‍‍‍‍⁬⁡⁭؜‍‍⁣⁤',
   'fabric.linking.forbidden_access': '⁣⁢Your access is forbidden⁫⁬؜‌⁠؜⁬⁡‌⁪؜⁠‌‍⁪⁮⁯⁯‌⁬⁮⁪⁣⁤',
@@ -82,6 +91,7 @@ export default {
   'fabric.linking.owned_by': '⁣⁢Owned by {context}⁯⁪⁪⁪⁪⁮⁫⁠⁮‍⁪⁫⁭⁪‍⁫⁬⁮⁬⁣⁤',
   'fabric.linking.pending_request': '⁣⁢Your access request is pending⁮⁭⁮⁭⁯⁮⁪⁡⁭⁫⁠⁫⁫⁯⁬⁬‌⁬⁪⁠⁣⁤',
   'fabric.linking.preview_close': '⁣⁢Close preview⁮⁡⁮⁫⁫‍⁫⁪‍⁮‍⁭⁬‌‌⁯⁭⁮⁮‍⁫؜⁬‌⁬؜⁬⁠⁣⁤',
+  'fabric.linking.preview_description.nonfinal': '⁣⁢Open a full screen preview of this link⁯⁯‌⁡⁮⁭⁯‍⁮⁬⁯⁫⁠⁭⁫⁯⁭؜⁫⁭⁠⁯⁪⁣⁤',
   'fabric.linking.preview_improved': '⁣⁢Open preview؜⁡‌⁮⁭⁫‍؜⁪⁠⁮⁭⁡⁮⁯⁫⁬؜‌⁬⁬⁠؜⁣⁤',
   'fabric.linking.preview_max_size': '⁣⁢View full screen⁯‌⁯⁬⁫؜⁮‍‍⁭⁬⁯⁫‌‍⁫⁣⁤',
   'fabric.linking.preview_min_size': '⁣⁢Close full screen⁠⁭⁪⁮⁮⁪⁭⁮⁠‍⁯⁮⁪⁡⁠⁠‌‌⁪⁣⁤',

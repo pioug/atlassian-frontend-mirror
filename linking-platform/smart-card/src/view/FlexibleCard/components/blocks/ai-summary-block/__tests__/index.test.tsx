@@ -19,6 +19,7 @@ import AISummaryBlock from '../index';
 import { ActionItem } from '../../types';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('../../../../../../state/hooks/use-ai-summary', () => ({
   useAISummary: jest.fn().mockReturnValue({ state: { status: 'ready' } }),
@@ -240,7 +241,7 @@ describe('AISummaryBlock', () => {
         testId: testIdBase,
       });
 
-      const indicator = queryByTestId(`${testIdBase}-error`);
+      const indicator = queryByTestId(`${testIdBase}-error-indicator-error`);
       expect(indicator).not.toBeInTheDocument();
 
       (useAISummary as jest.Mock).mockReturnValue({
@@ -249,10 +250,33 @@ describe('AISummaryBlock', () => {
       });
 
       rerenderTestComponent();
-      const indicatorA = queryByTestId(`${testIdBase}-error`);
+      const indicatorA = queryByTestId(`${testIdBase}-error-indicator-error`);
 
       expect(indicatorA).toBeInTheDocument();
     });
+
+    ffTest.on(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+      'with redesign FF enabled',
+      async () => {
+        it('should not render error state indicator', async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'error', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { queryByTestId } = renderAISummaryBlock({
+            testId: testIdBase,
+          });
+
+          const indicatorA = queryByTestId(
+            `${testIdBase}-error-indicator-error`,
+          );
+
+          expect(indicatorA).not.toBeInTheDocument();
+        });
+      },
+    );
 
     it('shows acceptable use violation error state indicator on acceptable use violation error', async () => {
       (useAISummary as jest.Mock).mockReturnValue({
@@ -278,9 +302,10 @@ describe('AISummaryBlock', () => {
       });
 
       rerenderTestComponent();
-      const indicatorA = queryByTestId(`${testIdBase}-error`);
+      const indicatorA = queryByTestId(`${testIdBase}-error-indicator-error`);
       expect(
-        (await findByTestId(`${testIdBase}-error-message`)).textContent,
+        (await findByTestId(`${testIdBase}-error-indicator-error-message`))
+          .textContent,
       ).toBe(
         "We cannot show the results of this summary as it goes against Atlassian's Acceptable Use Policy.",
       );
@@ -299,7 +324,7 @@ describe('AISummaryBlock', () => {
           testId: testIdBase,
         });
 
-      const indicator = queryByTestId(`${testIdBase}-error`);
+      const indicator = queryByTestId(`${testIdBase}-error-indicator-error`);
       expect(indicator).not.toBeInTheDocument();
 
       (useAISummary as jest.Mock).mockReturnValue({
@@ -312,9 +337,10 @@ describe('AISummaryBlock', () => {
       });
 
       rerenderTestComponent();
-      const indicatorA = queryByTestId(`${testIdBase}-error`);
+      const indicatorA = queryByTestId(`${testIdBase}-error-indicator-error`);
       expect(
-        (await findByTestId(`${testIdBase}-error-message`)).textContent,
+        (await findByTestId(`${testIdBase}-error-indicator-error-message`))
+          .textContent,
       ).toBe(
         'Atlassian Intelligence was unable to process your request as your content contains links to HIPAA restricted content.',
       );
@@ -398,6 +424,28 @@ describe('AISummaryBlock', () => {
       const providerLabel = await findByTestId(`${testIdBase}-provider-label`);
       expect(providerLabel.textContent).toBe('Confluence');
     });
+
+    ffTest.on(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+      'with redesign FF enabled',
+      async () => {
+        it('should not render footer metadata', async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'ready', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { queryByTestId } = renderAISummaryBlock({
+            metadata: [
+              { name: ElementName.Provider, testId: `${testIdBase}-provider` },
+            ],
+          });
+
+          const provider = queryByTestId(`${testIdBase}-provider`);
+          expect(provider).not.toBeInTheDocument();
+        });
+      },
+    );
   });
 
   describe('actions', () => {

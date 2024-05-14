@@ -25,7 +25,8 @@
     ".": "./src/index.ts"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./i18n/*": "./src/i18n/*.ts"
   },
   "atlassian": {
     "team": "People and Teams Collective",
@@ -35,14 +36,14 @@
     }
   },
   "dependencies": {
-    "@atlaskit/avatar": "^21.5.0",
-    "@atlaskit/button": "^17.12.0",
-    "@atlaskit/drawer": "^7.7.0",
+    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/drawer": "^7.8.0",
     "@atlaskit/icon": "^22.1.0",
     "@atlaskit/inline-dialog": "^14.0.0",
-    "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/section-message": "^6.5.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"

@@ -48,6 +48,7 @@ const JsonldEditorProvider = ({
       client={client}
       featureFlags={featureFlags}
       isAdminHubAIEnabled={true}
+      product="CONFLUENCE"
     >
       {children}
     </SmartCardProvider>

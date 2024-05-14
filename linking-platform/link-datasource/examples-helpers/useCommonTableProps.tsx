@@ -1,9 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import { defaultInitialVisibleJiraColumnKeys } from '@atlaskit/link-test-helpers/datasource';
 
-import { DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
-import { ColumnSizesMap } from '../src/ui/issue-like-table/types';
+import type { DatasourceTableViewProps } from '../src/ui/datasource-table-view/types';
+import type { ColumnSizesMap } from '../src/ui/issue-like-table/types';
+import { useColumnResize } from '../src/ui/issue-like-table/use-column-resize';
+import { useColumnWrapping } from '../src/ui/issue-like-table/use-column-wrapping';
 
 export const useCommonTableProps = (
   props: { defaultColumnCustomSizes?: ColumnSizesMap } = {},
@@ -22,29 +24,11 @@ export const useCommonTableProps = (
     defaultInitialVisibleJiraColumnKeys,
   );
 
-  const [columnCustomSizes, setColumnCustomSizes] = useState<
-    ColumnSizesMap | undefined
-  >(props.defaultColumnCustomSizes);
-
-  const onColumnResize = useCallback(
-    (key: string, width: number) => {
-      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
-    },
-    [columnCustomSizes],
+  const { columnCustomSizes, onColumnResize } = useColumnResize(
+    props.defaultColumnCustomSizes,
   );
 
-  const [wrappedColumnKeys, setWrappedColumnKeys] = useState<string[]>([]);
-
-  const onWrappedColumnChange = useCallback(
-    (key: string, shouldWrap: boolean) => {
-      if (shouldWrap) {
-        setWrappedColumnKeys([...wrappedColumnKeys, key]);
-      } else {
-        setWrappedColumnKeys(wrappedColumnKeys.filter(k => k !== key));
-      }
-    },
-    [wrappedColumnKeys],
-  );
+  const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping([]);
 
   return {
     visibleColumnKeys,

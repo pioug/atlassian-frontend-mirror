@@ -6,7 +6,6 @@ import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import { LozengeProps } from '../../../types';
 import { HoverCard } from '../../HoverCard/index';
 import type { CardActionOptions } from '../../Card/types';
-
 export interface InlineCardResolvedViewProps {
   /** A unique ID for a Smart Link. */
   id?: string;
@@ -42,11 +41,13 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
     if (!lozenge) {
       return null;
     }
+    const appearance = lozenge.appearance || 'default';
     return (
       <LozengeWrapper>
         <Lozenge
           testId="inline-card-resolved-view-lozenge"
-          appearance={lozenge.appearance || 'default'}
+          appearance={appearance}
+          style={lozenge.style}
           isBold={lozenge.isBold}
         >
           {lozenge.text}

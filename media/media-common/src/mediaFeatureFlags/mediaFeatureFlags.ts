@@ -1,6 +1,6 @@
 import {
-  RequiredMediaFeatureFlags,
-  MediaFeatureFlags,
+  type RequiredMediaFeatureFlags,
+  type MediaFeatureFlags,
   supportedProducts,
 } from './types';
 
@@ -49,6 +49,7 @@ export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
   // We can't yet switch this feature on
   // TODO https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads: false,
+  commentsOnMedia: false,
 };
 
 /**

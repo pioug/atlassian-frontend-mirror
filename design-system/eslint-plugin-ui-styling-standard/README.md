@@ -1,10 +1,39 @@
-# Atlassian UI Styling Standard ESLint Plugin
+# UI Styling Standard ESLint Plugin
 
-The UI Styling Standard plugin utilizes rules from across Atlassian, Open Source, and more, to define what the standard for writing styles at Atlassian should look like.
+The UI Styling Standard is a set of principles to guide styling UI code across Atlassian's frontend
+codebases and ecosystem.
+
+These are the current ESLint rules that enforce and help comply with the UI Styling Standard today,
+but more are planned to support the standard over time.
 
 ## Installation
 
-Not intended for use outside the Atlassian frontend repository.
+You must use the recommended config to follow the styling standards at Atlassian, which will ensure
+compatability and performance with the design system.
+
+```diff
+module.exports = {
+  extends: [
++    'plugin:@atlaskit/ui-styling-standard/recommended',
+  ],
+};
+```
+
+We don't recommended maintaining your own configuration. If you do not use our config you will need
+to specify individual rules and configuration. Add the plugin to your `.eslintrc.js` file and enable
+individual rules as you're ready to adopt.
+
+```diff
+module.exports = {
+  plugins: [
++    '@atlaskit/ui-styling-standard',
+  ],
+  rules: [
++    '@atlaskit/ui-styling-standard/convert-props-syntax': 'warn',
++    '@atlaskit/design-system/local-cx-xcss': 'error',
+  ],
+};
+```
 
 ## Rules
 
@@ -13,13 +42,19 @@ Not intended for use outside the Atlassian frontend repository.
 
 | Rule                                                                                                                                                                                              | Description                                                                                                                                                                                                                                                                                | Recommended | Fixable | Suggestions |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- | ------- | ----------- |
+| <a href="./src/rules/atlaskit-theme/README.md">atlaskit-theme</a>                                                                                                                                 | Ban certain usages of `@atlaskit/theme` that `@compiled/react` does not understand                                                                                                                                                                                                         | Yes         |         |             |
 | <a href="./src/rules/convert-props-syntax/README.md">convert-props-syntax</a>                                                                                                                     | Convert props syntax that is unsupported by styled-components@<4 or @emotion/styled to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by those libraries. | Yes         | Yes     |             |
+| <a href="./src/rules/enforce-style-prop/README.md">enforce-style-prop</a>                                                                                                                         | Disallows usage of static styles in the `style` attribute in components                                                                                                                                                                                                                    | Yes         |         |             |
 | <a href="./src/rules/local-cx-xcss/README.md">local-cx-xcss</a>                                                                                                                                   | Ensures the cx() function, which is part of the XCSS API, is only used within the xcss prop. This aids tracking what styles are applied to a jsx element.                                                                                                                                  | Yes         |         |             |
 | <a href="./src/rules/no-array-arguments/README.md">no-array-arguments</a>                                                                                                                         | Prevents usage of array arguments to style declaration functions                                                                                                                                                                                                                           | Yes         | Yes     |             |
 | <a href="./src/rules/no-classname-prop/README.md">no-classname-prop</a>                                                                                                                           | Disallows usage of the `className` prop in JSX                                                                                                                                                                                                                                             | Yes         |         |             |
 | <a href="./src/rules/no-container-queries/README.md">no-container-queries</a>                                                                                                                     | Prevents usage of @container query within css styling                                                                                                                                                                                                                                      | Yes         |         |             |
+| <a href="./src/rules/no-dynamic-styles/README.md">no-dynamic-styles</a>                                                                                                                           | Disallows use of dynamic styles in CSS-in-JS calls                                                                                                                                                                                                                                         | Yes         |         |             |
+| <a href="./src/rules/no-exported-styles/README.md">no-exported-styles</a>                                                                                                                         | Disallows exports of css, keyframes, styled and xcss                                                                                                                                                                                                                                       | Yes         |         |             |
 | <a href="./src/rules/no-important-styles/README.md">no-important-styles</a>                                                                                                                       | Disallows important style declarations                                                                                                                                                                                                                                                     | Yes         |         |             |
+| <a href="./src/rules/no-imported-style-values/README.md">no-imported-style-values</a>                                                                                                             | Disallows imports of style values                                                                                                                                                                                                                                                          | Yes         |         |             |
 | <a href="./src/rules/no-nested-selectors/README.md">no-nested-selectors</a>                                                                                                                       | Prevents usage of nested selectors within css styling                                                                                                                                                                                                                                      | Yes         |         |             |
+| <a href="./src/rules/no-unsafe-values/README.md">no-unsafe-values</a>                                                                                                                             | Disallows styles that are difficult/impossible to statically anaylze.                                                                                                                                                                                                                      | Yes         |         |             |
 | <a href="https://atlassian.design/components/eslint-plugin-ui-styling-standard/consistent-css-prop-usage/usage">@atlaskit/design-system/consistent-css-prop-usage</a>                             | Ensures consistency with `css` and `xcss` prop usages                                                                                                                                                                                                                                      | Yes         | Yes     |             |
 | <a href="https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-css-tagged-template-expression/usage">@atlaskit/design-system/no-css-tagged-template-expression</a>             | Disallows any `css` tagged template expressions that originate from Emotion, Styled Components or Compiled                                                                                                                                                                                 | Yes         | Yes     |             |
 | <a href="https://atlassian.design/components/eslint-plugin-ui-styling-standard/no-keyframes-tagged-template-expression/usage">@atlaskit/design-system/no-keyframes-tagged-template-expression</a> | Disallows any `keyframe` tagged template expressions that originate from Emotion, Styled Components or Compiled                                                                                                                                                                            | Yes         | Yes     |             |

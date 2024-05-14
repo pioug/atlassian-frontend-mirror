@@ -22,11 +22,11 @@ const Lozenge: React.FC<LozengeProps> = ({
   appearance = 'default',
   name,
   overrideCss,
+  style,
   text,
   testId = 'smart-element-lozenge',
 }) => {
   const ui = useFlexibleUiOptionContext();
-
   if (!text) {
     return null;
   }
@@ -40,7 +40,11 @@ const Lozenge: React.FC<LozengeProps> = ({
       zIndex={ui?.zIndex}
     />
   ) : (
-    <AtlaskitLozenge appearance={appearance} testId={`${testId}-lozenge`}>
+    <AtlaskitLozenge
+      appearance={appearance}
+      style={style}
+      testId={`${testId}-lozenge`}
+    >
       {text}
     </AtlaskitLozenge>
   );

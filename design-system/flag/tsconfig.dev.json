@@ -54,9 +54,6 @@
       "path": "../drawer/tsconfig.app.json"
     },
     {
-      "path": "../ds-explorations/tsconfig.app.json"
-    },
-    {
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
@@ -79,9 +76,6 @@
     },
     {
       "path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-    },
-    {
-      "path": "../theme/tsconfig.app.json"
     },
     {
       "path": "../tokens/tsconfig.app.json"

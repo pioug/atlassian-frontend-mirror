@@ -1,8 +1,8 @@
 import {
-  API,
-  FileInfo,
-  ImportDefaultSpecifier,
-  ImportSpecifier,
+  type API,
+  type FileInfo,
+  type ImportDefaultSpecifier,
+  type ImportSpecifier,
 } from 'jscodeshift';
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 import { getDefaultImportSpecifierName } from '@hypermod/utils';
@@ -18,7 +18,7 @@ import {
 } from '../utils/constants';
 import {
   generateNewElement,
-  moveSizeAndLabelAttributes,
+  handleIconAttributes,
 } from '../utils/generate-new-button-element';
 import { ifHasUnsupportedProps } from '../utils/has-unsupported-props';
 import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-imported';
@@ -125,7 +125,7 @@ const transformer = (file: FileInfo, api: API): string => {
       element.value.openingElement.name.name === loadingButtonImportName;
 
     if (isDefaultButtonWithAnIcon) {
-      moveSizeAndLabelAttributes(element.value, j);
+      handleIconAttributes(element.value, j);
     }
 
     if (isFitContainerIconButton) {
@@ -224,12 +224,26 @@ const transformer = (file: FileInfo, api: API): string => {
 
   // Loading buttons map back to default imports
   if (specifierIdentifier === loadingButtonImportName) {
+    fileSource
+      // rename LoadingButton to Button in all call expressions i.e. render(LoadingButton), find(LoadingButton)
+      .find(j.CallExpression)
+      .find(j.Identifier)
+      .forEach((path) => {
+        if (path.node.name === loadingButtonImportName) {
+          path.node.name = NEW_BUTTON_VARIANTS.default;
+        }
+      });
     specifiers.push(
       j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
     );
   }
 
-  if (remainingDefaultButtons) {
+  if (
+    !specifiers.find(
+      (specifier) => specifier.type === 'ImportDefaultSpecifier',
+    ) &&
+    remainingDefaultButtons
+  ) {
     specifiers.push(
       j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
     );

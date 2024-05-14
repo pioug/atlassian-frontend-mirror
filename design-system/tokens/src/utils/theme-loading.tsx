@@ -11,6 +11,12 @@ export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides) => {
     return;
   }
 
+  // Gracefully handles falsy values like `null` and `undefined` when maker ignore TS
+  // to avoid loading default themes.
+  if (!themeId) {
+    return;
+  }
+
   const themeCss = await loadThemeCss(themeId);
 
   const style = document.createElement('style');

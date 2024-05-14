@@ -10,6 +10,7 @@ describe('UnsupportedMark Override Rule', () => {
       'underline',
       'code',
       'textColor',
+      'backgroundColor',
       'confluenceInlineComment',
       'breakout',
       'alignment',

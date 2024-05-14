@@ -84,6 +84,12 @@ export interface PopupComponentProps {
    * The default is `false`.
    */
   shouldRenderToParent?: boolean;
+
+  /**
+   * Use this to set the accessibility role for the popup.
+   * We strongly recommend using only `menu` or `dialog`.
+   */
+  role?: string;
 }
 
 interface BaseProps {
@@ -184,7 +190,7 @@ interface BaseProps {
   shouldRenderToParent?: boolean;
 
   /**
-   * This allows the Popup disable focus lock. It will only work when `shouldRenderToParent` is `true`.
+   * This allows the popup disable focus lock. It will only work when `shouldRenderToParent` is `true`.
    * The default is `false`.
    */
   shouldDisableFocusLock?: boolean;
@@ -194,6 +200,25 @@ interface BaseProps {
    * The default is `fixed`.
    */
   strategy?: 'absolute' | 'fixed';
+
+  /**
+   * Use this to set the accessibility role for the popup.
+   * We strongly recommend using only `menu` or `dialog`.
+   * Must be used along with `label` or `titleId`.
+   */
+  role?: string;
+
+  /**
+   * Refers to an `aria-label` attribute. Sets an accessible name for the popup to announce it to users of assistive technology.
+   * Usage of either this, or the `titleId` attribute is strongly recommended.
+   */
+  label?: string;
+
+  /**
+   * Id referenced by the popup `aria-labelledby` attribute.
+   * Usage of either this, or the `label` attribute is strongly recommended.
+   */
+  titleId?: string;
 }
 
 export interface PopupProps extends BaseProps {

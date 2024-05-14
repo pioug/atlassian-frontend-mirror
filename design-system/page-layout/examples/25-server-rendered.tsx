@@ -45,7 +45,7 @@ type SlotName =
 const serverRenderedStyles = css({
   height: 'auto',
   position: 'absolute',
-  backgroundColor: token('color.background.neutral.subtle', 'white'),
+  backgroundColor: token('color.background.neutral.subtle'),
   insetBlockEnd: 0,
   insetBlockStart: `calc(${TOP_NAVIGATION_HEIGHT} + ${BANNER_HEIGHT})`,
   insetInlineEnd: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
@@ -63,7 +63,7 @@ const draggingStyles = css({
 const ServerRenderedPage = () => {
   return (
     <SlotWrapper
-      borderColor={token('color.border', 'black')}
+      borderColor={token('color.border')}
       css={[serverRenderedStyles, draggingStyles]}
     >
       Server rendered page. Added as a sibling to Grid componenet
@@ -153,9 +153,7 @@ const BasicGrid = () => {
       <PageLayout>
         {gridState.isBannerShown && (
           <Banner isFixed={gridState.isBannerFixed}>
-            <SlotWrapper
-              borderColor={token('color.border.accent.yellow', 'gold')}
-            >
+            <SlotWrapper borderColor={token('color.border.accent.yellow')}>
               <SlotLabel>Banner</SlotLabel>
               <ToggleFixed slotName="Banner" />
             </SlotWrapper>
@@ -163,9 +161,7 @@ const BasicGrid = () => {
         )}
         {gridState.isTopNavigationShown && (
           <TopNavigation isFixed={gridState.isTopNavigationFixed}>
-            <SlotWrapper
-              borderColor={token('color.border.accent.blue', 'blue')}
-            >
+            <SlotWrapper borderColor={token('color.border.accent.blue')}>
               <SlotLabel>TopNavigation</SlotLabel>
               <ToggleFixed slotName="TopNavigation" />
             </SlotWrapper>
@@ -173,9 +169,7 @@ const BasicGrid = () => {
         )}
         {gridState.isLeftPanelShown && (
           <LeftPanel isFixed={gridState.isLeftPanelFixed}>
-            <SlotWrapper
-              borderColor={token('color.border.accent.orange', 'orange')}
-            >
+            <SlotWrapper borderColor={token('color.border.accent.orange')}>
               <SlotLabel>LeftPanel</SlotLabel>
               <ToggleFixed slotName="LeftPanel" />
               <ToggleScrollable slotName="LeftPanel" />
@@ -202,9 +196,7 @@ const BasicGrid = () => {
                 },
               }}
             >
-              <SlotWrapper
-                borderColor={token('color.border.accent.green', 'darkgreen')}
-              >
+              <SlotWrapper borderColor={token('color.border.accent.green')}>
                 <SlotLabel>LeftSidebar</SlotLabel>
                 <ToggleFixed slotName="LeftSidebar" />
                 <ToggleScrollable slotName="LeftSidebar" />
@@ -215,9 +207,7 @@ const BasicGrid = () => {
           <Main>{''}</Main>
           {gridState.isRightSidebarShown && (
             <RightSidebar isFixed={gridState.isRightSidebarFixed} width={200}>
-              <SlotWrapper
-                borderColor={token('color.border.accent.green', 'darkgreen')}
-              >
+              <SlotWrapper borderColor={token('color.border.accent.green')}>
                 <SlotLabel>RightSidebar</SlotLabel>
                 <ToggleFixed slotName="RightSidebar" />
                 <ToggleScrollable slotName="RightSidebar" />
@@ -227,9 +217,7 @@ const BasicGrid = () => {
         </Content>
         {gridState.isRightPanelShown && (
           <RightPanel isFixed={gridState.isRightPanelFixed} width={200}>
-            <SlotWrapper
-              borderColor={token('color.border.accent.orange', 'orange')}
-            >
+            <SlotWrapper borderColor={token('color.border.accent.orange')}>
               <SlotLabel>RightPanel</SlotLabel>
               <ToggleFixed slotName="RightPanel" />
               <ToggleScrollable slotName="RightPanel" />

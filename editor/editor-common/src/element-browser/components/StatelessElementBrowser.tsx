@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
@@ -9,6 +9,7 @@ import {
   withAnalyticsContext,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -141,15 +142,49 @@ const categoryListWrapper = css(mobileCategoryListWrapper, {
 });
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
-  const { items, onSelectItem, onInsertItem, viewMoreItem } = props;
-
+  const {
+    items,
+    onSelectItem,
+    onInsertItem,
+    viewMoreItem,
+    selectedCategory,
+    onSelectCategory,
+    searchTerm,
+    showCategories,
+  } = props;
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
-
+  const categoryBeenChosen = useRef(false);
   const [columnCount, setColumnCount] = useState(1);
+
+  let selectedCategoryIndex: number | undefined;
+  let isFocusSearch;
+  if (
+    getBooleanFF(
+      'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+    )
+  ) {
+    selectedCategoryIndex = props.categories?.findIndex((category) => {
+      return category.name === selectedCategory;
+    });
+
+    if (showCategories) {
+      const isEmptySearchTerm = !searchTerm || searchTerm?.length === 0;
+      if (!isEmptySearchTerm) {
+        // clear the flag if the search happens after a user has chosen the category
+        categoryBeenChosen.current = false;
+      }
+      // A11Y: if categories exists, on the initial render search element should receive focus.
+      // After user pick some category the category should stay focused.
+      isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
+    }
+  }
+
   const {
     selectedItemIndex,
     focusedItemIndex,
     setFocusedItemIndex,
+    setFocusedCategoryIndex,
+    focusedCategoryIndex,
     focusOnSearch,
     focusOnViewMore,
     onKeyDown,
@@ -158,6 +193,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
     items.length - 1,
     columnCount,
     !!viewMoreItem,
+    isFocusSearch,
   );
 
   useEffect(() => {
@@ -191,17 +227,41 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
    */
   const selectedItem =
     selectedItemIndex !== undefined ? items[selectedItemIndex] : null;
-  const onItemsEnterKeyPress = useCallback(
+  const onItemsEnterTabKeyPress = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key !== 'Enter') {
-        return;
+      if (
+        getBooleanFF(
+          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+        )
+      ) {
+        if (e.key !== 'Enter' && (e.key !== 'Tab' || !showCategories)) {
+          return;
+        }
+      } else {
+        if (e.key !== 'Enter') {
+          return;
+        }
       }
+
+      if (
+        getBooleanFF(
+          'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1',
+        )
+      ) {
+        if (showCategories && e.key === 'Tab' && selectedCategoryIndex !== undefined) {
+          // A11Y: Set focus on first category if tab pressed on search
+          setFocusedCategoryIndex(selectedCategoryIndex);
+          e.preventDefault();
+          return;
+        }
+      }
+
       if (onInsertItem && selectedItem != null) {
         onInsertItem(selectedItem);
       }
       e.preventDefault();
     },
-    [onInsertItem, selectedItem],
+    [onInsertItem, selectedItem, setFocusedCategoryIndex, showCategories, selectedCategoryIndex],
   );
 
   /**
@@ -214,6 +274,14 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
     }
   }, [onSelectItem, selectedItem]);
 
+  const onSelectCategoryCB = useCallback(
+    (category: Category) => {
+      onSelectCategory(category);
+      categoryBeenChosen.current = true;
+    },
+    [categoryBeenChosen, onSelectCategory],
+  );
+
   return (
     <div css={wrapper} data-testid="element-browser">
       <ContainerWidthMonitor />
@@ -223,10 +291,12 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
           selectedItemIndex={selectedItemIndex}
           focusedItemIndex={focusedItemIndex}
           setFocusedItemIndex={setFocusedItemIndex}
+          focusedCategoryIndex={focusedCategoryIndex}
+          setFocusedCategoryIndex={setFocusedCategoryIndex}
           focusOnSearch={focusOnSearch}
           setColumnCount={setColumnCount}
           setFocusOnSearch={setFocusOnSearch}
-          onKeyPress={onItemsEnterKeyPress}
+          onKeyPress={onItemsEnterTabKeyPress}
           onKeyDown={onKeyDown}
           viewMoreItem={viewMoreItem}
           focusOnViewMore={focusOnViewMore}
@@ -240,8 +310,18 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
           focusOnSearch={focusOnSearch}
           setColumnCount={setColumnCount}
           setFocusOnSearch={setFocusOnSearch}
-          onKeyPress={onItemsEnterKeyPress}
+          onKeyPress={onItemsEnterTabKeyPress}
           onKeyDown={onKeyDown}
+          focusedCategoryIndex={focusedCategoryIndex}
+          setFocusedCategoryIndex={setFocusedCategoryIndex}
+          selectedCategoryIndex={selectedCategoryIndex}
+          onSelectCategory={
+            getBooleanFF(
+              'platform.editor.a11y-focus-order-for-element-browser-categories_ztiw1'
+            )
+            ? onSelectCategoryCB
+            : onSelectCategory
+          }
         />
       )}
     </div>
@@ -261,6 +341,8 @@ function MobileBrowser({
   selectedItemIndex,
   focusedItemIndex,
   setFocusedItemIndex,
+  focusedCategoryIndex,
+  setFocusedCategoryIndex,
   focusOnSearch,
   focusOnViewMore,
   setColumnCount,
@@ -280,6 +362,8 @@ function MobileBrowser({
     onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
     setFocusedItemIndex: (index: number) => void;
     setColumnCount: (columnCount: number) => void;
+    focusedCategoryIndex?: number;
+    setFocusedCategoryIndex: (index: number) => void;
   }) {
   return (
     <div
@@ -312,6 +396,10 @@ function MobileBrowser({
               categories={categories}
               onSelectCategory={onSelectCategory}
               selectedCategory={selectedCategory}
+              focusedCategoryIndex={focusedCategoryIndex}
+              setFocusedCategoryIndex={setFocusedCategoryIndex}
+              setFocusedItemIndex={setFocusedItemIndex}
+              setFocusOnSearch={setFocusOnSearch}
             />
           </nav>
         )}
@@ -349,6 +437,9 @@ function DesktopBrowser({
   selectedItemIndex,
   focusedItemIndex,
   setFocusedItemIndex,
+  focusedCategoryIndex,
+  setFocusedCategoryIndex,
+  selectedCategoryIndex,
   focusOnSearch,
   setColumnCount,
   setFocusOnSearch,
@@ -364,6 +455,9 @@ function DesktopBrowser({
     onKeyPress: (e: React.KeyboardEvent) => void;
     onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
     setFocusedItemIndex: (index: number) => void;
+    focusedCategoryIndex?: number;
+    setFocusedCategoryIndex: (index: number) => void;
+    selectedCategoryIndex?: number;
     setColumnCount: (columnCount: number) => void;
   }) {
   return (
@@ -393,6 +487,10 @@ function DesktopBrowser({
               onSelectCategory={onSelectCategory}
               selectedCategory={selectedCategory}
               createAnalyticsEvent={createAnalyticsEvent}
+              focusedCategoryIndex={focusedCategoryIndex}
+              setFocusedCategoryIndex={setFocusedCategoryIndex}
+              setFocusedItemIndex={setFocusedItemIndex}
+              setFocusOnSearch={setFocusOnSearch}
             />
           </nav>
         </div>
@@ -424,7 +522,11 @@ function DesktopBrowser({
           createAnalyticsEvent={createAnalyticsEvent}
           emptyStateHandler={emptyStateHandler}
           selectedCategory={selectedCategory}
+          selectedCategoryIndex={selectedCategoryIndex}
           searchTerm={searchTerm}
+          setFocusedCategoryIndex={
+            showCategories ? setFocusedCategoryIndex : undefined
+          }
         />
       </div>
     </div>

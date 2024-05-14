@@ -25,6 +25,9 @@
             "path": "../../media-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../media-core/afm-cc/tsconfig.json"
         },
         {

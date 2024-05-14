@@ -22,6 +22,7 @@ import {
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type {
   RendererAppearance,
@@ -431,7 +432,9 @@ export class TableContainer extends React.Component<
     if (isFullWidth) {
       updatedLayout = 'full-width';
       // if table has width explicity set, ensure SSR is handled
-    } else if (tableNode?.attrs.width) {
+    } else if (
+      tableNode?.attrs.width
+    ) {
       updatedLayout = 'custom';
     } else {
       updatedLayout = layout;
@@ -446,7 +449,7 @@ export class TableContainer extends React.Component<
           data-layout={updatedLayout}
           ref={this.props.handleRef}
           style={{
-            width: tableWidth,
+            width: isTableResizingEnabled(rendererAppearance) ? tableWidth : 'inherit',
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview
             left,
           }}
@@ -600,24 +603,29 @@ const TableWithWidth = (
       renderWidth?: number;
     } & Omit<React.ComponentProps<typeof TableWithShadows>, 'renderWidth'>
   >,
-) => (
+) => {
   // Remember, `width` will be 0 during SSR
-  <WidthConsumer>
-    {({ width }) => {
-      const renderWidth =
-        props.rendererAppearance === 'full-page'
-          ? width - FullPagePadding * 2
-          : width;
-      const colWidthsSum =
-        props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
+  return (
+    <WidthConsumer>
+      {({ width }) => {
+        // we are adding full page padding before but now it cause difference between editor and renderer so we need to remove it, and 1px also for matching exact width.
+        const renderWidth =
+          props.rendererAppearance === 'full-page'
+            ? getBooleanFF('platform.editor.table-width-diff-in-renderer_x5s3z')
+              ? width + FullPagePadding - 1
+              : width - FullPagePadding * 2
+            : width;
+        const colWidthsSum =
+          props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
 
-      if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {
-        return <TableWithShadows renderWidth={renderWidth} {...props} />;
-      }
-      // there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
-      return <TableProcessor renderWidth={renderWidth} {...props} />;
-    }}
-  </WidthConsumer>
-);
+        if (colWidthsSum || isTableResizingEnabled(props.rendererAppearance)) {
+          return <TableWithShadows renderWidth={renderWidth} {...props} />;
+        }
+        // there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
+        return <TableProcessor renderWidth={renderWidth} {...props} />;
+      }}
+    </WidthConsumer>
+  );
+};
 
 export default withSmartCardStorage(TableWithWidth);

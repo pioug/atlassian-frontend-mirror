@@ -162,7 +162,7 @@ test.describe('JiraIssuesModal', () => {
     await page.getByTestId('jql-editor-search').click();
     await expect(
       page.getByTestId('datasource-modal--view-drop-down--trigger'),
-    ).toHaveText('Table');
+    ).toHaveText('List');
     await expect(page.getByTestId('jira-datasource-table')).toBeVisible();
   });
 

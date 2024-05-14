@@ -1,14 +1,14 @@
 import {
   Fragment,
-  Mark,
+  type Mark,
   Node as PMNode,
-  Schema,
-  MarkType,
+  type Schema,
+  type MarkType,
 } from '@atlaskit/editor-prosemirror/model';
 
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 import { AC_XMLNS } from './encode-cxhtml';
-import { Macro } from './types';
+import { type Macro } from './types';
 
 /**
  * Deduce a set of marks from a style declaration.
@@ -37,6 +37,11 @@ export function marksFromStyle(
         break;
       case 'color':
         marks = schema.marks.textColor
+          .create({ color: normalizeHexColor(value) })
+          .addToSet(marks);
+        continue styles;
+      case 'background-color':
+        marks = schema.marks.backgroundColor
           .create({ color: normalizeHexColor(value) })
           .addToSet(marks);
         continue styles;

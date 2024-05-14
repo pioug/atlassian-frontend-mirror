@@ -10,21 +10,23 @@ import {
   contextualMenuDropdownWidthDnD,
 } from '../consts';
 
-export const cellColourPreviewStyles = (selectedColor: string) => css`
-  &::before {
-    background: ${selectedColor};
-  }
-`;
+export const cellColourPreviewStyles = (selectedColor: string) =>
+  css({
+    '&::before': {
+      background: selectedColor,
+    },
+  });
 
-export const elementBeforeIconStyles = css`
-  margin-right: ${token('space.negative.075', '-6px')};
-  display: flex;
-`;
+export const elementBeforeIconStyles = css({
+  marginRight: token('space.negative.075', '-6px'),
+  display: 'flex',
+});
 
 // TODO Delete this comment after verifying space token -> previous value `padding: 8px`
 // TODO Delete this comment after verifying space token -> previous value `margin-left: 4px`
 export const tablePopupStyles = (
   isDragAndDropEnabled: boolean | undefined,
+  // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 ) => css`
   .${ClassName.CONTEXTUAL_SUBMENU} {
     border-radius: ${token('border.radius', '3px')};

@@ -2,9 +2,6 @@ import warnOnce from '@atlaskit/ds-lib/warn-once';
 
 import tokens from './artifacts/token-names';
 
-const name = process.env._PACKAGE_NAME_ as string;
-const version = process.env._PACKAGE_VERSION_ as string;
-
 type Tokens = typeof tokens;
 
 /**
@@ -40,7 +37,7 @@ function getTokenValue<T extends keyof Tokens>(
     process.env.NODE_ENV !== 'production' &&
     !token
   ) {
-    warnOnce(`Unknown token id at path: ${tokenId} for ${name}@${version}`);
+    warnOnce(`Unknown token id at path: ${tokenId} in @atlaskit/tokens`);
   }
 
   if (typeof window === 'undefined') {

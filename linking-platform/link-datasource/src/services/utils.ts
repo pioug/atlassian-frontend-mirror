@@ -119,3 +119,20 @@ export const fieldValuesQuery = `query fieldValues($cloudId: ID!, $first: Int = 
     }
   }
 }`;
+
+export const userQuery = `query userQuery {
+  me {
+    user {
+      id
+      accountId
+    }
+  }
+}`;
+
+export const userHydration = `query userHydration($accountIds: [ID!]!) {
+  users(accountIds: $accountIds) {
+    accountId
+    name
+    picture
+  }
+}`;

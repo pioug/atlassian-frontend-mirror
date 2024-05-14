@@ -9,7 +9,7 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient } from '@atlaskit/link-provider';
 import React from 'react';
 import { Card, CardAppearance } from '../../Card';
-import { Provider, TitleBlock } from '../../..';
+import { CardAction, Provider, TitleBlock } from '../../..';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { render, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import * as analytics from '../../../utils/analytics';
@@ -169,7 +169,14 @@ describe('smart-card: success analytics', () => {
             testId="resolvedCard1"
             appearance="inline"
             url={mockUrl}
-            showActions={false}
+            actionOptions={{
+              hide: false,
+              exclude: [
+                CardAction.DownloadAction,
+                CardAction.PreviewAction,
+                CardAction.ViewAction,
+              ],
+            }}
           />
         </Provider>,
       );
@@ -180,12 +187,7 @@ describe('smart-card: success analytics', () => {
 
       rerender(
         <Provider client={mockClient}>
-          <Card
-            testId="resolvedCard1"
-            appearance="inline"
-            url={mockUrl}
-            showActions={true}
-          />
+          <Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
         </Provider>,
       );
 
@@ -414,7 +416,14 @@ describe('smart-card: success analytics', () => {
           <Card
             appearance="inline"
             url={mockUrl}
-            showActions={false}
+            actionOptions={{
+              hide: false,
+              exclude: [
+                CardAction.DownloadAction,
+                CardAction.PreviewAction,
+                CardAction.ViewAction,
+              ],
+            }}
             onError={onError}
           />
         </Provider>,
@@ -426,7 +435,6 @@ describe('smart-card: success analytics', () => {
             testId="resolvedCard1"
             appearance="inline"
             url={mockUrl}
-            showActions={true}
             onError={onError}
           />
         </Provider>,

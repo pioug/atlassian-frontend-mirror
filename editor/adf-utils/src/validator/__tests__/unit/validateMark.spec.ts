@@ -1715,7 +1715,7 @@ describe('adding inline comments on inlineCard', () => {
       expect(finalMarks[0]).toMatchObject(annotationMark);
     },
     () => {
-      // should return unsupported mark for annotation when FF is false
+      // should accept annotation as valid mark when FF is false (ADF Schema has been updated)
       const validate = validator(
         ['doc', 'paragraph', 'text', 'inlineCard'],
         ['unsupportedMark', 'annotation'],
@@ -1723,20 +1723,20 @@ describe('adding inline comments on inlineCard', () => {
       let errorCallbackMock = jest.fn();
       validate(initialEntity, errorCallbackMock);
 
-      expect(errorCallbackMock).toHaveBeenCalledTimes(1);
-      expect(errorCallbackMock).toHaveBeenCalledWith(
-        expect.anything(),
-        expect.objectContaining({
-          code: 'REDUNDANT_MARKS',
-          message: 'annotation: unsupported mark.',
-          meta: annotationMark,
-        }),
-        expect.objectContaining({
-          allowUnsupportedBlock: false,
-          allowUnsupportedInline: false,
-          isMark: true,
-        }),
-      );
+      const result = validate(initialEntity, errorCallbackMock);
+      expect(errorCallbackMock).toHaveBeenCalledTimes(0);
+      let finalMarks = [] as Array<ADFEntityMark>;
+      if (
+        result.entity &&
+        result.entity.content &&
+        result.entity.content[0] &&
+        result.entity.content[0].content &&
+        result.entity.content[0].content[1]?.marks
+      ) {
+        finalMarks = result.entity.content[0].content[1].marks;
+      }
+      expect(finalMarks.length).toBe(1);
+      expect(finalMarks[0]).toMatchObject(annotationMark);
     },
   );
 });

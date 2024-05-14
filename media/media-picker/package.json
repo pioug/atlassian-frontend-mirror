@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "66.4.1",
+  "version": "66.4.3",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,15 +38,15 @@
     }
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
-    "@atlaskit/flag": "^15.3.0",
+    "@atlaskit/analytics-next": "^9.3.0",
+    "@atlaskit/flag": "^15.5.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/media-client": "^26.3.0",
+    "@atlaskit/media-client": "^27.0.0",
     "@atlaskit/media-client-react": "^2.0.0",
-    "@atlaskit/media-common": "^11.1.0",
-    "@atlaskit/media-ui": "^25.7.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/media-common": "^11.2.0",
+    "@atlaskit/media-ui": "^25.10.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@atlaskit/ufo": "^0.2.0",
     "@babel/runtime": "^7.0.0",
     "eventemitter2": "^4.1.0",
@@ -65,7 +65,7 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.9.0",
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
-    "@atlaskit/button": "^17.12.0",
+    "@atlaskit/button": "^17.14.0",
     "@atlaskit/media-core": "^34.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",

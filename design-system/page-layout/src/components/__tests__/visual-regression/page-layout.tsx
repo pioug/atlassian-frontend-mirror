@@ -24,7 +24,7 @@ describe('<PageLayout />', () => {
     await loadPage(page, url);
     await page.waitForSelector('div[data-testid="leftPanel"]');
     await page.waitForSelector('div[data-testid="rightPanel"]');
-    await page.waitForSelector('div[data-testid="main"]');
+    await page.waitForSelector('main');
 
     const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();
@@ -175,7 +175,7 @@ describe('<PageLayout />', () => {
 
     await loadPage(page, url);
     await page.waitForSelector('div[data-testid="leftSidebar"]');
-    await page.waitForSelector('div[data-testid="main"]');
+    await page.waitForSelector('main');
 
     const screenshot = await page.screenshot();
     expect(screenshot).toMatchProdImageSnapshot();

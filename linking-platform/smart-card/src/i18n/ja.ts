@@ -19,7 +19,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     'この要約の結果は、<a>アトラシアンの利用規定</a>に反するため、表示できません。',
   'fabric.linking.ai_summary_error_generic':
-    '現在 Atlassian Intelligence は回答を提供できません。詳細は<a>サポート ドキュメント</a>でご確認ください。',
+    'Atlassian Intelligence (AI) が応答していません。後でもう一度お試しになるか、<a>AI のステータスを確認してください</a>。',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'HIPAA の制限対象となるコンテンツへのリンクが含まれているため、Atlassian Intelligence はリクエストを処理できませんでした。 ',
   'fabric.linking.assigned_to': '割り当て先: {context}',
   'fabric.linking.beta': 'ベータ版',
   'fabric.linking.cancel': 'キャンセル',

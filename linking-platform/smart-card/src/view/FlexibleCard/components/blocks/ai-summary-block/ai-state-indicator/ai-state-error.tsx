@@ -1,18 +1,12 @@
 import React from 'react';
-import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
+import { FormattedMessage, type MessageDescriptor } from 'react-intl-next';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import { messages } from '../../../../../../messages';
+import { getAISummaryErrorMessage } from '../../../../../../utils/ai-summary';
+import AILearnMoreAnchor from '../../../common/ai-summary/ai-learn-more-anchor';
 import AIIndicatorContainer from './ai-indicator-container';
-import { AIStateIndicatorProps } from './types';
-import AILearnMoreAnchor from './ai-learn-more-anchor';
-import {
-  CONTENT_URL_ACCEPTABLE_USE_POLICY,
-  CONTENT_URL_AI_TROUBLESHOOTING,
-} from '../../../../../../constants';
-import { ErrorMessage } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/types';
+import { type AIStateIndicatorProps } from './types';
 
 const contentStyles = xcss({
   color: 'color.text.subtle',
@@ -39,33 +33,12 @@ const FormattedErrorMessage = ({
   />
 );
 
-const getErrorMesssageProps = (
-  error?: ErrorMessage,
-): { message: MessageDescriptor; url?: string } => {
-  switch (error) {
-    case 'ACCEPTABLE_USE_VIOLATIONS':
-      return {
-        message: messages.ai_summary_error_acceptable_use_violation,
-        url: CONTENT_URL_ACCEPTABLE_USE_POLICY,
-      };
-    case 'HIPAA_CONTENT_DETECTED':
-      return {
-        message: messages.ai_summary_error_hipaa_content_detected,
-      };
-    default:
-      return {
-        message: messages.ai_summary_error_generic,
-        url: CONTENT_URL_AI_TROUBLESHOOTING,
-      };
-  }
-};
-
 const AIStateError: React.FC<Partial<AIStateIndicatorProps>> = ({
   appearance,
   testId,
   error,
 }) => {
-  const { message, url } = getErrorMesssageProps(error);
+  const { message, url } = getAISummaryErrorMessage(error);
 
   switch (appearance) {
     case 'icon-only':

@@ -8,12 +8,24 @@ import {
   fieldValuesResponseForProjectsMoreData,
   fieldValuesResponseForStatuses,
   fieldValuesResponseForTypes,
+  successfuluserHydrationResponse,
+  successfulUserQueryResponse,
 } from './mocks';
 
 export const mockBasicFilterAGGFetchRequests = () => {
   fetchMock.post(new RegExp(`/graphql`), async (_url: string, details: any) => {
     return new Promise(resolve => {
       const requestBody = JSON.parse(details.body);
+
+      // CLOL basic filter - edited/created by
+      if (requestBody.operationName === 'userQuery') {
+        return resolve(successfulUserQueryResponse);
+      }
+
+      if (requestBody.operationName === 'userHydration') {
+        return resolve(successfuluserHydrationResponse);
+      }
+
       const filterType: string = requestBody.variables.jqlTerm;
       const searchString: string = requestBody.variables.searchString;
       const pageCursor: string = requestBody.variables.after;

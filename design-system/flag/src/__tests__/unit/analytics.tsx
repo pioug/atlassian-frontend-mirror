@@ -6,7 +6,7 @@ import { fireEvent, render } from '@testing-library/react';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { Box } from '@atlaskit/primitives';
 
-import { FlagProps } from '../../types';
+import { type FlagProps } from '../../types';
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
 
@@ -86,17 +86,17 @@ describe('Flag analytics', () => {
           },
         ],
       });
-      function asset(mock: jest.Mock) {
+      function assert(mock: jest.Mock) {
         expect(mock).toHaveBeenCalledTimes(1);
         expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
         expect(mock.mock.calls[0][0].context).toEqual(expected.context);
       }
-      asset(onPublicEvent);
-      asset(onAtlaskitEvent);
+      assert(onPublicEvent);
+      assert(onAtlaskitEvent);
     });
   });
 
-  it(`should fire an event on the public channel and the internal channel when dismissed from the flag group`, () => {
+  it(`should fire an event on the public channel and the internal channel when dismissed from the flag group`, async () => {
     const onPublicEvent = jest.fn();
     const onAtlaskitEvent = jest.fn();
 
@@ -132,13 +132,21 @@ describe('Flag analytics', () => {
         },
       ],
     });
-    function asset(mock: jest.Mock) {
-      expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
-      expect(mock.mock.calls[0][0].context).toEqual(expected.context);
+    function assert(mock: jest.Mock, expectedCalls: number) {
+      expect(mock).toHaveBeenCalledTimes(expectedCalls);
+      expect(mock.mock.calls[mock.mock.calls.length - 1][0].payload).toEqual(
+        expected.payload,
+      );
+      expect(mock.mock.calls[mock.mock.calls.length - 1][0].context).toEqual(
+        expected.context,
+      );
     }
-    asset(onPublicEvent);
-    asset(onAtlaskitEvent);
+    assert(onPublicEvent, 1);
+    assert(
+      onAtlaskitEvent,
+      // An additional event is fired on the Atlaskit channel from Pressable
+      2,
+    );
   });
 
   it(`should fire an event on the public channel and the internal channel when dismissed from the flag`, () => {
@@ -179,13 +187,21 @@ describe('Flag analytics', () => {
         },
       ],
     });
-    function asset(mock: jest.Mock) {
-      expect(mock).toHaveBeenCalledTimes(1);
-      expect(mock.mock.calls[0][0].payload).toEqual(expected.payload);
-      expect(mock.mock.calls[0][0].context).toEqual(expected.context);
+    function assert(mock: jest.Mock, expectedCalls: number) {
+      expect(mock).toHaveBeenCalledTimes(expectedCalls);
+      expect(mock.mock.calls[mock.mock.calls.length - 1][0].payload).toEqual(
+        expected.payload,
+      );
+      expect(mock.mock.calls[mock.mock.calls.length - 1][0].context).toEqual(
+        expected.context,
+      );
     }
-    asset(onPublicEvent);
-    asset(onAtlaskitEvent);
+    assert(onPublicEvent, 1);
+    assert(
+      onAtlaskitEvent,
+      // An additional event is fired on the Atlaskit channel from Pressable
+      2,
+    );
   });
 });
 

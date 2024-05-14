@@ -11,6 +11,16 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
+export interface AriaLiveElementAttributes {
+  priority?: 'important' | 'none';
+}
+
+export interface AccessibilityUtilsPluginState {
+  message: string;
+  ariaLiveElementAttributes?: AriaLiveElementAttributes;
+  key?: string;
+}
+
 export type AccessibilityUtilsPlugin = NextEditorPlugin<
   'accessibilityUtils',
   {
@@ -27,9 +37,12 @@ export type AccessibilityUtilsPlugin = NextEditorPlugin<
       // The ariaNotify proposal looks like a good fit for this use case in future.
       // This is not currently implemented in any browser.
       // https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Accessibility/AriaNotify/explainer.md
-      ariaNotify: (message: string) => void;
+      ariaNotify: (
+        message: string,
+        ariaLiveElementAttributes?: AriaLiveElementAttributes,
+      ) => void;
     };
-    sharedState: { message: string };
+    sharedState: AccessibilityUtilsPluginState;
   }
 >;
 
@@ -46,14 +59,18 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
   return {
     name: 'accessibilityUtils',
     actions: {
-      ariaNotify: message => {
+      ariaNotify: (message, ariaLiveElementAttributes) => {
         if (!editorView) {
           // at time of writing, this should never happen
           return;
         }
 
         const tr = editorView.state.tr;
-        tr.setMeta(accessibilityUtilsPluginKey, { message });
+        tr.setMeta(accessibilityUtilsPluginKey, {
+          message,
+          ariaLiveElementAttributes,
+          key: Date.now().toString(),
+        });
         editorView.dispatch(tr);
 
         return;
@@ -78,14 +95,15 @@ export const accessibilityUtilsPlugin: AccessibilityUtilsPlugin = ({ api }) => {
               state: {
                 init: () => ({
                   message: '',
+                  ariaLiveElementAttributes: {},
                 }),
                 apply: (
                   tr: ReadonlyTransaction,
-                  prevState: { message: string },
+                  prevState: AccessibilityUtilsPluginState,
                 ) => {
                   const meta = tr.getMeta(accessibilityUtilsPluginKey);
-                  if (meta && 'message' in meta) {
-                    return { message: meta.message };
+                  if (meta) {
+                    return { ...prevState, ...meta };
                   }
                   return prevState;
                 },
@@ -110,9 +128,14 @@ function ContentComponent({
   const { accessibilityUtilsState } = useSharedPluginState(api, [
     'accessibilityUtils',
   ]);
+  const role =
+    accessibilityUtilsState?.ariaLiveElementAttributes?.priority === 'important'
+      ? 'alert'
+      : 'status';
+  const key = accessibilityUtilsState?.key;
 
   return (
-    <VisuallyHidden role="alert">
+    <VisuallyHidden role={role} {...(role === 'alert' && { key })}>
       {accessibilityUtilsState?.message}
     </VisuallyHidden>
   );

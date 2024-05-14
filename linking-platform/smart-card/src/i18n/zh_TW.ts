@@ -18,7 +18,9 @@ export default {
   'fabric.linking.ai_summary_error_acceptable_use_violation':
     '我們無法顯示此摘要的結果，因為違反 <a>Atlassian 的可接受使用政策</a>。',
   'fabric.linking.ai_summary_error_generic':
-    'Atlassian Intelligence 目前無法提供回應。請參閱<a>我們的支援說明文件</a>。',
+    'Atlassian Intelligence (AI) 沒有回應。請稍後再試一次，或<a>檢查 AI 的狀態</a>。',
+  'fabric.linking.ai_summary_error_hipaa_content_detected':
+    'Atlassian Intelligence 無法處理您的要求，因為您的內容包含 HIPAA 受限內容的連結。',
   'fabric.linking.assigned_to': '已指派給 {context}',
   'fabric.linking.beta': '測試版',
   'fabric.linking.cancel': '取消',

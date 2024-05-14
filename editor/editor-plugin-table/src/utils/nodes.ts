@@ -94,6 +94,16 @@ export const tablesHaveDifferentNoOfColumns = (
   return prevMap.width !== currentMap.width;
 };
 
+export const tablesHaveDifferentNoOfRows = (
+  currentTable: PmNode,
+  previousTable: PmNode,
+): boolean => {
+  const prevMap = TableMap.get(previousTable);
+  const currentMap = TableMap.get(currentTable);
+
+  return prevMap.height !== currentMap.height;
+};
+
 function filterNearSelection<T, U>(
   selection: Selection,
   findNode: (selection: Selection) => { pos: number; node: PmNode } | undefined,

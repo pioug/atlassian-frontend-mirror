@@ -1,6 +1,7 @@
-import type { ProductType } from '@atlaskit/linking-common';
+import type { ProductType, EnvironmentsKeys } from '@atlaskit/linking-common';
+
 export interface AISummaryServiceInt {
-  summariseUrl: () => Promise<void>;
+  summariseUrl: () => Promise<AISummaryState>;
   state: AISummaryState;
   subscribe: (stateSetter: StateSetter) => () => void;
 }
@@ -16,11 +17,12 @@ export type AISummaryServiceProps = {
    * we should always include the ARI if possible
    */
   ari?: string;
+  envKey?: EnvironmentsKeys;
   url: string;
 };
 
 export type AISummaryServiceConfig = {
-  baseUrl: string;
+  requestUrl: string;
   headers: Record<string, string>;
 };
 

@@ -13,14 +13,14 @@ import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 import { v4 as uuidv4 } from 'uuid';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { InlineCardAdf } from '@atlaskit/linking-common/types';
-import { Link } from '@atlaskit/linking-types';
-import Modal, {
+import type { InlineCardAdf } from '@atlaskit/linking-common/types';
+import type { Link } from '@atlaskit/linking-types';
+import {
   ModalBody,
   ModalFooter,
   ModalHeader,
@@ -55,11 +55,11 @@ import type {
 import { buildDatasourceAdf } from '../../../common/utils/adf';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
 import {
-  onNextPageProps,
+  type onNextPageProps,
   useDatasourceTableState,
 } from '../../../hooks/useDatasourceTableState';
 import i18nEN from '../../../i18n/en';
-import { getAvailableSites } from '../../../services/getAvailableSites';
+import { useAvailableSites } from '../../../services/useAvailableSites';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { loadingErrorMessages } from '../../common/error-state/messages';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
@@ -73,15 +73,18 @@ import {
   SmartCardPlaceholder,
   SmartLink,
 } from '../../common/modal/count-view-smart-link';
+import { DatasourceModal } from '../../common/modal/datasource-modal';
 import { DisplayViewDropDown } from '../../common/modal/display-view-dropdown/display-view-drop-down';
 import { SiteSelector } from '../../common/modal/site-selector';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
-import { ColumnSizesMap } from '../../issue-like-table/types';
-import { SelectedOptionsMap } from '../basic-filters/types';
+import { useColumnResize } from '../../issue-like-table/use-column-resize';
+import { useColumnWrapping } from '../../issue-like-table/use-column-wrapping';
+import { getColumnAction } from '../../issue-like-table/utils';
+import type { SelectedOptionsMap } from '../basic-filters/types';
 import { availableBasicFilterTypes } from '../basic-filters/ui';
 import { isQueryTooComplex } from '../basic-filters/utils/isQueryTooComplex';
 import { JiraSearchContainer } from '../jira-search-container';
-import {
+import type {
   JiraConfigModalProps,
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
@@ -99,7 +102,7 @@ const getDisplayValue = (
   currentViewMode: DisplayViewModes,
   itemCount: number,
 ) => {
-  if (currentViewMode === 'issue') {
+  if (currentViewMode === 'table') {
     return DatasourceDisplay.DATASOURCE_TABLE;
   }
   return itemCount === 1
@@ -110,26 +113,6 @@ const getDisplayValue = (
 const jqlSupportDocumentLink =
   'https://support.atlassian.com/jira-service-management-cloud/docs/use-advanced-search-with-jira-query-language-jql/';
 
-/**
- * This method should be called when one atomic action is performed on columns: adding new item, removing one item, changing items order.
- * The assumption is that since only one action is changed at each time, we don't have to verify the actual contents of the lists.
- */
-export const getColumnAction = (
-  oldVisibleColumnKeys: string[],
-  newVisibleColumnKeys: string[],
-): DatasourceAction => {
-  const newColumnSize = newVisibleColumnKeys.length;
-  const oldColumnSize = oldVisibleColumnKeys.length;
-
-  if (newColumnSize > oldColumnSize) {
-    return DatasourceAction.COLUMN_ADDED;
-  } else if (newColumnSize < oldColumnSize) {
-    return DatasourceAction.COLUMN_REMOVED;
-  } else {
-    return DatasourceAction.COLUMN_REORDERED;
-  }
-};
-
 export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   const {
     datasourceId,
@@ -137,18 +120,19 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     wrappedColumnKeys: initialWrappedColumnKeys,
     onCancel,
     onInsert,
-    viewMode = 'issue',
+    viewMode = 'table',
     parameters: initialParameters,
     url: urlBeingEdited,
     visibleColumnKeys: initialVisibleColumnKeys,
   } = props;
 
-  const [availableSites, setAvailableSites] = useState<Site[] | undefined>(
-    undefined,
-  );
   const [currentViewMode, setCurrentViewMode] =
     useState<DisplayViewModes>(viewMode);
   const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+  const { availableSites, selectedSite: selectedJiraSite } = useAvailableSites(
+    'jira',
+    cloudId,
+  );
   const [jql, setJql] = useState(initialParameters?.jql);
   const [searchBarJql, setSearchBarJql] = useState<string | undefined>(
     initialParameters?.jql,
@@ -186,32 +170,12 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 
   const isParametersSet = !!(jql && cloudId);
 
-  const [columnCustomSizes, setColumnCustomSizes] = useState<
-    ColumnSizesMap | undefined
-  >(initialColumnCustomSizes);
-
-  const onColumnResize = useCallback(
-    (key: string, width: number) => {
-      setColumnCustomSizes({ ...columnCustomSizes, [key]: width });
-    },
-    [columnCustomSizes],
+  const { columnCustomSizes, onColumnResize } = useColumnResize(
+    initialColumnCustomSizes,
   );
 
-  const [wrappedColumnKeys, setWrappedColumnKeys] = useState<
-    string[] | undefined
-  >(initialWrappedColumnKeys);
-
-  const onWrappedColumnChange = useCallback(
-    (key: string, isWrapped: boolean) => {
-      const set = new Set(wrappedColumnKeys);
-      if (isWrapped) {
-        set.add(key);
-      } else {
-        set.delete(key);
-      }
-      setWrappedColumnKeys(Array.from(set));
-    },
-    [wrappedColumnKeys],
+  const { wrappedColumnKeys, onWrappedColumnChange } = useColumnWrapping(
+    initialWrappedColumnKeys,
   );
 
   const {
@@ -235,22 +199,6 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
   const { fireEvent } = useDatasourceAnalyticsEvents();
   const { current: modalRenderInstanceId } = useRef(uuidv4());
 
-  const selectedJiraSite = useMemo<Site | undefined>(() => {
-    if (cloudId) {
-      return availableSites?.find(jiraSite => jiraSite.cloudId === cloudId);
-    } else {
-      let currentlyLoggedInSiteUrl: string | undefined;
-      if (typeof window.location !== 'undefined') {
-        currentlyLoggedInSiteUrl = window.location.origin;
-      }
-      return (
-        availableSites?.find(
-          jiraSite => jiraSite.url === currentlyLoggedInSiteUrl,
-        ) || availableSites?.[0]
-      );
-    }
-  }, [availableSites, cloudId]);
-
   const analyticsPayload = useMemo(
     () => ({
       extensionKey,
@@ -272,10 +220,19 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     status === 'loading';
 
   const shouldShowIssueCount =
-    !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
+    !!totalCount && totalCount !== 1 && currentViewMode === 'table';
 
   const isDataReady = (visibleColumnKeys || []).length > 0;
   const hasNoJiraSites = availableSites && availableSites.length === 0;
+
+  useEffect(() => {
+    if (availableSites) {
+      fireEvent('ui.modal.ready.datasource', {
+        instancesCount: availableSites.length,
+        schemasCount: null,
+      });
+    }
+  }, [fireEvent, availableSites]);
 
   useEffect(() => {
     const shouldStartUfoExperience = status === 'loading';
@@ -294,13 +251,9 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     status,
     experienceId: modalRenderInstanceId,
     itemCount: responseItems.length,
-    canBeLink: currentViewMode === 'count',
+    canBeLink: currentViewMode === 'inline',
     extensionKey,
   });
-
-  useEffect(() => {
-    fireEvent('screen.datasourceModalDialog.viewed', {});
-  }, [fireEvent]);
 
   useEffect(() => {
     const newVisibleColumnKeys =
@@ -311,23 +264,6 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
     visibleColumnCount.current = newVisibleColumnKeys.length;
     setVisibleColumnKeys(newVisibleColumnKeys);
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
-
-  useEffect(() => {
-    const fetchSiteDisplayNames = async () => {
-      const jiraSites = await getAvailableSites('jira');
-      const sortedAvailableSites = [...jiraSites].sort((a, b) =>
-        a.displayName.localeCompare(b.displayName),
-      );
-      setAvailableSites(sortedAvailableSites);
-
-      fireEvent('ui.modal.ready.datasource', {
-        instancesCount: sortedAvailableSites.length,
-        schemasCount: null,
-      });
-    };
-
-    void fetchSiteDisplayNames();
-  }, [fireEvent]);
 
   useEffect(() => {
     if (
@@ -378,8 +314,8 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 
   useEffect(() => {
     const isResolved = status === 'resolved';
-    const isIssueViewMode = currentViewMode === 'issue';
-    const isCountViewMode = currentViewMode === 'count';
+    const isIssueViewMode = currentViewMode === 'table';
+    const isCountViewMode = currentViewMode === 'inline';
 
     if (!isResolved) {
       return;
@@ -509,7 +445,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
 
       const firstIssueUrl = retrieveUrlForSmartCardRender();
 
-      if (currentViewMode === 'count') {
+      if (currentViewMode === 'inline') {
         macroInsertedEvent?.fire(EVENT_CHANNEL);
         const url = responseItems.length === 1 ? firstIssueUrl : upToDateJqlUrl;
         onInsert(
@@ -767,12 +703,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       loaderFn={fetchMessagesForLocale}
     >
       <ModalTransition>
-        <Modal
-          testId="jira-datasource-modal"
-          onClose={onCancel}
-          width="calc(100% - 80px)"
-          shouldScrollInViewport={true}
-        >
+        <DatasourceModal testId="jira-datasource-modal" onClose={onCancel}>
           <ModalHeader>
             <ModalTitle>
               <SiteSelector
@@ -803,7 +734,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
                   onSearchMethodChange={setCurrentSearchMethod}
                   site={selectedJiraSite}
                 />
-                {currentViewMode === 'count'
+                {currentViewMode === 'inline'
                   ? renderCountModeContent()
                   : renderIssuesModeContent()}
               </Fragment>
@@ -853,7 +784,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
               </Button>
             )}
           </ModalFooter>
-        </Modal>
+        </DatasourceModal>
       </ModalTransition>
     </IntlMessagesProvider>
   );

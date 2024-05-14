@@ -16,7 +16,7 @@ import SectionExample from '../../examples/constellation/section';
 
 ## Default
 
-A side navigation example showing all [components](#side-navigation-components) and [items](#side-navigation-items) composed together.
+This side navigation example shows all of the [components](#side-navigation-components) and [items](#side-navigation-items) composed together.
 
 <Example Component={DefaultExample} packageName="@atlaskit/side-navigation" />
 
@@ -24,14 +24,15 @@ A side navigation example showing all [components](#side-navigation-components) 
 
 ### Container
 
-Uses 100% of its parent's height and width, so make sure to place it into an element with explicit values set.<br />
-**Minimum width of 240px.**
+Uses 100% of its parent's height and width, so make sure to place it into an element with explicit values set.
+
+The minimum width of the container is `240px`.
 
 <Example Component={ContainerExample} packageName="@atlaskit/side-navigation" />
 
 ### Header and footer
 
-You can customise header and footer using `NavigationHeader` and `NavigationFooter`.
+Use `NavigationHeader` and `NavigationFooter` to customise the header and footer.
 
 <Example
   Component={HeaderAndFooterExample}
@@ -40,46 +41,47 @@ You can customise header and footer using `NavigationHeader` and `NavigationFoot
 
 ### Content
 
-Used as the container for [navigation items](#side-navigation-items). For nested views see the following example.
+This is used as the container for [navigation items](#side-navigation-items). For nested views see the [nested navigation example](#nested-navigation).
 
 <Example Component={ContentExample} packageName="@atlaskit/side-navigation" />
 
 ### Section
 
-Used to separate items into sections. Using the `title` prop makes a section implicitly group the items for screen readers with no additional work required.
+This is used to separate items into sections. Using the `title` prop makes a section implicitly group the items for assistive technology such as screen readers with no extra work required.
 
 <Example Component={SectionExample} packageName="@atlaskit/side-navigation" />
 
 ### Nested navigation
 
-The container for navigation items with nested views is `NestableNavigationContent`.
+Use `NestableNavigationContent` if you need a container for navigation items with nested views.
 
 <Example Component={NestedExample} packageName="@atlaskit/side-navigation" />
 
 ## Side navigation items
 
-Granular items that can be rendered as part of the navigation experience.<br />
-The `Section` component **must** be used to ensure consistent spacing around blocks of items.
+Granular items that can be rendered as part of the navigation experience.
+
+You must use the `Section` component to ensure consistent spacing around blocks of items.
 
 ### Go back item
 
-This item is used to provide a customized "go back" button in nested navigations.
+Use the go back item to provide a customized "go back" button in nested navigations.
 
 <Example Component={GoBackExample} packageName="@atlaskit/side-navigation" />
 
 ### Link item
 
-Renders an item wrapped in an anchor tag, useful when you have an item that should change routes using native browser navigation.
+This renders an item wrapped in an anchor tag, useful when you have an item that should navigate to another page using native browser navigation.
 
-For custom SPA transitions use a custom item with the respective router logic, following the next example.
+For custom SPA transitions use a custom item with the respective router logic, following the [custom item example](#custom-item).
 
 <Example Component={LinkItemExample} packageName="@atlaskit/side-navigation" />
 
 ### Custom item
 
-Handles use cases where a custom router link component is needed.
+This handles use cases where a custom router link component is needed.
 
-The custom component receives all overflow props passed to the custom item component, as well as when using TypeScript will add the custom component props to the root component props type for type safety.
+The custom component receives all overflow props passed to the custom item component. When using TypeScript this will add the custom component props to the root component props type for type safety.
 
 <Example
   Component={CustomItemExample}
@@ -88,16 +90,12 @@ The custom component receives all overflow props passed to the custom item compo
 
 ### Button item
 
-Renders an item wrapped in a button tag, used primarily when an action does something other than changing routes.
+This renders an item wrapped in a button tag. Use this when an action does something other than navigating to another page.
 
 <Example
   Component={ButtonItemExample}
   packageName="@atlaskit/side-navigation"
 />
-
-### Heading item
-
-Available for advanced use cases, for most situations providing a `title` to `Section` should be enough.
 
 ## Loading
 

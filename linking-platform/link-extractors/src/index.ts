@@ -46,6 +46,7 @@ export {
   extractPlatformIsSupported,
   extractContext,
   extractProvider,
+  extractProviderIcon,
   extractDateCreated,
   extractDateUpdated,
   extractDateViewed,

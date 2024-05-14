@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-svg",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "For fetching and rendering SVGs secure and responsively",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,8 +40,9 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/media-client": "^26.3.0",
+    "@atlaskit/media-client": "^27.0.0",
     "@atlaskit/media-client-react": "^2.0.2",
+    "@atlaskit/spinner": "^16.1.0",
     "@babel/runtime": "^7.0.0",
     "@compiled/react": "^0.17.0"
   },
@@ -51,15 +52,15 @@
   "devDependencies": {
     "@af/integration-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/form": "^9.2.0",
+    "@atlaskit/form": "^10.0.0",
     "@atlaskit/media-state": "^1.0.4",
-    "@atlaskit/media-test-data": "^2.0.0",
-    "@atlaskit/primitives": "^5.5.0",
-    "@atlaskit/range": "^7.1.8",
-    "@atlaskit/section-message": "^6.4.25",
-    "@atlaskit/select": "^17.3.4",
+    "@atlaskit/media-test-data": "^2.2.0",
+    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/range": "^7.2.0",
+    "@atlaskit/section-message": "^6.5.0",
+    "@atlaskit/select": "^17.9.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^13.0.4",
+    "@atlaskit/toggle": "^13.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",

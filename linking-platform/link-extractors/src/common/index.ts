@@ -1,5 +1,5 @@
 export { extractPlatformIsSupported } from './platform/extractPlatformIsSupported';
-export { extractContext, extractProvider } from './context';
+export { extractContext, extractProvider, extractProviderIcon } from './context';
 
 export {
   extractDateCreated,

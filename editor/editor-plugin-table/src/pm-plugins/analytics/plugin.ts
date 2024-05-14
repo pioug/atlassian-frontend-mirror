@@ -6,7 +6,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   countCellsInSlice,
@@ -52,45 +51,37 @@ export const createPlugin = (
     },
     props: {
       handlePaste: ({ state, dispatch }, event, slice) => {
-        if (
-          getBooleanFF('platform.editor.table.analytics-plugin-moved-event')
-        ) {
-          const { schema } = state;
-          const type = getTableElementMoveTypeBySlice(slice, state);
+        const { schema } = state;
+        const type = getTableElementMoveTypeBySlice(slice, state);
 
-          // if the selection wasn't in the first cell of a row or column, don't count it
-          if (!type || !isInsideFirstCellOfRowOrColumn(state.selection, type)) {
-            return;
-          }
-
-          const count = countCellsInSlice(slice, schema, type);
-
-          updateRowOrColumnMoved(
-            {
-              numberOfCells: count,
-              type,
-            },
-            'pasted',
-          )(state, dispatch);
+        // if the selection wasn't in the first cell of a row or column, don't count it
+        if (!type || !isInsideFirstCellOfRowOrColumn(state.selection, type)) {
+          return;
         }
+
+        const count = countCellsInSlice(slice, schema, type);
+
+        updateRowOrColumnMoved(
+          {
+            numberOfCells: count,
+            type,
+          },
+          'pasted',
+        )(state, dispatch);
       },
       transformCopied: (slice, { state, dispatch }) => {
-        if (
-          getBooleanFF('platform.editor.table.analytics-plugin-moved-event')
-        ) {
-          const { schema } = state;
+        const { schema } = state;
 
-          const type = getTableSelectionType(state.selection);
-          const count = countCellsInSlice(slice, schema, type);
+        const type = getTableSelectionType(state.selection);
+        const count = countCellsInSlice(slice, schema, type);
 
-          updateRowOrColumnMoved(
-            {
-              numberOfCells: count,
-              type,
-            },
-            'copyOrCut',
-          )(state, dispatch);
-        }
+        updateRowOrColumnMoved(
+          {
+            numberOfCells: count,
+            type,
+          },
+          'copyOrCut',
+        )(state, dispatch);
 
         return slice;
       },

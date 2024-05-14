@@ -8,59 +8,59 @@ import * as colors from '@atlaskit/theme/colors';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-export const header = css`
-  z-index: ${akEditorUnitZIndex};
-  min-height: ${token('space.300', '24px')};
-  padding: ${token('space.250', '20px')} ${token('space.500', '40px')};
-  font-size: ${relativeFontSizeToBase16(24)};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 'none';
-  color: ${token('color.text', colors.N400)};
-  background-color: ${token('color.background.neutral.subtle', colors.N0)};
-  border-radius: ${token('border.radius', '3px')};
-`;
+export const header = css({
+  zIndex: akEditorUnitZIndex,
+  minHeight: token('space.300', '24px'),
+  padding: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
+  fontSize: relativeFontSizeToBase16(24),
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  boxShadow: "'none'",
+  color: token('color.text', colors.N400),
+  backgroundColor: token('color.background.neutral.subtle', colors.N0),
+  borderRadius: token('border.radius', '3px'),
+});
 
-export const footer = css`
-  z-index: ${akEditorUnitZIndex};
-  font-size: ${relativeFontSizeToBase16(14)};
-  line-height: ${token('space.250', '20px')};
-  color: ${token('color.text.subtlest', colors.N300)};
-  padding: ${token('space.300', '24px')};
-  text-align: right;
-  box-shadow: 'none';
-`;
+export const footer = css({
+  zIndex: akEditorUnitZIndex,
+  fontSize: relativeFontSizeToBase16(14),
+  lineHeight: token('space.250', '20px'),
+  color: token('color.text.subtlest', colors.N300),
+  padding: token('space.300', '24px'),
+  textAlign: 'right',
+  boxShadow: "'none'",
+});
 
-export const contentWrapper = css`
-  padding: ${token('space.250', '20px')} ${token('space.500', '40px')};
-  border-bottom-right-radius: ${token('border.radius', '3px')};
-  overflow: auto;
-  position: relative;
-  color: ${token('color.text.subtle', colors.N400)};
-  background-color: ${token('color.background.neutral.subtle', colors.N0)};
-`;
+export const contentWrapper = css({
+  padding: `${token('space.250', '20px')} ${token('space.500', '40px')}`,
+  borderBottomRightRadius: token('border.radius', '3px'),
+  overflow: 'auto',
+  position: 'relative',
+  color: token('color.text.subtle', colors.N400),
+  backgroundColor: token('color.background.neutral.subtle', colors.N0),
+});
 
-export const line = css`
-  background: ${token('color.background.neutral.subtle', '#fff')};
-  content: '';
-  display: block;
-  height: ${token('space.025', '2px')};
-  left: 0;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  min-width: 604px;
-`;
+export const line = css({
+  background: token('color.background.neutral.subtle', '#fff'),
+  content: "''",
+  display: 'block',
+  height: token('space.025', '2px'),
+  left: 0,
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  width: '100%',
+  minWidth: '604px',
+});
 
-export const content = css`
-  min-width: 524px;
-  width: 100%;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-`;
+export const content = css({
+  minWidth: '524px',
+  width: '100%',
+  position: 'relative',
+  display: 'flex',
+  justifyContent: 'space-between',
+});
 
 export const column = {
   width: '44%',
@@ -69,11 +69,11 @@ export const column = {
   },
 };
 
-export const row = css`
-  margin: ${token('space.250', '20px')} 0;
-  display: flex;
-  justify-content: space-between;
-`;
+export const row = css({
+  margin: `${token('space.250', '20px')} 0`,
+  display: 'flex',
+  justifyContent: 'space-between',
+});
 
 export const dialogHeader = {
   '&': {
@@ -94,43 +94,43 @@ export const title = {
   },
 };
 
-export const codeSm = css`
-  background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${token('border.radius', '3px')};
-  width: ${token('space.300', '24px')};
-  display: inline-block;
-  height: ${token('space.300', '24px')};
-  line-height: 24px;
-  text-align: center;
-`;
+export const codeSm = css({
+  backgroundColor: token('color.background.neutral', colors.N20),
+  borderRadius: token('border.radius', '3px'),
+  width: token('space.300', '24px'),
+  display: 'inline-block',
+  height: token('space.300', '24px'),
+  lineHeight: '24px',
+  textAlign: 'center',
+});
 
-export const codeMd = css`
-  background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${token('border.radius', '3px')};
-  display: inline-block;
-  height: ${token('space.300', '24px')};
-  line-height: 24px;
-  width: 50px;
-  text-align: center;
-`;
+export const codeMd = css({
+  backgroundColor: token('color.background.neutral', colors.N20),
+  borderRadius: token('border.radius', '3px'),
+  display: 'inline-block',
+  height: token('space.300', '24px'),
+  lineHeight: '24px',
+  width: '50px',
+  textAlign: 'center',
+});
 
-export const codeLg = css`
-  background-color: ${token('color.background.neutral', colors.N20)};
-  border-radius: ${token('border.radius', '3px')};
-  display: inline-block;
-  height: ${token('space.300', '24px')};
-  line-height: ${token('space.300', '24px')};
-  padding: 0 ${token('space.150', '12px')};
-  text-align: center;
-`;
+export const codeLg = css({
+  backgroundColor: token('color.background.neutral', colors.N20),
+  borderRadius: token('border.radius', '3px'),
+  display: 'inline-block',
+  height: token('space.300', '24px'),
+  lineHeight: token('space.300', '24px'),
+  padding: `0 ${token('space.150', '12px')}`,
+  textAlign: 'center',
+});
 
-export const shortcutsArray = css`
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  gap: ${token('space.150', '12px')};
-`;
+export const shortcutsArray = css({
+  display: 'flex',
+  flexDirection: 'column',
+  flexShrink: 0,
+  gap: token('space.150', '12px'),
+});
 
-export const componentFromKeymapWrapperStyles = css`
-  flex-shrink: 0;
-`;
+export const componentFromKeymapWrapperStyles = css({
+  flexShrink: 0,
+});

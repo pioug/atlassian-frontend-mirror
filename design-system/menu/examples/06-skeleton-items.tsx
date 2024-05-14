@@ -4,7 +4,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import UserAvatarCircleIcon from '@atlaskit/icon/glyph/user-avatar-circle';
-import { N30, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -31,14 +30,14 @@ const Item = ({ isLoading, ...props }: any) => {
     icon = (
       <span
         style={{
-          background: token('color.text.inverse', N30),
+          background: token('color.text.inverse'),
           borderRadius: token('border.radius.circle', '50%'),
           width: 24,
           height: 24,
         }}
       >
         <UserAvatarCircleIcon
-          primaryColor={token('color.text.subtlest', N40)}
+          primaryColor={token('color.text.subtlest')}
           label=""
         />
       </span>
@@ -69,7 +68,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
       <div
         style={{
           width: '200px',
-          border: `1px solid ${token('color.border', '#EFEFEF')}`,
+          border: `1px solid ${token('color.border')}`,
           margin: '10px auto',
           // TODO Delete this comment after verifying space token -> previous value `'4px'`
           borderRadius: token('border.radius', '4px'),
@@ -98,7 +97,7 @@ const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
       <div
         style={{
           width: '200px',
-          border: `1px solid ${token('color.border', '#EFEFEF')}`,
+          border: `1px solid ${token('color.border')}`,
           margin: '10px auto',
           // TODO Delete this comment after verifying space token -> previous value `'4px'`
           borderRadius: token('border.radius', '4px'),

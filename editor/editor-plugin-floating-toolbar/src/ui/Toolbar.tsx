@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation */
 /** @jsx jsx */
 import React, { Component } from 'react';
 
@@ -63,6 +64,7 @@ export interface Props {
   popupsScrollableElement?: HTMLElement;
   providerFactory?: ProviderFactory;
   className?: string;
+  groupLabel?: string;
   focusEditor?: () => void;
   editorView?: EditorView;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
@@ -134,6 +136,7 @@ export function groupItems(items: Item[]): GroupedItems {
 const ToolbarItems = React.memo(
   ({
     items,
+    groupLabel,
     dispatchCommand,
     popupsMountPoint,
     popupsBoundariesElement,
@@ -300,6 +303,7 @@ const ToolbarItems = React.memo(
                 //  and paletteColorTooltipMessages in item options.
                 hexToPaletteColor={hexToEditorBackgroundPaletteColor}
                 paletteColorTooltipMessages={backgroundPaletteTooltipMessages}
+                returnEscToButton={item.returnEscToButton}
               />
             );
           }
@@ -352,7 +356,12 @@ const ToolbarItems = React.memo(
 
             if (isGroup) {
               return (
-                <div key={index} css={buttonGroupStyles} role="radiogroup">
+                <div
+                  key={index}
+                  css={buttonGroupStyles}
+                  role="radiogroup"
+                  aria-label={groupLabel ?? undefined}
+                >
                   {element.map((item, idx) => {
                     return renderItem(item, idx);
                   })}
@@ -401,75 +410,88 @@ const toolbarContainer = (
   scrollable?: boolean,
   hasSelect?: boolean,
   firstElementIsSelect?: boolean,
-) => css`
-  background-color: ${token('elevation.surface.overlay', 'white')};
-  border-radius: ${token('border.radius', '3px')};
-  box-shadow: ${token(
-    'elevation.shadow.overlay',
-    `0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)`,
-  )};
-  display: flex;
-  line-height: 1;
-  box-sizing: border-box;
-
-  & > div > div {
-    align-items: center;
-  }
-  ${scrollable
-    ? css`
-        ${hasSelect
-          ? css`
-              height: 40px;
-            `
-          : css`
-              height: 32px;
-            `}
-        overflow: hidden;
-      `
-    : css`
-        padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
-        ${firstElementIsSelect &&
-        css`
-          padding-left: ${token('space.050', '4px')};
-        `}
-      `}
-`;
+) =>
+  css(
+    {
+      backgroundColor: token('elevation.surface.overlay', 'white'),
+      borderRadius: token('border.radius', '3px'),
+      boxShadow: token(
+        'elevation.shadow.overlay',
+        `0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)`,
+      ),
+      display: 'flex',
+      lineHeight: 1,
+      boxSizing: 'border-box',
+      '& > div > div': {
+        alignItems: 'center',
+      },
+    },
+    scrollable
+      ? css(
+          hasSelect
+            ? css({
+                height: '40px',
+              })
+            : css({
+                height: '32px',
+              }),
+          {
+            overflow: 'hidden',
+          },
+        )
+      : css(
+          {
+            padding: `${token('space.050', '4px')} ${token(
+              'space.100',
+              '8px',
+            )}`,
+          },
+          firstElementIsSelect &&
+            css({
+              paddingLeft: token('space.050', '4px'),
+            }),
+        ),
+  );
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarOverflow = (
   scrollable?: boolean,
   scrollDisabled?: boolean,
   firstElementIsSelect?: boolean,
-) => css`
-  ${scrollable
-    ? css`
-        ${scrollDisabled
-          ? css`
-              overflow: hidden;
-            `
-          : css`
-              overflow-x: auto;
-              overflow-y: hidden;
-            `}
-        -webkit-overflow-scrolling: touch;
-        padding: ${token('space.050', '4px')} 0 ${token('space.600', '48px')};
-        > div {
-          > div:first-child {
-            ${firstElementIsSelect
-              ? css`
-                  margin-left: ${token('space.050', '4px')};
-                `
-              : css`
-                  margin-left: ${token('space.100', '8px')};
-                `}
-          }
-          > div:last-child {
-            margin-right: ${token('space.100', '8px')};
-          }
-        }
-      `
-    : css({ display: 'flex' })}
-`;
+) =>
+  css(
+    scrollable
+      ? css(
+          scrollDisabled
+            ? css({
+                overflow: 'hidden',
+              })
+            : css({
+                overflowX: 'auto',
+                overflowY: 'hidden',
+              }),
+          {
+            WebkitOverflowScrolling: 'touch',
+            padding: `${token('space.050', '4px')} 0 ${token(
+              'space.600',
+              '48px',
+            )}`,
+            '> div': {
+              '> div:first-child': firstElementIsSelect
+                ? css({
+                    marginLeft: token('space.050', '4px'),
+                  })
+                : css({
+                    marginLeft: token('space.100', '8px'),
+                  }),
+              '> div:last-child': {
+                marginRight: token('space.100', '8px'),
+              },
+            },
+          },
+        )
+      : css({ display: 'flex' }),
+  );
 
 export interface State {
   scrollDisabled: boolean;

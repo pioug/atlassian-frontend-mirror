@@ -37,9 +37,6 @@
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../../design-system/tokens/afm-cc/tsconfig.json"
         }
     ]

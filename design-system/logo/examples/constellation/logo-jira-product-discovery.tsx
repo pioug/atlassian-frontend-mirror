@@ -1,6 +1,12 @@
-import React from 'react';
+/** @jsx jsx */
+
+import { css, jsx } from '@compiled/react';
 
 import { JiraProductDiscoveryIcon, JiraProductDiscoveryLogo } from '../../src';
+
+const tableStyle = css({
+  width: '370px',
+});
 
 const LogoJiraProductDiscovery = () => {
   return (
@@ -14,7 +20,7 @@ const LogoJiraProductDiscovery = () => {
         </thead>
         <tbody>
           <tr>
-            <td>
+            <td css={tableStyle}>
               <JiraProductDiscoveryLogo appearance="brand" />
             </td>
             <td>

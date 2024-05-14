@@ -65,10 +65,6 @@ snapshotInformational(BasicFiltersVR, {
     await page.getByText('ProjectTypeStatusAssignee');
   },
   description: 'default state for all filters',
-  featureFlags: {
-    'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-      true,
-  },
 });
 
 snapshotInformational(WithModal, {
@@ -81,12 +77,10 @@ snapshotInformational(WithModal, {
   featureFlags: {
     'platform.linking-platform.datasource.show-jlol-basic-filters': true,
     'platform.linking-platform.datasource-word_wrap': true,
-    'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-      true,
   },
 });
 
-snapshotInformational.skip(WithModal, {
+snapshotInformational(WithModal, {
   ...options,
   drawsOutsideBounds: false,
   prepare: async (page: Page) => {
@@ -98,8 +92,6 @@ snapshotInformational.skip(WithModal, {
   description: 'basic mode with basic filters with each filter selected',
   featureFlags: {
     'platform.linking-platform.datasource.show-jlol-basic-filters': true,
-    'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-      true,
   },
   selector: {
     byTestId: 'jlol-basic-filter-container',
@@ -119,10 +111,6 @@ filters.forEach(filter => {
       await firstOption.waitFor({ state: 'visible' });
     },
     description: `${filter} open trigger`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -132,10 +120,6 @@ filters.forEach(filter => {
       await selectOption(page, filter, 1, false);
     },
     description: `${filter} open and option selected`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -145,30 +129,6 @@ filters.forEach(filter => {
       await selectOption(page, filter);
     },
     description: `${filter} closed and multiple options selected`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
-  });
-
-  // FIXME: assignee dropdown list items are flaky
-  snapshotInformational.skip(BasicFiltersVR, {
-    ...options,
-
-    prepare: async (page: Page, component: Locator) => {
-      await component
-        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
-        .click();
-      await page.type(
-        `#jlol-basic-filter-${filter}-popup-select--input`,
-        `my ${filter}`,
-      );
-    },
-    description: `${filter} open and search text entered`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -179,20 +139,37 @@ filters.forEach(filter => {
         .getByTestId(`jlol-basic-filter-${filter}-trigger`)
         .click();
 
-      await page.type(
+      await page.fill(
+        `#jlol-basic-filter-${filter}-popup-select--input`,
+        `my ${filter}`,
+      );
+
+      // This is necessary for assignee to avoid flakiness when snapshot is taken before search has time to process and reload results
+      await page
+        .getByText('Unassigned', { exact: true })
+        .waitFor({ state: 'detached' });
+    },
+    description: `${filter} open and search text entered`,
+  });
+
+  snapshotInformational(BasicFiltersVR, {
+    ...options,
+
+    prepare: async (page: Page, component: Locator) => {
+      await component
+        .getByTestId(`jlol-basic-filter-${filter}-trigger`)
+        .click();
+
+      await page.fill(
         `#jlol-basic-filter-${filter}-popup-select--input`,
         `loading-message`,
       );
 
-      await component.getByTestId(
-        `jlol-basic-filter-${filter}--loading-message`,
-      );
+      await page
+        .getByTestId(`jlol-basic-filter-${filter}--loading-message`)
+        .waitFor({ state: 'visible' });
     },
     description: `${filter} open and view loading state`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -213,10 +190,6 @@ filters.forEach(filter => {
       );
     },
     description: `${filter} open and view empty state`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -235,10 +208,6 @@ filters.forEach(filter => {
       await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
     },
     description: `${filter} open and view error state`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -257,10 +226,6 @@ filters.forEach(filter => {
       await page.getByTestId(`jlol-basic-filter-${filter}--show-more-button`);
     },
     description: `${filter} open and view show more button`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 
   snapshotInformational(BasicFiltersVR, {
@@ -273,9 +238,5 @@ filters.forEach(filter => {
       await page.keyboard.press('Tab');
     },
     description: `${filter} open and focus show more button`,
-    featureFlags: {
-      'platform.design-system-team.remove-badge-text-style-inheritance_add9o':
-        true,
-    },
   });
 });

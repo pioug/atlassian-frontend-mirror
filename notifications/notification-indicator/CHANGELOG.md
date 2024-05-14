@@ -1,5 +1,11 @@
 # @atlaskit/notification-indicator
 
+## 9.2.3
+
+### Patch Changes
+
+- [#93634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/93634) [`e0491b746c0f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0491b746c0f) - Remove Confluence default notification empty state experiment code
+
 ## 9.2.2
 
 ### Patch Changes

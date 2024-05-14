@@ -2,15 +2,16 @@
 import { jsx, css } from '@emotion/react';
 import { components } from 'react-select';
 import {
-  ClearIndicatorProps,
-  DropdownIndicatorProps,
-  LoadingIndicatorProps,
+  type ClearIndicatorProps,
+  type DropdownIndicatorProps,
+  type LoadingIndicatorProps,
 } from '../types';
+import { Pressable, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
-const iconContainerStyles = css({
+const iconContainerStyles = xcss({
   all: 'unset',
   outline: 'revert',
   display: 'flex',
@@ -29,9 +30,9 @@ export const ClearIndicator = <
       innerProps: { ...props.innerProps, 'aria-hidden': 'false' },
     }}
   >
-    <button css={iconContainerStyles} type="button" tabIndex={-1}>
+    <Pressable xcss={iconContainerStyles} tabIndex={-1}>
       <SelectClearIcon size="small" label="clear" />
-    </button>
+    </Pressable>
   </components.ClearIndicator>
 );
 

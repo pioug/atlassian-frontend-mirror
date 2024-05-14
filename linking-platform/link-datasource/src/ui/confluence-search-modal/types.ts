@@ -1,11 +1,16 @@
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import {
+  type DatasourceAdf,
+  type InlineCardAdf,
+} from '@atlaskit/linking-common/types';
+import type { DatasourceParameters } from '@atlaskit/linking-types';
 
-import { ConfigModalProps } from '../../common/types';
+import { type ConfigModalProps } from '../../common/types';
+import { type DateRangeType } from '../common/modal/popup-select/types';
 
 export interface ConfluenceSearchConfigModalProps
   extends ConfigModalProps<
     InlineCardAdf | ConfluenceSearchDatasourceAdf,
-    ConfluenceSearchDatasourceParameters
+    DatasourceParameters | ConfluenceSearchDatasourceParameters
   > {
   disableDisplayDropdown?: boolean;
   overrideParameters?: Pick<
@@ -26,13 +31,7 @@ export type ConfluenceSearchDatasourceParameters = {
   containerStatus?: string[];
   contentStatuses?: string[];
   creatorAccountIds?: string[];
-  lastModified?:
-    | 'today'
-    | 'yesterday'
-    | 'past7Days'
-    | 'past30Days'
-    | 'pastYear'
-    | 'custom';
+  lastModified?: DateRangeType;
   lastModifiedFrom?: string;
   lastModifiedTo?: string;
   shouldMatchTitleOnly?: boolean;

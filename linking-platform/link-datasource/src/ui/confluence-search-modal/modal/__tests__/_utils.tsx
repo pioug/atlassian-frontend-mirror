@@ -1,8 +1,8 @@
 import { setupFactory } from '../../../../common/__tests__/_utils';
-import { ConfigModalProps } from '../../../../common/types';
+import { type ConfigModalProps } from '../../../../common/types';
 import {
-  ConfluenceSearchDatasourceAdf,
-  ConfluenceSearchDatasourceParameters,
+  type ConfluenceSearchDatasourceAdf,
+  type ConfluenceSearchDatasourceParameters,
 } from '../../types';
 import { ConfluenceSearchConfigModal } from '../index';
 
@@ -44,6 +44,14 @@ const {
   >,
   getDefaultParameters,
   args => {
+    const {
+      cloudId = '67899',
+      lastModified,
+      lastModifiedFrom,
+      lastModifiedTo,
+      searchString,
+    } = args.parameters || {};
+
     const adf: ConfluenceSearchDatasourceAdf = {
       type: 'blockCard',
       attrs: {
@@ -52,8 +60,11 @@ const {
           id: 'some-confluence-search-datasource-id',
           parameters: {
             ...args.parameters,
-            cloudId: args.parameters?.cloudId || '67899',
-            searchString: args.parameters?.searchString || 'some-query',
+            cloudId,
+            searchString,
+            lastModified,
+            lastModifiedFrom,
+            lastModifiedTo,
           },
           views: [
             {

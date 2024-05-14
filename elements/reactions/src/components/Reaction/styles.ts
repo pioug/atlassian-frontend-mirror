@@ -14,6 +14,10 @@ const akHeight = 24;
  * of FlashAnimation b/c it otherwise throws off the flash styling
  */
 
+export const containerStyle = css({
+  position: 'relative',
+});
+
 export const emojiStyle = css({
   transformOrigin: 'center center 0',
   lineHeight: '12px',
@@ -67,4 +71,8 @@ export const flashStyle = css({
   alignItems: 'center',
   borderRadius: '10px',
   height: `${flashHeight}px`,
+});
+
+export const emojiNoReactionStyle = css({
+  padding: `${token('space.050', '4px')} ${token('space.025', '2px')} ${token('space.050', '4px')} 10px`,
 });

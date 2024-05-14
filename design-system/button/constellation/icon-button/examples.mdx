@@ -7,10 +7,13 @@ order: 0
 import SectionMessage from '@atlaskit/section-message';
 
 import IconButtonDefault from '../../examples/constellation/new-button/icon-button/icon-button-default';
+import IconButtonTooltip from '../../examples/constellation/new-button/icon-button/icon-button-tooltip';
+import IconButtonTooltipOptions from '../../examples/constellation/new-button/icon-button/icon-button-tooltip-options';
 import IconButtonPrimary from '../../examples/constellation/new-button/icon-button/icon-button-primary';
 import IconButtonSubtle from '../../examples/constellation/new-button/icon-button/icon-button-subtle';
 import IconButtonCircle from '../../examples/constellation/new-button/icon-button/icon-button-circle';
-import IconButtonSmall from '../../examples/constellation/new-button/icon-button/icon-button-small';
+import IconButtonIconOverrides from '../../examples/constellation/new-button/icon-button/icon-button-icon-overrides';
+import IconButtonColor from '../../examples/constellation/new-button/icon-button/icon-button-color';
 import IconButtonDisabled from '../../examples/constellation/new-button/icon-button/icon-button-disabled';
 import LinkIconButton from '../../examples/constellation/new-button/icon-button/link-icon-button';
 import LinkIconButtonWithRouting from '../../examples/constellation/new-button/icon-button/link-icon-button-with-routing';
@@ -24,6 +27,24 @@ import IconButtonLoading from '../../examples/constellation/new-button/icon-butt
 The default icon button, used for most cases. They aren't impactful enough to represent a primary action.
 
 <Example Component={IconButtonDefault} packageName="@atlaskit/button" />
+
+## Tooltips
+
+<SectionMessage appearance="information">
+  Tooltips are currently disabled by default. They will be enabled by default in
+  a later release. Prefer using built-in tooltips over wrapping the icon button
+  manually.
+</SectionMessage>
+
+Set `isTooltipDisabled` to false to enable the tooltip. The value of `label` will be used for the tooltip content.
+
+<Example Component={IconButtonTooltip} packageName="@atlaskit/button" />
+
+### Overriding tooltip props
+
+Use the `tooltip` prop to override the default tooltip props. It accepts all [tooptip props](/components/tooltip/code), excluding `children`.
+
+<Example Component={IconButtonTooltipOptions} packageName="@atlaskit/button" />
 
 ## Appearance
 
@@ -53,11 +74,11 @@ Only use circle icon buttons in the top navigation or other areas that already h
 
 <Example Component={IconButtonCircle} packageName="@atlaskit/button" />
 
-## Overriding icon size
+## Overriding icon props
 
-To override the default icon size, use the `icon` render prop.
+Use the `icon` render prop to override the default icon props.
 
-<Example Component={IconButtonSmall} packageName="@atlaskit/button" />
+<Example Component={IconButtonIconOverrides} packageName="@atlaskit/button" />
 
 ## Link icon button
 

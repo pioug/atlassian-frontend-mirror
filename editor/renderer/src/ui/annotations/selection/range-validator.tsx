@@ -5,6 +5,7 @@ import { SelectionInlineCommentMounter } from './mounter';
 import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { RendererContext as ActionsContext } from '../../RendererActionsContext';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ProvidersContext } from '../context';
 
 type Props = {
   selectionComponent: React.ComponentType<
@@ -28,11 +29,18 @@ export const SelectionRangeValidator = (props: Props) => {
   const [range, draftRange, clearRange] = useUserSelectionRange({
     rendererRef,
   });
+  const providers = useContext(ProvidersContext);
+  const isCommentsOnMediaBugFixEnabled = Boolean(
+    providers?.inlineComment.isCommentsOnMediaBugFixEnabled,
+  );
 
   if (!range && !draftRange) {
     return null;
   }
-  const documentPosition = actions.getPositionFromRange(range);
+  const documentPosition = actions.getPositionFromRange(
+    range,
+    isCommentsOnMediaBugFixEnabled,
+  );
 
   // This property is drilled down to consumers when a new range is selected to test it's validity
   let isAnnotationAllowedOnRange = false;

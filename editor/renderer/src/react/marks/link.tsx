@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { B400, B300, B500 } from '@atlaskit/theme/colors';
-import { LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema';
 
 import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
@@ -11,24 +11,22 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { MarkProps } from '../types';
+import type { MarkProps } from '../types';
 
 import { token } from '@atlaskit/tokens';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-const anchorStyles = css`
-  color: ${token('color.link', B400)};
-
-  &:hover {
-    color: ${token('color.link', B300)};
-    text-decoration: underline;
-  }
-
-  &:active {
-    color: ${token('color.link.pressed', B500)};
-  }
-`;
+const anchorStyles = css({
+  color: token('color.link', B400),
+  '&:hover': {
+    color: token('color.link', B300),
+    textDecoration: 'underline',
+  },
+  '&:active': {
+    color: token('color.link.pressed', B500),
+  },
+});
 
 interface LinkProps extends LinkAttributes {
   target?: string;

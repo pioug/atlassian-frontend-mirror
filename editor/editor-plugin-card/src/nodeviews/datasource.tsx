@@ -5,12 +5,13 @@ import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { LegacyPortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
   getPosHandler,
   ReactComponentProps,
 } from '@atlaskit/editor-common/react-node-view';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import {
   DATASOURCE_INNER_CONTAINER_CLASSNAME,
   SmartCardSharedCssClassName,
@@ -50,7 +51,7 @@ export interface DatasourceProps extends ReactComponentProps {
   node: PMNode;
   view: EditorView;
   getPos: getPosHandler;
-  portalProviderAPI: PortalProviderAPI;
+  portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
   eventDispatcher: EventDispatcher;
   hasIntlContext: boolean;
   pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;

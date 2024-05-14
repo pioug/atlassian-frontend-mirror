@@ -673,6 +673,7 @@ const App = () => {
             rendererRef={localRef}
             adfDocument={doc as DocNode}
             annotationProvider={annotationProvider}
+            isNestedRender={false}
           >
             <SmartCardProvider client={new CardClient('stg')}>
               <Renderer

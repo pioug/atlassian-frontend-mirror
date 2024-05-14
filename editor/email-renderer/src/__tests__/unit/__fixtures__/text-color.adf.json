@@ -1,0 +1,104 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "colored text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "colored bold text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            },
+            {
+              "type": "strong"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "colored italic text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            },
+            {
+              "type": "em"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "colored sup text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            },
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sup"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "colored sub text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            },
+            {
+              "type": "subsup",
+              "attrs": {
+                "type": "sub"
+              }
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "colored underline text",
+          "marks": [
+            {
+              "type": "textColor",
+              "attrs": {
+                "color": "#B3D4FF"
+              }
+            },
+            {
+              "type": "underline"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

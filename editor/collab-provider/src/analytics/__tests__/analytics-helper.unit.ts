@@ -1,6 +1,7 @@
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import * as ffPackage from '@atlaskit/platform-feature-flags';
 import AnalyticsHelper from '../analytics-helper';
 import { EVENT_ACTION, EVENT_STATUS } from '../../helpers/const';
 
@@ -153,6 +154,8 @@ describe('Analytics helper function', () => {
   });
 
   it('should send an analytics event with error additional event attributes if supported by the error event', () => {
+    jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => true);
+
     const customError = new CustomError('Hello world', undefined, {
       extraKey: 1,
     });
@@ -174,10 +177,124 @@ describe('Analytics helper function', () => {
           status: 'ONLINE',
         },
         documentAri: fakeDocumentAri,
+        errorCode: undefined,
+        // Errors with name 'Error' get removed, too vague to determine if UGC-free
+        errorStack: undefined,
         errorName: 'Error',
         errorMessage: 'Meaningful Context-Aware Error Message',
         originalErrorMessage: undefined,
         extraKey: 1, // The extra key here <---------------------------------------
+      },
+      nonPrivacySafeAttributes: {
+        error: customError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event with stack trace if UGC free and FF is on', () => {
+    jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => true);
+
+    const typeError = new TypeError('steps.map is not a function');
+
+    analyticsHelper.sendErrorEvent(
+      typeError,
+      'Meaningful Context-Aware Error Message',
+    );
+
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorCode: undefined,
+        errorStack: expect.any(String),
+        errorName: 'TypeError',
+        errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: 'steps.map is not a function',
+      },
+      nonPrivacySafeAttributes: {
+        error: typeError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event without stack trace if FF off', () => {
+    jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => false);
+
+    const typeError = new TypeError('steps.map is not a function');
+
+    analyticsHelper.sendErrorEvent(
+      typeError,
+      'Meaningful Context-Aware Error Message',
+    );
+
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorCode: undefined,
+        errorStack: undefined,
+        errorName: 'TypeError',
+        errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: 'steps.map is not a function',
+      },
+      nonPrivacySafeAttributes: {
+        error: typeError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event without stack trace if FF off and error has UGC', () => {
+    jest.spyOn(ffPackage, 'getBooleanFF').mockImplementation(() => false);
+
+    const customError = new CustomError('Spooky UGC', undefined, {
+      extraKey: 1,
+    });
+
+    analyticsHelper.sendErrorEvent(
+      customError,
+      'Meaningful Context-Aware Error Message',
+    );
+
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorCode: undefined,
+        errorStack: undefined,
+        errorName: 'Error',
+        errorMessage: 'Meaningful Context-Aware Error Message',
+        originalErrorMessage: undefined,
+        extraKey: 1,
       },
       nonPrivacySafeAttributes: {
         error: customError,

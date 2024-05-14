@@ -12,7 +12,7 @@ import {
 import { token } from '@atlaskit/tokens';
 
 // TODO: This is where we need to add tokens for all appearance color values
-export const getColorsFromAppearance = (appearance?: string) => {
+export const getColorsFromAppearanceOldLogos = (appearance?: string) => {
   let iconGradientStart,
     iconGradientStop,
     iconColor,
@@ -45,6 +45,62 @@ export const getColorsFromAppearance = (appearance?: string) => {
       textColor = token('color.text.inverse', N0);
       atlassianLogoTextColor = token('color.text.inverse', N0);
       break;
+  }
+  return {
+    iconGradientStart,
+    iconGradientStop,
+    iconColor,
+    textColor,
+    atlassianLogoTextColor,
+  };
+};
+
+export const getColorsFromAppearance = (
+  appearance?: string,
+  colorMode?: string,
+) => {
+  let iconGradientStart,
+    iconGradientStop,
+    iconColor,
+    textColor,
+    atlassianLogoTextColor;
+
+  if (colorMode === 'dark') {
+    switch (appearance) {
+      case 'brand':
+        iconColor = '#357DE8';
+        textColor = '#E2E3E4';
+        atlassianLogoTextColor = '#357DE8';
+        break;
+      case 'neutral':
+        iconColor = '#96999E';
+        textColor = '#BFC1C4';
+        atlassianLogoTextColor = '#96999E';
+        break;
+      case 'inverse':
+        iconColor = '#101214';
+        textColor = '#101214';
+        atlassianLogoTextColor = '#101214';
+        break;
+    }
+  } else {
+    switch (appearance) {
+      case 'brand':
+        iconColor = '#1868DB';
+        textColor = '#101214';
+        atlassianLogoTextColor = '#1868DB';
+        break;
+      case 'neutral':
+        iconColor = '#6C6F77';
+        textColor = '#3B3D42';
+        atlassianLogoTextColor = '#6C6F77';
+        break;
+      case 'inverse':
+        iconColor = N0;
+        textColor = N0;
+        atlassianLogoTextColor = N0;
+        break;
+    }
   }
 
   return {

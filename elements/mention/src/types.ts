@@ -1,5 +1,5 @@
-import { SyntheticEvent } from 'react';
-import { ServiceConfig } from '@atlaskit/util-service-support/types';
+import { type SyntheticEvent } from 'react';
+import { type ServiceConfig } from '@atlaskit/util-service-support/types';
 
 export interface MentionNameResolver {
   lookupName(id: string): Promise<MentionNameDetails> | MentionNameDetails;
@@ -35,7 +35,6 @@ export interface MentionResourceConfig extends ServiceConfig {
   containerId?: string;
   productId?: string;
   shouldHighlightMention?: (mention: MentionDescription) => boolean;
-  inviteExperimentCohort?: InviteExperimentCohort;
   mentionNameResolver?: MentionNameResolver;
   shouldEnableInvite?: boolean;
   onInviteItemClick?: (flow: InviteFlow) => void;
@@ -232,12 +231,9 @@ export type InviteFlow = 'mention' | 'assign';
 
 export type UserRole = 'admin' | 'trusted' | 'basic';
 
-export type InviteExperimentCohort = 'variation' | 'control' | 'not-enrolled';
-
 export interface InviteFromMentionProvider {
   productName?: string;
   shouldEnableInvite?: boolean;
-  inviteExperimentCohort?: InviteExperimentCohort;
   onInviteItemClick?(flow: InviteFlow): void;
   userRole?: UserRole;
 }

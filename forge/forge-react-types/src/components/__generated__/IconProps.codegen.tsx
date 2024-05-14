@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - IconProps
  *
- * @codegen <<SignedSource::f58f8315435a79b1b371e0447b41ae5d>>
+ * @codegen <<SignedSource::477f520a31beead1cc862f2fce171f28>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/icon/index.tsx <<SignedSource::cb2fcb68bfe27383995892c05cd46438>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/icon/index.tsx <<SignedSource::ba2cdf67b8b7de6957e6563dd0fc974f>>
  */
+import type { ActiveTokens } from '@atlaskit/tokens';
+
 export type Icon =
   | 'activity'
   | 'add'
@@ -368,8 +370,12 @@ export type Icon =
 type Glyph = Icon;
 
 
+export type IconColor = Extract<ActiveTokens, `color.icon.${string}`>;
+
 export interface IconProps {
   size?: 'small' | 'medium' | 'large';
   label: string;
   glyph: Glyph;
+  primaryColor?: IconColor;
+  secondaryColor?: IconColor;
 }

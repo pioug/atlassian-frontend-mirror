@@ -9,6 +9,7 @@ import {
   getCellsInRow,
   getSelectedCellInfo,
 } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -235,10 +236,22 @@ const destroyFn = (editorView: EditorView, editorAnalyticsAPI: any) => {
               const { isTableScalingEnabled = false } = getTablePluginState(
                 editorView.state,
               );
+
+              let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
+              if (
+                isTableScalingEnabled &&
+                getBooleanFF(
+                  'platform.editor.table.preserve-widths-with-lock-button',
+                )
+              ) {
+                isTableScalingEnabledOnCurrentTable =
+                  tableNode.attrs.displayMode !== 'fixed';
+              }
+
               insertColgroupFromNode(
                 tableRef,
                 tableNode,
-                isTableScalingEnabled,
+                isTableScalingEnabledOnCurrentTable,
               );
             }
           }

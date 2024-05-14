@@ -37,7 +37,7 @@ const LinkRenderType = ({
 
   const anchor = useMemo(
     () => (
-      <HoverCard url={url} showServerActions={true}>
+      <HoverCard url={url}>
         <LinkUrl
           href={url}
           style={{ ...linkStyle, fontSize: fieldTextFontSize }}

@@ -1,7 +1,6 @@
 import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
@@ -53,10 +52,6 @@ function setMatchMedia(matchesDark: boolean) {
 jest.mock('@atlaskit/platform-feature-flags', () => ({
   getBooleanFF: jest.fn().mockImplementation(() => false),
 }));
-
-afterEach(() => {
-  (getBooleanFF as jest.Mock).mockReset();
-});
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {
   brandColor: '#ff0000',
@@ -236,6 +231,56 @@ describe('setGlobalTheme style loading', () => {
     );
   });
 
+  it('should gracefully omit themes when falsy values are passed in', async () => {
+    await setGlobalTheme({
+      colorMode: 'light',
+      dark: 'dark',
+      // @ts-expect-error
+      light: '',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(1);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual(['spacing']);
+  });
+
+  it('should gracefully omit themes when falsy values are passed in with auto color mode', async () => {
+    await setGlobalTheme({
+      colorMode: 'auto',
+      dark: 'dark',
+      // @ts-expect-error
+      light: null,
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(2);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual(['dark', 'spacing']);
+  });
+
   it('should load a minimal set of themes when auto switching is disabled', async () => {
     await setGlobalTheme({
       colorMode: 'light',
@@ -335,10 +380,6 @@ describe('setGlobalTheme style loading', () => {
   });
 
   it('should load all feature flagged themes in the expected order', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
-    );
-
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
@@ -349,7 +390,7 @@ describe('setGlobalTheme style loading', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(5);
+      expect(styleElements).toHaveLength(3);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -358,20 +399,10 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual([
-      'light',
-      'dark',
-      'spacing',
-      'light-new-input-border',
-      'dark-new-input-border',
-    ]);
+    expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
   });
 
   it('should load all feature flagged themes in the expected order when switching color modes', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
-    );
-
     await setGlobalTheme({
       colorMode: 'light',
     });
@@ -385,7 +416,7 @@ describe('setGlobalTheme style loading', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(5);
+      expect(styleElements).toHaveLength(3);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -394,13 +425,7 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual([
-      'light',
-      'spacing',
-      'light-new-input-border',
-      'dark',
-      'dark-new-input-border',
-    ]);
+    expect(dataThemes).toEqual(['light', 'spacing', 'dark']);
   });
 
   it('should load all feature flagged themes in the expected order when switching feature flags', async () => {
@@ -410,18 +435,12 @@ describe('setGlobalTheme style loading', () => {
 
     await setGlobalTheme({});
 
-    (getBooleanFF as jest.Mock).mockImplementation((name) =>
-      ['platform.design-system-team.border-checkbox_nyoiu'].includes(name),
-    );
-
-    await setGlobalTheme({});
-
     // Wait for styles to be added to the page
     await waitFor(() => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(5);
+      expect(styleElements).toHaveLength(3);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -430,13 +449,7 @@ describe('setGlobalTheme style loading', () => {
       el.getAttribute('data-theme'),
     );
 
-    expect(dataThemes).toEqual([
-      'light',
-      'dark',
-      'spacing',
-      'light-new-input-border',
-      'dark-new-input-border',
-    ]);
+    expect(dataThemes).toEqual(['light', 'dark', 'spacing']);
   });
 
   describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {

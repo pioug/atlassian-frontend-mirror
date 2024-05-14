@@ -4,6 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 const PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH = 120;
 
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 export const pixelSizingWrapper = css`
   display: grid;
   grid-template-columns: 1fr 1em 1fr 0;
@@ -18,41 +19,41 @@ export const pixelSizingWrapper = css`
     margin-top: 0 !important;
   }
 `;
-export const pixelEntryForm = css`
-  form {
-    width: 100%;
-  }
-`;
+export const pixelEntryForm = css({
+  form: {
+    width: '100%',
+  },
+});
 
-export const pixelSizingInput = css`
-  width: 100%;
-  height: ${token('space.300', '24px')};
-  & input {
-    text-align: center;
-  }
-`;
-export const pixelSizingLabel = css`
-  grid-area: label;
-  line-height: ${token('space.300', '24px')};
-`;
-export const pixelSizingWidthInput = css`
-  grid-area: widthinput;
-`;
-export const pixelSizingHeightInput = css`
-  grid-area: heightinput;
-`;
+export const pixelSizingInput = css({
+  width: '100%',
+  height: token('space.300', '24px'),
+  '& input': {
+    textAlign: 'center',
+  },
+});
+export const pixelSizingLabel = css({
+  gridArea: 'label',
+  lineHeight: token('space.300', '24px'),
+});
+export const pixelSizingWidthInput = css({
+  gridArea: 'widthinput',
+});
+export const pixelSizingHeightInput = css({
+  gridArea: 'heightinput',
+});
 
-export const pixelEntryHiddenSubmit = css`
-  grid-area: submit;
-  visibility: hidden;
-  width: 0;
-  height: 0;
-`;
+export const pixelEntryHiddenSubmit = css({
+  gridArea: 'submit',
+  visibility: 'hidden',
+  width: 0,
+  height: 0,
+});
 
-export const pixelSizingFullWidthLabelStyles = css`
-  min-width: ${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px;
-  height: ${token('space.300', '24px')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const pixelSizingFullWidthLabelStyles = css({
+  minWidth: `${PIXEL_SIZING_WRAPPER_MINIMUM_WIDTH}px`,
+  height: token('space.300', '24px'),
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+});

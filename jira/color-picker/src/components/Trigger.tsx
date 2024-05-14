@@ -2,7 +2,6 @@
 import { MouseEvent, useCallback } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import { css, jsx } from '@emotion/react';
-import { COLOR_CARD_SIZE } from '../constants';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -44,64 +43,7 @@ const ColorCard = ({
     [onClick],
   );
 
-  return getBooleanFF(
-    'platform.design-tokens-color-picker-portfolio-plan-wizard_w8rcl',
-  ) ? (
-    <Tooltip content={label}>
-      <button
-        {...(getBooleanFF(
-          'platform.color-picker-radio-button-functionality_6hkcy',
-        )
-          ? {
-              css: [
-                sharedColorContainerStyles,
-                swatchSize === 'small'
-                  ? smallColorContainerSizeNew
-                  : defaultColorContainerSizeNew,
-                colorCardButtonStyles,
-                expanded && colorCardButtonFocusedStyles,
-              ],
-              disabled: isDisabled,
-            }
-          : {
-              css: [
-                sharedColorContainerStyles,
-                defaultColorContainerSizeNew,
-                colorCardButtonStyles,
-                expanded && colorCardButtonFocusedStyles,
-              ],
-            })}
-        onClick={handleClick}
-        onMouseDown={handleMouseDown}
-        aria-label={label}
-        aria-expanded={expanded}
-        aria-haspopup
-        type="button"
-      >
-        <span css={colorCardWrapperStylesNew}>
-          <span
-            {...(getBooleanFF(
-              'platform.color-picker-radio-button-functionality_6hkcy',
-            )
-              ? {
-                  css: [
-                    colorCardContentStylesNew,
-                    swatchSize === 'small'
-                      ? smallColorCardContentSize
-                      : defaultColorCardContentSize,
-                  ],
-                }
-              : {
-                  css: [colorCardContentStylesNew, defaultColorCardContentSize],
-                })}
-            style={{
-              background: value || 'transparent',
-            }}
-          />
-        </span>
-      </button>
-    </Tooltip>
-  ) : (
+  return (
     <Tooltip content={label}>
       <button
         {...(getBooleanFF(
@@ -133,23 +75,27 @@ const ColorCard = ({
         aria-haspopup
         type="button"
       >
-        <span
-          {...(getBooleanFF(
-            'platform.color-picker-radio-button-functionality_6hkcy',
-          )
-            ? {
-                css: [
-                  colorCardContentStyles,
-                  swatchSize === 'small'
-                    ? smallColorCardContentSize
-                    : defaultColorCardContentSize,
-                ],
-              }
-            : { css: [colorCardContentStyles, defaultColorCardContentSize] })}
-          style={{
-            background: value || 'transparent',
-          }}
-        />
+        <span css={colorCardWrapperStyles}>
+          <span
+            {...(getBooleanFF(
+              'platform.color-picker-radio-button-functionality_6hkcy',
+            )
+              ? {
+                  css: [
+                    colorCardContentStyles,
+                    swatchSize === 'small'
+                      ? smallColorCardContentSize
+                      : defaultColorCardContentSize,
+                  ],
+                }
+              : {
+                  css: [colorCardContentStyles, defaultColorCardContentSize],
+                })}
+            style={{
+              background: value || 'transparent',
+            }}
+          />
+        </span>
       </button>
     </Tooltip>
   );
@@ -172,23 +118,12 @@ const sharedColorContainerStyles = css({
 });
 
 const smallColorContainerSize = css({
-  width: '22px',
-  height: '22px',
-  top: token('space.negative.025', '-2px'),
-});
-
-const smallColorContainerSizeNew = css({
   width: token('space.300', '24px'),
   height: token('space.300', '24px'),
   top: token('space.negative.025', '-2px'),
 });
 
 const defaultColorContainerSize = css({
-  width: `${COLOR_CARD_SIZE}px`,
-  height: `${COLOR_CARD_SIZE}px`,
-});
-
-const defaultColorContainerSizeNew = css({
   width: token('space.400', '32px'),
   height: token('space.400', '32px'),
 });
@@ -208,18 +143,7 @@ const colorCardButtonFocusedStyles = css({
   outline: 'none',
 });
 
-const colorCardContentStyles = css({
-  position: 'absolute',
-  top: '1px',
-  left: '1px',
-  borderRadius: token('border.radius.100', '3px'),
-  boxShadow: `inset 0px 0px 0px 1px ${token(
-    'color.background.inverse.subtle',
-    DN600A,
-  )}`,
-});
-
-const colorCardWrapperStylesNew = css({
+const colorCardWrapperStyles = css({
   width: '100%',
   height: '100%',
   display: 'flex',
@@ -227,7 +151,7 @@ const colorCardWrapperStylesNew = css({
   justifyContent: 'center',
 });
 
-const colorCardContentStylesNew = css({
+const colorCardContentStyles = css({
   borderRadius: token('border.radius.100', '3px'),
   boxShadow: `inset 0px 0px 0px 1px ${token(
     'color.background.inverse.subtle',

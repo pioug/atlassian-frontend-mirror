@@ -3,10 +3,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import * as themeConstants from '@atlaskit/theme/constants';
 
 import Textfield from '../../index';
-import { TextfieldProps } from '../../types';
+import { type TextfieldProps } from '../../types';
 
 describe('Textfield', () => {
   const testId = 'test';
@@ -29,31 +28,6 @@ describe('Textfield', () => {
   });
 
   describe('Properties', () => {
-    describe('isCompact', () => {
-      beforeEach(() => {
-        jest.spyOn(themeConstants, 'gridSize').mockImplementation(() => 8);
-        jest.spyOn(themeConstants, 'fontSize').mockImplementation(() => 1);
-      });
-      const compactProps = [
-        {
-          isCompact: true,
-          height: '2.00em',
-        },
-        {
-          isCompact: false,
-          height: ' 2.57em',
-        },
-      ];
-      compactProps.forEach((compactProp) => {
-        const { isCompact, height } = compactProp;
-        it(`when isCompact is set to ${isCompact}`, () => {
-          render(createTextfield({ isCompact }));
-          const input = screen.getByTestId(testId);
-          expect(input).toHaveStyle(`height: ${height}`);
-        });
-      });
-    });
-
     describe('Child Elements', () => {
       const beforeTestId = 'beforeElement';
       const afterTestId = 'afterElement';
@@ -153,20 +127,6 @@ describe('Textfield', () => {
         render(createTextfield({ appearance: 'none' }));
         const textFieldContainer = screen.getByTestId('test-container');
         expect(textFieldContainer).toHaveStyle(`border-style: none`);
-      });
-    });
-
-    describe('isMonospaced', () => {
-      it('should get codeFont when TextField is monospace', () => {
-        const codeFontFamilyMock = jest.spyOn(themeConstants, 'codeFontFamily');
-        render(createTextfield({ isMonospaced: true }));
-        expect(codeFontFamilyMock).toBeCalled();
-      });
-
-      it('should get fontFamily when TextField is not monospace', () => {
-        const fontFamilyMock = jest.spyOn(themeConstants, 'fontFamily');
-        render(createTextfield());
-        expect(fontFamilyMock).toBeCalled();
       });
     });
 

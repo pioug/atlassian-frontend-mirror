@@ -1,13 +1,14 @@
 import React from 'react';
 import { render, cleanup, fireEvent } from '@testing-library/react';
 import {
-  EmbedCardResolvedViewProps,
+  type EmbedCardResolvedViewProps,
   EmbedCardResolvedView,
 } from '../views/ResolvedView';
 import { BlockCardResolvingView } from '../../BlockCard';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
 import { mocks } from '../../../utils/mocks';
+import {ffTest} from "@atlassian/feature-flags-test-utils";
 
 jest.mock('@atlaskit/link-provider', () => ({
   useSmartLinkContext: () => ({
@@ -159,7 +160,7 @@ describe('EmbedCard Views', () => {
       expect(iframeEl?.getAttribute('sandbox')).toBeNull();
     });
 
-    it('does not allow scrolling of content through wrapper', () => {
+    it('does not allow scrolling of content through wrapper when FF is off', () => {
       const props = getResolvedProps({ isTrusted: true });
       const { getByTestId } = render(
         <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
@@ -168,6 +169,22 @@ describe('EmbedCard Views', () => {
       expect(
         window.getComputedStyle(view).getPropertyValue('overflow'),
       ).toEqual('hidden');
+    });
+
+    ffTest.on(
+      'platform.linking-platform.smart-card.fix-embed-card-blurring',
+      'with fix for embed card blurring on',
+      () => {
+        it('does allow scrolling of content through wrapper when FF is on', () => {
+          const props = getResolvedProps({ isTrusted: true });
+          const { getByTestId } = render(
+            <EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />,
+          );
+          const view = getByTestId('embed-content-wrapper');
+          expect(
+            window.getComputedStyle(view).getPropertyValue('overflow'),
+          ).toEqual('');
+        })
     });
   });
 

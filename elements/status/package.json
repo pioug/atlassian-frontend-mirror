@@ -25,12 +25,12 @@
     "access": "public"
   },
   "dependencies": {
-    "@atlaskit/analytics-next": "^9.2.0",
+    "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/icon": "^22.1.0",
-    "@atlaskit/lozenge": "^11.6.0",
-    "@atlaskit/textfield": "^6.1.0",
-    "@atlaskit/theme": "^12.7.0",
-    "@atlaskit/tokens": "^1.43.0",
+    "@atlaskit/lozenge": "^11.7.0",
+    "@atlaskit/textfield": "^6.3.0",
+    "@atlaskit/theme": "^12.8.0",
+    "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -81,6 +81,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./element": "./src/element.ts",
+    "./i18n/*": "./src/i18n/*.ts",
     "./picker": "./src/picker.ts"
   }
 }

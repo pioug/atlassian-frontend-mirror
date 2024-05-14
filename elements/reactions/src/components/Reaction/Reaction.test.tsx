@@ -1,14 +1,14 @@
 import React from 'react';
 import { act, fireEvent, screen } from '@testing-library/react';
-import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EmojiDescription, EmojiProvider, toEmojiId } from '@atlaskit/emoji';
+import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type EmojiDescription, type EmojiProvider, toEmojiId } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getTestEmojiRepository } from '@atlaskit/util-data-test/get-test-emoji-repository';
 import {
-  ReactionSummary,
-  ReactionClick,
-  ReactionMouseEnter,
-  User,
+  type ReactionSummary,
+  type ReactionClick,
+  type ReactionMouseEnter,
+  type User,
 } from '../../types';
 import {
   mockReactDomWarningGlobal,
@@ -25,6 +25,12 @@ const containerAri = 'ari:cloud:owner:demo-cloud-id:container/1';
 const grinning: EmojiDescription = emojiRepository.findByShortName(
   ':grinning:',
 ) as EmojiDescription;
+
+jest.mock('../ReactionParticleEffect', () => {
+  return {
+    ReactionParticleEffect: () => <>ReactionParticleEffect</>,
+  };
+});
 
 /**
  * create a summary reaction object
@@ -55,6 +61,7 @@ const getReaction = (
  * @param enableFlash show custom animation or render as standard without animation (defaults to false)
  * @param onEvent onEvent for the analytics engine handler
  * @param users list of users reacted to the emoji clicked
+ * @param showParticleEffect flag that adds particle effect to reactions
  * @returns JSX.Element
  */
 const renderReaction = (
@@ -65,6 +72,7 @@ const renderReaction = (
   enableFlash = false,
   onEvent: (event: UIAnalyticsEvent, channel?: string) => void = () => {},
   users: User[] = [],
+  showParticleEffect: boolean = false,
 ) =>
   renderWithIntl(
     <AnalyticsListener channel="fabric-elements" onEvent={onEvent}>
@@ -74,6 +82,7 @@ const renderReaction = (
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         flash={enableFlash}
+        showParticleEffect={showParticleEffect}
       />
     </AnalyticsListener>,
   );
@@ -228,6 +237,70 @@ describe('@atlaskit/reactions/components/Reaction', () => {
         }),
         'fabric-elements',
       );
+    });
+  });
+
+  describe('Particle effect', () => {
+    it('should render particle effect if the prop showParticleEffect is set', async () => {
+      const count = 10;
+      const reacted = false;
+      const onClickSpy = jest.fn();
+      const onMouseEnterSpy = jest.fn();
+      const enableFlash = false;
+      const onEventSpy = jest.fn();
+      const users: User[] = [];
+      const showParticleEffect = true;
+      renderReaction(
+        reacted,
+        count,
+        onClickSpy,
+        onMouseEnterSpy,
+        enableFlash,
+        onEventSpy,
+        users,
+        showParticleEffect,
+      );
+      const btn = await screen.findByRole('button');
+      expect(btn).toBeInTheDocument();
+
+      // Click the Reaction emoji button
+      act(() => {
+        fireEvent.click(btn);
+      });
+
+      expect(screen.getByText('ReactionParticleEffect')).toBeInTheDocument();
+    });
+
+    it('should not render particle effect if the prop showParticleEffect is not set', async () => {
+      const count = 10;
+      const reacted = false;
+      const onClickSpy = jest.fn();
+      const onMouseEnterSpy = jest.fn();
+      const enableFlash = false;
+      const onEventSpy = jest.fn();
+      const users: User[] = [];
+      const showParticleEffect = false;
+      renderReaction(
+        reacted,
+        count,
+        onClickSpy,
+        onMouseEnterSpy,
+        enableFlash,
+        onEventSpy,
+        users,
+        showParticleEffect,
+      );
+      const btn = await screen.findByRole('button');
+      expect(btn).toBeInTheDocument();
+
+      // Click the Reaction emoji button
+      act(() => {
+        fireEvent.click(btn);
+      });
+
+      expect(
+        screen.queryByText('ReactionParticleEffect'),
+      ).not.toBeInTheDocument();
     });
   });
 });

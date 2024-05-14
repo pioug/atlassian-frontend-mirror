@@ -11,6 +11,12 @@ export { default as Skeleton } from './Skeleton';
 export type { SkeletonProps } from './Skeleton';
 
 export {
+  AvatarContext,
+  type AvatarContextProps,
+  useAvatarContext,
+} from './context';
+
+export {
   AVATAR_SIZES,
   BORDER_WIDTH,
   AVATAR_RADIUS,

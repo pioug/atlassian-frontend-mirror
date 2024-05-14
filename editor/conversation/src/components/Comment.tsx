@@ -5,13 +5,13 @@ import AkComment, {
   CommentTime,
 } from '@atlaskit/comment';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
-import { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
+import type { Editor as AkEditor, EditorProps } from '@atlaskit/editor-core';
 import { ConnectedReactionsView } from '@atlaskit/reactions';
 import { ReactRenderer } from '@atlaskit/renderer';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 import React from 'react';
 import styled from 'styled-components';
-import { HttpError } from '../api/HttpError';
+import type { HttpError } from '../api/HttpError';
 import CommentContainer from '../containers/Comment';
 import {
   actionSubjectIds,
@@ -19,10 +19,10 @@ import {
   fireEvent,
   trackEventActions,
 } from '../internal/analytics';
-import { Comment as CommentType, User } from '../model';
+import type { Comment as CommentType, User } from '../model';
 import Editor from './Editor';
-import { SharedProps, RenderEditorWithComments } from './types';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { SharedProps, RenderEditorWithComments } from './types';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import isEqual from 'lodash/isEqual';
 
 export interface Props extends SharedProps {
@@ -68,12 +68,12 @@ const userChanged = (
   return oldUser.id !== newUser.id;
 };
 
-const Reactions: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
-  height: 20px;
-  & > div {
-    height: 20px;
-  }
-`;
+const Reactions: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div({
+  height: '20px',
+  '& > div': {
+    height: '20px',
+  },
+});
 
 export default class Comment extends React.Component<Props, State> {
   constructor(props: Props) {

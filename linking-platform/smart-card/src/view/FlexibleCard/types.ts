@@ -17,6 +17,7 @@ import type {
 } from '../Card/types';
 import { OnErrorCallback } from '../types';
 import { AnalyticsFacade } from '../../state/analytics';
+import { AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
 
 export type FlexibleCardProps = {
   /**
@@ -186,6 +187,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
   status?: SmartLinkStatus;
   response?: JsonLd.Response;
   featureFlags?: Partial<LinkingPlatformFeatureFlags>;
+  aiSummaryConfig?: AISummaryConfig;
 };
 
 /**

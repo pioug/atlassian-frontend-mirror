@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../heading/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../icon/afm-cc/tsconfig.json"
         },
         {

@@ -28,7 +28,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Used for monospace and code.',
+          description: 'For representing code only, either inline or in code blocks.',
         },
       },
     },
@@ -38,7 +38,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Use for main headings.',
+          description: 'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL.',
           responsiveSmallerVariant: 'font.heading.xlarge',
         },
       },
@@ -47,7 +47,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Use for main headings.',
+          description: 'For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL.',
           responsiveSmallerVariant: 'font.heading.large',
         },
       },
@@ -56,7 +56,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Use for main headings.',
+          description: 'Product page titles, such as forms. Migrate instances of H700 to Heading L.',
           responsiveSmallerVariant: 'font.heading.medium',
         },
       },
@@ -65,8 +65,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description:
-            'ALPHA - Use with caution. Use for less important headings.',
+          description: 'Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M.',
           responsiveSmallerVariant: 'font.heading.small',
         },
       },
@@ -75,8 +74,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description:
-            'ALPHA - Use with caution. Use for less important headings.',
+          description: 'For headers in small components where space is limited. Migrate instances of H500 to Heading S.',
         },
       },
       xsmall: {
@@ -84,7 +82,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Use for smaller headings.',
+          description: 'For headers in small components where space is limited. Migrate instances of H400 to Heading XS.',
         },
       },
       xxsmall: {
@@ -92,30 +90,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description:
-            'ALPHA - Use with caution. Smallest heading size available.',
-        },
-      },
-    },
-    ui: {
-      small: {
-        attributes: {
-          group: 'typography',
-          state: 'deprecated',
-          introduced: '1.14.0',
-          deprecated: '1.39.0',
-          description:
-            'ALPHA - Use with caution. Single-line non-wrapping supporting text like that in a smaller label.',
-        },
-      },
-      '[default]': {
-        attributes: {
-          group: 'typography',
-          state: 'deprecated',
-          introduced: '1.14.0',
-          deprecated: '1.39.0',
-          description:
-            'ALPHA - Use with caution. Single-line non-wrapping text like that in a button.',
+          description: 'For headers in fine print or tight spaces. Use sparingly. Migrate instances of H100, H200 and H300 to Heading XXS.',
         },
       },
     },
@@ -125,8 +100,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description:
-            'ALPHA - Use with caution. Larger body font or default body font for text rich experiences.',
+          description: 'For long-form text, such as in blogs.',
         },
       },
       small: {
@@ -134,7 +108,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. Smaller body font.',
+          description: 'Use in secondary level content such as fine print or semantic messaging. Use sparingly. Migrate instances of Small text to Body S.',
         },
       },
       UNSAFE_small: {
@@ -142,8 +116,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description:
-            'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
+          description: 'UNSAFE - Do not use. Temporary 12px fontsize token. Will be deprecated and replaced with stable small token',
         },
       },
       '[default]': {
@@ -151,7 +124,7 @@ const font: AttributeSchema<TypographyTokenSchema<any>> = {
           group: 'typography',
           state: 'active',
           introduced: '1.14.0',
-          description: 'ALPHA - Use with caution. The default body font.',
+          description: 'Use in short descriptions or labels. The default size for text in components. Migrate instances of Paragraph Default and UI Text to Body M.',
         },
       },
     },

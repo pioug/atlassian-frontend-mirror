@@ -219,6 +219,7 @@ describe('useAISummary', () => {
           action: 'failed',
           attributes: {
             reason: 'UNEXPECTED',
+            isSloError: true
           },
         },
       },
@@ -229,5 +230,66 @@ describe('useAISummary', () => {
     expect(ufoStartSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
     expect(ufoFailSpy).toBeCalledTimes(1);
     expect(ufoFailSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
+  });
+  it(`sets isSloError attribute to false when reason is HIPAA_CONTENT_DETECTED`, async () => {
+    const onEventSpy = jest.fn();
+
+    fetchMock.mockRejectOnce(new Error('HIPAA_CONTENT_DETECTED'));
+
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
+      wrapper: ({ children }) => (
+        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
+          {children}
+        </AnalyticsListener>
+      ),
+    });
+    await act(async () => {
+      await result.current.summariseUrl();
+    });
+
+    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          actionSubject: 'summary',
+          action: 'failed',
+          attributes: {
+            reason: 'HIPAA_CONTENT_DETECTED',
+            isSloError: false
+          },
+        },
+      },
+      ANALYTICS_CHANNEL,
+    );
+  });
+
+  it(`sets isSloError attribute to false when reason is ACCEPTABLE_USE_VIOLATIONS`, async () => {
+    const onEventSpy = jest.fn();
+
+    fetchMock.mockRejectOnce(new Error('ACCEPTABLE_USE_VIOLATIONS'));
+
+    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
+      wrapper: ({ children }) => (
+        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
+          {children}
+        </AnalyticsListener>
+      ),
+    });
+    await act(async () => {
+      await result.current.summariseUrl();
+    });
+
+    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          actionSubject: 'summary',
+          action: 'failed',
+          attributes: {
+            reason: 'ACCEPTABLE_USE_VIOLATIONS',
+            isSloError: false
+          },
+        },
+      },
+      ANALYTICS_CHANNEL,
+    );
   });
 });

@@ -107,4 +107,8 @@ const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
   <div {...innerProps}>{children}</div>
 );
 
-export const defaultComponents = { Control, DropdownIndicator, Menu };
+export const defaultComponents = {
+  Control,
+  DropdownIndicator,
+  Menu,
+};

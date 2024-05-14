@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import Markdown, { type MarkdownToJSX } from 'markdown-to-jsx';
-import { SerializedStyles, css, jsx } from '@emotion/react';
+import { type SerializedStyles, css, jsx } from '@emotion/react';
 import AIStateIndicator from '../../FlexibleCard/components/blocks/ai-summary-block/ai-state-indicator';
 import UList from './ulist';
 
@@ -13,6 +13,7 @@ const AISummaryCSSStyles = css({
   fontSize: '0.75rem',
   lineHeight: '1rem',
   wordWrap: 'break-word',
+  wordBreak: 'break-word',
   whiteSpace: 'normal',
   WebkitUserSelect: 'text',
   MozUserSelect: 'text',

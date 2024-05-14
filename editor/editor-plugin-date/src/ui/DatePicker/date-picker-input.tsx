@@ -27,10 +27,11 @@ import {
 } from '../../utils/internal';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const dateTextFieldWrapper = css`
-  padding: 22px;
-  padding-bottom: ${token('space.150', '12px')};
-`;
+const dateTextFieldWrapper = css({
+  // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+  padding: '22px',
+  paddingBottom: token('space.150', '12px'),
+});
 
 export interface InputProps {
   /** Locale code string (eg. "en-AU") */
@@ -95,6 +96,7 @@ class DatePickerInput extends React.Component<
           spellCheck={false}
           autoComplete="off"
           isInvalid={displayError}
+          aria-label={formatMessage(messages.onKeyUpDownText)}
         />
         {displayError && (
           <ErrorMessage>

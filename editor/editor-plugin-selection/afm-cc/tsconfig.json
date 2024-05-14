@@ -26,6 +26,9 @@
         },
         {
             "path": "../../editor-tables/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -119,6 +119,40 @@ describe('Channel unit tests', () => {
 
   afterEach(jest.clearAllMocks);
 
+  it('headers helper function should return common headers', async () => {
+    const channel = getChannel({
+      ...testChannelConfig,
+      productInfo: {
+        product: 'Quirk',
+        subProduct: 'All for one',
+      },
+    });
+
+    // @ts-ignore private method for test
+    const headers = await channel.commonHeaders();
+
+    expect(headers).toEqual({
+      'x-product': 'Quirk',
+      'x-subproduct': 'All for one',
+    });
+  });
+
+  it('commonHeaders return x-token if premissionRefreshToken is provided', async () => {
+    const channel = getChannel({
+      ...testChannelConfig,
+      permissionTokenRefresh: jest.fn().mockResolvedValue('token'),
+    });
+
+    // @ts-ignore private method for test
+    const headers = await channel.commonHeaders();
+
+    expect(headers).toEqual({
+      'x-token': 'token',
+      'x-product': 'unknown',
+      'x-subproduct': 'unknown',
+    });
+  });
+
   it('should register eventHandlers as expected', () => {
     const channel = getChannel();
     const expectValidEventHandler = getExpectValidEventHandler(channel);
@@ -676,7 +710,11 @@ describe('Channel unit tests', () => {
     });
 
     const channel = getChannel(configuration);
-    await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id');
+    await channel.fetchCatchupv2(
+      1,
+      'some-random-prosemirror-client-Id',
+      undefined,
+    );
 
     expect(permissionTokenRefresh).toBeCalledTimes(2);
     expect(spy).toHaveBeenCalledTimes(1);
@@ -810,7 +848,11 @@ describe('Channel unit tests', () => {
       //using differet return to identify new token
       permissionTokenRefresh.mockResolvedValue('brand-new-token');
 
-      await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id');
+      await channel.fetchCatchupv2(
+        1,
+        'some-random-prosemirror-client-Id',
+        undefined,
+      );
       //making sure permissionTokenRefresh is called a second time in fetchCatchup
       expect(permissionTokenRefresh).toBeCalledTimes(2);
       expect(spy).toBeCalledWith(
@@ -996,7 +1038,11 @@ describe('Channel unit tests', () => {
         },
       };
       const channel = getChannel(configuration);
-      await channel.fetchCatchupv2(1, 'some-random-prosemirror-client-Id');
+      await channel.fetchCatchupv2(
+        1,
+        'some-random-prosemirror-client-Id',
+        undefined,
+      );
 
       expect(spy).toHaveBeenCalledTimes(1);
       expect(spy).toHaveBeenCalledWith(expect.any(Object), {

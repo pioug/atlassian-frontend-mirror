@@ -24,22 +24,20 @@ export interface InlineCardProps {
   marks?: string[];
 }
 
-const annotatedCard = getBooleanFF(
-  'platform.editor.allow-inline-comments-for-inline-nodes',
-)
-  ? css({
-      "[data-mark-type='annotation'][data-mark-annotation-state='active'] &": {
-        background: token('color.background.accent.yellow.subtler', Y75),
-        borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
-        boxShadow: token(
-          'elevation.shadow.overlay',
-          `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
-        ),
-        cursor: 'pointer',
-        padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
-      },
-    })
-  : '';
+const annotatedCard = css({
+  // This is expected to be reworked as part of https://team.atlassian.com/project/ATLAS-61846/updates
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+  "[data-mark-type='annotation'][data-mark-annotation-state='active'] &": {
+    background: token('color.background.accent.yellow.subtler', Y75),
+    borderBottom: `2px solid ${token('color.border.accent.yellow', Y300)}`,
+    boxShadow: token(
+      'elevation.shadow.overlay',
+      `1px 2px 3px ${N60A}, -1px 2px 3px ${N60A}`,
+    ),
+    cursor: 'pointer',
+    padding: `${token('space.050', '4px')} ${token('space.025', '2px')}`,
+  },
+});
 
 const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
   const { url, data, eventHandlers, portal, smartLinks } = props;
@@ -62,6 +60,36 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
   };
 
   if (ssr && url) {
+    // platform.editor.allow-inline-comments-for-inline-nodes requires this change to work -- however this feature flag is only intended to go to HELLO (and is expected to last for Q4).
+    // platform.editor.renderer-inline-card-ssr-fix_kqcwl is the feature flag that allows this change to be safely released more widely.
+    // Once platform.editor.renderer-inline-card-ssr-fix_kqcwl reaches 100% we can remove both checks
+    if (
+      // eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
+      getBooleanFF('platform.editor.renderer-inline-card-ssr-fix_kqcwl') ||
+      // eslint-disable-next-line @atlaskit/platform/no-invalid-feature-flag-usage
+      getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+    ) {
+      return (
+        <span
+          data-inline-card
+          data-card-data={data ? JSON.stringify(data) : undefined}
+          data-card-url={url}
+          css={annotatedCard}
+        >
+          <AnalyticsContext data={analyticsData}>
+            <CardSSR
+              appearance="inline"
+              url={url}
+              showAuthTooltip={showAuthTooltip}
+              showHoverPreview={!hideHoverPreview}
+              actionOptions={actionOptions}
+              showServerActions={showServerActions}
+              onClick={onClick}
+            />
+          </AnalyticsContext>
+        </span>
+      );
+    }
     return (
       <AnalyticsContext data={analyticsData}>
         <CardSSR
@@ -89,7 +117,11 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
         data-inline-card
         data-card-data={data ? JSON.stringify(data) : undefined}
         data-card-url={url}
-        css={annotatedCard}
+        css={
+          getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
+            ? annotatedCard
+            : undefined
+        }
       >
         <CardErrorBoundary
           unsupportedComponent={UnsupportedInline}

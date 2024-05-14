@@ -22,6 +22,7 @@
     "./mocks/**/*",
     "./__mocks__/**/*",
     "**/mock.*",
+    "**/scripts/**/*",
     "**/codemods/**/*.ts",
     "**/codemods/**/*.tsx",
     "./**/__fixtures__/**/*.json"
@@ -38,6 +39,9 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../../../build/formatting/tsconfig.app.json"
+    },
+    {
       "path": "../ds-lib/tsconfig.app.json"
     },
     {
@@ -45,6 +49,9 @@
     },
     {
       "path": "../tokens/tsconfig.app.json"
+    },
+    {
+      "path": "../codegen/tsconfig.app.json"
     },
     {
       "path": "../../techstack/eslint-utils/tsconfig.app.json"

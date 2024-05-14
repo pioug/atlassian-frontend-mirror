@@ -1,6 +1,6 @@
-import prettier from 'prettier';
 import type { Format } from 'style-dictionary';
 
+import format from '@af/formatting/sync';
 import { createSignedArtifact } from '@atlassian/codegen';
 
 import { getTokenId } from '../../../src/utils/token-ids';
@@ -20,13 +20,13 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
     .map(({ name, value }) => `  '${name}': '${value}',`)
     .join('\n');
 
-  const source = prettier.format(
+  const source = format(
     `const defaultTokenValues = {
   ${tokensDefaultKeyValues}
   } as const;
 
   export default defaultTokenValues;\n`,
-    { parser: 'typescript', singleQuote: true },
+    'typescript',
   );
 
   return createSignedArtifact(

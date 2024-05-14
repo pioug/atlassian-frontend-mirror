@@ -53,6 +53,7 @@ const FloatingContextualMenu = ({
   pluginConfig,
   editorAnalyticsAPI,
   getEditorContainerWidth,
+  getEditorFeatureFlags,
 }: Props) => {
   // TargetCellPosition could be outdated: https://product-fabric.atlassian.net/browse/ED-8129
   const { targetCellPosition, isDragAndDropEnabled } = getPluginState(
@@ -122,6 +123,7 @@ const FloatingContextualMenu = ({
           boundariesElement={boundariesElement}
           editorAnalyticsAPI={editorAnalyticsAPI}
           getEditorContainerWidth={getEditorContainerWidth}
+          getEditorFeatureFlags={getEditorFeatureFlags}
         />
       </div>
     </Popup>

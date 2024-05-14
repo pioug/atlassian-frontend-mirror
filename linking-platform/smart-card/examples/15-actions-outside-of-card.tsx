@@ -8,7 +8,7 @@ import PreviewIcon from '@atlaskit/icon/glyph/open';
 import Tooltip from '@atlaskit/tooltip';
 import { token } from '@atlaskit/tokens';
 
-import { Provider, Client, Card } from '../src';
+import { Provider, Client, Card, CardAction } from '../src';
 import { useSmartLinkActions } from '../src/hooks';
 
 const url =
@@ -83,7 +83,19 @@ export default () => (
     <Provider client={new Client('stg')}>
       <ExampleWrapper>
         <ExampleToolbar />
-        <Card url={url} appearance="block" platform="web" showActions={false} />
+        <Card
+          url={url}
+          appearance="block"
+          platform="web"
+          actionOptions={{
+            hide: false,
+            exclude: [
+              CardAction.DownloadAction,
+              CardAction.PreviewAction,
+              CardAction.ViewAction,
+            ],
+          }}
+        />
       </ExampleWrapper>
     </Provider>
   </IntlProvider>

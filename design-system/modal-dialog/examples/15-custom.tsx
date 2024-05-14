@@ -8,7 +8,6 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -68,7 +67,7 @@ const CustomHeader = () => {
 const bodyStyles: React.CSSProperties = {
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: 90,
-  backgroundColor: token('elevation.surface.overlay', N30),
+  backgroundColor: token('elevation.surface.overlay'),
   overflowY: 'auto',
   overflowX: 'hidden',
 };

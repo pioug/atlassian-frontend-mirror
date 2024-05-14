@@ -269,7 +269,7 @@ export default {
   'fabric.editor.linkAddress': 'Link address',
   'fabric.editor.linkPlaceholder': 'Paste link',
   'fabric.editor.lists': 'Lists',
-  'fabric.editor.listsFormat': 'List formating',
+  'fabric.editor.listsFormat': 'List formatting',
   'fabric.editor.markdown': 'Markdown',
   'fabric.editor.matchCase': 'Match case',
   'fabric.editor.media.DefaultMediaWidthDecreased':

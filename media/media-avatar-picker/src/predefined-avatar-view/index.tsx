@@ -6,7 +6,7 @@ import {
   largeAvatarImageStyles,
   predefinedAvatarViewWrapperStyles,
 } from './styles';
-import { Avatar } from '../avatar-list';
+import { type Avatar } from '../avatar-list';
 
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import Button from '@atlaskit/button/standard-button';
@@ -46,15 +46,11 @@ export const PredefinedAvatarView = ({
           type="radio"
           name="avatar"
           value={avatar.dataURI}
+          aria-label={avatar.name || undefined}
           checked={avatar === selectedAvatar}
           onChange={createOnItemClickHandler(avatar)}
         />
-
-        <img
-          css={largeAvatarImageStyles}
-          src={avatar.dataURI}
-          alt={avatar.name || undefined}
-        />
+        <img css={largeAvatarImageStyles} src={avatar.dataURI} alt="" />
       </label>
     );
   });

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-highlight",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Highlight plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -42,14 +42,20 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^36.1.0",
-    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-common": "^79.4.0",
+    "@atlaskit/editor-palette": "1.6.0",
     "@atlaskit/editor-plugin-analytics": "^1.1.0",
     "@atlaskit/editor-plugin-text-formatting": "^1.4.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
-    "@babel/runtime": "^7.0.0"
+    "@atlaskit/editor-shared-styles": "^2.10.0",
+    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/primitives": "^6.0.0",
+    "@babel/runtime": "^7.0.0",
+    "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0",
+    "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
     "@atlaskit/tokens": "^1.48.0",

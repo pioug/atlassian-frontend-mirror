@@ -22,7 +22,6 @@ import type { PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName } from '../types';
 
 import { TableResizer } from './TableResizer';
-import type { TableResizerImprovementProps } from './TableResizer';
 
 type InnerContainerProps = {
   className: string;
@@ -183,7 +182,7 @@ export const ResizableTableContainer = React.memo(
     }
     const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
-    let tableResizerProps: TableResizerImprovementProps = {
+    const tableResizerProps = {
       width,
       maxWidth: maxResizerWidth,
       containerWidth,
@@ -198,13 +197,11 @@ export const ResizableTableContainer = React.memo(
       isTableScalingEnabled,
       isWholeTableInDanger,
       pluginInjectionApi,
+      onResizeStart,
+      onResizeStop,
     };
 
-    tableResizerProps = {
-      ...tableResizerProps,
-      onResizeStart: onResizeStart,
-      onResizeStop: onResizeStop,
-    };
+    const isLivePageViewMode = editorViewModeState?.mode === 'view';
 
     return (
       <div
@@ -219,12 +216,17 @@ export const ResizableTableContainer = React.memo(
             height: resizing
               ? updateContainerHeight(tableWrapperHeight ?? 'auto')
               : 'auto',
+            position: isLivePageViewMode ? 'relative' : 'unset',
           }}
           className={ClassName.TABLE_RESIZER_CONTAINER}
           ref={containerRef}
         >
-          {editorViewModeState?.mode === 'view' ? (
-            <InnerContainer className={className} node={node}>
+          {isLivePageViewMode ? (
+            <InnerContainer
+              className={className}
+              node={node}
+              style={{ width: 'inherit' }}
+            >
               {children}
             </InnerContainer>
           ) : (

@@ -3,9 +3,9 @@ import { colorPalette } from '@atlaskit/adf-schema';
 import { DEFAULT_BORDER_COLOR } from './common';
 import getColorMessage from './getColorMessage';
 import paletteMessages from './paletteMessages';
-import { PaletteColor } from './type';
+import type { PaletteColor } from './type';
 
-const mapPaletteColor = (label: string, color: string) => {
+export const mapPaletteColor = (label: string, color: string) => {
   const key = label.toLowerCase().replace(' ', '-');
   const message = getColorMessage(paletteMessages, key);
 

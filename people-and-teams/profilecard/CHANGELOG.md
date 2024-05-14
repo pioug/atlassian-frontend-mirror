@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 19.13.0
+
+### Minor Changes
+
+-   [#99727](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99727)
+    [`80b09c8a9a96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80b09c8a9a96) -
+    hot-109153 Revert the changes PR#98596
+
 ## 19.12.0
 
 ### Minor Changes

@@ -74,7 +74,6 @@ export interface Props {
 interface HandleOpenChangeData {
   isOpen: boolean;
   logCloseEvent: boolean;
-  event?: KeyboardEvent | MouseEvent;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -122,14 +121,16 @@ export class ToolbarTextColor extends React.Component<
     }
 
     const selectedColor = this.getSelectedColor(pluginState);
+    // TODO: This doesn't work, the label isn't translated
     const selectedColorPaletteItemLabel = palette.find(
       paletteItem => paletteItem.value === pluginState.color,
     )?.label;
 
-    const selectedColorPaletteItemLabelText = selectedColorPaletteItemLabel || '';
+    const selectedColorPaletteItemLabelText =
+      selectedColorPaletteItemLabel || '';
 
     const labelTextColor = formatMessage(messages.textColor, {
-      selectedColorName: selectedColorPaletteItemLabelText
+      selectedColorName: selectedColorPaletteItemLabelText,
     });
 
     const { selectedRowIndex, selectedColumnIndex } =
@@ -203,8 +204,10 @@ export class ToolbarTextColor extends React.Component<
             />
           </div>
         </Dropdown>
-        {/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage*/}
-        <span css={separatorStyles} />
+        {
+          // Only render the separator if the highlight toolbar option isn't being rendered after it
+          !pluginInjectionApi?.highlight && <span css={separatorStyles} />
+        }
       </span>
     );
   }
@@ -256,7 +259,6 @@ export class ToolbarTextColor extends React.Component<
   private handleOpenChange = ({
     isOpen,
     logCloseEvent,
-    event,
   }: HandleOpenChangeData) => {
     this.setState({
       isOpen,
@@ -273,9 +275,6 @@ export class ToolbarTextColor extends React.Component<
           noSelect: isOpen === false,
         }),
       );
-    }
-    if (!isOpen && event instanceof KeyboardEvent && event?.key === 'Escape') {
-      this.toolbarItemRef?.current?.focus();
     }
   };
 

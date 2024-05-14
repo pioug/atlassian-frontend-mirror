@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 0.1.5
+
+### Patch Changes
+
+-   [#99567](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99567)
+    [`c4eabd215efb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4eabd215efb) -
+    Refactored internal styles
+
 ## 0.1.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.12.0
+
+### Minor Changes
+
+-   [#96162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96162)
+    [`d68864c620d0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d68864c620d0) -
+    Add `use-compiled` rule to enforce usage of `@compiled/react` instead of other CSS-in-JS
+    libraries
+
 ## 0.11.6
 
 ### Patch Changes

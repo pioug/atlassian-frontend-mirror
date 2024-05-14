@@ -116,15 +116,16 @@ export const generateMediaInlineFloatingToolbar = (
     { type: 'separator' },
     {
       type: 'copy-button',
+      supportsViewMode: true,
       items: [
         {
           state,
           formatMessage: intl.formatMessage,
           nodeType: mediaInline,
         },
-        { type: 'separator' },
       ],
     },
+    { type: 'separator' },
     {
       id: 'editor.media.delete',
       type: 'button',
@@ -369,6 +370,7 @@ export const getMediaInlineImageToolbar = (
   inlineImageItems.push(
     {
       type: 'copy-button',
+      supportsViewMode: true,
       items: [
         {
           state,
@@ -376,7 +378,6 @@ export const getMediaInlineImageToolbar = (
           nodeType: mediaInline,
         },
       ],
-      supportsViewMode: true,
     },
   );
 

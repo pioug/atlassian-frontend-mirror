@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 24.6.4
+
+### Patch Changes
+
+-   [#99695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99695)
+    [`8b3a1570b50d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b3a1570b50d) -
+    Sets avatar list images alt attribute to empty string and adds aria-label attribute to input
+    options to make list accessible when navigationg between avatars
+
 ## 24.6.3
 
 ### Patch Changes

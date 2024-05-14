@@ -18,6 +18,10 @@ export {
 } from './ColorPalette/Palettes/statusColorPalette';
 export { textColorPalette } from './ColorPalette/Palettes/textColorPalette';
 export {
+  highlightColorPalette,
+  REMOVE_HIGHLIGHT_COLOR,
+} from './ColorPalette/Palettes/highlightColorPalette';
+export {
   backgroundPaletteTooltipMessages,
   borderPaletteTooltipMessages,
   chartsColorPaletteTooltipMessages,

@@ -38,15 +38,11 @@ export const AvatarList = ({
           type="radio"
           name="avatar"
           value={avatar.dataURI}
+          aria-label={avatar.name || undefined}
           checked={avatar === selectedAvatar}
           onChange={createOnItemClickHandler(avatar)}
         />
-
-        <img
-          css={smallAvatarImageStyles}
-          src={avatar.dataURI}
-          alt={avatar.name || undefined}
-        />
+        <img css={smallAvatarImageStyles} src={avatar.dataURI} alt="" />
       </label>
     );
   });

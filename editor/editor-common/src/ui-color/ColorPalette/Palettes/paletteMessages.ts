@@ -121,4 +121,23 @@ export default defineMessages({
     defaultMessage: 'Bold gray',
     description: 'Name of a color',
   },
+  // Colors only used in highlight palette
+  'no-color': {
+    id: 'fabric.theme.no-color',
+    defaultMessage: 'Remove highlight',
+    description:
+      'Tooltip for the no color option in the highlight color palette in the main editor toolbar',
+  },
+  lime: {
+    id: 'fabric.theme.lime',
+    defaultMessage: 'Lime',
+    description:
+      "Tooltip for the lime color used in the main toolbar's highlight color palette",
+  },
+  magenta: {
+    id: 'fabric.theme.magenta',
+    defaultMessage: 'Magenta',
+    description:
+      "Tooltip for the magenta color used in the main toolbar's highlight color palette",
+  },
 });

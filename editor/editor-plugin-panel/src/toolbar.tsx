@@ -308,11 +308,12 @@ export const getToolbarItems = (
 
   if (state) {
     items.push({
+      type: 'separator',
+    })
+    items.push({
       type: 'copy-button',
+      supportsViewMode: true,
       items: [
-        {
-          type: 'separator',
-        },
         { state, formatMessage, nodeType: panelNodeType },
       ],
     });

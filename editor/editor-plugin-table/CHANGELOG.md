@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.13.4
+
+### Patch Changes
+
+-   [#98080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98080)
+    [`23c03580e38c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23c03580e38c) -
+    [ux] [ED-23247] Allow floating toolbar copy buttons in live pages view mode.
+
+## 7.13.3
+
+### Patch Changes
+
+-   [#99050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99050)
+    [`d280c1f18875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d280c1f18875) -
+    Enforce table container width when live pages view mode is enabled
+-   Updated dependencies
+
 ## 7.13.2
 
 ### Patch Changes

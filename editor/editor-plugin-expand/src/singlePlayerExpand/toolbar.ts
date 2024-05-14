@@ -34,16 +34,17 @@ export const getToolbarConfig =
         items: [
           {
             type: 'copy-button',
+            supportsViewMode: true,
             items: [
               {
                 state,
                 formatMessage,
                 nodeType: [nestedExpand, expand],
               },
-              {
-                type: 'separator',
-              },
             ],
+          },
+          {
+            type: 'separator',
           },
           {
             id: 'editor.expand.delete',

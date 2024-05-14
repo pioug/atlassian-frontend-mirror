@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.1.5
+
+### Patch Changes
+
+-   [#99563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99563)
+    [`3d4ddbef36b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d4ddbef36b8) -
+    [ux] [EDF-629] Revert floating toolbar click handler changes
+
 ## 1.1.4
 
 ### Patch Changes

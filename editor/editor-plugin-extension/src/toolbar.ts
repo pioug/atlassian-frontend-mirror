@@ -289,15 +289,16 @@ export const getToolbarConfig =
           },
           {
             type: 'copy-button',
+            supportsViewMode: true,
             items: [
               {
                 state,
                 formatMessage: intl.formatMessage,
                 nodeType,
               },
-              { type: 'separator' },
             ],
-          },
+          },              
+          { type: 'separator' },
           {
             id: 'editor.extension.delete',
             type: 'button',

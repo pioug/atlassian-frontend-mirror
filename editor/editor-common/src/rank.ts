@@ -1,4 +1,4 @@
-// @depreacted
+// @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export const rankEditorPlugins = {
   plugins: [
@@ -39,6 +39,7 @@ export const rankEditorPlugins = {
     // This should be always after `typeAheadKeymap` & `emojiKeymap`
     'indentationKeymap',
     'textColor',
+    'highlight',
     'alignmentPlugin',
     'listInputRule',
     'listKeymap',
@@ -171,6 +172,7 @@ export const rankEditorPlugins = {
     'em',
     'strong',
     'textColor',
+    'backgroundColor',
     'strike',
     'subsup',
     'underline',
@@ -192,7 +194,7 @@ export const rankEditorPlugins = {
   ],
 };
 
-// @depreacted
+// @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export function sortByOrder(item: 'plugins' | 'nodes' | 'marks') {
   return function (a: { name: string }, b: { name: string }): number {
@@ -208,7 +210,7 @@ export function sortByOrder(item: 'plugins' | 'nodes' | 'marks') {
 // function avoided that whole mess. If someone can think of a better way to implement
 // the above and below into a single function please do so
 
-// @depreacted
+// @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export function sortByOrderWithTypeName(item: 'plugins' | 'nodes' | 'marks') {
   return function (

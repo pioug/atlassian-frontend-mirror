@@ -29,6 +29,7 @@ import type { FindReplaceEventPayload } from './find-replace-events';
 import type { FormatEventPayload } from './format-events';
 import type { GeneralEventPayload } from './general-events';
 import type { HighlightActionsEventPayload } from './highlight-actions-menu-events';
+import type { HighlightEventPayload } from './highlight-events';
 import type { InsertEventPayload } from './insert-events';
 import type {
   CreateLinkInlineDialogEventPayload,
@@ -92,7 +93,8 @@ export type AnalyticsEventPayload<T = void> =
   | UnsupportedContentTooltipPayload
   | ReferentialityEventPayload
   | LoomEventPayload
-  | MBEEventPayload;
+  | MBEEventPayload
+  | HighlightEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
   ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

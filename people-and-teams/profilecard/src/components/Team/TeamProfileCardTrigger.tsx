@@ -3,12 +3,12 @@ import React, { Suspense } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import {
-  type AnalyticsEventPayload,
+  AnalyticsEventPayload,
   withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
 import { GiveKudosLauncherLazy, KudosType } from '@atlaskit/give-kudos';
 import Popup from '@atlaskit/popup';
-import { type TriggerProps } from '@atlaskit/popup/types';
+import { TriggerProps } from '@atlaskit/popup/types';
 import { layers } from '@atlaskit/theme/constants';
 
 import filterActions from '../../internal/filterActions';
@@ -424,7 +424,6 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
           zIndex={layers.modal()}
           shouldFlip
           autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
-          shouldRenderToParent
         />
       </ErrorBoundary>
     );

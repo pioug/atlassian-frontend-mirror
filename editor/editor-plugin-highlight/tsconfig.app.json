@@ -36,10 +36,22 @@
       "path": "../editor-common/tsconfig.app.json"
     },
     {
+      "path": "../editor-palette/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugin-analytics/tsconfig.app.json"
     },
     {
       "path": "../editor-plugin-text-formatting/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-shared-styles/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/icon/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
     }
   ],
   "files": []

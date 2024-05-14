@@ -95,6 +95,7 @@ export const getToolbarConfig =
           {
             id: 'editor.codeBlock.copy',
             type: 'button',
+            supportsViewMode: true,
             appearance: 'subtle',
             icon: CopyIcon,
             // note: copyContentToClipboard contains logic that also removes the

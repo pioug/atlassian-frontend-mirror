@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 1.6.7
+
+### Patch Changes
+
+-   [#98080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98080)
+    [`23c03580e38c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23c03580e38c) -
+    [ux] [ED-23247] Allow floating toolbar copy buttons in live pages view mode.
+
 ## 1.6.6
 
 ### Patch Changes

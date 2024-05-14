@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 26.66.0
+
+### Minor Changes
+
+-   [#99093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99093)
+    [`8e779e5c048b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e779e5c048b) -
+    [ux] Update PreviewAction and FollowAction to use new icons under FF
+
 ## 26.65.0
 
 ### Minor Changes

@@ -116,7 +116,10 @@ snapshotInformational(JiraIssuesTable, {
     },
   ],
 });
-snapshotInformational(JiraIssuesTable, {
+
+// TODO There is a delay in how we load smart links, which changes the picture
+// https://product-fabric.atlassian.net/browse/EDM-9967
+snapshotInformational.skip(JiraIssuesTable, {
   prepare: async (page: Page, _component: Locator) => {
     await page
       .getByTestId('datasource-table-view--row-DONUT-11730')

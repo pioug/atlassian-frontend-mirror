@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-extension",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "editor-plugin-extension plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -34,7 +34,7 @@
     "@atlaskit/button": "^17.14.0",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/datetime-picker": "^13.5.0",
-    "@atlaskit/editor-common": "^79.3.0",
+    "@atlaskit/editor-common": "^79.4.0",
     "@atlaskit/editor-json-transformer": "^8.12.0",
     "@atlaskit/editor-plugin-analytics": "^1.1.0",
     "@atlaskit/editor-plugin-context-identifier": "^1.1.0",

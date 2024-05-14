@@ -9,9 +9,11 @@ import { MediaSVGError } from './errors';
 import type { ContentSource, MediaSvgProps } from './types';
 import { useResolveSvg } from './useResolveSvg';
 
-const svgRendererImgStyles = css({
+const commonStyles = css({
   maxWidth: '100%',
   maxHeight: '100%',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  backgroundColor: 'white', // This background color is for transparency
 });
 
 const loadingStyles = css({
@@ -19,6 +21,10 @@ const loadingStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   overflow: 'hidden',
+});
+
+const svgRendererStyles = css({
+  objectFit: 'contain',
 });
 
 type LoadingProps = {
@@ -29,13 +35,8 @@ export const Loading = ({ dimensions }: LoadingProps) => {
   return (
     <span
       role="status"
-      css={[svgRendererImgStyles, loadingStyles]}
-      style={{
-        width,
-        height,
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        backgroundColor: 'white', // This background color is for transparency
-      }}
+      css={[commonStyles, loadingStyles]}
+      style={{ width, height }}
     >
       <Spinner />
     </span>
@@ -71,14 +72,8 @@ const SvgRenderer = ({
       data-source={source}
       src={svgUrl}
       alt={alt}
-      css={svgRendererImgStyles}
-      style={{
-        width,
-        height,
-        objectFit: 'contain',
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        backgroundColor: 'white', // This background color is for transparency
-      }}
+      css={[commonStyles, svgRendererStyles]}
+      style={{ width, height }}
       onError={() => {
         onError && onError(new MediaSVGError('img-error'));
       }}

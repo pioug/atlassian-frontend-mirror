@@ -429,15 +429,16 @@ const generateToolbarItems =
         ),
         {
           type: 'copy-button',
+          supportsViewMode: true,
           items: [
             {
               state,
               formatMessage: intl.formatMessage,
               nodeType: node.type,
             },
-            { type: 'separator' },
           ],
         },
+        { type: 'separator' },
         ...getSettingsButtonGroup(
           intl,
           editorAnalyticsApi,
@@ -751,15 +752,16 @@ const getDatasourceButtonGroup = (
   toolbarItems.push(
     {
       type: 'copy-button',
+      supportsViewMode: true,
       items: [
         {
           state,
           formatMessage: intl.formatMessage,
           nodeType: node.type,
         },
-        { type: 'separator' },
       ],
     },
+    { type: 'separator' },
     ...getSettingsButtonGroup(
       intl,
       editorAnalyticsApi,

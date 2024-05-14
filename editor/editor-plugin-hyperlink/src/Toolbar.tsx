@@ -319,10 +319,11 @@ export const getToolbarConfig =
               icon: UnlinkIcon,
               tabIndex: null,
             },
+            { type: 'separator' },
             {
               type: 'copy-button',
+              supportsViewMode: true,
               items: [
-                { type: 'separator' },
                 {
                   state,
                   formatMessage: formatMessage,

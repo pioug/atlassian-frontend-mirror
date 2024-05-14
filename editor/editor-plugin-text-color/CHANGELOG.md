@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#98130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98130)
+    [`6a3c0d9d6382`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a3c0d9d6382) -
+    [ED-23154] Add highlight option to main toolbar in editor
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.1.8
 
 ### Patch Changes

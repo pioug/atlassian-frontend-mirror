@@ -287,6 +287,7 @@ export enum ACTION_SUBJECT_ID {
   FRAGMENT_MARK = 'fragmentMark',
   GOTO_SMART_LINK_SETTINGS = 'goToSmartLinkSettings',
   HELP_QUICK_INSERT = 'helpQuickInsert',
+  HIGHLIGHT = 'highlight',
   HYPERLINK = 'hyperlink',
   INLINE_COMMENT = 'inlineComment',
   LAYOUT = 'layout',

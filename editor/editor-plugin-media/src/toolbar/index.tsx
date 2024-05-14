@@ -172,15 +172,16 @@ const generateMediaCardFloatingToolbar = (
     { type: 'separator' },
     {
       type: 'copy-button',
+      supportsViewMode: true,
       items: [
         {
           state,
           formatMessage: intl.formatMessage,
           nodeType: mediaGroup,
         },
-        { type: 'separator' },
       ],
     },
+    { type: 'separator' },
     {
       id: 'editor.media.delete',
       type: 'button',

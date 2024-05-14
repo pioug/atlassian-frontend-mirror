@@ -79,13 +79,8 @@ function ComposableEditorPage({ isViewMode }: { isViewMode: boolean }) {
       allowBreakout: true,
       allowLayouts: { allowBreakout: true },
       allowTables: {
-        allowColumnResizing: true,
-        allowMergeCells: true,
-        allowNumberColumn: true,
-        allowBackgroundColor: true,
-        allowHeaderRow: true,
-        allowHeaderColumn: true,
-        permittedLayouts: 'all',
+        advanced: true,
+        stickyHeaders: true
       },
       allowDate: true,
       allowRule: true,

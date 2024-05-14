@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 79.4.1
+
+### Patch Changes
+
+-   [#96397](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96397)
+    [`37f594d6c2d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/37f594d6c2d8) -
+    [ux] [ECA11Y-227] Corrected typo in List formatting aria-label
+-   Updated dependencies
+
+## 79.4.0
+
+### Minor Changes
+
+-   [#98130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98130)
+    [`6a3c0d9d6382`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a3c0d9d6382) -
+    [ED-23154] Add highlight option to main toolbar in editor
+
+## 79.3.1
+
+### Patch Changes
+
+-   [#99563](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99563)
+    [`3d4ddbef36b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d4ddbef36b8) -
+    [ux] [EDF-629] Revert floating toolbar click handler changes
+-   Updated dependencies
+
 ## 79.3.0
 
 ### Minor Changes

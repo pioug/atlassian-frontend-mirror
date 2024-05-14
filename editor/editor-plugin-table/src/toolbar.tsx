@@ -577,6 +577,7 @@ export const getToolbarConfig =
           },
           {
             type: 'copy-button',
+            supportsViewMode: true,
             items: [
               {
                 state,
@@ -587,9 +588,9 @@ export const getToolbarConfig =
                 onFocus: hoverTable(false, true),
                 onBlur: clearHoverSelection(),
               },
-              { type: 'separator' },
             ],
           },
+          { type: 'separator' },
           {
             id: 'editor.table.delete',
             type: 'button',

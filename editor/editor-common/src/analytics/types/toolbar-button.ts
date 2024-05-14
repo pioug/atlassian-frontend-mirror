@@ -11,6 +11,7 @@ export enum TOOLBAR_ACTION_SUBJECT_ID {
   DECISION_LIST = 'decisionList',
   TASK_LIST = 'taskList',
   TEXT_COLOR = 'color',
+  HIGHLIGHT = 'highlight',
   TEXT_FORMATTING_STRONG = 'strong',
   TEXT_FORMATTING_ITALIC = 'italic',
   UNDO = 'undo',

@@ -29,7 +29,7 @@ export const messages = defineMessages({
   },
   listsFormat: {
     id: 'fabric.editor.listsFormat',
-    defaultMessage: 'List formating',
+    defaultMessage: 'List formatting',
     description: 'Aria label for the wrapper of list buttons',
   },
 });

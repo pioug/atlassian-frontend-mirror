@@ -22,10 +22,22 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-palette/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
             "path": "../../editor-plugin-text-formatting/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-shared-styles/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         }
     ]
 }

@@ -29,6 +29,7 @@ export { pasteOptionsToolbarMessages } from './paste-options-toolbar';
 export { panelMessages } from './panel';
 export { mentionMessages } from './mentions';
 export { helpDialogMessages } from './help-dialog';
+export { highlightMessages } from './highlight';
 
 export default defineMessages({
   layoutFixedWidth: {

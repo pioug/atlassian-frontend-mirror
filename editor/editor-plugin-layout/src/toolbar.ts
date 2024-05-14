@@ -161,11 +161,11 @@ export const buildToolbar = (
               buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
             )
           : []),
-
+        separator,
         {
           type: 'copy-button',
+          supportsViewMode: true,
           items: [
-            separator,
             {
               state,
               formatMessage: intl.formatMessage,

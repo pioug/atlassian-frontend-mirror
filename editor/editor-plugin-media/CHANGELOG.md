@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 1.19.8
+
+### Patch Changes
+
+-   [#98080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98080)
+    [`23c03580e38c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/23c03580e38c) -
+    [ux] [ED-23247] Allow floating toolbar copy buttons in live pages view mode.
+
+## 1.19.7
+
+### Patch Changes
+
+-   [#99511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99511)
+    [`85eb87c88183`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85eb87c88183) -
+    Removed unused logic that was creating an empty span element when new portal provider is enabled
+
 ## 1.19.6
 
 ### Patch Changes

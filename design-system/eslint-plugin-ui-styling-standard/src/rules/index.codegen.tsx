@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::78ffc29d20fd2fe3727a620cb4ddf192>>
+ * @codegen <<SignedSource::be177a361ddc1a7a41d843680299e318>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 import atlaskitTheme from './atlaskit-theme';
@@ -16,6 +16,7 @@ import noImportantStyles from './no-important-styles';
 import noImportedStyleValues from './no-imported-style-values';
 import noNestedSelectors from './no-nested-selectors';
 import noUnsafeValues from './no-unsafe-values';
+import useCompiled from './use-compiled';
 
 export default {
     'atlaskit-theme': atlaskitTheme,
@@ -31,4 +32,5 @@ export default {
     'no-imported-style-values': noImportedStyleValues,
     'no-nested-selectors': noNestedSelectors,
     'no-unsafe-values': noUnsafeValues,
+    'use-compiled': useCompiled,
 };

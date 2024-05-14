@@ -4,6 +4,7 @@ import type {
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { HighlightPlugin } from '@atlaskit/editor-plugin-highlight';
 
 import type {
   TextColorPluginConfig,
@@ -16,7 +17,10 @@ export type TextColorPlugin = NextEditorPlugin<
   'textColor',
   {
     pluginConfiguration: Config | undefined;
-    dependencies: [OptionalPlugin<AnalyticsPlugin>];
+    dependencies: [
+      OptionalPlugin<AnalyticsPlugin>,
+      OptionalPlugin<HighlightPlugin>,
+    ];
     actions: {
       changeColor: (color: string) => Command;
     };

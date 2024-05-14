@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-plugin-ui-styling-standard",
-  "version": "0.11.6",
+  "version": "0.12.0",
   "author": "Atlassian Pty Ltd",
   "description": "The eslint plugin to enforce and educate on Atlassian's UI Styling Standard",
   "license": "Apache-2.0",
@@ -61,6 +61,7 @@
     "@types/eslint": "^8.56.6",
     "@types/estraverse": "^5.1.7",
     "eslint": "^8.49.0",
+    "json-schema-to-ts": "^3.1.0",
     "lodash": "^4.17.21",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",

@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 193.17.0
+
+### Minor Changes
+
+-   [#98727](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98727)
+    [`057b3d93e3d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/057b3d93e3d4) -
+    The `usePreset` hook from editor-core previously required the EditorContext in order to have a
+    valid editorApi as a return value (otherwise it is undefined). This is confusing to developers
+    so this improvement allows the API value to be resolved without EditorContext - simplifying what
+    is required to setup the editor.
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.16.0
+
+### Minor Changes
+
+-   [#99771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99771)
+    [`3cd9b2d8ae80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cd9b2d8ae80) -
+    [ux] ED-22923 Tables - Added alignment toolbat button
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 193.15.5
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 2.1.4
+
+### Patch Changes
+
+-   [#99091](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99091)
+    [`8e2c83a11eb5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e2c83a11eb5) -
+    The changes here updates the Last Updated filter selection to be triggered without a
+    waiting(debounced) period.
+
 ## 2.1.3
 
 ### Patch Changes

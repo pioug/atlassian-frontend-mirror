@@ -8,17 +8,23 @@ import { MediaQueriesTable } from '@af/design-system-docs-ui';
 
 XCSS is an Atlassian Design System styling API that natively integrates with Atlassian's [design tokens](/tokens) and [primitives](/components/primitives/overview).
 
-The XCSS utility behaves similarly to the `css` utility in libraries like `styled-components`, `@compiled` or `@emotion`. If you've used these libraries, XCSS will feel familiar, with a few additional features and constraints.
+To ensure future compliance with XCSS as it evolves over time, we highly recommend you enable our ESLint plugins and adhere to the [UI Styling Standard](/components/eslint-plugin-ui-styling-standard) guidelines by writing local, type-safe, static styles.
+
+- [@atlaskit/eslint-plugin-design-system](/components/eslint-plugin-design-system)
+- [@atlaskit/eslint-plugin-ui-styling-standard](/components/eslint-plugin-ui-styling-standard)
+
+
+The XCSS utility behaves similarly to the `css` utility in libraries like `styled-components`, `@compiled` or `@emotion`, and is built off of `@emotion/react` today. If you've used these libraries, XCSS will feel familiar, with a few additional features and constraints.
 
 Familiar features:
 
-- XCSS generates a `className` that is applied to the components
-- XCSS provides key-value pairs of CSS properties in an object format
+- XCSS is applied as an Emotion `className` to our primitive components
+- XCSS works with the basic CSS object interface found elsewhere
 - XCSS supports style precedence and conditional styles
 
 Key differences:
 
-- XCSS has type-safety that ensures token name usage for all CSS properties represented by design tokens.
+- XCSS has type-safety that ensures token name usage for all CSS properties represented by design tokens
 - XCSS restricts nested selectors completely from usage
 
 ## Usage
@@ -115,7 +121,7 @@ The only limitation is that a media query can't contain another media query. Thi
 
 Additionally, pseudo-selectors can't contain media queries. To use media queries and pseudos, the media query must contain the pseudo.
 
-```
+```tsx
 import { xcss } from '@atlaskit/primitives';
 import { media } from '@atlaskit/primitives/responsive';
 
@@ -127,7 +133,7 @@ const someStyles = xcss({
     }
   },
 
-  // This is not okay, since pseudos can't contain media queries
+  // This is not okay, we don't allow pseudos to contain media queries
   ':hover': {
     [media.above.md]: {
       backgroundColor: 'color.background.primary.hovered'

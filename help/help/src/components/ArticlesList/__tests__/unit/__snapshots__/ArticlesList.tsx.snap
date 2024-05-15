@@ -51,7 +51,7 @@ exports[`ArticleContent Should match snapshot 1`] = `
   font: var(--ds-font-heading-xsmall, normal 600 14px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
   display: inline-block;
   white-space: normal;
-  overflow-x: hidden;
+  overflow: hidden;
   margin-bottom: var(--ds-space-100, 8px);
 }
 

@@ -1,5 +1,17 @@
 # @atlaskit/help
 
+## 7.3.3
+
+### Patch Changes
+
+-   [#99831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99831)
+    [`9652182a0292`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9652182a0292) -
+    Fix issue where the back button used to lose context of the search results and takes back to the
+    default page. Now it takes back to the place where the user started from
+-   [#99831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99831)
+    [`e5fd89bc770c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5fd89bc770c) -
+    Fix individual scroll bars appearing for titles when an external URL icon is present in safari
+
 ## 7.3.2
 
 ### Patch Changes

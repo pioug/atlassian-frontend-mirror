@@ -75,7 +75,7 @@ const ProjectStatus = ({
   );
 };
 
-export default function PressableStyled() {
+export default function Styled() {
   return (
     <Stack space="space.150">
       <Text weight="bold" size="large">

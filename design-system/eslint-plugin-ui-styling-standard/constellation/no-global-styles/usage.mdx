@@ -1,0 +1,59 @@
+# no-global-styles
+
+This rule prevents global styles through CSS-in-JS or CSS module imports.
+
+Requiring local definition of styles helps to ensure that style dependencies are statically
+resolvable.
+
+## Examples
+
+### Incorrect
+
+```tsx
+import { Global } from '@emotion/react';
+
+<Global
+    styles={{
+        '.some-class': {
+            fontSize: 50,
+            textAlign: 'center',
+        },
+    }}
+/>;
+```
+
+```tsx
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle({
+    body: {
+        margin: 0,
+    },
+});
+```
+
+```tsx
+import { injectGlobal } from 'styled-components';
+
+injectGlobal({
+    body: {
+        margin: 0,
+    },
+});
+```
+
+```tsx
+<style>
+    {`
+    .some-class {
+      color: red;
+    }
+  `}
+</style>
+```
+
+### Correct
+
+```tsx
+import '@atlaskit/css-reset';
+```

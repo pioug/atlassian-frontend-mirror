@@ -3,13 +3,17 @@ import {
   getIdentifierInParentScope,
   identifier,
   isNodeOfType,
-  JSXElement,
+  type JSXElement,
   literal,
-  ObjectExpression,
-  Property,
-  SpreadElement,
+  type ObjectExpression,
+  type Property,
+  type SpreadElement,
 } from 'eslint-codemod-utils';
 
+import {
+  allSpaceMap,
+  positiveSpaceMap,
+} from '../../../common/token-maps.partial';
 import {
   getAttributeValueIdentifier,
   getFunctionArgumentAtPos,
@@ -115,23 +119,9 @@ export const styledObjectToXcssTokens = (
   });
 };
 
-// TODO: https://product-fabric.atlassian.net/browse/DSP-16054
-export const spaceTokenMap: { [key: string]: string } = {
-  '0px': 'space.0',
-  '2px': 'space.025',
-  '4px': 'space.050',
-  '6px': 'space.075',
-  '8px': 'space.100',
-  '12px': 'space.150',
-  '16px': 'space.200',
-  '20px': 'space.250',
-  '24px': 'space.300',
-  '32px': 'space.400',
-  '40px': 'space.500',
-  '48px': 'space.600',
-  '64px': 'space.800',
-  '80px': 'space.1000',
-};
+export const spaceTokenMap: { [key: string]: string } = allSpaceMap;
+export const spaceTokenPositiveMap: { [key: string]: string } =
+  positiveSpaceMap;
 
 export const dimensionsMap: { [key: string]: string } = {
   '100%': '100%',
@@ -149,17 +139,17 @@ export const supportedDimensionAttributesMap: {
 };
 
 export const supportedStylesMap: { [key: string]: typeof spaceTokenMap } = {
-  padding: spaceTokenMap,
-  paddingBlock: spaceTokenMap,
-  paddingBlockEnd: spaceTokenMap,
-  paddingBlockStart: spaceTokenMap,
-  paddingBottom: spaceTokenMap,
-  paddingInline: spaceTokenMap,
-  paddingInlineEnd: spaceTokenMap,
-  paddingInlineStart: spaceTokenMap,
-  paddingLeft: spaceTokenMap,
-  paddingRight: spaceTokenMap,
-  paddingTop: spaceTokenMap,
+  padding: spaceTokenPositiveMap,
+  paddingBlock: spaceTokenPositiveMap,
+  paddingBlockEnd: spaceTokenPositiveMap,
+  paddingBlockStart: spaceTokenPositiveMap,
+  paddingBottom: spaceTokenPositiveMap,
+  paddingInline: spaceTokenPositiveMap,
+  paddingInlineEnd: spaceTokenPositiveMap,
+  paddingInlineStart: spaceTokenPositiveMap,
+  paddingLeft: spaceTokenPositiveMap,
+  paddingRight: spaceTokenPositiveMap,
+  paddingTop: spaceTokenPositiveMap,
   margin: spaceTokenMap,
   marginBlock: spaceTokenMap,
   marginBlockEnd: spaceTokenMap,

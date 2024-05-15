@@ -1,25 +1,17 @@
-Ensures usage of `@compiled/react` over other CSS-in-JS libraries.
+Ensures usage of `@compiled/react` over other CSS-in-JS libraries like Emotion or styled-components.
 
 **WARNING**
-
-It may be unsafe to mix usages of `@compiled/react` with other CSS-in-JS libraries.
-
-When converting to `@compiled/react` verify ALL changes.
-
-For this reason, the auto-fixer has been disabled by default.
+It may be unsafe to mix usages of `@compiled/react` with other CSS-in-JS libraries on the same component. When converting to `@compiled/react` verify ALL changes. For this reason, the auto-fixer has been disabled by default, but it may be useful to enable to empower a migration.
 
 ## Examples
 
 ### Incorrect
 
 ```js
-import { css } from '@emotion/core';
-import styled from '@emotion/styled';
-```
-
-```js
 /** @jsx jsx */
+import { css } from '@emotion/core';
 import { jsx } from '@emotion/react';
+import styled from '@emotion/styled';
 ```
 
 ```js
@@ -28,13 +20,21 @@ import styled, { css } from 'styled-components';
 
 ### Correct
 
-```js
-import { css, styled } from '@compiled/react';
-```
+We expect usage of `xcss` with `@atlaskit/primitives` when working with Primitives, and `css` with `@compiled/react` when working with custom or native code. 
 
 ```js
 /** @jsx jsx */
-import { jsx } from '@compiled/react';
+import { jsx, css, styled } from '@compiled/react';
+
+const styles = css({ color: 'var(--ds-color-text)' });
+export default () => <div css={styles}>…</div>
+```
+
+```js
+import { xcss, Box } from '@atlaskit/primitives';
+
+const styles = xcss({ color: 'color.text' });
+export default () => <Box xcss={styles}>…</Box>
 ```
 
 ## Options
@@ -43,7 +43,7 @@ import { jsx } from '@compiled/react';
 
 Determines whether or not the auto-fixer is enabled.
 
-Defaults to `false` due to safety concerns when mixing Compiled and other CSS-in-JS libraries.
+Defaults to `false` due to safety concerns when mixing Compiled and other CSS-in-JS libraries on the same component.
 
 Even when enabled, the auto-fixer will only convert usages that are deemed safe.
 Currently this is limited to purely static styles where all keys and values are simple literals.

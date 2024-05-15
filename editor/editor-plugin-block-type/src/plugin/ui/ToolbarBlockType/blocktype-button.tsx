@@ -36,8 +36,12 @@ export interface BlockTypeButtonProps {
 export const BlockTypeButton = (props: BlockTypeButtonProps) => {
   const blockTypeName = props.blockTypeName || '';
   const labelTextStyles = props.formatMessage(toolbarMessages.textStyles, {
-    blockTypeName
+    blockTypeName,
   });
+
+  const toolipTextStyles = props.formatMessage(
+    toolbarMessages.textStylesTooltip,
+  );
 
   return (
     <ToolbarButton
@@ -47,7 +51,7 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
       disabled={props.disabled}
       onClick={props.onClick}
       onKeyDown={props.onKeyDown}
-      title={labelTextStyles}
+      title={toolipTextStyles}
       aria-label={labelTextStyles}
       aria-haspopup
       aria-expanded={props['aria-expanded']}

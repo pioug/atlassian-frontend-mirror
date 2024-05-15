@@ -10,6 +10,30 @@ const importSources = [
   'styled-components',
 ];
 
+tester.run('imports - ignored', rule, {
+  valid: [
+    {
+      name: '[@atlaskit/primitives.xcss] - is ignored (it\'s okay to use, for now)',
+      code: `
+        import { xcss, Box } from '@atlaskit/primitives';
+      `,
+    },
+    {
+      name: '[@atlaskit/css] - is ignored (it\'s okay to use)',
+      code: `
+        import { cssMap, keyframes } from '@atlaskit/css';
+      `,
+    },
+    {
+      name: '[@stylexjs/stylex] - is ignored (we don\'t maintain a list of all CSS-in-JS libraries, but we could)',
+      code: `
+        import * as stylex from '@stylexjs/stylex';
+      `,
+    }
+  ],
+  invalid: [],
+});
+
 tester.run('imports - fixable', rule, {
   valid: [],
   invalid: [

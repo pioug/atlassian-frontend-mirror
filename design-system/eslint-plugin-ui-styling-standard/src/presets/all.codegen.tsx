@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::752a442dd46681814ab73f7fa9c05374>>
+ * @codegen <<SignedSource::9ac05c3cbd30f6209164b7a24f7a7a19>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-ui-styling-standard codegen
  */
 export default {
@@ -15,6 +15,7 @@ export default {
         '@atlaskit/ui-styling-standard/no-container-queries': 'warn',
         '@atlaskit/ui-styling-standard/no-dynamic-styles': 'warn',
         '@atlaskit/ui-styling-standard/no-exported-styles': 'warn',
+        '@atlaskit/ui-styling-standard/no-global-styles': 'warn',
         '@atlaskit/ui-styling-standard/no-important-styles': 'warn',
         '@atlaskit/ui-styling-standard/no-imported-style-values': 'warn',
         '@atlaskit/ui-styling-standard/no-nested-selectors': 'warn',

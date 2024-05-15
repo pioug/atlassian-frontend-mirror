@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.1.8
+
+### Patch Changes
+
+-   [#99242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99242)
+    [`854acdf04f29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/854acdf04f29) -
+    Adjust tooltip text for editor toolbar buttons
+-   Updated dependencies
+
 ## 3.1.7
 
 ### Patch Changes

@@ -1,7 +1,10 @@
 // TODO: Switch from ERT to ts-morph when this is completed and has reasonable adoption: https://product-fabric.atlassian.net/browse/DSP-10364
-import React, { ReactNode } from 'react';
+import type React from 'react';
 
-import { BasePrimitiveProps, StyleProp } from '../src/components/types';
+import {
+  type BasePrimitiveProps,
+  type StyleProp,
+} from '../src/components/types';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Token {
@@ -37,12 +40,12 @@ export default function Anchor<
     href: string | RouterLinkConfig;
 
     /**
-     * The `target` attribute of the anchor HTML element. Defaults to `_blank` for external links.
+     * The `target` attribute of the anchor HTML element.
      */
     target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
 
     /**
-     * The `rel` attribute of the anchor HTML element. Defaults to `noopener noreferrer` for external links.
+     * The `rel` attribute of the anchor HTML element.
      */
     rel?: React.AnchorHTMLAttributes<HTMLAnchorElement>['rel'];
 
@@ -92,7 +95,7 @@ export default function Anchor<
     /**
      * Elements to be rendered inside the primitive.
      */
-    children: ReactNode;
+    children: React.ReactNode;
 
     /**
      * Forwarded ref element.

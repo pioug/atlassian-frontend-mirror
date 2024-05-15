@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 7.14.0
+
+### Minor Changes
+
+-   [#99771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99771)
+    [`3cd9b2d8ae80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cd9b2d8ae80) -
+    [ux] ED-22923 Tables - Added alignment toolbat button
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 7.13.4
 
 ### Patch Changes

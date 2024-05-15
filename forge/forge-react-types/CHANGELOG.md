@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.12.0
+
+### Minor Changes
+
+-   [#98956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98956)
+    [`90fe0e7d1f6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90fe0e7d1f6a) -
+    Add calendar codegen component to UI Kit 2
+
 ## 0.11.2
 
 ### Patch Changes

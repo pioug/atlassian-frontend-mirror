@@ -17,7 +17,7 @@ import { type SelectOption } from '../../common/modal/popup-select/types';
 import BasicFilters from '../basic-filters';
 import { useBasicFilterHydration } from '../basic-filters/hooks/useBasicFilterHydration';
 import {
-  type CLOLBasicFilters,
+  CLOLBasicFilters,
   type SelectedOptionsMap,
 } from '../basic-filters/types';
 import { type ConfluenceSearchDatasourceParameters } from '../types';
@@ -98,9 +98,19 @@ const ConfluenceSearchContainer = ({
       };
 
       setFilterSelections(updatedSelection);
-      debouncedBasicFilterSelectionChange(updatedSelection);
+
+      if (filterType === CLOLBasicFilters.lastModified) {
+        onSearch(searchBarSearchString, updatedSelection);
+      } else {
+        debouncedBasicFilterSelectionChange(updatedSelection);
+      }
     },
-    [debouncedBasicFilterSelectionChange, filterSelections],
+    [
+      debouncedBasicFilterSelectionChange,
+      filterSelections,
+      onSearch,
+      searchBarSearchString,
+    ],
   );
 
   // TODO: further refactoring in EDM-9573

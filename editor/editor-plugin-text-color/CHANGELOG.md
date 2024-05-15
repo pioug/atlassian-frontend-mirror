@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.2.1
+
+### Patch Changes
+
+-   [#99242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99242)
+    [`854acdf04f29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/854acdf04f29) -
+    Adjust tooltip text for editor toolbar buttons
+-   Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

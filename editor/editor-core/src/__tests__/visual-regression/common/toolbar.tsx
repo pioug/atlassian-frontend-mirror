@@ -3,14 +3,10 @@ import React from 'react';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
   animationFrame,
-  clickEditableContent,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import {
-  pressKey,
-  pressKeyCombo,
-} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
@@ -18,7 +14,6 @@ import {
   clickToolbarMenu,
   isDropdownMenuItemFocused,
   mainToolbarSelector,
-  retryUntilStablePosition,
   toolbarMenuItemsSelectors as selectors,
   selectToolbarMenuWithKeyboard,
   ToolbarMenuItem,
@@ -31,67 +26,11 @@ import {
   snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import {
-  Device,
-  deviceViewPorts,
-} from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
 import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
-
-async function focusToolbar(page: PuppeteerPage) {
-  await pressKeyCombo(page, ['Alt', 'F9']);
-}
-
-describe('Toolbar keyboard shortcut', () => {
-  it.each([Appearance.fullPage, Appearance.comment])(
-    'in %s, should focus main toolbar and return on "ESC" ',
-    async (appearance) => {
-      let page = global.page;
-      await initEditorWithAdf(page, {
-        appearance,
-        viewport: { width: 1000, height: 350 },
-      });
-      await clickEditableContent(page);
-      await page.keyboard.type('Before focus. ');
-      await focusToolbar(page);
-      await snapshot(page, undefined, editorSelector);
-      await page.keyboard.down('Escape');
-      await page.keyboard.type('After ESC.'); //To confirm that focus is back to editor
-      await retryUntilStablePosition(
-        page,
-        async () => {
-          await snapshot(page, undefined, editorSelector);
-        },
-        editorSelector,
-      );
-    },
-  );
-});
-
-describe('Toolbar: Comment', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.comment,
-      device: Device.iPadPro,
-    });
-  });
-
-  afterEach(async () => {
-    await page.waitForSelector(selectors[ToolbarMenuItem.toolbarDropList]);
-    await snapshot(page, undefined, editorSelector);
-  });
-
-  it('should display text color menu correctly at small viewport', async () => {
-    await page.setViewport(deviceViewPorts[Device.iPhonePlus]);
-    await clickToolbarMenu(page, ToolbarMenuItem.textColor);
-  });
-});
 
 describe('Toolbar: IconBefore', () => {
   let page: PuppeteerPage;

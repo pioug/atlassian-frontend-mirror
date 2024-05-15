@@ -132,6 +132,7 @@ export class ToolbarTextColor extends React.Component<
     const labelTextColor = formatMessage(messages.textColor, {
       selectedColorName: selectedColorPaletteItemLabelText,
     });
+    const tooltipTextColor = formatMessage(messages.textColorTooltip);
 
     const { selectedRowIndex, selectedColumnIndex } =
       getSelectedRowAndColumnFromPalette(palette, pluginState.color);
@@ -165,7 +166,7 @@ export class ToolbarTextColor extends React.Component<
               aria-label={labelTextColor}
               aria-expanded={isOpen}
               aria-haspopup
-              title={labelTextColor}
+              title={tooltipTextColor}
               onClick={this.toggleOpen}
               onKeyDown={this.onKeyDown}
               ref={this.toolbarItemRef}

@@ -18,6 +18,7 @@ import type {
   Command,
   CommandDispatch,
   ConfirmDialogOptions,
+  DropdownOptions,
   DropdownOptionT,
   FloatingToolbarDropdown,
   FloatingToolbarHandler,
@@ -49,6 +50,8 @@ import {
   isSelectionType,
   splitCell,
 } from '@atlaskit/editor-tables/utils';
+import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
+import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import DistributeColumnIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import TableOptionsIcon from '@atlaskit/icon/glyph/preferences';
@@ -93,6 +96,7 @@ import type {
   ToolbarMenuState,
 } from './types';
 import { TableCssClassName } from './types';
+import { FloatingAlignmentButtons } from './ui/FloatingAlignmentButtons/FloatingAlignmentButtons';
 import { DisplayModeIcon } from './ui/icons';
 import {
   getMergedCellsPositions,
@@ -474,6 +478,14 @@ export const getToolbarConfig =
         editorAnalyticsAPI,
       );
 
+      let alignmentMenu: Array<FloatingToolbarItem<Command>>;
+
+      alignmentMenu = getBooleanFF(
+        'platform.editor.table.allow-table-alignment',
+      )
+        ? getAlignmentOptionsConfig(pluginState, intl, editorAnalyticsAPI)
+        : [];
+
       let cellItems: Array<FloatingToolbarItem<Command>>;
       cellItems = pluginState.isDragAndDropEnabled
         ? []
@@ -568,6 +580,8 @@ export const getToolbarConfig =
         items: [
           menu,
           separator(menu.hidden),
+          ...alignmentMenu,
+          separator(alignmentMenu.length === 0),
           ...cellItems,
           ...columnSettingsItems,
           ...colorPicker,
@@ -870,4 +884,87 @@ const highlightColumnsHandler = (
     return true;
   }
   return false;
+};
+
+export const getAlignmentOptionsConfig = (
+  state: ToolbarMenuState,
+  { formatMessage }: ToolbarMenuContext,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
+): Array<FloatingToolbarDropdown<Command>> => {
+  type AlignmentIcon = {
+    id?: string;
+    value: string;
+    icon: React.ComponentClass<any>;
+  };
+
+  const alignmentIcons: AlignmentIcon[] = [
+    {
+      id: 'editor.table.alignLeft',
+      value: 'align-start',
+      icon: EditorAlignImageLeft,
+    },
+    {
+      id: 'editor.table.alignCenter',
+      value: 'center',
+      icon: EditorAlignImageCenter,
+    },
+  ];
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const layoutToMessages: Record<string, any> = {
+    center: messages.alignTableCenter,
+    'align-start': messages.alignTableLeft,
+  };
+
+  const alignmentButtons = alignmentIcons.map<FloatingToolbarItem<Command>>(
+    (alignmentIcon) => {
+      const { id, value, icon } = alignmentIcon;
+      return {
+        id: id,
+        type: 'button',
+        icon: icon,
+        title: formatMessage(layoutToMessages[value]),
+        selected: false, // TODO - get the correct selected state based on the selected layout attr
+        onClick: makeAlignment(),
+      };
+    },
+  );
+
+  const alignmentOptions: DropdownOptions<Command> = {
+    render: (props) => {
+      return (
+        <FloatingAlignmentButtons
+          alignmentButtons={alignmentButtons}
+          {...props}
+        />
+      );
+    },
+    width: 60,
+    height: 32,
+  };
+
+  const alignmentToolbarItem: Array<FloatingToolbarDropdown<Command>> = [
+    {
+      id: 'table-layout',
+      testId: 'table-layout-dropdown',
+      type: 'dropdown',
+      options: alignmentOptions,
+      title: formatMessage(messages.tableAlignmentOptions), // TODO - get the correct title based on the selected layout attr
+      icon: EditorAlignImageCenter, // TODO - get the correct icon based on the selected layout attr
+    },
+  ];
+
+  return alignmentToolbarItem;
+};
+
+const makeAlignment = (): Command => {
+  return (state, dispatch) => {
+    const tableObject = findTable(state.selection);
+
+    if (!tableObject || !dispatch) {
+      return false;
+    }
+    // TODO Add alignment logic here
+    return true;
+  };
 };

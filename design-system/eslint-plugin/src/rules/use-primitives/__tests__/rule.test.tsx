@@ -52,6 +52,13 @@ ruleTester.run('use-primitives', rule, {
     `,
 
     `
+      // ignores element when style property value is not something we can map to negative spacing tokens
+      import { css } from '@emotion/react';
+      const paddingStyles = css({ padding: '-8px' });
+      <div css={paddingStyles}></div>
+    `,
+
+    `
       // ignores div with more than one style when 'multiple-properties' config is disabled
       import { css } from '@emotion/react';
       const paddingStyles = css({ padding: '8px', margin: '8px' });
@@ -322,6 +329,31 @@ ruleTester.run('use-primitives', rule, {
                 `import { css } from '@emotion/react';`,
                 `const paddingStyles = xcss({ padding: 'space.100' });`,
                 `<Box xcss={paddingStyles}></Box>`,
+              ].join('\n'),
+            },
+          ],
+        },
+      ],
+    },
+    {
+      code: [
+        `// it suggests Box and maps to negative spacing tokens`,
+        `import { css } from '@emotion/react';`,
+        `const marginStyles = css({ margin: '-8px' });`,
+        `<div css={marginStyles}></div>`,
+      ].join('\n'),
+      errors: [
+        {
+          messageId: 'preferPrimitivesBox',
+          suggestions: [
+            {
+              desc: `Convert to Box`,
+              output: [
+                `// it suggests Box and maps to negative spacing tokens`,
+                `import { Box, xcss } from '@atlaskit/primitives';`,
+                `import { css } from '@emotion/react';`,
+                `const marginStyles = xcss({ margin: 'space.negative.100' });`,
+                `<Box xcss={marginStyles}></Box>`,
               ].join('\n'),
             },
           ],

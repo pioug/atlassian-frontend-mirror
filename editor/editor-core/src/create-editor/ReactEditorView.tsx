@@ -115,7 +115,9 @@ import { editorMessages } from './messages';
 import ReactEditorViewContext from './ReactEditorViewContext';
 
 export interface EditorViewProps {
-  editorProps: EditorProps | EditorNextProps;
+  editorProps: (EditorProps | EditorNextProps) & {
+    preset?: EditorNextProps['preset'];
+  };
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   providerFactory: ProviderFactory;
   portalProviderAPI: LegacyPortalProviderAPI | PortalProviderAPI;
@@ -823,9 +825,9 @@ export class ReactEditorView<T = {}> extends React.Component<
     } else {
       const invalidNodes = nodes
         .filter((node) => !validNode(node))
-        .map<SimplifiedNode | string>((node) =>
-          getDocStructure(node, { compact: true }),
-        );
+        .map<
+          SimplifiedNode | string
+        >((node) => getDocStructure(node, { compact: true }));
 
       if (!this.isTransactionTrackingExplicitlyDisabled()) {
         this.dispatchAnalyticsEvent({

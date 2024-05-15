@@ -1,26 +1,63 @@
 /** @jsx jsx */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { token } from '@atlaskit/tokens';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
 
-import { DRAG_HANDLE_HEIGHT, DRAG_HANDLE_WIDTH } from './consts';
+import {
+  DRAG_HANDLE_BORDER_RADIUS,
+  DRAG_HANDLE_HEIGHT,
+  DRAG_HANDLE_WIDTH,
+} from './consts';
 import { dragPreview } from './drag-preview';
 
-const styles = css({
-  position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  background: 'grey',
-  zIndex: 1,
+const dragHandleButtonStyles = css({
+  position: 'relative',
+  // TODO - we have ticket ED-23209 to correctly position the drag handle for each node
+  //https://product-fabric.atlassian.net/browse/ED-23209
+  top: 12,
+  left: -18,
+
+  padding: `${token('space.025', '2px')} 0`,
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   height: DRAG_HANDLE_HEIGHT,
   width: DRAG_HANDLE_WIDTH,
-  left: -DRAG_HANDLE_WIDTH,
+  border: 'none',
+  background: 'transparent',
+  borderRadius: DRAG_HANDLE_BORDER_RADIUS,
+  color: token('color.icon', '#44546F'),
+  cursor: 'grab',
+
+  ':hover': {
+    backgroundColor: token(
+      'color.background.neutral.subtle.hovered',
+      '#091E420F',
+    ),
+  },
+
+  ':active': {
+    backgroundColor: token(
+      'color.background.neutral.subtle.pressed',
+      '#091E4224',
+    ),
+  },
+});
+
+const selectedStyles = css({
+  backgroundColor: token('color.background.selected', '#E9F2FF'),
+  color: token('color.icon.selected', '#0C66E4'),
 });
 
 export const DragHandle = ({
@@ -32,8 +69,9 @@ export const DragHandle = ({
   api: ExtractInjectionAPI<BlockControlsPlugin> | undefined;
   start: number;
 }) => {
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const domRef = useRef<HTMLElement>(dom);
+  const [dragHandleSelected, setDragHandleSelected] = useState(false);
 
   useEffect(() => {
     const element = buttonRef.current;
@@ -76,17 +114,22 @@ export const DragHandle = ({
   }, [api, start]);
 
   return (
-    <div
-      css={styles}
-      style={{ top: dom.clientHeight / 2 - DRAG_HANDLE_HEIGHT / 2 }}
+    <button
+      type="button"
+      css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
       ref={buttonRef}
       onClick={() => {
-        api?.core?.actions.execute(({ tr }) =>
-          tr.setMeta(key, {
-            toggleMenu: true,
-          }),
-        );
+        setDragHandleSelected(!dragHandleSelected);
+
+        // TODO - add drag menu
+        // api?.core?.actions.execute(({ tr }) =>
+        //   tr.setMeta(key, {
+        //     toggleMenu: true,
+        //   }),
+        // );
       }}
-    />
+    >
+      <DragHandlerIcon label="" size="medium" />
+    </button>
   );
 };

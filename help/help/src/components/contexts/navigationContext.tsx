@@ -3,14 +3,21 @@ import React, {
   useEffect,
   useCallback,
   useMemo,
-  PropsWithChildren,
+  type PropsWithChildren,
 } from 'react';
 import isEqual from 'lodash/isEqual';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Article, ArticleItem } from '../../model/Article';
-import { WhatsNewArticleItem, WhatsNewArticle } from '../../model/WhatsNew';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type Article, type ArticleItem } from '../../model/Article';
+import {
+  type WhatsNewArticleItem,
+  type WhatsNewArticle,
+} from '../../model/WhatsNew';
 import { REQUEST_STATE } from '../../model/Requests';
-import { HistoryItem, articleId, ARTICLE_TYPE } from '../../model/Help';
+import {
+  type HistoryItem,
+  type articleId,
+  ARTICLE_TYPE,
+} from '../../model/Help';
 import { createCtx } from '../../util/hooks/ctx';
 
 import { VIEW } from '../constants';
@@ -243,14 +250,18 @@ const navigationReducer = (
     newState = {
       articleId: newArticleId,
       history: currentHistory,
-      view: getViewForArticleId(newArticleId),
+      // If the current view is the search view and the new article id is empty, keep the current view
+      view:
+        currentView === VIEW.SEARCH && newArticleId.id === ''
+          ? currentView
+          : getViewForArticleId(newArticleId),
     };
   } else if (action.type === 'updateView' && action.payload) {
     const { payload: newView }: navigationReducerAction<ViewType> = action;
 
     newState = {
       articleId: currentArticleId,
-      history: currentHistory,
+      history: newView === VIEW.SEARCH ? [] : currentHistory,
       view: newView,
     };
   }
@@ -269,7 +280,8 @@ export const NavigationContextProvider = ({
   const { onGetHelpArticle } = useHelpArticleContext();
   const { onGetWhatsNewArticle } = useWhatsNewArticleContext();
   const { homeContent, homeOptions } = useHomeContext();
-  const { onSearch, isSearchResultVisible, searchValue } = useSearchContext();
+  const { onSearch, isSearchResultVisible, searchValue, searchResult } =
+    useSearchContext();
   const { onCloseButtonClick } = useHeaderContext();
   const { articleId: propsArticleId, history: propsHistory } = navigationData;
 
@@ -412,18 +424,32 @@ export const NavigationContextProvider = ({
           type: 'removeLastHistoryItem',
         });
       } else if (currentHistory.length === 1) {
-        // but if the history only has one item, clear the history
-        dispatchNavigationAction({
-          type: 'removeAllHistoryItems',
-        });
+        // If the search value is not empty and search result is not empty, show the search results
+        if (
+          searchValue !== '' &&
+          (searchResult?.length ?? 0) > 0 &&
+          onSearch !== undefined
+        ) {
+          dispatchNavigationAction({
+            type: 'updateView',
+            payload: VIEW.SEARCH,
+          });
+        }
+        // If the search value is empty, show the default content
+        else {
+          dispatchNavigationAction({
+            type: 'removeAllHistoryItems',
+          });
+        }
       }
     }
   }, [
     currentView,
-    onSearch,
-    currentHistory.length,
     searchValue,
-    currentArticleId.type,
+    currentArticleId,
+    currentHistory,
+    onSearch,
+    searchResult?.length,
   ]);
 
   const onClose = useCallback(
@@ -449,13 +475,20 @@ export const NavigationContextProvider = ({
   }, []);
 
   useEffect(() => {
-    if (isSearchResultVisible) {
+    // If the search result is visible or the search value is not empty, show the search result
+    if (isSearchResultVisible || searchValue !== '') {
       dispatchNavigationAction({
         type: 'updateView',
         payload: VIEW.SEARCH,
       });
+      // If the search result is not visible and the search value is empty, show the default content
+    } else if (!isSearchResultVisible && searchValue === '') {
+      dispatchNavigationAction({
+        type: 'updateView',
+        payload: VIEW.DEFAULT_CONTENT,
+      });
     }
-  }, [isSearchResultVisible]);
+  }, [isSearchResultVisible, searchValue]);
 
   useEffect(() => {
     const lastHistoryItem =

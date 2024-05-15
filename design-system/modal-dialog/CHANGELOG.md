@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.13.3
+
+### Patch Changes
+
+-   [#100067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100067)
+    [`0601616da694`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0601616da694) -
+    Internal changes to resolve an issue where global style overrides could break alignment between
+    the icon and title.
+
 ## 12.13.2
 
 ### Patch Changes

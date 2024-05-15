@@ -25,7 +25,7 @@ import SectionMessage from '@atlaskit/section-message';
 
 Pressable is a primitive used for building custom buttons with Atlassian Design System styling and built-in event tracking. It renders a `<button>` element.
 
-Only use Pressable when existing components such as [Button](/components/button/examples) are unsuitable and unable to be customized to fit your needs.
+Only use Pressable when existing components such as [button](/components/button/examples) are unsuitable and unable to be customized to fit your needs.
 
 ## Default
 
@@ -40,7 +40,7 @@ Pressable is unstyled by default.
 
 Pressable can be styled using XCSS. Ensure styling indicates the interaction state using `:hover` and `:active` pseudo-classes. Pressable includes consistent Atlassian Design System `:focus` styles, so it's unnecessary to add your own.
 
-For more information on XCSS, see the dedicated [XCSS documentation](/components/primitives/xcss).
+For more information on XCSS, see the [XCSS documentation](/components/primitives/xcss).
 
 <Example
   Component={PressableBasic}
@@ -91,16 +91,7 @@ Pressable passes through all valid HTML attributes to the underlying `<button>` 
 
 Pressable has utilities to make tracking events easier. Events will not be captured unless listeners are setup to handle them.
 
-### React UFO press interactions
-
-By default, pressable fires [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions) for available listeners. This helps Atlassian measure performance and reliability. Additional detail can be provided using the `interactionName` prop.
-
-<Example
-  Component={PressablePressTracing}
-  packageName="@atlaskit/primitives/pressable"
-/>
-
-### Atlaskit analytics
+### Track events for any analytics provider
 
 Pressable comes with built-in Atlaskit analytics support using the [Analytics next package](https://atlaskit.atlassian.com/packages/analytics/analytics-next), and fires events for available listeners. Currently this is only available for `onClick`.
 
@@ -113,7 +104,9 @@ See the event data in the console.
   packageName="@atlaskit/primitives/pressable"
 />
 
-### GASv3 analytics
+### Track events for Atlassian internal services
+
+#### GASv3 analytics
 
 The Atlassian analytics bridge makes Atlaskit analytics events compatible with GASv3 (Global Analytics Service). This can also inject an `actionSubjectId` to the event if required.
 
@@ -121,5 +114,14 @@ See the event data in the console.
 
 <Example
   Component={PressableAnalyticsGASv3}
+  packageName="@atlaskit/primitives/pressable"
+/>
+
+#### React UFO press interactions
+
+By default, pressable fires [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions) for available listeners. This helps Atlassian measure performance and reliability. Additional detail can be provided using the `interactionName` prop.
+
+<Example
+  Component={PressablePressTracing}
   packageName="@atlaskit/primitives/pressable"
 />

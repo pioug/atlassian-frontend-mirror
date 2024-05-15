@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -35,6 +35,41 @@ describe('usePreset', () => {
     rerender('changed');
 
     expect(createPreset).toBeCalledTimes(2); // createPreset should be called again when dependency changes
+  });
+
+  it('updates the editor API when the promise resolves', async () => {
+    const createPreset = jest.fn(() => new EditorPresetBuilder());
+    const { result } = renderHook((dep) => usePreset(createPreset, [dep]), {
+      initialProps: 'initial',
+    });
+
+    await act(async () => {
+      result.current.preset.build({
+        pluginInjectionAPI: { api: () => 'tada' } as any,
+      });
+    });
+
+    expect(result.current.editorApi).toBe('tada');
+  });
+
+  it('does not update the API if the hook unmounts', async () => {
+    const createPreset = jest.fn(() => new EditorPresetBuilder());
+    const { result, unmount } = renderHook(
+      (dep) => usePreset(createPreset, [dep]),
+      {
+        initialProps: 'initial',
+      },
+    );
+
+    unmount();
+
+    await act(async () => {
+      result.current.preset.build({
+        pluginInjectionAPI: { api: () => 'tada' } as any,
+      });
+    });
+
+    expect(result.current.editorApi).toBe(undefined);
   });
 
   it('injects the base EditorPresetBuilder', () => {

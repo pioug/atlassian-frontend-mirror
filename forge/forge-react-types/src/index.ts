@@ -5,6 +5,7 @@ export type {
   BoxProps,
   ButtonGroupProps,
   ButtonProps,
+  CalendarProps,
   CheckboxProps,
   CheckboxGroupProps,
   CodeBlockProps,

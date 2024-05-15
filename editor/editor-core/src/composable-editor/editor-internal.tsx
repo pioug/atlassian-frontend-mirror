@@ -76,19 +76,14 @@ export const EditorInternal = memo(
   }: InternalProps) => {
     const Component = getUiComponent(props.appearance!);
 
-    const _setInternalEditorApi = useSetPresetContext();
     const setEditorApi = useCallback(
       (api: PublicPluginAPI<any>) => {
-        if (_setInternalEditorApi) {
-          _setInternalEditorApi(api);
-        }
-
         // This is an workaround to unblock Editor Lego Decoupling project, if you have questions ping us #cc-editor-lego
         // We may clean up this code when EditorActions deprecation process starts
         // @ts-expect-error 2339: Property '__EDITOR_INTERNALS_DO_NOT_USE__API' does not exist on type 'EditorActions<any>'.
         editorActions.__EDITOR_INTERNALS_DO_NOT_USE__API = api;
       },
-      [_setInternalEditorApi, editorActions],
+      [editorActions],
     );
 
     const overriddenEditorProps = {
@@ -134,12 +129,18 @@ export const EditorInternal = memo(
                 <PortalProviderWithThemeProviders
                   onAnalyticsEvent={handleAnalyticsEvent}
                   useAnalyticsContext={props.UNSAFE_useAnalyticsContext}
-                  render={(legacyPortalProviderAPI: LegacyPortalProviderAPI) => (
+                  render={(
+                    legacyPortalProviderAPI: LegacyPortalProviderAPI,
+                  ) => (
                     <Fragment>
                       <ReactEditorViewContextWrapper
                         editorProps={overriddenEditorProps}
                         createAnalyticsEvent={createAnalyticsEvent}
-                        portalProviderAPI={getBooleanFF('platform.editor.react-18-portal') ? nextPortalProviderAPI : legacyPortalProviderAPI}
+                        portalProviderAPI={
+                          getBooleanFF('platform.editor.react-18-portal')
+                            ? nextPortalProviderAPI
+                            : legacyPortalProviderAPI
+                        }
                         providerFactory={providerFactory}
                         onEditorCreated={onEditorCreated}
                         onEditorDestroyed={onEditorDestroyed}
@@ -213,7 +214,13 @@ export const EditorInternal = memo(
                           </BaseTheme>
                         )}
                       />
-                      {getBooleanFF('platform.editor.react-18-portal') ? <NextPortalRenderer /> : <PortalRenderer portalProviderAPI={legacyPortalProviderAPI} />}
+                      {getBooleanFF('platform.editor.react-18-portal') ? (
+                        <NextPortalRenderer />
+                      ) : (
+                        <PortalRenderer
+                          portalProviderAPI={legacyPortalProviderAPI}
+                        />
+                      )}
                     </Fragment>
                   )}
                 />

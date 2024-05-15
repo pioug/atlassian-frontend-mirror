@@ -5,6 +5,7 @@ export type { BoxProps } from './BoxProps.codegen';
 export type { ButtonGroupProps } from './ButtonGroupProps.codegen';
 export type { ButtonProps } from './ButtonProps.codegen';
 export type { CheckboxProps } from './CheckboxProps.codegen';
+export type { CalendarProps } from './CalendarProps.codegen';
 export type { CheckboxGroupProps } from './CheckboxGroupProps.codegen';
 export type { CodeBlockProps } from './CodeBlockProps.codegen';
 export type { CodeProps } from './CodeProps.codegen';

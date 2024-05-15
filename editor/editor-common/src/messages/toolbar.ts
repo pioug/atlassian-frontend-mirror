@@ -88,6 +88,12 @@ export const toolbarMessages = defineMessages({
     description:
       'Menu label that provides access to various heading styles or normal text. For example: normal text styles, heading 1 text styles.',
   },
+  textStylesTooltip: {
+    id: 'fabric.editor.textStylesTooltip',
+    defaultMessage: 'Text styles',
+    description:
+      'Tooltip text for menu that provides access to various heading styles or normal text.',
+  },
   textFormattingOff: {
     id: 'fabric.editor.text.formatting.off',
     defaultMessage: 'Text formatting Off',

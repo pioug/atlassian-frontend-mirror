@@ -321,4 +321,19 @@ export const messages = defineMessages({
     description:
       'Screen Reader announces when the user attempts to resize the last column when only the previous one is available for resizing',
   },
+  tableAlignmentOptions: {
+    id: 'fabric.editor.tableAlignmentOptions',
+    defaultMessage: 'Alignment options',
+    description: 'Opens a menu with additional table alignment options',
+  },
+  alignTableCenter: {
+    id: 'fabric.editor.alignTableCenter',
+    defaultMessage: 'Align center',
+    description: 'Aligns table to the center',
+  },
+  alignTableLeft: {
+    id: 'fabric.editor.alignTableLeft',
+    defaultMessage: 'Align left',
+    description: 'Aligns table to the left',
+  },
 });

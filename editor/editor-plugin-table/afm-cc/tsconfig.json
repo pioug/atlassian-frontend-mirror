@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../../design-system/button/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../custom-steps/afm-cc/tsconfig.json"
         },
         {

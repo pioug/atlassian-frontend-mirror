@@ -74,7 +74,7 @@ export const ArticlesListItemTitleText = styled.span({
   font: token('font.heading.xsmall', fontFallback.heading.xsmall),
   display: 'inline-block',
   whiteSpace: 'normal',
-  overflowX: 'hidden',
+  overflow: 'hidden',
   marginBottom: token('space.100', '8px'),
 });
 

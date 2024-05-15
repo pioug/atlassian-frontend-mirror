@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-copy-button
 
+## 1.1.3
+
+### Patch Changes
+
+-   [#99954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99954)
+    [`0d119c672ce2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d119c672ce2) -
+    [ED-23345] Clean up showCopyButton check which enabled the copy button only if the copy button
+    plugin was enabled. This is now in the universal and default presets so will always be enabled.
+-   Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

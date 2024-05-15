@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import Button from '@atlaskit/button';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -19,71 +19,100 @@ import { createDefaultPreset } from '../../../labs-next';
 import { usePreset } from '../../../use-preset';
 
 describe('composable editor with toolbar', () => {
-  it('should be able to execute commands from outside the composable editor', () => {
-    const { container, getByText } = render(
-      <EditorContext>
-        <TestEditor />
-      </EditorContext>,
-    );
+  it('should be able to execute commands from outside the composable editor', async () => {
+    await act(async () => {
+      render(
+        <EditorContext>
+          <TestEditor />,
+        </EditorContext>,
+      );
+    });
 
-    const toolbarButton = getByText('Click me!');
+    const toolbarButton = screen.getByText('Click me!');
     fireEvent.click(toolbarButton);
-    const editorElement = container.getElementsByClassName(
-      'ak-editor-content-area',
-    );
-    expect(editorElement[0].textContent).toBe('bark');
+
+    const editorElement = screen.getByRole('textbox');
+
+    expect(editorElement.textContent).toBe('bark');
   });
 
-  it('should not be an unknown boy as the state should always update', () => {
-    const { getByTestId } = render(
-      <EditorContext>
-        <TestEditor />
-      </EditorContext>,
-    );
+  it('should not be an unknown boy as the state should always update', async () => {
+    await act(async () => {
+      render(
+        <EditorContext>
+          <TestEditor />
+        </EditorContext>,
+      );
+    });
 
-    const status = getByTestId('dog-status');
+    const status = screen.getByTestId('dog-status');
     expect(status.textContent).toBe('Good boy');
   });
 
-  it('should be able to execute commands and it uses the correct editor', () => {
-    const { container, getAllByText } = render(
-      <div>
-        <EditorContext>
-          <TestEditor />
-        </EditorContext>
-        <EditorContext>
-          <TestEditor />
-        </EditorContext>
-      </div>,
-    );
+  it('should be able to execute commands and it uses the correct editor', async () => {
+    await act(async () => {
+      render(
+        <div>
+          <EditorContext>
+            <TestEditor />
+          </EditorContext>
+          <EditorContext>
+            <TestEditor />
+          </EditorContext>
+        </div>,
+      );
+    });
 
-    const toolbarButtons = getAllByText('Click me!');
+    const toolbarButtons = screen.getAllByText('Click me!');
     fireEvent.click(toolbarButtons[1]);
     fireEvent.click(toolbarButtons[1]);
-    const editorElement = container.getElementsByClassName(
-      'ak-editor-content-area',
-    );
+    const editorElements = screen.getAllByRole('textbox');
+
     // We don't modify the first editor so it shouldn't have been modified
-    expect(editorElement[0].textContent).toBe('');
+    expect(editorElements[0].textContent).toBe('');
 
     // We bark twice on the second editor
-    expect(editorElement[1].textContent).toBe('barkbark');
+    expect(editorElements[1].textContent).toBe('barkbark');
   });
 
-  it('should be able to read + update state', () => {
-    const { getAllByText, getAllByTestId } = render(
-      <div>
-        <EditorContext>
-          <TestEditor />
-        </EditorContext>
-        <EditorContext>
-          <TestEditor />
-        </EditorContext>
-      </div>,
-    );
+  it('should be able to read + update state', async () => {
+    await act(async () => {
+      render(
+        <div>
+          <EditorContext>
+            <TestEditor />
+          </EditorContext>
+          <EditorContext>
+            <TestEditor />
+          </EditorContext>
+        </div>,
+      );
+    });
 
-    const toolbarButtons = getAllByText('Click me!');
-    const statuses = getAllByTestId('dog-status');
+    const toolbarButtons = screen.getAllByText('Click me!');
+    const statuses = screen.getAllByTestId('dog-status');
+    // Both dogs should be a good boy
+    expect(statuses[0].textContent).toBe('Good boy');
+    expect(statuses[1].textContent).toBe('Good boy');
+
+    fireEvent.click(toolbarButtons[1]);
+    // The second dog barks and should be a bad boy now
+    expect(statuses[0].textContent).toBe('Good boy');
+    expect(statuses[1].textContent).toBe('Bad boy');
+  });
+
+  it('should be able to read + update state without EditorContext', async () => {
+    await act(async () => {
+      render(
+        <div>
+          <TestEditor />
+          <TestEditor />
+        </div>,
+      );
+    });
+
+    const toolbarButtons = screen.getAllByText('Click me!');
+    const statuses = screen.getAllByTestId('dog-status');
     // Both dogs should be a good boy
     expect(statuses[0].textContent).toBe('Good boy');
     expect(statuses[1].textContent).toBe('Good boy');

@@ -107,21 +107,8 @@ export function getCopyButtonConfig(
   };
 }
 
-const showCopyButton = (state?: EditorState) => {
-  return (
-    state &&
-    // Check if the Copy button plugin is enabled
-    // @ts-ignore copyButtonPluginKey.key
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    state.plugins.find((p: any) => p.key === copyButtonPluginKey.key)
-  );
-};
-
 /**
  * Process floatingToolbar items for copyButton
- *
- * If copy button plugin not enabled, remove copy button item from toolbar items
- * else process copy button to standard floatingtoobarbutton
  */
 export const processCopyButtonItems =
   (editorAnalyticsApi?: EditorAnalyticsAPI | undefined) =>
@@ -133,7 +120,7 @@ export const processCopyButtonItems =
       items.flatMap(item => {
         switch (item.type) {
           case 'copy-button':
-            if (item?.hidden || !showCopyButton(state)) {
+            if (item?.hidden) {
               return [];
             }
             return item?.items.map(copyButtonItem =>

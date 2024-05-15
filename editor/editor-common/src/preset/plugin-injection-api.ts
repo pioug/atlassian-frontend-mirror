@@ -281,6 +281,16 @@ interface PluginInjectionAPIDefinition {
   onEditorPluginInitialized: (plugin: NextEditorPluginInitializedType) => void;
 }
 
+const editorAPICache = new WeakMap<
+  EditorPluginInjectionAPI,
+  PluginInjectionAPI<any, any>['dependencies']
+>();
+
+type DependenciesGenericType<T> = PluginInjectionAPI<
+  T extends NextEditorPlugin<infer Name, any> ? Name : never,
+  T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
+>['dependencies'];
+
 export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   private sharedStateAPI: SharedStateAPI;
   private actionsAPI: ActionsAPI;
@@ -296,14 +306,10 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     this.addPlugin(corePlugin({ config: { getEditorView } }));
   }
 
-  api<T extends NextEditorPlugin<any, any>>() {
+  private createAPI<T extends NextEditorPlugin<any, any>>() {
     const { sharedStateAPI, actionsAPI, commandsAPI, getPluginByName } = this;
-    type DependenciesGenericType = PluginInjectionAPI<
-      T extends NextEditorPlugin<infer Name, any> ? Name : never,
-      T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
-    >['dependencies'];
 
-    return new Proxy<DependenciesGenericType>({} as any, {
+    return new Proxy<DependenciesGenericType<T>>({} as any, {
       get: function (target, prop: string, receiver) {
         // If we pass this as a prop React hates us
         // Let's just reflect the result and ignore these
@@ -329,6 +335,14 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
         return proxyCoreAPI;
       },
     });
+  }
+
+  api<T extends NextEditorPlugin<any, any>>() {
+    if (!editorAPICache.get(this)) {
+      editorAPICache.set(this, this.createAPI<T>());
+    }
+
+    return editorAPICache.get(this) as DependenciesGenericType<T>;
   }
 
   onEditorViewUpdated = ({

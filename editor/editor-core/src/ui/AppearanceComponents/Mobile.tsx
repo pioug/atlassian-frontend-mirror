@@ -4,8 +4,10 @@ import React, { forwardRef, useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import type {
   BasePlugin,
   BasePluginState,

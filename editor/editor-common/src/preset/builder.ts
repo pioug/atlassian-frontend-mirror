@@ -5,6 +5,7 @@ import type {
   MaybePluginName,
   NextEditorPlugin,
   PresetPlugin,
+  PublicPluginAPI,
   SafePresetCheck,
 } from '../types';
 import type { EditorPlugin } from '../types/editor-plugin';
@@ -33,9 +34,16 @@ export class EditorPresetBuilder<
   StackPlugins extends AllEditorPresetPluginTypes[] = [],
 > {
   private readonly data: [...StackPlugins];
+  /**
+   * Returns the editor API when resolved.
+   * This occurs when the preset is initially built.
+   */
+  public apiPromise: Promise<PublicPluginAPI<any>>;
+  private resolver: ((v: PublicPluginAPI<any>) => void) | undefined;
 
   constructor(...more: [...StackPlugins]) {
     this.data = [...more] || [];
+    this.apiPromise = new Promise((r) => (this.resolver = r));
   }
 
   add<NewPlugin extends PresetPlugin>(
@@ -129,6 +137,9 @@ export class EditorPresetBuilder<
       pluginInjectionAPI,
       excludePlugins,
     });
+    if (pluginInjectionAPI) {
+      this.resolver?.(pluginInjectionAPI.api());
+    }
     return this.removeExcludedPlugins(editorPlugins, excludePlugins);
   }
 

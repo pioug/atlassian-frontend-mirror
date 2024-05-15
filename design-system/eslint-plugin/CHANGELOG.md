@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.2.0
+
+### Minor Changes
+
+-   [#96661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96661)
+    [`ff9ef688b598`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff9ef688b598) -
+    `use-primitives` rule: Adds ability to map negative margin values to negative spacing tokens.
+
 ## 10.1.0
 
 ### Minor Changes

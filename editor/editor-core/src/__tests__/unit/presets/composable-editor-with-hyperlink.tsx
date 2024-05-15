@@ -1,6 +1,12 @@
 import React from 'react';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
 
 import Button from '@atlaskit/button';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -13,13 +19,15 @@ import { usePreset } from '../../../use-preset';
 
 describe('hyperlink lpLinkPicker flag behaviour in composable editor with default preset', () => {
   it('check that new link picker is used when lpLinkPicker is true', async () => {
-    const { getByText } = render(
-      <EditorContext>
-        <ComposableEditorWithToolbar lpLinkPicker={true} />
-      </EditorContext>,
-    );
+    await act(async () => {
+      render(
+        <EditorContext>
+          <ComposableEditorWithToolbar lpLinkPicker={true} />
+        </EditorContext>,
+      );
+    });
 
-    const toolbarButton = getByText('Click me!');
+    const toolbarButton = screen.getByText('Click me!');
     fireEvent.click(toolbarButton);
     // check that the link picker is rendered
     await waitFor(() =>
@@ -31,13 +39,15 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
   });
 
   it('check that new link picker is used when lpLinkPicker is undefined', async () => {
-    const { getByText } = render(
-      <EditorContext>
-        <ComposableEditorWithToolbar />
-      </EditorContext>,
-    );
+    await act(async () => {
+      render(
+        <EditorContext>
+          <ComposableEditorWithToolbar />
+        </EditorContext>,
+      );
+    });
 
-    const toolbarButton = getByText('Click me!');
+    const toolbarButton = screen.getByText('Click me!');
     fireEvent.click(toolbarButton);
     // check that the link picker is rendered
     await waitFor(() =>
@@ -49,13 +59,15 @@ describe('hyperlink lpLinkPicker flag behaviour in composable editor with defaul
   });
 
   it('check link picker not shown when lpLinkPicker is false', async () => {
-    const { getByText } = render(
-      <EditorContext>
-        <ComposableEditorWithToolbar lpLinkPicker={false} />
-      </EditorContext>,
-    );
+    await act(async () => {
+      render(
+        <EditorContext>
+          <ComposableEditorWithToolbar lpLinkPicker={false} />
+        </EditorContext>,
+      );
+    });
 
-    const toolbarButton = getByText('Click me!');
+    const toolbarButton = screen.getByText('Click me!');
     fireEvent.click(toolbarButton);
     // check that the old link picker is rendered
     await waitFor(() =>

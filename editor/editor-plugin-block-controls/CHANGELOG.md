@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.3.4
+
+### Patch Changes
+
+-   [#99555](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99555)
+    [`703d23b83234`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/703d23b83234) -
+    [ux] Update drag handle style based on design
+-   Updated dependencies
+
 ## 1.3.3
 
 ### Patch Changes

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
 import { iconColor } from './internal/constants';
-import { Appearance } from './types';
+import { type Appearance } from './types';
 
 const titleStyles = css({
   display: 'flex',
@@ -35,6 +35,15 @@ const textStyles = css({
 
 const iconStyles = css({
   flex: '0 0 auto',
+  // The following properties have been added purely to avoid a global style override in Jira breaking alignment between the icon and title text.
+  // https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
+  // When the override is removed, these can be removed.
+  color: 'inherit',
+  fontSize: 'inherit',
+  fontStyle: 'inherit',
+  fontWeight: 'inherit',
+  letterSpacing: 'inherit',
+  lineHeight: 'inherit',
 });
 
 const truncatedTextStyles = css({

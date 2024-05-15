@@ -1,14 +1,11 @@
 import type { DependencyList } from 'react';
-import { useMemo } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   AllEditorPresetPluginTypes,
-  ExtractNextEditorPlugins,
   ExtractPublicEditorAPI,
 } from '@atlaskit/editor-common/types';
-
-import { usePresetContext } from './presets/context';
 
 interface PresetAPI<
   PluginNames extends string[] = [],
@@ -36,8 +33,8 @@ interface PresetAPI<
  * Example:
  * ```ts
  * function ExampleEditor() {
- *   const { preset, editorApi } = usePreset(() =>
- *     new EditorPresetBuilder().add(plugin1).add(plugin2)
+ *   const { preset, editorApi } = usePreset((builder) =>
+ *     builder.add(plugin1).add(plugin2)
  *   , []);
  *
  *   // Can execute typesafe commands based on plugin1 or 2
@@ -62,12 +59,19 @@ export function usePreset<
   ) => EditorPresetBuilder<PluginNames, StackPlugins>,
   dependencies: DependencyList = [],
 ): PresetAPI<PluginNames, StackPlugins> {
-  const editorApi = usePresetContext<ExtractNextEditorPlugins<StackPlugins>>();
+  const [editorApi, setAPI] = useState<
+    PresetAPI<PluginNames, StackPlugins>['editorApi'] | undefined
+  >(undefined);
   const preset = useMemo(
     () => createPreset(new EditorPresetBuilder()),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     dependencies,
   );
+  useLayoutEffect(() => {
+    preset.apiPromise.then((api) => {
+      setAPI(api);
+    });
+  }, [preset.apiPromise]);
 
   return {
     editorApi,

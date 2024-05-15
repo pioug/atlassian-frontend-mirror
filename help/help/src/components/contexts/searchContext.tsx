@@ -125,9 +125,6 @@ export const SearchContextProvider = ({
     if (onSearchResultItemClick) {
       onSearchResultItemClick(event, analyticsEvent, articleData);
     }
-    if (!openExternalSearchUrlInNewTab || articleData.href == null) {
-      setSearchResultsVisible(false);
-    }
   };
 
   return (

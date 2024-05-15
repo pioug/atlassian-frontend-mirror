@@ -312,8 +312,6 @@ describe('ConfluenceSearchConfigModal', () => {
           );
           fireEvent.click(await findByText(`Today`));
 
-          jest.advanceTimersByTime(500);
-
           assertInsertResult(
             {
               parameters: {
@@ -359,9 +357,6 @@ describe('ConfluenceSearchConfigModal', () => {
             getByTestId(`confluence-search-modal--date-range-button`),
           );
           fireEvent.click(await findByText(`Custom`));
-          fireEvent.click(await findByText(`Update`));
-
-          jest.advanceTimersByTime(500);
 
           assertInsertResult(
             {
@@ -410,8 +405,6 @@ describe('ConfluenceSearchConfigModal', () => {
             getByTestId(`confluence-search-modal--date-range-button`),
           );
           fireEvent.click(await findByText(`Update`));
-
-          jest.advanceTimersByTime(500);
 
           assertInsertResult(
             {
@@ -463,8 +456,6 @@ describe('ConfluenceSearchConfigModal', () => {
           );
           fireEvent.click(await findByText(`Update`));
 
-          jest.advanceTimersByTime(500);
-
           assertInsertResult(
             {
               parameters: {
@@ -515,8 +506,6 @@ describe('ConfluenceSearchConfigModal', () => {
             getByTestId(`confluence-search-modal--date-range-button`),
           );
           fireEvent.click(await findByText(`Update`));
-
-          jest.advanceTimersByTime(500);
 
           assertInsertResult(
             {

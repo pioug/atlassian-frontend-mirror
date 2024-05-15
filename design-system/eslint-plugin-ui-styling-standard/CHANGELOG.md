@@ -1,5 +1,18 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.13.0
+
+### Minor Changes
+
+-   [#99544](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99544)
+    [`391edf6de450`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/391edf6de450) -
+    Added `no-global-styles` rule which prevents:
+
+    -   The `Global` API from `@emotion`
+    -   The `createGlobalStyle` and `injectGlobal` APIs from `styled-components`
+    -   `<style>` elements in JSX
+    -   CSS imports (including SASS and LESS)
+
 ## 0.12.0
 
 ### Minor Changes

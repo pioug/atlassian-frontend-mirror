@@ -91,6 +91,9 @@
       "path": "../icon-object/tsconfig.app.json"
     },
     {
+      "path": "../image/tsconfig.app.json"
+    },
+    {
       "path": "../../observability/interaction-context/tsconfig.app.json"
     },
     {

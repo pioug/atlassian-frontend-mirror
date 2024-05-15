@@ -9,7 +9,7 @@ import React, {
 import invariant from 'tiny-invariant';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import {
@@ -164,7 +164,7 @@ const Anchor = <RouterLinkConfig extends Record<string, any> = never>(
    *
    * - a link component is set in the app provider
    * - it's not an external link (starting with `http://` or `https://`)
-   * - it's not a non-HTTP-based link (e.g. Emails, phone numbers, hash links etc.).
+   * - it's not a non-HTTP-based link (e.g. emails, phone numbers, hash links etc.).
    */
   const isRouterLink = RouterLink && !isExternal && !isNonHttpBased;
 

@@ -1,4 +1,4 @@
-import { Rule } from 'eslint';
+import { type Rule } from 'eslint';
 import * as eslintCodemodUtils from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 import { mocked } from 'ts-jest/utils';
@@ -68,6 +68,82 @@ describe('cssToXcssTransformer', () => {
       2,
       expect.objectContaining({ value: '8px' }),
       "'space.100'",
+    );
+  });
+
+  it('transforms negative spacing tokens', () => {
+    // ARRANGE
+    const root = j(
+      `
+      import { css } from '@emotion/react';
+      const marginStyles = css({ margin: '-8px' });
+      <div css={marginStyles}></div>
+      `,
+    );
+    mocked(utils.getVariableDefinitionValue).mockReturnValue({
+      node: root.find(j.VariableDeclarator).get().value,
+    } as ReturnType<typeof utils.getVariableDefinitionValue>);
+
+    // ACT
+    const result = cssToXcssTransformer(
+      root.find(j.JSXElement).get().value,
+      dummyContext,
+      mockFixer,
+    );
+
+    // ASSERT
+    expect(result).toHaveLength(2);
+    expect(mockFixer.replaceText).toHaveBeenCalledTimes(2);
+
+    // replaces `css` function call with `xcss`
+    expect(mockFixer.replaceText).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ name: 'css' }),
+      'xcss',
+    );
+    // replaces pixel values with tokens
+    expect(mockFixer.replaceText).toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({ value: '-8px' }),
+      "'space.negative.100'",
+    );
+  });
+
+  it('does not transform negative spacing tokens on unsupported properties', () => {
+    // ARRANGE
+    const root = j(
+      `
+      import { css } from '@emotion/react';
+      const paddingStyles = css({ padding: '-8px' });
+      <div css={paddingStyles}></div>
+      `,
+    );
+    mocked(utils.getVariableDefinitionValue).mockReturnValue({
+      node: root.find(j.VariableDeclarator).get().value,
+    } as ReturnType<typeof utils.getVariableDefinitionValue>);
+
+    // ACT
+    const result = cssToXcssTransformer(
+      root.find(j.JSXElement).get().value,
+      dummyContext,
+      mockFixer,
+    );
+
+    // ASSERT
+    expect(result).toHaveLength(2);
+    expect(mockFixer.replaceText).toHaveBeenCalledTimes(2);
+
+    // replaces `css` function call with `xcss`
+    expect(mockFixer.replaceText).toHaveBeenNthCalledWith(
+      1,
+      expect.objectContaining({ name: 'css' }),
+      'xcss',
+    );
+    // replaces pixel values with tokens
+    expect(mockFixer.replaceText).not.toHaveBeenNthCalledWith(
+      2,
+      expect.objectContaining({ value: '-8px' }),
+      "'space.negative.100'",
     );
   });
 });

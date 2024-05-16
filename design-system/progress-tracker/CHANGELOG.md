@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 8.6.0
+
+### Minor Changes
+
+-   [#99069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99069)
+    [`609d5a37c656`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/609d5a37c656) -
+    Add support for React 18.
+
 ## 8.5.11
 
 ### Patch Changes

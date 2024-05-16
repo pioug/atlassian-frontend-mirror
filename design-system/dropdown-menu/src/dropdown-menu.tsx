@@ -156,7 +156,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>({
       if (
         event.key !== 'Escape' &&
         event.key !== 'Tab' &&
-        event.target.closest(`[id^=${PREFIX}] [aria-haspopup]`)
+        event.target?.closest?.(`[id^=${PREFIX}] [aria-haspopup]`)
       ) {
         // Check if it is within dropdown and it is a trigger button
         // if it is a nested dropdown, clicking trigger won't close the dropdown

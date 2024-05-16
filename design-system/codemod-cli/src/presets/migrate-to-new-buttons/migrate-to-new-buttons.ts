@@ -2,6 +2,7 @@ import type { API, FileInfo } from 'jscodeshift';
 
 import splitImportsTransformer from './codemods/next-split-imports';
 import migrateToNewButtonVariantsTransformer from './codemods/next-migrate-to-new-button-variants';
+import removeUnsafeSizeTransformer from './codemods/next-remove-unsafe-size';
 
 export default async function transformer(
   file: FileInfo,
@@ -10,6 +11,7 @@ export default async function transformer(
   const transformers = [
     splitImportsTransformer,
     migrateToNewButtonVariantsTransformer,
+    removeUnsafeSizeTransformer,
   ];
   let src = file.source;
   transformers.forEach((transformer) => {

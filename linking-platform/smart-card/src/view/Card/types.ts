@@ -31,6 +31,7 @@ export enum CardAction {
   FollowAction = 'FollowAction',
   CopyLinkAction = 'CopyLinkAction',
   AISummaryAction = 'AISummaryAction',
+  AutomationAction = 'AutomationAction',
 }
 
 export type CardActionOptions =

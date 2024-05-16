@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-status",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Status plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -36,12 +36,12 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^36.1.0",
+    "@atlaskit/adf-schema": "^36.3.0",
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/editor-common": "^79.6.0",
-    "@atlaskit/editor-plugin-analytics": "^1.1.0",
+    "@atlaskit/editor-common": "^80.2.0",
+    "@atlaskit/editor-plugin-analytics": "^1.2.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/editor-shared-styles": "^2.10.0",
+    "@atlaskit/editor-shared-styles": "^2.11.0",
     "@atlaskit/status": "^1.4.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",

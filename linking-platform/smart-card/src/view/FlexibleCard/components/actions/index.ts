@@ -9,3 +9,4 @@ export { default as PreviewAction } from './preview-action';
 export { default as CopyLinkAction } from './copy-link-action';
 
 export { default as AISummaryAction } from './ai-summary-action';
+export { default as AutomationAction } from './automation-action';

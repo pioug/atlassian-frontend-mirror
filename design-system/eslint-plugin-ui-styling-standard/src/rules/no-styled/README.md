@@ -1,0 +1,82 @@
+This rule prevents usage of `styled` imports'.
+
+Avoid usages of styled, eg. `styled.div`, `styled('div')`, `styled(Component)`, etc.
+
+## Examples
+
+### Incorrect
+
+```tsx
+import styled from 'styled-components';
+
+const Component = styled.div`
+  color: red;
+`;
+export default styled.div({ color: 'red' });
+```
+
+```tsx
+import styled2 from '@emotion/styled';
+
+export const Component = styled2('div')`…`;
+```
+
+```tsx
+import styled from 'styled-components';
+import { styled as styled3 } from '@compiled/react';
+
+const Component = styled.div`color: red;`
+export const ComponentTwo = styled3(Component)({ … });
+```
+
+```tsx
+import styled from 'styled-components';
+
+export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))({
+  color: 'red',
+});
+```
+
+```tsx
+import styled from 'styled-components';
+
+export default styled.div.attrs((props) => ({ 'data-testid': props.testId }))`
+  color: red;
+`;
+```
+
+### Correct
+
+```tsx
+import { css, jsx } from '@emotion/react';
+
+const styles = css({ color: 'red' });
+
+const Component = ({ children }) => {
+  return <div css={styles}>{children}</div>;
+};
+```
+
+```tsx
+// Using Primitives
+import { Box, xcss } from '@atlaskit/primitives';
+
+const styles = xcss({
+  color: 'color.text.subtlest',
+});
+
+const Component = ({ children }) => {
+  return <Box xcss={styles}>{children}</Box>;
+};
+```
+
+## FAQ
+
+### Why avoid using `styled` imports?
+
+Using `styled` imports impacts file readability, has TypeScript implications, adds linting complexity, promotes exported styles, and potential refactoring efforts. Using `css()` with the `<div css={…}>` syntax is more performant and clear.
+
+### How will I extend like `styled(Button)`?
+
+Primarily, we would suggest you don't extend styles of a component you don't own unless they have an explicit bounded interface for you to customize against. The Atlassian Design System for example has removed `styled(Button)` interactivity in our latest variants because they are unsafe for us to evolve the system with.
+Instead, make use of reusable component patterns to pass props around which impact the styles of that component.

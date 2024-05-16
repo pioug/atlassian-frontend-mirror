@@ -192,14 +192,16 @@ describe('useAISummary', () => {
     expect(ufoSucceedSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
   });
 
-  it('sends summary failed event', async () => {
-    const experienceId = 'ufo-experience-failed-id';
+  it.each([
+    [false, 'ACCEPTABLE_USE_VIOLATIONS'],
+    [false, 'HIPAA_CONTENT_DETECTED'],
+    [false, 'EXCEEDING_CONTEXT_LENGTH_ERROR'],
+    [true, 'UNEXPECTED'],
+    [true, 'RATE_LIMIT'],
+  ])('sends summary failed event with %s for isSloError when reason is %s', async (expected: boolean, reason?: string ) => {
     const onEventSpy = jest.fn();
-    const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-    const ufoFailSpy = jest.spyOn(ufo, 'failUfoExperience');
 
-    uuid.mockReturnValueOnce(experienceId);
-    fetchMock.mockRejectOnce(new Error('foo'));
+    fetchMock.mockRejectOnce(new Error(reason));
 
     const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
       wrapper: ({ children }) => (
@@ -218,74 +220,8 @@ describe('useAISummary', () => {
           actionSubject: 'summary',
           action: 'failed',
           attributes: {
-            reason: 'UNEXPECTED',
-            isSloError: true
-          },
-        },
-      },
-      ANALYTICS_CHANNEL,
-    );
-
-    expect(ufoStartSpy).toBeCalledTimes(1);
-    expect(ufoStartSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
-    expect(ufoFailSpy).toBeCalledTimes(1);
-    expect(ufoFailSpy).toBeCalledWith('smart-link-ai-summary', experienceId);
-  });
-  it(`sets isSloError attribute to false when reason is HIPAA_CONTENT_DETECTED`, async () => {
-    const onEventSpy = jest.fn();
-
-    fetchMock.mockRejectOnce(new Error('HIPAA_CONTENT_DETECTED'));
-
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
-      wrapper: ({ children }) => (
-        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
-          {children}
-        </AnalyticsListener>
-      ),
-    });
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-
-    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          actionSubject: 'summary',
-          action: 'failed',
-          attributes: {
-            reason: 'HIPAA_CONTENT_DETECTED',
-            isSloError: false
-          },
-        },
-      },
-      ANALYTICS_CHANNEL,
-    );
-  });
-
-  it(`sets isSloError attribute to false when reason is ACCEPTABLE_USE_VIOLATIONS`, async () => {
-    const onEventSpy = jest.fn();
-
-    fetchMock.mockRejectOnce(new Error('ACCEPTABLE_USE_VIOLATIONS'));
-
-    const { result } = renderHook(() => useAISummary(mockUseAISummaryProps), {
-      wrapper: ({ children }) => (
-        <AnalyticsListener onEvent={onEventSpy} channel={ANALYTICS_CHANNEL}>
-          {children}
-        </AnalyticsListener>
-      ),
-    });
-    await act(async () => {
-      await result.current.summariseUrl();
-    });
-
-    expect(onEventSpy).toBeFiredWithAnalyticEventOnce(
-      {
-        payload: {
-          actionSubject: 'summary',
-          action: 'failed',
-          attributes: {
-            reason: 'ACCEPTABLE_USE_VIOLATIONS',
-            isSloError: false
+            reason: reason,
+            isSloError: expected
           },
         },
       },

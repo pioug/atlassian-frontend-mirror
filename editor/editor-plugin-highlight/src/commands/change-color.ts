@@ -21,7 +21,7 @@ export const changeColor =
     // editorAnalyticsAPI?.attachAnalyticsEvent({
     //   action: ACTION.FORMATTED,
     //   actionSubject: ACTION_SUBJECT.TEXT,
-    //   actionSubjectId: ACTION_SUBJECT_ID.HIGHLIGHT,
+    //   actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
     //   eventType: EVENT_TYPE.TRACK,
     // })(tr);
 

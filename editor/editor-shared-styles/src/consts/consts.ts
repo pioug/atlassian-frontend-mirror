@@ -1,3 +1,4 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import {
   B100,
@@ -156,7 +157,11 @@ export const DEFAULT_EMBED_CARD_HEIGHT = 480;
 
 export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 
+// @deprecated
 export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
+
+export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
+  getBooleanFF('platform.confluence.frontend.narrow-full-page-editor-toolbar') ? token('space.500', '40px') : '56px';
 
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 

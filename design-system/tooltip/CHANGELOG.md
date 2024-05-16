@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 18.4.0
+
+### Minor Changes
+
+-   [#97315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97315)
+    [`9116699f734c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9116699f734c) -
+    Add support for React 18.
+
 ## 18.3.0
 
 ### Minor Changes

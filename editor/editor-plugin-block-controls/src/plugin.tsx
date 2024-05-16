@@ -9,6 +9,7 @@ import type {
 import { createPlugin, key } from './pm-plugins/main';
 import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
+import { getSelection } from './utils/getSelection';
 
 export const blockControlsPlugin: NextEditorPlugin<'blockControls'> = ({
   api,
@@ -35,7 +36,9 @@ export const blockControlsPlugin: NextEditorPlugin<'blockControls'> = ({
         tr.delete(start, end); // delete the content from the original position
         const mappedTo = tr.mapping.map(to);
         tr.insert(mappedTo, nodeCopy); // insert the content at the new position
-        api?.core?.actions.focus();
+        tr.setSelection(getSelection(tr, mappedTo));
+        api?.core.actions.focus();
+
         return tr;
       },
   },

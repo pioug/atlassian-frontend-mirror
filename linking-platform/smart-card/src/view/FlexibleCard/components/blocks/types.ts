@@ -1,13 +1,13 @@
 import {
-  ActionName,
-  ElementName,
-  SmartLinkDirection,
-  SmartLinkSize,
-  SmartLinkStatus,
+  type ActionName,
+  type ElementName,
+  type SmartLinkDirection,
+  type SmartLinkSize,
+  type SmartLinkStatus,
 } from '../../../../constants';
-import { SerializedStyles } from '@emotion/react';
-import { ActionProps } from '../actions/action/types';
-import { PropsWithChildren, Ref } from 'react';
+import { type SerializedStyles } from '@emotion/react';
+import { type ActionProps } from '../actions/action/types';
+import { type PropsWithChildren, type Ref } from 'react';
 
 export type BlockProps = PropsWithChildren<{
   /**
@@ -201,6 +201,7 @@ export type NamedDataActionItem = BaseDataActionItem & {
     | ActionName.FollowAction
     | ActionName.PreviewAction
     | ActionName.DownloadAction
+    | ActionName.AutomationAction
     /**
      * To be removed once ActionName.ViewAction is retired
      * Currently left in to maintain backwards compatibility with public API

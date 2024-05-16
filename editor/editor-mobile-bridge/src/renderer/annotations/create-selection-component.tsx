@@ -45,7 +45,7 @@ export const createSelectionComponent = (nativeToWebAPI: RendererBridge) =>
         }
       }
 
-      applyDraftMode(false);
+      applyDraftMode({ keepNativeSelection: false});
       setIsDraftMode(true);
     }, [applyDraftMode, getAnnotationIndexMatch]);
 

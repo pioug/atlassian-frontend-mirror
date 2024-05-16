@@ -1,5 +1,17 @@
 # @atlaskit/form
 
+## 10.1.0
+
+### Minor Changes
+
+-   [#98612](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98612)
+    [`7a11b97d325a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a11b97d325a) -
+    Add support for React 18.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

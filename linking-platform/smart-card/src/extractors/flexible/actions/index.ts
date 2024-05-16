@@ -1,13 +1,14 @@
 import type { JsonLd } from 'json-ld-types';
 import { ActionName, InternalActionName } from '../../../constants';
 import type { FlexibleUiActions } from '../../../state/flexible-ui-context/types';
-import { AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
+import type { AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
 import type { CardActionOptions } from '../../../view/Card/types';
 import { extractDownloadAction } from './extract-download-action';
 import { extractPreviewAction } from './extract-preview-action';
 import { extractAISummaryAction } from './extract-ai-summary-action';
 import extractFollowAction from './extract-follow-action';
 import { extractCopyLinkAction } from './extract-copy-link-action';
+import { extractAutomationAction } from './extract-automation-action';
 
 const extractActions = (
   response: JsonLd.Response,
@@ -23,6 +24,7 @@ const extractActions = (
     [ActionName.DownloadAction]: extractDownloadAction(data, actionOptions),
     [ActionName.FollowAction]: extractFollowAction(response, actionOptions, id),
     [ActionName.PreviewAction]: extractPreviewAction(response, actionOptions),
+    [ActionName.AutomationAction]: extractAutomationAction(response),
 
     [InternalActionName.AISummaryAction]: extractAISummaryAction(
       response,

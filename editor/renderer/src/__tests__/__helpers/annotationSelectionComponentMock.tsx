@@ -4,6 +4,7 @@ import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-comm
 import AddCommentIcon from '@atlaskit/icon/glyph/comment';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Popup } from '@atlaskit/editor-common/ui';
+import uuid from 'uuid/v4';
 
 type Callback = (doc: JSONDocNode) => void;
 
@@ -13,7 +14,7 @@ export const AnnotationSelectionComponentMock = (
   const { isAnnotationAllowed, onClose, applyDraftMode, wrapperDOM } = props;
   const [showCreateComponent, setShowCreateComponent] = React.useState(false);
   const onToolbarCreateButtonClick = React.useCallback(() => {
-    applyDraftMode();
+    applyDraftMode({ annotationId: uuid(), keepNativeSelection: true });
     setShowCreateComponent(true);
   }, [applyDraftMode]);
 

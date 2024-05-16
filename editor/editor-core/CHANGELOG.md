@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 193.19.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.18.1
+
+### Patch Changes
+
+-   [#98803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98803)
+    [`b9d6c4c4f418`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9d6c4c4f418) -
+    Added new FULL_PAGE_EDITOR_TOOLBAR_HEIGHT constant to editor-shared-styles.
+-   Updated dependencies
+
+## 193.18.0
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 193.17.0
 
 ### Minor Changes

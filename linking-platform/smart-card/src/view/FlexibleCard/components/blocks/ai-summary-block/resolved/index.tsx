@@ -94,6 +94,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
     testId,
     aiSummaryMinHeight = 0,
     metadata,
+    placeholder,
   } = props;
 
   const { fireEvent } = useAnalyticsEvents();
@@ -121,6 +122,13 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
 
   const isSummarisedOnMountRef = useRef(status === 'done');
   const isErroredOnMountRef = useRef(status === 'error');
+
+  const minHeight =
+    getBooleanFF(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+    ) && isSummarisedOnMountRef.current
+      ? 0
+      : aiSummaryMinHeight;
 
   useEffect(() => {
     // if the error was apparent on mount and the status is changed to loading we can
@@ -167,6 +175,15 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
     [onActionMenuOpenChange],
   );
 
+  if (
+    !showAISummary &&
+    getBooleanFF(
+      'platform.linking-platform.smart-card.hover-card-action-redesign',
+    )
+  ) {
+    return <>{placeholder}</>;
+  }
+
   return (
     <Block
       {...props}
@@ -187,13 +204,13 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockProps) => {
         <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />
       )}
       <MotionWrapper
-        minHeight={aiSummaryMinHeight}
+        minHeight={minHeight}
         show={showAISummary}
         showTransition={!isSummarisedOnMountRef.current}
       >
         <AISummary
           testId={`${testId}-ai-summary`}
-          minHeight={aiSummaryMinHeight}
+          minHeight={minHeight}
           content={content}
           showIcon={
             !getBooleanFF(

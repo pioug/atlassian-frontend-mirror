@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 26.68.0
+
+### Minor Changes
+
+-   [#100572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100572)
+    [`f7db86ab4de9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7db86ab4de9) -
+    [ux] Remove footer AI icon tooltip and realign AI information quality tooltip
+
+### Patch Changes
+
+-   [#99219](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99219)
+    [`3df318ff4439`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3df318ff4439) -
+    Hover preview: Move resolved view redesign into its own separate component
+
+## 26.67.0
+
+### Minor Changes
+
+-   [#100076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100076)
+    [`bf4a097d8971`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf4a097d8971) -
+    Add error callback to follow server action
+
+### Patch Changes
+
+-   [#100061](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100061)
+    [`e9808a59c4a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9808a59c4a0) -
+    Add error message for content exceeds length when summarizing a smart link
+-   Updated dependencies
+
 ## 26.66.0
 
 ### Minor Changes

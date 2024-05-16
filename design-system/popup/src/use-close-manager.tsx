@@ -1,11 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import React, { useEffect } from 'react';
 
-import { bindAll } from 'bind-event-listener';
+import { bind, bindAll } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { UNSAFE_useLayering } from '@atlaskit/layering';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { CloseManagerHook } from './types';
+import { type CloseManagerHook } from './types';
 
 export const useCloseManager = ({
   isOpen,
@@ -15,7 +17,7 @@ export const useCloseManager = ({
   shouldUseCaptureOnOutsideClick: capture,
   shouldCloseOnTab,
 }: CloseManagerHook): void => {
-  const { isLayerDisabled } = UNSAFE_useLayering();
+  const { isLayerDisabled, currentLevel } = UNSAFE_useLayering();
 
   useEffect(() => {
     if (!isOpen || !popupRef) {
@@ -42,6 +44,10 @@ export const useCloseManager = ({
       const doesDomNodeExist = document.body.contains(target as Node);
 
       if (!doesDomNodeExist) {
+        return;
+      }
+      if (isLayerDisabled() && getBooleanFF('platform.design-system-team.iframe-layering_p3eb8')) {
+        //if it is a disabled layer, we need to disable its click listener.
         return;
       }
 
@@ -79,7 +85,34 @@ export const useCloseManager = ({
         listener: onKeyDown,
       },
     ]);
-    return unbind;
+
+    // bind onBlur event listener to fix popup not close when clicking on iframe outside
+    let unbindBlur = noop;
+    if (getBooleanFF('platform.design-system-team.iframe-layering_p3eb8')) {
+      unbindBlur = bind(window, {
+        type: 'blur',
+        listener: function onBlur(e: FocusEvent) {
+          if (
+            isLayerDisabled() ||
+            !(document.activeElement instanceof HTMLIFrameElement)
+          ) {
+            return;
+          }
+          const wrapper = document.activeElement.closest('[data-ds--level]');
+          if (
+            !wrapper ||
+            currentLevel > Number(wrapper.getAttribute('data-ds--level'))
+          ) {
+            closePopup(e);
+          }
+        },
+      });
+    }
+
+    return () => {
+      unbind();
+      unbindBlur();
+    };
   }, [
     isOpen,
     onClose,
@@ -88,5 +121,6 @@ export const useCloseManager = ({
     capture,
     isLayerDisabled,
     shouldCloseOnTab,
+    currentLevel,
   ]);
 };

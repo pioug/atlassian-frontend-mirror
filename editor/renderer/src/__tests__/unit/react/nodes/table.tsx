@@ -24,6 +24,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReactWrapper } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { RendererContextProvider } from '../../../../renderer-context';
 
 const schema = getSchemaBasedOnStage('stage0');
 
@@ -175,41 +176,169 @@ describe('Renderer - React/Nodes/Table', () => {
         table.unmount();
       });
     });
-    it('should add an extra <col> node for number column', () => {
-      const columnWidths = [300, 380];
-      const resultingColumnWidths = [299, 379];
-      const table = mountWithIntl(
-        <Table
-          layout="default"
-          isNumberColumnEnabled={true}
-          columnWidths={columnWidths}
-          renderWidth={renderWidth}
-          rendererAppearance="full-page"
-        >
-          <TableRow>
-            <TableCell />
-            <TableCell />
-          </TableRow>
-          <TableRow>
-            <TableCell />
-            <TableCell />
-          </TableRow>
-        </Table>,
-      );
-      expect(table.find('col')).toHaveLength(3);
 
-      table.find('col').forEach((col, index) => {
-        if (index === 0) {
-          expect(col.prop('style')!.width).toEqual(
-            akEditorTableNumberColumnWidth,
+    describe('should add an extra <col> node for number column', () => {
+      ffTest(
+        'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
+        () => {
+          const columnWidths = [300, 380];
+          const table = mountWithIntl(
+            <RendererContextProvider
+              value={{ featureFlags: { tablePreserveWidth: true } }}
+            >
+              <Table
+                layout="default"
+                isNumberColumnEnabled={true}
+                columnWidths={columnWidths}
+                renderWidth={renderWidth}
+                rendererAppearance="full-page"
+              >
+                <TableRow>
+                  <TableCell />
+                  <TableCell />
+                </TableRow>
+                <TableRow>
+                  <TableCell />
+                  <TableCell />
+                </TableRow>
+              </Table>
+            </RendererContextProvider>,
           );
-        } else {
-          expect(col.prop('style')!.width).toEqual(
-            `${resultingColumnWidths[index - 1]}px`,
+          const resultingColumnWidths = [360, 356];
+          expect(table.find('col')).toHaveLength(3);
+
+          table.find('col').forEach((col, index) => {
+            if (index === 0) {
+              expect(col.prop('style')!.width).toEqual(
+                akEditorTableNumberColumnWidth,
+              );
+            } else {
+              expect(col.prop('style')!.width).toEqual(
+                `${resultingColumnWidths[index - 1]}px`,
+              );
+            }
+          });
+          table.unmount();
+        },
+        () => {
+          const columnWidths = [300, 380];
+          const table = mountWithIntl(
+            <Table
+              layout="default"
+              isNumberColumnEnabled={true}
+              columnWidths={columnWidths}
+              renderWidth={renderWidth}
+              rendererAppearance="full-page"
+            >
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+            </Table>,
           );
-        }
-      });
-      table.unmount();
+          const resultingColumnWidths = [299, 379];
+          expect(table.find('col')).toHaveLength(3);
+
+          table.find('col').forEach((col, index) => {
+            if (index === 0) {
+              expect(col.prop('style')!.width).toEqual(
+                akEditorTableNumberColumnWidth,
+              );
+            } else {
+              expect(col.prop('style')!.width).toEqual(
+                `${resultingColumnWidths[index - 1]}px`,
+              );
+            }
+          });
+          table.unmount();
+        },
+      );
+    });
+
+    describe('should have the correct width for numbered column when columnWidths is set', () => {
+      ffTest(
+        'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
+        () => {
+          const table = mountWithIntl(
+            <RendererContextProvider
+              value={{ featureFlags: { tablePreserveWidth: true } }}
+            >
+              <Table
+                layout="default"
+                columnWidths={[300, 428]}
+                isNumberColumnEnabled={true}
+                renderWidth={renderWidth}
+                rendererAppearance="full-page"
+              >
+                <TableRow>
+                  <TableCell />
+                  <TableCell />
+                </TableRow>
+                <TableRow>
+                  <TableCell />
+                  <TableCell />
+                </TableRow>
+              </Table>
+            </RendererContextProvider>,
+          );
+
+          const resultingColumnWidths = [315, 401];
+          expect(table.find('col')).toHaveLength(3);
+
+          table.find('col').forEach((col, index) => {
+            if (index === 0) {
+              expect(col.prop('style')!.width).toEqual(
+                akEditorTableNumberColumnWidth,
+              );
+            } else {
+              expect(col.prop('style')!.width).toEqual(
+                `${resultingColumnWidths[index - 1]}px`,
+              );
+            }
+          });
+          table.unmount();
+        },
+        () => {
+          const table = mountWithIntl(
+            <Table
+              layout="default"
+              columnWidths={[300, 428]}
+              isNumberColumnEnabled={true}
+              renderWidth={renderWidth}
+              rendererAppearance="full-page"
+            >
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+            </Table>,
+          );
+
+          const resultingColumnWidths = [296, 422];
+          expect(table.find('col')).toHaveLength(3);
+
+          table.find('col').forEach((col, index) => {
+            if (index === 0) {
+              expect(col.prop('style')!.width).toEqual(
+                akEditorTableNumberColumnWidth,
+              );
+            } else {
+              expect(col.prop('style')!.width).toEqual(
+                `${resultingColumnWidths[index - 1]}px`,
+              );
+            }
+          });
+          table.unmount();
+        },
+      );
     });
 
     it('should have the correct width for numbered column when no columnWidths', () => {
@@ -1169,6 +1298,7 @@ describe('Renderer - React/Nodes/Table', () => {
     });
 
     describe('column widths undefined', () => {
+      // aa
       it('table scales columns when table width is smaller than fixed-width line length - column widths undefined', () => {
         const tableWidth = 500;
         const scale = 0.6;
@@ -1188,6 +1318,7 @@ describe('Renderer - React/Nodes/Table', () => {
         wrap.unmount();
       });
 
+      // aa
       it('should scale columns when table width is larger than fixed-width line length', () => {
         const tableWidth = 1200;
         const scale = 0.6;

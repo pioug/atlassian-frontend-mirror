@@ -84,7 +84,6 @@ export type NewHeadingProps = HeadingPropsBase & {
    * Heading size. This value is detached from the specific heading level applied to allow for more flexibility.
    * Use instead of the deprecated `level` prop.
    *
-   * This prop will only work if the typography tokens theme is applied on the page.
    */
   size: HeadingSize;
   level?: never;

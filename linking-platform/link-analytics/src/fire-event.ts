@@ -1,21 +1,21 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CardClient } from '@atlaskit/link-provider';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CardClient } from '@atlaskit/link-provider';
 
 import {
-  DatasourceLifecycleEventCallback,
-  LinkLifecycleEventCallback,
-  LifecycleAction,
-  CardStore,
+  type DatasourceLifecycleEventCallback,
+  type LinkLifecycleEventCallback,
+  type LifecycleAction,
+  type CardStore,
 } from './types';
 import { getDomainFromUrl, mergeAttributes } from './utils';
 import { resolveAttributes } from './utils';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload, {
-  LinkCreatedAttributesType,
+  type LinkCreatedAttributesType,
 } from './common/utils/analytics/analytics.codegen';
 import {
-  DatasourceDataRequest,
-  DatasourceDataResponse,
+  type DatasourceDataRequest,
+  type DatasourceDataResponse,
 } from '@atlaskit/linking-types/datasource';
 import { getStatus } from '@atlaskit/linking-common';
 import { DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE } from '@atlaskit/link-client-extension';
@@ -80,12 +80,13 @@ export const fireDatasourceEvent = (
       fields: [],
     });
     const status = getStatus({ meta });
+
     const resolvedAttributes = {
       extensionKey,
       status: status,
       destinationObjectTypes,
       totalItemCount,
-      displayedColumnCount: schema?.properties.length,
+      displayedColumnCount: schema?.defaultProperties?.length ?? schema?.properties?.length,
     };
 
     const mergedAttributes = mergeAttributes(
@@ -93,8 +94,8 @@ export const fireDatasourceEvent = (
       { ...details, url: details.url ?? 'unknown' },
       sourceEvent,
       {
-        ...attributes,
         ...resolvedAttributes,
+        ...attributes,
       },
     );
 

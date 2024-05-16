@@ -111,25 +111,28 @@ type MarkWithContent = Partial<Mark> & {
 };
 
 function mergeMarks(marksAndNodes: Array<MarkWithContent | Node>) {
-  return marksAndNodes.reduce((acc, markOrNode) => {
-    const prev = (acc.length && acc[acc.length - 1]) || null;
+  return marksAndNodes.reduce(
+    (acc, markOrNode) => {
+      const prev = (acc.length && acc[acc.length - 1]) || null;
 
-    if (
-      markOrNode.type instanceof MarkType &&
-      prev &&
-      prev.type instanceof MarkType &&
-      Array.isArray(prev.content) &&
-      isSameMark(prev as Mark, markOrNode as Mark)
-    ) {
-      (prev as MarkWithContent).content = mergeMarks(
-        prev.content.concat((markOrNode as MarkWithContent).content),
-      );
-    } else {
-      acc.push(markOrNode);
-    }
+      if (
+        markOrNode.type instanceof MarkType &&
+        prev &&
+        prev.type instanceof MarkType &&
+        Array.isArray(prev.content) &&
+        isSameMark(prev as Mark, markOrNode as Mark)
+      ) {
+        (prev as MarkWithContent).content = mergeMarks(
+          prev.content.concat((markOrNode as MarkWithContent).content),
+        );
+      } else {
+        acc.push(markOrNode);
+      }
 
-    return acc;
-  }, [] as Array<MarkWithContent | Node>);
+      return acc;
+    },
+    [] as Array<MarkWithContent | Node>,
+  );
 }
 
 export default class ReactSerializer implements Serializer<JSX.Element> {

@@ -4582,6 +4582,93 @@ map.put(3, 10);`,
           ],
         },
       ],
-    }
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          text: 'Highlights: ',
+          type: 'text',
+        },
+        {
+          text: 'Light Gray',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#dcdfe4' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Light Teal',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#c6edfb' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Light Lime',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#d3f1a7' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Light Orange',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#fedec8' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Light Magenta',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#fdd0ec' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Light Purple',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#dfd8fd' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Custom: black',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#000000' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Custom: white',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#ffffff' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Custom: red',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#c9372c' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'Custom: yellow',
+          type: 'text',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#f8e6a0' } }],
+        },
+        { text: ', ', type: 'text' },
+        {
+          text: 'With inline comment',
+          type: 'text',
+          marks: [
+            { type: 'backgroundColor', attrs: { color: '#d3f1a7' } },
+            {
+              type: 'annotation',
+              attrs: {
+                id: '13272b41-b9a9-427a-bd58-c00766999638',
+                annotationType: 'inlineComment',
+              },
+            },
+          ],
+        },
+        {
+          text: ', No highlight',
+          type: 'text',
+        },
+      ],
+    },
   ],
 };

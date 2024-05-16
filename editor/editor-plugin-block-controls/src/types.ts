@@ -38,3 +38,9 @@ export type DecorationState = {
   index: number;
   pos: number;
 }[];
+
+export type BlockControlsMeta = {
+  pos: number;
+  type: string;
+  dom: HTMLElement;
+};

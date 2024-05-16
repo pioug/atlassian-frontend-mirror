@@ -175,7 +175,9 @@ const headingAnchorStyle = (headingTag: string) =>
         > button {
           opacity: 0;
           transform: translate(-8px, 0px);
-          transition: opacity 0.2s ease 0s, transform 0.2s ease 0s;
+          transition:
+            opacity 0.2s ease 0s,
+            transform 0.2s ease 0s;
         }
       }
 
@@ -752,7 +754,8 @@ export const rendererStyles =
      bug for FF causing box-shadow bug in Chrome */
       .sticky th,
       .sticky td {
-        box-shadow: 0px 1px
+        box-shadow:
+          0px 1px
             ${token(
               'color.background.accent.gray.subtler',
               akEditorTableBorder,

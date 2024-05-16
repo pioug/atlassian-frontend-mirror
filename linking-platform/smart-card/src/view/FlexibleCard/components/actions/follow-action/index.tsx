@@ -9,6 +9,7 @@ import ServerAction from '../action/server-action';
 import { type FollowActionProps } from './types';
 import UnfollowIcon from './unfollow-icon';
 import { importIcon } from '../../utils';
+import { getFollowActionErrorMessage } from './utils';
 
 const importIconMapper: {
   [key: string]: (() => Promise<any>) | undefined;
@@ -46,16 +47,18 @@ const getIconFF = (iconFFEnabled: JSX.Element, defaultIcon: JSX.Element) => {
   return defaultIcon;
 };
 
-const FollowAction: React.FC<FollowActionProps> = (props) => {
+const FollowAction = (props: FollowActionProps) => {
   const context = useFlexibleUiContext();
-  if (!context || !context?.actions?.[ActionName.FollowAction]) {
+
+  const actionData = context?.actions?.[ActionName.FollowAction];
+
+  if (!context || !actionData) {
     return null;
   }
 
-  const { value, ...data } = context?.actions?.[ActionName.FollowAction];
+  const { value, isProject, ...data } = actionData;
 
   const isStackItem = props.as === 'stack-item';
-  const isProject = data.isProject;
 
   const message = value ? messages.follow : messages.unfollow;
 
@@ -97,6 +100,17 @@ const FollowAction: React.FC<FollowActionProps> = (props) => {
     ? stackIcon
     : getIconFF(stackIcon, icon);
 
+  const handleError = () => {
+    const { onError: onErrorCallback } = props;
+
+    const errorMessage = getFollowActionErrorMessage(isProject, value);
+
+    onErrorCallback?.({
+      title: <FormattedMessage {...errorMessage} />,
+      appearance: 'error',
+    });
+  };
+
   return (
     <ServerAction
       content={<FormattedMessage {...label} />}
@@ -105,6 +119,7 @@ const FollowAction: React.FC<FollowActionProps> = (props) => {
       tooltipMessage={<FormattedMessage {...tooltipMessage} />}
       {...data}
       {...props}
+      onError={handleError}
     />
   );
 };

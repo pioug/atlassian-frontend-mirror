@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type IconProps } from '@atlaskit/icon/types';
 
 export type ButtonAppearance =
@@ -68,33 +68,32 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
    */
   isSelected?: boolean;
   /**
-   * Handler to be called on blur.
+   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
+   */
+  testId?: string;
+  /**
+   * Handler called on blur.
    */
   onBlur?: React.FocusEventHandler<TagName>;
   /**
-   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+   * Handler called on focus.
+   */
+  onFocus?: React.FocusEventHandler<TagName>;
+  /**
+   * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).
    */
   onClick?: (
     e: React.MouseEvent<TagName>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Handler to be called on focus.
-   */
-  onFocus?: React.FocusEventHandler<TagName>;
-  /**
-   * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
-  /**
-   * An optional name used to identify this component to press listeners. For example, interaction tracing. For more information,
-   * see [UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
-   */
-  interactionName?: string;
-  /**
-   * Additional information to be included in the `context` of analytics events that come from button.
+   * Additional information to be included in the `context` of Atlaskit analytics events that come from button. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
    */
   analyticsContext?: Record<string, any>;
+  /**
+   * An optional name used to identify the button to interaction content listeners. By default, button fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the pressable or anchor primitive code examples](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
+   */
+  interactionName?: string;
 };
 
 export type SupportedElements = HTMLButtonElement | HTMLAnchorElement;

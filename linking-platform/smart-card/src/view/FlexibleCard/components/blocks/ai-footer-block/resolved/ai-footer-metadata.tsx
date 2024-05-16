@@ -1,13 +1,15 @@
 import React from 'react';
+import Tooltip from '@atlaskit/tooltip';
 import { di } from 'react-magnetic-di';
 import { FormattedMessage } from 'react-intl-next';
-import Tooltip from '@atlaskit/tooltip';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-import AIStateIndicator from '../../ai-summary-block/ai-state-indicator';
+
+import AIIcon from '../../../../../common/ai-icon';
 import { InfoIcon } from '../icons/info';
 import { messages } from '../../../../../../messages';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
+
 import type { AISummaryActionData } from '../../../../../../state/flexible-ui-context/types';
 
 export const AIFooterMetadata = ({
@@ -30,7 +32,7 @@ export const AIFooterMetadata = ({
     <Inline space="space.100" testId={testId} alignInline="end" grow="fill">
       <Tooltip
         content={<FormattedMessage {...messages.ai_summarized_info_short} />}
-        position="top"
+        position="bottom"
       >
         {(tooltipProps) => (
           <Box {...tooltipProps}>
@@ -43,10 +45,10 @@ export const AIFooterMetadata = ({
         )}
       </Tooltip>
 
-      <AIStateIndicator
-        appearance="icon-only"
-        state="done"
-        testId="ai-tooltip"
+      <AIIcon
+        label="AI"
+        size="small"
+        primaryColor={token('color.icon.subtle')}
       />
     </Inline>
   );

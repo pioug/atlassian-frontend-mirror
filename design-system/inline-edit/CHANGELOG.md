@@ -1,5 +1,14 @@
 # @atlaskit/inline-edit
 
+## 13.3.0
+
+### Minor Changes
+
+-   [#100551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100551)
+    [`f7efc4970ff7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7efc4970ff7) -
+    The `label` prop type has been widened to `ReactNode` to be consistent with `Field`'s `label`
+    prop types.
+
 ## 13.2.2
 
 ### Patch Changes

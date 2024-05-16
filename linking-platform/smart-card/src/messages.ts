@@ -29,8 +29,14 @@ export type MessageKey =
   | 'ai_summary_error_generic'
   | 'ai_summary_error_acceptable_use_violation'
   | 'ai_summary_error_hipaa_content_detected'
+  | 'ai_summary_error_exceeding_context_length_error'
   | 'ai_summary_action'
   | 'ai_summary_action_description'
+  | 'automation_action_title'
+  | 'automation_action_tooltip'
+  | 'automation_action_icon_label'
+  | 'automation_action_confluence_page_modal_title'
+  | 'automation_action_confluence_page_modal_description'
   | 'copy_summary_action'
   | 'copy_summary_action_description'
   | 'copied_summary_action_description'
@@ -54,6 +60,8 @@ export type MessageKey =
   | 'follow_project'
   | 'follow_goal'
   | 'follow_goal_description'
+  | 'follow_project_error'
+  | 'follow_goal_error'
   | 'go_back'
   | 'invalid_permissions'
   | 'invalid_permissions_description'
@@ -115,8 +123,10 @@ export type MessageKey =
   | 'unfollow'
   | 'unfollow_project_description'
   | 'unfollow_project'
+  | 'unfollow_project_error'
   | 'unfollow_goal'
   | 'unfollow_goal_description'
+  | 'unfollow_goal_error'
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
@@ -207,11 +217,43 @@ export const messages: Messages = defineMessages({
     description:
       'Shown when the AI summary is summarising the link resource content and the content contains HIPAA restricted content.',
   },
+  ai_summary_error_exceeding_context_length_error: {
+    id: 'fabric.linking.ai_summary_error_exceeding_context_length_error',
+    defaultMessage:
+     "Atlassian Intelligence can't generate a summary for you right now as there is too much content to summarize.",
+    description:
+      'Shown when the AI summary is summarising the link resource content and the content is too large to summarize.',
+  },
   assigned_to: {
     id: 'fabric.linking.assigned_to',
     defaultMessage: 'Assigned to {context}',
     description:
       'Indicates the person or entity that the resource is assigned to.',
+  },
+  automation_action_title: {
+    id: 'fabric.linking.automation-action.title',
+    defaultMessage: 'Run automation...',
+    description: 'The title of the button in a hover card to open an automation menu for a given SmartLink.'
+  },
+  automation_action_icon_label: {
+    id: 'fabric.linking.automation-action.icon.label',
+    defaultMessage: 'Automation icon',
+    description: 'The label for the automation icon inside of the button opening the automation menu.'
+  },
+automation_action_tooltip: {
+    id: 'fabric.linking.automation-action.tooltip',
+    defaultMessage: 'Open an automation modal',
+    description: 'The tooltip for the automation action indicating that a button will open an automation modal.'
+  },
+  automation_action_confluence_page_modal_title: {
+    id: 'fabric.linking.automation-action.confluence.page.modal.title',
+    defaultMessage: 'Page automations',
+    description: 'The title of the automation modal when the SmartLink is a Confluence page'
+  },
+  automation_action_confluence_page_modal_description: {
+    id: 'fabric.linking.automation-action.confluence.page.modal.description',
+    defaultMessage: 'Apply an automation to <b>{name}</b>.{br}The available selections are controlled by Confluence and space administrators.',
+    description: 'The description in the automation modal when the SmartLink is a Confluence page. Indicating which page the automation will apply to, and who controls the available automations.'
   },
   cancel: {
     id: 'fabric.linking.cancel',
@@ -414,6 +456,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Follow project',
     description: 'Click to follow a project.',
   },
+  follow_project_error: {
+    id: 'fabric.linking.follow_project_error.nonfinal',
+    defaultMessage: 'We encountered an error while trying to follow the project. Check your connection or refresh the page and try again.',
+    description: 'Shown when an unknown error occurs when following an Atlas project',
+  },
   follow_goal_description: {
     id: 'fabric.linking.follow_goal_description.nonfinal',
     defaultMessage: 'Follow this goal to get notifications on updates',
@@ -423,6 +470,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.follow_goal.nonfinal',
     defaultMessage: 'Follow goal',
     description: 'Click to follow a project.',
+  },
+  follow_goal_error: {
+    id: 'fabric.linking.follow_goal_error.nonfinal',
+    defaultMessage: 'We encountered an error while trying to follow the goal. Check your connection or refresh the page and try again.',
+    description: 'Shown when an unknown error occurs when following an Atlas goal',
   },
   go_back: {
     id: 'fabric.linking.go_back',
@@ -715,6 +767,11 @@ export const messages: Messages = defineMessages({
     defaultMessage: 'Unfollow project',
     description: 'Click to unfollow a project.',
   },
+  unfollow_project_error: {
+    id: 'fabric.linking.unfollow_project_error.nonfinal',
+    defaultMessage: 'We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.',
+    description: 'Shown when an unknown error occurs when unfollowing an Atlas project',
+  },
   unfollow_goal_description: {
     id: 'fabric.linking.unfollow_goal_description.nonfinal',
     defaultMessage: 'Unfollow to stop receiving notifications for this goal',
@@ -724,6 +781,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.unfollow_goal.nonfinal',
     defaultMessage: 'Unfollow goal',
     description: 'Click to unfollow a project.',
+  },
+  unfollow_goal_error: {
+    id: 'fabric.linking.unfollow_goal_error.nonfinal',
+    defaultMessage: 'We encountered an error while trying to unfollow the goal. Check your connection or refresh the page and try again.',
+    description: 'Shown when an unknown error occurs when unfollowing an Atlas goal',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

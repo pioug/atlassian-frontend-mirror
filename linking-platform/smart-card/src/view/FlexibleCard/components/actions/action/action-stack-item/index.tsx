@@ -9,6 +9,7 @@ import { type ActionStackItemProps } from './types';
 
 const buttonStyles = xcss({
   all: 'unset',
+  cursor: 'pointer',
   padding: 'space.050',
   width: '100%',
   ':focus:not(:focus-visible)': {

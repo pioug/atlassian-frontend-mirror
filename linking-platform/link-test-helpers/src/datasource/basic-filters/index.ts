@@ -8,6 +8,7 @@ import {
   fieldValuesResponseForProjectsMoreData,
   fieldValuesResponseForStatuses,
   fieldValuesResponseForTypes,
+  hydrateJqlStandardResponseForVRTesting,
   successfuluserHydrationResponse,
   successfulUserQueryResponse,
 } from './mocks';
@@ -24,6 +25,11 @@ export const mockBasicFilterAGGFetchRequests = () => {
 
       if (requestBody.operationName === 'userHydration') {
         return resolve(successfuluserHydrationResponse);
+      }
+
+      // JLOL basic filter hydration for VR testing
+      if (requestBody.operationName === 'hydrate') {
+        return resolve(hydrateJqlStandardResponseForVRTesting);
       }
 
       const filterType: string = requestBody.variables.jqlTerm;
@@ -47,15 +53,15 @@ export const mockBasicFilterAGGFetchRequests = () => {
       }
 
       // slowing down specifically for vr testing
-      if (searchString.includes('loading')) {
+      if (searchString === 'loading-message') {
         setTimeout(() => {
           resolve(resolveData);
         }, 5000);
       } // returning empty response for vr testing
-      else if (searchString.includes('empty')) {
+      else if (searchString === 'empty-message') {
         resolve(fieldValuesEmptyResponse);
       } // returning error response for vr testing
-      else if (searchString.includes('error')) {
+      else if (searchString === 'error-message') {
         resolve(fieldValuesErrorResponse);
       } else {
         resolve(resolveData);

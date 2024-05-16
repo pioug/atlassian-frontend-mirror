@@ -3,6 +3,27 @@ export const defaultValue = {
   type: 'doc',
   content: [
     {
+      type: 'heading',
+      attrs: {
+        level: 1,
+      },
+      content: [
+        {
+          type: 'text',
+          text: 'heading',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum in arcu sagittis, ultricies sapien et, posuere risus. Proin vitae lectus ex. Donec aliquam non magna fermentum facilisis.',
+        },
+      ],
+    },
+    {
       type: 'expand',
       attrs: {
         title: 'Nodes',
@@ -266,7 +287,7 @@ export const defaultValue = {
     {
       type: 'heading',
       attrs: {
-        level: 1,
+        level: 3,
       },
       content: [
         {

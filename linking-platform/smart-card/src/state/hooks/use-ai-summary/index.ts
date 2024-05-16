@@ -37,9 +37,10 @@ export const useAISummary = (props: AISummaryServiceProps) => {
     (id, reason) => {
       /**
        * Errors should only be counted to the SLO if they are not due to acceptable use violations
-       * or HIPAA content detected.
+       * HIPAA content detected or exceeding context length.
        */
-      const isSloError = reason !== "ACCEPTABLE_USE_VIOLATIONS" && reason !== "HIPAA_CONTENT_DETECTED";
+
+      const isSloError = reason === undefined ? true : !['ACCEPTABLE_USE_VIOLATIONS', 'HIPAA_CONTENT_DETECTED', 'EXCEEDING_CONTEXT_LENGTH_ERROR'].includes(reason);
       fireEvent('operational.summary.failed', { reason: reason || null, isSloError});
       failUfoExperience(EXPERIENCE_NAME, id);
     },

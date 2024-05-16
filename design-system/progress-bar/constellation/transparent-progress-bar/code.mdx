@@ -2,10 +2,12 @@
 title: Transparent progress bar
 description: A transparent progress bar is used on bold backgrounds to maintain suitable contrast.
 order: 1
+props:
+    packageName: '@atlaskit/progress-bar'
+    exports:
+        - TransparentProgressBar
 ---
-
-import TransparentProgressBarProps from '!!extract-react-types-loader!../../src/components/transparent-progress-bar';
 
 ## Props
 
-<PropsTable heading="" props={TransparentProgressBarProps} />
+<TSMorphProps packageName="@atlaskit/progress-bar" exportName="TransparentProgressBar" />

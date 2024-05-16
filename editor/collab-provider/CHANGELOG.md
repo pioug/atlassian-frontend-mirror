@@ -1,5 +1,26 @@
 # @atlaskit/collab-provider
 
+## 9.29.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   [#100426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100426)
+    [`85703bb445ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85703bb445ca) -
+    clean up feature flag connect-websocket-first (abandoned)
+-   Updated dependencies
+
+## 9.28.6
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 9.28.5
 
 ### Patch Changes

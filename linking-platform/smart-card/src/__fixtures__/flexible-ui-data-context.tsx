@@ -1,5 +1,5 @@
-import { FlexibleUiDataContext } from '../state/flexible-ui-context/types';
-import { IconType, MediaType } from '../constants';
+import { type FlexibleUiDataContext } from '../state/flexible-ui-context/types';
+import { type IconType, MediaType } from '../constants';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 const context: FlexibleUiDataContext = {
@@ -33,6 +33,15 @@ const context: FlexibleUiDataContext = {
       product: 'CONFLUENCE',
       url: 'https://www.link-url.com',
     },
+    AutomationAction: {
+      baseAutomationUrl: 'https://www.link-url.com',
+      objectAri: 'someAri',
+      siteAri: 'someAri',
+      canManageAutomation: false,
+      analyticsSource: 'smart-card',
+      modalTitle: {},
+      modalDescription: {},
+    }
   },
   attachmentCount: 3,
   authorGroup: [

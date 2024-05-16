@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::b98fe76873a8f3fa9c534ac4e987a84e>>
+ * @codegen <<SignedSource::d04d3ce6574c309a5c0469b43a1891ff>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/datepicker/__generated__/index.partial.tsx <<SignedSource::fcbd99dda6073eec47f3c905804b6b06>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit2-codegen/datepicker/__generated__/index.partial.tsx <<SignedSource::c81073870b6e0df94ccfaf046550c325>>
  */
 export interface FieldProps {
   id: string;

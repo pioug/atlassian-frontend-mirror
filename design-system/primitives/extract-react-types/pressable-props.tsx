@@ -1,9 +1,12 @@
 // TODO: Switch from ERT to ts-morph when this is completed and has reasonable adoption: https://product-fabric.atlassian.net/browse/DSP-10364
-import React, { ReactNode } from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { BasePrimitiveProps, StyleProp } from '../src/components/types';
+import {
+  type BasePrimitiveProps,
+  type StyleProp,
+} from '../src/components/types';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Token {
@@ -82,7 +85,7 @@ export default function Pressable(
     backgroundColor?: Token.BackgroundColor;
 
     /**
-     * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+     * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).
      */
     onClick?: (
       e: React.MouseEvent<HTMLButtonElement>,
@@ -90,24 +93,24 @@ export default function Pressable(
     ) => void;
 
     /**
-     * An optional name used to identify the interaction type to analytics press listeners.
-     */
-    interactionName?: string;
-
-    /**
-     * An optional component name used to identify this component to analytics press listeners. This can be altered if a parent component's name is preferred rather than the default 'Pressable'.
+     * An optional component name used to identify this component to Atlaskit analytics press listeners. This can be altered if a parent component's name is preferred rather than the default 'Pressable'. See [the code example](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) for more information.
      */
     componentName?: string;
 
     /**
-     * Additional information to be included in the `context` of analytics events that come from Pressable.
+     * Additional information to be included in the `context` of Atlaskit analytics events that come from pressable. See [the code example](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) for more information.
      */
     analyticsContext?: Record<string, any>;
 
     /**
+     * An optional name used to identify the pressable to interaction content listeners. By default, pressable fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the code example](https://atlassian.design/components/primitives/pressable/examples#react-ufo-press-interactions) for more information.
+     */
+    interactionName?: string;
+
+    /**
      * Elements to be rendered inside the primitive.
      */
-    children: ReactNode;
+    children: React.ReactNode;
 
     /**
      * Forwarded ref element.

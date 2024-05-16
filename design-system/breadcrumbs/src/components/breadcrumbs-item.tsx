@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { ComponentType, CSSProperties, memo, useRef } from 'react';
+import { type ComponentType, type CSSProperties, memo, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
@@ -11,7 +11,7 @@ import { fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip, { type TooltipProps } from '@atlaskit/tooltip';
 
-import { BreadcrumbsItemProps } from '../types';
+import { type BreadcrumbsItemProps } from '../types';
 
 import Step from './internal/step';
 import useOverflowable from './internal/use-overflowable';
@@ -91,16 +91,16 @@ const BreadcrumbsItem = memo((props: BreadcrumbsItemProps) => {
       typeof truncationWidth !== 'undefined' && `${truncationWidth}px`,
   };
 
-  const step = (
+  const step = truncationWidth ? (
     <Step
       {...buttonProps}
-      css={
-        truncationWidth
-          ? staticItemWithTruncationStyles
-          : staticItemWithoutTruncationStyles
-      }
+      css={staticItemWithTruncationStyles}
       style={dynamicItemStyles}
     >
+      {text}
+    </Step>
+  ) : (
+    <Step {...buttonProps} css={staticItemWithoutTruncationStyles}>
       {text}
     </Step>
   );

@@ -20,8 +20,6 @@ import {
   TitleBlock,
   AISummaryBlock,
   CustomBlock,
-  ActionBlock,
-  AIFooterBlock,
 } from '../../../../FlexibleCard/components/blocks';
 import {
   footerBlockCss,
@@ -129,17 +127,13 @@ const ConnectedAIBlock = ({
           status={SmartLinkStatus.Resolved}
         />
       )}
-      {!getBooleanFF(
-        'platform.linking-platform.smart-card.hover-card-action-redesign',
-      ) && (
-        <MetadataBlock
-          primary={bottomPrimary}
-          size={SmartLinkSize.Large}
-          overrideCss={metadataBlockCss}
-          maxLines={1}
-          status={SmartLinkStatus.Resolved}
-        />
-      )}
+      <MetadataBlock
+        primary={bottomPrimary}
+        size={SmartLinkSize.Large}
+        overrideCss={metadataBlockCss}
+        maxLines={1}
+        status={SmartLinkStatus.Resolved}
+      />
     </>
   ) : null;
 };
@@ -198,12 +192,6 @@ const HoverCardResolvedView = ({
     fallbackElementHeight: snippetHeight.current,
   });
 
-  const isActionBlockEnabled = getBooleanFF(
-    'platform.linking-platform.smart-card.hover-card-action-redesign',
-  )
-    ? true
-    : false;
-
   return (
     <FlexibleCard {...flexibleCardProps}>
       {imagePreview}
@@ -250,7 +238,7 @@ const HoverCardResolvedView = ({
         overrideCss={hiddenSnippetStyles}
       />
 
-      {!isAISummaryEnabled && !isActionBlockEnabled && (
+      {!isAISummaryEnabled && (
         <MetadataBlock
           primary={tertiary}
           size={SmartLinkSize.Large}
@@ -272,15 +260,7 @@ const HoverCardResolvedView = ({
         />
       )}
 
-      {isActionBlockEnabled && (
-        <ActionBlock onClick={onActionClick} spaceInline="space.100" />
-      )}
-
-      {isActionBlockEnabled && (
-        <AIFooterBlock />
-      )}
-
-      {!isAISummaryEnabled && !isActionBlockEnabled && (
+      {!isAISummaryEnabled && (
         <FooterBlock
           actions={footerActions}
           size={SmartLinkSize.Large}

@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 80.2.0
+
+### Minor Changes
+
+-   [#100553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100553)
+    [`e0c2a4b9c8ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e0c2a4b9c8ae) -
+    [ED-23157] Clear background color (= highlights) when clearing the formatting on a selection
+
+## 80.1.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 80.0.0
+
+### Major Changes
+
+-   [#98890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98890)
+    [`9a61210caecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a61210caecb) -
+    Updating parameters of the applyDraftMode() function to return a step if an annotationId is
+    passed in
+
 ## 79.6.0
 
 ### Minor Changes

@@ -115,6 +115,134 @@ export const hydrateJqlStandardResponse = {
   },
 };
 
+export const hydrateJqlStandardResponseForVRTesting = {
+  data: {
+    jira: {
+      jqlBuilder: {
+        hydrateJqlQuery: {
+          fields: [
+            {
+              jqlTerm: 'type',
+              values: [
+                {
+                  values: [
+                    {
+                      displayName: 'Category',
+                      jqlTerm: 'Category',
+                      issueTypes: [
+                        {
+                          avatar: {
+                            small: alert,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  values: [
+                    {
+                      displayName: '!disturbed',
+                      jqlTerm: '"!disturbed"',
+                      issueTypes: [
+                        {
+                          avatar: {
+                            small: arrows,
+                          },
+                        },
+                        {
+                          avatar: {
+                            small: bug,
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              jqlTerm: 'project',
+              values: [
+                {
+                  values: [
+                    {
+                      jqlTerm: '"My IT TEST"',
+                      displayName: 'My IT TEST',
+                      project: {
+                        avatar: {
+                          small: handshake,
+                        },
+                      },
+                    },
+                  ],
+                },
+                {
+                  values: [
+                    {
+                      jqlTerm: 'Test',
+                      displayName: 'Test',
+                      project: {
+                        avatar: {
+                          small: hotdog,
+                        },
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              jqlTerm: 'assignee',
+              values: [
+                {
+                  values: [
+                    {
+                      displayName: 'Nidhin Joseph',
+                      jqlTerm: '70121:97052100-1513-42bc-a2f0-d77e71f0b7eb',
+                      user: {
+                        picture: nidhin,
+                      },
+                      isSquare: false,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              jqlTerm: 'status',
+              values: [
+                {
+                  values: [
+                    {
+                      displayName: 'Done',
+                      jqlTerm: 'Done',
+                      statusCategory: {
+                        colorName: 'GREEN',
+                      },
+                    },
+                  ],
+                },
+                {
+                  values: [
+                    {
+                      displayName: 'Done',
+                      jqlTerm: 'Done',
+                      statusCategory: {
+                        colorName: 'GREEN',
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+  },
+};
+
 export const hydrateJqlStandardResponseMapped = {
   type: [
     {

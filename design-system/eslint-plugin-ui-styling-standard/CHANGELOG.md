@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.14.0
+
+### Minor Changes
+
+-   [#99733](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99733)
+    [`7051e483ab6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7051e483ab6d) -
+    Added no-styled eslint rule to prevent usage of styled imports
+
 ## 0.13.0
 
 ### Minor Changes

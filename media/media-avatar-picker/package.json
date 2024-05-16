@@ -39,8 +39,8 @@
   "dependencies": {
     "@atlaskit/button": "^17.14.0",
     "@atlaskit/flag": "^15.5.0",
-    "@atlaskit/form": "^10.0.0",
-    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/form": "^10.1.0",
+    "@atlaskit/icon": "^22.2.0",
     "@atlaskit/media-ui": "^25.10.0",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/primitives": "^6.1.0",

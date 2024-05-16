@@ -4,7 +4,9 @@ import type { Locator, Page } from '@playwright/test';
 import { snapshotInformational } from '@af/visual-regression';
 
 import BasicFiltersVR from '../../examples/vr/basic-filters-vr';
-import WithModal from '../../examples/with-issues-modal';
+import WithModal, {
+  WithIssueModalWithParameters,
+} from '../../examples/with-issues-modal';
 import { type BasicFilterFieldType } from '../../src/ui/jira-issues-modal/basic-filters/types';
 
 type OptionsType = Parameters<typeof snapshotInformational>[1];
@@ -80,16 +82,13 @@ snapshotInformational(WithModal, {
   },
 });
 
-// TODO this fails locally. Needs investigation and fixing ASAP
-// https://product-fabric.atlassian.net/browse/EDM-9967
-snapshotInformational.skip(WithModal, {
+snapshotInformational(WithIssueModalWithParameters, {
   ...options,
   drawsOutsideBounds: false,
   prepare: async (page: Page) => {
-    await selectOption(page, 'project');
-    await selectOption(page, 'status');
-    await selectOption(page, 'type');
-    await selectOption(page, 'assignee');
+    await page
+      .getByTestId('jira-datasource-table')
+      .waitFor({ state: 'visible' });
   },
   description: 'basic mode with basic filters with each filter selected',
   featureFlags: {
@@ -154,9 +153,7 @@ filters.forEach(filter => {
     description: `${filter} open and search text entered`,
   });
 
-  // TODO this test is unreliable. We need to wait better for expected screen before snapshotting
-  // https://product-fabric.atlassian.net/browse/EDM-9967
-  snapshotInformational.skip(BasicFiltersVR, {
+  snapshotInformational(BasicFiltersVR, {
     ...options,
 
     prepare: async (page: Page, component: Locator) => {
@@ -170,15 +167,17 @@ filters.forEach(filter => {
       );
 
       await page
+        .getByRole('heading', { name: 'Loading...', exact: true })
+        .waitFor({ state: 'visible' });
+
+      await page
         .getByTestId(`jlol-basic-filter-${filter}--loading-message`)
         .waitFor({ state: 'visible' });
     },
     description: `${filter} open and view loading state`,
   });
 
-  // TODO this test is unreliable. We need to wait better for expected screen before snapshotting
-  // https://product-fabric.atlassian.net/browse/EDM-9967
-  snapshotInformational.skip(BasicFiltersVR, {
+  snapshotInformational(BasicFiltersVR, {
     ...options,
 
     prepare: async (page: Page, component: Locator) => {
@@ -186,10 +185,14 @@ filters.forEach(filter => {
         .getByTestId(`jlol-basic-filter-${filter}-trigger`)
         .click();
 
-      await page.type(
+      await page.fill(
         `#jlol-basic-filter-${filter}-popup-select--input`,
         `empty-message`,
       );
+
+      await page
+        .getByRole('heading', { name: 'No matches found', exact: true })
+        .waitFor({ state: 'visible' });
 
       await component.getByTestId(
         `jlol-basic-filter-${filter}--no-options-message`,
@@ -198,9 +201,7 @@ filters.forEach(filter => {
     description: `${filter} open and view empty state`,
   });
 
-  // TODO this test is unreliable. We need to wait better for expected screen before snapshotting
-  // https://product-fabric.atlassian.net/browse/EDM-9967
-  snapshotInformational.skip(BasicFiltersVR, {
+  snapshotInformational(BasicFiltersVR, {
     ...options,
 
     prepare: async (page: Page, component: Locator) => {
@@ -208,10 +209,14 @@ filters.forEach(filter => {
         .getByTestId(`jlol-basic-filter-${filter}-trigger`)
         .click();
 
-      await page.type(
+      await page.fill(
         `#jlol-basic-filter-${filter}-popup-select--input`,
         `error-message`,
       );
+
+      await page
+        .getByRole('heading', { name: 'Something went wrong', exact: true })
+        .waitFor({ state: 'visible' });
 
       await component.getByTestId(`jlol-basic-filter-${filter}--error-message`);
     },

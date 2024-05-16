@@ -121,7 +121,7 @@ export const SelectionInlineCommentMounter = React.memo(
     }, [documentPosition, generateIndexMatch]);
 
     const applyDraftModeCallback = useCallback(
-      (keepNativeSelection: boolean = true) => {
+      (options: { annotationId?: string, keepNativeSelection?: boolean }) => {
         if (!documentPosition || !isAnnotationAllowed) {
           if (createAnalyticsEvent) {
             createAnalyticsEvent({
@@ -132,7 +132,7 @@ export const SelectionInlineCommentMounter = React.memo(
               eventType: EVENT_TYPE.TRACK,
             }).fire(FabricChannel.editor);
           }
-          return;
+          return false;
         }
 
         setDraftDocumentPosition(documentPosition);
@@ -155,7 +155,7 @@ export const SelectionInlineCommentMounter = React.memo(
         }
 
         window.requestAnimationFrame(() => {
-          if (keepNativeSelection) {
+          if (options.keepNativeSelection) {
             updateWindowSelectionAroundDraft(documentPosition);
           } else {
             const sel = window.getSelection();
@@ -164,12 +164,32 @@ export const SelectionInlineCommentMounter = React.memo(
             }
           }
         });
+
+        const positionToAnnotate = draftDocumentPosition || documentPosition;
+
+        if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
+          return false;
+        }
+
+        const annotation = {
+          annotationId: options.annotationId,
+          annotationType: AnnotationTypes.INLINE_COMMENT,
+        };
+
+        return applyAnnotation(
+          positionToAnnotate,
+          annotation,
+          isCommentsOnMediaBugFixEnabled,
+        );
       },
       [
         documentPosition,
         isAnnotationAllowed,
         applyAnnotationDraftAt,
         createAnalyticsEvent,
+        applyAnnotation,
+        draftDocumentPosition,
+        isCommentsOnMediaBugFixEnabled,
         actions,
         range,
       ],

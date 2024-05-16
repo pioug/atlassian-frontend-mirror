@@ -1,11 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import __noop from '@atlaskit/ds-lib/noop';
-import Select, { ValueType } from '@atlaskit/select';
+import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
 import Form, {
@@ -145,7 +145,9 @@ describe('Field', () => {
       </Form>,
     );
 
-    await user.keyboard('{Tab}{Tab}');
+    const input = screen.getByTestId('text-field');
+    fireEvent.focus(input);
+    fireEvent.blur(input);
 
     expect(
       screen.getByText('There is a problem with this field'),

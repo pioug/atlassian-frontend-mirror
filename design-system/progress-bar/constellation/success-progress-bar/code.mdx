@@ -2,10 +2,12 @@
 title: Success progress bar
 description: A success progress bar indicates the completion of a process.
 order: 1
+props:
+    packageName: '@atlaskit/progress-bar'
+    exports:
+        - SuccessProgressBar
 ---
-
-import SuccessProgressBarProps from '!!extract-react-types-loader!../../src/components/success-progress-bar';
 
 ## Props
 
-<PropsTable heading="" props={SuccessProgressBarProps} />
+<TSMorphProps packageName="@atlaskit/progress-bar" exportName="SuccessProgressBar" />

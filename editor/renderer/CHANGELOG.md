@@ -1,5 +1,45 @@
 # @atlaskit/renderer
 
+## 109.28.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 109.27.0
+
+### Minor Changes
+
+-   [#97196](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97196)
+    [`b9e49dbef2a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9e49dbef2a3) -
+    [ED-23179] Added background mark react view to renderer
+
+### Patch Changes
+
+-   [#98285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98285)
+    [`0225618cf16f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0225618cf16f) -
+    [ux] Add auto scale when table resized and numbered column enabled.
+-   Updated dependencies
+
+## 109.26.0
+
+### Minor Changes
+
+-   [#98890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98890)
+    [`9a61210caecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a61210caecb) -
+    Updating parameters of the applyDraftMode() function to return a step if an annotationId is
+    passed in
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 109.25.5
 
 ### Patch Changes

@@ -1,5 +1,54 @@
 # @atlaskit/editor-mobile-bridge
 
+## 193.19.2
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.19.1
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.19.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.18.2
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.18.1
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 193.18.0
+
+### Minor Changes
+
+-   [#98890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98890)
+    [`9a61210caecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a61210caecb) -
+    Updating parameters of the applyDraftMode() function to return a step if an annotationId is
+    passed in
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 193.17.0
 
 ### Patch Changes

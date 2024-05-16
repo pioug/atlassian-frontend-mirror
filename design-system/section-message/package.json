@@ -50,7 +50,7 @@
     "@atlaskit/button": "^17.14.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/heading": "^2.3.0",
-    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/icon": "^22.2.0",
     "@atlaskit/primitives": "^6.1.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",

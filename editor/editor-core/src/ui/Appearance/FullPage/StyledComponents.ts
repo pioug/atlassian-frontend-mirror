@@ -9,7 +9,7 @@ import {
   akEditorGutterPadding,
   akEditorSwoopCubicBezier,
   akLayoutGutterOffset,
-  ATLASSIAN_NAVIGATION_HEIGHT,
+  FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
@@ -59,7 +59,7 @@ export const positionedOverEditorStyle = css({
 export const contentArea = css({
   display: 'flex',
   flexDirection: 'row',
-  height: `calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT})`,
+  height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()})`,
   boxSizing: 'border-box',
   margin: 0,
   padding: 0,

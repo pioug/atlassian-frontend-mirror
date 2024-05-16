@@ -15,6 +15,9 @@ describe('validate valid schema', () => {
     'codeBlock-with-empty-marks.json',
     'heading-with-empty-marks.json',
     'extension-with-empty-marks.json',
+    // the following also have empty marks, which fails
+    'nestedExpand-with-codeBlock.json',
+    'panel-with-codeBlock.json',
   ];
   const valid = fullValidJsonSchema.concat(stage0ValidJsonSchema);
 
@@ -65,6 +68,10 @@ describe('validate invalid schema', () => {
     'extension-with-named-fragment-mark.json',
     // to be removed after list inside blockquote is fully supported in PM Schema. See https://product-fabric.atlassian.net/browse/ED-21452
     'blockquote-with-list-inside.json',
+    // to be removed after localId attr inside paragraph and heading is fully supported.
+    'heading-with-invalid-local-id.json',
+    'mention-with-invalid-local-id.json',
+    'paragraph-with-invalid-local-id.json',
   ];
   const expectAnyErrorList = [
     'extension-with-empty-local-id.json',

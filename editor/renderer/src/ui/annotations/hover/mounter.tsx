@@ -106,7 +106,7 @@ export const Mounter = React.memo((props: Props) => {
   }, [documentPosition, generateIndexMatch]);
 
   const applyDraftModeCallback = useCallback(
-    (keepNativeSelection: boolean = true) => {
+    (options: { annotationId?: string, keepNativeSelection?: boolean }) => {
       if (!documentPosition || !isAnnotationAllowed) {
         if (createAnalyticsEvent) {
           createAnalyticsEvent({
@@ -117,7 +117,8 @@ export const Mounter = React.memo((props: Props) => {
             eventType: EVENT_TYPE.TRACK,
           }).fire(FabricChannel.editor);
         }
-        return;
+
+        return false;
       }
 
       setDraftDocumentPosition(documentPosition);
@@ -138,7 +139,7 @@ export const Mounter = React.memo((props: Props) => {
       }
 
       window.requestAnimationFrame(() => {
-        if (keepNativeSelection) {
+        if (options.keepNativeSelection) {
           updateWindowSelectionAroundDraft(documentPosition);
         } else {
           const sel = window.getSelection();
@@ -147,12 +148,32 @@ export const Mounter = React.memo((props: Props) => {
           }
         }
       });
+
+      const positionToAnnotate = draftDocumentPosition || documentPosition;
+
+        if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
+          return false;
+        }
+
+        const annotation = {
+          annotationId: options.annotationId,
+          annotationType: AnnotationTypes.INLINE_COMMENT,
+        };
+
+        return applyAnnotation(
+          positionToAnnotate,
+          annotation,
+          isCommentsOnMediaBugFixEnabled,
+        );
     },
     [
       documentPosition,
       isAnnotationAllowed,
       applyAnnotationDraftAt,
       createAnalyticsEvent,
+      applyAnnotation,
+      draftDocumentPosition,
+      isCommentsOnMediaBugFixEnabled,
       actions,
       range,
     ],

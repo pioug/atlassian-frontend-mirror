@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-card
 
+## 1.12.1
+
+### Patch Changes
+
+-   [#99590](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99590)
+    [`b0670c3f10e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0670c3f10e6) -
+    Remove the displayedColumnCount key-value pair from attributes object entirely if it doesn't
+    exist for analytics
+-   Updated dependencies
+
+## 1.12.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 1.11.4
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.11.3
 
 ### Patch Changes

@@ -119,6 +119,12 @@ function getAdfReferenceFileNameAndContents(group: 'valid' | 'invalid') {
 // being added to the document, in some cases the editor "silently handles" the invalid
 // attributes, and in others, it will drop them.
 const invalidReferenceAdfLoadableWithoutUnsupported = [
+  'invalid/blockcard-with-empty-attrs.json',
+  'invalid/blockcard-with-empty-datasource.json',
+  'invalid/blockcard-with-invalid-datasource-id.json',
+  'invalid/blockcard-with-invalid-datasource-layout.json',
+  'invalid/blockcard-with-invalid-datasource-views-type.json',
+  'invalid/blockcard-with-invalid-datasource-width.json',
   'invalid/blockQuote-with-attrs.json',
   'invalid/bodied-extension-without-extensionKey.json',
   'invalid/bodied-extension-without-extensionType.json',
@@ -173,6 +179,7 @@ const invalidReferenceAdfLoadableWithoutUnsupported = [
   'invalid/mediaSingle-with-zero-width.json',
   'invalid/mention-with-extra-attrs.json',
   'invalid/mention-with-invalid-user-type.json',
+  'invalid/mention-with-invalid-local-id.json',
   'invalid/mono-with-attrs.json',
   'invalid/orderedList-with-extra-attrs.json',
   'invalid/panel-with-empty-attrs.json',
@@ -204,6 +211,11 @@ const invalidReferenceAdfLoadableWithoutUnsupported = [
   'invalid/bulletList-with-not-listItem-content.json',
   'invalid/listItem-with-empty-content.json',
   'invalid/orderedList-without-content.json',
+  // to be removed after background color mark is fully supported in PM Schema (added in ED-23064)
+  'invalid/backgroundColor-with-extra-attrs.json',
+  'invalid/backgroundColor-with-invalid-color-attr.json',
+  'invalid/backgroundColor-without-attrs.json',
+  'invalid/backgroundColor-without-color-attr.json',
 ];
 
 const invalidReferenceAdfUnloadable = [
@@ -237,7 +249,22 @@ const emptyDocumentInnerHtml = mountEditorWithAdfDoc({
 describe('editor loading adf', () => {
   processADFSchemaJSON();
 
-  const validAdfFileTestCases = getAdfReferenceFileNameAndContents('valid').map(
+  const validAdfFileTestCases = getAdfReferenceFileNameAndContents('valid')
+  .filter(({name, adfDoc}) => ![
+    // to be removed after new panel node nesting rules is fully supported in PM Schema (added in ED-21611)
+    'valid/panel-with-codeBlock.json',
+    'valid/panel-with-decision.json',
+    'valid/panel-with-media.json',
+    'valid/panel-with-rule.json',
+    'valid/panel-with-task.json',
+    'valid/list-item-with-task.json',
+    // to be removed after back marks in extensionFrame is fully supported in PM Schema (added in ED-22219)
+    'valid/multiBodiedExtension-with-valid-content.json',
+    // to be removed after node-nesting for lists inside blockquote is fully supported in PM Schema (added in ED-20960)
+    'valid/blockquote-with-bullet-list-inside.json',
+    'valid/blockquote-with-ordered-list-inside.json',
+  ].includes(name))
+  .map(
     ({ name, adfDoc }) => [name, adfDoc],
   );
 

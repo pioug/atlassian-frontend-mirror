@@ -1,4 +1,4 @@
-import { expect, Page, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 const basicFilterContainerTestId = 'jlol-basic-filter-container';
 
@@ -108,7 +108,10 @@ test.describe('JiraIssuesModal: Basic Filters', () => {
       'Unassigned',
     );
 
-    await page.type('#jlol-basic-filter-assignee-popup-select--input', `empty`);
+    await page.fill(
+      '#jlol-basic-filter-assignee-popup-select--input',
+      `empty-message`,
+    );
 
     await expect(
       page.getByTestId('jlol-basic-filter-assignee--no-options-message'),

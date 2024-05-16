@@ -1,6 +1,8 @@
 // TODO: Switch from ERT to ts-morph when this is completed and has reasonable adoption: https://product-fabric.atlassian.net/browse/DSP-10364
 import type React from 'react';
 
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
 import {
   type BasePrimitiveProps,
   type StyleProp,
@@ -33,9 +35,7 @@ export default function Anchor<
 >(
   _: {
     /**
-     * A link can be provided as a string. If a router link configuration is set
-     * it can be mapped to the underlying router link component,
-     * or optionally a custom object defined in the generic type for advanced use.
+     * A link can be provided as a string If a router link configuration is set in the [app provider](https://atlassian.design/components/app-provider/examples), this can be mapped to an underlying router link component. For advanced usage an object can be passed. See [the code examples](https://atlassian.design/components/primitives/anchor/examples#router-links) for more information.
      */
     href: string | RouterLinkConfig;
 
@@ -83,6 +83,29 @@ export default function Anchor<
      * Tokens representing CSS `paddingInlineEnd`.
      */
     paddingInlineEnd?: Space;
+
+    /**
+     * Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/anchor/examples#gasv3-analytics).
+     */
+    onClick?: (
+      e: React.MouseEvent<HTMLButtonElement>,
+      analyticsEvent: UIAnalyticsEvent,
+    ) => void;
+
+    /**
+     * An optional component name used to identify this component to Atlaskit analytics press listeners. This can be altered if a parent component's name is preferred rather than the default 'Anchor'. See [the code example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
+     */
+    componentName?: string;
+
+    /**
+     * Additional information to be included in the `context` of Atlaskit analytics events that come from anchor. See [the code example](https://atlassian.design/components/primitives/anchor/examples#atlaskit-analytics) for more information.
+     */
+    analyticsContext?: Record<string, any>;
+
+    /**
+     * An optional name used to identify the anchor to interaction content listeners. By default, anchor fires React UFO (Unified Frontend Observability) press interactions for available listeners. This helps Atlassian measure performance and reliability. See [the code example](https://atlassian.design/components/primitives/anchor/examples#react-ufo-press-interactions) for more information.
+     */
+    interactionName?: string;
 
     /**
      * A token alias for background color. See:<br>

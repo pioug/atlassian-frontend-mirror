@@ -386,8 +386,8 @@ export class Renderer extends PureComponent<RendererProps> {
     const elementToSelect: Element | null | undefined = anchorInCell
       ? anchorNode!.parentElement?.closest('div,p')
       : focusInCell
-      ? focusNode!.parentElement?.closest('div,p')
-      : tableCell;
+        ? focusNode!.parentElement?.closest('div,p')
+        : tableCell;
     if (elementToSelect) {
       selection.selectAllChildren(elementToSelect);
     }

@@ -13,13 +13,13 @@ import {
   SmartLinkStatus,
   SmartLinkTheme,
 } from '../../../../../../constants';
-import { TitleBlockProps } from '../types';
+import { type TitleBlockProps } from '../types';
 import { messages } from '../../../../../../messages';
 import {
   makeCustomActionItem,
   makeDeleteActionItem,
 } from '../../../../../../../examples/utils/flexible-ui';
-import { NamedActionItem } from '../../types';
+import { type NamedActionItem } from '../../types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 describe('TitleBlock', () => {
@@ -102,7 +102,7 @@ describe('TitleBlock', () => {
          * Remove filter once ActionName.ViewAction is retired
          * https://product-fabric.atlassian.net/browse/EDM-9665
          */
-        Object.values(ActionName).filter((x) => x !== ActionName.ViewAction),
+        Object.values(ActionName).filter((x) => (x !== ActionName.ViewAction)),
       ],
       [SmartLinkStatus.Resolving, nonResolvedAllowedActions],
       [SmartLinkStatus.Forbidden, nonResolvedAllowedActions],

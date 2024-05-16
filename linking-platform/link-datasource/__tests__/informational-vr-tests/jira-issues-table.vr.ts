@@ -3,6 +3,7 @@ import type { Locator, Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
+import JiraIssuesTableSingleRow from '../../examples/vr/jira-issues-table-single-row-vr';
 import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
 
 snapshotInformational(JiraIssuesTable, {
@@ -117,25 +118,15 @@ snapshotInformational(JiraIssuesTable, {
   ],
 });
 
-// TODO There is a delay in how we load smart links, which changes the picture
-// https://product-fabric.atlassian.net/browse/EDM-9967
-snapshotInformational.skip(JiraIssuesTable, {
+snapshotInformational(JiraIssuesTableSingleRow, {
   prepare: async (page: Page, _component: Locator) => {
     await page
-      .getByTestId('datasource-table-view--row-DONUT-11730')
+      .getByTestId('datasource-table-view--row-DONUT-11720')
       .getByTestId('datasource-table-view--cell-9')
       .hover();
   },
   drawsOutsideBounds: true,
   description: 'Hovering over Description',
-  ignoredErrors: [
-    {
-      pattern: /(received unsupported error)|(The above error occurred in the)/,
-      ignoredBecause:
-        'Intentionally triggering an error to capture error boundary fallback',
-      jiraIssueId: 'NONE-123',
-    },
-  ],
 });
 
 snapshotInformational(JiraIssuesTable, {

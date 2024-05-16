@@ -4,7 +4,7 @@ import type { TrackAEP } from './utils';
 export type HighlightToolbarToggleAEP = TrackAEP<
   ACTION.OPENED | ACTION.CLOSED,
   ACTION_SUBJECT.TOOLBAR,
-  ACTION_SUBJECT_ID.HIGHLIGHT,
+  ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
   undefined,
   undefined
 >;

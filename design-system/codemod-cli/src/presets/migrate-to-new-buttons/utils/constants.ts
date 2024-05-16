@@ -32,6 +32,12 @@ export const BUTTON_TYPES = [
   'CustomThemeButtonOwnProps',
 ];
 
+export const UNSAFE_SIZE_PROPS_MAP: Record<string, string> = {
+  UNSAFE_size: 'icon',
+  UNSAFE_iconAfter_size: 'iconAfter',
+  UNSAFE_iconBefore_size: 'iconBefore',
+};
+
 export const unsupportedProps = ['component', 'css', 'style'];
 
 export const linkButtonMissingHrefComment = `"link" and "subtle-link" appearances are only available in LinkButton, please either provide a href prop then migrate to LinkButton, or remove the appearance from the default button.`;

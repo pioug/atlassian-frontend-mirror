@@ -3,7 +3,6 @@ export interface NCSFeatureFlags {
   testFF?: boolean;
   blockViewOnly?: boolean;
   reconcileOnRecovery?: boolean;
-  connectWebsocketFirst?: boolean;
 }
 
 export interface WithNCSFeatureFlags {

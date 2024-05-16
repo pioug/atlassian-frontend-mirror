@@ -33,6 +33,10 @@ export const getAISummaryErrorMessage = (
       return {
         message: messages.ai_summary_error_hipaa_content_detected,
       };
+    case 'EXCEEDING_CONTEXT_LENGTH_ERROR':
+      return {
+        message: messages.ai_summary_error_exceeding_context_length_error,
+      };
     default:
       return {
         message: messages.ai_summary_error_generic,

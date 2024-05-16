@@ -1,5 +1,14 @@
 # @atlaskit/modal-dialog
 
+## 12.13.4
+
+### Patch Changes
+
+-   [#99952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99952)
+    [`1e7e09d75d5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e7e09d75d5c) -
+    Support to close popup corrrectly when clicking iframe using layering under feature flag
+-   Updated dependencies
+
 ## 12.13.3
 
 ### Patch Changes

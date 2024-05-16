@@ -28,6 +28,7 @@ export const FORMATTING_MARK_TYPES = [
   'underline',
   'textColor',
   'subsup',
+  'backgroundColor',
 ];
 
 const formatTypes: Record<string, string> = {
@@ -38,6 +39,7 @@ const formatTypes: Record<string, string> = {
   underline: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
   textColor: ACTION_SUBJECT_ID.FORMAT_COLOR,
   subsup: 'subsup',
+  backgroundColor: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
 };
 
 export function clearFormattingWithAnalytics(

@@ -1,5 +1,17 @@
 # @atlaskit/table
 
+## 0.5.0
+
+### Minor Changes
+
+-   [#99184](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99184)
+    [`3755cda305d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3755cda305d7) -
+    Add support for React 18.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 0.4.30
 
 ### Patch Changes

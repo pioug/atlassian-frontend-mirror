@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { FieldProps } from '@atlaskit/form';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type FieldProps } from '@atlaskit/form';
 
 interface CommonProps {
   /** Additional information to be included in the `context` of analytics events that come from button. */
@@ -13,7 +13,7 @@ interface CommonProps {
   /** The user input entered into the field during `editView`. This value is updated and saved by `onConfirm`. */
   defaultValue: any;
   /** Label above the input field that communicates what value should be entered. */
-  label?: string;
+  label?: ReactNode;
   /** Displays an inline dialog with a message when the field input is invalid. This is handled by `react-final-form`. */
   validate?: (
     value: any,

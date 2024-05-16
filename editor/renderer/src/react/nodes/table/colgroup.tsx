@@ -13,6 +13,8 @@ import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { SharedTableProps } from './types';
 import { isTableResizingEnabled } from '../table';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { useFeatureFlags } from '../../../use-feature-flags';
+import type { RendererContextProps } from '../../../renderer-context';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -67,7 +69,7 @@ export const calcScalePercent = ({
 };
 
 const renderScaleDownColgroup = (
-  props: SharedTableProps,
+  props: SharedTableProps & { isTableScalingEnabled: boolean },
 ): CSSProperties[] | null => {
   let {
     columnWidths,
@@ -77,6 +79,7 @@ const renderScaleDownColgroup = (
     rendererAppearance,
     isInsideOfBlockNode,
     isinsideMultiBodiedExtension,
+    isTableScalingEnabled,
   } = props;
 
   if (!columnWidths) {
@@ -106,6 +109,43 @@ const renderScaleDownColgroup = (
     targetWidths = new Array(noOfColumns).fill(defaultColumnWidth);
   } else if (!tableResized) {
     return null;
+  }
+
+  // when table resized and number column is enabled, we need to scale down the table in render
+  if (
+    getBooleanFF(
+      'platform.editor.scale-table-when-number-column-in-table-resized_y4qh2',
+    ) &&
+    isTableScalingEnabled &&
+    isNumberColumnEnabled &&
+    tableResized
+  ) {
+    const scalePercentage = +(
+      (tableContainerWidth - akEditorTableNumberColumnWidth) /
+      tableContainerWidth
+    ).toFixed(2);
+
+    const targetMaxWidth = tableContainerWidth - akEditorTableNumberColumnWidth;
+    let totalWidthAfterScale = 0;
+    const newScaledTargetWidths = columnWidths.map((width) => {
+      const newWidth = Math.floor(width * scalePercentage);
+      totalWidthAfterScale += newWidth;
+      return newWidth;
+    });
+
+    const diff = targetMaxWidth - totalWidthAfterScale;
+    targetWidths = newScaledTargetWidths;
+
+    if (diff > 0 || (diff < 0 && Math.abs(diff) < tableCellMinWidth)) {
+      let updated = false;
+      targetWidths = targetWidths.map((width: number) => {
+        if (!updated && width + diff > tableCellMinWidth) {
+          updated = true;
+          width += diff;
+        }
+        return width;
+      });
+    }
   }
 
   targetWidths = targetWidths || columnWidths;
@@ -171,12 +211,22 @@ const renderScaleDownColgroup = (
 
 export const Colgroup = (props: SharedTableProps) => {
   let { columnWidths, isNumberColumnEnabled } = props;
+  const flags = useFeatureFlags() as
+    | RendererContextProps['featureFlags']
+    | undefined;
 
   if (!columnWidths) {
     return null;
   }
 
-  const colStyles = renderScaleDownColgroup(props);
+  const colStyles = renderScaleDownColgroup({
+    ...props,
+    isTableScalingEnabled: !!(
+      flags &&
+      'tablePreserveWidth' in flags &&
+      flags.tablePreserveWidth
+    ),
+  });
 
   if (!colStyles) {
     return null;

@@ -56,6 +56,7 @@ export const errorMessages = [
   'AI_DISABLED',
   'UNEXPECTED',
   'HIPAA_CONTENT_DETECTED',
+  'EXCEEDING_CONTEXT_LENGTH_ERROR',
 ] as const;
 
 export type ErrorMessage = (typeof errorMessages)[number];

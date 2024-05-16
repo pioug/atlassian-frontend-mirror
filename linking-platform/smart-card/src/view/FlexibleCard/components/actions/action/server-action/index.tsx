@@ -5,14 +5,15 @@ import { getInvokeFailureReason } from '../../../../../../state/hooks/use-invoke
 import useResolve from '../../../../../../state/hooks/use-resolve';
 import createInvokeRequest from '../../../../../../utils/actions/create-invoke-request';
 import Action from '../index';
-import { ServerActionProps } from './types';
+import type { ServerActionProps } from './types';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 
-const ServerAction: React.FC<ServerActionProps> = ({
+const ServerAction = ({
   action,
   onClick,
+  onError: onErrorCallback,
   ...props
-}) => {
+}: ServerActionProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const analytics = useFlexibleUiAnalyticsContext();
@@ -53,9 +54,19 @@ const ServerAction: React.FC<ServerActionProps> = ({
           smartLinkActionType,
           reason: getInvokeFailureReason(err),
         });
+
+        onErrorCallback?.();
       }
     }
-  }, [action, analytics?.track, analytics?.ui, invoke, onClick, reload]);
+  }, [
+    action,
+    analytics?.track,
+    analytics?.ui,
+    invoke,
+    onClick,
+    onErrorCallback,
+    reload,
+  ]);
 
   return <Action {...props} isLoading={isLoading} onClick={handleClick} />;
 };

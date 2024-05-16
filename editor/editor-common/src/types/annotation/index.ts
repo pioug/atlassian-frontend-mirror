@@ -62,7 +62,7 @@ export type InlineCommentSelectionComponentProps = {
   /**
    * Call this function to surround the range with a HTML tag.
    */
-  applyDraftMode: (keepNativeSelection?: boolean) => void;
+  applyDraftMode: (options: { annotationId?: string, keepNativeSelection?: boolean }) => AnnotationActionResult;
 
   /**
    * Call this function to remove the draft HTML tags created by the applyDraftMode
@@ -129,7 +129,7 @@ export type InlineCommentHoverComponentProps = {
   /**
    * Call this function to surround the range with a HTML tag.
    */
-  applyDraftMode: (keepNativeSelection?: boolean) => void;
+  applyDraftMode: (options: { annotationId?: string, keepNativeSelection?: boolean }) => AnnotationActionResult;
 
   /**
    * Call this function to remove the draft HTML tags created by the applyDraftMode

@@ -9,12 +9,18 @@ import {
 } from '../__mocks__/mocks';
 import { mocks } from '../../../../utils/mocks';
 import { within } from '@testing-library/dom';
-import { setup as hoverCardSetup, SetUpParams } from './setup.test-utils';
+import {
+  type setup as hoverCardSetup,
+  type SetUpParams,
+} from './setup.test-utils';
 import {
   additionalPayloadAttributes,
   getEventPayload,
 } from './analytics.test-utils';
-import { CardAction, CardActionOptions } from '../../../../view/Card/types';
+import {
+  CardAction,
+  type CardActionOptions,
+} from '../../../../view/Card/types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const userEventOptionsWithAdvanceTimers = {
@@ -381,6 +387,18 @@ export const runCommonHoverCardTests = (
     });
   });
 
+  ffTest.on(
+    'platform.linking-platform.smart-card.hover-card-action-redesign',
+    'Redesign FF on',
+    () => {
+      it('renders hover card redesign', async () => {
+        const { findByTestId } = await setup();
+        const actionBlock = await findByTestId('smart-block-action');
+        expect(actionBlock).toBeInTheDocument();
+      });
+    },
+  );
+
   describe('client-side actions', () => {
     it('should render smartlink actions', async () => {
       const { findByTestId } = await setup();
@@ -451,9 +469,8 @@ export const runCommonHoverCardTests = (
         async () => {
           const { findByTestId } = await setup();
           const hoverCard = await findByTestId('hover-card');
-          const block = await within(hoverCard).findByTestId(
-            'smart-block-action',
-          );
+          const block =
+            await within(hoverCard).findByTestId('smart-block-action');
           const button = await within(block).findByTestId(
             'smart-action-copy-link-action',
           );

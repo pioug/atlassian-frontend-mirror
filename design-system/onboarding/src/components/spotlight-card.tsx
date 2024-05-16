@@ -13,8 +13,6 @@ import Button, {
 } from '@atlaskit/button/custom-theme-button';
 import Heading from '@atlaskit/heading';
 import { Box, Text, xcss } from '@atlaskit/primitives';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { createTheme } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
@@ -68,11 +66,6 @@ const containerShadowStyles = xcss({
   boxShadow: 'elevation.shadow.raised',
 });
 
-/**
- * @deprecated
- */
-const Theme = createTheme(() => ({}));
-
 interface SpotlightCardProps {
   /**
    * Buttons to render in the footer.
@@ -114,6 +107,7 @@ interface SpotlightCardProps {
    * Removes elevation styles if set.
    */
   isFlat?: boolean;
+
   /**
    * Specifies the width of the card component. Accepts either a number or the string '100%'.
    * When a number is provided, the width is set in pixels. When '100%' is provided, the width
@@ -168,67 +162,49 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
 
     return (
       <ButtonTheme.Provider value={spotlightButtonTheme}>
-        {/*
-          Theme.Provider and Theme.Consumer required to prevent inheriting theme.
-          When removed caused https://ops.internal.atlassian.com/jira/browse/HOT-108954
-
-          TODO: When new button either supports XCSS or an appearance to cater for this use case, remove theming
-          https://product-fabric.atlassian.net/browse/DSP-18616
-        */}
-        <Theme.Provider value={undefined}>
-          <Theme.Consumer>
-            {() => (
-              <Box
-                backgroundColor="color.background.discovery.bold"
-                xcss={[containerStyles, !isFlat && containerShadowStyles]}
-                style={{ width }}
-                ref={ref || innerRef}
-                testId={testId}
-              >
-                {typeof image === 'string' ? (
-                  <img css={imageStyles} src={image} alt="" />
-                ) : (
-                  image
-                )}
-                <div css={bodyStyles}>
-                  {heading || headingAfterElement ? (
-                    <Header>
-                      <Heading
-                        id={headingId}
-                        size="medium"
-                        as={`h${headingLevel}`}
+        <Box
+          backgroundColor="color.background.discovery.bold"
+          xcss={[containerStyles, !isFlat && containerShadowStyles]}
+          style={{ width }}
+          ref={ref || innerRef}
+          testId={testId}
+        >
+          {typeof image === 'string' ? (
+            <img css={imageStyles} src={image} alt="" />
+          ) : (
+            image
+          )}
+          <div css={bodyStyles}>
+            {heading || headingAfterElement ? (
+              <Header>
+                <Heading id={headingId} size="medium" as={`h${headingLevel}`}>
+                  {heading}
+                </Heading>
+                {headingAfterElement}
+              </Header>
+            ) : null}
+            <Text>{children}</Text>
+            {actions.length > 0 || actionsBeforeElement ? (
+              <Footer>
+                {/* Always need an element so space-between alignment works */}
+                {actionsBeforeElement || <span />}
+                <DialogActionItemContainer>
+                  {actions.map(({ text, key, ...rest }, idx) => {
+                    return (
+                      <DialogActionItem
+                        key={
+                          key || (typeof text === 'string' ? text : `${idx}`)
+                        }
                       >
-                        {heading}
-                      </Heading>
-                      {headingAfterElement}
-                    </Header>
-                  ) : null}
-                  <Text>{children}</Text>
-                  {actions.length > 0 || actionsBeforeElement ? (
-                    <Footer>
-                      {/* Always need an element so space-between alignment works */}
-                      {actionsBeforeElement || <span />}
-                      <DialogActionItemContainer>
-                        {actions.map(({ text, key, ...rest }, idx) => {
-                          return (
-                            <DialogActionItem
-                              key={
-                                key ||
-                                (typeof text === 'string' ? text : `${idx}`)
-                              }
-                            >
-                              <Button {...rest}>{text}</Button>
-                            </DialogActionItem>
-                          );
-                        })}
-                      </DialogActionItemContainer>
-                    </Footer>
-                  ) : null}
-                </div>
-              </Box>
-            )}
-          </Theme.Consumer>
-        </Theme.Provider>
+                        <Button {...rest}>{text}</Button>
+                      </DialogActionItem>
+                    );
+                  })}
+                </DialogActionItemContainer>
+              </Footer>
+            ) : null}
+          </div>
+        </Box>
       </ButtonTheme.Provider>
     );
   },

@@ -103,4 +103,12 @@ describe('getAISummaryErrorMessage', () => {
       message: messages.ai_summary_error_hipaa_content_detected,
     });
   });
+
+  it('returns exceeding context length error message', () => {
+    const message = getAISummaryErrorMessage('EXCEEDING_CONTEXT_LENGTH_ERROR');
+
+    expect(message).toEqual({
+      message: messages.ai_summary_error_exceeding_context_length_error,
+    });
+  });
 });

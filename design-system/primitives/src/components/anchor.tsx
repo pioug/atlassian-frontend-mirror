@@ -42,7 +42,7 @@ export type AnchorProps<RouterLinkConfig extends Record<string, any> = never> =
        */
       children: ReactNode;
       /**
-       * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+       * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
        */
       onClick?: (
         e: React.MouseEvent<HTMLAnchorElement>,

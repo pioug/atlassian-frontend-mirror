@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-shared-styles",
-  "version": "2.10.0",
+  "version": "2.11.0",
   "description": "Style values used in the editor/renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,6 +27,11 @@
     "inPublicMirror": true,
     "releaseModel": "continuous"
   },
+  "platform-feature-flags": {
+    "platform.confluence.frontend.narrow-full-page-editor-toolbar": {
+      "type": "boolean"
+    }
+  },
   "af:exports": {
     "./consts": "./src/consts/index.ts",
     "./selection": "./src/selection/index.ts",
@@ -42,6 +47,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",

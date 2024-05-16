@@ -1,6 +1,6 @@
 import { type API, type FileInfo, type Options } from 'jscodeshift';
 
-const applyTransform = require('jscodeshift/dist/testUtils').applyTransform;
+import { applyTransform } from '@hypermod/utils';
 import * as prettier from 'prettier';
 import * as parserTypeScript from 'prettier/plugins/typescript';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
@@ -49,10 +49,10 @@ export function createCheck(transformer: Transformer) {
     run(name, async () => {
       before();
       try {
-        const output: string = applyTransform(
-          { default: transformerOverride || transformer, parser: 'tsx' },
-          {},
-          { source: original },
+        const output: string = await applyTransform(
+          transformerOverride || transformer,
+          original,
+          { parser: 'tsx' },
         );
         expect(await format(output)).toEqual(await format(expected));
       } catch (e) {

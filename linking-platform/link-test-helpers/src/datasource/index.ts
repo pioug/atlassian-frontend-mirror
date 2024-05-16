@@ -55,6 +55,7 @@ export {
   failedRecommendationAPIResponse,
   transformedRecommendationMockFilterOptions,
   successfuluserHydrationResponse,
+  hydrateJqlStandardResponseForVRTesting,
 } from './basic-filters/mocks';
 
 fetchMock.config.fallbackToNetwork = true;

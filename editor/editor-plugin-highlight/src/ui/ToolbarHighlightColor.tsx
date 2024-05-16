@@ -74,7 +74,7 @@ const ToolbarHighlightColor = ({
     dispatchAnalyticsEvent?.({
       action: isOpen ? ACTION.OPENED : ACTION.CLOSED,
       actionSubject: ACTION_SUBJECT.TOOLBAR,
-      actionSubjectId: ACTION_SUBJECT_ID.HIGHLIGHT,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
       eventType: EVENT_TYPE.TRACK,
     });
 
@@ -166,7 +166,7 @@ const ToolbarHighlightColor = ({
         }}
         trigger={
           <ToolbarButton
-            buttonId={TOOLBAR_BUTTON.HIGHLIGHT}
+            buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
             spacing={isToolbarReducedSpacing ? 'none' : 'default'}
             disabled={disabled || highlightState.disabled}
             selected={isDropdownOpen}

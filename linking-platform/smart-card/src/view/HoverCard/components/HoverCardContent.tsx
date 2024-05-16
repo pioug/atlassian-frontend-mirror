@@ -28,6 +28,7 @@ import { getMetadata } from '../utils';
 import HoverCardLoadingView from './views/resolving';
 import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
+import HoverCardRedesignedResolvedView from './views/resolved/redesign';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
@@ -47,7 +48,7 @@ export const getCopyAction = (url: string): ActionItem =>
     onClick: async () => await navigator.clipboard.writeText(url),
     tooltipMessage: <FormattedMessage {...messages.copy_url_to_clipboard} />,
     testId: 'hover-card-copy-button',
-  } as CustomActionItem);
+  }) as CustomActionItem;
 
 const HoverCardContent = ({
   id = '',
@@ -200,6 +201,25 @@ const HoverCardContent = ({
     }
 
     if (cardState.status === 'resolved') {
+      if (
+        getBooleanFF(
+          'platform.linking-platform.smart-card.hover-card-action-redesign',
+        )
+      ) {
+        return (
+          <HoverCardRedesignedResolvedView
+            analytics={analytics}
+            cardState={cardState}
+            extensionKey={extensionKey}
+            flexibleCardProps={flexibleCardProps}
+            isAISummaryEnabled={isAISummaryEnabled}
+            onActionClick={onActionClick}
+            titleBlockProps={titleBlockProps}
+            url={url}
+          />
+        );
+      }
+
       return (
         <HoverCardResolvedView
           id={id}

@@ -6,7 +6,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsMeta, BlockControlsPlugin } from '../types';
+import { DRAG_HANDLE_NODE_GAP, DRAG_HANDLE_WIDTH } from '../ui/consts';
 import { DragHandle } from '../ui/drag-handle';
 import { DropTarget } from '../ui/drop-target';
 
@@ -71,8 +72,7 @@ export const dropTargetDecorations = (
 
 export const dragHandleDecoration = (
   oldState: EditorState,
-  // @ts-ignore
-  meta, // TODO - update types here
+  meta: BlockControlsMeta, // TODO - update types here
   api: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
   return DecorationSet.create(oldState.doc, [
@@ -86,7 +86,26 @@ export const dragHandleDecoration = (
         }),
         element,
       );
+
       element.style.position = 'absolute';
+      element.style.zIndex = '1';
+
+      const resizer: HTMLElement | null =
+        meta.dom.querySelector('.resizer-item');
+
+      if (resizer) {
+        element.style.left = `${resizer.offsetLeft - parseInt(getComputedStyle(resizer).marginLeft) - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
+      } else {
+        element.style.left = `${meta.dom.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
+      }
+
+      if (meta.type === 'table') {
+        const table = meta.dom.querySelector('table');
+        element.style.top = `${meta.dom.offsetTop + (table?.offsetTop || 0)}px`;
+      } else {
+        element.style.top = `${meta.dom.offsetTop}px`;
+      }
+
       return element;
     }),
   ]);

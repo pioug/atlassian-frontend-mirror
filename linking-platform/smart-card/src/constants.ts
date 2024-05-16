@@ -154,6 +154,7 @@ export enum ActionName {
   EditAction = 'EditAction',
   FollowAction = 'FollowAction',
   PreviewAction = 'PreviewAction',
+  AutomationAction = 'AutomationAction',
   /**
    * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-8954 Internal documentation for deprecation (no external access)}
    */

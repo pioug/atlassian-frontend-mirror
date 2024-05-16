@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@af/yarn-utils": "*",
-    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/icon": "^22.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "glob": "9.0.0",
     "jsdom": "^17.0.0",

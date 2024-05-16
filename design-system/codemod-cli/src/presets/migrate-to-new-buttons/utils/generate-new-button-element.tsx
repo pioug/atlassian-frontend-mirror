@@ -1,4 +1,9 @@
-import { API, JSXElement, JSXAttribute, JSXSpreadAttribute } from 'jscodeshift';
+import {
+  type API,
+  type JSXElement,
+  type JSXAttribute,
+  type JSXSpreadAttribute,
+} from 'jscodeshift';
 
 import { NEW_BUTTON_VARIANTS } from '../utils/constants';
 

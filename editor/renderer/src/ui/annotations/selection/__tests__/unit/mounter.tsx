@@ -5,7 +5,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import type { InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
+import type { AnnotationActionResult, InlineCommentSelectionComponentProps } from '@atlaskit/editor-common/types';
 import { render } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
@@ -21,7 +21,7 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 jest.mock('../../../draft');
 
 describe('Annotations: SelectionInlineCommentMounter', () => {
-  const fakeApplyAnnotation: jest.Mock = jest.fn();
+  const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
   const fakeOnCloseProp: jest.Mock = jest.fn();
   const fakeClearAnnotationDraft: jest.Mock = jest.fn();
   const fakeCreateAnalyticsEvent = createAnalyticsEventMock();
@@ -30,7 +30,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
   let onCloseCallback: Function = () => {};
 
   const renderMounter = (
-    fakeDocumentPosition: Position = { from: 0, to: 10 },
+    fakeDocumentPosition: Position | false = { from: 0, to: 10 },
     isAnnotationAllowed = true,
   ) => {
     const wrapperDOM = {
@@ -117,7 +117,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           DraftMock.updateWindowSelectionAroundDraft,
         ).toHaveBeenCalledTimes(0);
         act(() => {
-          applyDraftModeCallback(true);
+          applyDraftModeCallback({ keepNativeSelection: true});
         });
 
         window.requestAnimationFrame(() => {
@@ -140,7 +140,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
         const { applyDraftModeCallback } = renderMounter();
 
         act(() => {
-          applyDraftModeCallback(false);
+          applyDraftModeCallback({ keepNativeSelection: false });
         });
 
         window.requestAnimationFrame(() => {
@@ -152,6 +152,32 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
       });
     });
 
+    describe('when annotationId is provided', () => {
+      it('should return a step for that annotation with a valid range', () => {
+        let retVal: AnnotationActionResult = false;
+
+        const { applyDraftModeCallback } = renderMounter();
+
+        act(() => {
+          retVal = applyDraftModeCallback({ annotationId: "12345" });
+        });
+
+        expect(retVal).toBeTruthy();
+      });
+
+      it('should return false for the annotation if the range is not valid', () => {
+        let retVal: AnnotationActionResult = false;
+
+        const { applyDraftModeCallback } = renderMounter(false);
+
+        act(() => {
+          retVal = applyDraftModeCallback({ annotationId: "12345" });
+        });
+
+        expect(retVal).toBe(false);
+      });
+    });
+
     describe('and when the document position changes', () => {
       it('should create the annotation in the previous draft position', () => {
         const fakeDocumentPosition = { from: 0, to: 10 };
@@ -159,7 +185,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
           renderMounter(fakeDocumentPosition);
 
         act(() => {
-          applyDraftModeCallback();
+          applyDraftModeCallback({ keepNativeSelection: true });
         });
 
         const nextDocumentPosition = { from: 30, to: 45 };
@@ -183,7 +209,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
       const { applyDraftModeCallback } = renderMounter();
 
       act(() => {
-        applyDraftModeCallback(true);
+        applyDraftModeCallback({ keepNativeSelection: true});
       });
 
       expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
@@ -200,7 +226,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
     it('sends create not allowed analytics event when annotation is not allowed', () => {
       const { applyDraftModeCallback } = renderMounter(undefined, false);
       act(() => {
-        applyDraftModeCallback(true);
+        applyDraftModeCallback({ keepNativeSelection: true });
       });
       expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.CREATE_NOT_ALLOWED,

@@ -67,7 +67,7 @@
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/button": "^17.14.0",
-    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/icon": "^22.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/toggle": "^13.1.0",
@@ -112,6 +112,9 @@
   },
   "platform-feature-flags": {
     "platform.design-system-team.iframe_gojiv": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.iframe-layering_p3eb8": {
       "type": "boolean"
     }
   },

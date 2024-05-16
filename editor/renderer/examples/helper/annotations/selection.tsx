@@ -38,7 +38,7 @@ const Component = (
   } = props;
   const [showCreateComponent, setShowCreateComponent] = React.useState(false);
   const onToolbarCreateButtonClick = React.useCallback(() => {
-    applyDraftMode();
+    applyDraftMode({ annotationId: uuid(), keepNativeSelection: true });
     setShowCreateComponent(true);
   }, [applyDraftMode]);
 

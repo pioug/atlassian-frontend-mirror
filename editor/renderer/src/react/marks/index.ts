@@ -7,6 +7,7 @@ import Strike from './strike';
 import Strong from './strong';
 import Subsup from './subsup';
 import TextColor from './textColor';
+import BackgroundColor from './backgroundColor';
 import Underline from './underline';
 import Breakout from './breakout';
 import Alignment from './alignment';
@@ -31,6 +32,7 @@ export const markToReact: {
   strong: Strong,
   subsup: Subsup,
   textColor: TextColor,
+  backgroundColor: BackgroundColor,
   underline: Underline,
   annotation: Annotation,
   border: Border,
@@ -60,6 +62,7 @@ export {
   Strong,
   Subsup,
   TextColor,
+  BackgroundColor,
   Underline,
   Breakout,
   Annotation,

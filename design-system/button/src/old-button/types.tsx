@@ -1,6 +1,6 @@
-import React from 'react';
+import type React from 'react';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 export type Appearance =
   | 'default'
@@ -59,18 +59,18 @@ export type BaseOwnProps = {
    */
   isSelected?: boolean;
   /**
-   * Handler to be called on blur.
+   * Handler called on blur.
    */
   onBlur?: React.FocusEventHandler<HTMLElement>;
   /**
-   * Handler to be called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
+   * Handler called on click. The second argument can be used to track analytics data. See the tutorial in the analytics-next package for details.
    */
   onClick?: (
     e: React.MouseEvent<HTMLElement>,
     analyticsEvent: UIAnalyticsEvent,
   ) => void;
   /**
-   * Handler to be called on focus.
+   * Handler called on focus.
    */
   onFocus?: React.FocusEventHandler<HTMLElement>;
   /**

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste
 
+## 1.2.0
+
+### Minor Changes
+
+-   [#99579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99579)
+    [`f222af5687e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f222af5687e9) -
+    Bump adf-schema to 36.3.0 and adf-schema-json to 1.14.0
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 1.1.10
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.1.9
 
 ### Patch Changes

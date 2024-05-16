@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/table",
-  "version": "0.4.30",
+  "version": "0.5.0",
   "description": "A table is used to display data.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -18,7 +18,8 @@
       "status": {
         "type": "alpha"
       }
-    }
+    },
+    "runReact18": true
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "main": "dist/cjs/index.js",
@@ -48,17 +49,17 @@
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/focus-ring": "^1.4.0",
-    "@atlaskit/icon": "^22.1.0",
+    "@atlaskit/icon": "^22.2.0",
     "@atlaskit/primitives": "^6.1.0",
     "@atlaskit/tokens": "^1.48.0",
-    "@atlaskit/tooltip": "^18.3.0",
+    "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/visually-hidden": "^1.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",

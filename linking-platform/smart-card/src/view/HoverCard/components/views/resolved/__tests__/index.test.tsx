@@ -517,45 +517,6 @@ describe('HoverCardResolvedView', () => {
           expect(block).not.toBeInTheDocument();
         });
       });
-
-      ffTest.on(
-        'platform.linking-platform.smart-card.hover-card-action-redesign',
-        'Action redesign enabled',
-        () => {
-          it('renders ActionBlock', async () => {
-            const { findByTestId } = setup();
-            const block = await findByTestId('smart-block-action');
-            expect(block).toBeInTheDocument();
-          });
-
-          it('renders FooterBlock', () => {
-            const { queryByTestId } = setup();
-            const block = queryByTestId('smart-ai-footer-block-resolved-view');
-            expect(block).toBeInTheDocument();
-          });
-
-          describe('AI summary', () => {
-            it('does not render AISummaryBlock', () => {
-              const { queryByTestId } = setup();
-              const block = queryByTestId(
-                'smart-ai-summary-block-resolved-view',
-              );
-              expect(block).not.toBeInTheDocument();
-            });
-
-            it('renders AISummaryBlock', async () => {
-              isAiSummaryFFEnabled = true;
-              AISummariesStore.clear();
-
-              const { findByTestId } = setupWithAISummary();
-              const block = await findByTestId(
-                'smart-ai-summary-block-resolved-view',
-              );
-              expect(block).toBeInTheDocument();
-            });
-          });
-        },
-      );
     });
   });
 

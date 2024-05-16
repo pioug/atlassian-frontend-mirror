@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.3.7
+
+### Patch Changes
+
+-   [#98222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98222)
+    [`d94cd00110eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d94cd00110eb) -
+    [ux] ED-23206 Set node selection when drag handle is clicked, dragged and content is dropped
+-   [#100193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100193)
+    [`e9a08f4f88aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9a08f4f88aa) -
+    [ux] Update drag handle position
+-   Updated dependencies
+
+## 1.3.6
+
+### Patch Changes
+
+-   [#100030](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100030)
+    [`f246ee5d3b7f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f246ee5d3b7f) -
+    [ux] Change drop target design, refactor styles
+-   Updated dependencies
+
+## 1.3.5
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.3.4
 
 ### Patch Changes

@@ -19,6 +19,9 @@
     ],
     "references": [
         {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/theme/afm-cc/tsconfig.json"
         },
         {

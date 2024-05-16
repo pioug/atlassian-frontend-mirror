@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin } from '../types';
+import { getSelection } from '../utils/getSelection';
 
 import {
   DRAG_HANDLE_BORDER_RADIUS,
@@ -20,12 +21,6 @@ import {
 import { dragPreview } from './drag-preview';
 
 const dragHandleButtonStyles = css({
-  position: 'relative',
-  // TODO - we have ticket ED-23209 to correctly position the drag handle for each node
-  //https://product-fabric.atlassian.net/browse/ED-23209
-  top: 12,
-  left: -18,
-
   padding: `${token('space.025', '2px')} 0`,
   boxSizing: 'border-box',
   display: 'flex',
@@ -73,6 +68,21 @@ export const DragHandle = ({
   const domRef = useRef<HTMLElement>(dom);
   const [dragHandleSelected, setDragHandleSelected] = useState(false);
 
+  const handleClick = useCallback(() => {
+    setDragHandleSelected(!dragHandleSelected);
+    // TODO - add drag menu
+    // api?.core?.actions.execute(({ tr }) =>
+    //   tr.setMeta(key, {
+    //     toggleMenu: true,
+    //   }),
+    // );
+    api?.core?.actions.execute(({ tr }) => {
+      tr.setSelection(getSelection(tr, start));
+      return tr;
+    });
+    api?.core?.actions.focus();
+  }, [start, api, dragHandleSelected, setDragHandleSelected]);
+
   useEffect(() => {
     const element = buttonRef.current;
     if (!element) {
@@ -96,12 +106,16 @@ export const DragHandle = ({
         });
       },
       onDragStart() {
-        api?.core?.actions.execute(({ tr }) =>
-          tr.setMeta(key, {
+        api?.core?.actions.execute(({ tr }) => {
+          const newTr = tr;
+          newTr.setSelection(getSelection(newTr, start));
+          newTr.setMeta(key, {
             isDragging: true,
             start,
-          }),
-        );
+          });
+          return newTr;
+        });
+        api?.core?.actions.focus();
       },
       onDrop() {
         api?.core?.actions.execute(({ tr }) =>
@@ -118,16 +132,7 @@ export const DragHandle = ({
       type="button"
       css={[dragHandleButtonStyles, dragHandleSelected && selectedStyles]}
       ref={buttonRef}
-      onClick={() => {
-        setDragHandleSelected(!dragHandleSelected);
-
-        // TODO - add drag menu
-        // api?.core?.actions.execute(({ tr }) =>
-        //   tr.setMeta(key, {
-        //     toggleMenu: true,
-        //   }),
-        // );
-      }}
+      onClick={handleClick}
     >
       <DragHandlerIcon label="" size="medium" />
     </button>

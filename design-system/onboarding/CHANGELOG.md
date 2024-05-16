@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 11.5.6
+
+### Patch Changes
+
+-   [#100605](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100605)
+    [`f12f3d4764e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f12f3d4764e2) -
+    Reverts an attempted bug fix in 11.5.2 that re-added a theme provider to spotlight card to
+    prevent custom theme buttons inheriting other themes
+
 ## 11.5.5
 
 ### Patch Changes

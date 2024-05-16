@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-tracker",
-  "version": "8.5.11",
+  "version": "8.6.0",
   "description": "A progress tracker displays the steps and progress through a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -17,6 +17,7 @@
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
+    "runReact18": true,
     "productPushConsumption": [
       "jira"
     ],
@@ -35,7 +36,7 @@
     "react-transition-group": "^4.4.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",

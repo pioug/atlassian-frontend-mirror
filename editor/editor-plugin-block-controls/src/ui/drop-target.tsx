@@ -1,9 +1,47 @@
-import React, { useEffect, useRef, useState } from 'react';
+/** @jsx jsx */
+import { useEffect, useRef, useState } from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import { B300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../types';
+
+import { DROP_TARGET_CIRCLE_DIAMETER, DROP_TARGET_LINE_WIDTH } from './consts';
+
+const styleHighlighted = css({
+  height: token('space.100'),
+  marginTop: `calc(${token('space.negative.100')} - ${DROP_TARGET_LINE_WIDTH}px)`,
+  marginLeft: token('space.negative.100'),
+  top: `calc(${token('space.100')} / 2 - 2.5px)`, //2.5px to help clear expand node margin
+  position: 'relative',
+  borderBottom: `solid ${token('color.border.selected', B300)} ${DROP_TARGET_LINE_WIDTH}px`,
+  "&:before": {
+    content: '""',
+    width: `${DROP_TARGET_CIRCLE_DIAMETER}px`,
+    height: `${DROP_TARGET_CIRCLE_DIAMETER}px`,
+    marginTop: `calc(${DROP_TARGET_CIRCLE_DIAMETER} + ${DROP_TARGET_LINE_WIDTH} * 2)px`,
+    borderRadius: '50%',
+    border: `solid ${token('color.border.selected', B300)} ${DROP_TARGET_LINE_WIDTH}px`,
+    backgroundColor: token('color.background.input', 'white'),
+    display: 'block',
+    position: 'absolute',
+    bottom: '-5px',
+  },
+});
+
+const styleDisabled = css({
+  height: token('space.100'),
+  marginTop: `calc(${token('space.negative.100')} - ${DROP_TARGET_LINE_WIDTH}px)`,
+  position: 'relative',
+  borderBottom: `solid transparent ${DROP_TARGET_LINE_WIDTH}px`,
+  "&:before": {
+    border: `solid transparent ${DROP_TARGET_LINE_WIDTH}px`,
+  },
+});
 
 export const DropTarget = ({
   api,
@@ -46,13 +84,7 @@ export const DropTarget = ({
   return (
     // Note: Firefox has trouble with using a button element as the handle for drag and drop
     <div
-      style={{
-        height: '20px',
-        marginTop: '-22px',
-        top: '10px',
-        position: 'relative',
-        borderBottom: `solid ${isDraggedOver ? 'blue' : 'transparent'} 2px`,
-      }}
+      css={isDraggedOver ? styleHighlighted : styleDisabled}
       ref={ref}
     />
   );

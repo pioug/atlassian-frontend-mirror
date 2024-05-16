@@ -1,5 +1,6 @@
-import { ActionItem, BlockProps, ElementItem } from '../types';
-import { OnActionMenuOpenChangeOptions } from '../types';
+import { type ReactNode } from 'react';
+import { type ActionItem, type BlockProps, type ElementItem } from '../types';
+import { type OnActionMenuOpenChangeOptions } from '../types';
 
 export type AISummaryBlockProps = {
   /**
@@ -24,4 +25,9 @@ export type AISummaryBlockProps = {
    * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
    */
   aiSummaryMinHeight?: number;
+
+  /**
+   * Placeholder to show when summary is not available
+   */
+  placeholder?: ReactNode;
 } & BlockProps;

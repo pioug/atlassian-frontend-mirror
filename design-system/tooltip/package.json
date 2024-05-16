@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tooltip",
-  "version": "18.3.0",
+  "version": "18.4.0",
   "description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
       "jira"
     ],
     "releaseModel": "continuous",
+    "runReact18": true,
     "website": {
       "name": "Tooltip",
       "category": "Components"
@@ -63,7 +64,7 @@
     "react-uid": "^2.2.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0",
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0",
     "react-dom": "^16.8.0"
   },
   "devDependencies": {

@@ -36,7 +36,7 @@ export type PressableProps = Omit<
   children: ReactNode;
   isDisabled?: boolean;
   /**
-   * Handler to be called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
+   * Handler called on click. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the ['analytics-next' package](https://atlaskit.atlassian.com/packages/analytics/analytics-next) documentation for more information.
    */
   onClick?: (
     e: React.MouseEvent<HTMLButtonElement>,

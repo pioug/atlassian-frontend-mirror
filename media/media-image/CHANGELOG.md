@@ -1,5 +1,14 @@
 # @atlaskit/media-image
 
+## 19.0.0
+
+### Major Changes
+
+-   [#100564](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100564)
+    [`bb41a6b29013`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb41a6b29013) -
+    This update brings major internal changes that could cause unexpected issues, such as broken
+    tests. If you encounter any problems, please reach out to #help-media-platform
+
 ## 18.1.1
 
 ### Patch Changes

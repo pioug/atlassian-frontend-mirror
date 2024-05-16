@@ -19,7 +19,7 @@ import {
   akEditorDefaultLayoutWidth,
   akEditorSwoopCubicBezier,
   akEditorWideLayoutWidth,
-  ATLASSIAN_NAVIGATION_HEIGHT,
+  FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -48,7 +48,7 @@ type EditorWidth = WidthPluginState & {
 const absolutePanelStyles = css({
   position: 'absolute',
   right: 0,
-  height: `calc(100% - ${ATLASSIAN_NAVIGATION_HEIGHT})`,
+  height: `calc(100% - ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()})`,
 });
 
 const checkTableExistsInDoc = (editorView: EditorView) => {

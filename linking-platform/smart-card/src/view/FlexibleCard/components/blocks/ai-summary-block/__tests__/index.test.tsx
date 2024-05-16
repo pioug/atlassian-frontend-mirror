@@ -13,10 +13,10 @@ import {
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
-import { AISummaryBlockProps } from '../types';
+import { type AISummaryBlockProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
 import AISummaryBlock from '../index';
-import { ActionItem } from '../../types';
+import { type ActionItem } from '../../types';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -514,4 +514,139 @@ describe('AISummaryBlock', () => {
       expect(block).toHaveStyleDeclaration('background-color', 'blue');
     });
   });
+
+  ffTest.on(
+    'platform.linking-platform.smart-card.hover-card-action-redesign',
+    'with redesign FF on',
+    () => {
+      it('does not render when there is no summary', async () => {
+        (useAISummary as jest.Mock).mockReturnValue({
+          state: { status: 'ready', content: '' },
+          summariseUrl: jest.fn(),
+        });
+
+        const { queryByTestId } = renderAISummaryBlock();
+
+        const block = queryByTestId('smart-ai-summary-block-resolved-view');
+        expect(block).not.toBeInTheDocument();
+      });
+
+      it('does not render when the summary is loading', async () => {
+        (useAISummary as jest.Mock).mockReturnValue({
+          state: { status: 'loading', content: '' },
+          summariseUrl: jest.fn(),
+        });
+
+        const { queryByTestId } = renderAISummaryBlock();
+
+        const block = queryByTestId('smart-ai-summary-block-resolved-view');
+        expect(block).not.toBeInTheDocument();
+      });
+
+      it('renders when the summary is loading with content', async () => {
+        (useAISummary as jest.Mock).mockReturnValue({
+          state: { status: 'loading', content: 'content' },
+          summariseUrl: jest.fn(),
+        });
+
+        const { findByTestId } = renderAISummaryBlock();
+
+        const block = await findByTestId(
+          'smart-ai-summary-block-resolved-view',
+        );
+        expect(block).toBeInTheDocument();
+      });
+
+      it('renders when the summary is done', async () => {
+        (useAISummary as jest.Mock).mockReturnValue({
+          state: { status: 'done', content: 'content' },
+          summariseUrl: jest.fn(),
+        });
+
+        const { findByTestId } = renderAISummaryBlock();
+
+        const block = await findByTestId(
+          'smart-ai-summary-block-resolved-view',
+        );
+        expect(block).toBeInTheDocument();
+      });
+
+      it('does not render on error', () => {
+        (useAISummary as jest.Mock).mockReturnValue({
+          state: { status: 'error', error: 'error' },
+          summariseUrl: jest.fn(),
+        });
+
+        const { queryByTestId } = renderAISummaryBlock();
+
+        const block = queryByTestId('smart-ai-summary-block-resolved-view');
+        expect(block).not.toBeInTheDocument();
+      });
+
+      describe('placeholder', () => {
+        const placeholderTestId = 'test-placeholder';
+        const placeholder = <div data-testid={placeholderTestId}></div>;
+
+        it('render placeholder when there is no summary', async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'ready', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { findByTestId } = renderAISummaryBlock({ placeholder });
+
+          const block = await findByTestId(placeholderTestId);
+          expect(block).toBeInTheDocument();
+        });
+
+        it('render placeholder when the summary is loading', async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'loading', content: '' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { findByTestId } = renderAISummaryBlock({ placeholder });
+
+          const block = await findByTestId(placeholderTestId);
+          expect(block).toBeInTheDocument();
+        });
+
+        it('does not render placeholder when the summary is loading with content', () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'loading', content: 'content' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { queryByTestId } = renderAISummaryBlock({ placeholder });
+
+          const block = queryByTestId(placeholderTestId);
+          expect(block).not.toBeInTheDocument();
+        });
+
+        it('does not render placeholder when the summary is done', () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'done', content: 'content' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { queryByTestId } = renderAISummaryBlock({ placeholder });
+
+          const block = queryByTestId(placeholderTestId);
+          expect(block).not.toBeInTheDocument();
+        });
+
+        it('renders placeholder on error', async () => {
+          (useAISummary as jest.Mock).mockReturnValue({
+            state: { status: 'error', error: 'error' },
+            summariseUrl: jest.fn(),
+          });
+
+          const { findByTestId } = renderAISummaryBlock({ placeholder });
+
+          const block = await findByTestId(placeholderTestId);
+          expect(block).toBeInTheDocument();
+        });
+      });
+    },
+  );
 });

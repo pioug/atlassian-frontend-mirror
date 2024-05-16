@@ -26,12 +26,14 @@ import {
 mockDatasourceFetchRequests();
 mockBasicFilterAGGFetchRequests();
 
-export default () => {
+const WithIssueModal = (props?: {
+  parameters?: JiraIssueDatasourceParameters;
+}) => {
   const [generatedAdf, setGeneratedAdf] = useState<string>('');
   const [showModal, setShowModal] = useState(true);
   const [parameters, setParameters] = useState<
     JiraIssueDatasourceParameters | undefined
-  >(undefined);
+  >(props?.parameters);
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
   >(defaultInitialVisibleJiraColumnKeys);
@@ -102,3 +104,14 @@ export default () => {
     </SmartCardProvider>
   );
 };
+
+export default () => <WithIssueModal />;
+
+export const WithIssueModalWithParameters = () => (
+  <WithIssueModal
+    parameters={{
+      cloudId: '67899',
+      jql: 'project in ("My IT TEST", Test) and type in ("[System] Change", "[System] Incident") and status in (Authorize, "Awaiting approval") and assignee in (empty, "membersOf(administrators)") ORDER BY created DESC',
+    }}
+  />
+);

@@ -55,12 +55,14 @@ describe('ActionBlock', () => {
     const aiSummaryAction = await findByTestId(
       'smart-action-ai-summary-action-summarise-action',
     );
+    const automationAction = await findByTestId('smart-action-automation-action');
 
-    expect(buttons.length).toBe(5);
+    expect(buttons.length).toBe(6);
     expect(buttons[0]).toBe(previewAction);
     expect(buttons[1]).toBe(copyLinkAction);
     expect(buttons[2]).toBe(aiSummaryAction);
     expect(buttons[3]).toBe(downloadAction);
     expect(buttons[4]).toBe(followAction);
+    expect(buttons[5]).toBe(automationAction);
   });
 });

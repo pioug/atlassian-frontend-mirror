@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.24.0
+
+### Minor Changes
+
+-   [#99062](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99062)
+    [`b8cd8340331d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8cd8340331d) -
+    Add transform to move away for UNSAFE button APIs.
+
 ## 0.23.1
 
 ### Patch Changes

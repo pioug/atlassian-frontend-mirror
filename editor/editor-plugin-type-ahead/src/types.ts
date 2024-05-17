@@ -1,4 +1,3 @@
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
@@ -124,7 +123,6 @@ export type TypeAheadInputMethod =
 
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 type OpenTypeAheadProps = {

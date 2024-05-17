@@ -1,7 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
 
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { closest } from '@atlaskit/editor-common/utils';
@@ -42,13 +41,11 @@ type Props = {
   reactDispatch: Dispatch;
   popupMountRef: PopupMountPointReference;
   typeAheadHandlers: Array<TypeAheadHandler>;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   getIntl: () => IntlShape;
 };
 export function createPlugin({
   reactDispatch,
   popupMountRef,
-  createAnalyticsEvent,
   typeAheadHandlers,
   getIntl,
 }: Props): SafePlugin {
@@ -56,7 +53,6 @@ export function createPlugin({
   const { createDecorations, removeDecorations } = factoryDecorations({
     intl,
     popupMountRef,
-    createAnalyticsEvent: createAnalyticsEvent,
   });
   const reducer = createReducer({
     createDecorations,

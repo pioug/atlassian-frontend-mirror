@@ -7,6 +7,7 @@ import { CustomGlyphProps } from '@atlaskit/icon/types';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconWrapper = styled.div`
   min-width: 24px;
 `;

@@ -13,10 +13,12 @@ export interface MentionPickerStyleProps {
   visible?: boolean | string;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionPickerStyle = styled.div<MentionPickerStyleProps>`
   display: ${(props) => (props.visible ? 'block' : 'none')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionPickerInfoStyle = styled.div`
   background: ${token('elevation.surface', '#fff')};
   color: ${token('color.text.subtlest', N100)};

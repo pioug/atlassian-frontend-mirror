@@ -25,13 +25,14 @@ const VIEWPORT_POSITIONS = [
   { top: `calc(50% - ${targetHeight / 2}px)`, left: 0 },
 ];
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ContainerDiv = styled.div({
   height: 'calc(100vh - 32px)',
   width: 'calc(100vw - 32px)',
   position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const CenterDiv = styled.div({
   top: 'calc(50% - 100px)',
   left: 'calc(50% - 250px)',
@@ -42,6 +43,7 @@ const CenterDiv = styled.div({
   textAlign: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ButtonDiv = styled.p({
   display: 'flex',
   alignItems: 'center',

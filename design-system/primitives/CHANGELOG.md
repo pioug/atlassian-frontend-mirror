@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 6.2.0
+
+### Minor Changes
+
+-   [#100442](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100442)
+    [`6b3630addb05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b3630addb05) -
+    Add `xcss` to responsive components `Show` and `Hide`.
+
 ## 6.1.2
 
 ### Patch Changes

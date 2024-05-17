@@ -795,7 +795,6 @@ export const shouldRenderToolbarPulse = (
     embedEnabled &&
     appearance === 'inline' &&
     status === 'resolved' &&
-    isDiscoverabilityEnabled &&
-    getBooleanFF('platform.linking-platform.smart-card.inline-switcher')
+    isDiscoverabilityEnabled
   );
 };

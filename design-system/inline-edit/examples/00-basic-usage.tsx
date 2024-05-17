@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div({
   display: 'flex',
   fontSize: `${fontSize()}px`,

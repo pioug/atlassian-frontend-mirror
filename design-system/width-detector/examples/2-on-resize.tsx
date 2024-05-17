@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import WidthDetector from '../src';
 import debounce from 'lodash/debounce';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
   alignItems: 'center',
   backgroundColor: 'rebeccapurple',
@@ -16,6 +17,7 @@ const ResultBox = styled.div({
   padding: '10px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultNumber = styled.div({
   backgroundColor: 'rgb(0, 0, 0, 0.6)',
   color: 'white',

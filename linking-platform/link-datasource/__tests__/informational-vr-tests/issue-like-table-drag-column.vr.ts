@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import type { Locator, Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { snapshotInformational } from '@af/visual-regression';
 
@@ -7,7 +6,7 @@ import IssueLikeTable from '../../examples/issue-like-table';
 
 snapshotInformational(IssueLikeTable, {
   description: 'drag column',
-  prepare: async (page: Page, component: Locator) => {
+  prepare: async (page: Page) => {
     const source = await page
       .locator('[data-testid="type-column-heading"]')
       .first();

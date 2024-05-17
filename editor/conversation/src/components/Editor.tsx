@@ -63,6 +63,7 @@ export interface State {
   isEditing?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
   /* -ms- properties are necessary until MS supports the latest version of the grid spec */
   /* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
@@ -84,6 +85,7 @@ const Container: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
 
 const AvatarSection: React.ComponentClass<
   React.HTMLAttributes<{}>
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 > = styled.div`
   /* stylelint-disable value-no-vendor-prefix */
   -ms-grid-row: 1;
@@ -95,6 +97,7 @@ const AvatarSection: React.ComponentClass<
 
 const EditorSection: React.ComponentClass<
   React.HTMLAttributes<{}>
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 > = styled.div`
   /* stylelint-disable value-no-vendor-prefix */
   -ms-grid-row: 1;

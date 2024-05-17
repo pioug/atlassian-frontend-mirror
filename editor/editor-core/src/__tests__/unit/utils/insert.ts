@@ -73,7 +73,7 @@ describe('@atlaskit/editor-core/utils insert', () => {
         .add(layoutPlugin)
         .add(panelPlugin)
         .add(rulePlugin)
-        .add([typeAheadPlugin, { createAnalyticsEvent }])
+        .add(typeAheadPlugin)
         .add(selectionPlugin)
         .add([
           annotationPlugin,

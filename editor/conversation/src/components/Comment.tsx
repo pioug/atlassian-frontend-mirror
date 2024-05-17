@@ -68,6 +68,7 @@ const userChanged = (
   return oldUser.id !== newUser.id;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Reactions: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div({
   height: '20px',
   '& > div': {

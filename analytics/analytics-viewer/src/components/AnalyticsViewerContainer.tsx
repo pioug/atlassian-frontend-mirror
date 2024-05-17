@@ -12,16 +12,19 @@ type State = {
   events: EventsArray;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ChildrenWrapper = styled.div`
   flex-grow: 1;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const StyledAnalyticsViewer = styled(AnalyticsViewer)`
   flex-grow: 0;
   flex-shrink: 1;

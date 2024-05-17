@@ -1,5 +1,14 @@
 # @atlaskit/media-viewer
 
+## 48.5.4
+
+### Patch Changes
+
+-   [#100865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100865)
+    [`770273b1483c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/770273b1483c) -
+    Implemented workaround to resolve VULN-1281089 — PDF.js arbitrary code injection by setting
+    "isEvalSupported" to false
+
 ## 48.5.3
 
 ### Patch Changes

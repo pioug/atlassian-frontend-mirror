@@ -7,6 +7,7 @@ import UserPicker from '../src';
 
 const exampleLocales = ['en-EN', 'cs-CZ', 'da-DK', 'de-DE'];
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ExampleContainer = styled.div`
   display: flex;
   flex-direction: column;

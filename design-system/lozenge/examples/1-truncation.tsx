@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import Lozenge from '../src';
 

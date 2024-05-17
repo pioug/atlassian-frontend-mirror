@@ -96,7 +96,7 @@
     "@atlaskit/focus-ring": "^1.4.0",
     "@atlaskit/icon": "^22.2.0",
     "@atlaskit/interaction-context": "^2.1.0",
-    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",

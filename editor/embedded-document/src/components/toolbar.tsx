@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import WithDocumentActions from '../consumers/with-document-actions';
 import type { Mode } from '../context/context';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({
   display: 'flex',
   alignItems: 'center',

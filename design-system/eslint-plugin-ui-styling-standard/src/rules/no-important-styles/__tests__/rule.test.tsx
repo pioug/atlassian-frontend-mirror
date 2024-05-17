@@ -149,5 +149,17 @@ tester.run('no-important-styles', rule, {
       `,
       errors: [{ messageId: 'no-important-styles' }],
     },
+    {
+      name: 'uses default when options object is provided without importSources',
+      code: `
+        import { css } from '@compiled/react';
+
+        const styles = css({
+          color: 'red !important'
+        });
+      `,
+      errors: [{ messageId: 'no-important-styles' }],
+      options: [{}],
+    },
   ],
 });

@@ -1,7 +1,10 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
+
+import { type BasePrimitiveProps } from '../components/types';
+import { parseXcss } from '../xcss/xcss';
 
 import {
   UNSAFE_buildAboveMediaQueryCSS,
@@ -52,7 +55,8 @@ type ResponsiveShowProps = {
       above: Exclude<Breakpoint, 'xxs'>;
       below?: never;
     }
-);
+) &
+  Pick<BasePrimitiveProps, 'xcss'>;
 
 /**
  * Shows the content at a given breakpoint.  By default, content is hidden.  The primary use case is for visual presentation.
@@ -67,13 +71,18 @@ export const Show = ({
   below,
   children,
   as: AsElement = 'div',
+  xcss,
 }: ResponsiveShowProps) => {
+  const resolvedStyles = parseXcss(xcss);
+
   return (
     <AsElement
+      className={resolvedStyles.static}
       css={[
         defaultHiddenStyles,
         above && showAboveQueries[above],
         below && showBelowQueries[below],
+        resolvedStyles.emotion,
       ]}
     >
       {children}

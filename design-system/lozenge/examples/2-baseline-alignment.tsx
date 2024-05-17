@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, Stack } from '@atlaskit/primitives';
+import Heading from '@atlaskit/heading';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import Lozenge from '../src';
 
 export default () => (
   <Stack space="space.200" testId="test-container">
     <Box>
-      <Text UNSAFE_style={{ fontSize: '30px' }}>Heading</Text>
+      <Heading size="xlarge" as="span">
+        Heading
+      </Heading>
       <Text> </Text>
       <Lozenge
         isBold
@@ -19,21 +21,21 @@ export default () => (
       </Lozenge>
     </Box>
     <Box>
-      <Text fontSize="size.050">11px Text</Text>
+      <Text size="small">Small Text</Text>
       <Text> </Text>
       <Lozenge isBold appearance="new" testId="lozenge-baseline-alignment-11px">
         lozenge
       </Lozenge>
     </Box>
     <Box>
-      <Text fontSize="size.075">12px Text</Text>
+      <Text size="medium">Medium Text</Text>
       <Text> </Text>
       <Lozenge isBold appearance="new" testId="lozenge-baseline-alignment-12px">
         lozenge
       </Lozenge>
     </Box>
     <Box>
-      <Text fontSize="size.100">14px Text</Text>
+      <Text size="large">Large Text</Text>
       <Text> </Text>
       <Lozenge isBold appearance="new" testId="lozenge-baseline-alignment-14px">
         lozenge

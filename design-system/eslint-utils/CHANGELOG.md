@@ -1,5 +1,13 @@
 # @atlaskit/eslint-utils
 
+## 1.4.0
+
+### Minor Changes
+
+-   [#99639](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99639)
+    [`d00798e9a2a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d00798e9a2a9) -
+    Added `importSources` shared schema definition to new `/schema` entrypoint.
+
 ## 1.3.2
 
 ### Patch Changes

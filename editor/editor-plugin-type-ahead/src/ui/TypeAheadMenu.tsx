@@ -1,14 +1,15 @@
 import React from 'react';
 
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateSelectedIndex } from '../commands/update-selected-index';
 import type { CloseSelectionOptions } from '../constants';
 import type {
   PopupMountPointReference,
-  TypeAheadPluginSharedState,
+  TypeAheadPlugin,
+  TypeAheadPluginSharedState
 } from '../types';
 
 import { useItemInsert } from './hooks/use-item-insert';
@@ -18,7 +19,7 @@ type TypeAheadMenuType = {
   typeAheadState: TypeAheadPluginSharedState;
   editorView: EditorView;
   popupMountRef: PopupMountPointReference;
-  fireAnalyticsCallback: FireAnalyticsCallback;
+  api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 
 export const TypeAheadMenu = React.memo(
@@ -26,7 +27,7 @@ export const TypeAheadMenu = React.memo(
     editorView,
     popupMountRef,
     typeAheadState,
-    fireAnalyticsCallback,
+    api
   }: TypeAheadMenuType) => {
     const isOpen = typeAheadState.decorationSet.find().length > 0;
     const {
@@ -115,7 +116,6 @@ export const TypeAheadMenu = React.memo(
         popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
         anchorElement={decorationElement}
         triggerHandler={triggerHandler}
-        fireAnalyticsCallback={fireAnalyticsCallback}
         items={items}
         selectedIndex={selectedIndex}
         setSelectedItem={setSelectedItem}
@@ -123,6 +123,7 @@ export const TypeAheadMenu = React.memo(
         decorationSet={decorationSet}
         isEmptyQuery={!query}
         cancel={cancel}
+        api={api}
       />
     );
   },

@@ -43,7 +43,7 @@
     "@atlaskit/icon": "^22.2.0",
     "@atlaskit/media-ui": "^25.10.0",
     "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/range": "^7.2.0",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/textfield": "^6.3.0",

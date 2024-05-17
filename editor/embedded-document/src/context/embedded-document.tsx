@@ -11,6 +11,7 @@ import { akEditorGutterPadding } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 export const akEditorFullPageMaxWidth = 680;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Content = styled.div({
   lineHeight: '24px',
   height: '100%',

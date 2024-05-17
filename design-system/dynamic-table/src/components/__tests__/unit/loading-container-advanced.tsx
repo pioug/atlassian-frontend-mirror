@@ -8,6 +8,7 @@ import LoadingContainerAdvanced from '../../loading-container-advanced'; // Load
 
 const testId = 'dynamic--table--test--id';
 describe('LoadingContainerAdvanced', () => {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
   const Contents = styled.div({});
 
   // let wrappers: Array<
@@ -194,6 +195,7 @@ describe('LoadingContainerAdvanced', () => {
     it('should set styles to the target and revert them on loading mode change', () => {
       let target: HTMLTableSectionElement | null = null;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
       const InnerComponent = styled.div({});
       const { rerender } = render(
         <LoadingContainerAdvanced targetRef={() => target}>

@@ -1,17 +1,13 @@
 import React from 'react';
 
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import {
-  animationFrame,
-  scrollToBottom,
-} from '@atlaskit/editor-test-helpers/page-objects/editor';
+import { scrollToBottom } from '@atlaskit/editor-test-helpers/page-objects/editor';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import {
-  clickToolbarMenu,
   isDropdownMenuItemFocused,
   mainToolbarSelector,
   toolbarMenuItemsSelectors as selectors,
@@ -126,69 +122,6 @@ describe('Toolbar: IconBefore enabled', () => {
         height: 15,
       },
     });
-  });
-});
-
-describe('Toolbar: Undo Redo', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      editorProps: {
-        allowUndoRedoButtons: true,
-      },
-    });
-  });
-
-  afterEach(async () => {
-    await snapshot(page, undefined, mainToolbarSelector);
-  });
-
-  it('should show the Undo button in a active state', async () => {
-    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
-    await animationFrame(page);
-    // Add a bullet list to the doc so something can be undone and the Undo button become active
-    await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
-  });
-
-  it('should show the Redo button in a active state', async () => {
-    await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
-    await animationFrame(page);
-    // Add a bullet list to the doc so something can be undone and the Undo button become active
-    await clickToolbarMenu(page, ToolbarMenuItem.bulletList);
-    await clickToolbarMenu(page, ToolbarMenuItem.undo);
-  });
-
-  it('should not have overlapping buttons on smaller devices', async () => {
-    await page.setViewport({ width: 400, height: 350 });
-  });
-});
-
-describe('Toolbar: Undo Redo', () => {
-  let page: PuppeteerPage;
-
-  beforeEach(async () => {
-    page = global.page;
-    await initEditorWithAdf(page, {
-      appearance: Appearance.fullPage,
-      editorProps: {
-        allowUndoRedoButtons: true,
-      },
-    });
-  });
-
-  it('should show the Undo / Redo buttons in a disabled state', async () => {
-    const undoRedoDisabled = await page.evaluate(() => {
-      return (
-        (document.querySelector('#editor-toolbar__undo') as HTMLButtonElement)
-          ?.disabled &&
-        (document.querySelector('#editor-toolbar__redo') as HTMLButtonElement)
-          ?.disabled
-      );
-    });
-    expect(undoRedoDisabled).toBe(true);
   });
 });
 

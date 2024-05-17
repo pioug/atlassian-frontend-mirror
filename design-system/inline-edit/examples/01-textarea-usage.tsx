@@ -12,7 +12,7 @@ import InlineEdit from '../src';
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div({
   lineHeight: (gridSize() * textAreaLineHeightFactor) / fontSize(),
   minHeight: `${gridSize() * textAreaLineHeightFactor * minRows}px`,

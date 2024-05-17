@@ -28,7 +28,7 @@ interface StyledProps {
   color: Color | string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Target = styled.button<StyledProps>((props) => ({
   backgroundColor: color[props.color] || token('color.background.brand.bold'),
   borderRadius: '3px',
@@ -44,7 +44,7 @@ export const Target = styled.button<StyledProps>((props) => ({
   userSelect: 'none',
 }));
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const BigTarget = styled.button<StyledProps>((props) => ({
   backgroundColor: color[props.color] || token('color.background.brand.bold'),
   borderRadius: '3px',

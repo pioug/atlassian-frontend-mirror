@@ -30,6 +30,7 @@ const xPositioning = ({ side, isOpen }: { side: string; isOpen: boolean }) =>
         transform: translateX(${isOpen ? '0' : '-100vw'});
       `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MobileNavSlider = styled.div<{
   topOffset: number | undefined;
   isOpen: boolean;
@@ -47,10 +48,12 @@ export const MobileNavSlider = styled.div<{
 
 // make space so content below doesn't slip beneath the header
 // since the content is `position: fixed`
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MobilePageHeader = styled.header({
   height: `${mobileHeaderHeight}px`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MobilePageHeaderContent = styled.div<{
   topOffset: number | undefined;
 }>((props) => ({
@@ -86,7 +89,7 @@ const opacityOut = keyframes({
 
 // @atlaskit/blanket has a z-index *higher* than @atlaskit/navigation,
 // so we can't display the AK blanket underneath the navigation.
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const FakeBlanket = styled.div<{
   isOpen: boolean;
 }>`
@@ -101,6 +104,7 @@ export const FakeBlanket = styled.div<{
 `;
 
 // use proper h1 and header styles but for mobile we don't want a top margin
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const PageHeading = styled.h1(
   {
     flexGrow: 1,

@@ -7,7 +7,6 @@ import React, {
   useState,
 } from 'react';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -32,7 +31,6 @@ type WrapperProps = {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   inputMethod?: TypeAheadInputMethod;
 };
 
@@ -45,7 +43,6 @@ export const WrapperTypeAhead = React.memo(
     popupsMountPoint,
     popupsBoundariesElement,
     popupsScrollableElement,
-    createAnalyticsEvent,
     inputMethod,
     getDecorationPosition,
     reopenQuery,

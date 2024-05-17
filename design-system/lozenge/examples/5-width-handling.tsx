@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Lozenge from '../src';
@@ -45,7 +44,7 @@ export default () => (
     <Box xcss={fixedWidthStyles}>
       <Stack space="space.100" testId="test-container">
         <Text>
-          <Text fontWeight="medium" as="p">
+          <Text weight="medium" as="p">
             In a 400px wide container
           </Text>
           <Lozenge
@@ -87,7 +86,7 @@ export default () => (
     </Box>
 
     <Text as="p">
-      <Text fontWeight="medium" as="p">
+      <Text weight="medium" as="p">
         Constrained by maxWidth
       </Text>
       <Lozenge
@@ -99,7 +98,7 @@ export default () => (
       </Lozenge>
     </Text>
 
-    <Text fontWeight="medium">Constrained by container size</Text>
+    <Text weight="medium">Constrained by container size</Text>
     <Box xcss={fixedContainerStyles}>
       <Lozenge
         appearance="success"
@@ -109,7 +108,7 @@ export default () => (
       </Lozenge>
     </Box>
 
-    <Text fontWeight="medium">
+    <Text weight="medium">
       In a % width context truncates at lowest of % and maxWidth
     </Text>
     <Box xcss={percentageWidthStyles}>

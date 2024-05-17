@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import TextField from '@atlaskit/textfield';
 import { Label } from '@atlaskit/form';
 
-// eslint-disable-next-line @atlaskit/design-system/use-primitives -- Keeping this around as an example of `styled-components` object syntax; no reason for it to exist otherwise.
+// eslint-disable-next-line @atlaskit/design-system/use-primitives, @atlaskit/ui-styling-standard/no-styled -- Keeping this around as an example of `styled-components` object syntax; no reason for it to exist otherwise. 'no-styled' to be migrated as part of go/ui-styling-standard
 const Wrapper = styled.div({
   marginLeft: '20px',
 });

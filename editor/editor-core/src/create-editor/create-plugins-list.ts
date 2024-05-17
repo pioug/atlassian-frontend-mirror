@@ -65,7 +65,6 @@ export function getDefaultPresetOptionsFromEditorProps(
     ...props,
     createAnalyticsEvent,
     typeAhead: {
-      createAnalyticsEvent,
       isMobile,
     },
     featureFlags: createFeatureFlagsFromProps(props),

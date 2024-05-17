@@ -33,9 +33,6 @@
   },
   "references": [
     {
-      "path": "../../analytics/analytics-next/tsconfig.app.json"
-    },
-    {
       "path": "../editor-common/tsconfig.app.json"
     },
     {

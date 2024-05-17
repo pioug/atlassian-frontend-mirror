@@ -2,16 +2,19 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { WidthObserver } from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
   position: 'relative',
   backgroundColor: 'rebeccapurple',
   color: 'white',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Text = styled.p({
   width: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Aside = styled.aside({
   position: 'fixed',
   bottom: 0,

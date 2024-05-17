@@ -12,7 +12,7 @@ import { Manager, Popper, Reference } from '../src';
 interface PopupProps {
   isReferenceHidden: boolean | undefined;
 }
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Popup = styled.div`
   background: white;
   border: 2px solid red;

@@ -85,10 +85,6 @@ export const createPlugin =
     const enableInlineUpgradeFeatures =
       !!showUpgradeDiscoverability && platform !== 'mobile';
 
-    const shouldUseUpgradeFeatures =
-      getBooleanFF('platform.linking-platform.smart-card.inline-switcher') &&
-      enableInlineUpgradeFeatures;
-
     const inlineCardViewProducer = getInlineNodeViewProducer({
       pmPluginFactoryParams,
       Component: InlineCardNodeView,
@@ -162,7 +158,7 @@ export const createPlugin =
             return pluginStateWithUpdatedPos;
           }
 
-          if (!shouldUseUpgradeFeatures) {
+          if (!enableInlineUpgradeFeatures) {
             return reducer(pluginStateWithUpdatedPos, meta);
           }
 
@@ -410,7 +406,7 @@ export const createPlugin =
             ).init();
           },
         },
-        ...(shouldUseUpgradeFeatures && {
+        ...(enableInlineUpgradeFeatures && {
           handleKeyDown: (view: EditorView): boolean => {
             handleAwarenessOverlay(view);
             return false;

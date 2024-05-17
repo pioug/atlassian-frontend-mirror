@@ -23,6 +23,7 @@ const sources: Array<{ value: UserSource; label: string }> = [
   { value: 'google', label: 'Google' },
 ];
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ExampleContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,6 +33,7 @@ const ExampleContainer = styled.div`
   padding: ${token('space.500', '40px')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InputWrapper = styled.div`
   margin-bottom: ${token('space.250', '20px')};
 `;

@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { macroIcon } from './MacroIcon';
 import { MacroCardType } from './types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Card = styled.span`
   display: flex;
   height: initial;
@@ -16,10 +17,12 @@ const Card = styled.span`
   text-align: left;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Content = styled.span`
   flex: 1;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ContentWrapper = styled.span`
   flex: 1;
   padding-left: ${token('space.100', '8px')};
@@ -27,7 +30,7 @@ const ContentWrapper = styled.span`
   justify-content: space-between;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Error = styled.span`
   flex-basis: 100%;
   padding-top: 10px;
@@ -35,6 +38,7 @@ const Error = styled.span`
   flex-wrap: wrap;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ErrorMessage = styled.span`
   color: ${token('color.text.subtlest', colors.N90)};
   padding-left: ${token('space.050', '4px')};
@@ -42,12 +46,14 @@ const ErrorMessage = styled.span`
   word-break: break-word;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SecondaryAction = styled.span`
   flex-basis: 100%;
   padding-left: ${token('space.150', '12px')};
   margin-top: ${token('space.negative.100', '-8px')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Icon = styled.span`
   align-items: center;
   display: flex;
@@ -57,6 +63,7 @@ const Icon = styled.span`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const CardBody = styled.span`
   flex: 1;
   flex-wrap: wrap;
@@ -64,6 +71,7 @@ const CardBody = styled.span`
   margin-bottom: ${token('space.050', '4px')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ErrorContent = styled.span`
   display: flex;
 `;

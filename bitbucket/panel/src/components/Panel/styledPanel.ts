@@ -14,12 +14,12 @@ const transition = css`
   transition: all 200ms ease-in-out;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const PanelWrapper = styled.div`
   margin: 0 auto ${token('space.200', '16px')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
   left: 0;
   line-height: 0;
@@ -40,6 +40,7 @@ export const ButtonWrapper = styled.div<{ isHidden: boolean }>`
 
 export const PanelHeader: FC<
   HTMLProps<HTMLDivElement> & { isFocused?: boolean }
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 > = withFocusWithin(styled.div<{ isFocused?: boolean }>`
   align-items: center;
   background-color: ${(props) =>

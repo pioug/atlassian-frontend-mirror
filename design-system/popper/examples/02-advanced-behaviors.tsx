@@ -20,7 +20,7 @@ const REF_HEIGHT = 40;
 const POPUP_HEIGHT = 40;
 const SPACING = 35;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Popup = styled.div`
   background: white;
   border: 2px solid red;
@@ -34,6 +34,7 @@ const Popup = styled.div`
   box-shadow: ${token('elevation.shadow.overlay')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBox = styled.div({
   background: token('color.background.brand.bold'),
   padding: token('space.100', '8px'),
@@ -45,6 +46,7 @@ const ReferenceBox = styled.div({
   textOverflow: "'ellipsis'",
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReferenceBoundaries = styled.div({
   background: 'lightblue',
   borderRadius: `${borderRadius()}px`,

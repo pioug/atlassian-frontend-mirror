@@ -15,10 +15,12 @@ import Tree, {
 } from '../src';
 import { treeWithTwoBranches } from '../mockdata/treeWithTwoBranches';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div`
   display: flex;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Dot = styled.span`
   display: flex;
   width: 24px;
@@ -28,6 +30,7 @@ const Dot = styled.span`
   line-height: 32px;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SpinnerContainer = styled.span`
   display: flex;
   width: 24px;

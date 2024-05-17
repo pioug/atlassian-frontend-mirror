@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
+
+import { type BasePrimitiveProps } from '../components/types';
+import { parseXcss } from '../xcss/xcss';
 
 import {
   UNSAFE_buildAboveMediaQueryCSS,
   UNSAFE_buildBelowMediaQueryCSS,
 } from './build-media-query-css';
-import type { Breakpoint } from './types';
+import { type Breakpoint } from './types';
 
 const hideAboveQueries = UNSAFE_buildAboveMediaQueryCSS({ display: 'none' });
 const hideBelowQueries = UNSAFE_buildBelowMediaQueryCSS({ display: 'none' });
@@ -52,7 +55,8 @@ type ResponsiveHideProps = {
       above: Exclude<Breakpoint, 'xxs'>;
       below?: never;
     }
-);
+) &
+  Pick<BasePrimitiveProps, 'xcss'>;
 
 /**
  * Hides the content at a given breakpoint.  By default, content is shown.  The primary use case is for visual presentation.
@@ -67,10 +71,18 @@ export const Hide = ({
   below,
   children,
   as: AsElement = 'div',
+  xcss,
 }: ResponsiveHideProps) => {
+  const resolvedStyles = parseXcss(xcss);
+
   return (
     <AsElement
-      css={[above && hideAboveQueries[above], below && hideBelowQueries[below]]}
+      className={resolvedStyles.static}
+      css={[
+        above && hideAboveQueries[above],
+        below && hideBelowQueries[below],
+        resolvedStyles.emotion,
+      ]}
     >
       {children}
     </AsElement>

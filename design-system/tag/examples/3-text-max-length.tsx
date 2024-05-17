@@ -9,6 +9,7 @@ import Tag from '../src/tag/removable-tag';
 const cupcakeipsum =
   'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableHeading = styled.th({
   fontWeight: token('font.weight.bold'),
 });

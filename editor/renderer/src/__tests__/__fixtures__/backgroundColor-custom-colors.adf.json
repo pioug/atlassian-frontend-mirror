@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Custom: black",
+          "type": "text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#000000"
+              }
+            }
+          ]
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "text": "Custom: white",
+          "type": "text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#ffffff"
+              }
+            }
+          ]
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "text": "Custom: red",
+          "type": "text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#c9372c"
+              }
+            }
+          ]
+        },
+        {
+          "text": ", ",
+          "type": "text"
+        },
+        {
+          "text": "Custom: yellow",
+          "type": "text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#f8e6a0"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

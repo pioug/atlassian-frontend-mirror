@@ -1,5 +1,14 @@
 # @atlaskit/page-header
 
+## 10.5.0
+
+### Minor Changes
+
+-   [#100633](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100633)
+    [`9aeb04ba9d17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9aeb04ba9d17) -
+    [ux] We are testing a visual change behind a feature flag. The line height of the title changes.
+    If this change is successful it will be available in a later release.
+
 ## 10.4.10
 
 ### Patch Changes

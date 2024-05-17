@@ -51,7 +51,7 @@ class AnnotationUpdateEmitterMock extends AnnotationUpdateEmitter {
   }
 }
 
-const annotationInlineCommentProvider: InlineCommentAnnotationProvider = {
+export const annotationInlineCommentProvider: InlineCommentAnnotationProvider = {
   getState: (annotationIds: AnnotationId[]) => {
     const x = annotationIds.map((id) => ({
       id,

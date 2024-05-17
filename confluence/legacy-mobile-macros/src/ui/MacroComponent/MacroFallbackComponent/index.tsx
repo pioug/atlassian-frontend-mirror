@@ -25,6 +25,7 @@ import { ActionProps, CreateMacro, MacroFallbackComponentProps } from './types';
 
 const noop = () => {};
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Action = styled.span<ActionProps>`
   color: ${(props) =>
     props.callToAction
@@ -38,6 +39,7 @@ const Action = styled.span<ActionProps>`
 `;
 
 const cardStyles = (componentType: ComponentType<any>) => {
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
   return styled(componentType)`
     && {
       background-color: ${token('elevation.surface', colors.N0)};

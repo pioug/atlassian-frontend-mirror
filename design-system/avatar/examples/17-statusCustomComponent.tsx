@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { Block } from '../examples-util/helpers';
 import Avatar from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const DivPresence = styled.div({
   alignItems: 'center',
   backgroundColor: token('color.background.discovery.bold'),

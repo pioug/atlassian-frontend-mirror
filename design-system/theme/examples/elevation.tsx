@@ -17,7 +17,7 @@ import { Elevation, ThemeModes } from '../src/types';
 const elevations = { ...AkElevations };
 
 // the below adaptation may be written statically like ${akElevationMixins.e100}
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Box = styled.div<{ elevation: Elevation; theme: ThemeType }>`
   ${({ elevation }) => elevations[elevation]}
   background-color: ${(props) =>
@@ -29,6 +29,7 @@ const Box = styled.div<{ elevation: Elevation; theme: ThemeType }>`
   text-align: center;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Wrapper = styled.div({
   alignItems: 'center',
   justifyContent: 'center',

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FileState } from '@atlaskit/media-client';
+import { type FileState } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 import {
   PDFViewer,
@@ -15,7 +15,7 @@ import {
 } from 'pdfjs-dist/legacy/build/pdf';
 import {
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import { cmap } from './cmaps';
 import type { PDFDocumentProxy } from 'pdfjs-dist/legacy/build/pdf';
@@ -26,7 +26,7 @@ import { closeOnDirectClick } from '../../utils/closeOnDirectClick';
 import { Outcome } from '../../domain';
 import { Spinner } from '../../loading';
 import ErrorMessage from '../../errorMessage';
-import { MediaViewerError } from '../../errors';
+import { type MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
 import { processError } from './processError';
 import { pdfJs } from './pdfJs';
@@ -160,6 +160,7 @@ const PDFRendererBase = ({
         const getDocumentTask = getDocument({
           url: src,
           CMapReaderFactory: CmapFactory,
+          isEvalSupported: false,
         });
 
         getDocumentTask.onPassword = (

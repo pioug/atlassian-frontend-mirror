@@ -15,7 +15,7 @@ interface Props {
   isCompact?: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div<Props>((props) => ({
   display: 'flex',
   fontSize: `${fontSize()}px`,

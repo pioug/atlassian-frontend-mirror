@@ -5,10 +5,11 @@
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention */
 /** @jsx jsx */
 
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -21,6 +22,14 @@ const truncateStyles = css({
 
 const outerStyles = css({
   margin: `${token('space.300', '24px')} 0 ${token('space.200', '16px')} 0`,
+});
+
+const titleStyles = css({
+  color: token('color.text'),
+  font: token('font.heading.large'),
+  letterSpacing: 'normal',
+  marginBlockStart: 0,
+  outline: 'none',
 });
 
 const styledTitleStyles = css({
@@ -100,7 +109,14 @@ export const StyledTitleWrapper = React.forwardRef<
 >(({ children, id, truncateTitle }, ref) => {
   return (
     <h1
-      css={[h700Styles, styledTitleStyles, truncateTitle && truncateStyles]}
+      css={[
+        ...(getBooleanFF(
+          'platform.design-system-team.page-header-tokenised-typography-styles_lj1ix',
+        )
+          ? [titleStyles]
+          : [h700Styles, styledTitleStyles]),
+        truncateTitle && truncateStyles,
+      ]}
       ref={ref}
       tabIndex={-1}
       id={id}

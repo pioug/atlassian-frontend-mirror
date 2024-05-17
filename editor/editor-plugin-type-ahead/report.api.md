@@ -17,7 +17,6 @@
 ```ts
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -92,7 +91,6 @@ export const typeAheadPlugin: TypeAheadPlugin;
 // @public (undocumented)
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 // @public (undocumented)

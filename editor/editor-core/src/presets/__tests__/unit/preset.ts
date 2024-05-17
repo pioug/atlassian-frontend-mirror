@@ -62,9 +62,11 @@ describe('Preset implementation of builder', () => {
       const basePreset = new EditorPresetBuilder().add(PluginDog);
 
       const finalPreset = basePreset
+        // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
         .add(PluginDog)
         .add(PluginBark)
         .add(PluginBarkLoud)
+        // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
         .add(PluginBarkLoud);
       expect(() => {
         finalPreset.build();
@@ -75,7 +77,9 @@ describe('Preset implementation of builder', () => {
         const basePreset = new EditorPresetBuilder().add(PluginDog);
 
         const finalPreset = basePreset
+          // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
           .add(PluginDog)
+          // @ts-expect-error - this is a duplicate plugin addition,  should throw type error :)
           .add([PluginDog, { lovesTreats: true }]);
         expect(() => {
           finalPreset.build();

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "text": "Custom: yellow",
+          "type": "text",
+          "marks": [
+            {
+              "type": "backgroundColor",
+              "attrs": {
+                "color": "#f8e6a0"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,7 @@ export interface MentionListStyleProps {
   empty?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionListStyle = styled.div<MentionListStyleProps>`
   display: ${(props) => (props.empty ? 'none' : 'block')};
 

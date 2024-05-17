@@ -6,7 +6,7 @@ import { ClassNames, css, jsx } from '@emotion/react';
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import FocusRing from '@atlaskit/focus-ring';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import Inline, { InlineProps } from '@atlaskit/primitives/inline';
+import { Inline, type InlineProps, Stack, xcss } from '@atlaskit/primitives';
 import { N20, N200, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -15,7 +15,7 @@ import type { MenuItemPrimitiveProps, RenderFunction } from '../../types';
 import {
   SELECTION_STYLE_CONTEXT_DO_NOT_USE,
   SpacingContext,
-  SpacingMode,
+  type SpacingMode,
 } from './menu-context';
 
 const defaultRender: RenderFunction = (Component, props) => (
@@ -30,16 +30,15 @@ const beforeAfterElementStyles = css({
   flexShrink: 0,
 });
 
-const contentStyles = css({
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-  flexGrow: 1,
-  lineHeight: token('font.lineHeight.100', '16px'),
+const contentStyles = xcss({
   outline: 'none',
   overflow: 'hidden',
   textAlign: 'left',
 });
+
+const baseContentStyles = xcss({
+  lineHeight: token('font.lineHeight.100', '16px'),
+})
 
 const truncateStyles = css({
   display: 'block',
@@ -48,14 +47,25 @@ const truncateStyles = css({
   whiteSpace: 'nowrap',
 });
 
+const titleStyles = css({
+  font: token('font.body'),
+});
+
 const wordBreakStyles = css({
   wordBreak: 'break-word',
 });
 
 const descriptionStyles = css({
-  marginTop: token('space.050', '4px'),
   color: token('color.text.subtlest', N200),
+});
+
+const baseDescriptionStyles = css({
   fontSize: token('font.size.075', '12px'),
+  marginBlockStart: token('space.050', '4px')
+})
+
+const tokenizedDescriptionStyles = css({
+  font: token('font.body.UNSAFE_small'),
 });
 
 const disabledDescriptionStyles = css({
@@ -74,7 +84,6 @@ const primitiveStyles = css({
   margin: token('space.0', '0px'),
   alignItems: 'center',
   border: 0,
-  fontSize: token('font.size.100', '14px'),
   outline: 0,
   textDecoration: 'none',
   userSelect: 'none',
@@ -85,6 +94,10 @@ const primitiveStyles = css({
     textDecoration: 'none',
   },
 });
+
+const primitiveBaseStyles = css({
+  fontSize: token('font.size.100', '14px'),
+})
 
 const spacingMapStyles = {
   cozy: css({
@@ -131,30 +144,27 @@ const disabledStyles = css({
 
 const selectedBorderStyles = css({
   '&::before': {
-    width: 2,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    background: token('color.border.selected', 'transparent'),
-    content: '""',
-  },
+  width: 2,
+  position: 'absolute',
+  background: token('color.border.selected', 'transparent'),
+  content: '""',
+  insetBlockEnd: 0,
+  insetBlockStart: 0,
+  insetInlineStart: 0
+},
 });
 
 const selectedNotchStyles = css({
   '&::before': {
-    width: 4,
-    position: 'absolute',
-    top: token('space.150', '12px'),
-    bottom: token('space.150', '12px'),
-    left: 0,
-    background: token('color.border.selected', 'transparent'),
-    borderRadius: `0 ${token('border.radius', '4px')} ${token(
-      'border.radius',
-      '4px',
-    )} 0`,
-    content: '""',
-  },
+  width: 4,
+  position: 'absolute',
+  background: token('color.border.selected', 'transparent'),
+  borderRadius: `0 ${token('border.radius', '4px')} ${token('border.radius', '4px')} 0`,
+  content: '""',
+  insetBlockEnd: token('space.150', '12px'),
+  insetBlockStart: token('space.150', '12px'),
+  insetInlineStart: 0
+},
 });
 
 const selectedStyles = css({
@@ -234,6 +244,7 @@ const MenuItemPrimitive = ({
                 cn([
                   positionRelativeStyles,
                   primitiveStyles,
+                  getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles') ? undefined : primitiveBaseStyles,
                   spacingMapStyles[spacing],
                   !isDisabled && !isSelected && unselectedStyles,
                   !isDisabled &&
@@ -267,10 +278,11 @@ const MenuItemPrimitive = ({
                     </span>
                   )}
                   {title && (
-                    <span css={contentStyles}>
+                    <Stack alignBlock="center" grow="fill" xcss={getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles') ? contentStyles : [contentStyles, baseContentStyles]}>
                       {renderTitle('span', {
                         children: title,
                         className: cn(
+                          getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles') ? titleStyles : undefined,
                           shouldTitleWrap ? wordBreakStyles : truncateStyles,
                         ),
                         'data-item-title': true,
@@ -280,6 +292,7 @@ const MenuItemPrimitive = ({
                           data-item-description
                           css={[
                             descriptionStyles,
+                            getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles') ? tokenizedDescriptionStyles : baseDescriptionStyles,
                             isDisabled && disabledDescriptionStyles,
                             shouldDescriptionWrap
                               ? wordBreakStyles
@@ -289,7 +302,7 @@ const MenuItemPrimitive = ({
                           {description}
                         </span>
                       )}
-                    </span>
+                    </Stack>
                   )}
                   {iconAfter && (
                     <span

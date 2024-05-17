@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@af/visual-regression": "*",
-    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",

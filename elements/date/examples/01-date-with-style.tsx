@@ -10,6 +10,7 @@ type Props = {
   selected?: boolean;
 } & DateProps;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SelectableDate = styled(Date)((props: Props) =>
   props.selected
     ? css({

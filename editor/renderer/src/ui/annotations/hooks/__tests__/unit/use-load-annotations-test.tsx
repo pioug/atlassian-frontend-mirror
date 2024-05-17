@@ -42,11 +42,39 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
   let container: HTMLElement | null;
   let root: any; // Change to Root once we go full React 18
 
-  const adfDocument: JSONDocNode = {
+  const defaultAdfDocument: JSONDocNode = {
     version: 1,
     type: 'doc',
     content: [],
   };
+
+
+const adfDocumentForExcerptMacro: JSONDocNode = {
+  type: "doc",
+  content: [
+      {
+          type: "bodiedExtension",
+          attrs: {
+              layout: "default",
+              extensionType: "com.atlassian.confluence.macro.core",
+              extensionKey: "excerpt",
+              parameters: {}
+          },
+          content: [
+              {
+                  type: "paragraph",
+                  content: [
+                      {
+                          text: "excerpt",
+                          type: "text"
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  version: 1
+}
 
   beforeEach(async () => {
     container = document.createElement('div');
@@ -65,8 +93,8 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
   });
 
   describe('#useLoadAnnotations', () => {
-    const CustomComp = () => {
-      useLoadAnnotations({ adfDocument, isNestedRender: false });
+    const CustomComp = ({adfDocument = defaultAdfDocument, isNestedRender = false}) => {
+      useLoadAnnotations({ adfDocument, isNestedRender });
       return null;
     };
 
@@ -117,7 +145,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
             root.render(
               <RendererContext.Provider value={actionsFake}>
                 <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={adfDocument} />
+                  <CustomComp myAdfDocument={defaultAdfDocument} />
                 </ProvidersContext.Provider>
               </RendererContext.Provider>,
             );
@@ -127,7 +155,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
             render(
               <RendererContext.Provider value={actionsFake}>
                 <ProvidersContext.Provider value={providers}>
-                  <CustomComp myAdfDocument={adfDocument} />
+                  <CustomComp myAdfDocument={defaultAdfDocument} />
                 </ProvidersContext.Provider>
               </RendererContext.Provider>,
               container,
@@ -136,7 +164,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
         }
         expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
 
-        const sameDocument = adfDocument;
+        const sameDocument = defaultAdfDocument;
 
         if (process.env.IS_REACT_18 === 'true') {
           act(() => {
@@ -223,6 +251,39 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
       expect(providers.inlineComment.getState).toHaveBeenCalledWith(
         fakeMarksIds,
         false,
+      );
+    });
+
+
+    it('should call getState from Inline Comment provider with isNestedRender: true when the adf is a bodiedExtention macro', () => {
+      expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+
+      if (process.env.IS_REACT_18 === 'true') { 
+        act(() => {
+          root.render(
+            <RendererContext.Provider value={actionsFake}>
+              <ProvidersContext.Provider value={providers}>
+                <CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender/>
+              </ProvidersContext.Provider>
+            </RendererContext.Provider>,
+          );
+        });
+      } else {
+        act(() => {
+          render(
+            <RendererContext.Provider value={actionsFake}>
+              <ProvidersContext.Provider value={providers}>
+              <CustomComp adfDocument={adfDocumentForExcerptMacro} isNestedRender/> 
+              </ProvidersContext.Provider>
+            </RendererContext.Provider>,
+            container,
+          );
+        });
+      }
+
+      expect(providers.inlineComment.getState).toHaveBeenCalledWith(
+        fakeMarksIds,
+        true,
       );
     });
 

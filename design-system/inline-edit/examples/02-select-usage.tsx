@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ReadViewContainer = styled.div({
   display: 'flex',
   fontSize: `${fontSize()}px`,
@@ -21,6 +21,7 @@ const ReadViewContainer = styled.div({
   padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const EditViewContainer = styled.div({
   zIndex: 300,
   position: 'relative',

@@ -20,12 +20,12 @@ const allIcons = Promise.all(
     .reduce((acc, b) => ({ ...acc, ...b })),
 );
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconGridWrapper = styled.div({
   padding: '10px 5px 0',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerGrid = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -34,7 +34,7 @@ const IconExplorerGrid = styled.div({
   marginTop: '10px',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const NoIcons = styled.div({
   marginTop: '10px',
   padding: '10px',

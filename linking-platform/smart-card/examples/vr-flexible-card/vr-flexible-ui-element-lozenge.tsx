@@ -6,7 +6,7 @@ import { HorizontalWrapper, LozengeActionExample } from '../utils/vr-test';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { getContext } from '../utils/flexible-ui';
 import { DueOn, State } from '../../src/view/FlexibleCard/components/elements';
-import { LozengeAppearance } from '../../src/view/FlexibleCard/components/elements/lozenge/types';
+import { type LozengeAppearance } from '../../src/view/FlexibleCard/components/elements/lozenge/types';
 import '../utils/fetch-mock-invoke';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
@@ -24,7 +24,7 @@ const appearances: LozengeAppearance[] = [
   'success',
 ];
 const overrideCss = css({
-  fontStyle: 'italic',
+  textDecoration: 'line-through',
 });
 
 export default () => (

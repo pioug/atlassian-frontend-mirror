@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 80.3.0
+
+### Minor Changes
+
+-   [#99108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99108)
+    [`fa410d6b85f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa410d6b85f4) -
+    implemented duplicate plugin typecheck
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 80.2.0
 
 ### Minor Changes

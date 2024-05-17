@@ -9,6 +9,7 @@ import { token } from '@atlaskit/tokens';
 import { RANDOM_USERS } from '../examples-util/data';
 import AvatarGroup from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ButtonGroup = styled.div({
   margin: token('space.100', '8px'),
   textAlign: 'center',

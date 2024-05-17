@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 11.7.2
+
+### Patch Changes
+
+-   [#100028](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100028)
+    [`6402a7929b4d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6402a7929b4d) -
+    Internal changes to typography, no visual change.
+
 ## 11.7.1
 
 ### Patch Changes

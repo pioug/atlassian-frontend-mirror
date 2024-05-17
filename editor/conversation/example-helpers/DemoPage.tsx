@@ -17,11 +17,13 @@ class Main() {
 }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Line = styled.div({
   display: 'flex',
   flexDirection: 'row',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const LineNumber = styled.div({
   padding: '2px',
   background: '#dfe1e5',
@@ -31,6 +33,7 @@ const LineNumber = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Code = styled.div({
   background: '#fafbfc',
   margin: 0,
@@ -40,6 +43,7 @@ const Code = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ConvoWrapper = styled.div({
   borderTop: '1px solid #c1c7d0',
   borderBottom: '1px solid #c1c7d0',

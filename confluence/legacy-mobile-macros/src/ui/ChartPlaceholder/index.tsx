@@ -10,7 +10,7 @@ import { LineChartIcon } from '../../common/ui';
 
 import { chartPlaceholderMessages } from './messages';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ChartPlaceholderCard = styled.div`
   align-items: flex-start;
   background-color: ${token('elevation.surface', N30)};
@@ -23,6 +23,7 @@ const ChartPlaceholderCard = styled.div`
   word-break: break-word;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconWrapper = styled.div`
   padding-right: ${token('space.100', '8px')};
 `;

@@ -8,6 +8,7 @@ import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import { PopupUserPicker } from '../src';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MenuPlaceholder = styled.div`
   min-width: ${token('space.150', '12px')};
   visibility: ${(props) => (props ? 'visible' : 'hidden')};
@@ -15,17 +16,20 @@ export const MenuPlaceholder = styled.div`
   position: relative;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SelectContainer = styled.div`
   width: 250px;
   padding-left: ${token('space.150', '12px')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const OptionContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const OptionsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -34,6 +38,7 @@ const OptionsContainer = styled.div`
   justify-content: space-evenly;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const PopupContainer = styled.div`
   width: 100%;
   height: 300px;
@@ -42,6 +47,7 @@ const PopupContainer = styled.div`
   justify-content: center;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div`
   display: flex;
   flex-direction: row;

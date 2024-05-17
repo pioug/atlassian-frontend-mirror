@@ -13,7 +13,6 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-  fireAnalyticsEvent,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -191,10 +190,7 @@ const createCloseTypeAhead =
  *
  *
  */
-export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
-  const fireAnalyticsCallback = fireAnalyticsEvent(
-    options?.createAnalyticsEvent,
-  );
+export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
   const popupMountRef: PopupMountPointReference = {
     current: null,
   };
@@ -217,8 +213,7 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
               getIntl,
               popupMountRef,
               reactDispatch: dispatch,
-              typeAheadHandlers: typeAhead,
-              createAnalyticsEvent: options?.createAnalyticsEvent,
+              typeAheadHandlers: typeAhead
             }),
         },
         {
@@ -309,7 +304,6 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
           editorView={editorView}
           popupMountRef={popupMountRef}
           api={api}
-          fireAnalyticsCallback={fireAnalyticsCallback}
         />
       );
     },
@@ -348,17 +342,15 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ config: options, api }) => {
         newTriggerHandler.onOpen(newEditorState);
       }
 
-      if (newTriggerHandler && isANewHandler && options?.createAnalyticsEvent) {
-        fireAnalyticsCallback({
-          payload: {
-            action: ACTION.INVOKED,
-            actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-            actionSubjectId: newTriggerHandler.id || 'not_set',
-            attributes: {
-              inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
-            },
-            eventType: EVENT_TYPE.UI,
+      if (newTriggerHandler && isANewHandler) {
+        api?.analytics?.actions?.fireAnalyticsEvent({
+          action: ACTION.INVOKED,
+          actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+          actionSubjectId: newTriggerHandler.id || 'not_set',
+          attributes: {
+            inputMethod: newPluginState.inputMethod || INPUT_METHOD.KEYBOARD,
           },
+          eventType: EVENT_TYPE.UI,
         });
       }
     },

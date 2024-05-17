@@ -3,18 +3,21 @@ import styled from '@emotion/styled';
 import { ExampleWrapper } from '../example-helpers/ExampleWrapper';
 import UserPicker from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Table = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   overflow: hidden;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Cell = styled.div<{ width?: number }>`
   max-width: 100%;
   flex: 0 0 auto;

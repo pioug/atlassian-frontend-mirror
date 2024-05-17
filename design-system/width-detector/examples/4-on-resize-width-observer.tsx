@@ -4,6 +4,7 @@ import { WidthObserver } from '../src';
 import debounce from 'lodash/debounce';
 import Button from '@atlaskit/button/new';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
   alignItems: 'center',
   backgroundColor: 'black',
@@ -17,6 +18,7 @@ const ResultBox = styled.div({
   padding: '10px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultNumber = styled.div({
   backgroundColor: 'rgb(0, 0, 0, 0.6)',
   color: 'white',
@@ -24,6 +26,7 @@ const ResultNumber = styled.div({
   borderRadius: '3px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const RelativeWrapper = styled.div({
   position: 'relative',
 });

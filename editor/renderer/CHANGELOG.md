@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 109.28.1
+
+### Patch Changes
+
+-   [#100619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100619)
+    [`515f029a457a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/515f029a457a) -
+    [ED-23178] VR tests for highlight text
+
 ## 109.28.0
 
 ### Minor Changes

@@ -9,6 +9,7 @@ import Navigation from '@atlaskit/navigation';
 
 import MobileHeader from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const FakeSideBar = styled.div({
   backgroundColor: 'white',
   height: '100vh',

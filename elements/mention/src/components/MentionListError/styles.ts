@@ -4,6 +4,7 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import { N500 } from '@atlaskit/theme/colors';
 import { h400 } from '@atlaskit/theme/typography';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionListErrorStyle = styled.div`
   align-items: center;
   display: flex;
@@ -15,6 +16,7 @@ export const MentionListErrorStyle = styled.div`
   border-radius: ${borderRadius()}px;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const GenericErrorVisualStyle = styled.div`
   margin-bottom: ${token('space.100', '8px')};
   margin-top: ${token('space.400', '32px')};
@@ -22,11 +24,13 @@ export const GenericErrorVisualStyle = styled.div`
 `;
 
 // TODO: Figure out why the themed css function is causing type errors when passed prop children
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionListErrorHeadlineStyle = styled.div`
   ${h400()};
   margin-bottom: ${token('space.100', '8px')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionListAdviceStyle = styled.div`
   margin-bottom: ${token('space.600', '48px')};
 `;

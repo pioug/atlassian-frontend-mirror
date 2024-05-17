@@ -40,7 +40,7 @@
     "@atlaskit/motion": "^1.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/portal": "^4.5.0",
-    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",

@@ -103,7 +103,8 @@ export const createPlugin = (
             left: event.clientX,
             top: event.clientY,
           });
-          if (pos?.inside && pos.inside > 0) {
+
+          if (pos?.inside !== undefined && pos.inside >= 0) {
             const node = view.state.doc.nodeAt(pos.inside);
             if (!node) {
               return;

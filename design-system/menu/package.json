@@ -46,7 +46,7 @@
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/focus-ring": "^1.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/primitives": "^6.1.0",
+    "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",
     "@babel/runtime": "^7.0.0",
@@ -138,6 +138,9 @@
       "type": "boolean"
     },
     "platform.design-system-team.section-1px-seperator-borders": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.menu-tokenised-typography-styles": {
       "type": "boolean"
     }
   },

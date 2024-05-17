@@ -19,7 +19,7 @@ interface StyledProps {
   scroll: string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Parent = styled.div<StyledProps>`
   background-color: ${token('elevation.surface.sunken')};
   border-radius: 5px;
@@ -32,6 +32,7 @@ const Parent = styled.div<StyledProps>`
     margin-bottom: ${token('space.0', '0px')};
   }
 `;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Shim = styled.div<StyledProps>(
   {
     display: 'flex',

@@ -6,6 +6,7 @@ import { Label } from '@atlaskit/form';
 
 import Range from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   width: '500px',
 });

@@ -1,10 +1,8 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-/* eslint-disable @atlaskit/design-system/no-unsafe-design-token-usage */
+/** @jsx jsx */
+import { type CSSProperties, memo, type ReactNode } from 'react';
 
-import React, { CSSProperties, memo, ReactNode } from 'react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import Text, { TextProps } from '@atlaskit/ds-explorations/text';
 import { type BackgroundColor, Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -14,6 +12,15 @@ const baseStyles = xcss({
   blockSize: 'min-content',
   position: 'static',
   overflow: 'hidden',
+});
+
+const textStyles = css({
+  font: token('font.body.small'),
+  fontWeight: token('font.weight.bold'),
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  textTransform: 'uppercase',
+  whiteSpace: 'nowrap',
 });
 
 export type ThemeAppearance =
@@ -82,9 +89,7 @@ const Lozenge = memo(
 
     const maxWidthValue =
       typeof maxWidth === 'string' ? maxWidth : `${maxWidth}px`;
-
     const maxWidthIsPc = typeof maxWidth === 'string' && /%$/.test(maxWidth);
-
     return (
       <Box
         as="span"
@@ -97,24 +102,19 @@ const Lozenge = memo(
         xcss={baseStyles}
         testId={testId}
       >
-        <Text
-          fontSize="size.050"
-          fontWeight="bold"
-          lineHeight="lineHeight.100"
-          textTransform="uppercase"
-          color={textColors[appearanceStyle][appearanceType]}
-          shouldTruncate
-          UNSAFE_style={{
+        <span
+          css={[textStyles, textColors[appearanceStyle][appearanceType]]}
+          style={{
             color: style?.color,
             // to negate paddingInline specified on Box above
             maxWidth: maxWidthIsPc
               ? '100%'
               : `calc(${maxWidthValue} - ${token('space.100', '8px')})`,
           }}
-          testId={testId && `${testId}--text`}
+          data-testid={testId && `${testId}--text`}
         >
           {children}
-        </Text>
+        </span>
       </Box>
     );
   },
@@ -124,7 +124,6 @@ Lozenge.displayName = 'Lozenge';
 
 export default Lozenge;
 
-// Lozenge colors
 const backgroundColors: Record<
   'bold' | 'subtle',
   Record<ThemeAppearance, BackgroundColor>
@@ -149,22 +148,22 @@ const backgroundColors: Record<
 
 const textColors: Record<
   'bold' | 'subtle',
-  Record<ThemeAppearance, TextProps['color']>
+  Record<ThemeAppearance, SerializedStyles>
 > = {
   bold: {
-    default: 'inverse',
-    inprogress: 'inverse',
-    moved: 'warning.inverse',
-    new: 'inverse',
-    removed: 'inverse',
-    success: 'inverse',
+    default: css({ color: token('color.text.inverse', '#FFFFFF') }),
+    inprogress: css({ color: token('color.text.inverse', '#FFFFFF') }),
+    moved: css({ color: token('color.text.warning.inverse', '#172B4D') }),
+    new: css({ color: token('color.text.inverse', '#FFFFFF') }),
+    removed: css({ color: token('color.text.inverse', '#FFFFFF') }),
+    success: css({ color: token('color.text.inverse', '#FFFFFF') }),
   },
   subtle: {
-    default: 'subtle',
-    inprogress: 'information',
-    moved: 'warning',
-    new: 'discovery',
-    removed: 'danger',
-    success: 'success',
+    default: css({ color: token('color.text.subtle', '#42526E') }),
+    inprogress: css({ color: token('color.text.information', '#0052CC') }),
+    moved: css({ color: token('color.text.warning', '#974F0C') }),
+    new: css({ color: token('color.text.discovery', '#403294') }),
+    removed: css({ color: token('color.text.danger', '#DE350B') }),
+    success: css({ color: token('color.text.success', '#006644') }),
   },
 };

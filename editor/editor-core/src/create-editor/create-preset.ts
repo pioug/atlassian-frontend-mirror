@@ -44,6 +44,7 @@ function withDangerouslyAppendPlugins(
       (acc, plugin) => {
         // These are dangerously appended, we don't need their type information leaking into
         // universal preset
+        // @ts-expect-error
         return acc.add(plugin) as unknown as ReturnType<
           typeof createUniversalPreset
         >;

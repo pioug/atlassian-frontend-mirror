@@ -17,12 +17,19 @@ const itemHeadingFontSize = headingSizes.h100.size;
 
 const headingStyles = css({
   color: token('color.text.subtle', N300),
-  fontSize: itemHeadingFontSize,
-  fontWeight: token('font.weight.bold', '700'),
-  lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
   paddingBlock: token('space.0', '0px'),
   paddingInline: token('space.200', '16px'),
-  textTransform: 'uppercase',
+});
+
+const baseHeadingStyles = css({
+  fontSize: itemHeadingFontSize,
+  fontWeight: token('font.weight.bold'),
+  lineHeight: itemHeadingContentHeight / itemHeadingFontSize,
+  textTransform: 'uppercase'
+})
+
+const tokenizedHeadingStyles = css({
+  font: token('font.heading.xxsmall'),
 });
 
 /**
@@ -64,6 +71,7 @@ const HeadingItem = memo(
       <div
         css={[
           headingStyles,
+          getBooleanFF('platform.design-system-team.menu-tokenised-typography-styles') ? tokenizedHeadingStyles : baseHeadingStyles,
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           UNSAFE_overrides,
         ]}

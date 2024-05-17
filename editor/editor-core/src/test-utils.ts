@@ -40,18 +40,21 @@ function lightProcessPluginsList(
   /**
    * First pass to collect pluginsOptions
    */
-  const pluginsOptions = editorPlugins.reduce((acc, plugin) => {
-    if (plugin.pluginsOptions) {
-      Object.keys(plugin.pluginsOptions).forEach((pluginName) => {
-        if (!acc[pluginName]) {
-          acc[pluginName] = [];
-        }
-        acc[pluginName].push(plugin.pluginsOptions![pluginName]);
-      });
-    }
+  const pluginsOptions = editorPlugins.reduce(
+    (acc, plugin) => {
+      if (plugin.pluginsOptions) {
+        Object.keys(plugin.pluginsOptions).forEach((pluginName) => {
+          if (!acc[pluginName]) {
+            acc[pluginName] = [];
+          }
+          acc[pluginName].push(plugin.pluginsOptions![pluginName]);
+        });
+      }
 
-    return acc;
-  }, {} as Record<string, any>);
+      return acc;
+    },
+    {} as Record<string, any>,
+  );
 
   /**
    * Process plugins
@@ -115,9 +118,13 @@ export const createPMSchemaAndPlugins =
   ): PluginData => {
     let editorPlugins: LightEditorPlugin[] = [];
 
+    // we are ignoring the below because while this logic knows if
+    // basePlugin is in the inputPreset, the type system does not
+    // so it marks it as a duplicate plugin :) - this is fine
     const preset = inputPreset.has(basePlugin)
       ? inputPreset
-      : inputPreset.add(basePlugin);
+      : // @ts-expect-error
+        inputPreset.add(basePlugin);
     editorPlugins = preset.build({
       pluginInjectionAPI: pluginFactoryParams.pluginInjectionAPI,
     });

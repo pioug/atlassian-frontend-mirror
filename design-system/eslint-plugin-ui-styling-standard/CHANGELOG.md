@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.14.1
+
+### Patch Changes
+
+-   [#99639](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99639)
+    [`e9887b5c7698`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9887b5c7698) -
+    Internal refactoring of `no-important-styles` rule
+-   Updated dependencies
+
 ## 0.14.0
 
 ### Minor Changes

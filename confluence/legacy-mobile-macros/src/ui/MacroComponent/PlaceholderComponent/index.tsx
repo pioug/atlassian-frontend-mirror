@@ -13,6 +13,7 @@ class MacroPlaceholderImageError {
   constructor() {}
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const PlaceholderImage = styled.img`
   max-width: ${(props) => `${props.width}px`};
   background-color: ${token('elevation.surface', N0)};

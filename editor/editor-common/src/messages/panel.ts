@@ -41,4 +41,9 @@ export const panelMessages = defineMessages({
     defaultMessage: 'Background color',
     description: 'Select the panel background color.',
   },
+  panelsGroup: {
+    id: 'fabric.editor.panel.panelsGroup',
+    defaultMessage: 'Panel Types',
+    description: 'aria-label for group of panels the floating toolbar',
+  }
 });

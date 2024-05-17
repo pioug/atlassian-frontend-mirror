@@ -51,10 +51,10 @@
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
-      "path": "../ds-explorations/tsconfig.app.json"
+      "path": "../ds-lib/tsconfig.app.json"
     },
     {
-      "path": "../ds-lib/tsconfig.app.json"
+      "path": "../heading/tsconfig.app.json"
     },
     {
       "path": "../primitives/tsconfig.app.json"

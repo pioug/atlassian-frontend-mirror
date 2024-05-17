@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const LabelElement = styled.label({
   font: token('font.body.UNSAFE_small'),
   fontWeight: token('font.weight.semibold'),

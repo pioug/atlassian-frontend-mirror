@@ -13,6 +13,7 @@ const containerDivStyle: React.CSSProperties = {
   backgroundColor: '#333',
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
   backgroundColor: 'rebeccapurple',
   color: 'white',

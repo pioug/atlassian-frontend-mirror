@@ -21,6 +21,7 @@ const growAndShrink = keyframes({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResizingBox = styled.div({
   textAlign: 'center',
   background: 'rgba(0, 0, 0, 0.2)',
@@ -30,6 +31,7 @@ const ResizingBox = styled.div({
   height: '250px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const RelativeWrapper = styled.div({
   position: 'relative',
 });

@@ -266,6 +266,9 @@ export default function createUniversalPreset(
     )
     .maybeAdd(imageUploadPlugin, Boolean(props.legacyImageUploadProvider))
     .maybeAdd(
+      // duplicate plugin exists because first one if media is enabled
+      // second one when “media is disabled, and legacyMediaProvider is enabled
+      // @ts-expect-error
       [
         mediaPlugin,
         {
@@ -328,6 +331,11 @@ export default function createUniversalPreset(
       Boolean(props.allowExtension),
     )
     .maybeAdd(
+      // we are ignoring a duplicate plugin error here
+      // this error exists because we have two annotation plugins being added
+      // one with annotationProviders and one with allowConfluenceInlineComment
+      // long term this and media should be consolidated into adding both only once
+      // @ts-expect-error
       [annotationPlugin, undefined],
       Boolean(!props.annotationProviders && props.allowConfluenceInlineComment),
     )

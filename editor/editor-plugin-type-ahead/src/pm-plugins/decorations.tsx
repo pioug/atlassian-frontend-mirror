@@ -6,7 +6,6 @@ import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type {
   ReadonlyTransaction,
@@ -35,7 +34,6 @@ import { getTypeAheadQuery } from '../utils';
 type FactoryProps = {
   intl: IntlShape;
   popupMountRef: PopupMountPointReference;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
 };
 
 type FactoryReturn = {
@@ -46,7 +44,6 @@ type FactoryReturn = {
 export const factoryDecorations = ({
   intl,
   popupMountRef,
-  createAnalyticsEvent,
 }: FactoryProps): FactoryReturn => {
   const createDecorations: CreateTypeAheadDecorations = (
     tr: ReadonlyTransaction,
@@ -134,7 +131,6 @@ export const factoryDecorations = ({
               triggerHandler={triggerHandler}
               editorView={editorView}
               anchorElement={typeaheadComponent}
-              createAnalyticsEvent={createAnalyticsEvent}
               inputMethod={inputMethod}
               getDecorationPosition={getDecorationPosition}
               shouldFocusCursorInsideQuery={shouldFocusCursorInsideQuery}

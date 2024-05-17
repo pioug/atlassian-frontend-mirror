@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/eslint-utils",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Shared utilities for ESLint rules",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,7 +37,8 @@
     "./find-identifier-node": "./src/find-identifier-node.tsx",
     "./find-variable": "./src/find-variable.tsx",
     "./is-supported-import": "./src/is-supported-import.tsx",
-    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx"
+    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
+    "./schema": "./src/schema.tsx"
   },
   "exports": {
     ".": "./src/index.tsx",
@@ -46,7 +47,8 @@
     "./find-identifier-node": "./src/find-identifier-node.tsx",
     "./find-variable": "./src/find-variable.tsx",
     "./is-supported-import": "./src/is-supported-import.tsx",
-    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx"
+    "./create-no-exported-rule": "./src/create-no-exported-rule/main.tsx",
+    "./schema": "./src/schema.tsx"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0",

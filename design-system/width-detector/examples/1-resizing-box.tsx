@@ -21,6 +21,7 @@ const growAndShrink = keyframes({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResizingBox = styled.div({
   display: 'flex',
   alignItems: 'center',
@@ -32,6 +33,7 @@ const ResizingBox = styled.div({
   height: `${startSize}px`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({
   alignItems: 'center',
   backgroundColor: 'rebeccapurple',

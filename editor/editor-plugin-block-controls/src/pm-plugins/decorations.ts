@@ -72,41 +72,45 @@ export const dropTargetDecorations = (
 
 export const dragHandleDecoration = (
   oldState: EditorState,
-  meta: BlockControlsMeta, // TODO - update types here
+  meta: BlockControlsMeta,
   api: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
   return DecorationSet.create(oldState.doc, [
-    Decoration.widget(meta.pos, (view, getPos) => {
-      const element = document.createElement('div');
-      ReactDOM.render(
-        createElement(DragHandle, {
-          dom: meta.dom,
-          api,
-          start: meta.pos,
-        }),
-        element,
-      );
+    Decoration.widget(
+      meta.pos,
+      (view, getPos) => {
+        const element = document.createElement('div');
+        ReactDOM.render(
+          createElement(DragHandle, {
+            dom: meta.dom,
+            api,
+            start: meta.pos,
+          }),
+          element,
+        );
 
-      element.style.position = 'absolute';
-      element.style.zIndex = '1';
+        element.style.position = 'absolute';
+        element.style.zIndex = '1';
 
-      const resizer: HTMLElement | null =
-        meta.dom.querySelector('.resizer-item');
+        const resizer: HTMLElement | null =
+          meta.dom.querySelector('.resizer-item');
 
-      if (resizer) {
-        element.style.left = `${resizer.offsetLeft - parseInt(getComputedStyle(resizer).marginLeft) - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
-      } else {
-        element.style.left = `${meta.dom.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
-      }
+        if (resizer) {
+          element.style.left = `${resizer.offsetLeft - parseInt(getComputedStyle(resizer).marginLeft) - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
+        } else {
+          element.style.left = `${meta.dom.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
+        }
 
-      if (meta.type === 'table') {
-        const table = meta.dom.querySelector('table');
-        element.style.top = `${meta.dom.offsetTop + (table?.offsetTop || 0)}px`;
-      } else {
-        element.style.top = `${meta.dom.offsetTop}px`;
-      }
+        if (meta.type === 'table') {
+          const table = meta.dom.querySelector('table');
+          element.style.top = `${meta.dom.offsetTop + (table?.offsetTop || 0)}px`;
+        } else {
+          element.style.top = `${meta.dom.offsetTop}px`;
+        }
 
-      return element;
-    }),
+        return element;
+      },
+      { side: -1 },
+    ),
   ]);
 };

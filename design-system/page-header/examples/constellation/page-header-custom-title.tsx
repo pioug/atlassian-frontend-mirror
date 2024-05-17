@@ -12,8 +12,7 @@ const readViewStyles = css({
   display: 'flex',
   maxWidth: '100%',
   padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
-  fontSize: '24px',
-  fontWeight: 500,
+  font: token('font.heading.large'),
   overflow: 'hidden',
 });
 
@@ -25,8 +24,7 @@ const editViewStyles = css({
   border: `2px solid ${token('color.border')}`,
   borderRadius: token('border.radius', '3px'),
   cursor: 'inherit',
-  fontSize: '24px',
-  fontWeight: 500,
+  font: token('font.heading.large'),
   outline: 'none',
   ':focus': {
     border: `2px solid ${token('color.border.focused')}`,

@@ -18,6 +18,7 @@ export interface InfoSectionStyleProps {
   restricted?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const RowStyle = styled.div`
   align-items: center;
   display: flex;
@@ -29,12 +30,14 @@ export const RowStyle = styled.div`
   vertical-align: middle;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AvatarStyle = styled.span<AvatarSectionStyleProps>`
   position: relative;
   flex: initial;
   opacity: ${(props) => (props.restricted ? '0.5' : 'inherit')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const NameSectionStyle = styled.div<NameSectionStyleProps>`
   flex: 1;
   min-width: 0;
@@ -42,6 +45,7 @@ export const NameSectionStyle = styled.div<NameSectionStyleProps>`
   opacity: ${(props) => (props.restricted ? '0.5' : 'inherit')};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const FullNameStyle = styled.span`
   display: block;
   overflow: hidden;
@@ -50,6 +54,7 @@ export const FullNameStyle = styled.span`
   color: ${token('color.text', N900)};
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const InfoSectionStyle = styled.div<InfoSectionStyleProps>`
   display: flex;
   flex-direction: column;
@@ -64,6 +69,7 @@ export const InfoSectionStyle = styled.div<InfoSectionStyleProps>`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TimeStyle = styled.div`
   margin-left: ${token('space.250', '20px')};
   flex: none;
@@ -72,6 +78,7 @@ export const TimeStyle = styled.div`
 `;
 
 export const MENTION_ITEM_HEIGHT = 48;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MentionItemStyle = styled.div<MentionItemStyleProps>`
   background-color: ${(props) =>
     props.selected ? token('color.background.selected', N30) : 'transparent'};
@@ -83,6 +90,7 @@ export const MentionItemStyle = styled.div<MentionItemStyleProps>`
   cursor: pointer;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AccessSectionStyle = styled.div`
   padding-left: ${token('space.050', '4px')};
   color: ${token('color.text.subtle', N500)};

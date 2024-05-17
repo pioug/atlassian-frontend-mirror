@@ -20,6 +20,7 @@ const shortMessage = "I'm a short tooltip";
 const longMessage =
   'I am a longer tooltip with a decent amount of content inside';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled(TooltipPrimitive)({
   background: 'white',
   borderRadius: token('border.radius', '4px'),

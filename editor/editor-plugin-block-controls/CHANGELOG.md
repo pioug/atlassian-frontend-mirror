@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.3.9
+
+### Patch Changes
+
+-   [#100922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100922)
+    [`d69797fc32b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d69797fc32b6) -
+    ED-22939 Fix drag handle not appearing for first node of document
+
+## 1.3.8
+
+### Patch Changes
+
+-   [#100787](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100787)
+    [`50f1093f6e70`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/50f1093f6e70) -
+    [ux] Fix node controls in incorrect pos when drag handle visible
+
 ## 1.3.7
 
 ### Patch Changes

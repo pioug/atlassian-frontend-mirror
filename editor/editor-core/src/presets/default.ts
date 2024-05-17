@@ -110,12 +110,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
     ])
     .add([basePlugin, options.base])
     .add(decorationsPlugin)
-    .add([
-      typeAheadPlugin,
-      options.typeAhead || {
-        createAnalyticsEvent: options.createAnalyticsEvent,
-      },
-    ])
+    .add([typeAheadPlugin, options.typeAhead])
     .maybeAdd(historyPlugin, Boolean(isMobile || options.allowUndoRedoButtons))
     .maybeAdd(
       undoRedoPlugin,

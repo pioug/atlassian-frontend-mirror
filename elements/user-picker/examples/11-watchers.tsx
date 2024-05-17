@@ -13,6 +13,7 @@ type UserValueProps = {
   onRemove: (user: OptionData) => void;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const UserValueContainer = styled.div({
   display: 'flex',
   justifyContent: 'space-between',

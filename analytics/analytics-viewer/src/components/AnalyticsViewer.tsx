@@ -9,6 +9,7 @@ type Props = {
   className?: string;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const AnalyticsViewerWrapper = styled.ul`
   list-style: none;
   padding: 0;

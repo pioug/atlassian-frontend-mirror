@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives';
 
-import Lozenge, { ThemeAppearance } from '../src';
+import Lozenge, { type ThemeAppearance } from '../src';
 
 const APPEARANCES: { label: string; value: ThemeAppearance }[] = [
   { label: 'Default', value: 'default' },
@@ -18,7 +17,7 @@ export default () => (
   <Stack testId="test-container" space="space.400">
     <Inline space="space.400">
       <Stack space="space.100">
-        <Text fontWeight="medium">Subtle</Text>
+        <Text weight="medium">Subtle</Text>
         <>
           {APPEARANCES.map((a) => (
             <Box key={a.value}>
@@ -30,7 +29,7 @@ export default () => (
         </>
       </Stack>
       <Stack space="space.100">
-        <Text fontWeight="medium">Bold</Text>
+        <Text weight="medium">Bold</Text>
         <>
           {APPEARANCES.map((a) => (
             <Box key={a.value}>
@@ -44,7 +43,7 @@ export default () => (
     </Inline>
 
     <Stack space="space.100">
-      <Text fontWeight="medium">Overflowed Lozenge</Text>
+      <Text weight="medium">Overflowed Lozenge</Text>
       <Box>
         <Lozenge testId="lozenge-truncated">
           Long text will be truncated after a point.
@@ -62,7 +61,7 @@ export default () => (
     </Stack>
 
     <Stack space="space.100">
-      <Text fontWeight="medium">Defaults</Text>
+      <Text weight="medium">Defaults</Text>
       <Box>
         <Lozenge maxWidth="none" testId="lozenge-defaults">
           Default appearance and boldness

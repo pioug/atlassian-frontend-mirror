@@ -2,27 +2,11 @@ import esquery from 'esquery';
 
 import type { Property } from 'estree';
 
-import { createLintRule } from '../utils/create-rule';
-import {
-  getImportSources,
-  hasStyleObjectArguments,
-} from '@atlaskit/eslint-utils/is-supported-import';
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import { hasStyleObjectArguments } from '@atlaskit/eslint-utils/is-supported-import';
+import { importSources } from '@atlaskit/eslint-utils/schema';
+import { createLintRuleWithTypedConfig } from '../utils/create-rule-with-typed-config';
 
-const schema: JSONSchema4 = [
-  {
-    type: 'object',
-    properties: {
-      importSources: {
-        type: 'array',
-        items: { type: 'string' },
-        uniqueItems: true,
-      },
-    },
-  },
-];
-
-export const rule = createLintRule({
+export const rule = createLintRuleWithTypedConfig({
   meta: {
     name: 'no-important-styles',
     docs: {
@@ -35,11 +19,14 @@ export const rule = createLintRule({
         'Important style declarations are disallowed. Refactor so the `!important` flag is not needed.',
     },
     type: 'problem',
-    schema,
+    schema: {
+      type: 'object',
+      properties: {
+        importSources,
+      },
+    },
   },
-  create(context) {
-    const importSources = getImportSources(context);
-
+  create(context, { importSources }) {
     return {
       CallExpression(node) {
         const { references } = context.getScope();

@@ -11,13 +11,13 @@ import React, {
 import { css, jsx } from '@emotion/react';
 import rafSchedule from 'raf-schd';
 
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type {
@@ -33,7 +33,12 @@ import {
   TYPE_AHEAD_DECORATION_DATA_ATTRIBUTE,
   TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../constants';
-import type { OnSelectItem, TypeAheadHandler, TypeAheadItem } from '../types';
+import type {
+  OnSelectItem,
+  TypeAheadHandler,
+  TypeAheadItem,
+  TypeAheadPlugin,
+} from '../types';
 
 import { TypeAheadList } from './TypeAheadList';
 
@@ -62,7 +67,6 @@ type TypeAheadPopupProps = {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
-  fireAnalyticsCallback: FireAnalyticsCallback;
   items: Array<TypeAheadItem>;
   selectedIndex: number;
   setSelectedItem: OnSelectItem;
@@ -74,6 +78,7 @@ type TypeAheadPopupProps = {
     addPrefixTrigger: boolean;
     forceFocusOnEditor: boolean;
   }) => void;
+  api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 
 type HighlightProps = {
@@ -100,9 +105,9 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
     items,
     selectedIndex,
     onItemInsert,
-    fireAnalyticsCallback,
     isEmptyQuery,
     cancel,
+    api,
   } = props;
 
   const ref = useRef<HTMLDivElement>(
@@ -113,58 +118,54 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
     () => performance.now(),
     // In case those props changes
     // we need to recreate the startTime
-    [items, isEmptyQuery, fireAnalyticsCallback, triggerHandler], // eslint-disable-line react-hooks/exhaustive-deps
+    [items, isEmptyQuery, triggerHandler], // eslint-disable-line react-hooks/exhaustive-deps
   );
   useEffect(() => {
-    if (!fireAnalyticsCallback) {
+    if (!api?.analytics?.actions?.fireAnalyticsEvent) {
       return;
     }
     const stopTime = performance.now();
     const time = stopTime - startTime;
 
-    fireAnalyticsCallback({
-      payload: {
-        action: ACTION.RENDERED,
-        actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-        eventType: EVENT_TYPE.OPERATIONAL,
-        attributes: {
-          time,
-          items: items.length,
-          initial: isEmptyQuery,
-        },
+    api?.analytics?.actions?.fireAnalyticsEvent({
+      action: ACTION.RENDERED,
+      actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+      eventType: EVENT_TYPE.OPERATIONAL,
+      attributes: {
+        time,
+        items: items.length,
+        initial: isEmptyQuery,
       },
     });
   }, [
     startTime,
     items,
-    fireAnalyticsCallback,
     isEmptyQuery,
     // In case the current triggerHandler changes
     // e.g: Inserting a mention using the quick insert
     // we need to send the event again
     // eslint-disable-next-line react-hooks/exhaustive-deps
     triggerHandler,
+    api,
   ]);
 
   useEffect(() => {
-    if (!fireAnalyticsCallback) {
+    if (!api?.analytics?.actions?.fireAnalyticsEvent) {
       return;
     }
 
-    fireAnalyticsCallback({
-      payload: {
-        action: ACTION.VIEWED,
-        actionSubject: ACTION_SUBJECT.TYPEAHEAD_ITEM,
-        eventType: EVENT_TYPE.OPERATIONAL,
-        attributes: {
-          index: selectedIndex,
-          items: items.length,
-        },
+    api?.analytics?.actions?.fireAnalyticsEvent({
+      action: ACTION.VIEWED,
+      actionSubject: ACTION_SUBJECT.TYPEAHEAD_ITEM,
+      eventType: EVENT_TYPE.OPERATIONAL,
+      attributes: {
+        index: selectedIndex,
+        items: items.length,
       },
     });
   }, [
     items,
-    fireAnalyticsCallback,
+    api,
     selectedIndex,
     // In case the current triggerHandler changes
     // e.g: Inserting a mention using the quick insert

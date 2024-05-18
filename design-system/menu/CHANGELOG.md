@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 2.3.0
+
+### Minor Changes
+
+-   [#100991](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100991)
+    [`364a95234076`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/364a95234076) -
+    [ux] We are testing a visual change behind a feature flag. The line height of menu item title
+    changes. If this change is successful it will be available in a later release.
+
 ## 2.2.1
 
 ### Patch Changes

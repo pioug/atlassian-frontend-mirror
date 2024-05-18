@@ -16,6 +16,7 @@ export interface Props {
   onClick?: MentionEventHandler;
   onMouseEnter?: MentionEventHandler;
   onMouseLeave?: MentionEventHandler;
+  localId?: string;
 }
 
 export default function MentionWithProfileCard({
@@ -27,6 +28,7 @@ export default function MentionWithProfileCard({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  localId,
 }: Props) {
   const { cloudId, resourceClient } = profilecardProvider;
 
@@ -50,6 +52,7 @@ export default function MentionWithProfileCard({
         id={id}
         text={text}
         accessLevel={accessLevel}
+        localId={localId}
         mentionProvider={mentionProvider}
         onClick={onClick}
         onMouseEnter={onMouseEnter}

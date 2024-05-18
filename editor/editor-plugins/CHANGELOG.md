@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugins
 
+## 2.6.0
+
+### Minor Changes
+
+-   [#98528](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98528)
+    [`12181f0bfaed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12181f0bfaed) -
+    EDM-9252 Removal of platform.linking-platform.smart-card.inline-switcher
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.5.46
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.2.1
+
+### Patch Changes
+
+-   [#99635](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99635)
+    [`647b9c0a5da8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/647b9c0a5da8) -
+    [ED-23193] Fix typeahead analytics that were not firing to now use EditorAPI to fire events.
+-   Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

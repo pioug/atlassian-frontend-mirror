@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 
 import { ResourcedMention } from '@atlaskit/mention/element';
-import { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 
-import { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
-import { MentionEventHandlers } from '../EventHandlers';
+import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
+import type { MentionEventHandlers } from '../EventHandlers';
 
 import ResourcedMentionWithProfilecard from './mention-with-profilecard';
 
@@ -15,6 +15,7 @@ export interface Props {
   mentionProvider?: Promise<MentionProvider>;
   profilecardProvider?: Promise<ProfilecardProvider>;
   eventHandlers?: MentionEventHandlers;
+  localId?: string;
 }
 
 export interface State {
@@ -56,7 +57,7 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
   }
 
   render() {
-    const { accessLevel, eventHandlers, id, mentionProvider, text } =
+    const { accessLevel, eventHandlers, id, mentionProvider, text, localId } =
       this.props;
 
     const { profilecardProvider } = this.state;
@@ -81,6 +82,7 @@ export default class MentionWithProviders extends PureComponent<Props, State> {
         id={id}
         text={text}
         accessLevel={accessLevel}
+        localId={localId}
         mentionProvider={mentionProvider}
         profilecardProvider={profilecardProvider!}
         {...actionHandlers}

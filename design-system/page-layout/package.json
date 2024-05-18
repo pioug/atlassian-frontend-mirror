@@ -64,7 +64,7 @@
     "@atlaskit/atlassian-notifications": "^0.4.0",
     "@atlaskit/drawer": "^7.8.0",
     "@atlaskit/logo": "^13.16.0",
-    "@atlaskit/menu": "^2.2.0",
+    "@atlaskit/menu": "^2.3.0",
     "@atlaskit/notification-indicator": "^9.2.0",
     "@atlaskit/notification-log-client": "^6.1.0",
     "@atlaskit/popup": "^1.17.0",

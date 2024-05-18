@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.3.10
+
+### Patch Changes
+
+-   [#100964](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100964)
+    [`d58e7d6f08e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d58e7d6f08e4) -
+    [ux] Tweak CSS styles for drop targets
+
 ## 1.3.9
 
 ### Patch Changes

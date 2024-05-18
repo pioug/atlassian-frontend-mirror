@@ -230,6 +230,7 @@ const buildNodesForTeamMention = (
       id: member.id,
       accessLevel,
       userType: 'DEFAULT',
+      localId: uuid(),
     });
 
     inlineNodes.push(userMentionNode);
@@ -458,6 +459,7 @@ export const createTypeAheadConfig = ({
         id,
         accessLevel,
         userType: userType === 'DEFAULT' ? null : userType,
+        localId: uuid(),
       });
       const space = schema.text(' ');
 

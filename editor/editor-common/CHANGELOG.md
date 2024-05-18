@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 80.3.1
+
+### Patch Changes
+
+-   [#99825](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99825)
+    [`f48158a56833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f48158a56833) -
+    ECA11Y-195 Add missing aria-label for panels group in the floating toolbar
+-   Updated dependencies
+
 ## 80.3.0
 
 ### Minor Changes

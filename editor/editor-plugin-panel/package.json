@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-panel",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Panel plugin for @atlaskit/editor-core.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

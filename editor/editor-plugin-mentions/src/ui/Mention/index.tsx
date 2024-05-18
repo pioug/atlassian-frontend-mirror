@@ -33,6 +33,7 @@ export interface MentionProps {
   eventHandlers?: MentionEventHandlers;
   text: string;
   accessLevel?: string;
+  localId?: string;
 }
 
 export default class Mention extends PureComponent<MentionProps, {}> {
@@ -64,7 +65,7 @@ export default class Mention extends PureComponent<MentionProps, {}> {
   }
 
   private renderWithProvider = (providers: Providers) => {
-    const { accessLevel, eventHandlers, id, text } = this.props;
+    const { accessLevel, eventHandlers, id, text, localId } = this.props;
     const { mentionProvider } = providers as {
       mentionProvider?: Promise<MentionProvider>;
     };
@@ -80,6 +81,7 @@ export default class Mention extends PureComponent<MentionProps, {}> {
         id={id}
         text={text}
         accessLevel={accessLevel}
+        localId={localId}
         mentionProvider={mentionProvider}
         {...actionHandlers}
       />

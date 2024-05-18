@@ -3,14 +3,14 @@ import FocusRing from '@atlaskit/focus-ring';
 import MessagesIntlProvider from '../MessagesIntlProvider';
 import PrimitiveMention from './PrimitiveMention';
 import AsyncNoAccessTooltip from '../NoAccessTooltip';
-import { isRestricted, MentionType, MentionEventHandler } from '../../types';
+import { isRestricted, MentionType, type MentionEventHandler } from '../../types';
 import { fireAnalyticsMentionEvent } from '../../util/analytics';
 
 import withAnalyticsEvents, {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { UFOExperienceState } from '@atlaskit/ufo';
 import { UnknownUserError } from '../../util/i18n';
 import {
@@ -26,6 +26,7 @@ export type OwnProps = {
   text: string;
   isHighlighted?: boolean;
   accessLevel?: string;
+  localId?: string;
   onClick?: MentionEventHandler;
   onMouseEnter?: MentionEventHandler;
   onMouseLeave?: MentionEventHandler;
@@ -114,7 +115,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
   render() {
     const { handleOnClick, handleOnMouseEnter, handleOnMouseLeave, props } =
       this;
-    const { text, id, accessLevel } = props;
+    const { text, id, accessLevel, localId } = props;
     const mentionType: MentionType = this.getMentionType();
 
     const failedMention = text === `@${UNKNOWN_USER_ID}`;
@@ -136,7 +137,9 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
     return (
       <UfoErrorBoundary id={id}>
         <span
+          id={localId}
           data-mention-id={id}
+          data-local-id={localId}
           data-access-level={accessLevel}
           spellCheck={false}
         >

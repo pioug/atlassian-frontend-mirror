@@ -16,6 +16,7 @@ export interface Props {
   id: string;
   text: string;
   accessLevel?: string;
+  localId?: string;
   mentionProvider?: Promise<MentionProvider>;
   onClick?: MentionEventHandler;
   onMouseEnter?: MentionEventHandler;
@@ -128,6 +129,7 @@ export default class ResourcedMention extends React.PureComponent<
         text={props.text || state.resolvedMentionName || ''}
         isHighlighted={state.isHighlighted}
         accessLevel={props.accessLevel}
+        localId={props.localId}
         onClick={props.onClick}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}

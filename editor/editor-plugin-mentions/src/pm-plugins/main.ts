@@ -1,3 +1,4 @@
+import type { GasPayload } from '@atlaskit/analytics-gas-types';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -42,7 +43,7 @@ const setProvider =
 
 export function createMentionPlugin(
   pmPluginFactoryParams: PMPluginFactoryParams,
-  fireEvent: (payload: any) => void,
+  fireEvent: (payload: GasPayload) => void,
   options?: MentionPluginOptions,
 ) {
   let mentionProvider: MentionProvider;
@@ -52,7 +53,7 @@ export function createMentionPlugin(
     actionSubject: string,
     action: string,
     attributes?: {
-      [key: string]: any;
+      [key: string]: string | number;
     },
   ): void => {
     if (event === SLI_EVENT_TYPE || event === SMART_EVENT_TYPE) {

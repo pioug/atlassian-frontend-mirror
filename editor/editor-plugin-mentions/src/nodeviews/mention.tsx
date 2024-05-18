@@ -30,6 +30,7 @@ const MentionAssistiveTextComponent = ({
   providers,
   accessLevel,
   mentionProvider,
+  localId,
 }: MentionProps & { mentionProvider?: Promise<MentionProvider> }) => {
   const [resolvedName, setResolvedName] = useState(text);
 
@@ -70,6 +71,7 @@ const MentionAssistiveTextComponent = ({
           text={resolvedName}
           accessLevel={accessLevel}
           providers={providers}
+          localId={localId}
         />
       </span>
     </>
@@ -78,7 +80,7 @@ const MentionAssistiveTextComponent = ({
 
 export const MentionNodeView = (props: Props) => {
   const { providerFactory } = props;
-  const { id, text, accessLevel } = props.node.attrs;
+  const { id, text, accessLevel, localId } = props.node.attrs;
 
   const renderAssistiveTextWithProviders = (providers: Providers) => {
     const { mentionProvider } = providers as {
@@ -92,6 +94,7 @@ export const MentionNodeView = (props: Props) => {
         text={text}
         providers={providerFactory}
         accessLevel={accessLevel}
+        localId={localId}
       />
     );
   };

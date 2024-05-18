@@ -29,7 +29,7 @@
   "dependencies": {
     "@atlaskit/avatar": "^21.8.0",
     "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/menu": "^2.2.0",
+    "@atlaskit/menu": "^2.3.0",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",

@@ -5,7 +5,7 @@ import { css, jsx } from '@compiled/react';
 import { AtlasIcon, AtlasLogo } from '../../src';
 
 const tableStyle = css({
-  width: '370px',
+  width: '415px',
 });
 
 const LogoAtlas = () => {

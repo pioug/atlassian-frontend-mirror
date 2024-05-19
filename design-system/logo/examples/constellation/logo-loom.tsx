@@ -5,7 +5,7 @@ import { css, jsx } from '@compiled/react';
 import { LoomIcon, LoomLogo } from '../../src';
 
 const tableStyle = css({
-  width: '80%',
+  width: '415px',
 });
 
 const LogoLoom = () => {

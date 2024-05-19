@@ -1,8 +1,16 @@
 import React, { Fragment } from 'react';
 
 import {
+  AtlassianAccessIcon,
+  AtlassianAccessLogo,
+  AtlassianAdminIcon,
+  AtlassianAdministrationIcon,
+  AtlassianAdministrationLogo,
+  AtlassianAdminLogo,
   AtlassianIcon,
   AtlassianLogo,
+  AtlassianMarketplaceIcon,
+  AtlassianMarketplaceLogo,
   AtlassianStartLogo,
   AtlassianWordmark,
   BitbucketIcon,
@@ -14,6 +22,8 @@ import {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
+  GuardIcon,
+  GuardLogo,
   HalpIcon,
   HalpLogo,
   HalpWordmark,
@@ -39,6 +49,8 @@ import {
   OpsgenieIcon,
   OpsgenieLogo,
   OpsgenieWordmark,
+  RovoIcon,
+  RovoLogo,
   StatuspageIcon,
   StatuspageLogo,
   StatuspageWordmark,
@@ -226,6 +238,72 @@ export default () => (
           </td>
           <td>
             <TrelloIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <GuardLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <GuardIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <RovoLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <RovoIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <AtlassianMarketplaceLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <AtlassianMarketplaceIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <AtlassianAdministrationLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <AtlassianAdministrationIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <AtlassianAdminLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <AtlassianAdminIcon />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <AtlassianAccessLogo />
+          </td>
+          <td>
+            <Fragment />
+          </td>
+          <td>
+            <AtlassianAccessIcon />
           </td>
         </tr>
       </tbody>

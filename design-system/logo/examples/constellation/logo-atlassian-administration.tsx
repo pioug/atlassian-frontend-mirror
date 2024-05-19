@@ -2,13 +2,16 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { JiraProductDiscoveryIcon, JiraProductDiscoveryLogo } from '../../src';
+import {
+  AtlassianAdministrationIcon,
+  AtlassianAdministrationLogo,
+} from '../../src';
 
 const tableStyle = css({
   width: '415px',
 });
 
-const LogoJiraProductDiscovery = () => {
+const LogoAtlassianAdministration = () => {
   return (
     <div>
       <table>
@@ -21,10 +24,10 @@ const LogoJiraProductDiscovery = () => {
         <tbody>
           <tr>
             <td css={tableStyle}>
-              <JiraProductDiscoveryLogo appearance="brand" />
+              <AtlassianAdministrationLogo appearance="brand" />
             </td>
             <td>
-              <JiraProductDiscoveryIcon appearance="brand" />
+              <AtlassianAdministrationIcon appearance="brand" />
             </td>
           </tr>
         </tbody>
@@ -33,4 +36,4 @@ const LogoJiraProductDiscovery = () => {
   );
 };
 
-export default LogoJiraProductDiscovery;
+export default LogoAtlassianAdministration;

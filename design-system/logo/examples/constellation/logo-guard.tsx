@@ -2,13 +2,13 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { JiraProductDiscoveryIcon, JiraProductDiscoveryLogo } from '../../src';
+import { GuardIcon, GuardLogo } from '../../src';
 
 const tableStyle = css({
   width: '415px',
 });
 
-const LogoJiraProductDiscovery = () => {
+const LogoGuard = () => {
   return (
     <div>
       <table>
@@ -21,10 +21,10 @@ const LogoJiraProductDiscovery = () => {
         <tbody>
           <tr>
             <td css={tableStyle}>
-              <JiraProductDiscoveryLogo appearance="brand" />
+              <GuardLogo appearance="brand" />
             </td>
             <td>
-              <JiraProductDiscoveryIcon appearance="brand" />
+              <GuardIcon appearance="brand" />
             </td>
           </tr>
         </tbody>
@@ -33,4 +33,4 @@ const LogoJiraProductDiscovery = () => {
   );
 };
 
-export default LogoJiraProductDiscovery;
+export default LogoGuard;

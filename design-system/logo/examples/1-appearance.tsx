@@ -6,10 +6,18 @@ import { B200 } from '@atlaskit/theme/colors';
 import {
   AtlasIcon,
   AtlasLogo,
+  AtlassianAccessIcon,
+  AtlassianAccessLogo,
+  AtlassianAdminIcon,
+  AtlassianAdministrationIcon,
+  AtlassianAdministrationLogo,
+  AtlassianAdminLogo,
   AtlassianAnalyticsIcon,
   AtlassianAnalyticsLogo,
   AtlassianIcon,
   AtlassianLogo,
+  AtlassianMarketplaceIcon,
+  AtlassianMarketplaceLogo,
   AtlassianStartLogo,
   AtlassianWordmark,
   BitbucketIcon,
@@ -21,6 +29,8 @@ import {
   ConfluenceIcon,
   ConfluenceLogo,
   ConfluenceWordmark,
+  GuardIcon,
+  GuardLogo,
   HalpIcon,
   HalpLogo,
   HalpWordmark,
@@ -46,6 +56,8 @@ import {
   OpsgenieIcon,
   OpsgenieLogo,
   OpsgenieWordmark,
+  RovoIcon,
+  RovoLogo,
   StatuspageIcon,
   StatuspageLogo,
   StatuspageWordmark,
@@ -135,6 +147,16 @@ export default () => (
         {buildRows(StatuspageLogo, StatuspageWordmark, StatuspageIcon)}
         {buildRows(TrelloLogo, TrelloWordmark, TrelloIcon)}
         {buildRows(AtlasLogo, null, AtlasIcon, false)}
+        {buildRows(AtlassianMarketplaceLogo, null, AtlassianMarketplaceIcon)}
+        {buildRows(GuardLogo, null, GuardIcon)}
+        {buildRows(RovoLogo, null, RovoIcon)}
+        {buildRows(AtlassianAdminLogo, null, AtlassianAdminIcon)}
+        {buildRows(
+          AtlassianAdministrationLogo,
+          null,
+          AtlassianAdministrationIcon,
+        )}
+        {buildRows(AtlassianAccessLogo, null, AtlassianAccessIcon)}
       </tbody>
     </table>
   </div>

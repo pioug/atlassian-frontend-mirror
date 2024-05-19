@@ -8,7 +8,7 @@ import {
 } from '../../src';
 
 const tableStyle = css({
-  width: '370px',
+  width: '415px',
 });
 
 const LogoJiraServiceManagement = () => {

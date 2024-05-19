@@ -111,3 +111,28 @@ export const getColorsFromAppearance = (
     atlassianLogoTextColor,
   };
 };
+
+export const getColorsForLoom = (appearance?: string, colorMode?: string) => {
+  let iconColor = getColorsFromAppearance(appearance, colorMode).iconColor;
+  let textColor = getColorsFromAppearance(appearance, colorMode).textColor;
+  if (colorMode === 'dark') {
+    switch (appearance) {
+      case 'brand':
+        iconColor = '#625DF5';
+        textColor = '#EFF0FF';
+        break;
+    }
+  } else {
+    switch (appearance) {
+      case 'brand':
+        iconColor = '#625DF5';
+        textColor = '#252434';
+        break;
+    }
+  }
+
+  return {
+    iconColor,
+    textColor,
+  };
+};

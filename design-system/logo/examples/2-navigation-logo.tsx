@@ -7,9 +7,14 @@ import { B500, DN10, N40, P300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
+  AtlassianAccessIcon,
+  AtlassianAdminIcon,
+  AtlassianAdministrationIcon,
+  AtlassianMarketplaceIcon,
   BitbucketIcon,
   CompassIcon,
   ConfluenceIcon,
+  GuardIcon,
   HalpIcon,
   JiraIcon,
   JiraProductDiscoveryIcon,
@@ -18,14 +23,17 @@ import {
   JiraWorkManagementIcon,
   LoomIcon,
   OpsgenieIcon,
+  RovoIcon,
   StatuspageIcon,
   TrelloIcon,
 } from '../src';
 
 const logoOptions = [
+  AtlassianMarketplaceIcon,
   BitbucketIcon,
   CompassIcon,
   ConfluenceIcon,
+  GuardIcon,
   HalpIcon,
   JiraIcon,
   JiraProductDiscoveryIcon,
@@ -34,8 +42,12 @@ const logoOptions = [
   JiraWorkManagementIcon,
   LoomIcon,
   OpsgenieIcon,
+  RovoIcon,
   StatuspageIcon,
   TrelloIcon,
+  AtlassianAdminIcon,
+  AtlassianAdministrationIcon,
+  AtlassianAccessIcon,
 ];
 
 const iconVariants = [

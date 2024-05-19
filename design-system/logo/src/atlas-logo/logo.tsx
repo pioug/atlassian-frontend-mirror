@@ -8,7 +8,7 @@ import { B400 } from '@atlaskit/theme/colors';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { defaultLogoParams } from '../constants';
-import { LogoProps, LogoPropsAppearanceRequired } from '../types';
+import { type LogoProps, type LogoPropsAppearanceRequired } from '../types';
 import { getColorsFromAppearance } from '../utils';
 import Wrapper from '../wrapper';
 
@@ -357,6 +357,8 @@ const svg = ({ appearance }: LogoProps, colorMode: string | undefined) => {
  * - [Examples](https://atlassian.design/components/logo/examples)
  * - [Code](https://atlassian.design/components/logo/code)
  * - [Usage](https://atlassian.design/components/logo/usage)
+ *
+ * @deprecated AtlasLogo is deprecated and will be removed from atlaskit/logo in the next major release.
  */
 export const AtlasLogo = ({
   appearance,

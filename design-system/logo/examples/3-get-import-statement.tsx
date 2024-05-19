@@ -33,12 +33,17 @@ const products: Product[] = [
   { label: 'StatusPage', value: 'StatusPage' },
   { label: 'Trello', value: 'Trello' },
   { label: 'Atlas', value: 'Atlas' },
+  { label: 'AtlassianMarketplace', value: 'AtlassianMarketplace' },
+  { label: 'Rovo', value: 'Rovo' },
+  { label: 'Guard', value: 'Guard' },
+  { label: 'AtlassianAdmin', value: 'AtlassianAdmin' },
+  { label: 'AtlassianAdministration', value: 'AtlassianAdministration' },
+  { label: 'AtlassianAccess', value: 'AtlassianAccess' },
 ];
 
 const files: File[] = [
   { label: 'Logo', value: 'Logo' },
   { label: 'Icon', value: 'Icon' },
-  { label: 'Wordmark', value: 'Wordmark' },
 ];
 export default class GetPath extends Component<any, any> {
   state = {

@@ -70,3 +70,18 @@ export {
 export { StrideIcon, StrideLogo, StrideWordmark } from './stride-logo';
 export { TrelloIcon, TrelloLogo, TrelloWordmark } from './trello-logo';
 export { AtlasIcon, AtlasLogo } from './atlas-logo';
+export {
+  AtlassianMarketplaceIcon,
+  AtlassianMarketplaceLogo,
+} from './atlassian-marketplace-logo';
+export { RovoIcon, RovoLogo } from './rovo-logo';
+export { GuardIcon, GuardLogo } from './guard-logo';
+export {
+  AtlassianAccessIcon,
+  AtlassianAccessLogo,
+} from './atlassian-access-logo';
+export {
+  AtlassianAdministrationIcon,
+  AtlassianAdministrationLogo,
+} from './atlassian-administration-logo';
+export { AtlassianAdminIcon, AtlassianAdminLogo } from './atlassian-admin-logo';

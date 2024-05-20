@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 80.4.0
+
+### Minor Changes
+
+-   [#100662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100662)
+    [`3d61cd8f2afe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d61cd8f2afe) -
+    [ED-23355] Update annotation viewed event to with attributes nodeType and method to capture
+    usage for comments on media
+-   [#100495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100495)
+    [`dbb78a011fac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbb78a011fac) -
+    [ux] [ED-23150] Added `changeColor` command for editor-plugin-highlight, including new
+    `removeMark` command for editor-common. Fixed bug with editor-plugin-text-color which prevented
+    color from being removed when user selects all.
+
 ## 80.3.1
 
 ### Patch Changes

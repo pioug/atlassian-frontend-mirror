@@ -48,19 +48,22 @@ export const useAnnotationStateByTypeEvent = ({
       if (!payload) {
         return;
       }
-      const nextStates = Object.values(payload).reduce((acc, curr) => {
-        if (curr.id && curr.annotationType === type) {
-          // Check for empty state to prevent additional renders
-          const isEmpty = curr.state === null || curr.state === undefined;
+      const nextStates = Object.values(payload).reduce(
+        (acc, curr) => {
+          if (curr.id && curr.annotationType === type) {
+            // Check for empty state to prevent additional renders
+            const isEmpty = curr.state === null || curr.state === undefined;
 
-          return {
-            ...acc,
-            [curr.id]: !isEmpty ? curr.state : states[curr.id],
-          };
-        }
+            return {
+              ...acc,
+              [curr.id]: !isEmpty ? curr.state : states[curr.id],
+            };
+          }
 
-        return acc;
-      }, {} as Record<AnnotationId, AnnotationMarkStates | null>);
+          return acc;
+        },
+        {} as Record<AnnotationId, AnnotationMarkStates | null>,
+      );
 
       setStates({
         ...states,
@@ -123,11 +126,17 @@ type AnnotationsWithClickTarget = Pick<
 > | null;
 
 export const useAnnotationClickEvent = (
-  props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'>,
+  props: Pick<ListenEventProps, 'updateSubscriber' | 'createAnalyticsEvent'> & {
+    isCommentsOnMediaAnalyticsEnabled?: boolean;
+  },
 ): AnnotationsWithClickTarget => {
   const [annotationClickEvent, setAnnotationClickEvent] =
     useState<AnnotationsWithClickTarget>(null);
-  const { updateSubscriber, createAnalyticsEvent } = props;
+  const {
+    updateSubscriber,
+    createAnalyticsEvent,
+    isCommentsOnMediaAnalyticsEnabled,
+  } = props;
 
   useLayoutEffect(() => {
     if (!updateSubscriber) {
@@ -137,6 +146,8 @@ export const useAnnotationClickEvent = (
     const clickCb = ({
       annotationIds,
       eventTarget,
+      eventTargetType,
+      viewMethod,
     }: OnAnnotationClickPayload) => {
       const annotationsByType = annotationIds
         .filter((id) => !!id)
@@ -153,6 +164,10 @@ export const useAnnotationClickEvent = (
           eventType: EVENT_TYPE.TRACK,
           attributes: {
             overlap: annotationsByType.length || 0,
+            ...(isCommentsOnMediaAnalyticsEnabled && {
+              targetNodeType: eventTargetType,
+              method: viewMethod,
+            }),
           },
         }).fire(FabricChannel.editor);
       }
@@ -180,7 +195,11 @@ export const useAnnotationClickEvent = (
         deselectCb,
       );
     };
-  }, [updateSubscriber, createAnalyticsEvent]);
+  }, [
+    updateSubscriber,
+    createAnalyticsEvent,
+    isCommentsOnMediaAnalyticsEnabled,
+  ]);
 
   return annotationClickEvent;
 };

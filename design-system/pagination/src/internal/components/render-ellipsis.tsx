@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 
-import Text from '@atlaskit/ds-explorations/text';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 const containerStyles = xcss({
@@ -30,7 +29,7 @@ export default function renderEllipsis({
       xcss={containerStyles}
       paddingInline="space.100"
     >
-      <Text testId={`${testId}-text`} verticalAlign="middle">
+      <Text testId={testId && `${testId}-text`}>
         <VisuallyHidden>
           Skipped pages from {from} to {to}
         </VisuallyHidden>

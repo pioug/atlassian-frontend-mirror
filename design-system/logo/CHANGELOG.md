@@ -1,5 +1,15 @@
 # @atlaskit/logo
 
+## 13.17.0
+
+### Minor Changes
+
+-   [#99225](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99225)
+    [`428f67898ecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/428f67898ecb) -
+    [ux] Adding product logos for Guard, Rovo, Atlassian Marketplace, Atlassian Admin, Atlassian
+    Administration, and Atlassian Access. Testing some other glyphs behind a feature flag, if
+    successful these changes will be enabled in a future release.
+
 ## 13.16.1
 
 ### Patch Changes

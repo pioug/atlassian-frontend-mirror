@@ -156,6 +156,33 @@ const generateMediaCardFloatingToolbar = (
 
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
+    {
+      id: 'editor.media.view.switcher.inline',
+      type: 'button',
+      icon: IconInline,
+      selected: false,
+      focusEditoronEnter: true,
+      disabled: false,
+      onClick: changeMediaCardToInline(
+        editorAnalyticsAPI,
+        forceFocusSelector,
+      ),
+      title: intl.formatMessage(cardMessages.inlineTitle),
+      testId: 'inline-appearance',
+      className: 'inline-appearance', // a11y. uses to force focus on item
+    },
+    {
+      id: 'editor.media.view.switcher.thumbnail',
+      type: 'button',
+      icon: IconCard,
+      selected: true,
+      disabled: false,
+      focusEditoronEnter: true,
+      onClick: () => true,
+      title: intl.formatMessage(cardMessages.blockTitle),
+      testId: 'thumbnail-appearance',
+      className: 'thumbnail-appearance', // a11y. uses to force focus on item
+    },
     { type: 'separator' },
     generateFilePreviewItem(mediaPluginState, intl),
     { type: 'separator' },
@@ -197,65 +224,6 @@ const generateMediaCardFloatingToolbar = (
       testId: 'media-toolbar-remove-button',
     },
   ];
-  getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')
-    ? // TODO: after removing Feature Flag move items back to previous array definition instead of unshift
-    items.unshift(
-      {
-        id: 'editor.media.view.switcher.inline',
-        type: 'button',
-        icon: IconInline,
-        selected: false,
-        focusEditoronEnter: true,
-        disabled: false,
-        onClick: changeMediaCardToInline(
-          editorAnalyticsAPI,
-          forceFocusSelector,
-        ),
-        title: intl.formatMessage(cardMessages.inlineTitle),
-        testId: 'inline-appearance',
-        className: 'inline-appearance', // a11y. uses to force focus on item
-      },
-      {
-        id: 'editor.media.view.switcher.thumbnail',
-        type: 'button',
-        icon: IconCard,
-        selected: true,
-        disabled: false,
-        focusEditoronEnter: true,
-        onClick: () => true,
-        title: intl.formatMessage(cardMessages.blockTitle),
-        testId: 'thumbnail-appearance',
-        className: 'thumbnail-appearance', // a11y. uses to force focus on item
-      },
-    )
-    : items.unshift({
-      id: 'editor.media.view.switcher',
-      type: 'dropdown',
-      title: intl.formatMessage(messages.changeView),
-      options: [
-        {
-          id: 'editor.media.view.switcher.inline',
-          title: intl.formatMessage(cardMessages.inline),
-          selected: false,
-          disabled: false,
-          onClick: changeMediaCardToInline(
-            editorAnalyticsAPI,
-            forceFocusSelector,
-          ),
-          testId: 'inline-appearance',
-        },
-        {
-          id: 'editor.media.view.switcher.thumbnail',
-          title: intl.formatMessage(messages.displayThumbnail),
-          selected: true,
-          disabled: false,
-          onClick: () => {
-            return true;
-          },
-          testId: 'thumbnail-appearance',
-        },
-      ],
-    });
   return items;
 };
 

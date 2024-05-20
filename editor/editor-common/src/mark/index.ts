@@ -3,6 +3,7 @@ export {
   applyMarkOnRange,
   filterChildrenBetween,
   toggleMark,
+  removeMark,
 } from './commands';
 export {
   anyMarkActive,

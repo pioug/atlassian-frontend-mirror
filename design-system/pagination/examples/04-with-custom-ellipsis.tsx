@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Text from '@atlaskit/ds-explorations/text';
-import { Inline, xcss } from '@atlaskit/primitives';
-import Stack from '@atlaskit/primitives/stack';
+import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import SectionMessage from '@atlaskit/section-message';
 
 import Pagination from '../src';

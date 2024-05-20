@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 109.29.0
+
+### Minor Changes
+
+-   [#99230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99230)
+    [`8b5008e65c2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b5008e65c2c) -
+    [ux] Feature Flag with fix for include page on media
+
+## 109.28.2
+
+### Patch Changes
+
+-   [#100662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100662)
+    [`3d61cd8f2afe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d61cd8f2afe) -
+    [ED-23355] Update annotation viewed event to with attributes nodeType and method to capture
+    usage for comments on media
+-   Updated dependencies
+
 ## 109.28.1
 
 ### Patch Changes

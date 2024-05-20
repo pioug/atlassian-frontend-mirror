@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD, VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { commentMessages as messages } from '@atlaskit/editor-common/media';
 import type {
@@ -44,7 +44,7 @@ export const commentButton = (
       const { showCommentForBlockNode, setInlineCommentDraftState } =
         api.annotation.actions;
 
-      if (!showCommentForBlockNode(selectMediaNode)(state, dispatch)) {
+      if (!showCommentForBlockNode(selectMediaNode, VIEW_METHOD.COMMENT_BUTTON)(state, dispatch)) {
         setInlineCommentDraftState(
           true,
           // TODO: might need to update to reflect it's from media floating toolbar

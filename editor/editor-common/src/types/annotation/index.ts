@@ -152,6 +152,7 @@ interface AnnotationTypeProvider<Type> {
   allowCommentsOnMedia?: boolean;
   isCommentsOnMediaBugFixEnabled?: boolean;
   isCommentsOnMediaBugVideoCommentEnabled?: boolean;
+  isCommentsOnMediaAnalyticsEnabled?: boolean
 }
 
 export type InlineCommentAnnotationProvider =

@@ -1,4 +1,4 @@
-import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
+import { type BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import type { AdfDoc } from '@atlaskit/help-article';
 export interface Article extends ArticleItem {
   body: string | AdfDoc;
@@ -23,6 +23,11 @@ export interface ArticleItem {
   topicId?: string;
   productName?: string;
   href?: string;
+  trustFactors?: {
+    numViews?: number;
+    helpfulCount?: number;
+  };
+  source?: string;
 }
 
 export interface ArticleFeedback {

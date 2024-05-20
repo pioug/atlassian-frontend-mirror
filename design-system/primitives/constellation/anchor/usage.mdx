@@ -4,44 +4,108 @@ description: An anchor is a primitive for building custom links.
 order: 2
 ---
 
-## When not to use Anchor
+## Usage
 
-The [Link component](/components/link/usage) should be used whenever possible for links to maintain visual consistency. Only use Anchor when building custom links beyond the capabilities of the Link component. The decision to use Anchor should involve checking if the Link component can be customized to fit your needs using [XCSS](/components/primitives/XCSS/usage).
+Anchors help users navigate to another page or sections of a page. They can also download files or provide contact information such as phone numbers or email addresses.
 
-Do not use Anchor for buttons that perform actions rather than navigation. Use the equivalent [Pressable primitive](/components/primitives/pressable/usage) instead.
+Anchor has consistent focus styles and analytics built in. It works with design tokens to make it easy to compose Atlassian-styled links that aren't possible using the [link component](/components/link/examples), [link buttons](/components/button/link-button/examples), or other existing design system components.
 
-## Link types
+## Use anchor when there aren't existing components that work for your experience
 
-External links starting with `http://` or `https://` will automatically render with `target="_blank"` and `rel="noopener noreferrer"` attributes.
+Existing components such as the [link component](/components/link/examples) (for text-based links) should be used whenever possible for links to maintain visual consistency. Only use anchor when building custom links beyond the capabilities of the the link component.
 
-### Router links
+Do not use anchor to perform actions rather than navigation. Use the equivalent [pressable primitive](/components/primitives/pressable/examples) to build a custom button instead.
 
-Anchor supports automatic consumption of configured router link components through the [App Provider](/components/app-provider/examples#router-links). If an App Provider is not present or a router link component is not configured, the link will render as a standard anchor link.
+## Accessibility
 
-External links and non-HTTP-based links such as `tel:` and `mailto:` will not use router links and always render as standard anchor links.
+### Underline links unless other context already indicates it is a link
 
-Anchor accepts a generic type object matching the router link configuration, allowing advanced usage of `href` prop. These values can be mapped to the underlying router link component in the App Provider.
+Anchor has an underline by default but it can be disabled in some circumstances. Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using color alone isn't accessible, especially if links are surrounded by other text.
 
-```jsx
-<Anchor<MyRouterLinkConfig>
-  href={{
-    to: '/home',
-    replace: true
-  }}
->
-  Home
-</Anchor>
-```
+Only remove underlines if the context surrounding the link makes it clear that it is interactive, such as in navigation. Anhor may also be used to create linkable areas such as a card, in which case the underline may be omitted.
 
-## Styling
+Also, don't underline text that isn't a link. This makes the text look clickable because it looks a link.
 
-Display behavior follows the same patterns as [Box](/components/primitives/box/usage). Use available props or [XCSS](/components/primitives/xcss/usage) to customize padding options, background color, and other styles.
+For more information see ['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) and ['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+
+<!-- TODO: Add do/dont images once designed (if necessary?) -->
+
+<DoDont type="do">
+  Use underlined links in body copy. Only omit an underline if the context makes
+  it clear the link is selectable.
+</DoDont>
+
+<DoDont type="dont">Use underlined links in navigation.</DoDont>
+
+### Use descriptive link text that clarifies the purpose of the link
+
+Don't link vague words or phrases like “here” or “learn more.” Make sure the linked text clearly describes the purpose of the link.
+
+<!-- TODO: Add some Do/Don't images as examples -->
+
+<DoDont type="do">Clearly describe the purpose of the link.</DoDont>
+
+<DoDont type="dont">Link vague words or phrases.</DoDont>
+
+### Only open links in a new window or tab when necessary
+
+Opening links in a new window can be disorienting for people, so only do it when necessary.
+
+It might make sense for a link to open in a new window if:
+
+- There's a risk of someone losing their current place or task
+- The link takes the person out of the current product or to an external website
+
+For more information see ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+
+### Keep links large enough to interact with
+
+Make link text size at least 12px. Smaller text is harder to read and interact with. If anchor is not used for text-based links, ensure the clickable area is at least 24 by 24 pixels for accessibility unless exempt from [Target Size (Minimum) (Level AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
+
+## Best practices
+
+### Don't confuse links and buttons
+
+Anchors are for navigation and URL changes, while buttons are for on-page actions such as form submissions or opening modals. These elements are treated differently by assistive technologies, so avoid using one in place of the other.
+
+More details on [when to use links and buttons](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation).
+
+## Content guidelines
+
+### Use clear and unique link text
+
+Try not to repeat the same link text over and over on a page. Make sure link text is clear about where the link will go.
+
+### Specify download links, including file type and size
+
+Always specify if a link triggers a download, and make the linked text clear about what exactly will be downloaded. Include file type and size as well.
+
+### Don't include unnecessary links
+
+Using too many links can overwhelm other, more important information on a page.
+
+Anchors take people to a new page or location. Be mindful of whether or not the linked resource is helpful or distracting to the current task.
+
+### Links in sentences or body copy
+
+Only link the words that are necessary to clarify where the link goes. Don't link the entire sentence. (Linking smaller phrases can be better for internationalization when sentence structures change across languages.)
+
+Only include the verb in the linked text if it better describes the purpose the link or differentiates it from other links and actions on the page.
+
+For example:
+
+> Update [Jira settings](https://atlassian.design/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) to turn off notifications. To upgrade, [sign up for Jira](https://atlassian.design/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation).
+
+If only Jira was linked, it wouldn't be clear that this was a sign up page.
+
+### Links on their own (UI elements or navigation)
+
+For standalone links, link the whole phrase. Don't add punctuation.
+
+These type of links typically follow general button or other label content rules (sentence case capitalization, no punctuation, etc.)
 
 ## Related
 
-- [Configuring router link components with AppProvider](/components/app-provider/examples#router-links)
-- [The underlying box component](/components/primitives/box/usage)
-- [Counterpart pressable primitive for button tags](/components/primitives/button/usage)
-- [Manage horizontal layout using an inline component](/components/primitives/inline/usage)
-- [Manage vertical layout using a stack component](/components/primitives/stack/usage)
-- [Use design tokens in code with XCSS](/components/primitives/XCSS/usage)
+- [Counterpart pressable primitive for buttons](/components/primitives/button/usage)
+- Prefer to use existing components such as the [link component](/components/link/examples) or [link buttons](/components/button/link-button/examples)
+- Anchor is built on the same API as [box](/components/primitives/box/usage)

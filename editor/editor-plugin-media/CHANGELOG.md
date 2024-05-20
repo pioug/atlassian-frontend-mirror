@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.20.1
+
+### Patch Changes
+
+-   [#100662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100662)
+    [`3d61cd8f2afe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d61cd8f2afe) -
+    [ED-23355] Update annotation viewed event to with attributes nodeType and method to capture
+    usage for comments on media
+-   Updated dependencies
+
 ## 1.20.0
 
 ### Minor Changes

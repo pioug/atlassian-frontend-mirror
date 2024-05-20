@@ -1,5 +1,13 @@
 # @atlaskit/link
 
+## 0.3.0
+
+### Minor Changes
+
+-   [#100782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100782)
+    [`af80293d3647`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af80293d3647) -
+    Fixes bug with types that allowed link to pass XCSS props to the underlying anchor primitive.
+
 ## 0.2.1
 
 ### Patch Changes

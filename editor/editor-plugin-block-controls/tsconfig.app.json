@@ -42,7 +42,7 @@
       "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
     },
     {
-      "path": "../../design-system/theme/tsconfig.app.json"
+      "path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
     },
     {
       "path": "../../design-system/tokens/tsconfig.app.json"

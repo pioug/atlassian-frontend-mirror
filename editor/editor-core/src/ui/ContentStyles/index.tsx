@@ -9,6 +9,7 @@ import { css, jsx, useTheme } from '@emotion/react';
 
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
 import { EmojiSharedCssClassName } from '@atlaskit/editor-common/emoji';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { MentionSharedCssClassName } from '@atlaskit/editor-common/mention';
 import { gapCursorStyles } from '@atlaskit/editor-common/selection';
 import {
@@ -36,8 +37,10 @@ import {
   unsupportedStyles,
   whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
+import { type OptionalPlugin } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
 import { placeholderTextStyles } from '@atlaskit/editor-plugins/placeholder-text/styles';
@@ -57,6 +60,7 @@ import { N200, N30A, N500 } from '@atlaskit/theme/colors';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
+import { usePresetContext } from '../../presets/context';
 import type { FeatureFlags } from '../../types/feature-flags';
 
 import { aiPanelStyles } from './ai-panels';
@@ -81,6 +85,7 @@ type ContentStylesProps = {
   theme?: any;
   colorMode?: 'light' | 'dark';
   featureFlags?: FeatureFlags;
+  viewMode?: 'view' | 'edit';
 };
 
 const ruleStyles = () => css`
@@ -247,7 +252,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${listsStyles}
   ${ruleStyles()}
   ${mediaStyles}
-  ${layoutStyles}
+  ${layoutStyles(props.viewMode)}
   ${telepointerStyle}
   ${gapCursorStyles};
   ${tableStyles(props)}
@@ -340,14 +345,21 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
     const { className, children, featureFlags } = props;
     const theme = useTheme();
     const { colorMode } = useThemeObserver();
+    const editorAPI =
+      usePresetContext<[OptionalPlugin<EditorViewModePlugin>]>();
+    const { editorViewModeState } = useSharedPluginState(editorAPI, [
+      'editorViewMode',
+    ]);
+    const viewMode = editorViewModeState?.mode;
     const memoizedStyle = useMemo(
       () =>
         contentStyles({
           theme,
           colorMode,
           featureFlags,
+          viewMode,
         }),
-      [theme, colorMode, featureFlags],
+      [theme, colorMode, featureFlags, viewMode],
     );
 
     return (

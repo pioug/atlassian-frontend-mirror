@@ -25,7 +25,6 @@ import {
   removeSelectedNode,
   safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { EventInput } from '../pm-plugins/types';
 import type { PixelEntryValidation } from '../ui/PixelEntry/types';
@@ -115,12 +114,11 @@ export const changeInlineToMediaCard =
         },
       })(tr);
 
-      if (getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')) {
-        const $endOfNode = tr.doc.resolve(insertPos + 1);
-        const newSelection = new NodeSelection($endOfNode);
-        tr.setSelection(newSelection);
-        forceFocusSelector?.(`.thumbnail-appearance`)(tr);
-      }
+      const $endOfNode = tr.doc.resolve(insertPos + 1);
+      const newSelection = new NodeSelection($endOfNode);
+      tr.setSelection(newSelection);
+      forceFocusSelector?.(`.thumbnail-appearance`)(tr);
+
       dispatch(tr);
     }
     return true;
@@ -165,14 +163,12 @@ export const changeMediaCardToInline =
         },
       })(tr);
 
-      if (getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')) {
-        const newSelection = NodeSelection.create(
-          tr.doc,
-          state.selection.anchor,
-        );
-        tr.setSelection(newSelection);
-        forceFocusSelector?.(`.inline-appearance`)(tr);
-      }
+      const newSelection = NodeSelection.create(
+        tr.doc,
+        state.selection.anchor,
+      );
+      tr.setSelection(newSelection);
+      forceFocusSelector?.(`.inline-appearance`)(tr);
       dispatch(tr);
     }
 

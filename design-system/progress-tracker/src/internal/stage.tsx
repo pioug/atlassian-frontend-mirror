@@ -5,7 +5,6 @@ import { CSSProperties, PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 import { CSSTransition } from 'react-transition-group';
 
-import Text from '@atlaskit/ds-explorations/text';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -48,6 +47,11 @@ const titleStyles = css({
     opacity: 1,
     transition: `opacity var(${varTransitionSpeed}) cubic-bezier(0.2, 0, 0, 1)`,
   },
+});
+
+const textStyles = css({
+  fontSize: '14px',
+  lineHeight: '16px',
 });
 
 export type { ProgressTrackerStageProps };
@@ -148,15 +152,16 @@ export default class ProgressTrackerStage extends PureComponent<
             classNames="fade"
           >
             <div css={titleStyles}>
-              <Text
-                fontSize="size.100"
-                lineHeight="lineHeight.100"
-                testId={testId && `${testId}-title`}
-                color={getTextColor(item.status)}
-                fontWeight={getFontWeight(item.status)}
+              <span
+                css={textStyles}
+                style={{
+                  color: getTextColor(item.status),
+                  fontWeight: getFontWeight(item.status)
+                }}
+                data-testid={testId && `${testId}-title`}
               >
                 {this.shouldShowLink() ? render.link({ item }) : item.label}
-              </Text>
+              </span>
             </div>
           </CSSTransition>
         </Box>

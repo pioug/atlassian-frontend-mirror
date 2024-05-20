@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Stack } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import Skeleton from '../src';
 

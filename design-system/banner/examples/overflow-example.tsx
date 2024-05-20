@@ -1,9 +1,7 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import Box from '@atlaskit/primitives/box';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import Banner from '../src';
 

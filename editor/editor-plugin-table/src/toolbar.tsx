@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
+import type { TableLayout } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -479,12 +480,13 @@ export const getToolbarConfig =
       );
 
       let alignmentMenu: Array<FloatingToolbarItem<Command>>;
+      const isNested =
+        pluginState.tablePos && isTableNested(state, pluginState.tablePos);
 
-      alignmentMenu = getBooleanFF(
-        'platform.editor.table.allow-table-alignment',
-      )
-        ? getAlignmentOptionsConfig(pluginState, intl, editorAnalyticsAPI)
-        : [];
+      alignmentMenu =
+        options?.isTableAlignmentEnabled && !isNested
+          ? getAlignmentOptionsConfig(state, intl)
+          : [];
 
       let cellItems: Array<FloatingToolbarItem<Command>>;
       cellItems = pluginState.isDragAndDropEnabled
@@ -886,16 +888,21 @@ const highlightColumnsHandler = (
   return false;
 };
 
+type AlignmentIcon = {
+  id?: string;
+  value: TableLayout;
+  icon: React.ComponentClass<any>;
+};
+
 export const getAlignmentOptionsConfig = (
-  state: ToolbarMenuState,
+  editorState: EditorState,
   { formatMessage }: ToolbarMenuContext,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ): Array<FloatingToolbarDropdown<Command>> => {
-  type AlignmentIcon = {
-    id?: string;
-    value: string;
-    icon: React.ComponentClass<any>;
-  };
+  const tableObject = findTable(editorState.selection);
+
+  if (!tableObject) {
+    return [];
+  }
 
   const alignmentIcons: AlignmentIcon[] = [
     {
@@ -924,13 +931,13 @@ export const getAlignmentOptionsConfig = (
         type: 'button',
         icon: icon,
         title: formatMessage(layoutToMessages[value]),
-        selected: false, // TODO - get the correct selected state based on the selected layout attr
-        onClick: makeAlignment(),
+        selected: tableObject.node.attrs.layout === value,
+        onClick: alignTable(value),
       };
     },
   );
 
-  const alignmentOptions: DropdownOptions<Command> = {
+  const alignmentItemOptions: DropdownOptions<Command> = {
     render: (props) => {
       return (
         <FloatingAlignmentButtons
@@ -943,28 +950,62 @@ export const getAlignmentOptionsConfig = (
     height: 32,
   };
 
+  const selectedAlignmentIcon = getSelectedAlignmentIcon(
+    alignmentIcons,
+    tableObject.node,
+  );
+
   const alignmentToolbarItem: Array<FloatingToolbarDropdown<Command>> = [
     {
       id: 'table-layout',
       testId: 'table-layout-dropdown',
       type: 'dropdown',
-      options: alignmentOptions,
-      title: formatMessage(messages.tableAlignmentOptions), // TODO - get the correct title based on the selected layout attr
-      icon: EditorAlignImageCenter, // TODO - get the correct icon based on the selected layout attr
+      options: alignmentItemOptions,
+      title: formatMessage(messages.tableAlignmentOptions),
+      icon: selectedAlignmentIcon?.icon,
     },
   ];
 
   return alignmentToolbarItem;
 };
 
-const makeAlignment = (): Command => {
+const alignTable = (nextLayoutValue: TableLayout): Command => {
   return (state, dispatch) => {
     const tableObject = findTable(state.selection);
 
     if (!tableObject || !dispatch) {
       return false;
     }
-    // TODO Add alignment logic here
+
+    const nextTableAttrs = {
+      ...tableObject.node.attrs,
+      layout: nextLayoutValue,
+    };
+
+    const tr = state.tr.setNodeMarkup(
+      tableObject.pos,
+      undefined,
+      nextTableAttrs,
+    );
+
+    tr.setMeta('scrollIntoView', false);
+
+    // TODO - insert analytics here for layout selection
+
+    dispatch(tr);
     return true;
   };
+};
+
+export const getSelectedAlignmentIcon = (
+  alignmentIcons: AlignmentIcon[],
+  selectedNode: PMNode,
+) => {
+  const selectedAlignment = selectedNode.attrs.layout;
+
+  return alignmentIcons.find(
+    (icon) =>
+      icon.value ===
+      (selectedNode.attrs.layout === 'default' ? 'center' : selectedAlignment),
+  );
 };

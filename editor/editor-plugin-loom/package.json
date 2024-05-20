@@ -39,11 +39,11 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^80.3.0",
+    "@atlaskit/editor-common": "^80.4.0",
     "@atlaskit/editor-plugin-analytics": "^1.2.0",
     "@atlaskit/editor-plugin-hyperlink": "^1.7.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
-    "@atlaskit/logo": "^13.16.0",
+    "@atlaskit/logo": "^13.17.0",
     "@babel/runtime": "^7.0.0",
     "@loomhq/record-sdk": "^2.36.18"
   },

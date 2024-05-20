@@ -10,8 +10,8 @@ export const varTransitionEasing = '--ds--pt--te';
 export const varMarkerColor = '--ds--pt--mc';
 export const varBackgroundColor = '--ds--pt--bg';
 
-export const SEMI_BOLD_FONT_WEIGHT = 'semibold';
-export const REGULAR_FONT_WEIGHT = 'regular';
+export const REGULAR_FONT_WEIGHT = token('font.weight.regular', '400');
+export const SEMI_BOLD_FONT_WEIGHT = token('font.weight.semibold', '600');
 
 export const HALF_GRID_SIZE = token('space.050', '4px');
 export const PROGRESS_BAR_HEIGHT = token('space.100', '8px');

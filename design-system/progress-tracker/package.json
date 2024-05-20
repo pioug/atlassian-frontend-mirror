@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-tracker",
-  "version": "8.6.0",
+  "version": "8.6.1",
   "description": "A progress tracker displays the steps and progress through a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,6 @@
     }
   },
   "dependencies": {
-    "@atlaskit/ds-explorations": "^3.5.0",
     "@atlaskit/primitives": "^6.2.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.48.0",

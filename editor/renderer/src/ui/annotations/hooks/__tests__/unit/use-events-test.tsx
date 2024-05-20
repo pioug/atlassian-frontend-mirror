@@ -12,6 +12,7 @@ import {
   useAnnotationStateByTypeEvent,
   useHasFocusEvent,
 } from '../../use-events';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 function createFakeAnnotationState(
   id: string,
@@ -46,6 +47,7 @@ function createFakeAnnotationStateWithOtherType(
 describe('Annotations: Hooks/useEvents', () => {
   const fakeId = 'fakeId';
   let updateSubscriberFake: AnnotationUpdateEmitter;
+  let createAnalyticsEventFake: CreateUIAnalyticsEvent;
   let container: HTMLElement | null;
   let root: any; // Change to Root once we go full React 18
 
@@ -62,6 +64,9 @@ describe('Annotations: Hooks/useEvents', () => {
     jest.spyOn(AnnotationUpdateEmitter.prototype, 'off');
     jest.spyOn(AnnotationUpdateEmitter.prototype, 'on');
     updateSubscriberFake = new AnnotationUpdateEmitter();
+    createAnalyticsEventFake = jest.fn().mockImplementation(() => ({
+      fire: () => {},
+    }));
   });
 
   afterEach(() => {
@@ -419,6 +424,8 @@ describe('Annotations: Hooks/useEvents', () => {
       CustomComp = () => {
         const annotations = useAnnotationClickEvent({
           updateSubscriber: updateSubscriberFake,
+          createAnalyticsEvent: createAnalyticsEventFake,
+          isCommentsOnMediaAnalyticsEnabled: true,
         });
 
         fakeFunction(annotations);
@@ -531,6 +538,8 @@ describe('Annotations: Hooks/useEvents', () => {
           updateSubscriberFake.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
             annotationIds,
             eventTarget: container!, // The container is created before each test and destroyed after
+            eventTargetType: 'media',
+            viewMethod: 'badge',
           });
         });
 
@@ -543,6 +552,15 @@ describe('Annotations: Hooks/useEvents', () => {
         };
 
         expect(fakeFunction).toHaveBeenCalledWith(expected);
+        expect(createAnalyticsEventFake).toHaveBeenCalledWith(
+          expect.objectContaining({
+            attributes: {
+              targetNodeType: 'media',
+              method: 'badge',
+              overlap: 2,
+            },
+          }),
+        );
       });
     });
 

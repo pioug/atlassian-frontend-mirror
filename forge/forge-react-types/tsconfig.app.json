@@ -53,6 +53,9 @@
       "path": "../../design-system/dynamic-table/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/empty-state/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/form/tsconfig.app.json"
     },
     {

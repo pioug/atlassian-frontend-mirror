@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RelatedArticles Should match snapshot 1`] = `
-.emotion-23 {
+.emotion-33 {
   position: relative;
 }
 
-.emotion-3 {
+.emotion-5 {
   position: relative;
   box-sizing: border-box;
   padding: var(--ds-space-100, 8px);
@@ -21,31 +21,49 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   margin-bottom: 0;
 }
 
-.emotion-3:hover,
-.emotion-3:focus,
-.emotion-3:visited,
-.emotion-3:active {
+.emotion-5:hover,
+.emotion-5:focus,
+.emotion-5:visited,
+.emotion-5:active {
   -webkit-text-decoration: none;
   text-decoration: none;
   outline: none;
   outline-offset: none;
 }
 
-.emotion-3:focus {
+.emotion-5:focus {
   box-shadow: var(--ds-border-focused, #4C9AFF) 0px 0px 0px 2px inset;
 }
 
-.emotion-3:hover {
+.emotion-5:hover {
   background-color: var(--ds-background-neutral-subtle-hovered, #EBECF0);
 }
 
-.emotion-3:active {
+.emotion-5:active {
   background-color: var(--ds-background-neutral-subtle-pressed, #DEEBFF);
 }
 
-.emotion-1 {
+.emotion-3 {
   width: 100%;
   white-space: nowrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
 }
 
 .emotion-0 {
@@ -56,34 +74,41 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   display: inline-block;
   white-space: normal;
   overflow: hidden;
-  margin-bottom: var(--ds-space-100, 8px);
+  margin-bottom: var(--ds-space-100, 4px);
 }
 
-.emotion-2 {
+.emotion-1 {
+  font: var(--ds-font-body-small, normal 400 11px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);
+  color: var(--ds-text-subtle, #6B778C);
+  padding: var(--ds-space-050, 4px) 0;
+}
+
+.emotion-4 {
   display: block;
   line-height: 20px;
   color: var(--ds-text-subtle, #505F79);
   margin: 0;
+  padding-bottom: var(--ds-space-025, 2px);
 }
 
-.emotion-22 {
+.emotion-32 {
   padding: var(--ds-space-100, 8px) 0;
 }
 
-.emotion-22 span {
+.emotion-32 span {
   margin: 0;
 }
 
 
 
-.emotion-21,
-.emotion-21:hover,
-.emotion-21:active,
-.emotion-21:focus,
-.emotion-21:focus-visible,
-.emotion-21:visited,
-.emotion-21:disabled,
-.emotion-21[disabled] {
+.emotion-31,
+.emotion-31:hover,
+.emotion-31:active,
+.emotion-31:focus,
+.emotion-31:focus-visible,
+.emotion-31:visited,
+.emotion-31:disabled,
+.emotion-31[disabled] {
   -webkit-align-items: baseline;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
@@ -122,38 +147,38 @@ exports[`RelatedArticles Should match snapshot 1`] = `
   outline: none;
 }
 
-.emotion-21::-moz-focus-inner,
-.emotion-21:hover::-moz-focus-inner,
-.emotion-21:active::-moz-focus-inner,
-.emotion-21:focus::-moz-focus-inner,
-.emotion-21:focus-visible::-moz-focus-inner,
-.emotion-21:visited::-moz-focus-inner,
-.emotion-21:disabled::-moz-focus-inner,
-.emotion-21[disabled]::-moz-focus-inner {
+.emotion-31::-moz-focus-inner,
+.emotion-31:hover::-moz-focus-inner,
+.emotion-31:active::-moz-focus-inner,
+.emotion-31:focus::-moz-focus-inner,
+.emotion-31:focus-visible::-moz-focus-inner,
+.emotion-31:visited::-moz-focus-inner,
+.emotion-31:disabled::-moz-focus-inner,
+.emotion-31[disabled]::-moz-focus-inner {
   border: 0;
   margin: 0;
   padding: 0;
 }
 
-.emotion-21:focus-visible {
+.emotion-31:focus-visible {
   outline: 2px solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
 @supports not selector(*:focus-visible) {
-  .emotion-21:focus {
+  .emotion-31:focus {
     outline: 2px solid var(--ds-border-focused, #2684FF);
     outline-offset: 2px;
   }
 }
 
 @media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
-  .emotion-21:focus-visible {
+  .emotion-31:focus-visible {
     outline: 1px solid;
   }
 }
 
-.emotion-20 {
+.emotion-30 {
   opacity: 1;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
@@ -171,71 +196,101 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 }
 
 <div
-  class="emotion-23"
+  class="emotion-33"
 >
   <div>
     <a
       aria-disabled="false"
-      class="emotion-3"
+      class="emotion-5"
       href=""
       role="button"
     >
       <div
-        class="emotion-1"
+        class="emotion-3"
       >
-        <span
-          class="emotion-0"
+        <div
+          class="emotion-2"
         >
-          mockArticle title
-          
-        </span>
+          <p
+            class="emotion-0"
+          >
+            mockArticle title
+          </p>
+          <div
+            class="emotion-1"
+          >
+            Last modified: 
+            2020-04-29T06:05:02.426Z
+          </div>
+        </div>
+        
       </div>
       <p
-        class="emotion-2"
+        class="emotion-4"
       >
         mockArticle description
       </p>
     </a>
     <a
       aria-disabled="false"
-      class="emotion-3"
+      class="emotion-5"
       href=""
       role="button"
     >
       <div
-        class="emotion-1"
+        class="emotion-3"
       >
-        <span
-          class="emotion-0"
+        <div
+          class="emotion-2"
         >
-          mockArticle title
-          
-        </span>
+          <p
+            class="emotion-0"
+          >
+            mockArticle title
+          </p>
+          <div
+            class="emotion-1"
+          >
+            Last modified: 
+            2020-04-29T06:05:02.426Z
+          </div>
+        </div>
+        
       </div>
       <p
-        class="emotion-2"
+        class="emotion-4"
       >
         mockArticle description
       </p>
     </a>
     <a
       aria-disabled="false"
-      class="emotion-3"
+      class="emotion-5"
       href=""
       role="button"
     >
       <div
-        class="emotion-1"
+        class="emotion-3"
       >
-        <span
-          class="emotion-0"
+        <div
+          class="emotion-2"
         >
-          mockArticle title
-          
-        </span>
+          <p
+            class="emotion-0"
+          >
+            mockArticle title
+          </p>
+          <div
+            class="emotion-1"
+          >
+            Last modified: 
+            2020-04-29T06:05:02.426Z
+          </div>
+        </div>
+        
       </div>
       <p
-        class="emotion-2"
+        class="emotion-4"
       >
         mockArticle description
       </p>
@@ -251,44 +306,64 @@ exports[`RelatedArticles Should match snapshot 1`] = `
     >
       <a
         aria-disabled="false"
-        class="emotion-3"
+        class="emotion-5"
         href=""
         role="button"
       >
         <div
-          class="emotion-1"
+          class="emotion-3"
         >
-          <span
-            class="emotion-0"
+          <div
+            class="emotion-2"
           >
-            mockArticle title
-            
-          </span>
+            <p
+              class="emotion-0"
+            >
+              mockArticle title
+            </p>
+            <div
+              class="emotion-1"
+            >
+              Last modified: 
+              2020-04-29T06:05:02.426Z
+            </div>
+          </div>
+          
         </div>
         <p
-          class="emotion-2"
+          class="emotion-4"
         >
           mockArticle description
         </p>
       </a>
       <a
         aria-disabled="false"
-        class="emotion-3"
+        class="emotion-5"
         href=""
         role="button"
       >
         <div
-          class="emotion-1"
+          class="emotion-3"
         >
-          <span
-            class="emotion-0"
+          <div
+            class="emotion-2"
           >
-            mockArticle title
-            
-          </span>
+            <p
+              class="emotion-0"
+            >
+              mockArticle title
+            </p>
+            <div
+              class="emotion-1"
+            >
+              Last modified: 
+              2020-04-29T06:05:02.426Z
+            </div>
+          </div>
+          
         </div>
         <p
-          class="emotion-2"
+          class="emotion-4"
         >
           mockArticle description
         </p>
@@ -296,15 +371,15 @@ exports[`RelatedArticles Should match snapshot 1`] = `
     </div>
   </div>
   <div
-    class="emotion-22"
+    class="emotion-32"
   >
     <button
-      class="emotion-21"
+      class="emotion-31"
       tabindex="0"
       type="button"
     >
       <span
-        class="emotion-20"
+        class="emotion-30"
       >
         Show 2 more articles
       </span>

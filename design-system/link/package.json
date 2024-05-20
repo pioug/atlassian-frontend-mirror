@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/link",
-  "version": "0.2.1",
-  "description": "test",
+  "version": "0.3.0",
+  "description": "A link takes people to a new location in the product or another website.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
   "publishConfig": {
@@ -31,9 +31,7 @@
       ]
     }
   },
-  "sideEffects": [
-    "*.compiled.css"
-  ],
+  "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "af:exports": {
     ".": "./src/index.tsx"
@@ -98,5 +96,6 @@
       ]
     }
   },
+  "homepage": "https://atlassian.design/components/link",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

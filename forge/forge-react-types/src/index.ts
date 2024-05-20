@@ -12,6 +12,7 @@ export type {
   CodeProps,
   DatePickerProps,
   DynamicTableProps,
+  EmptyStateProps,
   ErrorMessageProps,
   FlexProps,
   FormFooterProps,

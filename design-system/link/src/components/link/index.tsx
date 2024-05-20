@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import { forwardRef, type Ref } from 'react';
+import { type AnchorHTMLAttributes, forwardRef, type Ref } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 import UNSAFE_ANCHOR, { type AnchorProps } from '@atlaskit/primitives/anchor';
 
@@ -53,12 +54,20 @@ const iconStyles = css({
 });
 
 export type LinkProps<RouterLinkConfig extends Record<string, any> = never> =
-  Omit<AnchorProps<RouterLinkConfig>, 'xcss' | 'componentName'> & {
-    /**
-     * Show an underline in the link's resting state. Defaults to `true`
-     */
-    isUnderlined?: boolean;
-  };
+  Omit<
+    AnchorHTMLAttributes<HTMLAnchorElement>,
+    'href' | 'onClick' | 'style' | 'children' | 'className'
+  > &
+    Pick<
+      AnchorProps<RouterLinkConfig>,
+      'interactionName' | 'analyticsContext' | 'onClick' | 'testId'
+    > &
+    RouterLinkComponentProps<RouterLinkConfig> & {
+      /**
+       * Show an underline in the link's resting state. Defaults to `true`
+       */
+      isUnderlined?: boolean;
+    };
 
 const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
   {
@@ -66,6 +75,10 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
     testId,
     isUnderlined = true,
     target,
+    // @ts-expect-error
+    className: preventedClassName,
+    // @ts-expect-error
+    style: preventedStyle,
     ...htmlAttributes
   }: LinkProps<RouterLinkConfig>,
   ref: Ref<HTMLAnchorElement>,

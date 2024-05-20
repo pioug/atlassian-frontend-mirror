@@ -24,20 +24,20 @@ import { token } from '@atlaskit/tokens';
 export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-export const layoutStyles = css`
+export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
   .ProseMirror {
     ${columnLayoutSharedStyle} [data-layout-section] {
       // TODO: Migrate away from gridSize
       // Recommendation: Replace directly with 7px
       margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
       transition: border-color 0.3s ${akEditorSwoopCubicBezier};
-      cursor: pointer;
+      cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 
       /* Inner cursor located 26px from left */
       [data-layout-column] {
         flex: 1;
         min-width: 0;
-        border: ${akEditorSelectedBorderSize}px solid
+        border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
           ${token('color.border', N40A)};
         border-radius: 4px;
         padding: ${LAYOUT_COLUMN_PADDING}px;
@@ -128,7 +128,7 @@ export const layoutStyles = css`
       /* Shows the border when cursor is inside a layout */
       &.selected [data-layout-column],
       &:hover [data-layout-column] {
-        border: ${akEditorSelectedBorderSize}px solid
+        border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
           ${token('color.border', N50A)};
       }
 

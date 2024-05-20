@@ -4,21 +4,13 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 
+// TODO: ED-23356 - Adopt shared logic with `editor-plugin-highlight` which
+// uses the new `removeMark` command from `editor-common/mark`
 export const removeColor = (): Command => (state, dispatch) => {
   const { schema, selection } = state;
   const { textColor } = schema.marks;
 
   let tr = state.tr;
-
-  if (selection instanceof TextSelection) {
-    const { from, to, $cursor } = selection;
-
-    if ($cursor) {
-      tr = state.tr.removeStoredMark(textColor);
-    } else {
-      tr = state.tr.removeMark(from, to, textColor);
-    }
-  }
 
   if (selection instanceof CellSelection) {
     /**
@@ -55,6 +47,11 @@ export const removeColor = (): Command => (state, dispatch) => {
         },
       );
     });
+  } else if (selection instanceof TextSelection && selection.$cursor) {
+    tr = state.tr.removeStoredMark(textColor);
+  } else {
+    const { from, to } = selection;
+    tr = state.tr.removeMark(from, to, textColor);
   }
 
   if (dispatch) {

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
-import Text from '@atlaskit/primitives/text';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 
 import Link from '../src';
 

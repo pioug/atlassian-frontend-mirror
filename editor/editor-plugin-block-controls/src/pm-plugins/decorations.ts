@@ -96,7 +96,10 @@ export const dragHandleDecoration = (
           meta.dom.querySelector('.resizer-item');
 
         if (resizer) {
-          element.style.left = `${resizer.offsetLeft - parseInt(getComputedStyle(resizer).marginLeft) - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
+          element.style.left =
+            getComputedStyle(resizer).transform === 'none'
+              ? `${resizer.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`
+              : `${resizer.offsetLeft - resizer.offsetWidth / 2 - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
         } else {
           element.style.left = `${meta.dom.offsetLeft - DRAG_HANDLE_NODE_GAP - DRAG_HANDLE_WIDTH}px`;
         }

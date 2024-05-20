@@ -35,6 +35,7 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
@@ -75,6 +76,7 @@ export type MediaProps = MediaCardProps & {
   width?: number;
   height?: number;
   isDrafting: boolean;
+  isInPageInclude?: boolean;
 };
 
 type Providers = {
@@ -268,6 +270,9 @@ const CommentBadgeWrapper = ({
       updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
         annotationIds: activeParentIds,
         eventTarget: e.target as HTMLElement,
+        // use mediaSingle here to align with annotation viewed event dispatched in editor
+        eventTargetType: 'mediaSingle',
+        viewMethod: VIEW_METHOD.BADGE,
       });
     }
   };
@@ -304,6 +309,7 @@ class Media extends PureComponent<MediaProps, {}> {
       height,
       mediaSingleElement,
       isDrafting = false,
+      isInPageInclude
     } = this.props;
 
     const annotationMarks = (
@@ -324,6 +330,11 @@ class Media extends PureComponent<MediaProps, {}> {
     const eventHandlers = linkHref ? undefined : this.props.eventHandlers;
     const shouldOpenMediaViewer = !linkHref && allowMediaViewer;
 
+    const showCommentBadge =
+      !!annotationMarks &&
+      featureFlags?.commentsOnMedia &&
+      (!featureFlags?.commentsOnMediaIncludePage || !isInPageInclude);
+
     return (
       <MediaLink mark={linkMark} onClick={this.handleMediaLinkClickFn}>
         <MediaAnnotations marks={annotationMarks}>
@@ -335,15 +346,17 @@ class Media extends PureComponent<MediaProps, {}> {
                 },
               }}
             >
-              {!!annotationMarks && featureFlags?.commentsOnMedia && (
-                <CommentBadgeWrapper
-                  marks={annotationMarks}
-                  mediaElement={mediaSingleElement}
-                  width={width}
-                  height={height}
-                  isDrafting={isDrafting}
-                />
-              )}
+              {
+                showCommentBadge && (
+                  <CommentBadgeWrapper
+                    marks={annotationMarks}
+                    mediaElement={mediaSingleElement}
+                    width={width}
+                    height={height}
+                    isDrafting={isDrafting}
+                  />
+                )
+              }
               <MediaCard
                 contextIdentifierProvider={contextIdentifierProvider}
                 {...this.props}
@@ -413,6 +426,12 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
   const { dataAttributes } = props;
   const pos = dataAttributes && dataAttributes['data-renderer-start-pos'];
 
+  let parentElementClosest
+  if (typeof document !== "undefined") {
+    const elementAtPos = pos && document.querySelector(`[data-renderer-start-pos="${pos}"]`);
+    parentElementClosest = elementAtPos instanceof Element ? elementAtPos.closest('[data-node-type="include"]') : null;
+  }
+
   const [position, setPosition] = useState<number | undefined>();
   const [shouldApplyDraftAnnotation, setShouldApplyDraftAnnotation] =
     useState<boolean>(false);
@@ -433,6 +452,7 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
     }
   }, [
     draftPosition,
+    parentElementClosest,
     pos,
     shouldApplyDraftAnnotation,
     isCommentsOnMediaBugFixEnabled,
@@ -460,7 +480,8 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
       {...props}
       dataAttributes={dataAttributesWithDraftAnnotation}
       isDrafting={shouldApplyDraftAnnotation}
-    />
+      isInPageInclude={!!parentElementClosest}
+  />
   );
 };
 

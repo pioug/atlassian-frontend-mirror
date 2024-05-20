@@ -25,10 +25,13 @@ import { checkIfVariantAlreadyImported } from '../utils/if-variant-already-impor
 import { renameDefaultButtonToLegacyButtonImport } from '../utils/rename-default-button-to-legacy-button';
 import { migrateFitContainerIconButton } from '../utils/migrate-fit-container-icon-button';
 import { importTypesFromNewEntryPoint } from '../utils/import-types-from-new-entry-point';
+import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 
 const transformer = (file: FileInfo, api: API): string => {
   const j = api.jscodeshift;
   const fileSource = j(file.source);
+
+  addCommentForCustomThemeButtons(fileSource, j);
 
   const buttonImports = fileSource
     .find(j.ImportDeclaration)

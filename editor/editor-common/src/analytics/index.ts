@@ -40,6 +40,7 @@ export {
   TRIGGER_METHOD,
   USER_CONTEXT,
   TABLE_DISPLAY_MODE,
+  VIEW_METHOD
 } from './types';
 export type {
   AnalyticsDispatch,

@@ -17,6 +17,7 @@ interface PrimaryToolbarComponentProps {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
+  shouldUseDefaultRole: boolean;
 }
 
 export function PrimaryToolbarComponent({
@@ -27,6 +28,7 @@ export function PrimaryToolbarComponent({
   popupsMountPoint,
   popupsBoundariesElement,
   popupsScrollableElement,
+  shouldUseDefaultRole,
 }: PrimaryToolbarComponentProps) {
   const { blockTypeState } = useSharedPluginState(api, ['blockType']);
   const boundSetBlockType = (name: TextBlockTypes) =>
@@ -43,6 +45,7 @@ export function PrimaryToolbarComponent({
       popupsMountPoint={popupsMountPoint}
       popupsBoundariesElement={popupsBoundariesElement}
       popupsScrollableElement={popupsScrollableElement}
+      shouldUseDefaultRole={shouldUseDefaultRole}
     />
   );
 }

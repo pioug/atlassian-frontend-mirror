@@ -102,7 +102,7 @@ For details on each type of button and what the codemod will do for each one, vi
 
 Some of the new buttons have minor visual changes that can impact VR tests. In particular, some buttons with icons have slight visual changes that impact tests. These icon spacing changes were intentional to improve the look and feel of the icon buttons.
 
-Legacy button imported from `@atlaskit/button@17.2.1` or an earilier version has a wider padding around the icon:
+Legacy button imported from `@atlaskit/button@17.2.1` or an earlier version has a wider padding around the icon:
 
 ![legacy button](images/legacy-button.png)
 
@@ -120,12 +120,11 @@ This means it is translatable, and readable by screenreaders.
 
 These buttons are still being developed and reviewed in the new designs, or they just can't be migrated automatically yet. Here's what to do in these situations:
 
-| Old button property                         | What to do                                                                                                                                             |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `appearance` set to `link` or `subtle link` | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead. |
-| `LoadingButton` or `isLoading`              | Don't migrate yet. Wait for the new loading solution (coming soon).                                                                                    |
-| `style` or `css` props                      | Don't migrate yet. Wait for the new style override solution (coming soon).                                                                             |
-| `component` property                        | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                   |
+| Old button property                                             | What to do                                                                                                                                                                                      |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new link component (coming soon). |
+| `style` or `css` props                                          | Don't migrate yet. Wait for the new style override solution (coming soon).                                                                                                                      |
+| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                            |
 
 <SectionMessage>
   Not all old buttons have a 1:1 replacement in the new components. We're still

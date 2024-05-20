@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack, Text } from '@atlaskit/primitives';
 
 import { Code, CodeBlock } from '../src';
 
@@ -14,7 +13,7 @@ export default function Component() {
   return (
     <Stack space="space.600">
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code>
         </Text>
@@ -26,7 +25,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code> and{' '}
           <Code>language="jsx"</Code>
@@ -40,7 +39,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code>
         </Text>
@@ -52,7 +51,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={true}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code> and{' '}
           <Code>language="jsx"</Code>
@@ -66,7 +65,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code>
         </Text>
@@ -78,7 +77,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={true}`}</Code> and{' '}
           <Code>language="jsx"</Code>
@@ -92,7 +91,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code>
         </Text>
@@ -104,7 +103,7 @@ export default function Component() {
         />
       </Stack>
       <Stack space="space.075">
-        <Text fontWeight="semibold">
+        <Text weight="semibold">
           <Code>{`showLineNumbers={false}`}</Code> and{' '}
           <Code>{`shouldWrapLongLines={false}`}</Code> and{' '}
           <Code>language="jsx"</Code>

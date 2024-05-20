@@ -1,0 +1,25 @@
+{
+  "extends": "../../../../tsconfig.products.json",
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "../../../../../tsDist/@atlaskit__ufo-interaction-ignore/app",
+    "composite": true,
+    "rootDir": "../",
+    "baseUrl": "../"
+  },
+  "include": [
+    "../src/**/*.ts",
+    "../src/**/*.tsx"
+  ],
+  "exclude": [
+    "../src/**/__tests__/*",
+    "../src/**/*.test.*",
+    "../src/**/test.*",
+    "../src/**/examples.*"
+  ],
+  "references": [
+    {
+      "path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
+    }
+  ]
+}

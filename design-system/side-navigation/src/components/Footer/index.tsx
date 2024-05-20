@@ -1,14 +1,13 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
 import React from 'react';
 
-import Text from '@atlaskit/ds-explorations/text';
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
-import { Container, HeaderProps } from '../Header';
+import { Container, type HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
 
 const iconContainerStyles = xcss({
@@ -130,19 +129,18 @@ const Footer = ({
         <Box xcss={iconContainerStyles}>{iconBefore}</Box>
         <Stack space="space.075">
           <Text
-            fontSize="size.075"
-            textAlign="center"
-            lineHeight="lineHeight.100"
+            size="UNSAFE_small"
+            align="center"
+            color='inherit'
           >
             {children}
           </Text>
           {description && (
             <Text
-              lineHeight="lineHeight.100"
-              as="div"
-              fontSize="size.075"
-              textAlign="center"
-              color="subtlest"
+              size="UNSAFE_small"
+              as="p"
+              align="center"
+              color="color.text.subtlest"
             >
               {description}
             </Text>

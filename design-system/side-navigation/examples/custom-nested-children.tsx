@@ -1,8 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import Text from '@atlaskit/ds-explorations/text';
-import { Box } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives';
 
 import {
   NestableNavigationContent,
@@ -18,13 +17,12 @@ const IncorrectCustomLeafNodeComponent = () => {
   return (
     <Box padding="space.100">
       <Text
-        fontWeight="medium"
-        textTransform="uppercase"
-        textAlign="center"
-        fontSize="size.075"
+        size="UNSAFE_small"
+        weight="medium"
+        align="center"
         as="p"
       >
-        Always rendered
+        <i>Always rendered</i>
       </Text>
     </Box>
   );
@@ -39,15 +37,12 @@ const CorrectCustomLeafNodeComponent = () => {
   return (
     <Box padding="space.100">
       <Text
-        UNSAFE_style={{
-          fontWeight: 500,
-          textTransform: 'uppercase',
-          textAlign: 'center',
-          fontSize: 12,
-        }}
+        size="UNSAFE_small"
+        weight="medium"
+        align="center"
         as="p"
       >
-        Only rendered when parent view is shown
+        <i>Only rendered when parent view is shown</i>
       </Text>
     </Box>
   );

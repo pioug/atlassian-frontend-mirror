@@ -5,6 +5,7 @@ import {
   buttonPropsNoLongerSupportedComment,
   migrateFitContainerButtonToDefaultButtonComment,
   migrateFitContainerButtonToIconButtonComment,
+  customThemeButtonComment,
 } from '../utils/constants';
 
 const check = createCheck(transformer);
@@ -132,6 +133,34 @@ describe('Migrate to icon buttons', () => {
           // TODO: (from codemod) ${migrateFitContainerButtonToIconButtonComment}
           icon={iconProps => <MoreIcon {...iconProps} size="small" />}
           onClick={onClick}
+        />
+      );
+    `,
+  });
+
+  check({
+    it: 'should check if the root component of an icon prop is an actual icon before moving to bounded API',
+    original: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          iconBefore={
+            <IconWrapper>
+              <StarIcon />
+            </IconWrapper>
+          }
+        />
+      );
+    `,
+    expected: `
+      import Button from '@atlaskit/button/standard-button';
+      const App = () => (
+        <Button
+          iconBefore={
+            <IconWrapper>
+              <StarIcon />
+            </IconWrapper>
+          }
         />
       );
     `,
@@ -729,6 +758,23 @@ describe('Should not migrate to new button variants: edge cases', () => {
           <LinkButton href='/#'>Link button</LinkButton>
           <Button>Default button</Button>
         </div>
+      );
+    `,
+  });
+});
+
+describe('Add comment for custom theme buttons', () => {
+  check({
+    it: 'should add an inline comment for custom theme button to suggest migrating to Primitives',
+    original: `
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+      const App = () => (<CustomThemeButton />);
+    `,
+    expected: `
+      import CustomThemeButton from '@atlaskit/button/custom-theme-button';
+      const App = () => (
+        // TODO: (from codemod) ${customThemeButtonComment}
+        <CustomThemeButton />
       );
     `,
   });

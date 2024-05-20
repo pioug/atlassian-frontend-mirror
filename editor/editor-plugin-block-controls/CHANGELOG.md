@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.3.12
+
+### Patch Changes
+
+-   [#101305](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101305)
+    [`8df2f2cd6748`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8df2f2cd6748) -
+    Refactor drop target to use Pragmatic DnD indicator package
+
+## 1.3.11
+
+### Patch Changes
+
+-   [#100944](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100944)
+    [`236b42e205dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/236b42e205dd) -
+    Fix drag handle position on media node
+-   Updated dependencies
+
 ## 1.3.10
 
 ### Patch Changes

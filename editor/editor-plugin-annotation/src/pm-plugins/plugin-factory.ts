@@ -67,6 +67,7 @@ const getSelectionChangedHandler =
         ...pluginState,
         selectedAnnotations,
         isInlineCommentViewClosed: true,
+        selectAnnotationMethod: undefined,
       };
     }
 
@@ -79,6 +80,7 @@ const getSelectionChangedHandler =
       return {
         ...pluginState,
         selectedAnnotations,
+        selectAnnotationMethod: undefined,
         ...(reopenCommentView && {
           isInlineCommentViewClosed: false,
         }),
@@ -89,6 +91,7 @@ const getSelectionChangedHandler =
       ...(reopenCommentView && {
         isInlineCommentViewClosed: false,
       }),
+      selectAnnotationMethod: undefined,
     };
   };
 

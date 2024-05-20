@@ -2,7 +2,6 @@ import { css, keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import {
-  B100,
   B200,
   B300,
   G300,
@@ -10,7 +9,6 @@ import {
   N10,
   N100,
   N30,
-  N40,
   N700,
   N800,
   N900,
@@ -107,15 +105,15 @@ const editorInputHorizontalPadding = 6;
 type EditorViewContainerProps = {
   editorViewHasFocus?: boolean;
   editorViewIsInvalid?: boolean;
-  isBorderContrastFixEnabled: boolean;
 };
 export const EditorViewContainer = styled.div<EditorViewContainerProps>(
   {
     backgroundColor: token('color.background.input', N10),
     borderStyle: 'solid',
-    borderWidth: '2px',
-    borderColor: token('color.border', N40),
+    borderWidth: token('border.width', '1px'),
+    borderColor: token('color.border.input', N100),
     borderRadius: token('border.radius.100', '3px'),
+    padding: token('border.width', '1px'),
     boxSizing: 'border-box',
     color: token('color.text', N900),
     display: 'flex',
@@ -124,41 +122,23 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
       'background-color 0.2s ease-in-out, border-color 0.2s ease-in-out',
   },
   props =>
-    props.isBorderContrastFixEnabled &&
-    css({
-      borderWidth: token('border.width', '1px'),
-      borderColor: token('color.border.input', N100),
-      padding: token('border.width', '1px'),
-    }),
-  props =>
     props.editorViewIsInvalid &&
     css({
       borderColor: token('color.border.danger', R400),
-      ...(props.isBorderContrastFixEnabled
-        ? {
-            boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
-              'color.border.danger',
-              R400,
-            )}`,
-          }
-        : {}),
+      boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
+        'color.border.danger',
+        R400,
+      )}`,
     }),
   props =>
     props.editorViewHasFocus
       ? css({
           backgroundColor: token('elevation.surface', N0),
-          borderColor: token(
+          borderColor: token('color.border.focused', B200),
+          boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
             'color.border.focused',
-            props.isBorderContrastFixEnabled ? B200 : B100,
-          ),
-          ...(props.isBorderContrastFixEnabled
-            ? {
-                boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${token(
-                  'color.border.focused',
-                  B200,
-                )}`,
-              }
-            : {}),
+            B200,
+          )}`,
         })
       : css({
           ':hover': {
@@ -201,7 +181,8 @@ export const EditorView = styled.div<{
   counter-reset: lineNumber;
   flex-grow: 1;
 
-  transition: height 250ms cubic-bezier(0.15, 1, 0.3, 1),
+  transition:
+    height 250ms cubic-bezier(0.15, 1, 0.3, 1),
     max-height 250ms cubic-bezier(0.15, 1, 0.3, 1);
   max-height: ${props =>
     rowHeight * props.defaultMaxRows +

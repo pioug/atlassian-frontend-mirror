@@ -256,6 +256,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => ({
         popupsMountPoint={popupsMountPoint}
         popupsBoundariesElement={popupsBoundariesElement}
         popupsScrollableElement={popupsScrollableElement}
+        shouldUseDefaultRole={false}
       />
     );
   },

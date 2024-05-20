@@ -2,10 +2,64 @@
 order: 0
 ---
 
-import LinkDefault from '../../examples/constellation/link-default';
+import Default from '../../examples/constellation/default';
+import Underlined from '../../examples/constellation/no-underline';
+import Visited from '../../examples/constellation/visited';
+import NewWindow from '../../examples/constellation/new-window';
+import BodyCopy from '../../examples/constellation/body-copy';
+import FontStyleInheritance from '../../examples/constellation/font-style-inheritance';
+import HtmlAttributes from '../../examples/constellation/html-attributes';
 
 ## Default
 
 The default form of a link.
 
-<Example Component={LinkDefault} packageName="@atlaskit/link" />
+<Example Component={Default} packageName="@atlaskit/link" />
+
+## No underline
+
+The default link underline can be removed using `isUnderlined`, however it will still display on hover. Only remove underlines if the context surrounding the link makes it clear that it is interactive, such as in navigation.
+
+Underlines help differentiate links from regular text and addresses a WCAG-A recommendation. Using color alone isn't accessible, especially if links are surrounded by other text. For more information about accessibility see ['Understanding Use of Color (Level A)'](https://www.w3.org/WAI/WCAG22/Understanding/use-of-color.html) and ['Failure of Success Criterion 1.4.1 due to creating links that are not visually evident without color vision'](https://www.w3.org/WAI/WCAG22/Techniques/failures/F73).
+
+<Example Component={Underlined} packageName="@atlaskit/link" />
+
+## Visited
+
+Links that have been visited will display in a different color.
+
+<Example Component={Visited} packageName="@atlaskit/link" />
+
+## Links that open in a new window or tab
+
+It's important to indicate when links open in new windows or tabs. An icon will display next to the link, as well as visually hidden text "(opens new window)" for screen reader users.
+
+Opening links in a new window can be disorienting for people, so only do it when necessary. For more information see ['G200: Opening new windows and tabs from a link only when necessary'](https://www.w3.org/TR/WCAG20-TECHS/G200.html).
+
+<Example Component={NewWindow} packageName="@atlaskit/link" />
+
+## In body text
+
+Links are suitable for using in body copy, and will wrap onto new lines if necessary.
+
+<Example Component={BodyCopy} packageName="@atlaskit/link" />
+
+## Inheriting font styles
+
+Link will inherit font styles of surrounding text.
+
+<Example Component={FontStyleInheritance} packageName="@atlaskit/link" />
+
+## HTML attributes
+
+Link passes through all valid HTML attributes to the underlying `<a>` element.
+
+<Example Component={HtmlAttributes} packageName="@atlaskit/link" />
+
+## Router links
+
+Link supports automatic configuration of router link components through the AppProvider. Here's an [example of the router link configuration for the anchor primitive](/components/primitives/anchor/examples#router-links).
+
+## Event tracking
+
+Link has utilities to make tracking events easier. Here's [an example of tracking events with the anchor primitive](/components/primitives/anchor/examples#event-tracking).

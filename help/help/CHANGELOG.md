@@ -1,5 +1,23 @@
 # @atlaskit/help
 
+## 7.4.0
+
+### Minor Changes
+
+-   [#101167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101167)
+    [`52a888c912e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52a888c912e8) -
+    [ux] Display 4 extra article details in Article search display
+
+    1. Last published
+
+    2. Content source
+
+    3. Helpful count
+
+    4. View count
+
+    All changes are backward compatible
+
 ## 7.3.3
 
 ### Patch Changes

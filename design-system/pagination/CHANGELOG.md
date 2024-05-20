@@ -1,5 +1,13 @@
 # @atlaskit/pagination
 
+## 14.7.1
+
+### Patch Changes
+
+-   [#98707](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98707)
+    [`7cce9cbf2f08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cce9cbf2f08) -
+    Internal changes to how text is rendered. There is no expected visual change.
+
 ## 14.7.0
 
 ### Minor Changes

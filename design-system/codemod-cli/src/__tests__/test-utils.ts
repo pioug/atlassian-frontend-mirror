@@ -76,5 +76,4 @@ export async function withMockedConsoleWarn(fn: any) {
 
   console.warn = originalWarn;
 }
-
 /* eslint-enable no-console */

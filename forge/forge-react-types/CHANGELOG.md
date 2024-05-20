@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.13.0
+
+### Minor Changes
+
+-   [#100583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100583)
+    [`61afef7676a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/61afef7676a3) -
+    Added EmptyState component via codegen to UI Kit
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 0.12.1
 
 ### Patch Changes

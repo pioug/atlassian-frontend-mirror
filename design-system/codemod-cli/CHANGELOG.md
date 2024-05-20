@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.24.1
+
+### Patch Changes
+
+-   [#100948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100948)
+    [`28061857f2cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/28061857f2cd) -
+    Prevent migration of buttons where icon component might be wrapped.
+
 ## 0.24.0
 
 ### Minor Changes

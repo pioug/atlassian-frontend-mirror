@@ -9,4 +9,14 @@ export type HighlightToolbarToggleAEP = TrackAEP<
   undefined
 >;
 
-export type HighlightEventPayload = HighlightToolbarToggleAEP;
+export type HighlightTextAEP = TrackAEP<
+  ACTION.FORMATTED,
+  ACTION_SUBJECT.TEXT,
+  ACTION_SUBJECT_ID.FORMAT_BACKGROUND_COLOR,
+  { newColor: string; previousColor: string },
+  undefined
+>;
+
+export type HighlightEventPayload =
+  | HighlightToolbarToggleAEP
+  | HighlightTextAEP;

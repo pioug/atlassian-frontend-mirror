@@ -20,6 +20,7 @@ export const controlKeys = [
   'ArrowRight',
 ];
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SpinnerParent = styled.div({
   height: token('space.250', '20px'),
   marginLeft: token('space.150', '12px'),

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Text } from '@atlaskit/primitives';
 
 import Banner from '../src';
 

@@ -53,13 +53,19 @@ export const ArticlesListItemWrapper = styled.a<ArticlesListItemWrapperProps>(
 export const ArticlesListItemContainer = styled.div({
   width: '100%',
   whiteSpace: 'nowrap',
+  display: 'flex',
+});
+
+export const ArticlesListItemTitleSection = styled.div({
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
 });
 
 export const ArticlesListItemTypeTitle = styled.div({
   font: token('font.body.small', fontFallback.body.small),
   fontWeight: token('font.weight.bold', 'bold'),
   color: token('color.text.subtlest', colors.N200),
-  paddingBottom: token('space.050', '4px'),
 });
 
 export const ArticlesListItemLinkIcon = styled.span({
@@ -68,14 +74,14 @@ export const ArticlesListItemLinkIcon = styled.span({
   verticalAlign: 'middle',
 });
 
-export const ArticlesListItemTitleText = styled.span({
+export const ArticlesListItemTitleText = styled.p({
   textDecoration: 'none',
   color: token('color.text', colors.N800),
   font: token('font.heading.xsmall', fontFallback.heading.xsmall),
   display: 'inline-block',
   whiteSpace: 'normal',
   overflow: 'hidden',
-  marginBottom: token('space.100', '8px'),
+  marginBottom: token('space.100', '4px'),
 });
 
 export const ArticlesListItemDescription = styled.p({
@@ -83,4 +89,38 @@ export const ArticlesListItemDescription = styled.p({
   lineHeight: '20px',
   color: token('color.text.subtle', colors.N400),
   margin: 0,
+  paddingBottom: token('space.025', '2px'),
+});
+
+export const ArticlesListItemSource = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  font: token('font.heading.xxsmall', fontFallback.heading.xxsmall),
+  color: token('elevation.surface.hovered', colors.N200),
+  padding: `${token('space.050', '4px')} 0`,
+  fontWeight: token('font.weight.bold', 'bold'),
+  textTransform: 'uppercase',
+});
+
+export const ArticlesListItemTrustFactor = styled.div({
+  display: 'flex',
+  alignItems: 'center',
+  font: token('font.body.small', fontFallback.body.small),
+  color: token('color.background.accent.gray.subtlest.pressed', colors.N400),
+  paddingTop: token('space.025', '2px'),
+});
+
+export const ArticlesListItemViewCount = styled.span({
+  paddingRight: token('space.100', '8px'),
+});
+
+export const ArticlesListItemHelpfulCount = styled.span({
+  display: 'inline-flex',
+  paddingRight: token('space.100', '8px'),
+});
+
+export const ArticlesListItemLastModified = styled.div({
+  font: token('font.body.small', fontFallback.body.small),
+  color: token('color.text.subtle', colors.N200),
+  padding: `${token('space.050', '4px')} 0`,
 });

@@ -2,8 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import Text from '@atlaskit/ds-explorations/text';
-import { Box } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives';
 
 import * as raf from '../../../../__tests__/unit/__utils__/raf';
 import { ButtonItem, GoBackItem } from '../../../Item';

@@ -3,8 +3,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack } from '@atlaskit/primitives';
 
 import { token } from '../src';
 
@@ -137,9 +136,7 @@ export default () => {
       <h1>Headings</h1>
       <Stack space="space.100">
         {headings.map((heading) => (
-          <Text UNSAFE_style={{ font: heading.token }} key={heading.name}>
-            {heading.name}
-          </Text>
+          <span key={heading.name} style={{ font: heading.token }}>{heading.name}</span>
         ))}
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
       </Stack>
@@ -147,9 +144,7 @@ export default () => {
       <h1>Font size</h1>
       <Stack space="space.100">
         {fontSizes.map((fontSize) => (
-          <Text UNSAFE_style={{ fontSize: fontSize.token }} key={fontSize.name}>
-            {fontSize.name}
-          </Text>
+          <span key={fontSize.name} style={{ fontSize: fontSize.token }}>{fontSize.name}</span>
         ))}
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
       </Stack>
@@ -157,12 +152,7 @@ export default () => {
       <h1>Font weight</h1>
       <Stack space="space.100">
         {fontWeights.map((fontWeight) => (
-          <Text
-            UNSAFE_style={{ fontWeight: fontWeight.token as any }}
-            key={fontWeight.name}
-          >
-            {fontWeight.name}
-          </Text>
+          <span key={fontWeight.name} style={{ fontWeight: fontWeight.token }}>{fontWeight.name}</span>
         ))}
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
       </Stack>
@@ -170,12 +160,7 @@ export default () => {
       <h1>Font family</h1>
       <Stack space="space.100">
         {fontFamilies.map((fontFamily) => (
-          <Text
-            UNSAFE_style={{ fontFamily: fontFamily.token as any }}
-            key={fontFamily.name}
-          >
-            {fontFamily.name}
-          </Text>
+          <span key={fontFamily.name} style={{ fontFamily: fontFamily.token }}>{fontFamily.name}</span>
         ))}
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
       </Stack>
@@ -183,12 +168,7 @@ export default () => {
       <h1>Line height</h1>
       <Stack space="space.100">
         {lineHeights.map((lineHeight) => (
-          <Text
-            UNSAFE_style={{ lineHeight: lineHeight.token }}
-            key={lineHeight.name}
-          >
-            {lineHeight.name}
-          </Text>
+          <span key={lineHeight.name} style={{ lineHeight: lineHeight.token }}>{lineHeight.name}</span>
         ))}
         {/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
       </Stack>

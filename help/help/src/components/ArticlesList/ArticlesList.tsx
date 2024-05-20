@@ -1,13 +1,13 @@
 import React from 'react';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import AnimateHeight from 'react-animate-height';
 
-import { ArticleItem } from '../../model/Article';
+import { type ArticleItem } from '../../model/Article';
 
 import ArticlesListItem from './ArticlesListItem';
-import { ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
+import { type ArticlesList as ArticlesListInterface } from './model/ArticlesListItem';
 import {
   MIN_ITEMS_TO_DISPLAY,
   ANIMATE_HEIGHT_TRANSITION_DURATION_MS,
@@ -60,6 +60,9 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
               description={article.description}
               key={article.id}
               href={article.href}
+              trustFactors={article.trustFactors}
+              source={article.source}
+              lastPublished={article.lastPublished}
             />
           );
         })}
@@ -87,6 +90,9 @@ const articlesList: React.FC<Partial<ArticlesListInterface> & Props> = ({
               description={article.description}
               key={article.id}
               href={article.href}
+              trustFactors={article.trustFactors}
+              source={article.source}
+              lastPublished={article.lastPublished}
             />
           ))}
       </AnimateHeight>

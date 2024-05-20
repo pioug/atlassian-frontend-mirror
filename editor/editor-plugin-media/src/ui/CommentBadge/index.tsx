@@ -3,6 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import type { IntlShape } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
+import { VIEW_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { CommentBadge as CommentBadgeComponent } from '@atlaskit/editor-common/media-single';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -31,7 +32,7 @@ const CommentBadgeWrapper = ({
   intl,
   isDrafting,
   badgeOffsetRight,
-  commentsOnMediaBugFixEnabled
+  commentsOnMediaBugFixEnabled,
 }: CommentBadgeProps) => {
   const [entered, setEntered] = useState(false);
   const { annotationState } = useSharedPluginState(api, ['annotation']);
@@ -62,7 +63,7 @@ const CommentBadgeWrapper = ({
   const onClick = useCallback(() => {
     if (api.annotation && mediaNode) {
       const { showCommentForBlockNode } = api.annotation.actions;
-      showCommentForBlockNode(mediaNode)(state, dispatch);
+      showCommentForBlockNode(mediaNode, VIEW_METHOD.BADGE)(state, dispatch);
     }
   }, [api.annotation, dispatch, mediaNode, state]);
 

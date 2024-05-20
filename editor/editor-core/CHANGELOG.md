@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 193.19.6
+
+### Patch Changes
+
+-   [#98561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98561)
+    [`ca9500b004d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca9500b004d4) -
+    [ux] [ED-22668] remove the border from layouts on rest and on hover whilst on a live view page
+-   Updated dependencies
+
 ## 193.19.0
 
 ### Minor Changes

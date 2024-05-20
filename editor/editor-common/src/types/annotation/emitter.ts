@@ -24,6 +24,8 @@ type SetFocusPayload = Record<'annotationId', AnnotationId>;
 export type OnAnnotationClickPayload = {
   annotationIds: Array<AnnotationId>;
   eventTarget: HTMLElement;
+  eventTargetType?: string;
+  viewMethod?: string;
 };
 
 type SetStatePayload = Record<

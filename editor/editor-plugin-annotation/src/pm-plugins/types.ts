@@ -1,4 +1,7 @@
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  EditorAnalyticsAPI,
+  VIEW_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import type {
   Dispatch,
   EventDispatcher,
@@ -78,7 +81,10 @@ export type InlineCommentAction =
   | { type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; data: { isVisible: boolean } }
   | {
       type: ACTIONS.SET_SELECTED_ANNOTATION;
-      data: { selectedAnnotations: AnnotationInfo[] };
+      data: {
+        selectedAnnotations: AnnotationInfo[];
+        selectAnnotationMethod?: VIEW_METHOD;
+      };
     };
 
 export type InlineCommentPluginState = {
@@ -101,4 +107,7 @@ export type InlineCommentPluginState = {
   featureFlagsPluginState?: FeatureFlags;
   isDrafting: boolean;
   targetNodeId?: string;
+
+  // Method used to select active annotation, defined when SET_SELECTED_ANNOTATION action is evoked
+  selectAnnotationMethod?: VIEW_METHOD;
 };

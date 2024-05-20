@@ -95,6 +95,6 @@
       ]
     }
   },
-  "homepage": "https://atlassian.design/components",
+  "homepage": "https://atlassian.design/components/app-provider",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

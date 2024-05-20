@@ -107,8 +107,11 @@ export const rule = createLintRule({
               isCompiled(ancestor.callee, references, importSources),
           )
         ) {
-          // Check identifier for violations
-          checkIdentifier(node, context, references);
+          // Ignore the fontFallback object as it contains strings to be used as token fallbacks
+          if ('name' in node && node.name !== 'fontFallback') {
+            // Check identifier for violations
+            checkIdentifier(node, context, references);
+        }
         }
       },
 
@@ -125,8 +128,11 @@ export const rule = createLintRule({
               isCompiled(ancestor.tag, references, importSources),
           )
         ) {
-          // Check identifier for violations
-          checkIdentifier(node, context, references);
+          // Ignore the fontFallback object as it contains strings to be used as token fallbacks
+          if ('name' in node && node.name !== 'fontFallback') {
+            // Check identifier for violations
+            checkIdentifier(node, context, references);
+        }
         }
       },
     };

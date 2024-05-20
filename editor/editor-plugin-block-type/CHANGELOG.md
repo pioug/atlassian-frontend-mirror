@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.2.1
+
+### Patch Changes
+
+-   [#95938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95938)
+    [`f1309fe9e31b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f1309fe9e31b) -
+    ECA11Y-224: Missing list markup for 'Text styles' dropdown in the main toolbar
+
 ## 3.2.0
 
 ### Minor Changes

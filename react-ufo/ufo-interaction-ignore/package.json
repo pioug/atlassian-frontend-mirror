@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/ufo-interaction-ignore",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Ignoring any holds under this component tree",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

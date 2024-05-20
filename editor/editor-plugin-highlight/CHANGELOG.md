@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.4.0
+
+### Minor Changes
+
+-   [#100495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100495)
+    [`dbb78a011fac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbb78a011fac) -
+    [ux] [ED-23150] Added `changeColor` command for editor-plugin-highlight, including new
+    `removeMark` command for editor-common. Fixed bug with editor-plugin-text-color which prevented
+    color from being removed when user selects all.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

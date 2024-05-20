@@ -272,7 +272,7 @@ export type FeatureFlags = {
    */
   macroInteractionUpdates?: boolean;
 
-   /**
+  /**
    * @description
    * Enables bug fix on media comments
    *
@@ -280,6 +280,15 @@ export type FeatureFlags = {
    * @default false
    */
   commentsOnMediaBugFix?: boolean;
+
+  /**
+   * @description
+   * Enables extra analytics to be added for comments on media
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-23355
+   * @default false
+   */
+  commentsOnMediaAnalytics?: boolean;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

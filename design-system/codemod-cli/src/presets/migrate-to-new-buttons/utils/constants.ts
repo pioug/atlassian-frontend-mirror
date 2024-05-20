@@ -47,3 +47,5 @@ export const buttonPropsNoLongerSupportedComment = `Buttons with "component", "c
 export const migrateFitContainerButtonToDefaultButtonComment = `Migrated to a default button with text which is from the icon label.`;
 
 export const migrateFitContainerButtonToIconButtonComment = `"shouldFitContainer" is not available in icon buttons, please consider using a default button with text.`;
+
+export const customThemeButtonComment = `CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles.`;

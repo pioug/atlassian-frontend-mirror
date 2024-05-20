@@ -68,6 +68,7 @@ export default (
           ...action.data.inlineComments,
         },
         isInlineCommentViewClosed: false,
+        selectAnnotationMethod: undefined,
       };
     case ACTIONS.INLINE_COMMENT_SET_VISIBLE:
       const { isVisible } = action.data;
@@ -84,6 +85,7 @@ export default (
       return {
         ...pluginState,
         selectedAnnotations: [...action.data.selectedAnnotations],
+        selectAnnotationMethod: action.data.selectAnnotationMethod,
         skipSelectionHandling: true,
         isInlineCommentViewClosed: false,
       };

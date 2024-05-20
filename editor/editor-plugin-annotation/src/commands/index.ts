@@ -3,6 +3,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   INPUT_METHOD,
   RESOLVE_METHOD,
+  type VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type {
   Command,
@@ -221,7 +222,7 @@ const getDraftCommandAction: (
  */
 export const showInlineCommentForBlockNode =
   (supportedBlockNodes: string[] = []) =>
-  (node: PMNode | null): Command =>
+  (node: PMNode | null, viewMethod?: VIEW_METHOD): Command =>
   (state, dispatch) => {
     const pluginState = getPluginState(state);
     const { annotation } = state.schema.marks;
@@ -248,6 +249,7 @@ export const showInlineCommentForBlockNode =
               type: ACTIONS.SET_SELECTED_ANNOTATION,
               data: {
                 selectedAnnotations: unresolvedAnnotationMarks,
+                selectAnnotationMethod: viewMethod,
               },
             }),
           );

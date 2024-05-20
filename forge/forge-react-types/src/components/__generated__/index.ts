@@ -11,6 +11,7 @@ export type { CodeBlockProps } from './CodeBlockProps.codegen';
 export type { CodeProps } from './CodeProps.codegen';
 export type { DatePickerProps } from './DatePickerProps.codegen';
 export type { DynamicTableProps } from './DynamicTableProps.codegen';
+export type { EmptyStateProps } from './EmptyStateProps.codegen';
 export type { ErrorMessageProps } from './ErrorMessageProps.codegen';
 export type { FlexProps } from './FlexProps.codegen';
 export type { FormFooterProps } from './FormFooterProps.codegen';

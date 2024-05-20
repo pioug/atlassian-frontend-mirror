@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 0.14.2
+
+### Patch Changes
+
+-   [#101063](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101063)
+    [`d135d014f1ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d135d014f1ae) -
+    The `atlaskit-theme` rule no longer reports on the `fontFallback` import from
+    `@atlaskit/theme/typography`
+
 ## 0.14.1
 
 ### Patch Changes

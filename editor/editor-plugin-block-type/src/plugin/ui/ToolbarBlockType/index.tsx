@@ -41,6 +41,7 @@ export interface Props {
   popupsScrollableElement?: HTMLElement;
   editorView?: EditorView;
   setTextLevel: (type: TextBlockTypes) => void;
+  shouldUseDefaultRole?: boolean;
 }
 
 export interface State {
@@ -80,6 +81,7 @@ class ToolbarBlockType extends React.PureComponent<
         blockTypesDisabled,
         availableBlockTypes,
       },
+      shouldUseDefaultRole,
       intl: { formatMessage },
     } = this.props;
 
@@ -111,7 +113,7 @@ class ToolbarBlockType extends React.PureComponent<
             zIndex={akEditorMenuZIndex}
             fitHeight={360}
             fitWidth={106}
-            shouldUseDefaultRole
+            shouldUseDefaultRole={shouldUseDefaultRole}
             shouldFocusFirstItem={() => {
               if (isOpenedByKeyboard) {
                 // eslint-disable-next-line @repo/internal/react/no-set-state-inside-render

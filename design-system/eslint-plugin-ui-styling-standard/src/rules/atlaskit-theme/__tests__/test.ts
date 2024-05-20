@@ -14,6 +14,17 @@ const valid = [
         `,
   },
   {
+    name: 'Valid typography use in compiled (fontFallback)',
+    code: outdent`
+        import { styled } from '@compiled/react';
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        export const HeadingComponent = styled.h2\`
+            font: \${token('font.body', fontFallback.body.medium)}
+        \`;
+    `,
+},
+  {
     name: 'Valid elevation use in styled-components',
     code: outdent`
             import styled from 'styled-components';

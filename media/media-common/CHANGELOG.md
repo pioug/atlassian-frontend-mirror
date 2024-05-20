@@ -1,5 +1,13 @@
 # @atlaskit/media-common
 
+## 11.2.1
+
+### Patch Changes
+
+-   [#99230](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99230)
+    [`8b5008e65c2c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b5008e65c2c) -
+    [ux] Feature Flag with fix for include page on media
+
 ## 11.2.0
 
 ### Minor Changes

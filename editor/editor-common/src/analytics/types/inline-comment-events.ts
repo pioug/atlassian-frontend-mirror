@@ -44,3 +44,8 @@ export enum RESOLVE_METHOD {
   CONSUMER = 'consumer',
   ORPHANED = 'orphaned',
 }
+
+export enum VIEW_METHOD {
+  BADGE = 'badge',
+  COMMENT_BUTTON = 'commentButton',
+}

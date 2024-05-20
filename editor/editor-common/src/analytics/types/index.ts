@@ -126,7 +126,7 @@ export type {
   AnnotationResolvedAEPAttributes,
 } from './inline-comment-events';
 
-export { RESOLVE_METHOD } from './inline-comment-events';
+export { RESOLVE_METHOD, VIEW_METHOD } from './inline-comment-events';
 
 export { LAYOUT_TYPE, SMART_LINK_TYPE } from './node-events';
 export type { NodeEventPayload } from './node-events';

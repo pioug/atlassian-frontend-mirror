@@ -1,9 +1,9 @@
 import React, { useContext, useMemo } from 'react';
 import { ProvidersContext } from '../context';
 import { useAnnotationClickEvent } from '../hooks';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { RendererContext } from '../../../ui/RendererActionsContext';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { type AnnotationTypes } from '@atlaskit/adf-schema';
 
 type Props = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
@@ -22,9 +22,13 @@ const AnnotationView = (props: Props) => {
   const updateSubscriber =
     (inlineCommentProvider && inlineCommentProvider.updateSubscriber) || null;
 
+  const isCommentsOnMediaAnalyticsEnabled =
+    inlineCommentProvider?.isCommentsOnMediaAnalyticsEnabled;
+
   const viewComponentProps = useAnnotationClickEvent({
     updateSubscriber,
     createAnalyticsEvent: props.createAnalyticsEvent,
+    isCommentsOnMediaAnalyticsEnabled,
   });
 
   const ViewComponent =

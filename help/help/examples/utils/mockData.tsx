@@ -494,10 +494,12 @@ export const articleExamples: Article[] = [
 export const articlesSearchExample: ArticleItem[] = [
   {
     id: '01',
-    title: 'Article 01',
-    description: 'Description of Article 01',
-    lastPublished: '',
+    title: 'IPH Article Title',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis ',
+    lastPublished: 'February 12, 2024',
     type: ARTICLE_ITEM_TYPES.topicInProduct,
+    source: 'documentation',
   },
   {
     id: '02',
@@ -512,6 +514,10 @@ export const articlesSearchExample: ArticleItem[] = [
     description: 'Description of Article 03',
     lastPublished: '',
     type: ARTICLE_ITEM_TYPES.topicInProduct,
+    trustFactors: {
+      numViews: 100,
+    },
+    source: 'knowledge base',
   },
   {
     id: '04',
@@ -519,6 +525,11 @@ export const articlesSearchExample: ArticleItem[] = [
     description: 'Description of Article 04',
     lastPublished: '',
     type: ARTICLE_ITEM_TYPES.topicInProduct,
+    trustFactors: {
+      numViews: 100,
+      helpfulCount: 11,
+    },
+    source: 'guide',
   },
   {
     id: '05',
@@ -527,6 +538,9 @@ export const articlesSearchExample: ArticleItem[] = [
     href: 'https://google.com',
     lastPublished: '',
     type: ARTICLE_ITEM_TYPES.topicInProduct,
+    trustFactors: {
+      helpfulCount: 10,
+    },
   },
   {
     id: '06',

@@ -169,6 +169,13 @@ export function InlineCommentView({
     if (!dispatchAnalyticsEvent) {
       return;
     }
+
+    const { selectAnnotationMethod, featureFlagsPluginState } =
+      inlineCommentState || {};
+
+    const isCommentsOnMediaAnalyticsEnabled =
+      featureFlagsPluginState?.commentsOnMediaAnalytics;
+
     // fire analytics
     const payload: AnnotationAEP = {
       action: ACTION.VIEWED,
@@ -177,6 +184,10 @@ export function InlineCommentView({
       eventType: EVENT_TYPE.TRACK,
       attributes: {
         overlap: activeAnnotations.length ? activeAnnotations.length - 1 : 0,
+        ...(isCommentsOnMediaAnalyticsEnabled && {
+          targetNodeType: editorView.state.doc.nodeAt(position)?.type.name,
+          method: selectAnnotationMethod,
+        }),
       },
     };
     dispatchAnalyticsEvent(payload);

@@ -25,7 +25,6 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { messages } from '@atlaskit/media-ui';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { showLinkingToolbar } from '../commands/linking';
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
@@ -87,6 +86,33 @@ export const generateMediaInlineFloatingToolbar = (
 
   const items: FloatingToolbarItem<Command>[] = [
     {
+      id: 'editor.media.view.switcher.inline',
+      type: 'button',
+      icon: IconInline,
+      selected: true,
+      disabled: false,
+      focusEditoronEnter: true,
+      onClick: () => true,
+      title: intl.formatMessage(cardMessages.inlineTitle),
+      testId: 'inline-appearance',
+      className: 'inline-appearance', // a11y. uses to force focus on item
+    },
+    {
+      id: 'editor.media.view.switcher.thumbnail',
+      type: 'button',
+      icon: IconCard,
+      selected: false,
+      disabled: false,
+      focusEditoronEnter: true,
+      onClick: changeInlineToMediaCard(
+        editorAnalyticsAPI,
+        forceFocusSelector,
+      ),
+      title: intl.formatMessage(cardMessages.blockTitle),
+      testId: 'thumbnail-appearance',
+      className: 'thumbnail-appearance', // a11y. uses to force focus on item
+    },
+    {
       type: 'separator',
     },
     {
@@ -141,68 +167,6 @@ export const generateMediaInlineFloatingToolbar = (
       testId: 'media-toolbar-remove-button',
     },
   ];
-
-  if (getBooleanFF('platform.editor.ally-media-file-dropdown_1kxo8')) {
-    // TODO: after removing Feature Flag move items back to previous array definition instead of unshift
-    items.unshift(
-      {
-        id: 'editor.media.view.switcher.inline',
-        type: 'button',
-        icon: IconInline,
-        selected: true,
-        disabled: false,
-        focusEditoronEnter: true,
-        onClick: () => true,
-        title: intl.formatMessage(cardMessages.inlineTitle),
-        testId: 'inline-appearance',
-        className: 'inline-appearance', // a11y. uses to force focus on item
-      },
-      {
-        id: 'editor.media.view.switcher.thumbnail',
-        type: 'button',
-        icon: IconCard,
-        selected: false,
-        disabled: false,
-        focusEditoronEnter: true,
-        onClick: changeInlineToMediaCard(
-          editorAnalyticsAPI,
-          forceFocusSelector,
-        ),
-        title: intl.formatMessage(cardMessages.blockTitle),
-        testId: 'thumbnail-appearance',
-        className: 'thumbnail-appearance', // a11y. uses to force focus on item
-      },
-    );
-  } else {
-    items.unshift({
-      id: 'editor.media.view.switcher',
-      type: 'dropdown',
-      title: intl.formatMessage(messages.changeView),
-      options: [
-        {
-          id: 'editor.media.view.switcher.inline',
-          title: intl.formatMessage(cardMessages.inline),
-          selected: true,
-          disabled: false,
-          onClick: () => {
-            return true;
-          },
-          testId: 'inline-appearance',
-        },
-        {
-          id: 'editor.media.view.switcher.thumbnail',
-          title: intl.formatMessage(messages.displayThumbnail),
-          selected: false,
-          disabled: false,
-          onClick: changeInlineToMediaCard(
-            editorAnalyticsAPI,
-            forceFocusSelector,
-          ),
-          testId: 'thumbnail-appearance',
-        },
-      ],
-    });
-  }
 
   return items;
 };

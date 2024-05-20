@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import { Box, Stack } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives';
 
 import Heading, { HeadingContextProvider } from '../src';
 

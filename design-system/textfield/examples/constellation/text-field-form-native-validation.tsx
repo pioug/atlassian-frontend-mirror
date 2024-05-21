@@ -26,6 +26,54 @@ export default function TextFieldFormNativeValidationExample() {
               </Fragment>
             )}
           </Field>
+          <Field
+            label="Input must be numeric"
+            name="number"
+            isRequired
+            defaultValue=""
+          >
+            {({ fieldProps }: any) => (
+              <Fragment>
+                <Textfield
+                  {...fieldProps}
+                  type="number"
+                  data-testid="nativeFormValidationTestNumber"
+                />
+              </Fragment>
+            )}
+          </Field>
+          <Field
+            label="Input must be an email"
+            name="email"
+            isRequired
+            defaultValue=""
+          >
+            {({ fieldProps }: any) => (
+              <Fragment>
+                <Textfield
+                  {...fieldProps}
+                  type="email"
+                  data-testid="nativeFormValidationTestEmail"
+                />
+              </Fragment>
+            )}
+          </Field>
+          <Field
+            label="Password must not be empty"
+            name="password"
+            isRequired
+            defaultValue=""
+          >
+            {({ fieldProps }: any) => (
+              <Fragment>
+                <Textfield
+                  {...fieldProps}
+                  type="password"
+                  data-testid="nativeFormValidationTestPassword"
+                />
+              </Fragment>
+            )}
+          </Field>
           <FormFooter>
             <Button type="submit" appearance="primary">
               Submit

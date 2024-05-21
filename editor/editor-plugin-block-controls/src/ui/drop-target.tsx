@@ -4,8 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../types';
@@ -28,15 +31,42 @@ export const DropTarget = ({
 
   useEffect(() => {
     const element = ref.current;
+
     if (!element) {
       return;
     }
-    return dropTargetForElements({
+
+    const combined: CleanupFn[] = [];
+
+    const scrollable = (document.querySelector(
+      '.fabric-editor-popup-scroll-parent')) as HTMLElement;
+
+    if (scrollable) {
+      combined.push(autoScrollForElements({
+        element: scrollable,
+        canScroll: () => {
+          return true;
+        },
+      }));
+    }
+
+    combined.push(dropTargetForElements({
       element,
       getIsSticky: () => true,
+      onDrag: () => {
+        scrollable.style.setProperty(
+          'scroll-behavior',
+          'unset',
+        );
+      },
       onDragEnter: () => setIsDraggedOver(true),
       onDragLeave: () => setIsDraggedOver(false),
       onDrop: () => {
+        scrollable.style.setProperty(
+          'scroll-behavior',
+          null,
+        );
+
         const { activeNode, decorationState } =
           api?.blockControls?.sharedState.currentState() || {};
         if (!activeNode || !decorationState) {
@@ -51,7 +81,9 @@ export const DropTarget = ({
           );
         }
       },
-    });
+    }));
+
+    return combine(...combined);
   }, [index, api]);
 
   return (

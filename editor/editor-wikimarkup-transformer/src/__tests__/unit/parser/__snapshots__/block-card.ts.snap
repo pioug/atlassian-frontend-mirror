@@ -169,6 +169,7 @@ Object {
     Object {
       "attrs": Object {
         "__autoSize": false,
+        "displayMode": null,
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
@@ -257,6 +258,7 @@ Object {
     Object {
       "attrs": Object {
         "__autoSize": false,
+        "displayMode": null,
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
@@ -339,6 +341,7 @@ Object {
     Object {
       "attrs": Object {
         "__autoSize": false,
+        "displayMode": null,
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",
@@ -385,6 +388,7 @@ Object {
     Object {
       "attrs": Object {
         "__autoSize": false,
+        "displayMode": null,
         "isNumberColumnEnabled": false,
         "layout": "default",
         "localId": "",

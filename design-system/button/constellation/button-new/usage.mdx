@@ -8,8 +8,6 @@ import buttonPrimaryDo from './images/button-primary-do.png';
 import buttonPrimaryDont from './images/button-primary-dont.png';
 import buttonDisableDo from './images/button-disable-do.png';
 import buttonDisableDont from './images/button-disable-dont.png';
-import buttonAlignmentModal from './images/button-alignment-modal.png';
-import buttonAlignmentPage from './images/button-alignment-page.png';
 import buttonConciseDo from './images/button-concise-do.png';
 import buttonConciseDont from './images/button-concise-dont.png';
 import buttonCapitalizationDo from './images/button-capitalization-do.png';
@@ -114,39 +112,7 @@ Things to consider before using a tooltip:
 
 <!-- TODO: make example showcasing focus behavior. Would be ideal to remove from usage and have as an example instead. -->
 
-## Best practices
-
-### Alignment and positioning
-
-In general, the primary button placement should match the alignment of the button group. For example, right aligned button groups place the primary button on the right. Left aligned button groups place the primary button on the left.
-
-- **Right align** buttons for focussed tasks, series of tasks (such as [onboarding](/components/onboarding)), and [modal dialogs](/components/modal-dialog). Right aligning buttons is best for experiences with less copy, so users end scanning on the most important action (following a Z-pattern).
-- **Left align** buttons for single-page forms and other full-page tasks where there is a lot of content in view. This aligns with how people scan full pages with more content (F-pattern), sorting by importance from left to right. Cards can also left-align the primary action, as they’re typically part of a larger page experience.
-- **Exceptions:** Benefits modals and login forms currently center align buttons.
-
-<DoDont
-  type="do"
-  image={{
-    url: buttonAlignmentModal,
-    alt: 'Buttons aligned to the right in a modal dialog, with the primary action furthest right.',
-  }}
->
-  Right-align buttons for focussed tasks, modal dialogs, and other areas with
-  less content.
-</DoDont>
-
-<DoDont
-  type="do"
-  image={{
-    url: buttonAlignmentPage,
-    alt: 'Buttons aligned to the left in a full-page layout, with the primary action furthest left.',
-  }}
->
-  Left align buttons on full-page forms, long lists of cards, or other screens
-  with a lot of full-page content.
-</DoDont>
-
-Also see [button alignment diagrams in the form pattern guidelines](/patterns/forms#button-positioning).
+<Snippet name="button-best-practices" />
 
 ## Content guidelines
 

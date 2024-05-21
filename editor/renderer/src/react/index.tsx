@@ -78,6 +78,7 @@ export interface ReactSerializerInit {
   allowWindowedCodeBlock?: boolean;
   isInsideOfInlineExtension?: boolean;
   textHighlighter?: TextHighlighter;
+  isCommentsOnMediaMediaInlineBugFixEnabled?: boolean;
 }
 
 interface ParentInfo {
@@ -175,6 +176,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
   private nodeComponents?: NodeComponentsProps;
   private allowWindowedCodeBlock?: boolean;
   private isInsideOfInlineExtension?: boolean;
+  private isCommentsOnMediaMediaInlineBugFixEnabled?: boolean;
 
   private textHighlighter?: TextHighlighter;
 
@@ -210,6 +212,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     this.allowWindowedCodeBlock = init.allowWindowedCodeBlock;
     this.isInsideOfInlineExtension = init.isInsideOfInlineExtension;
     this.textHighlighter = init.textHighlighter;
+    this.isCommentsOnMediaMediaInlineBugFixEnabled =
+      init.isCommentsOnMediaMediaInlineBugFixEnabled;
   }
 
   private resetState() {
@@ -354,6 +358,17 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       return {
         ...defaultProps,
         isMediaLink: true,
+      };
+    }
+
+    if (
+      this.isCommentsOnMediaMediaInlineBugFixEnabled &&
+      node.type.name === 'mediaInline' &&
+      mark.type.name === 'annotation'
+    ) {
+      return {
+        ...defaultProps,
+        isMediaInline: true,
       };
     }
 

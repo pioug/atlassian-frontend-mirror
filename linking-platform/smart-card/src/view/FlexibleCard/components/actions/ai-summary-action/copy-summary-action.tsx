@@ -19,7 +19,7 @@ export function CopySummaryAction({
   const { fireEvent } = useAnalyticsEvents();
 
   const [tooltipMessage, setTooltipMessage] = useState(
-    messages.copy_summary_action,
+    messages.copy_summary_action_description,
   );
 
   const handleCopySummaryClick = useCallback(async () => {
@@ -39,6 +39,7 @@ export function CopySummaryAction({
       onClick={handleCopySummaryClick}
       testId={`${testId}-copy-summary-action`}
       tooltipMessage={<FormattedMessage {...tooltipMessage} />}
+      tooltipOnHide={() => setTooltipMessage(messages.copy_summary_action_description) }
       {...props}
     />
   );

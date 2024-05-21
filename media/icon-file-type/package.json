@@ -47,14 +47,14 @@
     "build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
   },
   "dependencies": {
-    "@atlaskit/icon": "^22.2.0",
+    "@atlaskit/icon": "^22.3.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@af/icon-build-process": "^0.5.0",
+    "@af/icon-build-process": "^0.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/styled": "^11.0.0",

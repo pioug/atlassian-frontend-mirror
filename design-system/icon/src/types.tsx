@@ -4,6 +4,8 @@ import type {
   ReactNode,
 } from 'react';
 
+import type { IconColor } from '@atlaskit/tokens/css-type-schema';
+
 export type Size = 'small' | 'medium' | 'large' | 'xlarge';
 
 export interface CustomGlyphProps extends ReactSVGProps<SVGSVGElement> {
@@ -37,6 +39,18 @@ export interface GlyphColorProps {
   secondaryColor?: string;
 }
 
+/**
+ * NOTE: we want to move away from icons using text colors and make the icon tokens darker - so currentColor will eventually go away, and
+ * we will be shifting existing usages down (`color.text` -> `color.icon` -> `color.icon.`) via a codemod.
+ * For now, icon defaults to `color.text` under the hood to emulate the darker appearance.
+ */
+export interface NewGlyphColorProps {
+  /**
+   * Color for the icon. Supports any icon design token, or 'currentColor' to inherit the current text color.
+   */
+  color?: IconColor | 'currentColor';
+}
+
 export interface GlyphSizeProps {
   /**
    * There are three icon sizes – small (16px), medium (24px), and large (32px).
@@ -44,6 +58,15 @@ export interface GlyphSizeProps {
    * not the size of the icon shape itself.
    */
   size?: Size;
+}
+
+export interface NewGlyphSpacingProps {
+  /**
+   * Icons have only one available size, but can be displayed with additional spacing.
+   * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
+   * "spacious" provides accessible spacing between the icon and other elements.
+   */
+  spacing?: 'none' | 'spacious';
 }
 
 export interface OtherGlyphProps {
@@ -62,18 +85,7 @@ export interface OtherGlyphProps {
   testId?: string;
 }
 
-export interface GlyphProps
-  extends OtherGlyphProps,
-    GlyphSizeProps,
-    GlyphColorProps {}
-
-export interface IconProps extends GlyphProps {
-  /**
-   * Custom icon component that returns an SVG element with set `viewBox`,
-   * `width`, and `height` props.
-   */
-  glyph?: ComponentType<CustomGlyphProps>;
-
+interface IconInternalGlyphProps {
   /**
    * @deprecated
    * Custom icon string that should contain an SVG element with set `viewBox`,
@@ -81,6 +93,92 @@ export interface IconProps extends GlyphProps {
    * It's recommended to use the `glyph` prop instead.
    */
   dangerouslySetGlyph?: string;
+}
+
+export interface GlyphProps
+  extends OtherGlyphProps,
+    GlyphSizeProps,
+    GlyphColorProps {}
+
+export interface NewGlyphProps
+  extends OtherGlyphProps,
+    NewGlyphSpacingProps,
+    NewGlyphColorProps {}
+
+export interface IconProps extends GlyphProps, IconInternalGlyphProps {
+  /**
+   * Custom icon component that returns an SVG element with set `viewBox`,
+   * `width`, and `height` props.
+   */
+  glyph?: ComponentType<CustomGlyphProps>;
+}
+
+export interface NewIconProps extends NewGlyphProps, IconInternalGlyphProps {
+  /**
+   * Legacy icon component to render when feature flag turned off.
+   * The legacy icon defaults to "medium" size, with `primaryColor` set to the value of the `color` prop.
+   */
+  LEGACY_fallbackIcon?: ComponentType<IconProps>;
+  /**
+   * Secondary color to be rendered by the legacy fallback icon
+   */
+  LEGACY_secondaryColor?: string;
+  /**
+   * Size of the legacy fallback icon. Legacy icons default to "medium".
+   */
+  LEGACY_size?: 'small' | 'medium';
+  /**
+   * Icon type. Used in icon build process.
+   */
+  type?: 'utility' | 'global';
+}
+
+export type IconTileAppearance =
+  | 'gray'
+  | 'blue'
+  | 'teal'
+  | 'green'
+  | 'lime'
+  | 'yellow'
+  | 'orange'
+  | 'red'
+  | 'magenta'
+  | 'purple'
+  | 'grayBold'
+  | 'blueBold'
+  | 'tealBold'
+  | 'greenBold'
+  | 'limeBold'
+  | 'yellowBold'
+  | 'orangeBold'
+  | 'redBold'
+  | 'magentaBold'
+  | 'purpleBold';
+
+export type IconTileSize = '16' | '24' | '32' | '40' | '48';
+
+export interface IconTileProps {
+  /**
+   * The icon to display
+   */
+  icon: ComponentType<NewIconProps>;
+  /**
+   * The label for the icon
+   */
+  label: string;
+  /**
+   * The appearance of the tile
+   */
+  appearance: IconTileAppearance;
+  /**
+   * Size of the tile, in pixels. Defaults to "24".
+   * In a future release, semantic names will be introduced, and number values will be deprecated.
+   */
+  size?: IconTileSize;
+  /**
+   * Shape of the tile background. Defaults to "square"
+   */
+  shape?: 'square' | 'circle';
 }
 
 export interface SkeletonProps {

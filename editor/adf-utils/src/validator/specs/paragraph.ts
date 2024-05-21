@@ -7,10 +7,10 @@ export default {
       allowUnsupportedInline: true,
       optional: true,
     },
-    marks: { type: 'array', items: [], optional: true },
     attrs: {
-      optional: true,
       props: { localId: { type: 'string', optional: true } },
+      optional: true,
     },
+    marks: { type: 'array', items: [], optional: true },
   },
 };

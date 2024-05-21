@@ -12,5 +12,6 @@ export default {
         style: { type: 'string', optional: true },
       },
     },
+    marks: { type: 'array', items: ['annotation'], optional: true },
   },
 };

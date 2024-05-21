@@ -186,7 +186,7 @@ export const messages: Messages = defineMessages({
     description: 'Additional info about the content summarised by AI.',
   },
   ai_summarized_info_short: {
-    id: 'fabric.linking.ai_summarized_info_short.nonfinal',
+    id: 'fabric.linking.ai_summarized_info_short',
     defaultMessage: 'Content quality may vary',
     description: 'Additional info about the content summarised by AI.',
   },
@@ -220,7 +220,7 @@ export const messages: Messages = defineMessages({
   ai_summary_error_exceeding_context_length_error: {
     id: 'fabric.linking.ai_summary_error_exceeding_context_length_error',
     defaultMessage:
-     "Atlassian Intelligence can't generate a summary for you right now as there is too much content to summarize.",
+      "Atlassian Intelligence can't generate a summary for you right now as there is too much content to summarize.",
     description:
       'Shown when the AI summary is summarising the link resource content and the content is too large to summarize.',
   },
@@ -233,27 +233,33 @@ export const messages: Messages = defineMessages({
   automation_action_title: {
     id: 'fabric.linking.automation-action.title',
     defaultMessage: 'Run automation...',
-    description: 'The title of the button in a hover card to open an automation menu for a given SmartLink.'
+    description:
+      'The title of the button in a hover card to open an automation menu for a given SmartLink.',
   },
   automation_action_icon_label: {
     id: 'fabric.linking.automation-action.icon.label',
     defaultMessage: 'Automation icon',
-    description: 'The label for the automation icon inside of the button opening the automation menu.'
+    description:
+      'The label for the automation icon inside of the button opening the automation menu.',
   },
-automation_action_tooltip: {
+  automation_action_tooltip: {
     id: 'fabric.linking.automation-action.tooltip',
     defaultMessage: 'Open an automation modal',
-    description: 'The tooltip for the automation action indicating that a button will open an automation modal.'
+    description:
+      'The tooltip for the automation action indicating that a button will open an automation modal.',
   },
   automation_action_confluence_page_modal_title: {
     id: 'fabric.linking.automation-action.confluence.page.modal.title',
     defaultMessage: 'Page automations',
-    description: 'The title of the automation modal when the SmartLink is a Confluence page'
+    description:
+      'The title of the automation modal when the SmartLink is a Confluence page',
   },
   automation_action_confluence_page_modal_description: {
     id: 'fabric.linking.automation-action.confluence.page.modal.description',
-    defaultMessage: 'Apply an automation to <b>{name}</b>.{br}The available selections are controlled by Confluence and space administrators.',
-    description: 'The description in the automation modal when the SmartLink is a Confluence page. Indicating which page the automation will apply to, and who controls the available automations.'
+    defaultMessage:
+      'Apply an automation to <b>{name}</b>.{br}The available selections are controlled by Confluence and space administrators.',
+    description:
+      'The description in the automation modal when the SmartLink is a Confluence page. Indicating which page the automation will apply to, and who controls the available automations.',
   },
   cancel: {
     id: 'fabric.linking.cancel',
@@ -366,7 +372,7 @@ automation_action_tooltip: {
     description: '',
   },
   copied_url_to_clipboard: {
-    id: 'fabric.linking.copied_url_to_clipboard.nonfinal',
+    id: 'fabric.linking.copied_url_to_clipboard',
     defaultMessage: 'Copied!',
     description: 'Url has been copied to the clipboard',
   },
@@ -401,38 +407,38 @@ automation_action_tooltip: {
     description: '',
   },
   download_description: {
-    id: 'fabric.linking.download_description.nonfinal',
+    id: 'fabric.linking.download_description',
     defaultMessage: 'Download this file into your local storage',
     description: 'Description on what Download does',
   },
   download_file: {
-    id: 'fabric.linking.download_file.nonfinal',
+    id: 'fabric.linking.download_file',
     defaultMessage: 'Download file',
     description: 'Allow a user to download a file',
   },
   ai_summary_action: {
-    id: 'fabric.linking.ai_summary_action.nonfinal',
+    id: 'fabric.linking.ai_summary_action',
     defaultMessage: 'Summarize with AI',
     description: 'Allow a user to summarize a link',
   },
   ai_summary_action_description: {
-    id: 'fabric.linking.ai_summary_action_description.nonfinal',
+    id: 'fabric.linking.ai_summary_action_description',
     defaultMessage:
       'Summarize the content of this link using Atlassian Intelligence.',
     description: 'Description of what the summarize link with AI action does',
   },
   copy_summary_action: {
-    id: 'fabric.linking.copy_summary_action.nonfinal',
+    id: 'fabric.linking.copy_summary_action',
     defaultMessage: 'Copy summary',
     description: 'Allow a user to copy a generated summary',
   },
   copy_summary_action_description: {
-    id: 'fabric.linking.copy_summary_action.nonfinal',
+    id: 'fabric.linking.copy_summary_action_description',
     defaultMessage: 'Copy summary',
     description: 'Description of what the copy summary AI action does',
   },
   copied_summary_action_description: {
-    id: 'fabric.linking.copied_summary_action_description.nonfinal',
+    id: 'fabric.linking.copied_summary_action_description',
     defaultMessage: 'Copied summary to clipboard',
     description: 'Confirmation to the user that the summry has been copied',
   },
@@ -447,34 +453,38 @@ automation_action_tooltip: {
     description: 'Click to follow a project.',
   },
   follow_project_description: {
-    id: 'fabric.linking.follow_project_description.nonfinal',
+    id: 'fabric.linking.follow_project_description',
     defaultMessage: 'Follow to get notifications on this project',
     description: 'Description on what Follow does',
   },
   follow_project: {
-    id: 'fabric.linking.follow_project.nonfinal',
+    id: 'fabric.linking.follow_project',
     defaultMessage: 'Follow project',
     description: 'Click to follow a project.',
   },
   follow_project_error: {
-    id: 'fabric.linking.follow_project_error.nonfinal',
-    defaultMessage: 'We encountered an error while trying to follow the project. Check your connection or refresh the page and try again.',
-    description: 'Shown when an unknown error occurs when following an Atlas project',
+    id: 'fabric.linking.follow_project_error',
+    defaultMessage:
+      'We encountered an error while trying to follow the project. Check your connection or refresh the page and try again.',
+    description:
+      'Shown when an unknown error occurs when following an Atlas project',
   },
   follow_goal_description: {
-    id: 'fabric.linking.follow_goal_description.nonfinal',
+    id: 'fabric.linking.follow_goal_description',
     defaultMessage: 'Follow this goal to get notifications on updates',
     description: 'Description on what Follow does',
   },
   follow_goal: {
-    id: 'fabric.linking.follow_goal.nonfinal',
+    id: 'fabric.linking.follow_goal',
     defaultMessage: 'Follow goal',
     description: 'Click to follow a project.',
   },
   follow_goal_error: {
-    id: 'fabric.linking.follow_goal_error.nonfinal',
-    defaultMessage: 'We encountered an error while trying to follow the goal. Check your connection or refresh the page and try again.',
-    description: 'Shown when an unknown error occurs when following an Atlas goal',
+    id: 'fabric.linking.follow_goal_error',
+    defaultMessage:
+      'We encountered an error while trying to follow the goal. Check your connection or refresh the page and try again.',
+    description:
+      'Shown when an unknown error occurs when following an Atlas goal',
   },
   go_back: {
     id: 'fabric.linking.go_back',
@@ -553,7 +563,7 @@ automation_action_tooltip: {
       'Indicates the person or entity that owns or maintains the resource.',
   },
   preview_description: {
-    id: 'fabric.linking.preview_description.nonfinal',
+    id: 'fabric.linking.preview_description',
     defaultMessage: 'Open a full screen preview of this link',
     description: 'Description on what Preview does',
   },
@@ -758,34 +768,38 @@ automation_action_tooltip: {
     description: 'Click to unfollow a project.',
   },
   unfollow_project_description: {
-    id: 'fabric.linking.unfollow_project_description.nonfinal',
+    id: 'fabric.linking.unfollow_project_description',
     defaultMessage: 'Unfollow to stop receiving project notifications',
     description: 'Description on what Unfollow does',
   },
   unfollow_project: {
-    id: 'fabric.linking.unfollow_project.nonfinal',
+    id: 'fabric.linking.unfollow_project',
     defaultMessage: 'Unfollow project',
     description: 'Click to unfollow a project.',
   },
   unfollow_project_error: {
-    id: 'fabric.linking.unfollow_project_error.nonfinal',
-    defaultMessage: 'We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.',
-    description: 'Shown when an unknown error occurs when unfollowing an Atlas project',
+    id: 'fabric.linking.unfollow_project_error',
+    defaultMessage:
+      'We encountered an error while trying to unfollow the project. Check your connection or refresh the page and try again.',
+    description:
+      'Shown when an unknown error occurs when unfollowing an Atlas project',
   },
   unfollow_goal_description: {
-    id: 'fabric.linking.unfollow_goal_description.nonfinal',
+    id: 'fabric.linking.unfollow_goal_description',
     defaultMessage: 'Unfollow to stop receiving notifications for this goal',
     description: 'Description on what Unfollow does',
   },
   unfollow_goal: {
-    id: 'fabric.linking.unfollow_goal.nonfinal',
+    id: 'fabric.linking.unfollow_goal',
     defaultMessage: 'Unfollow goal',
     description: 'Click to unfollow a project.',
   },
   unfollow_goal_error: {
-    id: 'fabric.linking.unfollow_goal_error.nonfinal',
-    defaultMessage: 'We encountered an error while trying to unfollow the goal. Check your connection or refresh the page and try again.',
-    description: 'Shown when an unknown error occurs when unfollowing an Atlas goal',
+    id: 'fabric.linking.unfollow_goal_error',
+    defaultMessage:
+      'We encountered an error while trying to unfollow the goal. Check your connection or refresh the page and try again.',
+    description:
+      'Shown when an unknown error occurs when unfollowing an Atlas goal',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

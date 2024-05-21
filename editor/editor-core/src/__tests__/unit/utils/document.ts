@@ -233,7 +233,7 @@ describe(name, () => {
       // eslint-disable-next-line no-console
       console.error = jest.fn();
       let createAnalyticsEvent = jest.fn(
-        () => ({ fire() {} } as UIAnalyticsEvent),
+        () => ({ fire() {} }) as UIAnalyticsEvent,
       );
 
       afterAll(() => {
@@ -407,6 +407,7 @@ describe(name, () => {
               type: 'table',
               attrs: {
                 __autoSize: false,
+                displayMode: null,
                 isNumberColumnEnabled: false,
                 layout: 'default',
                 localId: 'a4ffec03-04b5-4243-aebc-0f6dc934c96e',

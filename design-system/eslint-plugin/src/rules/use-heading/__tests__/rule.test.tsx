@@ -6,7 +6,21 @@ import rule from '../index';
 ruleTester.run('use-heading', rule, {
   valid: [
     // ignores divs
-    '<div></div>',
+    '<div><div></div></div>',
+    '<div><div /></div>',
+    // ignore heading elements with no children
+    '<div><h1></h1></div>',
+    '<div><h1 /></div>',
+    '<div><h2></h2></div>',
+    '<div><h2 /></div>',
+    '<div><h3></h3></div>',
+    '<div><h3 /></div>',
+    '<div><h4></h4></div>',
+    '<div><h4 /></div>',
+    '<div><h5></h5></div>',
+    '<div><h5 /></div>',
+    '<div><h6></h6></div>',
+    '<div><h6 /></div>',
     // ignores headings that are the root element
     `
     <h1>text 1</h1>

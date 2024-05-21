@@ -60,6 +60,7 @@ const getSelectionChangedHandler =
     const selectedAnnotations = findAnnotationsInSelection(
       tr.selection,
       tr.doc,
+      pluginState.featureFlagsPluginState?.commentsOnMediaMediaInlineBugFix,
     );
 
     if (selectedAnnotations.length === 0) {

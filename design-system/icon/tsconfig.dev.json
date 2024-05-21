@@ -46,6 +46,9 @@
       "path": "../button/tsconfig.app.json"
     },
     {
+      "path": "../code/tsconfig.app.json"
+    },
+    {
       "path": "../../../build/website/docs/tsconfig.app.json"
     },
     {
@@ -53,6 +56,9 @@
     },
     {
       "path": "../form/tsconfig.app.json"
+    },
+    {
+      "path": "../heading/tsconfig.app.json"
     },
     {
       "path": "../../media/icon-file-type/tsconfig.app.json"
@@ -92,6 +98,9 @@
     },
     {
       "path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+    },
+    {
+      "path": "../icon-lab/tsconfig.app.json"
     }
   ]
 }

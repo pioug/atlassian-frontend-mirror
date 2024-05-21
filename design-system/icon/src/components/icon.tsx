@@ -122,7 +122,7 @@ export const Icon = memo(function Icon(props: IconProps) {
         primaryColor === secondaryColor && primaryEqualsSecondaryHcmStyles,
         secondaryColor === 'transparent' && secondaryTransparentHcmStyles,
         // NB: This can be resolved if this component, composes base SVG / and/or skeleton
-        // We could then simplify how common styles are dealt with simply by encapsualting them
+        // We could then simplify how common styles are dealt with simply by encapsulating them
         // at their appropriate level and/or having a singular approach to css variables in the package
         dimensions &&
           // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

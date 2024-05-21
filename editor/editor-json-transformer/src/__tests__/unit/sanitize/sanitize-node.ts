@@ -206,6 +206,7 @@ describe('@atlaskit/editor-json-transformer', () => {
                     id: '1f92f',
                     text: '🤯',
                   },
+                  marks: [],
                 },
               ],
             },
@@ -282,7 +283,9 @@ describe('@atlaskit/editor-json-transformer', () => {
 
       it('should remove marks from emoji', () => {
         const adf = doc(p(strong(emoji({ shortName: 'grin' }))));
-        expect(sanitizeNode(adf)).toEqual(doc(p(emoji({ shortName: 'grin' }))));
+        expect(sanitizeNode(adf)).toEqual(
+          doc(p(emoji({ shortName: 'grin' }, { marks: [] }))),
+        );
       });
 
       it('should remove marks hardBreak', () => {

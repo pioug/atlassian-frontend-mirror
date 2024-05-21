@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page",
-  "version": "12.3.7",
+  "version": "12.4.0",
   "description": "A page layout organizes sections on a page using a grid and grid columns.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,8 @@
           }
         ]
       }
-    }
+    },
+    "runReact18": true
   },
   "af:exports": {
     "./types": "./src/types.tsx",
@@ -63,7 +64,7 @@
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",

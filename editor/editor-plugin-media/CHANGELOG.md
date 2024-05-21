@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 1.20.3
+
+### Patch Changes
+
+-   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+-   Updated dependencies
+
+## 1.20.2
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 1.20.1
 
 ### Patch Changes

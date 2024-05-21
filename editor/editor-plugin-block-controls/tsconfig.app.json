@@ -42,6 +42,9 @@
       "path": "../../pragmatic-drag-and-drop/core/tsconfig.app.json"
     },
     {
+      "path": "../../pragmatic-drag-and-drop/auto-scroll/tsconfig.app.json"
+    },
+    {
       "path": "../../pragmatic-drag-and-drop/react-drop-indicator/tsconfig.app.json"
     },
     {

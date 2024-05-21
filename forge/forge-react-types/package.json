@@ -40,7 +40,7 @@
     "@atlaskit/heading": "^2.3.0",
     "@atlaskit/lozenge": "^11.7.0",
     "@atlaskit/modal-dialog": "^12.13.0",
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/progress-bar": "2.1.0",
     "@atlaskit/progress-tracker": "8.6.1",
     "@atlaskit/radio": "^6.3.0",
@@ -54,7 +54,7 @@
     "@atlaskit/textarea": "^5.4.0",
     "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/toggle": "^13.1.0",
-    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@babel/runtime": "^7.0.0"
   },

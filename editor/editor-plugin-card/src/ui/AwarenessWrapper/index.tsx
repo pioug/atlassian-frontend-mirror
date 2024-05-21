@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import useLinkUpgradeDiscoverability from '../../common/hooks/useLinkUpgradeDiscoverability';
 import {
@@ -16,6 +17,7 @@ import {
 import type { SmartCardProps } from '../../nodeviews/genericCard';
 import { getResolvedAttributesFromStore } from '../../utils';
 import InlineCardOverlay from '../InlineCardOverlay';
+import NewInlineCardOverlay from '../NewInlineCardOverlay';
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {
@@ -103,33 +105,48 @@ export const AwarenessWrapper = ({
     [setOverlayHoveredStyles],
   );
 
+
   const cardWithOverlay = useMemo(
-    () =>
-      shouldShowLinkOverlay ? (
-        <InlineCardOverlay
-          isSelected={isSelected}
-          isVisible={
-            isResolvedViewRendered && (isInserted || isHovered || isSelected)
-          }
-          onMouseEnter={() => handleOverlayChange(true)}
-          onMouseLeave={() => handleOverlayChange(false)}
-          url={url}
-        >
-          {children}
-        </InlineCardOverlay>
-      ) : (
-        children
-      ),
-    [
-      shouldShowLinkOverlay,
-      isSelected,
-      isResolvedViewRendered,
-      isInserted,
-      isHovered,
-      url,
-      children,
-      handleOverlayChange,
-    ],
+    () => {
+      if (shouldShowLinkOverlay) {
+        if (getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+          return <NewInlineCardOverlay
+            isSelected={isSelected}
+            isVisible={
+              isResolvedViewRendered && (isInserted || isHovered || isSelected)
+            }
+            onMouseEnter={() => handleOverlayChange(true)}
+            onMouseLeave={() => handleOverlayChange(false)}
+            url={url}
+          >
+            {children}
+          </NewInlineCardOverlay>
+        }
+        return (
+          <InlineCardOverlay
+            isSelected={isSelected}
+            isVisible={
+              isResolvedViewRendered && (isInserted || isHovered || isSelected)
+            }
+            onMouseEnter={() => handleOverlayChange(true)}
+            onMouseLeave={() => handleOverlayChange(false)}
+            url={url}
+          >
+            {children}
+          </InlineCardOverlay>
+        )
+      }
+      return children;
+    }, [
+    shouldShowLinkOverlay,
+    isSelected,
+    isResolvedViewRendered,
+    isInserted,
+    isHovered,
+    url,
+    children,
+    handleOverlayChange,
+  ],
   );
 
   return useMemo(

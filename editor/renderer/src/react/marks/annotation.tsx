@@ -17,6 +17,7 @@ const AnnotationComponent = ({
   annotationParentIds = [],
   allowAnnotations,
   useBlockLevel,
+  isMediaInline,
 }: MarkProps<AnnotationMarkMeta>) => {
   const data: AnnotationDataAttributes = {
     ...dataAttributes,
@@ -24,7 +25,13 @@ const AnnotationComponent = ({
   };
 
   if (allowAnnotations) {
-    return (
+    return isMediaInline ? (
+      // Inline comment on mediaInline is not supported as part of comments on media project,
+      // hence skip any styling/event handling for annotations on mediaInline.
+      // `id` is still needed so that comment view component can be correct positioned
+      // when using comment navigation to access comments on mediaInline
+      <span id={id}>{children}</span>
+    ) : (
       <AnnotationMark
         id={id}
         dataAttributes={data}

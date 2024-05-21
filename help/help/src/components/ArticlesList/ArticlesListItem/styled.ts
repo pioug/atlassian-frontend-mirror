@@ -96,7 +96,7 @@ export const ArticlesListItemSource = styled.div({
   display: 'flex',
   alignItems: 'center',
   font: token('font.heading.xxsmall', fontFallback.heading.xxsmall),
-  color: token('elevation.surface.hovered', colors.N200),
+  color: token('color.text.subtlest', colors.N400A),
   padding: `${token('space.050', '4px')} 0`,
   fontWeight: token('font.weight.bold', 'bold'),
   textTransform: 'uppercase',
@@ -106,7 +106,7 @@ export const ArticlesListItemTrustFactor = styled.div({
   display: 'flex',
   alignItems: 'center',
   font: token('font.body.small', fontFallback.body.small),
-  color: token('color.background.accent.gray.subtlest.pressed', colors.N400),
+  color: token('color.text.subtlest', colors.N400A),
   paddingTop: token('space.025', '2px'),
 });
 
@@ -121,6 +121,6 @@ export const ArticlesListItemHelpfulCount = styled.span({
 
 export const ArticlesListItemLastModified = styled.div({
   font: token('font.body.small', fontFallback.body.small),
-  color: token('color.text.subtle', colors.N200),
+  color: token('color.text.subtlest', colors.N400A),
   padding: `${token('space.050', '4px')} 0`,
 });

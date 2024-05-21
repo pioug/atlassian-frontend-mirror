@@ -1,7 +1,7 @@
 import isEqual from 'lodash/isEqual';
 
-import type { CellAttributes } from '@atlaskit/adf-schema';
-import type { Command } from '@atlaskit/editor-common/types';
+import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import {
   closestElement,
   isParagraph,
@@ -270,8 +270,8 @@ export const getTableSelectionType = (selection: Selection) => {
     return selection.isRowSelection()
       ? 'row'
       : selection.isColSelection()
-      ? 'column'
-      : undefined;
+        ? 'column'
+        : undefined;
   }
 };
 
@@ -313,8 +313,8 @@ export const getTableElementMoveTypeBySlice = (
     return map.width === slicedMap.width
       ? 'row'
       : map.height === slicedMap.height
-      ? 'column'
-      : undefined;
+        ? 'column'
+        : undefined;
   } catch (e) {
     return undefined;
   }
@@ -809,3 +809,25 @@ export const updateWidthToWidest = (widthToWidest: WidthToWidest) =>
       },
     };
   });
+
+export const setTableAlignment =
+  (newAlignment: TableLayout): EditorCommand =>
+  ({ tr }) => {
+    const tableObject = findTable(tr.selection);
+
+    if (!tableObject) {
+      return null;
+    }
+
+    const nextTableAttrs = {
+      ...tableObject.node.attrs,
+      layout: newAlignment,
+    };
+
+    tr.setNodeMarkup(tableObject.pos, undefined, nextTableAttrs).setMeta(
+      'scrollIntoView',
+      false,
+    );
+
+    return tr;
+  };

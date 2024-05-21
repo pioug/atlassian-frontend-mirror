@@ -10,23 +10,23 @@ import {
 import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
-import { JQLEditorProps } from '@atlaskit/jql-editor';
+import { type JQLEditorProps } from '@atlaskit/jql-editor';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import {
   fieldValuesResponseForStatusesMapped,
   mockSiteData,
 } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { InlineCardAdf } from '@atlaskit/linking-common/types';
+import { type InlineCardAdf } from '@atlaskit/linking-common/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { SelectOption } from '../../../common/modal/popup-select/types';
+import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { LINK_TYPE_TEST_ID } from '../../../issue-like-table/render-type/link';
-import { IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
+import { type IssueLikeDataTableViewProps } from '../../../issue-like-table/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import JiraIssuesConfigModal from '../../index'; // Using async one to test lazy integration at the same time
-import { JiraIssuesDatasourceAdf } from '../../types';
+import { type JiraIssuesDatasourceAdf } from '../../types';
 
 import {
   getAvailableSites,
@@ -285,7 +285,7 @@ describe('JiraIssuesConfigModal', () => {
             cloudId: '67899',
             jql: 'status in (Authorize, "Awaiting approval") ORDER BY created DESC',
             jqlUrl:
-              'https://hello.atlassian.net/issues/?jql=status%20in%20(Authorize,%20%22Awaiting%20approval%22)%20ORDER%20BY%20created%20DESC',
+              'https://hello.atlassian.net/issues/?jql=status%20in%20(Authorize%2C%20%22Awaiting%20approval%22)%20ORDER%20BY%20created%20DESC',
           },
           {
             attributes: {
@@ -413,7 +413,8 @@ describe('JiraIssuesConfigModal', () => {
           assertInsertResult(
             {
               jql: 'resolution=done',
-              jqlUrl: 'https://hello.atlassian.net/issues/?jql=resolution=done',
+              jqlUrl:
+                'https://hello.atlassian.net/issues/?jql=resolution%3Ddone',
             },
             {
               attributes: {
@@ -433,7 +434,8 @@ describe('JiraIssuesConfigModal', () => {
           assertInsertResult(
             {
               jql: 'resolution=done',
-              jqlUrl: 'https://hello.atlassian.net/issues/?jql=resolution=done',
+              jqlUrl:
+                'https://hello.atlassian.net/issues/?jql=resolution%3Ddone',
             },
             {
               attributes: {
@@ -459,7 +461,7 @@ describe('JiraIssuesConfigModal', () => {
           assertInsertResult(
             {
               jql: 'status=done',
-              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status%3Ddone',
             },
             {
               attributes: {
@@ -479,7 +481,7 @@ describe('JiraIssuesConfigModal', () => {
           assertInsertResult(
             {
               jql: 'status=done',
-              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status=done',
+              jqlUrl: 'https://hello.atlassian.net/issues/?jql=status%3Ddone',
             },
             {
               attributes: {
@@ -1556,50 +1558,26 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when a JQL inline link is inserted', () => {
-    ffTest(
-      'platform.linking-platform.datasource.enable-stricter-jql-encoding',
-      async () => {
-        // FF true so a combination of & # + characters are escaped
-        const { assertInsertResult, searchWithNewJql } = await setup();
+    it('Special characters should be escaped', async () => {
+      // A combination of & # + characters should be escaped
+      const { assertInsertResult, searchWithNewJql } = await setup();
 
-        searchWithNewJql('project in ("combination&of#all+chars##&++#&+")');
+      searchWithNewJql('project in ("combination&of#all+chars##&++#&+")');
 
-        assertInsertResult(
-          {
-            jql: 'project in ("combination&of#all+chars##&++#&+")',
-            jqlUrl:
-              'https://hello.atlassian.net/issues/?jql=project%20in%20(%22combination%26of%23all%2Bchars%23%23%26%2B%2B%23%26%2B%22)',
+      assertInsertResult(
+        {
+          jql: 'project in ("combination&of#all+chars##&++#&+")',
+          jqlUrl:
+            'https://hello.atlassian.net/issues/?jql=project%20in%20(%22combination%26of%23all%2Bchars%23%23%26%2B%2B%23%26%2B%22)',
+        },
+        {
+          attributes: {
+            actions: ['query updated'],
+            searchCount: 1,
+            searchMethod: 'datasource_search_query',
           },
-          {
-            attributes: {
-              actions: ['query updated'],
-              searchCount: 1,
-              searchMethod: 'datasource_search_query',
-            },
-          },
-        );
-      },
-      async () => {
-        // FF false so none of the & # and + characters are escaped
-        const { assertInsertResult, searchWithNewJql } = await setup();
-
-        searchWithNewJql('project in ("combination&of#all+chars##&++#&+")');
-
-        assertInsertResult(
-          {
-            jql: 'project in ("combination&of#all+chars##&++#&+")',
-            jqlUrl:
-              'https://hello.atlassian.net/issues/?jql=project%20in%20(%22combination&of#all+chars##&++#&+%22)',
-          },
-          {
-            attributes: {
-              actions: ['query updated'],
-              searchCount: 1,
-              searchMethod: 'datasource_search_query',
-            },
-          },
-        );
-      },
-    );
+        },
+      );
+    });
   });
 });

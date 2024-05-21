@@ -67,7 +67,7 @@ const useIconButton = <TagName extends HTMLElement>({
     buttonType,
     children: (
       <Content type="icon" hasOverlay={hasOverlay}>
-        <Icon label="" size={UNSAFE_size} />
+        <Icon label="" size={UNSAFE_size} color={'currentColor'} />
         <VisuallyHidden>{label}</VisuallyHidden>
       </Content>
     ),

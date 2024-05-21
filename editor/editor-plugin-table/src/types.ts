@@ -69,6 +69,8 @@ export type TableSharedState = Pick<
   'isFullWidthModeEnabled' | 'wasFullWidthModeEnabled'
 >;
 
+export type AlignmentOptions = 'center' | 'align-start';
+
 export type InsertRowMethods =
   | INPUT_METHOD.CONTEXT_MENU
   | INPUT_METHOD.BUTTON

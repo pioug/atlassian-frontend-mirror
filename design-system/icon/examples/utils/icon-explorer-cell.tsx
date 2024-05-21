@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useRef, useState, ComponentType, FC } from 'react';
+import { useRef, useState, type ComponentType, type FC } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Textfield from '@atlaskit/textfield';

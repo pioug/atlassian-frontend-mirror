@@ -1,8 +1,8 @@
 import { traverse } from '@atlaskit/adf-utils/traverse';
 
-import { JSONNode } from '../types';
+import { type JSONNode } from '../types';
 
-import { removeMarks } from './remove-marks';
+import { removeMarks, removeNonAnnotationMarks } from './remove-marks';
 
 export function sanitizeNode(json: JSONNode): JSONNode {
   const sanitizedJSON = traverse(json, {
@@ -18,7 +18,7 @@ export function sanitizeNode(json: JSONNode): JSONNode {
     },
     status: (node) => {
       if (node.attrs && !!node.attrs.text) {
-        return removeMarks(node);
+        return removeNonAnnotationMarks(node);
       }
       return false; // empty status
     },
@@ -28,11 +28,11 @@ export function sanitizeNode(json: JSONNode): JSONNode {
       }
       return false; // empty caption
     },
-    emoji: removeMarks,
-    mention: removeMarks,
-    date: removeMarks,
+    emoji: removeNonAnnotationMarks,
+    mention: removeNonAnnotationMarks,
+    date: removeNonAnnotationMarks,
     hardBreak: removeMarks,
-    inlineCard: removeMarks,
+    inlineCard: removeNonAnnotationMarks,
   }) as JSONNode;
 
   return sanitizedJSON;

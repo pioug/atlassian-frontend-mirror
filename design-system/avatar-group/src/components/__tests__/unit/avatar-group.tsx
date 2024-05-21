@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { AppearanceType, SizeType } from '@atlaskit/avatar';
+import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import AvatarGroup from '../../avatar-group';
@@ -22,7 +22,6 @@ const generateData = ({
   label?: string;
 }) => {
   const data = [];
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < avatarCount; i++) {
     data.push({
       name: `Name ${i}`,
@@ -210,7 +209,7 @@ describe('<AvatarGroup />', () => {
     const avatarLabelList = screen.getAllByRole('button', { name: /Label / });
 
     // there should be 3 interactive avatars (and 1 dropdown trigger button,
-    // which will not be selected with the qbove query)
+    // which will not be selected with the above query)
     expect(avatarLabelList).toHaveLength(3);
   });
 
@@ -246,11 +245,18 @@ describe('<AvatarGroup />', () => {
     );
 
     fireEvent.click(screen.getByTestId('test--overflow-menu--trigger'));
-
     const overflowMenu = screen.getByTestId('test--overflow-menu');
-    const avatarLabelList = overflowMenu.querySelectorAll('span[aria-label]');
 
-    expect(avatarLabelList).toHaveLength(0);
+    const avatarsWithLabel = screen.queryAllByLabelText('Name', {
+      exact: false,
+    });
+    expect(avatarsWithLabel).toHaveLength(2);
+
+    const avatarsWithLabelInMenu = within(overflowMenu).queryAllByLabelText(
+      'Name',
+      { exact: false },
+    );
+    expect(avatarsWithLabelInMenu).toHaveLength(0);
   });
 
   it('should ensure href is not set on the avatar inside the overflowed dropdown item', () => {
@@ -553,9 +559,8 @@ describe('<AvatarGroup />', () => {
     const container = screen.getByTestId('test--avatar-group');
     expect(container).toBeInTheDocument();
 
-    const listItems = container!.querySelectorAll('li');
-    expect(listItems).toBeDefined();
-    expect(listItems).toHaveLength(3);
+    const avatarsWithLabel = within(container).queryAllByRole('listitem');
+    expect(avatarsWithLabel).toHaveLength(3);
   });
 
   it('should set received label as aria-label of avatar group list', () => {

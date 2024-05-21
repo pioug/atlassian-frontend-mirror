@@ -1,5 +1,21 @@
 # @atlaskit/icon
 
+## 22.3.0
+
+### Minor Changes
+
+-   [#95202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95202)
+    [`80507e249e92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80507e249e92) -
+    Adds new experimental icons at the entrypoints @atlaskit/icon/core/\* and
+    @atlaskit/icon/utility/\*, as well as a new IconTile component (compatible with global icons).
+
+    These new components are experimental, and subject to change or removal in minor or patch
+    releases.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 22.2.0
 
 ### Minor Changes

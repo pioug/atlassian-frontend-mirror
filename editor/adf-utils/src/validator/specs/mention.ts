@@ -14,5 +14,6 @@ export default {
         localId: { type: 'string', optional: true },
       },
     },
+    marks: { type: 'array', items: ['annotation'], optional: true },
   },
 };

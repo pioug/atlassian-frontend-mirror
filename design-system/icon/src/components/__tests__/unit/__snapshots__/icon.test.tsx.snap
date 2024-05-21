@@ -98,3 +98,58 @@ exports[`@atlaskit/icon Icon should match the DOM Snapshot 1`] = `
   </svg>
 </span>
 `;
+
+exports[`Glyph should match snapshot 1`] = `
+.emotion-1 {
+  display: inline-block;
+  box-sizing: border-box;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  line-height: 1;
+  -webkit-padding-end: var(--ds--button--new-icon-padding-end, 0);
+  padding-inline-end: var(--ds--button--new-icon-padding-end, 0);
+  -webkit-padding-start: var(--ds--button--new-icon-padding-start, 0);
+  padding-inline-start: var(--ds--button--new-icon-padding-start, 0);
+}
+
+@media screen and (forced-colors: active) {
+  .emotion-1 {
+    color: CanvasText;
+    -webkit-filter: grayscale(1);
+    filter: grayscale(1);
+  }
+}
+
+.emotion-0 {
+  overflow: hidden;
+  pointer-events: none;
+  color: currentColor;
+  vertical-align: bottom;
+  width: var(--ds-space-200, 16px);
+  height: var(--ds-space-200, 16px);
+}
+
+.emotion-0 stop {
+  stop-color: currentColor;
+}
+
+<span
+  aria-label="test-label"
+  class="emotion-1"
+  role="img"
+>
+  <svg
+    class="emotion-0"
+    fill="none"
+    role="presentation"
+    viewBox="0 0 16 16"
+  >
+    <path
+      d="M8 8h7M8 8H1m7 0V1m0 7v7"
+      stroke="currentColor"
+      stroke-width="1.5"
+    />
+  </svg>
+</span>
+`;

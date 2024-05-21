@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 17.14.3
+
+### Patch Changes
+
+-   [#95202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95202)
+    [`99bd29123e13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99bd29123e13) -
+    Internal change to support experimental icon components
+-   Updated dependencies
+
 ## 17.14.2
 
 ### Patch Changes

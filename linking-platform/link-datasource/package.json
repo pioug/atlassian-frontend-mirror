@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "2.2.0",
+  "version": "2.3.1",
   "description": "UI Components to support linking platform dataset feature",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,7 +32,7 @@
     "analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^36.3.0",
+    "@atlaskit/adf-schema": "^36.8.0",
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/avatar": "^21.8.0",
     "@atlaskit/avatar-group": "^9.6.0",
@@ -44,12 +44,12 @@
     "@atlaskit/empty-state": "^7.8.0",
     "@atlaskit/form": "^10.1.0",
     "@atlaskit/heading": "^2.3.0",
-    "@atlaskit/icon": "^22.2.0",
+    "@atlaskit/icon": "^22.3.0",
     "@atlaskit/icon-object": "^6.4.0",
     "@atlaskit/image": "^1.2.0",
     "@atlaskit/intl-messages-provider": "^1.0.0",
     "@atlaskit/jql-ast": "^3.2.0",
-    "@atlaskit/jql-editor": "^4.2.0",
+    "@atlaskit/jql-editor": "^4.3.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/link-client-extension": "^1.8.0",
     "@atlaskit/linking-common": "^5.6.0",
@@ -64,15 +64,15 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.1.0",
     "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/select": "^17.9.0",
-    "@atlaskit/smart-card": "^26.68.0",
+    "@atlaskit/smart-card": "^26.69.0",
     "@atlaskit/smart-user-picker": "6.9.3",
     "@atlaskit/spinner": "^16.1.0",
     "@atlaskit/tag": "^12.2.0",
     "@atlaskit/textfield": "6.3.1",
     "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",
     "@atlaskit/ufo": "^0.2.4",
     "@atlaskit/width-detector": "^4.2.0",
@@ -162,12 +162,6 @@
       "type": "boolean"
     },
     "platform.linking-platform.datasources.enable-sentry-client": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource.enable-abort-controller": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.datasource.enable-stricter-jql-encoding": {
       "type": "boolean"
     },
     "platform.editor-update-tag-link-and-color_x6hcf": {

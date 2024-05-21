@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.2.1
+
+### Patch Changes
+
+-   [#101749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101749)
+    [`08a34b7d741c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08a34b7d741c) -
+    use-primitives-text and use-heading lint rules to not target elements with no children.
+
 ## 10.2.0
 
 ### Minor Changes

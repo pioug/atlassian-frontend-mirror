@@ -7,6 +7,14 @@ ruleTester.run('use-primitives-text', rule, {
   valid: [
     // ignores divs
     '<div></div>',
+    '<div />',
+    // ignore text elements with no children
+    '<span></span>',
+    '<span />',
+    '<strong></strong>',
+    '<strong />',
+    '<em></em>',
+    '<em />',
     // ignores paragraphs mixed with other elements
     `
       <div>

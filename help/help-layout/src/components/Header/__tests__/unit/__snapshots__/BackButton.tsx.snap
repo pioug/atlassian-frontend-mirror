@@ -139,6 +139,8 @@ exports[`BackButton Should match snapshot 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  --ds--button--new-icon-padding-end: var(--ds-space-025, 2px);
+  --ds--button--new-icon-padding-start: var(--ds-space-050, 4px);
   -webkit-margin-start: var(--ds-space-negative-025, -2px);
   margin-inline-start: var(--ds-space-negative-025, -2px);
 }

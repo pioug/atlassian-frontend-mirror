@@ -302,6 +302,8 @@ export class Renderer extends PureComponent<RendererProps> {
         getBooleanFF('platform.editor.inline_extension.extended_lcqdn') &&
         props.isInsideOfInlineExtension,
       textHighlighter: props.UNSTABLE_textHighlighter,
+      isCommentsOnMediaMediaInlineBugFixEnabled:
+        featureFlags?.commentsOnMediaMediaInlineBugFix,
     };
   }
 

@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
-import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
 
@@ -41,6 +41,10 @@ export const StrongElements = {
 
     const elementName = ast.JSXElement.getName(node);
     if (elementName !== 'strong') {
+      return false;
+    }
+
+    if (!node.children.length) {
       return false;
     }
 

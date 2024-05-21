@@ -14,7 +14,7 @@
       "name": "Link",
       "category": "Components",
       "status": {
-        "type": "alpha"
+        "type": "closed-beta"
       }
     }
   },
@@ -40,7 +40,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.3.0",
     "@babel/runtime": "^7.0.0",
     "@compiled/react": "^0.17.0"
   },

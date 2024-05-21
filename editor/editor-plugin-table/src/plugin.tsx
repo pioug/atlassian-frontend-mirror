@@ -1,12 +1,6 @@
 import React from 'react';
 
-import {
-  table,
-  tableCell,
-  tableHeader,
-  tableRow,
-  tableStage0,
-} from '@atlaskit/adf-schema';
+import { table, tableCell, tableHeader, tableRow } from '@atlaskit/adf-schema';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -234,14 +228,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
     },
 
     nodes() {
-      const tableNode =
-        options?.isTableScalingEnabled &&
-        getBooleanFF('platform.editor.table.preserve-widths-with-lock-button')
-          ? tableStage0
-          : table;
-
       return [
-        { name: 'table', node: tableNode },
+        { name: 'table', node: table },
         { name: 'tableHeader', node: tableHeader },
         { name: 'tableRow', node: tableRow },
         { name: 'tableCell', node: tableCell },

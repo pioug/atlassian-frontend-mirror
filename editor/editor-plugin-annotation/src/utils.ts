@@ -214,6 +214,7 @@ export const isCurrentBlockNodeSelected = (
 export const findAnnotationsInSelection = (
   selection: Selection,
   doc: Node,
+  isCommentsOnMediaMediaInlineBugFixEnabled?: boolean,
 ): AnnotationInfo[] => {
   const { empty, $anchor, anchor } = selection;
   // Only detect annotations on caret selection
@@ -222,13 +223,22 @@ export const findAnnotationsInSelection = (
   }
 
   const node = doc.nodeAt(anchor);
+  const nodeBefore = $anchor.nodeBefore;
 
-  if (!node && !$anchor.nodeBefore) {
+  if (!node && !nodeBefore) {
+    return [];
+  }
+
+  // Inline comment on mediaInline is not supported as part of comments on media project
+  // Hence, we ignore annotations associated with the node when the cursor is right after/before the node
+  if (
+    isCommentsOnMediaMediaInlineBugFixEnabled &&
+    [nodeBefore, node].some(node => node?.type.name === 'mediaInline')
+  ) {
     return [];
   }
 
   const annotationMark = doc.type.schema.marks.annotation;
-  const nodeBefore = $anchor.nodeBefore;
   const anchorAnnotationMarks = node?.marks || [];
 
   let marks: readonly Mark[] = [];

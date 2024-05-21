@@ -67,6 +67,7 @@ export interface AnnotationMarkMeta extends MarkMeta {
   annotationParentIds: string[];
   allowAnnotations: boolean;
   useBlockLevel?: boolean;
+  isMediaInline?: boolean;
 }
 
 export type NodeProps<NodeAttrs = {}> = NodeAttrs & PropsWithChildren<NodeMeta>;

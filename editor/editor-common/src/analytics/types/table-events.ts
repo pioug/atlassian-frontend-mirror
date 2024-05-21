@@ -3,7 +3,6 @@ import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { ACTION_SUBJECT, INPUT_METHOD } from './enums';
 import type { OperationalAEP, TableAEP, UIAEP } from './utils';
 
-//#region Constants
 export enum TABLE_ACTION {
   DELETED = 'deleted',
   CLEARED = 'cleared',
@@ -41,6 +40,7 @@ export enum TABLE_ACTION {
    */
   ROW_OR_COLUMN_MOVED = 'rowOrColumnMoved',
   CHANGED_DISPLAY_MODE = 'changedDisplayMode',
+  CHANGED_ALIGNMENT = 'changedAlignment',
 }
 
 export enum TABLE_BREAKOUT {
@@ -48,7 +48,6 @@ export enum TABLE_BREAKOUT {
   FULL_WIDTH = 'fullWidth',
   NORMAL = 'normal',
 }
-//#endregion
 
 export enum TABLE_OVERFLOW_CHANGE_TRIGGER {
   EXTERNAL = 'external',
@@ -67,7 +66,6 @@ export enum TABLE_STATUS {
   INVALID = 'invalid',
 }
 
-//#region Type Helpers
 interface SortColumn {
   sortOrder: SortOrder;
   mode: 'editor';
@@ -87,7 +85,6 @@ type AllCellInfo = TotalRowAndColCount &
   HorizontalAndVerticalCells & {
     totalCells: number;
   };
-//#endregion
 
 type AttemptedResizeInfo = {
   type: string;
@@ -126,7 +123,6 @@ export type OverflowStateInfo = {
   parentWidth: number;
 };
 
-//#region Analytic Event Payloads
 type TableDeleteAEP = TableAEP<
   TABLE_ACTION.DELETED,
   {
@@ -371,6 +367,20 @@ type TableChangedDisplayModeAEP = TableAEP<
   undefined
 >;
 
+// currently duplicated in editor-plugin-table/src/types.ts
+type AlignmentOptions = 'center' | 'align-start';
+
+type TableChangedAlignmentAEP = TableAEP<
+  TABLE_ACTION.CHANGED_ALIGNMENT,
+  {
+    newAlignment: AlignmentOptions;
+    previousAlignment: AlignmentOptions | null;
+    tableWidth: number | null;
+    inputMethod: INPUT_METHOD.FLOATING_TB;
+  } & TotalRowAndColCount,
+  undefined
+>;
+
 export type TableEventPayload =
   | TableDeleteAEP
   | TableClearAEP
@@ -395,4 +405,5 @@ export type TableEventPayload =
   | TableMovedRowOrColumnAEP
   | TableClonedRowOrColumnAEP
   | TableChangedDisplayModeAEP
-  | TableColumnResizedAEP;
+  | TableColumnResizedAEP
+  | TableChangedAlignmentAEP;

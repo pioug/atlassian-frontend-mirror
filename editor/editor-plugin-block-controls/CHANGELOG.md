@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.0
+
+### Minor Changes
+
+-   [#101384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101384)
+    [`649f601103e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/649f601103e0) -
+    [ux] Add autoscroller support to blocks plugin
+
 ## 1.3.12
 
 ### Patch Changes

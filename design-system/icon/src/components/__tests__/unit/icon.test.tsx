@@ -1,8 +1,14 @@
 import React, { CSSProperties } from 'react';
 import { render, screen } from '@testing-library/react';
 
-import Icon, { size, CustomGlyphProps, IconProps } from '../../..';
+import Icon, {
+  UNSAFE_IconNew as IconNew,
+  size,
+  CustomGlyphProps,
+  IconProps,
+} from '../../..';
 import AddIcon from '../../../../glyph/add';
+import AddIconNew from '../../../../core/add';
 import { sizes as sizeValues } from '../../../constants';
 import { Size } from '../../../types';
 
@@ -190,5 +196,69 @@ describe('@atlaskit/icon', () => {
       render(glyph);
       expect(screen.getByRole('img')).toHaveAccessibleName(label);
     });
+  });
+});
+
+describe('@atlaskit/icon/UNSAFE_base-new', () => {
+  describe('dangerouslySetGlyph prop', () => {
+    const id = 'customPath';
+    const customPathString = `<path data-testid="${id}" d=""></path>`;
+
+    it('should render a path provided as a string', () => {
+      render(
+        <IconNew
+          testId="test-icon"
+          dangerouslySetGlyph={customPathString}
+          label="hello-world"
+        />,
+      );
+      const path = screen.getByTestId(id);
+      expect(path).toBeInTheDocument();
+      expect(path.nodeName).toEqual('path');
+    });
+
+    it('should present itself as an image when label is defined', () => {
+      render(
+        <IconNew dangerouslySetGlyph={customPathString} label="hello-world" />,
+      );
+
+      const element = screen.getByRole('img');
+      expect(element).toHaveAttribute('aria-label', 'hello-world');
+    });
+
+    it('should present as hidden, without a role when the label is an empty string', () => {
+      const testId = 'test-icon';
+      render(
+        <IconNew
+          testId={testId}
+          dangerouslySetGlyph={customPathString}
+          label=""
+        />,
+      );
+
+      const element = screen.getByTestId(testId);
+      expect(element).not.toHaveAttribute('role');
+      expect(element).not.toHaveAttribute('aria-label');
+      expect(element).toHaveAttribute('aria-hidden', 'true');
+    });
+  });
+});
+
+describe('Glyph', () => {
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  const label = 'test-label';
+  const glyph = <AddIconNew label={label} />;
+
+  it('should match snapshot', () => {
+    render(glyph);
+    expect(screen.getByRole('img')).toMatchSnapshot();
+  });
+
+  it('should have the correct label', () => {
+    render(glyph);
+    expect(screen.getByRole('img')).toHaveAccessibleName(label);
   });
 });

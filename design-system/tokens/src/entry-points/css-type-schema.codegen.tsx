@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::4ef9ec972194383d39603d23f099299d>>
+ * @codegen <<SignedSource::4b4e9818ad6c92bfc09b29fe6f15235f>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColor =
@@ -205,6 +205,30 @@ export type BackgroundColorPressed =
     | 'var(--ds-surface-pressed)'
     | 'var(--ds-surface-overlay-pressed)'
     | 'var(--ds-surface-raised-pressed)';
+
+export type IconColor =
+    | 'var(--ds-icon)'
+    | 'var(--ds-icon-accent-lime)'
+    | 'var(--ds-icon-accent-red)'
+    | 'var(--ds-icon-accent-orange)'
+    | 'var(--ds-icon-accent-yellow)'
+    | 'var(--ds-icon-accent-green)'
+    | 'var(--ds-icon-accent-teal)'
+    | 'var(--ds-icon-accent-blue)'
+    | 'var(--ds-icon-accent-purple)'
+    | 'var(--ds-icon-accent-magenta)'
+    | 'var(--ds-icon-accent-gray)'
+    | 'var(--ds-icon-disabled)'
+    | 'var(--ds-icon-inverse)'
+    | 'var(--ds-icon-selected)'
+    | 'var(--ds-icon-brand)'
+    | 'var(--ds-icon-danger)'
+    | 'var(--ds-icon-warning)'
+    | 'var(--ds-icon-warning-inverse)'
+    | 'var(--ds-icon-success)'
+    | 'var(--ds-icon-discovery)'
+    | 'var(--ds-icon-information)'
+    | 'var(--ds-icon-subtle)';
 
 export type BorderColor =
     | 'var(--ds-border)'

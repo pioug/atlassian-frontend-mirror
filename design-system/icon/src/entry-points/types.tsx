@@ -5,4 +5,5 @@ export type {
   Size,
   SkeletonProps,
   SVGProps,
+  NewIconProps as UNSAFE_NewIconProps,
 } from '../types';

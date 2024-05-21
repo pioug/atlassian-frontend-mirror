@@ -174,6 +174,7 @@ Object {
         isNumberColumnEnabled: false,
         layout: 'default',
         __autoSize: false,
+        displayMode: null,
         localId: 'table-local-id',
         width: null,
       },

@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 80.4.1
+
+### Patch Changes
+
+-   [#101355](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101355)
+    [`040f4ffe7af0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/040f4ffe7af0) -
+    Add analytic event to table alignment command
+-   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+
 ## 80.4.0
 
 ### Minor Changes

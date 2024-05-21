@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.9.2
+
+### Patch Changes
+
+-   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+
+## 1.9.1
+
+### Patch Changes
+
+-   [#97803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97803)
+    [`4c1023ffb3d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c1023ffb3d8) -
+    [ED-23094] Ignore annotations on mediaInline node, including highlight styling,
+    event(onMouseEnter, onClick) listeners, update active annotations when the node is selected or
+    the cursor is right after the node
+
 ## 1.9.0
 
 ### Minor Changes

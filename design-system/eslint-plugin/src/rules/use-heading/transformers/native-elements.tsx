@@ -2,9 +2,9 @@
 import type { Rule } from 'eslint';
 import {
   isNodeOfType,
-  JSXElement,
-  JSXIdentifier,
-  JSXOpeningElement,
+  type JSXElement,
+  type JSXIdentifier,
+  type JSXOpeningElement,
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
@@ -58,6 +58,10 @@ export const NativeElements = {
     }
 
     if (!isNodeOfType(node, 'JSXElement')) {
+      return false;
+    }
+
+    if (!node.children.length) {
       return false;
     }
 

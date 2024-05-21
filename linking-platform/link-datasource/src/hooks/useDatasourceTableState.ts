@@ -7,15 +7,14 @@ import {
   useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension';
 import {
-  DatasourceDataRequest,
-  DatasourceDataResponseItem,
-  DatasourceDataSchema,
-  DatasourceMeta,
-  DatasourceParameters,
-  DatasourceResponseSchemaProperty,
-  DatasourceTableStatusType,
+  type DatasourceDataRequest,
+  type DatasourceDataResponseItem,
+  type DatasourceDataSchema,
+  type DatasourceMeta,
+  type DatasourceParameters,
+  type DatasourceResponseSchemaProperty,
+  type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 
@@ -220,21 +219,15 @@ export const useDatasourceTableState = ({
   const onNextPage = useCallback(
     async (requestInfo: onNextPageProps = {}) => {
       let currentAbortController: AbortController | undefined;
-      if (
-        getBooleanFF(
-          'platform.linking-platform.datasource.enable-abort-controller',
-        )
-      ) {
-        /**
-         * Abort whichever request was made before this one.
-         */
-        abortController.current.abort();
-        /**
-         * Setup new abort controller for this request.
-         */
-        abortController.current = new AbortController();
-        currentAbortController = abortController.current;
-      }
+      /**
+       * Abort whichever request was made before this one.
+       */
+      abortController.current.abort();
+      /**
+       * Setup new abort controller for this request.
+       */
+      abortController.current = new AbortController();
+      currentAbortController = abortController.current;
 
       if (!parameters) {
         return;
@@ -272,17 +265,11 @@ export const useDatasourceTableState = ({
           shouldForceRequest,
         );
 
-        if (
-          getBooleanFF(
-            'platform.linking-platform.datasource.enable-abort-controller',
-          )
-        ) {
-          /**
-           * Let the response finish and store in cache, but throw error if signal is aborted
-           */
-          if (currentAbortController?.signal.aborted) {
-            throw new Error('Aborted');
-          }
+        /**
+         * Let the response finish and store in cache, but throw error if signal is aborted
+         */
+        if (currentAbortController?.signal.aborted) {
+          throw new Error('Aborted');
         }
 
         setExtensionKey(extensionKey);
@@ -298,20 +285,6 @@ export const useDatasourceTableState = ({
         setNextCursor(nextPageCursor);
 
         setResponseItems(currentResponseItems => {
-          if (
-            !getBooleanFF(
-              'platform.linking-platform.datasource.enable-abort-controller',
-            )
-          ) {
-            const hasIdenticalResponseItems = isEqual(
-              currentResponseItems,
-              items,
-            );
-            if (hasIdenticalResponseItems || shouldRequestFirstPage) {
-              return items;
-            }
-            return [...currentResponseItems, ...items];
-          }
           if (shouldRequestFirstPage) {
             return items;
           }
@@ -345,20 +318,14 @@ export const useDatasourceTableState = ({
         }
         setStatus('resolved');
       } catch (e: any) {
-        if (
-          getBooleanFF(
-            'platform.linking-platform.datasource.enable-abort-controller',
-          )
-        ) {
-          if (e.message === 'Aborted') {
-            /**
-             * If the request was aborted, we don't want to change the status of the table
-             * as we are already loading the next request attempt
-             *
-             * Is not an exceptional state, do not need to captureError
-             */
-            return;
-          }
+        if (e.message === 'Aborted') {
+          /**
+           * If the request was aborted, we don't want to change the status of the table
+           * as we are already loading the next request attempt
+           *
+           * Is not an exceptional state, do not need to captureError
+           */
+          return;
         }
 
         captureError('onNextPage', e);
@@ -464,13 +431,7 @@ export const useDatasourceTableState = ({
   }, [fieldKeys, lastRequestedFieldKeys, responseItems, reset, onNextPage]);
 
   useEffect(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.datasource.enable-abort-controller',
-      )
-    ) {
-      return () => abortController.current.abort();
-    }
+    return () => abortController.current.abort();
   }, []);
 
   return {

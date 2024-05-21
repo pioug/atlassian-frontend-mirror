@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 2.3.1
+
+### Patch Changes
+
+-   [#96902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96902)
+    [`c5881211d3fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5881211d3fd) -
+    removing abort controller FF after rollout
+-   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+
+## 2.3.0
+
+### Minor Changes
+
+-   [#100746](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100746)
+    [`8a7f333f8ce6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a7f333f8ce6) -
+    This cleans up feature flag references for the increased border contrast changes in JQL editor,
+    making them fully available for all users.
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 26.69.0
+
+### Minor Changes
+
+-   [#101702](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101702)
+    [`2d087cf38dab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d087cf38dab) -
+    Fixes issue with the tooltip on the copy summary action
+
+### Patch Changes
+
+-   [#101752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101752)
+    [`ce0a0cf5380a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce0a0cf5380a) -
+    Finalise hover card redesign localisation
+
 ## 26.68.0
 
 ### Minor Changes

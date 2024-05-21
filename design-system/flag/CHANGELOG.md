@@ -1,5 +1,14 @@
 # @atlaskit/flag
 
+## 15.5.2
+
+### Patch Changes
+
+-   [#101206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101206)
+    [`e7b8d483e629`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e7b8d483e629) -
+    Introduce a new prop shouldRenderToParent on FlagProvider to render flag group directly to
+    parent instead of Portal
+
 ## 15.5.1
 
 ### Patch Changes

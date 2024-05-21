@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
-import type { TableLayout } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -76,6 +75,7 @@ import {
   insertRowWithAnalytics,
   mergeCellsWithAnalytics,
   setColorWithAnalytics,
+  setTableAlignmentWithAnalytics,
   sortColumnWithAnalytics,
   splitCellWithAnalytics,
   toggleHeaderColumnWithAnalytics,
@@ -91,6 +91,7 @@ import { getNewResizeStateFromSelectedColumns } from './pm-plugins/table-resizin
 import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
 import { canMergeCells } from './transforms';
 import type {
+  AlignmentOptions,
   PluginConfig,
   ToolbarMenuConfig,
   ToolbarMenuContext,
@@ -105,6 +106,7 @@ import {
   getSelectedRowIndexes,
   isTableNested,
 } from './utils';
+import { normaliseAlignment } from './utils/alignment';
 
 export const getToolbarMenuConfig = (
   config: ToolbarMenuConfig,
@@ -485,7 +487,7 @@ export const getToolbarConfig =
 
       alignmentMenu =
         options?.isTableAlignmentEnabled && !isNested
-          ? getAlignmentOptionsConfig(state, intl)
+          ? getAlignmentOptionsConfig(state, intl, editorAnalyticsAPI)
           : [];
 
       let cellItems: Array<FloatingToolbarItem<Command>>;
@@ -890,13 +892,14 @@ const highlightColumnsHandler = (
 
 type AlignmentIcon = {
   id?: string;
-  value: TableLayout;
+  value: AlignmentOptions;
   icon: React.ComponentClass<any>;
 };
 
 export const getAlignmentOptionsConfig = (
   editorState: EditorState,
   { formatMessage }: ToolbarMenuContext,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 ): Array<FloatingToolbarDropdown<Command>> => {
   const tableObject = findTable(editorState.selection);
 
@@ -918,7 +921,7 @@ export const getAlignmentOptionsConfig = (
   ];
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const layoutToMessages: Record<string, any> = {
+  const layoutToMessages: Record<AlignmentOptions, any> = {
     center: messages.alignTableCenter,
     'align-start': messages.alignTableLeft,
   };
@@ -926,13 +929,19 @@ export const getAlignmentOptionsConfig = (
   const alignmentButtons = alignmentIcons.map<FloatingToolbarItem<Command>>(
     (alignmentIcon) => {
       const { id, value, icon } = alignmentIcon;
+      const currentLayout = tableObject.node.attrs.layout;
+
       return {
         id: id,
         type: 'button',
         icon: icon,
         title: formatMessage(layoutToMessages[value]),
-        selected: tableObject.node.attrs.layout === value,
-        onClick: alignTable(value),
+        selected: normaliseAlignment(currentLayout) === value,
+        onClick: setTableAlignmentWithAnalytics(editorAnalyticsAPI)(
+          value,
+          currentLayout,
+          INPUT_METHOD.FLOATING_TB
+        ),
       };
     },
   );
@@ -969,34 +978,6 @@ export const getAlignmentOptionsConfig = (
   return alignmentToolbarItem;
 };
 
-const alignTable = (nextLayoutValue: TableLayout): Command => {
-  return (state, dispatch) => {
-    const tableObject = findTable(state.selection);
-
-    if (!tableObject || !dispatch) {
-      return false;
-    }
-
-    const nextTableAttrs = {
-      ...tableObject.node.attrs,
-      layout: nextLayoutValue,
-    };
-
-    const tr = state.tr.setNodeMarkup(
-      tableObject.pos,
-      undefined,
-      nextTableAttrs,
-    );
-
-    tr.setMeta('scrollIntoView', false);
-
-    // TODO - insert analytics here for layout selection
-
-    dispatch(tr);
-    return true;
-  };
-};
-
 export const getSelectedAlignmentIcon = (
   alignmentIcons: AlignmentIcon[],
   selectedNode: PMNode,
@@ -1004,8 +985,6 @@ export const getSelectedAlignmentIcon = (
   const selectedAlignment = selectedNode.attrs.layout;
 
   return alignmentIcons.find(
-    (icon) =>
-      icon.value ===
-      (selectedNode.attrs.layout === 'default' ? 'center' : selectedAlignment),
+    (icon) => icon.value === normaliseAlignment(selectedAlignment),
   );
 };

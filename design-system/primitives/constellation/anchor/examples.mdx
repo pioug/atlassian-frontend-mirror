@@ -75,39 +75,27 @@ Anchor will only render a router link if:
   appearance="source-only"
 />
 
-## Event tracking
-
-Anchor has utilities to make tracking events easier. Events will not be captured unless listeners are setup to handle them.
-
-### Track events for any analytics provider
-
-Anchor comes with built-in Atlaskit analytics support using the [Analytics next package](https://atlaskit.atlassian.com/packages/analytics/analytics-next), and fires events for available listeners. Currently this is only available for `onClick`.
-
-It always fires events on the `atlaskit` channel. To also fire events on other channels, use the provided `analyticsEvent` in `onClick`. To configure event data, use `componentName` (defaults to 'Anchor') and `analyticsContext` for passing other metadata.
-
-See the event data in the console.
+<Snippet
+  name="primitives-event-tracking-header"
+  variables={{ componentName: 'anchor' }}
+/>
 
 <Example
   Component={AnchorAnalytics}
   packageName="@atlaskit/primitives/anchor"
 />
 
-### Track events for Atlassian internal services
-
-#### GASv3 analytics
-
-The Atlassian analytics bridge makes Atlaskit analytics events compatible with GASv3 (Global Analytics Service). This can also inject an `actionSubjectId` to the event if required.
-
-See the event data in the console.
+<Snippet name="primitives-event-tracking-gasv3" />
 
 <Example
   Component={AnchorAnalyticsGASv3}
   packageName="@atlaskit/primitives/anchor"
 />
 
-#### React UFO press interactions
-
-By default, anchor fires [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions) for available listeners. This helps Atlassian measure performance and reliability. Additional detail can be provided using the `interactionName` prop.
+<Snippet
+  name="primitives-event-tracking-ufo"
+  variables={{ componentName: 'anchor' }}
+/>
 
 <Example
   Component={AnchorPressTracing}

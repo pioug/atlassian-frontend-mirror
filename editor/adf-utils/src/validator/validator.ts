@@ -1,6 +1,4 @@
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import * as specs from './specs';
-import { inlineCardWithAnnotation } from './custom-specs/inline-card-with-annotation';
 import type { ADFEntity, ADFEntityMark } from '../types';
 import {
   copy,
@@ -80,20 +78,14 @@ const partitionObject = <T extends { [key: string]: any }>(
  * We denormalised the spec to save bundle size.
  */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {
-  let _specs = { ...specs };
-  if (
-    !!getBooleanFF('platform.editor.allow-inline-comments-for-inline-nodes')
-  ) {
-    _specs.inlineCard = inlineCardWithAnnotation;
-  }
-  return Object.keys(_specs).reduce<Record<string, any>>((newSpecs, k) => {
-    const spec = { ...(_specs as any)[k] };
+  return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
+    const spec = { ...(specs as any)[k] };
     if (spec.props) {
       spec.props = { ...spec.props };
       if (spec.props.content) {
         // 'tableCell_content' => { type: 'array', items: [ ... ] }
         if (isString(spec.props.content)) {
-          spec.props.content = (_specs as any)[spec.props.content];
+          spec.props.content = (specs as any)[spec.props.content];
         }
 
         // ['inline', 'emoji']
@@ -124,8 +116,8 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           // ['media'] => [['media']]
           .map((item) =>
             isString(item)
-              ? Array.isArray((_specs as any)[item])
-                ? (_specs as any)[item]
+              ? Array.isArray((specs as any)[item])
+                ? (specs as any)[item]
                 : [item]
               : item,
           )
@@ -133,12 +125,12 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
           .map((item: Array<string>) =>
             item
               .map((subItem) =>
-                Array.isArray((_specs as any)[subItem])
-                  ? (_specs as any)[subItem]
+                Array.isArray((specs as any)[subItem])
+                  ? (specs as any)[subItem]
                   : isString(subItem)
-                  ? subItem
-                  : // Now `NoMark` produces `items: []`, should be fixed in generator
-                    ['text', subItem],
+                    ? subItem
+                    : // Now `NoMark` produces `items: []`, should be fixed in generator
+                      ['text', subItem],
               )
               // Remove unsupported nodes & marks
               // Filter nodes
@@ -289,8 +281,6 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
     case 'enum':
       return isString(value) && spec.values.indexOf(value) > -1;
   }
-
-  return false;
 }
 
 const errorMessageFor = (type: string, message: string) =>

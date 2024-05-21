@@ -180,6 +180,9 @@ const invalidReferenceAdfLoadableWithoutUnsupported = [
   'invalid/mention-with-extra-attrs.json',
   'invalid/mention-with-invalid-user-type.json',
   'invalid/mention-with-invalid-local-id.json',
+  // NOTE -- this is being removed in
+  // https://bitbucket.org/atlassian/adf-schema/pull-requests/187/overview
+  'invalid/mention-with-marks.json',
   'invalid/mono-with-attrs.json',
   'invalid/orderedList-with-extra-attrs.json',
   'invalid/panel-with-empty-attrs.json',
@@ -250,23 +253,24 @@ describe('editor loading adf', () => {
   processADFSchemaJSON();
 
   const validAdfFileTestCases = getAdfReferenceFileNameAndContents('valid')
-  .filter(({name, adfDoc}) => ![
-    // to be removed after new panel node nesting rules is fully supported in PM Schema (added in ED-21611)
-    'valid/panel-with-codeBlock.json',
-    'valid/panel-with-decision.json',
-    'valid/panel-with-media.json',
-    'valid/panel-with-rule.json',
-    'valid/panel-with-task.json',
-    'valid/list-item-with-task.json',
-    // to be removed after back marks in extensionFrame is fully supported in PM Schema (added in ED-22219)
-    'valid/multiBodiedExtension-with-valid-content.json',
-    // to be removed after node-nesting for lists inside blockquote is fully supported in PM Schema (added in ED-20960)
-    'valid/blockquote-with-bullet-list-inside.json',
-    'valid/blockquote-with-ordered-list-inside.json',
-  ].includes(name))
-  .map(
-    ({ name, adfDoc }) => [name, adfDoc],
-  );
+    .filter(
+      ({ name, adfDoc }) =>
+        ![
+          // to be removed after new panel node nesting rules is fully supported in PM Schema (added in ED-21611)
+          'valid/panel-with-codeBlock.json',
+          'valid/panel-with-decision.json',
+          'valid/panel-with-media.json',
+          'valid/panel-with-rule.json',
+          'valid/panel-with-task.json',
+          'valid/list-item-with-task.json',
+          // to be removed after back marks in extensionFrame is fully supported in PM Schema (added in ED-22219)
+          'valid/multiBodiedExtension-with-valid-content.json',
+          // to be removed after node-nesting for lists inside blockquote is fully supported in PM Schema (added in ED-20960)
+          'valid/blockquote-with-bullet-list-inside.json',
+          'valid/blockquote-with-ordered-list-inside.json',
+        ].includes(name),
+    )
+    .map(({ name, adfDoc }) => [name, adfDoc]);
 
   it.each(validAdfFileTestCases)(
     `should load valid adf document: %s`,

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Info from '@atlaskit/icon/glyph/info';
 import Drawer from '@atlaskit/drawer';
-import Flag, { FlagGroup } from '@atlaskit/flag';
+import Flag, { FlagsProvider, useFlags, FlagGroup } from '@atlaskit/flag';
 import { Box } from '@atlaskit/primitives';
 
 const FlagsInDrawerExample = () => {
@@ -54,4 +54,49 @@ const FlagsInDrawerExample = () => {
   );
 };
 
-export default FlagsInDrawerExample;
+export default () => (
+  <Box>
+    <h2>Accessible Flag group in drawer</h2>
+    <FlagsInDrawerExample />
+    <h2>
+      Accessible Flag group in drawer using FlagsProvider and useFlags hook
+    </h2>
+    <DrawerWithFlagProviderExample />
+  </Box>
+);
+
+const FlagGroupInProvider = () => {
+  const { showFlag } = useFlags();
+  const addFlag = () => {
+    showFlag({
+      description: 'Example flag description',
+      icon: <Info label="Info" />,
+      title: `Example flag title`,
+    });
+  };
+  return (
+    <>
+      <Button onClick={addFlag}>Add flag</Button>
+    </>
+  );
+};
+const DrawerWithFlagProviderExample = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
+  return (
+    <>
+      <Drawer
+        label="Default drawer"
+        onClose={() => setOpen(false)}
+        isOpen={open}
+      >
+        <FlagsProvider shouldRenderToParent>
+          <FlagGroupInProvider />
+        </FlagsProvider>
+      </Drawer>
+      <Button appearance="primary" onClick={() => setOpen(true)}>
+        Open drawer
+      </Button>
+    </>
+  );
+};

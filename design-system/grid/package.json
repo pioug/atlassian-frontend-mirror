@@ -34,7 +34,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.3.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"

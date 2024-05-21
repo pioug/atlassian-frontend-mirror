@@ -48,11 +48,11 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
-    "@atlaskit/icon": "^22.2.0",
+    "@atlaskit/icon": "^22.3.0",
     "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/primitives": "^6.2.0",
+    "@atlaskit/primitives": "^6.3.0",
     "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

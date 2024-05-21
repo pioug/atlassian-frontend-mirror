@@ -1,15 +1,10 @@
 /** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { N200 } from '@atlaskit/theme/colors';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-
-const fontFamily = getFontFamily();
-
 export interface LabelProps {
   id?: string;
   htmlFor: string;
@@ -21,17 +16,14 @@ export interface LegendProps {
   children: ReactNode;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const fieldsetLabelStyles = css([
-  h200({ theme: { mode: 'light' } }),
-  {
-    display: 'inline-block',
-    marginTop: 0,
-    marginBottom: token('space.050', '4px'),
-    color: token('color.text.subtle', N200),
-    fontFamily: fontFamily,
-  },
-]);
+const fieldsetLabelStyles = css({
+  display: 'inline-block',
+  color: token('color.text.subtle', N200),
+  font: token('font.body.UNSAFE_small'),
+  fontWeight: token('font.weight.semibold', '600'),
+  marginBlockEnd: token('space.050', '4px'),
+  marginBlockStart: 0,
+});
 
 /**
  * __Label__

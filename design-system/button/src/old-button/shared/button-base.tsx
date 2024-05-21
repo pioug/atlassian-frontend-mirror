@@ -8,10 +8,15 @@ import React, {
   useRef,
 } from 'react';
 
-import { css, CSSObject, jsx, SerializedStyles } from '@emotion/react';
+import {
+  css,
+  type CSSObject,
+  jsx,
+  type SerializedStyles,
+} from '@emotion/react';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
@@ -23,7 +28,7 @@ import InteractionContext from '@atlaskit/interaction-context';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { BaseProps } from '../types';
+import { type BaseProps } from '../types';
 
 import blockEvents from './block-events';
 import { getContentStyle, getFadingCss, getIconStyle, overlayCss } from './css';
@@ -43,11 +48,23 @@ type ButtonBaseProps = BaseProps & {
   buttonCss: CSSObject;
 };
 
+/**
+ * These CSS variables consumed by the new icons, to allow them to have appropriate
+ * padding inside Button while also maintaining spacing for the existing icons.
+ *
+ * These styles can be removed once the new icons are fully rolled out, feature flag
+ * platform.design-system-team.enable-new-icons is cleaned up,
+ * and we bump Button to set padding based on the new icons.
+ */
 const iconBeforeSpacingFixStyle = css({
+  '--ds--button--new-icon-padding-end': token('space.025', '2px'),
+  '--ds--button--new-icon-padding-start': token('space.050', '4px'),
   marginInlineStart: token('space.negative.025', '-2px'),
 });
 
 const iconAfterSpacingFixStyle = css({
+  '--ds--button--new-icon-padding-end': token('space.050', '4px'),
+  '--ds--button--new-icon-padding-start': token('space.025', '2px'),
   marginInlineEnd: token('space.negative.025', '-2px'),
 });
 

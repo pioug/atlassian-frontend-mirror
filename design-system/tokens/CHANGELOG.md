@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.49.0
+
+### Minor Changes
+
+-   [#95202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95202)
+    [`6350f05328cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6350f05328cc) -
+    Adds new IconColor type to the CSS type schema
+
 ## 1.48.0
 
 ### Minor Changes

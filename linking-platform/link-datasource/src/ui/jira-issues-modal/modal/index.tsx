@@ -387,13 +387,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       const upToDateJqlUrl =
         selectedJiraSite &&
         jql &&
-        `${selectedJiraSite.url}/issues/?jql=${
-          getBooleanFF(
-            'platform.linking-platform.datasource.enable-stricter-jql-encoding',
-          )
-            ? encodeURIComponent(upToDateJql)
-            : encodeURI(upToDateJql)
-        }`;
+        `${selectedJiraSite.url}/issues/?jql=${encodeURIComponent(upToDateJql)}`;
 
       const filterSelectionCount = availableBasicFilterTypes.reduce(
         (current, filter) => ({
@@ -595,13 +589,7 @@ export const PlainJiraIssuesConfigModal = (props: JiraConfigModalProps) => {
       if (responseItems.length === 1 && retrieveUrlForSmartCardRender()) {
         url = retrieveUrlForSmartCardRender();
       } else {
-        url = `${selectedJiraSiteUrl}/issues/?jql=${
-          getBooleanFF(
-            'platform.linking-platform.datasource.enable-stricter-jql-encoding',
-          )
-            ? encodeURIComponent(jql)
-            : encodeURI(jql)
-        }`;
+        url = `${selectedJiraSiteUrl}/issues/?jql=${encodeURIComponent(jql)}`;
       }
       return <SmartLink url={url} />;
     }

@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 10.1.1
+
+### Patch Changes
+
+-   [#100993](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100993)
+    [`cb7514abb833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb7514abb833) -
+    Typography tokens for form labels.
+
 ## 10.1.0
 
 ### Minor Changes

@@ -63,14 +63,22 @@ const useDefaultButton = <TagName extends HTMLElement>({
     children: (
       <Fragment>
         {IconBefore && (
-          <Content type="icon" hasOverlay={hasOverlay}>
-            <IconBefore label="" size={UNSAFE_iconBefore_size} />
+          <Content type="icon" position="before" hasOverlay={hasOverlay}>
+            <IconBefore
+              label=""
+              size={UNSAFE_iconBefore_size}
+              color={'currentColor'}
+            />
           </Content>
         )}
         {children && <Content hasOverlay={hasOverlay}>{children}</Content>}
         {IconAfter && (
-          <Content type="icon" hasOverlay={hasOverlay}>
-            <IconAfter label="" size={UNSAFE_iconAfter_size} />
+          <Content type="icon" position="after" hasOverlay={hasOverlay}>
+            <IconAfter
+              label=""
+              size={UNSAFE_iconAfter_size}
+              color={'currentColor'}
+            />
           </Content>
         )}
       </Fragment>

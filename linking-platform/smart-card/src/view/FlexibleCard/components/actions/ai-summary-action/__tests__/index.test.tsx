@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render } from '@testing-library/react';
+import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { IntlProvider } from 'react-intl-next';
 
@@ -52,7 +52,7 @@ describe('AISummaryAction', () => {
     const renderResult = render(
       <AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
         <IntlProvider locale="en">
-          <AISummaryAction {...props} testId={testId} />
+          <AISummaryAction {...props} as="stack-item" testId={testId} />
         </IntlProvider>
       </AnalyticsListener>,
     );
@@ -156,7 +156,7 @@ describe('AISummaryAction', () => {
         actionSubject: 'button',
         eventType: 'ui',
         actionSubjectId: 'aiSummary',
-      }
+      },
     });
   });
 
@@ -235,6 +235,34 @@ describe('AISummaryAction', () => {
       expect(tooltip.textContent).toBe('Copied summary to clipboard');
     });
 
+    it('resets tooltip message after tooltip hides', async () => {
+      userEvent.setup();
+
+      const { findAllByText, queryAllByText, getByTestId } = setup(
+        undefined,
+        undefined,
+        {
+          status: 'done',
+          content: 'some fake content',
+        },
+      );
+
+      const element = getByTestId(`${testId}-copy-summary-action`);
+
+      await userEvent.click(element);
+      await findAllByText('Copied summary to clipboard');
+
+      await userEvent.unhover(element);
+      await waitForElementToBeRemoved(() =>
+        queryAllByText(`Copied summary to clipboard`),
+      );
+
+      await userEvent.hover(element);
+
+      const tooltip = await findAllByText('Copy summary');
+      expect(tooltip).toBeTruthy();
+    });
+
     it('fires expected analytics event when clicked', async () => {
       userEvent.setup();
 
@@ -251,7 +279,7 @@ describe('AISummaryAction', () => {
           actionSubject: 'button',
           eventType: 'ui',
           actionSubjectId: 'copySummary',
-        }
+        },
       });
     });
   });

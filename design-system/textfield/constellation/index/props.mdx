@@ -1,0 +1,48 @@
+---
+order: 1
+props:
+  packageName: '@atlaskit/textfield'
+  includeInternal: true
+  exports:
+  - default
+
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+## Props
+
+### Text field props
+
+<TSMorphProps exportName="default" packageName="@atlaskit/textfield" />
+
+### HTML Input props
+
+<SectionMessage>
+  <p>
+    <Snippet>@atlaskit/textfield</Snippet> extends {' '}
+    <a
+      rel="noopener noreferrer"
+      href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+      target="_blank"
+    >
+      <Snippet>HTML Input</Snippet>
+    </a>
+    {' '} and supports the props that a native
+    <a
+      rel="noopener noreferrer"
+      href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
+      target="_blank"
+    >
+      <Snippet>input</Snippet>
+    </a>
+    {' '}  element supports.
+    The prop <Snippet>disabled</Snippet> is not supported, please use <a href="#isDisabled">
+        <Snippet>isDisabled</Snippet>
+    </a>{' '} instead.
+  </p>
+</SectionMessage>
+
+#### Useful HTML `input` props
+
+<TSMorphProps exportName="default" packageName="@atlaskit/textfield" filter={{ only: ['type'] }} />

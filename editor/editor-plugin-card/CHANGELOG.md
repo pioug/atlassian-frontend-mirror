@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 1.14.0
+
+### Minor Changes
+
+-   [#100627](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100627)
+    [`619f85adfe8b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/619f85adfe8b) -
+    EDM-9852 Add initial inline link overlay for live pages support
+
+### Patch Changes
+
+-   [#101524](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101524)
+    [`4821570088e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4821570088e6) -
+    ED-23362 Bump ADF schema to version 36.8.1 and add support for adf validation and transformation
+
 ## 1.13.0
 
 ### Minor Changes

@@ -48,9 +48,9 @@
   "dependencies": {
     "@atlaskit/analytics-namespaced-context": "^6.9.0",
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/icon": "^22.2.0",
+    "@atlaskit/icon": "^22.3.0",
     "@atlaskit/theme": "^12.8.0",
-    "@atlaskit/tokens": "^1.48.0",
+    "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl-next/src/types';
 
+import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
 import {
@@ -40,6 +41,7 @@ import {
   deleteTableIfSelected,
   getTableSelectionType,
   setMultipleCellAttrs,
+  setTableAlignment,
 } from './commands/misc';
 import { sortByColumn } from './commands/sort';
 import { splitCell } from './commands/split-cell';
@@ -55,6 +57,7 @@ import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import type { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
 import { deleteRows, mergeCells } from './transforms';
 import type {
+  AlignmentOptions,
   InsertRowMethods,
   InsertRowOptions,
   RowInsertPosition,
@@ -691,4 +694,38 @@ export const toggleTableLockWithAnalytics =
         eventType: EVENT_TYPE.TRACK,
       };
     })(editorAnalyticsAPI)(editorCommandToPMCommand(setTableDisplayMode));
-// #endregion
+
+export const setTableAlignmentWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
+  (
+    newAlignment: AlignmentOptions,
+    // previous alignment could be a breakout value, if so use 'null' to indicate alignment was not previously set
+    previousAlignment: TableLayout,
+    inputMethod: INPUT_METHOD.FLOATING_TB,
+  ) =>
+    withEditorAnalyticsAPI((state) => {
+      const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(
+        state.selection,
+      );
+
+      return {
+        action: TABLE_ACTION.CHANGED_ALIGNMENT,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        actionSubjectId: null,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          tableWidth: table?.node.attrs.width,
+          newAlignment,
+          previousAlignment:
+            previousAlignment === 'center' ||
+            previousAlignment === 'align-start'
+              ? previousAlignment
+              : null,
+          totalRowCount,
+          totalColumnCount,
+          inputMethod,
+        },
+      };
+    })(editorAnalyticsAPI)(
+      editorCommandToPMCommand(setTableAlignment(newAlignment)),
+    );

@@ -3,7 +3,7 @@ import React from 'react';
 import {
   act,
   renderHook,
-  RenderHookOptions,
+  type RenderHookOptions,
 } from '@testing-library/react-hooks';
 import fetchMock from 'fetch-mock/cjs/client';
 
@@ -11,14 +11,10 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import {
-  ffTest,
-  getCurrentFeatureFlag,
-} from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import {
-  DatasourceTableStateProps,
+  type DatasourceTableStateProps,
   useDatasourceTableState,
 } from '../useDatasourceTableState';
 
@@ -62,59 +58,47 @@ describe('useDatasourceTableState', () => {
       });
     });
 
-    describe('should not see results from multiple renders of changed props + calling reset', () => {
-      ffTest(
-        'platform.linking-platform.datasource.enable-abort-controller',
-        async () => {
-          const { result, rerender } = setup({
-            parameters: {
-              // This cloud ID is mocked to return 1 item
-              cloudId: '11111',
-              jql: 'project=FOO',
-            },
-            fieldKeys: ['summary'],
-          });
-
-          expect(result.current.responseItems).toHaveLength(0);
-          expect(result.current.status).toBe('loading');
-
-          rerender({
-            parameters: {
-              // This cloud ID is mocked to return 1 item
-              cloudId: '11111',
-              jql: 'project=BAR',
-            },
-            fieldKeys: ['description'],
-          });
-
-          /**
-           * Simulates parent component calling reset in a useEffect when
-           * parameters have changed
-           */
-          act(() => {
-            result.current.reset();
-          });
-
-          expect(result.current.responseItems).toHaveLength(0);
-          expect(result.current.status).toBe('loading');
-
-          await act(async () => {
-            await flushPromises();
-          });
-
-          if (getCurrentFeatureFlag()?.[1]) {
-            // flag enabled = fixed. should be 1 response item
-            expect(result.current.responseItems).toHaveLength(1);
-            expect(result.current.responseItems[0].id.data).toBe('DONUT-11721');
-          } else {
-            // broken. should be 1 response item
-            expect(result.current.responseItems).toHaveLength(2);
-            expect(result.current.responseItems[0].id.data).toBe('DONUT-11720');
-          }
-
-          expect(result.current.status).toBe('resolved');
+    it('should not see results from multiple renders of changed props + calling reset', async () => {
+      const { result, rerender } = setup({
+        parameters: {
+          // This cloud ID is mocked to return 1 item
+          cloudId: '11111',
+          jql: 'project=FOO',
         },
-      );
+        fieldKeys: ['summary'],
+      });
+
+      expect(result.current.responseItems).toHaveLength(0);
+      expect(result.current.status).toBe('loading');
+
+      rerender({
+        parameters: {
+          // This cloud ID is mocked to return 1 item
+          cloudId: '11111',
+          jql: 'project=BAR',
+        },
+        fieldKeys: ['description'],
+      });
+
+      /**
+       * Simulates parent component calling reset in a useEffect when
+       * parameters have changed
+       */
+      act(() => {
+        result.current.reset();
+      });
+
+      expect(result.current.responseItems).toHaveLength(0);
+      expect(result.current.status).toBe('loading');
+
+      await act(async () => {
+        await flushPromises();
+      });
+
+      expect(result.current.responseItems).toHaveLength(1);
+      expect(result.current.responseItems[0].id.data).toBe('DONUT-11721');
+
+      expect(result.current.status).toBe('resolved');
     });
   });
 });

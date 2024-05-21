@@ -32,9 +32,6 @@
   "references": [
     {
       "path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/feature-flags/tsconfig.app.json"
     }
   ]
 }

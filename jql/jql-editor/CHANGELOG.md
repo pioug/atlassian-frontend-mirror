@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor
 
+## 4.3.0
+
+### Minor Changes
+
+-   [#100746](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100746)
+    [`8a7f333f8ce6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a7f333f8ce6) -
+    This cleans up feature flag references for the increased border contrast changes in JQL editor,
+    making them fully available for all users.
+
 ## 4.2.3
 
 ### Patch Changes

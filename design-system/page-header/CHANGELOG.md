@@ -1,5 +1,13 @@
 # @atlaskit/page-header
 
+## 10.6.0
+
+### Minor Changes
+
+-   [#100748](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100748)
+    [`ff76f4c7a63d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff76f4c7a63d) -
+    Add support for React 18.
+
 ## 10.5.0
 
 ### Minor Changes

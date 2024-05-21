@@ -31,6 +31,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
   const shadow: TransformedToken[] = [];
   const textColor: TransformedToken[] = [];
   const textColorPressed: TransformedToken[] = [];
+  const iconColor: TransformedToken[] = [];
   const opacity: TransformedToken[] = [];
 
   for (let i = 0; i < tokens.length; i++) {
@@ -57,6 +58,10 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
       } else {
         backgroundColor.push(token);
       }
+    }
+
+    if (token.path.includes('color') && token.path.includes('icon')) {
+      iconColor.push(token);
     }
 
     if (token.path.includes('color') && token.path.includes('border')) {
@@ -98,6 +103,8 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 export type BackgroundColorHovered = ${mapToCssVar(backgroundColorHovered)};
 
 export type BackgroundColorPressed = ${mapToCssVar(backgroundColorPressed)};
+
+export type IconColor = ${mapToCssVar(iconColor)};
 
 export type BorderColor = ${mapToCssVar(borderColor)};
 

@@ -7,6 +7,8 @@ import { size } from '../../..';
 import BookIcon from '../../../../glyph/book';
 import { size as defaultSize } from '../../..';
 import metadata from '../../../metadata';
+import metadataCore from '../../../metadata-core';
+import metadataUtility from '../../../metadata-utility';
 
 // List all files in a directory in Node.js recursively in a synchronous fashion
 const walkSync = (dir: string, filelist: string[]) => {
@@ -433,10 +435,71 @@ describe('@atlaskit/icon', () => {
     });
   });
 
+  describe('new icon exports', () => {
+    it('core icons align with metadata', () => {
+      // NOTE: An addition is a feature, a removal or rename is a BREAKING CHANGE
+      const expectedIcons = Object.keys(metadataCore);
+
+      const expectedPaths = expectedIcons.map((a) =>
+        path.join(__dirname, '../../../../core', `${a}.js`),
+      );
+
+      const actualPaths = walkSync(
+        path.join(__dirname, '../../../../core'),
+        [],
+      ).filter((ab) => /.*\.js$/.test(ab));
+
+      expect(actualPaths.sort()).toEqual(expectedPaths.sort());
+    });
+    it('utility icons align with metadata', () => {
+      // NOTE: An addition is a feature, a removal or rename is a BREAKING CHANGE
+      const expectedIcons = Object.keys(metadataUtility);
+
+      const expectedPaths = expectedIcons.map((a) =>
+        path.join(__dirname, '../../../../utility', `${a}.js`),
+      );
+
+      const actualPaths = walkSync(
+        path.join(__dirname, '../../../../utility'),
+        [],
+      ).filter((ab) => /.*\.js$/.test(ab));
+
+      expect(actualPaths.sort()).toEqual(expectedPaths.sort());
+    });
+  });
+
+  describe('bundle', () => {
+    it('has size export', () => {
+      expect(defaultSize).toEqual(size);
+    });
+  });
+
   describe('component structure', () => {
     Object.keys(metadata).forEach((key) => {
-      it(`should be possible to create the ${key} component`, async () => {
+      it(`should be possible to create the ${key} legacy icon component`, async () => {
         const component = await import(`../../../../glyph/${key}`);
+
+        const Icon = component.default;
+        render(<Icon label={Icon.name} />);
+        expect(screen.getByRole('img')).toBeInTheDocument();
+        expect(Icon).toBeInstanceOf(Function);
+      });
+    });
+
+    Object.keys(metadataCore).forEach((key) => {
+      it(`should be possible to create the ${key} core icon component`, async () => {
+        const component = await import(`../../../../core/${key}`);
+
+        const Icon = component.default;
+        render(<Icon label={Icon.name} />);
+        expect(screen.getByRole('img')).toBeInTheDocument();
+        expect(Icon).toBeInstanceOf(Function);
+      });
+    });
+
+    Object.keys(metadataUtility).forEach((key) => {
+      it(`should be possible to create the ${key} utility icon component`, async () => {
+        const component = await import(`../../../../utility/${key}`);
 
         const Icon = component.default;
         render(<Icon label={Icon.name} />);

@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 6.3.0
+
+### Minor Changes
+
+-   [#95202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95202)
+    [`b28e3d55ab88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b28e3d55ab88) -
+    Adds "Fill" to the set of exported style map types
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 6.2.0
 
 ### Minor Changes

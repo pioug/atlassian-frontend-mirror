@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import AutoDismissFlag from './auto-dismiss-flag';
 import Flag from './flag';
 import FlagGroup from './flag-group';
-import { FlagPropsWithoutId } from './types';
+import { type FlagPropsWithoutId } from './types';
 
 type FlagId = string | number;
 
@@ -50,7 +50,13 @@ const getUniqueId = (() => {
   return () => `flag-provider-unique-id:${count++}`;
 })();
 
-export function FlagsProvider({ children }: { children: React.ReactNode }) {
+export function FlagsProvider({
+  children,
+  shouldRenderToParent,
+}: {
+  children: React.ReactNode;
+  shouldRenderToParent?: boolean;
+}) {
   const [flags, setFlags] = useState<FlagArgs[]>([]);
 
   const removeFlag = useCallback((id: FlagId) => {
@@ -94,7 +100,10 @@ export function FlagsProvider({ children }: { children: React.ReactNode }) {
   return (
     <>
       <FlagContext.Provider value={api}>{children}</FlagContext.Provider>
-      <FlagGroup onDismissed={removeFlag}>
+      <FlagGroup
+        onDismissed={removeFlag}
+        shouldRenderToParent={shouldRenderToParent}
+      >
         {flags.map((flag) => {
           const { isAutoDismiss, ...restProps } = flag;
           const FlagType = isAutoDismiss ? AutoDismissFlag : Flag;

@@ -7,20 +7,11 @@
  */
 //Danish (Denmark)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Sortér kolonnen fra Å til A',
   'fabric.editor.headingLink.ascSortingLabel': 'stigende',
   'fabric.editor.headingLink.copied': 'Kopieret!',
   'fabric.editor.headingLink.copyAnchorLink': 'Kopiér link til overskrift',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopiér',
-  'fabric.editor.headingLink.descOrderLabel': 'Ryd sortering',
   'fabric.editor.headingLink.descSortingLabel': 'faldende',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering mislykkedes',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ En tabel med flettede celler kan ikke sorteres',
-  'fabric.editor.headingLink.noOrderLabel': 'Sortér kolonnen fra A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
-  'fabric.editor.tableHeader.sorting.asc': 'Stigende sortering anvendt',
-  'fabric.editor.tableHeader.sorting.default': 'Sortér kolonnen',
-  'fabric.editor.tableHeader.sorting.desc': 'Faldende sortering anvendt',
-  'fabric.editor.tableHeader.sorting.invalid': 'Du kan ikke sortere en tabel med flettede celler',
-  'fabric.editor.tableHeader.sorting.no': 'Ingen sortering anvendt på kolonnen',
 };

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b051791a815e8e24cace909e056b99d>>
+ * @codegen <<SignedSource::873558ad2ac06a865c6a318cb5b693db>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -198,7 +198,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize32",
-        "lineHeight": "LineHeight600",
+        "lineHeight": "LineHeight36",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -234,7 +234,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize28",
-        "lineHeight": "LineHeight500",
+        "lineHeight": "LineHeight32",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -270,7 +270,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize24",
-        "lineHeight": "LineHeight400",
+        "lineHeight": "LineHeight28",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -306,7 +306,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize20",
-        "lineHeight": "LineHeight300",
+        "lineHeight": "LineHeight24",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -340,7 +340,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize16",
-        "lineHeight": "LineHeight200",
+        "lineHeight": "LineHeight20",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -374,7 +374,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize14",
-        "lineHeight": "LineHeight100",
+        "lineHeight": "LineHeight16",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -408,7 +408,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight700",
         "fontSize": "FontSize12",
-        "lineHeight": "LineHeight100",
+        "lineHeight": "LineHeight16",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -442,7 +442,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight400",
         "fontSize": "FontSize16",
-        "lineHeight": "LineHeight300",
+        "lineHeight": "LineHeight24",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -476,7 +476,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight400",
         "fontSize": "FontSize14",
-        "lineHeight": "LineHeight200",
+        "lineHeight": "LineHeight20",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -510,7 +510,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight400",
         "fontSize": "FontSize12",
-        "lineHeight": "LineHeight100",
+        "lineHeight": "LineHeight16",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"
@@ -544,7 +544,7 @@ const tokens = [
       "value": {
         "fontWeight": "FontWeight400",
         "fontSize": "FontSize12",
-        "lineHeight": "LineHeight100",
+        "lineHeight": "LineHeight16",
         "fontFamily": "FontFamilyWebSans",
         "fontStyle": "normal",
         "letterSpacing": "LetterSpacing0"

@@ -30,6 +30,7 @@ import type {
   DatasourceAdfView,
 } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
+import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
@@ -348,7 +349,7 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
           style={{
             minWidth: this.isNodeNested
               ? '100%'
-              : calcBreakoutWidth(attrs.layout, this.tableWidth),
+              : calcBreakoutWidth(attrs.layout || DATASOURCE_DEFAULT_LAYOUT, this.tableWidth),
           }}
         >
           <DatasourceComponent

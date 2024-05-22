@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.4.1
+
+### Patch Changes
+
+-   [#102015](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102015)
+    [`2504a09f0054`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2504a09f0054) -
+    Fix tokens for text colors in Search result card
+
 ## 7.4.0
 
 ### Minor Changes

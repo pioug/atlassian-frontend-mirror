@@ -22,6 +22,7 @@ const camelCaseToSentenceCase = (text: string) => {
   return result.charAt(0).toUpperCase() + result.slice(1);
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   display: 'flex',
   flexDirection: 'row',

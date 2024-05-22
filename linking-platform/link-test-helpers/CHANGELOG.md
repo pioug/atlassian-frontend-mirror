@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 7.0.8
+
+### Patch Changes
+
+-   [#99133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99133)
+    [`55c0df6b4471`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55c0df6b4471) -
+    Adds mocks with no example links throwing errors for doc examples.
+
 ## 7.0.7
 
 ### Patch Changes

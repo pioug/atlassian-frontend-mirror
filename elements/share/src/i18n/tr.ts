@@ -53,6 +53,7 @@ export default {
   'fabric.elements.share.invite.to.jira': "Jira'ya davet et",
   'fabric.elements.share.main.tab.text.confluence': 'Sayfayı paylaşın',
   'fabric.elements.share.main.tab.text.jira': 'Konuyu paylaşın',
+  'fabric.elements.share.popup.label': 'Paylaş',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blog gönderisi paylaşıldı}board {Pano paylaşıldı}calendar {Takvim paylaşıldı}draft {Taslak paylaşıldı}filter {Filtre paylaşıldı}issue {Konu paylaşıldı}summary {Özet paylaşıldı}list {Liste paylaşıldı}timeline {Zaman Çizelgesi paylaşıldı}form {Form paylaşıldı}media {Medya paylaşıldı}page {Sayfa paylaşıldı}project {Proje paylaşıldı}pullrequest {Çekme İsteği paylaşıldı}question {Soru paylaşıldı}report {Rapor paylaşıldı}repository {Depo paylaşıldı}request {Talep paylaşıldı}roadmap {Zaman Çizelgesi paylaşıldı}site {Site paylaşıldı}space {Alan paylaşıldı}other {Bağlantı paylaşıldı}}',
   'fabric.elements.share.to.integration.button': '{integrationName} üzerinden paylaş',

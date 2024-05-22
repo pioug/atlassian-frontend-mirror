@@ -11,6 +11,7 @@ import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
+import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -34,7 +35,7 @@ const toolbarButtonWrapperStyles = css({
 
 export const LayoutButton = ({
   onLayoutChange,
-  layout = 'center',
+  layout = DATASOURCE_DEFAULT_LAYOUT,
   intl: { formatMessage },
   mountPoint,
   boundariesElement,
@@ -94,7 +95,9 @@ const LayoutButtonWrapper = ({
   const { cardState } = useSharedPluginState(api, ['card']);
   const { node, pos } = getDatasource(editorView);
 
-  const { datasourceTableRef, layout = node?.attrs?.layout || 'center' } =
+  //  If layout doesn't exist in ADF it returns null, we want to change to undefined
+  //  which results in default parameter value being used in LayoutButton.
+  const { datasourceTableRef, layout = node?.attrs?.layout || undefined } =
     cardState ?? {};
 
   const isDatasource = !!node?.attrs?.datasource;

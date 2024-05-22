@@ -101,6 +101,7 @@ type InsertTableAEP = InsertAEP<
       | INPUT_METHOD.SHORTCUT;
     totalRowCount?: number;
     totalColumnCount?: number;
+    localId?: string;
   },
   undefined
 >;

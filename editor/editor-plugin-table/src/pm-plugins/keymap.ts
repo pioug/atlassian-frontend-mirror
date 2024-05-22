@@ -1,13 +1,7 @@
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   addColumnAfter,
   addColumnBefore,
@@ -37,7 +31,7 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { createTable, goToNextCell, moveCursorBackward } from '../commands';
+import { goToNextCell, moveCursorBackward } from '../commands';
 import {
   addRowAroundSelection,
   changeColumnWidthByStepWithAnalytics,
@@ -53,25 +47,10 @@ import {
 import {
   addColumnAfter as addColumnAfterCommand,
   addColumnBefore as addColumnBeforeCommand,
+  createTable,
 } from '../commands/insert';
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { PluginInjectionAPIWithA11y } from '../types';
-import { withEditorAnalyticsAPI } from '../utils/analytics';
-
-const createTableWithAnalytics = (
-  isTableScalingEnabled: boolean,
-  isFullWidthModeEnabled: boolean,
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-) =>
-  withEditorAnalyticsAPI({
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-    attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
-    eventType: EVENT_TYPE.TRACK,
-  })(editorAnalyticsAPI)(
-    createTable(isTableScalingEnabled, isFullWidthModeEnabled),
-  );
 
 export function keymapPlugin(
   getEditorContainerWidth: GetEditorContainerWidth,
@@ -99,7 +78,7 @@ export function keymapPlugin(
   );
   bindKeymapWithCommand(
     toggleTable.common!,
-    createTableWithAnalytics(
+    createTable(
       isTableScalingEnabled,
       !!isFullWidthEnabled,
       editorAnalyticsAPI,

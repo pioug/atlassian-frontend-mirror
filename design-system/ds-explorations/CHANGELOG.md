@@ -1,5 +1,13 @@
 # @atlaskit/ds-explorations
 
+## 4.0.0
+
+### Major Changes
+
+-   [#101788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101788)
+    [`1c8f141e2bb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1c8f141e2bb6) -
+    Removed Text component. Use `@atlaskit/primitives` instead.
+
 ## 3.5.2
 
 ### Patch Changes

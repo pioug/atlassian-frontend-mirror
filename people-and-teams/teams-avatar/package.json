@@ -40,7 +40,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/avatar": "^21.9.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",

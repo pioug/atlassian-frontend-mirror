@@ -29,6 +29,7 @@ const widthObserverWrapperStyles = xcss({
   position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const AvatarGroupWrapperStyles = styled.div({
   ul: {
     paddingLeft: '0px !important',

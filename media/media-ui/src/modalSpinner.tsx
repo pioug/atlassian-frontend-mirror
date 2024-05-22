@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 
 const overlayZindex = layers.modal() + 10;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Blanket = styled.div({
   position: 'fixed',
   top: 0,
@@ -16,6 +17,7 @@ export const Blanket = styled.div({
 });
 Blanket.displayName = 'Blanket';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SpinnerWrapper = styled.div({
   position: 'absolute',
   top: '50%',

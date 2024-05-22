@@ -7,20 +7,11 @@
  */
 //Chinese (Traditional)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': '從 Z 欄排序到 A 欄',
   'fabric.editor.headingLink.ascSortingLabel': '遞增',
   'fabric.editor.headingLink.copied': '已複製！',
   'fabric.editor.headingLink.copyAnchorLink': '複製標題連結',
   'fabric.editor.headingLink.copyAriaLabel': '複製',
-  'fabric.editor.headingLink.descOrderLabel': '清除排序',
   'fabric.editor.headingLink.descSortingLabel': '遞減',
   'fabric.editor.headingLink.failedToCopy': '複製失敗',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ 您無法排序包含合併儲存格的表格',
-  'fabric.editor.headingLink.noOrderLabel': '從 A 欄排序到 Z 欄',
   'fabric.editor.headingLink.noneSortingLabel': '無',
-  'fabric.editor.tableHeader.sorting.asc': '已套用遞增排序',
-  'fabric.editor.tableHeader.sorting.default': '排序直欄',
-  'fabric.editor.tableHeader.sorting.desc': '已套用遞減排序',
-  'fabric.editor.tableHeader.sorting.invalid': '您無法使用合併的儲存格來排序表格',
-  'fabric.editor.tableHeader.sorting.no': '沒有套用至直欄的排序',
 };

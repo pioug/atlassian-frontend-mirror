@@ -106,6 +106,7 @@ export const TableComponentWithSharedState = ({
       isHeaderColumnEnabled={isHeaderColumnEnabled}
       isDragAndDropEnabled={options?.isDragAndDropEnabled}
       isTableScalingEnabled={options?.isTableScalingEnabled}
+      isTableAlignmentEnabled={options?.isTableAlignmentEnabled}
       tableActive={tableActive}
       ordering={ordering}
       isResizing={isResizing}

@@ -4,21 +4,22 @@ import {
   createElement,
   forwardRef,
   Fragment,
-  MouseEventHandler,
-  ReactNode,
-  Ref,
+  type MouseEventHandler,
+  type ReactNode,
+  type Ref,
 } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
-import { CSSInterpolation } from '@emotion/serialize';
+import { type CSSInterpolation } from '@emotion/serialize';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { Text } from '@atlaskit/primitives';
 import { B200, B50, N30 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { BORDER_WIDTH } from './constants';
-import Text from './Text';
-import { AvatarClickEventHandler } from './types';
+import { type AvatarClickEventHandler } from './types';
 import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 
 const avatarItemStyles = css({
@@ -27,6 +28,22 @@ const avatarItemStyles = css({
   flex: '1 1 100%',
   lineHeight: '1.4',
   paddingInlineStart: token('space.100', '8px'),
+});
+
+const secondaryTextOldStyles = css({
+  color: token('color.text.subtlest'),
+  fontSize: '0.85em',
+});
+
+const baseTextStyles = css({
+  display: 'block',
+  color: token('color.text'),
+});
+
+const truncationStyles = css({
+  overflowX: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 });
 
 export interface CustomAvatarItemProps {
@@ -227,12 +244,42 @@ const AvatarItem = forwardRef<HTMLElement, AvatarItemProps>(
               <Fragment>
                 {avatar}
                 <div css={avatarItemStyles}>
-                  <Text shouldTruncate={!isTruncationDisabled!}>
-                    {primaryText}
-                  </Text>
-                  <Text isSecondary shouldTruncate={!isTruncationDisabled!}>
-                    {secondaryText}
-                  </Text>
+                  {getBooleanFF(
+                    'platform.design-system-team.avatar-item-font-size_830x6',
+                  ) ? (
+                    <Fragment>
+                      <Text maxLines={isTruncationDisabled ? undefined : 1}>
+                        {primaryText}
+                      </Text>
+                      <Text
+                        color="color.text.subtlest"
+                        maxLines={isTruncationDisabled! ? undefined : 1}
+                        size="UNSAFE_small"
+                      >
+                        {secondaryText}
+                      </Text>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <span
+                        css={[
+                          baseTextStyles,
+                          !isTruncationDisabled && truncationStyles,
+                        ]}
+                      >
+                        {primaryText}
+                      </span>
+                      <span
+                        css={[
+                          baseTextStyles,
+                          secondaryTextOldStyles,
+                          !isTruncationDisabled && truncationStyles,
+                        ]}
+                      >
+                        {secondaryText}
+                      </span>
+                    </Fragment>
+                  )}
                 </div>
               </Fragment>
             ),

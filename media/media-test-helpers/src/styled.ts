@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LocaleSelectorWrapper = styled.div({
   position: 'fixed',
   right: token('space.250', '20px'),

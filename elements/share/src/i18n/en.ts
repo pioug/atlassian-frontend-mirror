@@ -55,6 +55,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Invite to Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Share page',
   'fabric.elements.share.main.tab.text.jira': 'Share issue',
+  'fabric.elements.share.popup.label': 'Share',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blog post shared}board {Board shared}calendar {Calendar shared}draft {Draft shared}filter {Filter shared}issue {Issue shared}summary {Summary shared}list {List shared}timeline {Timeline shared}form {Form shared}media {Media shared}page {Page shared}project {Project shared}pullrequest {Pull Request shared}question {Question shared}report {Report shared}repository {Repository shared}request {Request shared}roadmap {Timeline shared}site {Site shared}space {Space shared}other {Link Shared}}',
   'fabric.elements.share.to.integration.button': 'Share to {integrationName}',

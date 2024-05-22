@@ -1,5 +1,15 @@
 # @atlaskit/image
 
+## 1.2.1
+
+### Patch Changes
+
+-   [#89307](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/89307)
+    [`47cdc66371fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/47cdc66371fb) -
+    [ux] Fix bug where images flickered in dark mode. Source URLs are now set based on the current
+    theme before first paint.
+-   Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

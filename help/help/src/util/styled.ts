@@ -7,6 +7,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { WHATS_NEW_ITEM_TYPES } from '../model/WhatsNew';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const DividerLine = styled.div({
   backgroundColor: token('color.border', colors.N30A),
   height: '2px',
@@ -35,6 +36,7 @@ const shimmer = keyframes({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingRectangle = styled.div<LoadingRectangleProps>((props) => ({
   display: 'inline-block',
   verticalAlign: 'middle',
@@ -67,6 +69,7 @@ type LoadingCircleProps = {
   marginTop?: string;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingCircle = styled.div<LoadingCircleProps>((props) => ({
   display: 'inline-block',
   verticalAlign: 'middle',
@@ -98,7 +101,7 @@ type WhatsNewTypeIconProps = {
   type?: WHATS_NEW_ITEM_TYPES;
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewTypeIcon = styled.div<WhatsNewTypeIconProps>`
   display: inline-block;
   vertical-align: middle;

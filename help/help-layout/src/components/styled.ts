@@ -7,6 +7,7 @@ import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Container = styled.div({
   position: 'absolute',
   top: 0,
@@ -18,6 +19,7 @@ export const Container = styled.div({
   backgroundColor: token('elevation.surface', '#FFFFFF'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Section = styled.div({
   flexGrow: 1,
   display: 'flex',
@@ -25,6 +27,7 @@ export const Section = styled.div({
   minHeight: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const DividerLine = styled.div({
   backgroundColor: token('color.border', colors.N30A),
   height: token('space.025', '2px'),
@@ -34,6 +37,7 @@ export const DividerLine = styled.div({
   boxSizing: 'border-box',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const HelpFooter = styled.div({
   padding: `${token('space.100', '8px')} 0`,
   boxSizing: 'border-box',
@@ -49,6 +53,7 @@ export const HelpFooter = styled.div({
  * Loading
  */
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingContainer = styled.div({
   padding: token('space.200', '16px'),
   height: '100%',
@@ -69,6 +74,7 @@ const shimmer = keyframes({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingRectangle = styled.div<LoadingRectangleProps>`
   position: relative;
   height: ${(props) =>

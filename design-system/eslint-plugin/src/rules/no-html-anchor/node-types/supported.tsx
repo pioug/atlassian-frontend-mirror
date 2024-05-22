@@ -14,6 +14,15 @@ const supportedElements: SupportedElements = [
   {
     name: 'a',
   },
+  {
+    name: '*',
+    attributes: [
+      {
+        name: 'role',
+        values: ['link'],
+      },
+    ],
+  },
 ];
 
 /**

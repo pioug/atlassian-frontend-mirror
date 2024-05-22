@@ -1,11 +1,11 @@
 import {
-  CardAppearance,
-  BlockCardAdf,
-  CardAdf,
-  EmbedCardAdf,
-  InlineCardAdf,
-  DatasourceAdf,
-  Datasource,
+  type CardAppearance,
+  type BlockCardAdf,
+  type CardAdf,
+  type EmbedCardAdf,
+  type InlineCardAdf,
+  type DatasourceAdf,
+  type Datasource,
 } from '@atlaskit/linking-common';
 
 export class Transformer {

@@ -55,6 +55,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Inviter à rejoindre Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Partager la page',
   'fabric.elements.share.main.tab.text.jira': 'Partager le ticket',
+  'fabric.elements.share.popup.label': 'Partager',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Billet de blog partagé}board {Tableau partagé}calendar {Calendrier partagé}draft {Brouillon partagé}filter {Filtre partagé}issue {Ticket partagé}summary {Résumé partagé}list {Liste partagée}timeline {Chronologie partagée}form {Formulaire partagé}media {Média partagé}page {Page partagée}project {Projet partagé}pullrequest {Pull request partagée}question {Question partagée}report {Rapport partagé}repository {Dépôt partagé}request {Demande partagée}roadmap {Chronologie partagée}site {Site partagé}space {Espace partagé}other {Lien partagé}}',
   'fabric.elements.share.to.integration.button': 'Partager avec {integrationName}',

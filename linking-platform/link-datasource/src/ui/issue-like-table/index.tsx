@@ -11,6 +11,7 @@ import {
 
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
+import debounce from 'lodash/debounce';
 import { useIntl } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
@@ -28,6 +29,7 @@ import { N40 } from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+import { WidthObserver } from '@atlaskit/width-detector';
 
 import {
   startUfoExperience,
@@ -69,26 +71,28 @@ const truncateTextStyles = css({
   whiteSpace: 'nowrap',
 });
 
+const columnPickerWidth = 80;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ColumnPickerHeader = styled.th({
-  [`${withTablePluginHeaderPrefix()}`]: {
-    boxSizing: 'content-box',
+  [`${withTablePluginHeaderPrefix('&:last-of-type')}`]: {
+    boxSizing: 'border-box',
     border: 0,
-    width: '56px',
+    width: `${columnPickerWidth}px`,
     zIndex: 10,
     position: 'sticky',
     right: `calc(-1 * ${tableSidePadding})`,
     backgroundColor: token('utility.elevation.surface.current', '#FFF'),
+    /* It is required to have solid (not half-transparent) color because of this gradient business below */
     borderBottom: `2px solid ${token('color.border', N40)}`,
-    paddingRight: token('space.100', '4px'),
+    paddingRight: tableSidePadding,
     background: `linear-gradient( 90deg, rgba(255, 255, 255, 0) 0%, ${token(
       'utility.elevation.surface.current',
       '#FFF',
     )} 10% )`,
+    /* Keeps dropdown button in the middle */
     verticalAlign: 'middle',
+    /* In case when TH itself is bigger we want to keep picker at the right side */
     textAlign: 'right',
-  },
-  [`${withTablePluginHeaderPrefix('&:last-of-type')}`]: {
-    paddingRight: tableSidePadding,
   },
 });
 
@@ -97,8 +101,10 @@ const truncateStyles = css({
   whiteSpace: 'nowrap',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableCell = styled.td({
   [`${withTablePluginBodyPrefix()}`]: {
+    /* First section here is to override things editor table plugin css defines */
     font: fieldTextFontSize,
     padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
     border: 0,
@@ -119,7 +125,7 @@ const TableCell = styled.td({
   // Inline smart links are pretty opinionated about word-wrapping.
   // We want it to be controlled by user, so we make it overflow and truncate by default.
   ["& [data-testid='inline-card-icon-and-title'], " +
-  "& [data-testid='button-connect-account'] > span"]: {
+    "& [data-testid='button-connect-account'] > span"]: {
     whiteSpace: 'unset',
   },
 });
@@ -128,6 +134,7 @@ const tableContainerStyles = css({
   borderRadius: 'inherit',
   borderBottomLeftRadius: 0,
   borderBottomRightRadius: 0,
+  position: 'relative',
 });
 
 /**
@@ -293,6 +300,9 @@ const tableStyles = css({
   // This happens because it is sticky. https://stackoverflow.com/questions/50361698/border-style-do-not-work-with-sticky-position-element
   borderCollapse: 'separate',
   borderSpacing: 0,
+  // There is a strange table:first-of-type rule that sets margin-top to 0 coming from container,
+  // but because our table is now not the first child (there is an empty div to measure width) we need to set it manually.
+  margin: 0,
 });
 
 // By default tbody and thead have border-bottom: 2px ...
@@ -324,7 +334,7 @@ export interface RowType {
 
 export interface RowCellType {
   key: string;
-  width: number;
+  width?: number;
   shouldTruncate?: boolean;
   content?: React.ReactNode | string;
 }
@@ -437,6 +447,19 @@ export const IssueLikeDataTableView = ({
     getOrderedColumns([...columns], [...visibleColumnKeys]),
   );
 
+  // Table container width is used to know if sum of all column widths is bigger of container or not.
+  // When sum of all columns is less than container size we make last column stretchable (width: undefined)
+  const [tableContainerWidth, setTableContainerWidth] = useState<
+    number | undefined
+  >();
+
+  useEffect(() => {
+    const { current } = containerRef;
+    if (containerRef && current) {
+      setTableContainerWidth(current.getBoundingClientRect().width);
+    }
+  }, [containerRef]);
+
   useEffect(() => {
     if (!hasFullSchema) {
       setOrderedColumns(
@@ -470,21 +493,48 @@ export const IssueLikeDataTableView = ({
 
   const identityColumnKey = 'id';
 
+  const columnsWidthsSum = useMemo(
+    () =>
+      visibleSortedColumns
+        .map(
+          ({ key, type }) =>
+            columnCustomSizes?.[key] || getDefaultColumnWidth(key, type),
+        )
+        .reduce((sum, width) => width + sum, 0) +
+      (onVisibleColumnKeysChange ? columnPickerWidth : 0),
+    [columnCustomSizes, onVisibleColumnKeysChange, visibleSortedColumns],
+  );
+
+  const shouldUseWidth = !!(onColumnResize || columnCustomSizes);
+
   const getColumnWidth = useCallback(
-    (key: string, type: DatasourceType['type']) =>
-      columnCustomSizes?.[key] || getDefaultColumnWidth(key, type),
-    [columnCustomSizes],
+    (key: string, type: DatasourceType['type'], isLastCell: boolean) => {
+      if (
+        isLastCell &&
+        shouldUseWidth &&
+        (!tableContainerWidth || tableContainerWidth > columnsWidthsSum)
+      ) {
+        return undefined;
+      } else {
+        return columnCustomSizes?.[key] || getDefaultColumnWidth(key, type);
+      }
+    },
+    [columnCustomSizes, columnsWidthsSum, shouldUseWidth, tableContainerWidth],
   );
 
   const headerColumns: Array<RowCellType> = useMemo(
     () =>
       visibleSortedColumns.map(
-        ({ key, title, type }) =>
+        ({ key, title, type }, index) =>
           ({
             key,
             content: title,
             shouldTruncate: true,
-            width: getColumnWidth(key, type),
+            width: getColumnWidth(
+              key,
+              type,
+              index === visibleSortedColumns.length - 1,
+            ),
           }) as RowCellType,
       ),
     [getColumnWidth, visibleSortedColumns],
@@ -604,51 +654,56 @@ export const IssueLikeDataTableView = ({
   const tableRows: Array<RowType> = useMemo(
     () =>
       items.map<RowType>((newRowData, rowIndex) => ({
-        key: `${
-          (identityColumnKey &&
+        key: `${(identityColumnKey &&
             newRowData[identityColumnKey] &&
             newRowData[identityColumnKey].data) ||
           rowIndex
-        }`,
-        cells: visibleSortedColumns.map<RowCellType>(({ key, type }) => {
-          // Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-          const value = newRowData[key]?.data;
-          const values = Array.isArray(value) ? value : [value];
+          }`,
+        cells: visibleSortedColumns.map<RowCellType>(
+          ({ key, type }, cellIndex) => {
+            // Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+            const value = newRowData[key]?.data;
+            const values = Array.isArray(value) ? value : [value];
 
-          const renderedValues = renderItem({
-            type,
-            values,
-          } as DatasourceTypeWithOnlyValues);
+            const renderedValues = renderItem({
+              type,
+              values,
+            } as DatasourceTypeWithOnlyValues);
 
-          const stringifiedContent = values
-            .map(value =>
-              stringifyType(
-                { type, value } as DatasourceType,
-                intl.formatMessage,
-                intl.formatDate,
+            const stringifiedContent = values
+              .map(value =>
+                stringifyType(
+                  { type, value } as DatasourceType,
+                  intl.formatMessage,
+                  intl.formatDate,
+                ),
+              )
+              .filter(value => value !== '')
+              .join(', ');
+            const contentComponent =
+              stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
+                <Tooltip
+                  tag={TruncateTextTag}
+                  content={stringifiedContent}
+                  testId="issues-table-cell-tooltip"
+                >
+                  {renderedValues}
+                </Tooltip>
+              ) : (
+                renderedValues
+              );
+
+            return {
+              key,
+              content: contentComponent,
+              width: getColumnWidth(
+                key,
+                type,
+                cellIndex === visibleSortedColumns.length - 1,
               ),
-            )
-            .filter(value => value !== '')
-            .join(', ');
-          const contentComponent =
-            stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
-              <Tooltip
-                tag={TruncateTextTag}
-                content={stringifiedContent}
-                testId="issues-table-cell-tooltip"
-              >
-                {renderedValues}
-              </Tooltip>
-            ) : (
-              renderedValues
-            );
-
-          return {
-            key,
-            content: contentComponent,
-            width: getColumnWidth(key, type),
-          };
-        }),
+            };
+          },
+        ),
         ref:
           rowIndex === items.length - 1
             ? el => setLastRowElement(el)
@@ -720,8 +775,6 @@ export const IssueLikeDataTableView = ({
     onLoadDatasourceDetails,
   ]);
 
-  const shouldUseWidth = !!(onColumnResize || columnCustomSizes);
-
   const isEditable = onVisibleColumnKeysChange && hasData;
 
   return (
@@ -739,11 +792,13 @@ export const IssueLikeDataTableView = ({
       style={
         scrollableContainerHeight
           ? {
-              maxHeight: `${scrollableContainerHeight}px`,
-            }
+            maxHeight: `${scrollableContainerHeight}px`,
+          }
           : undefined
       }
+      data-testid={'issue-like-table-container'}
     >
+      <WidthObserver setWidth={debounce(setTableContainerWidth, 100)} />
       <Table
         css={tableStyles}
         data-testid={testId}

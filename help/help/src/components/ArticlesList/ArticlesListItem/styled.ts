@@ -8,6 +8,7 @@ type ArticlesListItemWrapperProps = {
   styles: any;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemWrapper = styled.a<ArticlesListItemWrapperProps>(
   {
     position: 'relative',
@@ -50,6 +51,7 @@ export const ArticlesListItemWrapper = styled.a<ArticlesListItemWrapperProps>(
   (props: any) => props.styles,
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemContainer = styled.div({
   width: '100%',
   whiteSpace: 'nowrap',
@@ -62,18 +64,21 @@ export const ArticlesListItemTitleSection = styled.div({
   flexGrow: 1,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemTypeTitle = styled.div({
   font: token('font.body.small', fontFallback.body.small),
   fontWeight: token('font.weight.bold', 'bold'),
   color: token('color.text.subtlest', colors.N200),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemLinkIcon = styled.span({
   alignSelf: 'auto',
   paddingInlineStart: token('space.050', '4px'),
   verticalAlign: 'middle',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemTitleText = styled.p({
   textDecoration: 'none',
   color: token('color.text', colors.N800),
@@ -84,6 +89,7 @@ export const ArticlesListItemTitleText = styled.p({
   marginBottom: token('space.100', '4px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ArticlesListItemDescription = styled.p({
   display: 'block',
   lineHeight: '20px',

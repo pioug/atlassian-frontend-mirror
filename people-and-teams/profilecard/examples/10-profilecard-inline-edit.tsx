@@ -15,11 +15,13 @@ import { Team } from '../src/types';
 import { Radios, TeamCustomizer } from './helper/customization';
 import ExampleWrapper from './helper/example-wrapper';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const EditViewContainer = styled.div({
   zIndex: 300,
   position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   border: `1px solid ${token('color.border', '#ccc')}`,
   borderRadius: '3px',

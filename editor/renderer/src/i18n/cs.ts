@@ -7,20 +7,11 @@
  */
 //Czech
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Seřadit sloupec od Z do A',
   'fabric.editor.headingLink.ascSortingLabel': 'vzestupně',
   'fabric.editor.headingLink.copied': 'Zkopírováno!',
   'fabric.editor.headingLink.copyAnchorLink': 'Kopírovat odkaz na nadpis',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopírovat',
-  'fabric.editor.headingLink.descOrderLabel': 'Zrušit řazení',
   'fabric.editor.headingLink.descSortingLabel': 'sestupně',
   'fabric.editor.headingLink.failedToCopy': 'Kopírování se nezdařilo',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Tabulku se sloučenými buňkami nelze seřadit',
-  'fabric.editor.headingLink.noOrderLabel': 'Seřadit sloupec od A do Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Žádné',
-  'fabric.editor.tableHeader.sorting.asc': 'Bylo použito vzestupné řazení',
-  'fabric.editor.tableHeader.sorting.default': 'Seřadit sloupec',
-  'fabric.editor.tableHeader.sorting.desc': 'Bylo použito sestupné řazení',
-  'fabric.editor.tableHeader.sorting.invalid': 'Tabulku se sloučenými buňkami nejde seřadit',
-  'fabric.editor.tableHeader.sorting.no': 'U sloupce není použito žádné řazení',
 };

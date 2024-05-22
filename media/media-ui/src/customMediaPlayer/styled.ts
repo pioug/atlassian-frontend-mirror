@@ -13,6 +13,7 @@ type VolumeWrapperProps = {
   showSlider: boolean;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const VolumeWrapper = styled.div<VolumeWrapperProps>(
   {
     display: 'flex',
@@ -41,6 +42,7 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>(
       : '',
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CurrentTime = styled.div({
   color: '#c7d1db',
   userSelect: 'none',
@@ -52,6 +54,7 @@ interface WithAsActiveProps {
   showAsActive: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TimeLine = styled.div({
   width: '100%',
   height: '2px',
@@ -62,6 +65,7 @@ export const TimeLine = styled.div({
   position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CurrentTimeLine = styled.div({
   backgroundColor: '#05c',
   borderRadius: 'inherit',
@@ -71,6 +75,7 @@ export const CurrentTimeLine = styled.div({
   maxWidth: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Thumb = styled.div({
   pointerEvents: 'none',
   width: '14px',
@@ -89,6 +94,7 @@ export const Thumb = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CurrentTimeLineThumb = styled.div({
   position: 'absolute',
   display: 'block',
@@ -118,6 +124,7 @@ export const CurrentTimeLineThumb = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const BufferedTime = styled.div({
   backgroundColor: '#8696a7',
   height: 'inherit',
@@ -125,17 +132,20 @@ export const BufferedTime = styled.div({
   width: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LeftControls = styled.div({
   display: 'flex',
   marginLeft: token('space.150', '12px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const RightControls = styled.div({
   display: 'flex',
   alignItems: 'center',
   marginRight: token('space.150', '12px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ControlsWrapper = styled.div({
   bottom: 0,
   left: 0,
@@ -149,6 +159,7 @@ export const ControlsWrapper = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const VolumeToggleWrapper = styled.div(
   ({ isMuted }: MutedIndicatorProps) => `
   position: relative;
@@ -159,11 +170,13 @@ export const VolumeToggleWrapper = styled.div(
   }`,
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const VolumeTimeRangeWrapper = styled.div({
   width: '100%',
   marginRight: token('space.250', '20px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MutedIndicator = styled.div(
   {
     width: '29px',
@@ -189,6 +202,7 @@ export interface CurrentTimeTooltipProps {
   isDragging: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CurrentTimeTooltip = styled.div(
   ({ isDragging }: CurrentTimeTooltipProps) => `
   position: absolute;
@@ -207,6 +221,7 @@ export const CurrentTimeTooltip = styled.div(
 `,
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TimeRangeWrapper = styled.div(
   ({ showAsActive }: WithAsActiveProps) => `
   display: flex;

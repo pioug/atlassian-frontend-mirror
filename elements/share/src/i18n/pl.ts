@@ -54,6 +54,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Zaproś do systemu Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Udostępnij stronę',
   'fabric.elements.share.main.tab.text.jira': 'Udostępnij zgłoszenie',
+  'fabric.elements.share.popup.label': 'Udostępnij',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Udostępniono wpis na blogu}board {Udostępniono tablicę}calendar {Udostępniono kalendarz}draft {Udostępniono wersję roboczą}filter {Udostępniono filtr}issue {Udostępniono zgłoszenie}summary {Udostępniono podsumowanie}list {Udostępniono listę}timeline {Udostępniono oś czasu}form {Udostępniono formularz}media {Udostępniono multimedia}page {Udostępniono stronę}project {Udostępniono projekt}pullrequest {Udostępniono pull request}question {Udostępniono pytanie}report {Udostępniono raport}repository {Udostępniono repozytorium}request {Udostępniono wniosek}roadmap {Udostępniono oś czasu}site {Udostępniono witrynę}space {Udostępniono przestrzeń}other {Udostępniono łącze}}',
   'fabric.elements.share.to.integration.button': 'Udostępnij w {integrationName}',

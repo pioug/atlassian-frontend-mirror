@@ -50,11 +50,11 @@ const fadeOut = keyframes({
   },
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EditorMain = styled.div`
   /* CSS reset */
-  font-family: ${fontFamily};
-  font-size: ${fontSize}px;
+  font-family: ${fontFamily()};
+  font-size: ${fontSize()}px;
   flex-grow: 1;
 
   /* These styles and animations are derived from @atlaskit/tooltip */
@@ -89,6 +89,7 @@ export const EditorMain = styled.div`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EditorFooter = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
@@ -106,6 +107,7 @@ type EditorViewContainerProps = {
   editorViewHasFocus?: boolean;
   editorViewIsInvalid?: boolean;
 };
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EditorViewContainer = styled.div<EditorViewContainerProps>(
   {
     backgroundColor: token('color.background.input', N10),
@@ -147,12 +149,14 @@ export const EditorViewContainer = styled.div<EditorViewContainerProps>(
         }),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ReadOnlyEditorViewContainer = styled(EditorViewContainer)({
   backgroundColor: token('color.background.disabled', N30),
   color: token('color.text.disabled', N100),
   pointerEvents: 'none',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
   {
     backgroundColor: token('color.background.neutral', N30),
@@ -171,7 +175,7 @@ export const LineNumberToolbar = styled.div<{ lineNumbersVisible: boolean }>(
 /**
  * The main div which the Prosemirror editor will be rendered into.
  */
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EditorView = styled.div<{
   defaultMaxRows: number;
   expandedRows: number;
@@ -268,7 +272,7 @@ export const EditorView = styled.div<{
 `;
 
 // FIXME: convert-props-syntax rule doesn't catch this
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ReadOnlyEditorView = styled(EditorView)`
   /* We need to replicate padding from the inner prosemirror element in our read only state. That means we also need
   recompute max height excluding the child padding. */
@@ -282,6 +286,7 @@ export const ReadOnlyEditorView = styled(EditorView)`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EditorControls = styled.div<{
   isSearch: boolean;
   isCompact: boolean;

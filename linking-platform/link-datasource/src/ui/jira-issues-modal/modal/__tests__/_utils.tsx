@@ -4,8 +4,8 @@ import { JQLEditor } from '@atlaskit/jql-editor';
 
 import { setupFactory } from '../../../../common/__tests__/_utils';
 import {
-  JiraIssueDatasourceParameters,
-  JiraIssuesDatasourceAdf,
+  type JiraIssueDatasourceParameters,
+  type JiraIssuesDatasourceAdf,
 } from '../../types';
 import { JiraIssuesConfigModal } from '../index';
 

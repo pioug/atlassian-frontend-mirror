@@ -54,10 +54,12 @@ const profileClient = new ProfileCardClient(clientArgs, {
   teamClient: mockTeamClient,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MainStage = styled.div({
   margin: token('space.200', '16px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Section = styled.div({
   margin: `${token('space.200', '16px')} 0`,
   h4: {
@@ -65,10 +67,12 @@ export const Section = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const BlankSpace = styled.div({
   height: '800px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   border: `1px solid ${token('color.border', '#ccc')}`,
   borderRadius: '3px',

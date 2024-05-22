@@ -54,6 +54,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Пригласить в Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Поделиться страницей',
   'fabric.elements.share.main.tab.text.jira': 'Поделиться задачей',
+  'fabric.elements.share.popup.label': 'Поделиться',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Доступ к записи в блоге предоставлен}board {Доступ к доске предоставлен}calendar {Доступ к календарю предоставлен}draft {Доступ к черновику предоставлен}filter {Доступ к фильтру предоставлен}issue {Доступ к задаче предоставлен}summary {Доступ к теме предоставлен}list {Доступ к списку предоставлен}timeline {Доступ к хронологии предоставлен}form {Доступ к форме предоставлен}media {Доступ к медиафайлу предоставлен}page {Доступ к странице предоставлен}project {Доступ к проекту предоставлен}pullrequest {Доступ к запросу pull предоставлен}question {Доступ к вопросу предоставлен}report {Доступ к отчету предоставлен}repository {Доступ к репозиторию предоставлен}request {Доступ к запросу предоставлен}roadmap {Доступ к хронологии предоставлен}site {Доступ к сайту предоставлен}space {Доступ к разделу предоставлен}other {Доступ к ссылке предоставлен}}',
   'fabric.elements.share.to.integration.button': 'Поделиться в {integrationName}',

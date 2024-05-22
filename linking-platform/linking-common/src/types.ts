@@ -1,6 +1,6 @@
-import { JsonLd } from 'json-ld-types';
-import { AnyAction } from 'redux';
-import Environments from './environments';
+import { type JsonLd } from 'json-ld-types';
+import { type AnyAction } from 'redux';
+import type Environments from './environments';
 
 export interface InvokePayload<T> {
   key: string;

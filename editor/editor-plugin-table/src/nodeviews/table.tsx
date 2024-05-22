@@ -292,7 +292,8 @@ export default class TableView extends ReactNodeView<Props> {
               isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
               isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
               isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
-              isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled sams as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
+              isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled same as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
+              isTableAlignmentEnabled={props.options?.isTableAlignmentEnabled}
               tableActive={tableActive}
               ordering={pluginState!.ordering as TableColumnOrdering}
               isResizing={isResizing}
@@ -391,6 +392,7 @@ export const createTableView = (
   getEditorFeatureFlags: GetEditorFeatureFlags,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   pluginInjectionApi?: PluginInjectionAPI,
+  isTableAlignmentEnabled?: boolean,
 ): NodeView => {
   const {
     pluginConfig,
@@ -417,6 +419,7 @@ export const createTableView = (
       isTableResizingEnabled,
       isDragAndDropEnabled,
       isTableScalingEnabled, // same as options.isTableScalingEnabled
+      isTableAlignmentEnabled
     },
     getEditorContainerWidth,
     getEditorFeatureFlags,

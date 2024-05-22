@@ -4,8 +4,7 @@ import IconButtonExample from '../../../examples/07-icon-button';
 
 import { themeVariants } from './utils';
 
-//Skipping because of failure on master. https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2949173/steps/%7B237e2f2b-1878-4332-be2c-65a1c0b1c1ba%7D/test-report 
-snapshot.skip(IconButtonExample, {
+snapshot(IconButtonExample, {
   description: 'Default',
   variants: themeVariants,
 });

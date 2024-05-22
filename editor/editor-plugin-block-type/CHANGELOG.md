@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-type
 
+## 3.3.0
+
+### Minor Changes
+
+-   [#102243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102243)
+    [`cfc95dac3d82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfc95dac3d82) -
+    Use new paragraph and heading NodeSpecs
+
 ## 3.2.2
 
 ### Patch Changes

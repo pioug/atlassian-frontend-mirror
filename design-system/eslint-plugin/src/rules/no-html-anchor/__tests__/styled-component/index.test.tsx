@@ -54,5 +54,53 @@ ruleTester.run('no-html-anchor', rule, {
         },
       ],
     },
+    {
+      code: linesOnly`
+        // Styled > reports for a self-closing styled.div with role="link"
+        import { styled } from '@compiled/react';
+        const MyFakeLink = styled.div({
+          display: 'block',
+          appearance: 'none',
+        });
+        <MyFakeLink role="link" />
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // Styled > reports for a styled.div with role="link"
+        import { styled } from '@compiled/react';
+        const MyFakeLink = styled.div({
+          display: 'block',
+          appearance: 'none',
+        });
+        <MyFakeLink role="link">Hello, World!</MyFakeLink>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // Styled > reports for a styled.span with role="link"
+        import { styled } from '@compiled/react';
+        const MyFakeLink = styled.span({
+          display: 'block',
+          appearance: 'none',
+        });
+        <MyFakeLink role="link">Hello, World!</MyFakeLink>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
   ],
 });

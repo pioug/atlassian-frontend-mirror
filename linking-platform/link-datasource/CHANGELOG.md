@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 2.3.2
+
+### Patch Changes
+
+-   [#97435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97435)
+    [`74d425408d1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74d425408d1e) -
+    [ux] Fix a bug where when sum of all column widths is less than container total width the
+    resizing is somewhat broken
+-   [#99133](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99133)
+    [`2de9d30e7ac6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2de9d30e7ac6) -
+    Updates docs to include in atlaskit for use of smart link list view and configuration modals and
+    respective props and examples.
+-   Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

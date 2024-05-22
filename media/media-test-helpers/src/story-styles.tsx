@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Matrix = styled.table({
   thead: {
     td: {

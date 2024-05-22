@@ -41,6 +41,7 @@ export const IconOverrides = `
 // - @atlaskit/icon-object: for object icons, e.g. repository, branch, etc.
 // NB: the first set of overrides style icons imported from @atlaskit/icon-object correctly.
 // NB: the second set of overrides style icons imported from @atlaskit/icon correctly.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconWrapper = styled.span(
   {
     userSelect: 'none',
@@ -50,6 +51,7 @@ export const IconWrapper = styled.span(
 );
 
 // Wraps all emoji in Inline Links similar to icon
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const EmojiWrapper = styled.span(
   {
     display: 'inline-block',
@@ -63,12 +65,14 @@ export const EmojiWrapper = styled.span(
 // The main 'wrapping' element, title of the content.
 // NB: `white-space` adds little whitespace before wrapping.
 // NB: `word-break` line breaks as soon as an overflow takes place.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconTitleWrapper = styled.span({
   whiteSpace: 'pre-wrap',
   wordBreak: 'break-all',
 });
 
 // TODO: Replace overrides with proper AtlasKit solution.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LozengeWrapper = styled.span({
   display: 'inline-block',
   verticalAlign: '1px',
@@ -78,6 +82,7 @@ export const LozengeWrapper = styled.span({
   },
 });
 // TODO: Replace overrides with proper AtlasKit solution.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LozengeBlockWrapper = styled.span({
   '& > span': {
     marginLeft: token('space.050', '4px'),
@@ -85,6 +90,7 @@ export const LozengeBlockWrapper = styled.span({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const RightIconPositionWrapper = styled.span({
   marginLeft: token('space.025', '2px'),
   marginRight: token('space.050', '4px'),
@@ -95,12 +101,14 @@ export const RightIconPositionWrapper = styled.span({
 // The following components are used to absolutely position icons in the vertical center.
 // - IconPositionWrapper: the `relative` parent which has no height in itself.
 // - IconEmptyWrapper: the child which forces `IconPositionWrapper` to have a height.
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconPositionWrapper = styled.span({
   marginRight: token('space.050', '4px'),
   position: 'relative',
   display: 'inline-block',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconEmptyWrapper = styled.span({
   width: '14px',
   height: '100%',

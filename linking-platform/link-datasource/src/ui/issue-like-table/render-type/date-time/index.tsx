@@ -27,6 +27,7 @@ const timeOptions: FormatDateOptions = {
   minute: '2-digit',
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const DateTimeWrapper = styled.span({
   fontSize: fieldTextFontSize,
 });

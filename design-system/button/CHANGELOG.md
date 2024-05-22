@@ -1,5 +1,13 @@
 # @atlaskit/button
 
+## 17.15.0
+
+### Minor Changes
+
+-   [#99861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99861)
+    [`452b917ff365`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/452b917ff365) -
+    Add support for React 18.
+
 ## 17.14.3
 
 ### Patch Changes

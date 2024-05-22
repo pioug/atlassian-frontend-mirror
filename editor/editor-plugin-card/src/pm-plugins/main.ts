@@ -13,6 +13,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { eventsFromTransaction } from '../analytics/events-from-tr';
@@ -239,7 +240,7 @@ export const createPlugin =
 
               if (isDatasource && shouldUpdateTableRef) {
                 // since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
-                const layout = node?.attrs?.layout || 'center';
+                const layout = node?.attrs?.layout || DATASOURCE_DEFAULT_LAYOUT;
                 const isNested = selection.$anchor.depth > 0;
 
                 // we want to disable resize button when datasource table is nested by not setting then datasourceTableRef on selection

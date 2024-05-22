@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 9.6.1
+
+### Patch Changes
+
+-   [#96699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96699)
+    [`1809bf4e75ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1809bf4e75ad) -
+    Update font size of the 'more' indicator to be defined in rem rather than px.
+-   Updated dependencies
+
 ## 9.6.0
 
 ### Minor Changes

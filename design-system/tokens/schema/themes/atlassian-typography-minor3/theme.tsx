@@ -3,7 +3,7 @@ import type {
   UtilTokenSchema,
   ValueSchema,
 } from '../../../src/types';
-import { BaseToken } from '../../palettes/palette';
+import { type BaseToken } from '../../palettes/palette';
 import type {
   FontFamilyBaseToken,
   FontSizeBaseToken,
@@ -36,7 +36,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize32',
-          lineHeight: 'LineHeight600',
+          lineHeight: 'LineHeight36',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -46,7 +46,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize28',
-          lineHeight: 'LineHeight500',
+          lineHeight: 'LineHeight32',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -56,7 +56,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize24',
-          lineHeight: 'LineHeight400',
+          lineHeight: 'LineHeight28',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -66,7 +66,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize20',
-          lineHeight: 'LineHeight300',
+          lineHeight: 'LineHeight24',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -76,7 +76,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize16',
-          lineHeight: 'LineHeight200',
+          lineHeight: 'LineHeight20',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -86,7 +86,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize14',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight16',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -96,7 +96,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight700',
           fontSize: 'FontSize12',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight16',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -120,7 +120,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize14',
-          lineHeight: 'LineHeight200',
+          lineHeight: 'LineHeight20',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -130,7 +130,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize16',
-          lineHeight: 'LineHeight300',
+          lineHeight: 'LineHeight24',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -140,7 +140,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize12',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight16',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',
@@ -150,7 +150,7 @@ const typography: ValueSchema<
         value: {
           fontWeight: 'FontWeight400',
           fontSize: 'FontSize12',
-          lineHeight: 'LineHeight100',
+          lineHeight: 'LineHeight16',
           fontFamily: 'FontFamilyWebSans',
           fontStyle: 'normal',
           letterSpacing: 'LetterSpacing0',

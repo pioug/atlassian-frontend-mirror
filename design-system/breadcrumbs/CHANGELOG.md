@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 12.1.1
+
+### Patch Changes
+
+-   [#98395](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98395)
+    [`c99607483b8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c99607483b8d) -
+    Adds the `aria-current` attribute to the `BreadcrumbsItem` to define state of the current page.
+
 ## 12.1.0
 
 ### Minor Changes

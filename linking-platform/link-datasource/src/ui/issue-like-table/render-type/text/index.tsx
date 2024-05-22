@@ -13,6 +13,7 @@ interface TextProps {
 
 export const TEXT_TYPE_TEST_ID = 'link-datasource-render-type--text';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TextWrapper = styled.span({
   fontSize: fieldTextFontSize,
 });

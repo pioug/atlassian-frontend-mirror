@@ -19,7 +19,7 @@
     "@atlaskit/adf-utils": "^19.2.0",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/button": "^17.15.0",
     "@atlaskit/editor-common": "80.4.1",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/logo": "^13.17.0",

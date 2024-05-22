@@ -456,7 +456,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       ) {
         const target = mutation.target as Element;
         if (target.classList.contains(optionFocusedClass)) {
-          this.selectRef.select.inputRef.setAttribute(
+          this.selectRef.select.inputRef?.setAttribute(
             'aria-activedescendant',
             target.id,
           );
@@ -466,9 +466,9 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     }
   };
 
-  // for SSR, MutationObserver not existed in node, need to check its existence first
-  // using typeof MutationObserver to check if MutationObserver is function, it is undefined in node
-  // if it is node environment, focusedOptionObserver will be falsy value.
+  // Create a MutationObserver which will observe the menu list for changes. In
+  // node environments such as SSR, MutationObserver doesn't exist and this
+  // variable will be falsy.
   private focusedOptionObserver =
     typeof MutationObserver === 'function' &&
     new MutationObserver(this.focusedOptionObserverCallback);
@@ -476,24 +476,44 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   componentDidUpdate(_: UserPickerProps, prevState: UserPickerState) {
     const { menuIsOpen, options, resolving, count, inputValue } = this.state;
 
-    if (menuIsOpen && !prevState.menuIsOpen) {
-      if (
-        getBooleanFF(
-          'platform.design-system-team.select-aria-activedescendant_psxzq',
-        )
-      ) {
-        const menuRef = this.selectRef.select.menuListRef;
+    // Create a new session when the menu is opened and there is no session
+    if (menuIsOpen && !prevState.menuIsOpen && !this.session) {
+      this.startSession();
+    }
+
+    if (
+      getBooleanFF(
+        'platform.design-system-team.select-aria-activedescendant_psxzq',
+      )
+    ) {
+      // When the menu is opened, set aria-activedescendant attribute on the
+      // input and instrument a mutation observer. On the first opening of the
+      // menu, menuIsOpen is true but the menu isn't actually in the DOM yet.
+      // For this reason, we the use the existence of the attribute.
+      const inputHasAriaActiveDecendant =
+        this.selectRef?.select?.inputRef?.getAttribute('aria-activedescendant');
+      const inputRef = this.selectRef?.select?.inputRef as HTMLInputElement;
+      const menuRef = this.selectRef?.select?.menuListRef;
+      if (menuIsOpen && menuRef && !inputHasAriaActiveDecendant) {
+        // Set the aria-activedescendant attribute on the input element
+        // to the first menu item
         menuRef.children[0]?.classList.contains(optionFocusedClass) &&
-          this.selectRef.select.inputRef.setAttribute(
+          inputRef && inputRef.setAttribute(
             'aria-activedescendant',
             menuRef.children[0].id,
           );
+
+        // Setup MutationObserver so when the selected option changes, update
+        // the aria-activedescendant attribute on the input element
         this.focusedOptionObserver &&
           this.focusedOptionObserver.observe(menuRef, observerOptions);
       }
-      if (!this.session) {
-        // session should have been created onFocus
-        this.startSession();
+
+      // Rewmoe the aria-active-descendant attribute and disconnect the observer
+      // when the menu is closed
+      if (!menuIsOpen && prevState.menuIsOpen) {
+        inputRef && inputRef.removeAttribute('aria-activedescendant');
+        this.focusedOptionObserver && this.focusedOptionObserver.disconnect();
       }
     }
 
@@ -508,14 +528,6 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
     if (!menuIsOpen && prevState.menuIsOpen && this.session) {
       this.fireEvent(cancelEvent, prevState);
       this.session = undefined;
-      if (
-        getBooleanFF(
-          'platform.design-system-team.select-aria-activedescendant_psxzq',
-        )
-      ) {
-        this.selectRef.select.inputRef.removeAttribute('aria-activedescendant');
-        this.focusedOptionObserver && this.focusedOptionObserver.disconnect();
-      }
     }
 
     if (
@@ -622,7 +634,10 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         this.handleOpen();
       }
       // escaping the below condition when openMenuOnClick is true otherwise menu own't open on click
-    } else if (!this.state.menuIsOpen && !this.isMenuOpenOnClickForSingleSelect) {
+    } else if (
+      !this.state.menuIsOpen &&
+      !this.isMenuOpenOnClickForSingleSelect
+    ) {
       // Trigger focus state when ValueContainer is clicked for the first time
       // The focused state will then invoke <Select /> instance's own handlers (e.g. onMenuOpen, onMenuClose)
       // to manage the state of the dropdown menu
@@ -721,8 +736,8 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
           showError
             ? loadOptionsErrorMessage
             : typeof noOptionsMessage === 'function'
-            ? noOptionsMessage
-            : () => noOptionsMessage
+              ? noOptionsMessage
+              : () => noOptionsMessage
         }
         footer={footer}
         isDisabled={isDisabled}

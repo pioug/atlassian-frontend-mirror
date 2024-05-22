@@ -60,7 +60,7 @@
   "devDependencies": {
     "@af/visual-regression": "*",
     "@atlaskit/adf-schema": "^36.8.0",
-    "@atlaskit/editor-plugin-block-type": "^3.2.0",
+    "@atlaskit/editor-plugin-block-type": "^3.3.0",
     "@atlaskit/editor-plugin-history": "^1.1.0",
     "@atlaskit/editor-plugin-type-ahead": "^1.2.0",
     "@atlaskit/ssr": "*",

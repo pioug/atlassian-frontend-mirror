@@ -7,20 +7,11 @@
  */
 //Hungarian
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Oszlop rendezése: Z → A',
   'fabric.editor.headingLink.ascSortingLabel': 'növekvő',
   'fabric.editor.headingLink.copied': 'Másolva!',
   'fabric.editor.headingLink.copyAnchorLink': 'Fejléc linkjének másolása',
   'fabric.editor.headingLink.copyAriaLabel': 'Másolás',
-  'fabric.editor.headingLink.descOrderLabel': 'Rendezés törlése',
   'fabric.editor.headingLink.descSortingLabel': 'csökkenő',
   'fabric.editor.headingLink.failedToCopy': 'A másolás nem sikerült',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
-  'fabric.editor.headingLink.noOrderLabel': 'Oszlop rendezése: A → Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Nincs',
-  'fabric.editor.tableHeader.sorting.asc': 'Növekvő sorrendbe állítva',
-  'fabric.editor.tableHeader.sorting.default': 'Oszlop rendezése',
-  'fabric.editor.tableHeader.sorting.desc': 'Csökkenő sorrendbe állítva',
-  'fabric.editor.tableHeader.sorting.invalid': 'Nem rendezhetsz egyesített cellákat tartalmazó táblázatot',
-  'fabric.editor.tableHeader.sorting.no': 'Az oszlop nincs rendezve',
 };

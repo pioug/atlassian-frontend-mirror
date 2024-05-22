@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.69.1
+
+### Patch Changes
+
+-   [#101914](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101914)
+    [`d43b23ecd5e3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d43b23ecd5e3) -
+    Updating inline resolving view to not have invalid html structure
+-   [#101941](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101941)
+    [`2d2d3941c769`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2d2d3941c769) -
+    EDM-9966: create related-links-modal component in smart cards
+-   Updated dependencies
+
 ## 26.69.0
 
 ### Minor Changes

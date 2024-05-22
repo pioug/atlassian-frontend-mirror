@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { UNSAFE_useColorModeForMigration } from '@atlaskit/app-provider';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -19,9 +20,17 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   testId?: string;
 }
 
-const imageStyles = css({
+const baseImageStyles = css({
   maxWidth: '100%',
   height: 'auto',
+});
+
+const themedImageStyles = css({
+  content: `var(--img-source)`,
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+  'html[data-color-mode=dark] &': {
+    content: `var(--img-source-dark)`,
+  },
 });
 
 /**
@@ -41,7 +50,9 @@ export default function Image({
   ...props
 }: ImageProps) {
   const imgRef = useRef<HTMLImageElement>(null);
-  const { colorMode } = useThemeObserver();
+  const providedColorMode = UNSAFE_useColorModeForMigration();
+  const { colorMode: observedColorMode } = useThemeObserver();
+  const colorMode = providedColorMode || observedColorMode;
 
   useEffect(() => {
     if (imgRef === null || imgRef.current === null) {
@@ -58,9 +69,15 @@ export default function Image({
   return (
     <img
       alt={alt}
-      css={imageStyles}
       data-testid={testId}
       src={src}
+      style={
+        {
+          '--img-source': `url(${src})`,
+          '--img-source-dark': `url(${srcDark || src})`,
+        } as React.CSSProperties
+      }
+      css={[baseImageStyles, themedImageStyles]}
       ref={imgRef}
       // The spread operator is necessary since the component can accept all the props of an `img` element.
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

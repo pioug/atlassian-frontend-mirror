@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b7be7e978e3916db2de7733280b0fee4>>
+ * @codegen <<SignedSource::f7c730817ba1e1c9992dce2fbc46dc93>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -173,7 +173,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight500",
       "fontSize": "LegacyFontSize35",
-      "lineHeight": "LineHeight700",
+      "lineHeight": "LineHeight40",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing400"
@@ -204,7 +204,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight600",
       "fontSize": "LegacyFontSize29",
-      "lineHeight": "LineHeight500",
+      "lineHeight": "LineHeight32",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing400"
@@ -235,7 +235,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight500",
       "fontSize": "FontSize24",
-      "lineHeight": "LineHeight400",
+      "lineHeight": "LineHeight28",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing400"
@@ -266,7 +266,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight500",
       "fontSize": "FontSize20",
-      "lineHeight": "LineHeight300",
+      "lineHeight": "LineHeight24",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing300"
@@ -295,7 +295,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight600",
       "fontSize": "FontSize16",
-      "lineHeight": "LineHeight200",
+      "lineHeight": "LineHeight20",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing200"
@@ -324,7 +324,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight600",
       "fontSize": "FontSize14",
-      "lineHeight": "LineHeight100",
+      "lineHeight": "LineHeight16",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing100"
@@ -353,7 +353,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight600",
       "fontSize": "FontSize12",
-      "lineHeight": "LineHeight100",
+      "lineHeight": "LineHeight16",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -382,7 +382,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "FontSize16",
-      "lineHeight": "LineHeight300",
+      "lineHeight": "LineHeight24",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -411,7 +411,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "FontSize14",
-      "lineHeight": "LineHeight200",
+      "lineHeight": "LineHeight20",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -440,7 +440,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "LegacyFontSize11",
-      "lineHeight": "LineHeight100",
+      "lineHeight": "LineHeight16",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -469,7 +469,7 @@ var tokens = [{
     "value": {
       "fontWeight": "FontWeight400",
       "fontSize": "FontSize12",
-      "lineHeight": "LineHeight100",
+      "lineHeight": "LineHeight16",
       "fontFamily": "FontFamilyWebSans",
       "fontStyle": "normal",
       "letterSpacing": "LetterSpacing0"
@@ -950,7 +950,7 @@ var tokens = [{
     "group": "lineHeight",
     "state": "deprecated",
     "introduced": "0.10.33",
-    "description": "Used single-line text.",
+    "description": "Helpful guidance goes here",
     "deprecated": "1.29.0"
   },
   "value": "1",
@@ -961,7 +961,7 @@ var tokens = [{
       "group": "lineHeight",
       "state": "deprecated",
       "introduced": "0.10.33",
-      "description": "Used single-line text.",
+      "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
     "value": "LineHeight1"
@@ -988,7 +988,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight100"
+    "value": "LineHeight16"
   },
   "name": "font.lineHeight.100",
   "path": ["font", "lineHeight", "100"],
@@ -1012,7 +1012,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight200"
+    "value": "LineHeight20"
   },
   "name": "font.lineHeight.200",
   "path": ["font", "lineHeight", "200"],
@@ -1036,7 +1036,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight300"
+    "value": "LineHeight24"
   },
   "name": "font.lineHeight.300",
   "path": ["font", "lineHeight", "300"],
@@ -1060,7 +1060,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight400"
+    "value": "LineHeight28"
   },
   "name": "font.lineHeight.400",
   "path": ["font", "lineHeight", "400"],
@@ -1084,7 +1084,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight500"
+    "value": "LineHeight32"
   },
   "name": "font.lineHeight.500",
   "path": ["font", "lineHeight", "500"],
@@ -1108,7 +1108,7 @@ var tokens = [{
       "description": "Helpful guidance goes here",
       "deprecated": "1.29.0"
     },
-    "value": "LineHeight700"
+    "value": "LineHeight40"
   },
   "name": "font.lineHeight.600",
   "path": ["font", "lineHeight", "600"],

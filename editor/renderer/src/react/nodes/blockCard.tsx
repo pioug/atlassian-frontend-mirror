@@ -32,6 +32,7 @@ const datasourceContainerStyle = css({
   border: `1px solid ${token('color.border', N40)}`,
   // eslint-disable-next-line @atlaskit/design-system/use-tokens-space
   marginLeft: '50%',
+  marginBottom: `${token('space.150', '0.75rem')}`,
   transform: 'translateX(-50%)',
 });
 

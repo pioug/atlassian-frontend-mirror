@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "17.14.3",
+  "version": "17.15.0",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,8 @@
           "sortKey": 5
         }
       ]
-    }
+    },
+    "runReact18": true
   },
   "af:exports": {
     "./button-group": "./src/entry-points/button-group.tsx",
@@ -106,7 +107,7 @@
     "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",

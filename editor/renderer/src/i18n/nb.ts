@@ -7,20 +7,11 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Sorter kolonne Å til A',
   'fabric.editor.headingLink.ascSortingLabel': 'stigende',
   'fabric.editor.headingLink.copied': 'Kopiert!',
   'fabric.editor.headingLink.copyAnchorLink': 'Kopier kobling til overskrift',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopier',
-  'fabric.editor.headingLink.descOrderLabel': 'Fjern sortering',
   'fabric.editor.headingLink.descSortingLabel': 'synkende',
   'fabric.editor.headingLink.failedToCopy': 'Kopiering mislyktes',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Du kan ikke sortere en tabell med sammenslåtte celler',
-  'fabric.editor.headingLink.noOrderLabel': 'Sorter kolonne A til Å',
   'fabric.editor.headingLink.noneSortingLabel': 'ingen',
-  'fabric.editor.tableHeader.sorting.asc': 'Stigende sortering brukt',
-  'fabric.editor.tableHeader.sorting.default': 'Sorter kolonnen',
-  'fabric.editor.tableHeader.sorting.desc': 'Synkende sortering brukt',
-  'fabric.editor.tableHeader.sorting.invalid': 'Du kan ikke sortere en tabell med sammenslåtte celler',
-  'fabric.editor.tableHeader.sorting.no': 'Ingen sortering brukt for kolonnen',
 };

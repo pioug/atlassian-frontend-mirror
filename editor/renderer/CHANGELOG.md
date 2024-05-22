@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 109.29.3
+
+### Patch Changes
+
+-   [#101087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101087)
+    [`e554b1f02f8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e554b1f02f8f) -
+    Updates margin bottom to datasource blockCards in renderer.
+-   Updated dependencies
+
 ## 109.29.2
 
 ### Patch Changes

@@ -40,9 +40,6 @@
       "path": "../../../build/formatting/tsconfig.app.json"
     },
     {
-      "path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
-    },
-    {
       "path": "../button/tsconfig.app.json"
     },
     {
@@ -50,9 +47,6 @@
     },
     {
       "path": "../../../build/website/docs/tsconfig.app.json"
-    },
-    {
-      "path": "../ds-lib/tsconfig.app.json"
     },
     {
       "path": "../focus-ring/tsconfig.app.json"
@@ -64,13 +58,7 @@
       "path": "../icon/tsconfig.app.json"
     },
     {
-      "path": "../lozenge/tsconfig.app.json"
-    },
-    {
       "path": "../primitives/tsconfig.app.json"
-    },
-    {
-      "path": "../section-message/tsconfig.app.json"
     },
     {
       "path": "../textfield/tsconfig.app.json"

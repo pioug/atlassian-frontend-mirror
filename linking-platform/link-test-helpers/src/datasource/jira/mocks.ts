@@ -1,15 +1,15 @@
 import { defaults } from 'json-ld-types';
 
 import {
-  DatasourceDataResponseItem,
-  DatasourceDetailsResponse,
-  DatasourceResponseSchemaProperty,
-  RichText,
-  StatusType,
-  User,
+  type DatasourceDataResponseItem,
+  type DatasourceDetailsResponse,
+  type DatasourceResponseSchemaProperty,
+  type RichText,
+  type StatusType,
+  type User,
 } from '@atlaskit/linking-types';
 
-import { GenerateDataResponse } from '../types';
+import { type GenerateDataResponse } from '../types';
 
 import { defaultInitialVisibleColumnKeys, mockJiraData } from './data';
 
@@ -186,10 +186,12 @@ const buildDataResponse = ({
   initialVisibleColumnKeys,
   isUnauthorized = false,
   includeAuthInfo = false,
+  includeUnsupportedLinks = true,
 }: Parameters<GenerateDataResponse>[0] & {
   maxItems?: number;
   isUnauthorized?: boolean;
   includeAuthInfo?: boolean;
+  includeUnsupportedLinks?: boolean;
 }): ReturnType<GenerateDataResponse> => {
   const schema = {
     properties: defaultDetailsResponse.data.schema.properties.filter(
@@ -247,16 +249,18 @@ const buildDataResponse = ({
                   idx === 0
                     ? 'https://link-that-is-not-found.com/long'
                     : idx === 1
-                    ? 'https://link-that-is-forbidden.com'
-                    : idx % 10 === 0
-                    ? 'https://link-that-is-unsupported.com'
-                    : idx % 5 === 0
-                    ? 'https://link-that-does-not-resolve.com'
-                    : idx % 4 === 0
-                    ? 'https://link-that-is-unauthorized.com'
-                    : idx % 3 === 0
-                    ? 'https://link-that-is-still-resolving.com/long-url/very-very-very-very-very-very-very-long'
-                    : item.link,
+                      ? 'https://link-that-is-forbidden.com'
+                      : idx % 10 === 0
+                        ? includeUnsupportedLinks
+                          ? 'https://link-that-is-unsupported.com'
+                          : 'https://link-that-is-forbidden.com'
+                        : idx % 5 === 0
+                          ? 'https://link-that-does-not-resolve.com'
+                          : idx % 4 === 0
+                            ? 'https://link-that-is-unauthorized.com'
+                            : idx % 3 === 0
+                              ? 'https://link-that-is-still-resolving.com/long-url/very-very-very-very-very-very-very-long'
+                              : item.link,
                 text:
                   idx % 2 === 1 && idx > 10
                     ? `[${cloudId}] ${item.summary}`
@@ -348,6 +352,15 @@ export const generateDataResponse: GenerateDataResponse = ({
       isUnauthorized: true,
       initialVisibleColumnKeys,
       includeAuthInfo: true,
+    });
+    // unsupported links with thrown errors will break atlaskit docs examples
+  } else if (cloudId === 'doc-cloudId') {
+    return buildDataResponse({
+      cloudId,
+      numberOfLoads,
+      includeSchema,
+      initialVisibleColumnKeys,
+      includeUnsupportedLinks: false,
     });
   } else {
     return buildDataResponse({

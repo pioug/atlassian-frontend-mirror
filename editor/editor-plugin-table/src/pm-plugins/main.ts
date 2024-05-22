@@ -411,6 +411,7 @@ export const createPlugin = (
             getEditorFeatureFlags,
             dispatchAnalyticsEvent,
             pluginInjectionApi,
+            isTableAlignmentEnabled,
           ),
         tableRow: (node, view, getPos) =>
           new TableRow(node, view, getPos, eventDispatcher),

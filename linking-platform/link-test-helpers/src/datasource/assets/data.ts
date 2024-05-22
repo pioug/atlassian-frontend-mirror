@@ -1366,7 +1366,7 @@ export const generateDataResponse = ({
     data: {
       items: assetsResponseItems,
       totalCount: assetsResponseItems.length,
-      nextPageCursor: 'c3RhcnRBdD01',
+      nextPageCursor: undefined,
       ...{ schema },
     },
   };

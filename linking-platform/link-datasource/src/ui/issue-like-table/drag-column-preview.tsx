@@ -17,6 +17,7 @@ const firstLastChildOverride = `
     padding-right: ${token('space.100', '8px')};
   }
 `;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TablePreviewHeading = styled(TableHeading)(
   {
     overflow: 'hidden',
@@ -28,6 +29,7 @@ const TablePreviewHeading = styled(TableHeading)(
   firstLastChildOverride,
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TablePreviewCell = styled.td(
   {
     overflow: 'hidden',

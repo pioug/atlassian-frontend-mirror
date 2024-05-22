@@ -52,5 +52,60 @@ ruleTester.run('no-html-anchor', rule, {
         },
       ],
     },
+    {
+      code: linesOnly`
+        // JSX Element > reports for a self-closing div with role="link"
+        <div role="link" />
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // JSX Element > reports for a div with role="link"
+        <div role="link">Hello, World!</div>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // JSX Element > reports for a span with role="link"
+        <span role="link">Hello, World!</span>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // JSX Element > reports for a button with role="link"
+        <button role="link">Hello, World!</button>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
+    {
+      code: linesOnly`
+        // JSX Element > reports for a main with role="link"
+        <main role="link">Hello, World!</main>
+      `,
+      errors: [
+        {
+          messageId: 'noHtmlAnchor',
+        },
+      ],
+    },
   ],
 });

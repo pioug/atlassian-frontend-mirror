@@ -12,7 +12,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
   '&, &:hover, &:active, &:focus': {
     display: 'block',
@@ -27,6 +27,7 @@ const IconExplorerLink = styled.a({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconModalHeader = styled.h3({
   display: 'flex',
   padding: token('space.250', '20px'),
@@ -35,6 +36,7 @@ const IconModalHeader = styled.h3({
   flexDirection: 'row',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Divider = styled.h4({
   width: '100%',
   textAlign: 'center',

@@ -5,6 +5,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewTypeTitle = styled.span({
   textDecoration: 'none',
   color: token('color.text.subtlest', colors.N300),
@@ -15,11 +16,13 @@ export const WhatsNewTypeTitle = styled.span({
   overflowX: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewIconContainer = styled.div({
   display: 'block',
   paddingBottom: token('space.100', '8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewTitleText = styled.span({
   textDecoration: 'none',
   color: token('color.text', colors.N800),
@@ -31,6 +34,7 @@ export const WhatsNewTitleText = styled.span({
   display: 'block',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewRelatedLinksTitleText = styled.span({
   textDecoration: 'none',
   color: token('color.text', colors.N800),
@@ -42,10 +46,12 @@ export const WhatsNewRelatedLinksTitleText = styled.span({
   display: 'block',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const RelatedLinkContainer = styled.div({
   marginBottom: token('space.100', '8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ExternalLinkIconContainer = styled.div({
   display: 'inline-block',
   verticalAlign: 'middle',

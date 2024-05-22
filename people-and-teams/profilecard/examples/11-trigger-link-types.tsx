@@ -13,23 +13,28 @@ import { Team } from '../src/types';
 
 import ExampleWrapper from './helper/example-wrapper';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Table = styled.table({
   border: `${token('border.width', '1px')} solid black`,
   borderCollapse: 'collapse',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Head = styled.th({
   border: `${token('border.width', '1px')} solid black`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Cell = styled.td({
   border: `${token('border.width', '1px')} solid black`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Text = styled.p({
   fontWeight: 'initial',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TriggerText = styled.span({
   borderRadius: token('border.radius', '3px'),
   padding: token('space.050', '4px'),

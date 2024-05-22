@@ -7,20 +7,11 @@
  */
 //Polish (Poland)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Sortuj kolumnę od Z do A',
   'fabric.editor.headingLink.ascSortingLabel': 'rosnąco',
   'fabric.editor.headingLink.copied': 'Skopiowano!',
   'fabric.editor.headingLink.copyAnchorLink': 'Skopiuj łącze do nagłówka',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopiuj',
-  'fabric.editor.headingLink.descOrderLabel': 'Wyczyść sortowanie',
   'fabric.editor.headingLink.descSortingLabel': 'malejąco',
   'fabric.editor.headingLink.failedToCopy': 'Kopiowanie nie powiodło się',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Nie można sortować tabeli ze scalonymi komórkami',
-  'fabric.editor.headingLink.noOrderLabel': 'Sortuj kolumnę od A do Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Brak',
-  'fabric.editor.tableHeader.sorting.asc': 'Posortowano rosnąco',
-  'fabric.editor.tableHeader.sorting.default': 'Sortuj kolumnę',
-  'fabric.editor.tableHeader.sorting.desc': 'Posortowano malejąco',
-  'fabric.editor.tableHeader.sorting.invalid': 'Nie można sortować tabeli ze scalonymi komórkami',
-  'fabric.editor.tableHeader.sorting.no': 'Do kolumny nie zastosowano żadnego sortowania',
 };

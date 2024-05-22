@@ -106,6 +106,7 @@ const baseWrapperStyles = (props: WrapperProps) =>
     ...(props.isHovered ? hoveredWihBorderStyles(props) : undefined),
   } as const);
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WrapperAnchor = styled.a<WrapperProps>((props) => ({
   ...baseWrapperStyles(props),
   ...isInteractive(props),
@@ -113,6 +114,7 @@ export const WrapperAnchor = styled.a<WrapperProps>((props) => ({
 
 WrapperAnchor.displayName = 'WrapperAnchor';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WrapperSpan = styled.span<WrapperProps>((props) => ({
   ...baseWrapperStyles(props),
 }));

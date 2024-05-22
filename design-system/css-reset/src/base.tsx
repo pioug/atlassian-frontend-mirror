@@ -61,17 +61,17 @@ export default evaluateInner`
   }
   a:focus-visible {
     outline: ${token('border.width.outline', '2px')} solid ${token(
-  'color.border.focused',
-  colors.B200,
-)};
+      'color.border.focused',
+      colors.B200,
+    )};
     outline-offset: ${token('space.025', '2px')};
   }
   @supports not selector(*:focus-visible) {
     a:focus {
       outline: ${token('border.width.outline', '2px')} solid ${token(
-  'color.border.focused',
-  colors.B100,
-)};
+        'color.border.focused',
+        colors.B100,
+      )};
       outline-offset: ${token('space.025', '2px')};
     }
   }

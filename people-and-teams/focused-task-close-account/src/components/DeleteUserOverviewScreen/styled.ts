@@ -4,6 +4,7 @@ import { h700 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Screen = styled.div({
   width: '100%',
   maxWidth: '640px',
@@ -14,6 +15,7 @@ export const Screen = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingWrapper = styled.div({
   display: 'flex',
   justifyContent: 'center',
@@ -21,15 +23,18 @@ export const LoadingWrapper = styled.div({
   height: '500px',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Title = styled.div(h700, {
   marginBottom: `${gridSizeTimes(3)}px`,
   marginTop: 0,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SectionMessageOuter = styled.div({
   margin: `${gridSizeTimes(3)}px 0`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MainInformationList = styled.ul({
   '> li b': {
     fontWeight: 600,
@@ -39,6 +44,7 @@ export const MainInformationList = styled.ul({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconHoverWrapper = styled.span({
   color: token('color.background.information.bold', B500),
   paddingLeft: `${gridSizeTimes(0.5)}px`,
@@ -47,6 +53,7 @@ export const IconHoverWrapper = styled.span({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const InlineDialogContent = styled.div({
   li: {
     marginLeft: `${gridSizeTimes(3)}px`,

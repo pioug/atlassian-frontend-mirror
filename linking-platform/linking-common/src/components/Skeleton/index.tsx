@@ -31,7 +31,7 @@ const appearanceValues = {
   },
 };
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ShimmerSkeleton = styled.div<SkeletonProps>`
   height: ${({ height }) => height || 'auto'};
   width: ${({ width }) => width || 'auto'};

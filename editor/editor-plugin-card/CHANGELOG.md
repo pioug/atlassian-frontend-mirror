@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 1.14.1
+
+### Patch Changes
+
+-   [#101042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101042)
+    [`7775bd23868c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7775bd23868c) -
+    [ux] Change default layout of all datasources to be wide
+-   Updated dependencies
+
 ## 1.14.0
 
 ### Minor Changes

@@ -26,6 +26,7 @@ export type TableFooterProps = {
   url?: string;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const FooterWrapper = styled.div({
   padding: `${token('space.0', '0px')} ${token('space.200', '16px')}`,
   boxSizing: 'border-box',
@@ -36,6 +37,7 @@ const FooterWrapper = styled.div({
   borderTop: `2px solid ${token('color.background.accent.gray.subtler', N40)}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TopBorderWrapper = styled.div({
   display: 'flex',
   boxSizing: 'border-box',
@@ -43,17 +45,20 @@ const TopBorderWrapper = styled.div({
   padding: `${token('space.250', '20px')} ${token('space.0', '0px')}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ItemCounterWrapper = styled.div({
   display: 'flex',
   alignSelf: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SyncWrapper = styled.div({
   display: 'flex',
   alignItems: 'center',
   color: token('color.text.accent.gray', N90),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SyncTextWrapper = styled.div({
   marginRight: token('space.075', '6px'),
   fontSize: '12px',

@@ -4,6 +4,7 @@ import {
   findByTestId,
   screen,
   waitForElementToBeRemoved,
+  within,
 } from '@testing-library/dom';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
@@ -22,6 +23,7 @@ import {
 } from '@atlaskit/linking-types/datasource';
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
+import { type WidthObserver } from '@atlaskit/width-detector';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import { ScrollableContainerHeight } from '../../../../src/ui/issue-like-table/styled';
@@ -92,6 +94,24 @@ jest.mock('@atlaskit/ufo', () => ({
     }),
   }),
 }));
+
+let mockInnerSetWidth: Function | undefined;
+
+const setWidth = (width: number) =>
+  typeof mockInnerSetWidth === 'function'
+    ? mockInnerSetWidth(width)
+    : undefined;
+
+type WidthObserverType = typeof WidthObserver;
+
+jest.mock('@atlaskit/width-detector', () => {
+  return {
+    WidthObserver: (props => {
+      mockInnerSetWidth = props.setWidth;
+      return null;
+    }) as WidthObserverType,
+  };
+});
 
 const dragAndDrop = async (
   source: HTMLElement,
@@ -197,7 +217,32 @@ describe('IssueLikeDataTableView', () => {
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
   let mockCallBackFn: jest.Mock;
-  let mockGetBoundingClientRect: jest.Mock;
+  let mockGetBoundingClientRect: jest.MockedFunction<
+    typeof Element.prototype.getBoundingClientRect
+  >;
+
+  const mockCellBoundingRect = (args: {
+    cellWidth?: number;
+    tableWidth?: number;
+  }) => {
+    const { cellWidth = 200, tableWidth = 1000 } = args;
+    mockGetBoundingClientRect = jest.fn();
+    Element.prototype.getBoundingClientRect = mockGetBoundingClientRect;
+    mockGetBoundingClientRect.mockImplementation(function () {
+      // @ts-ignore
+      const thisElement = this as HTMLElement;
+      const thisElementTestId = thisElement.getAttribute('data-testid');
+      // getBoundingClientRect is used in couple of different places
+      // we want to be able to distinguish between them
+      // when it is used to measure tale container width we want it
+      // to be very narrow to make sure last column is resizable and can has `width` css
+      if (thisElementTestId === 'issue-like-table-container') {
+        return { width: tableWidth, height: 350 } as DOMRect;
+      } else {
+        return { width: cellWidth, height: 42 } as DOMRect;
+      }
+    });
+  };
 
   beforeEach(() => {
     jest.useRealTimers();
@@ -214,12 +259,7 @@ describe('IssueLikeDataTableView', () => {
     window.IntersectionObserver = MockIntersectionObserverFactory(
       mockIntersectionObserverOpts,
     );
-    mockGetBoundingClientRect = jest.fn();
-    Element.prototype.getBoundingClientRect = mockGetBoundingClientRect;
-    // for (let width = 100; width < 500; width += 100) {
-    //   mockGetBoundingClientRect.mockReturnValueOnce({width, height: 42});
-    // }
-    mockGetBoundingClientRect.mockReturnValue({ width: 600, height: 42 });
+    mockCellBoundingRect({ cellWidth: 600, tableWidth: 100 });
   });
 
   afterEach(() => {
@@ -476,7 +516,8 @@ describe('IssueLikeDataTableView', () => {
     // hover over the tooltip
     act(() => {
       fireEvent.mouseOver(headerText);
-      jest.runAllTimers();
+      // when there is _.debounce use in the code runOnlyPendingTimers needs to be used
+      jest.runOnlyPendingTimers();
     });
 
     const usersListWrapper = await screen.findByRole('tooltip');
@@ -526,7 +567,7 @@ describe('IssueLikeDataTableView', () => {
     // hover over the tooltip
     act(() => {
       fireEvent.mouseOver(listText);
-      jest.runAllTimers();
+      jest.runOnlyPendingTimers();
     });
 
     await waitFor(async () => {
@@ -575,7 +616,7 @@ describe('IssueLikeDataTableView', () => {
     // hover over the tooltip
     act(() => {
       fireEvent.mouseOver(link);
-      jest.runAllTimers();
+      jest.runOnlyPendingTimers();
     });
 
     const tooltip = await screen.queryByTestId('issues-table-cell-tooltip');
@@ -1101,7 +1142,7 @@ describe('IssueLikeDataTableView', () => {
   it('should call onWidthChange when column resized', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+    mockCellBoundingRect({ cellWidth: 200 });
 
     const { onColumnResize, getByTestId } = setup({
       items,
@@ -1120,10 +1161,10 @@ describe('IssueLikeDataTableView', () => {
     expect(onColumnResize).toHaveBeenCalledWith('task', 205);
   });
 
-  it('should not allow column width smaller then COLUMN_MIN_WIDTH when resized resized', async () => {
+  it('should not allow column width smaller then COLUMN_MIN_WIDTH when resized', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
-    mockGetBoundingClientRect.mockReturnValueOnce({ width: 200, height: 42 });
+    mockCellBoundingRect({ cellWidth: 200 });
 
     const { onColumnResize, getByTestId } = setup({
       items,
@@ -1140,6 +1181,162 @@ describe('IssueLikeDataTableView', () => {
     await dragAndDrop(dragHandle, dragHandle, -195);
 
     expect(onColumnResize).toHaveBeenCalledWith('task', COLUMN_MIN_WIDTH);
+  });
+
+  describe('when container is wider then sum of all column widths, last column', () => {
+    it('should not have resize handle', () => {
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+      mockCellBoundingRect({ tableWidth: 1000 });
+
+      const { getByTestId } = setup({
+        items,
+        columns,
+        visibleColumnKeys,
+        columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+        hasNextPage: false,
+      });
+
+      expect(
+        within(getByTestId('emoji-column-heading')).queryByTestId(
+          'column-resize-handle',
+        ),
+      ).toBeNull();
+    });
+
+    it('should has no with nor max-width css set', () => {
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+      mockCellBoundingRect({ tableWidth: 1000 });
+
+      const { queryByTestId } = setup({
+        items,
+        columns,
+        visibleColumnKeys,
+        columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+        hasNextPage: false,
+      });
+
+      expect(queryByTestId('emoji-column-heading')).toHaveStyle({
+        maxWidth: undefined,
+        width: undefined,
+      });
+    });
+
+    describe('and there is no onColumnResize (readonly)', () => {
+      it('should have max-width set', () => {
+        const { columns, items, visibleColumnKeys } =
+          makeDragAndDropTableProps();
+
+        mockCellBoundingRect({ tableWidth: 1000 });
+
+        const { queryByTestId } = setup({
+          items,
+          columns,
+          visibleColumnKeys,
+          onColumnResize: undefined,
+          columnCustomSizes: undefined,
+          hasNextPage: false,
+        });
+
+        expect(queryByTestId('emoji-column-heading')).toHaveStyle(
+          'max-width: 176px',
+        );
+      });
+    });
+
+    describe('and then container width changes and gets smaller', () => {
+      it('should bring back resize handle and set width css', () => {
+        const { columns, items, visibleColumnKeys } =
+          makeDragAndDropTableProps();
+
+        mockCellBoundingRect({ tableWidth: 1000 });
+
+        const { getByTestId } = setup({
+          items,
+          columns,
+          visibleColumnKeys,
+          columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+          hasNextPage: false,
+        });
+
+        act(() => setWidth(100));
+
+        jest.runOnlyPendingTimers();
+
+        const emojiHeading = getByTestId('emoji-column-heading');
+        expect(
+          within(emojiHeading).queryByTestId('column-resize-handle'),
+        ).not.toBeNull();
+        expect(emojiHeading).toHaveStyle('width: 300px');
+      });
+    });
+  });
+
+  describe('when sum of all column widths is bigger than container width, last column', () => {
+    it('should have resize handle', () => {
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+      const { getByTestId } = setup({
+        items,
+        columns,
+        visibleColumnKeys,
+        columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+        hasNextPage: false,
+      });
+
+      expect(
+        within(getByTestId('emoji-column-heading')).queryByTestId(
+          'column-resize-handle',
+        ),
+      ).not.toBeNull();
+    });
+
+    it('should has width css set', () => {
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+
+      mockCellBoundingRect({ tableWidth: 100 });
+
+      const { queryByTestId } = setup({
+        items,
+        columns,
+        visibleColumnKeys,
+        columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+        hasNextPage: false,
+      });
+
+      expect(queryByTestId('emoji-column-heading')).toHaveStyle('width: 300px');
+    });
+
+    describe('and then container width changes and gets bigger', () => {
+      it('should remove resize handle as well as width css', () => {
+        const { columns, items, visibleColumnKeys } =
+          makeDragAndDropTableProps();
+
+        mockCellBoundingRect({ tableWidth: 100 });
+
+        const { getByTestId } = setup({
+          items,
+          columns,
+          visibleColumnKeys,
+          columnCustomSizes: { id: 100, task: 200, emoji: 300 },
+          hasNextPage: false,
+        });
+
+        act(() => setWidth(1000));
+
+        jest.runOnlyPendingTimers();
+
+        const emojiHeading = getByTestId('emoji-column-heading');
+        expect(
+          within(emojiHeading).queryByTestId('column-resize-handle'),
+        ).toBeNull();
+        expect(emojiHeading).toHaveStyle({
+          maxWidth: undefined,
+          width: undefined,
+        });
+      });
+    });
   });
 
   it('should have correct column order after a drag and drop reorder', async () => {
@@ -1569,100 +1766,100 @@ describe('IssueLikeDataTableView', () => {
       expect(onWrappedColumnChange).toHaveBeenCalledWith('someOtherKey', false);
     });
   });
-});
 
-describe('UFO metrics: IssueLikeDataTableView', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  describe('TableRendered', async () => {
-    it('should mark Ufo experience as successful when data is loaded', async () => {
-      const items: DatasourceDataResponseItem[] = [
-        { id: { data: 'id1' } },
-        {
-          id: {
-            data: 'id2',
-          },
-        },
-        {
-          id: {
-            data: 'id3',
-          },
-        },
-      ];
-
-      const columns: DatasourceResponseSchemaProperty[] = [
-        {
-          key: 'id',
-          title: 'ID',
-          type: 'string',
-        },
-      ];
-
-      setup({
-        items,
-        columns,
-        parentContainerRenderInstanceId: '123',
-      });
-
-      expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
+  describe('UFO metrics', () => {
+    beforeEach(() => {
+      jest.clearAllMocks();
     });
 
-    it('should not mark Ufo experience as successful when data is loading', async () => {
-      setup({
-        status: 'loading',
-        parentContainerRenderInstanceId: '123',
+    describe('TableRendered', () => {
+      it('should mark Ufo experience as successful when data is loaded', async () => {
+        const items: DatasourceDataResponseItem[] = [
+          { id: { data: 'id1' } },
+          {
+            id: {
+              data: 'id2',
+            },
+          },
+          {
+            id: {
+              data: 'id3',
+            },
+          },
+        ];
+
+        const columns: DatasourceResponseSchemaProperty[] = [
+          {
+            key: 'id',
+            title: 'ID',
+            type: 'string',
+          },
+        ];
+
+        setup({
+          items,
+          columns,
+          parentContainerRenderInstanceId: '123',
+        });
+
+        expect(mockTableRenderUfoSuccess).toHaveBeenCalled();
       });
 
-      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
-    });
+      it('should not mark Ufo experience as successful when data is loading', async () => {
+        setup({
+          status: 'loading',
+          parentContainerRenderInstanceId: '123',
+        });
 
-    it('should not mark Ufo experience as successful when data is resolved but no parent instance id is passed', async () => {
-      expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('ColumnPickerRendered', async () => {
-    it('should mark Ufo experience as started when column picker is opened', async () => {
-      const items: DatasourceDataResponseItem[] = [
-        { id: { data: 'id1' } },
-        {
-          id: {
-            data: 'id2',
-          },
-        },
-        {
-          id: {
-            data: 'id3',
-          },
-        },
-      ];
-
-      const columns: DatasourceResponseSchemaProperty[] = [
-        {
-          key: 'id',
-          title: 'ID',
-          type: 'string',
-        },
-      ];
-
-      jest.useFakeTimers();
-
-      const { getByTestId } = setup({
-        items,
-        columns,
-        parentContainerRenderInstanceId: 'abc',
+        expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
       });
 
-      const triggerButton = getByTestId('column-picker-trigger-button');
-      invariant(triggerButton);
+      it('should not mark Ufo experience as successful when data is resolved but no parent instance id is passed', async () => {
+        expect(mockTableRenderUfoSuccess).not.toHaveBeenCalled();
+      });
+    });
 
-      // open popup
-      fireEvent.click(triggerButton);
+    describe('ColumnPickerRendered', () => {
+      it('should mark Ufo experience as started when column picker is opened', async () => {
+        const items: DatasourceDataResponseItem[] = [
+          { id: { data: 'id1' } },
+          {
+            id: {
+              data: 'id2',
+            },
+          },
+          {
+            id: {
+              data: 'id3',
+            },
+          },
+        ];
 
-      expect(mockColumnPickerUfoStart).toHaveBeenCalledTimes(1);
-      expect(mockColumnPickerUfoAddMetadata).toHaveBeenCalledTimes(1);
+        const columns: DatasourceResponseSchemaProperty[] = [
+          {
+            key: 'id',
+            title: 'ID',
+            type: 'string',
+          },
+        ];
+
+        jest.useFakeTimers();
+
+        const { getByTestId } = setup({
+          items,
+          columns,
+          parentContainerRenderInstanceId: 'abc',
+        });
+
+        const triggerButton = getByTestId('column-picker-trigger-button');
+        invariant(triggerButton);
+
+        // open popup
+        fireEvent.click(triggerButton);
+
+        expect(mockColumnPickerUfoStart).toHaveBeenCalledTimes(1);
+        expect(mockColumnPickerUfoAddMetadata).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

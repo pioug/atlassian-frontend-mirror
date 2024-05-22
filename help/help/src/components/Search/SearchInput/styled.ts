@@ -2,6 +2,7 @@
 import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchInputContainer = styled.div({
   order: 0,
   flex: '0 1 auto',
@@ -10,6 +11,7 @@ export const SearchInputContainer = styled.div({
   boxSizing: 'border-box',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SearchIconContainer = styled.div({
   width: token('space.300', '24px'),
   height: token('space.300', '24px'),
@@ -22,6 +24,7 @@ export const SearchIconContainer = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CloseButtonAndSpinnerContainer = styled.div({
   fontSize: 0,
   paddingRight: token('space.100', '8px'),

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar",
-  "version": "21.8.0",
+  "version": "21.9.0",
   "description": "An avatar is a visual representation of a user or entity.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,6 +55,8 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/icon": "^22.3.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
+    "@atlaskit/primitives": "^6.1.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",
@@ -110,5 +112,10 @@
     }
   },
   "homepage": "https://atlassian.design/components/avatar/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.design-system-team.avatar-item-font-size_830x6": {
+      "type": "boolean"
+    }
+  }
 }

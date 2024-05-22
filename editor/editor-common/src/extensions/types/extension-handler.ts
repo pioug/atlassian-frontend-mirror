@@ -46,6 +46,7 @@ export type ExtensionAPI<T extends Parameters = Parameters> = {
       adf: ADFEntity,
       options?: {
         allowSelectionToNewNode?: boolean;
+        allowSelectionNearNewNode?: boolean;
       },
     ) => void;
     scrollTo: (localId: string) => void;

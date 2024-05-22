@@ -7,10 +7,12 @@ import { token } from '@atlaskit/tokens';
 
 import { bgColor, teamHeaderBgColor } from './constants';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CardTriggerWrapper = styled.div({
   display: 'inherit',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CardWrapper = styled.div({
   backgroundColor: bgColor,
   borderRadius: `${borderRadius()}px`,
@@ -20,12 +22,13 @@ export const CardWrapper = styled.div({
   MozOsxFontSmoothing: 'grayscale',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TeamForbiddenErrorStateWrapper = styled.div({
   width: `${gridSize() * 40}px`,
   position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
   background-color: ${(props) =>
     props.isLoading
@@ -41,6 +44,7 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
   height: ${gridSize() * 16}px;
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CardContent = styled.div({
   display: 'flex',
   flexDirection: 'column',
@@ -48,6 +52,7 @@ export const CardContent = styled.div({
   minHeight: `${gridSize() * 13}px`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TeamName = styled.h6(h600, {
   textTransform: 'none',
   overflow: 'hidden',
@@ -57,22 +62,26 @@ export const TeamName = styled.h6(h600, {
   WebkitBoxOrient: 'vertical',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MemberCount = styled.div({
   color: token('color.text.subtlest', N200),
   marginTop: token('space.050', '4px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AvatarSection = styled.div({
   marginTop: token('space.200', '16px'),
   marginLeft: token('space.negative.025', '-2px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const DescriptionWrapper = styled.div({
   marginTop: token('space.200', '16px'),
   alignItems: 'center',
   display: 'flex',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Description = styled.span({
   overflow: 'hidden',
   maxHeight: '60px',
@@ -81,6 +90,7 @@ export const Description = styled.span({
   WebkitBoxOrient: 'vertical',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ActionButtons = styled.div({
   width: 'calc(100% + 8px)',
   display: 'flex',
@@ -95,21 +105,25 @@ export const ActionButtons = styled.div({
   ),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WrappedButton = styled.div({
   flexBasis: 0,
   flexGrow: 1,
   marginLeft: token('space.100', '8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MoreButton = styled.div({
   marginLeft: token('space.100', '8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingWrapper = styled.div({
   textAlign: 'center',
   marginTop: token('space.500', '40px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AccessLockSVGWrapper = styled.div({
   marginBottom: token('space.300', '24px'),
 });

@@ -5,6 +5,7 @@ import { N200, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
   {
     position: 'absolute',
@@ -29,17 +30,20 @@ export const AutocompleteContainer = styled.div<{ isOpen: boolean }>(
     isOpen ? css({ visibility: 'visible' }) : css({ visibility: 'hidden' }),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AutocompleteOptionsContainer = styled.div({
   maxHeight: '288px',
   overflow: 'auto',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const OptionList = styled.ul({
   listStyle: 'none',
   margin: `${token('space.0', '0')}`,
   padding: `${token('space.0', '0')}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AutocompleteLoadingFooter = styled.div<{ hasOptions: boolean }>(
   {
     display: 'flex',

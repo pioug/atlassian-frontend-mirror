@@ -171,6 +171,7 @@ export const createReducer = ({
         tr,
         triggerHandler: params.triggerHandler,
         inputMethod: params.inputMethod,
+        reopenQuery: params.query,
       });
     } else if (shouldCloseMenu) {
       return closeMenu(currentPluginState);

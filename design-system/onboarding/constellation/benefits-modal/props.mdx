@@ -2,10 +2,12 @@
 title: Benefits modal
 description: A benefits modal explains the benefits of a significant new feature or experience change.
 order: 1
+props:
+  packageName: '@atlaskit/onboarding'
+  exports:
+    - Modal
 ---
-
-import BenefitsModalProps from '!!extract-react-types-loader!../../src/components/modal';
 
 ## Props
 
-<PropsTable heading="" props={BenefitsModalProps} />
+<TSMorphProps exportName="Modal" packageName="@atlaskit/onboarding" />

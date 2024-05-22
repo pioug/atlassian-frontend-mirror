@@ -55,6 +55,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Jira に招待',
   'fabric.elements.share.main.tab.text.confluence': 'ページを共有',
   'fabric.elements.share.main.tab.text.jira': '課題を共有',
+  'fabric.elements.share.popup.label': '共有',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {ブログ投稿が共有されました}board {ボードが共有されました}calendar {カレンダーが共有されました}draft {下書きが共有されました}filter {フィルターが共有されました}issue {課題が共有されました}summary {要約が共有されました}list {リストが共有されました}timeline {タイムラインが共有されました}form {フォームが共有されました}media {メディアが共有されました}page {ページが共有されました}project {プロジェクトが共有されました}pullrequest {プル リクエストが共有されました}question {質問が共有されました}report {レポートが共有されました}repository {リポジトリが共有されました}request {リクエストが共有されました}roadmap {タイムラインが共有されました}site {サイトが共有されました}space {スペースが共有されました}other {リンクが共有されました}}',
   'fabric.elements.share.to.integration.button': '{integrationName} と共有',

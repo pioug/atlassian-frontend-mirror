@@ -1,4 +1,4 @@
-import { Datasource, DatasourceAdf } from '@atlaskit/linking-common/types';
+import { type Datasource, type DatasourceAdf } from '@atlaskit/linking-common/types';
 
 export const buildDatasourceAdf = <P extends Record<string, unknown>>(
   datasource: Datasource<P>,

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.3.0
+
+### Minor Changes
+
+-   [#102286](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102286)
+    [`8c56c1feba06`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c56c1feba06) -
+    Adds support for `role="button"` in `no-html-anchor` rule
+
 ## 10.2.1
 
 ### Patch Changes

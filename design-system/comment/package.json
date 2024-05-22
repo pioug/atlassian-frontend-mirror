@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/button": "^17.15.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/lozenge": "^11.7.0",
     "@atlaskit/primitives": "^6.3.0",
@@ -43,7 +43,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
-    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/avatar": "^21.9.0",
     "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/ssr": "*",

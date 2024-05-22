@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 const LONG = 80;
 const SHORT = 60;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const StyledContainer = styled.div({
   display: 'flex',
   maxWidth: '600px',
@@ -24,6 +25,7 @@ const StyledContainer = styled.div({
   alignItems: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ItemWrapper = styled.div({
   boxSizing: 'border-box',
   display: 'flex',
@@ -41,6 +43,7 @@ const ItemWrapper = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const OuterBorder = styled.div({
   position: 'absolute',
   backgroundColor: token('color.border', '#ccc'),

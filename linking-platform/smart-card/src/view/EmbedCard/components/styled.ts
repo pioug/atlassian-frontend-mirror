@@ -157,13 +157,14 @@ function visible({ frameStyle }: WrapperProps) {
   return frameStyle === 'show' ? visibleStyles : '';
 }
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LinkWrapper = styled.div`
   ${(props: WrapperProps) => wrapperStyles(props)} &:hover {
     text-decoration: none;
   }
 `;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Wrapper = styled.div<WrapperProps>(
   (props) => wrapperStyles(props),
   {
@@ -179,6 +180,7 @@ export interface HeaderProps {
 }
 
 export const embedHeaderHeight = 32;
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Header = styled.div(
   {
     height: `${embedHeaderHeight}px`,
@@ -204,6 +206,7 @@ export interface PlaceholderProps {
   isPlaceholder: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconWrapper = styled.div(
   borderRadius,
   csssize(16),
@@ -221,6 +224,7 @@ export const IconWrapper = styled.div(
   },
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TextWrapper = styled.div(
   ({ isPlaceholder }: PlaceholderProps) => {
     if (isPlaceholder) {
@@ -242,6 +246,7 @@ export const TextWrapper = styled.div(
   ellipsis('none'),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TooltipWrapper = styled.div({
   overflow: 'hidden',
 });
@@ -256,7 +261,7 @@ export interface ContentProps {
 // NB: `overflow` is kept as `hidden` since
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Content = styled.div`
   ${contentBorderRadius};
   border: 1px solid ${token('color.border', N40)};
@@ -305,6 +310,7 @@ export interface ImageProps {
   size: number;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Image = styled.img(
   ({ size }: ImageProps) => csssize(size),
   borderRadius,
@@ -315,6 +321,7 @@ export const Image = styled.img(
 
 export const maxAvatarCount = 6;
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ContentWrapper = styled.div({
   display: 'flex',
   flexDirection: 'row',
@@ -325,6 +332,7 @@ export const ContentWrapper = styled.div({
   )} ${token('space.150', '12px')}`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Title = styled.div({
   color: token('color.text', colors.N900),
   fontSize: '16px',
@@ -334,6 +342,7 @@ export const Title = styled.div({
   overflow: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Byline = styled.div(
   {
     marginTop: token('space.050', '4px'),
@@ -345,6 +354,7 @@ export const Byline = styled.div(
   ellipsis('100%'),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Description = styled.div({
   marginTop: `calc(${token('space.100', '8px')} - 1px)`,
   color: token('color.text', colors.N800),
@@ -355,6 +365,7 @@ export const Description = styled.div({
   overflow: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ResolvedViewIconWrapper = styled.div({
   marginTop: token('space.050', '4px'),
 });
@@ -363,6 +374,7 @@ export interface ThumbnailProps {
   src: string;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Thumbnail = styled.div<ThumbnailProps>(
   borderRadius,
   csssize(48),
@@ -378,10 +390,12 @@ export const Thumbnail = styled.div<ThumbnailProps>(
   }),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const UsersWrapper = styled.div({
   marginTop: token('space.100', '8px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ActionsWrapper = styled.div({
   marginTop: token('space.100', '8px'),
   textAlign: 'right',
@@ -393,6 +407,7 @@ export const ActionsWrapper = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const AlertWrapper = styled.div({
   position: 'absolute',
   top: 0,

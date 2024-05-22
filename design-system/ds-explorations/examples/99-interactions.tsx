@@ -8,13 +8,12 @@ import { Code } from '@atlaskit/code';
 import FocusRing from '@atlaskit/focus-ring';
 import Heading from '@atlaskit/heading';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import {
   UNSAFE_InteractionSurface as InteractionSurface,
-  UNSAFE_Text as Text,
 } from '../src';
 
 const fieldsetStyles = xcss({
@@ -74,10 +73,8 @@ export default () => {
               >
                 <InteractionSurface>
                   <Text
-                    textAlign="center"
-                    fontSize="size.100"
-                    lineHeight="lineHeight.500"
-                    fontWeight="medium"
+                    align="center"
+                    weight="medium"
                   >
                     {app}
                   </Text>

@@ -1,5 +1,14 @@
 # @atlaskit/inline-message
 
+## 12.1.1
+
+### Patch Changes
+
+-   [#101830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101830)
+    [`3ae5d8dba986`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ae5d8dba986) -
+    Internal change only; update to use primitive components and tokenised typography.
+-   Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

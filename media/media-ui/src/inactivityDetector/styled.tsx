@@ -12,7 +12,7 @@ const handleControlsVisibility = ({
   opacity: ${controlsAreVisible ? '1' : '0'};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const InactivityDetectorWrapper = styled.div`
   width: 100%;
   height: 100%;

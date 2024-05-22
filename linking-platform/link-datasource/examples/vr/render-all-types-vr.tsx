@@ -13,12 +13,14 @@ import SmartLinkClient from '../../examples-helpers/smartLinkCustomClient';
 import { renderType } from '../../src/ui/issue-like-table/render-type';
 import { DatasourceTypeWithOnlyValues } from '../../src/ui/issue-like-table/types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ContainerWrapper = styled.div({
   width: '70%',
   margin: '2em auto',
   padding: '0 1em',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const RenderDiv = styled.div({
   margin: `${token('space.075', '6px')} ${token('space.0', '0px')}`,
 });

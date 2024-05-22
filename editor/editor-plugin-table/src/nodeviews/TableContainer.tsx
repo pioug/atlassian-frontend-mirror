@@ -1,5 +1,11 @@
 import type { PropsWithChildren } from 'react';
-import React, { forwardRef, useCallback, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import classNames from 'classnames';
 
@@ -50,6 +56,57 @@ export const InnerContainer = forwardRef<
   );
 });
 
+const centerAlignStyle = { display: 'flex', justifyContent: 'center' };
+
+const leftAlignStyle = { display: 'flex', justifyContent: 'flex-start' };
+
+type AlignmentTableContainerProps = {
+  node: PMNode;
+};
+
+const AlignmentTableContainer = ({
+  node,
+  children,
+}: PropsWithChildren<AlignmentTableContainerProps>) => {
+  const alignment = node.attrs.layout;
+
+  const style = useMemo(() => {
+    return alignment === 'align-start' ? leftAlignStyle : centerAlignStyle;
+  }, [alignment]);
+
+  return (
+    <div data-testid="table-alignment-container" style={style}>
+      {children}
+    </div>
+  );
+};
+
+const AlignmentTableContainerWrapper = ({
+  isTableAlignmentEnabled,
+  node,
+  children,
+}: PropsWithChildren<
+  AlignmentTableContainerProps & { isTableAlignmentEnabled?: boolean }
+>) => {
+  if (!isTableAlignmentEnabled) {
+    return (
+      <div
+        data-testid="table-alignment-container"
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <AlignmentTableContainer node={node}>{children}</AlignmentTableContainer>
+  );
+};
+
 type ResizableTableContainerProps = {
   containerWidth: number;
   node: PMNode;
@@ -59,9 +116,11 @@ type ResizableTableContainerProps = {
   tableRef: HTMLTableElement;
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
-  isTableScalingEnabled?: boolean;
   tableWrapperHeight?: number;
   isWholeTableInDanger?: boolean;
+
+  isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
 };
 
 export const ResizableTableContainer = React.memo(
@@ -75,9 +134,10 @@ export const ResizableTableContainer = React.memo(
     tableRef,
     isResizing,
     pluginInjectionApi,
-    isTableScalingEnabled,
     tableWrapperHeight,
     isWholeTableInDanger,
+    isTableScalingEnabled,
+    isTableAlignmentEnabled,
   }: PropsWithChildren<ResizableTableContainerProps>) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const tableWidthRef = useRef<number>(akEditorDefaultLayoutWidth);
@@ -204,11 +264,9 @@ export const ResizableTableContainer = React.memo(
     const isLivePageViewMode = editorViewModeState?.mode === 'view';
 
     return (
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
+      <AlignmentTableContainerWrapper
+        isTableAlignmentEnabled={isTableAlignmentEnabled}
+        node={node}
       >
         <div
           style={{
@@ -237,7 +295,7 @@ export const ResizableTableContainer = React.memo(
             </TableResizer>
           )}
         </div>
-      </div>
+      </AlignmentTableContainerWrapper>
     );
   },
 );
@@ -246,16 +304,18 @@ type TableContainerProps = {
   node: PMNode;
   className: string;
   containerWidth: EditorContainerWidth;
-  isTableResizingEnabled: boolean | undefined;
   editorView: EditorView;
   getPos: () => number | undefined;
   tableRef: HTMLTableElement;
   isNested: boolean;
   isResizing?: boolean;
   pluginInjectionApi?: PluginInjectionAPI;
-  isTableScalingEnabled?: boolean;
   tableWrapperHeight?: number;
   isWholeTableInDanger?: boolean;
+
+  isTableResizingEnabled: boolean | undefined;
+  isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
 };
 
 export const TableContainer = ({
@@ -263,7 +323,6 @@ export const TableContainer = ({
   node,
   className,
   containerWidth: { width: editorWidth },
-  isTableResizingEnabled,
   editorView,
   getPos,
   tableRef,
@@ -271,8 +330,10 @@ export const TableContainer = ({
   tableWrapperHeight,
   isResizing,
   pluginInjectionApi,
-  isTableScalingEnabled,
   isWholeTableInDanger,
+  isTableResizingEnabled,
+  isTableScalingEnabled,
+  isTableAlignmentEnabled,
 }: PropsWithChildren<TableContainerProps>) => {
   if (isTableResizingEnabled && !isNested) {
     return (
@@ -288,6 +349,7 @@ export const TableContainer = ({
         pluginInjectionApi={pluginInjectionApi}
         isTableScalingEnabled={isTableScalingEnabled}
         isWholeTableInDanger={isWholeTableInDanger}
+        isTableAlignmentEnabled={isTableAlignmentEnabled}
       >
         {children}
       </ResizableTableContainer>

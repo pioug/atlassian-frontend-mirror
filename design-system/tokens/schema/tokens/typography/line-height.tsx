@@ -2,7 +2,7 @@ import type {
   AttributeSchema,
   LineHeightTokenSchema,
 } from '../../../src/types';
-import { LineHeightBaseToken as BaseToken } from '../../palettes/typography-palette';
+import { type LineHeightBaseToken as BaseToken } from '../../palettes/typography-palette';
 
 const font: AttributeSchema<LineHeightTokenSchema<BaseToken>> = {
   font: {
@@ -12,7 +12,7 @@ const font: AttributeSchema<LineHeightTokenSchema<BaseToken>> = {
           group: 'lineHeight',
           state: 'deprecated',
           introduced: '0.10.33',
-          description: 'Used single-line text.',
+          description: 'Helpful guidance goes here',
           deprecated: '1.29.0',
         },
       },

@@ -17,6 +17,7 @@ export type TableOptions = {
   isTableResizingEnabled?: boolean;
   isDragAndDropEnabled?: boolean;
   isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
 };
 
 export interface Props {

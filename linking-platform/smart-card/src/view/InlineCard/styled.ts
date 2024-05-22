@@ -4,6 +4,7 @@ import { token } from '@atlaskit/tokens';
 
 // By default buttons will hide overflow and ellipsis content instead of wrapping.
 // This basically turns the button back into inline content
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const IconStyledButton = styled.span({
   '&&&': {
     textAlign: 'initial',
@@ -29,15 +30,18 @@ export const IconStyledButton = styled.span({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const NoLinkAppearance = styled.span({
   color: token('color.text.subtlest', N200),
   marginLeft: token('space.050', '4px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LowercaseAppearance = styled.span({
   textTransform: 'lowercase',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LinkAppearance = styled.a({
   color: token('color.link', B400),
   '&:hover': {

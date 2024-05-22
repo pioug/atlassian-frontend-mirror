@@ -14,14 +14,17 @@ export const truncate = (width: string = '100%') =>
     width: width,
   });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultsListContainer = styled.div({
   position: 'relative',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultsListGroupWrapper = styled.div({
   padding: `${token('space.100', '8px')} 0 ${token('space.100', '8px')} 0`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultsListGroupTitle = styled.div({
   color: token('color.text.subtlest', colors.N200),
   fontSize: `${fontSizeSmall()}px`,
@@ -33,6 +36,7 @@ export const WhatsNewResultsListGroupTitle = styled.div({
   textTransform: 'uppercase',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const ToggleShowWhatsNewResultsContainer = styled.div({
   padding: `${token('space.100', '8px')} 0`,
   span: {

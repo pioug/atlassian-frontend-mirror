@@ -11,18 +11,10 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import {
-  B300,
-  G200,
-  N300,
-  N600,
-  P200,
-  R300,
-  Y200,
-} from '@atlaskit/theme/colors';
+import { Inline, Text } from '@atlaskit/primitives';
+import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { VAR_SECONDARY_TEXT_COLOR } from '../../constants';
 import type { IconAppearance, InlineDialogPlacement } from '../../types';
 import MessageIcon from '../message-icon';
 
@@ -73,25 +65,6 @@ interface InlineMessageProps {
   iconLabel?: string;
 }
 
-const buttonContentsStyles = css({
-  display: 'flex',
-  alignItems: 'center',
-  textDecoration: 'none',
-});
-
-const titleStyles = css({
-  padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
-  fontWeight: token('font.weight.medium', '500'),
-});
-
-const textStyles = css({
-  padding: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
-  color: `var(${VAR_SECONDARY_TEXT_COLOR})`,
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-});
-
 const rootStyles = css({
   display: 'inline-block',
   maxWidth: '100%',
@@ -107,12 +80,6 @@ const rootStyles = css({
     // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '[data-ds--inline-message--button]': {
       textDecoration: 'underline',
-    },
-  },
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  '[data-ds--inline-message--button]': {
-    '&:active [data-ds--inline-message--secondary-text]': {
-      color: token('color.text.subtle', `var(${VAR_SECONDARY_TEXT_COLOR})`),
     },
   },
 });
@@ -201,39 +168,30 @@ const InlineMessage: FC<InlineMessageProps> = ({
           testId={testId && `${testId}--button`}
           aria-expanded={isOpen}
         >
-          <div css={buttonContentsStyles}>
+          <Inline space="space.050" alignBlock="center">
             <MessageIcon
               isOpen={isOpen}
               appearance={appearance}
               label={iconLabel}
             />
-            {title && (
-              <span
-                style={{ color: token('color.text', N600) }}
-                css={titleStyles}
-                data-testid={testId && `${testId}--title`}
-              >
-                {title}
-              </span>
-            )}
-            {secondaryText && (
-              <span
-                data-ds--inline-message--secondary-text
-                style={
-                  {
-                    [VAR_SECONDARY_TEXT_COLOR]: token(
-                      'color.text.subtlest',
-                      N300,
-                    ),
-                  } as CSSProperties
-                }
-                css={textStyles}
-                data-testid={testId && `${testId}--text`}
-              >
-                {secondaryText}
-              </span>
-            )}
-          </div>
+            <Inline space="space.100">
+              {title && (
+                <Text weight="medium" testId={testId && `${testId}--title`}>
+                  {title}
+                </Text>
+              )}
+              {secondaryText && (
+                <Text
+                  weight="medium"
+                  color="color.text.subtlest"
+                  maxLines={1}
+                  testId={testId && `${testId}--text`}
+                >
+                  {secondaryText}
+                </Text>
+              )}
+            </Inline>
+          </Inline>
         </Button>
       </InlineDialog>
     </div>

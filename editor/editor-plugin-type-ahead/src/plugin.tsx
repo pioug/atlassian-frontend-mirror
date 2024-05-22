@@ -51,9 +51,9 @@ const createOpenAtTransaction =
   (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (props: OpenTypeAheadProps) =>
   (tr: Transaction): boolean => {
-    const { triggerHandler, inputMethod } = props;
+    const { triggerHandler, inputMethod, query } = props;
 
-    openTypeAheadAtCursor({ triggerHandler, inputMethod })({ tr });
+    openTypeAheadAtCursor({ triggerHandler, inputMethod, query })({ tr });
 
     editorAnalyticsAPI?.attachAnalyticsEvent({
       action: ACTION.INVOKED,

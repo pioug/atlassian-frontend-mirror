@@ -1,5 +1,15 @@
 # @atlaskit/user-picker
 
+## 10.20.2
+
+### Patch Changes
+
+-   [#101781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101781)
+    [`ea3386009a3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea3386009a3f) -
+    A bug has been fixed where aria-activedescendant on the input elemnt would be try to set to a
+    menu list item before the menu was rendered.
+-   Updated dependencies
+
 ## 10.20.1
 
 ### Patch Changes

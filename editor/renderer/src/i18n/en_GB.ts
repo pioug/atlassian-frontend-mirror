@@ -7,20 +7,11 @@
  */
 //English (United Kingdom)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Sort column Z to A',
   'fabric.editor.headingLink.ascSortingLabel': 'ascending',
   'fabric.editor.headingLink.copied': 'Copied!',
   'fabric.editor.headingLink.copyAnchorLink': 'Copy link to heading',
   'fabric.editor.headingLink.copyAriaLabel': 'Copy',
-  'fabric.editor.headingLink.descOrderLabel': 'Clear sorting',
   'fabric.editor.headingLink.descSortingLabel': 'descending',
   'fabric.editor.headingLink.failedToCopy': 'Copy failed',
-  'fabric.editor.headingLink.invalidLabel': "⚠️ You can't sort a table with merged cells",
-  'fabric.editor.headingLink.noOrderLabel': 'Sort column A to Z',
   'fabric.editor.headingLink.noneSortingLabel': 'none',
-  'fabric.editor.tableHeader.sorting.asc': 'Ascending sort applied',
-  'fabric.editor.tableHeader.sorting.default': 'Sort the column',
-  'fabric.editor.tableHeader.sorting.desc': 'Descending sort applied',
-  'fabric.editor.tableHeader.sorting.invalid': "You can't sort a table with merged cells",
-  'fabric.editor.tableHeader.sorting.no': 'No sort applied to the column',
 };

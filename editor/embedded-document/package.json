@@ -39,7 +39,7 @@
     "runReact18": false
   },
   "dependencies": {
-    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/button": "^17.15.0",
     "@atlaskit/editor-common": "^80.4.0",
     "@atlaskit/editor-core": "^193.19.0",
     "@atlaskit/editor-shared-styles": "^2.11.0",

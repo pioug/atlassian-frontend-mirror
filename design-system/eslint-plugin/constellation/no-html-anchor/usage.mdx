@@ -21,6 +21,12 @@ This rule marks code as violations when it finds native HTML anchor elements.
  ^ Using a native HTML `<a>`
   Hello, World!
 </a>
+
+<div role="link" tabIndex="0" data-href="https://www.atlassian.com">
+     ^^^^^^^^^^^ Using `role="link"` to create links
+  Hello, World!
+</div>
+
 ```
 
 ### Correct

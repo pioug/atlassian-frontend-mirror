@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import gridSizeTimes from '../../util/gridSizeTimes';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const FooterOuter = styled.div({
   display: 'flex',
   width: '100%',

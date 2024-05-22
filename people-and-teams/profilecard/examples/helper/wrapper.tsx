@@ -9,6 +9,7 @@ const themedBoxShadow = token(
   `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CardWrapper = styled.div({
   display: 'inline-block',
   borderRadius: `${borderRadius()}px`,

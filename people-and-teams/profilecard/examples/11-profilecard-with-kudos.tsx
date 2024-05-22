@@ -13,10 +13,12 @@ import teamData from '../src/mocks/team-data';
 import ExampleWrapper from './helper/example-wrapper';
 import { getMockProfileClient, getMockTeamClient } from './helper/util';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Wrap = styled.div({
   marginBottom: token('space.250', '20px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const MainStage = styled.div({
   margin: token('space.200', '16px'),
 });

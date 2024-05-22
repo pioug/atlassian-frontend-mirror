@@ -28,6 +28,7 @@ const badgeStyles = xcss({
   marginLeft: 'space.050',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const LoadingStateAnimationWrapper = styled.div({
   position: 'relative',
   animation: 'flickerAnimation 2s infinite',

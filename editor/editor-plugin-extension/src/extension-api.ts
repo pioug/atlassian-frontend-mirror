@@ -26,7 +26,7 @@ import type {
   Schema as PMSchema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
-import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -139,7 +139,10 @@ export const createExtensionAPI: CreateExtensionAPI = (
     insertAfter: (
       localId: string,
       adf: ADFEntity,
-      opt?: { allowSelectionToNewNode?: boolean },
+      opt?: {
+        allowSelectionToNewNode?: boolean,
+        allowSelectionNearNewNode?: boolean,
+      },
     ) => {
       try {
         validate(adf);
@@ -229,8 +232,12 @@ export const createExtensionAPI: CreateExtensionAPI = (
 
         editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
       });
-      if (opt && opt.allowSelectionToNewNode) {
-        tr.setSelection(new NodeSelection(tr.doc.resolve(insertPosition)));
+      if (opt) {
+        if (opt.allowSelectionToNewNode) {
+          tr.setSelection(new NodeSelection(tr.doc.resolve(insertPosition)));
+        } else if (opt.allowSelectionNearNewNode) {
+          tr.setSelection(TextSelection.near(tr.doc.resolve(insertPosition)));
+        }
       }
       dispatch(tr);
     },

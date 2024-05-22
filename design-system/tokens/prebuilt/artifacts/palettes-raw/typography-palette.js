@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::382dab56160255b1cf0190b5dc1f552b>>
+ * @codegen <<SignedSource::d0f067fcc82edf831afe2fd039ca0a0c>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -475,21 +475,6 @@ var tokens = [{
   "name": "typography.letterSpacing.LetterSpacing400",
   "path": ["typography", "letterSpacing", "LetterSpacing400"]
 }, {
-  "value": "12px",
-  "attributes": {
-    "group": "lineHeight"
-  },
-  "filePath": "schema/palettes/typography-palette.tsx",
-  "isSource": true,
-  "original": {
-    "value": 12,
-    "attributes": {
-      "group": "lineHeight"
-    }
-  },
-  "name": "typography.lineHeight.LineHeight050",
-  "path": ["typography", "lineHeight", "LineHeight050"]
-}, {
   "value": "1",
   "attributes": {
     "group": "lineHeight"
@@ -517,8 +502,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight100",
-  "path": ["typography", "lineHeight", "LineHeight100"]
+  "name": "typography.lineHeight.LineHeight16",
+  "path": ["typography", "lineHeight", "LineHeight16"]
 }, {
   "value": "20px",
   "attributes": {
@@ -532,8 +517,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight200",
-  "path": ["typography", "lineHeight", "LineHeight200"]
+  "name": "typography.lineHeight.LineHeight20",
+  "path": ["typography", "lineHeight", "LineHeight20"]
 }, {
   "value": "24px",
   "attributes": {
@@ -547,8 +532,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight300",
-  "path": ["typography", "lineHeight", "LineHeight300"]
+  "name": "typography.lineHeight.LineHeight24",
+  "path": ["typography", "lineHeight", "LineHeight24"]
 }, {
   "value": "28px",
   "attributes": {
@@ -562,8 +547,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight400",
-  "path": ["typography", "lineHeight", "LineHeight400"]
+  "name": "typography.lineHeight.LineHeight28",
+  "path": ["typography", "lineHeight", "LineHeight28"]
 }, {
   "value": "32px",
   "attributes": {
@@ -577,8 +562,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight500",
-  "path": ["typography", "lineHeight", "LineHeight500"]
+  "name": "typography.lineHeight.LineHeight32",
+  "path": ["typography", "lineHeight", "LineHeight32"]
 }, {
   "value": "36px",
   "attributes": {
@@ -592,8 +577,8 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight600",
-  "path": ["typography", "lineHeight", "LineHeight600"]
+  "name": "typography.lineHeight.LineHeight36",
+  "path": ["typography", "lineHeight", "LineHeight36"]
 }, {
   "value": "40px",
   "attributes": {
@@ -607,7 +592,37 @@ var tokens = [{
       "group": "lineHeight"
     }
   },
-  "name": "typography.lineHeight.LineHeight700",
-  "path": ["typography", "lineHeight", "LineHeight700"]
+  "name": "typography.lineHeight.LineHeight40",
+  "path": ["typography", "lineHeight", "LineHeight40"]
+}, {
+  "value": "48px",
+  "attributes": {
+    "group": "lineHeight"
+  },
+  "filePath": "schema/palettes/typography-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": 48,
+    "attributes": {
+      "group": "lineHeight"
+    }
+  },
+  "name": "typography.lineHeight.LineHeight48",
+  "path": ["typography", "lineHeight", "LineHeight48"]
+}, {
+  "value": "56px",
+  "attributes": {
+    "group": "lineHeight"
+  },
+  "filePath": "schema/palettes/typography-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": 56,
+    "attributes": {
+      "group": "lineHeight"
+    }
+  },
+  "name": "typography.lineHeight.LineHeight56",
+  "path": ["typography", "lineHeight", "LineHeight56"]
 }];
 var _default = exports.default = tokens;

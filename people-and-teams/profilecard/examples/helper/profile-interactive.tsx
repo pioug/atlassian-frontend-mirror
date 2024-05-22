@@ -16,6 +16,7 @@ import {
   StatusType,
 } from '../../src/types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const StoryWrapper = styled.div({
   label: {
     color: token('color.text', N800),
@@ -30,6 +31,7 @@ const StoryWrapper = styled.div({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ProfileCardWrapper = styled.div({
   height: '400px',
 });

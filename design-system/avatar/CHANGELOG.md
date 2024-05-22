@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 21.9.0
+
+### Minor Changes
+
+-   [#96699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96699)
+    [`65f87a3ac916`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/65f87a3ac916) -
+    [ux] Increase font size of secondary text from computed 11.9px to 12px.
+
 ## 21.8.0
 
 ### Minor Changes

@@ -9,6 +9,7 @@ type WhatsNewResultListItemWrapperProps = {
 };
 
 export const WhatsNewResultListItemWrapper =
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
   styled.a<WhatsNewResultListItemWrapperProps>(
     {
       position: `relative`,
@@ -51,12 +52,14 @@ export const WhatsNewResultListItemWrapper =
     (props: any) => props.styles,
   );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultListItemTitleContainer = styled.div({
   width: '100%',
   whiteSpace: 'nowrap',
   marginBottom: token('space.050', '4px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultListItemTitleText = styled.span({
   fontSize: `${fontSizeSmall()}px`,
   lineHeight: `${fontSize()}px`,
@@ -68,6 +71,7 @@ export const WhatsNewResultListItemTitleText = styled.span({
   overflowX: 'hidden',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const WhatsNewResultListItemDescription = styled.p({
   display: 'block',
   lineHeight: '20px',

@@ -16,6 +16,7 @@ export const hiddenMixin = css({
   position: 'absolute',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TooltipContent = styled.div({
   fontFamily: fontFamily(),
 });

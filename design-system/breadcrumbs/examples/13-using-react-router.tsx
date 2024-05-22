@@ -12,17 +12,48 @@ interface RouterLinkProps {
   href: Link;
   onMouseEnter: (e: React.MouseEvent) => any;
   onMouseLeave: (e: React.MouseEvent) => any;
+  onMouseUp: (e: React.MouseEvent) => any;
+  onClick: (e: React.MouseEvent) => any;
+  onMouseDown: (e: React.MouseEvent) => any;
+  tabIndex: number;
+  // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
+  'aria-current'?:
+    | boolean
+    | 'false'
+    | 'true'
+    | 'page'
+    | 'step'
+    | 'location'
+    | 'date'
+    | 'time';
 }
 
 const RouterLink = React.memo<RouterLinkProps>((props) => {
-  const { children, className, href, onMouseEnter, onMouseLeave } = props;
+  const {
+    children,
+    href,
+    onMouseEnter,
+    onMouseLeave,
+    onMouseUp,
+    onMouseDown,
+    tabIndex,
+    className,
+    onClick,
+    'aria-current': ariaCurrent,
+  } = props;
 
   return (
     <Link
-      className={className}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onMouseUp={onMouseUp}
+      onMouseDown={onMouseDown}
+      onClick={onClick}
       to={href}
+      tabIndex={tabIndex}
+      // eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+      className={className}
+      aria-current={ariaCurrent}
     >
       {children}
     </Link>

@@ -5,22 +5,22 @@ import { css, jsx } from '@emotion/react';
 
 import Avatar, {
   ACTIVE_SCALE_FACTOR,
-  AppearanceType,
-  AvatarClickEventHandler,
-  AvatarPropTypes,
+  type AppearanceType,
+  type AvatarClickEventHandler,
+  type AvatarPropTypes,
   BORDER_WIDTH,
-  SizeType,
+  type SizeType,
 } from '@atlaskit/avatar';
 import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const FONT_SIZE: Record<SizeType, string> = {
-  xsmall: '10px',
-  small: '10px',
-  medium: '11px',
-  large: '12px',
-  xlarge: '16px',
-  xxlarge: '16px',
+  xsmall: '0.625rem', // 10px
+  small: '0.625rem', // 10px
+  medium: '0.6875rem', // 11px
+  large: '0.75rem', // 12px
+  xlarge: '1rem', // 16px
+  xxlarge: '1rem', // 16px
 };
 
 const buttonActiveStyles = css({

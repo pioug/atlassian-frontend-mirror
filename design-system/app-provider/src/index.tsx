@@ -1,5 +1,6 @@
 export { default } from './app-provider';
 export {
+  UNSAFE_useColorModeForMigration,
   useColorMode,
   useSetColorMode,
   useSetTheme,

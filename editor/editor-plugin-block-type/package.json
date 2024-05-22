@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-block-type",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "BlockType plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -110,6 +110,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0",
   "platform-feature-flags": {
     "platform.editor.allow-list-in-blockquote": {
+      "type": "boolean"
+    },
+    "platform.editor.enable-localid-for-paragraph-in-stage-0_cby7g": {
       "type": "boolean"
     }
   }

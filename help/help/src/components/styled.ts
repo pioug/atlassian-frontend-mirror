@@ -7,6 +7,7 @@ type HelpBodyProps = {
   isOverlayVisible?: boolean;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const HelpBodyContainer = styled.div<HelpBodyProps>({
   flexGrow: 1,
   minHeight: 0,
@@ -21,6 +22,7 @@ export const HelpBodyContainer = styled.div<HelpBodyProps>({
   alignItems: 'flex-start',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const HelpBody = styled.div<HelpBodyProps>({
   width: '100%',
   boxSizing: 'border-box',
@@ -37,6 +39,7 @@ type HomeProps = {
   isOverlayVisible?: boolean;
 };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const Home = styled.div<HomeProps>((props) => ({
   display: props.isOverlayFullyVisible ? 'none' : 'block',
   height: '100%',

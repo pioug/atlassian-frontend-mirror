@@ -5,6 +5,7 @@ export interface WrapperProps {
   inline?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Wrapper = styled.div<WrapperProps>(({ inline }) => ({
   display: inline ? 'inline' : undefined,
 }));

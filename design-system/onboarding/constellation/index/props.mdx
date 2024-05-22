@@ -1,14 +1,19 @@
 ---
 order: 1
+props:
+  packageName: '@atlaskit/onboarding'
+  exports:
+    - Spotlight
+    - SpotlightManager
 ---
-
-import SpotlightProps from '!!extract-react-types-loader!../../src/components/spotlight';
-import SpotlightManagerProps from '!!extract-react-types-loader!../../src/components/spotlight-manager';
 
 ## Props
 
-<PropsTable heading="" props={SpotlightProps} />
+<TSMorphProps exportName="Spotlight" packageName="@atlaskit/onboarding" />
 
 ## Spotlight manager props
 
-<PropsTable heading="" props={SpotlightManagerProps} />
+<TSMorphProps
+  exportName="SpotlightManager"
+  packageName="@atlaskit/onboarding"
+/>

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugins
 
+## 2.6.8
+
+### Patch Changes
+
+-   [#102243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102243)
+    [`cfc95dac3d82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfc95dac3d82) -
+    Use new paragraph and heading NodeSpecs
+-   Updated dependencies
+
+## 2.6.7
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.6.6
 
 ### Patch Changes

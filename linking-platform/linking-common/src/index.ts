@@ -25,6 +25,8 @@ export type {
   DatasourceAdf,
 } from './types';
 
+export { DATASOURCE_DEFAULT_LAYOUT } from './common/utils/constants';
+
 export {
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,

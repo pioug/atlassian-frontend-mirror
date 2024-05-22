@@ -212,7 +212,13 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
               options: {
                 selectNodeInserted: false,
-                analyticsPayload,
+                analyticsPayload: {
+                  ...analyticsPayload,
+                  attributes: {
+                    ...analyticsPayload.attributes,
+                    localId: node.attrs.localId,
+                  },
+                },
               },
             }) ?? false
           );
@@ -638,17 +644,21 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
             // see comment on tablesPlugin.getSharedState on usage
             const tableState = api?.table?.sharedState.currentState();
 
-            const tr = insert(
-              createTableWithWidth(
-                options?.isTableScalingEnabled,
-                tableState?.isFullWidthModeEnabled,
-              )(state.schema),
-            );
+            const tableNode = createTableWithWidth(
+              options?.isTableScalingEnabled,
+              tableState?.isFullWidthModeEnabled,
+            )(state.schema);
+
+            const tr = insert(tableNode);
+
             editorAnalyticsAPI?.attachAnalyticsEvent({
               action: ACTION.INSERTED,
               actionSubject: ACTION_SUBJECT.DOCUMENT,
               actionSubjectId: ACTION_SUBJECT_ID.TABLE,
-              attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
+              attributes: {
+                inputMethod: INPUT_METHOD.QUICK_INSERT,
+                localId: tableNode.attrs.localId,
+              },
               eventType: EVENT_TYPE.TRACK,
             })(tr);
             return tr;

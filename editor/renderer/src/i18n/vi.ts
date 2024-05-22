@@ -7,20 +7,11 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Sắp xếp cột theo thứ tự từ Z đến A',
   'fabric.editor.headingLink.ascSortingLabel': 'tăng dần',
   'fabric.editor.headingLink.copied': 'Đã sao chép!',
   'fabric.editor.headingLink.copyAnchorLink': 'Sao chép liên kết vào tiêu đề',
   'fabric.editor.headingLink.copyAriaLabel': 'Sao chép',
-  'fabric.editor.headingLink.descOrderLabel': 'Bỏ sắp xếp',
   'fabric.editor.headingLink.descSortingLabel': 'giảm dần',
   'fabric.editor.headingLink.failedToCopy': 'Sao chép không thành công',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
-  'fabric.editor.headingLink.noOrderLabel': 'Sắp xếp cột theo thứ tự từ A đến Z',
   'fabric.editor.headingLink.noneSortingLabel': 'không có',
-  'fabric.editor.tableHeader.sorting.asc': 'Đã áp dụng kiểu sắp xếp tăng dần',
-  'fabric.editor.tableHeader.sorting.default': 'Sắp xếp cột',
-  'fabric.editor.tableHeader.sorting.desc': 'Đã áp dụng kiểu sắp xếp giảm dần',
-  'fabric.editor.tableHeader.sorting.invalid': 'Bạn không thể sắp xếp bảng có các ô đã hợp nhất',
-  'fabric.editor.tableHeader.sorting.no': 'Không có kiểu sắp xếp nào được áp dụng cho cột',
 };

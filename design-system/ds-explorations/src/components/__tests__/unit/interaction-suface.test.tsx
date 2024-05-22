@@ -2,12 +2,11 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import { Box } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
   UNSAFE_InteractionSurface as InteractionSurface,
-  UNSAFE_Text as Text,
 } from '../../../index';
 
 describe('InteractionSurface component', () => {

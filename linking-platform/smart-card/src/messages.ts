@@ -147,7 +147,8 @@ export type MessageKey =
   | 'related_work_items_not_found'
   | 'last_mentioned_in'
   | 'related'
-  | 'generic_error_message';
+  | 'generic_error_message'
+  | 'related_links_modal_title_nonfinal';
 
 type Messages = {
   [K in MessageKey]: MessageDescriptor;
@@ -944,5 +945,10 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.generic_error_message',
     defaultMessage: 'An error occurred',
     description: 'A generic error message to the user',
+  },
+  related_links_modal_title_nonfinal: {
+    id: 'fabric.linking.related_links_modal_title.nonfinal',
+    defaultMessage: 'Recent Links',
+    description: 'Shown as the title for the related links modal',
   },
 });

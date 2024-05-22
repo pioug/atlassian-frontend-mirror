@@ -11,6 +11,7 @@ import { AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics
 import VRTestWrapper from '../utils/vr-test-wrapper';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   width: '80%',
 });

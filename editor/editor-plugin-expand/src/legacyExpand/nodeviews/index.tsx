@@ -393,7 +393,10 @@ export class ExpandNodeView implements NodeView {
         break;
     }
     // 'Ctrl-y', 'Mod-Shift-z');
-    if ((event.ctrlKey && event.key === 'y') || ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z')) {
+    if (
+      (event.ctrlKey && event.key === 'y') ||
+      ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z')
+    ) {
       this.handleRedoFromTitle(event);
       return;
     }

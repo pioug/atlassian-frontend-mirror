@@ -10,6 +10,7 @@ import { BlockCard } from '../../src/view/BlockCard';
 import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Container = styled.div({
   width: '80%',
 });

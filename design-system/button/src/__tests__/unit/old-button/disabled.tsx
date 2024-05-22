@@ -69,7 +69,7 @@ types.forEach((tag: React.ElementType) => {
       const button: HTMLElement = getByTestId('button');
 
       button.focus();
-      expect(button).toBe(document.activeElement);
+      expect(button).toHaveFocus();
 
       rerender(
         <Button testId="button" isDisabled component={tag}>
@@ -77,7 +77,7 @@ types.forEach((tag: React.ElementType) => {
         </Button>,
       );
 
-      expect(button).not.toBe(document.activeElement);
+      expect(button).not.toHaveFocus();
     });
 
     type Binding = {
@@ -134,7 +134,7 @@ types.forEach((tag: React.ElementType) => {
           </div>,
         );
         const button: HTMLElement = getByTestId('button');
-        expect(button.hasAttribute('disabled')).toBe(false);
+        expect(button).toBeEnabled();
 
         const firstEventAllowed: boolean = fireEvent(
           button,
@@ -166,17 +166,23 @@ types.forEach((tag: React.ElementType) => {
             </Button>
           </div>,
         );
-        expect(button.hasAttribute('disabled')).toBe(true);
+
+        if (tag === 'button') {
+          expect(button).toBeDisabled();
+        } else {
+          expect(button).toBeEnabled();
+        }
 
         const secondEvent: Event = new Event(binding.eventName, {
           bubbles: true,
           cancelable: true,
         });
-        const secondEventAllowed: boolean = fireEvent(button, secondEvent);
+        secondEvent.preventDefault = jest.fn();
+        fireEvent(button, secondEvent);
 
         // some jsdom strangeness with disabled buttons
         if (tag !== 'button') {
-          expect(secondEventAllowed).toBe(false);
+          expect(secondEvent.preventDefault).toHaveBeenCalled();
           expect(parentHandler[binding.reactEventName]).not.toHaveBeenCalled();
         }
 
@@ -194,7 +200,7 @@ it('should remove a href attribute when disabled', () => {
   );
   const button: HTMLElement = getByTestId('button');
 
-  expect(button.hasAttribute('href')).toBe(true);
+  expect(button).toHaveAttribute('href');
 
   rerender(
     <Button testId="button" href="http://foo.com" isDisabled>
@@ -202,5 +208,5 @@ it('should remove a href attribute when disabled', () => {
     </Button>,
   );
 
-  expect(button.hasAttribute('href')).toBe(false);
+  expect(button).not.toHaveAttribute('href');
 });

@@ -7,20 +7,11 @@
  */
 //Finnish
 export default {
-  'fabric.editor.headingLink.ascOrderLabel': 'Lajittele sarake Z–A',
   'fabric.editor.headingLink.ascSortingLabel': 'nousevassa järjestyksessä',
   'fabric.editor.headingLink.copied': 'Kopioitu!',
   'fabric.editor.headingLink.copyAnchorLink': 'Kopioi otsikkolinkki',
   'fabric.editor.headingLink.copyAriaLabel': 'Kopioi',
-  'fabric.editor.headingLink.descOrderLabel': 'Tyhjennä lajittelu',
   'fabric.editor.headingLink.descSortingLabel': 'laskevassa järjestyksessä',
   'fabric.editor.headingLink.failedToCopy': 'Kopiointi epäonnistui',
-  'fabric.editor.headingLink.invalidLabel': '⚠️ Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
-  'fabric.editor.headingLink.noOrderLabel': 'Lajittele sarake A–Z',
   'fabric.editor.headingLink.noneSortingLabel': 'Ei mitään',
-  'fabric.editor.tableHeader.sorting.asc': 'Nouseva lajittelu otettu käyttöön',
-  'fabric.editor.tableHeader.sorting.default': 'Lajittele sarake',
-  'fabric.editor.tableHeader.sorting.desc': 'Laskeva lajittelu otettu käyttöön',
-  'fabric.editor.tableHeader.sorting.invalid': 'Et voi lajitella yhdistettyjä soluja sisältävää taulukkoa',
-  'fabric.editor.tableHeader.sorting.no': 'Ei lajittelua käytössä sarakkeessa',
 };

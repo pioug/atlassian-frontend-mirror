@@ -4,7 +4,7 @@ import React, { forwardRef, memo, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import {
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   usePlatformLeafEventHandler,
 } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -12,7 +12,7 @@ import __noop from '@atlaskit/ds-lib/noop';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { BreadcrumbsProps } from '../types';
+import { type BreadcrumbsProps } from '../types';
 
 import EllipsisItem from './ellipsis-item';
 import { useOnRevealed } from './internal/use-on-revealed';
@@ -111,8 +111,26 @@ const InnerBreadcrumbs = forwardRef(
       ...analyticsAttributes,
     });
 
+    const childrenArray = toArray(children) as React.ReactElement<any>[];
+
+    const breadcrumbsArray = React.Children.map(
+      childrenArray,
+      (child, index) => {
+        //To avoid error if child is a string
+        if (typeof child === 'string') {
+          return child;
+        }
+        return childrenArray.length - 1 === index
+          ? // eslint-disable-next-line @repo/internal/react/no-clone-element
+            React.cloneElement(child, {
+              'aria-current': 'page',
+            })
+          : child;
+      },
+    );
+
     const renderItemsWithEllipsis = () => {
-      const allItems = childrenArray;
+      const allItems = breadcrumbsArray;
       // This defends against someone passing weird data, to ensure that if all
       // items would be shown anyway, we just show all items without the EllipsisItem
       if (itemsBeforeCollapse + itemsAfterCollapse >= allItems.length) {
@@ -137,12 +155,11 @@ const InnerBreadcrumbs = forwardRef(
       ];
     };
 
-    const childrenArray = toArray(children);
     const shouldDisplayItems =
-      shouldExpand || (maxItems && childrenArray.length <= maxItems);
+      shouldExpand || (maxItems && breadcrumbsArray.length <= maxItems);
 
     const breadcrumbsItems = shouldDisplayItems
-      ? childrenArray
+      ? breadcrumbsArray
       : renderItemsWithEllipsis();
 
     const Component = isNavigation ? 'nav' : 'div';

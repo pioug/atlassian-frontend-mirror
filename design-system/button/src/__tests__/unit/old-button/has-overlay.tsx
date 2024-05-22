@@ -17,7 +17,7 @@ types.forEach((tag: React.ElementType) => {
       const button: HTMLElement = getByTestId('button');
 
       expect(button.tagName.toLowerCase()).toBe(tag);
-      expect(button.hasAttribute('data-has-overlay')).toBe(false);
+      expect(button).not.toHaveAttribute('data-has-overlay');
 
       rerender(
         <Button testId="button" component={tag} overlay="true">
@@ -25,7 +25,7 @@ types.forEach((tag: React.ElementType) => {
         </Button>,
       );
 
-      expect(button.getAttribute('data-has-overlay')).toBe('true');
+      expect(button).toHaveAttribute('data-has-overlay', 'true');
     });
 
     it('should allow focus', () => {
@@ -48,7 +48,7 @@ types.forEach((tag: React.ElementType) => {
       const button: HTMLElement = getByTestId('button');
 
       button.focus();
-      expect(button).toBe(document.activeElement);
+      expect(button).toHaveFocus();
 
       rerender(
         <Button testId="button" overlay="hey" component={tag}>
@@ -56,7 +56,7 @@ types.forEach((tag: React.ElementType) => {
         </Button>,
       );
 
-      expect(button).toBe(document.activeElement);
+      expect(button).toHaveFocus();
     });
 
     type Binding = {
@@ -113,7 +113,7 @@ types.forEach((tag: React.ElementType) => {
           </div>,
         );
         const button: HTMLElement = getByTestId('button');
-        expect(button.hasAttribute('data-has-overlay')).toBe(false);
+        expect(button).not.toHaveAttribute('data-has-overlay');
 
         const firstEventAllowed: boolean = fireEvent(
           button,
@@ -146,16 +146,17 @@ types.forEach((tag: React.ElementType) => {
           </div>,
         );
         // not 'disabled'
-        expect(button.hasAttribute('disabled')).toBe(false);
-        expect(button.getAttribute('data-has-overlay')).toBe('true');
+        expect(button).toBeEnabled();
+        expect(button).toHaveAttribute('data-has-overlay', 'true');
 
         const secondEvent: Event = new Event(binding.eventName, {
           bubbles: true,
           cancelable: true,
         });
-        const secondEventAllowed: boolean = fireEvent(button, secondEvent);
+        secondEvent.preventDefault = jest.fn();
+        fireEvent(button, secondEvent);
 
-        expect(secondEventAllowed).toBe(false);
+        expect(secondEvent.preventDefault).toHaveBeenCalled();
         expect(parentHandler[binding.reactEventName]).not.toHaveBeenCalled();
         expect(buttonHandler[binding.reactEventName]).not.toHaveBeenCalled();
       });
@@ -171,7 +172,7 @@ it('should remove a href attribute there is an overlay', () => {
   );
   const button: HTMLElement = getByTestId('button');
 
-  expect(button.hasAttribute('href')).toBe(true);
+  expect(button).toHaveAttribute('href');
   expect(button.tagName.toLowerCase()).toBe('a');
 
   rerender(
@@ -180,5 +181,5 @@ it('should remove a href attribute there is an overlay', () => {
     </Button>,
   );
 
-  expect(button.hasAttribute('href')).toBe(false);
+  expect(button).not.toHaveAttribute('href');
 });

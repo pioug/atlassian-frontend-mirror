@@ -1,14 +1,12 @@
 // #region Imports
 import { AddColumnStep } from '@atlaskit/custom-steps';
-import type {
-  EditorAnalyticsAPI,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
+  INPUT_METHOD,
   TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
@@ -203,22 +201,32 @@ export const insertRow =
     return true;
   };
 
-export const createTable =
-  (
-    isTableScalingEnabled?: boolean,
-    isFullWidthModeEnabled?: boolean,
-  ): Command =>
-  (state, dispatch) => {
-    const table = createTableWithWidth(
-      isTableScalingEnabled,
-      isFullWidthModeEnabled,
-    )(state.schema);
+export const createTable = (
+  isTableScalingEnabled?: boolean,
+  isFullWidthModeEnabled?: boolean,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
+): Command => (state, dispatch) => {
+  const table = createTableWithWidth(
+    isTableScalingEnabled,
+    isFullWidthModeEnabled,
+  )(state.schema);
 
-    if (dispatch) {
-      dispatch(safeInsert(table)(state.tr).scrollIntoView());
+  if (dispatch) {
+    const tr = safeInsert(table)(state.tr).scrollIntoView();
+    if (editorAnalyticsAPI) {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
+          action: ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.DOCUMENT,
+          actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+          attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
+          eventType: EVENT_TYPE.TRACK,
+      })(tr);
     }
-    return true;
-  };
+    dispatch(tr);
+  }
+  
+  return true;
+}
 
 export const insertTableWithSize =
   (

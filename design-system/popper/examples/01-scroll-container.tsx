@@ -16,7 +16,7 @@ interface PopupProps {
 const Popup = styled.div`
   background: white;
   border: 2px solid red;
-  border-radius: ${borderRadius}px;
+  border-radius: ${borderRadius()}px;
   max-width: 160px;
   padding: ${token('space.100', '8px')};
   transition: opacity 200ms ease-in-out;

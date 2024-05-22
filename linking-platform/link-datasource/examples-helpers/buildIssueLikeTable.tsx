@@ -25,6 +25,7 @@ interface Props {
   skipIntl?: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const TableViewWrapper = styled.div({
   display: 'flex',
   flexDirection: 'column',

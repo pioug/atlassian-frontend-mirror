@@ -5,7 +5,7 @@ export const COLUMN_MIN_WIDTH = COLUMN_BASE_WIDTH * 3;
 
 export type GetWidthCss = (arg: {
   shouldUseWidth: boolean;
-  width: number;
+  width?: number;
 }) => React.CSSProperties;
 
 /**
@@ -15,14 +15,20 @@ export type GetWidthCss = (arg: {
  * or rather default width that should be treated as a maximum width. When table inserted initially
  * and no user custom width defined we set this value to `false`. As soon as user changes any of the
  * column widths we treat all width as custom hardcoded widths.
- * @param width
+ * @param width Sometimes set to undefined for last column to make it occupy remainder of the table width
  */
-export const getWidthCss: GetWidthCss = ({ shouldUseWidth, width }) =>
-  shouldUseWidth
-    ? {
-        width,
-      }
-    : { maxWidth: width };
+export const getWidthCss: GetWidthCss = ({ shouldUseWidth, width }) => {
+  if (!width) {
+    return {};
+  }
+  if (shouldUseWidth) {
+    return {
+      width,
+    };
+  } else {
+    return { maxWidth: width };
+  }
+};
 
 /**
  * This method should be called when one atomic action is performed on columns: adding new item, removing one item, changing items order.

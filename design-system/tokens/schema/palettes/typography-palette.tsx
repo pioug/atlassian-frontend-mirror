@@ -1,9 +1,9 @@
 import {
-  FontFamilyPaletteTokenSchema,
-  FontSizeScaleTokenSchema,
-  FontWeightScaleTokenSchema,
-  LetterSpacingScaleTokenSchema,
-  LineHeightScaleTokenSchema,
+  type FontFamilyPaletteTokenSchema,
+  type FontSizeScaleTokenSchema,
+  type FontWeightScaleTokenSchema,
+  type LetterSpacingScaleTokenSchema,
+  type LineHeightScaleTokenSchema,
 } from '../../src/types';
 
 export type FontSizeScaleValues =
@@ -23,14 +23,15 @@ export type FontSizeScaleValues =
 
 export type LineHeightScaleValues =
   | 'LineHeight1'
-  | 'LineHeight050'
-  | 'LineHeight100'
-  | 'LineHeight200'
-  | 'LineHeight300'
-  | 'LineHeight400'
-  | 'LineHeight500'
-  | 'LineHeight600'
-  | 'LineHeight700';
+  | 'LineHeight16'
+  | 'LineHeight20'
+  | 'LineHeight24'
+  | 'LineHeight28'
+  | 'LineHeight32'
+  | 'LineHeight36'
+  | 'LineHeight40'
+  | 'LineHeight48'
+  | 'LineHeight56';
 
 export type FontWeightScaleValues =
   | 'FontWeight400'
@@ -115,50 +116,56 @@ const lineHeightScale: LineHeightScaleTokenSchema<LineHeightScaleValues> = {
         group: 'lineHeight',
       },
     },
-    LineHeight050: {
-      value: 12,
-      attributes: {
-        group: 'lineHeight',
-      },
-    },
-    LineHeight100: {
+    LineHeight16: {
       value: 16,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight200: {
+    LineHeight20: {
       value: 20,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight300: {
+    LineHeight24: {
       value: 24,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight400: {
+    LineHeight28: {
       value: 28,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight500: {
+    LineHeight32: {
       value: 32,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight600: {
+    LineHeight36: {
       value: 36,
       attributes: {
         group: 'lineHeight',
       },
     },
-    LineHeight700: {
+    LineHeight40: {
       value: 40,
+      attributes: {
+        group: 'lineHeight',
+      },
+    },
+    LineHeight48: {
+      value: 48,
+      attributes: {
+        group: 'lineHeight',
+      },
+    },
+    LineHeight56: {
+      value: 56,
       attributes: {
         group: 'lineHeight',
       },

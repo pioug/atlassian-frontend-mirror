@@ -104,6 +104,7 @@ export interface ComponentProps {
   isMediaFullscreen?: boolean;
   isDragAndDropEnabled?: boolean;
   isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
   tableActive: boolean;
   ordering?: TableColumnOrdering;
   isResizing?: boolean;
@@ -687,6 +688,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isDragAndDropEnabled,
       getEditorFeatureFlags,
       isTableScalingEnabled, // here we can use options.isTableScalingEnabled
+      isTableAlignmentEnabled
     } = this.props;
 
     let {
@@ -820,6 +822,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isResizing={isResizing}
         isTableScalingEnabled={isTableScalingEnabled}
         isWholeTableInDanger={isWholeTableInDanger}
+        isTableAlignmentEnabled={isTableAlignmentEnabled}
       >
         <div
           className={ClassName.TABLE_STICKY_SENTINEL_TOP}

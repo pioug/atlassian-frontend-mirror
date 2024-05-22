@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 import { Provider, Card, Client } from '../src';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InheritDimensionWrapper = styled.div({
   height: '300px',
   '.loader-wrapper': {

@@ -15,6 +15,7 @@ const url =
   'https://www.dropbox.com/s/2mh79iuglsnmbwf/Get%20Started%20with%20Dropbox.pdf?dl=0';
 const analytics = () => {};
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ExampleWrapper = styled.div({
   width: '80%',
   height: 'auto',
@@ -28,6 +29,7 @@ const ExampleWrapper = styled.div({
   transform: 'translate(-50%, -50%)',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ExampleToolbarWrapper = styled.div({
   boxShadow: '0 0 16px 0 #ccc',
   borderRadius: '4px',
@@ -37,6 +39,7 @@ const ExampleToolbarWrapper = styled.div({
   margin: `${token('space.200', '16px')} 0px`,
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ExampleToolbarItem = styled.div({
   padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
   textAlign: 'center',

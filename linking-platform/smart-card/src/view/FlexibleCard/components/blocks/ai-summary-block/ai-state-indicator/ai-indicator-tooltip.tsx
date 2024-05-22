@@ -6,6 +6,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 
 import type { AIIndicatorTooltipProps } from './types';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const AIIndicatorTooltipPrimitive = styled(TooltipPrimitive)({
   borderRadius: token('border.radius', '3px'),
   backgroundColor: token('elevation.surface.raised', 'white'),

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.2
+
+### Patch Changes
+
+-   [#101820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101820)
+    [`d6a194ef42d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6a194ef42d7) -
+    Add new left alignment to table container in editor, based on layout node attribute
+-   Updated dependencies
+
 ## 7.16.1
 
 ### Patch Changes

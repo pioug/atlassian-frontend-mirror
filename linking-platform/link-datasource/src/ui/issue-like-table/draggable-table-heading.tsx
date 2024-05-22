@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import {
-  ReactNode,
+  type ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -16,15 +16,15 @@ import invariant from 'tiny-invariant';
 
 import Button from '@atlaskit/button/new';
 import DropdownMenu, {
-  CustomTriggerProps,
+  type CustomTriggerProps,
   DropdownItem,
-  DropdownMenuProps,
+  type DropdownMenuProps,
 } from '@atlaskit/dropdown-menu';
 import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 import ChevronUp from '@atlaskit/icon/glyph/chevron-up';
 import {
   attachClosestEdge,
-  Edge,
+  type Edge,
   extractClosestEdge,
 } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box-without-terminal';
@@ -54,6 +54,7 @@ type DraggableState =
       initialWidth: number;
     };
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const DropdownParent = styled.div({
   display: 'flex',
   alignItems: 'center',
@@ -129,7 +130,7 @@ interface DraggableTableHeadingProps {
   tableId: symbol;
   dndPreviewHeight: number;
   dragPreview: React.ReactNode;
-  width: number;
+  width?: number;
   onWidthChange?: (width: number) => void;
   isWrapped?: boolean;
   onIsWrappedChange?: (shouldWrap: boolean) => void;
@@ -155,6 +156,11 @@ export const DraggableTableHeading = ({
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
 
   const dropTargetRef = useRef<HTMLDivElement>(null);
+  /**
+   * When width is not set (or callback is not set) we assume not resizing is needed.
+   * In our case width won't be set for last cell when table container is bigger than sum of all columns
+   */
+  const resizeIsEnabled = !!onWidthChange && !!width;
 
   useEffect(() => {
     const cell = mainHeaderCellRef.current;
@@ -255,7 +261,7 @@ export const DraggableTableHeading = ({
 
   // Handling column resizing
   useEffect(() => {
-    if (!onWidthChange) {
+    if (!resizeIsEnabled) {
       return;
     }
     const resizeHandle = columnResizeHandleRef.current;
@@ -310,11 +316,13 @@ export const DraggableTableHeading = ({
         }
       },
     });
-  }, [id, index, onWidthChange, state, tableId, width]);
+  }, [id, index, onWidthChange, resizeIsEnabled, state, tableId, width]);
 
   const [buttonHovered, setButtonHovered] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const isWideEnoughToHaveChevron = width > 76;
+  // Width is not set when it is a last cell in a wide table.
+  // We make assumption thus that there is enough width for chevron.
+  const isWideEnoughToHaveChevron = !width || width > 76;
 
   const shouldShowTriggerIcon =
     (buttonHovered || isDropdownOpen) && isWideEnoughToHaveChevron;
@@ -325,8 +333,8 @@ export const DraggableTableHeading = ({
           ? ChevronUp
           : ChevronDown
         : isWideEnoughToHaveChevron
-        ? GlyphPlaceholder
-        : undefined,
+          ? GlyphPlaceholder
+          : undefined,
     [shouldShowTriggerIcon, isDropdownOpen, isWideEnoughToHaveChevron],
   );
 
@@ -365,10 +373,10 @@ export const DraggableTableHeading = ({
       data-testid={`${id}-column-heading`}
       style={{
         cursor: 'grab',
-        ...getWidthCss({ shouldUseWidth: !!onWidthChange, width }),
+        ...getWidthCss({ shouldUseWidth: resizeIsEnabled, width }),
       }}
     >
-      {onWidthChange ? (
+      {resizeIsEnabled ? (
         <div
           ref={columnResizeHandleRef}
           css={[resizerStyles, state.type === 'resizing' && resizingStyles]}

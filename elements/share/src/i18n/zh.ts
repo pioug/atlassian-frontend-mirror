@@ -50,6 +50,7 @@ export default {
   'fabric.elements.share.invite.to.jira': '邀请加入 Jira',
   'fabric.elements.share.main.tab.text.confluence': '分享页面',
   'fabric.elements.share.main.tab.text.jira': '共享事务',
+  'fabric.elements.share.popup.label': '共享',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {博客文章已共享}board {面板已共享}calendar {日历已共享}draft {草稿已共享}filter {筛选器已共享}issue {事务已共享}summary {摘要已共享}list {列表已共享}timeline {时间线已共享}form {表单已共享}media {媒体已共享}page {页面已共享}project {项目已共享}pullrequest {拉取请求已共享}question {问题已共享}report {报告已共享}repository {存储库已共享}request {请求已共享}roadmap {时间线已共享}site {站点已共享}space {空间已共享}other {链接已共享}}',
   'fabric.elements.share.to.integration.button': '分享到 {integrationName}',

@@ -4,6 +4,7 @@ import { B400, B50, N0, N20, N30, R400 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const PopupComponentContainer = styled.div({
   boxSizing: 'border-box',
   display: 'block',
@@ -20,6 +21,7 @@ export const PopupComponentContainer = styled.div({
   ),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CustomDropdown = styled.div({
   width: '340px',
   background: token('color.background.input', N0),
@@ -31,6 +33,7 @@ export const CustomDropdown = styled.div({
   zIndex: layers.modal(),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CustomDropdownItem = styled.div<{ isSelected: boolean }>(
   props => ({
     height: '36px',
@@ -56,11 +59,13 @@ export const CustomDropdownItem = styled.div<{ isSelected: boolean }>(
   }),
 );
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const CustomDateWrapper = styled.div({
   padding: token('space.150', '12px'),
   boxSizing: 'border-box',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const DatePickersWrapper = styled.div({
   display: 'flex',
   justifyContent: 'space-between',
@@ -68,6 +73,7 @@ export const DatePickersWrapper = styled.div({
   width: '100%',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const SelectDateRangeButton = styled.button({
   background: token('color.background.accent.gray.subtler', N20),
   border: 'none',
@@ -82,6 +88,7 @@ export const SelectDateRangeButton = styled.button({
   },
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const DateRangeErrorMessage = styled.div({
   display: 'flex',
   lineHeight: 1.3333,

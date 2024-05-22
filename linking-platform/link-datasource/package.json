@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-datasource",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "UI Components to support linking platform dataset feature",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -26,7 +26,10 @@
     "team": "Linking Platform",
     "inPublicMirror": false,
     "releaseModel": "continuous",
-    "i18n": true
+    "i18n": true,
+    "website": {
+      "name": "Link Datasource"
+    }
   },
   "scripts": {
     "analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
@@ -34,10 +37,10 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^36.8.0",
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/avatar": "^21.8.0",
+    "@atlaskit/avatar": "^21.9.0",
     "@atlaskit/avatar-group": "^9.6.0",
     "@atlaskit/badge": "^16.1.0",
-    "@atlaskit/button": "^17.14.0",
+    "@atlaskit/button": "^17.15.0",
     "@atlaskit/datetime-picker": "^13.5.0",
     "@atlaskit/dropdown-menu": "^12.10.0",
     "@atlaskit/editor-prosemirror": "4.0.1",
@@ -52,8 +55,8 @@
     "@atlaskit/jql-editor": "^4.3.0",
     "@atlaskit/jql-editor-autocomplete-rest": "^2.0.0",
     "@atlaskit/link-client-extension": "^1.8.0",
-    "@atlaskit/linking-common": "^5.6.0",
-    "@atlaskit/linking-types": "^8.8.0",
+    "@atlaskit/linking-common": "^5.7.0",
+    "@atlaskit/linking-types": "^8.9.0",
     "@atlaskit/logo": "^13.17.0",
     "@atlaskit/lozenge": "^11.7.0",
     "@atlaskit/modal-dialog": "^12.13.0",
@@ -138,6 +141,9 @@
       "styling": [
         "static",
         "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

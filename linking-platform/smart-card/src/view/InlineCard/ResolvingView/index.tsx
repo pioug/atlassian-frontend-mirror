@@ -7,7 +7,7 @@ import {
   IconTitleWrapper,
   RightIconPositionWrapper,
 } from '../IconAndTitleLayout/styled';
-import { InlinePreloaderStyle } from '../../types';
+import { type InlinePreloaderStyle } from '../../types';
 
 export interface InlineCardResolvingViewProps {
   /** The url to display */
@@ -52,9 +52,8 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
       );
     } else {
       return (
-        <Frame testId={testId} onClick={onClick} isSelected={isSelected}>
+        <Frame testId={testId} onClick={onClick} isSelected={isSelected} link={url}>
           <IconAndTitleLayout
-            link={url}
             title={url}
             titleTextColor={titleTextColor}
           >

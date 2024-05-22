@@ -27,5 +27,3 @@ export const typesMapping: IconAppearanceMap = {
     defaultLabel: 'error inline message',
   },
 };
-
-export const VAR_SECONDARY_TEXT_COLOR = '--secondary-text-color';

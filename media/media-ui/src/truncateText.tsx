@@ -10,7 +10,7 @@ const truncateCommonStyles = `
 
 type TruncateStyledProps = Omit<Required<TruncateProps>, 'text'>;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TruncateLeft = styled.span`
   ${truncateCommonStyles}
   max-width: calc(100% - ${({
@@ -23,7 +23,7 @@ export const TruncateLeft = styled.span`
   text-overflow: ellipsis;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression -- needs manual remediation
+// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 export const TruncateRight = styled.span`
   ${truncateCommonStyles}
   max-width: calc(100% - ${({

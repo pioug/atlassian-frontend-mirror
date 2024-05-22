@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 193.19.11
+
+### Patch Changes
+
+-   [#102243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102243)
+    [`cfc95dac3d82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfc95dac3d82) -
+    Use new paragraph and heading NodeSpecs
+-   Updated dependencies
+
 ## 193.19.10
 
 ### Patch Changes

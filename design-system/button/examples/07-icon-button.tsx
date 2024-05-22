@@ -1,13 +1,17 @@
 import React from 'react';
 
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import { Inline } from '@atlaskit/primitives';
+import { Inline, xcss } from '@atlaskit/primitives';
 
 import { IconButton, LinkIconButton } from '../src/new';
 
+const wrapperStyles = xcss({
+  padding: 'space.200',
+});
+
 export default function IconButtonExample() {
   return (
-    <Inline space="space.200">
+    <Inline space="space.200" xcss={wrapperStyles}>
       <IconButton
         label="Label is also used for tooltip"
         icon={StarFilledIcon}

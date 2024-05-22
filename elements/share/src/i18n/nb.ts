@@ -54,6 +54,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Inviter til Jira',
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sak',
+  'fabric.elements.share.popup.label': 'Del',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blogginnlegg er delt}board {Tavle er delt}calendar {Kalender er delt}draft {Utkast er delt}filter {Filter er delt}issue {Sak er delt}summary {Sammendrag er delt}list {Liste er delt}timeline {Tidslinje er delt}form {Skjema er delt}media {Medier er delt}page {Side er delt}project {Prosjekt er delt}pullrequest {Pull-forespørsel er delt}question {Spørsmål er delt}report {Rapport er delt}repository {Repositorium er delt}request {Forespørsel er delt}roadmap {Veikart er delt}site {Nettsted er delt}space {Område er delt}other {Kobling er delt}}',
   'fabric.elements.share.to.integration.button': 'Del til {integrationName}',

@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { Manager, Placement, Popper, Reference } from '../src';
+import { Manager, type Placement, Popper, Reference } from '../src';
 
 interface PopupProps {
   isReferenceHidden: boolean | undefined;
@@ -24,7 +24,7 @@ const SPACING = 35;
 const Popup = styled.div`
   background: white;
   border: 2px solid red;
-  border-radius: ${borderRadius}px;
+  border-radius: ${borderRadius()}px;
   max-width: 110px;
   min-height: ${POPUP_HEIGHT - 20}px;
   padding: ${token('space.100', '8px')};

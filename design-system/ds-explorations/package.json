@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/ds-explorations",
-  "version": "3.5.2",
-  "description": "An experimental package for exploration and validation of spacing / typography foundations.",
+  "version": "4.0.0",
+  "description": "DEPRECATED. Use @atlaskit/primitives. An experimental package for exploration and validation of spacing / typography foundations.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -28,8 +28,7 @@
   "dependencies": {
     "@atlaskit/tokens": "^1.49.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1",
-    "tiny-invariant": "^1.2.0"
+    "@emotion/react": "^11.7.1"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ~18.2.0"
@@ -75,12 +74,10 @@
     }
   },
   "af:exports": {
-    ".": "./src/index.tsx",
-    "./text": "./src/components/text.partial.tsx"
+    ".": "./src/index.tsx"
   },
   "exports": {
-    ".": "./src/index.tsx",
-    "./text": "./src/components/text.partial.tsx"
+    ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "homepage": "https://atlaskit.atlassian.com"

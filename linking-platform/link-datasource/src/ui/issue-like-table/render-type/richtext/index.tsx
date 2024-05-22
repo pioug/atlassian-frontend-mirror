@@ -10,10 +10,10 @@ import { type RichText } from '@atlaskit/linking-types';
 
 const rootStyles = css({
   position: 'relative',
-  display: 'block',
 });
 
-const smartLinkNodeToUrl: (node: PMNode) => string = (node) => node.attrs.url ?? '';
+const smartLinkNodeToUrl: (node: PMNode) => string = node =>
+  node.attrs.url ?? '';
 
 const schemaSmartLinkOverride = new Schema({
   nodes: defaultSchema.spec.nodes
@@ -29,7 +29,7 @@ const schemaSmartLinkOverride = new Schema({
       ...defaultSchema.spec.nodes.get('embedCard'),
       leafText: smartLinkNodeToUrl,
     }),
-  marks: defaultSchema.spec.marks
+  marks: defaultSchema.spec.marks,
 });
 
 export const parseRichText = (value: RichText): string | null => {
@@ -55,9 +55,9 @@ const RichTextType = ({ value }: { value: RichText }) => {
 
   if (adfPlainText) {
     return (
-      <div css={rootStyles} data-testid="richtext-plaintext">
+      <span css={rootStyles} data-testid="richtext-plaintext">
         {adfPlainText}
-      </div>
+      </span>
     );
   } else {
     return <span data-testid="richtext-unsupported" />;

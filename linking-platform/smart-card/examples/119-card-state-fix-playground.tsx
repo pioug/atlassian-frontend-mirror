@@ -7,6 +7,7 @@ import { Provider, Card, Client } from '../src';
 
 const client = new Client('stg');
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Button = styled.button({
   width: '150px',
   height: '60px',
@@ -19,6 +20,7 @@ const Button = styled.button({
   cursor: 'pointer',
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Buttons = styled.div({
   display: 'flex',
 });

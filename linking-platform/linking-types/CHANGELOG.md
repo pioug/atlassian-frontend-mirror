@@ -1,5 +1,13 @@
 # @atlaskit/linking-types
 
+## 8.9.0
+
+### Minor Changes
+
+-   [#102193](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102193)
+    [`8af48cf8ca23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8af48cf8ca23) -
+    Add RelatedLinks to SupportedFeature
+
 ## 8.8.1
 
 ### Patch Changes

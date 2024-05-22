@@ -55,6 +55,7 @@ export default {
   'fabric.elements.share.invite.to.jira': 'Meghívás a Jirába',
   'fabric.elements.share.main.tab.text.confluence': 'Oldal megosztása',
   'fabric.elements.share.main.tab.text.jira': 'Ügy megosztása',
+  'fabric.elements.share.popup.label': 'Megosztás',
   'fabric.elements.share.success.message':
     '{object, select,blogpost {Blogposzt megosztva}board {Tábla megosztva}calendar {Naptár megosztva}draft {Piszkozat megosztva}filter {Szűrő megosztva}issue {Ügy megosztva}summary {Összefoglaló megosztva}list {Lista megosztva}timeline {Idővonal megosztva}form {Űrlap megosztva}media {Média megosztva}page {Oldal megosztva}project {Projekt megosztva}pullrequest {Pull-kérelem megosztva}question {Kérdés megosztva}report {Jelentés megosztva}repository {Adattár megosztva}request {Kérelem megosztva}roadmap {Idővonal megosztva}site {Webhely megosztva}space {Munkatér megosztva}other {Link megosztva}}',
   'fabric.elements.share.to.integration.button': 'Megosztás itt: {integrationName}',

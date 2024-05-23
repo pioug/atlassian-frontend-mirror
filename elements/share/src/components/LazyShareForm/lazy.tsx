@@ -21,13 +21,19 @@ const LazyShareFormLazy = lazyForPaint<FunctionComponent<LazyShareFormProps>>(
 
 type LoadingDialog = Pick<
   LazyShareFormProps,
-  'shareFormTitle' | 'showTitle' | 'setIsLoading'
+  | 'shareFormTitle'
+  | 'showTitle'
+  | 'setIsLoading'
+  | 'integrationMode'
+  | 'isMenuItemSelected'
 >;
 
 const LoadingDialog: React.FC<LoadingDialog> = ({
   shareFormTitle,
   showTitle,
   setIsLoading,
+  integrationMode,
+  isMenuItemSelected,
 }) => {
   React.useEffect(() => {
     setIsLoading(true);
@@ -36,6 +42,8 @@ const LoadingDialog: React.FC<LoadingDialog> = ({
   return (
     <ShareFormWrapper
       shareFormTitle={shareFormTitle}
+      integrationMode={integrationMode}
+      isMenuItemSelected={isMenuItemSelected}
       // if `showTitle` is passed, we use it. Otherwise, we will show title for loading dialog.
       shouldShowTitle={typeof showTitle === 'boolean' ? showTitle : true}
     >
@@ -61,6 +69,8 @@ export default (props: LazyShareFormProps) => (
         shareFormTitle={props.shareFormTitle}
         showTitle={props.showTitle}
         setIsLoading={props.setIsLoading}
+        integrationMode={props.integrationMode}
+        isMenuItemSelected={props.isMenuItemSelected}
       />
     }
   >

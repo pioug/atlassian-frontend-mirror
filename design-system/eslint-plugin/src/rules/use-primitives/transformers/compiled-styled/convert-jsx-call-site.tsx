@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
 

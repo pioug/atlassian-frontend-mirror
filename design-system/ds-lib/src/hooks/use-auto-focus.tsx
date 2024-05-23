@@ -1,4 +1,4 @@
-import { MutableRefObject, RefObject, useEffect, useRef } from 'react';
+import { type MutableRefObject, type RefObject, useEffect, useRef } from 'react';
 
 /**
  * Focusing on the passed element ref after initial mount.

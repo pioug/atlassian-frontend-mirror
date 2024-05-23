@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 2.6.12
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 2.6.11
+
+### Patch Changes
+
+-   Updated dependencies
+
+## 2.6.10
+
+### Patch Changes
+
+-   [#102667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102667)
+    [`ab69107b7352`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab69107b7352) -
+    Force placeholder drag handle to be positioned in first column to avoid overflow
+-   Updated dependencies
+
+## 2.6.9
+
+### Patch Changes
+
+-   Updated dependencies
+
 ## 2.6.8
 
 ### Patch Changes

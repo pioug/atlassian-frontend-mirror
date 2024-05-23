@@ -1,4 +1,4 @@
-import { isNodeOfType, Property, SpreadElement } from 'eslint-codemod-utils';
+import { isNodeOfType, type Property, type SpreadElement } from 'eslint-codemod-utils';
 
 import { blockedEventNameLookup } from './blocked';
 

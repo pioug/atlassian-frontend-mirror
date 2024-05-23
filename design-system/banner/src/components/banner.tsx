@@ -1,23 +1,24 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import React, { CSSProperties, forwardRef } from 'react';
+import React, { type CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { BackgroundColor, Box, Inline, xcss } from '@atlaskit/primitives';
+import { type BackgroundColor, Box, Inline, xcss } from '@atlaskit/primitives';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const CSS_VAR_TEXT_COLOR = '--banner-text-color';
 
+const inlineStyles = xcss({ minWidth: '0' });
+
 const textStyles = css({
   color: `var(${CSS_VAR_TEXT_COLOR})`,
   fontWeight: token('font.weight.medium', '500'),
-  lineHeight: token('font.lineHeight.300', '24px'),
   overflow: 'hidden',
   textOverflow: 'ellipsis',
   whiteSpace: 'nowrap',
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  // eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
     textDecoration: 'underline',
@@ -45,14 +46,15 @@ const tokenTextColors: Record<Appearance, string> = {
 type Appearance = 'warning' | 'error' | 'announcement';
 
 const containerStyles = xcss({
-  overflow: 'hidden',
-  maxHeight: 'size.500',
+  height: '3rem',
+  alignItems: 'center',
+  display: 'flex',
 });
 
 const iconWrapperStyles = xcss({
   display: 'block',
-  width: 'size.200',
-  height: 'size.200', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+  width: '1.5rem',
+  height: '1.5rem', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
   flexShrink: '0',
 });
 
@@ -98,7 +100,12 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
         ref={ref}
         role="alert"
       >
-        <Inline space="space.050" alignBlock="center" alignInline="start">
+        <Inline
+          space="space.050"
+          alignBlock="center"
+          alignInline="start"
+          xcss={inlineStyles}
+        >
           {icon ? (
             <Box
               as="span"

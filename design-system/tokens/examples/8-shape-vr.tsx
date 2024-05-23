@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import { CSSToken, token } from '../src';
+import { type CSSToken, token } from '../src';
 
 const radiusBoxStyles = xcss({
   borderWidth: 'border.width',

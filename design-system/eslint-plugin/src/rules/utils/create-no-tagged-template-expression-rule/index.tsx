@@ -7,13 +7,13 @@ import esquery from 'esquery';
 import {
   getImportSources,
   isEmotion,
-  SupportedNameChecker,
+  type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';
 import { toArguments } from './to-arguments';
-import { Argument, Block, DeclarationValue } from './types';
+import { type Argument, type Block, type DeclarationValue } from './types';
 
 type RuleModule = Rule.RuleModule;
 type RuleFixer = Rule.RuleFixer;

@@ -34,6 +34,9 @@
             "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/menu/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/popper/afm-cc/tsconfig.json"
         },
         {
@@ -41,6 +44,9 @@
         },
         {
             "path": "../../../design-system/portal/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/primitives/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../smart-experiences/smart-user-picker/afm-cc/tsconfig.json"

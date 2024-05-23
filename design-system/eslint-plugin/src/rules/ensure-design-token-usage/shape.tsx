@@ -1,4 +1,4 @@
-import { EslintNode, isNodeOfType } from 'eslint-codemod-utils';
+import { type EslintNode, isNodeOfType } from 'eslint-codemod-utils';
 
 import { shape as shapeTokens } from '@atlaskit/tokens/tokens-raw';
 

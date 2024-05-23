@@ -1,5 +1,13 @@
 # @atlaskit/banner
 
+## 12.3.2
+
+### Patch Changes
+
+-   [#99130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99130)
+    [`72b98b3602fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72b98b3602fd) -
+    [ux] Change internal CSS and update height to be in rem.
+
 ## 12.3.1
 
 ### Patch Changes

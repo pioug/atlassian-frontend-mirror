@@ -16,7 +16,7 @@ import { token } from '../../../src';
 import palettesRaw from '../../../src/entry-points/palettes-raw';
 import tokenNames from '../../../src/entry-points/token-names';
 import { isHex } from '../utils/search-params';
-import { Theme, TokenName } from '../utils/types';
+import { type Theme, type TokenName } from '../utils/types';
 
 import { baseTokenNames } from './base-token-editor';
 

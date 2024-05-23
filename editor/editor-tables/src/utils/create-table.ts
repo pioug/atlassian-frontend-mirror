@@ -29,6 +29,7 @@ type CreateTableProps = {
   withHeaderRow?: boolean;
   cellContent?: PMNode;
   tableWidth?: number;
+  layout?: string;
 };
 
 export const createTable = ({
@@ -38,6 +39,8 @@ export const createTable = ({
   withHeaderRow = true,
   cellContent,
   tableWidth,
+  // default to undefined so PM will use default value defined in schema
+  layout = undefined
 }: CreateTableProps): PMNode => {
   const {
     cell: tableCell,
@@ -73,7 +76,7 @@ export const createTable = ({
     );
   }
   return table.createChecked(
-    { localId: uuid.generate(), width: tableWidth ?? 760 },
+    { localId: uuid.generate(), width: tableWidth ?? 760, layout },
     rows,
   );
 };

@@ -31,7 +31,7 @@ describe('Analytics on Tigger', () => {
   });
 
   it('Analytics event should occur on color change', async () => {
-    const { getByLabelText, getAllByRole } = renderUI();
+    const { getByLabelText } = renderUI();
     // get color button or Trigger
     const colorButton = getByLabelText('Color picker, Blue selected');
     expect(colorButton).toHaveAttribute('aria-expanded', 'false');
@@ -42,7 +42,7 @@ describe('Analytics on Tigger', () => {
     expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
     // click on color option and check onChange called with Analytics
-    await userEvent.click(getAllByRole('radio')[1]);
+    await userEvent.click(getByLabelText('Red'));
     expect(mockFn.mock.calls.length).toBe(1);
     expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
   });

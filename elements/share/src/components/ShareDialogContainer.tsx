@@ -6,19 +6,19 @@ import { FormattedMessage } from 'react-intl-next';
 import assert from 'tiny-invariant';
 
 import {
-  AnalyticsEventPayload,
+  type AnalyticsEventPayload,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
 import {
   AtlassianUrlShortenerClient,
-  ShortenRequest,
-  UrlShortenerClient,
+  type ShortenRequest,
+  type UrlShortenerClient,
 } from '../clients/AtlassianUrlShortenerClient';
 import {
-  ConfigResponse,
-  ShareClient,
+  type ConfigResponse,
+  type ShareClient,
   ShareServiceClient,
 } from '../clients/ShareServiceClient';
 import { messages } from '../i18n';

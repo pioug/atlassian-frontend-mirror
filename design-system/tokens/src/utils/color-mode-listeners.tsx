@@ -1,4 +1,4 @@
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { COLOR_MODE_ATTRIBUTE } from '../constants';
 

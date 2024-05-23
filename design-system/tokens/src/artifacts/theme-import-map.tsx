@@ -6,11 +6,11 @@
  * This allows users to compose their themes and only use the tokens that are requested.
  * When a new theme is created, the import should automatically be added to the map
  *
- * @codegen <<SignedSource::63d467c8d0d48afd8fdc4e213175480c>>
+ * @codegen <<SignedSource::b40de5ef0f17e1889f99be077c365e02>>
  * @codegenCommand yarn build tokens
  */
 
-import { ThemeIds, ThemeOverrideIds } from '../theme-config';
+import { type ThemeIds, type ThemeOverrideIds } from '../theme-config';
 
 const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ default: string }>> = {
   'light': () =>

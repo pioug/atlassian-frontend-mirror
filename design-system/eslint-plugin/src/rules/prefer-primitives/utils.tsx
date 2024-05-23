@@ -2,7 +2,7 @@ import {
   type EslintNode,
   isNodeOfType,
   type JSXElement,
-  JSXIdentifier,
+  type JSXIdentifier,
   type JSXText,
 } from 'eslint-codemod-utils';
 

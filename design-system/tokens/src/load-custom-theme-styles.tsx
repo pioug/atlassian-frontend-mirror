@@ -1,5 +1,5 @@
 import { loadAndAppendCustomThemeCss } from './custom-theme';
-import { ThemeState, themeStateDefaults } from './theme-config';
+import { type ThemeState, themeStateDefaults } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';
 import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
 

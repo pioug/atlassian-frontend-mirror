@@ -1,5 +1,5 @@
-import { LetterSpacingTokenSchema, ValueSchema } from '../../../src/types';
-import { LetterSpacingBaseToken as BaseToken } from '../../palettes/typography-palette';
+import { type LetterSpacingTokenSchema, type ValueSchema } from '../../../src/types';
+import { type LetterSpacingBaseToken as BaseToken } from '../../palettes/typography-palette';
 
 const font: ValueSchema<LetterSpacingTokenSchema<BaseToken>> = {
   font: {

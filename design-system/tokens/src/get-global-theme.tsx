@@ -1,7 +1,7 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
 import {
-  ActiveThemeState,
-  DataColorModes,
+  type ActiveThemeState,
+  type DataColorModes,
   themeColorModes,
 } from './theme-config';
 import { themeStringToObject } from './theme-state-transformer';

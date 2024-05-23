@@ -201,37 +201,42 @@ export const insertRow =
     return true;
   };
 
-export const createTable = (
-  isTableScalingEnabled?: boolean,
-  isFullWidthModeEnabled?: boolean,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
-): Command => (state, dispatch) => {
-  const table = createTableWithWidth(
-    isTableScalingEnabled,
-    isFullWidthModeEnabled,
-  )(state.schema);
+export const createTable =
+  (
+    isTableScalingEnabled?: boolean,
+    isTableAlignmentEnabled?: boolean,
+    isFullWidthModeEnabled?: boolean,
+    editorAnalyticsAPI?: EditorAnalyticsAPI | undefined | null,
+  ): Command =>
+  (state, dispatch) => {
+    const table = createTableWithWidth({
+      isTableScalingEnabled,
+      isTableAlignmentEnabled,
+      isFullWidthModeEnabled,
+    })(state.schema);
 
-  if (dispatch) {
-    const tr = safeInsert(table)(state.tr).scrollIntoView();
-    if (editorAnalyticsAPI) {
-      editorAnalyticsAPI?.attachAnalyticsEvent({
+    if (dispatch) {
+      const tr = safeInsert(table)(state.tr).scrollIntoView();
+      if (editorAnalyticsAPI) {
+        editorAnalyticsAPI?.attachAnalyticsEvent({
           action: ACTION.INSERTED,
           actionSubject: ACTION_SUBJECT.DOCUMENT,
           actionSubjectId: ACTION_SUBJECT_ID.TABLE,
           attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
           eventType: EVENT_TYPE.TRACK,
-      })(tr);
+        })(tr);
+      }
+      dispatch(tr);
     }
-    dispatch(tr);
-  }
-  
-  return true;
-}
+
+    return true;
+  };
 
 export const insertTableWithSize =
   (
     isFullWidthModeEnabled?: boolean,
     isTableScalingEnabled?: boolean,
+    isTableAlignmentEnabled?: boolean,
     editorAnalyticsAPI?: EditorAnalyticsAPI,
   ) =>
   (
@@ -240,14 +245,15 @@ export const insertTableWithSize =
     inputMethod?: INPUT_METHOD.PICKER,
   ): EditorCommand => {
     return ({ tr }) => {
-      const tableNode = createTableWithWidth(
+      const tableNode = createTableWithWidth({
         isTableScalingEnabled,
         isFullWidthModeEnabled,
-        {
+        isTableAlignmentEnabled,
+        createTableProps: {
           rowsCount: rowsCount,
           colsCount: colsCount,
         },
-      )(tr.doc.type.schema);
+      })(tr.doc.type.schema);
 
       const newTr = safeInsert(tableNode)(tr).scrollIntoView();
       if (inputMethod) {

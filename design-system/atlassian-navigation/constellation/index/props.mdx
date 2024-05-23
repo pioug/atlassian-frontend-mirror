@@ -1,24 +1,18 @@
----
-props:
-  packageName: '@atlaskit/atlassian-navigation'
-  exports:
-    - AtlassianNavigation
-    - AppSwitcher
-    - Create
-    - Help
-    - Notifications
-    - PrimaryButton
-    - PrimaryDropdownButton
-    - IconButton
-    - ProductHome
-    - CustomProductHome
-    - Profile
-    - Search
-    - Settings
-    - SignIn
----
+import AtlassianNavigation from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
+import AppSwitcher from '!!extract-react-types-loader!../../src/components/AppSwitcher';
+import Create from '!!extract-react-types-loader!../../src/components/Create';
+import Help from '!!extract-react-types-loader!../../src/components/Help';
+import Notifications from '!!extract-react-types-loader!../../src/components/Notifications';
+import PrimaryButton from '!!extract-react-types-loader!../../src/components/PrimaryButton';
+import PrimaryDropdownButton from '!!extract-react-types-loader!../../src/components/PrimaryDropdownButton';
+import IconButton from '!!extract-react-types-loader!../../src/components/IconButton';
+import ProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/product-home';
+import CustomProductHome from '!!extract-react-types-loader!../../src/components/ProductHome/custom-product-home';
+import Profile from '!!extract-react-types-loader!../../src/components/Profile';
+import Search from '!!extract-react-types-loader!../../src/components/Search';
+import Settings from '!!extract-react-types-loader!../../src/components/Settings';
+import SignIn from '!!extract-react-types-loader!../../src/components/SignIn';
 
-{/* To fully migrate these, we need to be able to import more than one `packageName` in the upper YAML front matter. See ticket https://product-fabric.atlassian.net/browse/DSP-18926 */}
 import NavigationSkeleton from '!!extract-react-types-loader!../../src/components/AtlassianNavigation/skeleton';
 import SkeletonCreateButton from '!!extract-react-types-loader!../../docs/ert/skeleton-create-button';
 import SkeletonIconButton from '!!extract-react-types-loader!../../docs/ert/skeleton-icon-button';
@@ -29,98 +23,59 @@ import SkeletonSwitcherButton from '!!extract-react-types-loader!../../docs/ert/
 
 ### Container (Atlassian navigation)
 
-<TSMorphProps
-  exportName="AtlassianNavigation"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={AtlassianNavigation} />
 
 ### App Switcher
 
-<TSMorphProps
-  exportName="AppSwitcher"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={AppSwitcher} />
 
 ### Product home
 
-<TSMorphProps
-  exportName="ProductHome"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={ProductHome} />
 
 ### Custom product Home
 
-<TSMorphProps
-  exportName="CustomProductHome"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={CustomProductHome} />
 
 ### Primary button
 
-<TSMorphProps
-  exportName="PrimaryButton"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={PrimaryButton} />
 
 ### Primary dropdown button
 
-<TSMorphProps
-  exportName="PrimaryDropdownButton"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={PrimaryDropdownButton} />
 
 ### Create button
 
-<TSMorphProps
-  exportName="Create"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={Create} />
 
 ### Icon button
 
-<TSMorphProps
-  exportName="IconButton"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={IconButton} />
 
 ### Search
 
-<TSMorphProps
-  exportName="Search"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={Search} />
 
 ### Notifications button
 
-<TSMorphProps
-  exportName="Notifications"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={Notifications} />
 
 ### Help button
 
-<TSMorphProps exportName="Help" packageName="@atlaskit/atlassian-navigation" />
+<PropsTable heading="" props={Help} />
 
 ### Settings button
 
-<TSMorphProps
-  exportName="Settings"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={Settings} />
 
 ### Sign In button
 
-<TSMorphProps
-  exportName="SignIn"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={SignIn} />
 
 ### Profile button
 
-<TSMorphProps
-  exportName="Profile"
-  packageName="@atlaskit/atlassian-navigation"
-/>
+<PropsTable heading="" props={Profile} />
 
 ## Skeleton Props
 

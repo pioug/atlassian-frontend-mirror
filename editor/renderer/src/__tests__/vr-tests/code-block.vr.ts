@@ -17,9 +17,7 @@ snapshot(CodeBlockRendererCopyWrap, {
   states: [{ state: 'hovered', selector: { byTestId: 'renderer-code-block' } }],
 });
 
-// Fixing failing build: Jira Issue: https://hello.jira.atlassian.cloud/browse/UTEST-1617
-// https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2952944/steps/%7Be80cb7c1-99cf-4a49-ab14-ea22e5af48cc%7D/test-report
-snapshot.skip(CodeBlockRendererTrailingNewline, {
+snapshot(CodeBlockRendererTrailingNewline, {
   description: 'should render trailing newline',
 });
 

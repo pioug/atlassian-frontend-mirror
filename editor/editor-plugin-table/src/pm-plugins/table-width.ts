@@ -23,6 +23,8 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
+import { ALIGN_START } from '../utils/alignment';
+
 import { TABLE_MAX_WIDTH } from './table-resizing/utils';
 
 type __ReplaceStep = ReplaceStep & {
@@ -46,6 +48,7 @@ const createPlugin = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   fullWidthEnabled: boolean,
   isTableScalingEnabled: boolean,
+  isTableAlignmentEnabled: boolean,
 ) => {
   return new SafePlugin({
     key: pluginKey,
@@ -133,11 +136,14 @@ const createPlugin = (
         tr.getMeta('referentialityTableInserted'),
       );
 
-      const shouldPatchTable = fullWidthEnabled && isTableScalingEnabled;
+      const shouldPatchTableWidth = fullWidthEnabled && isTableScalingEnabled;
+      const shouldPatchTableAlignment =
+        fullWidthEnabled && isTableAlignmentEnabled;
 
       if (
         !isReplaceDocumentOperation &&
-        (!shouldPatchTable || !referentialityTr)
+        ((!shouldPatchTableWidth && !shouldPatchTableAlignment) ||
+          !referentialityTr)
       ) {
         return null;
       }
@@ -206,10 +212,18 @@ const createPlugin = (
 
       if (referentialityTr) {
         referentialityTr.steps.forEach((step) => {
-          step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
+          step.getMap().forEach((_, __, newStart, newEnd) => {
             newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
-              if (node.type === table && node.attrs.width !== TABLE_MAX_WIDTH) {
-                tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
+              if (node.type === table) {
+                if (
+                  shouldPatchTableWidth &&
+                  node.attrs.width !== TABLE_MAX_WIDTH
+                ) {
+                  tr.setNodeAttribute(pos, 'width', TABLE_MAX_WIDTH);
+                }
+                if (shouldPatchTableAlignment) {
+                  tr.setNodeAttribute(pos, 'layout', ALIGN_START);
+                }
               }
             });
           });

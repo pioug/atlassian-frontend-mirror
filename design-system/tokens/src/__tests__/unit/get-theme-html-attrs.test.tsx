@@ -6,7 +6,7 @@ import {
   THEME_DATA_ATTRIBUTE,
 } from '../../constants';
 import getThemeHtmlAttrs from '../../get-theme-html-attrs';
-import { ThemeOptionsSchema } from '../../theme-config';
+import { type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {

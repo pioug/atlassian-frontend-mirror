@@ -1,4 +1,4 @@
-import { TypographyToken } from '../../../../../src/types';
+import { type TypographyToken } from '../../../../../src/types';
 import numberPixel from '../../number-pixel';
 
 describe('numberPixel transformer', () => {

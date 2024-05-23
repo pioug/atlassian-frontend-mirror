@@ -1,8 +1,8 @@
 import {
   isNodeOfType,
-  JSXAttribute,
-  JSXOpeningElement,
-  JSXSpreadAttribute,
+  type JSXAttribute,
+  type JSXOpeningElement,
+  type JSXSpreadAttribute,
 } from 'eslint-codemod-utils';
 
 export const getJSXAttributeByName = (

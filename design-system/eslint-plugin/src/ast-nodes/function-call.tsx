@@ -1,9 +1,9 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
 import {
-  CallExpression,
+  type CallExpression,
   isNodeOfType,
-  ObjectExpression,
+  type ObjectExpression,
 } from 'eslint-codemod-utils';
 
 export const FunctionCall = {

@@ -1,4 +1,4 @@
-import { TypographyToken } from '../../../../../src/types';
+import { type TypographyToken } from '../../../../../src/types';
 import webFont from '../../web-font';
 
 describe('webFont transformer', () => {

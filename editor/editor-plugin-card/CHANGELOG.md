@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 1.14.2
+
+### Patch Changes
+
+-   [#99680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99680)
+    [`538e71f42af4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/538e71f42af4) -
+    Add code behind an FF to control what events are sent to prose mirror based on classnames, in
+    orderto control toolbar and selection behaviour for smart links in live pages.
+-   Updated dependencies
+
 ## 1.14.1
 
 ### Patch Changes

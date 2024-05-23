@@ -87,13 +87,12 @@ const boxStyles = css({
   width: '100%',
   maxWidth: '200px',
   minHeight: '100px',
-  marginTop: '1em',
   padding: '1em',
   alignItems: 'center',
-  // eslint-disable-next-line
   borderRadius: token('border.radius.100', '3px'),
+  marginBlockStart: '1em',
   textAlign: 'left',
-  transition: 'box-shadow 200ms, background 200ms, border 200ms',
+  transition: 'box-shadow 200ms, background 200ms, border 200ms'
 });
 
 const Box = ({

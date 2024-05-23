@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import {
-  ImportDeclaration,
-  ImportDefaultSpecifier,
+  type ImportDeclaration,
+  type ImportDefaultSpecifier,
   isNodeOfType,
-  JSXAttribute,
+  type JSXAttribute,
 } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';

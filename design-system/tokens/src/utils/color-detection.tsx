@@ -1,4 +1,4 @@
-import { ShadowToken } from '../types';
+import { type ShadowToken } from '../types';
 
 export const hexToRGBAValues = (hex: string) => {
   const hexColor = hex.replace('#', '');

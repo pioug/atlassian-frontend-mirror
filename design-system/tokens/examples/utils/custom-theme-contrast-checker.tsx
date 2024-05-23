@@ -1,5 +1,5 @@
 import generatedPairs from '../../src/artifacts/generated-pairs';
-import tokens from '../../src/artifacts/token-names';
+import type tokens from '../../src/artifacts/token-names';
 import rawTokensDark from '../../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../../src/artifacts/tokens-raw/atlassian-light';
 import { getContrastRatio } from '../../src/utils/color-utils';

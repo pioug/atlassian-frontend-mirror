@@ -1,5 +1,13 @@
 # @atlaskit/email-renderer
 
+## 8.8.2
+
+### Patch Changes
+
+-   [#102816](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102816)
+    [`f34e893af46d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f34e893af46d) -
+    When media single width is null fallback to auto for width
+
 ## 8.8.1
 
 ### Patch Changes

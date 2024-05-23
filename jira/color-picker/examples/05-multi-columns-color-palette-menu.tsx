@@ -34,6 +34,8 @@ Story.decorators = [
   withPlatformFeatureFlags({
     'platform.color-picker-radio-button-functionality_6hkcy': true,
     'platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe': true,
+    'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i':
+      true,
   }),
 ];
 

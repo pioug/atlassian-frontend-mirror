@@ -1,11 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
 import {
-  Identifier,
-  ImportDeclaration,
+  type Identifier,
+  type ImportDeclaration,
   isNodeOfType,
   property,
-  Property,
+  type Property,
 } from 'eslint-codemod-utils';
 
 import type { RuleConfig } from './types';

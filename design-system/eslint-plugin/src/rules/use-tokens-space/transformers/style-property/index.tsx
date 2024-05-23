@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
-import { isNodeOfType, Property } from 'eslint-codemod-utils';
+import { isNodeOfType, type Property } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
 import { isStringOrNumber } from '../../utils';

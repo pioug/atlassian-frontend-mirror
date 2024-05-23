@@ -162,6 +162,8 @@ export type ShareDialogContainerProps = {
   isPublicLink?: boolean;
   /* Indicates the mode for integrations to be displayed */
   integrationMode?: IntegrationMode;
+  /* Indicates if the menu item was clicked when 'integrationMode=menu' is active */
+  isMenuItemSelected?: boolean
   /* List of share integrations */
   shareIntegrations?: Array<Integration>;
   /**

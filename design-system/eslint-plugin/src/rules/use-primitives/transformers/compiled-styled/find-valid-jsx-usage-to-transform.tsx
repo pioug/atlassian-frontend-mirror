@@ -1,8 +1,8 @@
 import type { Rule, Scope } from 'eslint';
 import {
   isNodeOfType,
-  JSXIdentifier,
-  JSXOpeningElement,
+  type JSXIdentifier,
+  type JSXOpeningElement,
 } from 'eslint-codemod-utils';
 
 const JSX_IDENTIFIER = 'JSXIdentifier';

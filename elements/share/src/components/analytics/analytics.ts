@@ -1,14 +1,14 @@
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import {
   isEmail,
   isExternalUser,
   isTeam,
   isUser,
-  OptionData,
-  Team,
+  type OptionData,
+  type Team,
 } from '@atlaskit/smart-user-picker';
 
-import { DialogContentState, OriginTracing } from '../../types';
+import { type DialogContentState, type OriginTracing } from '../../types';
 
 const buildAttributes = (attributes = {}) => ({
   packageName: process.env._PACKAGE_NAME_,
@@ -93,6 +93,8 @@ export const shareTriggerButtonClicked = () =>
 
 export type TabSubjectIdType = 'shareTab' | 'shareToSlackTab';
 
+export type MenuItemSubjectIdType = 'shareMenuItem' | 'shareToSlackMenuItem';
+
 export const shareTabClicked = (
   subjectId: TabSubjectIdType,
   shareContentType?: string,
@@ -107,6 +109,21 @@ export const shareTabClicked = (
       shareContentType,
     },
   );
+
+  export const shareMenuItemClicked = (
+    subjectId: MenuItemSubjectIdType,
+    shareContentType?: string,
+  ) =>
+    createEvent(
+      'ui',
+      ANALYTICS_SOURCE,
+      'clicked',
+      'menuItem',
+      subjectId || 'shareMenuItem',
+      {
+        shareContentType,
+      },
+    );
 
 export const cancelShare = (start: number) =>
   createEvent(

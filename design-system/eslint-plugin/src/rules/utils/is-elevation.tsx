@@ -1,4 +1,4 @@
-import tokens from '@atlaskit/tokens/token-names';
+import type tokens from '@atlaskit/tokens/token-names';
 
 const legacyElevation: Record<
   string,

@@ -1,6 +1,6 @@
 import { customThemeContrastChecker } from '../../../examples/utils/custom-theme-contrast-checker';
-import tokens from '../../artifacts/token-names';
-import { CSSColor } from '../../theme-config';
+import type tokens from '../../artifacts/token-names';
+import { type CSSColor } from '../../theme-config';
 import { hexToRgbA, rgbToHex } from '../../utils/color-utils';
 import { additionalContrastChecker } from '../../utils/custom-theme-token-contrast-check';
 import {

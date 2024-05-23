@@ -1,4 +1,4 @@
-import tokens from '../../artifacts/token-names';
+import type tokens from '../../artifacts/token-names';
 import {
   generateColors,
   generateTokenMap,

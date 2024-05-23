@@ -210,12 +210,17 @@ describe('Progress Indicator', () => {
   it('should add tabIndex={-1} to selected dots only', () => {
     const values = ['one', 'two', 'three'];
     render(
-      <ProgressDots
-        onSelect={__noop}
-        testId="progress-dots"
-        selectedIndex={0}
-        values={values}
-      />,
+      <div>
+        <ProgressDots
+          onSelect={__noop}
+          testId="progress-dots"
+          selectedIndex={0}
+          values={values}
+        />
+        ,<div id="panel0"></div>
+        <div id="panel1"></div>
+        <div id="panel2"></div>
+      </div>,
     );
 
     expect(screen.getByTestId(`progress-dots-ind-0`)).toHaveAttribute(

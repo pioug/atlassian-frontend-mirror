@@ -1,8 +1,8 @@
 import type { Rule } from 'eslint';
-import { JSXElement } from 'eslint-codemod-utils';
+import { type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { RuleConfig } from '../config';
+import { type RuleConfig } from '../config';
 
 export type MetaData = {
   context: Rule.RuleContext;

@@ -5,13 +5,16 @@ import { css, jsx } from '@emotion/react';
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
 import Form, { RequiredAsterisk } from '@atlaskit/form';
+import EmailIcon from '@atlaskit/icon/glyph/email';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { MenuGroup } from '@atlaskit/menu';
+import { Box, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N300, R400 } from '@atlaskit/theme/colors';
 import { fontSizeSmall } from '@atlaskit/theme/constants';
@@ -19,7 +22,13 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { messages } from '../i18n';
-import { FormChildrenArgs, ShareData, ShareFormProps, TabType } from '../types';
+import {
+  type FormChildrenArgs,
+  type MenuType,
+  type ShareData,
+  type ShareFormProps,
+  TabType,
+} from '../types';
 
 import {
   ANALYTICS_SOURCE,
@@ -29,6 +38,7 @@ import { CommentField } from './CommentField';
 import CopyLinkButton from './CopyLinkButton';
 import { IntegrationForm } from './IntegrationForm';
 import { ShareHeader } from './ShareHeader';
+import { ShareMenuItem } from './ShareMenuItem';
 import { UserPickerField } from './UserPickerField';
 
 const submitButtonWrapperStyles = css({
@@ -78,6 +88,16 @@ const requiredFieldInfoStyles = css({
   fontSize: `${fontSizeSmall()}px`,
 });
 
+const menuGroupContainerStyles = xcss({
+  color: 'color.text',
+  borderRadius: 'border.radius',
+  backgroundColor: 'elevation.surface.overlay',
+  alignItems: 'flex-start',
+  width: '150px',
+  margin: `${token('space.negative.100')} ${token('space.negative.300')}`,
+});
+
+
 const integrationTabText = (integrationName: string) => (
   <FormattedMessage
     {...messages.shareInIntegrationButtonText}
@@ -87,6 +107,7 @@ const integrationTabText = (integrationName: string) => (
 
 export type State = {
   selectedTab: TabType;
+  selectedMenuItem: MenuType;
 };
 
 export type InternalFormProps = FormChildrenArgs<ShareData> &
@@ -101,6 +122,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 
   state: State = {
     selectedTab: TabType.default,
+    selectedMenuItem: 'none',
   };
 
   componentWillUnmount() {
@@ -274,12 +296,19 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     this.props.onTabChange?.(tab);
   };
 
+  changeMenuItem = (menuItem: MenuType) => {
+    this.setState({ selectedMenuItem: menuItem });
+    this.props.onMenuItemChange?.(menuItem);
+  };
+
   render() {
     const {
       integrationMode = 'off',
       shareIntegrations,
       handleCloseDialog,
     } = this.props;
+
+    const { selectedMenuItem } = this.state;
 
     if (
       integrationMode === 'off' ||
@@ -290,6 +319,38 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
     }
 
     const firstIntegration = shareIntegrations[0];
+
+    if (selectedMenuItem === 'default') {
+      return this.renderShareForm();
+    }
+
+    if (selectedMenuItem === 'Slack') {
+      return (
+        <IntegrationForm
+          Content={firstIntegration.Content}
+          onIntegrationClose={() => handleCloseDialog?.()}
+        />
+      );
+    }
+
+    if (integrationMode === 'menu') {
+      return (
+        <Box xcss={menuGroupContainerStyles}>
+          <MenuGroup>
+            <ShareMenuItem
+              iconName={<firstIntegration.Icon />}
+              labelId={messages.slackMenuItemText}
+              onClickHandler={() => this.changeMenuItem('Slack')}
+            />
+            <ShareMenuItem
+              iconName={<EmailIcon label="" size="medium" />}
+              labelId={messages.emailMenuItemText}
+              onClickHandler={() => this.changeMenuItem('default')}
+            />
+          </MenuGroup>
+        </Box>
+      );
+    }
 
     if (integrationMode === 'tabs') {
       return (

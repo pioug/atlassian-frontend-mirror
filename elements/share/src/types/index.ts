@@ -40,6 +40,7 @@ export type {
 } from './ShareEntities';
 
 export { TabType } from './ShareEntities';
+export type { MenuType } from './ShareEntities';
 
 export type KeysOfType<T, TProp> = {
   [P in keyof T]: T[P] extends TProp ? P : never;

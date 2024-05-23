@@ -57,6 +57,7 @@ export function keymapPlugin(
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
   dragAndDropEnabled?: boolean,
   isTableScalingEnabled = false,
+  isTableAlignmentEnabled = false,
   isFullWidthEnabled?: boolean,
   pluginInjectionApi?: PluginInjectionAPIWithA11y,
   getIntl?: () => IntlShape,
@@ -80,6 +81,7 @@ export function keymapPlugin(
     toggleTable.common!,
     createTable(
       isTableScalingEnabled,
+      isTableAlignmentEnabled,
       !!isFullWidthEnabled,
       editorAnalyticsAPI,
     ),

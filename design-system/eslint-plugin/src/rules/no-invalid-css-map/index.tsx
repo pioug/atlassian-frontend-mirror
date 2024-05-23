@@ -3,7 +3,7 @@ import type { CallExpression as ESCallExpression } from 'estree';
 
 import {
   CSS_IN_JS_IMPORTS,
-  ImportSource,
+  type ImportSource,
   isCssMap,
 } from '@atlaskit/eslint-utils/is-supported-import';
 

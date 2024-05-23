@@ -1,10 +1,10 @@
-import { Dictionary, TransformedToken } from 'style-dictionary';
+import { type Dictionary, type TransformedToken } from 'style-dictionary';
 
 import themeConfig, {
-  ThemeIds,
-  ThemeOverrideIds,
-  ThemeOverrides,
-  Themes,
+  type ThemeIds,
+  type ThemeOverrideIds,
+  type ThemeOverrides,
+  type Themes,
 } from '../../src/theme-config';
 
 /**

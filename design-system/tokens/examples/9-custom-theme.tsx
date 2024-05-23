@@ -17,7 +17,7 @@ import { Radio } from '@atlaskit/radio';
 import Select from '@atlaskit/select';
 
 import { setGlobalTheme, token } from '../src';
-import { ThemeOptionsSchema } from '../src/theme-config';
+import { type ThemeOptionsSchema } from '../src/theme-config';
 import { getContrastRatio } from '../src/utils/color-utils';
 import {
   generateColors,
@@ -29,7 +29,7 @@ import ContrastCard from './contrast-checker-utils/components/contrast-card';
 import CopyButton from './utils/copy-button';
 import {
   customThemeContrastChecker,
-  CustomThemeContrastCheckResult,
+  type CustomThemeContrastCheckResult,
 } from './utils/custom-theme-contrast-checker';
 import getFigmaVariableScript from './utils/get-figma-variable-script';
 

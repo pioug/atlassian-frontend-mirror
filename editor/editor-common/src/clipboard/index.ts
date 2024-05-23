@@ -1,4 +1,3 @@
-import type ClipboardPolyfill from 'clipboard-polyfill';
 import * as clipboard from 'clipboard-polyfill';
 
 import type {
@@ -88,15 +87,21 @@ export const copyHTMLToClipboard = async (
 
 // At the time of development, Firefox doesn't support ClipboardItem API
 // Hence of use of this polyfill
-export const copyHTMLToClipboardPolyfill = (
+export const copyHTMLToClipboardPolyfill = async (
   elementToCopy: HTMLElement,
   plainTextToCopy?: string,
 ) => {
-  const Clipboard: typeof ClipboardPolyfill = clipboard as any;
-  const dt = new Clipboard.DT();
-  dt.setData('text/plain', plainTextToCopy || elementToCopy.innerText);
-  dt.setData('text/html', elementToCopy.innerHTML);
-  Clipboard.write(dt);
+  const dt = new clipboard.ClipboardItem({
+    "text/html": new Blob( 
+      [elementToCopy.innerHTML],
+      { type: "text/html" }
+    ),
+    "text/plain": new Blob(
+      [plainTextToCopy || elementToCopy.innerText],
+      { type: "text/plain" }
+    ),
+  });
+  await clipboard.write([dt]);
 };
 
 export const getAnalyticsPayload = (

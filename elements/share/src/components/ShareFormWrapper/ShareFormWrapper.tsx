@@ -1,12 +1,14 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { useIntl } from 'react-intl-next';
 
 import { messages } from '../../i18n';
-import { ShareDialogWithTriggerProps } from '../../types';
+import { type ShareDialogWithTriggerProps } from '../../types';
+import { type IntegrationMode } from '../../types/ShareEntities';
 import { ShareHeader } from '../ShareHeader';
 
 import { InlineDialogContentWrapper, InlineDialogFormWrapper } from './styled';
+
 
 export type ShareFormWrapperProps = Pick<
   ShareDialogWithTriggerProps,
@@ -15,6 +17,8 @@ export type ShareFormWrapperProps = Pick<
   shouldShowTitle?: boolean;
   children?: ReactNode;
   footer?: ReactNode;
+  integrationMode?: IntegrationMode;
+  isMenuItemSelected?: boolean;
 };
 
 const ShareFormWrapper = ({
@@ -22,12 +26,17 @@ const ShareFormWrapper = ({
   shouldShowTitle,
   children = null,
   footer = null,
+  integrationMode = 'off',
+  isMenuItemSelected = false,
 }: ShareFormWrapperProps) => {
   const { formatMessage } = useIntl();
 
   return (
     <InlineDialogContentWrapper label={formatMessage(messages.formTitle)}>
-      <InlineDialogFormWrapper>
+      <InlineDialogFormWrapper
+        integrationMode={integrationMode}
+        isMenuItemSelected={isMenuItemSelected}
+      >
         {shouldShowTitle && <ShareHeader title={shareFormTitle} />}
         {children}
       </InlineDialogFormWrapper>

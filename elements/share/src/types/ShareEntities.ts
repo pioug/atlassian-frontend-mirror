@@ -28,10 +28,12 @@ export enum TabType {
   Slack = 1,
 }
 
+export type MenuType = 'none' | 'default' | 'Slack';
+
 export type Integration = {
   type: string;
   Icon: React.ComponentType;
   Content: React.ComponentType<IntegrationContentProps>;
 };
 
-export type IntegrationMode = 'tabs' | 'split' | 'off';
+export type IntegrationMode = 'tabs' | 'split' | 'menu' | 'off';

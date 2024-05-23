@@ -3,12 +3,12 @@ import type { Rule } from 'eslint';
 import {
   getIdentifierInParentScope,
   isNodeOfType,
-  JSXAttribute,
-  JSXElement,
+  type JSXAttribute,
+  type JSXElement,
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
-import { RuleConfig } from '../../config';
+import { type RuleConfig } from '../../config';
 import {
   getVariableDefinitionValue,
   getVariableUsagesCount,

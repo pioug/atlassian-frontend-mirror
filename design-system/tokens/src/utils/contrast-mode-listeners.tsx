@@ -1,4 +1,4 @@
-import { bind, UnbindFn } from 'bind-event-listener';
+import { bind, type UnbindFn } from 'bind-event-listener';
 
 import { CONTRAST_MODE_ATTRIBUTE } from '../constants';
 

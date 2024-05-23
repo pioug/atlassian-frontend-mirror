@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 80.5.0
+
+### Minor Changes
+
+-   [#99680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99680)
+    [`7d60ce0e7fb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d60ce0e7fb1) -
+    Add an option to inline NodeView producer factory to allow stopEvents prop to be passed through
+    to node view
+
+## 80.4.3
+
+### Patch Changes
+
+-   [#98647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98647)
+    [`19eb20751225`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19eb20751225) -
+    [ED-23248] **@af/editor-libra:** Added profilecardPopupName locator to Mention Model
+    **@atlaskit/editor-test-helpers:** Added optional profilecard provider mock for examples
+    **@atlaskit/editor-common:** Exporting mention with profile card component
+
+## 80.4.2
+
+### Patch Changes
+
+-   [#99989](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99989)
+    [`e2bee5eb41f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2bee5eb41f3) -
+    EDF-607: Add analytics to track content changes to editable AI panels
+
 ## 80.4.1
 
 ### Patch Changes

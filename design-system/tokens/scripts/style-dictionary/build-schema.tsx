@@ -1,6 +1,6 @@
 import path from 'path';
 
-import { Config, Core } from 'style-dictionary';
+import { type Config, type Core } from 'style-dictionary';
 
 import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';

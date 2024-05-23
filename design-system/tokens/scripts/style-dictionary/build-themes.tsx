@@ -2,14 +2,14 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Config, Core } from 'style-dictionary';
+import { type Config, type Core } from 'style-dictionary';
 
 import legacyPalette from '../../schema/palettes/legacy-palette';
 import defaultPalette from '../../schema/palettes/palette';
 import shapePalette from '../../schema/palettes/shape-palette';
 import spacingScale from '../../schema/palettes/spacing-scale';
 import typographyPalette from '../../schema/palettes/typography-palette';
-import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
+import themeConfig, { type Palettes, type ThemeFileNames } from '../../src/theme-config';
 
 import {
   ARTIFACT_OUTPUT_DIR,

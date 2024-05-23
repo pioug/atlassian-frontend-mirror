@@ -1,4 +1,4 @@
-import { Binding, NodePath, Scope } from '@babel/traverse';
+import { type Binding, type NodePath, type Scope } from '@babel/traverse';
 import * as t from '@babel/types';
 
 import tokenNames from '../artifacts/token-names';

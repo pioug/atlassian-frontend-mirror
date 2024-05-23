@@ -1,6 +1,6 @@
 import type { LintRuleMeta } from '@atlaskit/eslint-utils/create-rule';
 
-import { Domains } from './types';
+import { type Domains } from './types';
 
 const domainsToLint: Domains = ['color', 'spacing', 'shape'];
 

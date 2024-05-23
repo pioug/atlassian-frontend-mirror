@@ -293,4 +293,14 @@ export const messages = defineMessages({
     defaultMessage: 'Share',
     description: 'Label of the popup that contains share menu used by assistive technologies',
   },
+  slackMenuItemText: {
+    id: 'fabric.elements.share.menu.slack.label',
+    defaultMessage: 'Slack',
+    description: 'Text for the slack menu in share',
+  },
+  emailMenuItemText: {
+    id: 'fabric.elements.share.menu.email.label',
+    defaultMessage: 'Email',
+    description: 'Text for the email menu in share',
+  },
 });

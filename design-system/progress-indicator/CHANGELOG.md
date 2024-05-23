@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 10.2.0
+
+### Minor Changes
+
+-   [#96761](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96761)
+    [`e355b0808d12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e355b0808d12) -
+    Add support for React 18.
+
 ## 10.1.0
 
 ### Minor Changes

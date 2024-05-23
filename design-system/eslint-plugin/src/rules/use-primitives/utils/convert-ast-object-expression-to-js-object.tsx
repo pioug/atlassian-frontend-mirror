@@ -3,9 +3,9 @@ import type { CSSProperties } from 'react';
 import type { Rule } from 'eslint';
 import {
   isNodeOfType,
-  ObjectExpression,
-  Property,
-  SpreadElement,
+  type ObjectExpression,
+  type Property,
+  type SpreadElement,
 } from 'eslint-codemod-utils';
 
 export const SPREAD_SYNTAX = Symbol('SPREAD_SYNTAX');

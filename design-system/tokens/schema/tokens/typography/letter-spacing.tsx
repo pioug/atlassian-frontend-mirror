@@ -2,7 +2,7 @@ import type {
   AttributeSchema,
   LetterSpacingTokenSchema,
 } from '../../../src/types';
-import { LetterSpacingBaseToken as BaseToken } from '../../palettes/typography-palette';
+import { type LetterSpacingBaseToken as BaseToken } from '../../palettes/typography-palette';
 
 const font: AttributeSchema<LetterSpacingTokenSchema<BaseToken>> = {
   font: {

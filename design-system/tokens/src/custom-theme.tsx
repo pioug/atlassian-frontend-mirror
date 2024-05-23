@@ -1,8 +1,8 @@
 import { COLOR_MODE_ATTRIBUTE, CUSTOM_THEME_ATTRIBUTE } from './constants';
-import { ThemeStyles } from './get-theme-styles';
+import { type ThemeStyles } from './get-theme-styles';
 import {
-  ThemeOptionsSchema,
-  ThemeState,
+  type ThemeOptionsSchema,
+  type ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import {

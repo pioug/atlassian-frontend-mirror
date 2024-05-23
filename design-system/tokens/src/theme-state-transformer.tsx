@@ -1,8 +1,8 @@
 import {
-  ThemeColorModes,
-  ThemeIds,
+  type ThemeColorModes,
+  type ThemeIds,
   themeIds,
-  ThemeState,
+  type ThemeState,
 } from './theme-config';
 
 const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'] as const;

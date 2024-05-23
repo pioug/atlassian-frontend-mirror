@@ -48,6 +48,7 @@ import {
   TABLE_HIGHLIGHT_TOLERANCE,
   TABLE_SNAP_GAP,
 } from '../ui/consts';
+import { normaliseAlignment } from '../utils/alignment';
 import {
   generateResizedPayload,
   generateResizeFrameRatePayloads,
@@ -79,6 +80,7 @@ interface TableResizerProps {
   displayGapCursor: (toggle: boolean) => boolean;
   pluginInjectionApi?: PluginInjectionAPI;
   isTableScalingEnabled?: boolean;
+  isTableAlignmentEnabled?: boolean;
   isWholeTableInDanger?: boolean;
 }
 
@@ -169,6 +171,7 @@ export const TableResizer = ({
   attachAnalyticsEvent,
   displayGapCursor,
   isTableScalingEnabled,
+  isTableAlignmentEnabled,
   isWholeTableInDanger,
   pluginInjectionApi,
 }: PropsWithChildren<TableResizerImprovementProps>) => {
@@ -594,6 +597,13 @@ export const TableResizer = ({
     }
   }, [width]);
 
+  const resizeRatio =
+    !isTableAlignmentEnabled ||
+    (isTableAlignmentEnabled &&
+      normaliseAlignment(node.attrs.layout) === 'center')
+      ? 2
+      : 1;
+
   return (
     <>
       <ResizerNext
@@ -606,7 +616,7 @@ export const TableResizer = ({
         handleResizeStart={handleResizeStart}
         handleResize={scheduleResize}
         handleResizeStop={handleResizeStop}
-        resizeRatio={2}
+        resizeRatio={resizeRatio}
         minWidth={resizerMinWidth}
         maxWidth={maxWidth}
         snapGap={TABLE_SNAP_GAP}

@@ -1,6 +1,6 @@
 import outdent from 'outdent';
 
-import { Tests } from '../../__tests__/utils/_types';
+import { type Tests } from '../../__tests__/utils/_types';
 
 const error =
   'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.';

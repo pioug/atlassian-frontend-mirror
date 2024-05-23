@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, JSXAttribute, literal } from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXAttribute, literal } from 'eslint-codemod-utils';
 
 const HelperJSXAttribute = {
   getName(node: JSXAttribute): string {

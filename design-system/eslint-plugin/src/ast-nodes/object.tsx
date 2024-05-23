@@ -4,10 +4,10 @@ import {
   identifier,
   isNodeOfType,
   literal,
-  ObjectExpression,
+  type ObjectExpression,
   property,
-  Property,
-  SpreadElement,
+  type Property,
+  type SpreadElement,
 } from 'eslint-codemod-utils';
 
 const ASTObjectExpression = {

@@ -59,6 +59,24 @@
       ]
     },
     {
+      "type": "mediaSingle",
+      "attrs": {
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          }
+        }
+      ]
+    },
+    {
       "type": "paragraph",
       "content": [
         {

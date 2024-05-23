@@ -1,5 +1,13 @@
 # @atlaskit/editor-tables
 
+## 2.7.4
+
+### Patch Changes
+
+-   [#102210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102210)
+    [`fe0d7aa7668a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe0d7aa7668a) -
+    Set layout attribute for tables to align-left when inserted in full width editor
+
 ## 2.7.3
 
 ### Patch Changes

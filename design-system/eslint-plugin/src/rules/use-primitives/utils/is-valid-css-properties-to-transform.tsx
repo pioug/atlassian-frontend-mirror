@@ -1,10 +1,10 @@
 import type { CSSProperties } from 'react';
 
 import type { Rule } from 'eslint';
-import { isNodeOfType, SimpleCallExpression } from 'eslint-codemod-utils';
+import { isNodeOfType, type SimpleCallExpression } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { RuleConfig } from '../config';
+import { type RuleConfig } from '../config';
 import {
   supportedDimensionAttributesMap,
   supportedStylesMap,

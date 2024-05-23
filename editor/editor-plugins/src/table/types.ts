@@ -15,6 +15,7 @@ export type {
     PluginInjectionAPIWithA11y,
     TableSharedStateInternal,
     TableSharedState,
+    AlignmentOptions,
     InsertRowMethods,
     PluginConfig,
     ColumnResizingPluginState,

@@ -1,7 +1,7 @@
 import defaultPalette, {
-  BaseToken,
+  type BaseToken,
 } from '../../../../../schema/palettes/palette';
-import { PaintToken, ShadowToken } from '../../../../../src/types';
+import { type PaintToken, type ShadowToken } from '../../../../../src/types';
 import paletteTransformer from '../../palette';
 
 const palette = paletteTransformer(defaultPalette);

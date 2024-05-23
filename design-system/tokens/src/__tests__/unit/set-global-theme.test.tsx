@@ -11,9 +11,9 @@ import {
 } from '../../constants';
 import * as customThemeUtils from '../../custom-theme';
 // This import is just to get types
-import * as enableGlobalThemeTypes from '../../enable-global-theme';
-import * as setGlobalThemeTypes from '../../set-global-theme';
-import { ThemeOptionsSchema } from '../../theme-config';
+import type * as enableGlobalThemeTypes from '../../enable-global-theme';
+import type * as setGlobalThemeTypes from '../../set-global-theme';
+import { type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
 
 // Mock window.matchMedia before importing setGlobalTheme

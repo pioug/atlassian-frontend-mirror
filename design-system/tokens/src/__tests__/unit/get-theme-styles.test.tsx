@@ -1,8 +1,8 @@
 import __noop from '@atlaskit/ds-lib/noop';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import getThemeStyles, { ThemeStyles } from '../../get-theme-styles';
-import { ThemeOptionsSchema } from '../../theme-config';
+import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
+import { type ThemeOptionsSchema } from '../../theme-config';
 import { hash } from '../../utils/hash';
 
 const UNSAFE_themeOptions: ThemeOptionsSchema = {

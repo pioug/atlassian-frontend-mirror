@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 7.9.0
+
+### Minor Changes
+
+-   [#102398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102398)
+    [`872ce80f5ef9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/872ce80f5ef9) -
+    Add support for React 18.
+
 ## 7.8.0
 
 ### Minor Changes

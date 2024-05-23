@@ -1,9 +1,7 @@
 import React from 'react';
 
-import type ClipboardPolyfill from 'clipboard-polyfill';
 import * as clipboard from 'clipboard-polyfill';
 
-const Clipboard: typeof ClipboardPolyfill = clipboard as any;
 
 export interface State {
   value: string;
@@ -18,10 +16,12 @@ export default class ClipboardHelper extends React.Component<{}, State> {
     this.setState({ value: '' });
   };
 
-  copyAs = (dataType = 'text/plain') => {
-    var dt = new Clipboard.DT();
-    dt.setData(dataType, this.state.value);
-    Clipboard.write(dt);
+  copyAs = async (type = 'text/plain') =>  {
+    const blob = new Blob([this.state.value], { type });
+    const dt = new ClipboardItem({
+      [type]: blob
+    });
+    await clipboard.write([dt]);
   };
 
   render() {

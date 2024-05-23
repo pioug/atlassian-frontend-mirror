@@ -1,4 +1,4 @@
-import * as ColorModeObserverTypes from '../../utils/color-mode-listeners';
+import type * as ColorModeObserverTypes from '../../utils/color-mode-listeners';
 
 // Mock window.matchMedia before importing ColorModeObserver
 const matchMediaObject = {

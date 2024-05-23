@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
-import { node as generate, isNodeOfType, Property } from 'eslint-codemod-utils';
+import { node as generate, isNodeOfType, type Property } from 'eslint-codemod-utils';
 
 import { getIsException } from '../utils/get-is-exception';
 import {

@@ -1,5 +1,5 @@
-import { Rule } from 'eslint';
-import { Directive, ModuleDeclaration, Statement } from 'eslint-codemod-utils';
+import { type Rule } from 'eslint';
+import { type Directive, type ModuleDeclaration, type Statement } from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 
 import * as ast from '../index';

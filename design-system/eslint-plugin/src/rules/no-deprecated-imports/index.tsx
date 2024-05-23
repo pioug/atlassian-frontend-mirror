@@ -25,11 +25,11 @@
  * THE SOFTWARE.
  */
 
-import { TSESLint, TSESTree } from '@typescript-eslint/utils';
+import { type TSESLint, type TSESTree } from '@typescript-eslint/utils';
 
 import { createRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
-import { DeprecatedConfig, isDeprecatedImportConfig } from '../utils/types';
+import { type DeprecatedConfig, isDeprecatedImportConfig } from '../utils/types';
 
 export const name = 'no-deprecated-imports';
 

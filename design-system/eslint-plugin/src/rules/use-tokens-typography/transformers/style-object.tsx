@@ -1,12 +1,12 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
 import {
-  ImportDeclaration,
-  ImportSpecifier,
+  type ImportDeclaration,
+  type ImportSpecifier,
   isNodeOfType,
-  ObjectExpression,
-  Property,
-  StringableASTNode,
+  type ObjectExpression,
+  type Property,
+  type StringableASTNode,
 } from 'eslint-codemod-utils';
 
 import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
@@ -19,7 +19,7 @@ import {
   isDecendantOfStyleBlock,
   isDecendantOfType,
 } from '../../utils/is-node';
-import { RuleConfig } from '../config';
+import { type RuleConfig } from '../config';
 import {
   convertPropertyNodeToStringableNode,
   defaultFontWeight,
@@ -27,7 +27,7 @@ import {
   findFontWeightTokenForValue,
   findTypographyTokenForValues,
   fontWeightMap,
-  FontWeightMap,
+  type FontWeightMap,
   getLiteralProperty,
   getTokenProperty,
   insertFallbackImportFull,
@@ -35,7 +35,7 @@ import {
   insertTokensImport,
   isValidPropertyNode,
   notUndefined,
-  TokenValueMap,
+  type TokenValueMap,
 } from '../utils';
 
 interface MetaData {

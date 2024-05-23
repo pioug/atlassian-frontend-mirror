@@ -360,6 +360,9 @@ const TypeAheadListComponent = React.memo(
             onScroll={onScroll}
             height={height}
             overscanRowCount={3}
+            // We need to make this walkaround to make TS happy, cannot pass undefined otherwise ReactVirualized will make it equal to "grid" which we want to avoid
+            // https://github.com/bvaughn/react-virtualized/blob/master/source/Grid/Grid.js#L260
+            aria-label={null as unknown as string}
             containerRole="presentation"
             role="listbox"
             css={css({

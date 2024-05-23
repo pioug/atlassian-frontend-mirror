@@ -1,4 +1,4 @@
-import { ThemeOptionsSchema } from '../../src/theme-config';
+import { type ThemeOptionsSchema } from '../../src/theme-config';
 
 export default function getFigmaVariableScript(
   customTheme: ThemeOptionsSchema,

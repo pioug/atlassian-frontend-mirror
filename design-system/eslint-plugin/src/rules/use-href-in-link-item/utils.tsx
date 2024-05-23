@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule, Scope } from 'eslint';
 import {
-  ImportDeclaration,
+  type ImportDeclaration,
   isNodeOfType,
-  JSXAttribute,
+  type JSXAttribute,
 } from 'eslint-codemod-utils';
 
 import { findIdentifierInParentScope } from '../utils/find-in-parent';

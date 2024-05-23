@@ -14,9 +14,9 @@ import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
 import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-import { browser } from '../utils';
 import {
   analyticsEventKey,
+  browser,
   getPerformanceOptions,
   startMeasureReactNodeViewRendered,
   stopMeasureReactNodeViewRendered,
@@ -39,6 +39,7 @@ type CreateNodeViewOptions<ExtraComponentProps> = {
   pmPluginFactoryParams: PMPluginFactoryParams;
   Component: InlineNodeViewComponent<ExtraComponentProps>;
   extraComponentProps: ExtraComponentProps;
+  extraNodeViewProps?: Pick<NodeView, 'stopEvent'>;
 };
 
 export const inlineNodeViewClassname = 'inlineNodeView';
@@ -48,6 +49,7 @@ function createNodeView<ExtraComponentProps>({
   pmPluginFactoryParams,
   Component,
   extraComponentProps,
+  extraNodeViewProps,
 }: CreateNodeViewOptions<ExtraComponentProps>) {
   // We set a variable for the current node which is
   // used for comparisions when doing updates, before being
@@ -166,6 +168,7 @@ function createNodeView<ExtraComponentProps>({
       // been destroyed no other consumers should still be using it.
       domRef = undefined;
     },
+    ...extraNodeViewProps,
   };
 
   return nodeView;
@@ -283,6 +286,7 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
   pmPluginFactoryParams,
   Component,
   extraComponentProps,
+  extraNodeViewProps,
 }: {
   // The value of the params parameter in PMPluginFactories
   pmPluginFactoryParams: PMPluginFactoryParams;
@@ -290,6 +294,7 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
   Component: InlineNodeViewComponent<ExtraComponentProps>;
   // Any extra props to be passed through to the react component
   extraComponentProps?: ExtraComponentProps;
+  extraNodeViewProps?: Pick<NodeView, 'stopEvent'>;
 }): NodeViewProducer {
   function nodeViewProducer(
     ...nodeViewProducerParameters: NodeViewProducerParameters
@@ -304,6 +309,7 @@ export function getInlineNodeViewProducer<ExtraComponentProps>({
       pmPluginFactoryParams,
       Component,
       extraComponentProps,
+      extraNodeViewProps,
     });
 
     return nodeView;

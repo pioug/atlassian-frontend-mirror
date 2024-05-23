@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { jsxAttribute, JSXElement, jsxIdentifier } from 'eslint-codemod-utils';
+import { jsxAttribute, type JSXElement, jsxIdentifier } from 'eslint-codemod-utils';
 
 export const updateJSXAttributeByName = (
   oldName: string,

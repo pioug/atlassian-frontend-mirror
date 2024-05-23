@@ -2,12 +2,12 @@
 import type { Rule } from 'eslint';
 import {
   isNodeOfType,
-  JSXElement,
-  VariableDeclarator,
+  type JSXElement,
+  type VariableDeclarator,
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
-import { RuleConfig } from '../../config';
+import { type RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils';
 import { validateStyles } from '../../utils/validate-styles';
 

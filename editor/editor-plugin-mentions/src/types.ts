@@ -1,4 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import { type ProfilecardProvider } from '@atlaskit/editor-common/src/provider-factory/profile-card-provider';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
@@ -23,6 +24,7 @@ export interface MentionPluginConfig {
   // flag to indicate display name instead of nick name should be inserted for mentions
   // default: false, which inserts the nick name
   insertDisplayName?: boolean;
+  profilecardProvider?: Promise<ProfilecardProvider>;
 }
 
 export interface MentionPluginOptions extends MentionPluginConfig {

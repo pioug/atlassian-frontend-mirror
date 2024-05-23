@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-table
 
+## 7.16.5
+
+### Patch Changes
+
+-   [#102210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102210)
+    [`fe0d7aa7668a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fe0d7aa7668a) -
+    Set layout attribute for tables to align-left when inserted in full width editor
+
+## 7.16.4
+
+### Patch Changes
+
+-   [#102667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102667)
+    [`ab69107b7352`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab69107b7352) -
+    Force placeholder drag handle to be positioned in first column to avoid overflow
+
+## 7.16.3
+
+### Patch Changes
+
+-   [#102385](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102385)
+    [`501e08d95a31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/501e08d95a31) -
+    [ux] Resize ratio depends on table alignment option. Fixed resize ratio for the cases when table
+    alignment is not 'center'.
+
 ## 7.16.2
 
 ### Patch Changes

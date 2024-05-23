@@ -2,8 +2,8 @@
 import type { Rule } from 'eslint';
 import {
   isNodeOfType,
-  PrivateIdentifier,
-  Property,
+  type PrivateIdentifier,
+  type Property,
 } from 'eslint-codemod-utils';
 import j from 'jscodeshift';
 

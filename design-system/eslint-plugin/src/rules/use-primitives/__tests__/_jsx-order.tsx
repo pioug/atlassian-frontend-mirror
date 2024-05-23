@@ -1,5 +1,5 @@
 import { linesOnly } from '../../__tests__/utils/_strings';
-import { Tests } from '../../__tests__/utils/_types';
+import { type Tests } from '../../__tests__/utils/_types';
 
 const patterns = [
   'compiled-css-function',

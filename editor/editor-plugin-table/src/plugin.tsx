@@ -199,10 +199,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
       insertTable:
         (analyticsPayload): Command =>
         (state, dispatch) => {
-          const node = createTableWithWidth(
-            options?.isTableScalingEnabled,
-            options?.fullWidthEnabled,
-          )(state.schema);
+          const node = createTableWithWidth({
+            isTableScalingEnabled: options?.isTableScalingEnabled,
+            isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+            isFullWidthModeEnabled: options?.fullWidthEnabled,
+          })(state.schema);
 
           return (
             api?.contentInsertion?.actions?.insert({
@@ -229,6 +230,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
       insertTableWithSize: insertTableWithSize(
         options?.fullWidthEnabled,
         options?.isTableScalingEnabled,
+        options?.isTableAlignmentEnabled,
         api?.analytics?.actions,
       ),
     },
@@ -318,6 +320,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
             const {
               dragAndDropEnabled,
               isTableScalingEnabled = false,
+              isTableAlignmentEnabled = false,
               fullWidthEnabled = false,
             } = options || ({} as TablePluginOptions);
             return keymapPlugin(
@@ -325,6 +328,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
               editorAnalyticsAPI,
               dragAndDropEnabled,
               isTableScalingEnabled,
+              isTableAlignmentEnabled,
               fullWidthEnabled,
               api,
               getIntl,
@@ -401,6 +405,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
                   dispatchAnalyticsEvent,
                   options?.fullWidthEnabled ?? false,
                   options?.isTableScalingEnabled ?? false,
+                  options?.isTableAlignmentEnabled ?? false,
                 )
               : undefined,
         },
@@ -644,10 +649,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
             // see comment on tablesPlugin.getSharedState on usage
             const tableState = api?.table?.sharedState.currentState();
 
-            const tableNode = createTableWithWidth(
-              options?.isTableScalingEnabled,
-              tableState?.isFullWidthModeEnabled,
-            )(state.schema);
+            const tableNode = createTableWithWidth({
+              isTableScalingEnabled: options?.isTableScalingEnabled,
+              isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+              isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+            })(state.schema);
 
             const tr = insert(tableNode);
 

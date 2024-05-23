@@ -7,9 +7,9 @@ import {
   THEME_DATA_ATTRIBUTE,
 } from './constants';
 import {
-  DataColorModes,
-  DataContrastModes,
-  ThemeState,
+  type DataColorModes,
+  type DataContrastModes,
+  type ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import { themeObjectToString } from './theme-state-transformer';

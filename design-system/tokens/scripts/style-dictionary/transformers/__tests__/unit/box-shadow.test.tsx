@@ -1,4 +1,4 @@
-import palette, { BaseToken } from '../../../../../schema/palettes/palette';
+import palette, { type BaseToken } from '../../../../../schema/palettes/palette';
 import type { ShadowToken } from '../../../../../src/types';
 import boxShadow from '../../box-shadow';
 

@@ -1,4 +1,4 @@
-import { isNodeOfType, Node } from 'eslint-codemod-utils';
+import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';

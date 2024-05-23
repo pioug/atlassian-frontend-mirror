@@ -1,5 +1,14 @@
 # @atlaskit/color-picker
 
+## 3.2.13
+
+### Patch Changes
+
+-   [#102461](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102461)
+    [`b18788222ee8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b18788222ee8) -
+    reverted cleanup ff
+    platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i
+
 ## 3.2.12
 
 ### Patch Changes

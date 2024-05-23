@@ -1,5 +1,5 @@
 import type { FileInfo } from 'jscodeshift';
-import postcss, { Plugin } from 'postcss';
+import postcss, { type Plugin } from 'postcss';
 // @ts-ignore
 import lessSyntax from 'postcss-less';
 

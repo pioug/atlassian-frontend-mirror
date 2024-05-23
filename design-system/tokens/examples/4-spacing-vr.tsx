@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
 import { token } from '../src';
-import defaultTokenValues from '../src/artifacts/token-default-values';
+import type defaultTokenValues from '../src/artifacts/token-default-values';
 
 const ExampleSizeBox = ({
   scaleToken,
@@ -25,7 +25,7 @@ const ExampleSizeBox = ({
     height: token(absToken, fallback),
     backgroundColor: 'color.background.brand.bold',
     position: 'relative',
-    top: scaleToken.includes('negative') ? token(absToken, fallback) : '0',
+    insetBlockStart: scaleToken.includes('negative') ? token(absToken, fallback) : '0',
   });
 
   return <Box xcss={boxStyles}></Box>;

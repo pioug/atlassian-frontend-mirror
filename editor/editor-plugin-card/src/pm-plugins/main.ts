@@ -48,6 +48,24 @@ import {
 export { pluginKey } from './plugin-key';
 
 const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
+export const ALLOW_EVENTS_CLASSNAME = 'card-plugin-element-allow-events';
+
+export const stopEvent = (event: Event): boolean => {
+  if (!getBooleanFF('platform.linking-platform.smart-links-in-live-pages')) {
+    return false;
+  }
+
+  const target = event.target;
+  // Stop events from propogating to prose-mirror and selecting the node and/or
+  // opening the toolbar, unless a parent of the target has a defined className
+  if (
+    target instanceof HTMLElement &&
+    target.closest(`.${ALLOW_EVENTS_CLASSNAME}`)
+  ) {
+    return false;
+  }
+  return true;
+};
 
 const handleAwarenessOverlay = (view: EditorView): void => {
   const currentState = getPluginState(view.state);
@@ -98,6 +116,9 @@ export const createPlugin =
         allowBlockCards,
         pluginInjectionApi,
         onClickCallback,
+      },
+      extraNodeViewProps: {
+        stopEvent,
       },
     });
 

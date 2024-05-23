@@ -196,6 +196,7 @@ type ExampleState = {
   isBrowseUsersDisabled: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
+  hasMenu: boolean;
   hasTabs: boolean;
   hasSplit: boolean;
   shareIntegrations: Array<Integration>;
@@ -333,6 +334,7 @@ const defaultProps: State = {
   isPublicLink: false,
   hasTabs: false,
   hasSplit: false,
+  hasMenu: false,
   integrationMode: 'off',
   shareIntegrations: [],
   locales: Object.keys(languages),
@@ -518,6 +520,7 @@ export default function Example() {
                         ...state,
                         hasTabs: !state.hasTabs,
                         hasSplit: false,
+                        hasMenu: false,
                         integrationMode:
                           state.integrationMode !== 'tabs' ? 'tabs' : 'off',
                         shareIntegrations: [
@@ -539,9 +542,33 @@ export default function Example() {
                       setState({
                         ...state,
                         hasTabs: false,
+                        hasMenu: false,
                         hasSplit: !state.hasSplit,
                         integrationMode:
                           state.integrationMode !== 'split' ? 'split' : 'off',
+                        shareIntegrations: [
+                          {
+                            type: 'Slack',
+                            Icon: SlackIcon,
+                            Content: IntegrationContent,
+                          },
+                        ],
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Enable Integration Menu Button
+                  <Toggle
+                    isChecked={state.hasMenu}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        hasTabs: false,
+                        hasSplit: false,
+                        hasMenu: !state.hasMenu,
+                        integrationMode:
+                          state.integrationMode !== 'menu' ? 'menu' : 'off',
                         shareIntegrations: [
                           {
                             type: 'Slack',

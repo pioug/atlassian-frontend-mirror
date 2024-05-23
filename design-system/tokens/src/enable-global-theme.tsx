@@ -1,8 +1,8 @@
-import { UnbindFn } from 'bind-event-listener';
+import { type UnbindFn } from 'bind-event-listener';
 
 import {
-  ThemeIdsWithOverrides,
-  ThemeState,
+  type ThemeIdsWithOverrides,
+  type ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import configurePage from './utils/configure-page';

@@ -1,7 +1,7 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import getThemeHtmlAttrs from '../get-theme-html-attrs';
-import { ThemeState } from '../theme-config';
+import { type ThemeState } from '../theme-config';
 
 import ColorModeObserver from './color-mode-listeners';
 import ContrastModeObserver from './contrast-mode-listeners';

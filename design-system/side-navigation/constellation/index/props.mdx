@@ -1,30 +1,35 @@
-import SideNavigationProps from '!!extract-react-types-loader!../../src/components/SideNavigation';
-import HeaderProps from '!!extract-react-types-loader!../../src/components/Header';
-import FooterProps from '!!extract-react-types-loader!../../docs/ert/footer';
-import NavigationContentProps from '!!extract-react-types-loader!../../src/components/NavigationContent';
-import NestableNavigationContentProps from '!!extract-react-types-loader!../../src/components/NestableNavigationContent';
-import SectionProps from '!!extract-react-types-loader!../../src/components/Section';
+---
+props:
+    packageName: '@atlaskit/side-navigation'
+    exports:
+        - SideNavigation
+        - Header
+        - Footer
+        - NavigationContent
+        - NestableNavigationContent
+        - Section
+---
 
 ### Navigation props
 
-<PropsTable heading="" props={SideNavigationProps} />
+<TSMorphProps exportName="SideNavigation" packageName="@atlaskit/side-navigation" />
 
 ### Header props
 
-<PropsTable heading="" props={HeaderProps} />
+<TSMorphProps exportName="Header" packageName="@atlaskit/side-navigation" />
 
 ### Footer props
 
-<PropsTable heading="" props={FooterProps} />
+<TSMorphProps exportName="Footer" packageName="@atlaskit/side-navigation" />
 
 ### Content props
 
-<PropsTable heading="" props={NavigationContentProps} />
+<TSMorphProps exportName="NavigationContent" packageName="@atlaskit/side-navigation" />
 
 ### Nestable content props
 
-<PropsTable heading="" props={NestableNavigationContentProps} />
+<TSMorphProps exportName="NestableNavigationContent" packageName="@atlaskit/side-navigation" />
 
 ### Section props
 
-<PropsTable heading="" props={SectionProps} />
+<TSMorphProps exportName="Section" packageName="@atlaskit/side-navigation" />

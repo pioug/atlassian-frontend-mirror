@@ -1,7 +1,4 @@
-import {
-  type LineHeightTokenSchema,
-  type ValueSchema,
-} from '../../../src/types';
+import { type LineHeightTokenSchema, type ValueSchema } from '../../../src/types';
 import { type LineHeightBaseToken as BaseToken } from '../../palettes/typography-palette';
 
 const font: ValueSchema<LineHeightTokenSchema<BaseToken>> = {

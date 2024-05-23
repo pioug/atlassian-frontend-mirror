@@ -254,6 +254,7 @@ export const ResizableTableContainer = React.memo(
       displayGuideline,
       attachAnalyticsEvent,
       displayGapCursor,
+      isTableAlignmentEnabled,
       isTableScalingEnabled,
       isWholeTableInDanger,
       pluginInjectionApi,

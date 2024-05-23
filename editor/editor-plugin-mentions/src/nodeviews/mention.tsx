@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import type {
-  ProviderFactory,
-  Providers,
+import {
+  type ProviderFactory,
+  useProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import type { MentionNameDetails, MentionProvider } from '@atlaskit/mention';
 import {
@@ -24,13 +23,10 @@ export type Props = InlineNodeViewComponentProps & {
 
 const UNKNOWN_USER_ID = '_|unknown|_';
 
-const MentionAssistiveTextComponent = ({
+const useResolvedName = ({
   id,
   text,
-  providers,
-  accessLevel,
   mentionProvider,
-  localId,
 }: MentionProps & { mentionProvider?: Promise<MentionProvider> }) => {
   const [resolvedName, setResolvedName] = useState(text);
 
@@ -63,6 +59,16 @@ const MentionAssistiveTextComponent = ({
     }
   }, [id, text, mentionProvider]);
 
+  return resolvedName;
+};
+
+export const MentionNodeView = (props: Props) => {
+  const { id, text, accessLevel, localId } = props.node.attrs;
+  const mentionProvider = useProvider('mentionProvider');
+  const profilecardProvider = props.options?.profilecardProvider;
+
+  const resolvedName = useResolvedName({ id, text, mentionProvider });
+
   return (
     <>
       <span>
@@ -70,40 +76,11 @@ const MentionAssistiveTextComponent = ({
           id={id}
           text={resolvedName}
           accessLevel={accessLevel}
-          providers={providers}
+          mentionProvider={mentionProvider}
+          profilecardProvider={profilecardProvider}
           localId={localId}
         />
       </span>
     </>
-  );
-};
-
-export const MentionNodeView = (props: Props) => {
-  const { providerFactory } = props;
-  const { id, text, accessLevel, localId } = props.node.attrs;
-
-  const renderAssistiveTextWithProviders = (providers: Providers) => {
-    const { mentionProvider } = providers as {
-      mentionProvider?: Promise<MentionProvider>;
-    };
-
-    return (
-      <MentionAssistiveTextComponent
-        mentionProvider={mentionProvider}
-        id={id}
-        text={text}
-        providers={providerFactory}
-        accessLevel={accessLevel}
-        localId={localId}
-      />
-    );
-  };
-
-  return (
-    <WithProviders
-      providers={['mentionProvider', 'profilecardProvider']}
-      providerFactory={providerFactory}
-      renderNode={renderAssistiveTextWithProviders}
-    />
   );
 };

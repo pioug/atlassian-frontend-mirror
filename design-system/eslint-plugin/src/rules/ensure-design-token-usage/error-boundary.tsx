@@ -1,4 +1,4 @@
-import { RuleConfig } from './types';
+import { type RuleConfig } from './types';
 
 /**
  * ESLint rules should NEVER throw exceptions, because that breaks the VSCode ESLint server

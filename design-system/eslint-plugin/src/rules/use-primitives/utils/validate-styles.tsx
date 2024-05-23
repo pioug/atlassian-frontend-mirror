@@ -1,13 +1,13 @@
 import {
-  CallExpression,
-  EslintNode,
+  type CallExpression,
+  type EslintNode,
   isNodeOfType,
-  Property,
-  SpreadElement,
+  type Property,
+  type SpreadElement,
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
-import { RuleConfig } from '../config';
+import { type RuleConfig } from '../config';
 import { spaceTokenMap, supportedStylesMap } from '../transformers';
 import { supportedDimensionAttributesMap } from '../transformers/css-to-xcss';
 

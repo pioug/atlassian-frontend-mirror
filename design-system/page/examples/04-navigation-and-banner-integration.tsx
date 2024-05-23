@@ -62,11 +62,7 @@ const NavigationExample = () => {
             )}
             {isAnnouncementBannerOpen && (
               <Banner appearance="announcement" ref={announcementBannerRef}>
-                <p>What if we have two?</p>
-                <p>Can we render this?</p>
-                <p>Will it work if this expands?</p>
-                <p>To maximum length?</p>
-                <p>Yes, we can!</p>
+                What if we have two?
               </Banner>
             )}
           </>

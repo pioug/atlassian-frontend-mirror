@@ -195,6 +195,7 @@ export const ColumnControls = ({
     indexes: number[],
   ) => {
     const isHover = type === 'hover';
+    const isPlaceholder = appearance === 'placeholder';
     const previewHeight = rowHeights?.reduce((sum, cur) => sum + cur, 0) ?? 0;
 
     const previewWidth =
@@ -221,7 +222,11 @@ export const ColumnControls = ({
           position: 'relative',
         }}
         data-testid={`table-floating-column-${
-          isHover ? colIndex : selectedColIndexes[0]
+          isHover
+            ? colIndex
+            : isPlaceholder
+              ? appearance
+              : selectedColIndexes[0]
         }-drag-handle`}
       >
         <DragHandle
@@ -254,17 +259,23 @@ export const ColumnControls = ({
       return null;
     }
 
+    const selectedAppearance =
+      isColumnSelected && isEntireTableSelected
+        ? isInDanger
+          ? 'danger'
+          : 'selected'
+        : 'placeholder';
+
     // placeholder / selected need to always render at least one handle
     // so it can be focused via keyboard shortcuts
     handles.push(
       generateHandleByType(
         'selected',
-        isColumnSelected && isEntireTableSelected
-          ? isInDanger
-            ? 'danger'
-            : 'selected'
-          : 'placeholder',
-        `${selectedColIndexes[0] + 1} / span ${selectedColIndexes.length}`,
+        selectedAppearance,
+        // always position placeholder in first column to avoid overflow issues
+        selectedAppearance === 'placeholder'
+          ? '1 / span 1'
+          : `${selectedColIndexes[0] + 1} / span ${selectedColIndexes.length}`,
         selectedColIndexes,
       ),
     );

@@ -1,6 +1,6 @@
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
-import tokens, { CSSTokenMap } from './artifacts/token-names';
+import tokens, { type CSSTokenMap } from './artifacts/token-names';
 import { TOKEN_NOT_FOUND_CSS_VAR } from './constants';
 
 type Tokens = typeof tokens;

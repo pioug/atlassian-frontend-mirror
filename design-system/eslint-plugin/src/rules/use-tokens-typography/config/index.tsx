@@ -1,4 +1,4 @@
-import { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 export type RuleConfig = {
   failSilently?: boolean;

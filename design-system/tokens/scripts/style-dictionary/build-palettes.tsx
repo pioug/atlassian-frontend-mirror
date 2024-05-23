@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Config, Core } from 'style-dictionary';
+import { type Config, type Core } from 'style-dictionary';
 
 import { ARTIFACT_OUTPUT_DIR } from './constants';
 import formatterRaw from './formatters/raw';

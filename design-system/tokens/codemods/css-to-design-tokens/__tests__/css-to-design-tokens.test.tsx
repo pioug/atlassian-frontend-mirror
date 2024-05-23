@@ -1,4 +1,4 @@
-import { Parser } from 'jscodeshift';
+import { type Parser } from 'jscodeshift';
 
 import __noop from '@atlaskit/ds-lib/noop';
 

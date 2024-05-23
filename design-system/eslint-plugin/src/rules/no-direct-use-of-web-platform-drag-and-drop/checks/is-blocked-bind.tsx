@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Rule } from 'eslint';
-import { CallExpression, isNodeOfType } from 'eslint-codemod-utils';
+import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { isBlockedEventBinding } from '../shared/is-blocked-event-binding';

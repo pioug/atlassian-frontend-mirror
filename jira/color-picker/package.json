@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/color-picker",
-  "version": "3.2.12",
+  "version": "3.2.13",
   "description": "Jira Color Picker Component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -87,6 +87,9 @@
       "type": "boolean"
     },
     "platform.jca11y-1480-inappropriate-label-for-color-picker_76tfe": {
+      "type": "boolean"
+    },
+    "platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i": {
       "type": "boolean"
     }
   }

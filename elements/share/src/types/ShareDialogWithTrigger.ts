@@ -58,6 +58,7 @@ export type ShareDialogWithTriggerProps = Pick<
   | 'isCopyDisabled'
   | 'isPublicLink'
   | 'integrationMode'
+  | 'isMenuItemSelected'
   | 'shareFieldsFooter'
   | 'shareIntegrations'
   | 'shareAri'
@@ -93,4 +94,5 @@ export type ShareDialogWithTriggerStates = {
   showIntegrationForm: boolean;
   selectedIntegration: Integration | null;
   tabIndex: number;
+  isMenuItemSelected: boolean
 };

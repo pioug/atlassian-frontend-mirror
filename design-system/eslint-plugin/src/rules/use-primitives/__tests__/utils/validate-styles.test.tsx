@@ -1,6 +1,6 @@
 import j from 'jscodeshift';
 
-import { RuleConfig } from '../../config';
+import { type RuleConfig } from '../../config';
 import { validateStyles } from '../../utils/validate-styles';
 
 const defaultConfig: RuleConfig = {

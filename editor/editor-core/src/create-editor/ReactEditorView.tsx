@@ -14,13 +14,13 @@ import {
   getAnalyticsEventsFromTransaction,
   PLATFORMS,
 } from '@atlaskit/editor-common/analytics';
-import type { SimplifiedNode } from '@atlaskit/editor-common/analytics';
 import type {
   AnalyticsDispatch,
   AnalyticsEventPayload,
   DispatchAnalyticsEvent,
   FireAnalyticsCallback,
   PluginPerformanceReportData,
+  SimplifiedNode,
   UfoSessionCompletePayloadAEP,
 } from '@atlaskit/editor-common/analytics';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
@@ -44,10 +44,10 @@ import {
 } from '@atlaskit/editor-common/ufo';
 import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
-import { countNodes } from '@atlaskit/editor-common/utils';
 import {
   analyticsEventKey,
   browser,
+  countNodes,
   getAnalyticsEventSeverity,
   getResponseEndTime,
   measureRender,
@@ -148,7 +148,10 @@ export interface EditorViewProps {
   preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
 }
 
-function handleEditorFocus(view: EditorView): number | undefined {
+function handleEditorFocus(
+  view: EditorView,
+  viewMode?: 'edit' | 'view',
+): number | undefined {
   if (view.hasFocus()) {
     return;
   }
@@ -159,6 +162,12 @@ function handleEditorFocus(view: EditorView): number | undefined {
     }
     if (!window.getSelection) {
       view.focus();
+      return;
+    }
+    if (viewMode === 'view') {
+      const emptySelection = new TextSelection(view.state.doc.resolve(0));
+      const tr = view.state.tr.setSelection(emptySelection);
+      view.dispatch(tr);
       return;
     }
     const domSelection = window.getSelection();
@@ -353,6 +362,10 @@ export class ReactEditorView<T = {}> extends React.Component<
 
   getEditorState = () => this.view?.state;
   getEditorView = () => this.view;
+  getViewMode = (): 'edit' | 'view' | undefined => {
+    const editorApi = this.pluginInjectionAPI.api();
+    return editorApi.editorViewMode?.sharedState.currentState().mode;
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
     if (
@@ -368,7 +381,7 @@ export class ReactEditorView<T = {}> extends React.Component<
         !nextProps.editorProps.disabled &&
         nextProps.editorProps.shouldFocus
       ) {
-        this.focusTimeoutId = handleEditorFocus(this.view);
+        this.focusTimeoutId = handleEditorFocus(this.view, this.getViewMode());
       }
     }
 
@@ -955,7 +968,7 @@ export class ReactEditorView<T = {}> extends React.Component<
         view.props.editable &&
         view.props.editable(view.state)
       ) {
-        this.focusTimeoutId = handleEditorFocus(view);
+        this.focusTimeoutId = handleEditorFocus(view, this.getViewMode());
       }
 
       if (this.featureFlags.ufo) {

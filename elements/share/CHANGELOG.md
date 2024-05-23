@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.18.0
+
+### Minor Changes
+
+-   [#102882](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102882)
+    [`c5fa2a2f1c67`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5fa2a2f1c67) -
+    [ux] add a menu dropdown to the share button
+
 ## 4.17.0
 
 ### Minor Changes

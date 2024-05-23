@@ -25,6 +25,7 @@ import { messages } from '../i18n';
 import {
   type Flag,
   type Integration,
+  type MenuType,
   OBJECT_SHARED,
   type ShareData,
   type ShareDialogWithTriggerProps,
@@ -38,13 +39,17 @@ import {
   copyLinkButtonClicked,
   formShareSubmitted,
   screenEvent,
+  shareMenuItemClicked,
   shareSplitButtonEvent,
   shareTabClicked,
   shareTriggerButtonClicked,
   // type TabSubjectIdType,
 } from './analytics/analytics';
 // eslint-disable-next-line no-duplicate-imports
-import type { TabSubjectIdType } from './analytics/analytics';
+import type {
+  MenuItemSubjectIdType,
+  TabSubjectIdType,
+} from './analytics/analytics';
 import { isValidFailedExperience } from './analytics/ufoExperienceHelper';
 import {
   renderShareDialogExp,
@@ -104,6 +109,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     showIntegrationForm: false,
     selectedIntegration: null,
     tabIndex: 0,
+    isMenuItemSelected: false,
     isLoading: false,
   };
 
@@ -136,6 +142,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       isDialogOpen: false,
       showIntegrationForm: false,
       selectedIntegration: null,
+      isMenuItemSelected: false,
     });
 
     const { onUserSelectionChange, onDialogClose } = this.props;
@@ -167,6 +174,14 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
     this.createAndFireEvent(shareTabClicked(subjectId, shareContentType));
     this.setState({ tabIndex: index });
+  };
+
+  private onMenuItemChange = (menuType: MenuType) => {
+    let subjectId: MenuItemSubjectIdType = menuType === 'Slack' ? 'shareToSlackMenuItem' : 'shareMenuItem';
+    const { shareContentType } = this.props;
+
+    this.createAndFireEvent(shareMenuItemClicked(subjectId, shareContentType));
+    this.setState({ isMenuItemSelected: true });
   };
 
   private getFlags = () => {
@@ -296,6 +311,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       showIntegrationForm: false,
       selectedIntegration: null,
       tabIndex: 0,
+      isMenuItemSelected: false,
     });
   };
 
@@ -372,6 +388,18 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     this.setState(({ ignoreIntermediateState }) =>
       ignoreIntermediateState ? null : { defaultValue: data },
     );
+  };
+
+  private calculatePopupOffset = ({
+    isMenuItemSelected,
+    dialogPlacement,
+  }: {
+    isMenuItemSelected?: boolean;
+    dialogPlacement?: string;
+  }): [number, number] => {
+    if (isMenuItemSelected && dialogPlacement === 'bottom-end')
+      {return [-0.1, 8];}
+    return [0, 8];
   };
 
   handleCopyLink = () => {
@@ -534,6 +562,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       defaultValue,
       showIntegrationForm,
       selectedIntegration,
+      isMenuItemSelected,
     } = this.state;
 
     const {
@@ -618,12 +647,14 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 copyTooltipText={copyTooltipText}
                 integrationMode={integrationMode}
                 shareIntegrations={shareIntegrations}
+                isMenuItemSelected={isMenuItemSelected}
                 // actions
                 onLinkCopy={this.handleCopyLink}
                 onSubmit={this.handleShareSubmit}
                 onDismiss={this.handleFormDismiss}
                 onDialogClose={this.handleCloseDialog}
                 onTabChange={this.onTabChange}
+                onMenuItemChange={this.onMenuItemChange}
                 //ref
                 selectPortalRef={this.selectPortalRef}
                 isBrowseUsersDisabled={isBrowseUsersDisabled}
@@ -638,6 +669,11 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
           zIndex={dialogZIndex}
           label={this.props.intl.formatMessage(messages.sharePopupLabel)}
           role="dialog"
+          // TODO: remove after https://hello.atlassian.net/wiki/x/SoEGzQ experiment is finished
+          offset={this.calculatePopupOffset({
+            isMenuItemSelected,
+            dialogPlacement,
+          })}
         />
 
         {/* The select menu portal */}

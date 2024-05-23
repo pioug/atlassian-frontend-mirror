@@ -3,7 +3,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // This import is just to get types
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from '../../constants';
-import * as getSSRAutoScriptTypes from '../../get-ssr-auto-script';
+import type * as getSSRAutoScriptTypes from '../../get-ssr-auto-script';
 
 // Mock window.matchMedia before importing setGlobalTheme
 const matchMediaObject = {

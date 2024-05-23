@@ -14,7 +14,7 @@ import { token } from '@atlaskit/tokens';
 import palettesRaw from '../../../src/entry-points/palettes-raw';
 import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
-import { BaseTokens } from '../utils/types';
+import { type BaseTokens } from '../utils/types';
 
 export const baseTokenNames = palettesRaw
   .filter((base) => base.attributes.category !== 'opacity')

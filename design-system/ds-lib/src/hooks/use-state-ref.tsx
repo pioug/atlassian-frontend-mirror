@@ -1,7 +1,7 @@
 import {
-  Dispatch,
-  MutableRefObject,
-  SetStateAction,
+  type Dispatch,
+  type MutableRefObject,
+  type SetStateAction,
   useRef,
   useState,
 } from 'react';

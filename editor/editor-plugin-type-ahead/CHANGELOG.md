@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.2.3
+
+### Patch Changes
+
+-   [#99848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99848)
+    [`add0947043d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/add0947043d4) -
+    ECA11Y-18: Remove inappropriate aria-labels from Typeahead dropdown
+
 ## 1.2.2
 
 ### Patch Changes

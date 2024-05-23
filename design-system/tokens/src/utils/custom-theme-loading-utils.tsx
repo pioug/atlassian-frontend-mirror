@@ -1,6 +1,6 @@
 import tokens from '../artifacts/token-names';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
-import { ThemeColorModes, ThemeOptionsSchema } from '../theme-config';
+import { type ThemeColorModes, type ThemeOptionsSchema } from '../theme-config';
 
 import { hash } from './hash';
 

@@ -1,4 +1,4 @@
-import { MutableRefObject, Ref, RefObject } from 'react';
+import { type MutableRefObject, type Ref, type RefObject } from 'react';
 
 type Refs =
   | Ref<HTMLElement | null>

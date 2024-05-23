@@ -1,4 +1,4 @@
-import { Rule } from 'eslint';
+import { type Rule } from 'eslint';
 import j from 'jscodeshift';
 
 import * as ast from '../index';

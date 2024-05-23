@@ -61,7 +61,13 @@
       "path": "../../design-system/icon/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/popup/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
       "path": "../../design-system/section-message/tsconfig.app.json"

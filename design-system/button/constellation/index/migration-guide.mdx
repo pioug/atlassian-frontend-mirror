@@ -9,7 +9,7 @@ import SectionMessage from '@atlaskit/section-message';
 
 ## Migrate to use the new button components
 
-New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you can start migrating some default button usages to the [new button](/components/button/button-new), [icon button](/components/button/icon-button), and [link button](/components/button/link-button) today.
+New button components with improved APIs are here. If you're using the old `@atlaskit/button`, you can start migrating some default and loading button usages to the [new button](/components/button/button-new), [icon button](/components/button/icon-button), and [link button](/components/button/link-button) today.
 
 ## Use the codemod for automated migration assistance
 
@@ -120,11 +120,11 @@ This means it is translatable, and readable by screenreaders.
 
 These buttons are still being developed and reviewed in the new designs, or they just can't be migrated automatically yet. Here's what to do in these situations:
 
-| Old button property                                             | What to do                                                                                                                                                                                      |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new link component (coming soon). |
-| `style` or `css` props                                          | Don't migrate yet. Wait for the new style override solution (coming soon).                                                                                                                      |
-| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                            |
+| Old button property                                             | What to do                                                                                                                                                                                            |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance` set to `link` or `subtle link` on non-link buttons | Consider using [semantically correct buttons and links](/components/button/button-new/usage#use-buttons-for-actions-and-links-for-navigation) instead, or the new Link component or Anchor primitive. |
+| `style` or `css` props                                          | Consider using [Pressable](/components/primitives/pressable) to build custom buttons with Atlassian Design System styling.                                                                            |
+| `component` property                                            | Buttons using `component` prop for routing can be migrated to the new [link button](/components/button/link-button).                                                                                  |
 
 <SectionMessage>
   Not all old buttons have a 1:1 replacement in the new components. We're still
@@ -141,3 +141,4 @@ If you have a button that can't be migrated or changed, keep using legacy button
 - [New button](/components/button/button-new)
 - [Icon button](/components/button/icon-button)
 - [Link button](/components/button/link-button)
+- [Split button](/components/button/split-button)

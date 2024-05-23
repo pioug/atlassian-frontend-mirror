@@ -13,12 +13,13 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../i18n';
 import type {
+  MenuType,
   ShareData,
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
 } from '../../types';
 import { INTEGRATION_MODAL_SOURCE } from '../analytics/analytics';
-import { IntegrationForm, IntegrationFormProps } from '../IntegrationForm';
+import { IntegrationForm, type IntegrationFormProps } from '../IntegrationForm';
 import { ShareForm } from '../ShareForm';
 import { ShareFormWrapper } from '../ShareFormWrapper';
 import { allowEmails } from '../utils';
@@ -48,6 +49,7 @@ export type LazyShareFormProps = Pick<
   | 'orgId'
   | 'isBrowseUsersDisabled'
   | 'userPickerOptions'
+  | 'isMenuItemSelected'
 > &
   Pick<
     ShareDialogWithTriggerStates,
@@ -63,6 +65,7 @@ export type LazyShareFormProps = Pick<
     onDismiss: (data: ShareData) => void;
     onSubmit: (data: ShareData) => void;
     onTabChange: (index: number) => void;
+    onMenuItemChange: (menuType: MenuType) => void;
     loadOptions?: LoadOptions;
 
     // ref
@@ -99,12 +102,14 @@ function LazyShareForm(props: LazyShareFormProps) {
     copyTooltipText,
     shareIntegrations,
     integrationMode,
+    isMenuItemSelected,
     // actions
     onLinkCopy,
     onDismiss,
     onSubmit,
     onDialogClose,
     onTabChange,
+    onMenuItemChange,
     // ref
     selectPortalRef,
     // props from states of parent:
@@ -150,6 +155,8 @@ function LazyShareForm(props: LazyShareFormProps) {
       footer={footer}
       // form title will be determined by `title` and `showTitle` prop passed to `ShareForm`,
       // so we don't need to show title via ShareFormWrapper
+      integrationMode={integrationMode}
+      isMenuItemSelected={isMenuItemSelected}
       shouldShowTitle={false}
     >
       {showIntegrationForm && selectedIntegration !== null ? (
@@ -191,6 +198,7 @@ function LazyShareForm(props: LazyShareFormProps) {
               onUserSelectionChange={onUserSelectionChange}
               handleCloseDialog={onDialogClose}
               onTabChange={onTabChange}
+              onMenuItemChange={onMenuItemChange}
               isBrowseUsersDisabled={isBrowseUsersDisabled}
               userPickerOptions={userPickerOptions}
             />

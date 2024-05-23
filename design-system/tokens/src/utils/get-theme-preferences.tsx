@@ -1,6 +1,6 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { ThemeIdsWithOverrides, ThemeState } from '../theme-config';
+import { type ThemeIdsWithOverrides, type ThemeState } from '../theme-config';
 
 import getIncreasedContrastTheme from './get-increased-contrast-theme';
 

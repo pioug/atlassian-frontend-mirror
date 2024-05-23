@@ -2,17 +2,17 @@
 import type { Rule } from 'eslint';
 import {
   callExpression,
-  CallExpression,
-  EslintNode,
+  type CallExpression,
+  type EslintNode,
   identifier,
   insertAtStartOfFile,
   insertImportDeclaration,
   isNodeOfType,
   literal,
-  ObjectExpression,
-  Property,
-  SpreadElement,
-  TaggedTemplateExpression,
+  type ObjectExpression,
+  type Property,
+  type SpreadElement,
+  type TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
@@ -30,7 +30,7 @@ import {
   isShapeProperty,
   radiusValueToToken,
 } from './shape';
-import { Domains } from './types';
+import { type Domains } from './types';
 
 const properties = [
   'padding',

@@ -1,14 +1,14 @@
 import {
   AST_NODE_TYPES,
   ASTUtils,
-  TSESLint,
+  type TSESLint,
   type TSESTree,
 } from '@typescript-eslint/utils';
 
 import { createRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
 import {
-  DeprecatedConfig,
+  type DeprecatedConfig,
   isDeprecatedJSXAttributeConfig,
 } from '../utils/types';
 

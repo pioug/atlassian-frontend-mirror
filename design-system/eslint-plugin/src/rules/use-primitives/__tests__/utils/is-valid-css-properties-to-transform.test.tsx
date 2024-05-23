@@ -1,6 +1,6 @@
 import j from 'jscodeshift';
 
-import { RuleConfig } from '../../config';
+import { type RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils/is-valid-css-properties-to-transform';
 
 const defaultConfig: RuleConfig = {

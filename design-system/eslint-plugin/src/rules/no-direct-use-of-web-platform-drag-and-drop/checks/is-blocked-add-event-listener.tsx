@@ -1,4 +1,4 @@
-import { CallExpression, isNodeOfType } from 'eslint-codemod-utils';
+import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
 import { blockedEventNameLookup } from '../shared/blocked';
 

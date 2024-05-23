@@ -30,7 +30,6 @@ export const styles = `
   margin-left: 0px;
   margin-right: auto;
 }
-
 `;
 
 export default function mediaSingle({
@@ -42,14 +41,16 @@ export default function mediaSingle({
   // If not full width or wide
   const honorWidth = !['wide', 'full-width'].includes(attrs.layout);
 
-  // Support Pixel Sizing
+  // Determine pixel sizing or percent sizing
   const widthType = attrs.widthType || 'percent';
-  const width =
-    widthType === 'pixel' ? attrs.width : Math.min(attrs.width, 100); // fallback for unsupported pixel value
+  const width = widthType === 'pixel' ? attrs.width : Math.min(attrs.width, 100);
   const widthUnitType = widthType === 'pixel' ? 'px' : '%';
 
+  // If attrs.width comes in as falsey (when the image is inserted and not resized), fallback to auto
+  const computedWidth = attrs.width ? `${width}${widthUnitType}` : 'auto';
+
   const style: any = {
-    width: honorWidth ? `${width}${widthUnitType}` : '100%',
+    width: honorWidth ? computedWidth : '100%',
     'max-width': '100%',
   };
 

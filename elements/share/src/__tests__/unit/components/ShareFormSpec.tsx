@@ -6,8 +6,10 @@ import { FormattedMessage, IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/custom-theme-button';
 import { shallowWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Form, { FormProps, HelperMessage } from '@atlaskit/form';
+import Form, { type FormProps, HelperMessage } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { MenuGroup } from '@atlaskit/menu';
+import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -15,9 +17,10 @@ import { CommentField } from '../../../components/CommentField';
 import CopyLinkButton from '../../../components/CopyLinkButton';
 import { ShareForm } from '../../../components/ShareForm';
 import { ShareHeader } from '../../../components/ShareHeader';
+import { ShareMenuItem } from '../../../components/ShareMenuItem';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
-import { DialogContentState, ShareError } from '../../../types';
+import { type DialogContentState, type ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
@@ -401,13 +404,40 @@ describe('ShareForm', () => {
   });
 
   describe('integrationMode prop', () => {
-    it('should not render Tabs when integrationMode is not Tabs and shareIntegrations has content', () => {
+    it('should not render Tabs when integrationMode is "off" and shareIntegrations has content', () => {
       const wrapper = (shallowWithIntl as typeof shallow)(
         <ShareForm
           {...defaultProps}
           copyLink="link"
           product="confluence"
           integrationMode="off"
+          shareIntegrations={[
+            {
+              type: 'Slack',
+              Icon: () => <div />,
+              Content: () => <div />,
+            },
+          ]}
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find(Tabs);
+
+      const tabs = form.find(Tabs);
+      expect(tabs).toHaveLength(0);
+    });
+
+    it('should not render Tabs when integrationMode is "menu" and shareIntegrations has content', () => {
+      const wrapper = (shallowWithIntl as typeof shallow)(
+        <ShareForm
+          {...defaultProps}
+          copyLink="link"
+          product="confluence"
+          integrationMode="menu"
           shareIntegrations={[
             {
               type: 'Slack',
@@ -451,6 +481,38 @@ describe('ShareForm', () => {
       const buttonLabel = button.find(FormattedMessage);
       expect(buttonLabel).toHaveLength(1);
       expect(buttonLabel.props()).toMatchObject(messages.formShare);
+    });
+
+    it('should render menu items with the share text for integration mode "menu"', () => {
+      const wrapper = shallow(
+        <ShareForm
+          {...defaultProps}
+          copyLink="link"
+          loadOptions={jest.fn()}
+          isPublicLink={true}
+          product="confluence"
+          integrationMode="menu"
+          shareIntegrations={[
+            {
+              type: 'Slack',
+              Icon: () => <div />,
+              Content: () => <div />,
+            },
+          ]}
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const box = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find(Box);
+
+      expect(box).toHaveLength(1);
+      const menuGroup = box.find(MenuGroup);
+      expect(menuGroup).toHaveLength(1);
+      const menuItems = menuGroup.find(ShareMenuItem);
+      expect(menuItems).toHaveLength(2);
     });
   });
 

@@ -54,7 +54,7 @@
     "@atlaskit/analytics-next": "^9.3.0",
     "@atlaskit/ds-lib": "^2.3.0",
     "@atlaskit/motion": "^1.6.0",
-    "@atlaskit/popper": "^5.5.0",
+    "@atlaskit/popper": "^5.6.0",
     "@atlaskit/portal": "^4.5.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",

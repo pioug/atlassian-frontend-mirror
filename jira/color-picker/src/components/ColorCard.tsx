@@ -104,6 +104,11 @@ const ColorCard = (props: Props) => {
         onKeyDown={handleKeyDown}
         role="radio"
         aria-checked={selected}
+        {...(!getBooleanFF(
+          'platform.jca11y-1559-dashboard-view-dashboard-remove-duplicate-aria-label_g5i3i',
+        ) && {
+          'aria-label': label,
+        })}
         tabIndex={0}
         {...(getBooleanFF(
           'platform.color-picker-radio-button-functionality_6hkcy',

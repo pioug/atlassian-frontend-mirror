@@ -1,9 +1,9 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
-  ThemeIdsWithOverrides,
+  type ThemeIdsWithOverrides,
   themeIdsWithOverrides,
-  ThemeState,
+  type ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';

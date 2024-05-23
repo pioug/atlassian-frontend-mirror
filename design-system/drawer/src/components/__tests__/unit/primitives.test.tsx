@@ -188,7 +188,7 @@ describe('Drawer primitive', () => {
 
     await waitForElementToBeRemoved(() => screen.queryByTestId(props.testId));
     expect(onCloseComplete).toHaveBeenCalledTimes(1);
-    expect(onCloseComplete).toHaveBeenCalledWith(null);
+    expect(onCloseComplete).toHaveBeenCalled();
   });
 
   it('should call onOpenComplete when the Slide has finished entering (entered)', async () => {

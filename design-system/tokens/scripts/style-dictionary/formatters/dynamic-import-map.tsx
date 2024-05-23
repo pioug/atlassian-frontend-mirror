@@ -16,7 +16,7 @@ const formatter: Format['formatter'] = () => {
     .join('\n');
 
   const source = `
-import { ThemeIds, ThemeOverrideIds } from '../theme-config';
+import { type ThemeIds, type ThemeOverrideIds } from '../theme-config';
 
 const themeImportsMap: Record<ThemeIds | ThemeOverrideIds, () => Promise<{ default: string }>> = {
 ${imports}

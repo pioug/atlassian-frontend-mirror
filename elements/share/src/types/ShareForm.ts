@@ -5,6 +5,7 @@ import type { ConfigResponse } from '../clients/ShareServiceClient';
 import type { ProductName } from './Products';
 import type { ShareData, ShareError } from './ShareContentState';
 import type { ShareDialogContainerProps } from './ShareDialogContainer';
+import { type MenuType } from './ShareEntities';
 
 export type ShareFormProps = Pick<
   ShareDialogContainerProps,
@@ -41,6 +42,8 @@ export type ShareFormProps = Pick<
   onDismiss?: (data: ShareData) => void;
   onUserInputChange?: (query?: string, sessionId?: string) => void;
   onTabChange?: (index: number) => void;
+  onMenuItemChange?: (menuItem: MenuType) => void;
+  selectedMenuItem?: number
   Content?: React.ReactNode;
   handleCloseDialog?: () => void;
 };

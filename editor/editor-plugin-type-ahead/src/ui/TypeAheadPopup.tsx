@@ -306,6 +306,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
       fitHeight={fitHeight}
       fitWidth={340}
       offset={OFFSET}
+      ariaLabel={null}
     >
       <div
         css={typeAheadContent}

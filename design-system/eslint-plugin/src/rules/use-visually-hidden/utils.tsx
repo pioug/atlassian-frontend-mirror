@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { SourceCode } from 'eslint';
-import { isNodeOfType, ObjectExpression, Property } from 'eslint-codemod-utils';
+import { isNodeOfType, type ObjectExpression, type Property } from 'eslint-codemod-utils';
 
 // eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
 const referenceObject = {

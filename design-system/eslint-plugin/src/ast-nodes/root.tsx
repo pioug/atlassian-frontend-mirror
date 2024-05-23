@@ -1,13 +1,13 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
 import {
-  Directive,
+  type Directive,
   hasImportDeclaration,
-  ImportDeclaration,
+  type ImportDeclaration,
   insertImportDeclaration,
   isNodeOfType,
-  ModuleDeclaration,
-  Statement,
+  type ModuleDeclaration,
+  type Statement,
 } from 'eslint-codemod-utils';
 
 import { Import } from './import';

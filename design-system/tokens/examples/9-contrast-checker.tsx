@@ -25,7 +25,7 @@ import { getCSSCustomProperty } from '../src/utils/token-ids';
 
 import Accordion from './contrast-checker-utils/components/accordion';
 import BaseTokenEditor, {
-  baseTokens,
+  type baseTokens,
 } from './contrast-checker-utils/components/base-token-editor';
 import CustomThemeEditor from './contrast-checker-utils/components/custom-theme-editor';
 import Results, {
@@ -36,7 +36,7 @@ import {
   getSearchParams,
   setSearchParams,
 } from './contrast-checker-utils/utils/search-params';
-import { ColorMode, Theme } from './contrast-checker-utils/utils/types';
+import { type ColorMode, type Theme } from './contrast-checker-utils/utils/types';
 
 const params = new URLSearchParams(window.location.search);
 

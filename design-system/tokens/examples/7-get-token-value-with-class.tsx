@@ -9,7 +9,7 @@ import {
   getGlobalTheme,
   getTokenValue,
   ThemeMutationObserver,
-  ThemeState,
+  type ThemeState,
   token,
 } from '../src';
 

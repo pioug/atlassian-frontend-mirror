@@ -7,8 +7,8 @@ import {
   CONTRAST_MODE_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
-import themeConfig, { Themes } from '../../../src/theme-config';
-import { TypographyDesignToken } from '../../../src/types';
+import themeConfig, { type Themes } from '../../../src/theme-config';
+import { type TypographyDesignToken } from '../../../src/types';
 import getIncreasedContrastTheme from '../../../src/utils/get-increased-contrast-theme';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';

@@ -1,11 +1,11 @@
 import type { Rule } from 'eslint';
 import {
   isNodeOfType,
-  JSXAttribute,
-  JSXElement,
-  JSXFragment,
+  type JSXAttribute,
+  type JSXElement,
+  type JSXFragment,
   jsxIdentifier,
-  JSXSpreadAttribute,
+  type JSXSpreadAttribute,
 } from 'eslint-codemod-utils';
 
 import { JSXAttribute as HelperJSXAttribute } from './jsx-attribute';

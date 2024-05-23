@@ -1,6 +1,6 @@
 import themeImportMap from '../artifacts/theme-import-map';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
-import { ThemeIdsWithOverrides } from '../theme-config';
+import { type ThemeIdsWithOverrides } from '../theme-config';
 
 export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides) => {
   if (

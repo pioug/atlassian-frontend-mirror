@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 1.49.1
+
+### Patch Changes
+
+-   [#101609](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101609)
+    [`4f0dff39fd37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f0dff39fd37) -
+    Change naming of base lineheight tokens.
+
 ## 1.49.0
 
 ### Minor Changes

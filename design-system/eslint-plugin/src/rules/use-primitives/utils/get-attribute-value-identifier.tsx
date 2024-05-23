@@ -1,4 +1,4 @@
-import { isNodeOfType, JSXAttribute } from 'eslint-codemod-utils';
+import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
 /**
  * Bit of a weird name, but the functionality is quite specific, so this is the best I could do.

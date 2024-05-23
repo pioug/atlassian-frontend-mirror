@@ -1,5 +1,5 @@
 import type { Rule } from 'eslint';
-import { isNodeOfType, VariableDeclarator } from 'eslint-codemod-utils';
+import { isNodeOfType, type VariableDeclarator } from 'eslint-codemod-utils';
 
 import { styledObjectToXcssTokens } from '../css-to-xcss';
 

@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import {
   closestOfType,
   hasImportDeclaration,
-  ImportSpecifier,
+  type ImportSpecifier,
   isNodeOfType,
 } from 'eslint-codemod-utils';
 

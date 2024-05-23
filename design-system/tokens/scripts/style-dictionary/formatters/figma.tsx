@@ -1,7 +1,7 @@
 import upperFirst from 'lodash/upperFirst';
 import type { Format } from 'style-dictionary';
 
-import themeConfig, { Themes } from '../../../src/theme-config';
+import themeConfig, { type Themes } from '../../../src/theme-config';
 import { getTokenId } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 

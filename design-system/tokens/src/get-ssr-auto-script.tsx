@@ -1,7 +1,7 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from './constants';
-import { ThemeState } from './theme-config';
+import { type ThemeState } from './theme-config';
 import {
   darkModeMediaQuery,
   moreContrastMediaQuery,

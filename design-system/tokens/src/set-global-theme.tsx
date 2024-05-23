@@ -1,10 +1,10 @@
-import { UnbindFn } from 'bind-event-listener';
+import { type UnbindFn } from 'bind-event-listener';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
-  ThemeIdsWithOverrides,
-  ThemeState,
+  type ThemeIdsWithOverrides,
+  type ThemeState,
   themeStateDefaults,
 } from './theme-config';
 import { isValidBrandHex } from './utils/color-utils';

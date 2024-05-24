@@ -160,6 +160,15 @@ describe('AISummaryAction', () => {
     });
   });
 
+  it('invokes onLoadingChange callback when status changes', async () => {
+    const onLoadingChange = jest.fn();
+
+    setup({ onLoadingChange }, undefined, { status: 'loading', content: '' });
+
+    expect(onLoadingChange).toHaveBeenCalledTimes(1);
+    expect(onLoadingChange).toHaveBeenCalledWith(true);
+  });
+
   describe('Copy Summary action', () => {
     it('renders copy summary action if summary generation is complete', async () => {
       const { queryByTestId } = setup({}, undefined, {

@@ -1,5 +1,5 @@
-import { ElementProps } from '../types';
-import { IconType, SmartLinkPosition } from '../../../../../constants';
+import { type ElementProps } from '../types';
+import { type IconType, type SmartLinkPosition } from '../../../../../constants';
 
 export type IconProps = ElementProps & {
   /**
@@ -12,6 +12,12 @@ export type IconProps = ElementProps & {
    * will be used.
    */
   icon?: IconType;
+
+  /**
+   * If provided, overrideIcon will be rendered in the place of the provided icon or one that is 
+   * supplied by the URL.
+   */
+  overrideIcon?: React.ReactNode;
 
   /**
    * The label provided to the Atlaskit Icon.

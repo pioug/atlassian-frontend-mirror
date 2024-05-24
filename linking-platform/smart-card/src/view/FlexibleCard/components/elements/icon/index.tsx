@@ -2,11 +2,11 @@
 import React, { useMemo } from 'react';
 
 import LinkIcon from '@atlaskit/icon/glyph/link';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
-import { IconProps } from './types';
+import { type IconProps } from './types';
 import {
-  IconType,
+  type IconType,
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../constants';
@@ -85,6 +85,7 @@ const renderImageIcon = (
  */
 const Icon: React.FC<IconProps> = ({
   icon,
+  overrideIcon,
   label = 'Link',
   name,
   position = SmartLinkPosition.Top,
@@ -97,12 +98,13 @@ const Icon: React.FC<IconProps> = ({
   const element = useMemo(() => {
     const defaultIcon = renderDefaultIcon(label, testId);
     return (
+      overrideIcon ||
       render?.() ||
       renderImageIcon(defaultIcon, url, testId) ||
       renderAtlaskitIcon(icon, label, testId) ||
       defaultIcon
     );
-  }, [icon, label, render, testId, url]);
+  }, [overrideIcon, icon, label, render, testId, url]);
 
   const width = getIconWidth(size);
   const styles = getIconStyles(position, width);

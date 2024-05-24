@@ -5,7 +5,7 @@ import {
   forwardRef,
   memo,
   type ReactNode,
-  Ref,
+  type Ref,
   useMemo,
 } from 'react';
 

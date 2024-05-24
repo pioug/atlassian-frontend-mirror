@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 80.5.2
+
+### Patch Changes
+
+-   [#101513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101513)
+    [`98b5dfc33bed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98b5dfc33bed) -
+    [ux] [ED-23156] The highlight primary toolbar button is disabled when trying to apply it on
+    nodes that don't enable the mark and when in a gap cursor. The text color primary toolbar button
+    is disabled when selecting text with a highlight.
+-   Updated dependencies
+
+## 80.5.1
+
+### Patch Changes
+
+-   [#103099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103099)
+    [`ab382e121799`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab382e121799) -
+    [ED-23248] **@af/editor-libra:** REVERT: Added profilecardPopupName locator to Mention Model
+    **@atlaskit/editor-test-helpers:** REVERT: Added optional profilecard provider mock for examples
+    **@atlaskit/editor-common:** REVERT: Exporting mention with profile card component
+-   Updated dependencies
+
 ## 80.5.0
 
 ### Minor Changes

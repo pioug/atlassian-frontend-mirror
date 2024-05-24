@@ -1,4 +1,4 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, type ReactNode } from 'react';
 
 import AnalyticsContext from './AnalyticsContext/LegacyAnalyticsContext';
 
@@ -32,10 +32,7 @@ export default class AnalyticsErrorBoundary extends Component<
     this.state = { hasError: false };
   }
 
-  componentDidCatch(
-    error: Error,
-    info?: AnalyticsErrorBoundaryErrorInfo,
-  ): void {
+  componentDidCatch(error: Error, info: AnalyticsErrorBoundaryErrorInfo): void {
     const { onError } = this.props;
 
     onError && onError(error, info);

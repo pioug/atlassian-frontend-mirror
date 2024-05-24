@@ -127,66 +127,138 @@ describe('EmbedCard view component', () => {
 
     describe('FF enableThemeStateUrl', () => {
       ffTest.on(
-        'platform.linking-platform.smart-card.enable-theme-state-url',
-        'enableThemeStateUrl on',
+        'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
+        'FF for handling urls with # on',
         () => {
-          it.each([PROVIDER_KEYS_WITH_THEMING])(
-            'should add themeState query param if theming is supported',
-            (providerKey) => {
-              const cardStateOverrideWithThemeSupport: any = {
-                ...cardStateOverride,
-                details: {
-                  ...cardStateOverride.details,
-                  meta: {
-                    key: providerKey,
-                    access: 'granted',
-                    visibility: 'public',
-                  },
-                },
-              };
-              const { iframeEl } = setup(
-                cardStateOverrideWithThemeSupport,
-                expectedUrl,
-              );
+          ffTest.on(
+            'platform.linking-platform.smart-card.enable-theme-state-url',
+            'enableThemeStateUrl on',
+            () => {
+              it.each([PROVIDER_KEYS_WITH_THEMING])(
+                'should add themeState query param if theming is supported',
+                (providerKey) => {
+                  const cardStateOverrideWithThemeSupport: any = {
+                    ...cardStateOverride,
+                    details: {
+                      ...cardStateOverride.details,
+                      meta: {
+                        key: providerKey,
+                        access: 'granted',
+                        visibility: 'public',
+                      },
+                    },
+                  };
+                  const { iframeEl } = setup(
+                    cardStateOverrideWithThemeSupport,
+                    expectedUrl,
+                  );
 
-              expect(iframeEl.getAttribute('src')).toEqual(
-                `${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
+                  expect(iframeEl.getAttribute('src')).toEqual(
+                    `${expectedPreviewUrl}/?themeState=dark%3Adark+light%3Alight+spacing%3Aspacing+colorMode%3Adark`,
+                  );
+                },
               );
             },
           );
-        },
-      );
+
+          ffTest.off(
+            'platform.linking-platform.smart-card.enable-theme-state-url',
+            'enableThemeStateUrl on',
+            () => {
+              it.each([PROVIDER_KEYS_WITH_THEMING])(
+                'should add themeMode query param if theming is supported',
+                (providerKey) => {
+                  const cardStateOverrideWithThemeSupport: any = {
+                    ...cardStateOverride,
+                    details: {
+                      ...cardStateOverride.details,
+                      meta: {
+                        key: providerKey,
+                        access: 'granted',
+                        visibility: 'public',
+                      },
+                    },
+                  };
+                  const { iframeEl } = setup(
+                    cardStateOverrideWithThemeSupport,
+                    expectedUrl,
+                  );
+
+                  expect(iframeEl.getAttribute('src')).toEqual(
+                    `${expectedPreviewUrl}/?themeMode=dark`,
+                  );
+                },
+              );
+            },
+          );
+        });
 
       ffTest.off(
-        'platform.linking-platform.smart-card.enable-theme-state-url',
-        'enableThemeStateUrl on',
+        'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
+        'FF for handling urls with # off',
         () => {
-          it.each([PROVIDER_KEYS_WITH_THEMING])(
-            'should add themeMode query param if theming is supported',
-            (providerKey) => {
-              const cardStateOverrideWithThemeSupport: any = {
-                ...cardStateOverride,
-                details: {
-                  ...cardStateOverride.details,
-                  meta: {
-                    key: providerKey,
-                    access: 'granted',
-                    visibility: 'public',
-                  },
-                },
-              };
-              const { iframeEl } = setup(
-                cardStateOverrideWithThemeSupport,
-                expectedUrl,
-              );
+          ffTest.on(
+            'platform.linking-platform.smart-card.enable-theme-state-url',
+            'enableThemeStateUrl on',
+            () => {
+              it.each([PROVIDER_KEYS_WITH_THEMING])(
+                'should add themeState query param if theming is supported',
+                (providerKey) => {
+                  const cardStateOverrideWithThemeSupport: any = {
+                    ...cardStateOverride,
+                    details: {
+                      ...cardStateOverride.details,
+                      meta: {
+                        key: providerKey,
+                        access: 'granted',
+                        visibility: 'public',
+                      },
+                    },
+                  };
+                  const { iframeEl } = setup(
+                    cardStateOverrideWithThemeSupport,
+                    expectedUrl,
+                  );
 
-              expect(iframeEl.getAttribute('src')).toEqual(
-                `${expectedPreviewUrl}?themeMode=dark`,
+                  expect(iframeEl.getAttribute('src')).toEqual(
+                    `${expectedPreviewUrl}?themeState=dark%3Adark%20light%3Alight%20spacing%3Aspacing%20colorMode%3Adark`,
+                  );
+                },
               );
             },
           );
-        },
-      );
+
+          ffTest.off(
+            'platform.linking-platform.smart-card.enable-theme-state-url',
+            'enableThemeStateUrl on',
+            () => {
+              it.each([PROVIDER_KEYS_WITH_THEMING])(
+                'should add themeMode query param if theming is supported',
+                (providerKey) => {
+                  const cardStateOverrideWithThemeSupport: any = {
+                    ...cardStateOverride,
+                    details: {
+                      ...cardStateOverride.details,
+                      meta: {
+                        key: providerKey,
+                        access: 'granted',
+                        visibility: 'public',
+                      },
+                    },
+                  };
+                  const { iframeEl } = setup(
+                    cardStateOverrideWithThemeSupport,
+                    expectedUrl,
+                  );
+
+                  expect(iframeEl.getAttribute('src')).toEqual(
+                    `${expectedPreviewUrl}?themeMode=dark`,
+                  );
+                },
+              );
+            },
+          );
+        });
 
       // 'not-supported-provider' errors in FFTest as it does not reach FF code
       it('should not add theme query param if theming is not supported', () => {
@@ -304,10 +376,10 @@ describe('EmbedCard view component', () => {
     const buttonTestId = 'connect-account';
 
     const getUnauthorizedCardState = ({
-      image,
-      hideProviderName,
-      hasScopeOverrides,
-    }: {
+                                        image,
+                                        hideProviderName,
+                                        hasScopeOverrides,
+                                      }: {
       image?: JsonLd.Primitives.Image;
       hideProviderName?: boolean;
       hasScopeOverrides?: boolean;

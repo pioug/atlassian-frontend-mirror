@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { di } from 'react-magnetic-di';
 
@@ -14,16 +14,31 @@ export const AISummaryActionComponent = (
 ) => {
   di(useAISummary);
 
-  const { url, ari, product, testId = 'smart-action-ai-summary-action' } = props;
+  const {
+    url,
+    ari,
+    product,
+    onLoadingChange,
+    testId = 'smart-action-ai-summary-action',
+  } = props;
 
   const {
     state: { status, content },
     summariseUrl,
   } = useAISummary({ url, ari, product });
 
+  useEffect(() => {
+    onLoadingChange?.(status === 'loading');
+  }, [onLoadingChange, status]);
+
   return status === 'done' ? (
     <CopySummaryAction {...props} testId={testId} content={content} />
   ) : (
-    <AISummariseAction {...props} testId={testId} summariseUrl={summariseUrl} status={status} />
+    <AISummariseAction
+      {...props}
+      testId={testId}
+      summariseUrl={summariseUrl}
+      status={status}
+    />
   );
 };

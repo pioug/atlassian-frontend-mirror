@@ -4,9 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/custom-theme-button';
-import { Flex, Stack, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
-import Toggle from '@atlaskit/toggle';
 
 import type { EditorAppearance } from '../../src/types';
 import FullWidthToggle from '../full-width-toggle';
@@ -17,10 +15,6 @@ import {
   kitchenSinkControl,
 } from '../kitchen-sink/kitchen-sink-styles';
 import { selectStyles } from '../kitchen-sink/select-styles';
-
-const inlineFlexStyle = xcss({
-  display: 'inline-flex',
-});
 
 export interface AppearanceOption {
   label: string;
@@ -45,7 +39,6 @@ export interface EditorExampleControlsProps {
   vertical?: boolean;
   scrubContent?: boolean;
   sanitizePrivateContent?: boolean;
-  onViewMode?: () => void;
   onAppearanceChange?: (appearance: EditorAppearance) => void;
   onLoadDocument?: (opt: any) => void;
   onCopyLink?: () => void;
@@ -143,18 +136,6 @@ export const EditorExampleControls = React.memo(
               />
             )}
           </div>
-          {props.onViewMode && (
-            <Flex xcss={inlineFlexStyle}>
-              <Stack alignInline='center'>
-                <Flex xcss={inlineFlexStyle}>
-                  <label htmlFor="toggle-view-mode">Toggle View Mode</label>
-                </Flex>
-                <Flex xcss={inlineFlexStyle}>
-                  <Toggle onChange={props.onViewMode} id="toggle-view-mode" />
-                </Flex>
-              </Stack>
-            </Flex>
-          )}
           {props.onOrientationChange && (
             <Button onClick={onOrientationChangeCb} css={kitchenSinkControl}>
               Display {!props.vertical ? 'Vertical' : 'Horizontal'}

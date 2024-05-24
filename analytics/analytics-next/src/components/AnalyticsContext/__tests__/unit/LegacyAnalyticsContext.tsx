@@ -3,7 +3,7 @@ import React, { Component, memo, PureComponent, useCallback } from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import PropTypes from 'prop-types';
 
-import { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+import { type AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
 
 import { useAnalyticsContext } from '../../../../hooks/useAnalyticsContext';
 import { useRenderCounter } from '../../../../test-utils/useRenderCounter';

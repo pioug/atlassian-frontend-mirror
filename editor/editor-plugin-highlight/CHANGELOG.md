@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.4.2
+
+### Patch Changes
+
+-   [#101513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101513)
+    [`98b5dfc33bed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98b5dfc33bed) -
+    [ux] [ED-23156] The highlight primary toolbar button is disabled when trying to apply it on
+    nodes that don't enable the mark and when in a gap cursor. The text color primary toolbar button
+    is disabled when selecting text with a highlight.
+
 ## 1.4.1
 
 ### Patch Changes

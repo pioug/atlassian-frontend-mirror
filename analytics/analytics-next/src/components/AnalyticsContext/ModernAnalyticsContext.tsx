@@ -5,7 +5,7 @@ import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stabl
 import { useAnalyticsContext } from '../../hooks/useAnalyticsContext';
 import { useTrackedRef } from '../../hooks/useTrackedRef';
 
-import { AnalyticsContextFunction } from './types';
+import { type AnalyticsContextFunction } from './types';
 
 const AnalyticsContext: AnalyticsContextFunction = ({ data, children }) => {
   const dataRef = useTrackedRef(data);

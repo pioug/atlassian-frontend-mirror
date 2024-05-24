@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { BasePrimitiveProps } from '../src/components/types';
+import { type BasePrimitiveProps } from '../src/components/types';
 
 type Space =
   | 'space.025'

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import Tooltip from '@atlaskit/tooltip';
 
@@ -10,7 +10,7 @@ import {
   SmartLinkTheme,
 } from '../../../../../constants';
 
-import { LinkProps } from './types';
+import { type LinkProps } from './types';
 import {
   getLinkLineHeight,
   getLinkSizeStyles,

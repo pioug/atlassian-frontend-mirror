@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef } from 'react';
+import { type MutableRefObject, useRef } from 'react';
 
 export const useTrackedRef = <T>(value: T): MutableRefObject<T> => {
   const ref = useRef(value);

@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useCallback, useEffect } from 'react';
+import React, { type MutableRefObject, useCallback, useEffect } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 

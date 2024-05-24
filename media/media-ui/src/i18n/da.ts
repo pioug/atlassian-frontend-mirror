@@ -141,11 +141,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Upload en avatar',
   'fabric.media.upload_file': 'Upload en fil',
   'fabric.media.upload_file_from': 'Upload en fil fra {name}',
-  'fabric.media.upload_image': 'Upload billede',
   'fabric.media.upload_photo': 'Upload et foto',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} af {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Søg-slider',
   'fabric.media.view': 'Vis',
   'fabric.media.viewer_rateLimited': 'Vi har problemer med at indlæse din fil.',
+  'fabric.media.volume_level': 'slå lyd fra',
   'fabric.media.webgl_warning_description':
     'Din browser understøtter ikke WebGL. Brug en WebGL-kompatibel browser for at annotere billeder.',
   'fabric.media.zip_entry_load_failed': 'Vi kunne ikke indlæse zip-filelementet til forhåndsvisning',

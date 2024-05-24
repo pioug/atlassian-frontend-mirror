@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.24.2
+
+### Patch Changes
+
+-   [#102800](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102800)
+    [`868e9aebf5af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/868e9aebf5af) -
+    Fix icon buttons with loading being converted to default buttons
+
 ## 0.24.1
 
 ### Patch Changes

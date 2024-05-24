@@ -4,6 +4,7 @@ export {
   filterChildrenBetween,
   toggleMark,
   removeMark,
+  entireSelectionContainsMark,
 } from './commands';
 export {
   anyMarkActive,

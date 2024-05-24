@@ -148,7 +148,8 @@ export type MessageKey =
   | 'last_mentioned_in'
   | 'related'
   | 'generic_error_message'
-  | 'related_links_modal_title_nonfinal';
+  | 'related_links_modal_title_nonfinal'
+  | 'related_links_view_related_urls';
 
 type Messages = {
   [K in MessageKey]: MessageDescriptor;
@@ -233,7 +234,7 @@ export const messages: Messages = defineMessages({
   },
   automation_action_title: {
     id: 'fabric.linking.automation-action.title',
-    defaultMessage: 'Run automation...',
+    defaultMessage: 'View automation rules...',
     description:
       'The title of the button in a hover card to open an automation menu for a given SmartLink.',
   },
@@ -245,7 +246,7 @@ export const messages: Messages = defineMessages({
   },
   automation_action_tooltip: {
     id: 'fabric.linking.automation-action.tooltip',
-    defaultMessage: 'Open an automation modal',
+    defaultMessage: 'Select an automation rule to run',
     description:
       'The tooltip for the automation action indicating that a button will open an automation modal.',
   },
@@ -950,5 +951,10 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.related_links_modal_title.nonfinal',
     defaultMessage: 'Recent Links',
     description: 'Shown as the title for the related links modal',
+  },
+  related_links_view_related_urls: {
+    id: 'fabric.linking.related_links_view_related_urls.nonfinal',
+    defaultMessage: 'View recent links...',
+    description: 'Action to view related links to the given resource',
   },
 });

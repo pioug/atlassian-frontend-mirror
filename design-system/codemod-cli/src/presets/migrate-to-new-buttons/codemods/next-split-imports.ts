@@ -25,6 +25,8 @@ const transformer = (file: FileInfo, api: API): string => {
 
   buttonImports.forEach((node) => {
     const { specifiers, source } = node.node;
+
+    // Return early if the import is not a named import
     if (
       [
         ...Object.values(entryPointsMapping),
@@ -38,6 +40,7 @@ const transformer = (file: FileInfo, api: API): string => {
     const defaultSpecifier = specifiers?.find(
       (specifier) => specifier.type === 'ImportDefaultSpecifier',
     );
+
     if (defaultSpecifier && defaultSpecifier.local) {
       const defaultButtonImport = j.importDeclaration(
         [j.importDefaultSpecifier(j.identifier(defaultSpecifier.local.name))],
@@ -46,18 +49,18 @@ const transformer = (file: FileInfo, api: API): string => {
       j(node).insertAfter(defaultButtonImport);
     }
 
-    const valueSpecifiers = specifiers?.filter(
+    const namedSpecifiers = specifiers?.filter(
       (specifier) => specifier.type === 'ImportSpecifier',
     );
 
-    const newTypeSpecifier = valueSpecifiers?.filter(
+    const newTypeSpecifier = namedSpecifiers?.filter(
       (specifier) =>
         specifier.type === 'ImportSpecifier' &&
         (specifier.imported.name === 'Appearance' ||
           specifier.imported.name === 'Spacing'),
     );
 
-    const otherTypeSpecifiers = valueSpecifiers?.filter((specifier) =>
+    const otherTypeSpecifiers = namedSpecifiers?.filter((specifier) =>
       BUTTON_TYPES.includes((specifier as any).imported.name),
     );
 
@@ -69,6 +72,7 @@ const transformer = (file: FileInfo, api: API): string => {
 
       j(node).insertAfter(typeImport);
     }
+
     if (otherTypeSpecifiers?.length) {
       const typeImport = j.importDeclaration(
         otherTypeSpecifiers,
@@ -77,8 +81,9 @@ const transformer = (file: FileInfo, api: API): string => {
 
       j(node).insertAfter(typeImport);
     }
-    if (valueSpecifiers?.length) {
-      valueSpecifiers.forEach((specifier) => {
+
+    if (namedSpecifiers?.length) {
+      namedSpecifiers.forEach((specifier) => {
         if (
           specifier.local &&
           specifier.type === 'ImportSpecifier' &&
@@ -93,6 +98,7 @@ const transformer = (file: FileInfo, api: API): string => {
         }
       });
     }
+
     j(node).remove();
   });
 

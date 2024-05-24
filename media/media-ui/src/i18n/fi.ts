@@ -142,11 +142,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Lataa avatar',
   'fabric.media.upload_file': 'Lataa tiedosto',
   'fabric.media.upload_file_from': 'Lataa tiedosto kohteesta {name}',
-  'fabric.media.upload_image': 'Lataa kuva',
   'fabric.media.upload_photo': 'Lataa kuva',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} / {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Haun liukusäädin',
   'fabric.media.view': 'Näytä',
   'fabric.media.viewer_rateLimited': 'Tiedostosi lataamisessa on ongelma.',
+  'fabric.media.volume_level': 'mykistä',
   'fabric.media.webgl_warning_description':
     'Selaimesi ei tue WebGL:ää. Käytä WebGL:ää tukevaa selainta, jos haluat tehdä merkintöjä kuviin.',
   'fabric.media.zip_entry_load_failed': 'Emme voineet ladata kyseistä zip-tiedoston kohdetta esikatselua varten',

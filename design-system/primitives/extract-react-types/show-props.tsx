@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
-import { Breakpoint } from '../src/responsive/types';
+import { type Breakpoint } from '../src/responsive/types';
 
 type As =
   | 'article'

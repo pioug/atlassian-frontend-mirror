@@ -4,10 +4,10 @@ import { fireEvent, render } from '@testing-library/react';
 
 import {
   default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
+  type AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 
-import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { useCallbackWithAnalytics } from '../../useCallbackWithAnalytics';
 
 const FakeContextProvider = ({

@@ -2,7 +2,7 @@ import React, {
   useRef,
   useState,
   useEffect,
-  ChangeEvent,
+  type ChangeEvent,
   useCallback,
 } from 'react';
 import nullthrows from 'nullthrows';

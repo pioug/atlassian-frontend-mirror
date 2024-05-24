@@ -1,5 +1,31 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.4.1
+
+### Patch Changes
+
+-   [#103215](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103215)
+    [`1108a9b46be2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1108a9b46be2) -
+    Fixed an issue with the `use-tokens-typography` rule where font family properties that were
+    already using a token could be misinterpreted and cause the font family property to be removed.
+
+## 10.4.0
+
+### Minor Changes
+
+-   [#103102](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103102)
+    [`3c920b0719af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c920b0719af) -
+    Add `use-latest-xcss-syntax` eslint rule.
+
+## 10.3.1
+
+### Patch Changes
+
+-   [#102908](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102908)
+    [`b08bb74e2894`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b08bb74e2894) -
+    Fixed an issue with the `use-tokens-typography` rule where font weights that were already using
+    a token could break the token matching logic and cause the font weight property to be removed.
+
 ## 10.3.0
 
 ### Minor Changes

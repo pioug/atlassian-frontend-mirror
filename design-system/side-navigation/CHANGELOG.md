@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 3.1.3
+
+### Patch Changes
+
+-   [#102250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102250)
+    [`ba7dc54866b9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba7dc54866b9) -
+    Update footer to use logical property for padding. Internal changes to tokenise typography
+    values.
+
 ## 3.1.2
 
 ### Patch Changes

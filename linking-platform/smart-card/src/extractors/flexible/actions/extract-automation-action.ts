@@ -35,7 +35,7 @@ const getProductData = (meta: JsonLd.Meta.BaseMeta): ProductData | undefined => 
 export const extractAutomationAction = (
   response: JsonLd.Response
 ): AutomationActionData | undefined => {
-  if (!getBooleanFF('platform.linking-platfom.smart-card.confluence.page.automation-action') || !response.data  ) {
+  if (!getBooleanFF('platform.linking-platfom.smart-card.confluence.page.automation-action_xcdoi') || !response.data  ) {
     return undefined;
   }
   const data = response.data as JsonLd.Data.BaseData;

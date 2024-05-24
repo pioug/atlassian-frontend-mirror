@@ -3,9 +3,9 @@ import React, { useCallback, useState } from 'react';
 import {
   AnalyticsErrorBoundary,
   AnalyticsListener,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../src';
 
 interface ButtonProps extends WithAnalyticsEventsProps {

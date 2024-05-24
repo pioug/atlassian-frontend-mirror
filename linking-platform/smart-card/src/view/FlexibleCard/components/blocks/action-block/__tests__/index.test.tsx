@@ -5,6 +5,7 @@ import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context
 import { SmartLinkStatus } from '../../../../../../constants';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
   ...jest.requireActual('../../../../../../state/flexible-ui-context'),
@@ -17,7 +18,9 @@ describe('ActionBlock', () => {
   const setup = (props?: Partial<ActionBlockProps>) =>
     render(
       <IntlProvider locale="en">
-        <ActionBlock status={SmartLinkStatus.Resolved} {...props} />
+        <SmartCardProvider client={new CardClient()} >
+          <ActionBlock status={SmartLinkStatus.Resolved} {...props} />
+        </SmartCardProvider>
       </IntlProvider>,
     );
 
@@ -39,9 +42,15 @@ describe('ActionBlock', () => {
     const previewAction = await findByTestId('smart-action-preview-action');
     expect(previewAction).toBeInTheDocument();
 
-    const aiSummaryAction = await findByTestId('smart-action-ai-summary-action-summarise-action');
+    const aiSummaryAction = await findByTestId(
+      'smart-action-ai-summary-action-summarise-action',
+    );
     expect(aiSummaryAction).toBeInTheDocument();
 
+    const viewRelatedLinksAction = await findByTestId(
+      'smart-action-view-related-links-action',
+    );
+    expect(viewRelatedLinksAction).toBeInTheDocument();
   });
 
   it('sorts list of actions', async () => {
@@ -55,14 +64,20 @@ describe('ActionBlock', () => {
     const aiSummaryAction = await findByTestId(
       'smart-action-ai-summary-action-summarise-action',
     );
-    const automationAction = await findByTestId('smart-action-automation-action');
+    const automationAction = await findByTestId(
+      'smart-action-automation-action',
+    );
+    const viewRelatedLinksAction = await findByTestId(
+      'smart-action-view-related-links-action',
+    );
 
-    expect(buttons.length).toBe(6);
+    expect(buttons.length).toBe(7);
     expect(buttons[0]).toBe(previewAction);
     expect(buttons[1]).toBe(copyLinkAction);
     expect(buttons[2]).toBe(aiSummaryAction);
     expect(buttons[3]).toBe(downloadAction);
     expect(buttons[4]).toBe(followAction);
     expect(buttons[5]).toBe(automationAction);
+    expect(buttons[6]).toBe(viewRelatedLinksAction);
   });
 });

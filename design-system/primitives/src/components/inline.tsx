@@ -2,13 +2,13 @@
 /** @jsx jsx */
 import {
   Children,
-  ElementType,
-  FC,
+  type ElementType,
+  type FC,
   forwardRef,
   Fragment,
   memo,
-  ReactNode,
-  Ref,
+  type ReactNode,
+  type Ref,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
@@ -16,7 +16,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { type Space } from '../xcss/style-maps.partial';
-import { XCSS, xcss } from '../xcss/xcss';
+import { type XCSS, xcss } from '../xcss/xcss';
 
 import Flex from './flex';
 import type {

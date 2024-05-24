@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import {
   useState,
-  SyntheticEvent,
-  ComponentType,
+  type SyntheticEvent,
+  type ComponentType,
   useCallback,
   useEffect,
 } from 'react';

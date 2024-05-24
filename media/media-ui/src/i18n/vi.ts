@@ -141,11 +141,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Tải lên ảnh đại diện',
   'fabric.media.upload_file': 'Tải lên tệp',
   'fabric.media.upload_file_from': 'Tải lên tệp từ {name}',
-  'fabric.media.upload_image': 'Tải lên hình ảnh',
   'fabric.media.upload_photo': 'Tải ảnh lên',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds}/{videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Thanh trượt tìm kiếm',
   'fabric.media.view': 'Xem',
   'fabric.media.viewer_rateLimited': 'Chúng tôi đang gặp sự cố khi tải tệp của bạn.',
+  'fabric.media.volume_level': 'tắt tiếng',
   'fabric.media.webgl_warning_description':
     'Trình duyệt của bạn không hỗ trợ WebGL. Sử dụng trình duyệt đã bật WebGL để chú thích hình ảnh.',
   'fabric.media.zip_entry_load_failed': 'Chúng tôi không thể tải mục tệp zip đó để xem trước',

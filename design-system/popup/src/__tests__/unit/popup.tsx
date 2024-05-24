@@ -1,8 +1,8 @@
 import React, {
-  Dispatch,
+  type Dispatch,
   forwardRef,
   Fragment,
-  SetStateAction,
+  type SetStateAction,
   useRef,
   useState,
 } from 'react';
@@ -13,7 +13,11 @@ import { replaceRaf } from 'raf-stub';
 import Button from '@atlaskit/button/new';
 
 import { Popup } from '../../popup';
-import { ContentProps, PopupComponentProps, TriggerProps } from '../../types';
+import {
+  type ContentProps,
+  type PopupComponentProps,
+  type TriggerProps,
+} from '../../types';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
@@ -148,6 +152,72 @@ describe('Popup', () => {
     }).toEqual({
       'aria-expanded': 'false',
       'aria-haspopup': 'true',
+    });
+  });
+
+  describe('`aria-controls`', () => {
+    it('should be set if no `id` provided', () => {
+      const trigger = (props: TriggerProps) => (
+        <button
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+          {...props}
+          type="button"
+          // @ts-ignore
+          ref={props.ref}
+        >
+          trigger
+        </button>
+      );
+      render(
+        <Popup
+          {...defaultProps}
+          isOpen={true}
+          trigger={trigger}
+          testId="popup-container"
+        />,
+      );
+
+      const triggerAriaControlsValue = screen
+        .getByText('trigger')
+        .getAttribute('aria-controls');
+
+      expect(triggerAriaControlsValue).toBeTruthy();
+
+      // They should match
+      expect(screen.getByTestId('popup-container')).toHaveAttribute(
+        'id',
+        triggerAriaControlsValue,
+      );
+    });
+
+    it('should be set with the provided `id`', () => {
+      const id = 'id';
+
+      const trigger = (props: TriggerProps) => (
+        <button
+          // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+          {...props}
+          type="button"
+          // @ts-ignore
+          ref={props.ref}
+        >
+          trigger
+        </button>
+      );
+
+      render(
+        <Popup
+          {...defaultProps}
+          id={id}
+          isOpen={true}
+          trigger={trigger}
+          testId="popup-container"
+        />,
+      );
+
+      expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+
+      expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
     });
   });
 

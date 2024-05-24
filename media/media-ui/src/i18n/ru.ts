@@ -142,11 +142,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Загрузите аватар',
   'fabric.media.upload_file': 'Загрузите файл',
   'fabric.media.upload_file_from': 'Загрузить файл из {name}',
-  'fabric.media.upload_image': 'Загрузите изображение',
   'fabric.media.upload_photo': 'Загрузите фото',
   'fabric.media.video': 'видео',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} из {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Ползунок поиска',
   'fabric.media.view': 'Просмотреть',
   'fabric.media.viewer_rateLimited': 'Не удается загрузить файл.',
+  'fabric.media.volume_level': 'Без звука',
   'fabric.media.webgl_warning_description':
     'Эта функция недоступна. Чтобы добавлять примечания к изображениям, используйте браузер с поддержкой WebGL.',
   'fabric.media.zip_entry_load_failed': 'Не удалось загрузить ZIP-файл для предварительного просмотра',

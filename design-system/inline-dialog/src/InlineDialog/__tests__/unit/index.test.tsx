@@ -106,7 +106,7 @@ describe('inline-dialog', () => {
         </InlineDialog>,
       );
 
-      getByTestId('dummy-link').focus();
+      fireEvent.focus(getByTestId('dummy-link'));
 
       expect(spy).toHaveBeenCalledTimes(1);
     });

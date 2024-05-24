@@ -1,5 +1,47 @@
 # @atlaskit/smart-card
 
+## 26.73.0
+
+### Minor Changes
+
+-   [#102031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102031)
+    [`2707b0f7ae9b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2707b0f7ae9b) -
+    [ux] Add view related links action
+
+### Patch Changes
+
+-   [#102663](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102663)
+    [`36e468e4deb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/36e468e4deb2) -
+    Handling adding theme query params to urls with hash
+
+## 26.72.0
+
+### Minor Changes
+
+-   [#103201](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103201)
+    [`7cb62c61f30e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cb62c61f30e) -
+    [ux] Added a new `icon` prop to override the icon rendered in the smart card TitleBlock
+    component.
+
+## 26.71.0
+
+### Minor Changes
+
+-   [#102381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102381)
+    [`52f7f4ff7d29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52f7f4ff7d29) -
+    Convert ProductType to expected x-product header for AI Mate
+-   [#102337](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102337)
+    [`cf716582b7d5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf716582b7d5) -
+    Hide action block action tooltips while action block is in a loading state
+
+## 26.70.0
+
+### Minor Changes
+
+-   [#100392](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100392)
+    [`7c506dd93df5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c506dd93df5) -
+    [ux] Initial implementation of the Automation action in smart links
+
 ## 26.69.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import { token } from '@atlaskit/tokens';
 import React from 'react';
 import { css } from '@emotion/react';
 import { LinkIcon } from '../../../elements';
-import { TitleBlockViewProps } from '../types';
+import { type TitleBlockViewProps } from '../types';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
 import {
@@ -25,6 +25,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
   subtitle = [],
   testId,
   text,
+  icon,
   title,
   metadataPosition,
   hideIcon,
@@ -34,7 +35,7 @@ const TitleBlockResolvedView: React.FC<TitleBlockViewProps> = ({
   const subtitleElements = renderElementItems(subtitle);
   return (
     <Block {...blockProps} testId={`${testId}-resolved-view`}>
-      {!hideIcon && <LinkIcon position={position} />}
+      {!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
       <ElementGroup
         direction={SmartLinkDirection.Vertical}
         width={SmartLinkWidth.Flexible}

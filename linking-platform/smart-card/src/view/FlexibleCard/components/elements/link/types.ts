@@ -1,6 +1,6 @@
-import { ElementProps } from '../types';
-import { SmartLinkTheme } from '../../../../../constants';
-import { AnchorTarget } from '../../types';
+import { type ElementProps } from '../types';
+import { type SmartLinkTheme } from '../../../../../constants';
+import { type AnchorTarget } from '../../types';
 
 export type LinkProps = ElementProps & {
   /**

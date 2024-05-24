@@ -1,4 +1,4 @@
-import React, { ComponentType, useState } from 'react';
+import React, { type ComponentType, useState } from 'react';
 import { N400, N0, R300, B300 } from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button/new';
 

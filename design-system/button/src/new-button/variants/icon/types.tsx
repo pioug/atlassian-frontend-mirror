@@ -19,10 +19,6 @@ export type CommonIconButtonProps = {
    */
   icon: IconProp;
   /**
-   * Conditionally show a spinner over the top of a button.
-   */
-  isLoading?: boolean;
-  /**
    * Prevent a tooltip from showing. Use sparingly.
    */
   isTooltipDisabled?: boolean;

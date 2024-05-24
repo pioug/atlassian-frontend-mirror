@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 
-import { Size } from '../src/types';
+import { type Size } from '../src/types';
 
 import ActivityIcon from '../glyph/activity';
 import AddCircleIcon from '../glyph/add-circle';

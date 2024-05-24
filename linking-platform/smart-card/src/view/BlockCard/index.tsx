@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { FC } from 'react';
+import { type FC } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { BlockCardProps } from './types';
-import { JsonLd } from 'json-ld-types';
+import { type BlockCardProps } from './types';
+import { type JsonLd } from 'json-ld-types';
 import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import { ExtractBlockOpts } from '../../extractors/block/types';
+import { type ExtractBlockOpts } from '../../extractors/block/types';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
 import { CardLinkView } from '../LinkView';
 import { AuthorizeAction } from './actions/AuthorizeAction';

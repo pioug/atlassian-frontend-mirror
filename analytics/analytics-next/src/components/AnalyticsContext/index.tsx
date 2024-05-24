@@ -4,7 +4,7 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import LegacyAnalyticsContext from './LegacyAnalyticsContext';
 import ModernAnalyticsContext from './ModernAnalyticsContext';
-import { AnalyticsContextFunction } from './types';
+import { type AnalyticsContextFunction } from './types';
 
 const ExportedAnalyticsContext: AnalyticsContextFunction = (props) => {
   const isModernContextEnabledEnv =

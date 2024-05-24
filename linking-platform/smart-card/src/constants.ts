@@ -165,6 +165,7 @@ export enum ActionName {
 
 export enum InternalActionName {
   AISummaryAction = 'AISummaryAction',
+  ViewRelatedLinksAction = 'ViewRelatedLinksAction',
 }
 
 export type FlexibleUiActionName =

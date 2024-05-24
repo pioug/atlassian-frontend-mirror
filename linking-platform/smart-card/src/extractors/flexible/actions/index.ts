@@ -1,4 +1,5 @@
 import type { JsonLd } from 'json-ld-types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { ActionName, InternalActionName } from '../../../constants';
 import type { FlexibleUiActions } from '../../../state/flexible-ui-context/types';
 import type { AISummaryConfig } from '../../../state/hooks/use-ai-summary-config/types';
@@ -9,6 +10,7 @@ import { extractAISummaryAction } from './extract-ai-summary-action';
 import extractFollowAction from './extract-follow-action';
 import { extractCopyLinkAction } from './extract-copy-link-action';
 import { extractAutomationAction } from './extract-automation-action';
+import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
 const extractActions = (
   response: JsonLd.Response,
@@ -32,6 +34,14 @@ const extractActions = (
       actionOptions,
       aiSummaryConfig,
     ),
+    ...(getBooleanFF(
+      'platform.linking-platform.smart-card.enable-view-related-urls-action',
+    )
+      ? {
+          [InternalActionName.ViewRelatedLinksAction]:
+            extractViewRelatedLinksAction(response),
+        }
+      : {}),
   };
 
   return Object.values(action).some((value) => Boolean(value))

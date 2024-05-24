@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 1.4.1
+
+### Patch Changes
+
+-   [#102680](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102680)
+    [`8b186c4a0475`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b186c4a0475) -
+    Show text controls on drag handle click
+
 ## 1.4.0
 
 ### Minor Changes

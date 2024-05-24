@@ -94,8 +94,24 @@ export const StyleObject = {
 
     // -- Font weight --
     const fontWeightNode = ASTObject.getEntryByPropertyName(node, 'fontWeight');
-    const fontWeightRaw =
+    let fontWeightRaw =
       fontWeightNode && getValueForPropertyNode(fontWeightNode, context);
+
+    // If fontWeightRaw is a token we find the token name and treat it like a raw value for simplicity.
+    // e.g. token('font.weight.bold', '700') ends up as '700' after this if-block.
+    // That way the token matching logic still runs and the font weight declaration can be removed and re-added after the main font token.
+    if (
+      fontWeightRaw &&
+      typeof fontWeightRaw === 'string' &&
+      fontWeightRaw.includes('font.weight.')
+    ) {
+      const fontWeightTokenSuffix =
+        fontWeightRaw.match(/font\.weight\.(\w*)/)?.[1] || 'regular'; // ${token('font.weight.bold', '700')} -> 'bold'
+      if (Object.keys(fontWeightMap).includes(fontWeightTokenSuffix)) {
+        fontWeightRaw =
+          fontWeightMap[fontWeightTokenSuffix as keyof FontWeightMap];
+      }
+    }
 
     // If no fontWeight value exists, default to 400 to avoid matching with a bolder token resulting in a visual change
     let fontWeightValue: string =
@@ -152,9 +168,22 @@ export const StyleObject = {
     const fontFamilyNode = ASTObject.getEntryByPropertyName(node, 'fontFamily');
     const fontFamilyRaw =
       fontFamilyNode && getValueForPropertyNode(fontFamilyNode, context);
-    const fontFamilyValue =
+    let fontFamilyValue =
       (fontFamilyRaw && normaliseValue('fontFamily', fontFamilyRaw)) ||
       undefined;
+
+    // If font family is already a token, we remove and re-add it
+    // Only need to do this for non-default font stacks as the defaults can be safely removed
+    if (
+      fontFamilyValue &&
+      fontFamilyValue.includes('font.family.') &&
+      !(
+        fontFamilyValue.includes('font.family.heading') ||
+        fontFamilyValue.includes('font.family.body')
+      )
+    ) {
+      fontFamilyValue = undefined;
+    }
 
     let fontFamilyToAdd: 'heading' | 'body' | 'original' | undefined;
     // If font family uses the Charlie font we can't replace; exit

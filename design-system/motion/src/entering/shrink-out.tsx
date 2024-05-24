@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 import { easeIn } from '../utils/curves';
 import { smallDurationMs } from '../utils/durations';
@@ -7,7 +7,7 @@ import { useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
 
 import { useExitingPersistence } from './exiting-persistence';
-import { MotionProps } from './types';
+import { type MotionProps } from './types';
 
 export interface ShrinkOutProps extends MotionProps<{ ref: React.Ref<any> }> {}
 

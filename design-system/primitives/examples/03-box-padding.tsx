@@ -2,7 +2,7 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Space, Stack } from '../src';
+import { Box, Inline, type Space, Stack } from '../src';
 
 const spacingValues: Space[] = [
   'space.0',

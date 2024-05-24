@@ -28,7 +28,8 @@ function getDatasourceDisplay(datasourceAttrs: DatasourceAdf['attrs']) {
 
 function getDisplayedColumnCount(datasourceAttrs: DatasourceAdf['attrs']) {
   return (
-    datasourceAttrs.datasource.views[0]?.properties?.columns?.length ?? undefined
+    datasourceAttrs.datasource.views[0]?.properties?.columns?.length ??
+    undefined
   );
 }
 
@@ -111,7 +112,9 @@ export const DatasourceEventsBinding = ({
           actions,
           creationMethod: inputMethod,
           display,
-          ...(typeof displayedColumnCount === 'number' ? { displayedColumnCount }: {}),
+          ...(typeof displayedColumnCount === 'number'
+            ? { displayedColumnCount }
+            : {}),
           nodeContext,
           searchMethod,
         });

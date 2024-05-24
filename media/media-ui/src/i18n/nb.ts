@@ -142,11 +142,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Last opp en avatar',
   'fabric.media.upload_file': 'Last opp en fil',
   'fabric.media.upload_file_from': 'Last opp en fil fra {name}',
-  'fabric.media.upload_image': 'Last opp et bilde',
   'fabric.media.upload_photo': 'Last opp et bilde',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} av {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Glidebryter for fremdrift',
   'fabric.media.view': 'Vis',
   'fabric.media.viewer_rateLimited': 'Vi har problemer med å laste inn filen din.',
+  'fabric.media.volume_level': 'demp',
   'fabric.media.webgl_warning_description':
     'Nettleserdin støtter ikke WebGL. Bruk en WebGL-aktivert nettleser til å kommentere bilder.',
   'fabric.media.zip_entry_load_failed': 'Vi kunne ikke laste zip-filelementet for å forhåndsvise',

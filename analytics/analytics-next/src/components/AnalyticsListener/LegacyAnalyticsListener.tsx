@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 
 import {
   default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
+  type AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 
-import UIAnalyticsEvent, {
+import type {
+  default as UIAnalyticsEvent,
   UIAnalyticsEventHandler,
 } from '../../events/UIAnalyticsEvent';
 

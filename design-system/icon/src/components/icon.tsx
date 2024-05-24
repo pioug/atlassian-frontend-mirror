@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { memo, CSSProperties } from 'react';
+import { memo, type CSSProperties } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import type { IconProps } from '../types';

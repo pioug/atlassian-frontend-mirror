@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import {
-  ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
+  type ComponentPropsWithoutRef,
+  type ComponentPropsWithRef,
   forwardRef,
-  ReactElement,
-  ReactNode,
+  type ReactElement,
+  type ReactNode,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import {
-  BackgroundColor,
+  type BackgroundColor,
   backgroundColorStylesMap,
   isSurfaceColorToken,
   paddingStylesMap,
@@ -20,7 +20,7 @@ import {
 import { parseXcss } from '../xcss/xcss';
 
 import { SurfaceContext } from './internal/surface-provider';
-import { SVGElements } from './internal/types';
+import { type SVGElements } from './internal/types';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 // Can either Exclude or Extract - here we're excluding all SVG-related elements
@@ -110,7 +110,7 @@ type BoxComponent = <T extends CustomElementType>(
  * - [Code](https://atlassian.design/components/primitives/box/code)
  * - [Usage](https://atlassian.design/components/primitives/box/usage)
  */
-export const Box: BoxComponent = forwardRef(
+export const Box = forwardRef(
   <T extends CustomElementType>(
     {
       as: Component = 'div' as T,
@@ -176,7 +176,9 @@ export const Box: BoxComponent = forwardRef(
       node
     );
   },
-);
+  // @ts-ignore This typescript error has been surpessed while locally enrolling `@atlaskit/primitives` into Jira
+  // The return type of `BoxComponent` does not match the return type of `forwardRef` in React 18
+) as BoxComponent;
 
 export default Box;
 

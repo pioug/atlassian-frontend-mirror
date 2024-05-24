@@ -81,6 +81,7 @@ import {
   displayInfoForCard,
   findCardInfo,
   isDatasourceConfigEditable,
+  isDatasourceNode,
   titleUrlPairFromNode,
 } from './utils';
 
@@ -362,8 +363,12 @@ const generateToolbarItems =
     const currentAppearance = appearanceForNodeType(node.type);
     const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
 
-    const isDatasource =
-      currentAppearance === 'block' && node?.attrs?.datasource;
+    const isDatasource = getBooleanFF(
+      'platform.linking-platform.editor-datasource-typeguards',
+    )
+      ? isDatasourceNode(node)
+      : currentAppearance === 'block' && node?.attrs?.datasource;
+
     const shouldRenderDatasourceToolbar =
       isDatasource &&
       // not showing toolbar in mobile for now since not sure what our plans are for it

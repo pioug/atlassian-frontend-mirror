@@ -12,8 +12,8 @@ import { CustomItem } from '../Item';
 
 const iconContainerStyles = xcss({
   display: 'inline-block',
-  width: 'size.200',
-  height: 'size.200',
+  width: '1.5rem',
+  height: '1.5rem',
 });
 
 type NewFooterProps = Omit<HeaderProps, 'cssFn' | 'component' | 'onClick'>;
@@ -61,7 +61,7 @@ const OldFooter = (props: HeaderProps) => {
       },
       '[data-item-title]': {
         textAlign: 'center',
-        fontSize: 12,
+        font: token('font.body.UNSAFE_small'),
       },
       '[data-item-description]': {
         textAlign: 'center',
@@ -128,11 +128,7 @@ const Footer = ({
       <Stack space="space.100" alignInline="center">
         <Box xcss={iconContainerStyles}>{iconBefore}</Box>
         <Stack space="space.075">
-          <Text
-            size="UNSAFE_small"
-            align="center"
-            color='inherit'
-          >
+          <Text size="UNSAFE_small" align="center" color="inherit">
             {children}
           </Text>
           {description && (

@@ -1,4 +1,4 @@
-import { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+import { type AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
 
 export type AnalyticsContextFunction = (
   props: {

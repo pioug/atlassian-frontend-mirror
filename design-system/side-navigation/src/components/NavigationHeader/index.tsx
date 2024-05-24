@@ -6,7 +6,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 const navigationFooterStyles = xcss({
   display: 'block',
   padding: 'space.100',
-  paddingTop: 'space.300',
+  paddingBlockStart: 'space.300',
 });
 
 export interface NavigationHeaderProps {

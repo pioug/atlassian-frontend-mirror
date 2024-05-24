@@ -1,16 +1,16 @@
-import React, { CSSProperties } from 'react';
+import React, { type CSSProperties } from 'react';
 import { render, screen } from '@testing-library/react';
 
 import Icon, {
   UNSAFE_IconNew as IconNew,
   size,
-  CustomGlyphProps,
-  IconProps,
+  type CustomGlyphProps,
+  type IconProps,
 } from '../../..';
 import AddIcon from '../../../../glyph/add';
 import AddIconNew from '../../../../core/add';
 import { sizes as sizeValues } from '../../../constants';
-import { Size } from '../../../types';
+import { type Size } from '../../../types';
 
 describe('@atlaskit/icon', () => {
   describe('Icon', () => {

@@ -1,4 +1,5 @@
-import core, {
+import type {
+  default as core,
   API,
   FileInfo,
   ImportSpecifier,
@@ -6,7 +7,7 @@ import core, {
   ImportDefaultSpecifier,
   Options,
 } from 'jscodeshift';
-import { Collection } from 'jscodeshift/src/Collection';
+import { type Collection } from 'jscodeshift/src/Collection';
 
 export const packageName = '@atlaskit/icon';
 

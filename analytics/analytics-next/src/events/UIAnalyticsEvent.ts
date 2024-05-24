@@ -1,6 +1,6 @@
 import AnalyticsEvent, {
-  AnalyticsEventPayload,
-  AnalyticsEventProps,
+  type AnalyticsEventPayload,
+  type AnalyticsEventProps,
 } from './AnalyticsEvent';
 
 type ChannelIdentifier = string;

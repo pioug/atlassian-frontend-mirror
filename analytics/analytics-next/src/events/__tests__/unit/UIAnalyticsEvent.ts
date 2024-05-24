@@ -1,8 +1,8 @@
 import {
   isUIAnalyticsEvent,
   default as UIAnalyticsEvent,
-  UIAnalyticsEventHandler,
-  UIAnalyticsEventProps,
+  type UIAnalyticsEventHandler,
+  type UIAnalyticsEventProps,
 } from '../../UIAnalyticsEvent';
 
 let consoleHandler: UIAnalyticsEventHandler;

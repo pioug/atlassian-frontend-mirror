@@ -144,11 +144,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Profilbild hochladen',
   'fabric.media.upload_file': 'Datei hochladen',
   'fabric.media.upload_file_from': 'Datei von {name} hochladen',
-  'fabric.media.upload_image': 'Bild hochladen',
   'fabric.media.upload_photo': 'Foto hochladen',
   'fabric.media.video': 'Video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} von {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Schieberegler zum Vor-/Zurückspulen',
   'fabric.media.view': 'Anzeigen',
   'fabric.media.viewer_rateLimited': 'Beim Laden Ihrer Datei gibt es Schwierigkeiten.',
+  'fabric.media.volume_level': 'Stummschalten',
   'fabric.media.webgl_warning_description':
     'Ihr Browser unterstützt WebGL nicht. Verwenden Sie zum Kommentieren von Bildern einen WebGL-fähigen Browser.',
   'fabric.media.zip_entry_load_failed': 'Eine Vorschau dieser ZIP-Datei konnte nicht geladen werden',

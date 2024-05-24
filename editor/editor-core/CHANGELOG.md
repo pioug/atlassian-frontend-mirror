@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 193.22.0
+
+### Minor Changes
+
+-   [#103099](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103099)
+    [`ab382e121799`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab382e121799) -
+    [ux] [ED-23248] -
+
+    **@atlaskit/editor-core**: REVERT: Added optional profilecardProvider to Mention plugin in
+    universal composable editor **@atlaskit/editor-plugin-mentions**: REVERT: Made mentions render
+    with profile cards on click if the feature flag:
+    `platform.editor.mentions-in-editor-popup-on-click` is turned on
+
+## 193.21.0
+
+### Minor Changes
+
+-   [#101412](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101412)
+    [`2ad17f5bf590`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ad17f5bf590) -
+    [ux] [ED-23363] If you are on a live page in view mode, there is no text selection when you
+    first load the page.
+
 ## 193.20.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { css, SerializedStyles } from '@emotion/react';
+import { css, type SerializedStyles } from '@emotion/react';
 
-import { TitleBlockProps } from './types';
+import { type TitleBlockProps } from './types';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
 import { SmartLinkStatus } from '../../../../../constants';
 import TitleBlockResolvedView from './resolved';
@@ -67,6 +67,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
   showActionOnHover,
   testId = 'smart-block-title',
   text,
+  icon,
   theme,
   hideRetry,
   metadataPosition,
@@ -123,6 +124,7 @@ const TitleBlock: React.FC<TitleBlockProps> = ({
       title={title}
       metadataPosition={metadataPosition}
       hideIcon={hideIcon}
+      icon={icon}
     />
   );
 };

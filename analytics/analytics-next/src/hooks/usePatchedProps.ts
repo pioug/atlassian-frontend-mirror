@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 
-import { AnalyticsEventCreator, CreateEventMap } from '../types';
+import { type AnalyticsEventCreator, type CreateEventMap } from '../types';
 
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 

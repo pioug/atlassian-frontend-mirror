@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
 import { easeInOut } from '../utils/curves';
 import { largeDurationMs } from '../utils/durations';
 
-import KeyframesMotion, { KeyframesMotionProps } from './keyframes-motion';
+import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
 import type { Direction, Distance } from './types';
 
 const directionMotions: Record<Distance, Record<Direction, string>> = {

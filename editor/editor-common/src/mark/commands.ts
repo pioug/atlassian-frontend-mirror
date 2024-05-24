@@ -173,8 +173,8 @@ export const applyMarkOnRange = (
   return tr;
 };
 
-const entireSelectionContainsMark = (
-  mark: Mark,
+export const entireSelectionContainsMark = (
+  mark: Mark | MarkType,
   doc: PMNode,
   fromPos: number,
   toPos: number,
@@ -187,7 +187,7 @@ const entireSelectionContainsMark = (
       return false;
     }
     if (node.isText) {
-      onlyContainsMark && (onlyContainsMark = mark.isInSet(node.marks));
+      onlyContainsMark && (onlyContainsMark = !!mark?.isInSet(node.marks));
     }
   });
   return onlyContainsMark;

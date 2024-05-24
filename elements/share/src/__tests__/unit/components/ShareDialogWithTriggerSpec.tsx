@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { mount, ReactWrapper, shallow, ShallowWrapper } from 'enzyme';
+import { mount, type ReactWrapper, shallow, type ShallowWrapper } from 'enzyme';
 import {
   FormattedMessage,
   IntlProvider,
-  IntlShape,
-  WrappedComponentProps,
+  type IntlShape,
+  type WrappedComponentProps,
 } from 'react-intl-next';
 
 import ShareIcon from '@atlaskit/icon/glyph/share';
@@ -17,7 +17,7 @@ import Aktooltip from '@atlaskit/tooltip';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 
 import ShareButton, {
-  Props as ShareButtonProps,
+  type Props as ShareButtonProps,
 } from '../../../components/ShareButton';
 import {
   defaultShareContentState,
@@ -27,16 +27,16 @@ import { ShareForm } from '../../../components/ShareForm';
 import SplitButton from '../../../components/SplitButton';
 import { messages } from '../../../i18n';
 import {
-  DialogPlacement,
+  type DialogPlacement,
   OBJECT_SHARED,
-  RenderCustomTriggerButton,
-  ShareData,
-  ShareDialogWithTriggerProps,
-  ShareDialogWithTriggerStates,
-  TooltipPosition,
+  type RenderCustomTriggerButton,
+  type ShareData,
+  type ShareDialogWithTriggerProps,
+  type ShareDialogWithTriggerStates,
+  type TooltipPosition,
 } from '../../../types';
 import mockPopper from '../_mockPopper';
-import { PropsOf } from '../_testUtils';
+import { type PropsOf } from '../_testUtils';
 
 // disable lazy-load component in testing.
 jest.mock('../../../components/LazyShareForm/lazy', () => {
@@ -54,8 +54,9 @@ jest.mock('react-intl-next', () => {
     FormattedMessage: (descriptor: any) => (
       <span>{descriptor.defaultMessage}</span>
     ),
-    injectIntl: (Node: any) => (props: any) =>
-      <Node {...props} intl={mockIntl} />,
+    injectIntl: (Node: any) => (props: any) => (
+      <Node {...props} intl={mockIntl} />
+    ),
   };
 });
 

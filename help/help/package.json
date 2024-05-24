@@ -48,9 +48,9 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.3.0",
-    "@atlaskit/button": "^17.15.0",
+    "@atlaskit/button": "^17.16.0",
     "@atlaskit/checkbox": "^13.3.0",
-    "@atlaskit/form": "^10.1.0",
+    "@atlaskit/form": "^10.2.0",
     "@atlaskit/help-article": "^4.1.10",
     "@atlaskit/help-layout": "^4.2.15",
     "@atlaskit/icon": "^22.3.0",

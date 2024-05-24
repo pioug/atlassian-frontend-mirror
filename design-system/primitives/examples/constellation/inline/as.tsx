@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { Code } from '@atlaskit/code';

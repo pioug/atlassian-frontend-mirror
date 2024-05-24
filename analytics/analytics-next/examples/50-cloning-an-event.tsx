@@ -1,11 +1,11 @@
-import React, { FC, MouseEvent, PropsWithChildren, useCallback } from 'react';
+import React, { type FC, type MouseEvent, type PropsWithChildren, useCallback } from 'react';
 
 import {
   AnalyticsListener,
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
+  type CreateUIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../src';
 
 interface ButtonProps extends WithAnalyticsEventsProps {

@@ -71,6 +71,7 @@ const transformer = (file: FileInfo, api: API): string => {
     fileSource,
     j,
   );
+  let hasDefaultLoadingButton = false;
 
   const allButtons = fileSource
     .find(j.JSXElement)
@@ -162,7 +163,9 @@ const transformer = (file: FileInfo, api: API): string => {
       );
     }
 
-    if (isLoadingButton) {
+    if (isLoadingButton && !isIconButton) {
+      hasDefaultLoadingButton = true;
+
       j(element).replaceWith(
         generateNewElement(NEW_BUTTON_VARIANTS.default, element.value, j),
       );
@@ -236,9 +239,13 @@ const transformer = (file: FileInfo, api: API): string => {
           path.node.name = NEW_BUTTON_VARIANTS.default;
         }
       });
-    specifiers.push(
-      j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
-    );
+
+    // Only add the Button import if we found a default button, not icon only
+    if (hasDefaultLoadingButton) {
+      specifiers.push(
+        j.importDefaultSpecifier(j.identifier(NEW_BUTTON_VARIANTS.default)),
+      );
+    }
   }
 
   if (

@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 10.2.0
+
+### Minor Changes
+
+-   [#99625](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99625)
+    [`f60a622d5890`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f60a622d5890) -
+    FormHeader refactor to follow new typography system behind a feature flag. FormHeader title does
+    not truncate any more.
+
 ## 10.1.1
 
 ### Patch Changes

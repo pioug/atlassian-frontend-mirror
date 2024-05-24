@@ -10,7 +10,7 @@ import {
   errorMessages,
   type ErrorMessage,
 } from './types';
-import { addPath } from './utils';
+import { addPath, getXProductHeaderValue } from './utils';
 import { readStream } from './readStream';
 import { getBaseUrl, type EnvironmentsKeys } from '@atlaskit/linking-common';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -35,7 +35,8 @@ export class AISummaryService implements AISummaryServiceInt {
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
         'x-experience-id': 'smart-link',
-        'x-product': props.product?.toLowerCase() || 'confluence',
+        'x-product':
+          getXProductHeaderValue(props.product)?.toLowerCase() || 'confluence',
         ...props.headers,
       },
     };

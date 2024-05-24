@@ -1,8 +1,10 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import Heading from '@atlaskit/heading';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h700 } from '@atlaskit/theme/typography';
@@ -78,13 +80,21 @@ const FormHeaderWrapper = ({ children }: { children?: ReactNode }) => {
  */
 const FormHeader = ({ children, description, title }: FormHeaderProps) => {
   return (
-    <FormHeaderWrapper>
-      {title && <FormHeaderTitle>{title}</FormHeaderTitle>}
-      {description && (
-        <FormHeaderDescription>{description}</FormHeaderDescription>
-      )}
-      {children && <FormHeaderContent>{children}</FormHeaderContent>}
-    </FormHeaderWrapper>
+    getBooleanFF('platform.design-system-team.form-header-typography-updates_4f1g6') ?
+      <Box>
+        {title && <Heading size="large">{title}</Heading>}
+        {description && (
+          <FormHeaderDescription>{description}</FormHeaderDescription>
+        )}
+        {children && <FormHeaderContent>{children}</FormHeaderContent>}
+      </Box> :
+      <FormHeaderWrapper>
+        {title && <FormHeaderTitle>{title}</FormHeaderTitle>}
+        {description && (
+          <FormHeaderDescription>{description}</FormHeaderDescription>
+        )}
+        {children && <FormHeaderContent>{children}</FormHeaderContent>}
+      </FormHeaderWrapper>
   );
 };
 

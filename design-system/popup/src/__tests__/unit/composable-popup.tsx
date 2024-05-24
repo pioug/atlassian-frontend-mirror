@@ -115,31 +115,58 @@ describe('Popup with composable API', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('should set the correct attributes when the id prop is passed', () => {
-    render(
-      <Popup id="my-id" isOpen>
-        <PopupTrigger>
-          {(triggerProps) => (
-            <button type="button" {...triggerProps}>
-              trigger
-            </button>
-          )}
-        </PopupTrigger>
-        <PopupContent testId="popup-container">
-          {() => <div>content</div>}
-        </PopupContent>
-      </Popup>,
-    );
+  describe('`aria-controls`', () => {
+    it('should be set if no `id` provided', () => {
+      render(
+        <Popup isOpen>
+          <PopupTrigger>
+            {(triggerProps) => (
+              <button type="button" {...triggerProps}>
+                trigger
+              </button>
+            )}
+          </PopupTrigger>
+          <PopupContent testId="popup-container">
+            {() => <div>content</div>}
+          </PopupContent>
+        </Popup>,
+      );
 
-    expect(screen.getByText('trigger')).toHaveAttribute(
-      'aria-controls',
-      'my-id',
-    );
+      const triggerAriaControlsValue = screen
+        .getByText('trigger')
+        .getAttribute('aria-controls');
 
-    expect(screen.getByTestId('popup-container')).toHaveAttribute(
-      'id',
-      'my-id',
-    );
+      expect(triggerAriaControlsValue).toBeTruthy();
+
+      // They should match
+      expect(screen.getByTestId('popup-container')).toHaveAttribute(
+        'id',
+        triggerAriaControlsValue,
+      );
+    });
+
+    it('should be set with the provided `id`', () => {
+      const id = 'id';
+
+      render(
+        <Popup id={id} isOpen>
+          <PopupTrigger>
+            {(triggerProps) => (
+              <button type="button" {...triggerProps}>
+                trigger
+              </button>
+            )}
+          </PopupTrigger>
+          <PopupContent testId="popup-container">
+            {() => <div>content</div>}
+          </PopupContent>
+        </Popup>,
+      );
+
+      expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+
+      expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+    });
   });
 
   it('should throw an error when PopupContent is not a child of Popup', () => {

@@ -79,7 +79,13 @@ export const handleIconAttributes = (
         buttonAttribute.name.name === 'label',
     );
 
-    if (!buttonAlreadyHasLabelProp) {
+    const buttonAlreadyHasAriaLabelProp = buttonAttributes?.find(
+      (buttonAttribute) =>
+        buttonAttribute.type === 'JSXAttribute' &&
+        buttonAttribute.name.name === 'aria-label',
+    );
+
+    if (!buttonAlreadyHasLabelProp && !buttonAlreadyHasAriaLabelProp) {
       const labelAttribute = iconAttributes.find(
         (attribute) =>
           attribute.type === 'JSXAttribute' && attribute.name.name === 'label',
@@ -187,22 +193,29 @@ export const generateNewElement = (
         (attribute) =>
           attribute.type === 'JSXAttribute' && attribute.name.name === 'label',
       );
+
       if (hasNoLabelProp && attributes) {
-        attributes.push(
-          j.jsxAttribute(
-            j.jsxIdentifier('label'),
-            ariaLabelAttr.get().node.value,
-          ),
+        attributes.unshift(
+          j.jsxAttribute.from({
+            name: j.jsxIdentifier('label'),
+            value: j.literal(ariaLabelAttr.get().value.value.value),
+          }),
         );
       }
       ariaLabelAttr.remove();
     }
   }
 
-  return j.jsxElement(
+  return j.jsxElement.from({
+    openingElement: j.jsxOpeningElement(
+      j.jsxIdentifier(variant),
+      attributes,
+      isIconOrLinkIcon,
+    ),
     // self closing if it's an icon button or icon link button
-    j.jsxOpeningElement(j.jsxIdentifier(variant), attributes, isIconOrLinkIcon),
-    isIconOrLinkIcon ? null : j.jsxClosingElement(j.jsxIdentifier(variant)),
-    element.children,
-  );
+    closingElement: isIconOrLinkIcon
+      ? null
+      : j.jsxClosingElement(j.jsxIdentifier(variant)),
+    children: element.children,
+  });
 };

@@ -8,7 +8,7 @@ import { type CommonButtonVariantProps } from '../types';
 import { type CommonIconButtonProps } from './types';
 import useIconButton from './use-icon-button';
 
-export type IconButtonProps = CommonButtonVariantProps & CommonIconButtonProps;
+export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 
 /**
  * __Icon Button__

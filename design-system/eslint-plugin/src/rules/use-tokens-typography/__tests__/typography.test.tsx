@@ -342,6 +342,56 @@ export const typographyTests: Tests = {
         })`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },
+    // Font family uses brand token
+    {
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontFamily: token('font.family.brand.body'),
+          fontSize: '16px',
+        })`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body.large', fontFallback.body.large),
+        fontFamily: token('font.family.brand.body'),
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    // Font family uses code token
+    {
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontFamily: token('font.family.code'),
+          fontSize: '16px',
+        })`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body.large', fontFallback.body.large),
+        fontFamily: token('font.family.code'),
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    // Font family uses default stack token
+    {
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontFamily: token('font.family.body'),
+          fontSize: '16px',
+        })`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body.large', fontFallback.body.large),
+        })`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
     // Font style normal
     {
       code: outdent`
@@ -467,6 +517,39 @@ export const typographyTests: Tests = {
         import { token } from '@atlaskit/tokens';
         const styles = css({
           font: token('font.body', fontFallback.body.medium),
+        });`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    // fontWeight already a token, match body token and re-add weight
+    {
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontWeight: token('font.weight.bold', '700'),
+          fontSize: '12px',
+        });`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
+        fontWeight: token('font.weight.bold', '700'),
+        });`,
+      errors: [{ messageId: 'noRawTypographyValues' }],
+    },
+    // fontWeight already a token, match heading token and remove weight
+    {
+      code: outdent`
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          fontWeight: token('font.weight.semibold', '600'),
+          fontSize: '12px',
+        });`,
+      output: outdent`
+        import { fontFallback } from '@atlaskit/theme/typography';
+        import { token } from '@atlaskit/tokens';
+        const styles = css({
+          font: token('font.heading.xxsmall', fontFallback.heading.xxsmall),
         });`,
       errors: [{ messageId: 'noRawTypographyValues' }],
     },

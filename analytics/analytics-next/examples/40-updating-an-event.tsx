@@ -1,9 +1,9 @@
-import React, { FormEvent, MouseEvent, useCallback, useState } from 'react';
+import React, { type FormEvent, type MouseEvent, useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
-import { AnalyticsListener, UIAnalyticsEvent } from '../src';
+import { AnalyticsListener, type UIAnalyticsEvent } from '../src';
 
 const Form = () => {
   const [value, setValue] = useState('Joe Bloggs');

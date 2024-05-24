@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 
 import { useAnalyticsEvents } from '../hooks/useAnalyticsEvents';
 import { usePatchedProps } from '../hooks/usePatchedProps';
-import { CreateEventMap, CreateUIAnalyticsEvent } from '../types';
+import { type CreateEventMap, type CreateUIAnalyticsEvent } from '../types';
 
 export interface WithAnalyticsEventsProps {
   /**

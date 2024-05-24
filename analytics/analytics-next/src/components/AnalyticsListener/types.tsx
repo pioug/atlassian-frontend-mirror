@@ -1,6 +1,6 @@
-import { AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
+import { type AnalyticsReactContextInterface } from '@atlaskit/analytics-next-stable-react-context';
 
-import UIAnalyticsEvent from '../../events/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '../../events/UIAnalyticsEvent';
 
 export type AnalyticsListenerFunction = (
   props: {

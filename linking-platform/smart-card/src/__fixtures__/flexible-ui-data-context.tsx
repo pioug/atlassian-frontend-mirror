@@ -39,9 +39,18 @@ const context: FlexibleUiDataContext = {
       siteAri: 'someAri',
       canManageAutomation: false,
       analyticsSource: 'smart-card',
-      modalTitle: {},
-      modalDescription: {},
-    }
+      modalTitle: {
+        id: 'automation-modal-title-id',
+        defaultMessage: 'AutomationModalTitle',
+      },
+      modalDescription: {
+        id: 'automation-modal-description-id',
+        defaultMessage: 'AutomationModalDescription',
+      },
+    },
+    ViewRelatedLinksAction: {
+      url: 'https://www.link-url.com',
+    },
   },
   attachmentCount: 3,
   authorGroup: [

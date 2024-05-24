@@ -1,8 +1,8 @@
-import { SerializedStyles } from '@emotion/react';
+import { type SerializedStyles } from '@emotion/react';
 
-import { token } from '@atlaskit/tokens';
+import { type token } from '@atlaskit/tokens';
 
-import { media } from './media-helper';
+import { type media } from './media-helper';
 
 /**
  * The breakpoints we have for responsiveness.

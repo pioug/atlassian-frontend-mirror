@@ -67,7 +67,7 @@ describe('Migrate to icon buttons', () => {
     `,
     expected: `
       import { IconButton } from '@atlaskit/button/new';
-      const App = () => (<IconButton label="label" icon={MoreIcon} />);
+      const App = () => (<IconButton label="aria label" icon={MoreIcon} />);
     `,
   });
 
@@ -79,7 +79,7 @@ describe('Migrate to icon buttons', () => {
     `,
     expected: `
       import { IconButton } from '@atlaskit/button/new';
-      const App = () => (<IconButton icon={MoreIcon} label="aria label" />);
+      const App = () => (<IconButton label="aria label" icon={MoreIcon} />);
     `,
   });
 
@@ -219,6 +219,32 @@ describe('Migrate to loading buttons', () => {
       );
     `,
   });
+
+  check({
+    it: 'should migrate from loading button to icon button',
+    original: `
+      import LoadingButton from '@atlaskit/button/loading-button';
+      const App = () => (
+        <LoadingButton
+          isLoading={isLoading}
+          iconBefore={<MoreIcon label="" />}
+          appearance="subtle"
+          aria-label="Show more"
+        />
+      );
+    `,
+    expected: `
+      import { IconButton } from '@atlaskit/button/new';
+      const App = () => (
+        <IconButton
+          label="Show more"
+          isLoading={isLoading}
+          icon={MoreIcon}
+          appearance="subtle"
+        />
+      );
+    `,
+  });
 });
 
 describe('Migrate to link buttons', () => {
@@ -311,7 +337,7 @@ describe('Migrate to link icon buttons', () => {
     `,
     expected: `
       import { LinkIconButton } from '@atlaskit/button/new';
-      const App = () => (<LinkIconButton label="label" href='/#' icon={MoreIcon} />);
+      const App = () => (<LinkIconButton label="aria label" href='/#' icon={MoreIcon} />);
     `,
   });
 
@@ -621,6 +647,7 @@ describe('Migrate to new button variants: edge cases', () => {
   });
 
   check({
+    // mode: 'only',
     it: 'should only replace the loading button import if the button is used in a call expression',
     original: `
       import LoadingButton from '@atlaskit/button/loading-button';

@@ -3,9 +3,8 @@ import { forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { CSSFn, CustomItemComponentProps } from '@atlaskit/menu';
+import { type CSSFn, type CustomItemComponentProps } from '@atlaskit/menu';
 import { N500 } from '@atlaskit/theme/colors';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
@@ -110,9 +109,9 @@ const Header = forwardRef<HTMLElement, HeaderProps>(
       () => ({
         userSelect: 'auto',
         ['[data-item-title]']: {
-          fontSize: headingSizes.h400.size,
+          fontSize: '0.875rem',
           letterSpacing: '-0.003em',
-          fontWeight: 600,
+          fontWeight: token('font.weight.semibold'),
           color: token('color.text', N500),
         },
         // Will look interactive if the `component` is anything other than a div.

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Children, cloneElement, FC, memo } from 'react';
+import { Children, cloneElement, type FC, memo } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 

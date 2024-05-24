@@ -143,11 +143,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Завантажити фото профілю',
   'fabric.media.upload_file': 'Завантажте файл',
   'fabric.media.upload_file_from': 'Завантажити файл із {name}',
-  'fabric.media.upload_image': 'Завантажте зображення',
   'fabric.media.upload_photo': 'Завантажте фото',
   'fabric.media.video': 'відео',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} з {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Повзунок пошуку',
   'fabric.media.view': 'Переглянути',
   'fabric.media.viewer_rateLimited': 'Не вдається завантажити файл.',
+  'fabric.media.volume_level': 'без звуку',
   'fabric.media.webgl_warning_description':
     'Ваш браузер не підтримує WebGL. Щоб додавати примітки до зображень, потрібен браузер із підтримкою WebGL.',
   'fabric.media.zip_entry_load_failed': 'Не вдалося завантажити елемент ZIP-файлу для попереднього перегляду',

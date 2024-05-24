@@ -6,6 +6,7 @@ import React, {
   useState,
 } from 'react';
 
+import { useUID } from 'react-uid';
 import invariant from 'tiny-invariant';
 
 import noop from '@atlaskit/ds-lib/noop';
@@ -64,8 +65,15 @@ export type PopupProps = {
  * </Popup>
  * ```
  */
-export const Popup = ({ children, id, isOpen = false }: PopupProps) => {
+export const Popup = ({
+  children,
+  id: providedId,
+  isOpen = false,
+}: PopupProps) => {
   const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
+
+  const generatedId = useUID();
+  const id = providedId || generatedId;
 
   return (
     <EnsureIsInsidePopupContext.Provider value={true}>

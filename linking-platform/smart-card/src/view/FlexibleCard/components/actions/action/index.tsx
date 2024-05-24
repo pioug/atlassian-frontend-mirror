@@ -26,6 +26,7 @@ const Action: FC<ActionProps> = ({
   spaceInline,
   tooltipMessage,
   tooltipOnHide,
+  hideTooltip,
   hideTooltipOnMouseDown,
   xcss,
   asDropDownItem,
@@ -69,6 +70,7 @@ const Action: FC<ActionProps> = ({
         xcss={xcss}
         tooltipOnHide={tooltipOnHide}
         hideTooltipOnMouseDown={hideTooltipOnMouseDown}
+        hideTooltip={hideTooltip}
       />
     );
   }

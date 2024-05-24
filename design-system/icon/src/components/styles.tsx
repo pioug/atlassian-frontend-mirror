@@ -1,6 +1,6 @@
 import type { Size } from '../types';
 import { dimensions } from '../constants';
-import { css, CSSObject } from '@emotion/react';
+import { css, type CSSObject } from '@emotion/react';
 
 export const commonSVGStyles = {
   overflow: 'hidden',

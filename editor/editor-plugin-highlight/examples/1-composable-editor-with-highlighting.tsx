@@ -1,10 +1,18 @@
 import React from 'react';
 
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { emojiPlugin } from '@atlaskit/editor-plugin-emoji';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
+import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
+import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
+import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
 import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import { historyPlugin } from '@atlaskit/editor-plugins/history';
@@ -21,6 +29,11 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { undoRedoPlugin } from '@atlaskit/editor-plugins/undo-redo';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
+import {
+  ExampleCreateInlineCommentComponent,
+  ExampleViewInlineCommentComponent,
+} from '@atlaskit/editor-test-helpers/example-helpers';
+import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 const highlightAdfDoc = {
   type: 'doc',
@@ -98,8 +111,195 @@ const highlightAdfDoc = {
         },
       ],
     },
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'this is ',
+        },
+        {
+          type: 'status',
+          attrs: {
+            text: 'some ',
+            color: 'neutral',
+            localId: '1d3d429b-a8d9-4340-beb0-0647bd0b20d4',
+            style: '',
+          },
+        },
+        {
+          type: 'emoji',
+          attrs: {
+            shortName: ':slight_smile:',
+            id: '1f642',
+            text: '🙂',
+          },
+        },
+        {
+          type: 'text',
+          text: ' text with ',
+          marks: [{ type: 'backgroundColor', attrs: { color: '#fdd0ec' } }],
+        },
+        {
+          type: 'text',
+          text: 'inline',
+          marks: [
+            { type: 'backgroundColor', attrs: { color: '#dfd8fd' } },
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+        {
+          type: 'text',
+          text: ' nodes',
+          marks: [
+            {
+              type: 'annotation',
+              attrs: {
+                id: 'annotation-id',
+                annotationType: AnnotationTypes.INLINE_COMMENT,
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '7c2ef57c-0a6d-43bf-822c-67803b11f46f',
+        width: 760,
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [
+                    {
+                      text: 'Highlight in table',
+                      type: 'text',
+                      marks: [
+                        {
+                          type: 'backgroundColor',
+                          attrs: { color: '#c6edfb' },
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
   ],
 };
+
+const emitter = new AnnotationUpdateEmitter();
 
 const Editor = () => {
   const tableOptions = {
@@ -137,7 +337,31 @@ const Editor = () => {
           allowExpand: true,
           tableSelectorSupported: true,
         },
-      ]),
+      ])
+      .add([
+        annotationPlugin,
+        {
+          inlineComment: {
+            createComponent: ExampleCreateInlineCommentComponent,
+            viewComponent: ExampleViewInlineCommentComponent,
+            updateSubscriber: emitter,
+            getState: async (annotationsIds: string[]) => {
+              return annotationsIds.map(id => ({
+                id,
+                annotationType: 'inlineComment',
+                state: { resolved: false },
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              })) as any;
+            },
+            disallowOnWhitespace: true,
+          },
+        },
+      ])
+      .add(decorationsPlugin)
+      .add(copyButtonPlugin)
+      .add(editorDisabledPlugin)
+      .add(floatingToolbarPlugin)
+      .add(emojiPlugin),
   );
 
   return (
@@ -145,6 +369,7 @@ const Editor = () => {
       appearance="full-page"
       preset={preset}
       defaultValue={highlightAdfDoc}
+      emojiProvider={getEmojiProvider()}
     />
   );
 };

@@ -2,7 +2,7 @@ import React, {
   Children,
   createContext,
   memo,
-  ReactNode,
+  type ReactNode,
   useContext,
   useMemo,
   useRef,

@@ -1,3 +1,4 @@
+import type { RichMediaAttributes } from '@atlaskit/adf-schema';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ACTION } from '@atlaskit/editor-common/analytics';
 import type {
@@ -14,12 +15,20 @@ import type {
   EditorAppearance,
   LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
-import type { DatasourceAdfView } from '@atlaskit/linking-common';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  DatasourceAdf,
+  DatasourceAdfView,
+} from '@atlaskit/linking-common';
 import type { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import type { EditorCardPluginEvents } from './analytics/create-events-queue';
 import type { CardPluginEvent } from './analytics/types';
 import type { DatasourceTableLayout } from './ui/LayoutButton/types';
+
+export type DatasourceNode = Omit<Node, 'attrs'> & {
+  readonly attrs: DatasourceAdf['attrs'] & Partial<RichMediaAttributes>;
+};
 
 export type CardInfo = {
   title?: string;

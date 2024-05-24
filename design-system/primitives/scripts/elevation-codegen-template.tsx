@@ -8,7 +8,7 @@ import {
 import {
   capitalize,
   constructTokenFunctionCall,
-  ShadowDefinition,
+  type ShadowDefinition,
 } from './utils';
 
 type Token = {

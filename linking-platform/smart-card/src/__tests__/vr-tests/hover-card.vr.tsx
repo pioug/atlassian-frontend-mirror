@@ -61,6 +61,25 @@ snapshot(HoverCardActions, {
   ],
 });
 
+snapshot(HoverCardActions, {
+  description:'Hover card actions with related urls',
+  drawsOutsideBounds: true,
+  featureFlags: {
+    'platform.linking-platform.smart-card.hover-card-action-redesign': [
+      true,
+    ],
+    'platform.linking-platform.smart-card.enable-view-related-urls-action': [
+      true,
+    ],
+  },
+  states: [
+    {
+      state: 'hovered',
+      selector: { byTestId: 'hover-card-trigger-wrapper' },
+    },
+  ],
+});
+
 snapshot(HoverCardUnauthorised, {
   drawsOutsideBounds: true,
   featureFlags: {

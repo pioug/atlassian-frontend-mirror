@@ -9,6 +9,7 @@ import { readStream } from '../readStream';
 import { streamAnswer, streamErrorAnswer } from './__mocks__/streamAnswers';
 import type { ProductType } from '@atlaskit/linking-common';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { type getXProductHeaderValue } from '../utils';
 
 const fetchMock = fetch as jest.MockedFunction<typeof fetch>;
 
@@ -185,6 +186,92 @@ describe('AI Summary Service', () => {
           '/gateway/api/assist/chat/v1/invoke_agent/stream',
           expect.not.objectContaining({
             credentials: 'include',
+          }),
+        );
+      },
+    );
+  });
+
+  describe('Fetch the AI Summary content with different product types', () => {
+    it('Should use confluence as the default product if not provided', () => {
+      //initiate with only one required config - url
+      const aiSummaryService = new AISummaryService({
+        url,
+        product: undefined,
+      });
+      (aiSummaryService as any).fetchStream();
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(fetchMock).toHaveBeenCalledWith(
+        (aiSummaryService as any).config.requestUrl,
+        expect.objectContaining({
+          method: 'POST',
+          headers: expect.objectContaining({
+            'Content-Type': 'application/json;charset=UTF-8',
+            'x-experience-id': 'smart-link',
+            'x-product': 'confluence',
+          }),
+        }),
+      );
+    });
+
+    test.each([
+      'CONFLUENCE',
+      'ATLAS',
+      'BITBUCKET',
+      'TRELLO',
+      'ELEVATE',
+    ] satisfies ProductType[])(
+      'Should maintain the same x-product header for %s',
+      (productType) => {
+        const aiSummaryService = new AISummaryService({
+          url,
+          product: productType,
+        });
+        (aiSummaryService as any).fetchStream();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          (aiSummaryService as any).config.requestUrl,
+          expect.objectContaining({
+            method: 'POST',
+            headers: expect.objectContaining({
+              'Content-Type': 'application/json;charset=UTF-8',
+              'x-experience-id': 'smart-link',
+              'x-product': productType.toLowerCase(),
+            }),
+          }),
+        );
+      },
+    );
+
+    // The difference cases based on `AiMateJiraXProduct`
+    test.each([
+      ['JSM', 'JSM'],
+      ['JSW', 'JIRA-SOFTWARE'],
+      ['JWM', 'JIRA-CORE'],
+      ['JPD', 'JPD'],
+    ] satisfies Array<
+      [ProductType, ReturnType<typeof getXProductHeaderValue>]
+    >)(
+      "ProductType '%s' should be converted to '%s' for AI Mate x-product header",
+      (originalProductType, convertedProduct) => {
+        const aiSummaryService = new AISummaryService({
+          url,
+          product: originalProductType as ProductType,
+        });
+        (aiSummaryService as any).fetchStream();
+
+        expect(fetchMock).toHaveBeenCalledTimes(1);
+        expect(fetchMock).toHaveBeenCalledWith(
+          (aiSummaryService as any).config.requestUrl,
+          expect.objectContaining({
+            method: 'POST',
+            headers: expect.objectContaining({
+              'Content-Type': 'application/json;charset=UTF-8',
+              'x-experience-id': 'smart-link',
+              'x-product': convertedProduct.toLowerCase(),
+            }),
           }),
         );
       },

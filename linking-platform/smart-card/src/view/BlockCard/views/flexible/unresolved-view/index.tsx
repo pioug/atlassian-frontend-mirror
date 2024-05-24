@@ -12,7 +12,7 @@ import {
   titleBlockOptions,
   FooterBlockOptions,
 } from '../utils';
-import { UnresolvedViewProps } from './types';
+import { type UnresolvedViewProps } from './types';
 import { css } from '@emotion/react';
 
 const customBlockStyles = css({

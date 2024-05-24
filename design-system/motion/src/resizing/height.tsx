@@ -4,7 +4,7 @@ import { isReducedMotion } from '../utils/accessibility';
 import { easeInOut } from '../utils/curves';
 import { mediumDurationMs } from '../utils/durations';
 import { useRequestAnimationFrame, useSetTimeout } from '../utils/timer-hooks';
-import { CallbackRef, useElementRef } from '../utils/use-element-ref';
+import { type CallbackRef, useElementRef } from '../utils/use-element-ref';
 import { useLayoutEffect } from '../utils/use-layout-effect';
 import { useSnapshotBeforeUpdate } from '../utils/use-snapshot-before-update';
 

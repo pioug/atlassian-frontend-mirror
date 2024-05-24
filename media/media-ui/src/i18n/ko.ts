@@ -139,11 +139,14 @@ export default {
   'fabric.media.upload_an_avatar': '아바타 업로드',
   'fabric.media.upload_file': '파일 업로드',
   'fabric.media.upload_file_from': '{name}에서 파일 업로드',
-  'fabric.media.upload_image': '이미지 업로드',
   'fabric.media.upload_photo': '사진 업로드',
   'fabric.media.video': '동영상',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds}/{videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': '찾기 슬라이더',
   'fabric.media.view': '보기',
   'fabric.media.viewer_rateLimited': '파일을 로드하는 데 문제가 발생했습니다.',
+  'fabric.media.volume_level': '음소거',
   'fabric.media.webgl_warning_description':
     '사용하시는 브라우저가 WebGL을 지원하지 않습니다. 이미지를 주석으로 달려면 WebGL을 사용할 수 있는 브라우저를 사용하십시오.',
   'fabric.media.zip_entry_load_failed': '미리 보려는 zip 파일 항목을 로드할 수 없습니다',

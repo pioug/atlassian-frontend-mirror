@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
-import KeyframesMotion, { KeyframesMotionProps } from './keyframes-motion';
+import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
 
 export const zoomInAnimation = (): CSSObject => ({
   '0%': {

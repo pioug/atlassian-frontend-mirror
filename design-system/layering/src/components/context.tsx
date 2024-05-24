@@ -1,8 +1,8 @@
 import React, {
   createContext,
-  FC,
-  MutableRefObject,
-  ReactNode,
+  type FC,
+  type MutableRefObject,
+  type ReactNode,
   useContext,
   useEffect,
   useMemo,

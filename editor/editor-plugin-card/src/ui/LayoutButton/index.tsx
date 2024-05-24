@@ -12,17 +12,19 @@ import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { setCardLayout } from '../../pm-plugins/actions';
+import { isDatasourceNode } from '../../utils';
 
 import type {
   DatasourceTableLayout,
   LayoutButtonProps,
   LayoutButtonWrapperProps,
 } from './types';
-import { getDatasource } from './utils';
+import { getDatasource, isDatasourceTableLayout } from './utils';
 
 const toolbarButtonWrapperStyles = css({
   background: `${token('color.background.neutral', N20A)}`,
@@ -95,12 +97,20 @@ const LayoutButtonWrapper = ({
   const { cardState } = useSharedPluginState(api, ['card']);
   const { node, pos } = getDatasource(editorView);
 
+  const isDatasource = getBooleanFF(
+    'platform.linking-platform.editor-datasource-typeguards',
+  )
+    ? isDatasourceNode(node)
+    : !!node?.attrs?.datasource;
+
+  if (!isDatasource) {
+    return null;
+  }
+
   //  If layout doesn't exist in ADF it returns null, we want to change to undefined
   //  which results in default parameter value being used in LayoutButton.
   const { datasourceTableRef, layout = node?.attrs?.layout || undefined } =
     cardState ?? {};
-
-  const isDatasource = !!node?.attrs?.datasource;
 
   const onLayoutChange = (layout: DatasourceTableLayout) => {
     if (pos === undefined) {
@@ -121,17 +131,13 @@ const LayoutButtonWrapper = ({
     dispatch(setCardLayout(layout)(tr));
   };
 
-  if (!isDatasource) {
-    return null;
-  }
-
   return (
     <LayoutButton
       mountPoint={mountPoint}
       scrollableElement={scrollableElement}
       boundariesElement={boundariesElement}
       targetElement={datasourceTableRef!}
-      layout={layout}
+      layout={isDatasourceTableLayout(layout) ? layout : undefined}
       onLayoutChange={onLayoutChange}
       intl={intl}
     />

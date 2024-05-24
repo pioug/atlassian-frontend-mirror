@@ -56,6 +56,7 @@ import type { CardPluginState, Request } from '../types';
 import {
   appearanceForNodeType,
   isDatasourceConfigEditable,
+  isDatasourceNode,
   selectedCardAppearance,
 } from '../utils';
 
@@ -745,7 +746,9 @@ export const updateCardViaDatasource = (args: UpdateCardArgs) => {
   });
 
   if (isDeletingConfig) {
-    removeDatasourceStash(tr, node.attrs.url);
+    if (typeof node.attrs.url === 'string') {
+      removeDatasourceStash(tr, node.attrs.url);
+    }
   } else {
     hideDatasourceModal(tr);
   }
@@ -795,8 +798,14 @@ export const getAttrsForAppearance = (
     };
   }
 
-  if (selectedNode.attrs.datasource) {
-    return { url: selectedNode.attrs.url };
+  if (getBooleanFF('platform.linking-platform.editor-datasource-typeguards')) {
+    if (isDatasourceNode(selectedNode)) {
+      return { url: selectedNode.attrs.url };
+    }
+  } else {
+    if (selectedNode.attrs.datasource) {
+      return { url: selectedNode.attrs.url };
+    }
   }
 
   return selectedNode.attrs;
@@ -806,13 +815,31 @@ const updateDatasourceStash = (tr: Transaction, selectedNode?: Node) => {
   if (
     getBooleanFF(
       'platform.linking-platform.enable-datasource-appearance-toolbar',
-    ) &&
-    selectedNode?.attrs?.datasource &&
-    !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
+    )
   ) {
-    setDatasourceStash(tr, {
-      url: selectedNode.attrs.url,
-      views: selectedNode.attrs.datasource.views,
-    });
+    if (
+      getBooleanFF('platform.linking-platform.editor-datasource-typeguards')
+    ) {
+      if (
+        isDatasourceNode(selectedNode) &&
+        !isDatasourceConfigEditable(selectedNode.attrs.datasource.id) &&
+        selectedNode.attrs.url
+      ) {
+        setDatasourceStash(tr, {
+          url: selectedNode.attrs.url,
+          views: selectedNode.attrs.datasource.views,
+        });
+      }
+    } else {
+      if (
+        selectedNode?.attrs?.datasource &&
+        !isDatasourceConfigEditable(selectedNode.attrs.datasource.id)
+      ) {
+        setDatasourceStash(tr, {
+          url: selectedNode.attrs.url,
+          views: selectedNode.attrs.datasource.views,
+        });
+      }
+    }
   }
 };

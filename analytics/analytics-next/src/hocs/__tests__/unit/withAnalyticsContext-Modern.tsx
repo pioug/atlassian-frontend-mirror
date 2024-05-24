@@ -11,7 +11,7 @@ import { fireEvent, render } from '@testing-library/react';
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 
-import UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '../../../events/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '../../../hooks/useAnalyticsEvents';
 import { useTrackedRef } from '../../../hooks/useTrackedRef';
 import { useRenderCounter } from '../../../test-utils/useRenderCounter';

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import Button from '@atlaskit/button/new';
 
-import { AnalyticsContext, AnalyticsListener, UIAnalyticsEvent } from '../src';
+import { AnalyticsContext, AnalyticsListener, type UIAnalyticsEvent } from '../src';
 
 const SaveButton = () => {
   const onClick = useCallback(

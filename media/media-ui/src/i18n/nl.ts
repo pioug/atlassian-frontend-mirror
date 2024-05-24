@@ -143,11 +143,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Een avatar uploaden',
   'fabric.media.upload_file': 'Bestand uploaden',
   'fabric.media.upload_file_from': 'Een bestand vanaf {name} uploaden',
-  'fabric.media.upload_image': 'Afbeelding uploaden',
   'fabric.media.upload_photo': 'Een foto uploaden',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} van {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Voortgangsbalk',
   'fabric.media.view': 'Bekijken',
   'fabric.media.viewer_rateLimited': 'We hebben problemen met het laden van je bestand.',
+  'fabric.media.volume_level': 'dempen',
   'fabric.media.webgl_warning_description':
     'Je browser ondersteunt geen WebGL. Gebruik een browser met WebGL-functie om aantekeningen te maken bij afbeeldingen.',
   'fabric.media.zip_entry_load_failed': 'We konden dat zip-bestandsitem niet laden om voor te vertonen',

@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 import { LinkIcon } from '../../../elements';
-import { TitleBlockViewProps } from '../types';
+import { type TitleBlockViewProps } from '../types';
 import Block from '../../block';
 import {
   SmartLinkAlignment,
@@ -62,6 +62,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
   position,
   testId,
   title,
+  icon,
   hideIcon,
   ...blockProps
 }) => {
@@ -70,7 +71,7 @@ const TitleBlockErroredView: React.FC<TitleBlockViewProps> = ({
   const hasAction = onClick !== undefined;
   return (
     <Block {...blockProps} testId={`${testId}-errored-view`}>
-      {!hideIcon && <LinkIcon position={position} />}
+      {!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
       {title}
       {descriptor && (
         <ElementGroup

@@ -2,9 +2,9 @@ import React from 'react';
 import Loadable from 'react-loadable';
 
 import type { CardProps } from '../view/Card';
-import { FrameStyle } from '../view/EmbedCard/types';
+import { type FrameStyle } from '../view/EmbedCard/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
+import { type ActiveThemeState } from '@atlaskit/tokens/src/theme-config';
 import { themeObjectToString } from '@atlaskit/tokens';
 
 export const isCardWithData = (props: CardProps) => !!props.data;
@@ -376,17 +376,27 @@ export const getPreviewUrlWithTheme = (
   previewUrl: string,
   themeState: Partial<ActiveThemeState>,
 ): string => {
+  if (getBooleanFF('platform.linking-platform.smart-card.fix-embed-preview-url-query-params')) {
+    try {
+      const url = new URL(previewUrl);
+      if (
+        getBooleanFF('platform.linking-platform.smart-card.enable-theme-state-url')
+      ) {
+        url.searchParams.append('themeState', themeObjectToString(themeState))
+      } else {
+        url.searchParams.append('themeMode', themeState.colorMode ?? '')
+      }
+      return url.href;
+    } catch {
+      return previewUrl;
+    }
+  }
+
   if (
     getBooleanFF('platform.linking-platform.smart-card.enable-theme-state-url')
   ) {
-    const themeStateQueryString = encodeURIComponent(
-      themeObjectToString(themeState),
-    );
-    return `${previewUrl}${
-      previewUrl.includes('?') ? '&' : '?'
-    }themeState=${themeStateQueryString}`;
+    const themeStateQueryString = encodeURIComponent(themeObjectToString(themeState));
+    return `${previewUrl}${previewUrl.includes('?') ? '&' : '?'}themeState=${themeStateQueryString}`;
   }
-  return `${previewUrl}${previewUrl.includes('?') ? '&' : '?'}themeMode=${
-    themeState.colorMode
-  }`;
+  return `${previewUrl}${previewUrl.includes('?') ? '&' : '?'}themeMode=${themeState.colorMode}`;
 };

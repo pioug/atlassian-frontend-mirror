@@ -1,14 +1,14 @@
-import React from 'react';
+import type React from 'react';
 
 import {
-  ActionItem,
-  BlockProps,
-  ElementItem,
-  OnActionMenuOpenChangeOptions,
+  type ActionItem,
+  type BlockProps,
+  type ElementItem,
+  type OnActionMenuOpenChangeOptions,
 } from '../types';
-import { SmartLinkPosition, SmartLinkTheme } from '../../../../../constants';
-import { RetryOptions } from '../../../types';
-import { AnchorTarget } from '../../types';
+import { type SmartLinkPosition, type SmartLinkTheme } from '../../../../../constants';
+import { type RetryOptions } from '../../../types';
+import { type AnchorTarget } from '../../types';
 
 export type TitleBlockProps = {
   /**
@@ -99,6 +99,12 @@ export type TitleBlockProps = {
    * the Smart Link.
    */
   text?: string;
+
+  /**
+   * The icon to display in the title block. Overrides any icon that is retrieved from
+   * the Smart Link.
+   */
+  icon?: React.ReactNode;
 
   /**
    * The theme of the link text. Can be Black or Link (default URL blue)

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -15,7 +15,7 @@ describe('Blanket', () => {
     const onBlanketClicked = jest.fn();
     const onAnalyticsEvent = jest.fn();
 
-    const renderResult = render(
+    render(
       <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
         <Blanket
           testId="blanket"
@@ -38,21 +38,16 @@ describe('Blanket', () => {
     };
 
     return {
-      renderResult,
       onBlanketClicked,
       onAnalyticsEvent,
       blanketClickedEventResult,
     };
   };
   it('should send blanketClicked event to atlaskit/analytics when blanket is clicked', async () => {
-    const {
-      renderResult,
-      onBlanketClicked,
-      onAnalyticsEvent,
-      blanketClickedEventResult,
-    } = setup();
+    const { onBlanketClicked, onAnalyticsEvent, blanketClickedEventResult } =
+      setup();
 
-    await userEvent.click(renderResult.getByTestId('blanket'));
+    await userEvent.click(screen.getByTestId('blanket'));
 
     expect(onBlanketClicked).toHaveBeenCalledTimes(1);
 
@@ -75,10 +70,10 @@ describe('Blanket', () => {
 
   it('should allow the addition of additional context', async () => {
     const analyticsContext = { key: 'value' };
-    const { renderResult, onBlanketClicked, blanketClickedEventResult } =
+    const { onBlanketClicked, blanketClickedEventResult } =
       setup(analyticsContext);
 
-    await userEvent.click(renderResult.getByTestId('blanket'));
+    await userEvent.click(screen.getByTestId('blanket'));
 
     const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
       ...blanketClickedEventResult,

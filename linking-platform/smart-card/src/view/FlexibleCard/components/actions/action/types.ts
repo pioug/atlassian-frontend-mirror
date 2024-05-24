@@ -76,6 +76,11 @@ export type ActionProps = {
   hideTooltipOnMouseDown?: boolean;
 
   /**
+   * Determines if the tooltip should be hidden
+   */
+  hideTooltip?: boolean;
+
+  /**
    * @deprecated Use 'as' instead
    * Used to determine whether the Action is in a Dropdown.
    */
@@ -125,4 +130,7 @@ export type ActionProps = {
    * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
    */
   wrapper?: React.ElementType;
+
+  /* Optional callback that can be invoked to update the action blocks loading state */
+  onLoadingChange?: (isLoading: boolean) => void;
 };

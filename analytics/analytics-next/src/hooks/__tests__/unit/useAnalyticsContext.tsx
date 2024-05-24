@@ -4,7 +4,7 @@ import { render } from '@testing-library/react';
 
 import {
   default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
+  type AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 
 import { useAnalyticsContext } from '../../useAnalyticsContext';

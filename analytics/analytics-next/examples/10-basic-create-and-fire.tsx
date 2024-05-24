@@ -1,13 +1,13 @@
-import React, { FC, MouseEvent, useCallback } from 'react';
+import React, { type FC, type MouseEvent, useCallback } from 'react';
 
 import {
   AnalyticsListener,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   useAnalyticsEvents,
   useCallbackWithAnalytics,
   usePlatformLeafEventHandler,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../src';
 
 interface Props extends WithAnalyticsEventsProps {

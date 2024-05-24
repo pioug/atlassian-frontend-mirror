@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "17.15.0",
+  "version": "17.16.0",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -65,9 +65,17 @@
           "sortKey": 4
         },
         {
+          "title": "Link icon button",
+          "id": "link-icon-button",
+          "status": {
+            "type": "beta"
+          },
+          "sortKey": 5
+        },
+        {
           "title": "Button group",
           "id": "button-group",
-          "sortKey": 5
+          "sortKey": 6
         }
       ]
     },

@@ -1,4 +1,4 @@
-import { CSSFn, StatelessCSSFn } from '@atlaskit/menu';
+import { type CSSFn, type StatelessCSSFn } from '@atlaskit/menu';
 import { B400, B50, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -61,8 +61,8 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     // -- END TODO --------------------------------------------------------------
 
     ['& [data-item-elem-before]']: {
-      height: token('space.300', '24px'),
-      width: token('space.300', '24px'),
+      height: '1.5rem',
+      width: '1.5rem',
     },
   };
 };

@@ -1,8 +1,8 @@
 import { useCallbackOne } from 'use-memo-one';
 
-import { AnalyticsEventPayload } from '../events/AnalyticsEvent';
+import { type AnalyticsEventPayload } from '../events/AnalyticsEvent';
 import UIAnalyticsEvent from '../events/UIAnalyticsEvent';
-import { CreateUIAnalyticsEvent } from '../types';
+import { type CreateUIAnalyticsEvent } from '../types';
 
 import { useAnalyticsContext } from './useAnalyticsContext';
 

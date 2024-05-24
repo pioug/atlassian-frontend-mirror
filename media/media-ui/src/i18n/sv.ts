@@ -142,11 +142,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Ladda upp en avatar',
   'fabric.media.upload_file': 'Ladda upp en fil',
   'fabric.media.upload_file_from': 'Ladda upp en fil från {name}',
-  'fabric.media.upload_image': 'Ladda upp bild',
   'fabric.media.upload_photo': 'Ladda upp en bild',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} av {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Sökreglage',
   'fabric.media.view': 'Visa',
   'fabric.media.viewer_rateLimited': 'Vi kan inte läsa in filen.',
+  'fabric.media.volume_level': 'stäng av ljudet',
   'fabric.media.webgl_warning_description':
     'Din webbläsare stöder inte WebGL. Använd en webbläsare som har stöd för WebGL för att kommentera bilder.',
   'fabric.media.zip_entry_load_failed': 'Vi kunde inte läsa in zip-filobjektet för förhandsgranskning',

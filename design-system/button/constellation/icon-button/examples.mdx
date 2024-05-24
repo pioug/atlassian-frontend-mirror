@@ -15,9 +15,6 @@ import IconButtonCircle from '../../examples/constellation/new-button/icon-butto
 import IconButtonIconOverrides from '../../examples/constellation/new-button/icon-button/icon-button-icon-overrides';
 import IconButtonColor from '../../examples/constellation/new-button/icon-button/icon-button-color';
 import IconButtonDisabled from '../../examples/constellation/new-button/icon-button/icon-button-disabled';
-import LinkIconButton from '../../examples/constellation/new-button/icon-button/link-icon-button';
-import LinkIconButtonWithRouting from '../../examples/constellation/new-button/icon-button/link-icon-button-with-routing';
-import LinkIconButtonDisabled from '../../examples/constellation/new-button/icon-button/link-icon-button-disabled';
 import IconButtonSelected from '../../examples/constellation/new-button/icon-button/icon-button-selected';
 import IconButtonSpacing from '../../examples/constellation/new-button/icon-button/icon-button-spacing';
 import IconButtonLoading from '../../examples/constellation/new-button/icon-button/icon-button-loading';
@@ -80,34 +77,6 @@ Use the `icon` render prop to override the default icon props.
 
 <Example Component={IconButtonIconOverrides} packageName="@atlaskit/button" />
 
-## Link icon button
-
-For buttons that are links for navigation rather than on-page actions. Link icon buttons render an `<a>` tag instead of a `<button>`. They accept anchor tag HTML attributes, including `href`.
-
-<Example Component={LinkIconButton} packageName="@atlaskit/button" />
-
-### Routing
-
-When available, link icon button will consume the router link component configured in the **app provider**. This allows router links to be configured once across an entire application. (This replaces [the component prop](/components/button/examples#routing)).
-
-These links won't use the configured router link component when passed to `href`, and instead render a standard `<a>` tag:
-
-- External links
-- Non-HTTP-based links (`mailto:`, `tel:`, `sms:`)
-- Anchor / hash links (`#`)
-
-If your application doesn't have an existing app provider or `routerLinkComponent` configuration, see how to set this up in [the app provider documentation](/components/app-provider/examples#router-links).
-
-### Advanced href usage with TypeScript
-
-Link button accepts a generic type containing the configured router link's props. This is only required for advanced usage to allow an object to be passed to `href`.
-
-<Example
-  Component={LinkIconButtonWithRouting}
-  packageName="@atlaskit/button"
-  appearance="source-only"
-/>
-
 ## States
 
 ### Disabled
@@ -117,16 +86,6 @@ Set `isDisabled` to disable an icon button that shouldn't be actionable. The ico
 Avoid disabling buttons because this can cause accessibility problems, and [never put a tooltip on a disabled button](/components/button-new/usage#do-not-put-tooltips-on-disabled-buttons).
 
 <Example Component={IconButtonDisabled} packageName="@atlaskit/button" />
-
-#### Disabled link buttons
-
-The `disabled` HTML attribute does not exist for anchor `<a>` tags, so link buttons are disabled using this accessible technique:
-
-- Adds `aria-disabled="true"`
-- Adds `role="link"`
-- Removes `href` attribute
-
-<Example Component={LinkIconButtonDisabled} packageName="@atlaskit/button" />
 
 ### Selected
 

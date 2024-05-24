@@ -141,11 +141,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Carga un avatar',
   'fabric.media.upload_file': 'Cargar un archivo',
   'fabric.media.upload_file_from': 'Carga un archivo de {name}',
-  'fabric.media.upload_image': 'Carga una imagen',
   'fabric.media.upload_photo': 'Carga una foto',
   'fabric.media.video': 'vídeo',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} de {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Control deslizante de búsqueda',
   'fabric.media.view': 'Ver',
   'fabric.media.viewer_rateLimited': 'Estamos teniendo dificultades para cargar el archivo.',
+  'fabric.media.volume_level': 'silenciar',
   'fabric.media.webgl_warning_description':
     'Tu navegador no admite WebGL. Usa un navegador compatible con WebGL para anotar imágenes.',
   'fabric.media.zip_entry_load_failed': 'No se ha podido cargar el elemento de archivo comprimido para previsualizarlo',

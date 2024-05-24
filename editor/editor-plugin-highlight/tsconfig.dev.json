@@ -36,10 +36,22 @@
       "path": "tsconfig.app.json"
     },
     {
+      "path": "../editor-common/tsconfig.app.json"
+    },
+    {
       "path": "../editor-core/tsconfig.app.json"
     },
     {
+      "path": "../editor-plugin-emoji/tsconfig.app.json"
+    },
+    {
       "path": "../editor-plugins/tsconfig.app.json"
+    },
+    {
+      "path": "../editor-test-helpers/tsconfig.app.json"
+    },
+    {
+      "path": "../../elements/util-data-test/tsconfig.app.json"
     }
   ]
 }

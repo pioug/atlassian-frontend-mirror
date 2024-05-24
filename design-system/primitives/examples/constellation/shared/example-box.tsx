@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
-import { BackgroundColor, Box, type Space, xcss } from '@atlaskit/primitives';
+import { type BackgroundColor, Box, type Space, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({
   display: 'flex',

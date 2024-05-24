@@ -1,16 +1,16 @@
-import { LinkLozenge } from '../../extractors/common/lozenge/types';
-import { LinkPerson } from '@atlaskit/link-extractors';
+import { type LinkLozenge } from '../../extractors/common/lozenge/types';
+import { type LinkPerson } from '@atlaskit/link-extractors';
 import {
-  ActionName,
-  IconType,
-  InternalActionName,
-  MediaType,
+  type ActionName,
+  type IconType,
+  type InternalActionName,
+  type MediaType,
 } from '../../constants';
-import { InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
+import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
 import type { AnalyticsFacade } from '../analytics';
 import type { ProductType } from '@atlaskit/linking-common';
-import { MessageDescriptor } from 'react-intl-next';
+import { type MessageDescriptor } from 'react-intl-next';
 
 /**
  * This provides the data that will be used by Smart Links Flexible UI to populate it's
@@ -263,6 +263,7 @@ export type FlexibleUiActions = {
   [ActionName.CopyLinkAction]?: CopyLinkActionData;
   [InternalActionName.AISummaryAction]?: AISummaryActionData;
   [ActionName.AutomationAction]?: AutomationActionData;
+  [InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };
 
 export type PreviewActionData = {
@@ -313,6 +314,10 @@ export type AutomationActionData = {
   modalTitle: MessageDescriptor;
   modalDescription: MessageDescriptor;
 }
+
+export type ViewRelatedLinksActionData = {
+  url: string;
+};
 
 export type FlexibleAnalyticsContextType = AnalyticsFacade & {
   display?: CardInnerAppearance;

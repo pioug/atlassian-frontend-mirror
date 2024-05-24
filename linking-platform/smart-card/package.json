@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.69.1",
+  "version": "26.73.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -33,9 +33,12 @@
     "@atlaskit/avatar": "^21.9.0",
     "@atlaskit/avatar-group": "^9.6.0",
     "@atlaskit/badge": "^16.1.0",
-    "@atlaskit/button": "^17.15.0",
+    "@atlaskit/button": "^17.16.0",
+    "@atlaskit/checkbox": "^13.3.0",
     "@atlaskit/dropdown-menu": "^12.10.0",
+    "@atlaskit/form": "^10.2.0",
     "@atlaskit/frontend-utilities": "^2.7.0",
+    "@atlaskit/heading": "^2.3.0",
     "@atlaskit/icon": "^22.3.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/icon-object": "^6.4.0",
@@ -48,12 +51,16 @@
     "@atlaskit/linking-types": "^8.9.0",
     "@atlaskit/logo": "^13.17.0",
     "@atlaskit/lozenge": "^11.7.0",
+    "@atlaskit/menu": "^2.2.0",
     "@atlaskit/modal-dialog": "^12.13.0",
     "@atlaskit/outbound-auth-flow-client": "^3.4.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/popup": "^1.17.0",
     "@atlaskit/primitives": "^6.3.0",
+    "@atlaskit/select": "^17.9.0",
     "@atlaskit/spinner": "^16.1.0",
+    "@atlaskit/textarea": "^5.4.0",
+    "@atlaskit/textfield": "^6.3.0",
     "@atlaskit/theme": "^12.8.0",
     "@atlaskit/tokens": "^1.49.0",
     "@atlaskit/tooltip": "^18.4.0",
@@ -191,10 +198,16 @@
     "platform.linking-platform.smart-card.fix-embed-card-blurring": {
       "type": "boolean"
     },
+    "platform.linking-platform.smart-card.fix-embed-preview-url-query-params": {
+      "type": "boolean"
+    },
     "platform.linking-platform.smart-card.action-icon-redesign": {
       "type": "boolean"
     },
-    "platform.linking-platfom.smart-card.confluence.page.automation-action": {
+    "platform.linking-platfom.smart-card.confluence.page.automation-action_xcdoi": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.smart-card.enable-view-related-urls-action": {
       "type": "boolean"
     }
   },

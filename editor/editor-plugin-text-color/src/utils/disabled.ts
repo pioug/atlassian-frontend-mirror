@@ -1,4 +1,5 @@
 import {
+  entireSelectionContainsMark,
   isMarkAllowedInRange,
   isMarkExcluded,
 } from '@atlaskit/editor-common/mark';
@@ -31,13 +32,58 @@ const hasLinkMark = ($pos: ResolvedPos): boolean => {
   );
 };
 
+const hasHighlightMark = ($pos: ResolvedPos): boolean => {
+  const {
+    doc: {
+      type: {
+        schema: {
+          marks: { backgroundColor: highlightMarkType },
+        },
+      },
+    },
+  } = $pos;
+
+  if (!highlightMarkType) {
+    return false;
+  }
+  const node = $pos.nodeBefore;
+  if (!node) {
+    return false;
+  }
+  return !!highlightMarkType.isInSet(node.marks);
+};
+
+const hasHighlightMarkInRange = (
+  $from: ResolvedPos,
+  $to: ResolvedPos,
+): boolean => {
+  const {
+    doc: {
+      type: {
+        schema: {
+          marks: { backgroundColor: highlightMarkType },
+        },
+      },
+    },
+    pos,
+    doc,
+  } = $from;
+  if (!highlightMarkType) {
+    return false;
+  }
+  return entireSelectionContainsMark(highlightMarkType, doc, pos, $to.pos);
+};
+
 export const getDisabledState = (state: EditorState): boolean => {
   const { textColor } = state.schema.marks;
   if (textColor) {
-    const { empty, ranges, $cursor } = state.selection as TextSelection;
+    const { empty, ranges, $cursor, $from, $to } =
+      state.selection as TextSelection;
     if (
       (empty && !$cursor) ||
       ($cursor && hasLinkMark($cursor)) ||
+      ($cursor && hasHighlightMark($cursor)) ||
+      (!$cursor && $from && $to && hasHighlightMarkInRange($from, $to)) ||
       isMarkAllowedInRange(state.doc, ranges, textColor) === false
     ) {
       return true;

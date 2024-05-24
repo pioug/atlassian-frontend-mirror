@@ -56,10 +56,19 @@
       "path": "../../design-system/button/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/checkbox/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/dropdown-menu/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/form/tsconfig.app.json"
+    },
+    {
       "path": "../../helpers/frontend-utilities/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/heading/tsconfig.app.json"
     },
     {
       "path": "../../design-system/icon/tsconfig.app.json"
@@ -98,6 +107,9 @@
       "path": "../../design-system/lozenge/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/menu/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/modal-dialog/tsconfig.app.json"
     },
     {
@@ -113,7 +125,16 @@
       "path": "../../design-system/primitives/tsconfig.app.json"
     },
     {
+      "path": "../../design-system/select/tsconfig.app.json"
+    },
+    {
       "path": "../../design-system/spinner/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textarea/tsconfig.app.json"
+    },
+    {
+      "path": "../../design-system/textfield/tsconfig.app.json"
     },
     {
       "path": "../../design-system/theme/tsconfig.app.json"

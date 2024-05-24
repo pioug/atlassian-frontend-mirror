@@ -13,7 +13,7 @@ import type { CardContext } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { pluginKey } from './pm-plugins/plugin-key';
-import type { CardInfo, CardPluginState } from './types';
+import type { CardInfo, CardPluginState, DatasourceNode } from './types';
 
 export const appearanceForNodeType = (
   spec: NodeType,
@@ -138,4 +138,55 @@ export const isDatasourceConfigEditable = (datasourceId: string) => {
     datasourcesWithConfigModal.push(CONFLUENCE_SEARCH_DATASOURCE_ID);
   }
   return datasourcesWithConfigModal.includes(datasourceId);
+};
+
+/**
+ * Typeguard that checks node attributes are datasource node attributes
+ * ** WARNING ** Typeguards are not a guarantee, if the asserted type changes
+ * this function will not be updated automatically
+ */
+export const isDatasourceAdfAttributes = (
+  attrs: Record<string, unknown> | undefined,
+): attrs is DatasourceNode['attrs'] => {
+  // Check is attributes object
+  if (!(typeof attrs === 'object' && attrs !== null)) {
+    return false;
+  }
+
+  // Check datasource attribute is an object
+  if (!('datasource' in attrs)) {
+    return false;
+  }
+
+  if (typeof attrs.datasource !== 'object' || attrs.datasource === null) {
+    return false;
+  }
+
+  const hasId =
+    'id' in attrs.datasource && typeof attrs.datasource.id === 'string';
+
+  const hasParameters =
+    'parameters' in attrs.datasource &&
+    typeof attrs.datasource.parameters === 'object' &&
+    attrs.datasource.parameters !== null &&
+    !Array.isArray(attrs.datasource.parameters);
+
+  const hasViews =
+    'views' in attrs.datasource && Array.isArray(attrs.datasource.views);
+
+  return hasId && hasParameters && hasViews;
+};
+
+/**
+ * Typeguard that checks a node is a datasource node (blockCard and has datasource attributes)
+ * ** WARNING ** Typeguards are not a guarantee, if the asserted type changes
+ * this function will not be updated automatically
+ */
+export const isDatasourceNode = (node?: Node): node is DatasourceNode => {
+  if (!node) {
+    return false;
+  }
+  return (
+    node.type.name === 'blockCard' && isDatasourceAdfAttributes(node.attrs)
+  );
 };

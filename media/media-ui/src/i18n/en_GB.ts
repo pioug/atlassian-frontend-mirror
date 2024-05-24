@@ -138,11 +138,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Upload an avatar',
   'fabric.media.upload_file': 'Upload a file',
   'fabric.media.upload_file_from': 'Upload a file from {name}',
-  'fabric.media.upload_image': 'Upload image',
   'fabric.media.upload_photo': 'Upload a photo',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} of {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Seek slider',
   'fabric.media.view': 'View',
   'fabric.media.viewer_rateLimited': "We're having difficulties loading your file.",
+  'fabric.media.volume_level': 'mute',
   'fabric.media.webgl_warning_description':
     'Your browser does not support WebGL. Use a WebGL enabled browser to annotate images.',
   'fabric.media.zip_entry_load_failed': "We couldn't load that zip file item to preview",

@@ -5,6 +5,8 @@ import applyDevTools from 'prosemirror-dev-tools';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
+import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
@@ -26,6 +28,7 @@ import { panelPlugin } from '@atlaskit/editor-plugins/panel';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { rulePlugin } from '@atlaskit/editor-plugins/rule';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
@@ -77,6 +80,7 @@ export default function Editor() {
       .add(blockControlsPlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
+      .add([selectionToolbarPlugin, { preferenceToolbarAboveSelection: true }])
       .add([
         mediaPlugin,
         {
@@ -92,6 +96,12 @@ export default function Editor() {
           fullWidthEnabled: true,
           waitForMediaUpload: true,
         },
+      ])
+      .add([
+        annotationPlugin,
+        {
+          inlineComment: {},
+        } as AnnotationProviders,
       ]),
   );
 

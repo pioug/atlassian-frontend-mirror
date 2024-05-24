@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { B300, G300 } from '@atlaskit/theme/colors';
+import { B500, G500 } from '@atlaskit/theme/colors';
 import type { SVGProps } from '@atlaskit/icon/types';
 
 import SVG from '../src/entry-points/svg';
@@ -19,12 +19,12 @@ const CanonicalGlyph = ({ label, size, primaryColor }: SVGProps) => (
 
 const CustomSVG = () => (
   <span css={containerStyles} id="svg">
-    <CanonicalGlyph primaryColor={B300} size="small" label="spinner" />
-    <CanonicalGlyph primaryColor={B300} size="medium" label="spinner" />
-    <CanonicalGlyph primaryColor={B300} size="large" label="spinner" />
-    <CanonicalGlyph primaryColor={G300} size="small" label="spinner" />
-    <CanonicalGlyph primaryColor={G300} size="medium" label="spinner" />
-    <CanonicalGlyph primaryColor={G300} size="large" label="spinner" />
+    <CanonicalGlyph primaryColor={B500} size="small" label="spinner" />
+    <CanonicalGlyph primaryColor={B500} size="medium" label="spinner" />
+    <CanonicalGlyph primaryColor={B500} size="large" label="spinner" />
+    <CanonicalGlyph primaryColor={G500} size="small" label="spinner" />
+    <CanonicalGlyph primaryColor={G500} size="medium" label="spinner" />
+    <CanonicalGlyph primaryColor={G500} size="large" label="spinner" />
   </span>
 );
 

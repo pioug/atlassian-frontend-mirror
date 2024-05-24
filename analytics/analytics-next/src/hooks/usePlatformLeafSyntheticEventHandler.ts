@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import UIAnalyticsEvent from '../events/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '../events/UIAnalyticsEvent';
 
 import { useAnalyticsEvents } from './useAnalyticsEvents';
 import { useTrackedRef } from './useTrackedRef';

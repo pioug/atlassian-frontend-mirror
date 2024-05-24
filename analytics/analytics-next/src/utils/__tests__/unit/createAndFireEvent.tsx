@@ -1,13 +1,13 @@
-import React, { MouseEvent } from 'react';
+import React, { type MouseEvent } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
 import {
   AnalyticsListener,
   createAndFireEvent,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../../../index';
 
 interface Props extends WithAnalyticsEventsProps {

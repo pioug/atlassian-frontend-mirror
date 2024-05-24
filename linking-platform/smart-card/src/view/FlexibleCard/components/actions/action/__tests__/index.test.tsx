@@ -6,7 +6,7 @@ import Action from '../index';
 import userEvent from '@testing-library/user-event';
 import { SmartLinkSize } from '../../../../../../constants';
 import TestIcon from '@atlaskit/icon/glyph/activity';
-import { ActionProps } from '../types';
+import type { ActionProps } from '../types';
 
 describe('Action', () => {
   let user: ReturnType<typeof userEvent.setup>;
@@ -276,6 +276,14 @@ describe('Action', () => {
         await user.hover(element);
         const tooltip = await findByRole('tooltip');
         expect(tooltip.textContent).toBe(tooltipMessage);
+      });
+
+      it('hides tooltip when hideTooltip is set to true', async() => {
+        const { findByRole, queryByRole } = setup({ tooltipMessage, hideTooltip: true });
+        const element = await findByRole('button');
+        await user.hover(element);
+        const tooltip = queryByRole('tooltip');
+        expect(tooltip).toBeNull();
       });
     });
   });

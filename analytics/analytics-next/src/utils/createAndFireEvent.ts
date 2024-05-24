@@ -1,5 +1,5 @@
-import { AnalyticsEventPayload } from '../events/AnalyticsEvent';
-import { CreateUIAnalyticsEvent } from '../types';
+import { type AnalyticsEventPayload } from '../events/AnalyticsEvent';
+import { type CreateUIAnalyticsEvent } from '../types';
 
 export default (channel?: string) =>
   (payload: AnalyticsEventPayload) =>

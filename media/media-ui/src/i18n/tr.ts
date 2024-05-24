@@ -143,11 +143,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Bir profil resmi yükleyin',
   'fabric.media.upload_file': 'Bir dosya yükleyin',
   'fabric.media.upload_file_from': '{name} kaynağından alınan dosyayı yükleyin',
-  'fabric.media.upload_image': 'Görsel yükle',
   'fabric.media.upload_photo': 'Bir fotoğraf yükleyin',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds}/{videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Arama kaydırıcısı',
   'fabric.media.view': 'Görüntüle',
   'fabric.media.viewer_rateLimited': 'Dosyanız yüklenirken bir sorun yaşandı.',
+  'fabric.media.volume_level': 'sessize al',
   'fabric.media.webgl_warning_description':
     "Tarayıcınız WebGL'yi desteklemiyor. Görsellere not eklemek için WebGL etkinleştirilmiş bir tarayıcı kullanın.",
   'fabric.media.zip_entry_load_failed': 'Önizlenecek zip dosyası öğesi yüklenemedi',

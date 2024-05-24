@@ -2,15 +2,15 @@ import React, { useCallback } from 'react';
 
 import { fireEvent } from '@testing-library/react';
 import {
-  InteractionTaskArgs,
-  PublicInteractionTask,
+  type InteractionTaskArgs,
+  type PublicInteractionTask,
 } from 'storybook-addon-performance';
 
 import AnalyticsListener from '../components/AnalyticsListener';
-import UIAnalyticsEvent from '../events/UIAnalyticsEvent';
+import type UIAnalyticsEvent from '../events/UIAnalyticsEvent';
 import withAnalyticsContext from '../hocs/withAnalyticsContext';
 import withAnalyticsEvents, {
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../hocs/withAnalyticsEvents';
 import { useAnalyticsEvents } from '../hooks/useAnalyticsEvents';
 import { useCallbackWithAnalytics } from '../hooks/useCallbackWithAnalytics';

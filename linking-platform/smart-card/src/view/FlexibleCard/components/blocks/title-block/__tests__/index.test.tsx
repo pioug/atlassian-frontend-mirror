@@ -21,11 +21,23 @@ import {
 } from '../../../../../../../examples/utils/flexible-ui';
 import { type NamedActionItem } from '../../types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { PureComponent } from 'react';
+import type { GlyphProps } from '@atlaskit/icon/types';
+
+class TestIcon extends PureComponent<
+  Omit<GlyphProps, 'primaryColor' | 'secondaryColor'>
+> {
+  render() {
+    return <div data-testid={'smart-element-icon-overrideIcon'}>{'test'}</div>
+  }
+}
 
 describe('TitleBlock', () => {
   const testId = 'smart-block-title-resolved-view';
   const titleTestId = 'smart-element-link';
   const iconTestId = 'smart-element-icon';
+  const regularIconTestId = 'smart-element-icon-icon'
+  const overrideIconTestId = 'smart-element-icon-overrideIcon'
 
   const renderTitleBlock = (props?: TitleBlockProps) => {
     return render(
@@ -385,6 +397,21 @@ describe('TitleBlock', () => {
       const element = await findByTestId('smart-element-icon');
 
       expect(element).toBeDefined();
+    });
+
+    it('should show override icon as provided to Link Icon when hideIcon is false in resolved state', async () => {
+      const { findByTestId, queryByTestId } = renderTitleBlock({
+        icon: <TestIcon label="test"/>,
+        hideIcon: false,
+      });
+
+      const element = await findByTestId('smart-element-icon');
+      const regularIcon = queryByTestId(regularIconTestId)
+      const overrideIcon = await findByTestId(overrideIconTestId)
+
+      expect(element).toBeDefined();
+      expect(regularIcon).not.toBeInTheDocument()
+      expect(overrideIcon).toBeTruthy()
     });
 
     it('should show Link Icon when hideIcon is not set in resolved state', async () => {

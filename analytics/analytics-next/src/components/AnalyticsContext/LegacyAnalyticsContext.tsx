@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import {
   default as AnalyticsReactContext,
-  AnalyticsReactContextInterface,
+  type AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
 
 const ContextTypes = {

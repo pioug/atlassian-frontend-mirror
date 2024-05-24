@@ -1,4 +1,4 @@
-import { css, CSSObject } from '@emotion/react';
+import { css, type CSSObject } from '@emotion/react';
 
 import { UNSAFE_BREAKPOINTS_ORDERED_LIST } from './constants';
 import { media, UNSAFE_media } from './media-helper';

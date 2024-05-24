@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react';
 
 import { default as AnalyticsReactContext } from '@atlaskit/analytics-next-stable-react-context';
 
-import { UIAnalyticsEventHandler } from '../../events/UIAnalyticsEvent';
+import { type UIAnalyticsEventHandler } from '../../events/UIAnalyticsEvent';
 import { useAnalyticsContext } from '../../hooks/useAnalyticsContext';
 import { useTrackedRef } from '../../hooks/useTrackedRef';
 
-import { AnalyticsListenerFunction } from './types';
+import { type AnalyticsListenerFunction } from './types';
 
 const AnalyticsListener: AnalyticsListenerFunction = ({
   children,

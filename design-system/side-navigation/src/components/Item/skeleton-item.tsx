@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { SkeletonItemProps, SkeletonItem as SkelItem } from '@atlaskit/menu';
+import {
+  type SkeletonItemProps,
+  SkeletonItem as SkelItem,
+} from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
 
 import { sectionHeaderSpacingStyles } from '../../common/styles';
@@ -29,9 +32,9 @@ const SkeletonItem = (props: SkeletonItemProps) => {
         ...sectionHeaderSpacingStyles(),
         // This doubles up & to get a higher specificity as well as to not overwite the base styles.
         '&&::before': {
-          height: token('space.300', '24px'),
-          marginRight: token('space.200', '16px'),
-          width: token('space.300', '24px'),
+          height: '1.5rem',
+          marginRight: token('space.200'),
+          width: '1.5rem',
         },
       })}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

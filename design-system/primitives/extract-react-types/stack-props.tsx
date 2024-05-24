@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from 'react';
+import { type ElementType, type ReactNode } from 'react';
 
 import type {
   AlignBlock,

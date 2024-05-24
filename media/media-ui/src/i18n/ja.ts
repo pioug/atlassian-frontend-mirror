@@ -142,11 +142,14 @@ export default {
   'fabric.media.upload_an_avatar': 'アバターをアップロード',
   'fabric.media.upload_file': 'ファイルをアップロード',
   'fabric.media.upload_file_from': '{name} からファイルをアップロード',
-  'fabric.media.upload_image': '画像をアップロード',
   'fabric.media.upload_photo': '写真をアップロード',
   'fabric.media.video': 'ビデオ',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds}。全体の長さは {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'シーク スライダー',
   'fabric.media.view': '表示',
   'fabric.media.viewer_rateLimited': 'ファイルを読み込めません。',
+  'fabric.media.volume_level': 'ミュート',
   'fabric.media.webgl_warning_description':
     'お使いのブラウザーは WebGL に対応していません。画像に注釈をつけるには WebGL 対応ブラウザーをご利用ください。',
   'fabric.media.zip_entry_load_failed': 'プレビューする zip ファイル アイテムを読み込めませんでした',

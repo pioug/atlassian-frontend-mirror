@@ -14,9 +14,11 @@ import type {
   Decoration,
   DecorationSource,
 } from '@atlaskit/editor-prosemirror/view';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
+import { isDatasourceNode } from '../utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -152,6 +154,16 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
   // If so, we return false so we can get the node to re-render properly as a datasource node instead.
   // Otherwise, the node view will still consider the node as a blockCard and render a regular blockCard.
   validUpdate(currentNode: Node, newNode: Node) {
+    if (
+      getBooleanFF('platform.linking-platform.editor-datasource-typeguards')
+    ) {
+      const isCurrentNodeBlockCard = !isDatasourceNode(currentNode);
+      const isNewNodeDatasource = isDatasourceNode(newNode);
+
+      // need to return falsy to update node
+      return !(isCurrentNodeBlockCard && isNewNodeDatasource);
+    }
+
     const isCurrentNodeBlockCard = !currentNode.attrs?.datasource;
     const isNewNodeDatasource = newNode.attrs?.datasource;
 

@@ -1,18 +1,24 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../../index';
 
-export type DatasourceTableLayout = 'full-width' | 'center' | 'wide';
+export const DATASOURCE_TABLE_LAYOUTS = [
+  'full-width',
+  'center',
+  'wide',
+] as const;
+
+export type DatasourceTableLayout = (typeof DATASOURCE_TABLE_LAYOUTS)[number];
 
 export type LayoutButtonProps = {
   mountPoint?: HTMLElement;
   boundariesElement?: HTMLElement;
   scrollableElement?: HTMLElement;
   targetElement?: HTMLElement;
-  layout: DatasourceTableLayout;
+  layout?: DatasourceTableLayout;
   onLayoutChange?: (layout: DatasourceTableLayout) => void;
   testId?: string;
   intl: IntlShape;

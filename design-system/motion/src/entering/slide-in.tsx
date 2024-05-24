@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { CSSObject } from '@emotion/react';
+import { type CSSObject } from '@emotion/react';
 
-import { AnimationCurve, easeIn, easeOut } from '../utils/curves';
+import { type AnimationCurve, easeIn, easeOut } from '../utils/curves';
 import { mediumDurationMs } from '../utils/durations';
 
-import KeyframesMotion, { KeyframesMotionProps } from './keyframes-motion';
-import { Direction, Fade, Transition } from './types';
+import KeyframesMotion, { type KeyframesMotionProps } from './keyframes-motion';
+import { type Direction, type Fade, type Transition } from './types';
 
 export const slideInAnimation = (
   from: Direction,

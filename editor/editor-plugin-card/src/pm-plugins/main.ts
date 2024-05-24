@@ -26,8 +26,10 @@ import type { EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { EmbedCard } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import type { CardPluginOptions, CardPluginState } from '../types';
+import { isDatasourceTableLayout } from '../ui/LayoutButton/utils';
 import {
   isBlockSupportedAtPosition,
+  isDatasourceNode,
   isEmbedSupportedAtPosition,
 } from '../utils';
 
@@ -260,8 +262,19 @@ export const createPlugin =
                 currentState?.datasourceTableRef !== datasourceTableRef;
 
               if (isDatasource && shouldUpdateTableRef) {
+                const getLayout = () => {
+                  return isDatasourceTableLayout(node.attrs.layout)
+                    ? node.attrs.layout
+                    : DATASOURCE_DEFAULT_LAYOUT;
+                };
+
                 // since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
-                const layout = node?.attrs?.layout || DATASOURCE_DEFAULT_LAYOUT;
+                const layout = getBooleanFF(
+                  'platform.linking-platform.editor-datasource-typeguards',
+                )
+                  ? getLayout()
+                  : node?.attrs?.layout || DATASOURCE_DEFAULT_LAYOUT;
+
                 const isNested = selection.$anchor.depth > 0;
 
                 // we want to disable resize button when datasource table is nested by not setting then datasourceTableRef on selection
@@ -348,7 +361,11 @@ export const createPlugin =
               onClickCallback: options.onClickCallback,
             };
             const hasIntlContext = true;
-            const isDatasource = !!node?.attrs?.datasource;
+            const isDatasource = getBooleanFF(
+              'platform.linking-platform.editor-datasource-typeguards',
+            )
+              ? isDatasourceNode(node)
+              : !!node?.attrs?.datasource;
 
             if (isDatasource) {
               if (

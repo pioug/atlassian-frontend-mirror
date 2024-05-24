@@ -143,11 +143,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Avatár feltöltése',
   'fabric.media.upload_file': 'Fájl feltöltése',
   'fabric.media.upload_file_from': 'Fájl feltöltése innen: {name}',
-  'fabric.media.upload_image': 'Kép feltöltése',
   'fabric.media.upload_photo': 'Fénykép feltöltése',
   'fabric.media.video': 'videó',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds}/{videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Keresőcsúszka',
   'fabric.media.view': 'Megtekintés',
   'fabric.media.viewer_rateLimited': 'Probléma merült fel a fájl betöltése során.',
+  'fabric.media.volume_level': 'némítás',
   'fabric.media.webgl_warning_description':
     'A böngészője nem támogatja a WebGL funkciót. A képek jegyzetekkel való ellátásához használjon a WebGL funkcióval kompatibilis böngészőt.',
   'fabric.media.zip_entry_load_failed': 'Nem tudtuk betölteni a ZIP-fájlt az előnézet megtekintése céljából',

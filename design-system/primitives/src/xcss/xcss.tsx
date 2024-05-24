@@ -29,7 +29,7 @@ import {
   positiveSpaceMap,
   shadowMap,
   textColorMap,
-  TokenisedProps,
+  type TokenisedProps,
 } from './style-maps.partial';
 
 type StrictTokensMap = {

@@ -7,6 +7,16 @@ import {
   SmartLinkPosition,
   SmartLinkSize,
 } from '../../../../../../constants';
+import { PureComponent } from 'react';
+import type { GlyphProps } from '@atlaskit/icon/types';
+
+class TestIcon extends PureComponent<
+  Omit<GlyphProps, 'primaryColor' | 'secondaryColor'>
+> {
+  render() {
+    return <div data-testid={'smart-element-icon-overrideIcon'}>{'test'}</div>
+  }
+}
 
 jest.mock(
   'react-render-image',
@@ -72,6 +82,14 @@ describe('Element: Icon', () => {
     expect(element).toBeTruthy();
   });
 
+  it('renders override icon when provided', async () => {
+    const { findByTestId } = render(<Icon overrideIcon={<TestIcon label="test"/>}/>);
+
+    const element = await findByTestId('smart-element-icon-overrideIcon');
+
+    expect(element).toBeTruthy();
+  });
+
   describe('priority', () => {
     it('priorities custom render function', async () => {
       const testId = 'custom-icon';
@@ -121,6 +139,21 @@ describe('Element: Icon', () => {
 
       expect(imageIcon).not.toBeInTheDocument();
       expect(akIcon).toBeTruthy();
+    });
+
+    it('priorities override icon', async () => {
+      const renderCustomIcon = () => undefined;
+      const { findByTestId, queryByTestId } = render(
+        <Icon overrideIcon={<TestIcon label="test"/>} icon={IconType.Document} render={renderCustomIcon} />,
+      );
+
+      const imageIcon = queryByTestId('smart-element-icon-image');
+      const akIcon = queryByTestId('smart-element-icon-icon');
+      const bitbucketIcon = await findByTestId('smart-element-icon-overrideIcon');
+
+      expect(imageIcon).not.toBeInTheDocument();
+      expect(akIcon).not.toBeInTheDocument();
+      expect(bitbucketIcon).toBeTruthy();
     });
   });
 

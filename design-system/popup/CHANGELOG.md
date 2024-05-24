@@ -1,5 +1,14 @@
 # @atlaskit/popup
 
+## 1.17.1
+
+### Patch Changes
+
+-   [#97895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97895)
+    [`4f26610d9fbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f26610d9fbc) -
+    Adds auto-generated ID to popup and popup triggers for better coverage of assistive technologies
+    and `aria-controls`..
+
 ## 1.17.0
 
 ### Minor Changes

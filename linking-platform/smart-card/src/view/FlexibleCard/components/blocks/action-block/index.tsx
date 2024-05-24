@@ -63,6 +63,14 @@ const ActionBlock = ({
   const ui = useFlexibleUiOptionContext();
 
   const [message, setMessage] = useState<ActionMessage>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onLoadingChange = useCallback(
+    (isLoading: boolean) => {
+      setIsLoading(isLoading);
+    },
+    [setIsLoading],
+  );
 
   const padding = !ui?.hidePadding
     ? getPrimitivesPaddingSpaceBySize(ui?.size || SmartLinkSize.Medium)
@@ -100,12 +108,23 @@ const ActionBlock = ({
           key={name}
           onClick={() => onClick(name)}
           onError={onError}
+          onLoadingChange={onLoadingChange}
           size={size}
           xcss={xcss({ paddingInline: padding })}
+          hideTooltip={isLoading}
         />
       ) : null;
     });
-  }, [context?.actions, onClick, onError, padding, size, spaceInline]);
+  }, [
+    context?.actions,
+    onClick,
+    onError,
+    padding,
+    size,
+    spaceInline,
+    isLoading,
+    onLoadingChange,
+  ]);
 
   return actions ? (
     <div css={ignoreContainerPaddingStyles} ref={blockRef} data-testid={testId}>

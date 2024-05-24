@@ -143,11 +143,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Nahrát avatar',
   'fabric.media.upload_file': 'Nahrát soubor',
   'fabric.media.upload_file_from': 'Nahrát soubor z: {name}',
-  'fabric.media.upload_image': 'Nahrát obrázek',
   'fabric.media.upload_photo': 'Nahrát fotku',
   'fabric.media.video': 'video',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} z {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Posuvník času',
   'fabric.media.view': 'Zobrazit',
   'fabric.media.viewer_rateLimited': 'Při načítání vašeho souboru došlo k potížím.',
+  'fabric.media.volume_level': 'ztlumit',
   'fabric.media.webgl_warning_description':
     'Váš prohlížeč nepodporuje knihovnu WebGL. Chcete-li přidávat k obrázkům poznámky, použijte prohlížeč, který ji podporuje.',
   'fabric.media.zip_entry_load_failed': 'Načtení daného souboru ZIP potřebného k náhledu se nezdařilo',

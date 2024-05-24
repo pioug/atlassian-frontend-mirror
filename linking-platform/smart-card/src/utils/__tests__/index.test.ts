@@ -1,6 +1,8 @@
-import { combineFrameStyle, importWithRetry, openUrl } from '../index';
+import { combineFrameStyle, getPreviewUrlWithTheme, importWithRetry, openUrl } from '../index';
 import * as utils from '../index';
 import type { FrameStyle } from '../../view/EmbedCard/types';
+import { type ActiveThemeState } from "@atlaskit/tokens/src/theme-config";
+import { ffTest } from "@atlassian/feature-flags-test-utils";
 
 export class ChunkLoadError extends Error {
   name = 'ChunkLoadError';
@@ -74,6 +76,80 @@ describe('importWithRetry', () => {
 
     expect(importFunction).toHaveBeenCalledTimes(3);
   });
+});
+
+describe('getPreviewUrlWithTheme', () => {
+  const theme: Partial<ActiveThemeState> = {
+    colorMode: 'dark'
+  }
+
+  ffTest.on(
+    'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
+    'FF for handling urls with # on',
+    () => {
+      ffTest.on(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF on',
+        () => {
+          it('returns the url with themeState at the end of the query params for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something', theme)).toEqual('http://some-preview-url.com/?spaceKey=something&themeState=colorMode%3Adark')
+          });
+
+          it('returns the url with themeState before the # for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something#link-url', theme)).toEqual('http://some-preview-url.com/?spaceKey=something&themeState=colorMode%3Adark#link-url')
+          });
+        }
+      );
+
+      ffTest.off(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF off',
+        () => {
+          it('returns the url with themeMode at the end of the query params for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something', theme)).toEqual('http://some-preview-url.com/?spaceKey=something&themeMode=dark')
+          });
+
+          it('returns the url with themeMode before the # for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something#link-url', theme)).toEqual('http://some-preview-url.com/?spaceKey=something&themeMode=dark#link-url')
+          });
+        }
+      );
+    }
+  );
+
+  ffTest.off(
+    'platform.linking-platform.smart-card.fix-embed-preview-url-query-params',
+    'FF for handling urls with # off',
+    () => {
+      ffTest.on(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF on',
+        () => {
+          it('returns the url with themeState at the end of the query params for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something', theme)).toEqual('http://some-preview-url.com?spaceKey=something&themeState=colorMode%3Adark')
+          });
+
+          it('returns the url with themeState before the # for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something#link-url', theme)).toEqual('http://some-preview-url.com?spaceKey=something#link-url&themeState=colorMode%3Adark')
+          });
+        }
+      );
+
+      ffTest.off(
+        'platform.linking-platform.smart-card.enable-theme-state-url',
+        'enableThemeStateUrl FF off',
+        () => {
+          it('returns the url with themeMode at the end of the query params for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something', theme)).toEqual('http://some-preview-url.com?spaceKey=something&themeMode=dark')
+          });
+
+          it('returns the url with themeMode before the # for dark mode', () => {
+            expect(getPreviewUrlWithTheme('http://some-preview-url.com?spaceKey=something#link-url', theme)).toEqual('http://some-preview-url.com?spaceKey=something#link-url&themeMode=dark')
+          });
+        }
+      );
+    }
+  );
 });
 
 describe('openUrl', () => {

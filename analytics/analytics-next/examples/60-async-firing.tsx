@@ -1,6 +1,6 @@
 import React, {
-  MouseEvent,
-  ReactNode,
+  type MouseEvent,
+  type ReactNode,
   useCallback,
   useEffect,
   useState,
@@ -9,9 +9,9 @@ import React, {
 import {
   AnalyticsContext,
   AnalyticsListener,
-  UIAnalyticsEvent,
+  type UIAnalyticsEvent,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
+  type WithAnalyticsEventsProps,
 } from '../src';
 
 interface ButtonProps extends WithAnalyticsEventsProps {

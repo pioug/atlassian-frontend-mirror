@@ -141,11 +141,14 @@ export default {
   'fabric.media.upload_an_avatar': 'อัปโหลดรูปแทนตัว',
   'fabric.media.upload_file': 'อัปโหลดไฟล์',
   'fabric.media.upload_file_from': 'อัปโหลดไฟล์จาก {name}',
-  'fabric.media.upload_image': 'อัปโหลดรูปภาพ',
   'fabric.media.upload_photo': 'อัปโหลดภาพ',
   'fabric.media.video': 'วิดีโอ',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} จาก {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'แถบเลื่อนการค้นหา',
   'fabric.media.view': 'ดู',
   'fabric.media.viewer_rateLimited': 'เรากำลังประสบปัญหาในการโหลดไฟล์ของคุณ',
+  'fabric.media.volume_level': 'ปิดเสียง',
   'fabric.media.webgl_warning_description':
     'เบราว์เซอร์ของคุณไม่รองรับ WebGL ใช้เบราว์เซอร์ที่เปิดใช้งาน WebGL ในการทำหมายเหตุประกอบรูปภาพ',
   'fabric.media.zip_entry_load_failed': 'เราไม่สามารถโหลดรายการไฟล์ซิปนั้นเพื่อดูตัวอย่างได้',

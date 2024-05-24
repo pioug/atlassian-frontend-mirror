@@ -141,11 +141,14 @@ export default {
   'fabric.media.upload_an_avatar': 'Przekaż awatar',
   'fabric.media.upload_file': 'Przekaż plik',
   'fabric.media.upload_file_from': 'Przekaż plik z {name}',
-  'fabric.media.upload_image': 'Przekaż obraz',
   'fabric.media.upload_photo': 'Przekaż zdjęcie',
   'fabric.media.video': 'wideo',
+  'fabric.media.video_seeker_assistive_text_time_value':
+    '{currentTimeHours} {currentTimeMinutes} {currentTimeSeconds} z {videoTotalHours} {videoTotalMinutes} {videoTotalSeconds}',
+  'fabric.media.video_seeker_label_assistive_text': 'Suwak przewijania',
   'fabric.media.view': 'Wyświetl',
   'fabric.media.viewer_rateLimited': 'Mamy problemy z załadowaniem Twojego pliku.',
+  'fabric.media.volume_level': 'wycisz',
   'fabric.media.webgl_warning_description':
     'Twoja przeglądarka nie obsługuje WebGL. Użyj przeglądarki z włączoną obsługą WebGL, aby dodawać adnotacje do obrazów',
   'fabric.media.zip_entry_load_failed': 'Nie można załadować tego elementu pliku zip do podglądu',

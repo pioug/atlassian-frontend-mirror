@@ -3,6 +3,7 @@
 import { type FC, memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import { useUID } from 'react-uid';
 
 import { UNSAFE_LAYERING } from '@atlaskit/layering';
 import { Manager, Reference } from '@atlaskit/popper';
@@ -10,7 +11,7 @@ import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 
 import PopperWrapper from './popper-wrapper';
-import { PopupProps } from './types';
+import { type PopupProps } from './types';
 import { useGetMemoizedMergedTriggerRef } from './use-get-memoized-merged-trigger-ref';
 
 const defaultLayer = layers.layer();
@@ -18,7 +19,7 @@ const defaultLayer = layers.layer();
 export const Popup: FC<PopupProps> = memo(
   ({
     isOpen,
-    id,
+    id: providedId,
     offset,
     testId,
     trigger,
@@ -42,6 +43,9 @@ export const Popup: FC<PopupProps> = memo(
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
     const getMergedTriggerRef = useGetMemoizedMergedTriggerRef();
+
+    const generatedId = useUID()
+    const id = providedId || generatedId;
 
     const renderPopperWrapper = (
       <UNSAFE_LAYERING isDisabled={false}>
@@ -77,7 +81,7 @@ export const Popup: FC<PopupProps> = memo(
           {({ ref }) => {
             return trigger({
               ref: getMergedTriggerRef(ref, setTriggerRef, isOpen),
-              'aria-controls': id,
+              'aria-controls': isOpen ? id : undefined,
               'aria-expanded': isOpen,
               'aria-haspopup': true,
             });

@@ -8,7 +8,7 @@ import Button from '@atlaskit/button/new';
 import { type Direction, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
-import { Fade } from '../../src/entering/types';
+import { type Fade } from '../../src/entering/types';
 import { Block, Centered, RetryContainer } from '../utils';
 
 const MotionSlideInExample = () => {

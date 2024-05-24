@@ -8,6 +8,7 @@ import type {
 } from '@atlaskit/adf-utils/validatorTypes';
 import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 import type { AnnotationProviders as EditorAnnotationProviders } from '@atlaskit/editor-plugins/annotation';
+import { highlightPlugin } from '@atlaskit/editor-plugins/highlight';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -32,16 +33,16 @@ import {
   mediaProvider,
   quickInsertProvider,
 } from '../../examples/5-full-page';
-import { Editor } from '../../src';
 import type { EditorActions } from '../../src';
+import { ComposableEditor } from '../../src/composable-editor';
+import { useUniversalPreset } from '../../src/preset-universal';
 import type {
   EditorAppearance,
   EditorPlugin,
   EditorProps,
 } from '../../src/types';
+import { usePreset } from '../../src/use-preset';
 import type { Error } from '../ErrorReport';
-
-// import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 
 export type ValidatingKitchenSinkEditorProps = {
   actions: EditorActions;
@@ -67,43 +68,6 @@ export type ValidatingKitchenSinkEditorState = {
 const smartCardClient = new ConfluenceCardClient('stg');
 const DEFAULT_VALIDATION_TIMEOUT = 500;
 const EMPTY: EditorPlugin[] = [];
-// TODO ED-15449: mimic old defaults
-// const tableOptions = {
-//   advanced: true,
-//   allowBackgroundColor: true,
-//   allowColumnResizing: true,
-//   allowColumnSorting: false,
-//   allowDistributeColumns: true,
-//   allowHeaderColumn: true,
-//   allowHeaderRow: true,
-//   allowMergeCells: true,
-//   allowNumberColumn: true,
-//   allowControls: true,
-//   permittedLayouts: 'all' as any,
-//   // Sticky headers don't demonstrate well with the kitchen sink wrapper
-//   stickyHeaders: false,
-//   // stickyHeaders: true,
-// };
-
-// TODO: restore when using new table plugin in editor-core
-// Plugins must be created outside
-// let moduleTablePlugin: EditorPlugin | undefined;
-// const getKitchenSinkPlugins = (
-//   props: ValidatingKitchenSinkEditorProps,
-// ): EditorPlugin[] => {
-//   const isMobile = props.appearance === 'mobile';
-//   const tablePlugin =
-//     moduleTablePlugin ||
-//     tablesPlugin({
-//       tableOptions,
-//       breakoutEnabled: props.appearance === 'full-page',
-//       allowContextualMenu: !isMobile,
-//       fullWidthEnabled: props.appearance === 'full-width',
-//       // wasFullWidthEnabled: prevProps && prevProps.appearance === 'full-width',
-//     });
-//   moduleTablePlugin = tablePlugin;
-//   return [tablePlugin];
-// };
 
 export class ValidatingKitchenSinkEditor extends React.Component<
   ValidatingKitchenSinkEditorProps,
@@ -132,7 +96,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
 
     return (
       <SmartCardProvider client={smartCardClient}>
-        <Editor
+        <KitchenSinkEditor
           elementBrowser={{
             showModal: true,
             replacePlusMenu: true,
@@ -230,12 +194,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           dangerouslyAppendPlugins={{
             __plugins: this.props.editorPlugins ?? EMPTY,
           }}
-          // dangerouslyAppendPlugins={{
-          //   __plugins: [
-          //     ...(this.props.editorPlugins || []),
-          //     ...getKitchenSinkPlugins(this.props),
-          //   ],
-          // }}
         />
       </SmartCardProvider>
     );
@@ -390,4 +348,12 @@ const findErrorsRecursively = (
       findErrorsRecursively(childEntity as ADFEntity, schema, errorCallback),
     );
   }
+};
+
+const KitchenSinkEditor = (props: EditorProps) => {
+  const universalPreset = useUniversalPreset({
+    props,
+  });
+  const { preset } = usePreset(() => universalPreset.add(highlightPlugin));
+  return <ComposableEditor preset={preset} {...props} />;
 };

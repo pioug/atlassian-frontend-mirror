@@ -1,4 +1,4 @@
-import { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import avatar1 from '../images/avatar-1.svg';
 import avatar2 from '../images/avatar-2.svg';
@@ -18,7 +18,7 @@ export const unicornResponse = {
     auth: [],
     definitionId: 'd1',
     key: 'object-provider',
-    supportedFeature: ['AISummary'],
+    supportedFeature: ['AISummary', 'RelatedLinks'],
   },
   data: {
     '@context': {

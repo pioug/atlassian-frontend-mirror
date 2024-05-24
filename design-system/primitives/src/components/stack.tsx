@@ -1,11 +1,11 @@
 /* eslint-disable @repo/internal/styles/no-exported-styles */
 /** @jsx jsx */
-import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
+import { type ElementType, forwardRef, memo, type ReactNode, type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { type Space } from '../xcss/style-maps.partial';
-import { XCSS, xcss } from '../xcss/xcss';
+import { type XCSS, xcss } from '../xcss/xcss';
 
 import Flex from './flex';
 import type {

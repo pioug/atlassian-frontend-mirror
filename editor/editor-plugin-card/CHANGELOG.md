@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 1.14.3
+
+### Patch Changes
+
+-   [#102406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102406)
+    [`4e5db5fc8294`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4e5db5fc8294) -
+    Minor refactors to improve type-safety. No expected functional changes.
+
 ## 1.14.2
 
 ### Patch Changes

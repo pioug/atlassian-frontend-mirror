@@ -1,0 +1,99 @@
+---
+title: Link icon button
+description: An icon-only link button lets people take a common and recognizable action where space is limited.
+order: 2
+---
+
+import IconButtonDo from './images/dos-donts/icon-common-do.png';
+import IconButtonDont from './images/dos-donts/icon-common-dont.png';
+
+## Usage
+
+Link icon buttons open new pages, websites, or new locations on a page. These are buttons that behave like links. For actions that only affect the current page, use a regular [icon button](/components/button/icon-button/).
+
+![Diagram of icon only button. A caption follows this image.](./images/anatomy-link-icon-button.png)
+
+1. **Button:** Most icon buttons should be square, aside from some select round icons that appear in the top navigation.
+2. **Icon:** An existing [system icon](/components/icon).
+3. **Tooltip:** All icon buttons require a clear name for tooltips (and screen readers).
+
+### Use link icon buttons for navigation or other URL-change actions
+
+If you need an icon button that changes the page location, opens an email client, or otherwise links to somewhere, consider whether you could use a link in your design instead:
+
+- Buttons are typically for on-page actions, such as opening a modal.
+- Links are for changing locations or page URLs in some way.
+
+If a button is better suited to your design, use a link icon button. This ensures people using assistive technologies can interact with the link as expected.
+
+
+### Choose an existing system icon
+
+Don’t use icon-only buttons with custom icons. If you are creating a new icon, it’s probably a more complex idea that would require a [link button with a text label](/components/button/link-button/examples).
+
+Use an existing [system icon](/components/icon/) instead.
+
+### Use icons with clear meanings, or else use a button with a text label
+
+There are very few icons that have clear and common associations across products, so use [link buttons with text labels](/components/button/link-button) where space allows or when the action is very important.
+
+Also consider localization when using icons. Does the icon have a clear meaning that holds up for everyone, including people from different cultures or places?
+
+To test whether an icon button will be clear, apply the five-second rule: if it takes you more than five seconds to think of an appropriate icon, it is unlikely that an icon can effectively communicate that action.
+
+<DoDont
+  type="do"
+  image={{
+    url: IconButtonDo,
+    alt: 'A group of icon buttons which use icons that have a well-established association to an action in Atlassian and other software products.',
+  }}
+>
+  Use an icons with a well-established association to an action in Atlassian and
+  other software products.
+</DoDont>
+
+<DoDont
+  type="dont"
+  image={{
+    url: IconButtonDont,
+    alt: 'A group of icon buttons which use icons that are ambiguous and have no well-established association to an action in Atlassian and other software products.',
+  }}
+>
+  Don't use one icon to mean many different things, and don't use icons that
+  aren't clear and obvious to most people.
+</DoDont>
+
+## Accessibility
+
+### Always include a clear, accessible name as a label
+
+Clearly describe the icon button action in a [label](/components/button/link-icon-button/code#CommonProps-label) for screen readers. Follow the [button label content guidance for clear and active labels](/components/button/link-icon-button/usage#content-guidelines). The provided label will be rendered as visually hidden content in the button, rather than using aria-label which is not always translated into other languages by translation services.
+
+### Avoid disabling buttons
+
+Avoid disabling buttons and follow all [general button accessibility guidance](/components/button/usage#accessibility).
+
+## Best practices
+
+### Use line versions of icons for most buttons
+
+Follow our [iconography guidance](/foundations/iconography/) and use the line versions of icons for most cases. You can use filled icons to show an action has been taken or selected.
+
+![Diagram of two icon buttons, one using a line version and the other using the filled version to denote an action has taken place](./images/dos-donts/icon-lined-filled.png)
+
+## Content guidelines
+
+### Use sentence casing for labels
+
+Use sentence case for all button tooltips and labels. This creates consistency for assistive technologies.
+
+Only capitalize the first letter of the button label and any proper nouns. Most feature names aren’t capitalized or considered proper nouns when following [our capitalization guidance](/content/language-and-grammar#capitalization).
+
+### Use specific labels wherever possible
+
+Where possible, specify the object being acted on in the tooltip and label. For example “Edit page” instead of just “Edit”.
+
+## Related
+
+- [Icon buttons with text labels](/components/button/button-new/examples#button-with-icon)
+- [Icons](/components/icon)

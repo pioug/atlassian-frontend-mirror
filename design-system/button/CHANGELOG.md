@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 17.16.0
+
+### Minor Changes
+
+-   [#101387](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101387)
+    [`bd83d4aea949`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd83d4aea949) -
+    Icon and link icon button types no longer support the `isLoading` prop. Internally `isLoading`
+    was already being ignored. This change only affects types.
+
 ## 17.15.0
 
 ### Minor Changes
